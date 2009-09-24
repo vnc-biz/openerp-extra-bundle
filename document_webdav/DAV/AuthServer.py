@@ -118,13 +118,14 @@ class AuthRequestHandler:
         if self.db_name!='':
             if self.DO_AUTH:
                 try:
-                    a=self.headers["Authorization"]
-                    m,up=string.split(a)
-                    up2=base64.decodestring(up)
-                    user,pw=string.split(up2,":")
-                    UserName, PassWord = user,pw
-                    if not self.get_userinfo(user,pw):
-                        self.send_autherror(401,"Authorization Required"); return
+                    a=self.headers.get("Authorization",False)
+                    if a:
+                        m,up=string.split(a)
+                        up2=base64.decodestring(up)
+                        user,pw=string.split(up2,":")
+                        UserName, PassWord = user,pw
+                        if not self.get_userinfo(user,pw):
+                            self.send_autherror(401,"Authorization Required"); return
                 except Exception ,e:
                     print e
                     self.send_autherror(401,"Authorization Required")

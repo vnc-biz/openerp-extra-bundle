@@ -274,6 +274,9 @@ class SmtpClient(osv.osv):
     # Reports is a list of tuples,where first arguement of tuple is the name of the report,second is the list of ids of the object
     def send_email(self, cr, uid, server_id, emailto, subject, body=False, attachments=[], reports=[]):
         
+        if not emailto:
+            raise osv.except_osv(_('SMTP Data Error !'), _('Email TO Address not Defined !'))
+        
         def createReport(cr, uid, report, ids):
             files = []
             for id in ids:
@@ -291,8 +294,11 @@ class SmtpClient(osv.osv):
         
         smtp_server = self.browse(cr, uid, server_id)
         if smtp_server.state != 'confirm':
-            raise osv.except_osv(_('SMTP Server Error !'), 'Server is not Verified, Please Verify the Server !')
+            raise osv.except_osv(_('SMTP Server Error !'), _('Server is not Verified, Please Verify the Server !'))
         
+        if not subject:
+            subject = "OpenERP Email: [Unknown Subject]"
+            
         try:
             subject = subject.encode('utf-8')
         except:

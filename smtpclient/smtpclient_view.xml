@@ -77,7 +77,7 @@
 				    <group col="6" colspan="4">
 				        <field name="name" select="1" />
 				        <field name="date_create" select="1"/>
-				        <field name="state" select="1" />
+				        <field name="priority"/>
 			        </group>
 					<notebook colspan="4">
 						<page string="Configuration">
@@ -105,6 +105,9 @@
 							<field name="active" select="2" />
 							<field name="delete_queue" select="2" />
 							<field name="delete_queue_period" select="2" attrs="{'readonly':[('delete_queue','not in',['content','all'])]}"/>
+							
+						    <field name="state" select="1" />
+						    <button name="set_to_draft" string="Set to Draft" type="object" colspan="2" states="waiting,confirm"/>
 						</page>
 
 						<page string="Messages">
@@ -217,6 +220,7 @@
 			<field name="arch" type="xml">
 				<tree string="Message Queue">
 					<field name="date_create" />
+					<field name="priority"/>
 					<field name="to" />
 					<field name="name" />
 					<field name="server_id" />
@@ -235,6 +239,7 @@
 						<page string="General">
 							<field name="server_id"	select="1"/>
 							<field name="to" select="1"/>
+							<field name="priority"/>
 							<field name="name" colspan="4" select="1"/>
 							<separator string="Message" colspan="4" />
 							<field name="body" colspan="4" select="1" nolabel="1"/>
@@ -261,5 +266,7 @@
 			<field name="view_id" ref="email_smtpclient_queue_tree" />
 		</record>
 		<menuitem name="Message Queue" id="menu_smtpclient_administration_smtp_server_queue" parent="menu_smtpclient_administration_server" action="action_email_smtpclient_queue_tree"/>
+		
+		<act_window context="{'server_id': active_id}" domain="[('server_id', '=', active_id), ('state','!=', 'send')]" id="act_mail_server_2_mail_queue" name="Message Queus" res_model="email.smtpclient.queue" src_model="email.smtpclient"/>
 	</data>
 </openerp>

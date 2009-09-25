@@ -67,9 +67,9 @@ class SmtpClient(osv.osv):
             ('waiting','Waiting for Verification'),
             ('confirm','Verified'),
         ],'Server Status', select=True, readonly=True),
-        'auth_type':fields.selection([('gmail','Google Server'), ('yahoo','Yahoo!!! Server'), ('unknown','Other Mail Servers')], string="Server Type"),
+        'auth_type':fields.selection([('gmail','Google Server'), ('yahoo','Yahoo!!! Server'), ('unknown','Other Mail Servers')], string="Server Type", readonly=True, states={'new':[('readonly',False)]}),
         'active' : fields.boolean("Active"),
-        'date_create': fields.date('Date Create', required=True, readonly=True, states={'new':[('readonly',False)]}),
+        'date_create': fields.date('Date Create', required=True, readonly=True),
         'test_email' : fields.text('Test Message', translate=True),
         'body' : fields.text('Message', translate=True, help="The message text that will be send along with the email which is send through this server"),
         'verify_email' : fields.text('Verify Message', translate=True, readonly=True, states={'new':[('readonly',False)]}),
@@ -92,7 +92,7 @@ class SmtpClient(osv.osv):
         'state': lambda *a: 'new',
         'type': lambda *a: 'default',
         'port': lambda *a: '25',
-        'limit': lambda *a: '20',
+        'priority': lambda *a: '20',
         'delete_queue_period': lambda *a: 30,
         'auth': lambda *a: True,
         'active': lambda *a: True,
@@ -411,6 +411,10 @@ class SmtpClient(osv.osv):
             sent.append(email.id)
         queue.write(cr, uid, sent, {'state':'send'})
         return True
+        
+    def set_to_draft(self, cr, uid, ids, context={}):
+        self.write(cr, uid, ids, {'state':'new', 'code':False})
+        return True
 SmtpClient()
 
 class HistoryLine(osv.osv):
@@ -455,11 +459,12 @@ class MessageQueue(osv.osv):
         ],'Message Status', select=True, readonly=True),
         'error':fields.text('Last Error', size=256, readonly=True, states={'draft':[('readonly',False)]}),
         'date_create': fields.datetime('Date', readonly=True),
-        'priority':fields.integer('Message Priority'),
+        'priority':fields.integer('Message Priority', readonly=True),
     }
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'state': lambda *a: 'draft',
+        'priority': lambda *a: '10',
     }
 MessageQueue()
 

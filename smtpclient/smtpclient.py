@@ -212,7 +212,7 @@ class SmtpClient(osv.osv):
          
     def getpassword(self,cr,uid,ids):
         data = {}
-        cr.execute("select * from email_smtpclient where id =%s" , str(ids[0]) )
+        cr.execute("select * from email_smtpclient where id = %s" , (str(ids[0]),))
         data = cr.dictfetchall()
         return data
 
@@ -275,7 +275,7 @@ class SmtpClient(osv.osv):
         return ids[0]
     
     # Reports is a list of tuples,where first arguement of tuple is the name of the report,second is the list of ids of the object
-    def send_email(self, cr, uid, server_id, emailto, subject, body=False, attachments=[], reports=[]):
+    def send_email(self, cr, uid, server_id, emailto, subject, body=False, attachments=[], reports=[], ir_attach=[]):
         
         if not emailto:
             raise osv.except_osv(_('SMTP Data Error !'), _('Email TO Address not Defined !'))
@@ -306,50 +306,25 @@ class SmtpClient(osv.osv):
             subject = subject.encode('utf-8')
         except:
             subject = subject.decode()   
+
+        #attachment from Reports
+        for rpt in reports:
+            rpt_file = createReport(cr, uid, rpt[0], rpt[1])
+            attachments += rpt_file
         
-        if type(emailto) == type([]):
-            for to in emailto:
-                msg = MIMEMultipart()
-                msg['Subject'] = subject 
-                msg['To'] =  to
-                msg['From'] = smtp_server.from_email
-                msg.attach(MIMEText(body or '', _charset='utf-8', _subtype="html"))
-                
-                for rpt in reports:
-                    rpt_file = createReport(cr, uid, rpt[0], rpt[1])
-                    attachments += rpt_file
-                    
-                for file in attachments:
-                    part = MIMEBase('application', "octet-stream")
-                    part.set_payload(open(file,"rb").read())
-                    Encoders.encode_base64(part)
-                    part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(file))
-                    msg.attach(part)
-                
-                message = msg.as_string()
-                
-                queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
-                queue.create(cr, uid, {
-                        'to':to,
-                        'server_id':server_id,
-                        'cc':False,
-                        'bcc':False,
-                        'name':subject,
-                        'body':body,
-                        'serialized_message':message,
-                        'priority':smtp_server.priority,
-                    })
-        else:
+        if type(emailto) == type(''):
+            emailto = [emailto]
+        
+        ir_pool = self.pool.get('ir.attachment')
+        
+        for to in emailto:
             msg = MIMEMultipart()
             msg['Subject'] = subject 
-            msg['To'] =  emailto
+            msg['To'] =  to
             msg['From'] = smtp_server.from_email
             msg.attach(MIMEText(body or '', _charset='utf-8', _subtype="html"))
             
-            for rpt in reports:
-                rpt_file = createReport(cr, uid, rpt[0], rpt[1])
-                attachments += rpt_file
-                    
+            #attach files from disc
             for file in attachments:
                 part = MIMEBase('application', "octet-stream")
                 part.set_payload(open(file,"rb").read())
@@ -357,11 +332,20 @@ class SmtpClient(osv.osv):
                 part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(file))
                 msg.attach(part)
             
+            #attach files from ir_attachments
+            for ath in ir_pool.browse(cr, uid, ir_attach):
+                part = MIMEBase('application', "octet-stream")
+                datas = base64.decodestring(ath.datas)
+                part.set_payload(datas)
+                Encoders.encode_base64(part)
+                part.add_header('Content-Disposition', 'attachment; filename="%s"' %(ath.name))
+                msg.attach(part)
+            
             message = msg.as_string()
             
             queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
             queue.create(cr, uid, {
-                    'to':emailto,
+                    'to':to,
                     'server_id':server_id,
                     'cc':False,
                     'bcc':False,
@@ -369,7 +353,8 @@ class SmtpClient(osv.osv):
                     'body':body,
                     'serialized_message':message,
                     'priority':smtp_server.priority,
-                })
+                }
+            )
         
         return True
     

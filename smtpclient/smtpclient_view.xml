@@ -106,8 +106,16 @@
 							<field name="delete_queue" select="2" />
 							<field name="delete_queue_period" select="2" attrs="{'readonly':[('delete_queue','not in',['content','all'])]}"/>
 							
-						    <field name="state" select="1" />
-						    <button name="set_to_draft" string="Set to Draft" type="object" colspan="2" states="waiting,confirm"/>
+							<separator string="Server Information" colspan="4"/>
+							<group col="3" colspan="4">
+					            <field name="state" select="1"/>
+					            <button name="set_to_draft" string="Set to Draft" type="object" states="waiting,confirm"/>
+				            </group>
+				            <group col="4" colspan="4">
+				                <field name="process_id"/>
+	    			            <button name="start_process" string="Start Server" attrs="{'invisible':[('pstate','=','running')]}" type="object"/>
+	    			            <button name="stop_process" string="Stop Server" attrs="{'invisible':[('pstate','=','stop')]}" type="object"/>
+    			            </group>
 						</page>
                         <page string="Message Headers">
                             <field name="header_ids" colspan="4" nolabel="1">
@@ -160,9 +168,9 @@
 			<field name="arch" type="xml">
 				<tree string="SMTP Server">
 					<field name="name" />
+					<field name="pstate"/>
 					<field name="from_email" />
 					<field name="user" />
-					<!--<field name="password" />-->
 					<field name="server" />
 					<field name="port" />
 					<field name="type" />

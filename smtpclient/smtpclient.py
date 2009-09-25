@@ -91,22 +91,40 @@ class SmtpClient(osv.osv):
         'priority': fields.integer('Server Priority'),
         'header_ids':fields.one2many('email.headers', 'server_id', 'Default Headers'),
         'disclaimers': fields.text('Disclaimers'),
+        'process_id': fields.many2one('ir.cron', 'MTA Process', readonly=True, help="Mail Transport Agent Process"),
+        'pstate': fields.selection([
+            ('running','Running'),
+            ('stop','Stop'),
+        ],'Server Statue', select=True, readonly=True),
         'delete_queue_period': fields.integer('Delete after', help="delete emails/contents from email queue after specified no of days"),
     }
+    
+    def _get_users(self, cr, uid, context={}):
+        return self.pool.get('res.users').search(cr, uid, [])
+        
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d'),
         'state': lambda *a: 'new',
         'type': lambda *a: 'default',
         'port': lambda *a: '25',
+        'pstate':lambda *a: 'stop',
         'priority': lambda *a: 20,
         'delete_queue_period': lambda *a: 30,
         'auth': lambda *a: True,
         'active': lambda *a: True,
         'delete_queue': lambda *a: 'never',
+        'users_id': _get_users,
         'verify_email': lambda *a: _("Verification Message. This is the code\n\n__code__\n\nyou must copy in the OpenERP Email Server (Verify Server wizard).\n\nCreated by user __user__"),
     }
     server = {}
     smtpServer = {}
+    
+    def create(self, cr, user, vals, context={}):
+        if vals.get('password', False) != False:
+            vals['password'] = base64.b64encode(vals.get('password'))
+            
+        res_id = super(SmtpClient, self).create(cr, user, vals, context)
+        return res_id
     
     def write(self, cr, user, ids, vals, context=None):
         if vals.get('password', False) != False:
@@ -208,7 +226,9 @@ class SmtpClient(osv.osv):
         
         message = msg.as_string()
         
-        body = body + "\n" + self.server[serverid]['disclaimers']
+        if self.server[serverid]['disclaimers']:
+            body = body + "\n" + self.server[serverid]['disclaimers']
+            
         queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
         queue.create(cr, uid, {
                 'to':toemail,
@@ -254,7 +274,7 @@ class SmtpClient(osv.osv):
                 if self.server[serverid]['auth']:
                     password = self.server[serverid]['password']
                     password = base64.b64decode(password)
-                    self.smtpServer[serverid].login(str(self.server[serverid]['user']),password)
+                    self.smtpServer[serverid].login(str(self.server[serverid]['user']), password)
 
             except Exception, e:
                 raise osv.except_osv(_('SMTP Server Error!'), e)
@@ -330,7 +350,7 @@ class SmtpClient(osv.osv):
         
         if isinstance(emailto, str) or isinstance(emailto, unicode):
             emailto = [emailto]
-                
+
         ir_pool = self.pool.get('ir.attachment')
         
         for to in emailto:
@@ -338,7 +358,10 @@ class SmtpClient(osv.osv):
             msg['Subject'] = subject 
             msg['To'] =  to
             msg['From'] = smtp_server.from_email
-            body = body + "\n" + smtp_server.disclaimers
+
+            if smtp_server.disclaimers:
+                body = body + "\n" + smtp_server.disclaimers or ''
+                
             msg.attach(MIMEText(body or '', _charset=charset, _subtype="html"))
             
             #add custom headers to email
@@ -449,13 +472,53 @@ class SmtpClient(osv.osv):
         
     def _check_queue(self, cr, uid, ids=False, context={}):
         queue = self.pool.get('email.smtpclient.queue')
-        sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
+        sids = []
+        if not ids:
+            sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
+        else:
+            sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('server_id','in',ids)], order="priority", limit=30)
+        
         result = self. _send_emails(cr, uid, sids, context)
         return result
         
     def set_to_draft(self, cr, uid, ids, context={}):
         self.write(cr, uid, ids, {'state':'new', 'code':False})
         return True
+    
+    def create_process(self, cr, uid, ids, context={}):
+        svr = self.browse(cr, uid, ids[0])
+        res = {
+            'name':'Process : ' + svr.name,
+            'model':'email.smtpclient',
+            'args': repr([ids]), 
+            'function':'_check_queue', 
+            'date_init':svr.date_create,
+            'priority':5,
+            'interval_number':1,
+            'interval_type':'minutes',
+            'user_id':uid,
+            'numbercall':-1
+        }
+        id = self.pool.get('ir.cron').create(cr, uid, res)
+        self.write(cr, uid, ids, {'process_id':id})
+        return True
+        
+    def start_process(self, cr, uid, ids, context={}):
+        process = self.browse(cr, uid, ids[0], context)
+        if not process.process_id:
+            raise osv.except_osv(_('SMTP Server Error !'), _('Server is not Verified, Please Verify the Server !'))
+            
+        pid = process.process_id.id
+        self.pool.get('ir.cron').write(cr, uid, [pid], {'active':True})
+        self.write(cr, uid, ids, {'pstate':'running'})
+        return True
+        
+    def stop_process(self, cr, uid, ids, context={}):
+        pid = self.browse(cr, uid, ids[0], context).process_id.id
+        self.pool.get('ir.cron').write(cr, uid, [pid], {'active':False})
+        self.write(cr, uid, ids, {'pstate':'stop'})
+        return True
+
 SmtpClient()
 
 class HistoryLine(osv.osv):

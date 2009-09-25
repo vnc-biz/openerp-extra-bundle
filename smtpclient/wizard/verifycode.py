@@ -32,20 +32,26 @@ form = '''<?xml version="1.0"?>
 fields = {
     'code': {'string': 'Verification Code','required':True,  'size': 255 , 'type': 'char', 'help': 'Enter the verification code thay you get in your verification Email'}
 }
-
 class verifycode(wizard.interface):
 
     def checkcode(self, cr, uid, data, context):
 
-        state = pooler.get_pool(cr.dbname).get('email.smtpclient').browse(cr, uid, data['id'], context).state
+        server_pool = pooler.get_pool(cr.dbname).get('email.smtpclient')
+        cron_pool = pooler.get_pool(cr.dbname).get('ir.cron')
+        
+        server = server_pool.browse(cr, uid, data['id'], context)
+        state = server.state
+        
         if state == 'confirm':
             raise osv.except_osv(_('Error'), _('Server already verified!'))
 
-        code = pooler.get_pool(cr.dbname).get('email.smtpclient').browse(cr, uid, data['id'], context).code
+        code = server.code
         if code == data['form']['code']:
-            pooler.get_pool(cr.dbname).get('email.smtpclient').write(cr, uid, [data['id']], {'state':'confirm'})
+            if server_pool.create_process(cr, uid, [data['id']], context={}):
+                server_pool.write(cr, uid, [data['id']], {'state':'confirm', 'pstate':'running'})
         else:
             raise osv.except_osv(_('Error'), _('Verification failed. Invalid Verification Code!'))
+        
         return {}
 
     states = {

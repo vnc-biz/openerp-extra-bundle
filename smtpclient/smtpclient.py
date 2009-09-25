@@ -78,11 +78,11 @@ class SmtpClient(osv.osv):
         'history_line': fields.one2many('email.smtpclient.history', 'server_id', 'History'),
         'server_statistics': fields.one2many('report.smtp.server', 'server_id', 'Statistics'),
         'delete_queue': fields.selection([
-            ('never','Never Delete History'),
+            ('never','Never Delete Message'),
             ('content','Delete Content After'),
             ('all','Clear All After'),
             ('after_send','Delete when Email Sent'),
-        ],'History Option', select=True),
+        ],'Queue Option', select=True),
         'priority': fields.integer('Server Priority'),
         'delete_queue_period': fields.integer('Delete after', help="delete emails/contents from email queue after specified no of days"),
     }
@@ -91,7 +91,7 @@ class SmtpClient(osv.osv):
         'state': lambda *a: 'new',
         'type': lambda *a: 'default',
         'port': lambda *a: '25',
-        'priority': lambda *a: '20',
+        'priority': lambda *a: 20,
         'delete_queue_period': lambda *a: 30,
         'auth': lambda *a: True,
         'active': lambda *a: True,
@@ -283,7 +283,7 @@ class SmtpClient(osv.osv):
         return ids[0]
     
     # Reports is a list of tuples,where first arguement of tuple is the name of the report,second is the list of ids of the object
-    def send_email(self, cr, uid, server_id, emailto, subject, body=False, attachments=[], reports=[], ir_attach=[]):
+    def send_email(self, cr, uid, server_id, emailto, subject, body='', attachments=[], reports=[], ir_attach=[], charset='utf-8', headers={}, context={}):
         
         if not emailto:
             raise osv.except_osv(_('SMTP Data Error !'), _('Email TO Address not Defined !'))
@@ -311,7 +311,7 @@ class SmtpClient(osv.osv):
             subject = "OpenERP Email: [Unknown Subject]"
             
         try:
-            subject = subject.encode('utf-8')
+            subject = subject.encode(charset)
         except:
             subject = subject.decode()   
 
@@ -330,7 +330,11 @@ class SmtpClient(osv.osv):
             msg['Subject'] = subject 
             msg['To'] =  to
             msg['From'] = smtp_server.from_email
-            msg.attach(MIMEText(body or '', _charset='utf-8', _subtype="html"))
+            msg.attach(MIMEText(body or '', _charset=charset, _subtype="html"))
+            
+            #add custom headers to email
+            for hk in headers.keys():
+                msg[hk] = headers[hk]
             
             #attach files from disc
             for file in attachments:
@@ -350,22 +354,24 @@ class SmtpClient(osv.osv):
                 msg.attach(part)
             
             message = msg.as_string()
+            data = {
+                'to':to,
+                'server_id':server_id,
+                'cc':False,
+                'bcc':False,
+                'name':subject,
+                'body':body,
+                'serialized_message':message,
+                'priority':smtp_server.priority,
+            }
+            self.create_queue_enrty(cr, uid, data, context)
             
-            queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
-            queue.create(cr, uid, {
-                    'to':to,
-                    'server_id':server_id,
-                    'cc':False,
-                    'bcc':False,
-                    'name':subject,
-                    'body':body,
-                    'serialized_message':message,
-                    'priority':smtp_server.priority,
-                }
-            )
-        
         return True
     
+    def create_queue_enrty(self, cr, uid, data, context={}):
+        queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
+        return queue.create(cr, uid, data, context)
+        
     def _check_history(self, cr, uid, ids=False, context={}):
         result = True
         server = self.pool.get('email.smtpclient')
@@ -390,20 +396,24 @@ class SmtpClient(osv.osv):
                 queue.unlink(cr, uid, qids)
                 
         return result
-        
-    def _check_queue(self, cr, uid, ids=False, context={}):
+    
+    def _send_emails(self, cr, uid, ids, context={}):
+        fp = os.popen('ping www.google.com -c 1 -w 5',"r")
+        if not fp.read():
+            return False
+            
         queue = self.pool.get('email.smtpclient.queue')
         history = self.pool.get('email.smtpclient.history')
-        sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
-        queue.write(cr, uid, sids, {'state':'sending'})
+        queue.write(cr, uid, ids, {'state':'sending'})
         error = []
         sent = []
+        remove = []
         open_server = []
-        for email in queue.browse(cr, uid, sids):
+        for email in queue.browse(cr, uid, ids):
+
             if not email.server_id.id in open_server:
                 open_server.append(email.server_id.id)
                 self.open_connection(cr, uid, ids, email.server_id.id)
-                
             try:
                 self.smtpServer[email.server_id.id].sendmail(str(email.server_id.email), email.to, tools.ustr(email.serialized_message))
             except Exception, e:
@@ -416,9 +426,20 @@ class SmtpClient(osv.osv):
                         'server_id': email.server_id.id,
                         'email':email.to
                     })
-            sent.append(email.id)
+            if email.server_id.delete_queue == 'after_send':
+                remove.append(email.id)
+            else:
+                sent.append(email.id)
+        
+        queue.unlink(cr, uid, remove)
         queue.write(cr, uid, sent, {'state':'send'})
         return True
+        
+    def _check_queue(self, cr, uid, ids=False, context={}):
+        queue = self.pool.get('email.smtpclient.queue')
+        sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
+        result = self. _send_emails(cr, uid, sids, context)
+        return result
         
     def set_to_draft(self, cr, uid, ids, context={}):
         self.write(cr, uid, ids, {'state':'new', 'code':False})

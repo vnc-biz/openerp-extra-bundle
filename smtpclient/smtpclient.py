@@ -43,10 +43,15 @@ from datetime import datetime
 from datetime import timedelta
 import bz2
 
-#if sys.version[0:3] > '2.4':
-#    from hashlib import md5
-#else:
-#    from md5 import md5
+class email_headers(osv.osv):
+    _name = 'email.headers'
+    _description = 'Email Headers'
+    _columns = {
+        'server_id':fields.many2one('email.smtpclient', 'SMTP Server'),
+        'key':fields.char('Header', size=64, required=True),
+        'value':fields.char('Value', size=1024, required=False),
+    }
+email_headers()
 
 class SmtpClient(osv.osv):
     _name = 'email.smtpclient'
@@ -84,6 +89,7 @@ class SmtpClient(osv.osv):
             ('after_send','Delete when Email Sent'),
         ],'Queue Option', select=True),
         'priority': fields.integer('Server Priority'),
+        'header_ids':fields.one2many('email.headers', 'server_id', 'Default Headers'),
         'delete_queue_period': fields.integer('Delete after', help="delete emails/contents from email queue after specified no of days"),
     }
     _defaults = {
@@ -320,9 +326,9 @@ class SmtpClient(osv.osv):
             rpt_file = createReport(cr, uid, rpt[0], rpt[1])
             attachments += rpt_file
         
-        if type(emailto) == type(''):
+        if isinstance(emailto, str) or isinstance(emailto, unicode):
             emailto = [emailto]
-        
+                
         ir_pool = self.pool.get('ir.attachment')
         
         for to in emailto:
@@ -335,7 +341,10 @@ class SmtpClient(osv.osv):
             #add custom headers to email
             for hk in headers.keys():
                 msg[hk] = headers[hk]
-            
+
+            for hk in smtp_server.header_ids:
+                msg[hk.key] = hk.value
+                
             #attach files from disc
             for file in attachments:
                 part = MIMEBase('application', "octet-stream")

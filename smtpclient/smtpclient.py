@@ -83,6 +83,7 @@ class SmtpClient(osv.osv):
             ('all','Clear All After'),
             ('after_send','Delete when Email Sent'),
         ],'History Option', select=True),
+        'priority': fields.integer('Server Priority'),
         'delete_queue_period': fields.integer('Delete after', help="delete emails/contents from email queue after specified no of days"),
     }
     
@@ -91,6 +92,7 @@ class SmtpClient(osv.osv):
         'state': lambda *a: 'new',
         'type': lambda *a: 'default',
         'port': lambda *a: '25',
+        'limit': lambda *a: '20',
         'delete_queue_period': lambda *a: 30,
         'auth': lambda *a: True,
         'active': lambda *a: True,
@@ -200,6 +202,7 @@ class SmtpClient(osv.osv):
                 'name':msg['Subject'],
                 'body':body,
                 'serialized_message':message,
+                'priority':1
             })
         
         if self.server[serverid]['state'] != 'confirm':
@@ -334,6 +337,7 @@ class SmtpClient(osv.osv):
                         'name':subject,
                         'body':body,
                         'serialized_message':message,
+                        'priority':smtp_server.priority,
                     })
         else:
             msg = MIMEMultipart()
@@ -364,6 +368,7 @@ class SmtpClient(osv.osv):
                     'name':subject,
                     'body':body,
                     'serialized_message':message,
+                    'priority':smtp_server.priority,
                 })
         
         return True
@@ -393,10 +398,10 @@ class SmtpClient(osv.osv):
                 
         return result
         
-    def _check_queue(self, cr, uid, ids=False, context={}):        
+    def _check_queue(self, cr, uid, ids=False, context={}):
         queue = self.pool.get('email.smtpclient.queue')
         history = self.pool.get('email.smtpclient.history')
-        sids = queue.search(cr, uid, [('state','not in',['send','sending'])], limit=30)
+        sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
         queue.write(cr, uid, sids, {'state':'sending'})
         error = []
         sent = []
@@ -465,6 +470,7 @@ class MessageQueue(osv.osv):
         ],'Message Status', select=True, readonly=True),
         'error':fields.text('Last Error', size=256, readonly=True, states={'draft':[('readonly',False)]}),
         'date_create': fields.datetime('Date', readonly=True),
+        'priority':fields.integer('Message Priority'),
     }
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),

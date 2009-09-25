@@ -90,6 +90,7 @@ class SmtpClient(osv.osv):
         ],'Queue Option', select=True),
         'priority': fields.integer('Server Priority'),
         'header_ids':fields.one2many('email.headers', 'server_id', 'Default Headers'),
+        'disclaimers': fields.text('Disclaimers'),
         'delete_queue_period': fields.integer('Delete after', help="delete emails/contents from email queue after specified no of days"),
     }
     _defaults = {
@@ -207,6 +208,7 @@ class SmtpClient(osv.osv):
         
         message = msg.as_string()
         
+        body = body + "\n" + self.server[serverid]['disclaimers']
         queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
         queue.create(cr, uid, {
                 'to':toemail,
@@ -336,6 +338,7 @@ class SmtpClient(osv.osv):
             msg['Subject'] = subject 
             msg['To'] =  to
             msg['From'] = smtp_server.from_email
+            body = body + "\n" + smtp_server.disclaimers
             msg.attach(MIMEText(body or '', _charset=charset, _subtype="html"))
             
             #add custom headers to email

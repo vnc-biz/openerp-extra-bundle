@@ -133,7 +133,10 @@
 							<label string="__number__ for Invoice / Sales Number" />
 							<label string="__user__ for User Name" />
 						</page>
-
+						<page string="Disclaimers">
+						    <separator string="Disclaimers Message" colspan="4" />
+							<field name="disclaimers" colspan="4" nolabel="1"/>
+						</page>
 						<page string="Permission">
 							<separator string="Access Permission"
 								colspan="4" />

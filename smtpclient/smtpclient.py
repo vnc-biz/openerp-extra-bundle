@@ -41,8 +41,8 @@ import sys
 import tools
 from datetime import datetime
 from datetime import timedelta
+import bz2
 
-        
 #if sys.version[0:3] > '2.4':
 #    from hashlib import md5
 #else:
@@ -56,7 +56,7 @@ class SmtpClient(osv.osv):
         'from_email' : fields.char('Email From', size=256),
         'email' : fields.char('Email Address', size=256, required=True, readonly=True, states={'new':[('readonly',False)]}),
         'user' : fields.char('User Name', size=256, readonly=True, states={'new':[('readonly',False)]}),
-        'password' : fields.char('Password', size=256, invisible=True, readonly=True, states={'new':[('readonly',False)]}),
+        'password' : fields.char('Password', size=1024, invisible=True, readonly=True, states={'new':[('readonly',False)]}),
         'server' : fields.char('SMTP Server', size=256, required=True, readonly=True, states={'new':[('readonly',False)]}),
         'auth' : fields.boolean("Use Auth", readonly=True, states={'new':[('readonly',False)]}),
         'port' : fields.char('SMTP Port', size=256, required=True, readonly=True, states={'new':[('readonly',False)]}),
@@ -86,7 +86,6 @@ class SmtpClient(osv.osv):
         'priority': fields.integer('Server Priority'),
         'delete_queue_period': fields.integer('Delete after', help="delete emails/contents from email queue after specified no of days"),
     }
-    
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d'),
         'state': lambda *a: 'new',
@@ -101,7 +100,14 @@ class SmtpClient(osv.osv):
     }
     server = {}
     smtpServer = {}
-
+    
+    def write(self, cr, user, ids, vals, context=None):
+        if vals.get('password', False) != False:
+            vals['password'] = base64.b64encode(vals.get('password'))
+            
+        res = super(SmtpClient, self).write(cr, user, ids, vals, context)
+        return res
+    
     def read(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
         def override_password(o):
             if len(o) > 0:
@@ -238,7 +244,9 @@ class SmtpClient(osv.osv):
                     self.smtpServer[serverid].ehlo()
                     
                 if self.server[serverid]['auth']:
-                    self.smtpServer[serverid].login(str(self.server[serverid]['user']),str(self.server[serverid]['password']))
+                    password = self.server[serverid]['password']
+                    password = base64.b64decode(password)
+                    self.smtpServer[serverid].login(str(self.server[serverid]['user']),password)
 
             except Exception, e:
                 raise osv.except_osv(_('SMTP Server Error!'), e)

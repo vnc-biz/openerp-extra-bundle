@@ -199,25 +199,30 @@ def _do_export(self, cr, uid, data, context):
                         webproduct['product_packaging_qty'] = res
                         webproduct['product_packaging_type'] = packaging.name
 
-                webproduct['name'] = str(product.name or '')
+                #webproduct['name'] = str(product.name or '')
+
+                webproduct['name'] = product.name or ''
                 #print "webproduct['name']: %s" % (webproduct['name'])
                 webproduct['code'] = str(product.default_code or '')
                 webproduct['description'] = str((product.description_sale or '') + (len(taxes_name) and ("\n(" + (', '.join(taxes_name)) + ')') or ''))
                 webproduct['short_description'] = str(product.description_sale or '')
 
                 fr_product = self.pool.get('product.product').browse(cr, uid, product.id, context={'lang': 'fr_FR'})
-
-                webproduct['description:fr_FR'] = str((fr_product.description_sale or '') + (len(taxes_name) and ("\n(" + (', '.join(taxes_name)) + ')') or ''))
-                webproduct['short_description:fr_FR'] = str(fr_product.description_sale or '')
-                webproduct['name:fr_FR'] = str(fr_product.name or '')
-                #print "webproduct['name:fr_FR']: %s" % webproduct['name:fr_FR']
+		if fr_product:
+	                webproduct['description:fr_FR'] = str((fr_product.description_sale or '') + (len(taxes_name) and ("\n(" + (', '.join(taxes_name)) + ')') or ''))
+        	        webproduct['short_description:fr_FR'] = str(fr_product.description_sale or '')
+        	        #webproduct['name:fr_FR'] = str(fr_product.name or '')
+	                webproduct['name:fr_FR'] = fr_product.name or ''
+                	#print "webproduct['name:fr_FR']: %s" % webproduct['name:fr_FR']
 
                 en_product = self.pool.get('product.product').browse(cr, uid, product.id, context={'lang': 'en_US'})
+		if em_product:
+	                webproduct['description:en_US'] = str((en_product.description_sale or '') + (len(taxes_name) and ("\n(" + (', '.join(taxes_name)) + ')') or ''))
+        	        webproduct['short_description:en_US'] = str(en_product.description_sale or '')
+                	#webproduct['name:en_US'] = str(en_product.name or '')
 
-                webproduct['description:en_US'] = str((en_product.description_sale or '') + (len(taxes_name) and ("\n(" + (', '.join(taxes_name)) + ')') or ''))
-                webproduct['short_description:en_US'] = str(en_product.description_sale or '')
-                webproduct['name:en_US'] = str(en_product.name or '')
-                #print "webproduct['name:en_US']: %s" % webproduct['name:en_US']
+                	webproduct['name:en_US'] = en_product.name or ''
+	                #print "webproduct['name:en_US']: %s" % webproduct['name:en_US']
 
                 if product.contrib != 0.0:
                     webproduct['description'] = webproduct['description'] + " Recycling cost included."

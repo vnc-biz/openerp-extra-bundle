@@ -50,7 +50,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<notebook position="inside">
-					<page string="Email Address">
+					<page string="SMTP Settings">
 						<field name="addresses" colspan="4"
 							nolabel="1">
 							<tree string="Email Address">

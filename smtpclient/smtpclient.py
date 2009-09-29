@@ -43,16 +43,6 @@ from datetime import datetime
 from datetime import timedelta
 import bz2
 
-class email_headers(osv.osv):
-    _name = 'email.headers'
-    _description = 'Email Headers'
-    _columns = {
-        'server_id':fields.many2one('email.smtpclient', 'SMTP Server'),
-        'key':fields.char('Header', size=64, required=True),
-        'value':fields.char('Value', size=1024, required=False),
-    }
-email_headers()
-
 class SmtpClient(osv.osv):
     _name = 'email.smtpclient'
     _description = 'Email Client'
@@ -88,7 +78,7 @@ class SmtpClient(osv.osv):
             ('all','Clear All After'),
             ('after_send','Delete when Email Sent'),
         ],'Queue Option', select=True),
-        'priority': fields.integer('Server Priority'),
+        'priority': fields.integer('Server Priority', readonly=True, states={'new':[('readonly',False)]}, help="Priority between 0 to 10, will be used to define the MTA process priotiry"),
         'header_ids':fields.one2many('email.headers', 'server_id', 'Default Headers'),
         'disclaimers': fields.text('Disclaimers'),
         'process_id': fields.many2one('ir.cron', 'MTA Process', readonly=True, help="Mail Transport Agent Process"),
@@ -101,14 +91,14 @@ class SmtpClient(osv.osv):
     
     def _get_users(self, cr, uid, context={}):
         return self.pool.get('res.users').search(cr, uid, [])
-        
+    
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d'),
         'state': lambda *a: 'new',
         'type': lambda *a: 'default',
         'port': lambda *a: '25',
         'pstate':lambda *a: 'stop',
-        'priority': lambda *a: 20,
+        'priority': lambda *a: 5,
         'delete_queue_period': lambda *a: 30,
         'auth': lambda *a: True,
         'active': lambda *a: True,
@@ -358,9 +348,12 @@ class SmtpClient(osv.osv):
             msg['Subject'] = subject 
             msg['To'] =  to
             msg['From'] = smtp_server.from_email
-
-            if smtp_server.disclaimers:
-                body = body + "\n" + smtp_server.disclaimers or ''
+            
+            if body == False:
+                body = ''
+                            
+            if smtp_server.disclaimers != False:
+                body = body + "\n" + smtp_server.disclaimers
                 
             msg.attach(MIMEText(body or '', _charset=charset, _subtype="html"))
             
@@ -520,6 +513,16 @@ class SmtpClient(osv.osv):
         return True
 
 SmtpClient()
+
+class email_headers(osv.osv):
+    _name = 'email.headers'
+    _description = 'Email Headers'
+    _columns = {
+        'server_id':fields.many2one('email.smtpclient', 'SMTP Server'),
+        'key':fields.char('Header', size=64, required=True),
+        'value':fields.char('Value', size=1024, required=False),
+    }
+email_headers()
 
 class HistoryLine(osv.osv):
     _name = 'email.smtpclient.history'

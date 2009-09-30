@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 				<field name="email" position="after">
 				    <field name="email_server" select="1" attrs="{'required':[('state','=','email')]}"/>
-				    <field name="report"/>
+				    <field name="report_id"/>
 				</field>
 			</field>
 		</record>

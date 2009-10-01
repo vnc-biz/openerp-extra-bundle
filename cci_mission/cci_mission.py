@@ -168,6 +168,7 @@ class cci_missions_embassy_folder(osv.osv):
         'site_id': fields.many2one('cci_missions.site','Site', required=True),
         'invoice_date' : fields.datetime('Invoice Date', readonly=True) ,
         "invoice_id":fields.many2one("account.invoice","Invoice"),
+        'date' : fields.related('crm_case_id', 'date', type='date', string="Date", store=True)
     }
 
     _defaults = {
@@ -177,6 +178,7 @@ class cci_missions_embassy_folder(osv.osv):
         'state' :  lambda *a : 'draft',
         "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
     }
+    _order = "date desc"
 
     _constraints = [(check_folder_line, 'Error: Only One Embassy Folder line allowed for each type!', ['embassy_folder_line_ids'])]
 
@@ -342,7 +344,8 @@ class cci_missions_dossier(osv.osv):
         'invoice_id':fields.many2one("account.invoice","Invoice"),
         'invoiced_amount': fields.float('Total'),
     }
-
+    _order = "date desc"
+    
     _defaults = {
         'name': lambda *args: '/',
         'date': lambda *a: time.strftime('%Y-%m-%d'),
@@ -474,8 +477,10 @@ class cci_missions_certificate(osv.osv):
         'legalization_ids' : fields.one2many('cci_missions.legalization','certificate_id','Related Legalizations'),
         'customs_ids' : fields.many2many('cci_missions.custom_code','certificate_custome_code_rel','certificate_id','custom_id','Custom Codes'),
         'sending_spf': fields.date('SPF Sending Date',help='Date of the sending of this record to the external database'),
-        'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)])
+        'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
+        'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
+    _order = "date desc"
 
     _defaults = {
         'special_reason': lambda *a: 'none',
@@ -585,7 +590,9 @@ class cci_missions_legalization(osv.osv):
         'certificate_id' : fields.many2one('cci_missions.certificate','Related Certificate'),
         'partner_member_state': fields.function(_get_member_state, method=True,selection=STATE,string='Member State of the Partner',readonly=True,type="selection"),
         'member_price' : fields.boolean('Apply the Member Price'),
+        'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
+    _order = "date desc"
 
 cci_missions_legalization()
 
@@ -887,6 +894,7 @@ class cci_missions_ata_carnet(osv.osv):
         'creation_date': lambda *a: time.strftime('%Y-%m-%d'),
     }
     
+    _order = "creation_date desc"
     _constraints = [(check_ata_carnet, 'Error: Please Select (Own Risk) OR ("Insurer Agreement" and "Parnters Insure id" should be greater than Zero)', ['own_risk','insurer_agreement','partner_insurer_id'])]
 
 cci_missions_ata_carnet()

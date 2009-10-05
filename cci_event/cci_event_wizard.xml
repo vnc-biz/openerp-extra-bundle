@@ -17,5 +17,18 @@
 			action="wizard_missing_checks_reg"
 			type="wizard"
 			id="menu_missing_checks_reg"/>
+
+	<wizard string="Send email to partners"
+			model="event.registration"
+			name="event.send_email"
+			menu="True"
+			id="wizard_send_email"/>
+
+	<wizard string="Confirm Draft Registrations"
+			model="event.registration"
+			name="event.confirm_registrations"
+			menu="True"
+			id="wizard_confirm_registrations"/>
+
 	</data>
 </openerp>

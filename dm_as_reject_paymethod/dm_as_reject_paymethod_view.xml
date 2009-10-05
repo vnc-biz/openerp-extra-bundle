@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	<record model="ir.ui.view" id="view_dm_reject_paymethod_form">
+        <field name="name">dm.as.reject.form.inherit</field>
+        <field name="model">dm.as.reject</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="dm_as_reject.view_dm_reject_form"/>
+        <field name="arch" type="xml">
+        	<field name= "type_od" position="after">
+        		<field name="payment_method_ids" colspan="4"/>
+        	</field>
+ 		</field>
+ 	</record>       
+	</data>
+</openerp>

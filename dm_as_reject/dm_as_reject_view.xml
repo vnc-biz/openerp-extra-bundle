@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+	<record model="ir.ui.view" id="view_dm_reject_type_tree">
+        <field name="name">dm.as.reject.type.tree</field>
+        <field name="model">dm.as.reject.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Rejects">
+                <field name="name" string="Name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model="ir.ui.view" id="view_dm_reject_type_form">
+        <field name="name">dm.as.reject.type.form</field>
+        <field name="model">dm.as.reject.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Rejects Type">
+                <field name="name" string="Name"/>
+                <field name="code"/>
+            </form>
+         </field>
+   </record>
+   
+   <record model="ir.ui.view" id="view_dm_reject_tree">
+        <field name="name">dm.as.reject.tree</field>
+        <field name="model">dm.as.reject</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Rejects">
+                <field name="name" string="Name"/>
+                 <field name="date"/>
+                  <field name="origin"/>
+                <field name="type_od"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model="ir.ui.view" id="view_dm_reject_form">
+        <field name="name">dm.as.reject.form</field>
+        <field name="model">dm.as.reject</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Rejects">
+                <field name="name" string="Name"/>
+                <field name="date"/>
+                <field name="origin"/>
+                <field name="type_od"/>
+            </form>
+         </field>
+   </record>
+   
+     <record model="ir.actions.act_window" id="action_dm_reject">
+        <field name="name">All Rejects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.as.reject</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_reject_tree"/>
+    </record>
+    
+    <menuitem id="menu_action_dm_reject_form" parent="dm.menu_dm_config_customer" action="action_dm_reject" sequence="4" />
+    
+</data>
+</openerp>

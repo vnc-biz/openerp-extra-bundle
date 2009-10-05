@@ -104,7 +104,6 @@ class db_backup(osv.osv):
                 fp.close()
             else:
                 logger.notifyChannel('backup', netsvc.LOG_INFO, "database %s doesn't exist on http://%s:%s" %(rec.name, rec.host, rec.port))
-                
 db_backup()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

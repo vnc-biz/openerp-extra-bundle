@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -76,6 +76,9 @@ class event(osv.osv):
 
     def cci_event_cancel(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state':'cancel',})
+        reg_obj = self.pool.get('event.registration')
+        reg_ids = reg_obj.search(cr, uid, [('event_id', 'in', ids)])
+        reg_obj.cci_event_reg_cancel(cr, uid, reg_ids)
         return True
 
     def onchange_check_type(self, cr, uid, id, type):

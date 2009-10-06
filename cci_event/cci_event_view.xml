@@ -79,6 +79,21 @@
             </field>
         </record> -->
 
+<!--added event superviser group to partner events -->
+
+	<record model="ir.ui.view" id="view_partner_form_inherit_access1">
+			<field name="name">res.partner.form.event.group</field>
+			<field name="type">form</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<page string="History" position="replace">
+					<page string="History" groups="cci_event.group_cci_event_supervisor"/>
+				</page>
+			</field>
+		</record>
+	
+	
 <!-- start event here -->
 	<record model="ir.ui.view" id="event_event_form_inherit1">
 		<field name="name">event.event.form.cci</field>

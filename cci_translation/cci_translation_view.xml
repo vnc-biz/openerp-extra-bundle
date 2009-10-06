@@ -130,7 +130,7 @@
 			<field name="inherit_id" ref="base.view_partner_form"/>
 			<field name="arch" type="xml">
 				<notebook position="inside">
-					<page string="Certificate Details">
+					<page string="Certificate Details" groups="cci_translation.group_cci_translation_manager">
 						<separator string="Translation" colspan="4"/>
                         <field name="awex_eligible" />
                     </page>

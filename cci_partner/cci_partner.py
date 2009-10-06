@@ -20,9 +20,11 @@
 #
 ##############################################################################
 
-import netsvc
+import re
 import time
+
 from osv import fields, osv
+import netsvc
 
 class res_company(osv.osv):
     _inherit = 'res.company'
@@ -373,7 +375,23 @@ class res_partner_job(osv.osv):
         if 'function_id' in vals and not vals['function_id']:
             vals['function_id'] = self.pool.get('res.partner.function').search(cr, uid, [])[0]
         return super(res_partner_job,self).write(cr, uid, ids,vals, *args, **kwargs)
-
+    
+    
+    def _check_phone_num(self, cr, uid, ids):
+        obj_self = self.browse(cr, uid, ids[0])
+        phno = obj_self.phone
+        if phno:
+            gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
+            compiled_res = gsm_num.findall(phno)
+            if compiled_res:
+                if not len(phno) == 10:
+                    return False
+            if not compiled_res:
+                if not len(phno) == 9:
+                    return False
+        return True
+    
+    
     _inherit = 'res.partner.job'
     _columns = {
         'function_label':fields.char('Function Label',size=128),
@@ -392,7 +410,11 @@ class res_partner_job(osv.osv):
         'dir_presence' : lambda *a: True,
         'active' : lambda *a: True,
     }
-
+    
+    _constraints = [
+        (_check_phone_num, '\nInvalid Phone number', ['phone'])
+    ]
+    
 res_partner_job()
 
 class res_partner_address(osv.osv):
@@ -411,6 +433,7 @@ class res_partner_address(osv.osv):
             vals['city'] = self.pool.get('res.partner.zip').browse(cr, uid,vals['zip_id']).city
         return super(res_partner_address,self).write(cr, uid, ids,vals, *args, **kwargs)
 
+    
     def get_city(self, cr, uid, id):
         return self.browse(cr, uid, id).zip_id.city
 #que faire du name?
@@ -424,6 +447,20 @@ class res_partner_address(osv.osv):
       #            res[add.id] = add.department
        # return res
 
+    def _check_phone_num(self, cr, uid, ids):
+        obj_self = self.browse(cr, uid, ids[0])
+        phno = obj_self.phone
+        if phno:
+            gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
+            compiled_res = gsm_num.findall(phno)
+            if compiled_res:
+                if not len(phno) == 10:
+                    return False
+            if not compiled_res:
+                if not len(phno) == 9:
+                    return False
+        return True
+    
     _columns = {
         #'name': fields.function(_get_name, method=True, string='Contact Name',type='char',size=64),#override parent field
         'state': fields.selection([('correct','Correct'),('to check','To check')],'Code'),
@@ -436,7 +473,11 @@ class res_partner_address(osv.osv):
     _defaults = {
                  'state' : lambda *a: 'correct',
     }
-
+    
+    _constraints = [
+        (_check_phone_num, '\nInvalid Phone number', ['phone'])
+    ]
+        
     def onchange_user_id(self, cr, uid, ids,zip_id):
     #Changing the zip code can change the salesman
         if not ids or not zip_id:
@@ -566,11 +607,32 @@ class res_partner_country_relation(osv.osv):
 res_partner_country_relation()
 
 class res_partner_contact(osv.osv):
+    
+    def _check_phone_num(self, cr, uid, ids):
+        obj_self = self.browse(cr, uid, ids[0])
+        phno = obj_self.mobile
+        if phno:
+            gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
+            compiled_res = gsm_num.findall(phno)
+            if compiled_res:
+                if not len(phno) == 10:
+                    return False
+            if not compiled_res:
+                if not len(phno) == 9:
+                    return False
+        return True
+    
     _inherit='res.partner.contact'
     _columns = {
         'article_ids':fields.many2many('res.partner.article','res_partner_contact_article_rel','contact_id','article_id','Articles'),
     }
+    
+    _constraints = [
+        (_check_phone_num, '\nInvalid Mobile number', ['mobile'])
+    ]
+    
 res_partner_contact()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
 

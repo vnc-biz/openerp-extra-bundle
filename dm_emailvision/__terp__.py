@@ -34,8 +34,8 @@
                     "dm_emailvision_data.xml",
                     ],
     "demo_xml" : [],
-    "update_xml" : [
-                    "dm_emailvision_view.xml",
+    "update_xml" : [ "security/ir.model.access.csv",
+                     "dm_emailvision_view.xml",
                     ],
     "active": False,
     "installable": True,

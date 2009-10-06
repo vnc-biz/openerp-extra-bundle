@@ -36,8 +36,7 @@ class dm_mail_service(osv.osv):
      _columns = {
           'ev_host' : fields.char('Emailvision Host', size=64),
           'ev_service' : fields.char('Emailvision Service', size=64),
-          'ev_encrypt' : fields.char('Emailvision Encrypt Key', size=64),
-          'ev_random' : fields.char('Emailvision Random Key',size=64),
+          'ev_template' : fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
      }
      _defaults = {
         'ev_host': lambda *a : 'api.notificationmessaging.com',
@@ -166,5 +165,7 @@ def send_email(cr,uid,obj,context):
             pool.get('dm.campaign.document').write(cr, uid, [obj.id], {'state':'error','error_msg':error_msg})
             return {'code':'emv_doc_error'}
     return {'code':'emv_doc_sent'}
+
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

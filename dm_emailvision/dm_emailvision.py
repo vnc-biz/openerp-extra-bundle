@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution    
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -20,7 +20,31 @@
 #
 ##############################################################################
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from osv import fields
+from osv import osv
+import time
 
-import dm_emailvision_api
-import dm_emailvision
+class dm_emailvision_template(osv.osv):#{{{
+     _name = "dm.emailvision.template"
+     
+     _columns = {
+        'name': fields.char('Name', size=64, required=True),
+        'code': fields.char('Code', size=32, required=True),
+        'ev_encrypt' : fields.char('Emailvision Encrypt Key', size=64),
+        'ev_random' : fields.char('Emailvision Random Key',size=64),
+        }
+        
+dm_emailvision_template()#}}}
+
+class dm_offer_document(osv.osv):#{{{
+    _inherit = "dm.offer.document"
+    _columns = {
+                
+         'ev_template' : fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
+
+    }
+dm_offer_document()#}}}
+
+
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

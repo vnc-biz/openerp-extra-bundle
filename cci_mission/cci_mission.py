@@ -842,7 +842,7 @@ class cci_missions_ata_carnet(osv.osv):
         return {'value':{'warranty' : warranty_price}}
 
     _columns = {
-        'id': fields.integer('ID', readonly=True),
+        'id': fields.integer('ID'),
         'type_id' : fields.many2one('cci_missions.dossier_type','Related Type of Carnet',required=True),
         'creation_date' : fields.date('Emission Date',required=True),
         'validity_date' : fields.date('Validity Date',required=True),
@@ -862,15 +862,15 @@ class cci_missions_ata_carnet(osv.osv):
         'double_signature' : fields.boolean('Double Signature'),
         'initial_pages' : fields.integer('Initial Number of Pages',required=True),
         'additional_pages' : fields.integer('Additional Number of Pages'),
-        'warranty':fields.float('Warranty',readonly=True),
+        'warranty':fields.float('Warranty'),
         'warranty_product_id': fields.many2one('product.product','Related Warranty Product',required=True),
         'return_date' : fields.date('Date of Return'),
-        'state':fields.selection([('draft','Draft'),('created','Created'),('pending','Pending'),('dispute','Dispute'),('correct','Correct'),('closed','Closed')],'State',required=True,readonly=True),
+        'state':fields.selection([('draft','Draft'),('created','Created'),('pending','Pending'),('dispute','Dispute'),('correct','Correct'),('closed','Closed')],'State',required=True),
         'ok_state_date' : fields.date('Date of Closure'),
-        'federation_sending_date' : fields.date('Date of Sending to the Federation', readonly=True),
+        'federation_sending_date' : fields.date('Date of Sending to the Federation'),
         'name' : fields.char('Name',size=50,required=True),
-        'partner_insurer_id': fields.function(_get_insurer_id, method=True,string='Insurer ID of the Partner',readonly=True),
-        'partner_member_state': fields.function(_get_member_state, method=True,selection=STATE,string='Member State of the Partner',readonly=True,type="selection"),
+        'partner_insurer_id': fields.function(_get_insurer_id, method=True,string='Insurer ID of the Partner'),
+        'partner_member_state': fields.function(_get_member_state, method=True,selection=STATE,string='Member State of the Partner',type="selection"),
         'member_price' : fields.boolean('Apply the Member Price'),
         'product_ids': fields.one2many('product.lines', 'product_line_id', 'Products'),
         'letter_ids':fields.one2many('cci_missions.letters_log','ata_carnet_id','Letters'),
@@ -886,6 +886,7 @@ class cci_missions_ata_carnet(osv.osv):
         'name': lambda *args: '/',
         'creation_date': lambda *a: time.strftime('%Y-%m-%d'),
     }
+    
     _constraints = [(check_ata_carnet, 'Error: Please Select (Own Risk) OR ("Insurer Agreement" and "Parnters Insure id" should be greater than Zero)', ['own_risk','insurer_agreement','partner_insurer_id'])]
 
 cci_missions_ata_carnet()

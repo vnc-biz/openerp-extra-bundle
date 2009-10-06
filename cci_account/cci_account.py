@@ -45,6 +45,7 @@ class account_invoice(osv.osv):
         'dept':fields.many2one('hr.department','Department'),
         'invoice_special':fields.boolean('Special Invoice'),
         'internal_note': fields.text('Internal Note'),
+        'vat_num' : fields.related('partner_id', 'vat',  type='char', string="VAT"),
     }
    
     def action_move_create(self, cr, uid, ids, context=None):

@@ -15,6 +15,70 @@
             </field>
         </record>
 
+    <record model="ir.ui.view" id="view_account_invoice_supplier_inherit1">
+            <field name="name">account.invoice.supplier.form.inherit1</field>
+            <field name="type">form</field>
+            <field name="priority">16</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field[@name='name']" position="replace">
+				</xpath>
+            </field>
+        </record>
+
+
+    <record model="ir.ui.view" id="view_account_invoice_supplier_inherit2">
+            <field name="name">account.invoice.supplier.form.inherit2</field>
+            <field name="priority">16</field>
+            <field name="type">form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="check_total" position="after">
+                	<field name="name" colspan="4"/>
+                </field>
+            </field>
+        </record>
+        
+
+    <record model="ir.ui.view" id="view_acc_invoice_supp_inherit_invoice_num1">
+            <field name="name">account.invoice.supplier.form.inherit.num1</field>
+            <field name="type">form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/field[@name='number']" position="replace">
+				</xpath>
+            </field>
+        </record>
+
+
+    <record model="ir.ui.view" id="view_acc_invoice_supp_inherit_invoice_num2">
+            <field name="name">account.invoice.supplier.form.inherit.num2</field>
+            <field name="type">form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="account_id" position="after">
+                	<field name="number" colspan="2"/>
+                </field>
+            </field>
+        </record>
+        
+        
+    <record model="ir.ui.view" id="view_acc_invoice_supp_inherit_1">
+            <field name="name">account.invoice.supplier.form.inherit.refactor</field>
+            <field name="priority">10</field>
+            <field name="type">form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="/form/notebook/page/newline" position="replace">
+				</xpath>
+            </field>
+        </record>
+        
     <record model="ir.ui.view" id="view_account_invoice_inherit">
             <field name="name">account.invoice.form.inherit</field>
             <field name="type">form</field>
@@ -24,6 +88,18 @@
                 <field name="comment" position="after">
                     <separator string="Internal Note" colspan="4"/>
                     <field name="internal_note" nolabel="1" colspan="4"/>
+                </field>
+            </field>
+        </record>
+        
+           <record model="ir.ui.view" id="view_account_invoice_inherit_vat">
+            <field name="name">account.invoice.form.inherit.vat</field>
+            <field name="type">tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="vat_num"/>
                 </field>
             </field>
         </record>
@@ -128,3 +204,4 @@
     </record>
 </data>
 </openerp>
+

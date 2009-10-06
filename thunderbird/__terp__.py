@@ -7,7 +7,7 @@
 	"category" : "Generic Modules/Thunderbird interface",
 	"init_xml" : [],
 	"demo_xml" : [],
-	"update_xml" : ["partner/partner_view.xml"],
+	"update_xml" : [],
 	"active": False,
 	"installable": True
 }

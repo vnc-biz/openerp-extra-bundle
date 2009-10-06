@@ -50,23 +50,6 @@ class tinythunderbird_partner(osv.osv):
         cases=case_pool.browse(cr,user,[create_id])
         case_pool._history(cr, user, cases, _('Archive'), history=True, email=False)
         return create_id
-#    def thunderbird_mailcreate(self,cr,user,vals):
-#        print vals
-#        dictcreate = dict(vals)
-#        print vals
-#        domain = [('name','ilike','Thunderbird%'),('type','=','ir.actions.act_window'),('res_model','=','tinythunderbird.partner'),('src_model','=',dictcreate['reference'].split(',')[0])]
-#        act_window_obj = self.pool.get('ir.actions.act_window')
-#        ir_values_obj = self.pool.get('ir.values')
-#        ir_model_data_obj = self.pool.get('ir.model.data')
-#        if not act_window_obj.search(cr,user,domain):
-#            act_window_id = act_window_obj.create(cr,user,{'name':'Thunderbird Mails','type':'ir.actions.act_window','res_model':'tinythunderbird.partner','src_model':dictcreate['reference'].split(',')[0],'domain':"[('reference', '=','" + dictcreate['reference'].split(',')[0] + ",%d'%active_id)]"})
-#            ir_values_id = ir_values_obj.create(cr,user,{'name':'tinythunderbird','key':'action','model':dictcreate['reference'].split(',')[0],'key2':'client_action_relate','object':True,'value':'ir.actions.act_window,'+str(act_window_id)})
-#            ir_model_data_id = ir_model_data_obj.create(cr,user,{'res_id':act_window_id,'name':'tinythunderbird','module':'thunderbird_interface','model':'ir.actions.act_window'})
-#        search_id = self.pool.get('res.request.link').search(cr,user,[('object','=',dictcreate['reference'].split(',')[0])])
-#        if not search_id:
-#            create_link_id = self.pool.get('res.request.link').create(cr,user,{'name':dictcreate['reference'].split(',')[0],'object':dictcreate['reference'].split(',')[0]})
-#        create_id = self.pool.get('tinythunderbird.partner').create(cr, user, dictcreate)
-#        return create_id
 
     def thunderbird_createcontact(self,cr,user,vals):
         dictcreate = dict(vals)
@@ -124,7 +107,6 @@ class tinythunderbird_partner(osv.osv):
         if len(er_val) > 0:
             name_get.append('error')
             name_get.append(er_val)
-        
         return name_get
 
     def thunderbird_attachment(self,cr,user,vals):

@@ -29,111 +29,49 @@ import datetime
 import netsvc
 
 class dm_address_segmentation(osv.osv): # {{{
-    
     _inherit = "dm.address.segmentation"
-    _description = "Order Segmentation"
-
-    _columns = {
-        'order_text_criteria_ids' : fields.one2many('dm.extract.sale.text_criteria', 'segmentation_id', 'Customers Order Textual Criteria'),
-        'order_numeric_criteria_ids' : fields.one2many('dm.extract.sale.numeric_criteria', 'segmentation_id', 'Customers Order Numeric Criteria'),
-        'order_boolean_criteria_ids' : fields.one2many('dm.extract.sale.boolean_criteria', 'segmentation_id', 'Customers Order Boolean Criteria'),
-        'order_date_criteria_ids' : fields.one2many('dm.extract.sale.date_criteria', 'segmentation_id', 'Customers Order Date Criteria'),
-    }
 
     def set_address_criteria(self, cr, uid, id, context={}):
-        sql_query = super(dm_address_segmentation,self).set_address_criteria(cr, uid, id, context)
-        print "=========================================",sql_query
-        sql_query.replace('from','from sale_order s, ')
+        query_obj = self.browse(cr, uid, id).query_criteria_ids
+        rpa_where = []
+        so_where = []
+        for q_obj in query_obj :
+            value = getattr(q_obj,'value_'+q_obj.field_type)
+            where = ''
+            tn = ''.join(map(lambda x : x[0] ,q_obj.field_id.model_id.model.split('.')))
+            if q_obj.field_type == 'boolean':
+                where = "%s.%s %s %s"%(tn,q_obj.field_id.name,q_obj.operator.code,value)
+            elif q_obj.field_type == 'date':
+                where = "%s.%s %s '%s'"%(tn,q_obj.field_id.name,q_obj.operator.code,value)
+            elif q_obj.field_type == 'char':
+                where = "%s.%s %s '%s'"%(tn,q_obj.field_id.name,q_obj.operator.code,'%'+value+'%')
+            elif q_obj.field_type == 'integer':
+                where = "%s.%s %s %f"%(tn,q_obj.field_id.name,q_obj.operator.code,value)
+            if where and q_obj.field_id.model_id.model == 'res.partner.address':
+                rpa_where.append(where)
+            elif where and q_obj.field_id.model_id.model == 'sale.order':
+                so_where.append(where)
+        if so_where :
+            rpa_where.append('partner_id in (select partner_id from sale_order where %s )'%' and '.join(so_where))
+        if rpa_where:
+            sql_query = """select distinct rpa.id\n from res_partner_address \n where %s"""%(' and '.join(rpa_where))
+        else :
+            sql_query = """select distinct rpa.name \nfrom res_partner_address rpa """
         return sql_query
 
 
+    _columns = {
+        'order_query_criteria_ids' : fields.one2many('dm.query.criteria', 'segmentation_id1', 'Query Criteria'),
+        }
+
 dm_address_segmentation() # }}}
 
-TEXT_OPERATORS = [ # {{{
-    ('like','like'),
-    ('ilike','ilike'),
-] # }}}
-
-NUMERIC_OPERATORS = [ # {{{
-    ('=','equals'),
-    ('<','smaller then'),
-    ('>','bigger then'),
-] # }}}
-
-BOOL_OPERATORS = [ # {{{
-    ('is','is'),
-    ('isnot','is not'),
-] # }}}
-
-DATE_OPERATORS = [ # {{{
-    ('=','equals'),
-    ('<','before'),
-    ('>','after'),
-] # }}}
-
-
-class dm_extract_sale_text_criteria(osv.osv): # {{{
-    _name = "dm.extract.sale.text_criteria"
-    _description = "Customer Order Segmentation Textual Criteria"
-    _rec_name = "segmentation_id"
+class dm_query_criteria(osv.osv): # {{{
+    _inherit = "dm.query.criteria"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
-        'field_id' : fields.many2one('ir.model.fields','Customers Field',
-               domain=[('model_id.model','=','sale.order'),
-               ('ttype','like','char')],
-               context={'model':'sale.order'}, required = True),
-        'operator' : fields.selection(TEXT_OPERATORS, 'Operator', size=32, required = True),
-        'value' : fields.char('Value', size=128, required = True),
+        'segmentation_id1' : fields.many2one('dm_address_segmentation' , domain = [('model_id.model','in',('res.partner.address','sale.order'))] )
     }
-dm_extract_sale_text_criteria() # }}}
 
-class dm_extract_sale_numeric_criteria(osv.osv): # {{{
-    _name = "dm.extract.sale.numeric_criteria"
-    _description = "Customer Order Segmentation Numeric Criteria"
-    _rec_name = "segmentation_id"
-
-    _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
-        'field_id' : fields.many2one('ir.model.fields','Customers Field',
-               domain=[('model_id.model','=','sale.order'),
-               ('ttype','in',['integer','float'])],
-               context={'model':'sale.order'}, required = True),
-        'operator' : fields.selection(NUMERIC_OPERATORS, 'Operator', size=32, required = True),
-        'value' : fields.float('Value', digits=(16,2), required = True),
-    }
-dm_extract_sale_numeric_criteria() # }}}
-
-class dm_extract_sale_boolean_criteria(osv.osv): # {{{
-    _name = "dm.extract.sale.boolean_criteria"
-    _description = "Customer Order Segmentation Boolean Criteria"
-    _rec_name = "segmentation_id"
-
-    _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
-        'field_id' : fields.many2one('ir.model.fields','Customers Field',
-               domain=[('model_id.model','=','sale.order'),
-               ('ttype','like','boolean')],
-               context={'model':'sale.order'}, required = True),
-        'operator' : fields.selection(BOOL_OPERATORS, 'Operator', size=32, required = True),
-        'value' : fields.selection([('true','True'),('false','False')],'Value', required = True),
-    }
-dm_extract_sale_boolean_criteria() # }}}
-
-class dm_extract_sale_date_criteria(osv.osv): # {{{
-    _name = "dm.extract.sale.date_criteria"
-    _description = "Customer Order Segmentation Date Criteria"
-    _rec_name = "segmentation_id"
-
-    _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
-        'field_id' : fields.many2one('ir.model.fields','Customers Field',
-               domain=[('model_id.model','=','sale.order'),
-               ('ttype','in',['date','datetime'])],
-               context={'model':'sale.order'}, required = True),
-        'operator' : fields.selection(DATE_OPERATORS, 'Operator', size=32, required = True),
-        'value' : fields.date('Date', required = True),
-    }
-dm_extract_sale_date_criteria() # }}}
-
+dm_query_criteria() # }}}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -37,32 +37,29 @@ class dm_address_segmentation(osv.osv): # {{{
         'code' : fields.char('Code', size=32, required=True),
         'notes' : fields.text('Description'),
         'sql_query' : fields.text('SQL Query'),
-        'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria'),
-        'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
-        'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
-        'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),
+        'query_criteria_ids' : fields.one2many('dm.query.criteria', 'segmentation_id', 'Query Criteria'),
+#        'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
+#        'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
+#        'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),
     }
 
     def set_address_criteria(self, cr, uid, id, context={}):
-        criteria=[]
-        browse_id = self.browse(cr, uid, id)
-        if browse_id.address_text_criteria_ids:
-            for i in browse_id.address_text_criteria_ids:
-                criteria.append("pa.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
-        if browse_id.address_numeric_criteria_ids:
-            for i in browse_id.address_numeric_criteria_ids:
-                criteria.append("pa.%s %s %f"%(i.field_id.name, i.operator, i.value))
-        if browse_id.address_boolean_criteria_ids:
-            for i in browse_id.address_boolean_criteria_ids:
-                criteria.append("pa.%s %s %s"%(i.field_id.name, i.operator, i.value))
-        if browse_id.address_date_criteria_ids:
-            for i in browse_id.address_date_criteria_ids:
-                criteria.append("pa.%s %s '%s'"%(i.field_id.name, i.operator, i.value))
-
-        if criteria:
-            sql_query = ("""select distinct pa.name \nfrom res_partner_address pa \nwhere %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
-        else:
-            sql_query = """select distinct pa.name \nfrom res_partner_address pa """
+        query_obj = self.browse(cr, uid, id).query_criteria_ids
+        where_clause = []
+        for q_obj in query_obj :
+            value = getattr(q_obj,'value_'+q_obj.field_type)
+            if q_obj.field_type == 'boolean':
+                where_clause.append("rpa.%s %s %s"%(q_obj.field_id.name,q_obj.operator.code,value))
+            if q_obj.field_type == 'date':
+                where_clause.append("rpa.%s %s '%s'"%(q_obj.field_id.name,q_obj.operator.code,value))
+            if q_obj.field_type == 'char':
+                where_clause.append("rpa.%s %s '%s'"%(q_obj.field_id.name,q_obj.operator.code,'%'+value+'%'))
+            if q_obj.field_type == 'integer':
+                where_clause.append("rpa.%s %s %f"%(q_obj.field_id.name,q_obj.operator.code,value))
+        if where_clause:
+            sql_query = """select distinct rpa.id\n from res_partner_address \n where %s"""%(' and '.join(where_clause))
+        else :
+            sql_query = """select distinct rpa.name \nfrom res_partner_address rpa """
         return sql_query
 
     def create(self,cr,uid,vals,context={}):
@@ -92,7 +89,7 @@ class dm_campaign_proposition_segment(osv.osv):
     
 dm_campaign_proposition_segment()
 
-TEXT_OPERATORS = [ # {{{
+'''TEXT_OPERATORS = [ # {{{
     ('like','like'),
     ('ilike','ilike'),
 ] # }}}
@@ -112,25 +109,44 @@ DATE_OPERATORS = [ # {{{
     ('=','equals'),
     ('<','before'),
     ('>','after'),
+] # }}}'''
+
+
+_OPERATORS = [ # {{{
+    ('date','Date'),
+    ('boolean','Boolean'),
+    ('char','Text'),
+    ('integer','Numeric'),
 ] # }}}
 
-class dm_address_text_criteria(osv.osv): # {{{
-    _name = "dm.address.text_criteria"
+class dm_query_operator(osv.osv): # {{{
+    _name = "dm.query.operator"
+    _description = "Query Openrators"
+    _columns = {
+        'field_type' : fields.selection(_OPERATORS, 'Field Type', size=32) ,
+        'name' : fields.char('Name', size=32),
+        'code' : fields.char('code', size=32),
+    }
+dm_query_operator() # }}}
+
+class dm_query_criteria(osv.osv): # {{{
+    _name = "dm.query.criteria"
     _description = "address Segmentation Textual Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {
         'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
-        'field_id' : fields.many2one('ir.model.fields','Address Field',
-               domain=[('model_id.model','=','res.partner.address'),
-               ('ttype','like','char')],
-               context={'model':'res.partner.address'},required=True),
-        'operator' : fields.selection(TEXT_OPERATORS, 'Operator', size=32 ,required=True),
-        'value' : fields.char('Value', size=128,required=True),
+        'field_id' : fields.many2one('ir.model.fields','Field'),
+        'field_type' : fields.selection(_OPERATORS, 'Field Type', size=32) ,
+        'operator' : fields.many2one('dm.query.operator','Operator'),
+        'value_char' : fields.char('Value', size=128),
+        'value_integer' : fields.float('Value', digits=(16,2)),
+        'value_boolean' : fields.selection([('true','True'),('false','False')],'Value'),
+        'value_date' : fields.date('Date'),
     }
-dm_address_text_criteria() # }}}
+dm_query_criteria() # }}}
 
-class dm_address_numeric_criteria(osv.osv): # {{{
+'''class dm_address_numeric_criteria(osv.osv): # {{{
     _name = "dm.address.numeric_criteria"
     _description = "address Segmentation Numeric Criteria"
     _rec_name = "segmentation_id"
@@ -176,6 +192,6 @@ class dm_address_date_criteria(osv.osv): # {{{
         'operator' : fields.selection(DATE_OPERATORS, 'Operator', size=32,required=True),
         'value' : fields.date('Date',required=True),
     }
-dm_address_date_criteria() # }}}
+dm_address_date_criteria() # }}}'''
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

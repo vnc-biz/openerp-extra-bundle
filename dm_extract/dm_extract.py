@@ -146,6 +146,27 @@ class dm_query_criteria(osv.osv): # {{{
     }
 dm_query_criteria() # }}}
 
+class ir_model_fields(osv.osv):
+    _inherit = 'ir.model.fields'
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
+            context=None, count=False):
+        if context.has_key('name') and context['name']=='dm_fields':
+            if context['ttype'] == 'char':
+                query_obj = self.pool.get('dm.query.criteria')
+                query_ids = query_obj.search(cr, uid, [])
+                for query_id in query_ids:
+                    cr.execute("select id from ir_model_fields where model='res.partner.address' and (ttype='many2one' or ttype = '%s')" %(context['ttype']))
+                    fields_ids = cr.fetchall()
+                    fields = map(lambda x: x[0], fields_ids)
+                    return fields
+                else:
+                    field_id = super(ir_model_fields, self).search(cr, uid, args, offset, limit,
+                                                    order, context=context, count=count)
+                    return field_id
+
+ir_model_fields()
+
 '''class dm_address_numeric_criteria(osv.osv): # {{{
     _name = "dm.address.numeric_criteria"
     _description = "address Segmentation Numeric Criteria"

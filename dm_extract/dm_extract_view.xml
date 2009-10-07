@@ -25,7 +25,7 @@
                         <field name="query_criteria_ids" mode="tree,form" colspan="4" nolabel="1" select="2">
                             <form string="Customer Criteria">
                                 <field name="field_type"/>
-                                <field name="field_id" domain = "[('model_id.model','=','res.partner.address'),('ttype','=',field_type)]" />
+                                <field name="field_id" domain = "[('model_id.model','=','res.partner.address'),('ttype','=',field_type)]" context="{'name':'dm_fields','ttype':field_type}"/>
                                 <field name="operator"  domain = "[('field_type','=',field_type)]"  />
                                 <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
                                      <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />

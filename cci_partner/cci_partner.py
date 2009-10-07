@@ -377,20 +377,22 @@ class res_partner_job(osv.osv):
         return super(res_partner_job,self).write(cr, uid, ids,vals, *args, **kwargs)
     
     
-    def _check_phone_num(self, cr, uid, ids):
-        obj_self = self.browse(cr, uid, ids[0])
-        phno = obj_self.phone
-        if phno:
-            gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-            compiled_res = gsm_num.findall(phno)
-            if compiled_res:
-                if not len(phno) == 10:
-                    return False
-            if not compiled_res:
-                if not len(phno) == 9:
-                    return False
-        return True
-    
+    def _on_change_phone_num(self, cr, uid, id, phone):
+        if not phone:
+            return {}
+        result = {}
+        gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
+        compiled_res = gsm_num.findall(phone)
+        if compiled_res:
+            if not len(phone) == 10:
+                raise osv.except_osv(_('Validate Error'),
+                        _('Invalid GSM Phone number.'))
+        if not compiled_res:
+            if not len(phone) == 9:
+                raise osv.except_osv(_('Validate Error'),
+                        _('Invalid Phone number.'))
+        result['phone'] = phone
+        return {'value': result}
     
     _inherit = 'res.partner.job'
     _columns = {
@@ -410,10 +412,6 @@ class res_partner_job(osv.osv):
         'dir_presence' : lambda *a: True,
         'active' : lambda *a: True,
     }
-    
-    _constraints = [
-        (_check_phone_num, '\nInvalid Phone number', ['phone'])
-    ]
     
 res_partner_job()
 
@@ -447,19 +445,22 @@ class res_partner_address(osv.osv):
       #            res[add.id] = add.department
        # return res
 
-    def _check_phone_num(self, cr, uid, ids):
-        obj_self = self.browse(cr, uid, ids[0])
-        phno = obj_self.phone
-        if phno:
-            gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-            compiled_res = gsm_num.findall(phno)
-            if compiled_res:
-                if not len(phno) == 10:
-                    return False
-            if not compiled_res:
-                if not len(phno) == 9:
-                    return False
-        return True
+    def _on_change_phone_num(self, cr, uid, id, phone):
+        if not phone:
+            return {}
+        result = {}
+        gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
+        compiled_res = gsm_num.findall(phone)
+        if compiled_res:
+            if not len(phone) == 10:
+                raise osv.except_osv(_('Validate Error'),
+                        _('Invalid GSM Phone number.'))
+        if not compiled_res:
+            if not len(phone) == 9:
+                raise osv.except_osv(_('Validate Error'),
+                        _('Invalid Phone number.'))
+        result['phone'] = phone
+        return {'value': result}
     
     _columns = {
         #'name': fields.function(_get_name, method=True, string='Contact Name',type='char',size=64),#override parent field
@@ -474,10 +475,6 @@ class res_partner_address(osv.osv):
                  'state' : lambda *a: 'correct',
     }
     
-    _constraints = [
-        (_check_phone_num, '\nInvalid Phone number', ['phone'])
-    ]
-        
     def onchange_user_id(self, cr, uid, ids,zip_id):
     #Changing the zip code can change the salesman
         if not ids or not zip_id:
@@ -608,28 +605,27 @@ res_partner_country_relation()
 
 class res_partner_contact(osv.osv):
     
-    def _check_phone_num(self, cr, uid, ids):
-        obj_self = self.browse(cr, uid, ids[0])
-        phno = obj_self.mobile
-        if phno:
-            gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-            compiled_res = gsm_num.findall(phno)
-            if compiled_res:
-                if not len(phno) == 10:
-                    return False
-            if not compiled_res:
-                if not len(phno) == 9:
-                    return False
-        return True
+    def _on_change_phone_num(self, cr, uid, id, phone):
+        if not phone:
+            return {}
+        result = {}
+        gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
+        compiled_res = gsm_num.findall(phone)
+        if compiled_res:
+            if not len(phone) == 10:
+                raise osv.except_osv(_('Validate Error'),
+                        _('Invalid GSM Phone number.'))
+        if not compiled_res:
+            if not len(phone) == 9:
+                raise osv.except_osv(_('Validate Error'),
+                        _('Invalid Phone number.'))
+        result['phone'] = phone
+        return {'value': result}
     
     _inherit='res.partner.contact'
     _columns = {
         'article_ids':fields.many2many('res.partner.article','res_partner_contact_article_rel','contact_id','article_id','Articles'),
     }
-    
-    _constraints = [
-        (_check_phone_num, '\nInvalid Mobile number', ['mobile'])
-    ]
     
 res_partner_contact()
 

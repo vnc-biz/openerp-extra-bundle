@@ -20,8 +20,6 @@
 #
 ##############################################################################
 
-from osv import fields
-from osv import osv
 import pooler
 
 from lxml import etree
@@ -29,33 +27,25 @@ import httplib
 import base64
 import time
 
-from dm.dm_report_design import merge_message ,generate_internal_reports ,generate_openoffice_reports
+from dm.dm_report_design import merge_message, generate_internal_reports, generate_openoffice_reports
 
-class dm_mail_service(osv.osv):
-     _inherit = "dm.mail_service"
-     _columns = {
-          'ev_host' : fields.char('Emailvision Host', size=64),
-          'ev_service' : fields.char('Emailvision Service', size=64),
-          'ev_template' : fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
-     }
-     _defaults = {
-        'ev_host': lambda *a : 'api.notificationmessaging.com',
-        'ev_service': lambda *a : 'NMSXML',
-    }
-dm_mail_service()
-
-def send_email(cr,uid,obj,context):
+def send_email(cr, uid, obj, context):
 
     """ Get Emailmvision connection infos """
+     
     ev_host = obj.mail_service_id.ev_host
     ev_service = obj.mail_service_id.ev_service
-    ev_encrypt = obj.mail_service_id.ev_encrypt
-    ev_random = obj.mail_service_id.ev_random
+    if obj.document_id.ev_template:
+        ev_encrypt = obj.document_id.ev_template.ev_encrypt
+        ev_random = obj.document_id.ev_template.ev_random
+    else:
+        ev_encrypt = obj.mail_service_id.ev_template.ev_encrypt
+        ev_random = obj.mail_service_id.ev_template.ev_random
 
     email_dest = obj.address_id.email or ''
     email_reply = obj.segment_id.campaign_id.trademark_id.email or ''
 
-    email_subject = merge_message(cr, uid, obj.document_id.subject or '',context)
+    email_subject = merge_message(cr, uid, obj.document_id.subject or '', context)
     name_from = obj.segment_id.campaign_id.trademark_id.name or ''
     name_reply = obj.segment_id.campaign_id.trademark_id.name or ''
 
@@ -64,20 +54,23 @@ def send_email(cr,uid,obj,context):
     message = []
     if obj.mail_service_id.store_email_document:
         ir_att_obj = pool.get('ir.attachment')
-        ir_att_ids = ir_att_obj.search(cr,uid,[('res_model','=','dm.campaign.document'),('res_id','=',obj.id),('file_type','=','html')])
-        for attach in ir_att_obj.browse(cr,uid,ir_att_ids):
+        ir_att_ids = ir_att_obj.search(cr, uid, [
+                                      ('res_model','=','dm.campaign.document'),
+                                      ('res_id','=',obj.id),
+                                      ('file_type','=','html')])
+        for attach in ir_att_obj.browse(cr, uid, ir_att_ids):
             message.append(base64.decodestring(attach.datas))
-    else :
-       document_data = pool.get('dm.offer.document').browse(cr,uid,obj.document_id.id)
-       
-       if obj.document_id.editor ==  'internal' :
-           message.append(generate_internal_reports(cr, uid, 'html2html', document_data, False, context))
-       elif obj.document_id.editor ==  'oord' :
-           msg = generate_openoffice_reports(cr, uid, 'html2html', document_data, False, context)
-           message.extend(msg)
-       else:
-           return {'code':'emv_doc_error'}
-
+    else:
+        if obj.document_id.editor ==  'internal':
+            msg = generate_internal_reports(cr, uid, 'html2html', \
+                    obj.document_id, False, context)
+            message.append(msg)
+        elif obj.document_id.editor ==  'oord':
+            msg = generate_openoffice_reports(cr, uid, 'html2html', \
+                    obj.document_id, False, context)
+            message.extend(msg)
+        else:
+            return {'code':'emv_doc_error'}
     for msg  in message:
         root = etree.HTML(msg)
         body = root.find('body')
@@ -85,7 +78,7 @@ def send_email(cr,uid,obj,context):
         html_content = ''.join([ etree.tostring(x) for x in body.getchildren()])
         text_content = "html content only"
 
-        "Composing XML"
+        ''' Composing XML '''
         msg = etree.Element("MultiSendRequest")
         sendrequest = etree.SubElement(msg, "sendrequest")
         dyn = etree.SubElement(sendrequest, "dyn")
@@ -146,9 +139,10 @@ def send_email(cr,uid,obj,context):
 
 #        print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n" + etree.tostring(msg, method="xml", encoding='utf-8', pretty_print=True))
 
-        xml_msg = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + etree.tostring(msg, encoding="utf-8")
+        xml_msg = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
+        xml_msg += etree.tostring(msg, encoding="utf-8")
 
-        "Sending to Emailvision NMSXML API"
+        ''' Sending to Emailvision NMSXML API '''
         ev_api = httplib.HTTP( ev_host +":80")
         ev_api.putrequest("POST", "/" + ev_service)
         ev_api.putheader("Content-type", "text/xml; charset=\"UTF-8\"")
@@ -156,13 +150,17 @@ def send_email(cr,uid,obj,context):
         ev_api.endheaders()
         ev_api.send(xml_msg)
     
-        "Get Emailvision Reply"
+        ''' Get Emailvision Reply '''
         statuscode, statusmessage, header = ev_api.getreply()
         res = ev_api.getfile().read()
     
         if statuscode != 200:
-            error_msg = "This document cannot be sent to Emailvision NMS API\nStatus Code : " + str(statuscode) + "\nStatus Message : " + statusmessage + "\nHeader : " + str(header) + "\nResult : " + res
-            pool.get('dm.campaign.document').write(cr, uid, [obj.id], {'state':'error','error_msg':error_msg})
+            error_msg = ["This document cannot be sent to Emailvision NMS API "
+                    ,"Status Code : " + str(statuscode)
+                    ,"Status Message : " + statusmessage
+                    ,"Header : " + str(header)
+                    ,"Result : " + res]
+            error_msg = '\n'.join(error_msg)
             return {'code':'emv_doc_error'}
     return {'code':'emv_doc_sent'}
 

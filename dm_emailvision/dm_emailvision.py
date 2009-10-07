@@ -22,16 +22,15 @@
 
 from osv import fields
 from osv import osv
-import time
 
 class dm_emailvision_template(osv.osv):#{{{
-     _name = "dm.emailvision.template"
-     
-     _columns = {
+    _name = "dm.emailvision.template"
+    
+    _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=32, required=True),
-        'ev_encrypt' : fields.char('Emailvision Encrypt Key', size=64),
-        'ev_random' : fields.char('Emailvision Random Key',size=64),
+        'ev_encrypt': fields.char('Emailvision Encrypt Key', size=64),
+        'ev_random': fields.char('Emailvision Random Key',size=64),
         }
         
 dm_emailvision_template()#}}}
@@ -40,11 +39,22 @@ class dm_offer_document(osv.osv):#{{{
     _inherit = "dm.offer.document"
     _columns = {
                 
-         'ev_template' : fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
+         'ev_template': fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
 
     }
 dm_offer_document()#}}}
 
-
+class dm_mail_service(osv.osv):
+    _inherit = "dm.mail_service"
+    _columns = {
+        'ev_host': fields.char('Emailvision Host', size=64),
+        'ev_service': fields.char('Emailvision Service', size=64),
+        'ev_template': fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
+    }
+    _defaults = {
+        'ev_host': lambda *a : 'api.notificationmessaging.com',
+        'ev_service': lambda *a : 'NMSXML',
+    }
+dm_mail_service()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -605,21 +605,21 @@ res_partner_country_relation()
 
 class res_partner_contact(osv.osv):
     
-    def _on_change_phone_num(self, cr, uid, id, phone):
-        if not phone:
+    def _on_change_phone_num(self, cr, uid, id, mobile):
+        if not mobile:
             return {}
         result = {}
         gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-        compiled_res = gsm_num.findall(phone)
+        compiled_res = gsm_num.findall(mobile)
         if compiled_res:
-            if not len(phone) == 10:
+            if not len(mobile) == 10:
                 raise osv.except_osv(_('Validate Error'),
                         _('Invalid GSM Phone number.'))
         if not compiled_res:
-            if not len(phone) == 9:
+            if not len(mobile) == 9:
                 raise osv.except_osv(_('Validate Error'),
                         _('Invalid Phone number.'))
-        result['phone'] = phone
+        result['mobile'] = mobile
         return {'value': result}
     
     _inherit='res.partner.contact'

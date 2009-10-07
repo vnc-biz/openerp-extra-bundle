@@ -643,6 +643,7 @@ TODO: revoir la vue tree aussi
 		<field name="model">res.partner.contact</field>
 		<field name="inherit_id" ref="base_contact.view_partner_contact_form"/>
 		<field name="type">form</field>
+		<field name="priority">10</field>
 		<field name="arch" type="xml">
 			<field name="job_ids" position="replace">
 				<field name="job_ids" colspan="4" nolabel="1" mode="tree, form">
@@ -653,7 +654,7 @@ TODO: revoir la vue tree aussi
 						<field name="function_code_label" />
 						<field name="name"/>
 						<field name="address_id"/>
-						<field name="phone"/>
+						<field name="phone" on_change="_on_change_phone_num(phone)"/>
 						<field name="email"/>
 						<field name="canal_id"/>
 						<field name="department"/>
@@ -756,14 +757,14 @@ TODO: revoir la vue tree aussi
 						<field name="contact_id"/>
 						<field name="function_label" />
 						<field name="function_code_label" />
-						<field name="phone"/>
+						<field name="phone" />
 						<field name="email"/>
 					</tree>
 					<form string="Functions">
 						<field name="contact_id"/>
 						<field name="function_label" />
 						<field name="function_code_label" />
-						<field name="phone"/>
+						<field name="phone"  on_change="_on_change_phone_num(phone)"/>
 						<field name="email"/>
 						<field name="canal_id"/>
 						<field name="department"/>
@@ -1040,7 +1041,7 @@ TODO: revoir la vue tree aussi
 						<field name="contact_id"/>
 						<field name="function_label" />
 						<field name="function_code_label" />
-						<field name="phone"/>
+						<field name="phone"  on_change="_on_change_phone_num(phone)"/>
 						<field name="email"/>
 						<field name="canal_id"/>
 						<field name="department"/>

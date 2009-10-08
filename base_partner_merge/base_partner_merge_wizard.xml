@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="wizard_base_partner_merge" model="ir.actions.wizard">
+            <field name="name">Merge Partners</field>
+            <field name="wiz_name">base_partner.merge</field>
+        </record>
+        <menuitem action="wizard_base_partner_merge" id="menu_wizard_base_partner_merge" parent="base.menu_base_config" type="wizard"/>
+
+    </data>
+</openerp>

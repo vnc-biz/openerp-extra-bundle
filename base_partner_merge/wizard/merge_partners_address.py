@@ -38,7 +38,7 @@ partner_fields = {
     'address_id2': {'string': 'Second partner address', 'type': 'many2one', 'relation':'res.partner.address', 'help': 'Select second partner address to merge', 'required': True},
     }
 
-class wizard_merge_partners(wizard.interface):
+class wizard_merge_partner_address(wizard.interface):
 
     def _build_form(self, cr, uid, data, context):
         res = {}
@@ -119,7 +119,7 @@ class wizard_merge_partners(wizard.interface):
         _MERGE_FIELDS.__init__(quest_fields)
         return {'res': res, 'm2m_dict': m2m_dict}
 
-    def _create_partner(self, cr, uid, data, context):
+    def _create_partner_address(self, cr, uid, data, context):
         pool = pooler.get_pool(cr.dbname)
         res = data['form']['res']
         add1 = data['form']['address_id1']
@@ -159,11 +159,11 @@ class wizard_merge_partners(wizard.interface):
              'result':{'type': 'form', 'arch': _MERGE_FORM, 'fields': _MERGE_FIELDS, 'state': [('end', 'Cancel'), ('next_1', 'Next')]}
                  },
         'next_1': {
-             'actions': [_create_partner],
+             'actions': [_create_partner_address],
              'result': {'type': 'state', 'state': 'end'}
                  },
 
             }
-wizard_merge_partners('base_partner_address.merge')
+wizard_merge_partner_address('base_partner_address.merge')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

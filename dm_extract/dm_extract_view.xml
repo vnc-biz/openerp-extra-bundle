@@ -127,14 +127,7 @@
     </record>
 	
     <menuitem id="menu_action_dm_address_segmentation_form" parent="dm.menu_dm_config_customer" action="action_dm_address_segmentation_form" sequence="0" />
-    <record model="ir.actions.act_window" id="action_dm_test_form">
-        <field name="name">All test</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">dm.query.operator</field>
-        <field name="view_type">form</field>
-    </record>
-    <menuitem id="menu_action_dm_test_form" parent="dm.menu_dm_config_customer" action="action_dm_test_form" sequence="0" />
-
+   
 	<record id="view_dm_campaign_proposition_segments" model="ir.ui.view">
    <field name="name">dm_campaign_proposition_segments</field>
    <field name="model">dm.campaign.proposition.segment</field>

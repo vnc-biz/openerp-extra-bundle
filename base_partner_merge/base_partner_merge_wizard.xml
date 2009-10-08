@@ -8,5 +8,11 @@
         </record>
         <menuitem action="wizard_base_partner_merge" id="menu_wizard_base_partner_merge" parent="base.menu_base_config" type="wizard"/>
 
+        <record id="wizard_base_partner_address_merge" model="ir.actions.wizard">
+            <field name="name">Merge Addresses</field>
+            <field name="wiz_name">base_partner_address.merge</field>
+        </record>
+        <menuitem action="wizard_base_partner_address_merge" id="menu_wizard_base_partner_address_merge" parent="base.menu_base_config" type="wizard"/>
+
     </data>
 </openerp>

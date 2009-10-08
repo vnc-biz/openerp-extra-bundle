@@ -135,8 +135,9 @@ class wizard_merge_partners(wizard.interface):
         # For one2many fields on res.partner
         cr.execute("select name, model from ir_model_fields where relation='res.partner' and ttype not in ('many2many', 'one2many');")
         for name, model_raw in cr.fetchall():
-            model = model_raw.replace('.','_')
-            cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(part1)+", "+str(part2)+")")
+            if hasattr(pool.get(model_raw), '_auto') and pool.get(model_raw)._auto:
+                model = model_raw.replace('.','_')
+                cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(part1)+", "+str(part2)+")")
         pool.get('res.partner').write(cr, uid, [part1, part2], {'active': False})
         return {}
 

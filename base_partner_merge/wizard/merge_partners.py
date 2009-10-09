@@ -117,7 +117,7 @@ class wizard_merge_partners(wizard.interface):
         quest_form = quest_form + '''</form>'''
         _MERGE_FORM. __init__(quest_form)
         _MERGE_FIELDS.__init__(quest_fields)
-        return {'res': res, 'm2m_dict': m2m_dict}
+        return {'res': res, 'm2m_dict': m2m_dict, 'new_partner': False}
 
     def _create_partner(self, cr, uid, data, context):
         pool = pooler.get_pool(cr.dbname)
@@ -147,7 +147,22 @@ class wizard_merge_partners(wizard.interface):
                         model = model_raw.replace('.', '_')
                         cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(part1)+", "+str(part2)+")")
         pool.get('res.partner').write(cr, uid, [part1, part2], {'active': False})
+        data['form']['new_partner'] = part_id
         return {}
+
+    def _open_partner(self, cr, uid, data, context):
+        pool_obj = pooler.get_pool(cr.dbname)
+        model_data_ids = pool_obj.get('ir.model.data').search(cr,uid,[('model','=','ir.ui.view'),('name','=','view_partner_form')])
+        resource_id = pool_obj.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'])[0]['res_id']
+        return {
+            'domain': "[('id', 'in', ["+','.join(map(str, [data['form']['new_partner']]))+"])]",
+            'name': 'Partners',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'res.partner',
+            'views': [(False,'tree'), (resource_id, 'form')],
+            'type': 'ir.actions.act_window'
+        }
 
     states = {
         'init': {
@@ -156,13 +171,12 @@ class wizard_merge_partners(wizard.interface):
                 },
         'next': {
              'actions': [_build_form],
-             'result':{'type': 'form', 'arch': _MERGE_FORM, 'fields': _MERGE_FIELDS, 'state': [('end', 'Cancel'), ('next_1', 'Next')]}
+             'result':{'type': 'form', 'arch': _MERGE_FORM, 'fields': _MERGE_FIELDS, 'state': [('end', 'Cancel'), ('next_1', 'Create And Open Partner')]}
                  },
         'next_1': {
              'actions': [_create_partner],
-             'result': {'type': 'state', 'state': 'end'}
+             'result': {'type':'action', 'action':_open_partner,  'state': 'end'}
                  },
-
             }
 wizard_merge_partners('base_partner.merge')
 

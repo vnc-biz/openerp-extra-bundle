@@ -20,13 +20,16 @@
 #
 ##############################################################################
 
-
 {
     'name': 'Partner Merger',
     'version': '1.0',
     'category': 'Generic Modules/Base',
     'description': """
-    The aim of this module is to merge two partners.
+
+    This Module creates two wizard on:
+    1. partners\configuration\merge partners => It merge two partners and create new third partner, and deactivate old two partners
+    2. partners\configuration\merge addresses => It merge two partner addresses and create new third address, and deactivate old two addresses
+
     """,
     'author': 'Tiny',
     'website': 'http://www.openerp.com',

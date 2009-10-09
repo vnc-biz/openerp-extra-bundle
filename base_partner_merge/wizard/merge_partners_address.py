@@ -27,15 +27,15 @@ from tools import UpdateableStr, UpdateableDict
 _MERGE_FORM = UpdateableStr()
 _MERGE_FIELDS = UpdateableDict()
 
-partner_form = '''<?xml version="1.0"?>
+address_form = '''<?xml version="1.0"?>
 <form string="Merge Two Partner Address">
     <field name="address_id1" />
     <field name="address_id2" />
 </form>'''
 
-partner_fields = {
-    'address_id1': {'string': 'First partner address', 'type': 'many2one', 'relation':'res.partner.address', 'help': 'Select first partner address to merge', 'required': True},
-    'address_id2': {'string': 'Second partner address', 'type': 'many2one', 'relation':'res.partner.address', 'help': 'Select second partner address to merge', 'required': True},
+address_fields = {
+    'address_id1': {'string': 'First address', 'type': 'many2one', 'relation':'res.partner.address', 'help': 'Select first partner address to merge', 'required': True},
+    'address_id2': {'string': 'Second address', 'type': 'many2one', 'relation':'res.partner.address', 'help': 'Select second partner address to merge', 'required': True},
     }
 
 class wizard_merge_partner_address(wizard.interface):
@@ -117,7 +117,7 @@ class wizard_merge_partner_address(wizard.interface):
         quest_form = quest_form + '''</form>'''
         _MERGE_FORM. __init__(quest_form)
         _MERGE_FIELDS.__init__(quest_fields)
-        return {'res': res, 'm2m_dict': m2m_dict}
+        return {'res': res, 'm2m_dict': m2m_dict, 'new_address': False}
 
     def _create_partner_address(self, cr, uid, data, context):
         pool = pooler.get_pool(cr.dbname)
@@ -132,7 +132,7 @@ class wizard_merge_partner_address(wizard.interface):
         for key, val in res.items():
             if val in ('True', 'False'):
                 res[key] = eval(val)
-        part_id = pool.get('res.partner.address').create(cr, uid, res, context)
+        add_id = pool.get('res.partner.address').create(cr, uid, res, context=context)
 
         # For one2many fields on res.partner.address
         cr.execute("select name, model from ir_model_fields where relation='res.partner.address' and ttype not in ('many2many', 'one2many');")
@@ -145,22 +145,37 @@ class wizard_merge_partner_address(wizard.interface):
                     from osv import fields
                     if isinstance(pool.get(model_raw)._columns[name], fields.many2one):
                         model = model_raw.replace('.', '_')
-                        cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(add1)+", "+str(add2)+")")
+                        cr.execute("update "+model+" set "+name+"="+str(add_id)+" where "+str(name)+" in ("+str(add1)+", "+str(add2)+")")
         pool.get('res.partner.address').write(cr, uid, [add1, add2], {'active': False})
+        data['form']['new_address'] = add_id
         return {}
+
+    def _open_address(self, cr, uid, data, context):
+        pool_obj = pooler.get_pool(cr.dbname)
+        model_data_ids = pool_obj.get('ir.model.data').search(cr,uid,[('model','=','ir.ui.view'),('name','=','view_partner_address_form1')])
+        resource_id = pool_obj.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'])[0]['res_id']
+        return {
+            'domain': "[('id', 'in', ["+','.join(map(str, [data['form']['new_address']]))+"])]",
+            'name': 'Address',
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'res.partner.address',
+            'views': [(False,'tree'), (resource_id, 'form')],
+            'type': 'ir.actions.act_window'
+        }
 
     states = {
         'init': {
             'actions': [],
-            'result': {'type': 'form', 'arch': partner_form, 'fields': partner_fields, 'state': [('end', 'Cancel'), ('next', 'Next')]}
+            'result': {'type': 'form', 'arch': address_form, 'fields': address_fields, 'state': [('end', 'Cancel'), ('next', 'Next')]}
                 },
         'next': {
              'actions': [_build_form],
-             'result':{'type': 'form', 'arch': _MERGE_FORM, 'fields': _MERGE_FIELDS, 'state': [('end', 'Cancel'), ('next_1', 'Next')]}
+             'result':{'type': 'form', 'arch': _MERGE_FORM, 'fields': _MERGE_FIELDS, 'state': [('end', 'Cancel'), ('next_1', 'Create And Open Address')]}
                  },
         'next_1': {
              'actions': [_create_partner_address],
-             'result': {'type': 'state', 'state': 'end'}
+             'result': {'type':'action', 'action':_open_address, 'state': 'end'}
                  },
 
             }

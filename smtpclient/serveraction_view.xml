@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
-		<record model="ir.ui.view" id="view_server_statistics_graph">
+		<record model="ir.ui.view" id="view_server_report_inherit">
 			<field name="name">ir.actions.server.form.inherit</field>
 			<field name="model">ir.actions.server</field>
 			<field name="type">form</field>
@@ -10,6 +10,18 @@
 				<field name="email" position="after">
 				    <field name="email_server" select="1" attrs="{'required':[('state','=','email')]}"/>
 				    <field name="report_id"/>
+				</field>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_server_attachment_inherit">
+			<field name="name">ir.actions.server.form.inherit</field>
+			<field name="model">ir.actions.server</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="view_server_report_inherit"/>
+			<field name="arch" type="xml">
+				<field name="message" position="after">
+				    <field name="file_ids" colspan="4" />
 				</field>
 			</field>
 		</record>

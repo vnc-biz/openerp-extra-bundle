@@ -347,7 +347,7 @@ class SmtpClient(osv.osv):
             msg = MIMEMultipart()
             msg['Subject'] = subject 
             msg['To'] =  to
-            msg['From'] = smtp_server.from_email
+            msg['From'] = context.get('email_from', smtp_server.from_email)
             
             if body == False:
                 body = ''
@@ -485,7 +485,7 @@ class SmtpClient(osv.osv):
             'model':'email.smtpclient',
             'args': repr([ids]), 
             'function':'_check_queue', 
-            'date_init':svr.date_create,
+            'nextcall':svr.date_create,
             'priority':5,
             'interval_number':1,
             'interval_type':'minutes',

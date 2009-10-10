@@ -88,6 +88,19 @@
 			id="cci_mission_send_certificates_federation"
 			menu="True"/>
 
+		<!-- Send followup for ata-carnet before and after validity date -->
+
+        <record id="wizard_carnet_before_validity" model="ir.actions.wizard">
+            <field name="name">ATA Carnet Before validity date</field>
+            <field name="wiz_name">cci_missions_carnet.before</field>
+        </record>
+        <menuitem action="wizard_carnet_before_validity" id="menu_wizard_carnet_before_validity" parent="menu_mission" type="wizard"/>
+
+        <record id="wizard_carnet_after_validity" model="ir.actions.wizard">
+            <field name="name">ATA Carnet After validity date</field>
+            <field name="wiz_name">cci_missions_carnet.after</field>
+        </record>
+        <menuitem action="wizard_carnet_after_validity" id="menu_wizard_carnet_after_validity" parent="menu_mission" type="wizard"/>
 
 	</data>
 </openerp>

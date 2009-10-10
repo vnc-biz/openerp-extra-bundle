@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica" alignment="RIGHT"/>
+    <paraStyle name="P2" fontName="Helvetica" fontSize="10.0" leading="13"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="10.0" leading="13"/>
+    <paraStyle name="P4" fontName="Helvetica" textColor="#000000"/>
+    <paraStyle name="P5" fontName="Helvetica" textColor="#000000"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+  </stylesheet>
+  <images/>
+  <story>
+  <section>
+    <para style="Standard">[[ repeatIn(carnet_after() ,'ata_carnet')]]</para>
+    <para style="P1">[[ ata_carnet['partner_name'] ]]</para>
+    <para style="P1">[[ ata_carnet['partner_address'] ]]</para>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+    <para style="P1">
+      <font face="Helvetica" size="10.0">Liège, le [[ time.strftime('%Y-%m-%d') ]]</font>
+    </para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="P2">Madame,</para>
+    <para style="P2">Monsieur,</para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="Standard">
+      <font face="Helvetica-Bold" size="10.0">Concerne :</font>
+      <font face="Helvetica-Bold" size="10.0"> votre carnet A.T.A. n° [[ ata_carnet['name'] ]]</font>
+      <font face="Helvetica" size="10.0"> [[ata_carnet['type'] ]]</font>
+    </para>
+    <para style="P3">
+      <font color="white"> </font>
+    </para>
+    <para style="Standard">
+      <font face="Helvetica" size="10.0"/>
+      <font face="Helvetica-Bold" size="10.0">Date d’émission :</font>
+      <font face="Helvetica" size="10.0"> [[ata_carnet['creation_date'] ]]</font>
+    </para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="Standard">
+      <font face="Helvetica" size="10.0">Le délai de validité du carnet de passages en douane pour l’admission temporaire (A.T.A.) dont référence sous rubrique expirait le </font>
+      <font face="Helvetica-Bold" size="10.0">[[ata_carnet['validity_date'] ]]</font>
+      <font face="Helvetica" size="10.0">.</font>
+    </para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="Standard">
+      <font face="Helvetica">Ce document ne nous ayant pas été renvoyé dans les délais prescrits, nous vous invitons à nous le faire parvenir </font>
+      <font face="Helvetica-Bold" size="10.0">PAR RETOUR DE COURRIER.</font>
+    </para>
+    <para style="P5">
+      <font color="white"> </font>
+    </para>
+    <para style="P4">Nous attirons votre attention sur la convention douanière réglant l’utilisation du carnet A.T.A. qui, outre l’application des dispositions normales, prévoit en son article 16, le droit, dans certains cas, de poursuites contre les utilisations abusives.</para>
+    <para style="P4">
+      <font color="white"> </font>
+    </para>
+    <para style="P4">Il est de votre intérêt de nous renvoyer le carnet périmé et de répondre sans retard, aux justifications éventuelles qui pourraient vous être réclamées par les autorités douanières via notre Chambre de Commerce.</para>
+    <para style="P4">
+      <font color="white"> </font>
+    </para>
+    <para style="P4">Nous restons à votre entière disposition pour résoudre au mieux de vos intérêts les problèmes qui pourraient se poser dans votre entreprise.</para>
+    <para style="P4">
+      <font color="white"> </font>
+    </para>
+    <para style="P4">Nous vous présentons, Madame, Monsieur, nos meilleures salutations.</para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="P2">
+      <font color="white"> </font>
+    </para>
+    <para style="P2"><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font>Chantale Cool,</para>
+    <para style="P2"><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font>Service « Légalisations »</para>
+    <para style="P2"><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font>Tél. : 04/341.91.91</para>
+    <para style="P2"><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font><font color="white"> .........</font>Courriel : cc@cciconnect.be</para>
+    <nextFrame/>
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+     </section>
+
+  </story>
+</document>

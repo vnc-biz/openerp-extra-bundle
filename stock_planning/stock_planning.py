@@ -143,7 +143,7 @@ class stock_planning_sale_prevision(osv.osv):
         self.write(cr, uid, ids, {'state':'validated'})
         return True
     
-    def unlink(self, cr, uid, ids):
+    def unlink(self, cr, uid, ids, context={}):
         previsions = self.read(cr, uid, ids, ['state'])
         unlink_ids = []
         for t in previsions:
@@ -151,7 +151,7 @@ class stock_planning_sale_prevision(osv.osv):
                 unlink_ids.append(t['id'])
             else:
                 raise osv.except_osv(_('Invalid action !'), _('Cannot delete Validated Sale Previsions !'))
-        osv.osv.unlink(self, cr, uid, unlink_ids)
+        osv.osv.unlink(self, cr, uid, unlink_ids,context=context)
         return True
     
     def product_id_change(self, cr, uid, ids, product, uom=False, product_qty = 0, product_amt = 0.0):

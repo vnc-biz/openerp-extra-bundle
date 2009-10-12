@@ -14,6 +14,20 @@
                 </field>
             </field>
         </record>
+        
+        <record model="ir.ui.view" id="invoice_form_partner_domiciled">
+            <field name="name">account.invoice.partner.domicile.form</field>
+            <field name="type">form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="replace">
+                    <field name="partner_id" on_change="on_change_partner_id(partner_id)"/>
+                </field>
+            </field>
+        </record>
+        
+        
         <record model="ir.ui.view" id="supplier_invoice_form_domicile">
             <field name="name">supplier.invoice.domicile.form</field>
             <field name="type">form</field>

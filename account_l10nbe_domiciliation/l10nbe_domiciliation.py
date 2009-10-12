@@ -26,18 +26,27 @@ class account_invoice(osv.osv):
     _inherit = 'account.invoice'
     _description = 'Account Invoice'
     _columns = {
-        'domiciled' : fields.boolean('Domiciled'),
-        'domiciled_send_date' : fields.date('Domiciliation Sending Date'),
+        'domiciled' : fields.boolean('Domiciled'), 
+        'domiciled_send_date' : fields.date('Domiciliation Sending Date'), 
         }
+    
+    def on_change_partner_id(self, cr, uid, id, partner):
+        if not partner:
+            return {'value' : {'domiciled' : False}}
+        partner_obj = self.pool.get('res.partner').browse(cr, uid, partner)
+        domiciled = partner_obj.domiciliation_bool
+        return {'value' : {'domiciled' : domiciled} }
+
 account_invoice()
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
     _description = 'Partner'
     _columns = {
-        'domiciliation_bool':fields.boolean('Domiciliation'),
-        'domiciliation' : fields.char('Domiciliation Number',size=32)
+        'domiciliation_bool':fields.boolean('Domiciliation'), 
+        'domiciliation' : fields.char('Domiciliation Number', size=32)
         }
 res_partner()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

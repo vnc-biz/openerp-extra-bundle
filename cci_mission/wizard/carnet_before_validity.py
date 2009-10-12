@@ -24,16 +24,12 @@ import wizard
 import pooler
 
 form = """<?xml version="1.0"?>
-<form string="Select No. of Pages For Documents">
+<form string="Carnet Before Validity Date">
 </form>"""
 
 fields = {}
 
 class ata_carnet_before_validity(wizard.interface):
-    def _checkint(self, cr, uid, data, context):
-#        a = dt.now()+dt.RelativeDateTime(months=-1)
-#        a.timetuple()[:3]
-        return {}
 
     states = {
         'init': {
@@ -41,8 +37,8 @@ class ata_carnet_before_validity(wizard.interface):
             'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','Cancel'),('print','Print')]},
         },
         'print': {
-            'actions': [_checkint],
-            'result': {'type':'print', 'report':'cci_missions_print_carnet', 'state':'end'},
+            'actions': [],
+            'result': {'type':'print', 'report':'carnet.before.validity', 'state':'end'},
         },
     }
 

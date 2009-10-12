@@ -29,15 +29,15 @@ class carnet_before_validity(report_sxw.rml_parse):
             'time': time,
             'carnet_before': self._carnet_before,
         })
+
     def _carnet_before(self):
         import mx.DateTime as dt
         res = {}
         res_list = []
-        after_date = dt.now() + dt.RelativeDateTime(months=-1)
-        y, m, d = after_date.timetuple()[:3]
-        after_date = str(y) + str(m) + str(d)
+        before_date = dt.now() + dt.RelativeDateTime(months=-1)
+        before_date  = before_date.strftime("%Y-%m-%d")
         carnet_obj = self.pool.get('cci_missions.ata_carnet')
-        carnet_ids = carnet_obj.search(self.cr, self.uid, [('validity_date', '>=', after_date)])
+        carnet_ids = carnet_obj.search(self.cr, self.uid, [('validity_date', '>=', before_date), ('state', '>=', 'created')])
         carnet_data = carnet_obj.browse(self.cr, self.uid, carnet_ids)
         for carnet in carnet_data:
             flag = False
@@ -49,10 +49,10 @@ class carnet_before_validity(report_sxw.rml_parse):
                 if carnet.partner_id.address:
                     for add in carnet.partner_id.address:
                         if add.type=='default':
-                            address = add.street + add.street2 + add.city + add.zip + add.state_id and add.state_id.name or '' + add.country_id and add.country_id.name or ''
+                            address = (add.street or '') + ' ' + (add.street2 or '') + '\n' + (add.zip_id and add.zip_id.name or '') + ' ' + (add.city or '')  + '\n' + (add.state_id and add.state_id.name or '') + ' ' + (add.country_id and add.country_id.name or '')
                             continue
                         else:
-                            address = add.street + add.street2 + add.city + add.zip + add.state_id and add.state_id.name or '' + add.country_id and add.country_id.name or ''
+                            address = (add.street or '') + ' ' + (add.street2 or '') + '\n' + (add.zip_id and add.zip_id.name or '') + ' ' + (add.city or '')  + '\n' + (add.state_id and add.state_id.name or '') + ' ' + (add.country_id and add.country_id.name or '')
                 res = { 'partner_name': carnet.partner_id.name,
                         'partner_address': address,
                         'type': carnet.type_id.name,
@@ -61,12 +61,12 @@ class carnet_before_validity(report_sxw.rml_parse):
                         'validity_date': carnet.validity_date
                       }
                 res_letter = {
-                      'letter_type': 'Rappel avast echeance',
+                      'letter_type': 'Rappel avant echeance',
                       'date': time.strftime('%Y-%m-%d'),
                       'ata_carnet_id': carnet.id,
                               }
                 id = self.pool.get('cci_missions.letters_log').create(self.cr, self.uid, res_letter)
-            res_list.append(res)
+                res_list.append(res)
         return res_list
 
 report_sxw.report_sxw('report.carnet.before.validity', 'cci_missions.ata_carnet', 'addons/cci_mission/report/carnet_before_validity.rml', parser=carnet_before_validity, header=False)

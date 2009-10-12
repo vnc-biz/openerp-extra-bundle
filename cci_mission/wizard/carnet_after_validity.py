@@ -24,22 +24,22 @@ import wizard
 import pooler
 
 form = """<?xml version="1.0"?>
-<form string="Select No. of Pages For Documents">
+<form string="Carnet After Validity Date">
 </form>"""
 
 fields = {}
 
 class ata_carnet_after_validity(wizard.interface):
-    def _checkint(self, cr, uid, data, context):
-        return {}
 
     states = {
+
         'init': {
             'actions': [],
             'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','Cancel'),('print','Print')]},
         },
+
         'print': {
-            'actions': [_checkint],
+            'actions': [],
             'result': {'type':'print', 'report':'carnet.after.validity', 'state':'end'},
         },
     }

@@ -275,7 +275,6 @@ class mission_group_invoice(wizard.interface):
         pool_obj = pooler.get_pool(cr.dbname)
         model_data_ids = pool_obj.get('ir.model.data').search(cr,uid,[('model','=','ir.ui.view'),('name','=','invoice_form')])
         resource_id = pool_obj.get('ir.model.data').read(cr,uid,model_data_ids,fields=['res_id'])[0]['res_id']
-        print "ici"
         return {
             'domain': "[('id','in', ["+','.join(map(str,data['form']['invoice_ids']))+"])]",
             'name': 'Invoices',

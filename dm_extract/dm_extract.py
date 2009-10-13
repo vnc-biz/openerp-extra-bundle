@@ -162,6 +162,8 @@ class ir_model_fields(osv.osv):
     
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
             context=None, count=False):
+        if not context:
+            context = {}
         if context.has_key('name') and context['name']=='dm_fields':
             if context['ttype'] == 'char':
                 cr.execute("select id from ir_model_fields where \

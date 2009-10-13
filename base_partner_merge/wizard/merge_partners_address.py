@@ -143,6 +143,23 @@ class wizard_merge_partner_address(wizard.interface):
         for key, val in res.items():
             if val in ('True', 'False'):
                 res[key] = eval(val)
+
+        if hasattr(pool.get('res.partner.address'), '_sql_constraints'):
+            #for uniqueness constraint (vat number for example)...
+            c_names = []
+            remove_field = {}
+            for const in pool.get('res.partner.address')._sql_constraints:
+                c_names.append('res_partner_address_' + const[0])
+            c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
+            cr.execute("""select column_name from \
+                        information_schema.constraint_column_usage u \
+                        join  pg_constraint p on (p.conname=u.constraint_name) \
+                        where u.constraint_name in (%s) and p.contype='u' """ % c_names)
+            for i in cr.fetchall():
+                remove_field[i[0]] = None
+
+        remove_field.update({'active': False})
+        pool.get('res.partner.address').write(cr, uid, [add1, add2], remove_field)
         add_id = pool.get('res.partner.address').create(cr, uid, res, context=context)
 
         # For one2many fields on res.partner.address
@@ -159,7 +176,6 @@ class wizard_merge_partner_address(wizard.interface):
                     if pool.get(model_raw)._columns.get(name, False) and isinstance(pool.get(model_raw)._columns[name], fields.many2one):
                         model = model_raw.replace('.', '_')
                         cr.execute("update "+model+" set "+name+"="+str(add_id)+" where "+str(name)+" in ("+str(add1)+", "+str(add2)+")")
-        pool.get('res.partner.address').write(cr, uid, [add1, add2], {'active': False})
         data['form']['new_address'] = add_id
         return {}
 

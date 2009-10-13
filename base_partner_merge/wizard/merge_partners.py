@@ -160,6 +160,21 @@ class wizard_merge_partners(wizard.interface):
             if val in ('True', 'False'):
                 res[key] = eval(val)
 
+        if hasattr(pool.get('res.partner'), '_sql_constraints'):
+            #for uniqueness constraint (vat number for example)...
+            c_names = []
+            remove_field = {}
+            for const in pool.get('res.partner')._sql_constraints:
+                c_names.append('res_partner_' + const[0])
+            c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
+            cr.execute("""select column_name from \
+                        information_schema.constraint_column_usage u \
+                        join  pg_constraint p on (p.conname=u.constraint_name) \
+                        where u.constraint_name in (%s) and p.contype='u' """ % c_names)
+            for i in cr.fetchall():
+                remove_field[i[0]] = None
+        remove_field.update({'active': False})
+        pool.get('res.partner').write(cr, uid, [part1, part2], remove_field)
         part_id = pool.get('res.partner').create(cr, uid, res, context)
 
         # For one2many fields on res.partner
@@ -176,7 +191,7 @@ class wizard_merge_partners(wizard.interface):
                     if pool.get(model_raw)._columns.get(name, False) and isinstance(pool.get(model_raw)._columns[name], fields.many2one):
                         model = model_raw.replace('.', '_')
                         cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(part1)+", "+str(part2)+")")
-        pool.get('res.partner').write(cr, uid, [part1, part2], {'active': False})
+
         data['form']['new_partner'] = part_id
         return {}
 

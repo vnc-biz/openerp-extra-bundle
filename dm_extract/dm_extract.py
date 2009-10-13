@@ -167,18 +167,15 @@ class ir_model_fields(osv.osv):
             context=None, count=False):
         if not context:
             context = {}
-        if context.has_key('name') and context['name']=='dm_fields':
-            if context['ttype'] == 'char':
-                cr.execute("select id from ir_model_fields where \
-                            model='res.partner.address' and \
-                        (ttype='many2one' or ttype = '%s')" %(context['ttype']))
-                fields_ids = cr.fetchall()
-                fields = map(lambda x: x[0], fields_ids)
-                return fields
-            else:
-                field_id = super(ir_model_fields, self).search(cr, uid, 
-                 args, offset, limit, order, context=context, count=count)
-                return field_id
+        if context.has_key('name') and context['name']=='dm_fields' and context['ttype'] == 'char':
+            cr.execute("select id from ir_model_fields where \
+                        model='res.partner.address' and \
+                    (ttype='many2one' or ttype = '%s')" %(context['ttype']))
+            fields_ids = cr.fetchall()
+            fields = map(lambda x: x[0], fields_ids)
+            return fields
+        return super(ir_model_fields, self).search(cr, uid, 
+     args, offset, limit, order, context=context, count=count)
 
 ir_model_fields()
 

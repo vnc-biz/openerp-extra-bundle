@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="view_survey_question_message" model="ir.ui.view">
+            <field name="name">Survey Question</field>
+            <field name="model">survey.question.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Your Messages">
+                    <separator colspan="4" string="Your Message"/>
+                    <newline/>
+                    <field name="name" nolabel="1" colspan="4"/>
+                    <separator colspan="4" string="Action"/>
+                    <group col="4" colspan="4">
+                    	<button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                        <button icon="gtk-go-forward" name="action_next" string="Next" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_survey_question_message" model="ir.actions.act_window">
+            <field name="name">Survey Question</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">survey.question.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		<record id="view_survey_name" model="ir.ui.view">
+            <field name="name">Survey</field>
+            <field name="model">survey.name.wiz</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Survey">
+                    <separator colspan="4" string="Selct Survey"/>
+                    <newline/>
+                    <field name="survey_id"/>
+                    <group col="4" colspan="4">
+                        <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="2"/>
+						<button icon="gtk-go-forward" name="action_next" string="Next" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_survey_name" model="ir.actions.act_window">
+            <field name="name">Survey</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">survey.name.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+		<menuitem name="Run Survey" id = "menu_run_survey_form" action="action_view_survey_name" parent = "main_menu_survey"/>
+
+	</data>
+</openerp>

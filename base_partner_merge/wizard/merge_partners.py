@@ -74,7 +74,23 @@ class wizard_merge_partners(wizard.interface):
                         if result[0][part1] is not None and result[1][part2] is not None and result[0][part1] == result[1][part2]:
                             res[part1] = str(result[0][part1])
                         elif (result[0][part1] is not None or result[1][part2] is not None) and result[0][part1] != result[1][part2]:
-                            if filter_type[part1][0] == 'binary': # Improve: for use binary field copy while merging partners
+                            if filter_type[part1][0] == 'binary': # Improve: for use binary field copy while merging partner
+#                                import base64
+#                                import cStringIO
+#                                if result[0][part1] is None:
+#                                    x = ''
+#                                else:
+#                                    buf1 = result[0][part1] and cStringIO.StringIO(result[0][part1])
+#                                    x = base64.encodestring(buf1.getvalue())
+#                                    buf1.close()
+#                                if result[1][part2] is None:
+#                                    a = ''
+#                                else:
+#                                    buf2 = result[1][part2] and cStringIO.StringIO(result[1][part2])
+#                                    a = base64.encodestring(buf2.getvalue())
+#                                    buf2.close()
+#                                quest_form = quest_form + '<field name="%s"/><newline/>' % (part1,)
+#                                quest_fields['%s' % (part1,)] = {'string': filter_name[part1], 'type': 'selection', 'selection':[(x, 'Partner1-'+part1),(a, 'Partner2-'+part2)],}
                                 continue
                             quest_form = quest_form + '<field name="%s"/><newline/>' % (part1,)
                             select1 = False
@@ -132,6 +148,7 @@ class wizard_merge_partners(wizard.interface):
         for key, val in res.items():
             if val in ('True', 'False'):
                 res[key] = eval(val)
+
         part_id = pool.get('res.partner').create(cr, uid, res, context)
 
         # For one2many fields on res.partner

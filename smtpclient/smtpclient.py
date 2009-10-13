@@ -42,6 +42,8 @@ import tools
 from datetime import datetime
 from datetime import timedelta
 import bz2
+import release
+import socket
 
 class SmtpClient(osv.osv):
     _name = 'email.smtpclient'
@@ -306,13 +308,17 @@ class SmtpClient(osv.osv):
         if not emailto:
             raise osv.except_osv(_('SMTP Data Error !'), _('Email TO Address not Defined !'))
         
-        def createReport(cr, uid, report, ids):
+        def createReport(cr, uid, report, ids, name=False):
             files = []
             for id in ids:
                 try:
                     service = netsvc.LocalService(report)
                     (result, format) = service.create(cr, uid, [id], {}, {})
-                    report_file = '/tmp/reports'+ str(id) + '.pdf'
+                    if not name:
+                        report_file = '/tmp/reports'+ str(id) + '.pdf'
+                    else:
+                        report_file = name
+                    
                     fp = open(report_file,'wb+')
                     fp.write(result);
                     fp.close();
@@ -335,7 +341,10 @@ class SmtpClient(osv.osv):
 
         #attachment from Reports
         for rpt in reports:
-            rpt_file = createReport(cr, uid, rpt[0], rpt[1])
+            if len(rpt) == 3:
+                rpt_file = createReport(cr, uid, rpt[0], rpt[1], rpt[2])
+            elif len(rpt) == 2:
+                rpt_file = createReport(cr, uid, rpt[0], rpt[1])
             attachments += rpt_file
         
         if isinstance(emailto, str) or isinstance(emailto, unicode):
@@ -363,7 +372,13 @@ class SmtpClient(osv.osv):
 
             for hk in smtp_server.header_ids:
                 msg[hk.key] = hk.value
-                
+            
+            # Add OpenERP Server information
+            msg['X-Generated-By'] = 'OpenERP (http://www.openerp.com)'
+            msg['X-OpenERP-Server-Host'] = socket.gethostname()
+            msg['X-OpenERP-Server-Version'] = release.version
+            msg['Message-Id'] = "<%s-openerp-@%s>" % (time.time(), socket.gethostname())
+            
             #attach files from disc
             for file in attachments:
                 part = MIMEBase('application', "octet-stream")
@@ -480,20 +495,21 @@ class SmtpClient(osv.osv):
     
     def create_process(self, cr, uid, ids, context={}):
         svr = self.browse(cr, uid, ids[0])
-        res = {
-            'name':'Process : ' + svr.name,
-            'model':'email.smtpclient',
-            'args': repr([ids]), 
-            'function':'_check_queue', 
-            'nextcall':svr.date_create,
-            'priority':5,
-            'interval_number':1,
-            'interval_type':'minutes',
-            'user_id':uid,
-            'numbercall':-1
-        }
-        id = self.pool.get('ir.cron').create(cr, uid, res)
-        self.write(cr, uid, ids, {'process_id':id})
+        if not svr.process_id:
+            res = {
+                'name':'Process : ' + svr.name,
+                'model':'email.smtpclient',
+                'args': repr([ids]), 
+                'function':'_check_queue', 
+                'nextcall':svr.date_create,
+                'priority':5,
+                'interval_number':1,
+                'interval_type':'minutes',
+                'user_id':uid,
+                'numbercall':-1
+            }
+            id = self.pool.get('ir.cron').create(cr, uid, res)
+            self.write(cr, uid, ids, {'process_id':id})
         return True
         
     def start_process(self, cr, uid, ids, context={}):

@@ -19,27 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Account l10nbe Domiciliation",
-    "version" : "1.0",
-    "author" : "Tiny",
-    "website" : "http://www.openerp.com",
-    "category" : "Generic Modules/Account l10nbe Domiciliation",
-    "description": """
-        Related with l10n_be module.
-        Adds Domiciled and Domiciled send date fields on invoice.
-        Domiciliation and Domiciliation Number fields on partner.
-    """,
-    "depends" : ["base","account"],
-    "init_xml" : [],
-    "demo_xml" : [],
 
-    "update_xml" : ["l10nbe_domiciliation_view.xml", 
-                            "l10nbe_domiciliation_report.xml",
-                            ],
-    "active": False,
-    "installable": True,
+import account_invoice
 
-}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

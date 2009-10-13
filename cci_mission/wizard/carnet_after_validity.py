@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -19,27 +19,30 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Account l10nbe Domiciliation",
-    "version" : "1.0",
-    "author" : "Tiny",
-    "website" : "http://www.openerp.com",
-    "category" : "Generic Modules/Account l10nbe Domiciliation",
-    "description": """
-        Related with l10n_be module.
-        Adds Domiciled and Domiciled send date fields on invoice.
-        Domiciliation and Domiciliation Number fields on partner.
-    """,
-    "depends" : ["base","account"],
-    "init_xml" : [],
-    "demo_xml" : [],
 
-    "update_xml" : ["l10nbe_domiciliation_view.xml", 
-                            "l10nbe_domiciliation_report.xml",
-                            ],
-    "active": False,
-    "installable": True,
+import wizard
+import pooler
 
-}
+form = """<?xml version="1.0"?>
+<form string="Carnet After Validity Date">
+</form>"""
+
+fields = {}
+
+class ata_carnet_after_validity(wizard.interface):
+
+    states = {
+
+        'init': {
+            'actions': [],
+            'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','Cancel'),('print','Print')]},
+        },
+
+        'print': {
+            'actions': [],
+            'result': {'type':'print', 'report':'carnet.after.validity', 'state':'end'},
+        },
+    }
+
+ata_carnet_after_validity('cci_missions_carnet.after')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

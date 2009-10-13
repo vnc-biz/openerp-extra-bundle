@@ -143,7 +143,7 @@ class stock_planning_sale_prevision(osv.osv):
         self.write(cr, uid, ids, {'state':'validated'})
         return True
     
-    def unlink(self, cr, uid, ids):
+    def unlink(self, cr, uid, ids, context={}):
         previsions = self.read(cr, uid, ids, ['state'])
         unlink_ids = []
         for t in previsions:
@@ -151,7 +151,7 @@ class stock_planning_sale_prevision(osv.osv):
                 unlink_ids.append(t['id'])
             else:
                 raise osv.except_osv(_('Invalid action !'), _('Cannot delete Validated Sale Previsions !'))
-        osv.osv.unlink(self, cr, uid, unlink_ids)
+        osv.osv.unlink(self, cr, uid, unlink_ids,context=context)
         return True
     
     def product_id_change(self, cr, uid, ids, product, uom=False, product_qty = 0, product_amt = 0.0):
@@ -287,9 +287,9 @@ class stock_planning(osv.osv):
                                 'name': obj.product_id.name[:64],
                                 'product_id': obj.product_id.id,
                                 'date_planned': obj.period_id.date_start,
-                                'product_qty': obj.stock_incoming_left,
+                                'product_qty': obj.incoming_left,
                                 'product_uom': obj.product_uom.id,
-                                'product_uos_qty': obj.stock_incoming_left,
+                                'product_uos_qty': obj.incoming_left,
                                 'product_uos': obj.product_uom.id,
                                 'location_id': location_id,
                                 'location_dest_id': output_id,
@@ -300,9 +300,9 @@ class stock_planning(osv.osv):
                                 'origin': 'Stock Planning',
                                 'date_planned': obj.period_id.date_start,
                                 'product_id': obj.product_id.id,
-                                'product_qty': obj.stock_incoming_left,
+                                'product_qty': obj.incoming_left,
                                 'product_uom': obj.product_uom.id,
-                                'product_uos_qty': obj.stock_incoming_left,
+                                'product_uos_qty': obj.incoming_left,
                                 'product_uos': obj.product_uom.id,
                                 'location_id': obj.warehouse_id.lot_stock_id.id,
                                 'procure_method': obj.product_id.product_tmpl_id.procure_method,

@@ -20,5 +20,7 @@
 #
 ##############################################################################
 import l10nbe_domiciliation
+import report
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

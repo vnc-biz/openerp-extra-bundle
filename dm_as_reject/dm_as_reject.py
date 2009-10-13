@@ -19,9 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import time
-import datetime
-from mx import DateTime
 from osv import fields
 from osv import osv
 
@@ -41,6 +38,7 @@ class dm_as_reject(osv.osv):#{{{
         'name': fields.char('Description', size=128, required=True),
         'origin':fields.char('Origin', size=64),
         'type_od': fields.many2one('dm.as.reject.type', 'Type' , required=True),
+   
     }
 dm_as_reject()#}}}
 

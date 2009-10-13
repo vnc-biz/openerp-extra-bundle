@@ -130,7 +130,7 @@ _OPERATORS = [ # {{{
 
 class dm_query_operator(osv.osv): # {{{
     _name = "dm.query.operator"
-    _description = "Query Openrators"
+    _description = "Query Operators"
     _columns = {
         'field_type': fields.selection(_OPERATORS, 'Field Type', size=32) ,
         'name': fields.char('Name', size=32),
@@ -146,14 +146,17 @@ class dm_query_criteria(osv.osv): # {{{
     _columns = {
         'segmentation_id':fields.many2one('dm.address.segmentation',
                                           'Segmentation'),
-        'field_id':fields.many2one('ir.model.fields', 'Field'),
-        'field_type':fields.selection(_OPERATORS, 'Field Type', size=32) ,
-        'operator':fields.many2one('dm.query.operator', 'Operator'),
+        'field_id':fields.many2one('ir.model.fields', 'Field', required=True),
+        'field_type':fields.selection(_OPERATORS, 'Field Type', size=32,
+                                                              required=True) ,
+        'operator':fields.many2one('dm.query.operator', 'Operator', 
+                                                            required=True),
         'value_char':fields.char('Value', size=128),
         'value_integer':fields.float('Value', digits=(16,2)),
         'value_boolean':fields.selection([('true','True'),('false','False')],
                                          'Value'),
         'value_date':fields.date('Date'),
+            
     }
 dm_query_criteria() # }}}
 
@@ -162,18 +165,17 @@ class ir_model_fields(osv.osv):
     
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
             context=None, count=False):
-        if context.has_key('name') and context['name']=='dm_fields':
-            if context['ttype'] == 'char':
-                cr.execute("select id from ir_model_fields where \
-                            model='res.partner.address' and \
-                        (ttype='many2one' or ttype = '%s')" %(context['ttype']))
-                fields_ids = cr.fetchall()
-                fields = map(lambda x: x[0], fields_ids)
-                return fields
-            else:
-                field_id = super(ir_model_fields, self).search(cr, uid, 
-                 args, offset, limit, order, context=context, count=count)
-                return field_id
+        if not context:
+            context = {}
+        if context.has_key('name') and context['name']=='dm_fields' and context['ttype'] == 'char':
+            cr.execute("select id from ir_model_fields where \
+                        model='res.partner.address' and \
+                    (ttype='many2one' or ttype = '%s')" %(context['ttype']))
+            fields_ids = cr.fetchall()
+            fields = map(lambda x: x[0], fields_ids)
+            return fields
+        return super(ir_model_fields, self).search(cr, uid, 
+     args, offset, limit, order, context=context, count=count)
 
 ir_model_fields()
 

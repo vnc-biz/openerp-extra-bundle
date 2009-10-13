@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -29,5 +29,6 @@ import wizard_simulation_carnet
 import make_invoice_group
 import cci_encode_cash
 import wizard_federation_certificates_sending
+import carnet_before_validity
+import carnet_after_validity
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

@@ -45,6 +45,7 @@ class wizard_merge_partners(wizard.interface):
         quest_fields = {}
         filter_name = {}
         filter_type = {}
+        filter_required = {}
         m2m_list = []
         m2m_dict = {}
 
@@ -53,10 +54,11 @@ class wizard_merge_partners(wizard.interface):
             <form string="%s">''' % _('Merge Partners')
         partner_ids = ",".join(map(str, [data['form']['partner_id1'], data['form']['partner_id2']]))
         fields_ids = pool.get('ir.model.fields').search(cr, uid, [('model', '=', 'res.partner')], context=context)
-        fields_data = pool.get('ir.model.fields').read(cr, uid, fields_ids, ['name', 'field_description', 'ttype', 'relation'], context=context)
+        fields_data = pool.get('ir.model.fields').read(cr, uid, fields_ids, ['name', 'field_description', 'ttype', 'relation', 'required'], context=context)
         for field in fields_data:
             filter_name[str(field['name'])] = str(field['field_description'])
             filter_type[str(field['name'])] = [str(field['ttype']), str(field['relation'])]
+            filter_required[str(field['name'])] = field['required']
             if field['ttype'] == 'many2many':
                 m2m_list.append(str(field['name']))
 
@@ -73,6 +75,12 @@ class wizard_merge_partners(wizard.interface):
                     if part1 not in ('create_date', 'write_date', 'id', 'write_uid'):# to be check
                         if result[0][part1] is not None and result[1][part2] is not None and result[0][part1] == result[1][part2]:
                             res[part1] = str(result[0][part1])
+                        #every fields where one value is 'None', can be filled automatically by the other value if existing: no need to put that field on screen 2
+                        elif result[0][part1] is None and result[1][part2] is not None and result[0][part1] != result[1][part2]:
+                            res[part1] = str(result[1][part2])
+                        elif result[0][part1] is not None and result[1][part2] is None and result[0][part1] != result[1][part2]:
+                            res[part1] = str(result[0][part1])
+                        #----------------------
                         elif (result[0][part1] is not None or result[1][part2] is not None) and result[0][part1] != result[1][part2]:
                             if filter_type[part1][0] == 'binary': # Improve: for use binary field copy while merging partner
 #                                import base64
@@ -92,7 +100,10 @@ class wizard_merge_partners(wizard.interface):
 #                                quest_form = quest_form + '<field name="%s"/><newline/>' % (part1,)
 #                                quest_fields['%s' % (part1,)] = {'string': filter_name[part1], 'type': 'selection', 'selection':[(x, 'Partner1-'+part1),(a, 'Partner2-'+part2)],}
                                 continue
-                            quest_form = quest_form + '<field name="%s"/><newline/>' % (part1,)
+                            if filter_required[part1]:
+                                quest_form = quest_form + '<field name="%s" required="True"/><newline/>' % (part1,)
+                            else:
+                                quest_form = quest_form + '<field name="%s"/><newline/>' % (part1,)
                             select1 = False
                             select2 = False
                             if result[0][part1] in (True, False):
@@ -157,10 +168,12 @@ class wizard_merge_partners(wizard.interface):
             if hasattr(pool.get(model_raw), '_auto'):
                 if not pool.get(model_raw)._auto:
                     continue
+            elif hasattr(pool.get(model_raw), '_check_time'):
+                continue
             else:
                 if hasattr(pool.get(model_raw), '_columns'):
                     from osv import fields
-                    if isinstance(pool.get(model_raw)._columns[name], fields.many2one):
+                    if pool.get(model_raw)._columns.get(name, False) and isinstance(pool.get(model_raw)._columns[name], fields.many2one):
                         model = model_raw.replace('.', '_')
                         cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(part1)+", "+str(part2)+")")
         pool.get('res.partner').write(cr, uid, [part1, part2], {'active': False})

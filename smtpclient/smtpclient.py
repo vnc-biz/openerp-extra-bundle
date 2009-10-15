@@ -501,7 +501,7 @@ class SmtpClient(osv.osv):
                 'model':'email.smtpclient',
                 'args': repr([ids]), 
                 'function':'_check_queue', 
-                'nextcall':svr.date_create,
+#                'nextcall':svr.date_create,
                 'priority':5,
                 'interval_number':1,
                 'interval_type':'minutes',

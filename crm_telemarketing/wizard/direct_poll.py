@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2008-2009 Sylëam Info Services (<http://syleam.fr>). All Rights Reserved
+#    OpenERP, Open Source Management Solution    
+#    Copyright (C) 2008-2009 Syleam Info Services (<http://syleam.fr>). 
+#                  All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,7 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 import wizard
 import pooler
 

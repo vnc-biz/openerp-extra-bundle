@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<wizard
+			string="Export Invoice"
+			model="account.invoice"
+			name="invoice.export.dom"
+ 			id="wizard_invoice_export_dom"
+            multi="True"
+ 			/>
+
+	</data>
+</openerp>

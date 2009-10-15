@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - Joel Grand-Guillaume porté par Nicolas Bessi 
+# Copyright (c) Camptocamp SA - Joel Grand-Guillaume portÃ© par Nicolas Bessi 
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -23,8 +23,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-#
-##############################################################################
 import time
 from mx import DateTime
 import netsvc

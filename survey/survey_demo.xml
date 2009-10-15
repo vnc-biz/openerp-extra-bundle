@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record model="survey" id="survey_title">
+	        <field name="title">About this project</field>
+	        <field name="user_id" ref="base.user_root"/>
+   		</record>
+   		
+   		
+        <record id="survey_page_1" model="survey.page">
+            <field name="title">First Page</field>
+            <field name="sequence">1</field>
+            <field name="note">Description</field>
+            <field name="survey_id" ref="survey_title" />
+        </record>
+        
+        <record id="survey_page_2" model="survey.page">
+            <field name="title">Second Page</field>
+            <field name="sequence">2</field>
+            <field name="note">Description</field>
+            <field name="survey_id" ref="survey_title" />
+        </record>
+
+        <record id="survey_page_3" model="survey.page">
+            <field name="title">Third Page</field>
+            <field name="sequence">3</field>
+            <field name="note">Description</field>
+            <field name="survey_id" ref="survey_title" />
+        </record>
+        
+        <record id="survey_page_4" model="survey.page">
+            <field name="title">Fourth Page</field>
+            <field name="sequence">4</field>
+            <field name="note">Description</field>
+            <field name="survey_id" ref="survey_title" />
+        </record>
+                
+        <record id="survey_question_1" model="survey.question">
+            <field name="question">Please let us know what you think about our module?</field>
+            <field name="page_id" ref="survey_page_1" />
+            <field name="is_require_answer">1</field>
+        </record>
+
+        <record id="survey_question_2" model="survey.question">
+            <field name="question">What kind of connection do you have to the Internet?</field>
+            <field name="page_id" ref="survey_page_2" />
+            <field name="is_require_answer">1</field>
+        </record>
+
+        <record id="survey_question_3" model="survey.question">
+            <field name="question"> Where are you located??</field>
+            <field name="page_id" ref="survey_page_3" />
+            <field name="is_require_answer">1</field>
+        </record>
+
+        <record id="survey_question_4" model="survey.question">
+            <field name="question">Are you satisfied with the overall usability of this module??</field>
+            <field name="page_id" ref="survey_page_4" />
+            <field name="is_require_answer">1</field>
+        </record>
+        
+	<!--  Survey Answer -->
+        <record id="survey_answer_1_1" model="survey.answer">
+            <field name="answer">Took someone else's survey</field>
+            <field name="question_id" ref="survey_question_1" />
+        </record>
+
+		 <record id="survey_answer_1_2" model="survey.answer">
+            <field name="answer">Banner Advertisement</field>
+            <field name="question_id" ref="survey_question_1" />
+        </record>
+
+        <record id="survey_answer_1_3" model="survey.answer">
+            <field name="answer">Search Engine</field>
+            <field name="question_id" ref="survey_question_1" />
+        </record>
+
+        <record id="survey_answer_1_4" model="survey.answer">
+            <field name="answer">Referral/Link from another site</field>
+            <field name="question_id" ref="survey_question_1" />
+        </record>
+
+        <record id="survey_answer_1_5" model="survey.answer">
+            <field name="answer">Magazine/Print Advertisement</field>
+            <field name="question_id" ref="survey_question_1" />
+        </record>
+
+        <record id="survey_answer_2_1" model="survey.answer">
+            <field name="answer">56 Kbps modem</field>
+            <field name="question_id" ref="survey_question_2" />
+        </record>
+
+        <record id="survey_answer_2_2" model="survey.answer">
+            <field name="answer">ISDN</field>
+            <field name="question_id" ref="survey_question_2" />
+        </record>
+
+        <record id="survey_answer_2_3" model="survey.answer">
+            <field name="answer">Cable modem</field>
+            <field name="question_id" ref="survey_question_2" />
+        </record>
+
+        <record id="survey_answer_2_4" model="survey.answer">
+            <field name="answer">T1 or better</field>
+            <field name="question_id" ref="survey_question_2" />
+        </record>
+
+        <record id="survey_answer_2_5" model="survey.answer">
+            <field name="answer">28.8 Kbps modem</field>
+            <field name="question_id" ref="survey_question_2" />
+        </record>
+
+        <record id="survey_answer_3_1" model="survey.answer">
+            <field name="answer">INDIA</field>
+            <field name="question_id" ref="survey_question_3" />
+        </record>
+
+        <record id="survey_answer_3_2" model="survey.answer">
+            <field name="answer">USA</field>
+            <field name="question_id" ref="survey_question_3" />
+        </record>
+
+        <record id="survey_answer_3_3" model="survey.answer">
+            <field name="answer">UK</field>
+            <field name="question_id" ref="survey_question_3" />
+        </record>
+
+        <record id="survey_answer_4_1" model="survey.answer">
+            <field name="answer">Yes</field>
+            <field name="question_id" ref="survey_question_4" />
+        </record>
+
+        <record id="survey_answer_4_2" model="survey.answer">
+            <field name="answer">No</field>
+            <field name="question_id" ref="survey_question_4" />
+        </record>
+	
+        
+    </data>
+</openerp>

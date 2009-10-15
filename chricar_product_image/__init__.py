@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2004 TINY SPRL. (http://tiny.be) All Rights Reserved.
@@ -27,5 +28,4 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 import chricar_product_image

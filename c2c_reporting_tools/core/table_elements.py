@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst
+# Copyright (c) Camptocamp SA
+# Author: Arnaud WÃŒst
 #
 #
 #    This file is part of the c2c_report_tools module.
@@ -12,7 +12,7 @@
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs
-# End users who are looking fo.r a ready-to-use solution with commercial
+# End users who are looking for a ready-to-use solution with commercial
 # garantees and support are strongly adviced to contract a Free Software
 # Service Company
 #
@@ -31,7 +31,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 import time
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import *

@@ -28,8 +28,8 @@
     'description': """""",
     'author': 'Tiny',
     'depends': ['base'],
-    'update_xml': ['survey_view.xml','survey_wizard.xml','survey_que_wizard.xml'],
-    'demo_xml': [],
+    'update_xml': ['survey_view.xml','survey_que_wizard.xml','security/ir.model.access.csv'],
+    'demo_xml': ['survey_demo.xml'],
     'installable': True,
     'active': False,
 }

@@ -25,12 +25,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-#
-##############################################################################
-
 
 from report.interface import report_int
-
 from c2c_reporting_tools.translation import _
 from c2c_reporting_tools.templates.standard_template import *
 from c2c_reporting_tools.flowables.key_value_table import *
@@ -39,7 +35,6 @@ from c2c_reporting_tools.c2c_helper import *
 import pooler
 import netsvc
 import time
-
 
 class indicator_account_detail(report_int): 
     """ report """

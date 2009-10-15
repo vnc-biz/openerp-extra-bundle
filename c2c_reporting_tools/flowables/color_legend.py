@@ -1,16 +1,14 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst
+# Copyright (c) Camptocamp SA
+# Author: Arnaud WÃŒst
 #
 #
-#    This file is part of the c2c_report_tools module
+#    This file is part of the c2c_report_tools module.
 #    It contains the following class:
 #
 #    - ColorLegendBuilder: a factory to create the color legends for charts.
-#                          
-#                          
 #
 #
 # WARNING: This program as such is intended to be used by professional

@@ -14,17 +14,6 @@
 				</field>
 			</field>
 		</record>
-		
-		<record model="ir.ui.view" id="view_partner_form_group">
-			<field name="name">res.partner.form.member.groups</field>
-			<field name="model">res.partner</field>
-			<field name="inherit_id" ref="membership.view_partner_form"/>
-			<field name="arch" type="xml">
-				<page string="Membership" position="replace">
-					<page string="Membership" groups="cci_membership.group_cci_membership_supervisor"/>
-				</page>
-			</field>
-		</record>
-		
+
 	</data>
 </openerp>

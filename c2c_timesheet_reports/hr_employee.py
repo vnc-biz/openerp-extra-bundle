@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #
 #    This file is part of the c2c_timesheet_report module

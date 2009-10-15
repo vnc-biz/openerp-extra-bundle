@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #    This file is part of the c2c_budget module
 #

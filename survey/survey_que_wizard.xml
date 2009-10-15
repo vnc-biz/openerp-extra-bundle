@@ -53,7 +53,7 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-		<menuitem name="Run Survey" id = "menu_run_survey_form" action="action_view_survey_name" parent = "main_menu_survey"/>
+		<menuitem name="Start to Give Survey Response" id = "menu_run_survey_form" action="action_view_survey_name" parent = "main_menu_survey"/>
 
 	</data>
 </openerp>

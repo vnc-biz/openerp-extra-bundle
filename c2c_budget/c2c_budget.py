@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst ported by Nicolas Bessi
+# Author: Arnaud WÃŒst ported by Nicolas Bessi
 #
 #    This file is part of the c2c_budget module
 #
@@ -26,9 +26,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-#
-##############################################################################
-
 from osv import fields, osv
 import time
 import pooler

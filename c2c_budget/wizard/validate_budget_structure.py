@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #    This file is part of the c2c_budget module
 #
@@ -28,7 +28,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 import wizard
 from copy import copy
 import pooler

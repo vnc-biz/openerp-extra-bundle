@@ -1,22 +1,20 @@
-# -*- encoding: utf-8 -*-
 ##############################################################################
-#
-#    OpenERP, Open Source Management Solution    
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
+#    GNU Affero General Public License for more details.
 #
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -239,10 +237,14 @@ class ctg_feedback(osv.osv):
             if not user:
                 raise osv.except_osv(_('Error'), _("Please specify server option --smtp-from !"))
             if feedback_line.user_to.address_id and feedback_line.user_to.address_id.email:
+                open_feedback_user_action_id = self.pool.get('ir.model.data').search(cr ,uid, [('name','=','action_view_open_related_user_ctg_feedback')])
+                open_feedback_user_action_obj = self.pool.get('ir.model.data').browse(cr, uid, open_feedback_user_action_id, context)[0]
+                self.pool.get('res.users').write(cr ,uid, [feedback_line.user_to.id], {'action_id':open_feedback_user_action_obj.res_id})
                 mail_to = feedback_line.user_to.address_id.email
                 body = """
                 Hello %s,\n                
-                Please visit the following link to give the feedback of %s.
+                Please visit the following link to give the feedback of %s.\n
+                http://localhost:8080/
                 """ %(feedback_line.user_to.name, feedback_line['name'])
                 logger = netsvc.Logger()
                 if tools.email_send(user, [mail_to], subject, body, debug=False, subtype='html') == True:

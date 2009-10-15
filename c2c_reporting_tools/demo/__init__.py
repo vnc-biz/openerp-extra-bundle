@@ -2,10 +2,10 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #
-#    This file is part of the c2c_reporting_tools module.
+#    This file is part of the c2c_report_tools module.
 #
 #
 # WARNING: This program as such is intended to be used by professional
@@ -30,7 +30,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 
 import hello_world
 import demo

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #    This file is part of the c2c_budget module
 #
@@ -27,12 +27,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
-#############################################################################
-
+##############################################################################
 import wizard
 import netsvc
 import pooler
-
 
 class wiz_budget_consolidation(wizard.interface):
     """ this wizard display options to print the budget consolidation report """

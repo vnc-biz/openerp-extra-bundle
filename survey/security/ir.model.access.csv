@@ -1,0 +1,10 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_crm_bayes_group_manager","survey","model_survey","base.group_user",1,1,1,1
+"access_survey_page","survey.page","model_survey_page","base.group_user",1,1,0,0
+"access_survey_question","survey.question","model_survey_question","base.group_user",1,1,1,1
+"access_survey_answer","survey.answer","model_survey_answer","base.group_user",1,1,0,0
+"access_survey_response","survey.response","model_survey_response","base.group_user",1,1,1,1
+"access_survey_response_answer","survey.response.answer","model_survey_response_answer","base.group_user",1,1,0,0
+"access_survey_name_wiz","survey.name.wiz","model_survey_name_wiz","base.group_user",1,1,1,1
+"access_survey_question_wiz","survey.question.wiz","model_survey_question_wiz","base.group_user",1,1,0,0
+"access_report_survey_question","report.survey.question","model_report_survey_question","base.group_user",1,1,1,1

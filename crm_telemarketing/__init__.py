@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution    
 #    Copyright (C) 2008-2009 Syleam Info Services (<http://syleam.fr>). 
 #                  All Rights Reserved
 #

@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) 2008 Camtocamp SA
-# @author Joël Grand-Guillaume porté par Nicolas Bessi 
+# @author JoÃ«l Grand-Guillaume portÃ© par Nicolas Bessi 
 # $Id: $
 #
 # WARNING: This program as such is intended to be used by professional
@@ -25,6 +25,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-#
-##############################################################################
 import c2c_project_activities

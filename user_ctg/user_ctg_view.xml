@@ -221,6 +221,14 @@
 			<field name="view_id" ref="view_ctg_feedback_tree"/>
 			<field name="domain">[('state','=','open')]</field>
 		</record>
+		<record model="ir.actions.act_window" id="action_view_open_related_user_ctg_feedback">
+			<field name="name">User Related Open CTG Feedbacks</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ctg.feedback</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="view_ctg_feedback_tree"/>
+			<field name="domain">[('state','=','open'),('user_to','=',uid)]</field>
+		</record>
 		<menuitem id="menu_feedback_all" action= "action_view_all_ctg_feedback" parent="menu_user_ctg" sequence="2"/>
 		<menuitem id="menu_feedback_open" action= "action_view_open_ctg_feedback" parent="menu_feedback_all"/>
 

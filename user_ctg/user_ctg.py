@@ -239,10 +239,14 @@ class ctg_feedback(osv.osv):
             if not user:
                 raise osv.except_osv(_('Error'), _("Please specify server option --smtp-from !"))
             if feedback_line.user_to.address_id and feedback_line.user_to.address_id.email:
+                open_feedback_user_action_id = self.pool.get('ir.model.data').search(cr ,uid, [('name','=','action_view_open_related_user_ctg_feedback')])
+                open_feedback_user_action_obj = self.pool.get('ir.model.data').browse(cr, uid, open_feedback_user_action_id, context)[0]
+                self.pool.get('res.users').write(cr ,uid, [feedback_line.user_to.id], {'action_id':open_feedback_user_action_obj.res_id})
                 mail_to = feedback_line.user_to.address_id.email
                 body = """
                 Hello %s,\n                
-                Please visit the following link to give the feedback of %s.
+                Please visit the following link to give the feedback of %s.\n
+                http://localhost:8080/
                 """ %(feedback_line.user_to.name, feedback_line['name'])
                 logger = netsvc.Logger()
                 if tools.email_send(user, [mail_to], subject, body, debug=False, subtype='html') == True:

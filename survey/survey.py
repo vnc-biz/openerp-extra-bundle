@@ -22,6 +22,7 @@
 
 from osv import fields, osv
 import datetime
+from time import strftime
 
 question_no = 0
 
@@ -32,9 +33,8 @@ class survey(osv.osv):
     _columns = {  
                 'title' : fields.char('Survey Title', size=128, required=1),
                 'page_ids' : fields.one2many('survey.page','survey_id','Page'),
-                'date_open' : fields.datetime('Survey Open Date'),
-                'date_close' : fields.datetime('Survey Close Date'),
-                'survey_link' : fields.char('Survey Link', size = 255),
+                'date_open' : fields.datetime('Survey Open Date', readonly=1),
+                'date_close' : fields.datetime('Survey Close Date', readonly=1),
                 'max_response_limit' : fields.integer('Maximum Response Limit'),
                 'state' : fields.selection([('draft','Draft'),('open','Open'),('close','Close'),('cancel','Cancel')],'Status',readonly = True),
                 'responsible_id' : fields.many2one('res.users','Responsible'),
@@ -44,15 +44,15 @@ class survey(osv.osv):
     }
     
     def survey_draft(self, cr, uid, ids, arg):
-        self.write(cr, uid, ids, { 'state' : 'draft' })
+        self.write(cr, uid, ids, { 'state' : 'draft'})
         return True
      
     def survey_open(self, cr, uid, ids, arg):
-        self.write(cr, uid, ids, { 'state' : 'open' })
+        self.write(cr, uid, ids, { 'state' : 'open','date_open':strftime("%Y-%m-%d %H:%M:%S")})
         return True
      
     def survey_close(self, cr, uid, ids, arg):
-        self.write(cr, uid, ids, { 'state' : 'close' })
+        self.write(cr, uid, ids, { 'state' : 'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S") })
         return True
      
     def survey_cancel(self, cr, uid, ids, arg):
@@ -73,6 +73,9 @@ class survey_page(osv.osv):
                 'sequence' : fields.integer('Sequence'),
                 'note' : fields.text('Description'),
     }
+    _defaults = {
+    'sequence' : lambda *a: 5
+    }
 
 survey_page()
 
@@ -81,15 +84,26 @@ class survey_question(osv.osv):
     _description = 'Survey Question'
     _rec_name = 'question'
     _order = 'sequence'
+    def _calc_response(self,cr,uid,ids,field_name,arg,context):
+        val = {}
+        for rec in self.browse(cr,uid,ids,[]):
+            cr.execute("select count(question_id) from survey_response where question_id = " + str(rec.id))
+            val[rec.id] = cr.fetchall()[0][0]
+        return val
     _columns = {
                 'page_id' : fields.many2one('survey.page','Survey Page'),
                 'question' :  fields.char('Question', size = 128,required=1),
                 'answer_choice_ids' : fields.one2many('survey.answer','question_id','Answer'),
-                'response_ids' : fields.one2many('survey.response','question_id','Response'),
+                'response_ids' : fields.one2many('survey.response','question_id','Response',readonly=1),
                 'is_require_answer' : fields.boolean('Required Answer'),
                 'allow_comment' : fields.boolean('Allow Comment Field'),
-                'sequence' : fields.integer('Sequence')
+                'sequence' : fields.integer('Sequence'),
+                'tot_resp' : fields.function(_calc_response,method =True, string ="Total Response"),
     }
+    _defaults = {
+    'sequence' : lambda *a: 5
+    }
+
     
 survey_question()
 
@@ -98,11 +112,34 @@ class survey_answer(osv.osv):
     _description = 'Survey Answer'
     _rec_name = 'answer'
     _order = 'sequence'
+    def _calc_response_avg(self,cr,uid,ids,field_name,arg,context):
+        val = {}
+        for rec in self.browse(cr,uid,ids,[]):
+            cr.execute("select count(question_id) from survey_response where question_id = " + str(rec.question_id.id))
+            tot = cr.fetchone()[0]
+            cr.execute("select count(answer_id) from survey_response_answer sra  where sra.answer_id = "+str(rec.id))
+            res = cr.fetchone()[0]
+            if res:
+                avg = res * 100 /tot
+            else:
+                avg = 0.0
+            val[rec.id] = {
+                'response': res,
+                'average': avg,
+            }                
+        return val
     _columns = {
                 'question_id' : fields.many2one('survey.question', 'Question'),
                 'answer' : fields.char('Answer', size = 128,required=1),
-                'sequence' : fields.integer('Sequence')
+                'sequence' : fields.integer('Sequence'),
+                'response' : fields.function(_calc_response_avg,method =True, string ="#Response",multi='sums'),
+                'average' : fields.function(_calc_response_avg,method =True, string ="#Avg",multi='sums')                
+                
     }
+    _defaults = {
+    'sequence' : lambda *a: 5
+    }
+
 survey_answer()
 
 class survey_response(osv.osv):
@@ -115,8 +152,9 @@ class survey_response(osv.osv):
                 'state' : fields.selection([('draft', 'Draft'),('done', 'Done'), ('skip',' Skip')], 'Status', readonly = True),
                 'response_id' : fields.many2one('res.users', 'Responsibal User'),
                 'question_id' : fields.many2one('survey.question', 'Question'),
-                'response_type' : fields.selection([('normal','Normal'),('manual','Manually'),('link','Link'),('mail','Mail')],'Response Type'),
+                'response_type' : fields.selection([('manually','Manually'),('link','Link')],'Response Type'),
                 'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
+                'comment' : fields.text('Notes'),                
     }
     _defaults = {
         'state' : lambda *a: "draft"
@@ -175,35 +213,35 @@ class survey_question_wiz(osv.osv_memory):
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar)
         global question_no
-        question_no += 1
         survey_name_obj = self.pool.get('survey.name.wiz')
         surv_id = survey_name_obj.search(cr,uid,[])
-        surv_id = surv_id[int(len(surv_id) -1)]
-        survey_id = survey_name_obj.read(cr,uid,surv_id,[])[0]['survey_id']
+        survey_id = survey_name_obj.read(cr,uid,surv_id[int(len(surv_id) -1)],[])[0]['survey_id']
         sur_rec = self.pool.get('survey').read(cr,uid,survey_id,[])
-        page_ids = sur_rec['page_ids']
         page_obj = self.pool.get('survey.page')
         que_obj = self.pool.get('survey.question')
         ans_obj = self.pool.get('survey.answer')
-        page_id = page_obj.search(cr,uid,[('survey_id','=',survey_id),('sequence','=',question_no)])
-        if page_id:
+        p_id = page_obj.search(cr,uid,[])
+        if len(p_id) > question_no:
+            p_id = p_id[question_no]
+            question_no += 1
             xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="Select a survey Name">'''
             fields = {}
-            pag_rec = page_obj.read(cr,uid,page_id[0])
-            xml += '''<separator string="'''+ str(pag_rec['title']) + '''" colspan="4"/>'''
+            pag_rec = page_obj.read(cr,uid,p_id)
+            xml += '''<separator string="'''+ str(question_no)+"." + str(pag_rec['title']) + '''" colspan="4"/>'''
             xml += '''<label string="'''+ str(pag_rec['note']) + '''"/> <newline/> <newline/><newline/>'''
             que_ids = pag_rec['question_ids']
+            qu_no = 0
             for que in que_ids:
+                qu_no += 1
                 que_rec = que_obj.read(cr,uid,que)
-                xml += '''<separator string="'''+ str(que_rec['question']) + '''"  colspan="4"/> <newline/> '''
+                xml += '''<separator string="''' + str(qu_no) + "."  + str(que_rec['question']) + '''"  colspan="4"/> <newline/> '''
                 ans_ids = ans_obj.read(cr,uid,que_rec['answer_choice_ids'],[])
                 for ans in ans_ids:
                     xml += '''<field  name="'''+ str(que) + "_" + ans['answer'] +"_" + str(ans['id']) +  '''"/> '''
                     fields[str(que) + "_" + ans['answer'] +"_" + str(ans['id']) ] = {'type':'boolean','string':ans['answer'],'views':{}}
-#                if que_rec['allow_comment']:
-#                    xml += '''<newline/> <field  name="'''+ str(que) + "_other" '''"/> '''
-#                    fields[str(que) + "_other"] = {'type':'char','string':"Other",'size':64,'views':{}}
-
+                if que_rec['allow_comment']:
+                    xml += '''<newline/> <field  colspan="4"  name="'''+ str(que) + "_other" '''"/> '''
+                    fields[str(que) + "_other"] = {'type':'text','string':"Comment",'views':{}}
             xml += '''
             <separator colspan="4" />
             <group col="4" colspan="4">
@@ -238,10 +276,10 @@ class survey_question_wiz(osv.osv_memory):
                 ans = False
                 que_li.append(que_id)
                 que_rec = que_obj.read(cr,uid,que_id,['is_require_answer'])
-                resp_id = resp_obj.create(cr,uid,{'response_id':uid,'question_id':que_id,'date_create':datetime.datetime.now(),'response_type':'normal'})
+                resp_id = resp_obj.create(cr,uid,{'response_id':uid,'question_id':que_id,'date_create':datetime.datetime.now(),'response_type':'link'})
                 for key1,val1 in vals.items():
                     if val1 and key1.split('_')[1] =="other":
-                        resp_obj.write(cr,uid,resp_id,{'other':val1})
+                        resp_obj.write(cr,uid,resp_id,{'comment':val1})
                         ans = True
                     elif val1 and que_id == key1.split('_')[0]:
                         ans_id_len = key1.split('_')

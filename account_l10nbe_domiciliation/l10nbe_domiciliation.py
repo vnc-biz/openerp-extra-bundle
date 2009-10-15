@@ -46,5 +46,34 @@ class res_partner(osv.osv):
         }
 res_partner()
 
+class res_partner_bank(osv.osv):
+    _inherit = "res.partner.bank"
+    _columns = {
+                'institution_code':fields.char('Institution Code', size=3, help="Code of the financial institution used for Dom80 Export"), 
+    }
+
+class res_company(osv.osv):
+    _inherit = 'res.company'
+    _description = 'Company'
+    _columns = {
+        'id_sender' : fields.char('Identification number of the Sender' , size=11, help="Sender Id for Dom80 export header"), 
+        'id_creditor' : fields.char('Identification number of the Creditor' , size=11, help="Creditor Id for Dom80 export header")
+        }
+res_company()
+
+
+class invoice_export_log(osv.osv):
+    _name = "invoice.export.log"
+    _description = "Invoice Export History"
+    _rec_name = 'invoice_id'
+    _columns = {
+        'state': fields.selection([('failed', 'Failed'), ('succeeded', 'Succeeded')], 'Status', readonly=True), 
+        'file': fields.binary('Saved File', readonly=True), 
+        'note': fields.text('Creation Log', readonly=True), 
+        'create_date': fields.datetime('Creation Date', required=True, readonly=True), 
+        'create_uid': fields.many2one('res.users', 'Creation User', required=True, readonly=True), 
+    }
+invoice_export_log()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

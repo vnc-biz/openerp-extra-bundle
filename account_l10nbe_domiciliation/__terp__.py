@@ -35,6 +35,7 @@
 
     "update_xml" : ["l10nbe_domiciliation_view.xml", 
                             "l10nbe_domiciliation_report.xml",
+                            "l10nbe_domiciliation_wizard.xml"
                             ],
     "active": False,
     "installable": True,

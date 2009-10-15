@@ -20,8 +20,7 @@
 #
 ##############################################################################
 
-import account_invoice
-import report_domiciliations
+import export_invoice
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

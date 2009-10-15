@@ -1,4 +1,6 @@
 #!/usr/bin/env python2.3
+# -*- encoding: utf-8 -*-
+##############################################################################
 #
 #  invoice.py
 #
@@ -6,6 +8,7 @@
 #  Modified by Vincent Renaville
 #  Copyright (c) 2008 CamptoCamp. All rights reserved.
 #
+##############################################################################
 from osv import osv, fields
 import pooler
 

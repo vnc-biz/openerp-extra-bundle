@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #
 #    This file is part of the c2c_report_tools module.
@@ -10,9 +10,9 @@
 #
 #    - KeyValueTableBuilder. a factory to create simple table that display pairs of key and values:
 #                                - N keys, N values, displayed in 1 or more columns
-#    
 #
 #
+# WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs
 # End users who are looking for a ready-to-use solution with commercial

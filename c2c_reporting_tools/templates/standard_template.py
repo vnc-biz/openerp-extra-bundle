@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) Camptocamp SA - http://www.camptocamp.com
-# Author: Arnaud Wüst
+# Copyright (c) Camptocamp SA
+# Author: Arnaud WÃŒst
+#
 #
 #    This file is part of the c2c_report_tools templates
 #    It contains the following classes:
@@ -34,7 +35,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 from reportlab import platypus
 from reportlab.platypus import BaseDocTemplate, PageTemplate
 from reportlab.lib.units import mm

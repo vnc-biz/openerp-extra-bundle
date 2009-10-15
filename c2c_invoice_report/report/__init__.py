@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+##############################################################################
 # Copyright (c) 2007 CamptoCamp SA
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -15,7 +17,8 @@
 # GNU General Public License for more details.
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.    
+#
+##############################################################################
 #import expense
 import invoice

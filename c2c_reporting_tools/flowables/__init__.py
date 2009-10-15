@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #
 #    This file is part of the c2c_report_tools module.
@@ -30,7 +30,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 import color_legend
 import simple_row_table
 import timebox_chart

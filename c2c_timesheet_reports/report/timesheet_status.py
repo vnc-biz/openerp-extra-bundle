@@ -2,7 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) Camptocamp SA
-# Author: Arnaud Wüst
+# Author: Arnaud WÃŒst
 #
 #
 #    This file is part of the c2c_timesheet_report module
@@ -30,7 +30,6 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
 import time
 from report import report_sxw
 import pooler

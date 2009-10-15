@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2009 (<http://www.filsystem.ro>). All Rights Reserved
+#    OpenERP, Open Source Management Solution    
+#    Copyright (C) 2009 Fil System (<http://www.filsystem.ro>). All Rights Reserved
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     "name" : "Romania - Chart of Accounts",
     "version" : "1.1",

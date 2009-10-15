@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+##############################################################################
 #
 #  sale.py
 #  solstiswrk
@@ -5,6 +7,7 @@
 #  Created by Nicolas Bessi on 04.05.09.
 #  Copyright (c) 2009 CamptoCamp. All rights reserved.
 #
+##############################################################################
 from osv import osv, fields
 class sale_order(osv.osv):
     _inherit = "sale.order"

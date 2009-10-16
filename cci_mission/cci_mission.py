@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 from osv import fields, osv
@@ -343,7 +343,7 @@ class cci_missions_dossier(osv.osv):
         'invoiced_amount': fields.float('Total'),
     }
     _order = "date desc"
-    
+
     _defaults = {
         'name': lambda *args: '/',
         'date': lambda *a: time.strftime('%Y-%m-%d'),
@@ -891,7 +891,7 @@ class cci_missions_ata_carnet(osv.osv):
         'name': lambda *args: '/',
         'creation_date': lambda *a: time.strftime('%Y-%m-%d'),
     }
-    
+
     _order = "creation_date desc"
     _constraints = [(check_ata_carnet, 'Error: Please Select (Own Risk) OR ("Insurer Agreement" and "Parnters Insure id" should be greater than Zero)', ['own_risk','insurer_agreement','partner_insurer_id'])]
 
@@ -928,7 +928,7 @@ class product_lines(osv.osv):
         return super(product_lines,self).create(cr, uid, vals, *args, **kwargs)
 
     def write(self, cr, uid, ids,vals, *args, **kwargs):
-        data_product_line= self.pool.get('product.lines').browse(cr,uid,ids[0])
+        data_product_line = self.pool.get('product.lines').browse(cr,uid,ids[0])
         if (not data_product_line.product_id.id == vals['product_id']):
             accnt_dict = {}
             data_product = self.pool.get('product.product').browse(cr,uid,vals['product_id'])
@@ -946,17 +946,21 @@ class product_lines(osv.osv):
         return res
 
     def product_id_change(self, cr, uid, ids,product_id,):
-        price_unit=uos_id=prod_name=data_partner=False
+        price_unit = uos_id = prod_name = data_partner = False
+        sale_taxes = []
         if product_id:
             data_product = self.pool.get('product.product').browse(cr,uid,product_id)
             uos_id=data_product.uom_id.id
             price=self.pool.get('product.product').price_get(cr,uid,[product_id])
             price_unit=price[product_id]
             prod_name=data_product.name
+            if data_product.taxes_id:
+                x = map(lambda x:sale_taxes.append(x.id),data_product.taxes_id)
         return {'value': {
             'uos_id': uos_id,
             'price_unit': price_unit,
             'name':prod_name,
+            'taxes_id': sale_taxes
             }
         }
 
@@ -970,6 +974,7 @@ class product_lines(osv.osv):
         'price_subtotal': fields.function(_product_subtotal, method=True, string='Subtotal'),
         'quantity': fields.float('Quantity', required=True),
         'account_id' : fields.many2one('account.account', 'Account', required=True),
+        'taxes_id': fields.many2many('account.tax', 'product__line_taxes_rel', 'prod_line_id', 'tax_id', 'Sale Taxes', domain=[('parent_id','=',False), ('type_tax_use','in',['sale','all'])]),
     }
     _defaults = {
         'quantity': lambda *a: 1,

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -72,6 +72,10 @@ def _createInvoices(self, cr, uid, data, context):
             val['value'].update({'product_id' : product_line.product_id.id })
             val['value'].update({'quantity' : product_line.quantity })
             val['value'].update({'price_unit':product_line.price_unit})
+            sale_taxes = []
+            if product_line.taxes_id:
+                map(lambda x:sale_taxes.append(x.id),product_line.taxes_id)
+            val['value'].update({'taxes_id': sale_taxes})
             value.append(val)
 
         for add in carnet.partner_id.address:
@@ -93,7 +97,7 @@ def _createInvoices(self, cr, uid, data, context):
         for prod_id in list:
             count += 1
             val = obj_lines.product_id_change(cr, uid, [], prod_id,uom =False, partner_id=carnet.partner_id.id, fposition_id=fpos)
-            val['value'].update({'product_id' : prod_id })
+            val['value'].update({'product_id': prod_id })
             if count==2:
                 qty_copy=carnet.initial_pages
                 if qty_copy<0:
@@ -113,14 +117,13 @@ def _createInvoices(self, cr, uid, data, context):
             context.update({'double_signature':carnet.double_signature})
             context.update({'date':carnet.creation_date})
             context.update({'emission_date':carnet.creation_date})
-
             price=pool_obj.get('product.product')._product_price(cr, uid, [prod_id], False, False, context)
             val['value'].update({'price_unit':price[prod_id]})
 
             value.append(val)
         for val in value:
             if val['value']['quantity']>0.00:
-                inv_id =pool_obj.get('account.invoice.line').create(cr, uid, {
+                inv_id = pool_obj.get('account.invoice.line').create(cr, uid, {
                         'name': val['value']['name'], #carnet.name
                         'account_id':val['value']['account_id'],
                         'price_unit': val['value']['price_unit'],
@@ -130,6 +133,7 @@ def _createInvoices(self, cr, uid, data, context):
                         'product_id':val['value']['product_id'],
                         'invoice_line_tax_id': [(6,0,val['value']['invoice_line_tax_id'])],
                         'note':'',
+                        'invoice_line_tax_id': val['value'].has_key('taxes_id') and [(6, 0, val['value']['taxes_id'])] or False
                 })
                 create_ids.append(inv_id)
         inv = {

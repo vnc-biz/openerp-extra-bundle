@@ -1,6 +1,8 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>
+		<menuitem name="Missions" id="menu_mission"/>
+
 		<wizard string="Create Embassy Folder"
 			model="cci_missions.certificate"
 			name="cci_mission.create_embassy_folder"
@@ -101,6 +103,10 @@
             <field name="wiz_name">cci_missions_carnet.after</field>
         </record>
         <menuitem action="wizard_carnet_after_validity" id="menu_wizard_carnet_after_validity" parent="menu_mission" type="wizard"/>
+
+		<!-- Add product line in certificates -->
+	    <wizard string="Add Product" model="cci_missions.certificate" name="mission.product_line" menu="False" id="wizard_add_product_line"/>
+
 
 	</data>
 </openerp>

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -85,7 +85,6 @@ def _createInvoices(self, cr, uid, data, context={}):
         context.update({'date':data.date})
         inv_create = inv_create + 1
         for lines in data.product_ids :
-
             val = {}
             val['value']={}
             val['value'].update({'name':lines.name})
@@ -94,7 +93,10 @@ def _createInvoices(self, cr, uid, data, context={}):
             val['value'].update({'quantity' : lines.quantity })
             val['value'].update({'uos_id':lines.uos_id.id})
             val['value'].update({'price_unit':lines.price_unit})
-
+            sale_taxes = []
+            if lines.taxes_id:
+                map(lambda x:sale_taxes.append(x.id),lines.taxes_id)
+            val['value'].update({'taxes_id': sale_taxes})
             value.append(val)
 
         list.append(data.type_id.original_product_id.id)
@@ -142,6 +144,7 @@ def _createInvoices(self, cr, uid, data, context={}):
                         'product_id':val['value']['product_id'],
                         'invoice_line_tax_id': [(6,0,tax_on_line)],
                         'note':data.text_on_invoice,
+                        'invoice_line_tax_id': val['value'].has_key('taxes_id') and [(6, 0, val['value']['taxes_id'])] or False
                     })
                 else:
                     raise osv.except_osv('Input Error!','No Product Chosen')

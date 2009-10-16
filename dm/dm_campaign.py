@@ -436,7 +436,7 @@ class dm_campaign(osv.osv): #{{{
         return id_camp
 
     def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        result = super(dm_campaign, self).fields_view_get(cr, user, view_id, view_type, context, toolbar, submenu=False)
+        result = super(dm_campaign, self).fields_view_get(cr, user, view_id, view_type, context, toolbar, submenu=submenu)
         if 'campaign_type' in context:
             if context['campaign_type'] == 'model':
                 if 'toolbar' in result:

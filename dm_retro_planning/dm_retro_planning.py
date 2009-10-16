@@ -174,8 +174,8 @@ class project_task(osv.osv):#{{{
             self.context_data['flag'] = False
         return super(project_task, self).default_get(cr, uid, fields, context)
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False):
-        result = super(project_task,self).fields_view_get(cr, user, view_id, view_type, context, toolbar)
+    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        result = super(project_task,self).fields_view_get(cr, user, view_id, view_type, context, toolbar, submenu=submenu)
         if 'flag' in self.context_data or 'type' in context:
             if 'project_id' in self.context_data:
                 if result['type']=='form':

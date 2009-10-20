@@ -26,6 +26,10 @@ import netsvc
 import traceback
 import sys
 import datetime
+from dm.dm_report_design import get_so
+
+def get_so(cr,uid,wi_id):
+    return self.pool.get('dm.workitem').browse(cr,uid,wi_id).sale_order_id or False
 
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"
@@ -82,9 +86,9 @@ class dm_event_sale(osv.osv_memory): # {{{
                                 ('condition_id', '=', obj.trigger_type_id.id)])
         if not tr_ids:
             netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, 
-                                "There is no transition %s at this step: %s"
+                                "There is no outgoing transition %s at this step: %s"
                                 % (obj.trigger_type_id.name, obj.step_id.code))
-            raise osv.except_osv('Warning', "There is no transition %s at this step: %s"
+            raise osv.except_osv('Warning', "There is no outgoing transition %s at this step: %s"
                                  % (obj.trigger_type_id.name, obj.step_id.code))
             return False
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):

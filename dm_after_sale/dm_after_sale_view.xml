@@ -43,7 +43,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="After-Sale Action">
-                <group attrs="{'invisible':[('state','in',('done','reset')]}" colspan="4">
+                <group attrs="{'invisible':[('state','in',('done','reset'))]}" colspan="4">
                     <field name="segment_id" colspan="4" context="{'sale_order_id': context.get('sale_order_id',False)}" required="1"/>
                     <field name="action_id" colspan="4" required="1"/>
                     <separator string="Report Content" colspan="4" />

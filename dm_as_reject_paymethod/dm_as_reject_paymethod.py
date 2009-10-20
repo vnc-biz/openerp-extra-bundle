@@ -19,9 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import time
-import datetime
-from mx import DateTime
 from osv import fields
 from osv import osv
 
@@ -29,7 +26,9 @@ class dm_as_reject(osv.osv):#{{{
     _inherit = "dm.as.reject"
     _columns = {
                 
-       'payment_method_ids' : fields.many2many('account.journal','reject_payment_method_rel','reject_id','journal_id','Payment Methods',domain=[('type','=','cash')]),
+       'payment_method_ids': fields.many2many('account.journal', 
+                        'reject_payment_method_rel', 'reject_id', 'journal_id',
+                        'Payment Methods', domain=[('type','=','cash')]),
     }
 dm_as_reject()#}}}
 

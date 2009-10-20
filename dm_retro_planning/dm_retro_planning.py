@@ -199,6 +199,13 @@ class dm_campaign(osv.osv):#{{{
         super(dm_campaign, self).state_open_set(cr, uid, ids, *args)
         return True
 
+    def write(self, cr, uid, ids, vals, context=None):
+        value = super(dm_campaign, self).write(cr, uid, ids, vals, context)
+        for camp in self.browse(cr, uid, ids):    
+            if camp.project_id :
+                self.pool.get('project.project').write(cr, uid, [camp.project_id.id], 
+                        {'date_end':camp.date_start})
+        return value
 dm_campaign()
 
 class project_task(osv.osv):#{{{

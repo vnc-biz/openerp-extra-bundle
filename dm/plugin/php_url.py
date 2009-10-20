@@ -42,11 +42,11 @@ def php_url(cr, uid, **plugin_args):
     if 'encode' in plugin_args and plugin_args['encode']: 
         arguments = base64.encodestring(arguments)
     url_name = plugin_args['url'] or ''
-    if url_name.find('http://') < 0:
+    if url_name and url_name.find('http://')<0 :
         url_name = 'http://' + url_name
-        if arguments:
-            url_name = url_name + "?data=" + arguments
-    value = "<a href= '" + url_name + "' target='_blank'>" + plugin_args['text_display'] + "</a>"
+        if arguments :
+            url_name = url_name+"?data="+ arguments
+    value = "<a href= '%s' target='_blank'> %s </a>"%(url_name or '',plugin_args['text_display'] or '')
     return value
 #    return (url_name,plugin_args['text_display'])
 

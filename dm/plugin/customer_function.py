@@ -30,7 +30,6 @@ def customer_function(cr, uid, **args):
     pool = pooler.get_pool(cr.dbname)
     model_name = args['model_name']
     model_object =  pool.get(model_name)
-
     if model_name in ['dm.workitem'] and 'workitem_id' in args:
         res = pool.get(model_name).read(cr, uid, args['workitem_id'],
                                             [args['field_name']])
@@ -115,3 +114,5 @@ def customer_function(cr, uid, **args):
         return res[args['field_name']]
     elif args['field_type'] not in ['many2many','one2many']:
         return res[args['field_name']]
+
+ # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

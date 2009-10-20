@@ -159,11 +159,11 @@ class dm_offer_step(osv.osv): # {{{
                 value['name'] = "%s for %s"% (type_code, offer.name) 
         return {'value': value}
 
-    def create(self, cr, uid, vals, context={}):
-        type_seq = self.search(cr, uid, [('type_id', '=', vals['type_id']),
-                                         ('offer_id', '=', vals['offer_id'])])
-        vals['seq'] = len(type_seq) and len(type_seq)+1 or 1
-        return super(dm_offer_step,self).create(cr, uid, vals, context)
+    def create(self,cr,uid,vals,context={}):
+        if 'type_id' in vals and vals['type_id']:
+            type_seq = self.search(cr,uid,[('type_id','=',vals['type_id']),('offer_id','=',vals['offer_id'])])
+            vals['seq'] = len(type_seq) and len(type_seq)+1 or 1
+        return super(dm_offer_step,self).create(cr,uid,vals,context)
 
     def write(self,cr,uid,ids,vals,context={}):
         if 'type_id' in vals and vals['type_id']:

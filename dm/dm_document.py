@@ -40,9 +40,6 @@ import urllib2
 
 from dm_report_design import merge_message, generate_internal_reports, generate_openoffice_reports
 
-_regex = re.compile('\[\[setHtmlImage\((.+?)\)\]\]')
-_regexp1 = re.compile('(\[\[.+?\]\])')
-
 class dm_dynamic_text(osv.osv): # {{{
     _name = 'dm.dynamic_text'
     _rec_name = 'content'
@@ -215,29 +212,32 @@ def set_image_email(node,msg): # {{{
 def create_email_queue(cr, uid, obj, context): # {{{
     pool = pooler.get_pool(cr.dbname)
     email_queue_obj = pool.get('email.smtpclient.queue')
-    context['document_id'] = obj.document_id.id
-    context['address_id'] = obj.address_id.id
-    context['workitem_id'] = obj.workitem_id.id
+#    context['document_id'] = obj.document_id.id
+#    context['address_id'] = obj.address_id.id
+#    context['workitem_id'] = obj.workitem_id.id
     message = []
     if obj.mail_service_id.store_email_document:
         ir_att_obj = pool.get('ir.attachment')
         ir_att_ids = ir_att_obj.search(cr, uid, [('res_model', '=', 'dm.campaign.document'),
                                                  ('res_id', '=', obj.id),
                                                  ('file_type', '=', 'html')])
-        for attach in ir_att_obj.browse(cr, uid, ir_att_ids):
+        for attach in ir_att_obj.browse(cr,uid,ir_att_ids):
+            if re.search('!!!Missing-Plugin-in DTP document!!!',attach.datas,re.IGNORECASE) :
+                return {'code':'plugin_missing','ids':[obj.id]}
+            if re.search('!!!Missing-Plugin-Value!!!',attach.datas,re.IGNORECASE) :
+                return {'code':'plugin_error','ids':[obj.id]}
             message.append(base64.decodestring(attach.datas))
-    else:
-       document_data = pool.get('dm.offer.document').browse(cr, uid,
-                                                         obj.document_id.id)
-       
-       if obj.document_id.editor ==  'internal':
-            message.append(generate_internal_reports(cr, uid, 'html2html',
-                                             document_data, False, context))
-       else:
-           msg = generate_openoffice_reports(cr, uid, 'html2html', 
-                                             document_data, False, context)
-           message.extend(msg)
+    else :
+        document_data = pool.get('dm.offer.document').browse(cr,uid,obj.document_id.id)
+        if obj.document_id.editor ==  'internal' :
+            report_data = generate_internal_reports(cr, uid, 'html2html', document_data, False, context)
+        else :
+            report_data = generate_openoffice_reports(cr, uid, 'html2html', document_data, False, context)
+        if report_data in ('plugin_error','plugin_missing') :
+            return {'code':report_data,'ids':[obj.id]}
+        message.extend(report_data)
     for msg  in message:
+        print message
         root = etree.HTML(msg)
         body = root.find('body')
         msgRoot = MIMEMultipart('related')
@@ -273,7 +273,8 @@ def create_email_queue(cr, uid, obj, context): # {{{
                 'date_create': time.strftime('%Y-%m-%d %H:%M:%S')
                 }
             email_queue_obj.create(cr,uid,vals)
-    return True # }}}
+    #v dnt knw it s sent or not
+    return {'code':'smtp_doc_sent','ids':obj.id} # }}}
 
 class dm_offer_document_category(osv.osv): # {{{
     _name = "dm.offer.document.category"
@@ -386,6 +387,7 @@ class dm_offer_document(osv.osv): # {{{
     }
     _defaults = {
         'state': lambda *a: 'draft',
+        'editor' : lambda *a : 'oord',
     }
     def state_validate_set(self, cr, uid, ids, context={}):
         self.write(cr, uid, ids, {'state': 'validate'})
@@ -429,10 +431,9 @@ dm_campaign_document() # }}}
 class dm_plugins_value(osv.osv): # {{{
     _name = "dm.plugins.value"
     _columns = {
-        'document_id': fields.many2one('dm.campaign.document', 
-                                       'Campaign Document', ondelete="cascade"),
-        'plugin_id': fields.many2one('dm.dtp.plugin', 'Plugin'),
-        'value': fields.text('Value'),
+        'document_id' : fields.many2one('dm.campaign.document','Campaign Document', ondelete="cascade" , required=True),
+        'plugin_id' : fields.many2one('dm.dtp.plugin', 'Plugin', required=True),
+        'value' : fields.text('Value', required=True),
     }
     
 dm_plugins_value() # }}}

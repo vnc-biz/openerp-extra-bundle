@@ -31,9 +31,9 @@ class offer_document(report_sxw.rml_parse):
         super(offer_document, self).__init__(cr, uid, name, context)
         self.localcontext.update({
 #            'time': time,
-            'document': self.document,
-#            'trademark_id': self.trademark_id,
-            'report_type': ''
+            'document':self.document,
+            'trademark_id': self.trademark_id,
+            'report_type':''
         })
         self.context = context
 
@@ -46,10 +46,11 @@ class offer_document(report_sxw.rml_parse):
             self.report_type = report_xml.report_type
             rml = report_xml.report_rml_content
             raw_plugin_list = _regexp1.findall(rml)
-            plugin_list = []
-            for i in raw_plugin_list:
-                plugin = _regexp2.findall(i)[0].replace("'", '')
-                plugin_list.append(plugin)
+            plugin_list = map(lambda x : x[2:-2] , raw_plugin_list)
+            print plugin_list
+#            for i in raw_plugin_list :
+#                plugin = _regexp2.findall(i)[0].replace("'", '')
+#                plugin_list.append(plugin)
             return plugin_list
         else:
             return False
@@ -66,22 +67,22 @@ class offer_document(report_sxw.rml_parse):
             else: return False
         else:
             segment_id = self.pool.get('dm.campaign.proposition.segment').browse(self.cr, self.uid, self.datas['form']['segment_id'])
-            return segment_id.trademark_id.id
+            return segment_id.proposition_id.camp_id.trademark_id.id
 
     def document(self):
         plugin_list = self._plugin_list()
         if 'form' not in self.datas:
-            type = 'email_doc'
+            doc_type = 'email_doc'
             address_id = self.context['address_id']
             document_id = self.context['document_id']
             if 'segment_id' in self.context:
                 segment_id = self.context['segment_id']
             else:
                 segment_id = False
-            camp_doc_id = self.context['camp_doc_id']
-            workitem_id = self.context['workitem_id']
-        else:
-            type = 'preview'
+            camp_doc_id = 'camp_doc_id' in self.context and self.context['camp_doc_id'] or False
+            workitem_id = 'workitem_id' in self.context and self.context['workitem_id'] or False
+        else: 
+            doc_type = 'preview'
             address_id = self.datas['form']['address_id']
             document_id = self.ids[0]
             segment_id = self.datas['form']['segment_id']
@@ -92,7 +93,9 @@ class offer_document(report_sxw.rml_parse):
             workitem_id = self.pool.get('dm.workitem').create(self.cr, self.uid,
                          {'address_id': address_id, 'segment_id': segment_id, 
                           'step_id': doc.step_id.id, 'is_preview': True, 
-                          'state':'done'})
+                          'state':'done', 'is_realtime':False,
+                          'error_msg':"Preview Report is succesfully generated"
+                          })
 
         values = generate_plugin_value(self.cr, self.uid, 
             document_id = document_id,
@@ -101,7 +104,7 @@ class offer_document(report_sxw.rml_parse):
             segment_id = segment_id,
             workitem_id = workitem_id,
             plugin_list = plugin_list,
-            type = type,
+            doc_type = doc_type,
             )
         return [values]
 

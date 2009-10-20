@@ -140,7 +140,6 @@ class dm_workitem(osv.osv): # {{{
                 wr = self.write(cr, uid, [wi.id], {'state': wi_status['state'],
                                                 'error_msg':wi_status['msg']})
                 done = wi_status['result']
-
                 """ If workitem done then execute mail service action """
                 if done:
                     camp_doc_obj = self.pool.get('dm.campaign.document')
@@ -152,12 +151,10 @@ class dm_workitem(osv.osv): # {{{
                         context['step_id'] = wi.step_id.id
                         context['document_id'] = camp_doc.document_id.id
                         context['segment_id'] = wi.segment_id.id
-
                         ms_res = server_obj.run(cr, uid,
-                                [camp_doc.mail_service_id.action_id.id],
-                                                            context.copy())
-                        ms_status = self._check_sysmsg(cr, uid, ms_res['code'], 
-                                                                        context)
+                                        [camp_doc.mail_service_id.action_id.id],
+                                        context.copy())
+                        ms_status = self._check_sysmsg(cr, uid, ms_res['code'], context)
                         camp_doc_obj.write(cr, uid, [camp_doc.id],
                             {'state': ms_status['state'],
                             'error_msg': ms_status['msg'], 
@@ -286,11 +283,8 @@ class dm_event(osv.osv_memory): # {{{
                                [('step_from_id', '=', obj.step_id.id),
                                 ('condition_id', '=', obj.trigger_type_id.id)])
         if not tr_ids:
-            netsvc.Logger().notifyChannel('dm event case',
-            netsvc.LOG_WARNING, "There is no transition %s at this step: %s"% 
-                                 (obj.trigger_type_id.name, obj.step_id.code))
-            raise osv.except_osv('Warning', "There is no transition %s \
-                at this step: %s"% (obj.trigger_type_id.name, obj.step_id.code))
+            netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, "There is no transition %s at this step : %s"% (obj.trigger_type_id.name, obj.step_id.code))
+            raise osv.except_osv('Warning', "There is no outgoing transition %s at this step : %s"% (obj.trigger_type_id.name, obj.step_id.code))
             return False
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid,
                                                                    tr_ids):

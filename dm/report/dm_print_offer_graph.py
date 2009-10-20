@@ -48,7 +48,6 @@ def graph_get(cr, uid, graph, offer_id):
     nodes = {}
     step_type = pooler.get_pool(cr.dbname).get('dm.offer.step.type')
     type_ids = step_type.search(cr, uid, [])
-    type = step_type.read(cr, uid, type_ids, ['code'])
     for step in offer.step_ids:
         if not step.graph_hide:
             args = {}

@@ -402,10 +402,11 @@ class dm_campaign(osv.osv): #{{{
             d = datetime.date(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
             vals['date'] = date_end
-            if 'project_id' in vals and vals['project_id']:
-                self.pool.get('project.project').write(cr, uid, 
-                                                [vals['project_id']], 
-                                            {'date_end': vals['date_start']})
+			#  moved in dm_retro_planning as project_id moved in retro_planning
+            #if 'project_id' in vals and vals['project_id']:
+                #self.pool.get('project.project').write(cr, uid, 
+                 #                               [vals['project_id']], 
+                 #                           {'date_end': vals['date_start']})
 
         """ In campaign, if no trademark is given, it gets the 'recommended 
                         trademark' from offer """
@@ -513,17 +514,6 @@ class dm_campaign(osv.osv): #{{{
                 write_vals['trademark_id'] = offer_id.recommended_trademark_id.id
         if write_vals:
             super(dm_campaign, self).write(cr, uid, id_camp, write_vals)
-
-        ''' Create CRM Section '''
-        crm_obj = self.pool.get('crm.case.section')
-        crm_id = crm_obj.search(cr, uid, [('code', 'ilike', 'DM')])
-        if crm_id:
-            section_vals = {
-                'name': data_cam.name,
-                'parent_id': crm_id[0],
-            }
-            crm_obj.create(cr, uid, section_vals)
-
         # check if an overlay exists else create it
         data_cam1 = self.browse(cr, uid, id_camp)
         overlay_country_ids = []
@@ -581,10 +571,9 @@ class dm_campaign(osv.osv): #{{{
         campaign_id = self.browse(cr, uid, id)
         if not default.get('name', False):
             default['name'] = campaign_id.name + ' (Copy)'
-        default.update({'date_start': False, 'date': False, 'project_id': False,
-                         'proposition_ids': []})
-        camp_copy_id = super(dm_campaign, self).copy(cr, uid, id, default, 
-                                                                    context)
+            # project_id should nt b her moved in rp
+        default.update({'date_start': False, 'date': False, 'proposition_ids': []})
+        camp_copy_id = super(dm_campaign, self).copy(cr, uid, id, default, context)
         prop_ids = [x.id for x in campaign_id.proposition_ids]
         for proposition in campaign_id.proposition_ids:
             default = {'camp_id': camp_copy_id}
@@ -643,18 +632,7 @@ class dm_campaign_proposition(osv.osv): #{{{
                                 id.payment_method_ids]
             vals['payment_method_ids'] = [[6, 0, payment_methods]]
 
-        ''' Create CRM Section '''
-        crm_obj = self.pool.get('crm.case.section')
-        crm_id = crm_obj.search(cr, uid, [('name', '=', id.name)])
-        if crm_id:
-            section_vals = {
-                    'name': vals['name'],
-                    'parent_id': crm_id[0],
-            }
-            crm_obj.create(cr, uid, section_vals)
-
         return super(dm_campaign_proposition, self).create(cr, uid, vals, 
-                                                                        context)
 
     def copy(self, cr, uid, id, default=None, context={}):
         """
@@ -1298,14 +1276,13 @@ class dm_mail_service(osv.osv):
 
 dm_mail_service()
 
-
 class dm_campaign_mail_service(osv.osv):
     _name = "dm.campaign.mail_service"
     _rec_name = 'mail_service_id'
     _columns = {
-        'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service'),
-        'campaign_id': fields.many2one('dm.campaign', 'Campaign'),
-        'offer_step_id': fields.many2one('dm.offer.step', 'Offer Step'),
+        'mail_service_id' : fields.many2one('dm.mail_service', 'Mail Service'),
+        'campaign_id' : fields.many2one('dm.campaign', 'Campaign'),
+        'offer_step_id' : fields.many2one('dm.offer.step', 'Offer Step'),
     }
 dm_campaign_mail_service()
 

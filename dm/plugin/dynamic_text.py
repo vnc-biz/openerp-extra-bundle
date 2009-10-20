@@ -30,7 +30,7 @@ def dynamic_text(cr, uid, **args):
     doc_obj = pool.get('dm.offer.document').browse(cr, uid, doc_id)
     lang_id = doc_obj.lang_id.id
     title_obj = pool.get('res.partner.title')
-    if args['type'] == 'preview':
+    if args['doc_type'] == 'preview':
         address_id = pool.get('res.partner.address').browse(cr, uid, 
                                                         args['address_id'])
     else:

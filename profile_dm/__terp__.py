@@ -25,7 +25,13 @@
     "author":"Tiny",
     "description":"""Profile module for advanced Direct Marketing management""",
     "category":"Profile",
-    "depends":["board_dm", "dm_website"],
+    "depends":[
+           # "board_dm", depends on project which is moved in retro_planning
+            "dm_website",
+            "dm_sale",
+            "dm_crm",
+            "report_dm",
+            ],
     "demo_xml":[],
     "update_xml":[],
     "active":False,

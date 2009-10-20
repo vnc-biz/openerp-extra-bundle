@@ -21,7 +21,6 @@
 
 import wizard
 import pooler
-import osv
 
 class wizard_document_report(wizard.interface):
 
@@ -39,23 +38,27 @@ class wizard_document_report(wizard.interface):
 
     def execute(self, db, uid, data, state='init', context=None): # {{{
         self.dm_wiz_data = data
-        return super(wizard_document_report,self).execute(db, uid, data, state, context) # }}}
+        return super(wizard_document_report, self).execute(
+                                            db, uid, data, state, context) # }}}
 
-    def _print_report(self, cr, uid, data , context): # {{{
-        report = pooler.get_pool(cr.dbname).get('ir.actions.report.xml').browse(cr, uid, data['form']['report'])
+    def _print_report(self, cr, uid, data, context): # {{{
+        report = pooler.get_pool(cr.dbname).get('ir.actions.report.xml').browse(
+                                                cr, uid, data['form']['report'])
         self.states['print_report']['result']['report'] = report.report_name
         return {} # }}}
 
     def _send_report(self, cr, uid, data , context): # {{{
 #        if not data['form']['mail_service_id']:
-#                raise osv.except_osv("Error","You must choose a mail service for sending preview documents")
-        doc = pooler.get_pool(cr.dbname).get('dm.offer.document').browse(cr, uid, self.dm_wiz_data['id'])
+#                raise osv.except_osv("Error", "You must choose a mail service 
+#                                        for sending preview documents")
+        doc = pooler.get_pool(cr.dbname).get('dm.offer.document').browse(cr, 
+                                                    uid, self.dm_wiz_data['id'])
         vals = {
-            'address_id' : data['form']['address_id'],
-            'segment_id' : data['form']['segment_id'],
-            'step_id' : doc.step_id.id,
-#            'mail_service_id' : data['form']['mail_service_id'],
-            'is_preview' : True,
+            'address_id': data['form']['address_id'],
+            'segment_id': data['form']['segment_id'],
+            'step_id': doc.step_id.id,
+#            'mail_service_id': data['form']['mail_service_id'],
+            'is_preview': True,
         }
         pooler.get_pool(cr.dbname).get('dm.workitem').create(cr, uid, vals)
         return {} # }}}
@@ -64,40 +67,50 @@ class wizard_document_report(wizard.interface):
         document_id = self.dm_wiz_data['id']
         pool = pooler.get_pool(cr.dbname)
         group_obj = pool.get('ir.actions.report.xml')
-        ids = group_obj.search(cr, uid, [('document_id','=',document_id)])
-        res = [(group.id, group.name) for group in group_obj.browse(cr, uid, ids)]
-        res.sort(lambda x,y: cmp(x[1],y[1]))
+        ids = group_obj.search(cr, uid, [('document_id', '=', document_id)])
+        res = [(group.id, group.name) for group in 
+                                            group_obj.browse(cr, uid, ids)]
+        res.sort(lambda x, y: cmp(x[1], y[1]))
         return res # }}}
 
     report_list_fields = { # {{{
-        'report': {'string': 'Select Report', 'type': 'selection', 'selection':_get_reports, },
-        'address_id': {'string': 'Select Customer Address', 'type': 'many2one','relation':'res.partner.address', 'selection':_get_reports, 'domain':[('partner_id.category_id','=','DTP Preview Customers')] },
-        'segment_id':{'string': 'Select Segment', 'type': 'many2one','relation':'dm.campaign.proposition.segment'}
+        'report': {'string': 'Select Report', 'type': 'selection', 
+                   'selection': _get_reports, },
+        'address_id': {'string': 'Select Customer Address', 'type': 'many2one',
+                'relation': 'res.partner.address', 'selection': _get_reports, 
+                'domain': [('partner_id.category_id', '=', 'DTP Preview Customers')] },
+        'segment_id': {'string': 'Select Segment', 'type': 'many2one',
+                      'relation': 'dm.campaign.proposition.segment'}
         } # }}}
 
     report_send_fields = { # {{{
-        'mail_service_id': {'string': 'Select Mail Service', 'type': 'many2one','relation':'dm.mail_service',},
+        'mail_service_id': {'string': 'Select Mail Service', 'type': 'many2one',
+                            'relation': 'dm.mail_service',},
         } # }}}
 
     states = { # {{{
         'init': {
             'actions': [],
-            'result': {'type':'form', 'arch':report_list_form, 'fields':report_list_fields,
-#                'state':[('end','Cancel'),('print_report','Print Report'),('select_ms','Send Report'),]}
-                'state':[('end','Cancel'),('print_report','Print Report'),('send_report','Send Report'),]}
+            'result': {'type': 'form', 'arch': report_list_form, 
+                       'fields': report_list_fields,
+#                'state': [('end', 'Cancel'), ('print_report', 'Print Report'),
+#                                ('select_ms', 'Send Report'),]}
+                'state': [('end', 'Cancel'),('print_report', 'Print Report'),
+                                ('send_report', 'Send Report'),]}
             },
         'print_report': {
             'actions': [_print_report],
-            'result': {'type': 'print', 'report':'', 'state':'end'}
+            'result': {'type': 'print', 'report': '', 'state': 'end'}
             },
 #        'select_ms': {
 #            'actions': [],
-#            'result': {'type':'form', 'arch':report_send_form, 'fields':report_send_fields,
-#                'state':[('send_report','Send Report')]}
+#            'result': {'type': 'form', 'arch': report_send_form, 
+#                        'fields': report_send_fields,
+#                        'state': [('send_report', 'Send Report')]}
 #            },
         'send_report': {
             'actions': [_send_report],
-            'result' : {'type':'state', 'state':'end'}
+            'result': {'type': 'state', 'state': 'end'}
             },
         } # }}}
 

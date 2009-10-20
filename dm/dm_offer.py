@@ -51,7 +51,8 @@ class dm_media(osv.osv): # {{{
             if context['step_media_ids'][0][2]:
                 brse_rec = context['step_media_ids'][0][2]
             else:
-                raise osv.except_osv('Error !', "It is necessary to select media in offer step.")
+                raise osv.except_osv('Error !', "It is necessary to select 
+                                                        media in offer step.")
         else:
             brse_rec = super(dm_media, self).search(cr, uid, [])
         return brse_rec
@@ -109,7 +110,8 @@ class dm_offer_category(osv.osv): # {{{
     def _check_recursion(self, cr, uid, ids):
         level = 100
         while len(ids):
-            cr.execute('select distinct parent_id from dm_offer_category where id in ('+', '.join(map(str, ids))+')')
+            cr.execute('select distinct parent_id from dm_offer_category \
+                                where id in ('+', '.join(map(str, ids))+')')
             ids = filter(None, map(lambda x: x[0], cr.fetchall()))
             if not level:
                 return False
@@ -117,14 +119,17 @@ class dm_offer_category(osv.osv): # {{{
         return True
 
     _columns = {
-        'complete_name': fields.function(_name_get_fnc, method=True, type='char', string='Category'),
+        'complete_name': fields.function(_name_get_fnc, method=True, 
+                                         type='char', string='Category'),
         'parent_id': fields.many2one('dm.offer.category', 'Parent'),
         'name': fields.char('Name', size=64, required=True),
-        'child_ids': fields.one2many('dm.offer.category', 'parent_id', 'Childs Category'),
+        'child_ids': fields.one2many('dm.offer.category', 'parent_id',
+                                                            'Childs Category'),
     }
 
     _constraints = [
-        (_check_recursion, 'Error ! You can not create recursive categories.', ['parent_id'])
+        (_check_recursion, 'Error ! You can not create recursive categories.',
+                                                                 ['parent_id'])
     ]
 
 dm_offer_category() # }}}
@@ -142,7 +147,8 @@ class dm_offer(osv.osv): # {{{
     _name = "dm.offer"
     _rec_name = 'name'
 
-    def dtp_last_modification_date(self, cr, uid, ids, field_name, arg, context={}):
+    def dtp_last_modification_date(self, cr, uid, ids, field_name, arg, 
+                                                                    context={}):
         result = {}
         for id in ids:
             sql = "select write_date, create_date from dm_offer where id = %s"
@@ -157,7 +163,8 @@ class dm_offer(osv.osv): # {{{
     def _check_preoffer(self, cr, uid, ids):
         offer = self.browse(cr, uid, ids)[0]
         if offer.preoffer_original_id:
-            preoffer_id = self.search(cr, uid, [('preoffer_original_id', '=', offer.preoffer_original_id.id)])
+            preoffer_id = self.search(cr, uid, [('preoffer_original_id', '=', 
+                                            offer.preoffer_original_id.id)])
             if len(preoffer_id) > 1:
                 return False
         return True
@@ -165,38 +172,84 @@ class dm_offer(osv.osv): # {{{
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
-        'lang_orig_id': fields.many2one('res.lang', 'Original Language', required=True),
-        'copywriter_id': fields.many2one('res.partner', 'Copywriter', domain=[('category_id', 'ilike', 'Copywriter')], context={'category': 'Copywriter'}),
+        'lang_orig_id': fields.many2one('res.lang', 'Original Language', 
+                                                                required=True),
+        'copywriter_id': fields.many2one('res.partner', 'Copywriter', 
+                                domain=[('category_id', 'ilike', 'Copywriter')],
+                                context={'category': 'Copywriter'}),
         'step_ids': fields.one2many('dm.offer.step', 'offer_id', 'Offer Steps'),
-        'offer_responsible_id': fields.many2one('res.users', 'Responsible', ondelete="cascade"),
-        'recommended_trademark_id': fields.many2one('dm.trademark', 'Recommended Trademark'),
-        'offer_origin_id': fields.many2one('dm.offer', 'Original Offer', domain=[('type', 'in', ['new', 'standart', 'rewrite'])]),
-        'preoffer_original_id': fields.many2one('dm.offer', 'Original Offer Idea', domain=[('type', '=', 'preoffer')]),
+        'offer_responsible_id': fields.many2one('res.users', 'Responsible', 
+                                                            ondelete="cascade"),
+        'recommended_trademark_id': fields.many2one('dm.trademark', 
+                                                    'Recommended Trademark'),
+        'offer_origin_id': fields.many2one('dm.offer', 'Original Offer',
+                                            domain=[('type', 'in', 
+                                              ['new', 'standart', 'rewrite'])]),
+        'preoffer_original_id': fields.many2one('dm.offer', 
+                                'Original Offer Idea', 
+                                 domain = [('type', '=', 'preoffer')]),
         'active': fields.boolean('Active'),
         'quotation': fields.char('Quotation', size=16),
-        'legal_state': fields.selection([('validated', 'Validated'), ('notvalidated', 'Not Validated'), ('inprogress', 'In Progress'), ('refused', 'Refused')], 'Legal State'),
-        'category_ids': fields.many2many('dm.offer.category', 'dm_offer_category_rel', 'offer_id', 'offer_category_id', 'Categories'),
+        'legal_state': fields.selection([('validated', 'Validated'),
+                                         ('notvalidated', 'Not Validated'),
+                                         ('inprogress', 'In Progress'),
+                                         ('refused', 'Refused')],
+                                         'Legal State'),
+        'category_ids': fields.many2many('dm.offer.category',
+                                        'dm_offer_category_rel',
+                                        'offer_id',
+                                        'offer_category_id',
+                                        'Categories'),
         'notes': fields.text('General Notes'),
-        'state': fields.selection(AVAILABLE_STATES, 'Status', size=16, readonly=True),
+        'state': fields.selection(AVAILABLE_STATES, 'Status', size=16, 
+                                                            readonly=True),
         'type': fields.selection(AVAILABLE_TYPE, 'Type', size=16),
-        'preoffer_offer_id': fields.many2one('dm.offer', 'Offer', domain=[('type', 'in', ['new', 'standart', 'rewrite'])]),
-        'preoffer_type': fields.selection([('rewrite', 'Rewrite'), ('new', 'New')], 'Type', size=16),
-        'production_category_ids': fields.many2many('dm.offer.category', 'dm_offer_production_category', 'offer_id', 'offer_production_categ_id', 'Production Categories', domain="[('domain', '=', 'production')]"),
-        'production_cost_id': fields.many2one('dm.offer.production.cost', 'Production Cost'),
+        'preoffer_offer_id': fields.many2one('dm.offer', 'Offer', 
+                                             domain=[('type', 'in', 
+                                                    ['new', 'standart',
+                                                    'rewrite'])]),
+        'preoffer_type': fields.selection([('rewrite', 'Rewrite'),
+                                           ('new', 'New')], 
+                                           'Type', size=16),
+        'production_category_ids': fields.many2many('dm.offer.category', 
+                                                'dm_offer_production_category',
+                                                'offer_id', 
+                                                'offer_production_categ_id',
+                                                'Production Categories',
+                                      domain="[('domain', '=', 'production')]"),
+        'production_cost_id': fields.many2one('dm.offer.production.cost', 
+                                              'Production Cost'),
         'purchase_note': fields.text('Purchase Notes'),
-        'purchase_category_ids': fields.many2many('dm.offer.category', 'dm_offer_purchase_category', 'offer_id', 'offer_purchase_categ_id', 'Purchase Categories', domain="[('domain', '=', 'purchase')]"),
-        'history_ids': fields.one2many('dm.offer.history', 'offer_id', 'History', ondelete="cascade", readonly=True),
+        'purchase_category_ids': fields.many2many('dm.offer.category',
+                                                  'dm_offer_purchase_category',
+                                                  'offer_id',
+                                                  'offer_purchase_categ_id', 
+                                                  'Purchase Categories',
+                                     domain="[('domain', '=', 'purchase')]"),
+        'history_ids': fields.one2many('dm.offer.history', 'offer_id', 
+                                       'History', ondelete="cascade",
+                                        readonly=True),
 
         'order_date': fields.date('Order Date'),
-        'last_modification_date': fields.function(dtp_last_modification_date, method=True, type="char", string='Last Modification Date', readonly=True),
+        'last_modification_date': fields.function(dtp_last_modification_date,
+                                            method =True, type="char",
+                                            string ='Last Modification Date',
+                                            readonly =True),
         'planned_delivery_date': fields.date('Planned Delivery Date'),
         'delivery_date': fields.date('Delivery Date'),
         'fixed_date': fields.date('Fixed Date'),
-        'forbidden_country_ids': fields.many2many('res.country', 'dm_offer_forbidden_country', 'offer_id', 'country_id', 'Forbidden Countries'),
-        'forbidden_state_ids': fields.many2many('res.country.state', 'dm_offer_forbidden_state', 'offer_id', 'state_id', 'Forbidden States'),
+        'forbidden_country_ids': fields.many2many('res.country', 
+                                            'dm_offer_forbidden_country',
+                                            'offer_id', 'country_id',
+                                            'Forbidden Countries'),
+        'forbidden_state_ids': fields.many2many('res.country.state', 
+                                                'dm_offer_forbidden_state', 
+                                                'offer_id', 'state_id', 
+                                                'Forbidden States'),
         'keywords': fields.text('Keywords'),
         'version': fields.float('Version'),
-        'child_ids': fields.one2many('dm.offer', 'offer_origin_id', 'Childs Category'),
+        'child_ids': fields.one2many('dm.offer', 'offer_origin_id', 
+                                                           'Childs Category'),
     }
 
     _defaults = {
@@ -209,13 +262,15 @@ class dm_offer(osv.osv): # {{{
     }
 
     _constraints = [
-        (_check_preoffer, 'Error ! this offer idea is already assigned to an offer', ['preoffer_original_id'])
+        (_check_preoffer, 'Error ! this offer idea is already assigned \
+                                  to an offer', ['preoffer_original_id'])
     ]
 
     def state_close_set(self, cr, uid, ids, *args):
         wf_service = netsvc.LocalService('workflow')
         for step in self.browse(cr, uid, ids):
-            wf_service.trg_validate(uid, 'dm.offer.step', step.id, 'state_close_set', cr)
+            wf_service.trg_validate(uid, 'dm.offer.step', 
+                                            step.id, 'state_close_set',  cr)
         self.write(cr, uid, ids, {'state': 'closed'})
         return True
 
@@ -230,7 +285,8 @@ class dm_offer(osv.osv): # {{{
                 if step_id.state != 'open':
                     raise osv.except_osv(
                             _('Could not open this offer !'),
-                            _('You must first open all offer steps related to this offer.'))
+                            _('You must first open all offer steps related \
+                                                            to this offer.'))
             wf_service.trg_validate(uid, 'dm.offer', step.id, 'open', cr)
         self.write(cr, uid, ids, {'state': 'open'})
         return True
@@ -250,43 +306,64 @@ class dm_offer(osv.osv): # {{{
         self.copy(cr, uid, ids[0], {'type': 'standart'})
         return True
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+    def fields_view_get(self, cr, user, view_id=None, view_type='form', 
+                                context=None, toolbar=False, submenu=False):
         if 'offer_type' in context and context['offer_type']:
-            new_view_id = self.pool.get('ir.ui.view').search(cr, user, [('name', '=', 'dm.preoffer.form')])
-            result = super(dm_offer, self).fields_view_get(cr, user, new_view_id[0], view_type, context, toolbar, submenu=submenu)
+            new_view_id = self.pool.get('ir.ui.view').search(cr, user,
+                                           [('name', '=', 'dm.preoffer.form')])
+            result = super(dm_offer, self).fields_view_get(cr, user, 
+                                            new_view_id[0],
+                                            view_type, context, 
+                                            toolbar, 
+                                            submenu=submenu)
         else:
-            result = super(dm_offer, self).fields_view_get(cr, user, view_id, view_type, context, toolbar, submenu=submenu)
+            result = super(dm_offer, self).fields_view_get(cr, user, view_id, 
+                                                           view_type, context,
+                                                           toolbar, 
+                                                           submenu=submenu)
             if 'type' in context:
                 if context['type'] == 'model':
                     if 'toolbar' in result:
                         if 'print' in result['toolbar']:
-                            new_print = filter(lambda x: x['report_name'] not in ['offer.report', 'preoffer.report'], result['toolbar']['print'])
+                            new_print = filter(lambda x: x['report_name'] not in
+                                        ['offer.report', 'preoffer.report'], 
+                                        result['toolbar']['print'])
                             result['toolbar']['print'] = new_print
                 if context['type'] == 'preoffer':
                     if 'toolbar' in result:
                         if 'relate' in result['toolbar']:
                             result['toolbar']['relate'] = ''
                         if 'print' in result['toolbar']:
-                            new_print = filter(lambda x: x['report_name'] == 'preoffer.report', result['toolbar']['print'])
+                            new_print = filter(lambda x: x['report_name'] == 
+                                'preoffer.report', result['toolbar']['print'])
                             result['toolbar']['print'] = new_print
             else:
                 if 'toolbar' in result:
-                    if 'print' in result['toolbar'] and 'report' in result['toolbar'] and result['toolbar']['report']:
-#                    if result['toolbar'].has_key('print') :
-                        new_print = filter(lambda x: x['report_name'] not in ['offer.model.report', 'preoffer.report'], result['toolbar']['print'])
+                    if 'print' in result['toolbar'] and 'report' in \
+                        result['toolbar'] and result['toolbar']['report']:
+#                    if result['toolbar'].has_key('print'):
+                        new_print = filter(lambda x: x['report_name'] not in \
+                                            ['offer.model.report', 
+                                             'preoffer.report'],
+                                              result['toolbar']['print'])
                         result['toolbar']['print'] = new_print
         return result
 
     def fields_get(self, cr, uid, fields=None, context=None):
         res = super(dm_offer, self).fields_get(cr, uid, fields, context)
         if context and not 'type' in context and 'type' in res:
-            res['type']['selection'] = [('new', 'New'), ('standart', 'Standart'), ('rewrite', 'Rewrite'), ('as', 'After-Sale')]
+            res['type']['selection'] = [('new', 'New'), 
+                                        ('standart', 'Standart'),
+                                        ('rewrite', 'Rewrite'), 
+                                        ('as', 'After-Sale')]
         return res
 
     def default_get(self, cr, uid, fields, context=None):
         value = super(dm_offer, self).default_get(cr, uid, fields, context)
-        if not 'create' in context and 'type' in context and context['type'] == 'model':
-            value['code'] = self.pool.get('ir.sequence').get(cr, uid, 'dm.offer')
+        if not 'create' in context and 'type' in context and \
+                                                    context['type'] == 'model':
+            value['code'] = self.pool.get('ir.sequence').get(cr, uid,
+                                                                    'dm.offer')
         return value
 
     def create(self, cr, uid, vals, context={}):
@@ -297,12 +374,14 @@ class dm_offer(osv.osv): # {{{
 #        context['create'] = 'create'
         new_offer_id = super(dm_offer, self).create(cr, uid, vals, context)
         if 'preoffer_original_id' in vals:
-            self.write(cr, uid, vals['preoffer_original_id'], {'preoffer_offer_id': new_offer_id})
+            self.write(cr, uid, vals['preoffer_original_id'], 
+                       {'preoffer_offer_id': new_offer_id})
         return new_offer_id
 
     def write(self, cr, uid, ids, vals, context={}):
         if 'preoffer_original_id' in vals:
-            self.write(cr, uid, vals['preoffer_original_id'], {'preoffer_offer_id': ids[0]})
+            self.write(cr, uid, vals['preoffer_original_id'],
+                                     {'preoffer_offer_id': ids[0]})
         return super(dm_offer, self).write(cr, uid, ids, vals, context)
 
     def copy(self, cr, uid, id, default=None, context=None):
@@ -320,15 +399,22 @@ class dm_offer(osv.osv): # {{{
         #            offer step are copied
         new_steps = []
         for step in offer_steps:
-            nid = offer_step_obj.copy(cr, uid, step.id, {'offer_id': offer_id, 'outgoing_transition_ids': [], 'incoming_transition_ids': []})#, 'document_ids':[]})
-            new_steps.append({'old_id': step.id, 'new_id': nid, 'o_trans_id': step.outgoing_transition_ids})
+            nid = offer_step_obj.copy(cr, uid, step.id, {'offer_id': offer_id, 
+                                    'outgoing_transition_ids': [], 
+                                    'incoming_transition_ids': []})
+                                    #, 'document_ids': []})
+            new_steps.append({'old_id': step.id, 'new_id': nid,
+                              'o_trans_id': step.outgoing_transition_ids})
 
         #            transitions are copied
         for step in new_steps:
             if step['o_trans_id']:
                 for trans in step['o_trans_id']:
-                    step_to = [nid['new_id'] for nid in new_steps if nid['old_id'] == trans.step_to_id.id][0]
-                    self.pool.get('dm.offer.step.transition').copy(cr, uid, trans.id, {'step_to_id': step_to, 'step_from_id': step['new_id']})
+                    step_to = [nid['new_id'] for nid in new_steps 
+                               if nid['old_id'] == trans.step_to_id.id][0]
+                    self.pool.get('dm.offer.step.transition').copy(cr, uid, 
+                              trans.id, {'step_to_id': step_to, 
+                                         'step_from_id': step['new_id']})
         return offer_id
 
 dm_offer() # }}}
@@ -348,4 +434,3 @@ class dm_offer_translation(osv.osv): # {{{
 dm_offer_translation() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

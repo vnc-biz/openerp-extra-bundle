@@ -19,34 +19,29 @@
 #
 ##############################################################################
 
-import time
-
 from osv import fields
 from osv import osv
-import pooler
-import sys
-import datetime
-import netsvc
 
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
     _columns = {
-        'raw_datas' : fields.char('Raw Datas', size=128),
-        'customer_code' : fields.char('Customer Code',size=64),
-        'title' : fields.char('Title',size=32),
-        'customer_firstname' : fields.char('First Name', size=64),
-        'customer_lastname' : fields.char('Last Name', size=64),
-        'customer_add1' : fields.char('Address1', size=64),
-        'customer_add2' : fields.char('Address2', size=64),
-        'customer_add3' : fields.char('Address3', size=64),
-        'customer_add4' : fields.char('Address4', size=64),
-        'country' : fields.char('Country', size=16),
-        'zip' : fields.char('Zip Code', size=12),
-        'zip_summary' : fields.char('Zip Summary', size=64),
-        'distribution_office' : fields.char('Distribution Office', size=64),
-        'segment_code' : fields.char('Segment Code', size=64),
-        'offer_step_code' : fields.char('Offer Step Code', size=64),
-        'state' : fields.selection([('draft','Draft'),('done','Done')], 'Status', readonly=True),
+        'raw_datas': fields.char('Raw Datas', size=128),
+        'customer_code': fields.char('Customer Code', size=64),
+        'title': fields.char('Title', size=32),
+        'customer_firstname': fields.char('First Name', size=64),
+        'customer_lastname': fields.char('Last Name', size=64),
+        'customer_add1': fields.char('Address1', size=64),
+        'customer_add2': fields.char('Address2', size=64),
+        'customer_add3': fields.char('Address3', size=64),
+        'customer_add4': fields.char('Address4', size=64),
+        'country': fields.char('Country', size=16),
+        'zip': fields.char('Zip Code', size=12),
+        'zip_summary': fields.char('Zip Summary', size=64),
+        'distribution_office': fields.char('Distribution Office', size=64),
+        'segment_code': fields.char('Segment Code', size=64),
+        'offer_step_code': fields.char('Offer Step Code', size=64),
+        'state': fields.selection([('draft', 'Draft'),('done', 'Done')],
+                                   'Status', readonly=True),
     }
     _defaults = {
         'state': lambda *a: 'draft',
@@ -55,14 +50,18 @@ class dm_order(osv.osv): # {{{
     def set_confirm(self, cr, uid, ids, *args):
         return True
 
-    def onchange_rawdatas(self,cr,uid,ids,raw_datas):
+    def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-        raw_datas = "2;00573G;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;GBR;BN;BN11 1XQ;WORTHING.LU.SX"
+        raw_datas = "2;00573G;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;\
+                        GBR;BN;BN11 1XQ;WORTHING.LU.SX"
         value = raw_datas.split(';')
-        key = ['datamatrix_type','segment_code','customer_code','title','customer_lastname','customer_firstname','customer_add1','customer_add2','customer_add3','customer_add4','country','zip_summary','zip','distribution_office']
-        value = dict(zip(key,value))
-        return {'value':value}
+        key = ['datamatrix_type', 'segment_code', 'customer_code', 'title', 
+               'customer_lastname', 'customer_firstname', 'customer_add1',
+               'customer_add2', 'customer_add3', 'customer_add4', 'country', 
+               'zip_summary', 'zip', 'distribution_office']
+        value = dict(zip(key, value))
+        return {'value': value}
 
 dm_order() # }}}
 
@@ -70,11 +69,15 @@ class dm_offer_history(osv.osv): # {{{
     _name = "dm.offer.history"
     _order = 'date'
     _columns = {
-        'offer_id' : fields.many2one('dm.offer', 'Offer', required=True, ondelete="cascade"),
-        'date' : fields.date('Drop Date'),
-        'campaign_id' : fields.many2one('dm.campaign','Name', ondelete="cascade"),
-        'code' : fields.char('Code', size=16),
-        'responsible_id' : fields.many2one('res.users','Responsible'),
+        'offer_id': fields.many2one('dm.offer', 'Offer', required=True, 
+                                                            ondelete="cascade"),
+        'date': fields.date('Drop Date'),
+        'campaign_id': fields.many2one('dm.campaign', 'Name', 
+                                       ondelete="cascade"),
+        'code': fields.char('Code', size=16),
+        'responsible_id': fields.many2one('res.users', 'Responsible'),
     }
 dm_offer_history() # }}}
+
+#vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -363,7 +363,7 @@ class dm_campaign(osv.osv): #{{{
             raise osv.except_osv("Error", "You cannot use this offer in this country")
         ''' create campaign mail service '''
 
-#        mail_service_id = for each step in the offer the system should :
+#        mail_service_id = for each step in the offer the system should:
 #            - check the media of the step,
 #            - find the default mail service for that media
 #            - assign it to mail_service_id
@@ -761,9 +761,9 @@ class dm_customers_list(osv.osv): #{{{
         'other_cost': fields.float('Other Cost', digits=(16, 2)),
         'invoice_base': fields.selection([('net', 'Net Addresses Quantity'), ('raw', 'Raw Addresses Quantity')], 'Invoicing based on',
                     help='Net or raw quantity on which is based the final invoice depending of the term negociated with the broker.\n' \
-                            'Net : Usable quantity after deduplication\n' \
-                            'Raw : Delivered quantity\n' \
-                            'Real : Realy used qunatity'),
+                            'Net: Usable quantity after deduplication\n' \
+                            'Raw: Delivered quantity\n' \
+                            'Real: Realy used qunatity'),
         'recruiting_origin_id': fields.many2one('dm.customers_list.recruit_origin', 'Recruiting Origin',
                     help='Origin of the recruiting of the adresses'),
         'list_type_id': fields.many2one('dm.customers_list.type', 'Type'),
@@ -824,7 +824,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         return super(dm_campaign_proposition_segment, self).write(cr, uid, ids, vals, context)
 
     def create(self, cr, uid, vals, context={}):
-        if 'proposition_id' in vals and vals['proposition_id'] :
+        if 'proposition_id' in vals and vals['proposition_id']:
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr, uid, vals['proposition_id'])
             vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
         return super(dm_campaign_proposition_segment, self).create(cr, uid, vals, context)
@@ -836,7 +836,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
             res  = self.pool.get('dm.campaign').browse(cr, uid, context['dm_camp_id'])
             seg_ids = []
             for pro  in res.proposition_ids:
-                seg_ids.extend(map(lambda x : x.id, pro.segment_ids))
+                seg_ids.extend(map(lambda x: x.id, pro.segment_ids))
             return seg_ids
         return super(dm_campaign_proposition_segment, self).search(cr, uid, args, offset, limit, order, context, count)
 
@@ -875,7 +875,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##                     code1='-'.join([cust_file_code[:3], seq[:4]])
 ##                     result[s]=code1
 ##                     i +=1
-##             else :
+##             else:
 ##                 result[seg.id]=seg.type_src+'%d'%id
 ##         return result
 
@@ -893,7 +893,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
                     code1='-'.join([country_code[:3], cust_list_code[:3], seq[:4]])
                     result[s]=code1
                     i +=1
-            else :
+            else:
                 result[seg.id]=seg.type_src+'%d'%id
         return result
 
@@ -951,7 +951,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
                     help='Used to order all adresses available in the customers list based on the segmentation criteria'),
         'split_id': fields.many2one('dm.campaign.proposition.segment', 'Split'),
         'start_census':fields.integer('Start Census', help='The recency is the time since the latest purchase.\n' \
-                                    'For example : A 0-30 recency means all the customers that have purchased in the last 30 days'),
+                                    'For example: A 0-30 recency means all the customers that have purchased in the last 30 days'),
         'end_census': fields.integer('End Census'),
         'deduplication_level': fields.integer('Deduplication Level',
                     help='The deduplication level defines the order in which the deduplication takes place.'),
@@ -1043,11 +1043,11 @@ class dm_mail_service(osv.osv):
     }
 
     def _check_unique_mail_service(self, cr, uid, ids, media_id, default_for_media):
-        if default_for_media :
+        if default_for_media:
             res = self.search(cr, uid, [('media_id', '=', media_id), ('default_for_media', '=', True)])
             if res and (ids and (res in ids) or True):
                 return {'value': {'default_for_media': False}}
-        else :
+        else:
             return True
 
     def on_change_service_type(self, cr, uid, ids, type_id):

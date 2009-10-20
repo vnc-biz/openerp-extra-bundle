@@ -21,8 +21,6 @@
 
 import wizard
 import pooler
-import netsvc
-
     
 def selection_list(self, cr, uid, context):
     temp = pooler.get_pool(cr.dbname).get('dm.workitem').SELECTION_LIST 
@@ -35,21 +33,26 @@ parameter_form = '''<?xml version="1.0"?>
 </form>'''
 
 parameter_fields = {
-    'action_time' : {'string':'Action Time', 'type':'datetime','required':True},
-    'state' : {'string':'Status', 'type':'selection', 'selection':selection_list,'required':True},
+    'action_time': {'string': 'Action Time', 'type': 'datetime', 
+                    'required': True},
+    'state': {'string': 'Status', 'type': 'selection', 
+              'selection': selection_list, 'required': True},
 }
 
 def _change_state_action_time(self, cr, uid, data, context):
     print "---------------------", data
     workitem_obj = pooler.get_pool(cr.dbname).get('dm.workitem')
-    workitem_obj.write(cr, uid, data['ids'], {'state': data['form']['state'],'action_time':data['form']['action_time']})
+    workitem_obj.write(cr, uid, data['ids'], {'state': data['form']['state'],
+                                    'action_time': data['form']['action_time']})
     return {}
 
 class wizard_workitem(wizard.interface):
     states = {
         'init': {
             'actions': [],
-            'result': {'type': 'form', 'arch':parameter_form, 'fields': parameter_fields, 'state':[('end','Cancel'),('done', 'Modify')]}
+            'result': {'type': 'form', 'arch': parameter_form, 
+                       'fields': parameter_fields, 
+                       'state': [('end', 'Cancel'), ('done', 'Modify')]}
 
         },
         'done': {
@@ -62,3 +65,4 @@ class wizard_workitem(wizard.interface):
         },
     }
 wizard_workitem("wizard.workitem")
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

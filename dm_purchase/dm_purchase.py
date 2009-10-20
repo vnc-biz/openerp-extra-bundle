@@ -23,14 +23,14 @@ from osv import osv
 
 class purchase_order(osv.osv):#{{{
     _name = "purchase.order"
-    _inherit="purchase.order"
+    _inherit = "purchase.order"
 
     _columns = {
-        'campaign_id' : fields.many2one('dm.campaign', 'Campaign', select="1"),
-        'po_confirm_do' : fields.boolean('Auto confirm purchase order'),
-        'invoice_create_do' : fields.boolean('Auto create invoice'),
-        'invoice_validate_do' : fields.boolean('Auto validate invoice'),
-        'invoice_pay_do' : fields.boolean('Auto pay invoice'),
+        'campaign_id': fields.many2one('dm.campaign', 'Campaign', select="1"),
+        'po_confirm_do': fields.boolean('Auto confirm purchase order'),
+        'invoice_create_do': fields.boolean('Auto create invoice'),
+        'invoice_validate_do': fields.boolean('Auto validate invoice'),
+        'invoice_pay_do': fields.boolean('Auto pay invoice'),
     }
 purchase_order()#}}}
 
@@ -39,7 +39,11 @@ class dm_offer_step(osv.osv):
     _inherit = "dm.offer.step"
     
     _columns = {
-        'manufacturing_constraint_ids' : fields.many2many('product.product','dm_offer_step_manufacturing_product_rel','product_id','offer_step_id','Mailing Manufacturing Products',domain=[('categ_id', 'ilike', 'Mailing Manufacturing')], states={'closed':[('readonly',True)]}),
+        'manufacturing_constraint_ids': fields.many2many('product.product',
+                'dm_offer_step_manufacturing_product_rel', 'product_id',
+                'offer_step_id', 'Mailing Manufacturing Products',
+                domain=[('categ_id', 'ilike', 'Mailing Manufacturing')],
+                states={'closed': [('readonly',True)]}),
         }
 dm_offer_step()
 

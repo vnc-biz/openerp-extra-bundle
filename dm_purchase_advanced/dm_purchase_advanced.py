@@ -38,27 +38,30 @@ class one2many_mod_pline(fields.one2many):#{{{
         sql="select id,name from product_category where parent_id=%d" %direct_id
         cr.execute(sql)
         res_type = cr.fetchall()
-        type={}
+        prod_categ_type={}
         for x in res_type:
-            type[x[1]]=x[0]
+            prod_categ_type[x[1]]=x[0]
         for id in ids:
             if name[0] == 'd':
                 ids2 = obj.pool.get(self._obj).search(cr, user,
-                  [('campaign_id','=',id),('product_category','=',type['DTP'])],
-                  limit=self._limit)
+                  [('campaign_id','=',id),
+                  ('product_category','=',prod_categ_type['DTP'])], limit=self._limit)
             elif name[0] == 'm':
                 ids2 = obj.pool.get(self._obj).search(cr, user,
-                   [('campaign_id','=',id),('product_category','=',type['Mailing Manufacturing'])],
+                   [('campaign_id','=',id),
+                   ('product_category','=',prod_categ_type['Mailing Manufacturing'])],
                    limit=self._limit)
             elif name[0] == 'c':
                 ids2 = obj.pool.get(self._obj).search(cr, user,
-                 [('campaign_id','=',id),('product_category','=',type['Customers List'])],
+                 [('campaign_id','=',id),
+                 ('product_category','=',prod_categ_type['Customers List'])],
                   limit=self._limit)
             elif name[0] == 'i':
-                ids2 = obj.pool.get(self._obj).search(cr, user,
-                                                       [('campaign_id','=',id),('product_category','=',type['Items'])], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),    
+                ('product_category','=',prod_categ_type['Items'])], 
+                limit=self._limit)
             else :
-                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',type['Mailing Manufacturing'])], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',prod_categ_type['Mailing Manufacturing'])], limit=self._limit)
             for r in obj.pool.get(self._obj)._read_flat(cr, user, ids2, [self._fields_id], context=context, load='_classic_write'):
                 res[id].append( r['id'] )
         return res#}}}
@@ -629,8 +632,8 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         type_obj = self.pool.get('product.category')
         dmcat_id = type_obj.search(cr,uid,[('name','ilike','Direct Marketing')])[0]
         type_ids = type_obj.search(cr,uid,[('parent_id','=',dmcat_id)])
-        type = type_obj.browse(cr,uid,type_ids)
-        return map(lambda x : [str(x.id),x.name],type) 
+        prod_categ_type = type_obj.browse(cr,uid,type_ids)
+        return map(lambda x : [str(x.id),x.name],prod_categ_type) 
 
     def _default_quantity_get(self, cr, uid, context):
         if 'product_category' in context and context['product_category']:

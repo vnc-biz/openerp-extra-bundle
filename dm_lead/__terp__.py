@@ -31,7 +31,7 @@
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [
-                    "security/ir.model.access.csv",  
+                    "security/ir.model.access.csv",
                     "dm_lead_view.xml",
                     "dm_lead_data.xml",
                     ],

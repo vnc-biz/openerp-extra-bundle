@@ -109,6 +109,7 @@ class dm_event_case(osv.osv_memory):
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):
             if obj.action_time:
                 next_action_time = datetime.datetime.strptime(obj.action_time,
+						                 '%Y-%m-%d  %H:%M:%S')
             else:
                 if obj.is_realtime:
                     action_time = datetime.datetime.now()
@@ -117,8 +118,8 @@ class dm_event_case(osv.osv_memory):
                     kwargs = {(tr.delay_type+'s') : tr.delay}
                     action_time = wi_action_time + datetime.timedelta(**kwargs)
                     if tr.action_hour:
-                        hour_str =  str(tr.action_hour).split('.')[0] + ':' 
-						hour_str += str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
+                        hour_str =  str(tr.action_hour).split('.')[0] + ':'
+                        hour_str += str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
                         act_hour = datetime.datetime.strptime(hour_str, '%H:%M')
                         action_time = action_time.replace(hour=act_hour.hour)
                         action_time = action_time.replace(minute=act_hour.minute)

@@ -632,7 +632,7 @@ class dm_campaign_proposition(osv.osv): #{{{
                                 id.payment_method_ids]
             vals['payment_method_ids'] = [[6, 0, payment_methods]]
 
-        return super(dm_campaign_proposition, self).create(cr, uid, vals, 
+        return super(dm_campaign_proposition, self).create(cr, uid, vals, context)
 
     def copy(self, cr, uid, id, default=None, context={}):
         """

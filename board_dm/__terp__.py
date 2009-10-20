@@ -25,7 +25,11 @@
     "author":"Tiny",
     "category":"Board/Direct Marketing",
     "depends":[
-        "board", "project", "dm",
+        "board", 
+#        "project", cause board needs project and projects are introduced from retro planning
+#        "dm", retro_planning depends on project and dm
+        "dm_retro_planning",
+
     ],
     "demo_xml":[
 #        "board_dm_demo.xml",

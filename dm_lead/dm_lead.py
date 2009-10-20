@@ -22,6 +22,16 @@ from osv import fields
 from osv import osv
 import datetime
 import netsvc
+import sys
+import traceback
+from dm.dm_report_design import get_address_id
+
+def get_address_id(cr,uid,source,s_id):
+	if source == 'address_id' :
+		return getattr(obj, obj.source).id
+	elif source == 'case_id' :
+		return getattr(obj, obj.source).partner_address_id.id
+	else : return False
 
 class dm_customers_file(osv.osv):
     _inherit = "dm.customers_file"
@@ -75,9 +85,11 @@ class dm_event_case(osv.osv_memory):
                                            'Trigger Condition', required=True),
         'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service'),
         'action_time': fields.datetime('Action Time'),
+    'is_realtime' : fields.boolean('Realtime Processing'),
     }
     _defaults = {
         'source': lambda *a: 'case_id',
+    'campaign_id' : lambda *a : False,
     }
 
     def create(self, cr, uid, vals, context={}):
@@ -88,45 +100,49 @@ class dm_event_case(osv.osv_memory):
                                  ('condition_id', '=', obj.trigger_type_id.id)])
         if not tr_ids:
             netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, 
-            "There is no transition %s at this step : %s"% 
+            "There is no Outgoing transition %s at this step : %s"% 
                 (obj.trigger_type_id.name, obj.step_id.code))
-            osv.except_osv('Warning', "There is no transition %s at this \
+            osv.except_osv('Warning', "There is no Outgoing transition %s at this \
                     step:%s"% (obj.trigger_type_id.name, obj.step_id.code))
             return False
 
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):
             if obj.action_time:
                 next_action_time = datetime.datetime.strptime(obj.action_time,
-                                                         '%Y-%m-%d  %H:%M:%S')
             else:
-                wi_action_time = datetime.datetime.now()
-                kwargs = {(tr.delay_type+'s'): tr.delay}
-                next_action_time = wi_action_time + datetime.timedelta(**kwargs)
-
-                if tr.action_hour:
-                    hour_str =  str(tr.action_hour).split('.')[0] + \
-                    ':' + str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
-                    act_hour = datetime.datetime.strptime(hour_str,'%H:%M')
-                    next_action_time = next_action_time.replace(hour=act_hour.hour)
-                    next_action_time = next_action_time.replace(minute=act_hour.minute)
-
+                if obj.is_realtime:
+                    action_time = datetime.datetime.now()
+                else:
+                    wi_action_time = datetime.datetime.now()
+                    kwargs = {(tr.delay_type+'s') : tr.delay}
+                    action_time = wi_action_time + datetime.timedelta(**kwargs)
+                    if tr.action_hour:
+                        hour_str =  str(tr.action_hour).split('.')[0] + ':' 
+						hour_str += str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
+                        act_hour = datetime.datetime.strptime(hour_str, '%H:%M')
+                        action_time = action_time.replace(hour=act_hour.hour)
+                        action_time = action_time.replace(minute=act_hour.minute)
+    
+                    if tr.action_day:
+                        action_time = action_time.replace(day=int(tr.action_day))
+                        if action_time.day > int(tr.action_day):
+                            action_time = action_time.replace(month=action_time.month + 1)
+                    if tr.action_date:
+                        action_time = tr.action_date
             try:
-                wi_id = self.pool.get('dm.workitem').create(cr, uid,
-                                        {'step_id': tr.step_to_id.id or False, 
-                                       'segment_id': obj.segment_id.id or False,
-                                       'tr_from_id': tr.id,
-                                       'case_id': obj.case_id.id,
-                                      'mail_service_id': obj.mail_service_id.id,
-                  'action_time':next_action_time.strftime('%Y-%m-%d  %H:%M:%S'),
-                  'source':obj.source})
-                netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_DEBUG,
-                                "Creating Workitem with action at %s"% 
-                                next_action_time.strftime('%Y-%m-%d  %H:%M:%S'))
-                netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_DEBUG,
-                                               "Workitem: %s"% vals)
-            except:
-                netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_ERROR,
-                                               "Event cannot create Workitem")
-        return super(dm_event_case, self).create(cr, uid, vals, context)
+                wi_id = self.pool.get('dm.workitem').create(cr, uid, 
+							{'step_id':tr.step_to_id.id or False, 
+               				'segment_id':obj.segment_id.id or False, 
+							'tr_from_id':tr.id, 'case_id':obj.case_id.id, 
+           					'mail_service_id':obj.mail_service_id.id, 
+							'is_realtime': obj.is_realtime ,
+				            'action_time':action_time.strftime('%Y-%m-%d  %H:%M:%S'),
+							'source':obj.source})
+            except Exception, exception:
+                tb = sys.exc_info()
+                tb_s = "".join(traceback.format_exception(*tb))
+                netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_ERROR, 
+					"Event cannot create Workitem : %s\n%s" %     (str(exception), tb_s))
+        return id
 
 dm_event_case()

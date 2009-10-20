@@ -24,7 +24,8 @@ from mx import DateTime
 import netsvc
 
 class one2many_mod_pline(fields.one2many):#{{{
-    def get(self, cr, obj, ids, name, user=None, offset=0, context=None, values=None):
+    def get(self, cr, obj, ids, name, user=None, offset=0, context=None, 
+                                                        values=None):
         if not context:
             context = {}
         if not values:
@@ -42,13 +43,20 @@ class one2many_mod_pline(fields.one2many):#{{{
             type[x[1]]=x[0]
         for id in ids:
             if name[0] == 'd':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',type['DTP'])], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user,
+                  [('campaign_id','=',id),('product_category','=',type['DTP'])],
+                  limit=self._limit)
             elif name[0] == 'm':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',type['Mailing Manufacturing'])], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user,
+                   [('campaign_id','=',id),('product_category','=',type['Mailing Manufacturing'])],
+                   limit=self._limit)
             elif name[0] == 'c':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',type['Customers List'])], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user,
+                 [('campaign_id','=',id),('product_category','=',type['Customers List'])],
+                  limit=self._limit)
             elif name[0] == 'i':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',type['Items'])], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user,
+                                                       [('campaign_id','=',id),('product_category','=',type['Items'])], limit=self._limit)
             else :
                 ids2 = obj.pool.get(self._obj).search(cr, user, [('campaign_id','=',id),('product_category','=',type['Mailing Manufacturing'])], limit=self._limit)
             for r in obj.pool.get(self._obj)._read_flat(cr, user, ids2, [self._fields_id], context=context, load='_classic_write'):

@@ -37,7 +37,7 @@ class dm_as_reject(osv.osv):#{{{
         'date': fields.datetime('Date', required=True),
         'name': fields.char('Description', size=128, required=True),
         'origin':fields.char('Origin', size=64),
-        'type_od': fields.many2one('dm.as.reject.type', 'Type' , required=True),
+        'type_od': fields.many2one('dm.as.reject.type', 'Type', required=True),
    
     }
 dm_as_reject()#}}}

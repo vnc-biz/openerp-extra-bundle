@@ -33,6 +33,7 @@
     "demo_xml" : ['dm_as_reject_demo.xml',],
     "update_xml" : [
                     "dm_as_reject_view.xml",
+                    "security/ir.model.access.csv",
                     ],
     "active": False,
     "installable": True,

@@ -27,14 +27,24 @@ import pooler
 
 from tools.misc import UpdateableDict
 
-Fields = UpdateableDict()
+#Fields = UpdateableDict()
 
 Form = """<?xml version="1.0"?>
 <form string="Statistic Reports">
    <field name="start_date"/>
    <field name="end_date"/>
-   <field name="row_id"/>
+   <field name="level"/>
+   <field name="result"/>
    <field name="origin_partner"/>
+   <group colspan="4"  attrs="{'invisible':[('level','=','offer')]}">
+        <field name="campaign_id" attrs="{'required':[('level','=','campaign')]}" />
+   </group>
+   <group colspan="4"  attrs="{'invisible':[('level','!=','offer')]}">
+        <field name="offer_id" attrs="{'required':[('level','=','offer')]}" />
+   </group>
+   <!--group colspan="4"  attrs="{'invisible':[('level','!=','segment')]}">
+        <field name="segment_id" attrs="{'required':[('level','=','segment')]}" />
+   </group-->
 </form>"""
 
 error_form = """<?xml version="1.0"?>
@@ -42,38 +52,43 @@ error_form = """<?xml version="1.0"?>
    <label string="End date can not be less than start date"/>
 </form>"""
 
+_level_selection = [
+        ('campaign','Campaign'),
+        ('offer','Commercial Offer'),
+        ('segment','Segment')
+        ]
+
+_result_selection = [
+        ('qty','Quantity'),
+        ('amt','Amount'),
+        ]
+
+#_level2_selection = [
+#        ('step','Offer Step'),
+#        ('segment','Segment'),
+#        ]
+
 Fields = {
-#    'month': dict(string=u'Month', type='selection', required=True, selection=[(x, datetime.date(2000, x, 1).strftime('%B')) for x in range(1, 13)]), 
-#    'year': dict(string=u'Year', type='integer', required=True),
     'start_date' : {'string':'Start Date','type':'date', 'required' : True },
     'end_date' : {'string':'End Date','type':'date', 'required' : True },
-    'origin_partner':{'string':'Sort by origin partner' , 'type':'boolean'}
+    'origin_partner':{'string':'Sort by origin partner' , 'type':'boolean'},
+    'level' : {'string': 'Level', 'type': 'selection', 'selection':_level_selection, 'default': lambda *a:"campaign", },
+    'result' : {'string': 'Result', 'type': 'selection', 'selection':_result_selection, 'default': lambda *a:"qty"},    
+#    'level2' : {'string': 'Level', 'type': 'selection', 'selection':_level2_selection, 'default': lambda *a:"step", },
+    'campaign_id' : {'string': 'Campaign', 'type': 'many2one', 'relation': 'dm.campaign',}, 
+    'offer_id' : {'string': 'Offer', 'type': 'many2one', 'relation': 'dm.offer', },
+#    'segment_id' : {'string': 'Offer', 'type': 'many2one', 'relation': 'dm.campaign.proposition.segment',},
 }
-
-camp_wiz = ["dm.order.amount.campaign","dm.order.quantity.campaign",  "dm.order.quantity.campaign.offer.step",
-            "dm.order.amount.campaign.offer.step"]
-offer_wiz = ["dm.order.quantity.offer.steps", "dm.order.amount.offer.steps"]      
-
-def _get_value(self, cr, uid, data, context):
-    if self.wiz_name in camp_wiz :
-        Fields['row_id']= {'string': 'Campaign', 'type': 'many2one', 'relation': 'dm.campaign', 'required': True}
-    elif self.wiz_name in offer_wiz :
-        Fields['row_id']= {'string': 'Offer', 'type': 'many2one', 'relation': 'dm.offer', 'required': True}
-    today=datetime.date.today()
-    return dict(month=today.month, year=today.year)
-    
-def _report_name(self, cr, uid, data, context):
-    self.states['print']['result']['report'] = self.wiz_name
-    return {}
     
 def _check_date(self, cr, uid, data, context) :
     if data['form']['start_date'] > data['form']['end_date'] :
         return 'error'
     return 'print'
-class wizard_amt_campaign_report(wizard.interface):
+
+class wizard_statistics_so_all(wizard.interface):
     states = {
         'init': {
-            'actions': [_get_value],
+            'actions': [],
             'result': {'type':'form', 'arch':Form, 'fields':Fields, 'state':[('end','Cancel'),('check_date','Print Report')]},
         },
         'check_date' :{
@@ -85,16 +100,11 @@ class wizard_amt_campaign_report(wizard.interface):
             'result': {'type':'form', 'arch':error_form, 'fields':{}, 'state':[('end','Cancel'),('init','Reset Value')]},
         },
         'print': {
-            'actions': [_report_name],
-            'result': {'type':'print', 'report':'', 'state':'end'},
+            'actions': [],
+            'result': {'type':'print', 'report':'dm.statistics.so.all', 'state':'end'},
         },
     }
-wizard_amt_campaign_report('dm.order.amount.campaign')
-wizard_amt_campaign_report('dm.order.quantity.campaign')
-wizard_amt_campaign_report('dm.order.quantity.campaign.offer.step')
-wizard_amt_campaign_report('dm.order.amount.campaign.offer.step')
-wizard_amt_campaign_report('dm.order.quantity.offer.steps')
-wizard_amt_campaign_report('dm.order.amount.offer.steps')
+wizard_statistics_so_all('dm.statistics.so.all')
 
 
 

@@ -72,12 +72,6 @@ def row_create_xml(cr, uid, s_id, som, eom, origin, field, cal, model):
     </row>
     ''' % (s_id, toxml(segment), '\n'.join(time_xml))
     return xml
-camp_qty_report = ["dm.order.quantity.campaign"]
-camp_amt_report = ["dm.order.amount.campaign"]
-camp_offer_qty_report = ["dm.order.quantity.campaign.offer.step"]
-camp_offer_amt_report = ["dm.order.amount.campaign.offer.step"]
-offer_qty_report = ["dm.order.quantity.offer.steps"]
-offer_amt_report = ["dm.order.amount.offer.steps"]      
 
 class report_custom(report_rml):
     def create_xml(self, cr, uid, ids, data, context):
@@ -90,58 +84,57 @@ class report_custom(report_rml):
             origin.sort()
         
         # Computing the dates (start of month: som, and end of month: eom)
-#        som = datetime.date(data['form']['year'], data['form']['month'], 1)
-#        eom = som + datetime.timedelta(lengthmonth(som.year, som.month))
         som = datetime.datetime.strptime(data['form']['start_date'],'%Y-%m-%d')
         eom = datetime.datetime.strptime(data['form']['end_date'],'%Y-%m-%d')
-#        date_xml = ['<date month_year="%s  -  %d" />' % (get_month_name(cr, uid, som.month), som.year), '<days>' ]        
         date_xml = ['<date from_month_year="%s" to_month_year="%s"/>'
                 %(datetime.datetime.strftime(som,'%y-%m-%d'),
                     datetime.datetime.strftime(eom,'%y-%m-%d')) , '<days>' ]
         date_xml += ['<day number="%d" string="%d"/>' % 
                                 (x+1, 
-#                                get_weekday_name(cr, uid, som.replace(day=x).weekday()+1),
-#                                som.replace(day=x).weekday()+1,
                                 (som+datetime.timedelta(days=x)).day 
                                 )
                                 for x in range(0, (eom-som).days+1)]        
         date_xml.append('</days>')
         date_xml.append('<cols>5.00cm%s,1.25cm</cols>\n' % (',1.25cm' * lengthmonth(som.year, som.month)))
-        if self.name2 in camp_amt_report  or self.name2 in camp_qty_report :
-            camp_id = data['form']['row_id']
-            row_id = pool.get('dm.campaign.proposition.segment').search(cr,uid,[('campaign_id','=',camp_id)])
-            field = 'segment_id'
-            model = 'dm.campaign.proposition.segment'
-            t2 = " per Segments Of Campaign"
-        elif self.name2 in camp_offer_qty_report or self.name2 in camp_offer_amt_report:
-            camp_id = data['form']['row_id']
-            offer_id = pool.get('dm.campaign').browse(cr,uid,camp_id).offer_id.id
-            row_id = pool.get('dm.offer.step').search(cr,uid,[('offer_id','=',offer_id)])
-            field = 'offer_step_id'
-            model = 'dm.offer.step'
-            t2 = " per Offer Step of Campaign"
-        elif self.name2 in offer_amt_report  or self.name2 in offer_qty_report:
-            offer_id = data['form']['row_id']
-            offer_name = pool.get('dm.offer').browse(cr,uid,offer_id).name
+        
+        if data['form']['level'] in ('segment','campaign') :
+            camp_id = data['form']['campaign_id']
+            if data['form']['level'] == 'segment' :
+                row_id = pool.get('dm.campaign.proposition.segment').search(cr,uid,[('campaign_id','=',camp_id)])
+                field = 'segment_id'
+                model = 'dm.campaign.proposition.segment'
+                t2 = " per Segments Of Campaign"
+            else :
+                offer_id = pool.get('dm.campaign').browse(cr,uid,camp_id).offer_id.id
+                row_id = pool.get('dm.offer.step').search(cr,uid,[('offer_id','=',offer_id)])
+                field = 'offer_step_id'
+                model = 'dm.offer.step'
+                t2 = " per Offer Step of Campaign"
+        elif data['form']['level'] == 'offer' :
+            offer_id = data['form']['offer_id']
             row_id = pool.get('dm.offer.step').search(cr,uid,[('offer_id','=',offer_id)])        
             field = 'offer_step_id'
             model = 'dm.offer.step'
             t2 = " per Offer Steps"
-        if self.name2 in offer_amt_report or self.name2 in camp_amt_report or self.name2 in camp_offer_amt_report :
+
+        if data['form']['result'] == 'amt' :
             cal = 'sum(amount_total)'
             t1 = 'Income'
-        elif self.name2 in offer_qty_report or self.name2 in camp_qty_report or self.name2 in camp_offer_qty_report :
+        elif data['form']['result'] == 'qty' :
             cal = 'count(id)'
             t1 = 'Order Quantity'
+
         story_xml = ''
         n = name = t1 + t2
+
         for i in range(len(origin)) :
             row_xml=''
             for r_id in row_id:
                 row_xml += row_create_xml(cr, uid, r_id, som, eom, origin[i][0], field, cal, model)
             if origin[i][0]:
                 n =name + ' from %s'%origin[i][0]
-            story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i+1,toxml(n),row_xml)
+            story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i,toxml(n),row_xml)
+
         # Computing the xml
         xml = '''<?xml version="1.0" encoding="UTF-8" ?>
         <report>%s
@@ -150,14 +143,7 @@ class report_custom(report_rml):
         ''' % (date_xml , story_xml )
         return xml
 
-report_custom('report.dm.order.amount.campaign', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-report_custom('report.dm.order.quantity.campaign', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-report_custom('report.dm.order.quantity.campaign.offer.step', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-report_custom('report.dm.order.amount.campaign.offer.step', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-report_custom('report.dm.order.quantity.offer.steps', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-report_custom('report.dm.order.amount.offer.steps', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-
-
+report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

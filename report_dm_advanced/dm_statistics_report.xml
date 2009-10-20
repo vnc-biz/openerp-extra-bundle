@@ -83,5 +83,17 @@
 			parent="menu_dm_report_advanced" 
 			type="wizard"/>
 
+<!-- Statistics on Sale Orders -->
+        <wizard 
+            id="wizard_statistics_so_all"
+			menu="False" model="dm.campaign"
+			name="dm.statistics.so.all"
+			string="Statistics on Sale Orders"/>
+        <menuitem 
+            icon="STOCK_PRINT" 
+            action="wizard_statistics_so_all"
+			id="menu_statistics_so_all" 
+			parent="menu_dm_report_advanced" 
+			type="wizard"/>
     </data>
 </openerp>

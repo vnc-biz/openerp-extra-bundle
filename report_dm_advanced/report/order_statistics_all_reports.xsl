@@ -43,7 +43,7 @@
 	<xsl:template name="story">
 		<xsl:for-each select="report/story">	
 		<xsl:variable name="s_id" select="attribute::s_id"/>
-        <story>
+		<story>
 		    <para style="title" t="1"> <xsl:value-of select="attribute::name"/> </para>
 		    <spacer length="1cm" />
 		    <blockTable>
@@ -51,13 +51,11 @@
 			    <xsl:attribute name="colWidths"><xsl:value-of select="report/cols" /></xsl:attribute>
 			    <tr>
                     <td>
-                        <xsl:value-of select="//date/attribute::from_month_year" /> -
-                        <xsl:value-of select="//date/attribute::to_month_year" />
-                    </td>
+                        <para><xsl:value-of select="//date/attribute::from_month_year" /></para>
+                        <para><xsl:value-of select="//date/attribute::to_month_year" /></para></td>
 				    <xsl:for-each select="//days/day">
-                        <td>
-                            <para> 
-                                <xsl:value-of select="attribute::string" /></para>
+					    <td>
+						    <xsl:value-of select="attribute::string" />
 					    </td>
 				    </xsl:for-each>
 				    <td t="1">Total</td>
@@ -68,10 +66,10 @@
 				    <tr>
 					    <td><para><xsl:value-of select="attribute::name"/></para></td>
 					    <xsl:for-each select="//report/days/day">
-					    <xsl:variable name="today" select="attribute::string" />
-                        <td>
-                            <para>
-								  <xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row[@id=$id]/time-element[@date=$today]), '##.##')" />
+					    <xsl:variable name="today" select="attribute::number" />
+                            <td>
+                                <para>
+								     <xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row[@id=$id]/time-element[@date=$today]), '##.##')" />
 							    </para>
 						    </td>
 					    </xsl:for-each>
@@ -85,10 +83,9 @@
 			    <tr>
 				    <td t="1">Total</td>
 				    <xsl:for-each select="//report/days/day">
-					    <xsl:variable name="today" select="attribute::string"/>
-                        <td>
-                        <para>
-                        <xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row/time-element[@date=$today]),'##.##')"/></para>
+					    <xsl:variable name="today" select="attribute::number"/>
+					    <td>
+                        <para><xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row/time-element[@date=$today]),'##.##')"/></para>
 					    </td>
 				    </xsl:for-each>
 				    <td><xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row/time-element),'##.##')"/></td>

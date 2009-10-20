@@ -19,6 +19,7 @@
 ##############################################################################
 
 import order_statistics_reports
+import order_statistics_all_reports
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

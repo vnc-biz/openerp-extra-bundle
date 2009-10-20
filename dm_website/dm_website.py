@@ -24,6 +24,6 @@ from osv import osv
 class dm_campaign(osv.osv):
     _inherit = "dm.campaign"
     _columns = {
-        'website' : fields.char('Website',size=64),
+        'website': fields.char('Website', size=64),
     }
 dm_campaign()

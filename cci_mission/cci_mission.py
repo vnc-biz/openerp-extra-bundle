@@ -879,7 +879,7 @@ class cci_missions_ata_carnet(osv.osv):
         'member_price' : fields.boolean('Apply the Member Price'),
         'product_ids': fields.one2many('product.lines', 'product_line_id', 'Products'),
         'letter_ids':fields.one2many('cci_missions.letters_log','ata_carnet_id','Letters'),
-        'sub_total': fields.function(_tot_products, method=True, string='Subtotal of Extra Products',type="float"),
+        'sub_total': fields.function(_tot_products, method=True, string='Subtotal of Extra Products',type="float", store=True),
         "invoice_id":fields.many2one("account.invoice","Invoice"),
     }
 

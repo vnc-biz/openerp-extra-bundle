@@ -107,6 +107,7 @@
 		<!-- Add product line in certificates -->
 	    <wizard string="Add Product" model="cci_missions.certificate" name="mission.product_line" menu="False" id="wizard_add_product_line"/>
 
+        <wizard id="wizard_mission_type" keyword="client_print_multi" model="cci_missions.certificate" name="stats.mission.type" string="Stats Per mission type"/>
 
 	</data>
 </openerp>

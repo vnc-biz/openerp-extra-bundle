@@ -18,18 +18,36 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import create_invoice
-import wizard_create_embassy_folder
-import create_invoice_carnet
-import wizard_print_carnet
-import wizard_federation_sending
-import create_invoice_embassy
-import wizard_simulation_carnet
-import make_invoice_group
-import cci_encode_cash
-import wizard_federation_certificates_sending
-import carnet_before_validity
-import carnet_after_validity
-import add_product_line
-import print_stats_mission
+import time
+
+import wizard
+import pooler
+
+form = """<?xml version="1.0"?>
+<form string="Print Stats per mission type">
+    <field name="date1"/>
+    <field name="date2"/>
+</form>"""
+
+fields = {
+      'date1': {'string':'Date from', 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
+      'date2': {'string':'Date to', 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
+   }
+
+class print_stats_mission(wizard.interface):
+    def _checkint(self, cr, uid, data, context):
+        return {}
+
+    states = {
+        'init': {
+            'actions': [],
+            'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','Cancel'),('print','Print')]},
+        },
+        'print': {
+            'actions': [],
+            'result': {'type':'print', 'report':'stats.mission.type', 'state':'end'},
+        },
+    }
+
+print_stats_mission('stats.mission.type')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

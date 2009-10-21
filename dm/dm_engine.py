@@ -38,6 +38,22 @@ class dm_workitem(osv.osv): # {{{
                       ('cancel', 'Cancelled'), ('done', 'Done')]
     _rec_name = 'step_id'
 
+    def _customer_id(self, cr, uid, ids, name, arg, context=None):
+        if context is None:
+            context = {}
+        res = {}
+        for wi in self.browse(cr, uid, ids, context):
+            res[wi.id] = wi.address_id and wi.address_id.id or ''
+        return res
+
+    def _customer_email(self, cr, uid, ids, name, arg, context=None):
+        if context is None:
+            context = {}
+        res = {}
+        for wi in self.browse(cr, uid, ids, context):
+            res[wi.id] = wi.address_id and wi.address_id.email or ''
+        return res
+
     _columns = {
         'step_id': fields.many2one('dm.offer.step', 'Offer Step',
                                     ondelete="cascade", select="1"),
@@ -48,6 +64,8 @@ class dm_workitem(osv.osv): # {{{
                                       'Customer Address',
                                        select="1",
                                        ondelete="cascade"),
+        'customer_id': fields.function(_customer_id, method=True, type='char', string='Customer Id'),
+        'customer_email': fields.function(_customer_email, method=True, type='char', string='Customer Email'),
         'action_time': fields.datetime('Action Time', select="1"),
         'source': fields.selection(_SOURCES, 'Source', required=True),
         'error_msg': fields.text('System Message'),

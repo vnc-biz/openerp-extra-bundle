@@ -509,6 +509,7 @@
         <field name="name">dm.campaign.proposition.form</field>
         <field name="model">dm.campaign.proposition</field>
         <field name="type">form</field>
+        <field eval="10" name="priority"/>
         <field name="arch" type="xml">
             <form string="Propositions">
             <group colspan="3" col="4">

@@ -12,6 +12,7 @@
             <field name="name">dm.campaign.proposition.price.inherit</field>
             <field name="model">dm.campaign.proposition</field>
             <field name="type">form</field>
+            <field eval="20" name="priority"/>
             <field name="inherit_id" ref="dm.view_campaign_proposition_form"/>
             <field name="arch" type="xml">
             	<button name="_get_step_products" string="Get Products" type="object" position="replace">

@@ -9,7 +9,7 @@
             <field eval="&quot;&quot;&quot;or&quot;&quot;&quot;" name="split_mode"/>
             <field eval="&quot;&quot;&quot;Check availibility of the commercials for the phone calls&quot;&quot;&quot;" name="planning_note"/>
             <field eval="0" name="mailing_at_dates"/>
-            <field name="media_id" ref="dm_crm.media_phone"/>
+            <field name="media_id" ref="media_phone"/>
             <field eval="&quot;&quot;&quot;Propose to buy the Open ERP Book&quot;&quot;&quot;" name="name"/>
             <field eval="&quot;&quot;&quot;open&quot;&quot;&quot;" name="state"/>
             <field eval="&quot;&quot;&quot;The Intermediate mail thanks the client to have subscribed to the offer and propose to buy the OpenERP Book&quot;&quot;&quot;" name="desc"/>
@@ -56,7 +56,7 @@
         </record-->        
         
         <record id="dm_offer_step_phoneintermediatemailingofferforanondemandoffer0" model="dm.offer.step">
-			<field name="media_id" ref="dm_crm.media_phone"/>
+			<field name="media_id" ref="media_phone"/>
 			<field name="type_id" ref="dm.dm_offer_step_type_intermediatemailing0"/>
 			<field eval="&quot;&quot;&quot;or&quot;&quot;&quot;" name="split_mode"/>
 			<field eval="0" name="mailing_at_dates"/>
@@ -72,7 +72,7 @@
         <record id="dm_mail_service_phone0" model="dm.mail_service">
             <field eval="&quot;&quot;&quot;Print and Send for Phone&quot;&quot;&quot;" name="name"/>
             <field name="partner_id" ref="dm.res_partner_print_send0"/>
-            <field name="media_id" ref="dm_crm.media_phone"/>
+            <field name="media_id" ref="media_phone"/>
             <field eval="1" name="default_for_media"/>
             <!--field eval="5" name="sequence"/>
                 <field eval="&quot;&quot;&quot;dummy&quot;&quot;&quot;" name="state"/>

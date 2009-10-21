@@ -18,8 +18,45 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-import make_invoice
-import wizard_awex_report
+import wizard
+import netsvc
+import pooler
+
+from osv import fields, osv
+form = """<?xml version="1.0"?>
+<form string="Awex Report">
+    <field name="date_from"/>
+    <newline />
+    <field name="date_to"/>
+    <newline />
+</form>
+"""
+
+fields = {
+        'date_from': {'string':'From', 'type':'date', 'required' : True},
+        'date_to': {'string':'To', 'type':'date', 'required' : True},
+        }
+
+class translation_awex_report(wizard.interface):
+
+    def _open_invoice(self, cr, uid, data, context):
+        
+        return {
+        }
+
+    states = {
+        'init' : {
+            'actions' : [],
+            'result' : {'type' : 'form' ,   'arch' : form,
+                    'fields' : fields,
+                    'state' : [('end','_Cancel'),('open','Open _Report')]}
+                    },
+        'open': {
+            'actions': [],
+            'result': {'type':'print', 'report':'translation.awex', 'state':'end'}
+                }
+            }
+translation_awex_report("translation_awex_report")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

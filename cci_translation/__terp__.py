@@ -31,7 +31,8 @@
     "init_xml" : [],
     "demo_xml" : ["cci_translation_data.xml"],
 
-    "update_xml" : ["cci_translation_view.xml", "cci_translation_workflow.xml", "cci_translation_wizard.xml"
+    "update_xml" : ["cci_translation_view.xml", "cci_translation_workflow.xml", "cci_translation_wizard.xml",
+                    "cci_translation_report.xml"
                     ,"cci_translation_sequence.xml",'security/security.xml','security/cci_translation_security.xml','security/ir.model.access.csv'],
     "active": False,
     "installable": True

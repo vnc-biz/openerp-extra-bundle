@@ -202,12 +202,9 @@ class dm_campaign(osv.osv): #{{{
         'offer_id': fields.many2one('dm.offer', 'Offer', 
                                     domain=[('state', 'in', ['ready', 'open']),
                                 ('type', 'in', ['new', 'standart', 'rewrite'])], 
-                                required=True, help="Choose the commercial \
-                               offer to use with this campaign, only offers in \
-                                ready to plan or open state can be assigned"),
+                                required=True, help="Choose the commercial offer to use with this campaign, only offers in ready to plan or open state can be assigned"),
         'country_id': fields.many2one('res.country', 'Country', required=True,
-            help="The language and currency will be automaticaly assigned if \
-            they are defined for the country"),
+            help="The language and currency will be automaticaly assigned if they are defined for the country"),
         'lang_id': fields.many2one('res.lang', 'Language'),
         'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
         'notes': fields.text('Notes'),
@@ -230,7 +227,7 @@ class dm_campaign(osv.osv): #{{{
         'dealer_id': fields.many2one('res.partner', 'Dealer', 
                                     domain=[('category_id', 'ilike', 'Dealer')],
                                      context={'category': 'Dealer'},
-            help="The dealer is the partner the campaign is planned for"),
+            help="The dealer is the partner the campaign is planned for."),
         'responsible_id': fields.many2one('res.users', 'Responsible'),
 #        'invoiced_partner_id': fields.many2one('res.partner', 
 #                                                'Invoiced Partner'),
@@ -242,13 +239,11 @@ class dm_campaign(osv.osv): #{{{
         'deduplicator_id': fields.many2one('res.partner', 'Deduplicator', 
                             domain=[('category_id', 'ilike', 'Deduplicator')], 
                             context={'category': 'Deduplicator'},
-         help="The deduplicator is a partner responsible to remove identical \
-                addresses from the customers list"),
+         help="The deduplicator is a partner responsible to remove identical addresses from the customers list"),
         'cleaner_id': fields.many2one('res.partner', 'Cleaner',
                                  domain=[('category_id', 'ilike', 'Cleaner')],
                                  context={'category': 'Cleaner'},
-            help="The cleaner is a partner responsible to remove bad addresses \
-                                                from the customers list"),
+            help="The cleaner is a partner responsible to remove bad addresses from the customers list"),
         'currency_id': fields.many2one('res.currency', 'Currency', 
                                                         ondelete='cascade'),
         'manufacturing_cost_ids': fields.one2many('dm.campaign.manufacturing_cost',
@@ -260,8 +255,7 @@ class dm_campaign(osv.osv): #{{{
         'router_id': fields.many2one('res.partner', 'Router', 
                                     domain=[('category_id', 'ilike', 'Router')],
                                      context={'category': 'Router'},
-            help="The router is the partner who will send the mailing to the \
-                                                            final customer"),
+            help="The router is the partner who will send the mailing to the final customer"),
         'quantity_planned_total': fields.function(_quantity_planned_total, 
                                     string='Total planned Quantity',type="char",
                                      size=64, method=True, readonly=True),
@@ -300,8 +294,7 @@ class dm_campaign(osv.osv): #{{{
     def state_close_set(self, cr, uid, ids, *args):
         for camp in self.browse(cr, uid, ids):
             if (camp.date > time.strftime('%Y-%m-%d')):
-                raise osv.except_osv("Error", 
-                                "Campaign cannot be closed before end date")
+                raise osv.except_osv("Error", "Campaign cannot be closed before end date")
         self.write(cr, uid, ids, {'state': 'close'})
         return True
 
@@ -327,13 +320,10 @@ class dm_campaign(osv.osv): #{{{
                 camp.trademark_id or not \
                 camp.lang_id or not \
                 camp.currency_id:
-            raise osv.except_osv("Error",
-             """Informations are missing.Check Drop Date, Dealer, 
-             Trademark, Language and Currency""")
+            raise osv.except_osv("Error", "Informations are missing.Check Drop Date, Dealer, Trademark, Language and Currency")
 
         if (camp.date_start > time.strftime('%Y-%m-%d')):
-            raise osv.except_osv("Error!!", 
-                            "Campaign cannot be opened before drop date")
+            raise osv.except_osv("Error!!", "Campaign cannot be opened before drop date")
 
         # Create Flow Start Workitems
         start_type_ids = self.pool.get('dm.offer.step.type').search(cr, uid, 
@@ -380,8 +370,7 @@ class dm_campaign(osv.osv): #{{{
         camp = self.pool.get('dm.campaign').browse(cr, uid, ids)[0]
         if not self.check_forbidden_country(cr, uid, camp.offer_id.id, 
                                             camp.country_id.id):
-            raise osv.except_osv("Error", 
-                                 "You cannot use this offer in this country")
+            raise osv.except_osv("Error", "You cannot use this offer in this country")
 
         # In campaign, if no forwarding_charge is given,
         # it gets the 'forwarding_charge' from offer
@@ -395,8 +384,7 @@ class dm_campaign(osv.osv): #{{{
             vals['payment_method_ids'] = [[6, 0, payment_methods]]
 
         # Set campaign end date at one year after start date if end date does not exist
-        if 'date' not in vals and not camp.date and 'date_start' in vals and \
-                                                            vals['date_start']:
+        if 'date' not in vals and not camp.date and 'date_start' in vals and vals['date_start']:
             time_format = "%Y-%m-%d"
             d = time.strptime(vals['date_start'], time_format)
             d = datetime.date(d[0], d[1], d[2])
@@ -430,9 +418,7 @@ class dm_campaign(osv.osv): #{{{
         overlay_country_ids = []
         if trademark_id and dealer_id and country_id:
             overlay_obj = self.pool.get('dm.overlay')
-            overlay_id = overlay_obj.search(cr, uid, [('trademark_id', '=',
-                                                 trademark_id), 
-                                                 ('dealer_id', '=', dealer_id)])
+            overlay_id = overlay_obj.search(cr, uid, [('trademark_id', '=', trademark_id), ('dealer_id', '=', dealer_id)])
             if overlay_id:
                 browse_overlay = overlay_obj.browse(cr, uid, overlay_id)[0]
                 overlay_country_ids = [country_ids.id for country_ids in \
@@ -453,16 +439,14 @@ class dm_campaign(osv.osv): #{{{
         return super(dm_campaign, self).write(cr, uid, ids, vals, context)
 
     def create(self, cr, uid, vals, context={}):
-        type_id = self.pool.get('dm.campaign.type').search(cr, uid, 
-                                                    [('code', '=', 'model')])[0]
+        type_id = self.pool.get('dm.campaign.type').search(cr, uid, [('code', '=', 'model')])[0]
         if 'campaign_type' in context and context['campaign_type'] == 'model':
             vals['campaign_type_id'] = type_id
         id_camp = super(dm_campaign, self).create(cr, uid, vals, context)
         data_cam = self.browse(cr, uid, id_camp)
         if not self.check_forbidden_country(cr, uid, data_cam.offer_id.id, 
                                             data_cam.country_id.id):
-            raise osv.except_osv("Error", 
-                                 "You cannot use this offer in this country")
+            raise osv.except_osv("Error", "You cannot use this offer in this country")
         ''' create campaign mail service '''
 
 #        mail_service_id = for each step in the offer the system should:
@@ -525,8 +509,7 @@ class dm_campaign(osv.osv): #{{{
             new_write_vals = {}
             if overlay_id:
                 browse_overlay = overlay_obj.browse(cr, uid, overlay_id)[0]
-                overlay_country_ids = [country_ids.id for country_ids in \
-                                       browse_overlay.country_ids]
+                overlay_country_ids = [country_ids.id for country_ids in browse_overlay.country_ids]
                 new_write_vals['overlay_id'] = overlay_id[0]
                 if not (data_cam1.country_id.id in overlay_country_ids):
                     overlay_country_ids.append(data_cam1.country_id.id)
@@ -556,8 +539,7 @@ class dm_campaign(osv.osv): #{{{
         camp = self.browse(cr, uid, ids)[0]
         default = {}
         default['name'] = 'New campaign from model %s' % camp.name
-        default['campaign_type_id'] = self.pool.get('dm.campaign.type').search(cr,
-                                         uid, [('code', '=', 'recruiting')])[0]
+        default['campaign_type_id'] = self.pool.get('dm.campaign.type').search(cr, uid, [('code', '=', 'recruiting')])[0]
         default['responsible_id'] = uid
         self.copy(cr, uid, ids[0], default)
         return True
@@ -573,14 +555,12 @@ class dm_campaign(osv.osv): #{{{
         prop_ids = [x.id for x in campaign_id.proposition_ids]
         for proposition in campaign_id.proposition_ids:
             default = {'camp_id': camp_copy_id}
-            prop_copy = self.pool.get('dm.campaign.proposition').copy(cr, uid,
-                                             proposition.id, default, context)
+            prop_copy = self.pool.get('dm.campaign.proposition').copy(cr, uid, proposition.id, default, context)
         return camp_copy_id
 
     def unlink(self, cr, uid, ids, context={}):
         for campaign in self.browse(cr, uid, ids, context):
-            history_id = self.pool.get('dm.offer.history').search(cr, uid, 
-                                            [('campaign_id', '=', campaign.id)])
+            history_id = self.pool.get('dm.offer.history').search(cr, uid, [('campaign_id', '=', campaign.id)])
             self.pool.get('dm.offer.history').unlink(cr, uid, history_id,
                                                                      context)
         return super(dm_campaign, self).unlink(cr, uid, ids, context)
@@ -593,30 +573,25 @@ class dm_campaign_proposition(osv.osv): #{{{
     _inherits = {'account.analytic.account': 'analytic_account_id'}
 
     def default_get(self, cr, uid, fields, context=None):
-        value = super(dm_campaign_proposition, self).default_get(cr, uid, 
-                                                                fields, context)
+        value = super(dm_campaign_proposition, self).default_get(cr, uid, fields, context)
         if 'camp_id' in context and context['camp_id']:
-            campaign = self.pool.get('dm.campaign').browse(cr, uid, 
-                                                        context['camp_id'])
+            campaign = self.pool.get('dm.campaign').browse(cr, uid, context['camp_id'])
             value['date_start'] = campaign.date_start
         return value
 
     def write(self, cr, uid, ids, vals, context=None):
         if 'camp_id' in vals and vals['camp_id']:
-            campaign = self.pool.get('dm.campaign').browse(cr, uid, 
-                                                                vals['camp_id'])
+            campaign = self.pool.get('dm.campaign').browse(cr, uid, vals['camp_id'])
             vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', campaign.analytic_account_id.id)])[0]
             if campaign.date_start:
                 vals['date_start'] = campaign.date_start
             else:
                 vals['date_start'] = 0
-        return super(dm_campaign_proposition, self).write(cr, uid, ids, vals,
-                                                           context)
+        return super(dm_campaign_proposition, self).write(cr, uid, ids, vals, context)
 
     def create(self, cr, uid, vals, context={}):
         id = self.pool.get('dm.campaign').browse(cr, uid, vals['camp_id'])
-        vals['parent_id'] = self.pool.get('account.analytic.account').search(cr,
-                             uid, [('id', '=', id.analytic_account_id.id)])[0]
+        vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', id.analytic_account_id.id)])[0]
         if 'date_start' in vals and not vals['date_start']:
             if id.date_start:
                 vals['date_start'] = id.date_start
@@ -624,8 +599,7 @@ class dm_campaign_proposition(osv.osv): #{{{
             if id.country_id.forwarding_charge:
                 vals['forwarding_charge'] = id.country_id.forwarding_charge
         if id.payment_method_ids:
-            payment_methods = [payment_methods.id for payment_methods in \
-                                id.payment_method_ids]
+            payment_methods = [payment_methods.id for payment_methods in id.payment_method_ids]
             vals['payment_method_ids'] = [[6, 0, payment_methods]]
 
         return super(dm_campaign_proposition, self).create(cr, uid, vals, context)
@@ -635,8 +609,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         Function to duplicate segments only if 'keep_segments' is set to yes 
                                                 else not to duplicate segments
         """
-        proposition_id = super(dm_campaign_proposition, self).copy(cr, uid, id,
-                                                     default, context=context)
+        proposition_id = super(dm_campaign_proposition, self).copy(cr, uid, id, default, context=context)
         if 'camp_id' in default and default['camp_id']:
             self.write(cr, uid, proposition_id, {'camp_id': default['camp_id']})
 
@@ -651,8 +624,7 @@ class dm_campaign_proposition(osv.osv): #{{{
             l = []
             for i in data.segment_ids:
                 l.append(i.id)
-                self.pool.get('dm.campaign.proposition.segment').unlink(cr, uid,
-                                                                         l)
+                self.pool.get('dm.campaign.proposition.segment').unlink(cr, uid, l)
                 self.write(cr, uid, proposition_id, {'segment_ids': [(6, 0, [])]})
 
         """
@@ -676,8 +648,7 @@ class dm_campaign_proposition(osv.osv): #{{{
             for pro_id in pro_ids:
                 camp_code = pro.camp_id.code1 or ''
                 offer_code = pro.camp_id.offer_id and pro.camp_id.offer_id.code or ''
-                trademark_code = pro.camp_id.trademark_id and \
-                                         pro.camp_id.trademark_id.name or ''
+                trademark_code = pro.camp_id.trademark_id and pro.camp_id.trademark_id.name or ''
                 dealer_code = pro.camp_id.dealer_id and pro.camp_id.dealer_id.ref or ''
                 date_start = pro.date_start or ''
                 date = date_start.split('-')
@@ -786,8 +757,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         'camp_id': fields.many2one('dm.campaign', 'Campaign', 
                                    ondelete = 'cascade', required=True),
         'sale_rate': fields.float('Sale Rate (%)', digits=(16, 2),
-                    help='This is the planned sale rate (in percent) \
-                    for this commercial proposition'),
+                    help='This is the planned sale rate (in percent) for this commercial proposition'),
         'proposition_type': fields.selection([('init', 'Initial'), 
                                               ('relaunching', 'Relauching'),
                                                ('split', 'Split')], "Type"),
@@ -797,11 +767,11 @@ class dm_campaign_proposition(osv.osv): #{{{
                                        'proposition_id', 'Segment',
                                         ondelete='cascade'),
         'quantity_planned': fields.integer('Planned Quantity',
-                             help='The planned quantity is an estimation of the usable quantity of addresses you  will get after delivery, deduplication and cleaning\n' \
+                             help='The planned quantity is an estimation of the usable quantity of addresses you  will get after delivery, deduplication and cleaning.\n' 
                             'This is usually the quantity used to order the manufacturing of the mailings'),
         'quantity_wanted': fields.function(_quantity_wanted_get, string='Wanted Quantity', type="char", size=64, method=True, readonly=True,
-                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n' \
-                            'This is usually the quantity used to order Customers Lists\n' \
+                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n' 
+                            'This is usually the quantity used to order Customers Lists.\n'
                             'The wanted quantity could be AAA for All Addresses Available'),
         'quantity_delivered': fields.function(_quantity_delivered_get, string='Delivered Quantity', type="char", size=64, method=True, readonly=True,
                     help='The delivered quantity is the number of addresses you receive from the broker.'),
@@ -895,14 +865,13 @@ class dm_customers_list(osv.osv): #{{{
         'invoice_base': fields.selection([('net', 'Net Addresses Quantity'), 
                                           ('raw', 'Raw Addresses Quantity')], 
                                           'Invoicing based on',
-                    help='Net or raw quantity on which is based the final \
-                 invoice depending of the term negociated with the broker.\n' \
-                            'Net : Usable quantity after deduplication\n' \
-                            'Raw : Delivered quantity\n' \
-                            'Real : Realy used qunatity'),
+                    help='Net or raw quantity on which is based the final invoice depending of the term negotiated with the broker.\n' 
+                            'Net : Usable quantity after deduplication.\n' 
+                            'Raw : Delivered quantity.\n' \
+                            'Real : Realy used qunatity.'),
         'recruiting_origin_id': fields.many2one('dm.customers_list.recruit_origin',
                                                  'Recruiting Origin',
-                    help='Origin of the recruiting of the adresses'),
+                    help='Origin of the recruiting of the adresses.'),
         'list_type_id': fields.many2one('dm.customers_list.type', 'Type'),
         'update_frq': fields.integer('Update Frequency'),
         'notes': fields.text('Description'),
@@ -917,8 +886,8 @@ dm_customers_list()#}}}
 #    _name = "dm.customers_file.source"
 #    _description = "Customer File Source"
 #    _columns = {
-#            'name': fields.char('Name', size=64 , required=True),
-#            'code': fields.char('code', size=64 , required=True),
+#            'name': fields.char('Name', size=64, required=True),
+#            'code': fields.char('code', size=64, required=True),
 #            'desc': fields.text('Description'),
 #            }
 #dm_customers_file_source()#}}}
@@ -964,8 +933,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         if 'proposition_id' in vals and vals['proposition_id']:
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr,
                                                  uid, vals['proposition_id'])
-            vals['parent_id'] = self.pool.get('account.analytic.account').search
-            (cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
+            vals['parent_id'] = self.pool.get('account.analytic.account').search(cr,uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
         return super(dm_campaign_proposition_segment, self).write(cr, uid, ids,
                                                                  vals, context)
 
@@ -973,9 +941,10 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         if 'proposition_id' in vals and vals['proposition_id'] :
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr,
                                                     uid, vals['proposition_id'])
+
             vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
-        return super(dm_campaign_proposition_segment, self).create(cr, uid, vals,
-                                                                    context)
+        return super(dm_campaign_proposition_segment, self).create(cr, uid, vals, context)
+
     def search(self, cr, uid, args, offset=0, limit=None, order=None, 
                                 context=None, count=False):
         if context and 'dm_camp_id' in context:
@@ -1092,31 +1061,20 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         'customers_file_id': fields.many2one('dm.customers_file', 
                                              'Customers File'),
         'quantity_real': fields.integer('Real Quantity',
-                   help='The real quantity is the number of addresses that are \
-                    really in the customers file (by counting).'),
+                   help='The real quantity is the number of addresses that are really in the customers file (by counting).'),
         'quantity_planned': fields.integer('planned Quantity',
-                    help='The planned quantity is an estimation of the usable \
-                     quantity of addresses you  will get after delivery, \
-                     deduplication and cleaning.\nThis is usually the \
-                     quantity used to order the manufacturing of the mailings'),
+                    help='The planned quantity is an estimation of the usable quantity of addresses you  will get after delivery, deduplication and cleaning.\n This is usually the quantity used to order the manufacturing of the mailings'),
         'quantity_wanted': fields.integer('Wanted Quantity',
-                    help='The wanted quantity is the number of addresses you \
-                          wish to get for that segment.\n This is usually \
-                          the quantity used to order Customers Lists\n' \
-                            'The wanted quantity could be AAA for All Addresses \
-                            Available'),
+                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n This is usually the quantity used to order Customers Lists.\n' 
+                            'The wanted quantity could be AAA for All Addresses Available.'),
         'quantity_delivered': fields.integer('Delivered Quantity',
-                help = 'The delivered quantity is the number of addresses you \
-                                                    receive from the broker.'),
+                help = 'The delivered quantity is the number of addresses you receive from the broker.'),
         'quantity_dedup_dedup': fields.integer('Deduplication Quantity',
-                    help='The quantity of duplicated addresses removed by the \
-                                                              deduplicator.'),
+                    help='The quantity of duplicated addresses removed by the deduplicator.'),
         'quantity_dedup_cleaner': fields.integer('Deduplication Quantity',
-                    help='The quantity of duplicated addresses removed by the \
-                                                                    cleaner.'),
+                    help='The quantity of duplicated addresses removed by the cleaner.'),
         'quantity_cleaned_dedup': fields.integer('Cleaned Quantity',
-                    help='The quantity of wrong addresses removed by the \
-                                                                deduplicator.'),
+                    help='The quantity of wrong addresses removed by the deduplicator.'),
         'quantity_cleaned_cleaner': fields.integer('Cleaned Quantity',
                     help='The quantity of wrong addresses removed by the cleaner.'),
         'quantity_usable': fields.function(_quantity_usable_get, 
@@ -1124,27 +1082,21 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
                                            type="integer", 
                                            method=True, 
                                            readonly=True,
-                    help='The usable quantity is the number of addresses you \
-                    have after delivery, deduplication and cleaning.'),
+                    help='The usable quantity is the number of addresses you have after delivery, deduplication and cleaning.'),
         'quantity_purged': fields.function(_quantity_purged_get, 
                                            string='Purged Quantity',
                                            type="integer", 
                                            method=True, 
                                            readonly=True,
-                    help='The purged quantity is the number of addresses \
-                          removed from deduplication and cleaning.'),
+                    help='The purged quantity is the number of addresses removed from deduplication and cleaning.'),
         'all_add_avail': fields.boolean('All Adresses Available',
-                    help='Used to order all adresses available in the \
-                          customers list based on the segmentation criteria'),
+                    help='Used to order all adresses available in the customers list based on the segmentation criteria'),
         'split_id': fields.many2one('dm.campaign.proposition.segment', 'Split'),
-        'start_census':fields.integer('Start Census', help='The recency is the \
-                        time since the latest purchase.\n For example: \
-                        A 0-30 recency means all the customers that have \
-                        purchased in the last 30 days'),
+        'start_census':fields.integer('Start Census',
+                        help='The recency is the time since the latest purchase.\n For example: A 0-30 recency means all the customers that have purchased in the last 30 days.'),
         'end_census': fields.integer('End Census'),
         'deduplication_level': fields.integer('Deduplication Level',
-                    help='The deduplication level defines the order in \
-                    which the deduplication takes place.'),
+                    help='The deduplication level defines the order in which the deduplication takes place.'),
         'reuse_id': fields.many2one('dm.campaign.proposition.segment', 'Reuse'),
         'analytic_account_id': fields.many2one('account.analytic.account', 
                                                'Analytic Account', 
@@ -1218,8 +1170,7 @@ class dm_mail_service(osv.osv):
     def _default_name(self, cr, uid, ids, name, args, context={}):
         res = {}
         for rec in self.browse(cr, uid, ids):
-            res[rec.id] = (rec.partner_id and rec.partner_id.name or '') + \
-            ' for ' + (rec.media_id and rec.media_id.name or '')
+            res[rec.id] = (rec.partner_id and rec.partner_id.name or '') + ' for ' + (rec.media_id and rec.media_id.name or '')
         return res
 
     _columns = {
@@ -1264,8 +1215,7 @@ class dm_mail_service(osv.osv):
     def on_change_service_type(self, cr, uid, ids, type_id):
         res = {'value': {}}
         if type_id:
-            service_type = self.pool.get('dm.mail_service.type').read(cr, uid,
-                                                                 [type_id])[0]
+            service_type = self.pool.get('dm.mail_service.type').read(cr, uid, [type_id])[0]
             res['value'] = {'service_type': service_type['code']}
         return res
 
@@ -1279,6 +1229,7 @@ class dm_campaign_mail_service(osv.osv):
         'campaign_id' : fields.many2one('dm.campaign', 'Campaign'),
         'offer_step_id' : fields.many2one('dm.offer.step', 'Offer Step'),
     }
+    
 dm_campaign_mail_service()
 
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

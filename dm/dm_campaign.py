@@ -544,12 +544,8 @@ class dm_campaign(osv.osv): #{{{
                                            new_write_vals, context)
         return id_camp
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', 
-                        context=None, toolbar=False, submenu=False):
-        result = super(dm_campaign, self).fields_view_get(cr, user, view_id, 
-                                                          view_type, context, 
-                                                          toolbar, 
-                                                          submenu=submenu)
+	def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,):# submenu=False): for trunk client
+		result = super(dm_campaign, self).fields_view_get(cr, user, view_id, view_type, context, toolbar,)# submenu=submenu) for trunk client
         if 'campaign_type' in context:
             if context['campaign_type'] == 'model':
                 if 'toolbar' in result:
@@ -977,8 +973,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         if 'proposition_id' in vals and vals['proposition_id'] :
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr,
                                                     uid, vals['proposition_id'])
-            vals['parent_id'] = self.pool.get('account.analytic.account').search
-            (cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
+            vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
         return super(dm_campaign_proposition_segment, self).create(cr, uid, vals,
                                                                     context)
     def search(self, cr, uid, args, offset=0, limit=None, order=None, 

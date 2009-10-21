@@ -306,21 +306,13 @@ class dm_offer(osv.osv): # {{{
         self.copy(cr, uid, ids[0], {'type': 'standart'})
         return True
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', 
-                                context=None, toolbar=False, submenu=False):
+    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,) : # submenu=False): for trunk client
         if 'offer_type' in context and context['offer_type']:
             new_view_id = self.pool.get('ir.ui.view').search(cr, user,
                                            [('name', '=', 'dm.preoffer.form')])
-            result = super(dm_offer, self).fields_view_get(cr, user, 
-                                            new_view_id[0],
-                                            view_type, context, 
-                                            toolbar, 
-                                            submenu=submenu)
+            result = super(dm_offer, self).fields_view_get(cr, user, new_view_id[0], view_type, context, toolbar,)# submenu=submenu) for trunk client
         else:
-            result = super(dm_offer, self).fields_view_get(cr, user, view_id, 
-                                                           view_type, context,
-                                                           toolbar, 
-                                                           submenu=submenu)
+            result = super(dm_offer, self).fields_view_get(cr, user, view_id, view_type, context, toolbar,)# submenu=submenu) for trunk client
             if 'type' in context:
                 if context['type'] == 'model':
                     if 'toolbar' in result:

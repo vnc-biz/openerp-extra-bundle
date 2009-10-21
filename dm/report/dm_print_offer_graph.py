@@ -95,8 +95,7 @@ class report_graph_instance(object):
         offer_id = ids
         self.done = False
 
-        offer = translate_accent(pooler.get_pool(cr.dbname).get(
-                                'dm.offer').browse(cr, uid, offer_id)[0].name)
+        offer = translate_accent(pooler.get_pool(cr.dbname).get('dm.offer').browse(cr, uid, offer_id)[0].name)
 
         graph = pydot.Dot(fontsize="16", label=offer)
         graph.set('size', '10.7,7.3')

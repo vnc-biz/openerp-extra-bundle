@@ -125,9 +125,9 @@ def generate_openoffice_reports(cr, uid, report_type,
     for report in pool.get('ir.actions.report.xml').browse(cr, uid, report_ids):
         srv = netsvc.LocalService('report.' + report.report_name)
         report_data, report_type = srv.create(cr, uid, [], {}, context)
-        if re.search('!!!Missing-Plugin-in DTP document!!!',report_data,re.IGNORECASE) :
+        if re.search('!!!Missing-Plugin-in DTP document!!!', report_data, re.IGNORECASE):
             return 'plugin_missing' 
-        if re.search('!!!Missing-Plugin-Value!!!',report_data,re.IGNORECASE) :
+        if re.search('!!!Missing-Plugin-Value!!!', report_data, re.IGNORECASE):
             return 'plugin_error'
         if camp_doc: 
             attach_vals = {
@@ -170,7 +170,7 @@ def document_process(cr, uid, obj, report_type, context): # {{{
         """ if customer workitem """
         address_ids.append(address_id)
     else : 
-        return {'code':"no_address_for_wi"}
+        return {'code': "no_address_for_wi"}
     if obj.step_id:
         step_id = obj.step_id.id
     else:
@@ -225,7 +225,7 @@ def document_process(cr, uid, obj, report_type, context): # {{{
     if report_type == 'html2html':
         r_type = 'html'
 
-    type_id = pool.get('dm.campaign.document.type').search(cr,uid,[('code','=',r_type)])
+    type_id = pool.get('dm.campaign.document.type').search(cr, uid, [('code', '=', r_type)])
     res = 'doc_done'
 #    so = getattr(obj,'sale_order_id',False)
     for address_id in address_ids:
@@ -336,14 +336,14 @@ def generate_plugin_value(cr, uid, **args): # {{{
     dm_plugins_value = pool.get('dm.plugins.value')
 
     plugins = dm_document.browse(cr, uid, args['document_id'] )
-    doc_plugin_ids = map(lambda x : x.id,plugins.document_template_plugin_ids)
+    doc_plugin_ids = map(lambda x: x.id,plugins.document_template_plugin_ids)
     if 'plugin_list' in args and args['plugin_list'] :
         "Get plugins to compute value"
-        p_ids = pool.get('dm.dtp.plugin').search(cr,uid,[('code','in',args['plugin_list'])])
+        p_ids = pool.get('dm.dtp.plugin').search(cr, uid, [('code', 'in', args['plugin_list'])])
     else :
         "If no plugins in document do nothing"
         return {}
-    for plugin_obj in pool.get('dm.dtp.plugin').browse(cr,uid,p_ids) :
+    for plugin_obj in pool.get('dm.dtp.plugin').browse(cr, uid, p_ids) :
         if plugin_obj.id not in doc_plugin_ids:
             plugin_value = '!!!Missing-Plugin-in DTP document!!!'
         else :

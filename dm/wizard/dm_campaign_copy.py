@@ -42,13 +42,11 @@ def _copy_segment(self, cr, uid, data, context):
         if not seg:
             for j in datas.proposition_ids:
                 dd = j.id
-                camp_prop = pool.get('dm.campaign.proposition').browse(
-                                                                    cr, uid, dd)
+                camp_prop = pool.get('dm.campaign.proposition').browse(cr, uid, dd)
                 l = []
                 for i in camp_prop.segment_ids:
                     l.append(i.id)
-                    pool.get('dm.campaign.proposition.segment').unlink(
-                                                                    cr, uid, l)
+                    pool.get('dm.campaign.proposition.segment').unlink(cr, uid, l)
             return {'PRP_ID': prp_id}
     return {'PRP_ID': prp_id}
 

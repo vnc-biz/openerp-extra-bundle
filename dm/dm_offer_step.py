@@ -206,8 +206,7 @@ class dm_offer_step(osv.osv): # {{{
         if context and 'dm_camp_id' in context:
             if not context['dm_camp_id']:
                 return []
-            res  = self.pool.get('dm.campaign').browse(cr, 
-                                                uid, context['dm_camp_id'])
+            res  = self.pool.get('dm.campaign').browse(cr, uid, context['dm_camp_id'])
             step_ids = map(lambda x: x.id, res.offer_id.step_ids)
             return step_ids
         return super(dm_offer_step, self).search(cr, uid, args, offset, 
@@ -264,8 +263,7 @@ class dm_offer_step_transition(osv.osv): # {{{
         'delay_type': lambda *a: 'day',
     }
     def default_get(self, cr, uid, fields, context={}):
-        data = super(dm_offer_step_transition, self).default_get(cr, 
-                                                        uid, fields, context)
+        data = super(dm_offer_step_transition, self).default_get(cr, uid, fields, context)
         if context.has_key('type_id'):
             data['delay'] = '0'
             data[context['type_id']] = context['step_id']

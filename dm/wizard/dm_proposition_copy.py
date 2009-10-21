@@ -36,8 +36,7 @@ segment_fields = {
 def _copy_prp(self, cr, uid, data, context):
     prop_id = data['id']
     pool = pooler.get_pool(cr.dbname)
-    prp_id = pool.get('dm.campaign.proposition').copy(cr, 
-                                                uid, prop_id, context=context)
+    prp_id = pool.get('dm.campaign.proposition').copy(cr, uid, prop_id, context=context)
     datas = pool.get('dm.campaign.proposition').browse(cr, uid, prp_id, context)
     seg = data['form']['keep_segments']
     if datas.segment_ids:

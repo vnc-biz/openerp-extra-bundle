@@ -42,8 +42,7 @@ class wizard_document_report(wizard.interface):
                                             db, uid, data, state, context) # }}}
 
     def _print_report(self, cr, uid, data, context): # {{{
-        report = pooler.get_pool(cr.dbname).get('ir.actions.report.xml').browse(
-                                                cr, uid, data['form']['report'])
+        report = pooler.get_pool(cr.dbname).get('ir.actions.report.xml').browse(cr, uid, data['form']['report'])
         self.states['print_report']['result']['report'] = report.report_name
         return {} # }}}
 

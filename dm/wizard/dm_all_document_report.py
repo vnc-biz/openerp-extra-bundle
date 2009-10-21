@@ -41,8 +41,7 @@ class wizard_all_document_report(wizard.interface):
                                                         data, state, context)
     
     def _print_report(self, cr, uid, data , context):
-        report = pooler.get_pool(cr.dbname).get('ir.actions.report.xml').browse(
-                                                cr, uid, data['form']['report'])
+        report = pooler.get_pool(cr.dbname).get('ir.actions.report.xml').browse(cr, uid, data['form']['report'])
         self.states['print_report']['result']['report'] = report.report_name
         return {}
 
@@ -65,8 +64,7 @@ class wizard_all_document_report(wizard.interface):
         pool = pooler.get_pool(cr.dbname)
         group_obj = pool.get('ir.actions.report.xml')
         ids = group_obj.search(cr, uid, [('document_id', '=', document_id)])
-        res = [(group.id, group.name) for group in group_obj.browse(
-                                                                cr, uid, ids)]
+        res = [(group.id, group.name) for group in group_obj.browse(cr, uid, ids)]
         res.sort(lambda x,y: cmp(x[1], y[1]))
         return res    
     

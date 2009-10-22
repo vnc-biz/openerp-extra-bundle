@@ -150,7 +150,7 @@ class survey_response(osv.osv):
                 'date_create' : fields.datetime('Create Date',required=1),
                 'date_modify' : fields.datetime('Modify Date'),
                 'state' : fields.selection([('draft', 'Draft'),('done', 'Done'), ('skip',' Skip')], 'Status', readonly = True),
-                'response_id' : fields.many2one('res.users', 'Responsibal User'),
+                'response_id' : fields.many2one('res.users', 'User'),
                 'question_id' : fields.many2one('survey.question', 'Question'),
                 'response_type' : fields.selection([('manually','Manually'),('link','Link')],'Response Type'),
                 'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
@@ -237,8 +237,8 @@ class survey_question_wiz(osv.osv_memory):
                 xml += '''<separator string="''' + str(qu_no) + "."  + str(que_rec['question']) + '''"  colspan="4"/> <newline/> '''
                 ans_ids = ans_obj.read(cr,uid,que_rec['answer_choice_ids'],[])
                 for ans in ans_ids:
-                    xml += '''<field  name="'''+ str(que) + "_" + ans['answer'] +"_" + str(ans['id']) +  '''"/> '''
-                    fields[str(que) + "_" + ans['answer'] +"_" + str(ans['id']) ] = {'type':'boolean','string':ans['answer'],'views':{}}
+                    xml += '''<field  name="'''+ str(que) + "_" +  str(ans['id']) +  '''"/> '''
+                    fields[str(que) + "_" +  str(ans['id']) ] = {'type':'boolean','string':ans['answer'],'views':{}}
                 if que_rec['allow_comment']:
                     xml += '''<newline/> <field  colspan="4"  name="'''+ str(que) + "_other" '''"/> '''
                     fields[str(que) + "_other"] = {'type':'text','string':"Comment",'views':{}}

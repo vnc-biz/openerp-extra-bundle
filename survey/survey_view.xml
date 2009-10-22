@@ -2,9 +2,10 @@
 <openerp>
     <data>
     	<menuitem name="Survey Management" id = "main_menu_survey" icon="terp-crm" sequence="1"/>
-    	<menuitem name="Configuration" id = "menu_survey_config" parent = "main_menu_survey" sequence="2"/>
-    	<menuitem name="Reports" id = "menu_survey_reports" parent = "main_menu_survey" sequence="6"/>
-    	
+    	<menuitem name="Configuration" id = "menu_survey_config" parent = "main_menu_survey" />
+    	<menuitem name="Reports" id = "menu_survey_reports" parent = "main_menu_survey"/>
+		<menuitem name="Action" id = "menu_survey_action" parent = "main_menu_survey" />
+
 	    <!--
 			Survey
 		-->

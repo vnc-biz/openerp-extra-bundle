@@ -145,7 +145,7 @@ survey_answer()
 class survey_response(osv.osv):
     _name = 'survey.response'
     _description = 'Survey Response'
-    _rec_name = 'date_start'
+    _rec_name = 'date_create'
     _columns = {
                 'date_create' : fields.datetime('Create Date',required=1),
                 'date_modify' : fields.datetime('Modify Date'),
@@ -333,4 +333,13 @@ class report_survey_question(osv.osv):
                 """)
 
 report_survey_question()
+
+class res_users(osv.osv):
+    _inherit = "res.users"
+    _name = "res.users"
+    _columns = {
+        'survey_id': fields.many2many('survey', 'survey_users_rel', 'uid', 'sid', 'Groups'),
+    }
+res_users()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

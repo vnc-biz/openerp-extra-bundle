@@ -8,7 +8,7 @@
    		</record>
    	    <record model="res.groups" id="group_survey_user">
         	<field name="name">Survey / User</field>
-			<field eval="[(6, 0, [ref('menu_run_survey_form')  ])]" name="menu_access"/>
+			<field eval="[(6, 0, [ref('main_menu_survey'),ref('menu_run_survey_form')  ])]" name="menu_access"/>
    		</record>
    	</data>
 </openerp>

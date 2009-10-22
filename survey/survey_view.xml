@@ -379,5 +379,18 @@
         </record>
         <menuitem action="action_report_survey_question_tree" id="menu_report_survey_question_month" parent="menu_survey_reports"/>
 
+	    <record id="view_res_user_form" model="ir.ui.view">
+			<field name="name">view.res.users.form</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<notebook>
+					<page string="Survey">
+						<field name="survey_id" nolabel="1"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
 	</data>
 </openerp>

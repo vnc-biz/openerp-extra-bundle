@@ -1,17 +1,8 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>
-        
-  
-            
-		<wizard string="Survey Open" id="wizard_response_survey"
+		<wizard string="Send Invitation" id="wizard_send_invitation"
 			model="survey"
-			name="wizard.response.survey" />
-
-		 <menuitem
-                 name="Response Survey"
-                 action="wizard_response_survey"
-                 type="wizard"
-                 id="menu_wizard_response_survey" parent='main_menu_survey'/>
+			name="wizard.send.invitation" />
 	</data>
 </openerp>

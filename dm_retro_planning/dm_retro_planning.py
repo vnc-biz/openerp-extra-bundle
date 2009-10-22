@@ -202,6 +202,7 @@ class dm_campaign(osv.osv):#{{{
     def write(self, cr, uid, ids, vals, context=None):
         value = super(dm_campaign, self).write(cr, uid, ids, vals, context)
         for camp in self.browse(cr, uid, ids):    
+            print "11111111111111111111111",camp.project_id
             if camp.project_id :
                 self.pool.get('project.project').write(cr, uid, [camp.project_id.id], 
                         {'date_end':camp.date_start})

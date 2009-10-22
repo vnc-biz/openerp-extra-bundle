@@ -10,138 +10,73 @@
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
     </blockTableStyle>
-    <blockTableStyle id="Table2">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-    </blockTableStyle>
     <blockTableStyle id="Table1">
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,0" stop="1,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,0" stop="1,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,0" stop="2,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,0" stop="2,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,0" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,0" stop="3,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="3,0" stop="3,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,1" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,1" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,1" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,1" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,1" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,2" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,2" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,2" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,2" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,2" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,3" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,3" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,3" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,3" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,3" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,4" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,4" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,4" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,4" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,4" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,5" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,5" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,5" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,5" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,5" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,6" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,6" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,6" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,6" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,6" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,7" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,7" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,7" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,7" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,7" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,8" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,8" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="2,8" stop="2,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="3,8" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="3,8" stop="3,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e0e0e0" start="0,0" stop="2,0"/>
+      <lineStyle kind="LINEABOVE" colorName="#e0e0e0" start="1,1" stop="2,1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e0e0e0" start="0,2" stop="2,2"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e0e0e0" start="0,0" stop="-2,2"/>
+
+    </blockTableStyle>
+    <blockTableStyle id="Table2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e0e0e0" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#e0e0e0" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="-1,1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e0e0e0" start="0,1" stop="-1,-1"/>
     </blockTableStyle>
     <initialize>
       <paraStyle name="all" alignment="justify"/>
     </initialize>
-    <paraStyle name="P1" fontName="Helvetica" fontSize="8.0" leading="10"/>
-    <paraStyle name="P2" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER"/>
-    <paraStyle name="P3" fontName="Helvetica" fontSize="11.0" leading="14"/>
-    <paraStyle name="P4" fontName="Helvetica" fontSize="11.0" leading="14" alignment="CENTER"/>
-    <paraStyle name="P5" fontName="Helvetica" fontSize="10.0" leading="13"/>
-    <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="10.0" leading="13"/>
-    <paraStyle name="P7" fontName="Helvetica" fontSize="8.0" leading="10"/>
-    <paraStyle name="P8" fontName="Helvetica" fontSize="10.0" leading="13"/>
-    <paraStyle name="P9" fontName="Helvetica" fontSize="11.0" leading="14"/>
-    <paraStyle name="P10" fontName="Helvetica" fontSize="12.0" leading="15"/>
-    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="P1" fontName="Helvetica"/>
+    <paraStyle name="P2" fontName="Helvetica-Bold" fontSize="11.0" leading="14"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="10.0" leading="13"/>
+    <paraStyle name="P4" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P5" fontName="Helvetica-Bold" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="P6" fontName="Helvetica-Bold" fontSize="14.0" leading="17" alignment="CENTER"/>
+    <paraStyle name="P7" fontName="Helvetica"/>
+    <paraStyle name="P8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT"/>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="Index" fontName="Helvetica"/>
-    <paraStyle name="Table Contents" fontName="Helvetica"/>
-    <paraStyle name="Table Heading" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman"/>
+    <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER"/>
   </stylesheet>
   <images/>
   <story>
-    <para style="P1">[[repeatIn(objects,'certificate')]]</para>
-    <para style="P4">Tableau Mission déléguées</para>
-    <para style="P2">
+    <para style="P1">[[ repeatIn(objects,'certificate') ]]</para>
+    <para style="P6">Tableau Mission déléguées</para>
+    <para style="P3">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="190.0,287.0" style="Table2">
+    <para style="P3">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="61.0,93.0,112.0,74.0,137.0" style="Table1">
       <tr>
         <td>
-          <para style="P1">Mois :</para>
-          <para style="P7">
+          <para style="P5">Mois :</para>
+        </td>
+        <td>
+          <para style="P5">Date de:</para>
+        </td>
+        <td>
+          <para style="P4">[[ time.strftime('%m/%Y', time.strptime( data['form']['date1'], '%Y-%m-%d')) ]]</para>
+        </td>
+        <td>
+          <para style="P4">
             <font color="white"> </font>
           </para>
         </td>
         <td>
-          <para style="P7">Date de:<font face="Helvetica" size="10.0">[[ time.strftime('%m/%Y', time.strptime( data['form']['date1'], '%Y-%m-%d')) ]]</font></para>
+          <para style="P4">
+            <font color="white"> </font>
+          </para>
         </td>
       </tr>
       <tr>
@@ -151,187 +86,165 @@
           </para>
         </td>
         <td>
-          <para style="P7">Date à:<font face="Helvetica" size="10.0">[[ time.strftime('%m/%Y', time.strptime( data['form']['date2'], '%Y-%m-%d')) ]]</font></para>
+          <para style="P5">Date à:</para>
+        </td>
+        <td>
+          <para style="P4">[[ time.strftime('%m/%Y', time.strptime( data['form']['date2'], '%Y-%m-%d')) ]]</para>
+        </td>
+        <td>
+          <para style="P4">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P4">
+            <font color="white"> </font>
+          </para>
         </td>
       </tr>
     </blockTable>
     <para style="P1">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="123.0,118.0,120.0,121.0" style="Table1">
+    <para style="P1">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="147.0,110.0,110.0,110.0" style="Table2">
       <tr>
         <td>
-          <para style="P5">Type</para>
+          <para style="P2">Type</para>
         </td>
         <td>
-          <para style="P5">Nombre</para>
-          <para style="P8">
-            <font color="white"> </font>
-          </para>
+          <para style="P2">Nombre</para>
         </td>
         <td>
-          <para style="P5">Montant</para>
-          <para style="P8">
-            <font color="white"> </font>
-          </para>
+          <para style="P2">Montant</para>
         </td>
         <td>
-          <para style="P5">Droits</para>
-          <para style="P5">
-            <font color="white"> </font>
-          </para>
+          <para style="P2">Droits</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P5">Certificate</para>
+          <para style="P5">Certificats</para>
         </td>
         <td>
-          <para style="P7">[[repeatIn(get_missions_total(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]]</para>
-          <para style="P7">[[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_missions_total(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]] [[ get_total['no_certi'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[get_total['no_goods'] ]]</para>
+          <para style="P8">[[get_total['no_goods'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_total['total_sub'] ]]</para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P5">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
-          <para style="P5">[[ get_data['section']=='certificate' or removeParentNode('tr')]]</para>
-          <para style="P5">[[ get_data['name'] ]]</para>
-        </td>
-        <td>
-          <para style="P7">[[ get_data['no_certi'] ]]</para>
-        </td>
-        <td>
-          <para style="P7">[[ get_data['no_goods'] ]]</para>
-        </td>
-        <td>
-          <para style="P7">[[ get_data['total_sub'] ]]</para>
+          <para style="P8">[[ get_total['total_sub'] ]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P3">Legalization</para>
+          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[ ((get_data['section']=='certificate') or removeParentNode('tr')) and '']]</para>
+          <para style="P8">[[ get_data['name'] ]]</para>
         </td>
         <td>
-          <para style="P9">[[repeatIn(get_missions_total1(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]]</para>
-          <para style="P9">
-            <font color="white"> </font>
-          </para>
-          <para style="P9">[[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[ get_data['no_certi'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[get_total['no_goods'] ]]</para>
+          <para style="P8">[[ get_data['no_goods'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_total['total_sub'] ]]</para>
+          <para style="P8">[[ get_data['total_sub'] ]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P5">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
-          <para style="P5">[[ get_data['section']=='legalization' or removeParentNode('tr')]]</para>
-          <para style="P5">[[ get_data['name'] ]]</para>
+          <para style="P5">Légalisations</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_missions_total1(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['no_goods'] ]]</para>
+          <para style="P8">[[ get_total['no_goods'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['total_sub'] ]]</para>
+          <para style="P8">[[ get_total['total_sub'] ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[ ((get_data['section']=='legalization') or removeParentNode('tr')) and '']]</para>
+          <para style="P8">[[ get_data['name'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ get_data['no_certi'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ get_data['no_goods'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ get_data['total_sub'] ]]</para>
         </td>
       </tr>
       <tr>
         <td>
           <para style="P5">Carnets ATA</para>
-          <para style="P5">
-            <font color="white"> </font>
-          </para>
         </td>
         <td>
-          <para style="P7">[[repeatIn(get_missions_total2(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]]</para>
-          <para style="P7">
-            <font color="white"> </font>
-          </para>
-          <para style="P7">[[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_missions_total2(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[get_total['no_goods'] ]]</para>
+          <para style="P8">[[ get_total['no_goods'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_total['total_sub'] ]]</para>
+          <para style="P8">[[ get_total['total_sub'] ]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P5">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
-          <para style="P5">[[ get_data['section']=='ATA' or removeParentNode('tr')]]</para>
-          <para style="P5">[[ get_data['name'] ]]</para>
+          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[ ((get_data['section']=='ATA') or removeParentNode('tr')) and '']]</para>
+          <para style="P8">[[ get_data['name'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['no_certi'] ]]</para>
+          <para style="P8">[[ get_data['no_certi'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['no_goods'] ]]</para>
+          <para style="P8">[[ get_data['no_goods'] ]]</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['total_sub'] ]]</para>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P6">Dossiers ambassade</para>
-          <para style="P5">
-            <font color="white"> </font>
-          </para>
-          <para style="P5">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P10">[[repeatIn(get_missions_total3(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]]</para>
-          <para style="P10">[[ get_total['no_certi'] ]]</para>
-        </td>
-        <td>
-          <para style="P7">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P7">[[ get_total['total_sub'] ]]</para>
+          <para style="P8">[[ get_data['total_sub'] ]]</para>
         </td>
       </tr>
       <tr>
         <td>
-          <para style="P5">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
-          <para style="P5">[[ get_data['section']=='folder' or removeParentNode('tr')]]</para>
-          <para style="P5">[[ get_data['name'] ]]</para>
+          <para style="P5">Dossiers ambassade</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_missions_total3(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
         </td>
         <td>
-          <para style="P7">
-            <font color="white"> </font>
-          </para>
+         <para style="P8">-</para>
         </td>
         <td>
-          <para style="P7">[[ get_data['total_sub'] ]]</para>
+          <para style="P8">[[ get_total['total_sub'] ]]</para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[ ((get_data['section']=='folder') or removeParentNode('tr')) and '']]</para>
+          <para style="P8">[[ get_data['name'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">[[ get_data['no_certi'] ]]</para>
+        </td>
+        <td>
+          <para style="P8">-</para>
+        </td>
+        <td>
+          <para style="P8">[[ get_data['total_sub'] ]]</para>
         </td>
       </tr>
     </blockTable>
-    <para style="P1">
-      <font color="white"> </font>
-    </para>
-    <para style="P1">
-      <font color="white"> </font>
-    </para>
     <para style="P1">
       <font color="white"> </font>
     </para>

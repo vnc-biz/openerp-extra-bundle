@@ -30,7 +30,7 @@ form = """<?xml version="1.0"?>
 </form>"""
 
 fields = {
-      'date1': {'string':'Date from', 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
+      'date1': {'string':'Date from', 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-%m-01')},
       'date2': {'string':'Date to', 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
    }
 
@@ -41,7 +41,7 @@ class print_stats_mission(wizard.interface):
     states = {
         'init': {
             'actions': [],
-            'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','Cancel'),('print','Print')]},
+            'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','_Cancel'),('print','P_rint')]},
         },
         'print': {
             'actions': [],

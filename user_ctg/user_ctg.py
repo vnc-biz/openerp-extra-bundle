@@ -26,6 +26,11 @@ import netsvc
 from osv import fields,osv
 import os
 
+global feedback_link 
+global feedback_msg
+feedback_link= 'http://localhost:8080/'
+feedback_msg = 'Please visit the following link to give the feedback of'
+
 class ctg_type(osv.osv):
     _name = 'ctg.type'
     _columns = {
@@ -241,11 +246,7 @@ class ctg_feedback(osv.osv):
                 open_feedback_user_action_obj = self.pool.get('ir.model.data').browse(cr, uid, open_feedback_user_action_id, context)[0]
                 self.pool.get('res.users').write(cr ,uid, [feedback_line.user_to.id], {'action_id':open_feedback_user_action_obj.res_id})
                 mail_to = feedback_line.user_to.address_id.email
-                body = """
-                Hello %s,\n                
-                Please visit the following link to give the feedback of %s.\n
-                http://localhost:8080/
-                """ %(feedback_line.user_to.name, feedback_line['name'])
+                body = 'Hello %s,\n %s %s.\n %s'%(feedback_line.user_to.name, feedback_msg, feedback_line['name'],feedback_link)
                 logger = netsvc.Logger()
                 if tools.email_send(user, [mail_to], subject, body, debug=False, subtype='html') == True:
                     logger.notifyChannel('email', netsvc.LOG_INFO, 'Email successfully send to : %s' % (mail_to))
@@ -263,18 +264,19 @@ class ctg_feedback(osv.osv):
         feedback_lines = self.browse(cr,uid,ids)
         ctg_line_obj = self.pool.get('ctg.line')
         for feedback_line in feedback_lines:
-            #if feedback_line.ctg_type_id.code == 'sales' or feedback_line.ctg_type_id.code == 'dms': 
+            #if feedback_line.ctg_type_id.code == 'sales' or feedback_line.ctg_type_id.code == 'dms':
+            related_project_ids = self.pool.get('project.project').search(cr, uid, [('manager','=',int(feedback_line.responsible.id))])
+            count = len(related_project_ids)
+            avg_point = int(feedback_line.points)/count
             if feedback_line.points:
                ctg_line_obj.create(cr, uid,{
                         'ctg_type_id':feedback_line.ctg_type_id.id,
                         'rewarded_user_id':feedback_line.responsible.id,
-                        'points':feedback_line.points,
+                        'points':avg_point,
                         'date_ctg': feedback_line.date_feedback})
             else:
                 raise osv.except_osv(_('Usererror !'),
                         _('Please Select Points For Feedback.'))
-        # points : for customer satisfaction type , need to calaculate avg. points base on projects ?
-                    # example : customer give 2 points for 1 project / 3 projects ?
         return True                    
     def action_cancel_draft(self, cr, uid, ids, context={}):
         return self.write(cr, uid, ids, {'state':'draft'})

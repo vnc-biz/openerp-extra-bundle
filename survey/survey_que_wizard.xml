@@ -7,14 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Your Messages">
-                    <separator colspan="4" string="Your Message"/>
-                    <newline/>
                     <field name="name" nolabel="1" colspan="4"/>
-                    <separator colspan="4" string="Action"/>
-                    <group col="4" colspan="4">
-                    	<button icon="gtk-cancel" special="cancel" string="Cancel"/>
-                        <button icon="gtk-go-forward" name="action_next" string="Next" type="object" />
-                    </group>
                 </form>
             </field>
         </record>
@@ -35,12 +28,12 @@
             <field name="arch" type="xml">
                 <form string="Survey">
                     <separator colspan="4" string="Selct Survey"/>
+                    <field name="survey_id" colspan="4" context="{'domain':True}" domain="[('state','=','open')]"/>
                     <newline/>
-                    <field name="survey_id"/>
-                    <group col="4" colspan="4">
-                        <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="2"/>
-						<button icon="gtk-go-forward" name="action_next" string="Next" type="object" />
-                    </group>
+                    <separator colspan="4"/>
+                    	<label align="0.0" colspan="2" string=""/>  
+                        <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"/>
+						<button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object" />
                 </form>
             </field>
         </record>

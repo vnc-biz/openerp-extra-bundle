@@ -28,9 +28,10 @@ import string
 import tools
 
 _survey_form = '''<?xml version="1.0"?>
-<form string="Select a Partner Name">
+<form string="Send Invitation">
+    <separator string="Select Partner" colspan="4"/>
     <field name="partner_ids" nolabel="1" /> 
-        <separator colspan="4"/>
+    <separator colspan="4"/>
     <group cols="4" colspan="4">
     <field name="mail_subject"/>
     <newline/>
@@ -62,6 +63,15 @@ def genpasswd():
     chars = string.letters + string.digits
     return ''.join([choice(chars) for i in range(6)])
 
+def check_survey(self, cr, uid, data, context):
+    pool= pooler.get_pool(cr.dbname)
+    survey_obj = pool.get('survey')
+    msg = ""
+    for sur in survey_obj.browse(cr,uid,data['ids']):
+        if sur.state != 'open':
+            msg +=  sur.title + "\n"
+    raise  wizard.except_wizard(_('UserError'),_('%s Survey not in open state') % msg)
+    return data
 
 def send_mail(self, cr, uid, data, context):
     partner_ids = data['form']['partner_ids'][0][2]
@@ -118,7 +128,7 @@ def send_mail(self, cr, uid, data, context):
 class send_mail_wizard(wizard.interface):
     states = {
         'init': {
-            'actions': [],
+            'actions': [check_survey],
             'result': {'type': 'form', 'arch':_survey_form, 'fields':_survey_fields, 'state':[('end','Cancel','gtk-cancel'),('send','Send','gtk-go-forward')]}
                 },
         'send':{'actions': [send_mail],

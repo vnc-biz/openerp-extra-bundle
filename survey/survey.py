@@ -43,6 +43,20 @@ class survey(osv.osv):
         'state' : lambda *a: "draft"
     }
     
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        res = super(survey, self).search(cr, uid, args, offset, limit, order, context, count)
+        if context.has_key('domain'):
+            group_id = self.pool.get('res.groups').search(cr,uid,[('name','=','Survey / Manager')])
+            user_obj = self.pool.get('res.users')
+            user_rec = user_obj.read(cr,uid,uid)
+            if group_id[0]  not in user_rec['groups_id']:
+                res = []
+                for rec in self.browse(cr,uid,user_rec['survey_id']):
+                    if rec.state == 'open' :
+                        res.append(rec.id)
+        return res
+
+    
     def survey_draft(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'draft'})
         return True
@@ -244,10 +258,9 @@ class survey_question_wiz(osv.osv_memory):
                     fields[str(que) + "_other"] = {'type':'text','string':"Comment",'views':{}}
             xml += '''
             <separator colspan="4" />
-            <group col="4" colspan="4">
-                <button colspan="2" icon="gtk-cancel" readonly="0" special="cancel" string="Cancel"/>
-                <button icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
-            </group>
+                <label align="0.0" colspan="2" string=""/>    
+                <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>
+                <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
             </form>'''
             result['arch'] = xml
             result['fields']=fields
@@ -257,7 +270,7 @@ class survey_question_wiz(osv.osv_memory):
                             <separator string="Complete Survey" colspan="4"/>
                                 <label string = "Thanks for your response" />
                                 <newline/>
-                                <button colspan="2" icon="gtk-go-forward" readonly="0" special="cancel" string="OK"/>
+                                <button colspan="2" icon="gtk-go-forward"  special="cancel" string="OK"/>
                          </form>'''
             question_no = 0
             result['arch'] = xml_form

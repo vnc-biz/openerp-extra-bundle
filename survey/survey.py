@@ -45,7 +45,7 @@ class survey(osv.osv):
     
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
         res = super(survey, self).search(cr, uid, args, offset, limit, order, context, count)
-        if context.has_key('domain'):
+        if context != None and context.has_key('domain'):
             group_id = self.pool.get('res.groups').search(cr,uid,[('name','=','Survey / Manager')])
             user_obj = self.pool.get('res.users')
             user_rec = user_obj.read(cr,uid,uid)
@@ -82,7 +82,7 @@ class survey_page(osv.osv):
     _order = 'sequence'
     _columns = {
                 'title' : fields.char('Page Title', size = 128,required=1),
-                'survey_id' : fields.many2one('survey', 'Survey'),
+                'survey_id' : fields.many2one('survey', 'Survey',ondelete='cascade'),
                 'question_ids' : fields.one2many('survey.question','page_id','Question'),
                 'sequence' : fields.integer('Sequence'),
                 'note' : fields.text('Description'),
@@ -105,7 +105,7 @@ class survey_question(osv.osv):
             val[rec.id] = cr.fetchall()[0][0]
         return val
     _columns = {
-                'page_id' : fields.many2one('survey.page','Survey Page'),
+                'page_id' : fields.many2one('survey.page','Survey Page',ondelete='cascade'),
                 'question' :  fields.char('Question', size = 128,required=1),
                 'answer_choice_ids' : fields.one2many('survey.answer','question_id','Answer'),
                 'response_ids' : fields.one2many('survey.response','question_id','Response',readonly=1),
@@ -134,16 +134,17 @@ class survey_answer(osv.osv):
             cr.execute("select count(answer_id) from survey_response_answer sra  where sra.answer_id = "+str(rec.id))
             res = cr.fetchone()[0]
             if res:
-                avg = res * 100 /tot
+                avg = float(res) * 100 /tot
             else:
                 avg = 0.0
             val[rec.id] = {
                 'response': res,
-                'average': avg,
-            }                
+                'average': round(avg,2),
+            }
+                            
         return val
     _columns = {
-                'question_id' : fields.many2one('survey.question', 'Question'),
+                'question_id' : fields.many2one('survey.question', 'Question',ondelete='cascade'),
                 'answer' : fields.char('Answer', size = 128,required=1),
                 'sequence' : fields.integer('Sequence'),
                 'response' : fields.function(_calc_response_avg,method =True, string ="#Response",multi='sums'),
@@ -165,7 +166,7 @@ class survey_response(osv.osv):
                 'date_modify' : fields.datetime('Modify Date'),
                 'state' : fields.selection([('draft', 'Draft'),('done', 'Done'), ('skip',' Skip')], 'Status', readonly = True),
                 'response_id' : fields.many2one('res.users', 'User'),
-                'question_id' : fields.many2one('survey.question', 'Question'),
+                'question_id' : fields.many2one('survey.question', 'Question',ondelete='cascade'),
                 'response_type' : fields.selection([('manually','Manually'),('link','Link')],'Response Type'),
                 'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
                 'comment' : fields.text('Notes'),                
@@ -193,8 +194,8 @@ class survey_response_answer(osv.osv):
     _description = 'Survey Response Answer'
     _rec_name = 'response_id'
     _columns = {
-                'response_id' : fields.many2one('survey.response','Response'),
-                'answer_id' : fields.many2one('survey.answer','Answer',required=1),
+                'response_id' : fields.many2one('survey.response','Response',ondelete='cascade'),
+                'answer_id' : fields.many2one('survey.answer','Answer',required=1,ondelete='cascade'),
                 'comment' : fields.text('Notes'),                
     }
 
@@ -234,7 +235,7 @@ class survey_question_wiz(osv.osv_memory):
         page_obj = self.pool.get('survey.page')
         que_obj = self.pool.get('survey.question')
         ans_obj = self.pool.get('survey.answer')
-        p_id = page_obj.search(cr,uid,[])
+        p_id = sur_rec['page_ids']
         if len(p_id) > question_no:
             p_id = p_id[question_no]
             question_no += 1

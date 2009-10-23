@@ -129,7 +129,7 @@
           <para style="P5">Certificats</para>
         </td>
         <td>
-          <para style="P8">[[repeatIn(get_missions_total(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]] [[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_total_certi(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]] [[ get_total['no_certi'] ]]</para>
         </td>
         <td>
           <para style="P8">[[get_total['no_goods'] ]]</para>
@@ -140,7 +140,7 @@
       </tr>
       <tr>
         <td>
-          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[repeatIn( get_missions_states(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
           <para style="P8">[[ ((get_data['section']=='certificate') or removeParentNode('tr')) and '']]</para>
           <para style="P8">[[ get_data['name'] ]]</para>
         </td>
@@ -159,7 +159,7 @@
           <para style="P5">Légalisations</para>
         </td>
         <td>
-          <para style="P8">[[repeatIn(get_missions_total1(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_total_legalization(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
         </td>
         <td>
           <para style="P8">[[ get_total['no_goods'] ]]</para>
@@ -170,7 +170,7 @@
       </tr>
       <tr>
         <td>
-          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[repeatIn( get_missions_states(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
           <para style="P8">[[ ((get_data['section']=='legalization') or removeParentNode('tr')) and '']]</para>
           <para style="P8">[[ get_data['name'] ]]</para>
         </td>
@@ -189,7 +189,7 @@
           <para style="P5">Carnets ATA</para>
         </td>
         <td>
-          <para style="P8">[[repeatIn(get_missions_total2(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_total_ata(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
         </td>
         <td>
           <para style="P8">[[ get_total['no_goods'] ]]</para>
@@ -200,7 +200,7 @@
       </tr>
       <tr>
         <td>
-          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[repeatIn( get_missions_states(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
           <para style="P8">[[ ((get_data['section']=='ATA') or removeParentNode('tr')) and '']]</para>
           <para style="P8">[[ get_data['name'] ]]</para>
         </td>
@@ -219,7 +219,7 @@
           <para style="P5">Dossiers ambassade</para>
         </td>
         <td>
-          <para style="P8">[[repeatIn(get_missions_total3(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
+          <para style="P8">[[repeatIn(get_total_ambassy(data['form']['date1'] ,data['form']['date2'] ),'get_total') ]][[ get_total['no_certi'] ]]</para>
         </td>
         <td>
          <para style="P8">-</para>
@@ -230,7 +230,7 @@
       </tr>
       <tr>
         <td>
-          <para style="P8">[[repeatIn( get_missions(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
+          <para style="P8">[[repeatIn( get_missions_states(data['form']['date1'] ,data['form']['date2']),'get_data')]]</para>
           <para style="P8">[[ ((get_data['section']=='folder') or removeParentNode('tr')) and '']]</para>
           <para style="P8">[[ get_data['name'] ]]</para>
         </td>

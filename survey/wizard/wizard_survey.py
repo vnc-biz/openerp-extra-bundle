@@ -70,7 +70,8 @@ def check_survey(self, cr, uid, data, context):
     for sur in survey_obj.browse(cr,uid,data['ids']):
         if sur.state != 'open':
             msg +=  sur.title + "\n"
-    raise  wizard.except_wizard(_('UserError'),_('%s Survey not in open state') % msg)
+    if msg:
+        raise  wizard.except_wizard(_('UserError'),_('%s Survey not in open state') % msg)
     return data
 
 def send_mail(self, cr, uid, data, context):
@@ -95,10 +96,6 @@ def send_mail(self, cr, uid, data, context):
                 user = user_ref.browse(cr,uid,user[0])
                 user_ref.write(cr,uid,user.id,{'survey_id':[[6, 0, data['ids']]]})
                 existing+= "- %s (Login: %s,  Password: %s)\n"%(user.name,addr.email,user.password)
-                mail= data['form']['mail']%{'login':addr.email, 'passwd':user.password}
-#                if data['form']['send_mail_existing']:
-#                    if not data['form']['mail_from']: raise wizard.except_wizard('Error !', 'Please provide a "from" email address.')
-#                    tools.email_send(data['form']['mail_from'],[addr.email] ,data['form']['mail_subject_existing'] ,mail )
                 continue
 
             passwd= genpasswd()

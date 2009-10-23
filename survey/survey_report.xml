@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<terp>
+<data>
+	<report auto="True"
+		id="survey"
+		model = "survey"
+		name="survey_analysis_report"
+		rml = "survey/report/survey_analysis_report.rml"
+		string="Survey Analysis Report"/> 
+		
+
+
+	<!-- 	 <menuitem
+	         name="Employee/Report"
+             action="emp_info"
+             type="report"
+             id="menu_report_employee_info"/>
+       -->
+</data>
+</terp>

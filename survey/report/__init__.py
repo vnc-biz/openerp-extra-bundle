@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution    
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -21,16 +21,5 @@
 ##############################################################################
 
 
-{
-    'name': 'Survey Module',
-    'version': '1.0',
-    'category': 'Tools',
-    'description': """""",
-    'author': 'Tiny',
-    'depends': ['base'],
-    'update_xml': ['survey_view.xml','survey_que_wizard.xml','survey_data.xml','security/ir.model.access.csv','survey_wizard.xml','survey_report.xml'],
-    'demo_xml': ['survey_demo.xml'],
-    'installable': True,
-    'active': False,
-}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

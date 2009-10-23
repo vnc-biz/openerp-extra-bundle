@@ -90,7 +90,9 @@
     <para style="P1">
       <font color="white"> </font>
     </para>
+    
     <blockTable colWidths="500.0" style="Table3">
+    <para>[[ get_objects(data['form']) or removeParentNode('blockTable') ]]</para>
       <tr>
         <td>
           <para style="P3">[[ repeatIn(get_objects(data['form']),'val') ]]</para>
@@ -106,7 +108,7 @@
                 <para style="P4">[[ val['obj_name'] ]]</para>
               </td>
               <td>
-                <para style="P4">[[ formatLang (val['obj_id']) ]]</para>
+                <para style="P4">[[ val['obj_id'] ]]</para>
               </td>
               <td>
                 <para style="P4">[[ val['partner'] ]]</para>
@@ -127,7 +129,7 @@
           </para>
         </td>
       </tr>
-    </blockTable>
+    </blockTable> 
     <para style="P1">
       <font color="white"> </font>
     </para>

@@ -67,7 +67,7 @@ class translation_awex(report_sxw.rml_parse):
             res['number'] = int(seq)
             res['date'] = time.strftime('%Y-%m-%d', time.strptime(line.folder_id.create_date, '%Y-%m-%d %H:%M:%S' ))
             res['obj_name'] = 'Embassy folder line'
-            res['obj_id'] = line.id
+            res['obj_id'] = int(line.id)
             res['partner'] = ((line.folder_id.crm_case_id and \
                             line.folder_id.crm_case_id.partner_id and \
                             line.folder_id.crm_case_id.partner_id.name) or '')

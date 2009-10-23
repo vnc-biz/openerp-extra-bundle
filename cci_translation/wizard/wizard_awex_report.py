@@ -21,8 +21,9 @@
 import wizard
 import netsvc
 import pooler
-
+import time
 from osv import fields, osv
+
 form = """<?xml version="1.0"?>
 <form string="Awex Report">
     <field name="date_from"/>
@@ -33,16 +34,11 @@ form = """<?xml version="1.0"?>
 """
 
 fields = {
-        'date_from': {'string':'From', 'type':'date', 'required' : True},
-        'date_to': {'string':'To', 'type':'date', 'required' : True},
+        'date_from': {'string':'From', 'type':'date', 'required' : True, 'default': lambda *a: time.strftime('%Y-%m-01')},
+        'date_to': {'string':'To', 'type':'date', 'required' : True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
         }
 
 class translation_awex_report(wizard.interface):
-
-    def _open_invoice(self, cr, uid, data, context):
-        
-        return {
-        }
 
     states = {
         'init' : {

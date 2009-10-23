@@ -82,6 +82,11 @@
 			menu="True"
 			id="missions_rec_enc_cash_carnet"/>
 
+		<wizard string="Create Legalization"
+			model="cci_missions.certificate"
+			name="cci_mission.create_legalization"
+			id="create_leg"/>
+
 
 <!-- Philmer addition to send the certificates to the belgian federation -->
 		<wizard string="Send to Federation"

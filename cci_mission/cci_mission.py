@@ -282,7 +282,7 @@ class cci_missions_dossier(osv.osv):
 
     def create(self, cr, uid, vals, *args, **kwargs):
         #overwrite the create: if the text_on_invoice field is empty then fill it with name + destination_id.name + (quantity_original)
-        if not vals['text_on_invoice']:
+        if not vals['text_on_invoice']: #fix me => text_on_invoice (required=False)
             invoice_text = vals['name']
             if vals['destination_id']:
                 destination_data = self.pool.get('cci.country').browse(cr,uid,vals['destination_id'])
@@ -478,7 +478,7 @@ class cci_missions_certificate(osv.osv):
         'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
         'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
-    _order = "date desc"
+    _order = "cci_missions_certificate.date desc"
 
     _defaults = {
         'special_reason': lambda *a: 'none',
@@ -590,7 +590,7 @@ class cci_missions_legalization(osv.osv):
         'member_price' : fields.boolean('Apply the Member Price'),
         'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
-    _order = "date desc"
+    _order = "cci_missions_legalization.date desc"
 
 cci_missions_legalization()
 
@@ -928,8 +928,10 @@ class product_lines(osv.osv):
         return super(product_lines,self).create(cr, uid, vals, *args, **kwargs)
 
     def write(self, cr, uid, ids,vals, *args, **kwargs):
+        if not ids:
+            return super(product_lines,self).write( cr, uid, ids,vals, *args, **kwargs)
         data_product_line = self.pool.get('product.lines').browse(cr,uid,ids[0])
-        if (not data_product_line.product_id.id == vals['product_id']):
+        if vals.has_key('product_id') and (not data_product_line.product_id.id == vals['product_id']):
             accnt_dict = {}
             data_product = self.pool.get('product.product').browse(cr,uid,vals['product_id'])
             a =  data_product.product_tmpl_id.property_account_income.id

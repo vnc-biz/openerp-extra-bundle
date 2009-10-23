@@ -25,7 +25,12 @@
     'name': 'Survey Module',
     'version': '1.0',
     'category': 'Tools',
-    'description': """""",
+    'description': """
+    This module is used for surveing. It depends on the answers or reviews of some questions by different users.
+    A survey may have multiple pages. Each page may contain multiple questions and each question may have multiple answers.
+    Different users may give different answers of question and according to that survey is done. 
+    Partners are also sent mails with user name and password for the invitation of the survey
+    """,
     'author': 'Tiny',
     'depends': ['base'],
     'update_xml': ['survey_view.xml','survey_que_wizard.xml','survey_data.xml','security/ir.model.access.csv','survey_wizard.xml','survey_report.xml'],

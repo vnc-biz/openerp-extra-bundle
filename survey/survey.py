@@ -313,41 +313,6 @@ class survey_question_wiz(osv.osv_memory):
             
 survey_question_wiz()
 
-class report_survey_question(osv.osv):
-    _name = "report.survey.question"
-    _description = "Survey Question Report"
-    _auto = False
-    def _calc_response_avg(self,cr,uid,ids,field_name,arg,context):
-        val = {}
-        for rec in self.browse(cr,uid,ids):
-            if rec.res_que_count:
-                val[rec.id] = rec.res_ans_count *100 / rec.res_que_count
-            else:
-                val[rec.id] = 0  
-        return val
-    _columns = {
-        'que_id': fields.many2one('survey.question','Question'),
-        'ans_id': fields.many2one('survey.answer','Answer'),
-        'res_ans_count': fields.integer('Response Answer Count'),
-        'res_que_count': fields.integer('Response Question Count'),
-        'res_avg' : fields.function(_calc_response_avg,method =True, string ="Response Average(%)")
-    }
-    def init(self, cr):
-        cr.execute("""
-                create or replace view report_survey_question as (
-                select 
-                    sa.id as id,
-                    sq.id as que_id, 
-                    sa.id as ans_id, 
-                    (select count(answer_id) from survey_response_answer sra where sa.id = sra.answer_id) as res_ans_count ,
-                    (select count(question_id) from survey_response where question_id = sa.question_id   group by question_id) as res_que_count
-                from 
-                    survey_question sq, survey_answer sa 
-                where sq.id = sa.question_id )
-                """)
-
-report_survey_question()
-
 class res_users(osv.osv):
     _inherit = "res.users"
     _name = "res.users"

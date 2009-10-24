@@ -15,5 +15,3 @@
 "access_survey_name_wiz_user","survey.name.wiz","model_survey_name_wiz","group_survey_user",1,0,0,0
 "access_survey_question_wiz_manager","survey.question.wiz","model_survey_question_wiz","group_survey_manager",1,1,1,1
 "access_survey_question_wiz_user","survey.question.wiz","model_survey_question_wiz","group_survey_user",1,0,0,0
-"access_report_survey_question_manager","report.survey.question","model_report_survey_question","group_survey_manager",1,1,1,1
-"access_report_survey_question_user","report.survey.question","model_report_survey_question","group_survey_user",1,0,0,0

@@ -4,7 +4,7 @@
 		<menuitem name="Start to Give Survey Response" id = "menu_run_survey_form" action="action_view_survey_name" parent = "menu_survey_action"/>
 		   	    <record model="res.groups" id="group_survey_manager">
         	<field name="name">Survey / Manager</field>
-        	<field eval="[(6, 0, [ref('main_menu_survey'), ref('menu_survey_config'), ref('menu_survey_reports'), ref('menu_survey_form'), ref('menu_new_survey_form'), ref('menu_survey_page_form1'), ref('menu_new_survey_page_form1'), ref('menu_survey_question_form1'), ref('menu_new_survey_question_form1'), ref('menu_report_survey_question_month') ,ref('menu_run_survey_form')  ])]" name="menu_access"/>
+        	<field eval="[(6, 0, [ref('main_menu_survey'), ref('menu_survey_config'), ref('menu_survey_form'), ref('menu_new_survey_form'), ref('menu_survey_page_form1'), ref('menu_new_survey_page_form1'), ref('menu_survey_question_form1'), ref('menu_new_survey_question_form1'),ref('menu_run_survey_form')  ])]" name="menu_access"/>
    		</record>
    	    <record model="res.groups" id="group_survey_user">
         	<field name="name">Survey / User</field>

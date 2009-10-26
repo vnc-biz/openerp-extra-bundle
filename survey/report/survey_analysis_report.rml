@@ -139,7 +139,7 @@
 					<para style="Standard1">Answered Question</para>
 			     </td>
 		        <td>
-					<para style="Standard1"> [[ question_ids.tot_resp ]]</para>
+					<para style="Standard1"> [[ int(question_ids.tot_resp) ]]</para>
 			     </td>			     
 		  	  </tr>
 				<tr>
@@ -147,7 +147,7 @@
 					<para style="Standard1">Skipped Question</para>
 			     </td>
 		        <td>
-					<para style="Standard1"> [[ y.tot_start_survey - question_ids.tot_resp  ]]</para>
+					<para style="Standard1"> [[ int(y.tot_start_survey - question_ids.tot_resp)  ]]</para>
 			     </td>			     
 		  	  </tr>
 		     </blockTable>

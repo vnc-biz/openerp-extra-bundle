@@ -104,7 +104,7 @@ def send_mail(self, cr, uid, data, context):
                                     'login': addr.email,
                                     'password': passwd,
                                     'groups_id': [[6,0,group_id]],
-                                    'action_id': 101,
+                                    'action_id': act_id[0],
                                    })
             user_ref.write(cr,uid,user,{'survey_id':[[6, 0, data['ids']]]})
             mail= data['form']['mail']%{'login':addr.email, 'passwd':passwd}

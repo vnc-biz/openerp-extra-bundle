@@ -264,7 +264,8 @@ class survey_question_wiz(osv.osv_memory):
                     xml += '''<field  name="'''+ str(que) + "_" +  str(ans['id']) +  '''"/> '''
                     fields[str(que) + "_" +  str(ans['id']) ] = {'type':'boolean','string':ans['answer'],'views':{}}
                 if que_rec['allow_comment']:
-                    xml += '''<newline/> <field  colspan="4"  name="'''+ str(que) + "_other" '''"/> '''
+                    xml += '''<separator string="Add Coment"  colspan="4"/> '''                    
+                    xml += ''' <field nolabel="1"  colspan="4"  name="'''+ str(que) + "_other"  '''"/> '''
                     fields[str(que) + "_other"] = {'type':'text','string':"Comment",'views':{}}
             xml += '''
             <separator colspan="4" />

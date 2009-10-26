@@ -22,6 +22,8 @@
                         	<field name="date_close" select = "2"/>
                         	<field name="responsible_id"/>
                         	<field name="max_response_limit" select = "1"/>
+                        	<field name="tot_start_survey" select = "1"/>
+                        	<field name="tot_comp_survey" select = "1"/>
 							<field name="page_ids" colspan = "4" nolabel = "1">
 								<form string="Survey Page">
 									<field name="title" colspan = "4" select = "1"/>
@@ -75,6 +77,8 @@
 					<field name="date_open" select = "1"/>
 					<field name="date_close" select = "2"/>
 					<field name="max_response_limit" select = "1"/>
+                   	<field name="tot_start_survey" select = "1"/>
+                    <field name="tot_comp_survey" select = "1"/>
 					<field name="responsible_id"/>
 					<field name="state" select = "2"/>
 				</tree>			          

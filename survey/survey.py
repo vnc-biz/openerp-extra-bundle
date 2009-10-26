@@ -38,9 +38,13 @@ class survey(osv.osv):
                 'max_response_limit' : fields.integer('Maximum Response Limit'),
                 'state' : fields.selection([('draft','Draft'),('open','Open'),('close','Close'),('cancel','Cancel')],'Status',readonly = True),
                 'responsible_id' : fields.many2one('res.users','Responsible'),
+                'tot_start_survey' : fields.integer("Total Started Survey", readonly = 1),
+                'tot_comp_survey' : fields.integer("Total Completed Survey", readonly = 1),
     }
     _defaults = {
-        'state' : lambda *a: "draft"
+        'state' : lambda *a: "draft",
+        'tot_start_survey' : lambda *a: 0,
+        'tot_comp_survey' : lambda *a: 0
     }
     
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
@@ -231,12 +235,17 @@ class survey_question_wiz(osv.osv_memory):
         survey_name_obj = self.pool.get('survey.name.wiz')
         surv_id = survey_name_obj.search(cr,uid,[])
         survey_id = survey_name_obj.read(cr,uid,surv_id[int(len(surv_id) -1)],[])[0]['survey_id']
-        sur_rec = self.pool.get('survey').read(cr,uid,survey_id,[])
+        survey_obj = self.pool.get('survey')
+        sur_rec = survey_obj.read(cr,uid,survey_id,[])
         page_obj = self.pool.get('survey.page')
         que_obj = self.pool.get('survey.question')
         ans_obj = self.pool.get('survey.answer')
         p_id = sur_rec['page_ids']
         if len(p_id) > question_no:
+            if not question_no:
+                survey_obj.write(cr,uid,survey_id,{'tot_start_survey' :sur_rec['tot_start_survey'] + 1} )                
+            if sur_rec['max_response_limit'] and  sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] +1 and not question_no:
+                survey_obj.write(cr,uid,survey_id,{'state':'close','date_close':strftime("%Y-%m-%d %H:%M:%S")} )
             p_id = p_id[question_no]
             question_no += 1
             xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="Select a survey Name">'''
@@ -266,6 +275,7 @@ class survey_question_wiz(osv.osv_memory):
             result['arch'] = xml
             result['fields']=fields
         else:
+            survey_obj.write(cr,uid,survey_id,{'tot_comp_survey' :sur_rec['tot_comp_survey'] + 1} )
             xml_form ='''<?xml version="1.0"?>
                         <form string="Complete Survey Response">
                             <separator string="Complete Survey" colspan="4"/>

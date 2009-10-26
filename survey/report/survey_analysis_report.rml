@@ -15,13 +15,10 @@
       <blockValign value="TOP"/>
       <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="0,-1"/>
       <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="0,0" stop="0,0"/>
-      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="1,0" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="1,0" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,1" stop="0,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,1" stop="0,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="0,1" stop="0,1"/>
       <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,-1" stop="1,-1"/>
       <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="2,0" stop="2,-1"/>
       <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="2,0" stop="2,-1"/>
       <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="2,0" stop="2,0"/>
@@ -30,10 +27,6 @@
     <blockTableStyle id="Table2">
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
-      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#000000" start="0,0" stop="0,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
     </blockTableStyle>
     <initialize>
       <paraStyle name="all" alignment="justify"/>
@@ -45,16 +38,43 @@
     <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="List" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Caption" fontName="Times-Roman" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+	<paraStyle name="Title" fontName="Times-Roman" fontSize="20.0" leading="15" spaceBefore="6.0" spaceAfter="6.0" alignment="CENTER"/>
     <paraStyle name="Index" fontName="Times-Roman"/>
     <paraStyle name="Table Contents" fontName="Times-Roman"/>
   </stylesheet>
   <images/>
   <story>
+  <para style="Title"><u>Response Summary</u> </para>
+
   <para style="Standard">[[repeatIn(objects,'y')]]</para>
     <para style="Standard">
       <font > </font>
     </para>
-    <para style="Standard">Survey Title :- [[ y.title ]]</para>
+    <blockTable colWidths="340,120,40" style="Table2">
+	  <tr>
+	    <td>
+	         <para style="Standard">Survey Title :- [[ y.title ]]</para>
+	     </td>
+	     <td>
+	         <para style="Standard1">Total Started Survey :- </para>
+	     </td>
+	     <td>
+	         <para style="Standard">[[ y.tot_start_survey or 0 ]]</para>
+	     </td>
+	  </tr>
+	  <tr>
+	    <td>
+	         <para style="Standard"> </para>
+	     </td>
+	     <td>
+	         <para style="Standard1">Total Completed Survey :-</para>
+	     </td>
+	     <td>
+	         <para style="Standard"> [[ y.tot_comp_survey or 0 ]]</para>
+	     </td>
+	  </tr>
+	 </blockTable>
+    
     <para style="Standard">
       <font color="white"> </font>
     </para>
@@ -113,13 +133,21 @@
 		  	  </tr>
 		     </blockTable>
           </section>
-          <blockTable colWidths="400,100.0" style="Table1">
+          <blockTable colWidths="400,100.0" style="Table2">
 		      <tr>
 		        <td>
-					<para style="Standard1">Total Response</para>
+					<para style="Standard1">Answered Question</para>
 			     </td>
 		        <td>
 					<para style="Standard1"> [[ question_ids.tot_resp ]]</para>
+			     </td>			     
+		  	  </tr>
+				<tr>
+		        <td>
+					<para style="Standard1">Skipped Question</para>
+			     </td>
+		        <td>
+					<para style="Standard1"> [[ y.tot_start_survey - question_ids.tot_resp  ]]</para>
 			     </td>			     
 		  	  </tr>
 		     </blockTable>

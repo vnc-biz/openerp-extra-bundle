@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+		<record model="ir.cron" id="ir_cron_delete_printjobs">
+			<field name="name">Delete Old PrintJobs</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">hours</field>
+			<field name="numbercall">-1</field>
+			<field name="doall" eval="False"/>
+			<field name="model" eval="'printjob.job'"/>
+			<field name="function" eval="'_clean_old'"/>
+			<field name="args" eval="'()'"/>
+		</record>
+
+	</data>
+</openerp>

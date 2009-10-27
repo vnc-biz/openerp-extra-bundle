@@ -651,6 +651,11 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                 return 'po'
         return 'rfq'
 
+    def get_campaign_purchase_line_ids(self , cr, uid, ids, context):
+        result = {}
+        for po in self.browse(cr, uid, ids, context):
+            result[po.dm_campaign_purchase_line.id] =True
+        return result.keys()
 
     _columns = {
         'campaign_id': fields.many2one('dm.campaign', 'Campaign'),
@@ -674,7 +679,11 @@ class dm_campaign_purchase_line(osv.osv):#{{{
             ('requested','Quotations Requested'),
             ('ordered','Ordered'),
             ('delivered','Delivered'),
-            ], string='State', store=True, readonly=True),
+            ], string='State', 
+            store = {
+                'purchase.order': (get_campaign_purchase_line_ids, ['state'], 10),
+                },
+            readonly=True),
     }
 
     _defaults = {
@@ -696,6 +705,7 @@ class purchase_order(osv.osv):#{{{
     _columns = {
         'dm_campaign_purchase_line' : fields.many2one('dm.campaign.purchase_line','DM Campaign Purchase Line'),
     }
+
 purchase_order()#}}}
 
 class dm_offer(osv.osv):

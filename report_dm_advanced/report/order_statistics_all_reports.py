@@ -93,9 +93,10 @@ class report_custom(report_rml):
                                 (x+1, 
                                 (som+datetime.timedelta(days=x)).day 
                                 )
-                                for x in range(0, (eom-som).days+1)]        
+                                for x in range(0, (eom-som).days+1)]   
+        total_width = sum([1.25]*((eom-som).days+1), 5.00 + 1.25)                                     
         date_xml.append('</days>')
-        date_xml.append('<cols>5.00cm%s,1.25cm</cols>\n' % (',1.25cm' * lengthmonth(som.year, som.month)))
+        date_xml.append('<cols framewidth="%scm" templatewidth="%scm,21cm">5.00cm%s,1.25cm</cols>\n' % (str(total_width),str(total_width+20),',1.25cm' * ((eom-som).days+1)))
         
         if data['form']['level'] in ('segment','campaign') :
             camp_id = data['form']['campaign_id']
@@ -144,6 +145,5 @@ class report_custom(report_rml):
         return xml
 
 report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

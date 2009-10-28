@@ -169,7 +169,6 @@ class wizard_merge_partners(wizard.interface):
                 c_names.append('res_partner_' + const[0])
             if c_names:
                 c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
-                print 'yo?', c_names
                 cr.execute("""select column_name from \
                         information_schema.constraint_column_usage u \
                         join  pg_constraint p on (p.conname=u.constraint_name) \
@@ -201,7 +200,6 @@ class wizard_merge_partners(wizard.interface):
         # For one2many fields on res.partner
         cr.execute("select name, model from ir_model_fields where relation='res.partner' and ttype not in ('many2many', 'one2many');")
         for name, model_raw in cr.fetchall():
-            print 'boum', name, model_raw
             if hasattr(pool.get(model_raw), '_auto'):
                 if not pool.get(model_raw)._auto:
                     continue

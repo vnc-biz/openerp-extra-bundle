@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 from osv import fields, osv
@@ -31,21 +31,21 @@ class meeting_confidential_info(osv.osv):
        'group':fields.selection([('group1','Group1'),('group2','Group2'),('all','Every One')],'Group', required=True)
     }
 
-    def write(self, cr, uid, *args):
+    def write(self, cr, uid, *args, **args2):
         if 'group' in args[0] and args[0]['group']:
             if args[0]['group'] == "group1":
                 args[0]['name'] ="Confidential Info of Group 1"
             else:
                 args[0]['name'] ="Confidential Info of Group 2"
-        return super(meeting_confidential_info, self).write(cr, uid, *args)
+        return super(meeting_confidential_info, self).write(cr, uid, *args, **args2)
 
-    def create(self, cr, uid, *args):
+    def create(self, cr, uid, *args, **args2):
         if 'group' in args[0] and args[0]['group']:
             if args[0]['group'] == "group1":
                 args[0]['name'] ="Confidential Info of Group 1"
             else:
                 args[0]['name'] ="Confidential Info of Group 2"
-        return super(meeting_confidential_info, self).create(cr, uid, *args)
+        return super(meeting_confidential_info, self).create(cr, uid, *args, **args2)
 
     def name_get(self, cr, uid, ids, context={}):
         if not len(ids):

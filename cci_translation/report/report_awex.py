@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -37,9 +37,9 @@ class translation_awex(report_sxw.rml_parse):
         res = {}
         seq = 0
         folder_obj = self.pool.get('translation.folder')
-        self.cr.execute("select id from translation_folder where awex_eligible=True\
+        self.cr.execute("select id from translation_folder where awex_eligible=True AND state='confirmed' \
             AND (order_date BETWEEN '%s' AND '%s' )" % (data['date_from'], data['date_to']))
-        
+
         lines = map(lambda x:folder_obj.browse(self.cr, self.uid,x[0]), self.cr.fetchall())
         for line in lines:
             seq +=1
@@ -53,13 +53,15 @@ class translation_awex(report_sxw.rml_parse):
             res['inv_num'] = line.invoice_id.number
             res['amt'] = line.awex_amount
             val.append(res)
-        
+
         folder_obj = self.pool.get('cci_missions.embassy_folder_line')
         self.cr.execute("select l.id from cci_missions_embassy_folder_line l\
             join cci_missions_embassy_folder f on (f.id=l.folder_id)\
+            join crm_case c on (c.id=f.crm_case_id)\
             where l.awex_eligible=True and \
             l.type='Translation' and \
-            (f.create_date BETWEEN '%s' AND '%s' )" % (data['date_from'], data['date_to']))
+            c.state='open' and \
+            (f.create_date::date BETWEEN '%s' AND '%s' )" % (data['date_from'], data['date_to']))
         lines1 = map(lambda x:folder_obj.browse(self.cr, self.uid,x[0]), self.cr.fetchall())
         for line in lines1:
             seq +=1
@@ -76,7 +78,7 @@ class translation_awex(report_sxw.rml_parse):
             res['amt'] = line.customer_amount
             val.append(res)
         return val
-    
+
     def _statastics_details(self):
         lines = []
         return lines

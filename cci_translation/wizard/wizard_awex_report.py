@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,13 +15,14 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import time
+
 import wizard
 import netsvc
 import pooler
-import time
 from osv import fields, osv
 
 form = """<?xml version="1.0"?>
@@ -34,8 +35,8 @@ form = """<?xml version="1.0"?>
 """
 
 fields = {
-        'date_from': {'string':'From', 'type':'date', 'required' : True, 'default': lambda *a: time.strftime('%Y-%m-01')},
-        'date_to': {'string':'To', 'type':'date', 'required' : True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
+        'date_from': {'string':'From Date', 'type':'date', 'required' : True, 'default': lambda *a: time.strftime('%Y-%m-01')},
+        'date_to': {'string':'To Date', 'type':'date', 'required' : True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
         }
 
 class translation_awex_report(wizard.interface):
@@ -55,4 +56,3 @@ class translation_awex_report(wizard.interface):
 translation_awex_report("translation_awex_report")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

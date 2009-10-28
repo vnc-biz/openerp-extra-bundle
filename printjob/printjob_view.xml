@@ -15,7 +15,7 @@
                 <field name="name" select="1"/>
                 <field name="system_name" select="1"/>
                 <group colspan="2" col="4">
-                    <field name="is_default"/>
+                    <field name="default"/>
                     <button name="set_default" string="Set Default" type="object"/>
                 </group>
             </form>
@@ -28,7 +28,7 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
           <tree string="Printers">
-                    <field name="is_default"/>
+                    <field name="default"/>
                     <field name="name" select="1"/>
                     <field name="system_name" select="1"/>
           </tree>
@@ -69,7 +69,7 @@
                 <field name="report"/>
                 <field name="state" select="1"/>
                 <field name="format"/>
-                <field name="batch"/>
+                <field name="action"/>
                 <field name="pages" />
                 <newline/>
                 <field name="result" widget="binary"/>
@@ -105,7 +105,7 @@
             colors="blue:state=='draft';red:state=='error';gray:state=='done'">
                     <field name="name" select="1"/>
                     <field name="state" />
-                    <field name="batch" />
+                    <field name="action" />
                     <field name="keep" />
                     <field name="pages" />
                     <field name="create_uid" />
@@ -132,5 +132,60 @@
         parent="menu_printjob_config" 
         icon="STOCK_PRINT" 
         action="action_printjob_printer_form"/>
+
+	<record model="ir.ui.view" id="action_report_xml_form">
+		<field name="name">ir.actions.report.xml.printjob</field>
+		<field name="model">ir.actions.report.xml</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="base.act_report_xml_view" />
+		<field name="arch" type="xml">
+			<field name="groups_id" position="before">
+				<field name="property_printjob_action"/>
+				<field name="printjob_printer_id"/>
+				<field name="printjob_action_ids" colspan="4"/>
+			</field>
+		</field>
+	</record>
+
+	<!-- res.users -->
+	<record model="ir.ui.view" id="view_printjob_users_form">
+	    <field name="name">res.users.form.printjob</field>
+	    <field name="type">form</field>
+	    <field name="model">res.users</field>
+	    <field name="inherit_id" ref="base.view_users_form" />
+	    <field name="arch" type="xml">
+		<field name="context_tz" position="after">
+		    <field name="printjob_action" />
+		    <field name="printjob_printer_id" />
+		</field>
+	    </field>
+	</record>
+
+	<!-- printjob.report.xml.action -->
+	<record model="ir.ui.view" id="printjob_report_xml_action_form">
+		<field name="name">printjob.report.xml.action.form</field>
+		<field name="model">printjob.report.xml.action</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Report Printing Actions">
+				<field name="user_id"/>
+				<label string=""/>
+				<field name="action"/>
+				<field name="printer_id" select="1"/>
+			</form>
+		</field>
+	</record>
+	<record model="ir.ui.view" id="printjob_report_xml_action_tree">
+		<field name="name">printjob.report.xml.action.tree</field>
+		<field name="model">printjob.report.xml.action</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Report Printing Actions">
+				<field name="user_id"/>
+				<field name="action" />
+				<field name="printer_id" />
+			</tree>
+		</field>
+	</record>
 </data>
 </openerp>

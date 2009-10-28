@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #    Copyright (c) 2007 Ferran Pegueroles <ferran@pegueroles.com>
+#    Copyright (c) 2009 Albert Cervera i Areny <albert@nan-tic.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,26 +19,27 @@
 #
 ##############################################################################
 {
-	"name" : "PrintJob",
-	"author" : "Pegueroles SCP",
-	"version" : "1.0",
-        "website" : "http://www.pegueroles.com",
-        "category" : "Vertical Modules/Parametrization",
-	"depends" : ["base"],
-	"description": """This module updates OpenERP printig
-        The new features are :
-        * Enables batch printing 
-        * Correct memory leack when printing crashes
-        * Permits repriting lost PDFs
-        * Possibilty to send jobs to a prrinter attached to the server 
-        """,
-	"init_xml" : [],
-	"update_xml" : [
-                    "printjob_view.xml",                    
-                    "printjob_data.xml",                    
-                    "security/printjob_security.xml",
-                    ],
-	"category" : "base/printjob",
-	"active": False,
-	"installable": True
+    "name" : "PrintJob",
+    "author" : "Pegueroles SCP & NaN",
+    "version" : "1.0",
+    "website" : "http://www.pegueroles.com",
+    "depends" : ["base"],
+    "description": """This module updates OpenERP printing by adding the following features:
+* Enables batch printing 
+* Correct memory leak when printing crashes
+* Permits reprinting lost PDFs
+* Possibilty to send jobs to a printer attached to the server 
+* Settings can be configured globaly, per user, per report and per user and report.
+    """,
+    "init_xml" : [],
+    "update_xml" : [
+        "printjob_view.xml",                    
+        "printjob_data.xml",                    
+        "security/printjob_security.xml",
+    ],
+    "category" : "base/printjob",
+    "active": False,
+    "installable": True
 }
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

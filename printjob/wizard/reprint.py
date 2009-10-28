@@ -2,6 +2,7 @@
 ##############################################################################
 #
 # Copyright (c) 2009 Ferran Pegueroles <ferran@pegueroles.com>
+# Copyright (c) 2009 Albert Cervera i Areny <albert@nan-tic.com>
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -32,41 +33,45 @@ import os, base64
 import time
 import wizard
 import pooler 
+import netsvc
 from tempfile import mkstemp
 
 print_form = '''<?xml version="1.0"?>
 <form string="Printing">
     <field name="printer" />
 </form>'''
+
+def _printers(self, cr, uid, context={}):
+    pool = pooler.get_pool(cr.dbname)
+    result = []
+    ids = pool.get('printjob.printer').search(cr, uid, [], context=context)
+    for printer in pool.get('printjob.printer').browse(cr, uid, ids, context):
+        result.append( (printer.system_name, printer.name) )
+	return result
+
 print_fields = {
-    'printer' : {'string':'Printer', 'type':'many2one', 'relation':'printjob.printer','required':True},
+    'printer' : {'string':'Printer', 'type':'selection', 'selection': _printers, 'relation':'printjob.printer','required':True},
 }
 
 class wizard_reprint(wizard.interface):
 
     def _get_default_printer(self, cr, uid, data, context):
-
         pool = pooler.get_pool(cr.dbname)
-        printer_ids = pool.get('printjob.printer').search(cr, uid,[('is_default','=',True)])
-        if printer_ids:
-           data['form']['printer'] = printer_ids[0]
+        id = pool.get('printjob.printer').get_default(cr, uid, context)
+        if id:
+            data['form']['printer'] = pool.get('printjob.printer').browse(cr, uid, id, context).system_name
         return data['form']
 
     def _print(self, cr, uid, data, context):
-        pool= pooler.get_pool(cr.dbname)
-        printer_obj = pool.get('printjob.printer')
-        printer_reg = printer_obj.read(cr, uid, [data['form']['printer']])[0]
-        job_obj = pool.get('printjob.job')
-        job_reg = job_obj.read(cr, uid, data['ids'])[0]
-        tmpfile=mkstemp()
-        os.write(tmpfile[0],base64.decodestring(job_reg['result']))
-        os.system("lpr -P %s %s" % (printer_reg['system_name'],tmpfile[1]))
+        printer = data['form']['printer']
+        pool = pooler.get_pool(cr.dbname)
+        pool.get('printjob.job').print_direct( cr, uid, data['ids'][0], printer, context )
         return {}
 
     states = {
         'init': {
             'actions': [_get_default_printer],
-            'result': {'type':'form', 'arch':print_form, 'fields':print_fields, 'state':[('end','Cancelar'),('print','Imprimir')]}
+            'result': {'type':'form', 'arch':print_form, 'fields':print_fields, 'state':[('end','Cancelar'),('print','Print')]}
         },
         'print': {
             'actions': [_print],
@@ -79,7 +84,6 @@ wizard_reprint('printjob.job.reprint')
 class wizard_preview(wizard.interface):
 
     def _get_id(self, cr, uid, data, context):
-        
         data['form']['ids'] = [ data['id'] ]
         return data['form']
 
@@ -91,3 +95,5 @@ class wizard_preview(wizard.interface):
     }
 
 wizard_preview('printjob.job.preview')
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

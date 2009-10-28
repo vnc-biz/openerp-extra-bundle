@@ -154,6 +154,7 @@ def _createInvoices(self, cr, uid, data, context):
 
         inv_obj = pool_obj.get('account.invoice')
         inv_id = inv_obj.create(cr, uid, inv)
+        inv_obj.button_reset_taxes(cr, uid, [inv_id], context)
         list_inv.append(inv_id)
         wf_service = netsvc.LocalService('workflow')
         wf_service.trg_validate(uid, 'cci_missions.ata_carnet', carnet.id, 'created', cr)

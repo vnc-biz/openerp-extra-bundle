@@ -170,7 +170,7 @@ def _createInvoices(self, cr, uid, data, context={}):
         list_inv.append(inv_id)
         wf_service = netsvc.LocalService('workflow')
         wf_service.trg_validate(uid, current_model, data.id, 'invoiced', cr)
-
+        inv_obj.button_reset_taxes(cr, uid, [inv_id], context)
         obj_dossier.write(cr, uid,data.id, {'invoice_id' : inv_id, 'invoiced_amount':price})
 
     return {'inv_created' : str(inv_create) , 'inv_rejected' : str(inv_reject) , 'invoice_ids':  list_inv, 'inv_rej_reason': inv_rej_reason}

@@ -150,13 +150,14 @@ class wizard_merge_partner_address(wizard.interface):
             remove_field = {}
             for const in pool.get('res.partner.address')._sql_constraints:
                 c_names.append('res_partner_address_' + const[0])
-            c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
-            cr.execute("""select column_name from \
-                        information_schema.constraint_column_usage u \
-                        join  pg_constraint p on (p.conname=u.constraint_name) \
-                        where u.constraint_name in (%s) and p.contype='u' """ % c_names)
-            for i in cr.fetchall():
-                remove_field[i[0]] = None
+            if c_names:
+                c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
+                cr.execute("""select column_name from \
+                            information_schema.constraint_column_usage u \
+                            join  pg_constraint p on (p.conname=u.constraint_name) \
+                            where u.constraint_name in (%s) and p.contype='u' """ % c_names)
+                for i in cr.fetchall():
+                    remove_field[i[0]] = None
 
         remove_field.update({'active': False})
         pool.get('res.partner.address').write(cr, uid, [add1, add2], remove_field)

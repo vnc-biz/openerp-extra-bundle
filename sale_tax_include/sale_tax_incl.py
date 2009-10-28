@@ -96,9 +96,9 @@ class sale_order_line(osv.osv):
         return result.keys()
     _columns = {
         'price_subtotal': fields.function(_amount_line2, method=True, string='Subtotal w/o tax', multi='amount',
-            store={'sale.order':(_get_order,['price_type'],-2), 'sale.order.line': (lambda self,cr,uid,ids,c={}: ids, None,-2)}),
+            store={'sale.order':(_get_order,['price_type'],5), 'sale.order.line': (lambda self,cr,uid,ids,c={}: ids, None,5)}),
         'price_subtotal_incl': fields.function(_amount_line2, method=True, string='Subtotal', multi='amount',
-            store={'sale.order':(_get_order,['price_type'],-2), 'sale.order.line': (lambda self,cr,uid,ids,c={}: ids, None,-2)}),
+            store={'sale.order':(_get_order,['price_type'],5), 'sale.order.line': (lambda self,cr,uid,ids,c={}: ids, None,5)}),
     }
 sale_order_line()
 

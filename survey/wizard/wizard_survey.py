@@ -57,7 +57,7 @@ second_form = '''<?xml version="1.0"?>
     <field name="note" colspan="4" nolabel="1"/>
 </form>'''
 second_fields = {
-    'note' : {'string':'Log','type':'text'}
+    'note' : {'string':'Log','type':'text','readonly':1}
     }
 def genpasswd():
     chars = string.letters + string.digits
@@ -85,6 +85,7 @@ def send_mail(self, cr, uid, data, context):
     skipped= 0
     existing= ""
     created= ""
+    error= ""
     for partner in pool.get('res.partner').browse(cr,uid,partner_ids):
         for addr in partner.address:
             if not addr.email:
@@ -100,26 +101,30 @@ def send_mail(self, cr, uid, data, context):
 
             passwd= genpasswd()
             out+= addr.email+','+passwd+'\n'
-            user = user_ref.create(cr,uid,{'name': addr.name or 'Unknown',
-                                    'login': addr.email,
-                                    'password': passwd,
-                                    'address_id': addr.id,
-                                    'groups_id': [[6,0,group_id]],
-                                    'action_id': act_id[0],
-                                   })
-            user_ref.write(cr,uid,user,{'survey_id':[[6, 0, data['ids']]]})
             mail= data['form']['mail']%{'login':addr.email, 'passwd':passwd}
             if not data['form']['mail_from']: raise wizard.except_wizard('Error !', 'Please provide a "from" email address.')
-            tools.email_send(data['form']['mail_from'],[addr.email] ,data['form']['mail_subject'] ,mail )
-            created+= "- %s (Login: %s,  Password: %s)\n"%(addr.name or 'Unknown',addr.email,passwd)
-        
+            ans = tools.email_send(data['form']['mail_from'],[addr.email] ,data['form']['mail_subject'] ,mail )
+            if ans:
+                user = user_ref.create(cr,uid,{'name': addr.name or 'Unknown',
+                                        'login': addr.email,
+                                        'password': passwd,
+                                        'address_id': addr.id,
+                                        'groups_id': [[6,0,group_id]],
+                                        'action_id': act_id[0],
+                                        'survey_id':[[6, 0, data['ids']]]
+                                       })
+                created+= "- %s (Login: %s,  Password: %s)\n"%(addr.name or 'Unknown',addr.email,passwd)
+            else:
+                error+= "- %s (Login: %s,  Password: %s)\n"%(addr.name or 'Unknown',addr.email,passwd)
     note= ""
     if created:
-        note+= 'Created users:\n%s\n'%(created)
+        note+= 'Created users:\n%s\n\n'%(created)
     if existing:
-        note+='Already existing users:\n%s\n'%(existing)
+        note+='Already existing users:\n%s\n\n'%(existing)
     if skipped:
-        note+= "%d contacts where ignored (an email address is missing).\n"%(skipped)
+        note+= "%d contacts where ignored (an email address is missing).\n\n"%(skipped)
+    if error:
+        note+= 'E-Mail not send successfully:\n====================\n%s\n'%(error)
     return {'note': note}
     
 

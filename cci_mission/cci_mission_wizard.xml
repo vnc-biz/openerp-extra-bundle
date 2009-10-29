@@ -2,7 +2,8 @@
 <openerp>
 	<data>
 		<menuitem name="Missions" id="menu_mission"/>
-		<menuitem id="menu_mission_reporting" name="Reporting" parent="menu_mission"/>
+		<menuitem id="menu_mission_configure" name="Configuration" parent="menu_mission" sequence="4"/>
+		<menuitem id="menu_mission_reporting" name="Reporting" parent="menu_mission" sequence="20"/>
 
 		<wizard string="Create Embassy Folder"
 			model="cci_missions.certificate"

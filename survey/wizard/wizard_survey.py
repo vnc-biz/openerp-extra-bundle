@@ -103,6 +103,7 @@ def send_mail(self, cr, uid, data, context):
             user = user_ref.create(cr,uid,{'name': addr.name or 'Unknown',
                                     'login': addr.email,
                                     'password': passwd,
+                                    'address_id': addr.id,
                                     'groups_id': [[6,0,group_id]],
                                     'action_id': act_id[0],
                                    })

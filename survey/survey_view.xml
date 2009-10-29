@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-    	<menuitem name="Survey Management" id = "main_menu_survey" icon="terp-crm" sequence="1"/>
-    	<menuitem name="Configuration" id = "menu_survey_config" parent = "main_menu_survey" />
+    	<menuitem name="Survey Management" id = "main_menu_survey" icon="terp-crm" sequence="1" groups="group_survey_manager,group_survey_user"/>
+    	<menuitem name="Configuration" id = "menu_survey_config" parent = "main_menu_survey" groups="group_survey_manager" />
 <!--    	<menuitem name="Reports" id = "menu_survey_reports" parent = "main_menu_survey"/>-->
-		<menuitem name="Action" id = "menu_survey_action" parent = "main_menu_survey" />
+		<menuitem name="Action" id = "menu_survey_action" parent = "main_menu_survey" groups="group_survey_manager,group_survey_user" />
 
 	    <!--
 			Survey
@@ -91,7 +91,7 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="survey_tree"></field>
 		</record>
-		<menuitem name="Surveys" id = "menu_survey_form" action="action_survey_form1" parent = "menu_survey_config"/>	
+		<menuitem name="Surveys" id = "menu_survey_form" action="action_survey_form1" parent = "menu_survey_config" groups="group_survey_manager" />	
 		
 		<record model="ir.actions.act_window" id="action_new_survey_form1">
 			<field name="name">New Survey</field>
@@ -100,7 +100,7 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="survey_form"></field>
 		</record>
-		<menuitem name="New Survey" id = "menu_new_survey_form" action="action_new_survey_form1" parent = "menu_survey_form"/>	
+		<menuitem name="New Survey" id = "menu_new_survey_form" action="action_new_survey_form1" parent = "menu_survey_form" groups="group_survey_manager" />	
 	
 	    <!--
 			Survey Pages
@@ -161,7 +161,7 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="survey_page_tree"></field>
 		</record>
-		<menuitem name="Survey Pages" id = "menu_survey_page_form1" action="action_survey_page_form" parent = 'menu_survey_config'/>	
+		<menuitem name="Survey Pages" id = "menu_survey_page_form1" action="action_survey_page_form" parent = 'menu_survey_config' groups="group_survey_manager" />	
 
 		<record model="ir.actions.act_window" id="action_new_survey_page_form">
 			<field name="name">New Survey Page</field>
@@ -170,7 +170,7 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="survey_page_form"></field>
 		</record>
-		<menuitem name="New Survey Page" id = "menu_new_survey_page_form1" action="action_new_survey_page_form" parent = 'menu_survey_page_form1'/>	
+		<menuitem name="New Survey Page" id = "menu_new_survey_page_form1" action="action_new_survey_page_form" parent = 'menu_survey_page_form1' groups="group_survey_manager" />	
 
 	    <!--
 			Survey Question
@@ -221,7 +221,7 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="survey_question_tree"></field>
 		</record>
-		<menuitem name="Survey Questions" id = "menu_survey_question_form1" action="action_survey_question_form" parent = 'menu_survey_config'/>	
+		<menuitem name="Survey Questions" id = "menu_survey_question_form1" action="action_survey_question_form" parent = 'menu_survey_config' groups="group_survey_manager" />	
 
 		<record model="ir.actions.act_window" id="action_new_survey_question_form">
 			<field name="name">New Survey Question</field>
@@ -230,7 +230,7 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="survey_question_form"></field>
 		</record>
-		<menuitem name="New Survey Question" id = "menu_new_survey_question_form1" action="action_new_survey_question_form" parent = 'menu_survey_question_form1'/>	
+		<menuitem name="New Survey Question" id = "menu_new_survey_question_form1" action="action_new_survey_question_form" parent = 'menu_survey_question_form1' groups="group_survey_manager" />	
 
 
 	    <!--

@@ -33,7 +33,7 @@
     """,
     'author': 'Tiny',
     'depends': ['base'],
-    'update_xml': ['survey_view.xml','survey_que_wizard.xml','survey_data.xml','security/ir.model.access.csv','survey_wizard.xml','survey_report.xml'],
+    'update_xml': ['survey_data.xml','survey_view.xml','survey_que_wizard.xml','security/ir.model.access.csv','survey_wizard.xml','survey_report.xml',],
     'demo_xml': ['survey_demo.xml'],
     'installable': True,
     'active': False,

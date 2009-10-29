@@ -176,7 +176,7 @@ class cci_missions_embassy_folder(osv.osv):
         'state' :  lambda *a : 'draft',
         "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
     }
-    _order = "date desc"
+    _order = "cci_missions_embassy_folder.date desc"
 
     _constraints = [(check_folder_line, 'Error: Only One Embassy Folder line allowed for each type!', ['embassy_folder_line_ids'])]
 

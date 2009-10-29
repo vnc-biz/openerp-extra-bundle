@@ -23,6 +23,7 @@
 from osv import fields, osv
 import datetime
 from time import strftime
+import copy
 
 question_no = 0
 
@@ -104,10 +105,15 @@ class survey_question(osv.osv):
     _order = 'sequence'
     def _calc_response(self,cr,uid,ids,field_name,arg,context):
         val = {}
-        for rec in self.browse(cr,uid,ids,[]):
-            cr.execute("select count(question_id) from survey_response where question_id = " + str(rec.id))
-            val[rec.id] = cr.fetchall()[0][0]
+        cr.execute("select question_id, count(id) as Total_response from survey_response where question_id in (%s) group by question_id" % ",".join(map(str,map(int,ids))))
+        ids1 = copy.deepcopy(ids)
+        for rec in  cr.fetchall():
+            ids1.remove(rec[0])
+            val[rec[0]] = int(rec[1])
+        for id in ids1:
+            val[id] = 0
         return val
+
     _columns = {
                 'page_id' : fields.many2one('survey.page','Survey Page',ondelete='cascade'),
                 'question' :  fields.char('Question', size = 128,required=1),
@@ -133,19 +139,16 @@ class survey_answer(osv.osv):
     def _calc_response_avg(self,cr,uid,ids,field_name,arg,context):
         val = {}
         for rec in self.browse(cr,uid,ids,[]):
-            cr.execute("select count(question_id) from survey_response where question_id = " + str(rec.question_id.id))
-            tot = cr.fetchone()[0]
-            cr.execute("select count(answer_id) from survey_response_answer sra  where sra.answer_id = "+str(rec.id))
-            res = cr.fetchone()[0]
-            if res:
-                avg = float(res) * 100 /tot
+            cr.execute("select count(question_id) ,(select count(answer_id) from survey_response_answer sra  where sra.answer_id = %d group by sra.answer_id)  from survey_response where question_id = %d" % (rec.id, rec.question_id.id))
+            res = cr.fetchone()
+            if res[1]:
+                avg = float(res[1]) * 100 /res[0]
             else:
                 avg = 0.0
             val[rec.id] = {
-                'response': res,
+                'response': res[1],
                 'average': round(avg,2),
             }
-                            
         return val
     _columns = {
                 'question_id' : fields.many2one('survey.question', 'Question',ondelete='cascade'),

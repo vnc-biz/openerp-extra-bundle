@@ -8,7 +8,6 @@
 			 />
 
 		<!-- stats per mission type -->
-		<menuitem id="menu_mission_reporting" name="Reporting" parent="menu_mission"/>
 
         <menuitem
             icon="STOCK_PRINT"

@@ -2,6 +2,7 @@
 <openerp>
 	<data>
 		<menuitem name="Missions" id="menu_mission"/>
+		<menuitem id="menu_mission_reporting" name="Reporting" parent="menu_mission"/>
 
 		<wizard string="Create Embassy Folder"
 			model="cci_missions.certificate"
@@ -98,16 +99,16 @@
 		<!-- Send followup for ata-carnet before and after validity date -->
 
         <record id="wizard_carnet_before_validity" model="ir.actions.wizard">
-            <field name="name">ATA Carnet Before validity date</field>
+            <field name="name">ATA Carnet Before Validity Date</field>
             <field name="wiz_name">cci_missions_carnet.before</field>
         </record>
-        <menuitem action="wizard_carnet_before_validity" id="menu_wizard_carnet_before_validity" parent="menu_mission" type="wizard"/>
+        <menuitem action="wizard_carnet_before_validity" id="menu_wizard_carnet_before_validity" parent="menu_mission_reporting" type="wizard"/>
 
         <record id="wizard_carnet_after_validity" model="ir.actions.wizard">
-            <field name="name">ATA Carnet After validity date</field>
+            <field name="name">ATA Carnet After Validity Date</field>
             <field name="wiz_name">cci_missions_carnet.after</field>
         </record>
-        <menuitem action="wizard_carnet_after_validity" id="menu_wizard_carnet_after_validity" parent="menu_mission" type="wizard"/>
+        <menuitem action="wizard_carnet_after_validity" id="menu_wizard_carnet_after_validity" parent="menu_mission_reporting" type="wizard"/>
 
 		<!-- Add product line in certificates -->
 	    <wizard string="Add Product" model="cci_missions.certificate" name="mission.product_line" menu="False" id="wizard_add_product_line"/>

@@ -721,7 +721,7 @@
                         <field name="usage_id" />
                         <field name="goods" select="2"/>
                         <field name="area_id" select="2"/>
-                        <field name="goods_value" />
+                        <field name="goods_value" on_change="onchange_good_value(creation_date,partner_id,goods_value,double_signature,member_price,own_risk,type_id)"/>
                         <field name="double_signature" />
                         <field name="initial_pages" />
                         <field name="insurer_agreement" />

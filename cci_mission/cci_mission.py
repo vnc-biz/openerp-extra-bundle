@@ -661,7 +661,7 @@ class cci_missions_ata_carnet(osv.osv):
             context.update({'value_goods':vals['goods_value']})
         if 'double_signature' in vals:
             context.update({'double_signature':vals['double_signature']})
-        force_member=force_non_member=False
+        force_member = force_non_member = False
         if 'member_price' in vals and vals['member_price']==1:
             force_member=True
         else:
@@ -675,8 +675,8 @@ class cci_missions_ata_carnet(osv.osv):
         else:
             warranty_product = data.warranty_product_2.id
 
-        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
-        vals.update({'warranty_product_id' : warranty_product, 'warranty': warranty})
+#        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
+        vals.update({'warranty_product_id' : warranty_product})  #'warranty': warranty
 
         seq = self.pool.get('ir.sequence').get(cr, uid,data.sequence_id.code)
         if seq:
@@ -734,9 +734,8 @@ class cci_missions_ata_carnet(osv.osv):
                 warranty_product = data_carnet.type_id.warranty_product_1.id
             else:
                 warranty_product = data_carnet.type_id.warranty_product_2.id
-        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
-
-        vals.update({'warranty_product_id' : warranty_product, 'warranty': warranty})
+#        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
+        vals.update({'warranty_product_id' : warranty_product}) #, 'warranty': warranty
         super(cci_missions_ata_carnet,self).write(cr, uid, ids,vals, *args, **kwargs)
         return True
 
@@ -780,6 +779,36 @@ class cci_missions_ata_carnet(osv.osv):
         dict1=self.onchange_warranty_product_id(cr,uid,ids,warranty_prod)
         data.update(dict1['value'])
         return {'value':data}
+
+    def onchange_good_value(self, cr, uid, ids, creation_date, partner_id, goods_value, double_signature, member_price, own_risk, type_id, context={}):
+        res = {'warranty': False}
+        if not type_id:
+            return {'value':res}
+
+        if creation_date:
+            context.update({'date':creation_date})
+            context.update({'emission_date':creation_date})
+        if partner_id:
+            context.update({'partner_id':partner_id})
+        if goods_value:
+            context.update({'value_goods':goods_value})
+        if double_signature:
+            context.update({'double_signature':double_signature})
+        force_member = force_non_member = False
+        if member_price == 1:
+            force_member = True
+        else:
+            force_non_member = True
+        context.update({'force_member': force_member})
+        context.update({'force_non_member': force_non_member})
+
+        data = self.pool.get('cci_missions.dossier_type').browse(cr, uid, type_id)
+        if own_risk:
+            warranty_product = data.warranty_product_1.id
+        else:
+            warranty_product = data.warranty_product_2.id
+        res['warranty'] = self.pool.get('product.product').price_get(cr, uid, [warranty_product], 'list_price', context)[warranty_product]
+        return {'value': res}
 
     def onchange_own_risk(self,cr,uid,ids,type_id,own_risk):
         data={'warranty_product_id' : False,'warranty':False}

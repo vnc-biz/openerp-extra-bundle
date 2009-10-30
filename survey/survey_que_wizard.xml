@@ -28,7 +28,7 @@
             <field name="arch" type="xml">
                 <form string="Survey">
                     <separator colspan="4" string="Selct Survey"/>
-                    <field name="survey_id" colspan="4" widget="selection" context="{'domain':True}" domain="[('state','=','open')]"/>
+                    <field name="survey_id" colspan="4" />
                     <newline/>
                     <separator colspan="4"/>
                     	<label align="0.0" colspan="2" string=""/>  

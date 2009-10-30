@@ -46,20 +46,6 @@ class survey(osv.osv):
         'tot_comp_survey' : lambda *a: 0
     }
     
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
-        res = super(survey, self).search(cr, uid, args, offset, limit, order, context, count)
-        if context != None and context.has_key('domain'):
-            group_id = self.pool.get('res.groups').search(cr, uid, [('name', '=', 'Survey / Manager')])
-            user_obj = self.pool.get('res.users')
-            user_rec = user_obj.read(cr, uid, uid)
-            if group_id[0]  not in user_rec['groups_id']:
-                res = []
-                for rec in self.browse(cr, uid, user_rec['survey_id']):
-                    if rec.state == 'open' :
-                        res.append(rec.id)
-        return res
-
-    
     def survey_draft(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'draft'})
         return True
@@ -208,14 +194,29 @@ survey_response_answer()
 
 class survey_name_wiz(osv.osv_memory):
     _name = 'survey.name.wiz'
+
+    def _get_survey(self, cr, uid, context=None):
+        surv_obj = self.pool.get("survey")
+        result = []
+        group_id = self.pool.get('res.groups').search(cr, uid, [('name', '=', 'Survey / Manager')])
+        user_obj = self.pool.get('res.users')
+        user_rec = user_obj.read(cr, uid, uid)
+        for sur in surv_obj.browse(cr, uid, surv_obj.search(cr, uid, [])):
+            if sur.state == 'open':
+                if group_id[0]  in user_rec['groups_id']:
+                    result.append((sur.id, sur.title))
+                elif sur.id in user_rec['survey_id']:
+                    result.append((sur.id, sur.title))
+        return result
+
     _columns = {
-        'survey_id': fields.many2one('survey', "Survey", required = "1"),
+        'survey_id': fields.selection(_get_survey, "Survey", required = "1"),
         'page_no' : fields.integer('Page Number')
     }
     _defaults = {
         'page_no' : lambda *a: 0
     }
-    
+
     def action_next(self, cr, uid, ids, context=None):
         sur_id = self.read(cr, uid, ids, [])[0]
         context.update({'survey_id' : sur_id['survey_id'], 'sur_name_id' : sur_id['id']})
@@ -234,6 +235,7 @@ class survey_question_wiz(osv.osv_memory):
     _columns = {
         'name': fields.integer('Number'),
     }
+
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar)
         surv_name_wiz = self.pool.get('survey.name.wiz')
@@ -301,7 +303,7 @@ class survey_question_wiz(osv.osv_memory):
             if que_id not in que_li:
                 ans = False
                 que_li.append(que_id)
-                que_rec = que_obj.read(cr, uid ,que_id, ['is_require_answer','question'])
+                que_rec = que_obj.read(cr, uid ,[que_id], ['is_require_answer','question'])
                 resp_id = resp_obj.create(cr, uid, {'response_id':uid, 'question_id':que_id, 'date_create':datetime.datetime.now(), 'response_type':'link'})
                 for key1, val1 in vals.items():
                     if val1 and key1.split('_')[1] =="other":

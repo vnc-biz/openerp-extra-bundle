@@ -231,6 +231,8 @@ class survey_name_wiz(osv.osv_memory):
 survey_name_wiz()
 
 class survey_question_wiz(osv.osv_memory):
+    page = True
+
     _name = 'survey.question.wiz'
     _columns = {
         'name': fields.integer('Number'),
@@ -247,50 +249,53 @@ class survey_question_wiz(osv.osv_memory):
         que_obj = self.pool.get('survey.question')
         ans_obj = self.pool.get('survey.answer')
         p_id = sur_rec['page_ids']
-        if len(p_id) > sur_name_rec['page_no']:
-            if not sur_name_rec['page_no']:
-                survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
-            if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] + 1 and not sur_name_rec['page_no']:
-                survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
-            p_id = p_id[sur_name_rec['page_no']]
-            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
-            fields = {}
-            pag_rec = page_obj.read(cr, uid, p_id)
-            xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="''' + str(pag_rec['title']) + '''">'''
-            xml += '''<label string="'''+ str(pag_rec['note'] or '') + '''"/> <newline/> <newline/><newline/>'''
-            que_ids = pag_rec['question_ids']
-            qu_no = 0
-            for que in que_ids:
-                qu_no += 1
-                que_rec = que_obj.read(cr, uid, que)
-                xml += '''<separator string="''' + str(qu_no) + "."  + str(que_rec['question']) + '''"  colspan="4"/> <newline/> '''
-                ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
-                for ans in ans_ids:
-                    xml += '''<field  name="'''+ str(que) + "_" +  str(ans['id']) + '''"/> '''
-                    fields[str(que) + "_" +  str(ans['id'])] = {'type':'boolean','string':ans['answer'],'views':{}}
-                if que_rec['allow_comment']:
-                    xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
-                    xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
-                    fields[str(que) + "_other"] = {'type':'text', 'string':"Comment", 'views':{}}
-            xml += '''
-            <separator colspan="4" />
-                <label align="0.0" colspan="2" string=""/>    
-                <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>
-                <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
-            </form>'''
-            result['arch'] = xml
-            result['fields'] = fields
-        else:
-            survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
-            xml_form ='''<?xml version="1.0"?>
-                        <form string="Complete Survey Response">
-                            <separator string="Complete Survey" colspan="4"/>
-                                <label string = "Thanks for your response" />
-                                <newline/>
-                                <button colspan="2" icon="gtk-go-forward"  special="cancel" string="OK"/>
-                         </form>'''
-            result['arch'] = xml_form
-            result['fields'] = {}
+        if self.page or not sur_name_rec['page_no'] :
+            self.page = False
+            if len(p_id) > sur_name_rec['page_no']:
+                
+                if not sur_name_rec['page_no']:
+                    survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
+                if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] + 1 and not sur_name_rec['page_no']:
+                    survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
+                p_id = p_id[sur_name_rec['page_no']]
+                surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
+                fields = {}
+                pag_rec = page_obj.read(cr, uid, p_id)
+                xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="''' + str(pag_rec['title']) + '''">'''
+                xml += '''<label string="'''+ str(pag_rec['note'] or '') + '''"/> <newline/> <newline/><newline/>'''
+                que_ids = pag_rec['question_ids']
+                qu_no = 0
+                for que in que_ids:
+                    qu_no += 1
+                    que_rec = que_obj.read(cr, uid, que)
+                    xml += '''<separator string="''' + str(qu_no) + "."  + str(que_rec['question']) + '''"  colspan="4"/> <newline/> '''
+                    ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
+                    for ans in ans_ids:
+                        xml += '''<field  name="'''+ str(que) + "_" +  str(ans['id']) + '''"/> '''
+                        fields[str(que) + "_" +  str(ans['id'])] = {'type':'boolean','string':ans['answer'],'views':{}}
+                    if que_rec['allow_comment']:
+                        xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
+                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
+                        fields[str(que) + "_other"] = {'type':'text', 'string':"Comment", 'views':{}}
+                xml += '''
+                <separator colspan="4" />
+                    <label align="0.0" colspan="2" string=""/>    
+                    <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>
+                    <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
+                </form>'''
+                result['arch'] = xml
+                result['fields'] = fields
+            else:
+                survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
+                xml_form ='''<?xml version="1.0"?>
+                            <form string="Complete Survey Response">
+                                <separator string="Complete Survey" colspan="4"/>
+                                    <label string = "Thanks for your response" />
+                                    <newline/>
+                                    <button colspan="2" icon="gtk-go-forward"  special="cancel" string="OK"/>
+                             </form>'''
+                result['arch'] = xml_form
+                result['fields'] = {}
         return result
     
     def create(self, cr, uid, vals, context=None):
@@ -317,12 +322,14 @@ class survey_question_wiz(osv.osv_memory):
                     raise osv.except_osv(_('Error !'),_("'" + que_rec[0]['question'] + "' This question requires an answer."))
         return True
     def action_next(self, cr, uid, ids, context=None):
+        self.page = True
         return {
                 'view_type': 'form',
                 "view_mode": 'form',
                 'res_model': 'survey.question.wiz',
                 'type': 'ir.actions.act_window',
                 'target': 'new',
+                'context': context
                 }
             
 survey_question_wiz()

@@ -45,9 +45,9 @@ _survey_form = '''<?xml version="1.0"?>
 
 _survey_fields = {
     'partner_ids': {'string': 'Partner', 'type': 'many2many', 'relation': 'res.partner'},
-    'mail_subject': {'string':'Subject', 'type':'char', 'default':lambda *a: "New user account.","size":256},
-    'mail_from': {'string':'From', 'type':'char',"size":256},
-    'mail': {'string':'Body', 'type':'text','default':lambda *a: """ Your login: %(login)s, Your password: %(passwd)s
+    'mail_subject': {'string':'Subject', 'type':'char', 'default':lambda *a: "New user account.", "size":256},
+    'mail_from': {'string':'From', 'type':'char', "size":256},
+    'mail': {'string':'Body', 'type':'text', 'default':lambda *a: """ Your login: %(login)s, Your password: %(passwd)s
     \n link :- http://localhost:8080"""},
     }
 
@@ -57,7 +57,7 @@ second_form = '''<?xml version="1.0"?>
     <field name="note" colspan="4" nolabel="1"/>
 </form>'''
 second_fields = {
-    'note' : {'string':'Log','type':'text','readonly':1}
+    'note' : {'string':'Log', 'type':'text', 'readonly':1}
     }
 def genpasswd():
     chars = string.letters + string.digits

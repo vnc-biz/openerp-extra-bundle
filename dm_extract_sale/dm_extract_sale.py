@@ -31,6 +31,7 @@ class dm_address_segmentation(osv.osv): # {{{
         for q_obj in query_obj:
             value = getattr(q_obj, 'value_'+q_obj.field_type)
             where = ''
+            print "q_obj.field_id.model_id", q_obj.field_id.model_id
             tn = ''.join(map(lambda x: x[0], 
                              q_obj.field_id.model_id.model.split('.')))
             if q_obj.field_type == 'boolean':
@@ -53,7 +54,7 @@ class dm_address_segmentation(osv.osv): # {{{
             rpa_where.append('partner_id in (select partner_id from sale_order \
                                 where %s )'%' and '.join(so_where))
         if rpa_where:
-            sql_query = """select distinct rpa.id\n from res_partner_address \
+            sql_query = """select distinct rpa.id\n from res_partner_address rpa\
                             \n where %s"""% (' and '.join(rpa_where))
         else:
             sql_query = """

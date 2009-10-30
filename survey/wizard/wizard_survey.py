@@ -67,7 +67,7 @@ def check_survey(self, cr, uid, data, context):
     pool= pooler.get_pool(cr.dbname)
     survey_obj = pool.get('survey')
     msg = ""
-    for sur in survey_obj.browse(cr,uid,data['ids']):
+    for sur in survey_obj.browse(cr, uid, data['ids']):
         if sur.state != 'open':
             msg +=  sur.title + "\n"
     if msg:
@@ -78,67 +78,66 @@ def send_mail(self, cr, uid, data, context):
     partner_ids = data['form']['partner_ids'][0][2]
     pool= pooler.get_pool(cr.dbname)
     user_ref= pool.get('res.users')
-    group_id= pool.get('res.groups').search(cr,uid,[('name','=','Survey / User')])
+    group_id= pool.get('res.groups').search(cr, uid, [('name','=','Survey / User')])
     act_id = pool.get('ir.actions.act_window')
-    act_id = act_id.search(cr,uid,[('name','=','Start to Give Survey Response'),('res_model','=','survey.name.wiz'),('view_type','=','form')])
+    act_id = act_id.search(cr, uid, [('name', '=', 'Start to Give Survey Response'), ('res_model', '=' ,'survey.name.wiz'), ('view_type', '=', 'form')])
     out="login,password\n"
     skipped= 0
     existing= ""
     created= ""
     error= ""
-    for partner in pool.get('res.partner').browse(cr,uid,partner_ids):
+    for partner in pool.get('res.partner').browse(cr, uid, partner_ids):
         for addr in partner.address:
             if not addr.email:
                 skipped+= 1
                 continue
-            user = user_ref.search(cr,uid,[('login',"=",addr.email)])
-
+            user = user_ref.search(cr, uid, [('login', "=", addr.email)])
             if user:
-                user = user_ref.browse(cr,uid,user[0])
-                user_ref.write(cr,uid,user.id,{'survey_id':[[6, 0, data['ids']]]})
-                existing+= "- %s (Login: %s,  Password: %s)\n"%(user.name,addr.email,user.password)
+                user = user_ref.browse(cr, uid, user[0])
+                user_ref.write(cr, uid, user.id, {'survey_id':[[6, 0, data['ids']]]})
+                existing+= "- %s (Login: %s,  Password: %s)\n" % (user.name, addr.email, user.password)
                 continue
 
             passwd= genpasswd()
-            out+= addr.email+','+passwd+'\n'
-            mail= data['form']['mail']%{'login':addr.email, 'passwd':passwd}
-            if not data['form']['mail_from']: raise wizard.except_wizard('Error !', 'Please provide a "from" email address.')
-            ans = tools.email_send(data['form']['mail_from'],[addr.email] ,data['form']['mail_subject'] ,mail )
+            out+= addr.email + ',' + passwd + '\n'
+            mail= data['form']['mail'] % {'login' : addr.email, 'passwd' : passwd}
+            if not data['form']['mail_from'] : raise wizard.except_wizard('Error !', 'Please provide a "from" email address.')
+            ans = tools.email_send(data['form']['mail_from'], [addr.email], data['form']['mail_subject'], mail)
             if ans:
-                user = user_ref.create(cr,uid,{'name': addr.name or 'Unknown',
-                                        'login': addr.email,
-                                        'password': passwd,
-                                        'address_id': addr.id,
-                                        'groups_id': [[6,0,group_id]],
-                                        'action_id': act_id[0],
-                                        'survey_id':[[6, 0, data['ids']]]
+                user = user_ref.create(cr,uid,{'name' : addr.name or 'Unknown',
+                                        'login' : addr.email,
+                                        'password' : passwd,
+                                        'address_id' : addr.id,
+                                        'groups_id' : [[6,0,group_id]],
+                                        'action_id' : act_id[0],
+                                        'survey_id' :[[6, 0, data['ids']]]
                                        })
-                created+= "- %s (Login: %s,  Password: %s)\n"%(addr.name or 'Unknown',addr.email,passwd)
+                created+= "- %s (Login: %s,  Password: %s)\n" % (addr.name or 'Unknown', addr.email, passwd)
             else:
-                error+= "- %s (Login: %s,  Password: %s)\n"%(addr.name or 'Unknown',addr.email,passwd)
+                error+= "- %s (Login: %s,  Password: %s)\n" % (addr.name or 'Unknown', addr.email, passwd)
     note= ""
     if created:
-        note+= 'Created users:\n%s\n\n'%(created)
+        note += 'Created users:\n%s\n\n' % (created)
     if existing:
-        note+='Already existing users:\n%s\n\n'%(existing)
+        note +='Already existing users:\n%s\n\n' % (existing)
     if skipped:
-        note+= "%d contacts where ignored (an email address is missing).\n\n"%(skipped)
+        note += "%d contacts where ignored (an email address is missing).\n\n" % (skipped)
     if error:
-        note+= 'E-Mail not send successfully:\n====================\n%s\n'%(error)
+        note += 'E-Mail not send successfully:\n====================\n%s\n' % (error)
     return {'note': note}
     
 
 class send_mail_wizard(wizard.interface):
     states = {
-        'init': {
-            'actions': [check_survey],
-            'result': {'type': 'form', 'arch':_survey_form, 'fields':_survey_fields, 'state':[('end','Cancel','gtk-cancel'),('send','Send','gtk-go-forward')]}
+        'init' : {
+            'actions' : [check_survey],
+            'result' : {'type' : 'form', 'arch' :_survey_form, 'fields' :_survey_fields, 'state' : [('end', 'Cancel', 'gtk-cancel'), ('send', 'Send', 'gtk-go-forward')]}
                 },
-        'send':{'actions': [send_mail],
-               'result': {'type':'form',
-                          'arch':second_form,
-                          'fields':second_fields,
-                          'state':[('end','_Ok')]}
+        'send' : {'actions' : [send_mail],
+               'result' : {'type' : 'form',
+                          'arch' : second_form,
+                          'fields' : second_fields,
+                          'state' : [('end','_Ok')]}
                },
     }
 send_mail_wizard('wizard.send.invitation')

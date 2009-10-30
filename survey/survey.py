@@ -218,12 +218,14 @@ class survey_name_wiz(osv.osv_memory):
     def action_next(self, cr, uid, ids, context=None):
         global question_no
         question_no = 0
+        context.update({'survey_id' : self.read(cr,uid,ids,[])[0]['survey_id']})
         return {
                 'view_type': 'form',
                 "view_mode": 'form',
                 'res_model': 'survey.question.wiz',
                 'type': 'ir.actions.act_window',
                 'target': 'new',
+                'context' : context
          }
 survey_name_wiz()
 
@@ -235,9 +237,7 @@ class survey_question_wiz(osv.osv_memory):
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar)
         global question_no
-        survey_name_obj = self.pool.get('survey.name.wiz')
-        surv_id = survey_name_obj.search(cr,uid,[])
-        survey_id = survey_name_obj.read(cr,uid,surv_id[int(len(surv_id) -1)],[])[0]['survey_id']
+        survey_id = context['survey_id']
         survey_obj = self.pool.get('survey')
         sur_rec = survey_obj.read(cr,uid,survey_id,[])
         page_obj = self.pool.get('survey.page')
@@ -251,11 +251,10 @@ class survey_question_wiz(osv.osv_memory):
                 survey_obj.write(cr,uid,survey_id,{'state':'close','date_close':strftime("%Y-%m-%d %H:%M:%S")} )
             p_id = p_id[question_no]
             question_no += 1
-            xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="Select a survey Name">'''
             fields = {}
             pag_rec = page_obj.read(cr,uid,p_id)
-            xml += '''<separator string="'''+ str(question_no)+"." + str(pag_rec['title']) + '''" colspan="4"/>'''
-            xml += '''<label string="'''+ str(pag_rec['note']) + '''"/> <newline/> <newline/><newline/>'''
+            xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="''' + str(pag_rec['title']) + '''">'''
+            xml += '''<label string="'''+ str(pag_rec['note'] or '') + '''"/> <newline/> <newline/><newline/>'''
             que_ids = pag_rec['question_ids']
             qu_no = 0
             for que in que_ids:
@@ -267,7 +266,7 @@ class survey_question_wiz(osv.osv_memory):
                     xml += '''<field  name="'''+ str(que) + "_" +  str(ans['id']) +  '''"/> '''
                     fields[str(que) + "_" +  str(ans['id']) ] = {'type':'boolean','string':ans['answer'],'views':{}}
                 if que_rec['allow_comment']:
-                    xml += '''<separator string="Add Coment"  colspan="4"/> '''                    
+                    xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
                     xml += ''' <field nolabel="1"  colspan="4"  name="'''+ str(que) + "_other"  '''"/> '''
                     fields[str(que) + "_other"] = {'type':'text','string':"Comment",'views':{}}
             xml += '''
@@ -303,7 +302,7 @@ class survey_question_wiz(osv.osv_memory):
             if que_id not in que_li:
                 ans = False
                 que_li.append(que_id)
-                que_rec = que_obj.read(cr,uid,que_id,['is_require_answer'])
+                que_rec = que_obj.read(cr,uid,que_id,['is_require_answer','question'])
                 resp_id = resp_obj.create(cr,uid,{'response_id':uid,'question_id':que_id,'date_create':datetime.datetime.now(),'response_type':'link'})
                 for key1,val1 in vals.items():
                     if val1 and key1.split('_')[1] =="other":
@@ -314,7 +313,7 @@ class survey_question_wiz(osv.osv_memory):
                         res_ans_obj.create(cr,uid,{'response_id':resp_id,'answer_id':ans_id_len[len(ans_id_len) -1]})
                         ans = True
                 if que_rec[0]['is_require_answer'] and not ans:
-                    raise osv.except_osv(_('Error !'),_('This question requires an answer.'))
+                    raise osv.except_osv(_('Error !'),_("'" + que_rec[0]['question'] + "' This question requires an answer."))
         return True
     def action_next(self, cr, uid, ids, context=None):
         return {

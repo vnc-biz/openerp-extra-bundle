@@ -39,14 +39,14 @@
         </record>
 
         <record id="action_view_survey_name" model="ir.actions.act_window">
-            <field name="name">Start to Give Survey Response</field>
+            <field name="name">Give Survey Response</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">survey.name.wiz</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-		<menuitem name="Start to Give Survey Response" id = "menu_run_survey_form" action="action_view_survey_name" parent = "menu_survey_action"/>
+		<menuitem name="Give Survey Response" id = "menu_run_survey_form" action="action_view_survey_name" parent = "main_menu_survey" groups="group_survey_manager,group_survey_user"/>
    		
 	</data>
 </openerp>

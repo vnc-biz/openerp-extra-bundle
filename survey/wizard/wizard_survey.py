@@ -80,7 +80,7 @@ def send_mail(self, cr, uid, data, context):
     user_ref= pool.get('res.users')
     group_id= pool.get('res.groups').search(cr, uid, [('name','=','Survey / User')])
     act_id = pool.get('ir.actions.act_window')
-    act_id = act_id.search(cr, uid, [('name', '=', 'Start to Give Survey Response'), ('res_model', '=' ,'survey.name.wiz'), ('view_type', '=', 'form')])
+    act_id = act_id.search(cr, uid, [('name', '=', 'Give Survey Response'), ('res_model', '=' ,'survey.name.wiz'), ('view_type', '=', 'form')])
     out="login,password\n"
     skipped= 0
     existing= ""

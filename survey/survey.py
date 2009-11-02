@@ -107,6 +107,7 @@ class survey_question(osv.osv):
         'allow_comment' : fields.boolean('Allow Comment Field'),
         'sequence' : fields.integer('Sequence'),
         'tot_resp' : fields.function(_calc_response,method = True, string ="Total Response"),
+        'survey':fields.related('page_id','survey_id',type='many2one', relation='survey.page', string='Survey'),        
     }
     _defaults = {
          'sequence' : lambda *a: 5

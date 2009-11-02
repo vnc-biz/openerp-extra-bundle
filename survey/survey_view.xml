@@ -4,7 +4,7 @@
     	<menuitem name="Survey Management" id = "main_menu_survey" icon="terp-crm" sequence="1" groups="group_survey_manager,group_survey_user"/>
     	<menuitem name="Configuration" id = "menu_survey_config" parent = "main_menu_survey" groups="group_survey_manager" />
 <!--    	<menuitem name="Reports" id = "menu_survey_reports" parent = "main_menu_survey"/>-->
-		<menuitem name="Action" id = "menu_survey_action" parent = "main_menu_survey" groups="group_survey_manager,group_survey_user" />
+<!--		<menuitem name="Action" id = "menu_survey_action" parent = "main_menu_survey" groups="group_survey_manager,group_survey_user" />-->
 
 	    <!--
 			Survey
@@ -182,7 +182,7 @@
 			<field name="arch" type="xml">
 				<form string="Survey Question">
 					<field name="question" colspan = "4" select = "1"/>
-					<field name="page_id"/>
+					<field name="page_id" select = "1"/>
 					<field name="sequence"/>
 					<field name="is_require_answer" select = "1" />
 					<field name="allow_comment" select = "2"/>
@@ -207,7 +207,8 @@
 					<field name="question" colspan = "4" select = "1"/>
 					<field name="sequence"  string="Seq"/>
 					<field name="is_require_answer" select = "1"/>
-					<field name="page_id"/>					
+					<field name="page_id" select = "1"/>
+					<field name="survey" select = "1"/>
 					<field name="allow_comment" select = "2"/>
 					<field name="tot_resp" select = "2"/>
 				</tree>			          

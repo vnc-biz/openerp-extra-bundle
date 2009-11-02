@@ -311,7 +311,7 @@ class survey_question_wiz(osv.osv_memory):
                 que_rec = que_obj.read(cr, uid ,[que_id], ['is_require_answer','question'])
                 resp_id = resp_obj.create(cr, uid, {'response_id':uid, 'question_id':que_id, 'date_create':datetime.datetime.now(), 'response_type':'link'})
                 for key1, val1 in vals.items():
-                    if val1 and key1.split('_')[1] =="other":
+                    if val1 and key1.split('_')[1] =="other" and key1.split('_')[0] == que_id:
                         resp_obj.write(cr, uid, resp_id, {'comment':val1})
                         ans = True
                     elif val1 and que_id == key1.split('_')[0]:

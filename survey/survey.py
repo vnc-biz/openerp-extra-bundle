@@ -243,7 +243,7 @@ class survey_name_wiz(osv.osv_memory):
         'note' : fields.text("Description"),
     }
     _defaults = {
-        'page_no' : lambda *a: 0
+        'page_no' : lambda *a: -1
     }
 
     def action_next(self, cr, uid, ids, context=None):
@@ -265,13 +265,14 @@ class survey_name_wiz(osv.osv_memory):
 survey_name_wiz()
 
 class survey_question_wiz(osv.osv_memory):
-    page = True
-
+    page = "next"
+    transfer = True
+    
     _name = 'survey.question.wiz'
     _columns = {
         'name': fields.integer('Number'),
     }
-
+        
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar)
         surv_name_wiz = self.pool.get('survey.name.wiz')
@@ -282,18 +283,34 @@ class survey_question_wiz(osv.osv_memory):
         page_obj = self.pool.get('survey.page')
         que_obj = self.pool.get('survey.question')
         ans_obj = self.pool.get('survey.answer')
+        response_obj = self.pool.get('survey.response')
         p_id = sur_rec['page_ids']
-        if self.page or not sur_name_rec['page_no'] :
-            self.page = False
-            if len(p_id) > sur_name_rec['page_no']:
+        if self.transfer or not sur_name_rec['page_no']+1 :
+            self.transfer = False
+            flag = False
+            if self.page == "next" or sur_name_rec['page_no']  == -1 :
+                if len(p_id) > sur_name_rec['page_no'] +1 :
+                    if not sur_name_rec['page_no']:
+                        survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
+                    if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] + 1 and not sur_name_rec['page_no']:
+                        survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
+                    p_id = p_id[sur_name_rec['page_no']+1]
+                    surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
+                    flag = True
+                button = ""
+                if sur_name_rec['page_no'] > -1:
+                    button = '''<button colspan="1" icon="gtk-go-back" name="action_previous" string="Previous" type="object"/>''' 
                 
-                if not sur_name_rec['page_no']:
-                    survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
-                if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] + 1 and not sur_name_rec['page_no']:
-                    survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
-                #TODO: check for number of responses per user
-                p_id = p_id[sur_name_rec['page_no']]
-                surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
+            else:
+                if sur_name_rec['page_no'] != 0:
+                    p_id = p_id[sur_name_rec['page_no']- 1]
+                    surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] - 1})
+                    flag = True
+                button = ""
+                if sur_name_rec['page_no'] > 1:
+                    button = '''<button colspan="1" icon="gtk-go-back" name="action_previous" string="Previous" type="object"/>'''
+                
+            if flag:
                 fields = {}
                 pag_rec = page_obj.read(cr, uid, p_id)
                 xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="''' + str(pag_rec['title']) + '''">'''
@@ -307,19 +324,22 @@ class survey_question_wiz(osv.osv_memory):
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
                     for ans in ans_ids:
                         xml += '''<field  name="'''+ str(que) + "_" +  str(ans['id']) + '''"/> '''
-                        fields[str(que) + "_" +  str(ans['id'])] = {'type':'boolean','string':ans['answer'],'views':{}}
+                        field_ans_id = str(que) + "_" +  str(ans['id'])  
+                        fields[field_ans_id] = {'type':'boolean','string':ans['answer']}
                     if que_rec['allow_comment']:
                         xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
                         fields[str(que) + "_other"] = {'type':'text', 'string':"Comment", 'views':{}}
-                xml += '''
-                <separator colspan="4" />
-                    <label align="0.0" colspan="2" string=""/>    
-                    <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>
-                    <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
-                </form>'''
-                result['arch'] = xml
-                result['fields'] = fields
+                    xml += '''
+                    <separator colspan="4" />
+                    <group cols="4" colspan="4">
+                        <label align="0.0" colspan="1" string=""/>    
+                        <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>''' + button +'''
+                        <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
+                    </group>
+                    </form>'''
+                    result['arch'] = xml
+                    result['fields'] = fields
             else:
                 survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
                 xml_form ='''<?xml version="1.0"?>
@@ -355,9 +375,12 @@ class survey_question_wiz(osv.osv_memory):
                         ans = True
                 if que_rec[0]['is_require_answer'] and not ans:
                     raise osv.except_osv(_('Error !'),_("'" + que_rec[0]['question'] + "' This question requires an answer."))
+        self.page = "next"
         return True
+
     def action_next(self, cr, uid, ids, context=None):
-        self.page = True
+        self.page = "next"
+        self.transfer = True
         return {
                 'view_type': 'form',
                 "view_mode": 'form',
@@ -366,7 +389,18 @@ class survey_question_wiz(osv.osv_memory):
                 'target': 'new',
                 'context': context
                 }
-            
+
+    def action_previous(self, cr, uid, ids, context=None):
+        self.page = "previous"
+        self.transfer = True
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question.wiz',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'context': context
+                }
 survey_question_wiz()
 
 class res_users(osv.osv):

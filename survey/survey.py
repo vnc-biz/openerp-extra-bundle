@@ -35,6 +35,8 @@ class survey(osv.osv):
         'date_open' : fields.datetime('Survey Open Date', readonly=1),
         'date_close' : fields.datetime('Survey Close Date', readonly=1),
         'max_response_limit' : fields.integer('Maximum Response Limit'),
+        'response_user' : fields.integer('Maximum Response per User', 
+                     help="Set to one if  you require only one response per user"),
         'state' : fields.selection([('draft','Draft'),('open','Open'),('close','Closed'),('cancel','Cancelled')],'Status',readonly = True),
         'responsible_id' : fields.many2one('res.users','Responsible'),
         'tot_start_survey' : fields.integer("Total Started Survey", readonly = 1),
@@ -65,6 +67,30 @@ class survey(osv.osv):
         return True
     
 survey()
+
+class survey_history(osv.osv):
+    _name = 'survey.history'
+    _description = 'Survey History'
+    _rec_name = 'date'
+    _columns = {
+        'survey_id' : fields.many2one('survey', 'Survey', ondelete='cascade'),
+        'user_id' : fields.many2one('res.users', 'User', readonly=True),
+        'date' : fields.datetime('Date started', readonly=1),
+    }
+    _defaults = {
+         'date' : lambda *a: datetime.datetime.now()
+    }
+
+survey_history()
+
+
+class survey_inherit(osv.osv):
+    _inherit = 'survey'
+    _columns = {
+        'history' : fields.one2many('survey.history', 'survey_id', 'History Lines', readonly=True), 
+    }
+survey_inherit()
+
 
 class survey_page(osv.osv):
     _name = 'survey.page'
@@ -115,7 +141,6 @@ class survey_question(osv.osv):
          'sequence' : lambda *a: 5
     }
 
-    
 survey_question()
 
 class survey_answer(osv.osv):
@@ -266,6 +291,7 @@ class survey_question_wiz(osv.osv_memory):
                     survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
                 if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] + 1 and not sur_name_rec['page_no']:
                     survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
+                #TODO: check for number of responses per user
                 p_id = p_id[sur_name_rec['page_no']]
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
                 fields = {}

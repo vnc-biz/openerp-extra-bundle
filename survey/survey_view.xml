@@ -18,15 +18,19 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey">
-					<field name="title" select="1"/>
-					<notebook>
+					<group col="4" colspan="4">
+						<field name="title" select="1"/>
+						<field name="responsible_id"/>
+					</group>
+					<notebook colspan="4">
                         <page string="Survey">
                         	<field name="date_open" select="1"/>
                         	<field name="date_close" select="2"/>
-                        	<field name="responsible_id"/>
+                        	<newline/>
                         	<field name="max_response_limit" select="1"
-                        		attrs="{'readonly':[('state','in',('open','close'))]}"
-                        	/>
+                        		attrs="{'readonly':[('state','in',('open','close'))]}"/>
+                        	<field name="response_user" select="2"
+                        		attrs="{'readonly':[('state','in',('open','close'))]}"/>
                         	<field name="tot_start_survey" select="1"/>
                         	<field name="tot_comp_survey" select="1"/>
 							<field name="page_ids" colspan="4" nolabel="1">
@@ -81,6 +85,18 @@
                         	<separator colspan="4" string="Users Details"/>
                         	<field name="users" colspan="4" nolabel="1"/>
                         </page>
+                        <page string="History">
+                        	<field name="history" colspan="4" nolabel="1">
+                        		<tree string="History">
+                        			<field name="user_id"/>
+                        			<field name="date"/>
+                        		</tree>
+                        		<form string="History">
+                        			<field name="user_id"/>
+                        			<field name="date"/>
+                        		</form>
+                       		</field>
+                        		</page>
                     </notebook>
 				</form>
 			</field>
@@ -424,9 +440,16 @@
         	name="Survey Pages"
         	res_model="survey.page"
         	src_model="survey"/>
-
-        <act_window domain="[('page_id', '=', active_id)]"
+		
+		<act_window domain="[('survey', '=', active_id)]"
         	id="act_survey_question"
+        	name="All Questions"
+        	res_model="survey.question"
+        	src_model="survey"/>
+        	
+        	
+        <act_window domain="[('page_id', '=', active_id)]"
+        	id="act_survey_page_question"
         	name="Survey Questions"
         	res_model="survey.question"
         	src_model="survey.page"/>

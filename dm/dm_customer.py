@@ -53,8 +53,7 @@ class dm_order(osv.osv): # {{{
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-        raw_datas = "2;00573G;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;\
-                        GBR;BN;BN11 1XQ;WORTHING.LU.SX"
+        raw_datas = "2;00573G;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;; GBR;BN;BN11 1XQ;WORTHING.LU.SX"
         value = raw_datas.split(';')
         key = ['datamatrix_type', 'segment_code', 'customer_code', 'title', 
                'customer_lastname', 'customer_firstname', 'customer_add1',

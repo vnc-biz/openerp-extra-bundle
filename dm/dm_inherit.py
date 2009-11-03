@@ -73,8 +73,7 @@ class res_partner(osv.osv):#{{{
                                              'customer_id',
                                              'Client for Media'),
         'decoy_address': fields.boolean('Decoy Address', 
-                        help='A decoy address is an address used to identify \
-                                         unleagal uses of a customers file'),
+                        help='A decoy address is an address used to identify unleagal uses of a customers file'),
         'decoy_owner': fields.many2one('res.partner', 'Decoy Address Owner',
                             help='The partner this decoy address belongs to'),
         'decoy_external_ref': fields.char('External Reference', size=64, 
@@ -84,11 +83,9 @@ class res_partner(osv.osv):#{{{
                                             'customer_id',
                                             'decoy address for Media'),
         'decoy_for_campaign': fields.boolean('Used for Campaigns',
-                                help='Define if this decoy address can be used \
-                                        with campaigns'),
+                                help='Define if this decoy address can be used with campaigns'),
         'decoy_for_renting': fields.boolean('Used for File Renting', 
-                              help='Define if this decoy address can be used \
-                                    with used with customers files renting'),
+                              help='Define if this decoy address can be used with used with customers files renting'),
 
     }
     def _default_category(self, cr, uid, context={}):

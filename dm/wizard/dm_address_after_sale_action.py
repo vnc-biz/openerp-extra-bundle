@@ -26,13 +26,13 @@ from tools.misc import UpdateableStr
 FORM = UpdateableStr()
 
 parameter_fields = {
-    'segment_id': {'string':'Segment', 'type':'many2one', 
-                'relation':'dm.campaign.proposition.segment', 'required':True},
-    'action_id': {'string':'Action', 'type':'many2one', 
+    'segment_id': {'string': 'Segment', 'type':'many2one', 
+                'relation': 'dm.campaign.proposition.segment', 'required':True},
+    'action_id': {'string': 'Action', 'type': 'many2one', 
                 'relation':'dm.offer.step.transition.trigger', 'required':True, 
-                'domain':[('type', '=', 'as')]},
+                'domain': [('type', '=', 'as')]},
     'mail_service_id': {'string':'Mail Service', 'type':'many2one', 
-                        'relation':'dm.mail_service', 'required':True},
+                        'relation': 'dm.mail_service', 'required':True},
 }
 
 def search_segment(self, cr, uid, data, context):
@@ -52,7 +52,7 @@ def search_segment(self, cr, uid, data, context):
         <field name="segment_id" colspan="4" domain="[('id', 'in', [%s])]"/>
         <field name="action_id" colspan="4"/>
         <field name="mail_service_id" colspan="4" 
-                        domain="[('media_id','=',%d)]"/>
+                        domain="[('media_id', '=', %d)]"/>
     </form>"""%(','.join([str(x) for x in ids]), step_id)
     return {}
 

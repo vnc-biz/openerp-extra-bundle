@@ -81,8 +81,7 @@ class dm_simulator(osv.osv):
                 """ Count the number of purchase transitions"""
                 step_ids = self.pool.get('dm.offer.step').search(cr, uid, 
                                         [('offer_id', '=', camp.offer_id.id)])
-                trigger_id = self.pool.get('dm.offer.step.transition.trigger').search(cr, uid,
-                                             [('code', '=','purchase')])
+                trigger_id = self.pool.get('dm.offer.step.transition.trigger').search(cr, uid, [('code', '=','purchase')])
                 tr_ids = self.pool.get('dm.offer.step.transition').search(cr,
                                         uid,[('step_to_id', 'in', step_ids),
                                         ('condition_id', '=', trigger_id[0])])
@@ -140,8 +139,7 @@ class dm_simulator(osv.osv):
                 sect = sect+1
 
             print "DM SIM - Total Sections actions:", len(sect_act)
-            trigger_type_id = self.pool.get('dm.offer.step.transition.trigger').search(cr, uid,
-                                                 [('code','=','purchase')])[0]
+            trigger_type_id = self.pool.get('dm.offer.step.transition.trigger').search(cr, uid, [('code','=','purchase')])[0]
 
             """ Get Customers from segments """
             for propo in sim.campaign_id.proposition_ids:
@@ -155,11 +153,8 @@ class dm_simulator(osv.osv):
                 """ Get offer steps """
                 step_ids = self.pool.get('dm.offer.step').search(cr, uid,
                                  [('offer_id','=',sim.campaign_id.offer_id.id)])
-                trigger_id = self.pool.get('dm.offer.step.transition.trigger').search(cr, uid,
-                                                    [('code','=','purchase')])
-                tr_ids= self.pool.get('dm.offer.step.transition').search(cr, uid 
-                                        , [('step_to_id', 'in', step_ids),
-                                        ('condition_id', '=', trigger_id[0])])
+                trigger_id = self.pool.get('dm.offer.step.transition.trigger').search(cr, uid, [('code','=','purchase')])
+                tr_ids= self.pool.get('dm.offer.step.transition').search(cr, uid, [('step_to_id', 'in', step_ids), ('condition_id', '=', trigger_id[0])])
                 print "DM SIM - tr_ids:", tr_ids
                 trs = self.pool.get('dm.offer.step.transition').browse(cr,
                                                              uid, tr_ids)
@@ -179,9 +174,7 @@ class dm_simulator(osv.osv):
 
                         """ Generate Actions """
                         for cust in cust_ids[0:s[0]]:
-                            action_time = datetime.datetime.fromtimestamp \
-                                            (float(random.randint(int(from_ts),
-                                    int(to_ts)))).strftime('%Y-%m-%d  %H:%M:%S')
+                            action_time = datetime.datetime.fromtimestamp(float(random.randint(int(from_ts), int(to_ts)))).strftime('%Y-%m-%d  %H:%M:%S')
                             print "DM SIM - action_time:", action_time
                             self.pool.get('dm.simulator.action').create(cr, uid,
                                  {'simulator_id': sim.id,
@@ -190,16 +183,15 @@ class dm_simulator(osv.osv):
                                  'address_id': cust[0],
                                  'section': sect_act.index(s),
                                  'action_time': action_time})
-                            action_qty = action_qty+1
+                            action_qty = action_qty + 1
                         print "DM SIM - Customers:", cust_ids[0:s[0]]
                 print "SIM: Real action quantity:", action_qty
 
         """ Init Statistics """
-        stat_init = "--- Starting Campaign Simulation at %s ---"% \
-                                    time.strftime('%Y-%m-%d  %H:%M:%S')
-        self.write(cr, uid, ids, {'stats':stat_init,
-                                  'action_pending_qty':sim.action_qty,
-                                   'state':'running'})
+        stat_init = "--- Starting Campaign Simulation at %s ---"% time.strftime('%Y-%m-%d  %H:%M:%S')
+        self.write(cr, uid, ids, {'stats': stat_init,
+                                  'action_pending_qty': sim.action_qty,
+                                   'state': 'running'})
 
         return True
 
@@ -215,8 +207,7 @@ class dm_simulator(osv.osv):
         """ Update Statistics """
         new_stats = []
         stats = self.read(cr, uid, sim.id, ['stats'])
-        new_stats.append("--- Stopping Campaign Simulation at %s ---"%
-                                           time.strftime('%Y-%m-%d  %H:%M:%S'))
+        new_stats.append("--- Stopping Campaign Simulation at %s ---"% time.strftime('%Y-%m-%d  %H:%M:%S'))
         new_stats.append(stats['stats'])
         self.write(cr, uid, ids, {'stats':"\n".join(new_stats), 'state':'done'})
 
@@ -230,8 +221,7 @@ class dm_simulator(osv.osv):
         for sim in self.browse(cr, uid, sim_ids):
 
             """ Check if Simulation to stop """
-            if datetime.datetime.strptime(sim.date_stop, '%Y-%m-%d  %H:%M:%S') \
-                                             < datetime.datetime.now():
+            if datetime.datetime.strptime(sim.date_stop, '%Y-%m-%d  %H:%M:%S') < datetime.datetime.now():
                 sim.simulation_stop(cr, uid, [sim.id])
                 continue
 
@@ -251,17 +241,16 @@ class dm_simulator(osv.osv):
                         {'action_start':time.strftime('%Y-%m-%d  %H:%M:%S')})
                 """ Create Event """
                 # To improve: only works with addresses and not crm case
-                event_ids = self.pool.get('dm.event').create(cr, uid,
-                                                {'segment_id':act.segment_id.id,
-                                                'step_id':act.step_id.id,
-                                                'source':'address_id',
-                                                'address_id':act.address_id.id,
-                                      'trigger_type_id':act.trigger_type_id.id})
+                event_ids = self.pool.get('dm.event').create(cr, uid, {
+                                    'segment_id': act.segment_id.id,
+                                    'step_id': act.step_id.id,
+                                    'source': 'address_id',
+                                    'address_id': act.address_id.id,
+                                    'trigger_type_id': act.trigger_type_id.id})
 
                 """ Generate Sale Order """
                 if sim.so_gen and act.step_id.item_ids:
-                    products = random.sample(act.step_id.item_ids, 
-                               random.randrange(len(act.step_id.item_ids)) or 1)
+                    products = random.sample(act.step_id.item_ids, random.randrange(len(act.step_id.item_ids)) or 1)
                     print "act.step_id.item_ids:", act.step_id.item_ids
                     shop = self.pool.get('sale.shop').search(cr, uid, [])
                     wf_service = netsvc.LocalService('workflow')
@@ -269,8 +258,7 @@ class dm_simulator(osv.osv):
                                            uid, [act.address_id.partner_id.id],
                                            ['invoice', 'delivery', 'contact'])
                     pricelist = self.pool.get('res.partner').browse(cr, uid,
-                                                act.address_id.partner_id.id,
-                                    context).property_product_pricelist.id
+                                                act.address_id.partner_id.id, context).property_product_pricelist.id
                     fpos = self.pool.get('res.partner').browse(cr, uid,
                                                  act.address_id.partner_id.id,
                                     context).property_account_position
@@ -305,8 +293,7 @@ class dm_simulator(osv.osv):
                                                  'order_confirm', cr)
 
                     if sim.invoice_gen:
-                        inv_id = self.pool.get('sale.order').action_invoice_create(cr,
-                                                                 uid, [new_id])
+                        inv_id = self.pool.get('sale.order').action_invoice_create(cr, uid, [new_id])
                         wf_service.trg_validate(uid, 'account.invoice', inv_id,
                                                             'invoice_open', cr)
                         print "invoice id:", inv_id
@@ -338,11 +325,11 @@ class dm_simulator(osv.osv):
             action_dur_total = sim.action_dur_total + duration
             avg_rate = action_done_qty / action_dur_total
 
-            self.write(cr, uid, sim.id, {'stats':"\n".join(new_stats),
-                                         'action_done_qty':action_done_qty,
-                                        'action_pending_qty':action_pending_qty,
-                                        'action_dur_total':action_dur_total, 
-                                        'avg_rate':avg_rate})
+            self.write(cr, uid, sim.id, {'stats': "\n".join(new_stats),
+                                         'action_done_qty': action_done_qty,
+                                        'action_pending_qty': action_pending_qty,
+                                        'action_dur_total': action_dur_total, 
+                                        'avg_rate': avg_rate})
 
         return True
 

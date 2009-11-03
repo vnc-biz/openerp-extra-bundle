@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -35,6 +35,13 @@ fields = {
 
 class sendcode(wizard.interface):
 
+    def check_code(self, cr, uid, data, context):
+        code = pooler.get_pool(cr.dbname).get('email.smtpclient').browse(cr, uid, [data['id']])[0].code
+        if code:
+            raise osv.except_osv(_('Error'), _('Verification Code Already Generated !'))
+        return {}
+
+
     def send_code(self, cr, uid, data, context):
         state = pooler.get_pool(cr.dbname).get('email.smtpclient').test_verify_email(cr, uid, [data['id']], data['form']['emailto'])
         if not state:
@@ -44,7 +51,7 @@ class sendcode(wizard.interface):
 
     states = {
         'init': {
-            'actions': [],
+            'actions': [check_code],
             'result': {'type':'form', 'arch':form, 'fields':fields, 'state':[('end','Cancel'),('send','Send Code')]}
         },
         'send': {

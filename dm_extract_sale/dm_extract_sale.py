@@ -72,7 +72,7 @@ class dm_query_criteria(osv.osv): # {{{
     _inherit = "dm.query.criteria"
 
     _columns = {
-        'segmentation_id1' : fields.many2one('dm.address.segmentation' , 
+        'segmentation_id1': fields.many2one('dm.address.segmentation' , 
         domain = [('model_id.model','in',('res.partner.address','sale.order'))])
     }
 

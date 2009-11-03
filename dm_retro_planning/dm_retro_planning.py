@@ -20,6 +20,9 @@
 ##############################################################################
 from osv import fields
 from osv import osv
+from datetime import date,timedelta
+import time
+from datetime import datetime
 
 class dm_campaign_group(osv.osv):#{{{
     _inherit = "dm.campaign.group"
@@ -27,6 +30,7 @@ class dm_campaign_group(osv.osv):#{{{
         'project_id': fields.many2one('project.project', 
                                                     'Project', readonly=True),
     }
+    
 dm_campaign_group()
 
 class project(osv.osv):
@@ -110,7 +114,7 @@ class dm_campaign(osv.osv):#{{{
         'manufacturing_task_ids': one2many_mod_task('project.task', 'project_id', 
                             "Manufacturing tasks", 
                             domain=[('type', 'ilike', 'Mailing Manufacturing')], 
-                            context={'type':'Mailing Manufacturing'}),
+                            context={'type': 'Mailing Manufacturing'}),
         'cust_file_task_ids': one2many_mod_task('project.task', 'project_id', 
                             "Customer Files tasks",
                             domain=[('type', 'ilike', 'Customers List')], 
@@ -132,8 +136,7 @@ class dm_campaign(osv.osv):#{{{
             if (id.state == 'draft') or (id.state == 'pending'):
                 self.write(cr, uid, ids, {'manufacturing_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error", "This state cannot be set back \
-                                to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True
 
     def dtp_state_inprogress_set(self, cr, uid, ids, *args):
@@ -141,8 +144,7 @@ class dm_campaign(osv.osv):#{{{
             if (id.state == 'draft') or (id.state == 'pending'):
                 self.write(cr, uid, ids, {'dtp_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error", "This state cannot be set back \
-                                to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True
  
     def customer_file_state_inprogress_set(self, cr, uid, ids, *args):
@@ -150,8 +152,7 @@ class dm_campaign(osv.osv):#{{{
             if (id.state == 'draft') or (id.state == 'pending'):
                 self.write(cr, uid, ids, {'customer_file_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error", "This state cannot be set back \
-                                to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True       
     
     def items_state_inprogress_set(self, cr, uid, ids, *args):
@@ -159,8 +160,7 @@ class dm_campaign(osv.osv):#{{{
             if (id.state == 'draft') or (id.state == 'pending'):
                 self.write(cr, uid, ids, {'items_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error!!", "This state cannot be set back \
-                                to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error!!", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True 
     
     def manufacturing_state_done_set(self, cr, uid, ids, *args):
@@ -202,10 +202,9 @@ class dm_campaign(osv.osv):#{{{
     def write(self, cr, uid, ids, vals, context=None):
         value = super(dm_campaign, self).write(cr, uid, ids, vals, context)
         for camp in self.browse(cr, uid, ids):    
-            print "11111111111111111111111",camp.project_id
             if camp.project_id :
                 self.pool.get('project.project').write(cr, uid, [camp.project_id.id], 
-                        {'date_end':camp.date_start})
+                                                {'date_end': camp.date_start})
         return value
 dm_campaign()
 

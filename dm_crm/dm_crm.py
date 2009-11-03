@@ -27,7 +27,7 @@ class crm_case(osv.osv): # {{{
     _inherit = "crm.case"
     
     _columns = {
-        'segment_id' : fields.many2one('dm.campaign.proposition.segment','Segment')
+        'segment_id': fields.many2one('dm.campaign.proposition.segment', 'Segment')
         }
 crm_case() # }}}
 
@@ -39,11 +39,11 @@ class dm_campaign_proposition(osv.osv):#{{{
             camp_id = self.pool.get('dm.campaign').browse(cr, uid, vals['camp_id'])
             ''' Create CRM Section '''
             crm_obj = self.pool.get('crm.case.section')
-            crm_id = crm_obj.search(cr, uid, [('name','=',camp_id.name)])
+            crm_id = crm_obj.search(cr, uid, [('name', '=', camp_id.name)])
             if crm_id:
                 section_vals = {
-                        'name' : vals['name'],
-                        'parent_id' : crm_id[0],
+                        'name': vals['name'],
+                        'parent_id': crm_id[0],
                         }
                 crm_obj.create(cr,uid,section_vals)
         return super(dm_campaign_proposition, self).create(cr, uid, vals, context)
@@ -53,18 +53,18 @@ dm_campaign_proposition() #}}}
 class dm_campaign(osv.osv):#{{{
     _inherit = "dm.campaign"
 
-    def create(self,cr,uid,vals,context={}):
-        id_camp = super(dm_campaign,self).create(cr,uid,vals,context)
+    def create(self, cr, uid, vals, context={}):
+        id_camp = super(dm_campaign, self).create(cr, uid, vals, context)
         data_camp = self.browse(cr, uid, id_camp)
         ''' Create CRM Section '''
         crm_obj = self.pool.get('crm.case.section')
-        crm_id = crm_obj.search(cr, uid, [('code','ilike','DM')])
+        crm_id = crm_obj.search(cr, uid, [('code', 'ilike', 'DM')])
         if crm_id:
             section_vals = {
-                    'name' : data_camp.name,
-                    'parent_id' : crm_id[0],
+                    'name': data_camp.name,
+                    'parent_id': crm_id[0],
                 }
-            crm_obj.create(cr,uid,section_vals)
+            crm_obj.create(cr, uid, section_vals)
         return id_camp
 
 dm_campaign()  

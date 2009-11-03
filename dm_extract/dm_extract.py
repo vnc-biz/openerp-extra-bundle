@@ -144,7 +144,6 @@ class dm_query_criteria(osv.osv): # {{{
 
     def _get_field_type(self, cr, uid, context={}):
         ttype_filter = ['many2many', 'many2one']
-        a = ','.join(map(str, ttype_filter))
         cr.execute("select distinct ttype from ir_model_fields where ttype \
                      in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
                      and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")

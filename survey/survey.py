@@ -40,6 +40,7 @@ class survey(osv.osv):
         'tot_start_survey' : fields.integer("Total Started Survey", readonly = 1),
         'tot_comp_survey' : fields.integer("Total Completed Survey", readonly = 1),
         'note' : fields.text('Description', size=128),
+        'users': fields.many2many('res.users', 'survey_users_rel', 'sid', 'uid', 'Users'),
     }
     _defaults = {
         'state' : lambda *a: "draft",

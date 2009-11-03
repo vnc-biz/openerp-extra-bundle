@@ -66,6 +66,10 @@
                         	<separator colspan="4" string="Survey Details"/>
                         	<field name="note" colspan="4" nolabel="1"/>
                         </page>
+                        <page string="Users">
+                        	<separator colspan="4" string="Users Details"/>
+                        	<field name="users" colspan="4" nolabel="1"/>
+                        </page>
                     </notebook>
 				</form>			          
 			</field>			

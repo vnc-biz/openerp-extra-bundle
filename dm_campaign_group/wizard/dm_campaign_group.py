@@ -45,7 +45,7 @@ class wizard_campaign_group(wizard.interface):
     error_message = '''<?xml version="1.0"?>
     <form string="Error!!!">
         <label align="0.0" colspan="4" string="Group name can't be none. \
-                        You have to select any avilable group or create new"/>
+                        You have to select any available group or create new"/>
     </form>'''
     
     def _add_group(self, cr, uid, data, context):
@@ -68,9 +68,7 @@ class wizard_campaign_group(wizard.interface):
                             camp_obj.write(cr, uid, [r.id], 
                                            {'campaign_group_id':group_id})
                     else:
-                        raise wizard.except_wizard('Error !', 'Offer should be \
-                                same for all the campaigns in a group : %s !' 
-                                % c.offer_id.name)
+                        raise wizard.except_wizard('Error !', 'Offer should be same for all the campaigns in a group : %s !' % c.offer_id.name)
 
         return {}
 

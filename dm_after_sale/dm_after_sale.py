@@ -68,8 +68,7 @@ class dm_after_sale_action(osv.osv_memory):
             if not workitem:
                  raise osv.except_osv(
                   _('Cannot perform After-Sale Action'),
-                  _('This sale order doesnt seem to originate \
-                          from a Direct Marketing campaign'))
+                  _('This sale order doesnt seem to originate from a Direct Marketing campaign'))
         return super(dm_after_sale_action, self).default_get(cr,
                                                         uid, fields, context)
         
@@ -167,8 +166,7 @@ class dm_after_sale_action(osv.osv_memory):
             step_id = self.pool.get('dm.offer.step').search(cr, uid, 
                             [('incoming_transition_ids','in',transition_ids)])
             if not step_id:
-                result.append((i.id, {'display_info': 'Cant find step for the \
-                                    given action- Please create step first!!',
+                result.append((i.id, {'display_info': 'Cant find step for the given action- Please create step first!!',
                                      'state': 'reset','clear_data' :True}))
             else:
                 step_id = step_id[0]
@@ -190,9 +188,7 @@ class dm_after_sale_action(osv.osv_memory):
                             uid, [('step_id','=',step_id),
                             ('category_id','=','After-Sale Document Template')])
                     if not srch_doc_id:
-                        result.append((i.id, {'display_info': 'Cant find document \
-                                             for the step- Please create Document \
-                                             first or write report content here!!',
+                        result.append((i.id, {'display_info': 'Cant find document for the step- Please create Document first or write report content here!!',
                                      'state': 'reset',}))
                     else:
                         doc_id = self.pool.get('dm.offer.document').browse(cr,

@@ -35,10 +35,11 @@ class survey(osv.osv):
         'date_open' : fields.datetime('Survey Open Date', readonly=1),
         'date_close' : fields.datetime('Survey Close Date', readonly=1),
         'max_response_limit' : fields.integer('Maximum Response Limit'),
-        'state' : fields.selection([('draft','Draft'),('open','Open'),('close','Close'),('cancel','Cancel')],'Status',readonly = True),
+        'state' : fields.selection([('draft','Draft'),('open','Open'),('close','Closed'),('cancel','Cancelled')],'Status',readonly = True),
         'responsible_id' : fields.many2one('res.users','Responsible'),
         'tot_start_survey' : fields.integer("Total Started Survey", readonly = 1),
         'tot_comp_survey' : fields.integer("Total Completed Survey", readonly = 1),
+        'note' : fields.text('Description', size=128),
     }
     _defaults = {
         'state' : lambda *a: "draft",
@@ -155,7 +156,7 @@ class survey_response(osv.osv):
     _columns = {
         'date_create' : fields.datetime('Create Date', required=1),
         'date_modify' : fields.datetime('Modify Date'),
-        'state' : fields.selection([('draft', 'Draft'),('done', 'Done'), ('skip',' Skip')], 'Status', readonly = True),
+        'state' : fields.selection([('draft', 'Draft'),('done', 'Done'), ('skip','Skip')], 'Status', readonly = True),
         'response_id' : fields.many2one('res.users', 'User'),
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
         'response_type' : fields.selection([('manually','Manually'),('link','Link')],'Response Type'),
@@ -212,7 +213,8 @@ class survey_name_wiz(osv.osv_memory):
 
     _columns = {
         'survey_id': fields.selection(_get_survey, "Survey", required = "1"),
-        'page_no' : fields.integer('Page Number')
+        'page_no' : fields.integer('Page Number'),
+        'note' : fields.text("Description"),
     }
     _defaults = {
         'page_no' : lambda *a: 0
@@ -229,6 +231,11 @@ class survey_name_wiz(osv.osv_memory):
             'target': 'new',
             'context' : context
          }
+
+    def on_change_survey(self, cr, uid, ids, survey_id, context=None):
+        notes = self.pool.get('survey').read(cr, uid, survey_id, ['note'])['note']
+        return {'value': {'note' : notes}}
+
 survey_name_wiz()
 
 class survey_question_wiz(osv.osv_memory):

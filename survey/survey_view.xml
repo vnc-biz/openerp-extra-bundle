@@ -20,7 +20,7 @@
                         	<field name="date_open" select="1"/>
                         	<field name="date_close" select="2"/>
                         	<field name="responsible_id"/>
-                        	<field name="max_response_limit" select="1" attrs="{'readonly':[('state','=','open')]}"/>
+                        	<field name="max_response_limit" select="1" attrs="{'readonly':[('state','in',('open','close'))]}"/>
                         	<field name="tot_start_survey" select="1"/>
                         	<field name="tot_comp_survey" select="1"/>
 							<field name="page_ids" colspan="4" nolabel="1">
@@ -61,6 +61,10 @@
 								<button name="survey_close" string="Close" states="open" type ="object" icon="gtk-close"/>
 							    <button name="survey_cancel" string="Cancel" states="open" type ="object" icon="gtk-cancel"/>
                         	</group>
+                        </page>
+                        <page string="Other">
+                        	<separator colspan="4" string="Survey Details"/>
+                        	<field name="note" colspan="4" nolabel="1"/>
                         </page>
                     </notebook>
 				</form>			          

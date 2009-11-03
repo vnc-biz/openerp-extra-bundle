@@ -27,9 +27,9 @@ import traceback
 from dm.dm_report_design import get_address_id
 
 def get_address_id(cr,uid,source,s_id):
-	if source == 'address_id' :
+	if source == 'address_id':
 		return getattr(obj, obj.source).id
-	elif source == 'case_id' :
+	elif source == 'case_id':
 		return getattr(obj, obj.source).partner_address_id.id
 	else : return False
 
@@ -41,7 +41,7 @@ class dm_customers_file(osv.osv):
         return super(dm_customers_file, self).__init__(*args)
 
     _columns = {
-                'case_ids' : fields.many2many('crm.case',
+                'case_ids': fields.many2many('crm.case',
                                  'crm_case_customer_file_rel','case_id',
                                  'cust_file_id','CRM Cases')
             }
@@ -85,11 +85,11 @@ class dm_event_case(osv.osv_memory):
                                            'Trigger Condition', required=True),
         'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service'),
         'action_time': fields.datetime('Action Time'),
-    'is_realtime' : fields.boolean('Realtime Processing'),
+    'is_realtime': fields.boolean('Realtime Processing'),
     }
     _defaults = {
         'source': lambda *a: 'case_id',
-    'campaign_id' : lambda *a : False,
+    'campaign_id': lambda *a : False,
     }
 
     def create(self, cr, uid, vals, context={}):
@@ -102,8 +102,7 @@ class dm_event_case(osv.osv_memory):
             netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, 
             "There is no Outgoing transition %s at this step : %s"% 
                 (obj.trigger_type_id.name, obj.step_id.code))
-            osv.except_osv('Warning', "There is no Outgoing transition %s at this \
-                    step:%s"% (obj.trigger_type_id.name, obj.step_id.code))
+            osv.except_osv('Warning', "There is no Outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
             return False
 
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):
@@ -132,18 +131,18 @@ class dm_event_case(osv.osv_memory):
                         action_time = tr.action_date
             try:
                 wi_id = self.pool.get('dm.workitem').create(cr, uid, 
-							{'step_id':tr.step_to_id.id or False, 
-               				'segment_id':obj.segment_id.id or False, 
-							'tr_from_id':tr.id, 'case_id':obj.case_id.id, 
-           					'mail_service_id':obj.mail_service_id.id, 
+							{'step_id': tr.step_to_id.id or False, 
+               				'segment_id': obj.segment_id.id or False, 
+							'tr_from_id': tr.id, 'case_id':obj.case_id.id, 
+           					'mail_service_id': obj.mail_service_id.id, 
 							'is_realtime': obj.is_realtime ,
-				            'action_time':action_time.strftime('%Y-%m-%d  %H:%M:%S'),
-							'source':obj.source})
+				            'action_time': action_time.strftime('%Y-%m-%d  %H:%M:%S'),
+							'source': obj.source})
             except Exception, exception:
                 tb = sys.exc_info()
                 tb_s = "".join(traceback.format_exception(*tb))
                 netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_ERROR, 
-					"Event cannot create Workitem : %s\n%s" %     (str(exception), tb_s))
+					"Event cannot create Workitem: %s\n%s" % (str(exception), tb_s))
         return id
 
 dm_event_case()

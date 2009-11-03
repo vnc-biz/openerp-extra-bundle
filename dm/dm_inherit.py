@@ -139,23 +139,10 @@ class product_product(osv.osv): # {{{
     _inherit = "product.product"
     _columns = {
         'country_ids': fields.many2many('res.country', 'product_country_rel',
-                                'product_id', 'country_id','Allowed Countries'),
+                                'product_id', 'country_id','Forbidden Countries'),
         'state_ids': fields.many2many('res.country.state', 'product_state_rel',
-                                    'product_id', 'state_id', 'Allowed States'),
+                                    'product_id', 'state_id', 'Forbidden States'),
         'language_id': fields.many2one('res.lang', 'Language'),
-    }
-
-    def _default_all_country(self, cr, uid, context={}):
-        id_country = self.pool.get('res.country').search(cr, uid, [])
-        return id_country
-
-    def _default_all_state(self, cr, uid, context={}):
-        id_state = self.pool.get('res.country.state').search(cr, uid, [])
-        return id_state
-
-    _defaults = {
-        'country_ids': _default_all_country,
-        'state_ids': _default_all_state,
     }
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None, 

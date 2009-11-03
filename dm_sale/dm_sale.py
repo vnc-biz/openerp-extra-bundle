@@ -42,8 +42,8 @@ class dm_workitem(osv.osv): # {{{
     def run(self, cr, uid, wi, context={}):
         result = super(dm_workitem, self).run(cr, uid, wi, context)
         if wi.sale_order_id:
-            so_res = self.pool.get('sale.order')._sale_order_process(cr, 
-                                                    uid, wi.sale_order_id.id)
+            so_res = self.pool.get('sale.order')._sale_order_process(cr, uid,
+                                                    wi.sale_order_id.id)
         return result
 
     def copy(self, cr, uid, id, default=None, context={}):
@@ -86,10 +86,8 @@ class dm_event_sale(osv.osv_memory): # {{{
                                 ('condition_id', '=', obj.trigger_type_id.id)])
         if not tr_ids:
             netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, 
-                                "There is no outgoing transition %s at this step: %s"
-                                % (obj.trigger_type_id.name, obj.step_id.code))
-            raise osv.except_osv('Warning', "There is no outgoing transition %s at this step: %s"
-                                 % (obj.trigger_type_id.name, obj.step_id.code))
+                                "There is no outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
+            raise osv.except_osv('Warning', "There is no outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
             return False
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):
             if obj.action_time:
@@ -104,8 +102,7 @@ class dm_event_sale(osv.osv_memory): # {{{
                     action_time = wi_action_time + datetime.timedelta(**kwargs)
 
                     if tr.action_hour:
-                        hour_str =  str(tr.action_hour).split('.')[0] + ':' 
-                        + str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
+                        hour_str =  str(tr.action_hour).split('.')[0] + ':' + str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
                         act_hour = datetime.datetime.strptime(hour_str,'%H:%M')
                         action_time = action_time.replace(hour=act_hour.hour)
                         action_time = action_time.replace(minute=act_hour.minute)
@@ -190,8 +187,7 @@ class sale_order(osv.osv):#{{{
 
                                 acc_id = journal.default_credit_account_id and journal.default_credit_account_id.id
                                 if not acc_id:
-                                    raise osv.except_osv('Error !', 'Your journal \
-                                     must have a default credit and debit account.')
+                                    raise osv.except_osv('Error !', 'Your journal must have a default credit and debit account.')
                                 self.pool.get('account.invoice').pay_and_reconcile(cr, uid, [invoice.id],
                                             amount, acc_id, period_id, journal.id, '', '', '',)
 
@@ -199,11 +195,9 @@ class sale_order(osv.osv):#{{{
             tb = sys.exc_info()
             tb_s = "".join(traceback.format_exception(*tb))
             self.write(cr, uid, [wi.id], {'state': 'error',
-                                          'error_msg':'Exception: %s\n%s' 
-                                          % (str(exception), tb_s)})
+                                          'error_msg':'Exception: %s\n%s' % (str(exception), tb_s)})
             netsvc.Logger().notifyChannel('dm action - so process', 
-                                          netsvc.LOG_ERROR, 'Exception: %s\n%s' 
-                                          % (str(exception), tb_s))
+                                          netsvc.LOG_ERROR, 'Exception: %s\n%s' % (str(exception), tb_s))
 
 sale_order()#}}}
 
@@ -226,7 +220,7 @@ class dm_campaign_proposition(osv.osv):#{{{
         prop_obj = self.browse(cr, uid, ids)[0]
         offer_id = prop_obj.camp_id.offer_id.id
         step_ids = self.pool.get('dm.offer.step').search(cr, 
-                                            uid, [('offer_id','=',offer_id)])
+                                            uid, [('offer_id', '=', offer_id)])
         step_obj = self.pool.get('dm.offer.step').browse(cr, uid, step_ids)
         for step in step_obj:
             for item in step.item_ids:
@@ -252,8 +246,8 @@ class product_product(osv.osv): # {{{
                                         offset, limit, order, context, count)
             if 'offer_id' in context and context['offer_id']:
                 result = []
-                offer_browse_id = self.pool.get('dm.offer').browse(cr, 
-                                                    uid, context['offer_id'])
+                offer_browse_id = self.pool.get('dm.offer').browse(cr, uid,
+                                                    context['offer_id'])
                 for step in offer_browse_id.step_ids:
                     for item in step.item_ids:
                         result.append(item.id)

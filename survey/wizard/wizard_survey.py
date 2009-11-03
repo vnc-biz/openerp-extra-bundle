@@ -32,23 +32,29 @@ _survey_form = '''<?xml version="1.0"?>
     <separator string="Select Partner" colspan="4"/>
     <field name="partner_ids" nolabel="1" /> 
     <separator colspan="4"/>
-    <group cols="4" colspan="4">
-    <field name="mail_subject"/>
+    <group cols="6" colspan="4">
+    <field name="send_mail"/>   <field name="mail_subject"/>
     <newline/>
-    <field name="mail_from"/>
+    <field name="send_mail_existing"/>  <field name="mail_subject_existing"/>    
+    <newline/>
+    </group>
+    <group cols="6" colspan="4">
+    <field name="mail_from" colspan="4"/>
+    </group>
     <newline/>
     <separator string="Message" colspan="4"/>
     <field name="mail" nolabel="1" colspan="4"/>
-      </group>
 </form>'''
 
 
 _survey_fields = {
-    'partner_ids': {'string': 'Partner', 'type': 'many2many', 'relation': 'res.partner'},
+    'partner_ids': {'string':'Partner', 'type':'many2many', 'relation':'res.partner'},
+    'send_mail': {'string':'Send mail for new user', 'type':'boolean', 'default':lambda *a: 1},
+    'send_mail_existing': {'string':'Send reminder for existing user', 'type':'boolean', 'default':lambda *a: 1},
     'mail_subject': {'string':'Subject', 'type':'char', 'default':lambda *a: "New user account.", "size":256},
-    'mail_from': {'string':'From', 'type':'char', "size":256},
-    'mail': {'string':'Body', 'type':'text', 'default':lambda *a: """ Your login: %(login)s, Your password: %(passwd)s
-    \n link :- http://localhost:8080"""},
+    'mail_subject_existing': {'string':'Subject', 'type':'char', 'default':lambda *a: "User account info.", "size":256},    
+    'mail_from': {'string':'From', 'type':'char', "size":256, 'required':True},
+    'mail': {'string':'Body', 'type':'text'},
     }
 
 second_form = '''<?xml version="1.0"?>
@@ -67,12 +73,16 @@ def check_survey(self, cr, uid, data, context):
     pool= pooler.get_pool(cr.dbname)
     survey_obj = pool.get('survey')
     msg = ""
+    name = ""
     for sur in survey_obj.browse(cr, uid, data['ids']):
+        name += "\t --> " + sur.title + "\n"
         if sur.state != 'open':
             msg +=  sur.title + "\n"
     if msg:
         raise  wizard.except_wizard(_('UserError'),_('%s Survey not in open state') % msg)
-    return data
+    data['form']['mail'] = '''Hello. \n\n We are inviting you for following survey. \n  ''' + name + '''\n Your login ID: %(login)s, Your password: %(passwd)s
+    \n link :- http://localhost:8080 \n\n Thanks,''' 
+    return data['form']
 
 def send_mail(self, cr, uid, data, context):
     partner_ids = data['form']['partner_ids'][0][2]
@@ -86,6 +96,8 @@ def send_mail(self, cr, uid, data, context):
     existing= ""
     created= ""
     error= ""
+    res_user = ""
+    user_exists = False
     for partner in pool.get('res.partner').browse(cr, uid, partner_ids):
         for addr in partner.address:
             if not addr.email:
@@ -95,16 +107,26 @@ def send_mail(self, cr, uid, data, context):
             if user:
                 user = user_ref.browse(cr, uid, user[0])
                 user_ref.write(cr, uid, user.id, {'survey_id':[[6, 0, data['ids']]]})
-                existing+= "- %s (Login: %s,  Password: %s)\n" % (user.name, addr.email, user.password)
+                mail= data['form']['mail']%{'login':addr.email, 'passwd':user.password}
+                if data['form']['send_mail_existing']:
+                    tools.email_send(data['form']['mail_from'],[addr.email] ,data['form']['mail_subject_existing'] ,mail )
+                    existing+= "- %s (Login: %s,  Password: %s)\n" % (user.name, addr.email, user.password)
                 continue
-
+            user_id =user_ref.search(cr, uid, [('address_id', '=', addr.id)])
+            if user_id:
+                for user_email in user_ref.browse(cr, uid, user_id):
+                    mail= data['form']['mail']%{'login':addr.email, 'passwd':user_email.password}
+                    if data['form']['send_mail_existing']:
+                        tools.email_send(data['form']['mail_from'], [addr.email], data['form']['mail_subject_existing'], mail)
+                        res_user+= "- %s (Login: %s,  Password: %s)\n" % (user_email.name, user_email.login, user_email.password)
+                continue
             passwd= genpasswd()
             out+= addr.email + ',' + passwd + '\n'
             mail= data['form']['mail'] % {'login' : addr.email, 'passwd' : passwd}
-            if not data['form']['mail_from'] : raise wizard.except_wizard('Error !', 'Please provide a "from" email address.')
-            ans = tools.email_send(data['form']['mail_from'], [addr.email], data['form']['mail_subject'], mail)
-            if ans:
-                user = user_ref.create(cr,uid,{'name' : addr.name or 'Unknown',
+            if data['form']['send_mail']:
+                ans = tools.email_send(data['form']['mail_from'], [addr.email], data['form']['mail_subject'], mail)
+                if ans:
+                    user = user_ref.create(cr,uid,{'name' : addr.name or 'Unknown',
                                         'login' : addr.email,
                                         'password' : passwd,
                                         'address_id' : addr.id,
@@ -112,9 +134,9 @@ def send_mail(self, cr, uid, data, context):
                                         'action_id' : act_id[0],
                                         'survey_id' :[[6, 0, data['ids']]]
                                        })
-                created+= "- %s (Login: %s,  Password: %s)\n" % (addr.name or 'Unknown', addr.email, passwd)
-            else:
-                error+= "- %s (Login: %s,  Password: %s)\n" % (addr.name or 'Unknown', addr.email, passwd)
+                    created+= "- %s (Login: %s,  Password: %s)\n" % (addr.name or 'Unknown', addr.email, passwd)
+                else:
+                    error+= "- %s (Login: %s,  Password: %s)\n" % (addr.name or 'Unknown', addr.email, passwd)
     note= ""
     if created:
         note += 'Created users:\n%s\n\n' % (created)
@@ -124,6 +146,8 @@ def send_mail(self, cr, uid, data, context):
         note += "%d contacts where ignored (an email address is missing).\n\n" % (skipped)
     if error:
         note += 'E-Mail not send successfully:\n====================\n%s\n' % (error)
+    if res_user:
+        note += 'E-mail ID used the following user:\n====================\n%s\n' % (res_user)
     return {'note': note}
     
 

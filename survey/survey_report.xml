@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <openerp>
-<data>
-	<report auto="True"
-		id="survey"
-		model = "survey"
-		name="survey_analysis_report"
-		rml = "survey/report/survey_analysis_report.rml"
-		string="Survey Analysis Report"/>
-</data>
+	<data>
+
+		<report auto="True" id="survey" model="survey"
+			name="survey_analysis_report"
+			rml="survey/report/survey_analysis_report.rml"
+			string="Survey Analysis Report"/>
+
+	</data>
 </openerp>

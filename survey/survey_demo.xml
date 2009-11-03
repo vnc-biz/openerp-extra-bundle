@@ -6,15 +6,15 @@
 	        <field name="user_id" ref="base.user_root"/>
 	        <field name="max_response_limit">20</field>
    		</record>
-   		
-   		
+
+
         <record id="survey_page_1" model="survey.page">
             <field name="title">First Page</field>
             <field name="sequence">1</field>
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title" />
         </record>
-        
+
         <record id="survey_page_2" model="survey.page">
             <field name="title">Second Page</field>
             <field name="sequence">2</field>
@@ -28,14 +28,14 @@
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title" />
         </record>
-        
+
         <record id="survey_page_4" model="survey.page">
             <field name="title">Fourth Page</field>
             <field name="sequence">4</field>
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title" />
         </record>
-                
+
         <record id="survey_question_1" model="survey.question">
             <field name="question">Please let us know what you think about our module?</field>
             <field name="page_id" ref="survey_page_1" />
@@ -59,7 +59,7 @@
             <field name="page_id" ref="survey_page_4" />
             <field name="is_require_answer">1</field>
         </record>
-        
+
 	<!--  Survey Answer -->
         <record id="survey_answer_1_1" model="survey.answer">
             <field name="answer">Took someone else's survey</field>
@@ -135,27 +135,27 @@
             <field name="answer">No</field>
             <field name="question_id" ref="survey_question_4" />
         </record>
-	
+
 		<!--  Second survey -->
-		
+
         <record model="survey" id="survey_title_cricket">
 	        <field name="title">Cricket</field>
 	        <field name="user_id" ref="base.user_root"/>
 	        <field name="max_response_limit">10</field>
    		</record>
-   		
+
         <record id="survey_page_2_1" model="survey.page">
             <field name="title">Cricket</field>
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title_cricket" />
         </record>
-        
+
         <record id="survey_question_2_1_1" model="survey.question">
             <field name="question">Which of the following countries won the final of the triangular cricket series held in durban in februarry 1997 ?</field>
             <field name="page_id" ref="survey_page_2_1" />
             <field name="is_require_answer">1</field>
         </record>
-        
+
         <record id="survey_answer_2_1_1_1" model="survey.answer">
             <field name="answer">India</field>
             <field name="question_id" ref="survey_question_2_1_1" />
@@ -177,7 +177,7 @@
             <field name="question">In which year did Milkha Singh win the first National title in the 400 m race??</field>
             <field name="page_id" ref="survey_page_2_1" />
             <field name="is_require_answer">1</field>
-        </record>   
+        </record>
         <record id="survey_answer_2_1_2_1" model="survey.answer">
             <field name="answer">1955</field>
             <field name="question_id" ref="survey_question_2_1_2" />
@@ -194,8 +194,8 @@
             <field name="answer">1970</field>
             <field name="question_id" ref="survey_question_2_1_2" />
         </record>
-             
-        
+
+
         <record id="survey_page_2_2" model="survey.page">
             <field name="title">Cricket</field>
             <field name="note">Description</field>
@@ -205,7 +205,7 @@
             <field name="question">When was Amateur Athletics Federation of India established?</field>
             <field name="page_id" ref="survey_page_2_2" />
             <field name="is_require_answer">1</field>
-        </record>   
+        </record>
         <record id="survey_answer_2_2_1_1" model="survey.answer">
             <field name="answer">1936</field>
             <field name="question_id" ref="survey_question_2_2_1" />
@@ -222,12 +222,12 @@
             <field name="answer">1966</field>
             <field name="question_id" ref="survey_question_2_2_1" />
         </record>
-        
+
         <record id="survey_question_2_2_2" model="survey.question">
             <field name="question">In which Indian state did the game of Polo originate?</field>
             <field name="page_id" ref="survey_page_2_2" />
             <field name="is_require_answer">1</field>
-        </record>   
+        </record>
         <record id="survey_answer_2_2_2_1" model="survey.answer">
             <field name="answer">Meghalaya</field>
             <field name="question_id" ref="survey_question_2_2_2" />
@@ -244,7 +244,7 @@
             <field name="answer">West Bengal</field>
             <field name="question_id" ref="survey_question_2_2_2" />
         </record>
-        
+
         <record id="survey_page_2_3" model="survey.page">
             <field name="title">Cricket</field>
             <field name="note">Description</field>
@@ -254,7 +254,7 @@
             <field name="question">How many gold medals have been won by India in the Olympics so far?</field>
             <field name="page_id" ref="survey_page_2_3" />
             <field name="is_require_answer">1</field>
-        </record>   
+        </record>
         <record id="survey_answer_2_3_1_1" model="survey.answer">
             <field name="answer">4</field>
             <field name="question_id" ref="survey_question_2_3_1" />
@@ -271,20 +271,20 @@
             <field name="answer">10</field>
             <field name="question_id" ref="survey_question_2_3_1" />
         </record>
-        
+
         <!--  Third Survey -->
-        
+
         <record model="survey" id="survey_title_computer">
 	        <field name="title">Computer Related</field>
 	        <field name="user_id" ref="base.user_root"/>
    		</record>
-   		
+
         <record id="survey_page_3_1" model="survey.page">
             <field name="title">File extenssion</field>
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title_computer" />
         </record>
-        
+
         <record id="survey_question_3_1_1" model="survey.question">
             <field name="question">'.BAK' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_1" />
@@ -306,7 +306,7 @@
             <field name="answer">MS Encarta document</field>
             <field name="question_id" ref="survey_question_3_1_1" />
         </record>
-        
+
         <record id="survey_question_3_1_2" model="survey.question">
             <field name="question">'.MPG' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_1" />
@@ -328,13 +328,13 @@
             <field name="answer">Image file</field>
             <field name="question_id" ref="survey_question_3_1_2" />
         </record>
-        
+
         <record id="survey_page_3_2" model="survey.page">
             <field name="title">File extenssion</field>
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title_computer" />
         </record>
-        
+
         <record id="survey_question_3_2_1" model="survey.question">
             <field name="question">'.INI' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_2" />
@@ -356,14 +356,14 @@
             <field name="answer">Image Color Matching Profile file</field>
             <field name="question_id" ref="survey_question_3_2_1" />
         </record>
-        
-        
+
+
         <record id="survey_page_3_3" model="survey.page">
             <field name="title">File extenssion</field>
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title_computer" />
         </record>
-        
+
         <record id="survey_question_3_3_1" model="survey.question">
             <field name="question">'.BAT' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_3" />
@@ -391,7 +391,7 @@
             <field name="note">Description</field>
             <field name="survey_id" ref="survey_title_computer" />
         </record>
-        
+
         <record id="survey_question_3_4_1" model="survey.question">
             <field name="question">'.JPG' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_4" />
@@ -440,8 +440,8 @@
         <record id="survey_answer_3_5_1_4" model="survey.answer">
             <field name="answer">Video file</field>
             <field name="question_id" ref="survey_question_3_5_1" />
-        </record>   
-        
+        </record>
+
         <record id="survey_page_3_6" model="survey.page">
             <field name="title">File extenssion</field>
             <field name="note">Description</field>
@@ -467,8 +467,8 @@
         <record id="survey_answer_3_6_1_4" model="survey.answer">
             <field name="answer">Ray Tomlinson</field>
             <field name="question_id" ref="survey_question_3_6_1" />
-        </record>        
-                
-        
+        </record>
+
+
     </data>
 </openerp>

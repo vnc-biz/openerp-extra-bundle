@@ -157,7 +157,7 @@ class survey_response(osv.osv):
     _columns = {
         'date_create' : fields.datetime('Create Date', required=1),
         'date_modify' : fields.datetime('Modify Date'),
-        'state' : fields.selection([('draft', 'Draft'),('done', 'Done'), ('skip','Skip')], 'Status', readonly = True),
+        'state' : fields.selection([('draft', 'Draft'),('done', 'Answered'), ('skip','Skiped')], 'Status', readonly = True),
         'response_id' : fields.many2one('res.users', 'User'),
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
         'response_type' : fields.selection([('manually','Manually'),('link','Link')],'Response Type'),

@@ -237,8 +237,8 @@ msgid "Default Customers List for Direct Marketing Campaigns"
 msgstr "Liste par défaut pour les campagnes marketing"
 
 #. module: dm
-#: view:res.partner:0
-#: field:res.partner,decoy_address:0
+#: view:res.partner.address:0
+#: field:res.partner.address,decoy_address:0
 msgid "Decoy Address"
 msgstr "Addresse piège"
 
@@ -273,15 +273,6 @@ msgstr "Campagnes ouvertes"
 #: field:dm.customer.order,project_id:0
 msgid "Analytic Account"
 msgstr "Compte analytique"
-
-#. module: dm
-#: help:res.partner,decoy_for_renting:0
-msgid ""
-"Define if this decoy address can be used with used with customers files "
-"renting"
-msgstr ""
-"Défini si cette adresse piège peut être utilisée pour la location de listes "
-"clients"
 
 #. module: dm
 #: view:dm.customer.order:0
@@ -1061,7 +1052,7 @@ msgid "Original Preoffer :"
 msgstr "Idée d'origine"
 
 #. module: dm
-#: field:res.partner,decoy_owner:0
+#: field:res.partner.address,decoy_owner:0
 msgid "Decoy Address Owner"
 msgstr "Propriétaire de l'adresse piège"
 
@@ -1941,16 +1932,6 @@ msgstr "Toutes les enseignes"
 #: selection:dm.campaign.purchase_line,trigger:0
 msgid "At Draft"
 msgstr "Á la remise en brouillon"
-
-#. module: dm
-#: help:res.partner,decoy_for_campaign:0
-msgid "Define if this decoy address can be used with campaigns"
-msgstr "Défini si cette adresse piège peut être utilisée avec une campagne"
-
-#. module: dm
-#: field:res.partner,decoy_for_renting:0
-msgid "Used for File Renting"
-msgstr "Utilisé pour la location de fichiers"
 
 #. module: dm
 #: model:ir.actions.report.xml,name:dm.dm_preoffer_report
@@ -3421,7 +3402,7 @@ msgid "Campaign Group"
 msgstr "Groupe de campagne"
 
 #. module: dm
-#: help:res.partner,decoy_address:0
+#: help:res.partner.address,decoy_address:0
 msgid ""
 "A decoy address is an address used to identify unleagal uses of a customers "
 "file"
@@ -3554,12 +3535,12 @@ msgid "ilike"
 msgstr "comme (avec casse)"
 
 #. module: dm
-#: help:res.partner,decoy_owner:0
+#: help:res.partner.address,decoy_owner:0
 msgid "The partner this decoy address belongs to"
 msgstr "Le partenaire à qui appartient l'adresse piège"
 
 #. module: dm
-#: field:res.partner,decoy_media_ids:0
+#: field:res.partner.address,decoy_media_ids:0
 msgid "decoy address for Media"
 msgstr "Média de l'adresse piège"
 
@@ -3690,7 +3671,7 @@ msgid "Salesman"
 msgstr "Vendeur"
 
 #. module: dm
-#: help:res.partner,decoy_external_ref:0
+#: help:res.partner.address,decoy_external_ref:0
 msgid "The reference of the decoy address for the owner"
 msgstr "La référence de l'adresse piège pour son propriétaire"
 
@@ -3989,11 +3970,6 @@ msgid "Customer Order"
 msgstr "Commande client"
 
 #. module: dm
-#: field:res.partner,decoy_for_campaign:0
-msgid "Used for Campaigns"
-msgstr "Utilisé pour les campagnes"
-
-#. module: dm
 #: rml:dm.campaign.report:0
 msgid "Starting Date"
 msgstr "Date de début"
@@ -4038,7 +4014,7 @@ msgid "Quantities"
 msgstr "Quantités"
 
 #. module: dm
-#: field:res.partner,decoy_external_ref:0
+#: field:res.partner.address,decoy_external_ref:0
 msgid "External Reference"
 msgstr "Référence externe"
 

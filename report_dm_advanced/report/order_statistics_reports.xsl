@@ -8,10 +8,25 @@
 	</xsl:template>
 
 	<xsl:template name="rml">
-		<document filename="example.pdf">
-            <template pageSize="45cm,21cm" title="Test" author="Martin Simon" allowSplitting="20">
+        <document filename="example.pdf">
+            <!--template pageSize="45cm,21cm" title="Test" author="Martin Simon" allowSplitting="20"-->
+            <template>
+                <xsl:attribute name="pageSize">
+                    <xsl:value-of select="/report/cols/attribute::templatewidth"/>
+                </xsl:attribute>
+                <xsl:attribute name="title">Test</xsl:attribute>
+                <xsl:attribute name="author">Martin Simon</xsl:attribute>
+                <xsl:attribute name="allowSplitting">20</xsl:attribute>
                 <pageTemplate id="first">
-                    <frame id="first"  x1="10cm" y1="2.5cm" width="24.7cm" height="17cm"/>
+                    <frame>
+                        <xsl:attribute name="id">first</xsl:attribute>
+                        <xsl:attribute name="x1">2cm</xsl:attribute>
+                        <xsl:attribute name="y1">2.5cm</xsl:attribute>
+                        <xsl:attribute name="width">
+                            <xsl:value-of select="/report/cols/attribute::framewidth"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="height">17cm</xsl:attribute>
+                    </frame>
     			</pageTemplate>
 			</template>
 
@@ -45,15 +60,17 @@
 		<xsl:variable name="s_id" select="attribute::s_id"/>
 		<story>
 		    <para style="title" t="1"> <xsl:value-of select="attribute::name"/> </para>
-		    <spacer length="1cm" />
+            <spacer length="1cm" />
 		    <blockTable>
 			    <xsl:attribute name="style">month</xsl:attribute>
-			    <xsl:attribute name="colWidths"><xsl:value-of select="report/cols" /></xsl:attribute>
+                <xsl:attribute name="colWidths"><xsl:value-of select="//cols" /></xsl:attribute>
 			    <tr>
-                    <td><xsl:value-of select="//date/attribute::month_year" /></td>
+                    <td>
+                        <xsl:value-of select="//date/attribute::from_month_year" /> -
+                        <xsl:value-of select="//date/attribute::to_month_year" /></td>
 				    <xsl:for-each select="//days/day">
 					    <td>
-						    <xsl:value-of select="attribute::number" />
+						    <xsl:value-of select="attribute::string" />
 					    </td>
 				    </xsl:for-each>
 				    <td t="1">Total</td>
@@ -65,10 +82,9 @@
 					    <td><para><xsl:value-of select="attribute::name"/></para></td>
 					    <xsl:for-each select="//report/days/day">
 					    <xsl:variable name="today" select="attribute::number" />
-						    <td>
-							    <para>
+                            <td>
+                                <para>
 								     <xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row[@id=$id]/time-element[@date=$today]), '##.##')" />
-
 							    </para>
 						    </td>
 					    </xsl:for-each>
@@ -89,7 +105,7 @@
 				    </xsl:for-each>
 				    <td><xsl:value-of select="format-number(sum(//story[@s_id=$s_id]/row/time-element),'##.##')"/></td>
 			    </tr>
-		    </blockTable>
+            </blockTable>
     	</story>
 	</xsl:for-each>
 	

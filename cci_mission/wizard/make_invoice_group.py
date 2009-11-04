@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,9 +15,11 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import time
+
 import wizard
 import netsvc
 import pooler
@@ -25,7 +27,6 @@ import create_invoice_carnet
 import create_invoice_embassy
 import create_invoice
 from event.wizard import make_invoice
-import time
 from osv import fields, osv
 
 form = """<?xml version="1.0"?>
@@ -260,6 +261,7 @@ def _group_invoice(self, cr, uid, data, context):
                 'fiscal_position': invoice.partner_id.property_account_position.id
             }
         inv_id = obj_inv.create(cr, uid, inv)
+        obj_inv.button_reset_taxes(cr, uid, [inv_id], context)
         for item in self.invoice_info:
             pool_obj.get(item['model']).write(cr, uid,[item['id']], {'invoice_id' : inv_id})
         disp_msg +='\n'+ partner.name + ': '+ str(len(data_inv)) +' Invoice(s) Grouped.'
@@ -278,26 +280,27 @@ class mission_group_invoice(wizard.interface):
             'domain': "[('id','in', ["+','.join(map(str,data['form']['invoice_ids']))+"])]",
             'name': 'Invoices',
             'view_type': 'form',
-            'view_mode': 'form,tree',
+            'view_mode': 'tree,form',
             'res_model': 'account.invoice',
-            'views': [(resource_id,'form')],
+            'views': [(False,'tree'), (resource_id,'form')],
             'context': "{'type':'out_invoice',}",
             'type': 'ir.actions.act_window'
         }
     states = {
-        'init' : {
+        'init': {
                'actions' : [],
                'result': {'type': 'form', 'arch': form, 'fields': fields, 'state':[('end','Cancel'),('open','Group Invoice')]}
-            },
+               },
         'open': {
             'actions': [_group_invoice],
             'result': {'type':'form', 'arch': form_msg, 'fields': fields_msg, 'state':[('end','Ok'),('open_inv','Open Invoices')]}
-            },
+                },
         'open_inv': {
             'actions': [],
             'result': {'type':'action', 'action':_list_invoice, 'state':'end'}
-            }
-    }
-mission_group_invoice("cci_missions.make_invoice_common")
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+                    }
+                }
 
+mission_group_invoice("cci_missions.make_invoice_common")
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

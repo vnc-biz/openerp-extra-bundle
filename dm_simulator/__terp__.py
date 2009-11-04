@@ -34,6 +34,7 @@
     "update_xml" : [
                     "dm_simulator_view.xml",
                     "dm_simulator_data.xml",
+                    "security/ir.model.access.csv",
                     ],
     "active": False,
     "installable": True,

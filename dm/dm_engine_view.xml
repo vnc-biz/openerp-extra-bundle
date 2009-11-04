@@ -47,6 +47,8 @@
         <field name="arch" type="xml">
             <tree string="Workitems">
                 <field name="address_id" />
+                <field name="customer_id" />
+                <field name="customer_email" />
                 <field name="source" />
                 <field name="step_id" />
                 <field name="segment_id" />
@@ -164,6 +166,15 @@
     </record>
 
     <menuitem id="menu_dm_sysmsg_form" parent="dm.menu_dm_config_lowlevel" action="action_dm_sysmsg_form"/>
+
+    <act_window name="Workitems"
+        res_model="dm.workitem"
+        src_model="res.partner.address"
+        view_type="form"
+        view_mode="tree,form"
+        id="act_customer_workitems"
+        domain = "[('address_id','in',[active_id])]"
+        />
 
     </data>
 </openerp>

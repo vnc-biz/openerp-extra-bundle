@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -120,6 +120,7 @@ def _createInvoices(self, cr, uid, data, context):
         inv_create = inv_create + 1
         inv_obj = pool_obj.get('account.invoice')
         inv_id = inv_obj.create(cr, uid, inv)
+        inv_obj.button_reset_taxes(cr, uid, [inv_id], context)
         obj_embassy.write(cr, uid,embassy.id, {'invoice_id' : inv_id})
         list_inv.append(inv_id)
         obj_embassy.write(cr, uid,[embassy.id], {'state':'done','invoice_date': time.strftime('%Y-%m-%d %H:%M:%S')})

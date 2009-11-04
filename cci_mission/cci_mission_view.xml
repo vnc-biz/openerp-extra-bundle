@@ -2,8 +2,6 @@
 <openerp>
     <data>
 
-        <menuitem name="Missions" id="menu_mission"/>
-
         <record model="ir.ui.view" id="view_partner_form_inherit_mission">
             <field name="name">res.partner.form</field>
             <field name="type">form</field>
@@ -68,7 +66,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Missions/Configuration/Dossier Types" action="action_cci_missions_dossier_type" id="menu_cci_missions_dossier_type"/>
+        <menuitem parent="menu_mission_configure" name="Dossier Types" action="action_cci_missions_dossier_type" id="menu_cci_missions_dossier_type"/>
 
 <!-- view for cci_missions_site -->
         <record model="ir.ui.view" id="cci_missions_site_form">
@@ -112,7 +110,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Missions/Configuration/Site" action="action_cci_missions_site" id="menu_action_cci_missions_site"/>
+        <menuitem parent="menu_mission_configure" name="Site" action="action_cci_missions_site" id="menu_action_cci_missions_site"/>
 
 <!-- view for cci_missions_dossier -->
         <record model="ir.ui.view" id="cci_missions_dossier_form">
@@ -171,7 +169,8 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Missions/Configuration/Search Entries/Dossier" action="action_cci_missions_dossier" id="menu_action_cci_missions_dossier"/>
+		<menuitem id="menu_mission_search" name="Search Entries" parent="menu_mission_configure"/>
+        <menuitem parent="menu_mission_search" name="Dossier" action="action_cci_missions_dossier" id="menu_action_cci_missions_dossier"/>
 
         <record model="crm.case.section" id="case_section_embassy_folder">
             <field name="name">Embassy Folder</field>
@@ -346,7 +345,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Missions/Configuration/Search Entries/Embassy Folder Lines" action="action_cci_missions_embassy_folder_line" id="menu_action_cci_missions_embassy_folder_line"/>
+        <menuitem parent="menu_mission_search" name="Embassy Folder Lines" action="action_cci_missions_embassy_folder_line" id="menu_action_cci_missions_embassy_folder_line"/>
 
 
 
@@ -383,7 +382,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Missions/Configuration/Custom Codes" action="action_cci_missions_custom_code" id="menu_action_action_cci_missions_custom_code"/>
+        <menuitem parent="menu_mission_configure" name="Custom Codes" action="action_cci_missions_custom_code" id="menu_action_action_cci_missions_custom_code"/>
 
 <!-- view for cci_missions_legalization -->
         <record model="ir.ui.view" id="cci_missions_legalization_form">
@@ -433,6 +432,9 @@
 	                                        <field name="quantity" select="1"/>
 	                                        <field name="uos_id"/>
 	                                        <field name="price_unit" select="1"/>
+	                                        <newline/>
+	                                        <separator string="Sale Taxes" colspan="4"/>
+				                            <field name="taxes_id" colspan="4" nolabel="1"/>
 	                                </form>
 	                            </field>
 	                        </child1>
@@ -528,6 +530,9 @@
 	                                    <field name="quantity" select="1"/>
 	                                    <field name="uos_id"/>
 	                                    <field name="price_unit" select="1"/>
+	                                    <newline/>
+	                                    <separator string="Sale Taxes" colspan="4"/>
+			                            <field name="taxes_id" colspan="4" nolabel="1"/>
 	                                </form>
 	                            </field>
 	                        </child1>
@@ -535,6 +540,7 @@
                         		<label string="" colspan="2"/><field name="sub_total" coslpan="2"/>
                         	</child2>
                         </vpaned>
+						<button name='%(wizard_add_product_line)d' type='action' string='Add Products'/>
                     </page>
                     <page string="Links">
                         <field name="embassy_folder_id" />
@@ -642,7 +648,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Missions/Configuration/ATA Usage" action="action_cci_missions_ata_usage" id="menu_action_cci_missions_ata_usage"/>
+        <menuitem parent="menu_mission_configure" name="ATA Usage" action="action_cci_missions_ata_usage" id="menu_action_cci_missions_ata_usage"/>
 
 <!-- view for cci_missions_letters_log -->
         <record model="ir.ui.view" id="cci_missions_letters_log_form">
@@ -678,7 +684,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Missions/Configuration/Search Entries/Letters Log" action="action_cci_missions_letters_log" id="menu_action_cci_missions_letters_log"/>
+        <menuitem parent="menu_mission_search" name="Letters Log" action="action_cci_missions_letters_log" id="menu_action_cci_missions_letters_log"/>
 
 
 <!-- View for cci_missions.ata_carnet  -->
@@ -714,7 +720,7 @@
                         <field name="usage_id" />
                         <field name="goods" select="2"/>
                         <field name="area_id" select="2"/>
-                        <field name="goods_value" />
+                        <field name="goods_value" on_change="onchange_good_value(creation_date,partner_id,goods_value,double_signature,member_price,own_risk,type_id)"/>
                         <field name="double_signature" />
                         <field name="initial_pages" />
                         <field name="insurer_agreement" />
@@ -820,6 +826,8 @@
                             <field name="uos_id"/>
                             <field name="price_unit" select="1"/>
                             <newline/>
+                            <separator string="Sale Taxes" colspan="4"/>
+                            <field name="taxes_id" colspan="4" nolabel="1"/>
                             <!--<field name="price_subtotal"/>-->
                 </form>
             </field>

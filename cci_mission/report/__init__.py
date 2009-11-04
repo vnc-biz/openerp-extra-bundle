@@ -21,5 +21,6 @@
 import report_print_carnet
 import carnet_after_validity
 import carnet_before_validity
+import stats_mission_type
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -31,15 +31,22 @@ Fields = UpdateableDict()
 
 Form = """<?xml version="1.0"?>
 <form string="Statistic Reports">
-   <field name="month"/>
-   <field name="year"/>
+   <field name="start_date"/>
+   <field name="end_date"/>
    <field name="row_id"/>
    <field name="origin_partner"/>
 </form>"""
 
+error_form = """<?xml version="1.0"?>
+<form string="Statistic Reports - Date error">
+   <label string="End date can not be less than start date"/>
+</form>"""
+
 Fields = {
-     'month': dict(string=u'Month', type='selection', required=True, selection=[(x, datetime.date(2000, x, 1).strftime('%B')) for x in range(1, 13)]), 
-    'year': dict(string=u'Year', type='integer', required=True),
+#    'month': dict(string=u'Month', type='selection', required=True, selection=[(x, datetime.date(2000, x, 1).strftime('%B')) for x in range(1, 13)]), 
+#    'year': dict(string=u'Year', type='integer', required=True),
+    'start_date' : {'string':'Start Date','type':'date', 'required' : True },
+    'end_date' : {'string':'End Date','type':'date', 'required' : True },
     'origin_partner':{'string':'Sort by origin partner' , 'type':'boolean'}
 }
 
@@ -59,12 +66,23 @@ def _report_name(self, cr, uid, data, context):
     self.states['print']['result']['report'] = self.wiz_name
     return {}
     
-    
+def _check_date(self, cr, uid, data, context) :
+    if data['form']['start_date'] > data['form']['end_date'] :
+        return 'error'
+    return 'print'
 class wizard_amt_campaign_report(wizard.interface):
     states = {
         'init': {
             'actions': [_get_value],
-            'result': {'type':'form', 'arch':Form, 'fields':Fields, 'state':[('end','Cancel'),('print','Print Report')]},
+            'result': {'type':'form', 'arch':Form, 'fields':Fields, 'state':[('end','Cancel'),('check_date','Print Report')]},
+        },
+        'check_date' :{
+            'actions' : [],
+            'result' : {'type' : 'choice' , 'next_state': _check_date}
+        },
+        'error': {
+            'actions': [],
+            'result': {'type':'form', 'arch':error_form, 'fields':{}, 'state':[('end','Cancel'),('init','Reset Value')]},
         },
         'print': {
             'actions': [_report_name],

@@ -21,8 +21,6 @@
 
 import wizard
 import pooler
-from osv import fields
-from osv import osv
 
 segment_form = """<?xml version="1.0" ?>
 <form string="Segments">
@@ -31,21 +29,24 @@ segment_form = """<?xml version="1.0" ?>
 </form>"""
 
 segment_fields = {
-    'segment_ids':{'string':'Segments', 'type':'many2many', 'relation':'dm.campaign.proposition.segment'},
+    'segment_ids': {'string': 'Segments', 'type': 'many2many', 
+                    'relation': 'dm.campaign.proposition.segment'},
 }
 
 def _show_segments(self, cr, uid, data, context):
     pool = pooler.get_pool(cr.dbname)
     wi_obj = pool.get('dm.workitem')
-    workitems = wi_obj.search(cr,uid,[('address_id','=',data['id'])])
-    data['form']['segment_ids'] = [wi.segment_id.id for wi in wi_obj.browse(cr,uid,workitems)]
+    workitems = wi_obj.search(cr, uid, [('address_id', '=', data['id'])])
+    data['form']['segment_ids'] = [wi.segment_id.id for wi in 
+                                            wi_obj.browse(cr, uid, workitems)]
     return data['form']
 
 class wizard_address_segments(wizard.interface):
     states = {
         'init':{
             'actions': [_show_segments],
-            'result': {'type':'form', 'arch':segment_form, 'fields':segment_fields, 'state':[('end', 'OK')]},
+            'result': {'type': 'form', 'arch': segment_form, 
+                       'fields': segment_fields, 'state': [('end', 'OK')]},
         },
     }
 wizard_address_segments("wizard_address_segments")

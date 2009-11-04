@@ -47,9 +47,12 @@ class wizard_proposition_products(wizard.interface):
 
 
     new_prices_prog_fields = {
-        'prices_prog_name': {'string': 'Name', 'type': 'char', 'size':64, 'required':True },
-        'fixed_prog': {'string': 'Fixed Progression', 'type': 'float', 'digits':(16,2)},
-        'percent_prog': {'string': 'Percent Progression Name', 'type': 'float', 'digits':(16,2)},
+        'prices_prog_name': {'string': 'Name', 'type': 'char',
+                              'size': 64, 'required': True },
+        'fixed_prog': {'string': 'Fixed Progression', 
+                       'type': 'float', 'digits': (16, 2)},
+        'percent_prog': {'string': 'Percent Progression Name',
+                          'type': 'float', 'digits': (16, 2)},
         }
     
     def _select_prices_prog(self, cr, uid, data, context):
@@ -61,7 +64,7 @@ class wizard_proposition_products(wizard.interface):
         pool=pooler.get_pool(cr.dbname)
         prop_obj=pool.get('dm.campaign.proposition').browse(cr, uid, data['ids'])[0]
         offer_id=prop_obj.camp_id.offer_id.id
-        step_ids=pool.get('dm.offer.step').search(cr, uid, [('offer_id','=',offer_id)])
+        step_ids=pool.get('dm.offer.step').search(cr, uid, [('offer_id', '=', offer_id)])
         step_obj=pool.get('dm.offer.step').browse(cr, uid, step_ids)
         pprog_obj=pool.get('dm.campaign.proposition.prices_progression').browse(cr, uid, prices_prog_id)
         if prop_obj.item_ids:
@@ -74,13 +77,13 @@ class wizard_proposition_products(wizard.interface):
         for step in step_obj:
             for item in step.item_ids:
                 if item:
-                    if prop_obj.force_sm_price :
+                    if prop_obj.force_sm_price:
                         pu = prop_obj.sm_price
                     else :
                         if not prop_obj.customer_pricelist_id:
                             raise wizard.except_wizard('Error !', 'Select a product pricelist !')
                         pu = pool.get('product.pricelist').price_get(cr, uid,
-                            [prop_obj.customer_pricelist_id.id], item.id,1.0,
+                            [prop_obj.customer_pricelist_id.id], item.id, 1.0,
                             context=context)[prop_obj.customer_pricelist_id.id]
 
                     price = pu * (1 + (stp * pprog_obj.percent_prog)) + (stp * pprog_obj.fixed_prog)
@@ -98,18 +101,18 @@ class wizard_proposition_products(wizard.interface):
         """
         pool=pooler.get_pool(cr.dbname)
         prop_obj = pool.get('dm.campaign.proposition')
-        for r in prop_obj.browse(cr,uid,data['ids']):
+        for r in prop_obj.browse(cr, uid, data['ids']):
             if not r.campaign_group_id:
-                camp_obj.write(cr,uid,r.id,{'campaign_group_id':group_id})
+                camp_obj.write(cr, uid, r.id, {'campaign_group_id': group_id})
         """
         return {}
 
 
     def _new_prices_prog(self, cr, uid, data, context):
         pool=pooler.get_pool(cr.dbname)
-        prices_prog_id = pool.get('dm.campaign.proposition.prices_progression').create(cr,uid,{'name':data['form']['prices_prog_name'], 'fixed_prog':data['form']['fixed_prog'], 'percent_prog':data['form']['percent_prog']})
+        prices_prog_id = pool.get('dm.campaign.proposition.prices_progression').create(cr, uid, {'name': data['form']['prices_prog_name'], 'fixed_prog': data['form']['fixed_prog'], 'percent_prog': data['form']['percent_prog']})
         context['prices_prog_id'] = prices_prog_id
-        self._select_prices_prog(cr,uid,data,context)
+        self._select_prices_prog(cr, uid, data, context)
         return {}
 
     def _get_prices_progs(self, cr, uid, context):
@@ -117,7 +120,7 @@ class wizard_proposition_products(wizard.interface):
         prices_prog_obj=pool.get('dm.campaign.proposition.prices_progression')
         ids=prices_prog_obj.search(cr, uid, [])
         res=[(prices_prog.id, prices_prog.name) for prices_prog in prices_prog_obj.browse(cr, uid, ids)]
-        res.sort(lambda x,y: cmp(x[1],y[1]))
+        res.sort(lambda x, y: cmp(x[1], y[1]))
         return res
 
 
@@ -135,26 +138,35 @@ class wizard_proposition_products(wizard.interface):
             return 'open'
 
     prices_prog_fields = {
-        'prices_progression': {'string': 'Select Prices Progression', 'type': 'selection', 'selection':_get_prices_progs},
+        'prices_progression': {'string': 'Select Prices Progression', 
+                         'type': 'selection', 'selection': _get_prices_progs},
         }
 
 
     states = {
         'init': {
             'actions': [],
-            'result': {'type':'choice', 'next_state':check_price_prog}
+            'result': {'type':'choice', 'next_state': check_price_prog}
             },
         'open': {
             'actions': [],
-            'result': {'type':'form', 'arch':prices_prog_form, 'fields':prices_prog_fields, 'state':[('end','Cancel'),('name_prices_prog','Create New Prices Progression'),('next','Assign Prices Progression'),]}
+            'result': {'type':'form', 'arch':prices_prog_form, 
+                       'fields': prices_prog_fields, 
+                       'state': [('end','Cancel'),
+                        ('name_prices_prog', 'Create New Prices Progression'),
+                           ('next', 'Assign Prices Progression'), ]}
             },
         'name_prices_prog': {
             'actions': [],
-            'result': {'type':'form', 'arch':new_prices_prog, 'fields':new_prices_prog_fields, 'state':[('end','Cancel'),('new','Create Prices Progression')]}
+            'result': {'type':'form', 'arch': new_prices_prog,
+                        'fields': new_prices_prog_fields, 
+                        'state': [('end', 'Cancel'),
+                                 ('new','Create Prices Progression')]}
             },
         'new': {
             'actions': [_new_prices_prog],
-            'result': {'type': 'form', 'arch': message, 'fields':{} ,'state': [('end', 'Ok', 'gtk-ok', True)]}
+            'result': {'type': 'form', 'arch': message,
+                        'fields': {} ,'state': [('end', 'Ok', 'gtk-ok', True)]}
         },
         'next': {
             'actions': [],
@@ -162,11 +174,14 @@ class wizard_proposition_products(wizard.interface):
         },
         'error': {
             'actions': [],
-            'result': {'type': 'form', 'arch': error_message, 'fields':{} ,'state': [('end','Cancel'),('init','Select Prices Progression')]}
+            'result': {'type': 'form', 'arch': error_message,
+                        'fields': {} ,'state': [('end', 'Cancel'),
+                                       ('init', 'Select Prices Progression')]}
         },
         'select': {
             'actions': [_select_prices_prog],
-            'result': {'type': 'form', 'arch': message, 'fields':{} ,'state': [('end', 'Ok', 'gtk-ok', True)]}
+            'result': {'type': 'form', 'arch': message, 'fields': {},
+                       'state': [('end', 'Ok', 'gtk-ok', True)]}
         },
         }
 wizard_proposition_products("wizard_proposition_products")

@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <openerp>
 	<data>
+		<menuitem name="Missions" id="menu_mission"/>
+		<menuitem id="menu_mission_configure" name="Configuration" parent="menu_mission" sequence="4"/>
+		<menuitem id="menu_mission_reporting" name="Reporting" parent="menu_mission" sequence="20"/>
+
 		<wizard string="Create Embassy Folder"
 			model="cci_missions.certificate"
 			name="cci_mission.create_embassy_folder"
@@ -80,6 +84,11 @@
 			menu="True"
 			id="missions_rec_enc_cash_carnet"/>
 
+		<wizard string="Create Legalization"
+			model="cci_missions.certificate"
+			name="cci_mission.create_legalization"
+			id="create_leg"/>
+
 
 <!-- Philmer addition to send the certificates to the belgian federation -->
 		<wizard string="Send to Federation"
@@ -91,16 +100,21 @@
 		<!-- Send followup for ata-carnet before and after validity date -->
 
         <record id="wizard_carnet_before_validity" model="ir.actions.wizard">
-            <field name="name">ATA Carnet Before validity date</field>
+            <field name="name">ATA Carnet Before Validity Date</field>
             <field name="wiz_name">cci_missions_carnet.before</field>
         </record>
-        <menuitem action="wizard_carnet_before_validity" id="menu_wizard_carnet_before_validity" parent="menu_mission" type="wizard"/>
+        <menuitem action="wizard_carnet_before_validity" id="menu_wizard_carnet_before_validity" parent="menu_mission_reporting" type="wizard"/>
 
         <record id="wizard_carnet_after_validity" model="ir.actions.wizard">
-            <field name="name">ATA Carnet After validity date</field>
+            <field name="name">ATA Carnet After Validity Date</field>
             <field name="wiz_name">cci_missions_carnet.after</field>
         </record>
-        <menuitem action="wizard_carnet_after_validity" id="menu_wizard_carnet_after_validity" parent="menu_mission" type="wizard"/>
+        <menuitem action="wizard_carnet_after_validity" id="menu_wizard_carnet_after_validity" parent="menu_mission_reporting" type="wizard"/>
+
+		<!-- Add product line in certificates -->
+	    <wizard string="Add Product" model="cci_missions.certificate" name="mission.product_line" menu="False" id="wizard_add_product_line"/>
+
+        <wizard id="wizard_mission_type" keyword="client_print_multi" model="cci_missions.certificate" name="stats.mission.type" string="Stats Per mission type"/>
 
 	</data>
 </openerp>

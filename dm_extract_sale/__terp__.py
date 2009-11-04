@@ -29,8 +29,7 @@
             """,
     "depends" : ["dm_sale",
                  "dm_extract"],
-    "init_xml" : [
-                    ],
+    "init_xml" : [ ],
     "demo_xml" : [],
     "update_xml" : [
                 'dm_extract_sale_view.xml',

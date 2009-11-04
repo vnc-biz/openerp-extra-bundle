@@ -18,15 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
+
 import wizard
-import pooler
 
 def _campaign_tasks(self, cr, uid, data, context):
     campaign_id = data['id']
-    cr.execute('''SELECT project_id FROM dm_campaign WHERE id = %d '''% (campaign_id, ))
+    cr.execute('''SELECT project_id FROM dm_campaign \
+                            WHERE id = %d '''% (campaign_id, ))
     res = cr.fetchone()
     if not res[0]:
-        raise wizard.except_wizard('Error !', 'No project defined for this campaign. You can create one with the retro-planning button !')
+        raise wizard.except_wizard('Error !', 'No project defined for this campaign.\
+         You can create one with the retro-planning button !')
     value = {
         'domain': [('project_id', '=', res[0])],
         'name': 'Tasks',

@@ -26,87 +26,87 @@ class dm_campaign_group(osv.osv):#{{{
     _name = "dm.campaign.group"
     
     def _quantity_planned_total(self, cr, uid, ids, name, args, context={}):
-        result={}
-        numeric=True
-        quantity=0
-        groups = self.browse(cr,uid,ids)
+        result = {}
+        numeric = True
+        quantity = 0
+        groups = self.browse(cr, uid, ids)
         for group in groups:
             for campaign in group.campaign_ids:
-                quantity=0
-                numeric=True
+                quantity = 0
+                numeric = True
                 if campaign.quantity_planned_total.isdigit():
                     quantity += int(campaign.quantity_planned_total)
                 else:
-                    result[group.id]='Check Segments'
-                    numeric=False
+                    result[group.id] = 'Check Segments'
+                    numeric = False
                     break
             if numeric:
-                result[group.id]=str(quantity)
+                result[group.id] = str(quantity)
         return result
 
     def _quantity_wanted_total(self, cr, uid, ids, name, args, context={}):
-        result={}
-        numeric=True
-        quantity=0
-        groups = self.browse(cr,uid,ids)
+        result = {}
+        numeric = True
+        quantity = 0
+        groups = self.browse(cr, uid, ids)
         for group in groups:
             for campaign in group.campaign_ids:
-                quantity=0
-                numeric=True
+                quantity = 0
+                numeric = True
                 if campaign.quantity_wanted_total.isdigit():
                     quantity += int(campaign.quantity_wanted_total)
                 elif campaign.quantity_wanted_total == "AAA for a Segment":
-                    result[group.id]='AAA for a Segment'
-                    numeric=False
+                    result[group.id] = 'AAA for a Segment'
+                    numeric = False
                     break
                 else:
-                    result[group.id]='Check Segments'
-                    numeric=False
+                    result[group.id] = 'Check Segments'
+                    numeric = False
                     break
             if numeric:
-                result[group.id]=str(quantity)
+                result[group.id] = str(quantity)
         return result
 
     def _quantity_delivered_total(self, cr, uid, ids, name, args, context={}):
-        result={}
-        numeric=True
-        quantity=0
-        groups = self.browse(cr,uid,ids)
+        result = {}
+        numeric = True
+        quantity = 0
+        groups = self.browse(cr, uid, ids)
         for group in groups:
             for campaign in group.campaign_ids:
-                quantity=0
-                numeric=True
+                quantity = 0
+                numeric = True
                 if campaign.quantity_delivered_total.isdigit():
                     quantity += int(campaign.quantity_delivered_total)
                 else:
-                    result[group.id]='Check Segments'
-                    numeric=False
+                    result[group.id] = 'Check Segments'
+                    numeric = False
                     break
             if numeric:
-                result[group.id]=str(quantity)
+                result[group.id] = str(quantity)
         return result
 
     def _quantity_usable_total(self, cr, uid, ids, name, args, context={}):
-        result={}
-        quantity=0
-        numeric=True
-        groups = self.browse(cr,uid,ids)
+        result = {}
+        quantity = 0
+        numeric = True
+        groups = self.browse(cr, uid, ids)
         for group in groups:
             for campaign in group.campaign_ids:
-                quantity=0
-                numeric=True
+                quantity = 0
+                numeric = True
                 if campaign.quantity_usable_total.isdigit():
                     quantity += int(campaign.quantity_usable_total)
                 else:
-                    result[group.id]='Check Segments'
-                    numeric=False
+                    result[group.id] = 'Check Segments'
+                    numeric = False
                     break
             if numeric:
-                result[group.id]=str(quantity)
+                result[group.id] = str(quantity)
         return result
 
     def _camp_group_code(self, cr, uid, ids, name, args, context={}):
-        result ={}
+        result = {}
         offer_code = ''
         offer_name = ''
         for id in ids:
@@ -114,35 +114,46 @@ class dm_campaign_group(osv.osv):#{{{
             dt = time.strftime('%Y-%m-%d')
             date = dt.split('-')
             year = month = ''
-            if len(date)==3:
+            if len(date) == 3:
                 year = date[0][2:]
                 month = date[1]
-            final_date=year+month
-            grp = self.browse(cr,uid,id)
+            final_date = year+ month
+            grp = self.browse(cr, uid, id)
             for c in grp.campaign_ids:
                 if c.offer_id:
                     d = self.pool.get('dm.offer').browse(cr, uid, c.offer_id.id)
                     offer_code = d.code
                     offer_name = d.name
-            code1='-'.join([final_date,offer_code, offer_name])
-            result[id]=code1
+            code1 = '-'.join([final_date, offer_code, offer_name])
+            result[id] = code1
         return result
 
     _columns = {
         'name': fields.char('Campaign group name', size=64, required=True),
-        'code' : fields.function(_camp_group_code,string='Code',type='char',method=True,readonly=True),
-        'campaign_ids': fields.one2many('dm.campaign', 'campaign_group_id', 'Campaigns', domain=[('campaign_group_id','=',False)], readonly=True),
-#        'quantity_planned_total' : fields.function(_quantity_planned_total, string='Total planned Quantity',type="char",size="64",method=True,readonly=True),
-        'quantity_wanted_total' : fields.function(_quantity_wanted_total, string='Total Wanted Quantity',type="char",size=64,method=True,readonly=True),
-        'quantity_delivered_total' : fields.function(_quantity_delivered_total, string='Total Delivered Quantity',type="char",size=64,method=True,readonly=True),
-        'quantity_usable_total' : fields.function(_quantity_usable_total, string='Total Usable Quantity',type="char",size=64,method=True,readonly=True),
+        'code': fields.function(_camp_group_code, string='Code', type='char',
+                                            method=True,readonly=True),
+        'campaign_ids': fields.one2many('dm.campaign', 'campaign_group_id', 
+                        'Campaigns', domain=[('campaign_group_id', '=', False)], 
+                        readonly=True),
+#        'quantity_planned_total': fields.function(_quantity_planned_total, 
+#                        string='Total planned Quantity', type="char",
+#                        size="64", method=True, readonly=True),
+        'quantity_wanted_total': fields.function(_quantity_wanted_total, 
+                        string='Total Wanted Quantity', type="char", size=64,
+                        method=True, readonly=True),
+        'quantity_delivered_total': fields.function(_quantity_delivered_total, 
+                        string='Total Delivered Quantity', type="char", size=64,
+                        method=True, readonly=True),
+        'quantity_usable_total': fields.function(_quantity_usable_total, 
+                        string='Total Usable Quantity', type="char", size=64,
+                        method=True, readonly=True),
     }
 dm_campaign_group()#}}}
 
 class dm_campaign(osv.osv):#{{{
     _inherit = "dm.campaign"
     _columns = {
-        'campaign_group_id' : fields.many2one('dm.campaign.group', 'Campaign group'),
+        'campaign_group_id': fields.many2one('dm.campaign.group', 'Campaign group'),
     }
 dm_campaign()
 

@@ -61,7 +61,7 @@ class dm_address_segmentation(osv.osv): # {{{
                 where_clause.append("rpa.%s %s %f"% (q_obj.field_id.name,
                                     q_obj.operator.code, value))
         if where_clause:
-            sql_query = """select distinct rpa.id\n from res_partner_address \n 
+            sql_query = """select distinct rpa.id\n from res_partner_address rpa \n 
                                 where %s"""% (' and '.join(where_clause))
         else:
             sql_query = """select distinct rpa.name \n
@@ -81,7 +81,7 @@ class dm_address_segmentation(osv.osv): # {{{
         for i in ids:
             sql_query = self.set_address_criteria(cr, uid, i)
             super(dm_address_segmentation, self).write(cr, uid, i, 
-                                                {'sql_query':sql_query})
+                                                {'sql_query': sql_query})
         return ids
 
 dm_address_segmentation() # }}}
@@ -139,15 +139,29 @@ dm_query_operator() # }}}
 
 class dm_query_criteria(osv.osv): # {{{
     _name = "dm.query.criteria"
-    _description = "address Segmentation Textual Criteria"
+    _description = "Address Segmentation Textual Criteria"
     _rec_name = "segmentation_id"
+
+    def _get_field_type(self, cr, uid, context={}):
+        ttype_filter = ['many2many', 'many2one']
+        cr.execute("select distinct ttype from ir_model_fields where ttype \
+                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
+                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
+        field_type = map(lambda x: x[0], cr.fetchall())
+        res = []
+        for type in field_type:
+            if type == 'selection':
+                res.append(('char', type))
+            else :
+                res.append((type, type))
+        return res
 
     _columns = {
         'segmentation_id':fields.many2one('dm.address.segmentation',
                                           'Segmentation'),
-        'field_id':fields.many2one('ir.model.fields', 'Field', required=True),
-        'field_type':fields.selection(_OPERATORS, 'Field Type', size=32,
-                                                              required=True) ,
+        'field_id': fields.many2one('ir.model.fields', 'Field', required=True),
+        'field_type': fields.selection(_get_field_type,'Field Type', 
+                                                                required=True), 
         'operator':fields.many2one('dm.query.operator', 'Operator', 
                                                             required=True),
         'value_char':fields.char('Value', size=128),
@@ -155,8 +169,8 @@ class dm_query_criteria(osv.osv): # {{{
         'value_boolean':fields.selection([('true','True'),('false','False')],
                                          'Value'),
         'value_date':fields.date('Date'),
-            
     }
+    
 dm_query_criteria() # }}}
 
 class ir_model_fields(osv.osv):

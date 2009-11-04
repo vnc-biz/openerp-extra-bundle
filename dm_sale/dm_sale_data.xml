@@ -7,7 +7,7 @@
                 <field eval="0" name="store_value"/>
                 <field name="model_id" ref="dm.model_dm_workitem"/>
                 <field eval="&quot;&quot;&quot;Sale Order - Id&quot;&quot;&quot;" name="note"/>
-                <field name="field_id" ref="dm_sale.field_dm_workitem_sale_order_id"/>
+                <field name="field_id" ref="field_dm_workitem_sale_order_id"/>
                 <field eval="&quot;&quot;&quot;fields&quot;&quot;&quot;" name="type"/>
             </record>
         </data>

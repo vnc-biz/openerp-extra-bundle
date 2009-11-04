@@ -44,36 +44,51 @@ def _create_duplicate(self, cr, uid, data, context):
     project_obj = pooler.get_pool(cr.dbname).get('project.project')
     campaign = campaign_obj.browse(cr, uid, data['id'])
     tasks_obj = pooler.get_pool(cr.dbname).get('project.task')
-    duplicate_project_id = project_obj.copy(cr, uid,data['form']['project_id'], {'active': True, 'parent_id':data['form']['project_id']})
+    duplicate_project_id = project_obj.copy(cr, uid, data['form']['project_id'], 
+                    {'active': True, 'parent_id': data['form']['project_id']})
     tasks_ids = tasks_obj.search(cr, uid, [('project_id', '=', duplicate_project_id)])
     for task in tasks_obj.browse(cr, uid, tasks_ids):
         if task.type:
             if task.type.name == 'DTP' and campaign.dtp_responsible_id:
-                tasks_obj.write(cr, uid, task.id, {'user_id':campaign.dtp_responsible_id.id,'state':'open'})
-            elif task.type.name == 'Mailing Manufacturing' and campaign.manufacturing_responsible_id:
-                tasks_obj.write(cr, uid, task.id, {'user_id':campaign.manufacturing_responsible_id.id,'state':'open'})
+                tasks_obj.write(cr, uid, task.id, 
+                   {'user_id': campaign.dtp_responsible_id.id, 'state': 'open'})
+            elif task.type.name == 'Mailing Manufacturing' \
+                                    and campaign.manufacturing_responsible_id:
+                tasks_obj.write(cr, uid, task.id, 
+                        {'user_id': campaign.manufacturing_responsible_id.id,
+                        'state': 'open'})
             elif task.type.name == 'Customers List' and campaign.files_responsible_id:
-                tasks_obj.write(cr, uid, task.id, {'user_id':campaign.files_responsible_id.id,'state':'open'})
+                tasks_obj.write(cr, uid, task.id, 
+                        {'user_id': campaign.files_responsible_id.id,
+                        'state': 'open'})
             elif task.type.name == 'Items Procurement' and campaign.item_responsible_id:
-                tasks_obj.write(cr, uid, task.id, {'user_id':campaign.item_responsible_id.id,'state':'open'})
+                tasks_obj.write(cr, uid, task.id, 
+                        {'user_id': campaign.item_responsible_id.id,
+                        'state': 'open'})
             else:
-                tasks_obj.write(cr, uid, task.id, {'state':'open'})
+                tasks_obj.write(cr, uid, task.id, {'state': 'open'})
         else:
-            tasks_obj.write(cr, uid, task.id, {'state':'open','date_deadline':campaign.date_start})
-    project_obj.write(cr, uid, [duplicate_project_id], {'name' : project_obj.browse(cr, uid, duplicate_project_id, context).name + " for " + campaign.name, 'date_end' : campaign.date_start})
-    campaign_obj.write(cr, uid, [data['id']], {'project_id': duplicate_project_id})
+            tasks_obj.write(cr, uid, task.id, 
+                        {'state': 'open', 'date_deadline': campaign.date_start})
+    project_obj.write(cr, uid, [duplicate_project_id], 
+                      {'name': project_obj.browse(cr, uid, duplicate_project_id, context).name + " for " + campaign.name, 
+                      'date_end': campaign.date_start})
+    campaign_obj.write(cr, uid, [data['id']], 
+                        {'project_id': duplicate_project_id})
     return {}
 
 class wizard_campaign_project(wizard.interface):
     states = {
         'init': {
             'actions': [_check_date],
-            'result': {'type': 'form', 'arch':parameter_form, 'fields': parameter_fields, 'state':[('end','Cancel'),('done', 'Ok')]}
+            'result': {'type': 'form', 'arch': parameter_form, 
+                       'fields': parameter_fields, 
+                       'state': [('end', 'Cancel'), ('done', 'Ok')]}
 
         },
         'done':{
-                'actions':[_create_duplicate],
-                'result' : {'type':'state', 'state':'end'}
+                'actions': [_create_duplicate],
+                'result': {'type': 'state', 'state': 'end'}
                 }
     }
 wizard_campaign_project('campaign.project')

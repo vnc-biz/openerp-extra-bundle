@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-    	<menuitem name="Survey Management" id = "main_menu_survey" icon="terp-crm" sequence="1"/>
-    	<menuitem name="Configuration" id = "menu_survey_config" parent = "main_menu_survey" sequence="2"/>
-    	<menuitem name="Reports" id = "menu_survey_reports" parent = "main_menu_survey" sequence="6"/>
-    	
+
+    	<menuitem name="Survey Management" id="main_menu_survey"
+    		icon="terp-crm" sequence="1"
+    		groups="group_survey_manager,group_survey_user"/>
+
+    	<menuitem name="Configuration" id="menu_survey_config"
+    		parent="main_menu_survey" groups="group_survey_manager"/>
+
 	    <!--
 			Survey
 		-->
@@ -14,71 +18,108 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey">
-					<field name="title" select = "1"/>
-					<notebook>
+					<group col="4" colspan="4">
+						<field name="title" select="1"/>
+						<field name="responsible_id"/>
+					</group>
+					<notebook colspan="4">
                         <page string="Survey">
-                        	<field name="date_open" select = "1"/>
-                        	<field name="date_close" select = "2"/>
-                        	<field name="responsible_id"/>
-                        	<field name="max_response_limit" select = "1"/>
-							<field name="page_ids" colspan = "4" nolabel = "1">
+                        	<field name="date_open" select="1"/>
+                        	<field name="date_close" select="2"/>
+                        	<newline/>
+                        	<field name="max_response_limit" select="1"
+                        		attrs="{'readonly':[('state','in',('open','close'))]}"/>
+                        	<field name="response_user" select="2"
+                        		attrs="{'readonly':[('state','in',('open','close'))]}"/>
+                        	<field name="tot_start_survey" select="1"/>
+                        	<field name="tot_comp_survey" select="1"/>
+							<field name="page_ids" colspan="4" nolabel="1">
 								<form string="Survey Page">
-									<field name="title" colspan = "4" select = "1"/>
-									<field name="sequence" />
+									<field name="title" colspan="4" select="1"/>
+									<field name="sequence"/>
 									<separator string="Description" colspan="4"/>
-									<field name="note" colspan = "4" nolabel="1"/>
+									<field name="note" colspan="4" nolabel="1"/>
 									<field name="question_ids" colspan="4" nolabel="1">
-									<form string="Survey Question">
-										<field name="question" colspan = "4" select = "1"/>
-										<field name="sequence"/>
-										<field name="is_require_answer" select = "1" />
-										<field name="allow_comment" select = "2"/>
-										<field name="tot_resp" select = "2"/>
-										<notebook  colspan="4">
-					                        <page string="Answer">
-												<field name="answer_choice_ids" nolabel="1" colspan="4"/>
-											</page>
-											 <page string="Response">
-												<field name="response_ids" nolabel="1" colspan="4" />
-											</page>
-										</notebook>
-									</form>			
-									<tree string = "Survey Question">
-										<field name="sequence" string="Seq"/>
-										<field name="question" colspan = "4" select = "1"/>
-										<field name="answer_choice_ids" />
-										<field name="response_ids" />
-									</tree>
+										<form string="Survey Question">
+											<field name="question" colspan="4" select="1"/>
+											<field name="sequence"/>
+											<field name="is_require_answer" select="1" />
+											<field name="allow_comment" select="2"/>
+											<field name="tot_resp" select="2"/>
+											<notebook colspan="4">
+						                        <page string="Answer">
+													<field name="answer_choice_ids" nolabel="1" colspan="4"/>
+												</page>
+												 <page string="Response">
+													<field name="response_ids" nolabel="1" colspan="4"/>
+												</page>
+											</notebook>
+										</form>
+										<tree string="Survey Question">
+											<field name="sequence" string="Seq"/>
+											<field name="question" colspan="4" select="1"/>
+											<field name="answer_choice_ids"/>
+											<field name="response_ids" />
+										</tree>
 									</field>
-								</form>		
+								</form>
 							</field>
 							<group col="6" colspan="4">
 								<field name="state"/>
-								<button name="survey_draft" string="Set to draft" states="cancel,close" type ="object" icon="gtk-new"/>
-								<button name="survey_open" string="Open" states="draft" type ="object"  icon="gtk-go-forward"/>
-								<button name="survey_close" string="Close" states="open" type ="object" icon="gtk-close"/>
-							    <button name="survey_cancel" string="Cancel" states="open" type ="object" icon="gtk-cancel"/>
-                        	</group>
+								<button name="survey_draft"
+									string="Set to draft" states="cancel,close" type="object"
+									icon="gtk-new"/>
+								<button name="survey_open" string="Open"
+									states="draft" type="object" icon="gtk-go-forward"/>
+								<button name="survey_close"
+									string="Close" states="open" type="object" icon="gtk-close"/>
+								<button name="survey_cancel"
+									string="Cancel" states="open" type="object" icon="gtk-cancel"/>
+							</group>
                         </page>
+                        <page string="Other">
+                        	<separator colspan="4" string="Survey Details"/>
+                        	<field name="note" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Users">
+                        	<separator colspan="4" string="Users Details"/>
+                        	<field name="users" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="History">
+                        	<field name="history" colspan="4" nolabel="1">
+                        		<tree string="History">
+                        			<field name="user_id"/>
+                        			<field name="date"/>
+                        		</tree>
+                        		<form string="History">
+                        			<field name="user_id"/>
+                        			<field name="date"/>
+                        		</form>
+                       		</field>
+                        		</page>
                     </notebook>
-				</form>			          
-			</field>			
+				</form>
+			</field>
 		</record>
+
 		<record model ="ir.ui.view" id= "survey_tree">
 			<field name="name">survey_tree</field>
 			<field name="model">survey</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Survey">
-					<field name="title" select = "1"/>
-					<field name="date_open" select = "1"/>
-					<field name="date_close" select = "2"/>
-					<field name="max_response_limit" select = "1"/>
+					<field name="title" select="1"/>
+					<field name="date_open" select="1"/>
+					<field name="date_close" select="2"/>
+					<field name="max_response_limit" select="1"/>
+                   	<field name="tot_start_survey" select="1"/>
+                    <field name="tot_comp_survey" select="1"/>
 					<field name="responsible_id"/>
-					<field name="state" select = "2"/>
-				</tree>			          
-			</field>			
+					<field name="state" select="2"/>
+				</tree>
+			</field>
 		</record>
+
 		<record model="ir.actions.act_window" id="action_survey_form1">
 			<field name="name">All Surveys</field>
 			<field name="res_model">survey</field>
@@ -86,8 +127,13 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="survey_tree"></field>
 		</record>
-		<menuitem name="Surveys" id = "menu_survey_form" action="action_survey_form1" parent = "menu_survey_config"/>	
-		
+
+
+		<menuitem name="Surveys" id="menu_survey_form"
+			action="action_survey_form1" parent="menu_survey_config"
+			groups="group_survey_manager"/>
+
+
 		<record model="ir.actions.act_window" id="action_new_survey_form1">
 			<field name="name">New Survey</field>
 			<field name="res_model">survey</field>
@@ -95,60 +141,68 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="survey_form"></field>
 		</record>
-		<menuitem name="New Survey" id = "menu_new_survey_form" action="action_new_survey_form1" parent = "menu_survey_form"/>	
-	
-	    <!--
+
+		<menuitem name="New Survey" id="menu_new_survey_form"
+			action="action_new_survey_form1" parent="menu_survey_form"
+			groups="group_survey_manager"/>
+
+		<!--
 			Survey Pages
 		-->
-		<record model ="ir.ui.view" id= "survey_page_form">
+
+		<record model="ir.ui.view" id="survey_page_form">
 			<field name="name">survey_page_form</field>
 			<field name="model">survey.page</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey Page">
-					<field name="title" colspan = "4" select = "1"/>
-					<field name="survey_id"/>
-					<field name="sequence" />
+					<field name="title" colspan="4" select="1"/>
+					<field name="survey_id" select="1"/>
+					<field name="sequence"/>
 					<separator string="Description" colspan="4"/>
-					<field name="note" colspan = "4" nolabel="1"/>
+					<field name="note" colspan="4" nolabel="1"/>
 					<field name="question_ids" colspan="4" nolabel="1">
 					<form string="Survey Question">
-						<field name="question" colspan = "4" select = "1"/>
+						<field name="question" colspan="4" select="1"/>
 						<field name="sequence"/>
-						<field name="is_require_answer" select = "1" />
-						<field name="allow_comment" select = "2"/>
-						<field name="tot_resp" select = "2"/>
-						<notebook  colspan="4">
+						<field name="is_require_answer" select="1"/>
+						<field name="allow_comment" select="2"/>
+						<field name="tot_resp" select="2"/>
+						<notebook colspan="4">
 	                        <page string="Answer">
 								<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 							</page>
 							 <page string="Response">
-								<field name="response_ids" nolabel="1" colspan="4" />
+								<field name="response_ids" nolabel="1" colspan="4"/>
 							</page>
 						</notebook>
-					</form>			
-					<tree string = "Survey Question">
+					</form>
+					<tree string="Survey Question">
 						<field name="sequence" string="Seq"/>
-						<field name="question" colspan = "4" select = "1"/>
-						<field name="answer_choice_ids" />
-						<field name="response_ids" />
+						<field name="question" colspan="4" select="1"/>
+						<field name="answer_choice_ids"/>
+						<field name="response_ids"/>
 					</tree>
 					</field>
-				</form>			          
-			</field>			
+				</form>
+			</field>
 		</record>
-		<record model ="ir.ui.view" id= "survey_page_tree">
+
+
+		<record model="ir.ui.view" id="survey_page_tree">
 			<field name="name">survey_page_tree</field>
 			<field name="model">survey.page</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Survey Page">
-					<field name="sequence"  string="Seq"/>
+					<field name="sequence" string="Seq"/>
 					<field name="title"/>
 					<field name="question_ids" string="#Questions"/>
-				</tree>			          
-			</field>			
+				</tree>
+			</field>
 		</record>
+
+
 		<record model="ir.actions.act_window" id="action_survey_page_form">
 			<field name="name">All Survey Pages</field>
 			<field name="res_model">survey.page</field>
@@ -156,7 +210,11 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="survey_page_tree"></field>
 		</record>
-		<menuitem name="Survey Pages" id = "menu_survey_page_form1" action="action_survey_page_form" parent = 'menu_survey_config'/>	
+
+		<menuitem name="Survey Pages" id="menu_survey_page_form1"
+			action="action_survey_page_form" parent='menu_survey_config'
+			groups="group_survey_manager"/>
+
 
 		<record model="ir.actions.act_window" id="action_new_survey_page_form">
 			<field name="name">New Survey Page</field>
@@ -165,24 +223,30 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="survey_page_form"></field>
 		</record>
-		<menuitem name="New Survey Page" id = "menu_new_survey_page_form1" action="action_new_survey_page_form" parent = 'menu_survey_page_form1'/>	
 
-	    <!--
+		<menuitem name="New Survey Page" id="menu_new_survey_page_form1"
+			action="action_new_survey_page_form" parent='menu_survey_page_form1'
+			groups="group_survey_manager"/>
+
+
+		<!--
 			Survey Question
 		-->
-		<record model ="ir.ui.view" id= "survey_question_form">
+
+
+		<record model="ir.ui.view" id="survey_question_form">
 			<field name="name">survey_question_form</field>
 			<field name="model">survey.question</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey Question">
-					<field name="question" colspan = "4" select = "1"/>
-					<field name="page_id"/>
+					<field name="question" colspan="4" select="1"/>
+					<field name="page_id" select="1"/>
 					<field name="sequence"/>
-					<field name="is_require_answer" select = "1" />
-					<field name="allow_comment" select = "2"/>
-					<field name="tot_resp" select = "2"/>
-					<notebook  colspan="4">
+					<field name="is_require_answer" select="1" />
+					<field name="allow_comment" select="2"/>
+					<field name="tot_resp" select="2"/>
+					<notebook colspan="4">
                         <page string="Answer">
 							<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 						</page>
@@ -190,23 +254,26 @@
 							<field name="response_ids" nolabel="1" colspan="4" />
 						</page>
 					</notebook>
-				</form>			          
-			</field>			
+				</form>
+			</field>
 		</record>
-		<record model ="ir.ui.view" id= "survey_question_tree">
+
+
+		<record model="ir.ui.view" id="survey_question_tree">
 			<field name="name">survey_question_tree</field>
 			<field name="model">survey.question</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Survey Question">
-					<field name="question" colspan = "4" select = "1"/>
-					<field name="sequence"  string="Seq"/>
-					<field name="is_require_answer" select = "1"/>
-					<field name="page_id"/>					
-					<field name="allow_comment" select = "2"/>
-					<field name="tot_resp" select = "2"/>
-				</tree>			          
-			</field>			
+					<field name="question" colspan="4" select="1"/>
+					<field name="sequence" string="Seq"/>
+					<field name="is_require_answer" select="1"/>
+					<field name="page_id" select="1"/>
+					<field name="survey" select="1"/>
+					<field name="allow_comment" select="2"/>
+					<field name="tot_resp" select="2"/>
+				</tree>
+			</field>
 		</record>
 
 		<record model="ir.actions.act_window" id="action_survey_question_form">
@@ -216,51 +283,64 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="survey_question_tree"></field>
 		</record>
-		<menuitem name="Survey Questions" id = "menu_survey_question_form1" action="action_survey_question_form" parent = 'menu_survey_config'/>	
+
+
+		<menuitem name="Survey Questions"
+			id="menu_survey_question_form1" action="action_survey_question_form"
+			parent='menu_survey_config' groups="group_survey_manager"/>
+
 
 		<record model="ir.actions.act_window" id="action_new_survey_question_form">
 			<field name="name">New Survey Question</field>
 			<field name="res_model">survey.question</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
-			<field name="view_id" ref="survey_question_form"></field>
+			<field name="view_id" ref="survey_question_form"/>
 		</record>
-		<menuitem name="New Survey Question" id = "menu_new_survey_question_form1" action="action_new_survey_question_form" parent = 'menu_survey_question_form1'/>	
 
+		<menuitem name="New Survey Question"
+			id="menu_new_survey_question_form1"
+			action="action_new_survey_question_form"
+			parent='menu_survey_question_form1' groups="group_survey_manager"/>
 
-	    <!--
+		<!--
 			Survey Answer
 		-->
-		<record model ="ir.ui.view" id= "survey_answer_form">
+
+		<record model ="ir.ui.view" id="survey_answer_form">
 			<field name="name">survey_answer_form</field>
 			<field name="model">survey.answer</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey Answer">
-					<field name="answer" colspan = "4" select = "1"/>
+					<field name="answer" colspan="4" select="1"/>
 					<field name="sequence"/>
 					<field name="response"/>
 					<field name="average"/>
-				</form>			          
-			</field>			
+				</form>
+			</field>
 		</record>
-		<record model ="ir.ui.view" id= "survey_answer_tree">
+
+
+		<record model="ir.ui.view" id= "survey_answer_tree">
 			<field name="name">survey_answer_tree</field>
 			<field name="model">survey.answer</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Survey Answer">
-					<field name="sequence"  string="Seq"/>
-					<field name="answer" select = "1"/>
+					<field name="sequence" string="Seq"/>
+					<field name="answer" select="1"/>
 					<field name="response"/>
 					<field name="average"/>
-				</tree>			          
-			</field>			
+				</tree>
+			</field>
 		</record>
-		
+
+
 	    <!--
 			Survey Response
 		-->
+
 		<record model ="ir.ui.view" id= "survey_response_form">
 			<field name="name">survey_response_form</field>
 			<field name="model">survey.response</field>
@@ -268,115 +348,117 @@
 			<field name="arch" type="xml">
 				<form string="Survey Response">
 				<field name="response_id"/>
-				<field name="date_create" select = "1"/>
-				<field name="date_modify" select = "2"/>
-				<field name="response_type" select = "1"/>
+				<field name="date_create" select="1"/>
+				<field name="date_modify" select="2"/>
+				<field name="response_type" select="1"/>
 				<notebook colspan="4">
 					<page string="Response">
-						<field name="response_answer_ids" colspan = "4" nolabel="1"/>
+						<field name="response_answer_ids" colspan="4" nolabel="1"/>
 						<group col="5" colspan="4">
 							<field name="state"/>
-							<button name="response_draft" string="Set to draft" states="done,skip" type ="object" icon="gtk-new"/>
-							<button name="response_done" string="Done" states="draft" type ="object"  icon="gtk-go-forward"/>
-							<button name="response_skip" string="Skip" states="draft" type ="object" icon="gtk-close"/>
-	                   	</group>
+							<button name="response_draft"
+								string="Set to draft" states="done,skip" type="object"
+								icon="gtk-new"/>
+							<button name="response_done" string="Done"
+								states="draft" type="object" icon="gtk-go-forward"/>
+							<button name="response_skip" string="Skip"
+								states="draft" type="object" icon="gtk-close"/>
+						</group>
 					</page>
 					<page string="Comment">
 						<separator string="Description" colspan="4"/>
-						<field name="comment" nolabel = "1" colspan="4"/>
+						<field name="comment" nolabel="1" colspan="4"/>
 					</page>
 				</notebook>
-				</form>			          
-			</field>			
+				</form>
+			</field>
 		</record>
-		<record model ="ir.ui.view" id= "survey_response_tree">
+
+		<record model="ir.ui.view" id="survey_response_tree">
 			<field name="name">survey_response_tree</field>
 			<field name="model">survey.response</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Survey Response">
 					<field name="response_id"/>
-					<field name="response_type" select = "1"/>
-					<field name="date_create" select = "1"/>
-					<field name="date_modify" select = "2"/>
+					<field name="response_type" select="1"/>
+					<field name="date_create" select="1"/>
+					<field name="date_modify" select="2"/>
 					<field name="state"/>
-				</tree>			          
-			</field>			
+				</tree>
+			</field>
 		</record>
+
 
 	    <!--
 			Survey Response Answer
 		-->
-		<record model ="ir.ui.view" id= "survey_response_answer_form">
+
+
+		<record model="ir.ui.view" id="survey_response_answer_form">
 			<field name="name">survey_response_answer_form</field>
 			<field name="model">survey.response.answer</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey Response Answer">
 					<field name="answer_id"/>
-				</form>			          
-			</field>			
+				</form>
+			</field>
 		</record>
-		<record model ="ir.ui.view" id= "survey_response_answer_tree">
+
+		<record model="ir.ui.view" id="survey_response_answer_tree">
 			<field name="name">survey_response_answer_tree</field>
 			<field name="model">survey.response.answer</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Survey Response Answer">
 					<field name="answer_id"/>
-				</tree>			          
-			</field>			
+				</tree>
+			</field>
 		</record>
-		
-		<!--
-		Survey Question Report
+
+
+	    <!--
+			res.users
 		-->
-		<record id="view_survey_question_report_tree" model="ir.ui.view">
-	            <field name="name">report.survey.question.tree</field>
-	            <field name="model">report.survey.question</field>
-	            <field name="type">tree</field>
-	            <field name="arch" type="xml">
-	                <tree string="Survey Question Report">
-	                <field name="que_id"/>
-                    <field name="ans_id"/>
-                    <field name="res_ans_count"  select="1"/>
-                    <field name="res_que_count" select="1"/>
-                    <field name="res_avg" select="1" />
-	                </tree>
-	            </field>
-        </record>
-        <record id="view_report_survey_question_form" model="ir.ui.view">
-            <field name="name">report.survey.question.form</field>
-            <field name="model">report.survey.question</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Survey Question Report">
-               	    <field name="que_id"/>
-                    <field name="ans_id"/>
-                    <field name="res_ans_count"  select="1"/>
-                    <field name="res_que_count" select="1"/>
-                    <field name="res_avg" select="1" />
-                </form>
-            </field>
-        </record>
-        <record id="view_report_survey_question_graph" model="ir.ui.view">
-            <field name="name">report.survey.question.graph</field>
-            <field name="model">report.survey.question</field>
-            <field name="type">graph</field>
-            <field name="arch" type="xml">
-                <graph string="Survey Question Report" type="bar" orientation="horizontal">
-                    <field name="ans_id" />
-                    <field name="res_ans_count" />
-                </graph>
-            </field>
-        </record>
-        <record id="action_report_survey_question_tree" model="ir.actions.act_window">
-            <field name="name">Survey Analysis Report</field>
-            <field name="res_model">report.survey.question</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,graph</field>
-        </record>
-        <menuitem action="action_report_survey_question_tree" id="menu_report_survey_question_month" parent="menu_survey_reports"/>
+	    <record id="view_res_user_form" model="ir.ui.view">
+			<field name="name">view.res.users.form</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form"/>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<notebook>
+					<page string="Survey">
+						<field name="survey_id" nolabel="1"/>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+        <act_window domain="[('survey_id', '=', active_id)]"
+        	id="act_survey_pages"
+        	name="Survey Pages"
+        	res_model="survey.page"
+        	src_model="survey"/>
+		
+		<act_window domain="[('survey', '=', active_id)]"
+        	id="act_survey_question"
+        	name="All Questions"
+        	res_model="survey.question"
+        	src_model="survey"/>
+        	
+        	
+        <act_window domain="[('page_id', '=', active_id)]"
+        	id="act_survey_page_question"
+        	name="Survey Questions"
+        	res_model="survey.question"
+        	src_model="survey.page"/>
+
+        <act_window domain="[('question_id', '=', active_id)]"
+        	id="act_survey_answer"
+        	name="Survey Answers"
+        	res_model="survey.answer"
+        	src_model="survey.question"/>
 
 	</data>
 </openerp>

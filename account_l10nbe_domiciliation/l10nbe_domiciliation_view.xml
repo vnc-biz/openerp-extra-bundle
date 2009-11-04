@@ -14,7 +14,7 @@
                 </field>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="invoice_form_partner_domiciled">
             <field name="name">account.invoice.partner.domicile.form</field>
             <field name="type">form</field>
@@ -26,8 +26,8 @@
                 </field>
             </field>
         </record>
-        
-        
+
+
         <record model="ir.ui.view" id="supplier_invoice_form_domicile">
             <field name="name">supplier.invoice.domicile.form</field>
             <field name="type">form</field>
@@ -40,7 +40,7 @@
                 </field>
             </field>
         </record>
-        
+
        <record model="ir.ui.view" id="view_company_dom_form">
             <field name="name">res.company.inherit.dom</field>
             <field name="type">form</field>
@@ -55,9 +55,9 @@
                 </notebook>
             </field>
         </record>
-        
-        
-        
+
+
+
 <!-- Partner object view (inherited) -->
         <record model="ir.ui.view" id="view_partner_domicile_form">
             <field name="name">res.partner.domicile.form</field>
@@ -70,7 +70,7 @@
                 </field>
             </field>
         </record>
-        
+
     <record model="ir.ui.view" id="view_partner_form_inherit_code">
         <field name="name">res.partner.form.insti.code.inherit</field>
         <field name="model">res.partner</field>
@@ -83,7 +83,7 @@
             </field>
         </field>
     </record>
-    
+
 <!--  Export Logs views and menuitems-->
 
     <record model="ir.ui.view" id="view_account_pay_tree">
@@ -100,7 +100,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="view_payment_mode_form">
             <field name="name">invoice.export.log.form</field>
             <field name="model">invoice.export.log</field>

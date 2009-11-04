@@ -25,6 +25,7 @@ import pooler
 
 form = """<?xml version="1.0"?>
 <form string="Carnet After Validity Date">
+<label colspan="4" string="(Print report for carnet After validity date)" align="0.0"/>
 </form>"""
 
 fields = {}

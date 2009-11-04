@@ -30,4 +30,7 @@ import cci_encode_cash
 import wizard_federation_certificates_sending
 import carnet_before_validity
 import carnet_after_validity
+import add_product_line
+import print_stats_mission
+import create_legalization
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

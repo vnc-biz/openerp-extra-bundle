@@ -19,5 +19,7 @@
 #
 ##############################################################################
 import make_invoice
+import wizard_awex_report
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

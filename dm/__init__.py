@@ -30,5 +30,6 @@ import dm_inherit
 import report
 import wizard
 import dm_report_design
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 from osv import fields, osv
@@ -176,7 +176,7 @@ class cci_missions_embassy_folder(osv.osv):
         'state' :  lambda *a : 'draft',
         "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
     }
-    _order = "date desc"
+    _order = "cci_missions_embassy_folder.date desc"
 
     _constraints = [(check_folder_line, 'Error: Only One Embassy Folder line allowed for each type!', ['embassy_folder_line_ids'])]
 
@@ -282,7 +282,7 @@ class cci_missions_dossier(osv.osv):
 
     def create(self, cr, uid, vals, *args, **kwargs):
         #overwrite the create: if the text_on_invoice field is empty then fill it with name + destination_id.name + (quantity_original)
-        if not vals['text_on_invoice']:
+        if not vals['text_on_invoice']: #fix me => text_on_invoice (required=False)
             invoice_text = vals['name']
             if vals['destination_id']:
                 destination_data = self.pool.get('cci.country').browse(cr,uid,vals['destination_id'])
@@ -343,7 +343,7 @@ class cci_missions_dossier(osv.osv):
         'invoiced_amount': fields.float('Total'),
     }
     _order = "date desc"
-    
+
     _defaults = {
         'name': lambda *args: '/',
         'date': lambda *a: time.strftime('%Y-%m-%d'),
@@ -478,7 +478,7 @@ class cci_missions_certificate(osv.osv):
         'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
         'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
-    _order = "date desc"
+    _order = "cci_missions_certificate.date desc"
 
     _defaults = {
         'special_reason': lambda *a: 'none',
@@ -590,7 +590,7 @@ class cci_missions_legalization(osv.osv):
         'member_price' : fields.boolean('Apply the Member Price'),
         'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
-    _order = "date desc"
+    _order = "cci_missions_legalization.date desc"
 
 cci_missions_legalization()
 
@@ -661,7 +661,7 @@ class cci_missions_ata_carnet(osv.osv):
             context.update({'value_goods':vals['goods_value']})
         if 'double_signature' in vals:
             context.update({'double_signature':vals['double_signature']})
-        force_member=force_non_member=False
+        force_member = force_non_member = False
         if 'member_price' in vals and vals['member_price']==1:
             force_member=True
         else:
@@ -675,8 +675,8 @@ class cci_missions_ata_carnet(osv.osv):
         else:
             warranty_product = data.warranty_product_2.id
 
-        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
-        vals.update({'warranty_product_id' : warranty_product, 'warranty': warranty})
+#        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
+        vals.update({'warranty_product_id' : warranty_product})  #'warranty': warranty
 
         seq = self.pool.get('ir.sequence').get(cr, uid,data.sequence_id.code)
         if seq:
@@ -734,9 +734,8 @@ class cci_missions_ata_carnet(osv.osv):
                 warranty_product = data_carnet.type_id.warranty_product_1.id
             else:
                 warranty_product = data_carnet.type_id.warranty_product_2.id
-        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
-
-        vals.update({'warranty_product_id' : warranty_product, 'warranty': warranty})
+#        warranty= self.pool.get('product.product').price_get(cr,uid,[warranty_product],'list_price', context)[warranty_product]
+        vals.update({'warranty_product_id' : warranty_product}) #, 'warranty': warranty
         super(cci_missions_ata_carnet,self).write(cr, uid, ids,vals, *args, **kwargs)
         return True
 
@@ -780,6 +779,36 @@ class cci_missions_ata_carnet(osv.osv):
         dict1=self.onchange_warranty_product_id(cr,uid,ids,warranty_prod)
         data.update(dict1['value'])
         return {'value':data}
+
+    def onchange_good_value(self, cr, uid, ids, creation_date, partner_id, goods_value, double_signature, member_price, own_risk, type_id, context={}):
+        res = {'warranty': False}
+        if not type_id:
+            return {'value':res}
+
+        if creation_date:
+            context.update({'date':creation_date})
+            context.update({'emission_date':creation_date})
+        if partner_id:
+            context.update({'partner_id':partner_id})
+        if goods_value:
+            context.update({'value_goods':goods_value})
+        if double_signature:
+            context.update({'double_signature':double_signature})
+        force_member = force_non_member = False
+        if member_price == 1:
+            force_member = True
+        else:
+            force_non_member = True
+        context.update({'force_member': force_member})
+        context.update({'force_non_member': force_non_member})
+
+        data = self.pool.get('cci_missions.dossier_type').browse(cr, uid, type_id)
+        if own_risk:
+            warranty_product = data.warranty_product_1.id
+        else:
+            warranty_product = data.warranty_product_2.id
+        res['warranty'] = self.pool.get('product.product').price_get(cr, uid, [warranty_product], 'list_price', context)[warranty_product]
+        return {'value': res}
 
     def onchange_own_risk(self,cr,uid,ids,type_id,own_risk):
         data={'warranty_product_id' : False,'warranty':False}
@@ -879,7 +908,7 @@ class cci_missions_ata_carnet(osv.osv):
         'member_price' : fields.boolean('Apply the Member Price'),
         'product_ids': fields.one2many('product.lines', 'product_line_id', 'Products'),
         'letter_ids':fields.one2many('cci_missions.letters_log','ata_carnet_id','Letters'),
-        'sub_total': fields.function(_tot_products, method=True, string='Subtotal of Extra Products',type="float"),
+        'sub_total': fields.function(_tot_products, method=True, string='Subtotal of Extra Products',type="float", store=True),
         "invoice_id":fields.many2one("account.invoice","Invoice"),
     }
 
@@ -891,7 +920,7 @@ class cci_missions_ata_carnet(osv.osv):
         'name': lambda *args: '/',
         'creation_date': lambda *a: time.strftime('%Y-%m-%d'),
     }
-    
+
     _order = "creation_date desc"
     _constraints = [(check_ata_carnet, 'Error: Please Select (Own Risk) OR ("Insurer Agreement" and "Parnters Insure id" should be greater than Zero)', ['own_risk','insurer_agreement','partner_insurer_id'])]
 
@@ -928,8 +957,10 @@ class product_lines(osv.osv):
         return super(product_lines,self).create(cr, uid, vals, *args, **kwargs)
 
     def write(self, cr, uid, ids,vals, *args, **kwargs):
-        data_product_line= self.pool.get('product.lines').browse(cr,uid,ids[0])
-        if (not data_product_line.product_id.id == vals['product_id']):
+        if not ids:
+            return super(product_lines,self).write( cr, uid, ids,vals, *args, **kwargs)
+        data_product_line = self.pool.get('product.lines').browse(cr,uid,ids[0])
+        if vals.has_key('product_id') and (not data_product_line.product_id.id == vals['product_id']):
             accnt_dict = {}
             data_product = self.pool.get('product.product').browse(cr,uid,vals['product_id'])
             a =  data_product.product_tmpl_id.property_account_income.id
@@ -946,17 +977,21 @@ class product_lines(osv.osv):
         return res
 
     def product_id_change(self, cr, uid, ids,product_id,):
-        price_unit=uos_id=prod_name=data_partner=False
+        price_unit = uos_id = prod_name = data_partner = False
+        sale_taxes = []
         if product_id:
             data_product = self.pool.get('product.product').browse(cr,uid,product_id)
             uos_id=data_product.uom_id.id
             price=self.pool.get('product.product').price_get(cr,uid,[product_id])
             price_unit=price[product_id]
             prod_name=data_product.name
+            if data_product.taxes_id:
+                x = map(lambda x:sale_taxes.append(x.id),data_product.taxes_id)
         return {'value': {
             'uos_id': uos_id,
             'price_unit': price_unit,
             'name':prod_name,
+            'taxes_id': sale_taxes
             }
         }
 
@@ -970,6 +1005,7 @@ class product_lines(osv.osv):
         'price_subtotal': fields.function(_product_subtotal, method=True, string='Subtotal'),
         'quantity': fields.float('Quantity', required=True),
         'account_id' : fields.many2one('account.account', 'Account', required=True),
+        'taxes_id': fields.many2many('account.tax', 'product__line_taxes_rel', 'prod_line_id', 'tax_id', 'Sale Taxes', domain=[('parent_id','=',False), ('type_tax_use','in',['sale','all'])]),
     }
     _defaults = {
         'quantity': lambda *a: 1,

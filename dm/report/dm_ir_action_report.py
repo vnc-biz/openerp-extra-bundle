@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-import time
 import netsvc
 from osv import fields, osv
 import pooler
@@ -44,15 +43,18 @@ def my_register_all(db,report=False):
     opj = os.path.join
     cr = db.cursor()
     result=''
-    cr.execute("SELECT * FROM ir_act_report_xml WHERE model=%s ORDER BY id", ('dm.offer.document',))
+    cr.execute("SELECT * FROM ir_act_report_xml WHERE model=%s \
+                    ORDER BY id", ('dm.offer.document',))
     result = cr.dictfetchall()
     for r in result:
         if netsvc.service_exist('report.'+r['report_name']):
             continue
         if r['report_rml'] or r['report_rml_content_data']:
             report_sxw('report.'+r['report_name'], r['model'],
-                    opj('addons',r['report_rml'] or '/'), header=r['header'],parser=offer_document)
-    cr.execute("SELECT * FROM ir_act_report_xml WHERE auto=%s ORDER BY id", (True,))
+                    opj('addons',r['report_rml'] or '/'), header=r['header'],
+                    parser=offer_document)
+    cr.execute("SELECT * FROM ir_act_report_xml WHERE auto=%s \
+                        ORDER BY id", (True,))
     result = cr.dictfetchall()
     cr.close()
     for r in result:
@@ -63,15 +65,15 @@ def my_register_all(db,report=False):
                     opj('addons',r['report_rml'] or '/'), header=r['header'])
         if r['report_xsl']:
             interface.report_rml('report.'+r['report_name'], r['model'],
-                    opj('addons',r['report_xml']),
-                    r['report_xsl'] and opj('addons',r['report_xsl']))
+                    opj('addons', r['report_xml']),
+                    r['report_xsl'] and opj('addons', r['report_xsl']))
 interface.register_all =  my_register_all
 
 class report_xml(osv.osv):
     _inherit = 'ir.actions.report.xml'
     _columns = {
-#        'actual_model':fields.char('Report Object', size=64),
-        'document_id':fields.integer('Document'),
+#        'actual_model': fields.char('Report Object', size=64),
+        'document_id': fields.integer('Document'),
         }
 
     def upload_report(self, cr, uid, report_id, file_sxw,file_type, context):
@@ -80,15 +82,15 @@ class report_xml(osv.osv):
         '''
         pool = pooler.get_pool(cr.dbname)
         sxwval = StringIO(base64.decodestring(file_sxw))
-        if file_type=='sxw':
+        if file_type == 'sxw':
             fp = tools.file_open('normalized_oo2rml.xsl',
                     subdir='addons/base_report_designer/wizard/tiny_sxw2rml')
             rml_content = str(sxw2rml(sxwval, xsl=fp.read()))
-        if file_type=='odt':
+        if file_type == 'odt':
             fp = tools.file_open('normalized_odt2rml.xsl',
                     subdir='addons/base_report_designer/wizard/tiny_sxw2rml')
             rml_content = str(sxw2rml(sxwval, xsl=fp.read()))
-        if file_type=='html':
+        if file_type == 'html':
             rml_content = base64.decodestring(file_sxw)
         report = pool.get('ir.actions.report.xml').write(cr, uid, [report_id], {
             'report_sxw_content': base64.decodestring(file_sxw),
@@ -99,19 +101,20 @@ class report_xml(osv.osv):
         interface.register_all(db)
         return True
 
-    def set_image_email(self,cr,uid,report_id):
+    def set_image_email(self, cr, uid, report_id):
         list_image_id = []
-        def process_tag(node,list_image_id):
+        def process_tag(node, list_image_id):
             if not node.getchildren():
-                if  node.tag=='img' and node.get('name') and node.get('name').find('setHtmlImage')>=0:
+                if  node.tag=='img' and node.get('name') and \
+                                    node.get('name').find('setHtmlImage') >= 0:
                     res_id= _regex.split(node.get('name'))[1]
                     list_image_id.append((res_id,node.get('src')))
-            else :
+            else:
                 for n in node.getchildren():
-                    process_tag(n,list_image_id)
+                    process_tag(n, list_image_id)
         datas = self.report_get(cr, uid, report_id)['report_sxw_content']
         root = etree.HTML(base64.decodestring(datas))
-        process_tag(root,list_image_id)
+        process_tag(root, list_image_id)
         return list_image_id
 
 report_xml()

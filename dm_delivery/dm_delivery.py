@@ -24,9 +24,10 @@ from osv import osv
 class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
     _columns = {
-        'production_lot_id' : fields.many2one('stock.production.lot', 'Production Lot'),
-        'tracking_lot_id' : fields.many2one('stock.tracking', 'Tracking Lot'),
-        'carrier_delivery_type' : fields.char('Delivery Type',size=16),
+        'production_lot_id': fields.many2one('stock.production.lot',
+                                               'Production Lot'),
+        'tracking_lot_id': fields.many2one('stock.tracking', 'Tracking Lot'),
+        'carrier_delivery_type': fields.char('Delivery Type', size=16),
 
     }
     

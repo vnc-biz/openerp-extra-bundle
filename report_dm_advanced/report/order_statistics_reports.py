@@ -90,13 +90,24 @@ class report_custom(report_rml):
             origin.sort()
         
         # Computing the dates (start of month: som, and end of month: eom)
-        som = datetime.date(data['form']['year'], data['form']['month'], 1)
-        eom = som + datetime.timedelta(lengthmonth(som.year, som.month))
-        date_xml = ['<date month_year="%s  -  %d" />' % (get_month_name(cr, uid, som.month), som.year), '<days>']
-        date_xml += ['<day number="%d" name="%s" weekday="%d" />' % (x, get_weekday_name(cr, uid, som.replace(day=x).weekday()+1), som.replace(day=x).weekday()+1) for x in range(1, lengthmonth(som.year, som.month)+1)]
+#        som = datetime.date(data['form']['year'], data['form']['month'], 1)
+#        eom = som + datetime.timedelta(lengthmonth(som.year, som.month))
+        som = datetime.datetime.strptime(data['form']['start_date'],'%Y-%m-%d')
+        eom = datetime.datetime.strptime(data['form']['end_date'],'%Y-%m-%d')
+#        date_xml = ['<date month_year="%s  -  %d" />' % (get_month_name(cr, uid, som.month), som.year), '<days>' ]        
+        date_xml = ['<date from_month_year="%s" to_month_year="%s"/>'
+                %(datetime.datetime.strftime(som,'%y-%m-%d'),
+                    datetime.datetime.strftime(eom,'%y-%m-%d')) , '<days>' ]
+        date_xml += ['<day number="%d" string="%d"/>' % 
+                                (x+1, 
+#                                get_weekday_name(cr, uid, som.replace(day=x).weekday()+1),
+#                                som.replace(day=x).weekday()+1,
+                                (som+datetime.timedelta(days=x)).day 
+                                )
+                                for x in range(0, (eom-som).days+1)]        
+        total_width = sum([1.25]*((eom-som).days+1), 5.00 + 1.25)
         date_xml.append('</days>')
-        date_xml.append('<cols>3.75cm%s,1.25cm</cols>\n' % (',1.25cm' * lengthmonth(som.year, som.month)))
-
+        date_xml.append('<cols framewidth="%scm" templatewidth="%scm,21cm">5.00cm%s,1.25cm</cols>\n' % (str(total_width),str(total_width+20),',1.25cm' * ((eom-som).days+1)))
         if self.name2 in camp_amt_report  or self.name2 in camp_qty_report :
             camp_id = data['form']['row_id']
             row_id = pool.get('dm.campaign.proposition.segment').search(cr,uid,[('campaign_id','=',camp_id)])

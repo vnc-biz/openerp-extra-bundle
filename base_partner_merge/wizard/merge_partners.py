@@ -167,28 +167,34 @@ class wizard_merge_partners(wizard.interface):
             unique_fields = []
             for const in pool.get('res.partner')._sql_constraints:
                 c_names.append('res_partner_' + const[0])
-            c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
-            cr.execute("""select column_name from \
+            if c_names:
+                c_names = tuple(map(lambda x: "'"+ x +"'", c_names))
+                cr.execute("""select column_name from \
                         information_schema.constraint_column_usage u \
                         join  pg_constraint p on (p.conname=u.constraint_name) \
                         where u.constraint_name in (%s) and p.contype='u' """ % c_names)
-            for i in cr.fetchall():
-                remove_field[i[0]] = None
-                unique_fields.append(i[0])
-            unique_fields.append('name')
-            unique_data = pool.get('res.partner').read(cr, uid, [part1, part2], unique_fields)
-            str_unq = '---------------------------------------\n'
-            for u in unique_data:
-                for key, value in u.items():
-                    if key == 'id' or not value:
-                        continue
-                    str_unq += key + ': ' + value + '\n'
+                for i in cr.fetchall():
+                    remove_field[i[0]] = None
+                    unique_fields.append(i[0])
+                    unique_fields.append('name')
+                    unique_data = pool.get('res.partner').read(cr, uid, [part1, part2], unique_fields)
+                    str_unq = '---------------------------------------\n'
+                    for u in unique_data:
+                        for key, value in u.items():
+                            if key == 'id' or not value:
+                                continue
+                        str_unq += key + ': ' + str(value) + '\n'
+                    if res.has_key('comment') and res['comment']:
+                        res['comment'] += '\n' + str_unq
+                    else:
+                        res['comment'] = str_unq
+
         remove_field.update({'active': False})
         pool.get('res.partner').write(cr, uid, [part1, part2], remove_field)
-        if res.has_key('comment') and res['comment']:
-            res['comment'] += '\n' + str_unq
-        else:
-            res['comment'] = str_unq
+       # if res.has_key('comment') and res['comment']:
+       #     res['comment'] += '\n' + str_unq
+       # else:
+       #     res['comment'] = str_unq
 
         part_id = pool.get('res.partner').create(cr, uid, res, context)
         # For one2many fields on res.partner

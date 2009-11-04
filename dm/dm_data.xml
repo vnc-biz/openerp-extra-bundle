@@ -2,13 +2,6 @@
 <openerp>
     <data noupdate="1">
 
-        <!-- Case Sections -->
-
-        <record model="crm.case.section" id="section_support">
-            <field name="name">Direct Maketing Campaigns</field>
-            <field name="code">DM</field>
-        </record>
-        
         <!-- Countries -->
 
         <record id="base.be" model="res.country">
@@ -103,10 +96,12 @@
             <field name="code" eval="&quot;email&quot;"/>
         </record>
 
-        <record model="dm.media" id="media_phone">
+        <!--
+            in dm_crm as this media use to generate crm case which is moved in dm_crm
+            record model="dm.media" id="media_phone">
             <field name="name" eval="&quot;Phone&quot;"/>
             <field name="code" eval="&quot;Phone&quot;"/>
-        </record>
+        </record-->
 
         <!-- Campaign Types -->
 
@@ -448,36 +443,6 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field eval="&quot;&quot;&quot;Generate Email Queue&quot;&quot;&quot;" name="name"/>
         </record>
             
-        <record id="ir_actions_server_crm_case_create0" model="ir.actions.server">
-            <field name="model_id" ref="dm.model_dm_workitem"/>
-			<field eval="&quot;&quot;&quot;# You can use the following variables
-#    - object
-#    - object2
-#    - time
-#    - cr
-#    - uid
-#    - ids
-# If you plan to return an action, assign: action = {...}
-&quot;&quot;&quot;" name="code"/>
-			<field eval="[(6,0,[])]" name="child_ids"/>
-			<field name="srcmodel_id" ref="crm.model_crm_case"/>
-			<field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
-			<field eval="&quot;&quot;&quot;Create CRM Case&quot;&quot;&quot;" name="name"/>
-			<field eval="&quot;&quot;&quot;object_create&quot;&quot;&quot;" name="state"/>
-			<field name="record_id" ref="dm.field_dm_workitem_error_msg"/>
-        </record>
-        <record id="ir_server_object_lines_0" model="ir.server.object.lines">
-			<field name="server_id"  model="ir.actions.server" search="[('name','=','Create CRM Case')]"/>
-			<field eval="&quot;&quot;&quot;value&quot;&quot;&quot;" name="type"/>
-            <field model="crm.case.section" name="value" search="[('code','=','DM')]"/>
-			<field name="col1" ref="crm.field_crm_case_section_id"/>
-		</record>
-		<record id="ir_server_object_lines_1" model="ir.server.object.lines">
-			<field name="server_id"  model="ir.actions.server" search="[('name','=','Create CRM Case')]"/>
-			<field eval="&quot;&quot;&quot;value&quot;&quot;&quot;" name="type"/>
-			<field eval="&quot;&quot;&quot;CRM Test&quot;&quot;&quot;" name="value"/>
-			<field name="col1" ref="crm.field_crm_case_name"/>
-		</record>
 
     <!-- ACCOUNT JOURNAL -->
 <!--
@@ -716,10 +681,6 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field model="dm.dtp.plugin" search="[('model_id.model','like','res.partner')]" name="plugin_ids"/>
             <field eval="&quot;&quot;&quot;Partner&quot;&quot;&quot;" name="name"/>
         </record>
-        <record id="dm_document_template_website0" model="dm.document.template">
-            <field model="dm.dtp.plugin" search="[('model_id.model','like','dm.workitem')]" name="plugin_ids"/>
-            <field eval="&quot;&quot;&quot;Website&quot;&quot;&quot;" name="name"/>
-        </record>
 
     <!-- TRIGGER -->
 
@@ -867,7 +828,16 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field name="state">done</field>
             <field name="message">This document was succesfully generated</field>
         </record>
-
+        <record model="dm.sysmsg" id="dm_sysmsg_plugin_error">
+            <field name="name">Error in plugin value generation </field>
+            <field name="code">plugin_error</field>
+            <field name="message">Plugin values missing in document, please check preview</field>
+        </record>
+        <record model="dm.sysmsg" id="dm_sysmsg_plugin_missing">
+            <field name="name">Plugin Missing</field>
+            <field name="code">plugin_missing</field>
+            <field name="message">Some plugins are missing in document which are used in report</field>
+        </record>
 		<record id="dm_sysmsg_smtp_doc_sent" model="dm.sysmsg">
 			<field eval="&quot;&quot;&quot;smtp_doc_sent&quot;&quot;&quot;" name="code"/>
 			<field eval="&quot;&quot;&quot;SMTP Document Sent&quot;&quot;&quot;" name="name"/>

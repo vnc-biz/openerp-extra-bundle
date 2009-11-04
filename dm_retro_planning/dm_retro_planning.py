@@ -20,12 +20,17 @@
 ##############################################################################
 from osv import fields
 from osv import osv
+from datetime import date,timedelta
+import time
+from datetime import datetime
 
 class dm_campaign_group(osv.osv):#{{{
     _inherit = "dm.campaign.group"
     _columns = {
-        'project_id' : fields.many2one('project.project', 'Project', readonly=True),
+        'project_id': fields.many2one('project.project', 
+                                                    'Project', readonly=True),
     }
+    
 dm_campaign_group()
 
 class project(osv.osv):
@@ -33,15 +38,18 @@ class project(osv.osv):
     
     def default_get(self, cr, uid, fields, context={}):
         data = super(project, self).default_get(cr, uid, fields, context)
-        if 'parent_id' in context and context['parent_id'] and context['parent_id'] == 'Direct Marketing Retro-Planning':
-            prj_ids = self.search(cr, uid, [('name','=','Direct Marketing Retro-Planning')])
-            data['parent_id']=prj_ids[0]
+        if 'parent_id' in context and context['parent_id'] and \
+                    context['parent_id'] == 'Direct Marketing Retro-Planning':
+            prj_ids = self.search(cr, uid, 
+                            [('name', '=', 'Direct Marketing Retro-Planning')])
+            data['parent_id'] = prj_ids[0]
         return data
     
 project()
 
 class one2many_mod_task(fields.one2many):#{{{
-    def get(self, cr, obj, ids, name, user=None, offset=0, context=None, values=None):
+    def get(self, cr, obj, ids, name, user=None, offset=0, 
+                context=None, values=None):
         if not context:
             context = {}
         if not values:
@@ -50,40 +58,71 @@ class one2many_mod_task(fields.one2many):#{{{
         for id in ids:
             res[id] = []
         for id in ids:
-            query = "select project_id from dm_campaign where id = %i" %id
+            query = "select project_id from dm_campaign where id = %i" % id
             cr.execute(query)
             project_ids = [ x[0] for x in cr.fetchall()]
             if name[0] == 'd':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [(self._fields_id,'in',project_ids),('type','=','DTP')], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user, 
+                                        [(self._fields_id, 'in', project_ids),
+                                        ('type', '=', 'DTP')], 
+                                        limit = self._limit)
             elif name[0] == 'm':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [(self._fields_id,'in',project_ids),('type','=','Mailing Manufacturing')], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user, 
+                                        [(self._fields_id, 'in', project_ids),
+                                        ('type', '=', 'Mailing Manufacturing')],
+                                        limit=self._limit)
             elif name[0] == 'c':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [(self._fields_id,'in',project_ids),('type','=','Customers List')], limit=self._limit)
+                ids2 = obj.pool.get(self._obj).search(cr, user, 
+                                        [(self._fields_id, 'in', project_ids),
+                                        ('type', '=', 'Customers List')], 
+                                        limit=self._limit)
             elif name[0] == 'i':
-                ids2 = obj.pool.get(self._obj).search(cr, user, [(self._fields_id,'in',project_ids),('type','=','Items Procurement')], limit=self._limit)
-            else :
-                ids2 = obj.pool.get(self._obj).search(cr, user, [(self._fields_id,'in',project_ids),('type','=','Mailing Manufacturing')], limit=self._limit)
-            for r in obj.pool.get(self._obj)._read_flat(cr, user, ids2, [self._fields_id], context=context, load='_classic_write'):
+                ids2 = obj.pool.get(self._obj).search(cr, user, 
+                                        [(self._fields_id, 'in', project_ids),
+                                        ('type', '=', 'Items Procurement')], 
+                                        limit=self._limit)
+            else:
+                ids2 = obj.pool.get(self._obj).search(cr, user, 
+                                        [(self._fields_id, 'in', project_ids),
+                                        ('type', '=', 'Mailing Manufacturing')],
+                                        limit=self._limit)
+            for r in obj.pool.get(self._obj)._read_flat(cr, user, ids2, 
+                     [self._fields_id], context=context, load='_classic_write'):
                 res[id].append( r['id'] )
         return res #}}}
 
 class dm_campaign(osv.osv):#{{{
     _inherit = "dm.campaign"
     _columns = {
-        'project_id' : fields.many2one('project.project', 'Project', readonly=True,
-            help="Generating the Retro Planning will create and assign the different tasks used to plan and manage the campaign"),
-        'dtp_state' : fields.selection([('pending','Pending'),('inprogress','In Progress'),('done','Done')], 'DTP Status',readonly=True),
-        'items_state' : fields.selection([('pending','Pending'),('inprogress','In Progress'),('done','Done')], 'Items Status',readonly=True),
-        'manufacturing_state' : fields.selection([('pending','Pending'),('inprogress','In Progress'),('done','Done')], 'Manufacturing Status',readonly=True),
-        'customer_file_state' : fields.selection([('pending','Pending'),('inprogress','In Progress'),('done','Done')], 'Customers Files Status',readonly=True),
+        'project_id': fields.many2one('project.project', 'Project', readonly=True,
+            help = "Generating the Retro Planning will create and assign the \
+                    different tasks used to plan and manage the campaign"),
+        'dtp_state': fields.selection([('pending', 'Pending'),
+                            ('inprogress', 'In Progress'),('done', 'Done')], 
+                            'DTP Status', readonly=True),
+        'items_state': fields.selection([('pending', 'Pending'),
+                            ('inprogress', 'In Progress'),('done', 'Done')], 
+                            'Items Status', readonly=True),
+        'manufacturing_state': fields.selection([('pending', 'Pending'),
+                            ('inprogress', 'In Progress'),('done', 'Done')], 
+                            'Manufacturing Status', readonly=True),
+        'customer_file_state': fields.selection([('pending', 'Pending'),
+                            ('inprogress', 'In Progress'),('done', 'Done')], 
+                            'Customers Files Status', readonly=True),
         'dtp_task_ids': one2many_mod_task('project.task', 'project_id', "DTP tasks",
-                                                        domain=[('type','ilike','DTP')], context={'type':'DTP'}),
-        'manufacturing_task_ids': one2many_mod_task('project.task', 'project_id', "Manufacturing tasks",
-                                                        domain=[('type','ilike','Mailing Manufacturing')],context={'type':'Mailing Manufacturing'}),
-        'cust_file_task_ids': one2many_mod_task('project.task', 'project_id', "Customer Files tasks",
-                                                        domain=[('type','ilike','Customers List')], context={'type':'Customers List'}),
-        'item_task_ids': one2many_mod_task('project.task', 'project_id', "Items Procurement tasks",
-                                                        domain=[('type','ilike','Items Procurement')], context={'type':'Items Procurement'}),
+                    domain=[('type','ilike','DTP')], context={'type':'DTP'}),
+        'manufacturing_task_ids': one2many_mod_task('project.task', 'project_id', 
+                            "Manufacturing tasks", 
+                            domain=[('type', 'ilike', 'Mailing Manufacturing')], 
+                            context={'type': 'Mailing Manufacturing'}),
+        'cust_file_task_ids': one2many_mod_task('project.task', 'project_id', 
+                            "Customer Files tasks",
+                            domain=[('type', 'ilike', 'Customers List')], 
+                            context={'type': 'Customers List'}),
+        'item_task_ids': one2many_mod_task('project.task', 'project_id', 
+                            "Items Procurement tasks",
+                            domain=[('type', 'ilike', 'Items Procurement')], 
+                            context={'type': 'Items Procurement'}),
     }
     _defaults = {
         'manufacturing_state': lambda *a: 'pending',
@@ -93,51 +132,51 @@ class dm_campaign(osv.osv):#{{{
     }
 
     def manufacturing_state_inprogress_set(self, cr, uid, ids, *args):
-        for id in self.browse(cr,uid,ids):
+        for id in self.browse(cr, uid, ids):
             if (id.state == 'draft') or (id.state == 'pending'):
-                self.write(cr, uid, ids, {'manufacturing_state':'inprogress'})
+                self.write(cr, uid, ids, {'manufacturing_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error","This state cannot be set back to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True
 
     def dtp_state_inprogress_set(self, cr, uid, ids, *args):
-        for id in self.browse(cr,uid,ids):
+        for id in self.browse(cr, uid, ids):
             if (id.state == 'draft') or (id.state == 'pending'):
-                self.write(cr, uid, ids, {'dtp_state':'inprogress'})
+                self.write(cr, uid, ids, {'dtp_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error","This state cannot be set back to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True
  
     def customer_file_state_inprogress_set(self, cr, uid, ids, *args):
-        for id in self.browse(cr,uid,ids):
+        for id in self.browse(cr, uid, ids):
             if (id.state == 'draft') or (id.state == 'pending'):
-                self.write(cr, uid, ids, {'customer_file_state':'inprogress'})
+                self.write(cr, uid, ids, {'customer_file_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error","This state cannot be set back to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True       
     
     def items_state_inprogress_set(self, cr, uid, ids, *args):
-        for id in self.browse(cr,uid,ids):
+        for id in self.browse(cr, uid, ids):
             if (id.state == 'draft') or (id.state == 'pending'):
-                self.write(cr, uid, ids, {'items_state':'inprogress'})
+                self.write(cr, uid, ids, {'items_state': 'inprogress'})
             else:
-                raise osv.except_osv("Error!!","This state cannot be set back to 'In Progress' once the campaign is opened")
+                raise osv.except_osv("Error!!", "This state cannot be set back to 'In Progress' once the campaign is opened")
         return True 
     
     def manufacturing_state_done_set(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'manufacturing_state':'done'})
+        self.write(cr, uid, ids, {'manufacturing_state': 'done'})
         return True
     
     def dtp_state_done_set(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'dtp_state':'done'})
+        self.write(cr, uid, ids, {'dtp_state': 'done'})
         return True
 
     def customer_file_state_done_set(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'customer_file_state':'done'})
+        self.write(cr, uid, ids, {'customer_file_state': 'done'})
         return True
     
     def items_state_done_set(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'items_state':'done'})
+        self.write(cr, uid, ids, {'items_state': 'done'})
         return True
     
     def state_pending_set(self, cr, uid, ids, *args):
@@ -149,22 +188,30 @@ class dm_campaign(osv.osv):#{{{
         return True
     
     def state_open_set(self, cr, uid, ids, *args):
-        camp = self.browse(cr,uid,ids)[0]
-        if ((camp.manufacturing_state != 'done') or (camp.dtp_state != 'done') or (camp.customer_file_state != 'done') or (camp.items_state != 'done')):
+        camp = self.browse(cr, uid, ids)[0]
+        if ((camp.manufacturing_state != 'done') or 
+                (camp.dtp_state != 'done') or 
+                (camp.customer_file_state != 'done') or 
+                (camp.items_state != 'done')):
             raise osv.except_osv(
                 _('Could not open this Campaign'),
                 _('You must first close all states related to this campaign.'))
         super(dm_campaign, self).state_open_set(cr, uid, ids, *args)
         return True
 
-
-
+    def write(self, cr, uid, ids, vals, context=None):
+        value = super(dm_campaign, self).write(cr, uid, ids, vals, context)
+        for camp in self.browse(cr, uid, ids):    
+            if camp.project_id :
+                self.pool.get('project.project').write(cr, uid, [camp.project_id.id], 
+                                                {'date_end': camp.date_start})
+        return value
 dm_campaign()
 
 class project_task(osv.osv):#{{{
     _name = "project.task"
     _inherit = "project.task"
-    context_data ={}
+    context_data = {}
 
     def default_get(self, cr, uid, fields, context=None):
         if 'type' in context and 'project_id' in context:
@@ -174,8 +221,8 @@ class project_task(osv.osv):#{{{
             self.context_data['flag'] = False
         return super(project_task, self).default_get(cr, uid, fields, context)
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False):
-        result = super(project_task,self).fields_view_get(cr, user, view_id, view_type, context, toolbar)
+    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,) : # submenu=False): for trunk client
+        result = super(project_task,self).fields_view_get(cr, user, view_id, view_type, context, toolbar,)# submenu=submenu) for trunk client
         if 'flag' in self.context_data or 'type' in context:
             if 'project_id' in self.context_data:
                 if result['type']=='form':
@@ -194,12 +241,13 @@ class project_task(osv.osv):#{{{
                         <field name="partner_id" select="2"/>\n<separator colspan="4" string="Notes"/>\n<field colspan="4" name="notes" nolabel="1"/>\n</page>\n</notebook>\n</form>"""
         return result
     
-    def create(self,cr,uid,vals,context={}):
+    def create(self, cr, uid, vals, context={}):
         if 'flag' in self.context_data:
             if 'type' in self.context_data:
-                task_type = self.pool.get('project.task.type').search(cr,uid,[('name','=',self.context_data['type'])])[0]
-                vals['type']=task_type
-                vals['project_id']=self.context_data['project_id']
+                task_type = self.pool.get('project.task.type').search(cr, uid, 
+                                [('name','=',self.context_data['type'])])[0]
+                vals['type'] = task_type
+                vals['project_id'] = self.context_data['project_id']
                 self.context_data = {}
             if 'planned_hours' not in vals:
                 vals['planned_hours'] = 0.0

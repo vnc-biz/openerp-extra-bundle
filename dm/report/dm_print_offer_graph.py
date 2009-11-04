@@ -19,13 +19,11 @@
 #
 ##############################################################################
 
-import time
 import os
 import netsvc
 import pooler
 import pydot
 import tools
-import sys
 import report
 
 def translate_accent(text):
@@ -49,8 +47,7 @@ def graph_get(cr, uid, graph, offer_id):
     offer = offer_obj.browse(cr, uid, offer_id)[0]
     nodes = {}
     step_type = pooler.get_pool(cr.dbname).get('dm.offer.step.type')
-    type_ids = step_type.search(cr,uid,[])
-    type = step_type.read(cr,uid,type_ids,['code'])
+    type_ids = step_type.search(cr, uid, [])
     for step in offer.step_ids:
         if not step.graph_hide:
             args = {}
@@ -62,10 +59,11 @@ def graph_get(cr, uid, graph, offer_id):
 
             """ Get Code Translation """
             trans_obj =  pooler.get_pool(cr.dbname).get('ir.translation')
-            type_trans = trans_obj._get_ids(cr, uid, 'dm.offer.step,code', 'model',
-                               user_lang or 'en_US',[step.id])
+            type_trans = trans_obj._get_ids(cr, uid, 'dm.offer.step,code', 
+                                    'model', user_lang or 'en_US', [step.id])
             type_code = type_trans[step.id] or step.code
-            args['label'] = translate_accent(type_code +'\\n' + step.media_id.code)
+            args['label'] = translate_accent(
+                                        type_code +'\\n' + step.media_id.code)
 
             graph.add_node(pydot.Node(step.id, **args))
 
@@ -76,7 +74,8 @@ def graph_get(cr, uid, graph, offer_id):
                     'label': translate_accent(transition.condition_id.name + '\\n' + str(transition.delay) + ' ' + transition.delay_type),
                     'arrowtail': 'inv',
                 }
-                graph.add_edge(pydot.Edge( str(transition.step_from_id.id), str(transition.step_to_id.id), fontsize="10", **trargs))
+                graph.add_edge(pydot.Edge( str(transition.step_from_id.id), 
+                        str(transition.step_to_id.id), fontsize="10", **trargs))
     return True
 
 
@@ -86,10 +85,12 @@ class report_graph_instance(object):
         logger = netsvc.Logger()
         try:
             import pydot
-        except Exception,e:
+        except Exception, e:
             logger.notifyChannel('workflow', netsvc.LOG_WARNING,
-                    'Import Error for pydot, you will not be able to render workflows\n'
-                    'Consider Installing PyDot or dependencies: http://dkbza.org/pydot.html')
+                'Import Error for pydot, you will not be able \
+                                                        to render workflows\n'
+                'Consider Installing PyDot or dependencies: \
+                                                http://dkbza.org/pydot.html')
             raise e
         offer_id = ids
         self.done = False

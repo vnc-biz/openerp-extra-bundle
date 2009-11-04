@@ -25,8 +25,8 @@
 	        <field eval="[(6,0,[])]" name="child_ids"/>
 	        <field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
 	        <field eval="&quot;&quot;&quot;None&quot;&quot;&quot;" name="name"/>
-		</record>
-    
+    </record>
+
     <!-- PLUGINS -->
     </data>
 	<data noupdate="1">
@@ -74,12 +74,12 @@
 		</record>
 -->
 	
-	<!-- TEMPLATE -->
-
-	<data noupdate="1">
-		<record id="dm.dm_document_template_website0" model="dm.document.template">
-        	<field eval="[(6,0,[ref('dm_website.dm_dtp_plugin_phpurl0'),ref('dm.dm_dtp_plugin_wi_segment_id'),ref('dm.dm_dtp_plugin_wi_step_id'),ref('dm.dm_dtp_plugin_partner_address_id'),ref('dm_website.dm_dtp_plugin_campaign_website')])]" name="plugin_ids"/>
-        </record>
+<!-- TEMPLATE -->
+    <data noupdate="1">
+    <record id="dm_document_template_website0" model="dm.document.template">
+        <field eval="&quot;&quot;&quot;Website&quot;&quot;&quot;" name="name"/>
+        <field eval="[(6,0,[ref('dm_website.dm_dtp_plugin_phpurl0'),ref('dm.dm_dtp_plugin_wi_segment_id'),ref('dm.dm_dtp_plugin_wi_step_id'),ref('dm.dm_dtp_plugin_partner_address_id'),ref('dm_website.dm_dtp_plugin_campaign_website')])]" name="plugin_ids"/>
+    </record>
 
     </data>
 </openerp>

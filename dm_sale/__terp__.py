@@ -33,7 +33,8 @@
                 ],
     "demo_xml" : ['dm_sale_demo.xml'],
     "update_xml" : [
-                'dm_sale_view.xml' 
+                'dm_sale_view.xml',
+                'security/ir.model.access.csv',
                 ],
     "active": False,
     "installable": True,

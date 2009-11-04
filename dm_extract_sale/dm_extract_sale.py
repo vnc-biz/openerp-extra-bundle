@@ -24,8 +24,11 @@ from osv import osv
 class dm_address_segmentation(osv.osv): # {{{
     _inherit = "dm.address.segmentation"
 
-    def set_address_criteria(self, cr, uid, id, context={}):
-        query_obj = self.browse(cr, uid, id).query_criteria_ids
+    def set_address_criteria(self, cr, uid, ids, context={}):
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        segment_obj = self.browse(cr, uid, ids)
+        query_obj = segment_obj[0].query_criteria_ids
         rpa_where = []
         so_where = []
         for q_obj in query_obj:

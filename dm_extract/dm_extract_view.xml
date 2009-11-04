@@ -41,21 +41,21 @@
                                 </group>
                             </form>
                             <tree string="Customer Criteria">
-                           <field name="field_type"/>
-                           <field name="field_id" domain = "[('model_id.model','=','res.partner.address'),('ttype','=',field_type)]" />
-                           <field name="operator" nolabel="1" domain = "[('field_type','=',field_type)]"  />
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
-                                <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','boolean')] } " >
-                                <field name="value_boolean"  attrs = "{'required' : [('field_type','=','boolean')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','integer')] } " >
-                                <field name="value_integer"  attrs = "{'required' : [('field_type','=','integer')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','date')] } " >
-                                <field name="value_date"  attrs = "{'required' : [('field_type','=','date')] }"  />
-                            </group>
+		                       <field name="field_type"/>
+		                       <field name="field_id" domain = "[('model_id.model','=','res.partner.address'),('ttype','=',field_type)]" />
+		                       <field name="operator" nolabel="1" domain = "[('field_type','=',field_type)]"  />
+		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
+		                            <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />
+		                        </group>
+		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','boolean')] } " >
+		                            <field name="value_boolean"  attrs = "{'required' : [('field_type','=','boolean')] }"  />
+		                        </group>
+		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','integer')] } " >
+		                            <field name="value_integer"  attrs = "{'required' : [('field_type','=','integer')] }"  />
+		                        </group>
+		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','date')] } " >
+		                            <field name="value_date"  attrs = "{'required' : [('field_type','=','date')] }"  />
+		                        </group>
                             </tree>
                         </field>
                         <!--field name="address_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
@@ -98,7 +98,7 @@
                     <page string="SQL">
                         <separator string="SQL Query" colspan="4"/>
                         <field name="sql_query" nolabel="1" select="2" colspan="4"/>
-                        <button string="Compute Sql Query" name="compute_sql_query" type="action"/>
+                        <button string="Compute Sql Query" name="set_address_criteria" type="object"/>
                     </page>
                 </notebook>
             </form>

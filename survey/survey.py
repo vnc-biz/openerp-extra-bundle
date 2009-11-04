@@ -391,6 +391,7 @@ class survey_question_wiz(osv.osv_memory):
         que_obj = self.pool.get('survey.question')
         if click_state:
             que_li = []
+            resp_id_list = []
             for key, val in vals.items():
                 que_id = key.split('_')[0]
                 if que_id not in que_li:
@@ -400,6 +401,7 @@ class survey_question_wiz(osv.osv_memory):
                     resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
                         'response_type':'link'})
+                    resp_id_list.append(resp_id)
                     self.store_ans.update({resp_id:{'question_id':que_id}})
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
@@ -411,13 +413,17 @@ class survey_question_wiz(osv.osv_memory):
                             self.store_ans[resp_id].update({key1:ans_create_id})
                             ans = True
                     if que_rec[0]['is_require_answer'] and not ans:
+                        for res in resp_id_list:
+                            self.store_ans.pop(res)
                         raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
         else:
+            resp_id_list = []
             for update in click_update:
                 ans = False
                 que_rec = que_obj.read(cr, uid, self.store_ans[update]['question_id'])
                 res_ans_obj.unlink(cr, uid,res_ans_obj.search(cr, uid, [('response_id', '=', update)]))
                 self.store_ans.update({update:{'question_id':self.store_ans[update]['question_id']}})
+                resp_id_list.append(update)
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if val and ans_id_len[0] == self.store_ans[update]['question_id']:
@@ -425,6 +431,8 @@ class survey_question_wiz(osv.osv_memory):
                         self.store_ans[update].update({key:ans_create_id})
                         ans = True
                 if que_rec[0]['is_require_answer'] and not ans:
+                    for res in resp_id_list:
+                        self.store_ans.pop(res)
                     raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
         self.page = "next"
         return True

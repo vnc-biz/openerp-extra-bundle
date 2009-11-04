@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <wizard
+            string="Extract Customers"
+            model="dm.address.segmentation"
+            name="wizard.extract.customer"
+            id="wizard_extract_customers"/>
+
+	</data>
+</openerp>

@@ -34,7 +34,6 @@
     "update_xml" : [
                     "security/ir.model.access.csv",  
                     "dm_extract_view.xml",
-                    "dm_extract_data.xml"
                     ],
     "active": False,
     "installable": True,

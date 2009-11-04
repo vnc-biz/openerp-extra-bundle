@@ -13,83 +13,59 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="dm_extract.view_dm_address_segmentation_form"/>
         <field name="arch" type="xml">
-           <page string= "Customers" position="after">
-               <page string="Customer Orders">
-                   <field name="order_query_criteria_ids" mode="tree,form" colspan="2" nolabel="1" select="2">
-                       <form string="Customer Order Criteria" >
-                            <field name="field_type"/>
-                            <field name="field_id" domain = "[('ttype','=',field_type),('model_id.model','=','sale.order')]" />
-                            <field name="operator"  domain = "[('field_type','=',field_type)]"  />
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
-                                <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','boolean')] } " >
-                                <field name="value_boolean"  attrs = "{'required' : [('field_type','=','boolean')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','integer')] } " >
-                                <field name="value_integer"  attrs = "{'required' : [('field_type','=','integer')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','date')] } " >
-                                <field name="value_date"  attrs = "{'required' : [('field_type','=','date')] }"  />
-                            </group>
-                       </form>
-                       <tree string="Customer Criteria">
-                           <field name="field_type"/>
-                           <field name="field_id" domain = "[('model_id.model','=','sale.order'),('ttype','=',field_type)]" />
-                           <field name="operator" nolabel="1" domain = "[('field_type','=',field_type)]"  />
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
-                                <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','boolean')] } " >
-                                <field name="value_boolean"  attrs = "{'required' : [('field_type','=','boolean')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','integer')] } " >
-                                <field name="value_integer"  attrs = "{'required' : [('field_type','=','integer')] }"  />
-                            </group>
-                            <group colspan="4" attrs = "{'invisible' : [('field_type','!=','date')] } " >
-                                <field name="value_date"  attrs = "{'required' : [('field_type','=','date')] }"  />
-                            </group>
-                       </tree>
-                   </field>
-                   <!--field name="order_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
-                       <form string="Customer Order Numeric Criteria">
-                           <field name="field_id" context="{'dm_model':'sale.order'}" />
-                           <field name="operator" nolabel="1"/>
-                           <field name="value" nolabel="1"/>
-                       </form>
-                       <tree string="Customer Order Numeric Criteria">
-                           <field name="field_id" context="{'dm_model':'sale.order'}" />
-                           <field name="operator"/>
-                           <field name="value"/>
-                       </tree>
-                   </field>
-                   <field name="order_boolean_criteria_ids" colspan="2" nolabel="1" select="2">
-                       <form string="Customer Order Boolean Criteria">
-                           <field name="field_id" context="{'dm_model':'sale.order'}" />
-                           <field name="operator" nolabel="1"/>
-                           <field name="value" nolabel="1"/>
-                       </form>
-                       <tree string="Customer Order Boolean Criteria">
-                           <field name="field_id" context="{'dm_model':'sale.order'}" />
-                           <field name="operator"/>
-                           <field name="value"/>
-                       </tree>
-                   </field>
-                   <field name="order_date_criteria_ids" colspan="2" nolabel="1" select="2">
-                       <form string="Customer Order Date Criteria">
-                           <field name="field_id" context="{'dm_model':'sale.order'}" />
-                           <field name="operator" nolabel="1"/>
-                           <field name="value" nolabel="1"/>
-                       </form>
-                       <tree string="Customer Order Date Criteria">
-                           <field name="field_id" context="{'dm_model':'sale.order'}" />
-                           <field name="operator"/>
-                           <field name="value"/>
-                       </tree>
-                   </field-->
-               </page>
-            </page>
-        </field>
+		   <page string="Customers"  position="after">
+		       <page string="Customer Orders">
+		           <field name="order_text_criteria_ids" colspan="2" nolabel="1" select="2">
+		               <form string="Customer Order Textual Criteria">
+		                   <field name="field_id"/>
+		                   <field name="operator" nolabel="1"/>
+		                   <field name="value" nolabel="1"/>
+		                 </form>
+		               <tree string="Customer Order Textual Criteria">
+		                   <field name="field_id"/>
+		                   <field name="operator"/>
+		                   <field name="value"/>
+		               </tree>
+		           </field>
+		           <field name="order_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
+		               <form string="Customer Order Numeric Criteria">
+		                   <field name="field_id"/>
+		                   <field name="operator" nolabel="1"/>
+		                   <field name="value" nolabel="1"/>
+		               </form>
+		               <tree string="Customer Order Numeric Criteria">
+		                   <field name="field_id"/>
+		                   <field name="operator"/>
+		                   <field name="value"/>
+		               </tree>
+		           </field>
+		           <field name="order_boolean_criteria_ids" colspan="2" nolabel="1" select="2">
+		               <form string="Customer Order Boolean Criteria">
+		                   <field name="field_id"/>
+		                   <field name="operator" nolabel="1"/>
+		                   <field name="value" nolabel="1"/>
+		               </form>
+		               <tree string="Customer Order Boolean Criteria">
+		                   <field name="field_id"/>
+		                   <field name="operator"/>
+		                   <field name="value"/>
+		               </tree>
+		           </field>
+		           <field name="order_date_criteria_ids" colspan="2" nolabel="1" select="2">
+		               <form string="Customer Order Date Criteria">
+		                   <field name="field_id" />
+		                   <field name="operator" nolabel="1"/>
+		                   <field name="value" nolabel="1"/>
+		               </form>
+		               <tree string="Customer Order Date Criteria">
+		                   <field name="field_id" />
+		                   <field name="operator"/>
+		                   <field name="value"/>
+		               </tree>
+		           </field>
+		       </page>
+	       </page>		       
+	    </field>
     </record>
 
  </data>

@@ -22,43 +22,19 @@
                         <field name="notes" nolabel="1" select="2" colspan="4" widget="text_wiki"/>
                     </page>
                     <page string="Customers">
-                        <field name="query_criteria_ids" mode="tree,form" colspan="4" nolabel="1" select="2">
-                            <form string="Customer Criteria">
-                                <field name="field_type"/>
-                                <field name="field_id" domain = "[('model_id.model','=','res.partner.address'),('ttype','=',field_type)]" context="{'name':'dm_fields','ttype':field_type}"/>
-                                <field name="operator"  domain = "[('field_type','=',field_type)]"  />
-                                <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
-                                     <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />
-                                </group>
-                                <group colspan="4" attrs = "{'invisible' : [('field_type','!=','boolean')] } " >
-                                    <field name="value_boolean"  attrs = "{'required' :[('field_type','=','boolean')] }"  />
-                                </group>
-                                <group colspan="4" attrs = "{'invisible' : [('field_type','!=','integer')] } " >
-                                    <field name="value_integer"  attrs = "{'required' : [('field_type','=','integer')] }"  />
-                                </group>
-                                <group colspan="4" attrs = "{'invisible' : [('field_type','!=','date')] } " >
-                                    <field name="value_date"  attrs = "{'required' : [('field_type','=','date')] }"  />
-                                </group>
-                            </form>
-                            <tree string="Customer Criteria">
-		                       <field name="field_type"/>
-		                       <field name="field_id" domain = "[('model_id.model','=','res.partner.address'),('ttype','=',field_type)]" />
-		                       <field name="operator" nolabel="1" domain = "[('field_type','=',field_type)]"  />
-		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','char')] } " >
-		                            <field name="value_char"  attrs = "{'required' : [('field_type','=','char')] }"  />
-		                        </group>
-		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','boolean')] } " >
-		                            <field name="value_boolean"  attrs = "{'required' : [('field_type','=','boolean')] }"  />
-		                        </group>
-		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','integer')] } " >
-		                            <field name="value_integer"  attrs = "{'required' : [('field_type','=','integer')] }"  />
-		                        </group>
-		                        <group colspan="4" attrs = "{'invisible' : [('field_type','!=','date')] } " >
-		                            <field name="value_date"  attrs = "{'required' : [('field_type','=','date')] }"  />
-		                        </group>
-                            </tree>
-                        </field>
-                        <!--field name="address_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
+                        <field name="address_text_criteria_ids" colspan="2" nolabel="1" select="2">
+                            <form string="Customer Textual Criteria">
+                                <field name="field_id"/>
+                                <field name="operator" nolabel="1"/>
+                                <field name="value" nolabel="1"/>
+	                      </form>
+                            <tree string="Customer Textual Criteria">
+                                <field name="field_id"/>
+                                <field name="operator"/>
+                                <field name="value"/>
+		                      </tree>
+		                </field>
+                        <field name="address_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
                             <form string="Customer Numeric Criteria">
                                 <field name="field_id"/>
                                 <field name="operator" nolabel="1"/>
@@ -93,7 +69,7 @@
                                 <field name="operator"/>
                                 <field name="value"/>
                             </tree>
-                        </field-->
+                        </field>
                     </page>
                     <page string="SQL">
                         <separator string="SQL Query" colspan="4"/>
@@ -175,7 +151,7 @@
       </field>
    </field>
   </record>
-	
+<menuitem id="menu_action_dm_address_segmentation_form" parent="dm.menu_dm_config_customer" action="action_dm_address_segmentation_form" sequence="0" />	
     </data>
 </openerp>
     

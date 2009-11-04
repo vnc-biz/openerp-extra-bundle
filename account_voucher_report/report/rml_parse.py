@@ -30,7 +30,6 @@ import pooler
 import re
 import sys
 
-
 class rml_parse(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(rml_parse, self).__init__(cr, uid, name, context=None)

@@ -411,6 +411,7 @@ class survey_question_wiz(osv.osv_memory):
                     self.store_ans.update({resp_id:{'question_id':que_id}})
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
+                             self.store_ans[resp_id].update({key1:'skip'})
                              resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                              ans = True
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
@@ -436,9 +437,15 @@ class survey_question_wiz(osv.osv_memory):
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if val and ans_id_len[0] == self.store_ans[update]['question_id']:
-                        ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1]})
-                        self.store_ans[update].update({key:ans_create_id})
-                        ans = True
+                        if ans_id_len[-1] =='skip':
+                            resp_obj.write(cr, uid, update, {'state': 'skip'})
+                            self.store_ans[update].update({key:'skip'})
+                            ans = True
+                        else:
+                            resp_obj.write(cr, uid, update, {'state': 'done'})
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1]})
+                            self.store_ans[update].update({key:ans_create_id})
+                            ans = True
                 if que_rec[0]['is_require_answer'] and not ans:
                     for res in resp_id_list:
                         self.store_ans.pop(res)

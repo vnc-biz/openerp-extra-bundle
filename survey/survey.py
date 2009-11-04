@@ -73,7 +73,7 @@ class survey_history(osv.osv):
     _description = 'Survey History'
     _rec_name = 'date'
     _columns = {
-        'survey_id' : fields.many2one('survey', 'Survey', ondelete='cascade'),
+        'survey_id' : fields.many2one('survey', 'Survey'),
         'user_id' : fields.many2one('res.users', 'User', readonly=True),
         'date' : fields.datetime('Date started', readonly=1),
     }
@@ -249,7 +249,17 @@ class survey_name_wiz(osv.osv_memory):
 
     def action_next(self, cr, uid, ids, context=None):
         sur_id = self.read(cr, uid, ids, [])[0]
-        context.update({'survey_id' : sur_id['survey_id'], 'sur_name_id' : sur_id['id']})
+        survey_id = sur_id['survey_id']
+        context.update({'survey_id' : survey_id, 'sur_name_id' : sur_id['id']})
+        cr.execute('select count(id) from survey_history where user_id=%s\
+                    and survey_id=%s' % (uid,survey_id))
+        res = cr.fetchone()[0]
+        user_limit = self.pool.get('survey').read(cr, uid, survey_id, ['response_user'])['response_user']
+        if user_limit and res >= user_limit:
+            raise osv.except_osv(_('Warning !'),_("You can not give response for this survey more than %s times") % (user_limit))
+        his_id = self.pool.get('survey.history').create(cr, uid, {'user_id': uid, \
+                                          'date': strftime('%Y-%m-%d %H:%M:%S'),\
+                                          'survey_id': survey_id})
         return {
             'view_type': 'form',
             "view_mode": 'form',

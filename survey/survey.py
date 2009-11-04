@@ -260,6 +260,10 @@ class survey_name_wiz(osv.osv_memory):
         his_id = self.pool.get('survey.history').create(cr, uid, {'user_id': uid, \
                                           'date': strftime('%Y-%m-%d %H:%M:%S'),\
                                           'survey_id': survey_id})
+        survey_obj = self.pool.get('survey')
+        sur_rec = survey_obj.read(cr,uid,self.read(cr,uid,ids)[0]['survey_id'])
+        survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
+
         return {
             'view_type': 'form',
             "view_mode": 'form',
@@ -304,9 +308,7 @@ class survey_question_wiz(osv.osv_memory):
             flag = False
             if self.page == "next" or sur_name_rec['page_no'] == - 1 :
                 if len(p_id) > sur_name_rec['page_no'] + 1 :
-                    if not sur_name_rec['page_no']:
-                        survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
-                    if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] + 1 and not sur_name_rec['page_no']:
+                    if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] and not sur_name_rec['page_no']+1:
                         survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
                     p_id = p_id[sur_name_rec['page_no'] + 1]
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	<!--
+		for account.move object
+	-->
+		<report id="report_account_voucher_new"
+			string="Voucher Report (Cr/Dr)"
+			model="account.move"
+			name="account.move.voucher"
+			rml="account_voucher_report/report/report_voucher_move.rml"
+			auto="False"
+			header = "False"
+			menu="True"/>
+	</data>
+</openerp>

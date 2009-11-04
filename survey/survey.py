@@ -406,7 +406,7 @@ class survey_question_wiz(osv.osv_memory):
                     que_rec = que_obj.read(cr, uid , [que_id], ['is_require_answer', 'question'])
                     resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
-                        'response_type':'link'})
+                        'response_type':'link', 'state':'done'})
                     resp_id_list.append(resp_id)
                     self.store_ans.update({resp_id:{'question_id':que_id}})
                     for key1, val1 in vals.items():

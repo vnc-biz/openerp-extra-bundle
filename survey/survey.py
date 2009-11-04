@@ -278,7 +278,7 @@ survey_name_wiz()
 class survey_question_wiz(osv.osv_memory):
     page = "next"
     transfer = True
-    store_ans = []
+    store_ans = {}
     
     _name = 'survey.question.wiz'
     _columns = {
@@ -298,7 +298,7 @@ class survey_question_wiz(osv.osv_memory):
         response_obj = self.pool.get('survey.response')
         p_id = sur_rec['page_ids']
         if not sur_name_rec['page_no'] + 1 :
-            self.store_ans = []
+            self.store_ans = {}
         if self.transfer or not sur_name_rec['page_no'] + 1 :
             self.transfer = False
             flag = False
@@ -343,16 +343,16 @@ class survey_question_wiz(osv.osv_memory):
                         xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
                         fields[str(que) + "_other"] = {'type':'text', 'string':"Comment", 'views':{}}
-                    xml += '''
-                    <separator colspan="4" />
-                    <group cols="4" colspan="4">
-                        <label align="0.0" colspan="1" string=""/>    
-                        <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>''' + button + '''
-                        <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
-                    </group>
-                    </form>'''
-                    result['arch'] = xml
-                    result['fields'] = fields
+                xml += '''
+                <separator colspan="4" />
+                <group cols="4" colspan="4">
+                    <label align="0.0" colspan="1" string=""/>    
+                    <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>''' + button + '''
+                    <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
+                </group>
+                </form>'''
+                result['arch'] = xml
+                result['fields'] = fields
             else:
                 survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
                 xml_form = '''<?xml version="1.0"?>
@@ -368,36 +368,59 @@ class survey_question_wiz(osv.osv_memory):
 
     def default_get(self, cr, uid, fields_list, context=None):
         value = {}
-        for field in fields_list:
-            if field in self.store_ans:
-                value[field] = True
+        ans_list = []
+        for key,val in self.store_ans.items():
+            for field in fields_list:
+                if field in list(val):
+                    value[field] = True
         return value
         
     def create(self, cr, uid, vals, context=None):
+        click_state = True
+        click_update = []
+        for key,val in self.store_ans.items():
+            for field in vals:
+                if field.split('_')[0] in val['question_id']:
+                    click_state = False
+                    click_update.append(key)
+                    break
         resp_obj = self.pool.get('survey.response')
         res_ans_obj = self.pool.get('survey.response.answer')
         que_obj = self.pool.get('survey.question')
-        que_li = []
-        ans_list = []
-        for key, val in vals.items():
-            que_id = key.split('_')[0]
-            if que_id not in que_li:
+        if click_state:
+            que_li = []
+            for key, val in vals.items():
+                que_id = key.split('_')[0]
+                if que_id not in que_li:
+                    ans = False
+                    que_li.append(que_id)
+                    que_rec = que_obj.read(cr, uid , [que_id], ['is_require_answer', 'question'])
+                    resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
+                        'question_id':que_id, 'date_create':datetime.datetime.now(), \
+                        'response_type':'link'})
+                    self.store_ans.update({resp_id:{'question_id':que_id}})
+                    for key1, val1 in vals.items():
+                        if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                            resp_obj.write(cr, uid, resp_id, {'comment':val1})
+                            ans = True
+                        elif val1 and que_id == key1.split('_')[0]:
+                            ans_id_len = key1.split('_')
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':ans_id_len[len(ans_id_len) - 1]})
+                            self.store_ans[resp_id].update({key1:ans_create_id})
+                            ans = True
+                    if que_rec[0]['is_require_answer'] and not ans:
+                        raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
+        else:
+            for update in click_update:
                 ans = False
-                que_li.append(que_id)
-                que_rec = que_obj.read(cr, uid , [que_id], ['is_require_answer', 'question'])
-                resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
-                    'question_id':que_id, 'date_create':datetime.datetime.now(), \
-                    'response_type':'link'})
-
-                for key1, val1 in vals.items():
-                    if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
-                        resp_obj.write(cr, uid, resp_id, {'comment':val1})
-                        ans = True
-                    elif val1 and que_id == key1.split('_')[0]:
-                        ans_id_len = key1.split('_')
-                        ans_list.append(key1)
-                        self.store_ans.append(key1)
-                        res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':ans_id_len[len(ans_id_len) - 1]})
+                que_rec = que_obj.read(cr, uid, self.store_ans[update]['question_id'])
+                res_ans_obj.unlink(cr, uid,res_ans_obj.search(cr, uid, [('response_id', '=', update)]))
+                self.store_ans.update({update:{'question_id':self.store_ans[update]['question_id']}})
+                for key, val in vals.items():
+                    ans_id_len = key.split('_')
+                    if val and ans_id_len[0] == self.store_ans[update]['question_id']:
+                        ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1]})
+                        self.store_ans[update].update({key:ans_create_id})
                         ans = True
                 if que_rec[0]['is_require_answer'] and not ans:
                     raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))

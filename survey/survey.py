@@ -336,7 +336,13 @@ class survey_question_wiz(osv.osv_memory):
                 for que in que_ids:
                     qu_no += 1
                     que_rec = que_obj.read(cr, uid, que)
-                    xml += '''<separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="4"/> <newline/> '''
+                    fields[str(que) + "_" + 'skip'] = {'type':'boolean', 'string':'Skip'}
+                    xml += '''<group col="4" colspan="4">
+                    <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/> 
+                        <label align="3.0" colspan="1" string="Skip for now"/>    
+                       <field  name="''' + str(que) + "_" + 'skip' + '''" colspan="1" nolabel="1"/>
+                       </group>
+                    <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
                     for ans in ans_ids:
                         xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
@@ -404,7 +410,10 @@ class survey_question_wiz(osv.osv_memory):
                     resp_id_list.append(resp_id)
                     self.store_ans.update({resp_id:{'question_id':que_id}})
                     for key1, val1 in vals.items():
-                        if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                        if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
+                             resp_obj.write(cr, uid, resp_id, {'state':'skip'})
+                             ans = True
+                        elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             ans = True
                         elif val1 and que_id == key1.split('_')[0]:

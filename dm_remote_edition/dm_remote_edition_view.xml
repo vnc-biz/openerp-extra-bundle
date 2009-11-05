@@ -15,7 +15,7 @@
         <field name="inherit_id" ref="dm.view_dm_mail_service_form"/>
         <field name="arch" type="xml">
          	<field name="store_email_document" position="after">
-         		<group colspan="4" attrs="{'invisible':[('type_id','!=','Printing Service')]}">
+         		<group colspan="4" attrs="{'invisible':[('service_type','!=','print_service')]}">
             		<separator string="Printer Informations" colspan="5"/>
             		<field name="default_printer" />
             		<field name="default_printer_tray" />

@@ -243,9 +243,14 @@ class survey_name_wiz(osv.osv_memory):
         'survey_id': fields.selection(_get_survey, "Survey", required="1"),
         'page_no' : fields.integer('Page Number'),
         'note' : fields.text("Description"),
+        'page' : fields.char('Page Position',size = 12),
+        'transfer' : fields.boolean('Page Transfer'),
+        'store_ans' : fields.text('Store Answer')
     }
     _defaults = {
-        'page_no' : lambda * a: - 1
+        'page_no' : lambda * a: - 1,
+        'page' : lambda * a: 'next',
+        'transfer' : lambda * a: 1,
     }
 
     def action_next(self, cr, uid, ids, context=None):
@@ -281,7 +286,6 @@ class survey_name_wiz(osv.osv_memory):
 survey_name_wiz()
 
 class survey_question_wiz(osv.osv_memory):
-    page = "next"
     transfer = True
     store_ans = {}
     
@@ -303,11 +307,12 @@ class survey_question_wiz(osv.osv_memory):
         response_obj = self.pool.get('survey.response')
         p_id = sur_rec['page_ids']
         if not sur_name_rec['page_no'] + 1 :
-            self.store_ans = {}
-        if self.transfer or not sur_name_rec['page_no'] + 1 :
-            self.transfer = False
+            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
+        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+        if sur_name_read['transfer'] or not sur_name_rec['page_no'] + 1 :
+            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':False})
             flag = False
-            if self.page == "next" or sur_name_rec['page_no'] == - 1 :
+            if sur_name_read['page'] == "next" or sur_name_rec['page_no'] == - 1 :
                 if len(p_id) > sur_name_rec['page_no'] + 1 :
                     if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] and not sur_name_rec['page_no']+1:
                         survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
@@ -376,9 +381,11 @@ class survey_question_wiz(osv.osv_memory):
         return result
 
     def default_get(self, cr, uid, fields_list, context=None):
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
         value = {}
         ans_list = []
-        for key,val in self.store_ans.items():
+        for key,val in sur_name_read['store_ans'].items():
             for field in fields_list:
                 if field in list(val):
                     value[field] = True
@@ -387,7 +394,9 @@ class survey_question_wiz(osv.osv_memory):
     def create(self, cr, uid, vals, context=None):
         click_state = True
         click_update = []
-        for key,val in self.store_ans.items():
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+        for key,val in sur_name_read['store_ans'].items():
             for field in vals:
                 if field.split('_')[0] in val['question_id']:
                     click_state = False
@@ -409,10 +418,15 @@ class survey_question_wiz(osv.osv_memory):
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
                         'response_type':'link', 'state':'done'})
                     resp_id_list.append(resp_id)
-                    self.store_ans.update({resp_id:{'question_id':que_id}})
+                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                    sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
+                    surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
                              resp_obj.write(cr, uid, resp_id, {'state':'skip'})
+                             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                             sur_name_read['store_ans'][resp_id].update({key1:'skip'})
+                             surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                              ans = True
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
@@ -420,41 +434,54 @@ class survey_question_wiz(osv.osv_memory):
                         elif val1 and que_id == key1.split('_')[0]:
                             ans_id_len = key1.split('_')
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':ans_id_len[len(ans_id_len) - 1]})
-                            self.store_ans[resp_id].update({key1:ans_create_id})
+                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            sur_name_read['store_ans'][resp_id].update({key1:ans_create_id})
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                     if que_rec[0]['is_require_answer'] and not ans:
+                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
-                            self.store_ans.pop(res)
+                            sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
         else:
             resp_id_list = []
             for update in click_update:
                 ans = False
-                que_rec = que_obj.read(cr, uid, self.store_ans[update]['question_id'])
+                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                que_rec = que_obj.read(cr, uid, sur_name_read['store_ans'][update]['question_id'])
                 res_ans_obj.unlink(cr, uid,res_ans_obj.search(cr, uid, [('response_id', '=', update)]))
-                self.store_ans.update({update:{'question_id':self.store_ans[update]['question_id']}})
                 resp_id_list.append(update)
+
+                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                sur_name_read['store_ans'].update({update:{'question_id':sur_name_read['store_ans'][update]['question_id']}})
+                surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
-                    if val and ans_id_len[0] == self.store_ans[update]['question_id']:
+                    if val and ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
                         if ans_id_len[-1] =='skip':
                             resp_obj.write(cr, uid, update, {'state': 'skip'})
+                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            sur_name_read['store_ans'][update].update({key:'skip'})
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                         else:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1]})
-                            self.store_ans[update].update({key:ans_create_id})
+                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            sur_name_read['store_ans'][update].update({key:ans_create_id})
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                 if que_rec[0]['is_require_answer'] and not ans:
+                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     for res in resp_id_list:
-                        self.store_ans.pop(res)
+                        sur_name_read['store_ans'].pop(res)
+
                     raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
-        self.page = "next"
         return True
 
     def action_next(self, cr, uid, ids, context=None):
-        self.page = "next"
-        self.transfer = True
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page':'next'})
         return {
                 'view_type': 'form',
                 "view_mode": 'form',
@@ -465,8 +492,8 @@ class survey_question_wiz(osv.osv_memory):
                 }
 
     def action_previous(self, cr, uid, ids, context=None):
-        self.page = "previous"
-        self.transfer = True
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page':'previous'})
         return {
                 'view_type': 'form',
                 "view_mode": 'form',

@@ -51,7 +51,6 @@ class dm_campaign_type(osv.osv): #{{{
     }
 dm_campaign_type()#}}}
 
-
 class dm_overlay(osv.osv):
     _name = 'dm.overlay'
     _rec_name = 'trademark_id'

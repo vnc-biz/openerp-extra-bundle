@@ -28,7 +28,7 @@ class dm_document_job_batch(osv.osv): # {{{
     _columns = {
         'name': fields.char('Name', required=True, size=64),
         'document_job_ids': fields.one2many('dm.document.job', 'document_job_batch_id', 'Offer Document Jobs'),
-        'state': fields.selection([('Pending','pending'),('Error','error'),('Done','done')], 'State'),
+        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
     }
     
 dm_document_job_batch() # }}}
@@ -40,7 +40,7 @@ class dm_document_job(osv.osv): # {{{
         'name': fields.char('Name', required=True, size=64),
         'document_job_batch_id': fields.many2one('dm.document.job.batch', 'Job Batch'),
         'document_ids': fields.one2many('dm.offer.document', 'document_job', 'Offer Documents'),
-        'state': fields.selection([('Pending','pending'),('Error','error'),('Done','done')], 'State'),
+        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
     }
     
 dm_document_job() # }}}
@@ -55,10 +55,6 @@ class dm_offer_document(osv.osv): # {{{
         'document_job_position': fields.integer('Document Job Position'),
         'verso': fields.boolean('Verso')
     }
-    
-    _defaults = {
-        'verso': lambda *a: False,         
-        }
     
 dm_offer_document() # }}}
 

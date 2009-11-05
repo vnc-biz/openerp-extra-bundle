@@ -42,6 +42,7 @@ from datetime import timedelta
 import bz2
 import release
 import socket
+from tools.translate import _
 
 class SmtpClient(osv.osv):
     _name = 'email.smtpclient'
@@ -362,7 +363,10 @@ class SmtpClient(osv.osv):
             if smtp_server.disclaimers != False:
                 body = body + "\n" + smtp_server.disclaimers
                 
-            msg.attach(MIMEText(body or '', _charset=charset, _subtype="html"))
+            try:
+                msg.attach(MIMEText(body.encode(charset) or '', _charset=charset, _subtype="html"))
+            except:
+                msg.attach(MIMEText(body or '', _charset=charset, _subtype="html"))    
             
             #add custom headers to email
             for hk in headers.keys():

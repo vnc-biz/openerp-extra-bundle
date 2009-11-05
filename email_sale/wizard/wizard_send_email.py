@@ -25,6 +25,7 @@ import wizard
 import pooler
 import tools
 
+from tools.translate import _
 from osv import fields,osv
 import time
 import netsvc

@@ -30,6 +30,7 @@ class dm_mail_service(osv.osv): # {{{
           'default_printer': fields.char('Default Printer', size=64),
           'default_printer_tray': fields.char('Default Printer Tray', size=64),
         }
+    
 dm_mail_service() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

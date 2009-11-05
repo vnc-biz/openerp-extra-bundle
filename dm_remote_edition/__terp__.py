@@ -29,7 +29,7 @@
            
             """,
     "depends" : [
-                'dm',
+                'dm_edition',
             ],
     "init_xml" : [],
     "demo_xml" : [

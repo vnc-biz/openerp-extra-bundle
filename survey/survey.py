@@ -393,7 +393,9 @@ class survey_question_wiz(osv.osv_memory):
         ans_list = []
         for key,val in sur_name_read['store_ans'].items():
             for field in fields_list:
-                if field in list(val):
+                if field in list(val) and field.split('_')[1] == 'other':
+                    value[field] = val[field]
+                elif field in list(val):
                     value[field] = True
         return value
         
@@ -436,6 +438,9 @@ class survey_question_wiz(osv.osv_memory):
                              ans = True
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
+                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            sur_name_read['store_ans'][resp_id].update({key1:val1})
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                         elif val1 and que_id == key1.split('_')[0]:
                             ans_id_len = key1.split('_')
@@ -468,6 +473,12 @@ class survey_question_wiz(osv.osv_memory):
                             resp_obj.write(cr, uid, update, {'state': 'skip'})
                             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                             sur_name_read['store_ans'][update].update({key:'skip'})
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                            ans = True
+                        elif key.split('_')[1] == "other":
+                            resp_obj.write(cr, uid, update, {'comment':val})
+                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            sur_name_read['store_ans'][update].update({key:val})
                             surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                         else:

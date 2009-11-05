@@ -33,14 +33,28 @@ parameter_fields = {
     'code': {'string': 'Customer Code', 'type': 'char', 'required': True}
     }
 
+
+message_fields = {
+    'number_pa': {'string': 'Number of Parent Address extracted', 'type': 'integer', 'readonly': True},
+    }
+
 _form = """<?xml version="1.0"?>
 <form string="Extract Customers">
-    <label string="Customers are extracted successfully"/>
+    <field name="number_pa" colspan="4"/>
 </form>
 """
-
 def action_extract_customer(self, cr, uid, data, context):
-    return {}
+    pool = pooler.get_pool(cr.dbname)
+    sql_query = pool.get('dm.address.segmentation').browse(cr,uid,data['id']).sql_query
+    cr.execute(sql_query)
+    pa_ids = map(lambda x: x[0] ,cr.fetchall())
+    pool.get('dm.customers_file').create(cr,uid,{'name':data['form']['name'],
+                                            'code':data['form']['code'],
+                                            'address_ids': [[6, 0, pa_ids]],})
+    data['form']['number_pa'] = len(pa_ids)
+    return data['form']
+    
+
 
 class wizard_workitem(wizard.interface):
     states = {
@@ -55,7 +69,7 @@ class wizard_workitem(wizard.interface):
             'actions': [action_extract_customer],
             'result': {
                 'type': 'form', 'arch': _form, 
-                'fields': {},
+                'fields': message_fields,
                 'state': [('end', 'Ok')]
             }
         },

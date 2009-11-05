@@ -162,7 +162,10 @@ class survey_answer(osv.osv):
                 join survey_response sr on (sra.response_id=sr.id) \
                 where question_id=%d and state='done' " % (rec.question_id.id))
             resp = cr.fetchone()[0]
-            avg = (ans * 100) / resp
+            if resp:
+                avg = (ans * 100) / resp
+            else:
+                avg = 0.0
             val[rec.id] = {
                 'response': ans,
                 'average': round(avg, 2),

@@ -49,7 +49,7 @@
         </record>
 
         <record id="survey_question_3" model="survey.question">
-            <field name="question"> Where are you located??</field>
+            <field name="question">Where are you located??</field>
             <field name="page_id" ref="survey_page_3" />
             <field name="is_require_answer">1</field>
         </record>

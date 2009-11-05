@@ -116,6 +116,7 @@ class survey_question(osv.osv):
     _description = 'Survey Question'
     _rec_name = 'question'
     _order = 'sequence'
+    
     def _calc_response(self, cr, uid, ids, field_name, arg, context):
         val = {}
         cr.execute("select question_id, count(id) as Total_response from survey_response where question_id in (%s) group by question_id" % ",".join(map(str, map(int, ids))))
@@ -149,20 +150,25 @@ class survey_answer(osv.osv):
     _description = 'Survey Answer'
     _rec_name = 'answer'
     _order = 'sequence'
+    
     def _calc_response_avg(self, cr, uid, ids, field_name, arg, context):
         val = {}
         for rec in self.browse(cr, uid, ids):
-            cr.execute("select count(question_id) ,(select count(answer_id) from survey_response_answer sra  where sra.answer_id = %d group by sra.answer_id)  from survey_response where question_id = %d" % (rec.id, rec.question_id.id))
-            res = cr.fetchone()
-            if res[1]:
-                avg = float(res[1]) * 100 / res[0]
-            else:
-                avg = 0.0
+            cr.execute("SELECT count(ans.id) from survey_response_answer ans \
+                                join survey_response res on (ans.response_id=res.id) \
+                                where answer_id=%d and res.state='done'" % (rec.id))
+            ans = cr.fetchone()[0]
+            cr.execute("SELECT count(*) from survey_response_answer sra \
+                join survey_response sr on (sra.response_id=sr.id) \
+                where question_id=%d and state='done' " % (rec.question_id.id))
+            resp = cr.fetchone()[0]
+            avg = (ans * 100) / resp
             val[rec.id] = {
-                'response': res[1],
+                'response': ans,
                 'average': round(avg, 2),
             }
         return val
+    
     _columns = {
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
         'answer' : fields.char('Answer', size=128, required=1),

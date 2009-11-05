@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<record id="view_dm_edition_job_batch_tree" model="ir.ui.view">
+        <field name="name">dm.document.job.batch.tree</field>
+        <field name="model">dm.document.job.batch</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Job Batches">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+	
+	<record id="view_dm_edition_job_batch_form" model="ir.ui.view">
+        <field name="name">dm.document.job.batch.form</field>
+        <field name="model">dm.document.job.batch</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Job Batches">
+                <field name="name"/>
+                <field name="state"/>
+				<newline/>
+				<field name="document_job_ids" colspan="4" mode="tree,form" nolabel="1"/>
+            </form>
+        </field>
+    </record>
+
+	<record id="act_dm_edition_job_batch_form" model="ir.actions.act_window">
+        <field name="name">All Document Job Batches</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.document.job.batch</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+	
+	<menuitem action="act_dm_edition_job_batch_form" id="menu_dm_edition_job_batch" parent="dm.menu_action_offer_doc"/>
+
+	<record id="view_dm_edition_job_tree" model="ir.ui.view">
+        <field name="name">dm.document.job.tree</field>
+        <field name="model">dm.document.job</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Jobs">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+	
+	<record id="view_dm_edition_job_form" model="ir.ui.view">
+        <field name="name">dm.document.job.form</field>
+        <field name="model">dm.document.job</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Jobs">
+                <field name="name"/>
+				<field name="document_job_batch_id"/>
+                <field name="state"/>
+				<newline/>
+				<field name="document_ids" colspan="4" mode="tree,form" nolabel="1"/>
+            </form>
+        </field>
+    </record>
+	
+	<record id="act_dm_edition_job_form" model="ir.actions.act_window">
+        <field name="name">All Document Jobs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.document.job</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<menuitem action="act_dm_edition_job_form" id="menu_dm_edition_job_form" parent="dm.menu_action_offer_doc"/>
+	
+	<record id="view_offer_step_document_form_inherit" model="ir.ui.view">
+        <field name="name">dm.offer.document.form.inherit</field>
+        <field name="model">dm.offer.document</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm.view_offer_step_document_form"/>
+        <field name="arch" type="xml">
+            <page string="Dynamic Fields" position="after">
+                <page string="Edition">
+					<field name="printer"/>
+					<field name="printer_tray"/>
+					<field name="document_job"/>
+					<field name="document_job_position"/>
+					<field name="verso"/>
+				</page>
+			</page>
+        </field>
+    </record>
+
+	</data>
+</openerp>

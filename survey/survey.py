@@ -24,6 +24,7 @@ from osv import fields, osv
 import datetime
 from time import strftime
 import copy
+from tools.translate import _
 
 class survey(osv.osv):
     _name = 'survey'
@@ -339,7 +340,7 @@ class survey_question_wiz(osv.osv_memory):
                     fields[str(que) + "_" + 'skip'] = {'type':'boolean', 'string':'Skip'}
                     xml += '''<group col="4" colspan="4">
                     <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/> 
-                        <label align="3.0" colspan="1" string="Skip for now"/>    
+                        <label align="3.0" colspan="1" string="Answer later"/>    
                        <field  name="''' + str(que) + "_" + 'skip' + '''" colspan="1" nolabel="1"/>
                        </group>
                     <newline/> '''
@@ -411,7 +412,6 @@ class survey_question_wiz(osv.osv_memory):
                     self.store_ans.update({resp_id:{'question_id':que_id}})
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
-                             self.store_ans[resp_id].update({key1:'skip'})
                              resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                              ans = True
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
@@ -439,7 +439,6 @@ class survey_question_wiz(osv.osv_memory):
                     if val and ans_id_len[0] == self.store_ans[update]['question_id']:
                         if ans_id_len[-1] =='skip':
                             resp_obj.write(cr, uid, update, {'state': 'skip'})
-                            self.store_ans[update].update({key:'skip'})
                             ans = True
                         else:
                             resp_obj.write(cr, uid, update, {'state': 'done'})

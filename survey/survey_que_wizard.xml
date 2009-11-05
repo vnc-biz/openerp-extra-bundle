@@ -43,7 +43,7 @@
 					<button colspan="1" icon="gtk-cancel"
 						special="cancel" string="Cancel"/>
 					<button colspan="1" icon="gtk-go-forward"
-						name="action_next" string="Next" type="object"/>
+						name="action_next" string="Start" type="object"/>
 				</form>
 			</field>
 		</record>

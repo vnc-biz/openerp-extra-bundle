@@ -154,20 +154,21 @@ class survey_answer(osv.osv):
     def _calc_response_avg(self, cr, uid, ids, field_name, arg, context):
         val = {}
         for rec in self.browse(cr, uid, ids):
-            cr.execute("SELECT count(ans.id) from survey_response_answer ans \
-                                join survey_response res on (ans.response_id=res.id) \
-                                where answer_id=%d and res.state='done'" % (rec.id))
-            ans = cr.fetchone()[0]
-            cr.execute("SELECT count(*) from survey_response_answer sra \
-                join survey_response sr on (sra.response_id=sr.id) \
-                where question_id=%d and state='done' " % (rec.question_id.id))
-            resp = cr.fetchone()[0]
-            if resp:
-                avg = (ans * 100) / resp
+
+            cr.execute("select count(question_id) ,(select count(answer_id) \
+                from survey_response_answer sra, survey_response sa \
+                where sra.response_id = sa.id and sra.answer_id = %d \
+                and sa.state='done') as tot_ans from survey_response \
+                where question_id = %d and state = 'done'"\
+                     % (rec.id, rec.question_id.id))
+
+            res = cr.fetchone()
+            if res[0]:
+                avg = float(res[1]) * 100 / res[0]
             else:
                 avg = 0.0
             val[rec.id] = {
-                'response': ans,
+                'response': res[1],
                 'average': round(avg, 2),
             }
         return val

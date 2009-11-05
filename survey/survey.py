@@ -433,25 +433,21 @@ class survey_question_wiz(osv.osv_memory):
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     for key1, val1 in vals.items():
+                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
                              resp_obj.write(cr, uid, resp_id, {'state':'skip'})
-                             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                              sur_name_read['store_ans'][resp_id].update({key1:'skip'})
-                             surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                              ans = True
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
-                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
-                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                         elif val1 and que_id == key1.split('_')[0]:
                             ans_id_len = key1.split('_')
-                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':ans_id_len[len(ans_id_len) - 1]})
-                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1]})
                             sur_name_read['store_ans'][resp_id].update({key1:ans_create_id})
-                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
+                        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     if que_rec[0]['is_require_answer'] and not ans:
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
@@ -472,25 +468,21 @@ class survey_question_wiz(osv.osv_memory):
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if val and ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
+                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         if ans_id_len[-1] =='skip':
                             resp_obj.write(cr, uid, update, {'state': 'skip'})
-                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                             sur_name_read['store_ans'][update].update({key:'skip'})
-                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                         elif key.split('_')[1] == "other":
                             resp_obj.write(cr, uid, update, {'comment':val})
-                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                             sur_name_read['store_ans'][update].update({key:val})
-                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
                         else:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1]})
-                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                             sur_name_read['store_ans'][update].update({key:ans_create_id})
-                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                             ans = True
+                        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                 if que_rec[0]['is_require_answer'] and not ans:
                     sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     for res in resp_id_list:

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <!--
+    =======================================================
+    DM REMOTE EDITION VIEWS
+    =======================================================
+    -->
+   
+
+    <record model="ir.ui.view" id="view_dm_remote_edition_mail_service_form">
+        <field name="name">dm.mail_service.form.inherit</field>
+        <field name="model">dm.mail_service</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="dm.view_dm_mail_service_form"/>
+        <field name="arch" type="xml">
+         	<field name="store_email_document" position="after">
+         		<group colspan="4" attrs="{'invisible':[('type_id','!=','Printing Service')]}">
+            		<separator string="Printer Informations" colspan="5"/>
+            		<field name="default_printer" />
+            		<field name="default_printer_tray" />
+        		</group>
+        	</field>
+        </field>
+    </record>
+    
+ </data>
+</openerp>
+ 

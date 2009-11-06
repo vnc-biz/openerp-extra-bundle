@@ -35,16 +35,16 @@ Form = """<?xml version="1.0"?>
    <field name="end_date"/>
    <field name="level"/>
    <field name="result"/>
-   <field name="origin_partner"/>
+   <!--field name="origin_partner"/-->
    <group colspan="4"  attrs="{'invisible':[('level','=','offer')]}">
-        <field name="campaign_id" attrs="{'required':[('level','=','campaign')]}" />
+        <field name="campaign_id" attrs="{'required':[('level','!=','offer')]}" />
    </group>
    <group colspan="4"  attrs="{'invisible':[('level','!=','offer')]}">
         <field name="offer_id" attrs="{'required':[('level','=','offer')]}" />
    </group>
-   <!--group colspan="4"  attrs="{'invisible':[('level','!=','segment')]}">
-        <field name="segment_id" attrs="{'required':[('level','=','segment')]}" />
-   </group-->
+   <group colspan="4"  attrs="{'invisible':[('level','=','segment')]}">
+        <field name="split_by" />
+   </group>
 </form>"""
 
 error_form = """<?xml version="1.0"?>
@@ -63,15 +63,16 @@ _result_selection = [
         ('amt','Amount'),
         ]
 
-#_level2_selection = [
-#        ('step','Offer Step'),
-#        ('segment','Segment'),
-#        ]
+_split_selection = [
+        ('origin_partner','Origin Code'),
+        ('segment','Segment'),
+        ('',''),
+        ]
 
 Fields = {
     'start_date' : {'string':'Start Date','type':'date', 'required' : True },
     'end_date' : {'string':'End Date','type':'date', 'required' : True },
-    'origin_partner':{'string':'Sort by origin partner' , 'type':'boolean'},
+    'split_by':{'string':'Sort by origin partner' , 'type': 'selection', 'selection':_split_selection},
     'level' : {'string': 'Level', 'type': 'selection', 'selection':_level_selection, 'default': lambda *a:"campaign", },
     'result' : {'string': 'Result', 'type': 'selection', 'selection':_result_selection, 'default': lambda *a:"qty"},    
 #    'level2' : {'string': 'Level', 'type': 'selection', 'selection':_level2_selection, 'default': lambda *a:"step", },

@@ -25,9 +25,8 @@
         <field name="arch" type="xml">
             <form string="Job Batches">
                 <field name="name"/>
-                <field name="state"/>
-				<newline/>
-				<field name="campaign_document_job_ids" colspan="4" mode="tree,form" nolabel="1"/>
+				<field name="campaign_document_job_ids" colspan ="4" mode="tree,form" nolabel="1"/>
+				<field name="state"/>
             </form>
         </field>
     </record>
@@ -105,9 +104,9 @@
             <form string="Campaign Jobs">
                 <field name="name"/>
 				<field name="process_date"/>
-				<field name="state"/>
 				<newline/>
 				<field name="campaign_document_ids" colspan="4" mode="tree,form" nolabel="1"/>
+				<field name="state"/>
             </form>
         </field>
     </record>

@@ -37,7 +37,6 @@
         <field name="arch" type="xml">
          	<field name="campaign_document_ids" position="after">
             		<field name="user_id" />
-        		</group>
         	</field>
         </field>
     </record>

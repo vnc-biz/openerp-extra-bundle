@@ -22,28 +22,39 @@
 from osv import fields
 from osv import osv
 
-class dm_document_job_batch(osv.osv): # {{{
-    _name = "dm.document.job.batch"
+class dm_campaign_document_job_batch(osv.osv): # {{{
+    _name = "dm.campaign.document.job.batch"
 
     _columns = {
         'name': fields.char('Name', required=True, size=64),
-        'document_job_ids': fields.one2many('dm.document.job', 'document_job_batch_id', 'Offer Document Jobs'),
+        'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
         'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
     }
     
-dm_document_job_batch() # }}}
+dm_campaign_document_job_batch() # }}}
 
-class dm_document_job(osv.osv): # {{{
-    _name = "dm.document.job"
+class dm_offer_document_job(osv.osv): # {{{
+    _name = "dm.offer.document.job"
 
     _columns = {
         'name': fields.char('Name', required=True, size=64),
-        'document_job_batch_id': fields.many2one('dm.document.job.batch', 'Job Batch'),
         'document_ids': fields.one2many('dm.offer.document', 'document_job', 'Offer Documents'),
-        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
     }
     
-dm_document_job() # }}}
+dm_offer_document_job() # }}}
+
+class dm_campaign_document_job(osv.osv): # {{{
+    _name = "dm.campaign.document.job"
+
+    _columns = {
+        'name': fields.char('Name', required=True, size=64),
+        'batch_id': fields.many2one('dm.campaign.document.job.batch', 'Job Batch'),
+        'campaign_document_ids': fields.one2many('dm.campaign.document', 'campaign_document_job', 'Campaign Documents'),
+        'process_date': fields.datetime('Processing Date'),
+        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State')
+    }
+    
+dm_campaign_document_job() # }}}
 
 class dm_offer_document(osv.osv): # {{{
     _inherit = "dm.offer.document"
@@ -51,11 +62,24 @@ class dm_offer_document(osv.osv): # {{{
     _columns = {
         'printer': fields.char('Printer', size=64),
         'printer_tray': fields.char('Printer Tray', size=64),
-        'document_job': fields.many2one('dm.document.job', 'Document Job'),
+        'document_job': fields.many2one('dm.offer.document.job', 'Document Job'),
         'document_job_position': fields.integer('Document Job Position'),
         'verso': fields.boolean('Verso')
     }
     
 dm_offer_document() # }}}
+
+class dm_campaign_document(osv.osv): # {{{
+    _inherit = 'dm.campaign.document'
+    
+    _columns = {
+        'printer': fields.char('Printer', size=64),
+        'printer_tray': fields.char('Printer Tray', size=64),
+        'campaign_document_job': fields.many2one('dm.campaign.document.job', 'Campaign Document Job'),
+        'campaign_document_job_position': fields.integer('Campaign Document Job Position'),
+        'verso': fields.boolean('Verso')
+    }
+    
+dm_campaign_document() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

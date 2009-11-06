@@ -11,7 +11,7 @@
        
        <!-- Mail Service Type -->
        
-        <record model="dm.mail_service.type" id="dm_remote_edition_mail_service_type">
+     	<record model="dm.mail_service.type" id="dm_remote_edition_mail_service_type">
             <field name="name" eval="&quot;Printing Service&quot;"/>
             <field name="code" eval="&quot;print_service&quot;"/>
         </record>

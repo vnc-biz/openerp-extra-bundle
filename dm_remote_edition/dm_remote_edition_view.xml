@@ -3,11 +3,10 @@
 <data>
     <!--
     =======================================================
-    DM REMOTE EDITION VIEWS
+    DM MAIL SERVICE VIEWS
     =======================================================
     -->
    
-
     <record model="ir.ui.view" id="view_dm_remote_edition_mail_service_form">
         <field name="name">dm.mail_service.form.inherit</field>
         <field name="model">dm.mail_service</field>
@@ -19,11 +18,28 @@
             		<separator string="Printer Informations" colspan="5"/>
             		<field name="default_printer" />
             		<field name="default_printer_tray" />
+            		<field name="user_id" />
         		</group>
+        	</field>
+        </field>
+    </record>
+    
+     <!--
+    =======================================================
+    DM CAMPAIGN DOCUMENT JOB VIEWS
+    =======================================================
+    -->
+    <record model="ir.ui.view" id="view_dm_campaign_document_job_inherit_form">
+        <field name="name">dm.campaign.document.job.form.inherit</field>
+        <field name="model">dm.campaign.document.job</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="dm_edition.view_dm_edition_campaign_job_form"/>
+        <field name="arch" type="xml">
+         	<field name="process_date" position="after">
+            		<field name="user_id" />
         	</field>
         </field>
     </record>
     
  </data>
 </openerp>
- 

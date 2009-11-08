@@ -23,19 +23,19 @@ import wizard
 import pooler
     
 parameter_form = '''<?xml version="1.0"?>
-<form string="Customers">
+<form string="Customers Extraction">
     <field name="name" colspan="4" width="125"/>
     <field name="code" colspan="4"/>
 </form>'''
 
 parameter_fields = {
-    'name': {'string': 'Customer Name', 'type': 'char', 'required': True},
-    'code': {'string': 'Customer Code', 'type': 'char', 'required': True}
+    'name': {'string': 'Customer File Name', 'type': 'char', 'required': True},
+    'code': {'string': 'Customer File Code', 'type': 'char', 'required': True}
     }
 
 
 message_fields = {
-    'number_pa': {'string': 'Number of Parent Address extracted', 'type': 'integer', 'readonly': True},
+    'number_pa': {'string': 'Number of customers extracted', 'type': 'integer', 'readonly': True},
     }
 
 _form = """<?xml version="1.0"?>
@@ -56,7 +56,7 @@ def action_extract_customer(self, cr, uid, data, context):
     
 
 
-class wizard_workitem(wizard.interface):
+class wizard_extract_customer(wizard.interface):
     states = {
         'init': {
             'actions': [],
@@ -74,6 +74,6 @@ class wizard_workitem(wizard.interface):
             }
         },
     }
-wizard_workitem("wizard.extract.customer")
+wizard_extract_customer("wizard.extract.customer")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

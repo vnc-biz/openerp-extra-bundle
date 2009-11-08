@@ -32,6 +32,7 @@
                  "dm",
                  "dm_sale",
                  "report_dm",
+                 "dm_partner_address",
                  ],
     "init_xml" : [ ],
     "demo_xml" : [ ],

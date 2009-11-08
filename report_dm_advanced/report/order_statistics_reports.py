@@ -96,8 +96,8 @@ class report_custom(report_rml):
         eom = datetime.datetime.strptime(data['form']['end_date'],'%Y-%m-%d')
 #        date_xml = ['<date month_year="%s  -  %d" />' % (get_month_name(cr, uid, som.month), som.year), '<days>' ]        
         date_xml = ['<date from_month_year="%s" to_month_year="%s"/>'
-                %(datetime.datetime.strftime(som,'%y-%m-%d'),
-                    datetime.datetime.strftime(eom,'%y-%m-%d')) , '<days>' ]
+                %(datetime.datetime.strftime(som,'%d/%m/%Y'),
+                    datetime.datetime.strftime(eom,'%d/%m/%Y')) , '<days>' ]
         date_xml += ['<day number="%d" string="%d"/>' % 
                                 (x+1, 
 #                                get_weekday_name(cr, uid, som.replace(day=x).weekday()+1),

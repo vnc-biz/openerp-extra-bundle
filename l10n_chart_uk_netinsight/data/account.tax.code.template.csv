@@ -1,8 +1,8 @@
 "id","name","code","parent_id:id","notprintable","sign"
-"tax_0","company",,,,
-"vat_code_chart_root","Net Value Added Tax",,"tax_0",TRUE,
-"vat_dues","Total VAT Due",,"vat_code_chart_root",TRUE,1
-"vat_dues_sales","VAT due on Sales",,"vat_dues",TRUE,1
+"tax_0","company",,,,1
+"vat_code_chart_root","Net Value Added Tax",,"tax_0",TRUE,1
+"vat_dues","VAT Due",,"vat_code_chart_root",TRUE,1
+"vat_dues_sales","VAT Due on Sales",,"vat_dues",TRUE,1
 "vat_dues_ec_aq","VAT due from EC Acquisition",,"vat_dues_sales",TRUE,1
 "S-C","Oil Vat - Sales","C","vat_dues_sales",FALSE,1
 "S-E","Tax Excempt – Sales","E","vat_dues_sales",FALSE,1
@@ -25,9 +25,9 @@
 "P-Z","Zero Rated – Purchase","Z","vat_purchase",FALSE,1
 "P-ES","EEC Standard Code – Purchase","ES","vat_purchase",FALSE,1
 "P-EZ","EEC Zero Rated – Purchase","EZ","vat_purchase",FALSE,1
-"tax_base","Assessable Values",,"tax_0",FALSE,1
-"total_sales","Total sales purchases",,"tax_base",FALSE,1
-"total_purchases","Total net purchases",,"tax_base",FALSE,-1
+"tax_base","NET Sales & Purchase",,"tax_0",FALSE,1
+"total_sales","Total Sales",,"tax_base",FALSE,1
+"total_purchases","Total Purchases",,"tax_base",FALSE,-1
 "local_sales","Local Sales",,"total_sales",FALSE,1
 "local_purchases","Local Purchases",,"total_purchases",FALSE,1
 "ec_sales","EC Sales",,"total_sales",FALSE,1

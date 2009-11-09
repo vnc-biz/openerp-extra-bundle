@@ -31,7 +31,9 @@
     "depends" : ["dm"],
     "init_xml" : [],
     "demo_xml" : [],
+
     "update_xml" : [
+            "security/ir.model.access.csv",
             'dm_edition_view.xml',
             'dm_edition_wizard.xml'
             ],

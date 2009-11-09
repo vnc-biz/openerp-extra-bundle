@@ -45,9 +45,8 @@ def origin_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, model):
     cond = " where %s in %s and s.date_order >= '%s' and s.date_order < '%s'"%(field, tuple(s_id), som.strftime('%Y-%m-%d'), eom.strftime('%Y-%m-%d'))
     if origin : 
         cond += " and %s = '%s' " %(s_field,origin)
-    else :
+    elif s_field :
         cond += " and %s is not null "%s_field 
-    self.pool.get   
     sql = "select count(id) as so_no from sale_order s %s and amount_total = 0 group by s.date_order"%cond
     cr.execute(sql)        
     so_zero_count = cr.dictfetchone()
@@ -75,7 +74,7 @@ def row_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, cal, model):
     cond = " where %s = %s and s.date_order >= '%s' and s.date_order < '%s' "%(field, s_id, som.strftime('%Y-%m-%d'), eom.strftime('%Y-%m-%d'))
     if origin : 
         cond += " and %s = '%s' " %(s_field,origin)
-    else :
+    elif s_field :
         cond += " and %s is not null "%s_field
     sql = "select %s as qty, s.date_order from sale_order s %s group by s.date_order"%(cal, cond)
     cr.execute(sql)
@@ -168,8 +167,9 @@ class report_custom(report_rml):
             cal = 'count(id)'
             t1 = 'Order Quantity'
 
-        origin=[]
-        split_by = data['form']['split_by']        
+        origin=['',]
+        s_field = ''
+        split_by = data['form']['split_by']
         if split_by == 'origin_partner':
             cr.execute("select distinct origin from sale_order where origin is not null")
             origin = map(lambda x: x[0],cr.fetchall())
@@ -204,8 +204,7 @@ class report_custom(report_rml):
         %s
         %s
         </report>
-        ''' % (header_xml, origin_xml, ''.join(date_xml), story_xml )
-        print xml
+        ''' % (header_xml, origin_xml, ''.join(date_xml), story_xml or '<story/>' )
         return xml
 
 report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')

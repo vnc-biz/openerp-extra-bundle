@@ -6,21 +6,21 @@
         <template>
 			<xsl:variable name="twidth" select="/report/cols/attribute::twidth" />
             <xsl:attribute name="pageSize">
-                <xsl:value-of select="$twidth + 20"/>cm,25.0cm</xsl:attribute>
+                <xsl:value-of select="$twidth + 35"/>cm,25.0cm</xsl:attribute>
             <xsl:attribute name="title">Test</xsl:attribute>
             <xsl:attribute name="author">Martin Simon</xsl:attribute>
             <xsl:attribute name="allowSplitting">20</xsl:attribute>
 			<pageTemplate>
 		        <frame>
 		            <xsl:attribute name="id">first</xsl:attribute>
-		            <xsl:attribute name="x1">10cm</xsl:attribute>
+		            <xsl:attribute name="x1">5cm</xsl:attribute>
 		            <xsl:attribute name="y1">0cm</xsl:attribute>
 		            <xsl:attribute name="width">
 						<xsl:value-of select="$twidth"/>cm</xsl:attribute>
 		            <xsl:attribute name="height">17cm</xsl:attribute>
 		        </frame>
 				<pageGraphics>
-					<xsl:variable name="cpoint" select=" ($twidth +20 ) div 2" />
+					<xsl:variable name="cpoint" select=" ($twidth + 35 ) div 2" />
 					<setFont name="Helvetica" size="8"/>
 					<fill color="black"/>
 					<stroke color="black"/>
@@ -32,7 +32,7 @@
 			            <xsl:attribute name="x">
 			                <xsl:value-of select="$cpoint"/>cm</xsl:attribute>
 			            <xsl:attribute name="y">22.8cm</xsl:attribute>Level: <xsl:value-of select="/report/header/attribute::level"/> Result: <xsl:value-of select="/report/header/attribute::result"/> Name : <xsl:value-of select="/report/header/attribute::name"/> Splited by: <xsl:value-of select="/report/header/attribute::split_by"/></drawCentredString>
-					 <place x="10cm" y="13.5cm" width="900.0" height="8cm">
+					 <place x="5cm" y="13.5cm" width="900.0" height="8cm">
 					 	<blockTable colWidths="400.0,78,85,78,78,78" style="month">
 					 		<tr>
 					 			<td><para style="normal-title" >Origin</para></td>

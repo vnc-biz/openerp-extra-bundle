@@ -100,10 +100,12 @@ class report_custom(report_rml):
                                 (som+datetime.timedelta(days=x)).day 
                                 )
                                 for x in range(0, (eom-som).days+1)]        
-        total_width = sum([1.25]*((eom-som).days+1), 5.00 + 1.25)
+        col_widths = [1.25]*((eom-som).days+1)
+        title_width = col_widths < 20 and 20.00 or 10.00
+        total_width = sum([1.25]*((eom-som).days+1), title_width + 1.25)
         date_xml.append('</days>')
-        date_xml.append('<cols twidth="%s" >10.00cm%s,1.25cm</cols>\n'
-                            % (str(total_width),',1.25cm' * ((eom-som).days+1)))        
+        date_xml.append('<cols twidth="%s" >%scm%s,1.25cm</cols>\n'
+                            % (str(total_width), title_width, ',1.25cm' * ((eom-som).days+1)))        
         if self.name2 in camp_amt_report  or self.name2 in camp_qty_report :
             camp_id = data['form']['row_id']
             row_id = pool.get('dm.campaign.proposition.segment').search(cr,uid,[('campaign_id','=',camp_id)])

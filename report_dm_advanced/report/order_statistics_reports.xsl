@@ -8,7 +8,34 @@
 
 	<xsl:template name="rml">
         <document filename="example.pdf">
-		<xsl:apply-imports />		
+		<template>
+			<xsl:variable name="twidth" select="/report/cols/attribute::twidth" />
+            <xsl:attribute name="pageSize">
+                <xsl:value-of select="$twidth + 20"/>cm,25.0cm</xsl:attribute>
+            <xsl:attribute name="title">Test</xsl:attribute>
+            <xsl:attribute name="author">Martin Simon</xsl:attribute>
+            <xsl:attribute name="allowSplitting">20</xsl:attribute>
+			<pageTemplate>
+		        <frame>
+		            <xsl:attribute name="id">first</xsl:attribute>
+		            <xsl:attribute name="x1">10cm</xsl:attribute>
+		            <xsl:attribute name="y1">3cm</xsl:attribute>
+		            <xsl:attribute name="width">
+						<xsl:value-of select="$twidth"/>cm</xsl:attribute>
+		            <xsl:attribute name="height">17cm</xsl:attribute>
+		        </frame>
+				<pageGraphics>
+					<xsl:variable name="cpoint" select=" ($twidth + 20 ) div 2" />
+					<setFont name="Helvetica" size="25"/>
+					<fill color="black"/>
+					<stroke color="black"/>
+					<drawCentredString>
+			            <xsl:attribute name="x">
+			                <xsl:value-of select="$cpoint"/>cm</xsl:attribute>
+			            <xsl:attribute name="y">23.2cm</xsl:attribute>Perio : <xsl:value-of select="/report/date/attribute::from_month_year"/> to <xsl:value-of select="/report/date/attribute::to_month_year"/></drawCentredString>
+				</pageGraphics>
+			</pageTemplate>
+		</template>	        
 		<stylesheet>
 			<paraStyle name="normal1" fontName="Helvetica" fontSize="8" alignment="right" />		
 			<paraStyle name="normal" fontName="Helvetica" fontSize="8" />

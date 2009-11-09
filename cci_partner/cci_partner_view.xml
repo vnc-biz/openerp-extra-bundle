@@ -777,6 +777,18 @@ TODO: revoir la vue tree aussi
 		</field>
 	</record>
 
+        <record model="ir.ui.view" id="view_partner_address_form_inheritedbis">
+                <field name="name">Partner addresses inherited bis</field>
+                <field name="model">res.partner.address</field>
+                <field name="inherit_id" ref="base_contact.view_partner_address_form_inherited5"/>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                        <field name="email" position="replace">
+                                <field name="email" colspan='4'/>
+                        </field>
+                </field>
+        </record>
+
 <!--
 	<record model="ir.ui.view" id="view_partner_contact_form_inherit_4">
 		<field name="name">res.partner.contact.form</field>
@@ -876,7 +888,6 @@ TODO: revoir la vue tree aussi
 			<field name="inherit_id" ref="base.view_partner_form"/>
 			<field name="arch" type="xml">
 				<field name="address" position="before">
-					<field name="state_id"/>
 					<field name="state_id2"/>
 					<field name="employee_nbr"/>
 					<field name="employee_nbr_total"/>
@@ -959,8 +970,6 @@ TODO: revoir la vue tree aussi
 						<separator string="Miscelleanous" colspan="4"/>
 						<field name="name_official"/>
 						<field name="name_old"/>
-						<field name="magazine_subscription"/>
-						<field name="magazine_subscription_source"/>
 						<field name="wall_exclusion"/>
 						<field name="date_founded"/>
 						<field name="canal_id"/>

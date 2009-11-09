@@ -193,13 +193,7 @@ class res_partner(osv.osv):
         return True
 
     def _get_customer_state(self, cr, uid, ctx):
-        ids = self.pool.get('res.partner.state').search(cr, uid, [('name','like', 'Imputable')])
-        if ids:
-            return ids[0]
-        return False
-
-    def _get_partner_state(self, cr, uid, ctx):
-        ids = self.pool.get('res.partner.state2').search(cr, uid, [('name','like', 'En Activité')])
+        ids = self.pool.get('res.partner.state2').search(cr, uid, [('name','like', 'Imputable')])
         if ids:
             return ids[0]
         return False
@@ -210,7 +204,6 @@ class res_partner(osv.osv):
         'invoice_paper':fields.selection([('transfert belgian','Transfer belgian'),('transfert iban','Transfer iban'),('none','No printed transfert')], 'Bank Transfer Type', size=32),
         'invoice_public':fields.boolean('Invoice Public'),
         'invoice_special':fields.boolean('Invoice Special'),
-        'state_id':fields.many2one('res.partner.state','Partner State',help='status of activity of the partner'),
         'state_id2':fields.many2one('res.partner.state2','Customer State',help='status of the partner as a customer'),
         'activity_description':fields.text('Activity Description',translate=True),
         'activity_code_ids':fields.one2many('res.partner.activity.relation','partner_id','Activity Codes'),
@@ -240,8 +233,6 @@ class res_partner(osv.osv):
         'dir_date_publication':fields.date('Publication Date'),
         'dir_exclude':fields.boolean('Dir. exclude',help='Exclusion from the Members directory'),
 
-        'magazine_subscription':fields.selection( [('never','Never'),('prospect','Prospect'),('personal','Personal'), ('postal','Postal')], "Magazine subscription"),
-        'magazine_subscription_source':fields.char('Mag. Subscription Source',size=30),
         'country_relation':fields.one2many('res.partner.country.relation','partner_id','Country Relation'),
         'address': fields.one2many('res.partner.address', 'partner_id', 'Addresses'),# overridden just to change the name with "Addresses" instead of "Contacts"
         'relation_ids' : fields.one2many('res.partner.relation','current_partner_id','Partner Relation'),
@@ -256,8 +247,6 @@ class res_partner(osv.osv):
         'wall_exclusion' : lambda *a: False,
         'dir_presence' : lambda *a: True,
         'dir_exclude':lambda *a: False,
-        'magazine_subscription': lambda *a: 'prospect',
-        'state_id': _get_partner_state,
         'state_id2': _get_customer_state,
         'invoice_special' :lambda *a: 1,
         }
@@ -385,11 +374,11 @@ class res_partner_job(osv.osv):
         if compiled_res:
             if not len(phone) == 10:
                 raise osv.except_osv(_('Validate Error'),
-                        _('Invalid GSM Phone number.'))
+                        _('Invalid GSM Phone number. Only 10 figures numbers are allowed.'))
         if not compiled_res:
             if not len(phone) == 9:
                 raise osv.except_osv(_('Validate Error'),
-                        _('Invalid Phone number.'))
+                        _('Invalid Phone number. Only 9 figures numbers are allowed.'))
         result['phone'] = phone
         return {'value': result}
     

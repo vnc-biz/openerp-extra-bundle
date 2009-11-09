@@ -27,7 +27,8 @@
     "description": """
         Specific module for cci project which will inherit partner module
     """,
-    "depends" : ["base", "base_vat", "cci_base_contact", "account_l10nbe_domiciliation", "cci_country"],
+    "depends" : ["base", "base_vat", "cci_base_contact", "account_l10nbe_domiciliation", "cci_country","l10n_be_postal_subscriber"],
+
     "init_xml" : [],
     "demo_xml" : ["cci_data.xml",
                    #"user_data.xml",

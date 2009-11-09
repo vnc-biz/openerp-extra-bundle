@@ -42,8 +42,11 @@ Form = """<?xml version="1.0"?>
    <group colspan="4"  attrs="{'invisible':[('level','!=','offer')]}">
         <field name="offer_id" attrs="{'required':[('level','=','offer')]}" />
    </group>
-   <group colspan="4"  attrs="{'invisible':[('level','=','segment')]}">
+   <group colspan="4" attrs="{'invisible':[('level','=','segment')]}" >
         <field name="split_by" />
+   </group>
+   <group colspan="4" attrs="{'invisible':[('level','!=','segment')]}" >
+        <field name="split_by1" />
    </group>
 </form>"""
 
@@ -69,10 +72,16 @@ _split_selection = [
         ('',''),
         ]
 
+_split_selection1 = [
+        ('origin_partner','Origin Code'),
+        ('',''),
+       ]
+                    
 Fields = {
     'start_date' : {'string':'Start Date','type':'date', 'required' : True },
     'end_date' : {'string':'End Date','type':'date', 'required' : True },
     'split_by':{'string':'Sort by origin partner' , 'type': 'selection', 'selection':_split_selection},
+    'split_by1':{'string':'Sort by origin partner' , 'type': 'selection', 'selection':_split_selection1},
     'level' : {'string': 'Level', 'type': 'selection', 'selection':_level_selection, 'default': lambda *a:"campaign", },
     'result' : {'string': 'Result', 'type': 'selection', 'selection':_result_selection, 'default': lambda *a:"qty"},    
 #    'level2' : {'string': 'Level', 'type': 'selection', 'selection':_level2_selection, 'default': lambda *a:"step", },
@@ -86,6 +95,13 @@ def _check_date(self, cr, uid, data, context) :
         return 'error'
     return 'print'
 
+
+def _check_split_by(self, cr, uid, data, context):
+   res ={}
+   if data['form'].has_key('split_by1'):
+       data['form']['split_by']=data['form']['split_by1']
+   return res 
+
 class wizard_statistics_so_all(wizard.interface):
     states = {
         'init': {
@@ -96,12 +112,13 @@ class wizard_statistics_so_all(wizard.interface):
             'actions' : [],
             'result' : {'type' : 'choice' , 'next_state': _check_date}
         },
+        
         'error': {
             'actions': [],
-            'result': {'type':'form', 'arch':error_form, 'fields':{}, 'state':[('end','Cancel'),('init','Reset Value')]},
+            'result': {'type':'form', 'arch': error_form, 'fields': {}, 'state': [('end','Cancel'),('init','Reset Value')]},
         },
         'print': {
-            'actions': [],
+            'actions': [_check_split_by],
             'result': {'type':'print', 'report':'dm.statistics.so.all', 'state':'end'},
         },
     }

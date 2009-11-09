@@ -166,7 +166,7 @@ class report_custom(report_rml):
         elif data['form']['result'] == 'qty' :
             cal = 'count(id)'
             t1 = 'Order Quantity'
-
+        
         origin=['',]
         s_field = ''
         split_by = data['form']['split_by']

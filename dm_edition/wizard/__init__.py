@@ -19,7 +19,6 @@
 #
 ##############################################################################
 
-import dm_edition
-import wizard
+import wizard_manage_job_batch
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

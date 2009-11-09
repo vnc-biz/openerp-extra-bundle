@@ -31,7 +31,10 @@
     "depends" : ["dm"],
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : ['dm_edition_view.xml'],
+    "update_xml" : [
+            'dm_edition_view.xml',
+            'dm_edition_wizard.xml'
+            ],
     "active": False,
     "installable": True,
 }

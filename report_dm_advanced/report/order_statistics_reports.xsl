@@ -19,14 +19,11 @@
 			<paraStyle name="normal_people" textColor="green" fontSize="7" fontName="Helvetica"/>
 			<paraStyle name="esclave" textColor="purple" fontSize="7" fontName="Helvetica"/>
 			<blockTableStyle id="month">
-				<!--blockAlignment value="CENTER" start="1,0" stop="-1,-1" /-->
-				<blockFont name="Helvetica" size="8" start="0,0" stop="-1,1"/>
-				<blockFont name="Helvetica" size="6" start="0,2" stop="-2,-2"/>
-				<blockFont name="Helvetica-BoldOblique" size="8" start="0,-1" stop="-1,-1"/>
-				<lineStyle kind="LINEABOVE" colorName="black" start="0,0" stop="-1,-1" />
-				<lineStyle kind="LINEBEFORE" colorName="black" start="0,0" stop="-1,-1"/>
-				<lineStyle kind="LINEAFTER" colorName="black" start="-1,0" stop="-1,-1"/>
-				<lineStyle kind="LINEBELOW" colorName="black" start="0,-1" stop="-1,-1"/>
+				<blockAlignment value="CENTER" start="1,0" stop="-1,-1" />
+				<lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="-1,-1" />
+				<lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="-1,-1"/>
+				<lineStyle kind="LINEAFTER" colorName="#000000" start="-1,0" stop="-1,-1"/>
+				<lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="-1,-1"/>
 				<blockValign value="TOP"/>
 			</blockTableStyle>
 		</stylesheet>
@@ -52,7 +49,7 @@
 						    <xsl:value-of select="attribute::string" />
 					    </td>
 				    </xsl:for-each>
-				    <td t="1">Total</td>
+				    <td >Total</td>
 			    </tr>
 			    <xsl:apply-templates select="row"/>
 			    <xsl:for-each select="row">

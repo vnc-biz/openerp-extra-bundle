@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,14 +15,14 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from random import choice
+import string
 
 import wizard
 import pooler
-from random import choice
-import string
 import tools
 
 first_form = '''<?xml version="1.0"?>
@@ -33,9 +33,9 @@ first_form = '''<?xml version="1.0"?>
     <field name="portal_id"/>
     </group>
     <newline/>
-    <field name="send_mail"/>   <field name="mail_subject"/>
+    <field name="send_mail"/>   <field name="mail_subject" width="150"/>
     <newline/>
-    <field name="send_mail_existing"/>  <field name="mail_subject_existing"/>
+    <field name="send_mail_existing"/>  <field name="mail_subject_existing" width="150"/>
     <separator colspan="4"/>
     <group cols="1" colspan="4">
     <field name="mail_from"/>
@@ -44,12 +44,12 @@ first_form = '''<?xml version="1.0"?>
     </group>
 </form>'''
 first_fields = {
-    'portal_id': {'string':'Portal', 'type':'many2one', 'required':True, 'relation': 'portal.portal'},
-    'send_mail': {'string':'Send mail for new user', 'type':'boolean',},
-    'send_mail_existing': {'string':'Send reminder for existing user', 'type':'boolean', },
-    'mail_subject': {'string':'Subject', 'type':'char', 'default':lambda *a: "New user account.","size":256},
-    'mail_subject_existing': {'string':'Subject', 'type':'char', 'default':lambda *a: "User account info.","size":256},
-    'mail_from': {'string':'From', 'type':'char',"size":256},
+    'portal_id': {'string': 'Portal', 'type':'many2one', 'required':True, 'relation': 'portal.portal'},
+    'send_mail': {'string': 'Send mail for new user', 'type':'boolean'},
+    'send_mail_existing': {'string':'Send reminder for existing user', 'type':'boolean'},
+    'mail_subject': {'string':'Subject', 'type':'char', 'default': lambda *a: "New user account.", "size":256},
+    'mail_subject_existing': {'string': 'Subject', 'type':'char', 'default':lambda *a: "User account info.","size":256},
+    'mail_from': {'string': 'From', 'type': 'char',"size": 256},
     'mail': {'string':'Body', 'type':'text','default':lambda *a: """ Your login: %(login)s, Your password: %(passwd)s
     """},
 }
@@ -57,7 +57,7 @@ first_fields = {
 second_form = '''<?xml version="1.0"?>
 <form string="User creation">
     <separator string="Results :" colspan="4"/>
-    <field name="note" colspan="4" nolabel="1"/>
+    <field name="note" colspan="4" nolabel="1" readonly="1" width="400"/>
 </form>'''
 second_fields = {
     'note' : {'string':'Log','type':'text'}

@@ -157,13 +157,17 @@ class project_task(osv.osv):
                          task.remaining_hours or 0, task.total_hours or 0,\
                          task.partner_id and task.partner_id.name or '',\
                          task.description or '',task.project_id.manager and task.project_id.manager.name or '')
-            self.pool.get('project.project')._log_event(cr, uid, task.project_id.id, {
-                                'res_id' : task.id,
-                                'name' : task.name,
-                                'description' : desc,
-                                'user_id': uid,
-                                'action' : 'create',
-                                'type' : 'task'})
+            task_vals = {
+                    'res_id': task.id,
+                    'name': task.name,
+                    'description': desc,
+                    'user_id': uid,
+                    'action': 'create',
+               }    
+            self.pool.get('project.project')._log_event(cr, uid, task.project_id.id, task_vals)
+            type_id = self.pool.get('project.event.type').search(cr, uid, [('code', '=', 'task')])
+            if type_id:
+                task_vals.update({'type': 'task'})
         return res
 
     def write(self, cr, uid, ids, vals, context={}):
@@ -179,13 +183,18 @@ class project_task(osv.osv):
                 continue
             desc += val + ':' + str(vals[val]) + "\n"
         desc += '\nThanks,\n' + 'Project Manager\n' + (task_data.project_id.manager and task_data.project_id.manager.name) or ''
-        self.pool.get('project.project')._log_event(cr, uid, task.project_id.id, {
-                                                                'res_id' : ids[0],
-                                                                'name' : task.name or '',
-                                                                'description' : desc,
-                                                                'user_id': uid,
-                                                                'action' : 'write',
-                                                                'type' : 'task'})
+        task_vals = {
+            'res_id' : ids[0],
+            'name' : task.name or '',
+            'description' : desc,
+            'user_id': uid,
+            'action' : 'write',
+           
+        }
+        self.pool.get('project.project')._log_event(cr, uid, task.project_id.id, task_vals)
+        type_id = self.pool.get('project.event.type').search(cr, uid, [('code', '=', 'task')])
+        if type_id:
+            task_vals.update({'type': 'task'})
         return res
 
 project_task()
@@ -210,14 +219,19 @@ class document_file(osv.osv):
             desc = ''' Hello, \n \n \t The new document is uploaded on the Project: %s \n\n Document attached: %s \n Attachment name: %s \n Owner: %s \n Size: %s \n Creator: %s \n Date Created: %s \n Document Summary: %s \n \n Thanks,\n Project Manager\n''' \
                        %(document.title, document.datas_fname, document.name, \
                          document.user_id.name, size, document.create_uid.name, document.create_date, document.description or '')
-            self.pool.get('project.project')._log_event(cr, uid, document.res_id, {
-                                'res_id' : document.id,
-                                'name' : document.name,
-                                'description' :desc,#document description,
-                                'user_id': uid,
-                                'attach' : [(document.datas_fname, document.datas)],
-                                'action' : 'create',
-                                'type' : 'document'})
+            doc_vals = {
+                    'res_id' : document.id,
+                    'name' : document.name,
+                    'description' :desc,#document description,
+                    'user_id': uid,
+                    'attach' : [(document.datas_fname, document.datas)],
+                    'action' : 'create',
+                   
+                }
+            self.pool.get('project.project')._log_event(cr, uid, document.res_id, doc_vals)
+            type_id = self.pool.get('project.event.type').search(cr, uid, [('code', '=',' document')])
+            if type_id:
+                doc_vals.update({'type': 'document'})
         return res
 
 document_file()

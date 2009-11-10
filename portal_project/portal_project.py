@@ -50,9 +50,6 @@ class users(osv.osv):
         'user_id': fields.many2one('project.project', 'portal', ondelete='cascade'),
         'context_project_id': fields.selection(_project_get, 'Project'),
         }
-    _defaults = {
-         'context_project_id': lambda *args: '1',
-            }
 
     def context_get(self, cr, uid, context=None):
         return super(users, self).context_get(cr, uid, context)
@@ -324,7 +321,6 @@ class crm_case(osv.osv):
         else:
             project_ids = self.pool.get('project.project').search(cr, uid, [('manager', '=', uid)])
             project_id = project_ids and project_ids[0]
-
         if context.has_key('section') and context['section']=='Bug Tracking' or context.has_key('case_search') and context['case_search']=='bug':
             cr.execute('select c.id from crm_case c left join project_project p on p.id=c.project_id \
                         where c.section_id=p.section_bug_id and p.id=%s',(project_id,))
@@ -362,21 +358,22 @@ class crm_case(osv.osv):
                                 'action' : 'create',
                                 'type' : 'case'})
         return res
-
+    
     def write(self, cr, uid, ids, vals, context={}):
-        case = self.browse(cr, uid, ids)[0]
         res = super(crm_case, self).write(cr, uid, ids, vals, context={})
         cr.commit()
         case_data = self.browse(cr, uid, ids[0], context)
-        desc = '''Hello ,\n\n  The case is updated for the project: %s\n\nModified Datas are:\n''' %(str(case.project_id.name),)
+        desc = '''Hello ,\n\n  The case is updated for the project: %s\n\nModified Datas are:\n''' %(str(case_data.project_id.name),)
         for val in vals:
             if val.endswith('id') or val.endswith('ids'):
                 continue
             desc += val + ':' + str(vals[val]) + "\n"
-        desc += '\nThanks,\n' + 'Project Manager\n' + (case_data.project_id.manager and case_data.project_id.manager.name) or ''
-        self.pool.get('project.project')._log_event(cr, uid, case.project_id.id, {
+        
+        if case_data.project_id:
+            desc += '\nThanks,\n' + 'Project Manager\n' + (case_data.project_id and case_data.project_id.manager and case_data.project_id.manager.name or False) 
+            self.pool.get('project.project')._log_event(cr, uid, case_data.project_id.id, {
                                                                 'res_id' : ids[0],
-                                                                'name' : case.name or '',
+                                                                'name' : case_data.name or '',
                                                                 'description' : desc,
                                                                 'user_id': uid,
                                                                 'action' : 'write',
@@ -394,7 +391,7 @@ class report_account_analytic_planning(osv.osv):
             context = {}
         if context.has_key('portal_gantt') and context['portal_gantt'] == 'planning' and context.has_key('active_id') and context['active_id']:
             cr.execute("""select rp.id from report_account_analytic_planning rp where rp.id in \
-                            (select planning_id from project_task where project_id in \
+                            (select planning_line_id from project_task where project_id in \
                             (select id from project_project where id = %s))""" %(context['active_id']))
             return map(lambda x: x[0], cr.fetchall())
         return super(report_account_analytic_planning, self).search(cr, uid, args, offset, limit, order, context, count)

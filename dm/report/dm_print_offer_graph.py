@@ -97,12 +97,9 @@ class report_graph_instance(object):
 
         offer = translate_accent(pooler.get_pool(cr.dbname).get('dm.offer').browse(cr, uid, offer_id)[0].name)
 
-        graph = pydot.Dot(fontsize="16", label=offer)
-        graph.set('size', '10.7,7.3')
-        graph.set('center', '1')
-        graph.set('ratio', 'auto')
-        graph.set('rotate', '90')
-        graph.set('rankdir', 'LR')
+        graph = pydot.Dot(fontsize="16", label=offer, size='10.7, 7.3',
+                          center='1', ratio='auto', rotate='90', rankdir='LR' )
+
         graph_get(cr, uid, graph, offer_id)
 
         ps_string = graph.create_ps(prog='dot')
@@ -112,11 +109,11 @@ class report_graph_instance(object):
             prog = 'ps2pdf'
         args = (prog, '-', '-')
         try:
-            input, output = tools.exec_command_pipe(*args)
+            _input, output = tools.exec_command_pipe(*args)
         except:
             return
-        input.write(ps_string)
-        input.close()
+        _input.write(ps_string)
+        _input.close()
         self.result = output.read()
         output.close()
         self.done = True
@@ -146,5 +143,4 @@ class report_graph(report.interface.report_int):
         return (self.obj.get(), 'pdf')
 
 report_graph('report.dm.offer.graph', 'dm.offer')
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:    

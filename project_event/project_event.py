@@ -167,6 +167,8 @@ class project_task(osv.osv):
         return res
 
     def write(self, cr, uid, ids, vals, context={}):
+        if not isinstance(ids, list):
+            ids = [ids]
         task = self.browse(cr, uid, ids)[0]
         res = super(project_task, self).write(cr, uid, ids, vals, context={})
         cr.commit()

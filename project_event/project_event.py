@@ -69,7 +69,7 @@ class project_event(osv.osv):
         'date': fields.datetime('Date', size=16),
         'user_id': fields.many2one('res.users', 'User', required=True),
         'action' : fields.selection([('create','Create'),('write','Modify'),('unlink','Remove')], 'Action', required=True),
-        'type': fields.selection(_links_get, 'Type of Event', required=True),
+        'type': fields.selection(_links_get, 'Type of Event'),
     }
     _order = 'date desc'
     _defaults = {

@@ -24,7 +24,7 @@ import datetime
 
 from report.interface import report_rml
 from report.interface import toxml 
-
+from tools.misc import ustr
 import pooler
 from tools.translate import _
 
@@ -70,7 +70,7 @@ def row_create_xml(cr, uid, s_id, som, eom, origin, field, cal, model):
     <row id="%d" name="%s">
     %s
     </row>
-    ''' % (s_id, toxml(segment), '\n'.join(time_xml))
+    ''' % (s_id, ustr(toxml(segment)), '\n'.join(time_xml))
     return xml
 camp_qty_report = ["dm.order.quantity.campaign"]
 camp_amt_report = ["dm.order.amount.campaign"]
@@ -140,13 +140,13 @@ class report_custom(report_rml):
                 row_xml += row_create_xml(cr, uid, r_id, som, eom, origin[i][0], field, cal, model)
             if origin[i][0]:
                 n =name + ' from %s'%origin[i][0]
-            story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i+1,toxml(n),row_xml)
+            story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i+1,ustr(toxml(n)),ustr(row_xml))
         # Computing the xml
         xml = '''<?xml version="1.0" encoding="UTF-8" ?>
         <report>%s
         %s
         </report>
-        ''' % (''.join(date_xml) , story_xml )
+        ''' % (ustr(''.join(date_xml)) , ustr(story_xml))
         return xml
 
 report_custom('report.dm.order.amount.campaign', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_reports.xsl')

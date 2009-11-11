@@ -19,6 +19,7 @@
             		<field name="default_printer" />
             		<field name="default_printer_tray" />
             		<field name="user_id" />
+					<field name="sorting_rule_id"/>
         		</group>
         	</field>
         </field>

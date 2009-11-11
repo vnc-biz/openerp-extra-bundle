@@ -29,7 +29,8 @@ class dm_mail_service(osv.osv): # {{{
     _columns = {
           'default_printer': fields.char('Default Printer', size=64),
           'default_printer_tray': fields.char('Default Printer Tray', size=64),
-         'user_id': fields.many2one('res.users', 'Printer User'),
+          'user_id': fields.many2one('res.users', 'Printer User'),
+          'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule')
         }
     
 dm_mail_service() # }}}
@@ -39,7 +40,6 @@ class dm_campaign_document_job(osv.osv): # {{{
     _inherit = "dm.campaign.document.job"
     
     _columns = {
-
          'user_id': fields.many2one('res.users', 'Printer User'),
         }
     

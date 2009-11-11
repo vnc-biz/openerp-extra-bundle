@@ -24,7 +24,7 @@ import datetime
 
 from report.interface import report_rml
 from report.interface import toxml 
-
+from tools.misc import ustr
 import pooler
 from tools.translate import _
 
@@ -100,7 +100,7 @@ def row_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, cal, model):
     <row id="%d" name="%s">
     %s
     </row>
-    ''' % (s_id, toxml(segment), '\n'.join(time_xml))
+    ''' % (s_id, ustr(toxml(segment)), '\n'.join(time_xml))
     return xml
 
 class report_custom(report_rml):
@@ -184,7 +184,8 @@ class report_custom(report_rml):
         header_xml = '<header level="%s" result="%s" name="%s" split_by="%s" />' \
                       %(level_selection[data['form']['level']],
                        result_selection[data['form']['result']],
-                       name, data['form']['split_by'] or '' )
+                       ustr(name), data['form']['split_by'] or '' )
+
 
         story_xml = ''
         n = name = t1 + t2
@@ -196,7 +197,8 @@ class report_custom(report_rml):
             if origin[i]:
                 n =name + ' from %s'%origin[i]
             origin_xml += origin_create_xml(cr, uid, row_id, som, eom, origin[i], field, s_field, model)
-            story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i,toxml(n),row_xml)
+            story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i,ustr(toxml(n)),ustr(row_xml))
+            
         if split_by:
             origin_xml += origin_create_xml(cr, uid, row_id, som, eom, '', field, s_field, model)
         # Computing the xml
@@ -206,7 +208,8 @@ class report_custom(report_rml):
         %s
         %s
         </report>
-        ''' % (header_xml, origin_xml, ''.join(date_xml), story_xml or '<story/>' )
+        ''' % (ustr(header_xml), ustr(origin_xml), ustr(''.join(date_xml)), ustr(story_xml) or '<story/>' )
+        
         return xml
 
 report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_all_reports.xsl')

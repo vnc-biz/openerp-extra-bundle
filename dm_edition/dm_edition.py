@@ -33,15 +33,31 @@ class dm_campaign_document_job_batch(osv.osv): # {{{
     
 dm_campaign_document_job_batch() # }}}
 
-class dm_offer_document_job(osv.osv): # {{{
-    _name = "dm.offer.document.job"
+#class dm_offer_document_job(osv.osv): # {{{
+#    _name = "dm.offer.document.job"
+#
+#    _columns = {
+#        'name': fields.char('Name', required=True, size=64),
+#        'document_ids': fields.one2many('dm.offer.document', 'document_job', 'Offer Documents'),
+#    }
+#    
+#dm_offer_document_job() # }}}
 
+class dm_campaign_document_job_sorting_rule(osv.osv): # {{{
+    _name = "dm.campaign.document.job.sorting_rule"
+    
     _columns = {
-        'name': fields.char('Name', required=True, size=64),
-        'document_ids': fields.one2many('dm.offer.document', 'document_job', 'Offer Documents'),
+        'name': fields.char('Name', required=True, size=64), 
+        'code': fields.char('Code', required=True, size=64),
+        'by_customer_country': fields.boolean('By Customer Country'),
+        'by_layout': fields.boolean('By Layout'),
+        'by_product': fields.boolean('By Product'),
+        'by_page_qty': fields.boolean('By Page Quantity'),
+        'by_offer_step': fields.boolean('By Offer Step'),
+        'qty_limit': fields.integer('Qty. limit')
     }
     
-dm_offer_document_job() # }}}
+dm_campaign_document_job_sorting_rule() # }}}
 
 class dm_campaign_document_job(osv.osv): # {{{
     _name = "dm.campaign.document.job"
@@ -51,7 +67,8 @@ class dm_campaign_document_job(osv.osv): # {{{
         'batch_id': fields.many2one('dm.campaign.document.job.batch', 'Job Batch'),
         'campaign_document_ids': fields.one2many('dm.campaign.document', 'campaign_document_job', 'Campaign Documents'),
         'process_date': fields.datetime('Processing Date'),
-        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State')
+        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
+        'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule')
     }
     
 dm_campaign_document_job() # }}}
@@ -62,9 +79,10 @@ class dm_offer_document(osv.osv): # {{{
     _columns = {
         'printer': fields.char('Printer', size=64),
         'printer_tray': fields.char('Printer Tray', size=64),
-        'document_job': fields.many2one('dm.offer.document.job', 'Document Job'),
+#        'document_job': fields.many2one('dm.offer.document.job', 'Document Job'),
         'document_job_position': fields.integer('Document Job Position'),
-        'verso': fields.boolean('Verso')
+        'verso': fields.boolean('Verso'),
+        'sequence': fields.integer('Sequence')
     }
     
 dm_offer_document() # }}}

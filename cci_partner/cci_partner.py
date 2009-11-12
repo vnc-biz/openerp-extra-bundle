@@ -48,14 +48,6 @@ class res_company(osv.osv):
 
 res_company()
 
-class res_partner_state(osv.osv):
-    _name = "res.partner.state"
-    _description = 'res.partner.state'
-    _columns = {
-        'name': fields.char('Partner Status',size=50,required=True),
-    }
-res_partner_state()
-
 class res_partner_state2(osv.osv):
     _name = "res.partner.state2"
     _description = 'res.partner.state2'

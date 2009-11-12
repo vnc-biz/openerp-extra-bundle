@@ -36,6 +36,7 @@
     'init_xml': [],
     'update_xml': [
                     'l10n_be_postal_subscriber_view.xml',
+                    'security/ir.model.access.csv',
                    ],
     'demo_xml': [
                 ],

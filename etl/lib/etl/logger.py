@@ -31,6 +31,7 @@ import logging
 import logging.handlers
 import sys
 import os
+import tempfile
 
 LOG_INFO = 'info'
 LOG_WARNING = 'warn'
@@ -42,7 +43,8 @@ def init_logger():
     # create a format for log messages and dates
     formatter = logging.Formatter('[%(asctime)s] %(levelname)s: %(name)s: %(message)s', '%a %b %d %Y %H:%M:%S')
 
-    logf = '/tmp/etl_log.out'
+#    logf = '/tmp/etl_log.out'
+    logf = os.path.join(tempfile.gettempdir(), "etl_log.out")
     handler = logging.handlers.TimedRotatingFileHandler(logf, 'D', 1, 30)
 
     # tell the handler to use this format

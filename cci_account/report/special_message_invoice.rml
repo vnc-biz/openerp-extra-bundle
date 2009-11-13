@@ -2,7 +2,232 @@
 <document filename="test.pdf">
 <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
 <pageTemplate id="first">
-<frame id="first" x1="34.0" y1="28.0" width="527" height="786"/>
+<pageGraphics>
+
+<place x="0.8cm" y="-2.05cm"  width="100.0cm" height="5cm">
+<para style="P24">[[ (o.partner_id.membership_vcs or o.name) or '' ]] </para>
+</place>
+<place x="0.8cm" y="3.65cm"  width="100.0cm" height="5cm">
+<para style="P25d1">[[ fr_convert(o.amount_total).upper()[:28] ]]</para>
+</place>
+<place x="0.8cm" y="2.85cm"  width="100.0cm" height="5cm">
+<para style="P25d1">[[ fr_convert(o.amount_total).upper()[28:] ]]</para>
+</place>
+<place x="4.1cm" y="2.1cm"  width="100.0cm" height="5cm">
+<para style="P24c1">[[ o.amount_total ]]</para>
+</place>
+<place x="7.12cm" y="-2.1cm"  width="100.0cm" height="5cm">
+<para style="P24bis"> [[ '    '.join(map(lambda i : i , str(o.partner_id.membership_vcs or o.name or ''))) ]] </para>
+</place>
+
+<place x="10" y="0.5cm"  width="541.0" height="8.35cm">
+<blockTable colWidths="150.0,391.0" style="Tableau10">
+<tr>
+<td>
+<blockTable colWidths="165.0" style="Tableau10">
+<tr>
+<td></td>
+</tr>
+<tr>
+<td><para style="P25d3" leftIndent="6.0"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<!--tr>
+<td><para style="P24"></para></td>
+</tr-->
+<tr>
+<td>
+<blockTable colWidths="85.0,75.0" style="Tableau10">
+<tr>
+<td><para style="P24"></para></td>
+<td><para style="P24c1"></para></td>
+<!--	<td><para style="P24c1">[[ o.amount_total ]]</para></td-->
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+<td><para style="P24"></para></td>
+</tr>
+</blockTable>
+</td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"> </para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+</blockTable>
+</td>
+<td>
+<blockTable colWidths="391.0" style="Tableau10">
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td><para style="P24"></para></td>
+</tr>
+<tr>
+<td>
+<blockTable colWidths="175.0,46.0" style="Tableau10">
+<tr>
+<td><para style="P24"></para></td>
+<td>
+<blockTable colWidths="160.0,20.0" rowHeights="3" style="Tableau10">
+									<tr>
+										<td><para style="P24"></para></td>
+										<td><para style="P24"></para></td>
+									</tr>
+									<tr>
+										<td><para style="P24"></para></td>
+										<td><para style="P24"></para></td>
+									</tr>
+									<tr>
+										<td><para style="P25c"></para><xpre style="P25c">[[ '     '.join(map(lambda i : i , str(get_value(o.amount_total)))) ]]</xpre></td>
+										<td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10">[[ get_decimal_value(o.amount_total) ]]</xpre></td>
+									</tr>
+								</blockTable>
+							</td>
+						</tr>
+					</blockTable>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<para style="P24"></para>
+						<para style="P24z" leftIndent="40"></para>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<para style="P24"></para>
+						<para style="P24z" leftIndent="40"></para>
+					</td>
+				</tr>
+			<tr>
+					<td>
+						<para style="P24"></para>
+					</td>
+				</tr>
+			<tr>
+					<td>
+						<para style="P24"></para>
+					</td>
+				</tr>
+			<tr>
+					<td>
+						<para style="P24"></para>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<blockTable colWidths="194.0,196.0" style="Tableau10">
+						<tr>
+							<td>
+								<para style="P25d" leftIndent="30">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]][[ o.address_invoice_id.title or '' ]] [[ o.address_invoice_id.name ]] </para>
+							</td>
+							<td>
+								<para style="P24"></para>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<para style="P24"></para>
+								<para style="P25d" leftIndent="30"> [[ o.address_invoice_id.street ]] [[ o.address_invoice_id.street2 or '' ]]</para>
+							</td>
+							<td>
+								<para style="P24"></para>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<para style="P24"></para>
+								<para style="P25d" leftIndent="30"> [[ o.address_invoice_id.zip or '' ]] [[ o.address_invoice_id.city or '' ]]</para>
+							</td>
+							<td>
+								<para style="P24"></para>
+							</td>
+						</tr>
+						</blockTable>
+					</td>
+				</tr>
+				<tr>
+					<td><para style="P24"></para></td>
+				</tr>
+				<tr>
+					<td><para style="P24"></para></td>
+				</tr>
+				<tr>
+					<para style="P24"></para>
+       					<td><para style="P24" leftIndent="20"> </para></td>
+				</tr>
+				<tr>
+					<td><para style="P24"></para></td>
+				</tr>
+			</blockTable>
+		</td>
+	</tr>
+</blockTable>
+</place>
+</pageGraphics>
+<frame id="first" x1="20.0" y1="28.0" width="527" height="786"/>
 </pageTemplate>
 </template>
 <stylesheet>
@@ -24,11 +249,25 @@
   <lineStyle kind="LINEBELOW" colorName="#000000" start="4,0" stop="4,-1"/>
   <lineStyle kind="LINEBELOW" colorName="#000000" start="5,0" stop="5,-1"/>
 </blockTableStyle>
+<blockTableStyle id="Tableau9">
+<blockAlignment value="LEFT"/>
+<blockValign value="TOP"/>
+	 <lineStyle kind="LINEBELOW" colorName="#000000" start="0,0" stop="1,-1"/>
+	 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="1,-1"/>
+	 <lineStyle kind="LINEAFTER" colorName="#000000" start="0,0" stop="1,-1"/>
+	 <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="1,-1"/>
+
+</blockTableStyle>
+<blockTableStyle id="Tableau10">
+<blockAlignment value="LEFT"/>
+<blockValign value="TOP"/>
+
+</blockTableStyle>
 <blockTableStyle id="Tableau7">
 <blockAlignment value="LEFT"/>
 <blockValign value="TOP"/>
   <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,0"/>
-  
+
   <lineStyle kind="LINEABOVE" colorName="#ffffff" start="0,1" stop="-1,1"/>
   <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,1" stop="-1,1"/>
   <lineStyle kind="LINEABOVE" colorName="#ffffff" start="0,2" stop="-1,-1"/>
@@ -90,6 +329,24 @@
 <paraStyle name="P21" fontName="Helvetica-Bold" fontSize="8.0" leading="8" alignment="LEFT" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P22" fontName="Helvetica-Bold" alignment="RIGHT" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P23" fontName="Helvetica" fontSize="14.0" leading="15" alignment="LEFT"/>
+<paraStyle name="P24" fontName="Helvetica" alignment="LEFT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0"/>
+<paraStyle name="P24bis" fontName="Helvetica" alignment="LEFT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="9"/>
+<paraStyle name="P24z" fontName="Helvetica" alignment="LEFT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="13.0"/>
+<paraStyle name="P24y" fontName="Helvetica" alignment="LEFT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="7.0"/>
+<paraStyle name="P24c" fontName="Helvetica" alignment="LEFT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="7.0"/>
+<paraStyle name="P24c1" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="7.0"/>
+<paraStyle name="P24a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
+<paraStyle name="P25" fontName="Helvetica" leading="10" alignment="RIGHT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
+<paraStyle name="P25c" fontName="Helvetica" alignment="RIGHT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="7.0"/>
+<paraStyle name="P25d" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
+<paraStyle name="P24dvcs" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
+<paraStyle name="P25d2" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="16"/>
+<paraStyle name="P25d1" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="13"/>
+<paraStyle name="P25d3" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
+<paraStyle name="P25a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="0.0"/>
+<paraStyle name="P26a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
+<paraStyle name="P24b" fontName="Helvetica" alignment="LEFT" fontSize="8.0"  spaceBefore="0.0" spaceAfter="6.0"/>
+
 <paraStyle name="Standard" fontName="Helvetica"/>
 <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
@@ -127,6 +384,7 @@
 <para style="P8b">
 <font color="white"> </font>
 </para>
+
 <para style="P23">Invoice [[ ((o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')) or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
 <para style="P23">VCS Number : [[ find_vcs(o.id) ]]</para>
 <para style="P23">PRO-FORMA [[ ((o.type == 'out_invoice' and o.state == 'proforma') or removeParentNode('para')) and '' ]]</para>
@@ -154,6 +412,7 @@
 </blockTable>
 <section>
 	<para style="P20">[[ repeatIn(invoice_lines(o), 'a') ]]</para>
+	<condPageBreak height="12cm"/>
 	<blockTable colWidths="0.0,240.0,77.5,41.0,39.0,50.0,79.0" style="Tableau7">
 		<tr>
 			<td><para style="P8">[[ a['type']=='text' and removeParentNode('blockTable')]]</para></td>
@@ -208,7 +467,9 @@
 	</blockTable>
 </td>
 <td>
+
 	<blockTable colWidths="110.0,90.0" style="Tableau5">
+
 		<tr>
 		<td><para style="P13">Total (Excl. taxes):</para></td>
 		<td><para style="P12"><u>[[ '%.2f' % o.amount_untaxed ]] [[o.currency_id.code ]]</u></para></td>
@@ -225,6 +486,7 @@
 </td>
 </tr>
 </blockTable>
+
 <blockTable colWidths="251.0,290.0" style="Tableau3">
 <tr>
 <td>
@@ -240,6 +502,7 @@
 	<td><para style="P11">[[ '%.2f' % t.amount]]</para></td>
 	</tr>
 </blockTable>
+
 </td>
 <td>
 	<blockTable colWidths="81.0,73.0,65.0" style="Tableau8">
@@ -257,17 +520,17 @@
 </td>
 </tr>
 </blockTable>
+
 <para style="P8b">
 <font color="white"> </font>
 </para>
-<para style="P19">[[ format(o.comment) or '' ]]</para>
-<para style="P19">[[ format(o.payment_term and o.payment_term.note) or '' ]]</para>
-<para style="P8b">
-<font color="white"> </font>
-</para>
+<para style="P19">[[ format(o.comment) or removeParentNode('para') ]]</para>
+<para style="P19">[[ format(o.payment_term and o.payment_term.note) or removeParentNode('para') ]]</para>
 <section>
 <para style="P19">[[ repeatIn((spcl_msg(data['form']) and spcl_msg(data['form']).splitlines()) or [], 'note') ]]</para>
 <para style="P19">[[ note or removeParentNode('para') ]]</para>
+
 </section>
+
 </story>
 </document>

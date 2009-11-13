@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,12 +15,16 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
 from report import report_sxw
 import pooler
+from tools import amount_to_text_fr
+from tools.amount_to_text_en import amount_to_text as amount_to_text_en
+from decimal import Decimal
+from tools.translate import translate as _
 
 class account_invoice_with_message(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
@@ -29,12 +33,17 @@ class account_invoice_with_message(report_sxw.rml_parse):
             'time': time,
             'spcl_msg': self.spcl_msg,
             'invoice_lines': self.invoice_lines,
-            'find_vcs' : self.find_vcs
+            'find_vcs' : self.find_vcs,
+            'fr_convert': self.fr_convert,
+            'en_convert': self.en_convert,
+            'get_value':self._get_value,
+            'get_decimal_value':self._get_decimal_value,
 
         })
         self.context = context
 
     def find_vcs(self,invoice_id):
+        print "======== find_vcs  in cci"
         item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
         vcs =''
         if item.number:
@@ -59,6 +68,30 @@ class account_invoice_with_message(report_sxw.rml_parse):
             vcs=vcs1+'/'+vcs2+'/'+ '0' +str(check_digit)
         return vcs
 
+    def fr_convert(self, amount):
+        amount = Decimal("%f" % (amount, ))
+        print "=========== amount",amount
+        print "amount_to_text_fr(amount, 'euro')",amount_to_text_fr(amount, 'euro')
+        return amount_to_text_fr(amount, 'euro')
+
+    def en_convert(self, amount):
+        amount = Decimal("%f" % (amount, ))
+        return amount_to_text_en(amount)
+
+    def _get_value(self,amount):
+        x = str(amount)
+        x=x.split('.')
+        t = str(x[0])
+        cir= ''.join(map(lambda i : i , t))
+        return cir
+
+    def _get_decimal_value(self,amount):
+        x = str(amount)
+        x=x.split('.')
+        t = str(x[1])
+        cir= '   '.join(map(lambda i : i , t))
+        return cir
+
     def spcl_msg(self, form):
         account_msg_data = pooler.get_pool(self.cr.dbname).get('notify.message').browse(self.cr, self.uid, form['message'])
         msg = account_msg_data.msg
@@ -70,6 +103,7 @@ class account_invoice_with_message(report_sxw.rml_parse):
         invoice_list=[]
         res={}
         list_in_seq={}
+        k=0
         ids = self.pool.get('account.invoice.line').search(self.cr, self.uid, [('invoice_id', '=', invoice.id)])
         ids.sort()
         for id in range(0,len(ids)):
@@ -82,6 +116,7 @@ class account_invoice_with_message(report_sxw.rml_parse):
         sum_flag={}
         sum_flag[j]=-1
         for entry in invoice_list:
+            k+=1
             res={}
 
             if entry.state=='article':
@@ -115,7 +150,6 @@ class account_invoice_with_message(report_sxw.rml_parse):
                     uos_name = self.pool.get('product.uom').read(self.cr,self.uid,entry.uos_id.id,['name'],self.context.copy())
                     res['uos']=uos_name['name']
             else:
-
                 res['quantity']=''
                 res['price_unit']=''
                 res['discount']=''
@@ -172,9 +206,11 @@ class account_invoice_with_message(report_sxw.rml_parse):
                     res['price_subtotal']=''
                     res['currency']=invoice.currency_id.code
 
+            res['k'] = k
             result.append(res)
+
         return result
 
-report_sxw.report_sxw('report.cci_account.invoice', 'account.invoice', 'addons/cci_account/report/special_message_invoice.rml', parser=account_invoice_with_message)
+report_sxw.report_sxw('report.cci_account.invoice', 'account.invoice', 'addons/cci_account/report/special_message_invoice.rml', parser=account_invoice_with_message,header=False)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

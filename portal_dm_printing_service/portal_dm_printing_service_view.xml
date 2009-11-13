@@ -2,6 +2,39 @@
 <openerp>
     <data>
 
+	<record id="act_portal_dm_edition_campaign_job_form" model="ir.actions.act_window">
+        <field name="name">Portal Campaign Document Jobs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.campaign.document.job</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+		<field name="view_id" ref="dm_edition.view_dm_edition_campaign_job_tree"/>
+		<field name="domain">[('user_id','=',uid)]</field>
+    </record>
+	
+	<menuitem id="menu_portal_dm_campaign_job_form" parent="board_dm.next_id_112" action="act_portal_dm_edition_campaign_job_form"/>
+
+	<record id="act_portal_dm_edition_campaign_job_batch_form" model="ir.actions.act_window">
+        <field name="name">Portal Campaign Document Job Batches</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.campaign.document.job.batch</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+		<field name="view_id" ref="dm_edition.view_dm_edition_campaign_job_batch_tree"/>
+		<field name="context">{'portal_dm':'service'}</field>
+    </record>
+	
+	<menuitem id="menu_portal_dm_campaign_job_batch_form" parent="board_dm.next_id_112" action="act_portal_dm_edition_campaign_job_batch_form"/>
+	
+	<record id="act_portal_dm_edition_campaign_job_dashboard" model="ir.actions.act_window">
+        <field name="name">Portal Campaign Document Job Dashboard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.campaign.document.job</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+		<field name="domain">[('process_date','&lt;=',time.strftime('%Y-%m-%d %H:%M:59'))]</field>
+    </record>
+
 	<record id="board_portal_dm_campaign_job_form" model="ir.ui.view">
             <field name="name">board.portal.dm.campaign.job.form</field>
             <field name="model">board.board</field>
@@ -10,7 +43,7 @@
                 <form string="Campaign Document Job Manager Board">
                     <hpaned>
                         <child1>
-                            <action colspan="4" name="%(dm_edition.act_dm_edition_campaign_job_form)d" string="Campaign Document Jobs"/>
+                            <action colspan="4" name="%(act_portal_dm_edition_campaign_job_dashboard)d" string="Campaign Document Jobs"/>
                         </child1>
                     </hpaned>
                 </form>

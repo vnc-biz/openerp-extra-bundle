@@ -24,7 +24,7 @@
     "version" : "0.1",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
-    "depends" : ["board_dm", "portal", "dm_edition"],
+    "depends" : ["board_dm", "portal", "dm_remote_edition"],
     "category" : "Generic Modules/Others",
     "description": "Potal Management - Specific data for dm printing services like job and job batches",
     "init_xml" : [],

@@ -19,6 +19,20 @@
 #
 ##############################################################################
 
-import portal_dm_printing_service
+from osv import fields, osv
+
+class dm_campaign_document_job_batch(osv.osv): # {{{
+    _inherit = "dm.campaign.document.job.batch"
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        if context is None:
+            context = {}
+        if context.has_key('portal_dm') and context['portal_dm']=='service':
+            cr.execute("select batch_id from dm_campaign_document_job where batch_id in (select id from dm_campaign_document_job_batch) and user_id = %s" %(uid))
+            batch_ids = map(lambda x: x[0], cr.fetchall())
+            return batch_ids
+        return super(dm_campaign_document_job_batch, self).search(cr, uid, args, offset, limit, order, context, count)
+
+dm_campaign_document_job_batch() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

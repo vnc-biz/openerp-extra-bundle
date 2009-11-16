@@ -29,7 +29,7 @@
     "description": "Potal Management - Specific data for dm printing services like job and job batches",
     "init_xml" : [],
     "update_xml" : ["portal_dm_printing_service_view.xml", "portal_dm_printing_service_data.xml"],
-#    "demo_xml" : ["portal_dm_printing_service_demo.xml"],
+    "demo_xml" : ["portal_dm_printing_service_demo.xml"],
     "active": False,
     "installable": True
 }

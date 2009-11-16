@@ -259,11 +259,12 @@ class dm_campaign(osv.osv): #{{{
     
     def check_forbidden_country(self, cr, uid, offer_id, country):
         offers = self.pool.get('dm.offer').browse(cr, uid, offer_id)
+        country_name = self.pool.get('res.country').browse(cr, uid, [country])[0]
         for step in offers.step_ids:
             for product in step.item_ids:
                 for prod_country in product.country_ids:
                     if country == prod_country.id:
-                        raise osv.except_osv("Error", "That product cannot be sold in that country : %s" %(product.code))
+                        raise osv.except_osv("Error", "That product cannot be sold in %s : %s" %(country_name.name, product.code))
         return True
     
 dm_campaign() # }}}

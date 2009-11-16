@@ -48,8 +48,7 @@ class wizard_document_report(wizard.interface):
 
     def _send_report(self, cr, uid, data , context): # {{{
 #        if not data['form']['mail_service_id']:
-#                raise osv.except_osv("Error", "You must choose a mail service 
-#                                        for sending preview documents")
+#                raise osv.except_osv("Error", "You must choose a mail service for sending preview documents")
         doc = pooler.get_pool(cr.dbname).get('dm.offer.document').browse(cr, 
                                                     uid, self.dm_wiz_data['id'])
         vals = {

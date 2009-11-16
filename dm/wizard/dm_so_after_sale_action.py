@@ -40,10 +40,7 @@ def search_wi(self, cr, uid, data, context):
     wi_obj = pool.get('dm.workitem')
     workitem = wi_obj.search(cr, uid, [('sale_order_id', '=', data['id'])])
     if not workitem:
-         raise osv.except_osv(
-          _('Cannot perfom After-Sale Action'),
-          _('This sale order doesnt seem to originate \
-                                from a Direct Marketing campaign'))
+         raise osv.except_osv(_('Cannot perfom After-Sale Action'),_('This sale order doesnt seem to originate from a Direct Marketing campaign'))
 
     return wi_obj.browse(cr, uid, workitem[0])
     

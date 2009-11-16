@@ -23,6 +23,7 @@ import netsvc
 
 from osv import fields
 from osv import osv
+from tools.translate import _
 
 AVAILABLE_STATES = [
     ('draft', 'Draft'),
@@ -187,10 +188,7 @@ class dm_offer_step(osv.osv): # {{{
         for step in self.browse(cr, uid, ids, context):
             for doc in step.document_ids:
                 if doc.state != 'validate':
-                    raise osv.except_osv(
-                            _('Could not open this offer step !'),
-                            _('You must first validate all documents \
-                                                attached to this offer step.'))
+                    raise osv.except_osv(_('Could not open this offer step !'),_('You must first validate all documents attached to this offer step.'))
             wf_service.trg_validate(uid, 'dm.offer.step', step.id, 'open', cr)
         self.write(cr, uid, ids, {'state': 'open'})
         return True

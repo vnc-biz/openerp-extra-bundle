@@ -24,6 +24,7 @@ import datetime
 
 from osv import fields
 from osv import osv
+from tools.translate import _
 
 ## class dm_overlay_payment_rule(osv.osv):
 ##     _name = 'dm.overlay.payment_rule'
@@ -346,9 +347,7 @@ class dm_campaign(osv.osv): #{{{
             mail_service = self.pool.get('dm.campaign.mail_service').search(cr, 
                                         uid, [('offer_step_id', '=', step.id)])
             if not mail_service:
-                raise osv.except_osv(
-                _('Could not open this Campaign'),
-                _('Assign a Mail Service for "%s".' % step.name))
+                raise osv.except_osv(_('Could not open this Campaign'),_('Assign a Mail Service for "%s".' % step.name))
 
         self.write(cr, uid, ids, {'state': 'open', 
                                   'planning_state': 'inprogress'})
@@ -367,10 +366,13 @@ class dm_campaign(osv.osv): #{{{
 
     def write(self, cr, uid, ids, vals, context=None):
         camp = self.pool.get('dm.campaign').browse(cr, uid, ids)[0]
-        if not self.check_forbidden_country(cr, uid, camp.offer_id.id, 
-                                            camp.country_id.id):
+        
+        offer_id = 'offer_id' in vals and vals['offer_id'] or camp.offer_id.id
+        country_id = 'country_id' in vals and vals['country_id'] or camp.country_id.id
+        
+        if not self.check_forbidden_country(cr, uid, offer_id, country_id):
             raise osv.except_osv("Error", "You cannot use this offer in this country")
-
+        
         # In campaign, if no forwarding_charge is given,
         # it gets the 'forwarding_charge' from offer
 #        if not camp.forwarding_charge:

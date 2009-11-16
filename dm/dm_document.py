@@ -318,8 +318,7 @@ class dm_offer_document(osv.osv): # {{{
         browse_step_id.type_id.name in ['After-Sale Event','After-Sale Action']:
             if self.search(cr, uid,[('step_id', '=', step_id),
                                     ('category_id', '=', category_id)]):
-                raise osv.except_osv(_('Error'),
-                                 _("You cannot create more than 1 document with the After-Sale step and category - '%s'") % (categ_name,))
+                raise osv.except_osv(_('Error'), _("You cannot create more than 1 document with the After-Sale step and category - '%s'") % (categ_name,))
         return {'value': {'category_id': category_id}}
 
     def default_get(self, cr, uid, fields, context=None):

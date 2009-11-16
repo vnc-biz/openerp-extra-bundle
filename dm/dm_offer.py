@@ -23,6 +23,7 @@ import netsvc
 
 from osv import fields
 from osv import osv
+from tools.translate import _
 
 AVAILABLE_STATES = [ # {{{
     ('draft', 'Draft'),
@@ -51,8 +52,7 @@ class dm_media(osv.osv): # {{{
             if context['step_media_ids'][0][2]:
                 brse_rec = context['step_media_ids'][0][2]
             else:
-                raise osv.except_osv('Error !', "It is necessary to select 
-                                                        media in offer step.")
+                raise osv.except_osv('Error !', "It is necessary to select media in offer step.")
         else:
             brse_rec = super(dm_media, self).search(cr, uid, [])
         return brse_rec
@@ -283,10 +283,7 @@ class dm_offer(osv.osv): # {{{
         for step in self.browse(cr, uid, ids):
             for step_id in step.step_ids:
                 if step_id.state != 'open':
-                    raise osv.except_osv(
-                            _('Could not open this offer !'),
-                            _('You must first open all offer steps related \
-                                                            to this offer.'))
+                    raise osv.except_osv(_('Could not open this offer !'), _('You must first open all offer steps related to this offer.'))
             wf_service.trg_validate(uid, 'dm.offer', step.id, 'open', cr)
         self.write(cr, uid, ids, {'state': 'open'})
         return True

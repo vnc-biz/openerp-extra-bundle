@@ -42,6 +42,7 @@ import threading, thread
 import time
 import base64
 import addons
+from tools.translate import _
 
 #
 #  Printers

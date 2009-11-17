@@ -165,6 +165,7 @@ class printjob_job(osv.osv):
     _defaults = {
         'state': lambda *a: 'draft',
         'keep': lambda *a: False,
+        'action':lambda *a : 'spool'
     }
 
     def _clean_old(self, cr, uid, ids=False, context={}):
@@ -332,7 +333,7 @@ class report_spool(netsvc.Service):
             printer = data['printer']
         else:
             name = object
-            action = False
+            action = 'spool'
             printer = False
 
         # Detect if defaults are being overriden for this report call
@@ -379,7 +380,7 @@ class report_spool(netsvc.Service):
             'action': action,
         }, context)
         cr.commit()
-        cr.close()
+#        cr.close()
     
         def print_thread(id, uid, ids, datas, context, printer):
             logger.notifyChannel("report", netsvc.LOG_DEBUG,

@@ -30,6 +30,9 @@ class dm_campaign_document_job_batch(osv.osv): # {{{
         'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
         'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
     }
+    _defaults = {
+        'state': lambda *a: 'pending',
+        }
     
 dm_campaign_document_job_batch() # }}}
 
@@ -70,7 +73,9 @@ class dm_campaign_document_job(osv.osv): # {{{
         'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
         'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule')
     }
-    
+    _defaults = {
+        'state': lambda *a: 'pending',
+        }    
 dm_campaign_document_job() # }}}
 
 class dm_offer_document(osv.osv): # {{{

@@ -23,6 +23,7 @@ from osv import osv
 from datetime import date,timedelta
 import time
 from datetime import datetime
+from tools.translate import _
 
 class dm_campaign_group(osv.osv):#{{{
     _inherit = "dm.campaign.group"
@@ -193,9 +194,7 @@ class dm_campaign(osv.osv):#{{{
                 (camp.dtp_state != 'done') or 
                 (camp.customer_file_state != 'done') or 
                 (camp.items_state != 'done')):
-            raise osv.except_osv(
-                _('Could not open this Campaign'),
-                _('You must first close all states related to this campaign.'))
+            raise osv.except_osv(_('Could not open this Campaign'), _('You must first close all states related to this campaign.'))
         super(dm_campaign, self).state_open_set(cr, uid, ids, *args)
         return True
 

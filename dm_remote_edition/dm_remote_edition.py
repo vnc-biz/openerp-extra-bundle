@@ -78,9 +78,9 @@ def generate_document_job(cr,uid,obj_id):
 	            vals = {'name': camp_doc.segment_id.name or '' + str(k),
 					         	'user_id': ms_id.user_id,
 						        'sorting_rule_id': ms_id.sorting_rule_id.id,}
-	            job_id = camp_doc_job_obj.create(cr,uid,vals)						 
-	        for i in v:
-	            camp_doc_job_obj.write(cr, uid, job_id, {'campaign_document_ids': [[4,i]]})						 
+	            job_id = camp_doc_job_obj.create(cr,uid,vals)
+            for i in v:
+                camp_doc_job_obj.write(cr, uid, job_id, {'campaign_document_ids': [[4,i]]})						 
 
     return {'code':'done','ids':obj.id}								   		    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

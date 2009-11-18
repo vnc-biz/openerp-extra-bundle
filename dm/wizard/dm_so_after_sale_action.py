@@ -23,6 +23,7 @@ import wizard
 import pooler
 from tools.misc import UpdateableStr
 from osv import osv
+from tools.translate import _
 
 FORM = UpdateableStr()
 

@@ -31,6 +31,7 @@ from lxml import etree
 from osv import fields
 from osv import osv
 from random import Random
+from tools.translate import _
 
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText

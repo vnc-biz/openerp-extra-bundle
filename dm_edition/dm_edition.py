@@ -28,7 +28,7 @@ class dm_campaign_document_job_batch(osv.osv): # {{{
     _columns = {
         'name': fields.char('Name', required=True, size=64),
         'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
-        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
+        'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
     }
     
 dm_campaign_document_job_batch() # }}}
@@ -67,7 +67,7 @@ class dm_campaign_document_job(osv.osv): # {{{
         'batch_id': fields.many2one('dm.campaign.document.job.batch', 'Job Batch'),
         'campaign_document_ids': fields.one2many('dm.campaign.document', 'campaign_document_job', 'Campaign Documents'),
         'process_date': fields.datetime('Processing Date'),
-        'state': fields.selection([('Pending', 'pending'), ('Error', 'error'), ('Done', 'done')], 'State'),
+        'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
         'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule')
     }
     

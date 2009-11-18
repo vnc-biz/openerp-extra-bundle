@@ -48,10 +48,10 @@ dm_campaign_document_job() # }}}
 
 def generate_document_job(cr,uid,obj_id):
     pool = pooler.get_pool(cr.dbname)
-    obj = pool.get('dm.campaign.document').browse(cr,uid,[obj_id])[0]
+    camp_doc_object = pool.get('dm.campaign.document')
+    obj = camp_doc_object.browse(cr,uid,[obj_id])[0]
     ms_id = obj.mail_service_id
-    camp_doc_obj = pool.get('dm.campaign.document')
-    camp_doc_id = camp_doc_obj.search(cr,uid,[('mail_service_id','=',ms_id.id)])
+    camp_doc_id = camp_doc_object.search(cr,uid,[('mail_service_id','=',ms_id.id)])
     s_rule = ms_id.sorting_rule_id.by_customer_country
     camp_doc_job = {}
     if ms_id.sorting_rule_id.by_customer_country :
@@ -68,13 +68,19 @@ def generate_document_job(cr,uid,obj_id):
 			    camp_doc_job[step_id].append(camp_doc.id)
 		    else : 
 			    camp_doc_job[step_id] = [camp_doc.id]
-
+    print camp_doc_job
     if camp_doc_job:
-	    camp_doc_job_obj = pool.get('dm.campaign.document.job')
-	    for k,v in country.items():
-		    camp_doc_job_obj.create(cr,uid,{'name': camp_doc.segment_id.name or '' + str(k),
-									     	'user_id': ms_id.user_id,
-										    'sorting_rule_id': ms_id.sorting_rule_id,
-										    'campaign_document_ids' : [[4, v]]})
-    return {'code':'done','ids':obj.id}										    
+        camp_doc_job_obj = pool.get('dm.campaign.document.job')
+        for k,v in camp_doc_job.items():
+            job_id = camp_doc_job_obj.search(cr, uid, [('sorting_rule_id', '=', ms_id.sorting_rule_id.id),
+                                               ('state', '=', 'pending')])[0]
+            if not job_id :
+	            vals = {'name': camp_doc.segment_id.name or '' + str(k),
+					         	'user_id': ms_id.user_id,
+						        'sorting_rule_id': ms_id.sorting_rule_id.id,}
+	            job_id = camp_doc_job_obj.create(cr,uid,vals)						 
+	        for i in v:
+	            camp_doc_job_obj.write(cr, uid, job_id, {'campaign_document_ids': [[4,i]]})						 
+
+    return {'code':'done','ids':obj.id}								   		    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

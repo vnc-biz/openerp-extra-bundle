@@ -20,6 +20,7 @@
 ##############################################################################
 from osv import fields
 from osv import osv
+from tools.translate import _
 
 class dm_campaign_proposition_segment(osv.osv):
     _inherit = "dm.campaign.proposition.segment"
@@ -66,9 +67,7 @@ class dm_after_sale_action(osv.osv_memory):
             workitem = self.pool.get('dm.workitem').search(cr, uid, 
                             [('sale_order_id','=',context['sale_order_id'])])
             if not workitem:
-                 raise osv.except_osv(
-                  _('Cannot perform After-Sale Action'),
-                  _('This sale order doesnt seem to originate from a Direct Marketing campaign'))
+                 raise osv.except_osv(_('Cannot perform After-Sale Action'),_('This sale order doesnt seem to originate from a Direct Marketing campaign'))
         return super(dm_after_sale_action, self).default_get(cr,
                                                         uid, fields, context)
         

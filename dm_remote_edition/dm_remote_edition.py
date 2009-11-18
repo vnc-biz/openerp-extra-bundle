@@ -73,8 +73,10 @@ def generate_document_job(cr,uid,obj_id):
         camp_doc_job_obj = pool.get('dm.campaign.document.job')
         for k,v in camp_doc_job.items():
             job_id = camp_doc_job_obj.search(cr, uid, [('sorting_rule_id', '=', ms_id.sorting_rule_id.id),
-                                               ('state', '=', 'pending')])[0]
-            if not job_id :
+                                               ('state', '=', 'pending')])
+            if job_id:
+                job_id = job_id[0]
+            else:
 	            vals = {'name': camp_doc.segment_id.name or '' + str(k),
 					         	'user_id': ms_id.user_id,
 						        'sorting_rule_id': ms_id.sorting_rule_id.id,}
@@ -82,5 +84,5 @@ def generate_document_job(cr,uid,obj_id):
             for i in v:
                 camp_doc_job_obj.write(cr, uid, job_id, {'campaign_document_ids': [[4,i]]})						 
 
-    return {'code':'done','ids':obj.id}								   		    
+    return {'code':'doc_done','ids':obj.id}								   		    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

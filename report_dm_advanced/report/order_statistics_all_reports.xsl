@@ -35,6 +35,27 @@
 		<xsl:for-each select="report/story">	
 		<xsl:variable name="s_id" select="attribute::s_id"/>
 		<story>
+			<blockTable colWidths="500.0,78,85,78,78,78" style="month">
+		 		<tr>
+		 			<td><para style="normal-title" >Origin</para></td>
+		 			<td><para style="normal-title" >VG</para></td>
+		 			<td><para style="normal-title" >Sale Orders</para></td>
+		 			<td><para style="normal-title" >Tx Conv</para></td>
+		 			<td><para style="normal-title" >C.A</para></td>
+		 			<td><para style="normal-title" >Mmc</para></td>
+				</tr>				 	
+			 	<xsl:for-each select="../origin">
+			 		<tr>
+			 			<td><para style="normal"><xsl:value-of select="attribute::name" /></para></td>
+			 			<td><para style="normal1"><xsl:value-of select="vg" /></para></td>
+			 			<td><para style="normal1"><xsl:value-of select="so" /></para></td>
+			 			<td><para style="normal1"><xsl:value-of select="tx_conv"/>%</para></td>
+			 			<td><para style="normal1"><xsl:value-of select="format-number(ca,'##,##,###.##')"/></para></td>
+			 			<td><para style="normal1"><xsl:value-of select="format-number(mmc,'##,##,###.##')" /></para></td>
+					</tr>
+				</xsl:for-each>
+			</blockTable>	
+            <spacer length="2cm" />
 		    <para style="title" t="1"> <xsl:value-of select="attribute::name"/> </para>
             <spacer length="1cm" />
 		    <blockTable>
@@ -42,8 +63,7 @@
                 <xsl:attribute name="colWidths"><xsl:value-of select="//cols" /></xsl:attribute>
 			    <tr>
                     <td>
-                        <xsl:value-of select="//date/attribute::from_month_year" /> -
-                        <xsl:value-of select="//date/attribute::to_month_year" /></td>
+                        <xsl:value-of select="//date/attribute::from_month_year" />-<xsl:value-of select="//date/attribute::to_month_year" /></td>
 				    <xsl:for-each select="//days/day">
 					    <td>
 						    <xsl:value-of select="attribute::string" />

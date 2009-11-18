@@ -42,8 +42,8 @@ def get_weekday_name(cr, uid, weekday):
     return _weekdays[weekday]    
     
 def origin_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, model):
-    cond = " where %s in %s and s.date_order >= '%s' and s.date_order < '%s'"%(field, tuple(s_id), som.strftime('%Y-%m-%d'), eom.strftime('%Y-%m-%d'))
-    if origin : 
+    cond = "where %s in (%s) and s.date_order >= '%s' and s.date_order < '%s'"%(field,  ','.join(str(x) for x in s_id), som.strftime('%Y-%m-%d'), eom.strftime('%Y-%m-%d'))
+    if origin and origin != 'Total': 
         cond += " and %s = '%s' " %(s_field,origin)
     elif s_field :
         cond += " and %s is not null "%s_field 
@@ -66,7 +66,7 @@ def origin_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, model):
         <ca>%s</ca>
         <mmc>%s</mmc>
     </origin>
-    '''%(origin or 'Total', vg, so, tx_conv, ca, mmc)
+    '''%(origin, vg, so, tx_conv, ca, mmc)
     return xml
 
 def row_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, cal, model):
@@ -142,7 +142,7 @@ class report_custom(report_rml):
             camp_id = data['form']['campaign_id']
             camp = pool.get('dm.campaign').browse(cr,uid,camp_id)
             name = camp.name
-            if data['form']['level'] == 'segment' :
+            if data['form']['level'] == 'segment':
                 row_id = pool.get('dm.campaign.proposition.segment').search(cr,uid,[('campaign_id','=',camp_id)])
                 field = 'segment_id'
                 model = 'dm.campaign.proposition.segment'
@@ -155,17 +155,17 @@ class report_custom(report_rml):
                 t2 = " per Offer Step of Campaign"
         elif data['form']['level'] == 'offer' :
             offer_id = data['form']['offer_id']
-            offer = pool.get('dm.offer.step').browse(cr,uid,offer_id)
+            offer = pool.get('dm.offer').browse(cr,uid,offer_id)
             name = offer.name
             row_id = pool.get('dm.offer.step').search(cr,uid,[('offer_id','=',offer_id)])        
             field = 'offer_step_id'
             model = 'dm.offer.step'
             t2 = " per Offer Steps"
 
-        if data['form']['result'] == 'amt' :
+        if data['form']['result'] == 'amt':
             cal = 'sum(amount_total)'
             t1 = 'Income'
-        elif data['form']['result'] == 'qty' :
+        elif data['form']['result'] == 'qty':
             cal = 'count(id)'
             t1 = 'Order Quantity'
         
@@ -181,12 +181,6 @@ class report_custom(report_rml):
             origin = pool.get('dm.campaign.proposition.segment').search(cr,uid,[('campaign_id','=',camp_id)])
             s_field = 'segment_id'
 
-        header_xml = '<header level="%s" result="%s" name="%s" split_by="%s" />' \
-                      %(level_selection[data['form']['level']],
-                       result_selection[data['form']['result']],
-                       ustr(name), data['form']['split_by'] or '' )
-
-
         story_xml = ''
         n = name = t1 + t2
         origin_xml = ''
@@ -198,9 +192,14 @@ class report_custom(report_rml):
                 n =name + ' from %s'%origin[i]
             origin_xml += origin_create_xml(cr, uid, row_id, som, eom, origin[i], field, s_field, model)
             story_xml += "<story s_id='%d' name='%s'> %s </story>"%(i,ustr(toxml(n)),ustr(row_xml))
+        
+        header_xml = '<header level="%s" result="%s" name="%s" split_by="%s"/>' \
+                      %(level_selection[data['form']['level']],
+                       result_selection[data['form']['result']],
+                       ustr(name), data['form']['split_by'] or '' ,)
             
         if split_by:
-            origin_xml += origin_create_xml(cr, uid, row_id, som, eom, '', field, s_field, model)
+            origin_xml += origin_create_xml(cr, uid, row_id, som, eom, 'Total', field, s_field, model)
         # Computing the xml
         xml = '''<?xml version="1.0" encoding="UTF-8" ?>
         <report>%s
@@ -209,9 +208,9 @@ class report_custom(report_rml):
         %s
         </report>
         ''' % (ustr(header_xml), ustr(origin_xml), ustr(''.join(date_xml)), ustr(story_xml) or '<story/>' )
-        
+        print xml
         return xml
 
-report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_all_reports.xsl')
+report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_html.xsl' , report_type='html2html')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -210,7 +210,8 @@ class report_custom(report_rml):
         ''' % (ustr(header_xml), ustr(origin_xml), ustr(''.join(date_xml)), ustr(story_xml) or '<story/>' )
         print xml
         return xml
-
-report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_html.xsl' , report_type='html2html')
+# for html reports
+#report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/#order_statistics_html.xsl' , report_type='html2html')
+report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_all_reports.xsl')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

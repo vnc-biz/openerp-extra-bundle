@@ -36,16 +36,12 @@ class wizard_campaign_group(wizard.interface):
     
     message = '''<?xml version="1.0"?>
     <form string="Create Group">
-        <label align="0.0" colspan="4" string="Selected campaign has been \
-                            added in the group.Campaigns that are already in \
-                            some group will not be added in new group and will \
-                            remain in same group"/>
+        <label align="0.0" colspan="4" string="Selected campaign has been added in the group.Campaigns that are already in some group will not be added in new group and will remain in same group"/>
     </form>'''
     
     error_message = '''<?xml version="1.0"?>
     <form string="Error!!!">
-        <label align="0.0" colspan="4" string="Group name can't be none. \
-                        You have to select any available group or create new"/>
+        <label align="0.0" colspan="4" string="Group name can't be none. You have to select any available group or create new"/>
     </form>'''
     
     def _add_group(self, cr, uid, data, context):

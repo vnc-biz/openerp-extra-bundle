@@ -29,7 +29,5 @@
 			<field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
 			<field eval="&quot;&quot;&quot;Generate Document Job&quot;&quot;&quot;" name="name"/>
 		</record>
-       
     </data>
 </openerp>
-

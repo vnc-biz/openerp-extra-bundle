@@ -54,7 +54,8 @@ def _delivery_set(self, cr, uid, data, context):
         grid_id = pooler.get_pool(cr.dbname).get('delivery.carrier').grid_get(cr, uid, [data['form']['carrier_id']],order.partner_address_id.id)
         if not grid_id:
             raise wizard.except_wizard('No grid avaible !', 'No grid matching for this carrier !')
-        grid = pooler.get_pool(cr.dbname).get('delivery.grid').browse(cr, uid, [grid_id])[0]
+        grid_obj = pooler.get_pool(cr.dbname).get('delivery.grid')
+        grid = grid_obj.browse(cr, uid, [grid_id])[0]
 
         line_obj.create(cr, uid, {
             'order_id': order.id,
@@ -62,7 +63,7 @@ def _delivery_set(self, cr, uid, data, context):
             'product_qty': 1,
             'product_uom': grid.carrier_id.product_id.uom_id.id,
             'product_id': grid.carrier_id.product_id.id,
-            'price_unit': grid.get_price(cr, uid, grid.id, order, time.strftime('%Y-%m-%d'), context={'object':'purchase'}),
+            'price_unit': grid_obj.get_price(cr, uid, grid.id, order, time.strftime('%Y-%m-%d'), context={'object':'purchase'}),
             'taxes_id': [(6,0,[ x.id for x in grid.carrier_id.product_id.taxes_id])],
             'date_planned':(date.today() + timedelta(days=1)).strftime('%Y-%m-%d'),
 

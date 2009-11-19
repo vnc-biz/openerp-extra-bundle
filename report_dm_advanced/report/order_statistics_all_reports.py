@@ -82,9 +82,8 @@ def row_create_xml(cr, uid, s_id, som, eom, origin, field, s_field, cal, model):
     month = {}
     res = cr.dictfetchall()
     for r in res:
-        day = int(r['date_order'][-2:])
+        day = r['date_order'][-5:]
         month[day] = month.get(day, 0.0) + r['qty']
-    
     xml = '''
     <time-element date="%s">
         <amount>%.2f</amount>
@@ -125,10 +124,10 @@ class report_custom(report_rml):
         date_xml = ['<date from_month_year="%s" to_month_year="%s"/>'
                 %(datetime.datetime.strftime(som,'%d/%m/%Y'),
                     datetime.datetime.strftime(eom,'%d/%m/%Y')) , '<days>' ]
-                    
-        date_xml += ['<day number="%d" string="%d"/>' % 
-                                (x+1, 
-                                (som+datetime.timedelta(days=x)).day 
+        date_xml += ['<day string="%d" number="%02d-%02d"/>' % 
+                                ( (som+datetime.timedelta(days=x)).day,
+                                (som+datetime.timedelta(days=x)).month,
+                                (som+datetime.timedelta(days=x)).day,
                                 )
                                 for x in range(0, (eom-som).days+1)]   
         col_widths = [1.25]*((eom-som).days+1)
@@ -208,10 +207,9 @@ class report_custom(report_rml):
         %s
         </report>
         ''' % (ustr(header_xml), ustr(origin_xml), ustr(''.join(date_xml)), ustr(story_xml) or '<story/>' )
-        print xml
         return xml
 # for html reports
-#report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/#order_statistics_html.xsl' , report_type='html2html')
+#report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_html.xsl' , report_type='html2html')
 report_custom('report.dm.statistics.so.all', 'dm.campaign', '', 'addons/report_dm_advanced/report/order_statistics_all_reports.xsl')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

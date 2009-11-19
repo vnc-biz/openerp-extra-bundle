@@ -11,6 +11,7 @@
          <field name="name">dm.campaign.inherit</field>
          <field name="model">dm.campaign</field>
          <field name="type">form</field>
+         <field eval="20" name="priority"/>
          <field name="inherit_id" ref="dm.view_campaign_form"/>
          <field name="arch" type="xml">
              <field name="offer_id" select="1" position="after">

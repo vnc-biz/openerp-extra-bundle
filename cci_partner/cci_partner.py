@@ -25,6 +25,29 @@ import time
 from osv import fields, osv
 import netsvc
 
+def check_phone_num(self, cr, uid, id, phone):
+    if not phone:
+        return {}
+    result = {}
+    gsm_num = ['0470','0471','0472','0473','0474','0475','0476','0477','0478','0479','0484','0485','0486','0487','0488','0489','0492','0493','0494','0495','0496','0497','0498','0499']
+    if not phone.startswith('00'):
+        is_gsm = False
+        for item in gsm_num:
+            is_gsm = phone.startswith(item)
+            if is_gsm:
+                break
+        if is_gsm:
+            if not len(phone) == 10:
+                raise osv.except_osv(_('Validate Error'),
+                    _('Invalid GSM Phone number. Only 10 figures numbers are allowed.'))
+        else:
+            if not len(phone) == 9:
+                raise osv.except_osv(_('Validate Error'),
+                    _('Invalid Phone number. Only 9 figures numbers are allowed.'))
+    result['phone'] = phone
+    return {'value': result}
+ 
+
 class res_company(osv.osv):
     _inherit = 'res.company'
     _description = 'res.company'
@@ -358,21 +381,7 @@ class res_partner_job(osv.osv):
     
     
     def _on_change_phone_num(self, cr, uid, id, phone):
-        if not phone:
-            return {}
-        result = {}
-        gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-        compiled_res = gsm_num.findall(phone)
-        if compiled_res:
-            if not len(phone) == 10:
-                raise osv.except_osv(_('Validate Error'),
-                        _('Invalid GSM Phone number. Only 10 figures numbers are allowed.'))
-        if not compiled_res:
-            if not len(phone) == 9:
-                raise osv.except_osv(_('Validate Error'),
-                        _('Invalid Phone number. Only 9 figures numbers are allowed.'))
-        result['phone'] = phone
-        return {'value': result}
+        return check_phone_num(self, cr, uid, id, phone)
     
     _inherit = 'res.partner.job'
     _columns = {
@@ -426,21 +435,7 @@ class res_partner_address(osv.osv):
        # return res
 
     def _on_change_phone_num(self, cr, uid, id, phone):
-        if not phone:
-            return {}
-        result = {}
-        gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-        compiled_res = gsm_num.findall(phone)
-        if compiled_res:
-            if not len(phone) == 10:
-                raise osv.except_osv(_('Validate Error'),
-                        _('Invalid GSM Phone number.'))
-        if not compiled_res:
-            if not len(phone) == 9:
-                raise osv.except_osv(_('Validate Error'),
-                        _('Invalid Phone number.'))
-        result['phone'] = phone
-        return {'value': result}
+        return check_phone_num(self, cr, uid, id, phone)
     
     _columns = {
         #'name': fields.function(_get_name, method=True, string='Contact Name',type='char',size=64),#override parent field
@@ -585,22 +580,8 @@ res_partner_country_relation()
 
 class res_partner_contact(osv.osv):
     
-    def _on_change_phone_num(self, cr, uid, id, mobile):
-        if not mobile:
-            return {}
-        result = {}
-        gsm_num = re.compile('(0472|0473|0474|0475|0476|0477|0478|0479|0484|0485|0486|0492|0494|0495|0496|0497|0498|0499)\d*')
-        compiled_res = gsm_num.findall(mobile)
-        if compiled_res:
-            if not len(mobile) == 10:
-                raise osv.except_osv(_('Validate Error'),
-                        _('Invalid GSM Phone number.'))
-        if not compiled_res:
-            if not len(mobile) == 9:
-                raise osv.except_osv(_('Validate Error'),
-                        _('Invalid Phone number.'))
-        result['mobile'] = mobile
-        return {'value': result}
+    def _on_change_phone_num(self, cr, uid, id, phone):
+        return check_phone_num(self, cr, uid, id, phone)
     
     _inherit='res.partner.contact'
     _columns = {

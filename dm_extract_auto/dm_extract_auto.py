@@ -20,19 +20,28 @@
 ##############################################################################
 from osv import fields
 from osv import osv
+import time
+import datetime
 
 UNITS_DELAY = [
-        ('minute','Minutes'),
-        ('hour','Hours'),
-        ('day','Days'),
-        ('week','Weeks'),
-        ('month','Months'),
+        ('minutes', 'Minutes'),
+        ('hours','Hours'),
+        ('days','Days'),
+        ('weeks','Weeks'),
+        ('months','Months')
         ]
+        
 class dm_campaign_proposition_segment(osv.osv):
     _name = "dm.campaign.proposition.segment"
     _description = "Segmentation"
     _inherit = "dm.campaign.proposition.segment"
     
+    def on_change_extract_date_start(self, cr, uid, ids, extract_date_start, 
+                                     extract_delay, extract_unit_delay):
+        kwargs = {(extract_unit_delay): extract_delay}
+        extract_date_next = datetime.datetime.strptime(extract_date_start, '%Y-%m-%d  %H:%M:%S') + datetime.timedelta(**kwargs)
+        return {'value': {'extract_date_next': extract_date_next.strftime('%Y-%m-%d %H:%M:%S')}}
+       
     _columns = {
             'auto_extract': fields.boolean('Use Automatic Extraction'),
             'extract_date_start': fields.datetime('First Extraction Date'),
@@ -45,4 +54,5 @@ class dm_campaign_proposition_segment(osv.osv):
     
 dm_campaign_proposition_segment()
 
+    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -383,7 +383,6 @@ def set_dateclosing(self,cr,uid,data,context={}):
     return {}
 
 def set_dateplan(self,cr,uid,data,context={}):
-    print "ici"
     obj_req=pooler.get_pool(cr.dbname).get('labo.analysis.request')
     v_req=obj_req.browse(cr,uid,data['ids'])
     for i in v_req:

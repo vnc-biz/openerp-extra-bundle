@@ -29,7 +29,6 @@
 
 import wizard
 import pooler
-print "ICI"
 
 take_fields = {
 }

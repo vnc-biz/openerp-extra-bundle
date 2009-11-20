@@ -143,8 +143,6 @@ def _convert_attach_xsl(self,cr,uid,data,context=None):
             if dict_s.values()[i][6] and str(dict_s.values()[i][6])!='0':
                 prog_num= dict_s.values()[i][6]
                 dog_obj.write(cr,uid,[puppy_id],{'progenus_number':prog_num})
-                print "iciiii"
-                
 
 #        fill fields mother
         mother_id=res and res[2]

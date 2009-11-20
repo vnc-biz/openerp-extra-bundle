@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <!--
+    =======================================================
+    SEGMENTATION VIEWS
+    =======================================================
+    -->
+
+       
+	<record id="view_dm_campaign_proposition_segments_auto" model="ir.ui.view">
+	   <field name="name">dm_campaign_proposition_segments_auto</field>
+	   <field name="model">dm.campaign.proposition.segment</field>
+	   <field name="inherit_id" ref="dm_extract.view_dm_campaign_proposition_segments"/>
+	   <field name="type">form</field>
+	   <field name="arch" type="xml">
+   			<field name="segmentation_id" position="after">
+	  				<group colspan="2" col="2">
+                    	<separator string="Automatic Extraction"/>
+                         <field name="auto_extract"/>
+                         <field name="extract_date_start" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
+                         <field name="extract_date_end" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
+                         <field name="extract_date_previous" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
+                         <field name="extract_date_next" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
+                         <field name="extract_delay" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
+                         <field name="extract_unit_delay" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
+                     </group>          
+   			</field>
+   	</field>
+  	</record>
+  	
+    </data>
+</openerp>
+    

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2008 Camptocamp SA
+# Copyright (c) 2009 Camptocamp SA
 # @author Nicolas Bessi 
 # @source JBA and AWST inpiration 
+# @contributor Grzegorz Grzelak (grzegorz.grzelak@birdglobe.com),
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs
@@ -26,12 +27,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
+
 from osv import osv, fields
 import time
 from mx import DateTime
 from datetime import datetime, timedelta
 import netsvc
 import string
+from tools.translate import _
 
 class Currency_rate_update_service(osv.osv):
     """Class thats tell for wich services wich currencies 
@@ -43,10 +46,11 @@ class Currency_rate_update_service(osv.osv):
                     'service' : fields.selection( 
                                                     [
                                                     ('Admin_ch_getter','Admin.ch'),
-                                                    #('ECB_getter','European Central Bank'),
+                                                    ('ECB_getter','European Central Bank'),
                                                     #('NYFB_getter','Federal Reserve Bank of NY'),                                                    
                                                     #('Google_getter','Google Finance'),
                                                     ('Yahoo_getter','Yahoo Finance '),
+                                                    ('PL_NBP_getter','Narodowy Bank Polski'),  # Added for polish rates
                                                     ],
                                                     "Webservice to use",
                                                     required = True
@@ -165,7 +169,7 @@ class Currency_rate_update(osv.osv):
                     ## and return a dict of rate
                     getter = factory.register(service.service)
                     curr_to_fetch = map(lambda x : x.code, service.currency_to_update)
-                    res = getter.get_updated_currency(curr_to_fetch, main_curr)
+                    res, log_info = getter.get_updated_currency(curr_to_fetch, main_curr)
                     rate_name = time.strftime('%Y-%m-%d')
                     for curr in service.currency_to_update :
                         if curr.code == main_curr :
@@ -189,7 +193,8 @@ class Currency_rate_update(osv.osv):
                                         )
                      
                     note = note + "\n currency updated at %s "\
-                        %(str(datetime.today()))
+                       %(str(datetime.today()))
+                    note = note + (log_info or '')
                     service.write({'note':note})
                 except Exception, e:
                     error_msg = note + "\n !!! %s %s !!!"\
@@ -203,15 +208,15 @@ Currency_rate_update()
 ### Error Definition as specified in python 2.6 PEP
 class AbstractClassError(Exception): 
     def __str__(self):
-        return 'Abstarct Class'
+        return 'Abstract Class'
     def __repr__(self):
-     return 'Abstarct Class'
+     return 'Abstract Class'
 
 class AbstractMethodError(Exception):
     def __str__(self):
-        return 'Abstarct Method'
+        return 'Abstract Method'
     def __repr__(self):
-        return 'Abstarct Method'
+        return 'Abstract Method'
 
 class UnknowClassError(Exception): 
     def __str__(self):
@@ -234,6 +239,7 @@ class Currency_getter_factory():
     def register(self, class_name): 
         allowed = [
                           'Admin_ch_getter',
+                          'PL_NBP_getter',
                           'ECB_getter',
                           'NYFB_getter',
                           'Google_getter',
@@ -248,6 +254,12 @@ class Currency_getter_factory():
 
 class Curreny_getter_interface(object) :
     "Abstract class of currency getter"
+    
+    #remove in order to have a dryer code
+    # def __init__(self):
+    #    raise AbstractClassError  
+    
+    log_info = " "
     
     supported_currency_array = \
 ['AFN', 'ALL', 'DZD', 'USD', 'USD', 'USD', 'EUR', 'AOA', 'XCD', 'XCD', 'ARS',
@@ -282,11 +294,6 @@ class Curreny_getter_interface(object) :
     ##updated currency this arry will contain the final result
     updated_currency = {}
     
-    def __init__(self) :
-        """Constructor tha ensure taht the Abstract class is
-        not instanciated"""
-        raise AbstractClassError
-    
     def get_updated_currency(self, currency_array, main_currency) :
         """Interface method that will retriev the currency
            This function has to be reinplemented in child"""
@@ -298,7 +305,7 @@ class Curreny_getter_interface(object) :
             raise UnsuportedCurrencyError(currency)        
         
     def get_url(self, url):
-        """Retrun a string of a get url query"""
+        """Return a string of a get url query"""
         try:
             import urllib
             objfile = urllib.urlopen(url)
@@ -314,8 +321,7 @@ class Curreny_getter_interface(object) :
 class Yahoo_getter(Curreny_getter_interface) :
     """Implementation of Currency_getter_factory interface
     for Yahoo finance service"""
-    def __init__(self):
-        pass
+        
     def get_updated_currency(self, currency_array, main_currency):
         """implementation of abstract method of Curreny_getter_interface"""
         self.validate_cur(main_currency)
@@ -330,16 +336,15 @@ class Yahoo_getter(Curreny_getter_interface) :
                 self.updated_currency[curr] = val
             else :
                 raise Exception('Could not update the %s'%(curr))
-        return self.updated_currency
+        
+        return self.updated_currency, self.log_info  # empty string added by polish changes
 ##Admin CH ############################################################################    
 class Admin_ch_getter(Curreny_getter_interface) :
     """Implementation of Currency_getter_factory interface
     for Admin.ch service"""
-    def __init__(self):
-        pass
         
     def rate_retrieve(self, node) :
-        """ Parse a dom node to retviev 
+        """ Parse a dom node to retrieve 
         currencies data"""
         res = {}
         if isinstance(node, list) :
@@ -385,4 +390,92 @@ class Admin_ch_getter(Curreny_getter_interface) :
                     rate = main_rate / (tmp_data['rate_currency'] / tmp_data['rate_ref'])
 
                 self.updated_currency[curr] = rate
-        return self.updated_currency
+        return self.updated_currency, self.log_info # empty string added by polish changes
+
+## ECB getter ############################################################################    
+class ECB_getter(Curreny_getter_interface) :
+    """Implementation of Currency_getter_factory interface
+    for ECB service"""
+        
+    def rate_retrieve(self, node) :
+        """ Parse a dom node to retrieve 
+        currencies data"""
+        res = {}
+        if isinstance(node, list) :
+            node = node[0]
+        res['code'] = node.attributes['currency'].value.upper()
+        res['rate_currency'] = float(node.attributes['rate'].value)
+        return res
+
+    def get_updated_currency(self, currency_array, main_currency):
+        """implementation of abstract method of Curreny_getter_interface"""
+        url='http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'
+        #we do not want to update the main currency
+        if main_currency in currency_array :
+            currency_array.remove(main_currency)
+        from xml.dom.minidom import parseString
+        from xml import xpath
+        rawfile = self.get_url(url)        
+        dom = parseString(rawfile)
+        #we dynamically update supported currencies
+        self.supported_currency_array = []
+        self.supported_currency_array.append('EUR')
+        for el in xpath.Evaluate("//Cube/Cube/Cube", dom):
+            self.supported_currency_array.append(el)
+        self.validate_cur(main_currency)
+        for curr in currency_array :
+            curr_xpath = "//Cube/Cube/Cube[@currency='%s']"%(curr.upper())
+            for node  in xpath.Evaluate(curr_xpath, dom):    
+                tmp_data = self.rate_retrieve(node)
+                self.updated_currency[curr] = tmp_data['rate_currency']
+        return self.updated_currency, self.log_info # empty string added by polish changes
+
+##PL NBP ############################################################################    
+class PL_NBP_getter(Curreny_getter_interface) :   # class added according to polish needs = based on class Admin_ch_getter
+    """Implementation of Currency_getter_factory interface
+    for PL NBP service"""
+        
+    def rate_retrieve(self, node) :
+        """ Parse a dom node to retrieve 
+        currencies data"""
+        res = {}
+        if isinstance(node, list) :
+            node = node[0]
+        res['code'] = node.getElementsByTagName('kod_waluty')[0].childNodes[0].data    # pl changes
+#        res['currency'] = node.getElementsByTagName('waehrung')[0].childNodes[0].data  Removed in Polish changes
+#        res['currency'] = res['code'] #pl changes
+        res['rate_currency'] = float(node.getElementsByTagName('kurs_sredni')[0].childNodes[0].data.replace(',','.'))  #pl changes
+        res['rate_ref'] = float(node.getElementsByTagName('przelicznik')[0].childNodes[0].data)  #pl changes
+
+        return res
+
+    def get_updated_currency(self, currency_array, main_currency):
+        """implementation of abstract method of Curreny_getter_interface"""
+        url='http://www.nbp.pl/kursy/xml/LastA.xml'    # LastA.xml is always the most recent one
+        #we do not want to update the main currency
+        if main_currency in currency_array :
+            currency_array.remove(main_currency)
+        from xml.dom.minidom import parseString
+        from xml import xpath
+        rawfile = self.get_url(url)        
+        dom = parseString(rawfile)
+        node = xpath.Evaluate("/tabela_kursow", dom) # BEGIN Polish - rates table name
+        if isinstance(node, list) :
+            node = node[0]
+        self.log_info = node.getElementsByTagName('numer_tabeli')[0].childNodes[0].data   
+        self.log_info = self.log_info + " " + node.getElementsByTagName('data_publikacji')[0].childNodes[0].data    # END Polish - rates table name
+
+        #we dynamically update supported currencies
+        self.supported_currency_array = []
+        self.supported_currency_array.append('PLN')
+        for el in xpath.Evaluate("/tabela_kursow/pozycja/kod_waluty/text()", dom):
+            self.supported_currency_array.append(el)
+        self.validate_cur(main_currency)
+        for curr in currency_array :
+            curr_xpath = "/tabela_kursow/pozycja[kod_waluty='%s']"%(curr.upper())
+            for node  in xpath.Evaluate(curr_xpath, dom):    
+                tmp_data = self.rate_retrieve(node)
+                #Source is in PLN, so we transform it into reference currencies
+                rate = 1 / (tmp_data['rate_currency'] / tmp_data['rate_ref'])
+                self.updated_currency[curr] = rate
+        return self.updated_currency, self.log_info

@@ -1,10 +1,7 @@
 # -*- encoding: utf-8 -*-
-#
 #  company.py
-#  l10n_ch
-#
-#  Created by Nicolas Bessi based on Credric Krier contribution
-#
+#  c2c_currency_update
+# @author Nicolas Bessi 
 #  Copyright (c) 2009 CamptoCamp. All rights reserved.
 ##############################################################################
 #
@@ -30,6 +27,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
+
 import netsvc
 from osv import fields, osv
 class res_company(osv.osv):

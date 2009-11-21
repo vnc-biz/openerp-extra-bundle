@@ -14,19 +14,21 @@
 	   <field name="inherit_id" ref="dm_extract.view_dm_campaign_proposition_segments"/>
 	   <field name="type">form</field>
 	   <field name="arch" type="xml">
-  			<field name="segmentation_id" position="after">
-  			<group colspan="2" col="2">
-                  <separator string="Automatic Extraction"/>
-                      <field name="auto_extract"/>
-                      <field name="extract_date_start" attrs="{'readonly':[('auto_extract','!=',True)]}" on_change="on_change_extract_date_start(extract_date_start, extract_delay, extract_unit_delay)"/>
-                      <field name="extract_date_end" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
-                      <field name="extract_date_previous" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
-                      <field name="extract_date_next" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
-                      <field name="extract_delay" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
-                      <field name="extract_unit_delay" attrs="{'readonly':[('auto_extract','!=',True)]}"/>
-                </group>          
-  			</field>
-	  	</field>
+ 	   <field name="segmentation_id" position="after">
+ 	   <group colspan="4" col="4">
+          <separator string="Automatic Extraction"/>
+            <field name="auto_extract" colspan="4"/>
+             <group colspan ="2" col="2" attrs="{'readonly':[('auto_extract','!=',True)]}" >
+              <field name="extract_date_start" on_change="on_change_extract_date_start(extract_date_start, extract_delay, extract_unit_delay)"/>
+              <field name="extract_date_end"/>
+              <field name="extract_date_previous"/>
+              <field name="extract_date_next"/>
+              <field name="extract_delay"/>
+              <field name="extract_unit_delay"/>
+             </group>    
+        </group>          
+	   </field>
+	  </field>
   	</record>
     </data>
 </openerp>

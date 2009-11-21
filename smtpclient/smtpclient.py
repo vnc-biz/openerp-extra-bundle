@@ -353,7 +353,7 @@ class SmtpClient(osv.osv):
         
         for to in emailto:
             msg = MIMEMultipart()
-            msg['Subject'] = subject 
+            msg['Subject'] = tools.ustr(subject) 
             msg['To'] =  to
             msg['From'] = context.get('email_from', smtp_server.from_email)
             

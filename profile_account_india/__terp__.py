@@ -35,6 +35,7 @@
         "account_base",
         "account_voucher",
         "account_voucher_payment",
+        "account_voucher_report",
         "account_voucher_workflow",
         "account_invoice_india",
         "account_reports_india",

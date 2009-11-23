@@ -608,6 +608,7 @@ class hr_payslip(osv.osv):
         
         move_pool = self.pool.get('account.move')
         movel_pool = self.pool.get('account.move.line')
+        exp_pool = self.pool.get('hr.expense.expense')
         
         for slip in self.browse(cr,uid,ids):
             total_deduct = 0.0
@@ -742,7 +743,6 @@ class hr_payslip(osv.osv):
                 
                 line_ids += [movel_pool.create(cr, uid, rec)]
                 
-            
             if total_deduct > 0:
                 move = {
                     'name': 'ADJ-%s' % (slip.number), 
@@ -788,6 +788,12 @@ class hr_payslip(osv.osv):
             }
             if not slip.period_id:
                 rec['period_id'] = period_id
+            
+            dates = prev_bounds(slip.date)
+            exp_ids = exp_pool.search(cr, uid, [('date_valid','>=',dates[0]), ('date_valid','<=',dates[1])])
+            if exp_ids:
+                #TODO: Need to encode the lines for the Employee Expanse 
+                pass
             
             self.write(cr, uid, [slip.id], rec)
             

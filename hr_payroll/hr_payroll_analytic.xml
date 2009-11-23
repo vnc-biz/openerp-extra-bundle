@@ -1,0 +1,2042 @@
+<?xml version="1.0" ?>
+<openerp>
+<!--
+	Salary Analysis
+-->
+	<data >
+		<record id="account_analytic_account_salaryanalysis0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;SA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Salary Analysis&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Basic Salary
+-->
+	<data >
+		<record id="account_analytic_account_basicsalary0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Basic Salary&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer14" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;BS - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_basicsalary0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	House Rant Allounce
+-->
+	<data >
+		<record id="account_analytic_account_houserantallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;House Rant Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;HRA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_houserantallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Convance Allounce
+-->
+	<data >
+		<record id="account_analytic_account_convanceallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Convance Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer1" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;CA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_convanceallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Medical Allounce
+-->
+	<data >
+		<record id="account_analytic_account_medicalallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Medical Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer2" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;MA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_medicalallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Telephone Allowance
+-->
+	<data >
+		<record id="account_analytic_account_telephoneallowance0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Telephone Allowance&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer3" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TELA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_telephoneallowance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+<!--
+	Leave Travel Allounce	
+-->
+	</data>
+	<data >
+		<record id="account_analytic_account_leavetravelallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Leave Travel Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer4" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;LTA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_leavetravelallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Newspaper Allounce
+-->
+	<data >
+		<record id="account_analytic_account_newspaperallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Newspaper Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer5" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;NA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_newspaperallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+    	Traveling Allounce
+-->
+	<data >
+		<record id="account_analytic_account_travelingallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Traveling Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer6" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_travelingallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Dearness Allounce
+-->
+	<data >
+		<record id="account_analytic_account_dearnessallounce0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Dearness Allounce&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer7" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;DA - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_dearnessallounce0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Provident Fund
+-->
+	<data >
+		<record id="account_analytic_account_providentfund0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Provident Fund&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer8" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PF - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_providentfund0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Professional Tax
+-->
+	<data >
+		<record id="account_analytic_account_professionaltax0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Professional Tax&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer9" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;PT - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_professionaltax0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Welfare
+-->
+	<data >
+		<record id="account_analytic_account_welfare0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Welfare&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer10" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;WF - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_welfare0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Tax Deduct at Source&quot
+-->
+	<data >
+		<record id="account_analytic_account_taxdeductatsource0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Tax Deduct at Source&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer11" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;TDS - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_taxdeductatsource0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Employee's State Insurance
+-->
+	<data >
+		<record id="account_analytic_account_employeesstateinsurance0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Employee's State Insurance&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer12" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;ESI - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_employeesstateinsurance0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+<!--
+	Others - Allounces / Deduction&quot
+-->
+	<data >
+		<record id="account_analytic_account_othersallouncesdeduction0" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_salaryanalysis0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Others - Allounces / Deduction&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_juniorapplicationengineer13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 001&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Junior Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_applicationengineer13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 002&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_teamleader13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 003&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Team Leader&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_projectmanager13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 004&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Project Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_departmentmanager13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 005&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Department Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_webandgraphicsdesigner13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 006&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Web and Graphics Designer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_hrmanager13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 007&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;HR Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingexecutives13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 008&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Executives&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_marketingmanager13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 009&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Marketing Manager&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+	<data >
+		<record id="account_analytic_account_srapplicationengineer13" model="account.analytic.account">
+			<field eval="&quot;&quot;&quot;OTHER - 010&quot;&quot;&quot;" name="code"/>
+			<field eval="1" name="active"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="company_id" ref="base.main_company"/>
+			<field name="parent_id" ref="account_analytic_account_othersallouncesdeduction0"/>
+			<field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+			<field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+			<field eval="&quot;&quot;&quot;Sr Application Engineer&quot;&quot;&quot;" name="name"/>
+		</record>
+	</data>
+</openerp>

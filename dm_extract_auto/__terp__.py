@@ -28,8 +28,7 @@
            
             """,
     "depends" : ["dm_extract"],
-    "init_xml" : [
-                    ],
+    "init_xml" : ["dm_extract_auto_data.xml"],
     "demo_xml" : [],
     "update_xml" : [
                     "dm_extract_auto_view.xml",

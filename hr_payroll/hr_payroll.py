@@ -606,22 +606,6 @@ class hr_payslip(osv.osv):
     
     def verify_sheet(self, cr, uid, ids, context={}):
         
-        def create_analytic_line(name, amount, unit_amount, account_id, general_account_id, move_id, journal_id, user_id):
-            line_pool = self.pool.get('account.analytic.line')
-            res = {
-                'name':name,
-                'amount':amount,
-                'unite_amount':unit_amount,
-                'account_id':account_id,
-                'general_account_id':general_account_id,
-                'move_id':move_id,
-                'date':time.strftime('%Y-%m-%d'),
-                'journal_id':journal_id,
-                'user_id': user_id,
-                'type':'src'
-            }
-            return line_pool.create(cr, uid, res)
-        
         move_pool = self.pool.get('account.move')
         movel_pool = self.pool.get('account.move.line')
         
@@ -652,7 +636,9 @@ class hr_payslip(osv.osv):
                 'name': slip.name, 
                 'journal_id': slip.journal_id.id,
                 'period_id': period_id, 
-                'date': slip.date
+                'date': slip.date,
+                'ref':slip.number,
+                'narration': slip.name
             }
             move_id = move_pool.create(cr, uid, move)
             
@@ -663,7 +649,7 @@ class hr_payslip(osv.osv):
                 'account_id': slip.employee_id.salary_account.id, 
                 'debit': slip.basic,
                 'credit': 0.0,
-                'quantity':22,
+                'quantity':slip.working_days,
                 'journal_id': slip.journal_id.id,
                 'period_id': period_id,
                 'analytic_account_id': False,
@@ -676,7 +662,21 @@ class hr_payslip(osv.osv):
             
             move_line_id = movel_pool.create(cr, uid, line)
             line_ids += [move_line_id]
-
+            
+            line = {
+                'move_id':move_id,
+                'name': "To Basic Paysble Salary / " + slip.employee_id.name,
+                'partner_id': partner_id,
+                'date': slip.date, 
+                'account_id': slip.employee_id.employee_account.id, 
+                'debit': 0.0,
+                'quantity':slip.working_days,
+                'credit': slip.basic,
+                'journal_id': slip.journal_id.id,
+                'period_id': period_id
+            }
+            line_ids += [movel_pool.create(cr, uid, line)]
+            
             for line in slip.line_ids:
                 name = "[%s] - %s / %s" % (line.code, line.name, slip.employee_id.name)
                 amount = 0.0
@@ -684,6 +684,9 @@ class hr_payslip(osv.osv):
                     amount= (line.slip_id.basic * line.amount)
                 elif line.amount_type == 'fix':
                     amount = line.amount
+                
+                if line.type == 'leaves':
+                    continue
                 
                 rec = {
                     'move_id':move_id,
@@ -739,26 +742,15 @@ class hr_payslip(osv.osv):
                 
                 line_ids += [movel_pool.create(cr, uid, rec)]
                 
-            line = {
-                'move_id':move_id,
-                'name': "To Basic Paysble Salary / " + slip.employee_id.name,
-                'partner_id': partner_id,
-                'date': slip.date, 
-                'account_id': slip.employee_id.employee_account.id, 
-                'debit': 0.0,
-                'quantity':1,
-                'credit': slip.basic,
-                'journal_id': slip.journal_id.id,
-                'period_id': period_id
-            }
-            line_ids += [movel_pool.create(cr, uid, line)]
             
             if total_deduct > 0:
                 move = {
-                    'name': slip.name, 
+                    'name': 'ADJ-%s' % (slip.number), 
                     'journal_id': slip.journal_id.id,
-                    'period_id': period_id, 
-                    'date': slip.date
+                    'period_id': period_id,
+                    'date': slip.date,
+                    'ref':slip.number,
+                    'narration': 'Adjustment : %s' % (slip.name)
                 }
                 adj_move_id = move_pool.create(cr, uid, move)
                 name = "Adjustment Entry - %s" % (slip.employee_id.name)
@@ -788,7 +780,7 @@ class hr_payslip(osv.osv):
                     'period_id' :period_id
                 }
                 line_ids += [movel_pool.create(cr, uid, cre_rec)]
-            
+
             rec = {
                 'state':'confirm',
                 'move_id':move_id, 

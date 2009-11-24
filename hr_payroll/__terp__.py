@@ -38,7 +38,8 @@
     'depends': [
         'hr','account',
         'hr_contract', 
-        'hr_holidays'
+        'hr_holidays',
+        'hr_expanse'
     ],
     'init_xml': [
     ],

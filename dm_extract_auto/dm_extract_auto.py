@@ -66,26 +66,26 @@ class dm_campaign_proposition_segment(osv.osv):
         seg_ids = self.search(cr, uid, [('extract_date_next', '<=', time.strftime('%Y-%m-%d %H:%M:%S'))])
         for seg_id in seg_ids:
             seg_obj = self.browse(cr, uid, [seg_id])[0]
-            name = time.strftime('%Y-%m-%d %H:%M:%S') + ' ' + str(seg_obj.name)
-            if seg_obj.code:
+            if seg_obj.segmentation_id.id:
+                name = time.strftime('%Y-%m-%d %H:%M:%S') + ' ' + str(seg_obj.name)
                 code = time.strftime('%Y-%m-%d %H:%M:%S') + '_' + str(seg_obj.code) or '' 
-            wizard_service = netsvc.LocalService("wizard")
-            passwd = self.pool.get('res.users').browse(cr, uid, uid).password
-            wizard_res = wizard_service.create(cr.dbname, uid, passwd, 'wizard.extract.customer')
-            datas = {'form': {'code': code, 'name': name}, 'ids': [seg_obj.segmentation_id.id], 'report_type': 'pdf', 'model': 'dm.address.segmentation', 'id': seg_obj.segmentation_id.id}
-            state = 'ok'
-            res3 = wizard_service.execute(cr.dbname, uid, passwd, wizard_res , datas, state, {})
-            #TODO raise exception for delay
-            if not seg_obj.extract_unit_delay:
-                return False
-            ext_delay_params = {(str(seg_obj.extract_unit_delay)): seg_obj.extract_delay}
-            for unit, value in ext_delay_params.items():
-                if unit == 'months':
-                    extr_next_date = datetime.datetime.strptime(seg_obj.extract_date_next, '%Y-%m-%d  %H:%M:%S') + datetime.timedelta(value*365/12)
-                else:
-                    extr_next_date = datetime.datetime.strptime(seg_obj.extract_date_next, '%Y-%m-%d  %H:%M:%S') + datetime.timedelta(**ext_delay_params)
-            self.write(cr, uid, [seg_id], {'extract_date_previous': seg_obj.extract_date_next,
-                                          'extract_date_next': extr_next_date})
+                wizard_service = netsvc.LocalService("wizard")
+                passwd = self.pool.get('res.users').browse(cr, uid, uid).password
+                wizard_res = wizard_service.create(cr.dbname, uid, passwd, 'wizard.extract.customer')
+                datas = {'form': {'code': code, 'name': name}, 'ids': [seg_obj.segmentation_id.id], 'report_type': 'pdf', 'model': 'dm.address.segmentation', 'id': seg_obj.segmentation_id.id}
+                state = 'ok'
+                res3 = wizard_service.execute(cr.dbname, uid, passwd, wizard_res , datas, state, {})
+                #TODO raise exception for delay
+                if not seg_obj.extract_unit_delay:
+                    return False
+                ext_delay_params = {(str(seg_obj.extract_unit_delay)): seg_obj.extract_delay}
+                for unit, value in ext_delay_params.items():
+                    if unit == 'months':
+                        extr_next_date = datetime.datetime.strptime(seg_obj.extract_date_next, '%Y-%m-%d  %H:%M:%S') + datetime.timedelta(value*365/12)
+                    else:
+                        extr_next_date = datetime.datetime.strptime(seg_obj.extract_date_next, '%Y-%m-%d  %H:%M:%S') + datetime.timedelta(**ext_delay_params)
+                self.write(cr, uid, [seg_id], {'extract_date_previous': seg_obj.extract_date_next,
+                                              'extract_date_next': extr_next_date})
     
 dm_campaign_proposition_segment()
 

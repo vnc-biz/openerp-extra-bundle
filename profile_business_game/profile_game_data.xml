@@ -54,7 +54,7 @@
         </record>
 
         <record id="ir_ui_view_sc_hr1" model="ir.ui.view_sc">
-            <field ref="purchase.menu_purchase_order_draft" name="res_id"/>
+            <field ref="purchase.menu_purchase_form_action" name="res_id"/>
             <field eval="&quot;ir.ui.menu&quot;" name="resource"/>
             <field eval="&quot;Request For Quotations&quot;" name="name"/>
             <field name="user_id" ref="hr.user_hr"/>

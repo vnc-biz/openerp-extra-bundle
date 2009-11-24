@@ -77,7 +77,7 @@
         </td>
       </tr>
     </blockTable>
-    <blockTable colWidths="32.0,44.0,45.0,52.0,59.0,74.0,74.0,79.0,66.0" style="Table4">
+    <blockTable colWidths="32.0,44.0,45.0,52.0,59.0,74.0,79.0,66.0" style="Table4">
       <tr>
         <td>
           <para style="P9">Code</para>
@@ -95,9 +95,6 @@
           <para style="P9">Media</para>
         </td>
         <td>
-          <para style="P9">Products</para>
-        </td>
-        <td>
           <para style="P9">Incoming Transition offer steps</para>
         </td>
         <td>
@@ -112,7 +109,7 @@
       <tr>
         <td>
           <para style="P3">[[repeatIn(o.step_ids,'step')]]</para>
-          <blockTable colWidths="31.0,45.0,45.0,51.0,59.0,74.0,74.0,79.0,66.0" style="Table5">
+          <blockTable colWidths="31.0,45.0,45.0,51.0,59.0,74.0,79.0,66.0" style="Table5">
             <tr>
               <td>
                 <para style="P2">[[step.code]]</para>
@@ -128,9 +125,6 @@
               </td>
               <td>
                 <para style="P8">[[step.media_id.name]]</para>
-              </td>
-              <td>
-                <para style="P5">[[ ','.join(map(lambda x : x['name'] ,step.item_ids ) ) ]]</para>
               </td>
               <td>
                 <para style="P5">[[ ','.join(map(lambda x : x['step_from_id'].code ,step.incoming_transition_ids) ) ]]</para>

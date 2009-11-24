@@ -39,7 +39,7 @@
         'hr','account',
         'hr_contract', 
         'hr_holidays',
-        'hr_expanse'
+        'hr_expense'
     ],
     'init_xml': [
     ],

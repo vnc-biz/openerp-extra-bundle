@@ -97,15 +97,23 @@ class employees_salary_report(rml_parse.rml_parse):
         #for Basic Salary
         res = []
         res = self.cal_monthly_amt(obj.id,None)
-        if res[1]!=0.0:
-            self.total += res[len(res)-1]
+        self.total += res[len(res)-1]
+        basic_flag = False
+        for i in range(1,len(res)):
+            if res[i] > 0.0:
+                basic_flag = True
+        if basic_flag:
             self.allow_list.append(res)
         #for allowance
         if allowance_cat_ids:
             for allow in allowance_cat_ids:
                  res = []
                  res = self.cal_monthly_amt(obj.id,allow)
-                 if res[1]!=0.0:
+                 all_flag = False
+                 for i in range(1,len(res)):
+                    if res[i] > 0.0:
+                        all_flag = True
+                 if all_flag:
                      self.allow_list.append(res)
                      self.total += res[len(res)-1]
         #for Deduction
@@ -113,7 +121,11 @@ class employees_salary_report(rml_parse.rml_parse):
             for deduct in deduction_cat_ids:
                  res = []
                  res = self.cal_monthly_amt(obj.id,deduct)
-                 if res[1]!=0.0:
+                 ded_flag = False
+                 for i in range(1,len(res)):
+                    if res[i] > 0.0:
+                        ded_flag = True
+                 if ded_flag:
                      self.deduct_list.append(res)
                      self.total -= res[len(res)-1]
         #for Other
@@ -121,7 +133,11 @@ class employees_salary_report(rml_parse.rml_parse):
             for other in other_cat_ids:
                  res = []
                  res = self.cal_monthly_amt(obj.id,other)
-                 if res[1]!=0.0:
+                 other_flag = False
+                 for i in range(1,len(res)):
+                    if res[i] > 0.0:
+                        other_flag = True
+                 if other_flag:
                      self.other_list.append(res)
         return None
     
@@ -134,7 +150,6 @@ class employees_salary_report(rml_parse.rml_parse):
         else:
             category_name = self.pool.get('hr.allounce.deduction.categoty').read(self.cr, self.uid, [category],['name','type'])[0]
             result.append(category_name['name'])
-            
         for mnth in self.mnths:
             if len(mnth) != 7:
                 mnth = '0' + str(mnth)
@@ -150,17 +165,23 @@ class employees_salary_report(rml_parse.rml_parse):
                 else:
                     for line in payslip_obj.line_ids:
                         if line.category_id.id == category:
-                            tot += line.total
-                            result.append(line.total)
                             if category_name['type'] == 'allow':
                                 self.month_total_list[cnt] = self.month_total_list[cnt] + line.total
+                                tot += line.total
+                                result.append(line.total)
                             if category_name['type'] == 'deduct':
                                 self.month_total_list[cnt] = self.month_total_list[cnt] - line.total
+                                tot += line.total
+                                result.append(line.total)
+                            if category_name['type'] == 'other':
+                                tot += line.total
+                                result.append(line.total)
             else:
                 result.append(0.00)
-            cnt = cnt + 1  
+            cnt = cnt + 1 
         cnt = 1
         result.append(tot)
+        tot = 0.0
         return result
 
     def get_allow(self):

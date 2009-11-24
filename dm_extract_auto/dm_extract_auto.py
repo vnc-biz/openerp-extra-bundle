@@ -41,7 +41,7 @@ class dm_campaign_proposition_segment(osv.osv):
     _inherit = "dm.campaign.proposition.segment"
     
     def onchange_extract_date_start(self, cr, uid, ids, extract_date_start, extract_delay, extract_unit_delay):
-        if extract_date_start:
+        if extract_date_start and extract_unit_delay:
             params = {(extract_unit_delay): extract_delay}
             for unit, value in params.items():
                 if unit == 'months':
@@ -63,21 +63,19 @@ class dm_campaign_proposition_segment(osv.osv):
                 }
 
     def check_auto_extract(self, cr, uid, ids=False, context={}):
-        cr.commit()
         seg_ids = self.search(cr, uid, [('extract_date_next', '<=', time.strftime('%Y-%m-%d %H:%M:%S'))])
         for seg_id in seg_ids:
             seg_obj = self.browse(cr, uid, [seg_id])[0]
             name = time.strftime('%Y-%m-%d %H:%M:%S') + ' ' + str(seg_obj.name)
             if seg_obj.code:
-                code = (time.strftime('%Y-%m-%d %H:%M:%S') + '_' + str(seg_obj.code)) 
-            else:
-                code = ''
+                code = time.strftime('%Y-%m-%d %H:%M:%S') + '_' + str(seg_obj.code) or '' 
             wizard_service = netsvc.LocalService("wizard")
             passwd = self.pool.get('res.users').browse(cr, uid, uid).password
             wizard_res = wizard_service.create(cr.dbname, uid, passwd, 'wizard.extract.customer')
             datas = {'form': {'code': code, 'name': name}, 'ids': [seg_obj.segmentation_id.id], 'report_type': 'pdf', 'model': 'dm.address.segmentation', 'id': seg_obj.segmentation_id.id}
             state = 'ok'
             res3 = wizard_service.execute(cr.dbname, uid, passwd, wizard_res , datas, state, {})
+            #TODO raise exception for delay
             if not seg_obj.extract_unit_delay:
                 return False
             ext_delay_params = {(str(seg_obj.extract_unit_delay)): seg_obj.extract_delay}

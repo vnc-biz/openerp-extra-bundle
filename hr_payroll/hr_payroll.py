@@ -441,6 +441,14 @@ class hr_holidays_status(osv.osv):
     }
 hr_holidays_status()
 
+class hr_expense_expense(osv.osv):
+    _inherit = "hr.expense.expense"
+    _description = "Expense"
+    _columns = {
+        'category_id':fields.many2one('hr.allounce.deduction.categoty', 'Payroll Head', domain=[('type','=','other')]),
+    }
+hr_expense_expense()
+
 class hr_payslip(osv.osv):
     '''
     Pay Slip
@@ -541,7 +549,7 @@ class hr_payslip(osv.osv):
         movel_pool = self.pool.get('account.move.line')
         
         for slip in self.browse(cr,uid,ids):
-        
+            
             line_ids = []
             partner = False
             partner_id = False
@@ -556,6 +564,7 @@ class hr_payslip(osv.osv):
                 'period_id': period_id, 
                 'date': slip.date,
                 'type':'bank_pay_voucher',
+                'ref':slip.number,
                 'narration': 'Payment of Salary to %s' % (slip.employee_id.name)
             }
             move_id = move_pool.create(cr, uid, move)
@@ -594,6 +603,19 @@ class hr_payslip(osv.osv):
                 'paid':True
             }
             self.write(cr, uid, [slip.id], rec)
+            
+            invoice_pool = self.pool.get('account.invoice')
+            for line in slip.line_ids:
+                if line.type == 'otherpay':
+                    if not line.expanse_id.invoice_id.move_id:
+                        raise osv.except_osv(_('Warning !'), _('Please Confirm all Expanse Invoice appear for Reimbursement'))
+                    invids = [line.expanse_id.invoice_id.id]
+                    amount = line.total
+                    acc_id = slip.bank_journal_id.default_credit_account_id and slip.bank_journal_id.default_credit_account_id.id
+                    period_id = slip.period_id.id
+                    journal_id = slip.bank_journal_id.id
+                    invoice_pool.pay_and_reconcile(cr, uid, invids, amount, acc_id, period_id, journal_id, False, period_id, False, context, line.name)
+            
         return True
     
     def account_check_sheet(self, cr, uid, ids, context={}):
@@ -790,10 +812,21 @@ class hr_payslip(osv.osv):
                 rec['period_id'] = period_id
             
             dates = prev_bounds(slip.date)
-            exp_ids = exp_pool.search(cr, uid, [('date_valid','>=',dates[0]), ('date_valid','<=',dates[1])])
+            exp_ids = exp_pool.search(cr, uid, [('date_valid','>=',dates[0]), ('date_valid','<=',dates[1]), ('state','=','invoiced')])
             if exp_ids:
-                #TODO: Need to encode the lines for the Employee Expanse 
-                pass
+                acc = self.pool.get('ir.property').get(cr, uid, 'property_account_expense_categ', 'product.category')
+                for exp in exp_pool.browse(cr, uid, exp_ids):
+                    exp_res = {
+                        'name':exp.name,
+                        'amount_type':'fix',
+                        'type':'otherpay',
+                        'category_id':exp.category_id.id,
+                        'amount':exp.amount,
+                        'slip_id':slip.id,
+                        'expanse_id':exp.id,
+                        'account_id':acc
+                    }
+                    self.pool.get('hr.payslip.line').create(cr, uid, exp_res)
             
             self.write(cr, uid, [slip.id], rec)
             
@@ -1018,6 +1051,7 @@ class hr_payslip_line(osv.osv):
             ('leaves','Leaves'),
             ('advance','Advance'),
             ('loan','Loan'),
+            ('installment','Loan Installment'),
             ('otherpay','Other Payment'),
             ('otherdeduct','Other Deduction'),
         ],'Type', select=True, required=True),
@@ -1030,6 +1064,7 @@ class hr_payslip_line(osv.osv):
         'analytic_account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
         'account_id':fields.many2one('account.account', 'General Account', required=True),
         'total': fields.function(_calculate, method=True,string='Sub Total', type='float', digits=(16, int(config['price_accuracy']))),
+        'expanse_id': fields.many2one('hr.expense.expense', 'Expense')
     }
 hr_payslip_line()
 

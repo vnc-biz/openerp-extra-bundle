@@ -180,10 +180,10 @@
                     <group col="2" colspan="2">
                         <separator colspan="4" string="Calculations"/>
                         <field name="function_id"/>
-                        <field name="category_id"/>
+                        <field name="category_id" on_change="onchange_category(category_id)"/>
                         <field name="type"/>
                         <field name="amount_type"/>
-                        <field name="amount"/>
+                        <field name="amount" on_change="onchange_amount(amount, amount_type)"/>
                     </group>
                     <group col="2" colspan="2">
                         <separator colspan="4" string="Accounting Informations"/>

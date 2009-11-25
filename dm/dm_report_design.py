@@ -26,6 +26,7 @@ import netsvc
 from plugin.customer_function import customer_function
 from plugin.dynamic_text import dynamic_text
 from plugin.php_url import php_url
+from plugin.dmtx_plugin import dmtx_plugin
 
 import re
 import time
@@ -242,9 +243,8 @@ def document_process(cr, uid, obj, report_type, context): # {{{
             }
 
         camp_doc = pool.get('dm.campaign.document').create(cr, uid, vals)
-
         """ If DMS stored document """
-        if mail_service.store_email_document :
+        if mail_service.store_email_document:
             context['address_id'] = address_id
             context['document_id'] = document_id[0]
 #v need it as store_document is true ...v need to calculate plugin values 
@@ -263,9 +263,6 @@ def document_process(cr, uid, obj, report_type, context): # {{{
             elif document_data.editor == 'oord':
                 res = generate_openoffice_reports(cr, uid, report_type, 
                                             document_data, camp_doc, context)
-            if type(res) not in (type([]), type(True)):
-                return res
-
     return {'code':res,'ids':[camp_doc]} # }}}
 """
 def compute_customer_plugin(cr, uid, **args): # {{{
@@ -313,9 +310,13 @@ def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
         elif plugin_obj.type == 'url':
             plugin_args['encode'] = plugin_obj.encode
             plugin_value = php_url(cr, uid, **plugin_args)
+        elif plugin_obj.type == 'dmtx':
+            plugin_args['encode'] = plugin_obj.encode
+            plugin_args['dmtx_scheme'] = plugin_obj.dmtx_scheme
+            args.update(plugin_args)
+            plugin_value = dmtx_plugin(cr, uid, **args)
         else:
-            path = os.path.join(os.getcwd(), "addons/dm/dm_dtp_plugins", 
-                                                                    cr.dbname)
+            path = os.path.join(os.getcwd(), "addons/dm/dm_dtp_plugins",cr.dbname)
             plugin_name = plugin_obj.file_fname.split('.')[0]
             sys.path.append(path)
             X =  __import__(plugin_name)

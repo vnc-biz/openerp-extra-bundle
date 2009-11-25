@@ -29,14 +29,11 @@
                             <newline/>
                             <field name="date_start" select="1"/>
                             <field name="date_end" select="1"/>
-                            
                             <separator colspan="4" string="Salary"/>
                             <field name="wage_type_id"/>
                             <field name="wage"/>
-                            
                             <separator colspan="4" string="Notes"/>
                             <field colspan="4" name="notes" nolabel="1"/>
-                            
                             <separator colspan="4" string="Passport and Visa"/>
                             <field name="permit_no"/>
                             <field name="passport_id"/>
@@ -108,7 +105,6 @@
                 </field>
             </field>
         </record>
-        
         <!--
             Holiday Status inheritancy
         -->
@@ -129,7 +125,6 @@
                 </field>
             </field>
         </record>
-        
         <!--
             Employee Expanse
         -->
@@ -157,6 +152,7 @@
                     <field name="code"/>
                     <field name="amount_type"/>
                     <field name="amount" on_change="onchange_amount(amount, amount_type)"/>
+                    <field name="total"/>
                     <field name="type"/>
                     <field name="category_id" on_change="onchange_category(category_id)"/>
                     <field name="account_id"/>
@@ -356,24 +352,13 @@
                         </group>
                         <group col="2" colspan="2">
                             <separator colspan="2" string="Contributions Configuration"/>
+                            <field name="register_id"/>
                             <field name="contribute"/>
                             <field name="include_in_salary"/>
                         </group>
                     </group>
-                    <notebook colspan="4">
-                        <page string="Calculations Rules">
-                            <field name="line_ids" colspan="4" nolabel="1">
-                                <tree string="Calculations" editable="bottom">
-                                    <field name="name"/>
-                                    <field name="from"/>
-                                    <field name="to"/>
-                                    <field name="umo_id"/>
-                                    <field name="amount_type"/>
-                                    <field name="value"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
+                    <separator colspan="4" string="Description"/>
+                    <field name="note" colspan="4" nolabel="1"/>
                 </form>
             </field>
         </record>

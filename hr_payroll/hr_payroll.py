@@ -377,6 +377,32 @@ class payroll_advice_line(osv.osv):
         }
 payroll_advice_line()
 
+class contrib_register(osv.osv):
+    '''
+    Contribution Register
+    '''
+    _name = 'hr.contibution.register'
+    _description = 'Contribution Register'
+    
+    _columns = {
+        'name':fields.char('Name', size=256, required=False, readonly=False),
+        'account_id':fields.many2one('account.account', 'Account', required=True),
+    }
+contrib_register()
+
+class contrib_register_line(osv.osv):
+    '''
+    Contribution Register Line
+    '''
+    _name = 'hr.contibution.register.line'
+    _description = 'Contribution Register Line'
+    
+    _columns = {
+        'register_id':fields.many2one('hr.contibution.register', 'Register', required=False),
+        'name':fields.char('Name', size=256, required=True, readonly=False),
+    }
+contrib_register_line()
+
 class payment_category(osv.osv):
     '''
     Open ERP Model
@@ -404,10 +430,14 @@ class payment_category(osv.osv):
         'base':fields.char('Based on', size=64, required=False, readonly=False),
         'condition':fields.char('Condition', size=64, required=False, readonly=False),
         'sequence': fields.integer('Sequence'),
+        'register_id':fields.many2one('hr.contibution.register', 'Contribution Register', required=False),
+        'note': fields.text('Description'),
+        
     }
     _defaults = {
         'condition': lambda *a: 'True',
-        'base': lambda *a:'object.basic'
+        'base': lambda *a:'basic',
+        'sequence': lambda *a:5
     }
 payment_category()
 

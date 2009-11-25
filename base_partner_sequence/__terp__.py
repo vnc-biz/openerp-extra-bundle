@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name" : "Add an automatic sequence on partners",
+    "name" : "Add a sequence on partners Code",
     "version" : "1.0",
     "author" : "Tiny",
     "category" : "Generic Modules/Base",

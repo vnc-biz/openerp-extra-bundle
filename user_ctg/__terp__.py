@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    'name': 'CTG points Management',
+    'name': 'CTG Points Management',
     'version': '0.0.5',
     'category': 'Tools',
     'description': """This Module is managed User CTG points (called CTG points as 'Contribution To Growth points') for

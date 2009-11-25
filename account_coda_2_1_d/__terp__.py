@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    "name":"Account CODA Version 2.1 D",
+    "name":"Account CODA Version 2.1 D - Helps to import bank statements from .csv file.",
     "version":"1.0.1",
     "author":"Open ERP",
     "category":"Account CODA",

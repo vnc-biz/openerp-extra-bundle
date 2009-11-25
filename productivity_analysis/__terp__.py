@@ -18,7 +18,7 @@
 #
 ##############################################################################
 {
-    "name" : "Productivity Analysis",
+    "name" : "Analyse the Productivity of Tiny ERP users",
     "version" : "1.0",
     "depends" : ["base"],
     "author" : "Tiny",

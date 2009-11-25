@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    "name" : "account_analytic_package",
+    "name" : "Account Analytic Package - To configure Analytic Account for product packages",
     "description": """The Module allows to configure analytic account for product packages.
     Views for total and monthly product packages weight, Amount analysis.""",
     "version" : "1.0",

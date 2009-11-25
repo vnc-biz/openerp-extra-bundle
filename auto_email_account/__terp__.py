@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name" : "Email Invoice",
+    "name" : "Email Invoice - Send email to cutomers or supplires",
     "version" : "1.0",
     "depends" : ["smtpclient","account"],
     "author" : "Tiny",

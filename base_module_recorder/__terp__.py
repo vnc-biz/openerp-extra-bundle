@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'Module Recorder',
+    'name': 'Module Recorder create a new module without any development',
     'version': '1.0',
     'category': 'Generic Modules/Base',
     'description': """

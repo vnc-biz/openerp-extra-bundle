@@ -23,7 +23,7 @@
 ##############################################################################
 
 {
-	"name" : "Account Move Reverse",
+	"name" : "Module Help To Reverse Account Move",
 	"version" : "1.0",
 	"author" : "ACYSOS S.L.",
 	"description" : """ This module adds a wizard to help reversing moves. This can be used to correct mistakes where it's not possible to cancel moves or even for creating close/open moves for periods or fiscalyears. """,

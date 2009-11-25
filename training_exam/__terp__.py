@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    'name' : 'Training Exam',
+    'name' : 'Module Training Exam',
     'version' : '0.0.1',
     'author' : 'Tiny SPRL',
     'website' : 'http://www.openerp.com',

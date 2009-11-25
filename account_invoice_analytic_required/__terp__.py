@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    "name" : "Account invoice analytic required",
+    "name" : "Make Account invoice analytic account required in sale.invoice.line.",
     "version" : "1.0",
     "depends" : ["account", "base"],
     "author" : "Tiny",

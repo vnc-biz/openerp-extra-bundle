@@ -21,7 +21,7 @@
 ##############################################################################
 
 {
-    "name" : "Reservation Management - Reporting",
+    "name" : "Hotel Reservation Management - Reporting",
     "version" : "1.0",
     "author" : "Tiny",
     "depends" : ["hotel_reservation"],

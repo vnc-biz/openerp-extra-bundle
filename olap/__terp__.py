@@ -1,5 +1,5 @@
 {
-    "name" : "olap",
+    "name" : "Olap Schemes Management",
     "version" : "0.1",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",

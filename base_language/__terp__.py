@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    "name" : "Base Language",
+    "name" : "Base Language - To load all existing languages in the world",
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",

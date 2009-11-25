@@ -22,7 +22,7 @@
 ##############################################################################
 
 {
-    "name" : "Email Sale order",
+    "name" : "Email Sale - Use to Send Customers the selected sale orders attachment by Email",
     "version" : "1.0",
     "depends" : ["smtpclient","sale"],
     "author" : "Zikzakmedia SL",

@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name' : 'Base Contact Team',
+    'name' : 'Base Contact Team - To manage teams of contacts',
     'author' : 'Tiny SPRL',
     'version' : '0.1',
     'website' : 'http://www.openerp.com',

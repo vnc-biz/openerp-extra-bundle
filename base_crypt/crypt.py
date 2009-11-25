@@ -42,6 +42,7 @@ from string import letters, digits
 from osv import fields,osv
 import pooler
 import tools
+from tools.translate import _
 from service import security
 
 magic_md5 = '$1$'
@@ -219,6 +220,8 @@ class users(osv.osv):
     # Add handlers for 'input_pw' field.
 
     def set_pw( self, cr, uid, id, name, value, args, context ):
+        if not value:
+            raise osv.except_osv(_('Error'), _("Please specify the password !"))
         self.write( cr, uid, id, { 'password' : encrypt_md5( value, gen_salt() ) } )
         del value
 

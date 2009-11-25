@@ -1070,6 +1070,13 @@ class hr_payslip_line(osv.osv):
 #        
 #        return res
 
+    def onchange_category(self, cr, uid, ids, category_id):
+        seq = 0
+        if category_id:
+            seq = self.pool.get('hr.allounce.deduction.categoty').browse(cr, uid, category_id).sequence
+            
+        return {'value':{'sequence':seq}}
+
     _columns = {
         'slip_id':fields.many2one('hr.payslip', 'Pay Slip', required=False),
         'function_id':fields.many2one('hr.employee.grade', 'Function', required=False),
@@ -1095,8 +1102,10 @@ class hr_payslip_line(osv.osv):
         'analytic_account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
         'account_id':fields.many2one('account.account', 'General Account', required=True),
         'total': fields.float('Sub Total', digits=(16, int(config['price_accuracy']))),
-        'expanse_id': fields.many2one('hr.expense.expense', 'Expense')
+        'expanse_id': fields.many2one('hr.expense.expense', 'Expense'),
+        'sequence': fields.integer('Sequence'),
     }
+    _order = 'sequence'
 hr_payslip_line()
 
 class hr_employee(osv.osv):

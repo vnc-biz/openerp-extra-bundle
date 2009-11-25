@@ -26,7 +26,6 @@ import netsvc
 from plugin.customer_function import customer_function
 from plugin.dynamic_text import dynamic_text
 from plugin.php_url import php_url
-from plugin.dmtx_plugin import dmtx_plugin
 
 import re
 import time
@@ -310,11 +309,6 @@ def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
         elif plugin_obj.type == 'url':
             plugin_args['encode'] = plugin_obj.encode
             plugin_value = php_url(cr, uid, **plugin_args)
-        elif plugin_obj.type == 'dmtx':
-            plugin_args['encode'] = plugin_obj.encode
-            plugin_args['dmtx_scheme'] = plugin_obj.dmtx_scheme
-            args.update(plugin_args)
-            plugin_value = dmtx_plugin(cr, uid, **args)
         else:
             path = os.path.join(os.getcwd(), "addons/dm/dm_dtp_plugins",cr.dbname)
             plugin_name = plugin_obj.file_fname.split('.')[0]

@@ -71,12 +71,12 @@ def generate_document_job(cr, uid, obj_id):
 		    else : 
 			    camp_doc_job[country_id] = [camp_doc.id]
     elif ms_id.sorting_rule_id.by_offer_step:
-	    for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
-		    step_id = camp_doc.document_id.step_id.id
-		    if step_id in camp_doc_job:
+        for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
+            step_id = camp_doc.document_id.step_id.id
+            if step_id in camp_doc_job:
 			    camp_doc_job[step_id].append(camp_doc.id)
-		    else : 
-			    camp_doc_job[step_id] = [camp_doc.id]
+            else : 
+                camp_doc_job[step_id] = [camp_doc.id]
 #    elif ms_id.sorting_rule_id.by_product:
 #	    for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
 #		    step_id = camp_doc.document_id.step_id.id
@@ -121,16 +121,31 @@ def generate_document_job(cr, uid, obj_id):
         number_doc = len(doc_job.campaign_document_ids)
         for k,v in camp_doc_job.items():
             while v:
+                doc_job_camp_id = v.pop()
+                doc = camp_doc_object.browse(cr,uid,[doc_job_camp_id])[0]
                 if (ms_id.sorting_rule_id.qty_limit!=0 and ms_id.sorting_rule_id.qty_limit > number_doc) or ms_id.sorting_rule_id.qty_limit == 0:
                     camp_doc_job_obj.write(cr, uid, job_id, 
                                        {'campaign_document_ids': [[4,v.pop()]]})
                     number_doc += 1
+                    
                 else:
                     vals = {'name': camp_doc.segment_id.name or '' + str(k),
     					         	'user_id': ms_id.user_id.id,
     						        'sorting_rule_id': ms_id.sorting_rule_id.id,
-    						        'campaign_document_ids': [[4,v.pop()]]}
-                    job_id = camp_doc_job_obj.create(cr,uid,vals)
+    						        'campaign_document_ids': [[4,doc_job_camp_id]],
+                                    'use_front_recap': ms_id.front_job_recap and True or False,
+                                    'bottom_job_recap': ms_id.bottom_job_recap and True or False
+                                    }
+                    if  ms_id.front_job_recap or ms_id.bottom_job_recap:
+                        camp_vals={
+                              
+                                'segment_id': doc.segment_id.id or False,
+                               'name': doc.document_id.step_id.code + "_" + str(camp_doc.address_id.id),
+                               'type_id': type_id,
+                               'mail_service_id': ms_id.id,
+                              }
+                    camp_document = camp_doc_object.create(cr, uid, camp_vals)
+                    job_id = camp_doc_job_obj.create(cr, uid, vals)
                     doc_job = camp_doc_job_obj.browse(cr, uid, job_id)
                     number_doc = 1
     return {'code':'doc_done','ids': obj.id}								   		    

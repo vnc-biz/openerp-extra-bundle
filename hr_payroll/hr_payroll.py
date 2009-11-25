@@ -614,7 +614,7 @@ class hr_payslip(osv.osv):
             
             invoice_pool = self.pool.get('account.invoice')
             for line in slip.line_ids:
-                if line.type == 'otherpay':
+                if line.type == 'otherpay' and line.expanse_id.invoice_id:
                     if not line.expanse_id.invoice_id.move_id:
                         raise osv.except_osv(_('Warning !'), _('Please Confirm all Expanse Invoice appear for Reimbursement'))
                     invids = [line.expanse_id.invoice_id.id]
@@ -739,7 +739,7 @@ class hr_payslip(osv.osv):
                 else: 
                     rec['analytic_account_id'] = slip.deg_id.account_id.id
                     
-                if line.type == 'allounce':
+                if line.type == 'allounce' or line.type == 'otherpay':
                     rec['debit'] = amount
                     ded_rec = {
                         'move_id':move_id,
@@ -754,7 +754,7 @@ class hr_payslip(osv.osv):
                         'period_id' :period_id
                     }
                     line_ids += [movel_pool.create(cr, uid, ded_rec)]
-                elif line.type == 'deduction':
+                elif line.type == 'deduction' or line.type == 'otherdeduct':
                     rec['credit'] = amount
                     total_deduct += amount
                     ded_rec = {
@@ -775,7 +775,6 @@ class hr_payslip(osv.osv):
                 
             if total_deduct > 0:
                 move = {
-                    #'name': 'ADJ-%s' % (slip.number), 
                     'journal_id': slip.journal_id.id,
                     'period_id': period_id,
                     'date': slip.date,
@@ -914,7 +913,6 @@ class hr_payslip(osv.osv):
                             amt =line.amount
                         else:
                             amt =  line.amount + (amt * line.amount)
-                        print 'XXXXXXXXXXXXXXXXX : ', amt, line.amount, (amt * line.amount)
                         if line.type == 'allounce':
                             all_per += amt
                         elif line.type == 'deduction':

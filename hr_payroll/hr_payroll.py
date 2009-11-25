@@ -1091,7 +1091,14 @@ class hr_payslip_line(osv.osv):
             seq = self.pool.get('hr.allounce.deduction.categoty').browse(cr, uid, category_id).sequence
             
         return {'value':{'sequence':seq}}
-
+    
+    def onchange_amount(self, cr, uid, ids, amount, typ):
+        amt = amount
+        if typ and typ == 'per':
+            if int(amt) > 0:
+                amt = amt / 100
+        return {'value':{'amount':amt}}
+    
     _columns = {
         'slip_id':fields.many2one('hr.payslip', 'Pay Slip', required=False),
         'function_id':fields.many2one('hr.employee.grade', 'Function', required=False),

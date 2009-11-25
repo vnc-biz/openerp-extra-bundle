@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name" : "Base VAT Unique",
+    "name" : "Base VAT Unique check VAT number is unique",
     "version" : "0.1",
     "author" : "vitrum Network",
     "category" : "Generic Modules/Base",

@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name" : "Email Sale order",
+    "name" : "Email Sale order - Send Email to cutomers",
     "version" : "1.0",
     "depends" : ["smtpclient","sale"],
     "author" : "Tiny",

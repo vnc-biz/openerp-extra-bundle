@@ -53,7 +53,7 @@ class dm_campaign_document_job_sorting_rule(osv.osv): # {{{
         'name': fields.char('Name', required=True, size=64), 
         'code': fields.char('Code', required=True, size=64),
         'by_customer_country': fields.boolean('By Customer Country'),
-        'by_layout': fields.boolean('By Layout'),
+        'by_overlay': fields.boolean('By Overlay'),
         'by_product': fields.boolean('By Product'),
         'by_page_qty': fields.boolean('By Page Quantity'),
         'by_offer_step': fields.boolean('By Offer Step'),

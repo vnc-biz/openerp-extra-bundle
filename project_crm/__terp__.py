@@ -20,7 +20,7 @@
 #
 ##############################################################################
 {
-    "name" : "Project CRM",
+    "name" : "Project CRM Management - Project and CRM Integration .",
     "version" : "1.0",
     "author" : "Tiny",
     "category" : "Generic Modules/CRM",

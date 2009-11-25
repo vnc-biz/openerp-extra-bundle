@@ -21,7 +21,7 @@
 #
 ##############################################################################
 {
-    "name" : "Carrier picking",
+    "name" : "Carrier picking adds carrier contact information",
     "version" : "0.1",
     "author" : "Zikzakmedia",
     "website" : "www.zikzakmedia.com",

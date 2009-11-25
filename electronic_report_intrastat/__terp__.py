@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-	"name" : "Electronic Intrastat Reporting",
+	"name" : "Electronic Intrastat Reporting -To export intrastat data into .SDV format",
 	"version" : "1.0",
 	"author" : "Tiny",
 	"website" : "http://tinyerp.com",

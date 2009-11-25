@@ -22,7 +22,7 @@
 #
 ##############################################################################
 {
-	"name" : "City for base_contact",
+	"name" : "City for Base Contact",
 	"version" : "1.0",
 	"author" : "Pablo Rocandio",
 	"license" : "GPL-3",

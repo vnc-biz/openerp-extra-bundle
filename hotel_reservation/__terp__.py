@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name" : "Hotel Reservation",
+    "name" : "Hotel Reservation Management",
     "version" : "1.0",
     "author" : "Tiny",
     "category" : "Generic Modules/Hotel Reservation",

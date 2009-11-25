@@ -18,7 +18,7 @@
 #
 ##############################################################################
 {
-    "name" : "account_analytic_progress",
+    "name" : "Account Analytic Progress - Define Progress bar for analytic accounts",
     "description": """Progress bar for analytic accounts.
 This is the module used for displaying the shared funded
 development projects on the Tiny ERP website.""",

@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name' : 'Document Lock',
+    'name' : 'Document Lock-its allow you to lock attachment',
     'author' : 'Tiny SPRL',
     'version' : '0.0.2',
     'website' : 'http://www.openerp.com',

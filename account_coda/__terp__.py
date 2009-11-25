@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    "name":"Account CODA",
+    "name":"Account CODA - To import bank statements from .csv file",
     "version":"1.0",
     "author":"Tiny",
     "category":"Account CODA",

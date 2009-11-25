@@ -1,5 +1,5 @@
 {
-	"name" : "report_analytic",
+	"name" : "Analytic Accounts - Reporting",
 	"description": """Reporting for data related to analytic accounts""",
 	"version" : "1.0",
 	"author" : "OpenErp",

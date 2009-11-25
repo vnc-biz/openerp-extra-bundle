@@ -21,7 +21,7 @@
 
 
 {
-    "name" : "Hotel Housekeeping",
+    "name" : "Hotel Housekeeping Management",
     "version" : "1.0",
     "author" : "Tiny",
     "category" : "Generic Modules/Hotel Housekeeping",

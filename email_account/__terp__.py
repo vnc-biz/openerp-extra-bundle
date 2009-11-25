@@ -22,7 +22,7 @@
 ##############################################################################
 
 {
-    "name" : "Email Invoice",
+    "name" : "Email Invoice - Use to Send Customers or Suppliers the selected invoices attachment by Email.",
     "version" : "1.0",
     "depends" : ["smtpclient","account"],
     "author" : "Zikzakmedia SL",

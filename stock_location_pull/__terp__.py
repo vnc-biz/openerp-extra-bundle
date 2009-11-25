@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    'name': 'Stock Location Paths',
+    'name': 'Create Stock Location Paths within Warehouses',
     'version': '1.0',
     'category': 'Generic Modules/Inventory Control',
     'description': """

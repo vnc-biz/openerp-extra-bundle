@@ -27,7 +27,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 ###############################################################################
 {
-    "name" : "Maintenance Editor",
+    "name" : "Maintenance Editor - Manage Maintenance Contracts",
     "version" : "1.1",
     "author" : "Tiny",
     "category" : "Generic Modules/Base",

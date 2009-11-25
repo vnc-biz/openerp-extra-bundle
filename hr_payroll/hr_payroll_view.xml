@@ -172,18 +172,17 @@
                     <group col="6" colspan="4">
                         <field name="name" colspan="4" select="1"/>
                         <field name="code" select="1"/>
-                        
                         <field name="slip_id" select="1"/>
-                        <field name="analytic_account_id"/>
-                        <field name="sequence"/>
+                        <field name="employee_id"/>
+                        <field name="function_id"/>
                     </group>
                     <group col="2" colspan="2">
                         <separator colspan="4" string="Calculations"/>
-                        <field name="function_id"/>
                         <field name="category_id" on_change="onchange_category(category_id)"/>
                         <field name="type"/>
                         <field name="amount_type"/>
                         <field name="amount" on_change="onchange_amount(amount, amount_type)"/>
+                        <field name="sequence"/>
                     </group>
                     <group col="2" colspan="2">
                         <separator colspan="4" string="Accounting Informations"/>

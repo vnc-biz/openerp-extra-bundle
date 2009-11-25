@@ -241,15 +241,23 @@ class payroll_register(osv.osv):
             for sid in sids:
                 wf_service.trg_validate(uid, 'hr.payslip', sid, 'final_verify_sheet', cr)
 
+        
         for reg in self.browse(cr, uid, ids):
-            advice = {
-                'name': 'Payment Advice from %s' % (self.pool.get('res.users').browse(cr, uid, uid).company_id.name),
-                'number': self.pool.get('ir.sequence').get(cr, uid, 'payment.advice'),
-                'register_id':reg.id
-            }
-            pid = advice_pool.create(cr, uid, advice)
-            
+            accs = {}
             for slip in reg.line_ids:
+                pid = False
+                if accs.get(slip.employee_id.property_bank_account.code, False) == False:
+                    advice = {
+                        'name': 'Payment Advice from %s / Bank Account %s' % (self.pool.get('res.users').browse(cr, uid, uid).company_id.name, slip.employee_id.property_bank_account.name),
+                        'number': self.pool.get('ir.sequence').get(cr, uid, 'payment.advice'),
+                        'register_id':reg.id,
+                        'account_id':slip.employee_id.property_bank_account.id
+                    }
+                    pid = advice_pool.create(cr, uid, advice)
+                    accs[slip.employee_id.property_bank_account.code] = pid
+                else:
+                    pid = accs[slip.employee_id.property_bank_account.code]
+                
                 pline = {
                     'advice_id':pid,
                     'name':slip.employee_id.otherid,
@@ -297,6 +305,7 @@ class payroll_advice(osv.osv):
         'number':fields.char('Number', size=64, required=False, readonly=True),
         'line_ids':fields.one2many('hr.payroll.advice.line', 'advice_id', 'Employee Salary', required=False),
         'chaque_nos':fields.char('Chaque Nos', size=256, required=False, readonly=False),
+        'account_id': fields.many2one('account.account', 'Account', required=True),
     }
     
     _defaults = {

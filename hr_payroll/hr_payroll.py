@@ -541,6 +541,7 @@ class hr_payslip(osv.osv):
         'total_pay': fields.function(_calculate, method=True, store=True, multi='dc', string='Total Payment', digits=(16, int(config['price_accuracy']))),
         'line_ids':fields.one2many('hr.payslip.line', 'slip_id', 'Payslip Line', required=False, readonly=True, states={'draft': [('readonly', False)]}),
         'move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
+        'adj_move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
         'move_line_ids':fields.many2many('account.move.line', 'payslip_lines_rel', 'slip_id', 'line_id', 'Accounting Lines', readonly=True),
         'move_payment_ids':fields.many2many('account.move.line', 'payslip_payment_rel', 'slip_id', 'payment_id', 'Payment Lines', readonly=True),
         'company_id':fields.many2one('res.company', 'Company', required=False),
@@ -549,6 +550,7 @@ class hr_payslip(osv.osv):
         'worked_days': fields.integer('Worked Day', readonly=True),
         'working_days': fields.integer('Working Days', readonly=True),
         'paid':fields.boolean('Paid ? ', required=False),
+        'note':fields.text('Description'),
     }
     _defaults = {
         'date': lambda *a: time.strftime('%Y-%m-%d'),
@@ -560,6 +562,19 @@ class hr_payslip(osv.osv):
         return True
     
     def cancel_sheet(self, cr, uid, ids, context={}):
+        move_pool = self.pool.get('account.move')
+
+        for slip in self.browse(cr, uid, ids, context):
+            if slip.move_id:
+                if slip.move_id.state == 'posted':
+                    move_pool.button_cancel(cr, uid [slip.move_id.id], context)
+                move_pool.unlink(cr, uid, [slip.move_id.id])
+            
+            if slip.adj_move_id:
+                if slip.adj_move_id.state == 'posted':
+                    move_pool.button_cancel(cr, uid [slip.adj_move_id.id], context)
+                move_pool.unlink(cr, uid, [slip.adj_move_id.id])
+            
         self.write(cr, uid, ids, {'state':'cancel'})
         return True
     
@@ -598,7 +613,8 @@ class hr_payslip(osv.osv):
                 'debit': 0.0,
                 'credit' : slip.net,
                 'journal_id' : slip.journal_id.id,
-                'period_id' :period_id
+                'period_id' :period_id,
+                'ref':slip.number
             }
             line_ids += [movel_pool.create(cr, uid, ded_rec)]
             name = "By %s account" % (slip.employee_id.property_bank_account.name)
@@ -611,10 +627,11 @@ class hr_payslip(osv.osv):
                 'debit':  slip.net,
                 'credit' : 0.0,
                 'journal_id' : slip.journal_id.id,
-                'period_id' :period_id
+                'period_id' :period_id,
+                'ref':slip.number
             }
             line_ids += [movel_pool.create(cr, uid, cre_rec)]
-            
+
             rec = {
                 'state':'done',
                 'payment_id':move_id,
@@ -715,7 +732,8 @@ class hr_payslip(osv.osv):
                 'quantity':slip.working_days,
                 'credit': slip.basic,
                 'journal_id': slip.journal_id.id,
-                'period_id': period_id
+                'period_id': period_id,
+                'ref':slip.number
             }
             line_ids += [movel_pool.create(cr, uid, line)]
             
@@ -762,7 +780,8 @@ class hr_payslip(osv.osv):
                         'quantity':1,
                         'credit' : amount,
                         'journal_id' : slip.journal_id.id,
-                        'period_id' :period_id
+                        'period_id' :period_id,
+                        'ref':slip.number
                     }
                     line_ids += [movel_pool.create(cr, uid, ded_rec)]
                 elif line.type == 'deduction' or line.type == 'otherdeduct':
@@ -778,12 +797,14 @@ class hr_payslip(osv.osv):
                         'debit': amount,
                         'credit' : 0.0,
                         'journal_id' : slip.journal_id.id,
-                        'period_id' :period_id
+                        'period_id' :period_id,
+                        'ref':slip.number
                     }
                     line_ids += [movel_pool.create(cr, uid, ded_rec)]
                 
                 line_ids += [movel_pool.create(cr, uid, rec)]
-                
+            
+            adj_move_id = False
             if total_deduct > 0:
                 move = {
                     'journal_id': slip.journal_id.id,
@@ -804,7 +825,8 @@ class hr_payslip(osv.osv):
                     'quantity':1,
                     'credit' : total_deduct,
                     'journal_id' : slip.journal_id.id,
-                    'period_id' :period_id
+                    'period_id' :period_id,
+                    'ref':slip.number
                 }
                 line_ids += [movel_pool.create(cr, uid, ded_rec)]
                 cre_rec = {
@@ -817,13 +839,15 @@ class hr_payslip(osv.osv):
                     'quantity':1,
                     'credit' : 0.0,
                     'journal_id' : slip.journal_id.id,
-                    'period_id' :period_id
+                    'period_id' :period_id,
+                    'ref':slip.number
                 }
                 line_ids += [movel_pool.create(cr, uid, cre_rec)]
 
             rec = {
                 'state':'confirm',
                 'move_id':move_id, 
+                'adj_move_id':adj_move_id,
                 'move_line_ids':[(6, 0,line_ids)],
             }
             if not slip.period_id:
@@ -1126,6 +1150,7 @@ class hr_payslip_line(osv.osv):
         'total': fields.float('Sub Total', digits=(16, int(config['price_accuracy']))),
         'expanse_id': fields.many2one('hr.expense.expense', 'Expense'),
         'sequence': fields.integer('Sequence'),
+        'note':fields.text('Description')
     }
     _order = 'sequence'
 hr_payslip_line()

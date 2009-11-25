@@ -206,7 +206,7 @@
                                 
                                 <field name="grows"/>
                                 <field name="net"/>
-                                <field name="paid" readonly="1"/>
+                                <field name="total_pay"/>
                             </group>
                         </page>
                         <page string="Accounting Details">
@@ -218,7 +218,7 @@
                             </group>
                             <group col="2" colspan="2">
                                 <separator colspan="4" string="Accounting Informations"/>
-                                
+                                <field name="paid" readonly="1"/>
                                 <field name="move_id"/>
                                 <field name="payment_id"/>
                                 <field name="period_id"/>

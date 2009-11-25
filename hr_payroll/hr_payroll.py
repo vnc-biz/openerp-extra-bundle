@@ -503,7 +503,8 @@ class hr_payslip(osv.osv):
                 'deduction':deduct,
                 'grows':rs.basic + allow,
                 'net':rs.basic + allow - deduct,
-                'other_pay':others
+                'other_pay':others,
+                'total_pay': rs.basic + allow - deduct + others
             }
             res[rs.id] = record
         
@@ -537,6 +538,7 @@ class hr_payslip(osv.osv):
         'allounce': fields.function(_calculate, method=True, store=True, multi='dc', string='Allowance', digits=(16, int(config['price_accuracy']))),
         'deduction': fields.function(_calculate, method=True, store=True, multi='dc', string='Deduction', digits=(16, int(config['price_accuracy']))),
         'other_pay': fields.function(_calculate, method=True, store=True, multi='dc', string='Others', digits=(16, int(config['price_accuracy']))),
+        'total_pay': fields.function(_calculate, method=True, store=True, multi='dc', string='Total Payment', digits=(16, int(config['price_accuracy']))),
         'line_ids':fields.one2many('hr.payslip.line', 'slip_id', 'Payslip Line', required=False, readonly=True, states={'draft': [('readonly', False)]}),
         'move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
         'move_line_ids':fields.many2many('account.move.line', 'payslip_lines_rel', 'slip_id', 'line_id', 'Accounting Lines', readonly=True),

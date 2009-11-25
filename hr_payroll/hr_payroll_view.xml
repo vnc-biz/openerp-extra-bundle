@@ -394,6 +394,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Contract">
+                    <field name="employee_id"/>
                     <separator colspan="4" string="General Information"/>
                     <field colspan="4" name="name" select="1"/>
                     <newline/>

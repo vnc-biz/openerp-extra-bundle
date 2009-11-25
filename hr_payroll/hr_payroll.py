@@ -908,7 +908,10 @@ class hr_payslip(osv.osv):
                 if sal_type == 'net':
                     if line.amount_type == 'per':
                         exp = line.category_id.base
-                        amt = eval(exp, obj)
+                        try:
+                            amt = eval(exp, obj)
+                        except Exception, e:
+                            raise osv.except_osv(_('Variable Error !'), _('Variable Error : %s ' % (e)))
                         if amt <= 0:
                             amt =line.amount
                         else:
@@ -932,7 +935,10 @@ class hr_payslip(osv.osv):
                 if sal_type == 'net':
                     if line.amount_type == 'per':
                         exp = line.category_id.base
-                        amt = eval(exp, obj)
+                        try:
+                            amt = eval(exp, obj)
+                        except Exception, e:
+                            raise osv.except_osv(_('Variable Error !'), _('Variable Error : %s ' % (e)))
                         if amt <= 0:
                             amt =line.amount
                         else:

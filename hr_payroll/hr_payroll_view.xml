@@ -248,16 +248,18 @@
                         <page string="Accounting Details">
                             <group col="2" colspan="2">
                                 <separator colspan="4" string="Other Informations"/>
+                                <field name="paid" readonly="1"/>
                                 <field name="company_id"/>
                                 <field name="register_id"/>
                                 <field name="deg_id"/>
                             </group>
                             <group col="2" colspan="2">
                                 <separator colspan="4" string="Accounting Informations"/>
-                                <field name="paid" readonly="1"/>
-                                <field name="move_id"/>
-                                <field name="payment_id"/>
                                 <field name="period_id"/>
+                                <field name="move_id"/>
+                                <field name="adj_move_id"/>
+                                <field name="payment_id"/>
+                                <field name="other_move_id"/>
                             </group>
                             <separator colspan="4" string="Description"/>
                             <field name="note" colspan="4" nolabel="1"/>

@@ -571,7 +571,9 @@ class hr_payslip(osv.osv):
         'total_pay': fields.function(_calculate, method=True, store=True, multi='dc', string='Total Payment', digits=(16, int(config['price_accuracy']))),
         'line_ids':fields.one2many('hr.payslip.line', 'slip_id', 'Payslip Line', required=False, readonly=True, states={'draft': [('readonly', False)]}),
         'move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
-        'adj_move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
+        'adj_move_id':fields.many2one('account.move', 'Adjustment Entries', required=False, readonly=True),
+        'other_move_id':fields.many2one('account.move', 'Other Payment', required=False, readonly=True),
+        
         'move_line_ids':fields.many2many('account.move.line', 'payslip_lines_rel', 'slip_id', 'line_id', 'Accounting Lines', readonly=True),
         'move_payment_ids':fields.many2many('account.move.line', 'payslip_payment_rel', 'slip_id', 'payment_id', 'Payment Lines', readonly=True),
         'company_id':fields.many2one('res.company', 'Company', required=False),
@@ -604,6 +606,11 @@ class hr_payslip(osv.osv):
                 if slip.adj_move_id.state == 'posted':
                     move_pool.button_cancel(cr, uid [slip.adj_move_id.id], context)
                 move_pool.unlink(cr, uid, [slip.adj_move_id.id])
+                
+            if slip.other_move_id:
+                if slip.other_move_id.state == 'posted':
+                    move_pool.button_cancel(cr, uid [slip.other_move_id.id], context)
+                move_pool.unlink(cr, uid, [slip.other_move_id.id])
             
         self.write(cr, uid, ids, {'state':'cancel'})
         return True
@@ -623,7 +630,6 @@ class hr_payslip(osv.osv):
             
             period_id = self.pool.get('account.period').search(cr,uid,[('date_start','<=',slip.date),('date_stop','>=',slip.date)])[0]
             move = {
-                #'name': "Payment of Salary to %s" % (slip.employee_id.name), 
                 'journal_id': slip.bank_journal_id.id,
                 'period_id': period_id, 
                 'date': slip.date,
@@ -662,11 +668,53 @@ class hr_payslip(osv.osv):
             }
             line_ids += [movel_pool.create(cr, uid, cre_rec)]
 
+            #Process for Other payment if any
+            other_move_id = False
+            if slip.other_pay:
+                move = {
+                    'journal_id': slip.bank_journal_id.id,
+                    'period_id': period_id, 
+                    'date': slip.date,
+                    'type':'bank_pay_voucher',
+                    'ref':slip.number,
+                    'narration': 'Payment of Other Payeble amounts to %s' % (slip.employee_id.name)
+                }
+                other_move_id = move_pool.create(cr, uid, move)
+                
+                name = "To %s account" % (slip.employee_id.name)
+                ded_rec = {
+                    'move_id':other_move_id,
+                    'name': name,
+                    'date': slip.date, 
+                    'account_id': slip.employee_id.property_bank_account.id, 
+                    'debit': 0.0,
+                    'credit' : slip.other_pay,
+                    'journal_id' : slip.journal_id.id,
+                    'period_id' :period_id,
+                    'ref':slip.number
+                }
+                line_ids += [movel_pool.create(cr, uid, ded_rec)]
+                name = "By %s account" % (slip.employee_id.property_bank_account.name)
+                cre_rec = {
+                    'move_id':other_move_id,
+                    'name': name,
+                    'partner_id': partner_id,
+                    'date': slip.date,
+                    'account_id': partner.property_account_payable.id,
+                    'debit':  slip.other_pay,
+                    'credit' : 0.0,
+                    'journal_id' : slip.journal_id.id,
+                    'period_id' :period_id,
+                    'ref':slip.number
+                }
+                line_ids += [movel_pool.create(cr, uid, cre_rec)]
+                
             rec = {
                 'state':'done',
                 'payment_id':move_id,
                 'move_payment_ids':[(6, 0, line_ids)],
-                'paid':True
+                'paid':True,
+                'other_move_id':other_move_id
             }
             self.write(cr, uid, [slip.id], rec)
             

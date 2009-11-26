@@ -71,7 +71,8 @@ class dm_campaign_document_job(osv.osv): # {{{
         'campaign_document_ids': fields.one2many('dm.campaign.document', 'campaign_document_job', 'Campaign Documents'),
         'process_date': fields.datetime('Processing Date'),
         'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
-        'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule')
+        'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule'),
+        'sorting_name' : fields.char('Sorting value', size = 64),
     }
     _defaults = {
         'state': lambda *a: 'pending',

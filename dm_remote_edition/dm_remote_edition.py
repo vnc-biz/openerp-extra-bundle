@@ -139,19 +139,20 @@ def generate_document_job(cr, uid, obj_id):
 					        'campaign_document_ids': [[4,doc_job_camp_id]],
                             'sorting_name': k,
                             'use_front_recap': ms_id.front_job_recap and True or False,
-                            'bottom_job_recap': ms_id.bottom_job_recap and True or False
+                            'bottom_job_recap': ms_id.bottom_job_recap and True or False,
                             }
                     j_id = camp_doc_job_obj.create(cr,uid,vals)
                     if  ms_id.front_job_recap or ms_id.bottom_job_recap:
                         doc_count = doc_count + 1
                         if ms_id.front_job_recap:
                             camp_vals={
-                                    'segment_id': camp_doc.segment_id.id or False,
+                                   'segment_id': camp_doc.segment_id.id or False,
                                    'name': camp_doc.document_id.step_id.code + "_" + str(camp_doc.address_id.id),
                                    'type_id': type_id,
                                    'mail_service_id': ms_id.id,
                                    'document_id': ms_id.front_job_recap.id,
-                                   'campaign_document_job_ids': j_id
+                                   'campaign_document_job_ids': j_id,
+                                   'address_id':camp_doc.address_id.id 
                               }
                             camp_document = camp_doc_object.create(cr, uid, camp_vals)
                         if ms_id.bottom_job_recap:
@@ -162,8 +163,8 @@ def generate_document_job(cr, uid, obj_id):
                                    'type_id': type_id,
                                    'mail_service_id': ms_id.id,
                                    'document_id': ms_id.bottom_job_recap.id,
-                                   'campaign_document_job_ids': j_id
-                                   
+                                   'campaign_document_job_ids': j_id,
+                                   'address_id':camp_doc.address_id.id 
                                   }
                             camp_document = camp_doc_object.create(cr, uid, camp_vals)
                     job_id[k] = [j_id, doc_count, ms_id.sorting_rule_id.qty_limit or 0]

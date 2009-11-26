@@ -618,9 +618,9 @@ class hr_payslip(osv.osv):
     def process_sheet(self, cr, uid, ids, context={}):
         move_pool = self.pool.get('account.move')
         movel_pool = self.pool.get('account.move.line')
+        invoice_pool = self.pool.get('account.invoice')
         
-        for slip in self.browse(cr,uid,ids):
-            
+        for slip in self.browse(cr,uid,ids):    
             line_ids = []
             partner = False
             partner_id = False
@@ -667,7 +667,24 @@ class hr_payslip(osv.osv):
                 'ref':slip.number
             }
             line_ids += [movel_pool.create(cr, uid, cre_rec)]
-
+            
+            other_pay = slip.other_pay
+            #Process all Reambuse Entries
+            for line in slip.line_ids:
+                if line.type == 'otherpay' and line.expanse_id.invoice_id:
+                    if not line.expanse_id.invoice_id.move_id:
+                        raise osv.except_osv(_('Warning !'), _('Please Confirm all Expanse Invoice appear for Reimbursement'))
+                    invids = [line.expanse_id.invoice_id.id]
+                    amount = line.total
+                    acc_id = slip.bank_journal_id.default_credit_account_id and slip.bank_journal_id.default_credit_account_id.id
+                    period_id = slip.period_id.id
+                    journal_id = slip.bank_journal_id.id
+                    invoice_pool.pay_and_reconcile(cr, uid, invids, amount, acc_id, period_id, journal_id, False, period_id, False, context, line.name)
+                    other_pay -= amount
+                    #TODO: link this account entries to the Payment Lines also Expanse Entries to Account Lines
+                    #l_ids = movel_pool.search(cr, uid, [('invoice','=',line.expanse_id.invoice_id.id)])
+                    #line_ids += l_ids
+                    
             #Process for Other payment if any
             other_move_id = False
             if slip.other_pay:
@@ -684,27 +701,27 @@ class hr_payslip(osv.osv):
                 name = "To %s account" % (slip.employee_id.name)
                 ded_rec = {
                     'move_id':other_move_id,
-                    'name': name,
-                    'date': slip.date, 
-                    'account_id': slip.employee_id.property_bank_account.id, 
+                    'name':name,
+                    'date':slip.date, 
+                    'account_id':slip.employee_id.property_bank_account.id, 
                     'debit': 0.0,
-                    'credit' : slip.other_pay,
-                    'journal_id' : slip.journal_id.id,
-                    'period_id' :period_id,
+                    'credit':other_pay,
+                    'journal_id':slip.journal_id.id,
+                    'period_id':period_id,
                     'ref':slip.number
                 }
                 line_ids += [movel_pool.create(cr, uid, ded_rec)]
                 name = "By %s account" % (slip.employee_id.property_bank_account.name)
                 cre_rec = {
                     'move_id':other_move_id,
-                    'name': name,
-                    'partner_id': partner_id,
-                    'date': slip.date,
-                    'account_id': partner.property_account_payable.id,
-                    'debit':  slip.other_pay,
-                    'credit' : 0.0,
-                    'journal_id' : slip.journal_id.id,
-                    'period_id' :period_id,
+                    'name':name,
+                    'partner_id':partner_id,
+                    'date':slip.date,
+                    'account_id':partner.property_account_payable.id,
+                    'debit':other_pay,
+                    'credit':0.0,
+                    'journal_id':slip.journal_id.id,
+                    'period_id':period_id,
                     'ref':slip.number
                 }
                 line_ids += [movel_pool.create(cr, uid, cre_rec)]
@@ -717,19 +734,7 @@ class hr_payslip(osv.osv):
                 'other_move_id':other_move_id
             }
             self.write(cr, uid, [slip.id], rec)
-            
-            invoice_pool = self.pool.get('account.invoice')
-            for line in slip.line_ids:
-                if line.type == 'otherpay' and line.expanse_id.invoice_id:
-                    if not line.expanse_id.invoice_id.move_id:
-                        raise osv.except_osv(_('Warning !'), _('Please Confirm all Expanse Invoice appear for Reimbursement'))
-                    invids = [line.expanse_id.invoice_id.id]
-                    amount = line.total
-                    acc_id = slip.bank_journal_id.default_credit_account_id and slip.bank_journal_id.default_credit_account_id.id
-                    period_id = slip.period_id.id
-                    journal_id = slip.bank_journal_id.id
-                    invoice_pool.pay_and_reconcile(cr, uid, invids, amount, acc_id, period_id, journal_id, False, period_id, False, context, line.name)
-            
+                        
         return True
     
     def account_check_sheet(self, cr, uid, ids, context={}):

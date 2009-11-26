@@ -131,7 +131,7 @@ def generate_document_job(cr, uid, obj_id):
                     job_id[k][1] += 1
                 else:
                     doc_count=1
-                    camp_doc = camp_doc_object.browse(cr,uid,[doc_job_camp_id])[0]
+                    camp_doc = camp_doc_object.browse(cr,uid,doc_job_camp_id)
                     vals = {
                             'name': camp_doc.segment_id.name or '' + str(k),
 				         	'user_id': ms_id.user_id.id,
@@ -163,6 +163,7 @@ def generate_document_job(cr, uid, obj_id):
                                    'mail_service_id': ms_id.id,
                                    'document_id': ms_id.bottom_job_recap.id,
                                    'campaign_document_job_ids': j_id
+                                   
                                   }
                             camp_document = camp_doc_object.create(cr, uid, camp_vals)
                     job_id[k] = [j_id, doc_count, ms_id.sorting_rule_id.qty_limit or 0]

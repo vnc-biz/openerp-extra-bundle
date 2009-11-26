@@ -10,7 +10,7 @@
 		<field name="arch" type="xml">
 			<tree string="Basic Store">
 				<field name="name"/>
-				<field name="company_id"/>
+				<field name="company_id" groups="base.group_multi_company"/>
 
 			</tree>
 		</field>
@@ -27,7 +27,7 @@
 			 		<separator string="WebShop Description" colspan="4"/>
 			 		<newline/>
            			<field name="name" select="1"/><newline/>
-					<field name="company_id" select="1"/>
+					<field name="company_id" select="1" groups="base.group_multi_company"/>
 					<field name="shop_id" select="1"></field>
                 </group>
 				<notebook colspan="4">

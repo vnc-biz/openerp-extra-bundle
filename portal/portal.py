@@ -33,6 +33,10 @@ class portal_portal(osv.osv):
         'home_action_id': fields.many2one('ir.actions.act_window', 'User Home Action', help='Complete this field to provide a Home menu different from the Main menu.'),
         'company_id': fields.many2one('res.company', 'Company', required=True),
         }
+    
+    _defaults = {
+               'company_id': lambda self,cr,uid,c: self.pool.get('res.company')._company_default_get(cr, uid, 'portal.portal', c)
+                }
 
     def create_action_menu(self,cr,uid,action_id,action_name,context):
         """

@@ -56,6 +56,9 @@ class config_bob_import(osv.osv_memory):
 #        'zipped_file': fields.binary('Upload a Zip File',filters=['*.zip','*.tar','*.tar.gz','*.tar.bz2','*.ar','*.ear','*.jar','*.war']),
     }
 
+    _defaults = {
+               'company_id': lambda self,cr,uid,c: self.pool.get('res.company')._company_default_get(cr, uid, 'config.bob.import', c)
+                }
     def action_cancel(self,cr,uid,ids,context=None):
         return {
                 'view_type': 'form',

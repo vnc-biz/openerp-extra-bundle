@@ -45,7 +45,7 @@
                     <field name="type_proc"/>
                     <field name="location_src_id" attrs="{'invisible':[('type_proc','!=','move')]}"/>
                     <field name="procure_method"/>
-                    <field name="company_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
                     <field name="cancel_cascade"/>
                 </form>
             </field>
@@ -62,7 +62,7 @@
                             <tree string="Pulled flows">
                               <field name="location_id"/>
                               <field name="type_proc"/>
-                              <field name="company_id"/>
+                              <field name="company_id" groups="base.group_multi_company"/>
                               <field name="name"/>
                             </tree>
                             <form string="Pulled Paths">
@@ -72,7 +72,7 @@
                                 <separator string="Action Type" colspan="4"/>
                                 <field name="type_proc"/>
                                 <separator string="Parameters" colspan="4"/>
-                                <field name="company_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                                 <newline/>
                                 <group col="4" colspan="4" attrs="{'invisible':[('type_proc','!=','move')]}">
                                     <field name="location_src_id"/>
@@ -91,7 +91,7 @@
                                 <field name="auto"/>
                                 <field name="delay"/>
                                 <field name="name"/>
-                                <field name="company_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                             </tree>
                         </field>
                     </page>

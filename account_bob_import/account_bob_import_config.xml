@@ -11,7 +11,7 @@
         <field name="arch" type="xml">
             <form string="Configure Your BOB Import Options">
                 <separator col="4" colspan="4" string="Configure BOB Import Options"/>
-                <field name="company_id" colspan="2"/>
+                <field name="company_id" colspan="2" groups="base.group_multi_company"/>
                 <field name="location" colspan="2"/>
                 <newline/>
                 <field name="path" colspan="4" attrs="{'readonly':[('location','=','remotely')],'required':[('location','=','locally')]}"/>

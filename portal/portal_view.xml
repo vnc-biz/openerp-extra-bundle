@@ -24,7 +24,7 @@
 				<field name="name" select="1"/>
 				<field name="group_id"/>
 				<field name="menu_id"/>
-				<field name="company_id"/>
+				<field name="company_id" groups="base.group_multi_company"/>
 				<separator string="Defaults actions for the users of this portal" colspan="4"/>
 				<field name="menu_action_id"/>
 				<field name="home_action_id"/>

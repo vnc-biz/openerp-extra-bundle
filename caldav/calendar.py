@@ -187,8 +187,6 @@ class Event(CalDAV):
         'rstatus' : None,
         'related' : None, # Use: O-n,                     Specify the relationship of the alarm trigger with respect to the start or end of the calendar component.
                                 #                               like A trigger set 5 minutes after the end of the event or to-do.---> TRIGGER;RELATED=END:PT5M
-
-
         'resources' : None, # Use: O-n, Type: TEXT,            Defines the equipment or resources anticipated for an activity specified by a calendar entity like RESOURCES:EASEL,PROJECTOR,VCR, LANGUAGE=fr:1 raton-laveur
         'rdate' : None, # Use: O-n,    Type: DATE-TIME,    Defines the list of date/times for a recurrence set.
         'rrule' : None, # Use: O-n,    Type: RECUR,        Defines a rule or repeating pattern for recurring events, to-dos, or time zone definitions.
@@ -404,7 +402,6 @@ class crm_case(osv.osv, Event):
     
     def _get_location(self, cr, uid, ids, name, arg, context=None):
         res = {}
-        
         for case in self.browse(cr, uid, ids):
             if case.partner_address_id:
                 add = case.partner_address_id
@@ -528,17 +525,20 @@ class crm_case(osv.osv, Event):
                 id = str(val['id']).split('-')[0]
 #             COMMENTED BECAUSE OF PROBLEM OF INTEGER ID
                 val['id'] = id + '-' + ''.join(idval)
-
                 val1 = val.copy()
                 result += [val1]
         return result 
     
     def unlink(self, cr, uid, ids, context=None):
-        ids_new = map(lambda x:(str(x).split('-')[1]), ids)
         #TODO: Change RRULE
-        ids = map(lambda x:int(str(x).split('-')[0]), ids)
-        return super(crm_case, self).unlink(cr, uid, ids)
-
+        for id in ids:
+            if len(str(id).split('-')) > 1:
+                date_new = time.strftime("%Y-%m-%d %H:%M:%S", time.strptime(str(str(id).split('-')[1]), "%Y%m%d%H%M%S"))
+                for record in self.read(cr,uid, [str(id).split('-')[0]], ['date', 'rdates', 'rrule']):
+                    if record['date'] == date_new:
+                        self.write(cr, uid, [int(str(id).split('-')[0])], {'rrule' : record['rrule'] +"\n" +'_exdate =' + str([date_new])})
+            else:
+                return super(crm_case, self).unlink(cr, uid, ids)
 crm_case()
 
 

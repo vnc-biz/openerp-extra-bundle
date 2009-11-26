@@ -418,21 +418,15 @@ class payment_category(osv.osv):
             ('deduct','Deduction'),
             ('other','Others'),
         ],'Type', select=True),
-        'contribute':fields.boolean('Contribe by Company ?'),
-        'include_in_salary':fields.boolean('Included in Salary ?'),
-        'based_on':fields.selection([
-            ('basic','Basic Salary'),
-            ('work','On Attendance'),
-            ('fixed','Fided Value'),
-        ],'State', select=True),
+        'contribute':fields.boolean('Contribe by Company ?', help='Is company contribute on this deduction, like Provident Fund'),
+        'include_in_salary':fields.boolean('Included in Salary ?', help='If company contribute on this deduction then should company contribution is also deducted from Employee Salary'),
         'gratuity':fields.boolean('Use for Gratuity ?', required=False),
         'line_ids':fields.one2many('hr.allounce.deduction.categoty.line', 'category_id', 'Calculations', required=False),
-        'base':fields.char('Based on', size=64, required=False, readonly=False),
-        'condition':fields.char('Condition', size=64, required=False, readonly=False),
-        'sequence': fields.integer('Sequence'),
+        'base':fields.char('Based on', size=64, required=True, readonly=False, help='This will use to computer the % fields values, in general its on basic, but You can use all heads code field in small letter as a variable name i.e. hra, ma, lta, etc...., also you can use, static varible basic'),
+        'condition':fields.char('Condition', size=64, required=True, readonly=False, help='Applied this head for calculation if condition is true'),
+        'sequence': fields.integer('Sequence', required=True, help='Use to arrange calculation sequence'),
         'register_id':fields.many2one('hr.contibution.register', 'Contribution Register', required=False),
         'note': fields.text('Description'),
-        
     }
     _defaults = {
         'condition': lambda *a: 'True',
@@ -624,6 +618,7 @@ class hr_payslip(osv.osv):
             line_ids = []
             partner = False
             partner_id = False
+            exp_ids = []
             
             partner = slip.employee_id.address_home_id.partner_id
             partner_id = partner.id
@@ -679,11 +674,15 @@ class hr_payslip(osv.osv):
                     acc_id = slip.bank_journal_id.default_credit_account_id and slip.bank_journal_id.default_credit_account_id.id
                     period_id = slip.period_id.id
                     journal_id = slip.bank_journal_id.id
-                    invoice_pool.pay_and_reconcile(cr, uid, invids, amount, acc_id, period_id, journal_id, False, period_id, False, context, line.name)
+                    name = '[%s]-%s' % (slip.number, line.name)
+                    invoice_pool.pay_and_reconcile(cr, uid, invids, amount, acc_id, period_id, journal_id, False, period_id, False, context, name)
                     other_pay -= amount
                     #TODO: link this account entries to the Payment Lines also Expanse Entries to Account Lines
-                    #l_ids = movel_pool.search(cr, uid, [('invoice','=',line.expanse_id.invoice_id.id)])
-                    #line_ids += l_ids
+                    l_ids = movel_pool.search(cr, uid, [('name','=',name)])
+                    line_ids += l_ids
+                    
+                    l_ids = movel_pool.search(cr, uid, [('invoice','=',line.expanse_id.invoice_id.id)])
+                    exp_ids += l_ids
                     
             #Process for Other payment if any
             other_move_id = False
@@ -734,7 +733,9 @@ class hr_payslip(osv.osv):
                 'other_move_id':other_move_id
             }
             self.write(cr, uid, [slip.id], rec)
-                        
+            for exp_id in exp_ids:
+                self.write(cr, uid, [slip.id], {'move_line_ids':[(4, exp_id)]})
+                
         return True
     
     def account_check_sheet(self, cr, uid, ids, context={}):

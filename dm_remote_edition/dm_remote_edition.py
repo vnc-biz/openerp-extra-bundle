@@ -65,18 +65,23 @@ def generate_document_job(cr, uid, obj_id):
     camp_doc_job = {}
     if ms_id.sorting_rule_id.by_customer_country:
 	    for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
-		    country_id = camp_doc.address_id.country_id.id
+		    country_id = str(camp_doc.address_id.country_id.id)
 		    if country_id in camp_doc_job:
 			    camp_doc_job[country_id].append(camp_doc.id)
 		    else : 
 			    camp_doc_job[country_id] = [camp_doc.id]
-    elif ms_id.sorting_rule_id.by_offer_step:
-        for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
-            step_id = camp_doc.document_id.step_id.id
-            if step_id in camp_doc_job:
-			    camp_doc_job[step_id].append(camp_doc.id)
-            else : 
-                camp_doc_job[step_id] = [camp_doc.id]
+    if ms_id.sorting_rule_id.by_offer_step:
+        if not camp_doc_job:
+            camp_doc_job['']=camp_doc_id
+        camp_doc_job_i = {}
+        for k,v in camp_doc_job.items() :
+            for camp_doc in camp_doc_object.browse(cr,uid,v):
+	            step_id = k+'_'+str(camp_doc.document_id.step_id.id)
+	            if step_id in camp_doc_job_i:
+		            camp_doc_job_i[step_id].append(camp_doc.id)
+	            else : 
+		            camp_doc_job_i[step_id] = [camp_doc.id]
+        camp_doc_job = camp_doc_job_i
 #    elif ms_id.sorting_rule_id.by_product:
 #	    for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
 #		    step_id = camp_doc.document_id.step_id.id
@@ -84,69 +89,65 @@ def generate_document_job(cr, uid, obj_id):
 #			    camp_doc_job[step_id].append(camp_doc.id)
 #		    else : 
 #			    camp_doc_job[step_id] = [camp_doc.id]
-    elif ms_id.sorting_rule_id.by_page_qty:
+    if ms_id.sorting_rule_id.by_page_qty:
+        if not camp_doc_job:
+            camp_doc_job['']=camp_doc_id
+        camp_doc_job_i = {}
         attach_obj = pool.get('ir.attachment')
         pattern = re.compile(r"/Count\s+(\d+)")
-        for camp_doc in camp_doc_object.browse(cr,uid,camp_doc_id):
-    	    attach_id = attach_obj.search(cr, uid,[('res_id', '=', camp_doc.id), 
-    	                           ('res_model', '=', 'dm.campaign.document')])
-            if attach_id:
-                attach = attach_obj.browse(cr, uid, attach_id[0])
-                datas = base64.decodestring(attach.datas)
-                vPages = pattern.findall(datas) and pattern.findall(datas)[0] or 0
-                if vPages in camp_doc_job :
-    			    camp_doc_job[vPages].append(camp_doc.id)
+        for k,v in camp_doc_job.items() :
+            for camp_doc in camp_doc_object.browse(cr,uid,v):
+                attach_id = attach_obj.search(cr, uid,[('res_id', '=', camp_doc.id), 
+        	                           ('res_model', '=', 'dm.campaign.document')])
+                if attach_id:
+                    attach = attach_obj.browse(cr, uid, attach_id[0])
+                    datas = base64.decodestring(attach.datas)
+                    vPages = k+'_'+str(pattern.findall(datas) and pattern.findall(datas)[0] or 0)
+                else:
+                    vPages = k
+                if vPages in camp_doc_job_i :
+    			    camp_doc_job_i[vPages].append(camp_doc.id)
                 else : 
-    			    camp_doc_job[vPages] = [camp_doc.id]
+    			    camp_doc_job_i[vPages] = [camp_doc.id]
+                    			    
+        camp_doc_job = camp_doc_job_i        			    
     if camp_doc_job:
         camp_doc_job_obj = pool.get('dm.campaign.document.job')
         job_ids = camp_doc_job_obj.search(cr, uid, [('state', '=', 'pending'),
                             ('sorting_rule_id', '=', ms_id.sorting_rule_id.id),])
 
-        job_id = ''
-        if job_ids:
-            if ms_id.sorting_rule_id.qty_limit == 0:
-                job_id = job_ids[0]
-            else:
-                for j in camp_doc_job_obj.browse(cr, uid, job_ids):
-                    print len(j.campaign_document_ids) , ms_id.sorting_rule_id.qty_limit
-                    if len(j.campaign_document_ids) < ms_id.sorting_rule_id.qty_limit:
-                        job_id = j.id
-        if not job_id:
-            vals = {'name': camp_doc.segment_id.name or '' + str(k),
-				         	'user_id': ms_id.user_id.id,
-					        'sorting_rule_id': ms_id.sorting_rule_id.id,}
-            job_id = camp_doc_job_obj.create(cr,uid,vals)
-        doc_job = camp_doc_job_obj.browse(cr, uid, job_id)
-        number_doc = len(doc_job.campaign_document_ids)
+        job_id = {}
+        for j_id in camp_doc_job_obj.browse(cr, uid, job_ids):
+            if not ms_id.sorting_rule_id.qty_limit or ms_id.sorting_rule_id.qty_limit ==0 :
+                job_id[j_id.sorting_name] = [j_id.id, len(j_id.campaign_document_ids), 0]
+            elif len(j_id.campaign_document_ids) < ms_id.sorting_rule_id.qty_limit:
+                job_id[j_id.sorting_name] = [j_id.id, len(j_id.campaign_document_ids), ms_id.sorting_rule_id.qty_limit]
         for k,v in camp_doc_job.items():
             while v:
                 doc_job_camp_id = v.pop()
-                doc = camp_doc_object.browse(cr,uid,[doc_job_camp_id])[0]
-                if (ms_id.sorting_rule_id.qty_limit!=0 and ms_id.sorting_rule_id.qty_limit > number_doc) or ms_id.sorting_rule_id.qty_limit == 0:
-                    camp_doc_job_obj.write(cr, uid, job_id, 
-                                       {'campaign_document_ids': [[4,v.pop()]]})
-                    number_doc += 1
-                    
+                if k in job_id.keys() and (job_id[k][-1] == 0 or job_id[k][1] < job_id[k][-1]) :
+                    camp_doc_job_obj.write(cr, uid, job_id[k][0], 
+                                       {'campaign_document_ids': [[4,doc_job_camp_id]]})
+                    job_id[k][1] += 1
                 else:
+                    camp_doc = camp_doc_object.browse(cr,uid,[doc_job_camp_id])[0]
                     vals = {'name': camp_doc.segment_id.name or '' + str(k),
     					         	'user_id': ms_id.user_id.id,
     						        'sorting_rule_id': ms_id.sorting_rule_id.id,
     						        'campaign_document_ids': [[4,doc_job_camp_id]],
+                                    'sorting_name': k,
                                     'use_front_recap': ms_id.front_job_recap and True or False,
                                     'bottom_job_recap': ms_id.bottom_job_recap and True or False
                                     }
+                    j_id = camp_doc_job_obj.create(cr,uid,vals)
                     if  ms_id.front_job_recap or ms_id.bottom_job_recap:
                         camp_vals={
-                              
-                                'segment_id': doc.segment_id.id or False,
-                               'name': doc.document_id.step_id.code + "_" + str(camp_doc.address_id.id),
+                               'segment_id': camp_doc.segment_id.id or False,
+                               'name': camp_doc.document_id.step_id.code + "_" + str(camp_doc.address_id.id),
                                'type_id': type_id,
                                'mail_service_id': ms_id.id,
                               }
                     camp_document = camp_doc_object.create(cr, uid, camp_vals)
-                    job_id = camp_doc_job_obj.create(cr, uid, vals)
-                    doc_job = camp_doc_job_obj.browse(cr, uid, job_id)
-                    number_doc = 1
+                    job_id[k] = [j_id, 2, ms_id.sorting_rule_id.qty_limit or 0]
     return {'code':'doc_done','ids': obj.id}								   		    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

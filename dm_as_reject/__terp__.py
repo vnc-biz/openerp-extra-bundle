@@ -28,7 +28,7 @@
     "description": """
             This module manages rejects after sale.
             """,
-    "depends" : ['dm'],
+    "depends" : ['dm_extract'],
     "init_xml" : [],
     "demo_xml" : ['dm_as_reject_demo.xml',],
     "update_xml" : [

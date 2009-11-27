@@ -53,6 +53,20 @@
          </field>
    </record>
    
+   <record model="ir.ui.view" id="view_dm_reject_segmentation_form">
+        <field name="name">dm.address.segmentation.inherit</field>
+        <field name="model">dm.address.segmentation</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm_extract.view_dm_address_segmentation_form"/>
+        <field name="arch" type="xml">
+     			<page string="SQL" position="before">
+     			<page string="Advanced" >
+	  				<field name="ignore_rejects"/>             
+ 				</page>
+ 				</page>
+        </field>
+    </record>
+   
      <record model="ir.actions.act_window" id="action_dm_reject">
         <field name="name">All Rejects</field>
         <field name="type">ir.actions.act_window</field>

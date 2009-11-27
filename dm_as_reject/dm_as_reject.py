@@ -41,5 +41,14 @@ class dm_as_reject(osv.osv):#{{{
    
     }
 dm_as_reject()#}}}
-
+class dm_address_segmentation(osv.osv): # {{{
+    _name = "dm.address.segmentation"
+    _description = "Segmentation"
+    _inherit = "dm.address.segmentation"
+    
+    _columns = {
+                
+     'ignore_rejects': fields.boolean('Ignore Rejects'),
+        }
+dm_address_segmentation()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

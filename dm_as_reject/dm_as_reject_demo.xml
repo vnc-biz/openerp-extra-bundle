@@ -8,10 +8,5 @@
             <field name="name">Global Reject</field>
             <field name="code">global</field>
         </record>
-
-         <record model="dm.as.reject.type" id="dm_reject_paymethod_demo">
-            <field name="name">Payment Method Rejected</field>
-            <field name="code">paymethod</field>
-        </record>
     </data>
 </openerp>

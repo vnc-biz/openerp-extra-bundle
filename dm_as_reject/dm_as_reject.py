@@ -38,8 +38,16 @@ class dm_as_reject(osv.osv):#{{{
         'name': fields.char('Description', size=128, required=True),
         'origin':fields.char('Origin', size=64),
         'type_od': fields.many2one('dm.as.reject.type', 'Type', required=True),
+        'reject_type': fields.char('Type', size=64),
    
     }
+    def on_change_reject_type(self, cr, uid, ids, type_od):
+        res = {'value': {}}
+        if type_od:
+            reject_type = self.pool.get('dm.as.reject.type').read(cr, uid, [type_od])[0]
+            res['value'] = {'reject_type': reject_type['code']}
+        return res
+    
 dm_as_reject()#}}}
 class dm_address_segmentation(osv.osv): # {{{
     _name = "dm.address.segmentation"

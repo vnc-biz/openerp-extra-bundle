@@ -34,7 +34,6 @@
                 <field name="name" string="Name"/>
                  <field name="date"/>
                   <field name="origin"/>
-                <field name="type_od"/>
             </tree>
         </field>
     </record>
@@ -48,7 +47,8 @@
                 <field name="name" string="Name"/>
                 <field name="date"/>
                 <field name="origin"/>
-                <field name="type_od"/>
+               <field name="type_od" on_change="on_change_reject_type(type_od)" widget="selection"/>
+             <field name="reject_type" on_change="on_change_reject_type(type_od)" invisible="1"/>
             </form>
          </field>
    </record>
@@ -60,9 +60,9 @@
 		<field name="inherit_id" ref="dm_extract.view_dm_address_segmentation_form"/>
         <field name="arch" type="xml">
      			<page string="SQL" position="before">
-     			<page string="Advanced" >
-	  				<field name="ignore_rejects"/>             
- 				</page>
+	     			<page string="Advanced" >
+		  				<field name="ignore_rejects"/>             
+	 				</page>
  				</page>
         </field>
     </record>

@@ -33,6 +33,7 @@
     "demo_xml" : [],
     "update_xml" : [
                     "dm_as_reject_paymethod_view.xml",
+                    "dm_as_reject_paymethod_data.xml"
                     ],
     "active": False,
     "installable": True,

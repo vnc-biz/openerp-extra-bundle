@@ -423,11 +423,12 @@ class crm_case(osv.osv, Event):
     
     def _get_rdates(self, cr, uid, ids, name, arg, context=None):
         res = {}
-        for case in self.browse(cr, uid, ids):
-            if case.rrule:
-                rule = case.rrule.split('\n')[0]
-                exdate = case.rrule.split('\n')[1:]
-                res[case.id] = str(self.get_recurrent_dates(str(rule), exdate, case.date))
+        context.update({'read':True})
+        for case in self.read(cr, uid, ids, ['date', 'rrule'], context=context):
+            if case['rrule']:
+                rule = case['rrule'].split('\n')[0]
+                exdate = case['rrule'].split('\n')[1:]
+                res[case['id']] = str(self.get_recurrent_dates(str(rule), exdate, case['date']))
         return res
     
     _columns = {
@@ -508,8 +509,10 @@ class crm_case(osv.osv, Event):
         select = map(lambda x:int(str(x).split('-')[0]), select)
         return super(crm_case, self).browse(cr, uid, select, context, list_class, fields_process)
 
-    def read(self, cr, uid, ids, fields=None, context=None,
+    def read(self, cr, uid, ids, fields=None, context={},
             load='_classic_read'):
+        if context and context.has_key('read'):
+            return super(crm_case, self).read(cr, uid, ids, fields=fields,context=context, load=load)
 #         logic for recurrent event
 #         example : 123-20091111170822
         ids = map(lambda x:int(str(x).split('-')[0]), ids)

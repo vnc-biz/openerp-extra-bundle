@@ -8,6 +8,5 @@
             <field name="name">Trademark Rejected</field>
             <field name="code">trademark</field>
         </record>
-
     </data>
 </openerp>

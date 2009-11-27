@@ -29,11 +29,12 @@ from dateutil.rrule import *
 from dateutil import parser
 from datetime import datetime
 from time import strftime
+from pytz import timezone
 
-# O-1	Optional and can come only once
-# O-n	Optional and can come more than once
-# R-1	Required and can come only once
-# R-n	Required and can come more than once
+# O-1  Optional and can come only once
+# O-n  Optional and can come more than once
+# R-1  Required and can come only once
+# R-n  Required and can come more than once
 
 class CalDAV(object):
     __attribute__= {
@@ -195,14 +196,19 @@ class Event(CalDAV):
         'dtend' : None, # Use: O-1,    Type: DATE-TIME,    Specifies the date and time that a calendar component ends.
     }
 
-    def get_recurrent_dates(self, rrulestring, startdate=None):
+    def get_recurrent_dates(self, rrulestring, exdate, startdate=None):
         todate = parser.parse
         if not startdate:
             startdate = datetime.now()
         else:
             startdate = todate(startdate)
         rset1 = rrulestr(rrulestring, dtstart=startdate, forceset=True)
-        recurrent_dates = map(lambda x:x.strftime('%Y-%m-%d %H:%M:%S'), rset1._iter())
+        for date in exdate:
+            datetime_obj = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+#            datetime_obj_utc = datetime_obj.replace(tzinfo=timezone('UTC'))
+            rset1._exdate.append(datetime_obj)
+        re_dates = rset1._iter()
+        recurrent_dates = map(lambda x:x.strftime('%Y-%m-%d %H:%M:%S'), re_dates)
         return recurrent_dates
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
@@ -419,7 +425,9 @@ class crm_case(osv.osv, Event):
         res = {}
         for case in self.browse(cr, uid, ids):
             if case.rrule:
-                res[case.id] = str(self.get_recurrent_dates(str(case.rrule), case.date))
+                rule = case.rrule.split('\n')[0]
+                exdate = case.rrule.split('\n')[1:]
+                res[case.id] = str(self.get_recurrent_dates(str(rule), exdate, case.date))
         return res
     
     _columns = {
@@ -517,7 +525,9 @@ class crm_case(osv.osv, Event):
             for res_temp in res:
                 if res_temp['id'] == data['id']:
                     val = res_temp
-#                    result.remove(val)
+                    if rdates:
+                        result.remove(val)
+
             for rdate in rdates:
                 import re
                 idval = (re.compile('\d')).findall(rdate)
@@ -536,7 +546,7 @@ class crm_case(osv.osv, Event):
                 date_new = time.strftime("%Y-%m-%d %H:%M:%S", time.strptime(str(str(id).split('-')[1]), "%Y%m%d%H%M%S"))
                 for record in self.read(cr,uid, [str(id).split('-')[0]], ['date', 'rdates', 'rrule']):
                     if record['date'] == date_new:
-                        self.write(cr, uid, [int(str(id).split('-')[0])], {'rrule' : record['rrule'] +"\n" +'_exdate =' + str([date_new])})
+                        self.write(cr, uid, [int(str(id).split('-')[0])], {'rrule' : record['rrule'] +"\n" + str(date_new)})
             else:
                 return super(crm_case, self).unlink(cr, uid, ids)
 crm_case()

@@ -10,7 +10,9 @@
         <field name="arch" type="xml">
             <field name="type_od" position="after">
 				<newline/>
-				<field name="trademark_id" colspan="4" nolabel="1"/>
+         		<group colspan="4" attrs="{'invisible':[('type_od','!=','trademark')]}">
+					<field name="trademark_ids" colspan="4" nolabel="1"/>
+				</group>
 			</field>
         </field>
     </record>

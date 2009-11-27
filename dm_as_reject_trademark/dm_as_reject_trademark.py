@@ -24,7 +24,7 @@ from osv import osv
 class dm_as_reject(osv.osv):#{{{
     _inherit = "dm.as.reject"
     _columns = {
-        'trademark_id': fields.one2many('dm.trademark', 'reject_id', 'Trademark')
+        'trademark_ids': fields.many2many('dm.trademark','reject_trademark_rel', 'reject_id', 'trademark_id', 'Trademark')
     }
 dm_as_reject()#}}}
 

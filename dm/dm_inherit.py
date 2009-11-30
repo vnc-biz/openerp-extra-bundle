@@ -57,8 +57,6 @@ class res_partner(osv.osv):#{{{
         'state_ids': fields.many2many('res.country.state', 'partner_state_rel',
                                       'partner_id', 'state_id',
                                      'Allowed States'),
-        'deceased': fields.boolean('Deceased'),
-        'deceased_date': fields.datetime('Deceased Date'),
         'language_ids': fields.many2many('res.lang', 'dm_customer_langs', 
                                          'lang_id', 'customer_id',
                                         'Other Languages'),

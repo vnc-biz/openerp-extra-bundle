@@ -44,19 +44,55 @@ class dm_as_reject(osv.osv):#{{{
     def on_change_reject_type(self, cr, uid, ids, type_od):
         res = {'value': {}}
         if type_od:
-            reject_type = self.pool.get('dm.as.reject.type').read(cr, uid, [type_od])[0]
+         reject_type = self.pool.get('dm.as.reject.type').read(cr, uid, [type_od])[0]
             res['value'] = {'reject_type': reject_type['code']}
         return res
     
-dm_as_reject()#}}}
+dm_as_reject() #}}}
+
 class dm_address_segmentation(osv.osv): # {{{
     _name = "dm.address.segmentation"
     _description = "Segmentation"
     _inherit = "dm.address.segmentation"
     
     _columns = {
-                
-     'ignore_rejects': fields.boolean('Ignore Rejects'),
+        'ignore_rejects': fields.boolean('Ignore Rejects'),
         }
-dm_address_segmentation()
+    
+dm_address_segmentation() # }}}
+
+class dm_as_reject_incident(osv.osv): # {{{
+    _name = "dm.as.reject.incident"
+    _description = "Reject Incidents"
+    
+    _columns = {
+        'date': fields.datetime('Date', required=True),
+        'user_id': fields.many2one('res.users', 'User', required=True),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'partner_address_id': fields.many2one('res.partner.address', 'Partner Address'),
+        'reject_ids': fields.many2many('dm.as.reject', 'incident_reject_rel', 'incident_id', 'reject_id', 'Rejects'),
+        'origin': fields.char('Origin', size=64),
+        'note': fields.text('Description')
+        }
+    
+dm_as_reject_incident() # }}}
+
+class res_partner(osv.osv): # {{{
+    _inherit = "res.partner"
+    
+    _columns = {
+        'reject_ids': fields.one2many('dm.as.reject.incident', 'partner_id', 'Rejects')      
+        }
+    
+res_partner() # }}}
+
+class res_partner_address(osv.osv): # {{{
+    _inherit = "res.partner.address"
+    
+    _columns = {
+        'reject_ids': fields.one2many('dm.as.reject.incident', 'partner_address_id', 'Rejects')      
+        }
+    
+res_partner_address() # }}}
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -61,7 +61,8 @@
         <field name="arch" type="xml">
  			<page string="SQL" position="before">
      			<page string="Advanced" >
-	  				<field name="ignore_rejects"/>             
+	  				<field name="ignore_rejects"/>
+	  				<field name="active_only"/>
  				</page>
 			</page>
         </field>

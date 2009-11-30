@@ -56,7 +56,13 @@ class dm_address_segmentation(osv.osv): # {{{
     _inherit = "dm.address.segmentation"
     
     _columns = {
+                
         'ignore_rejects': fields.boolean('Ignore Rejects'),
+        'active_only': fields.boolean('Active'),
+        }
+    _defaults = {
+        'ignore_rejects': lambda *a: 1,         
+        'active_only': lambda *a: 1,
         }
     
 dm_address_segmentation() # }}}

@@ -30,8 +30,8 @@
             """,
     "depends" : ['dm_extract', 'dm_partner_address'],
     "init_xml" : [],
-    "demo_xml" : ['dm_as_reject_demo.xml',],
-    "update_xml" : [
+    "demo_xml" : [],
+    "update_xml" : ["dm_as_reject_data.xml",
                     "dm_as_reject_view.xml",
                     "security/ir.model.access.csv",
                     ],

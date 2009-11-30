@@ -145,6 +145,7 @@ class employees_salary_report(rml_parse.rml_parse):
         tot = 0.0
         cnt = 1
         result = []
+        res ={}
         if not category:
             result.append('Basic Salary')
         else:
@@ -160,24 +161,53 @@ class employees_salary_report(rml_parse.rml_parse):
                 payslip_obj = self.pool.get('hr.payslip').browse(self.cr, self.uid, payslip_id['id'])
                 if not category:
                     tot += payslip_obj.basic
+                    res[mnth] = payslip_obj.basic
                     result.append(payslip_obj.basic)
                     self.month_total_list[cnt] = self.month_total_list[cnt] + payslip_obj.basic
                 else:
+                    append_index = 0
                     for line in payslip_obj.line_ids:
                         if line.category_id.id == category:
                             if category_name['type'] == 'allow':
-                                self.month_total_list[cnt] = self.month_total_list[cnt] + line.total
-                                tot += line.total
-                                result.append(line.total)
+                                if res:
+                                    self.month_total_list[cnt] = self.month_total_list[cnt] + line.total
+                                    result[append_index] += line.total
+                                    tot += line.total
+                                    res[mnth] = result[append_index]
+                                else:
+                                    self.month_total_list[cnt] = self.month_total_list[cnt] + line.total
+                                    tot += line.total
+                                    res[mnth] = line.total
+                                    append_index = len(result) - 1
+                                    result.append(line.total)
                             if category_name['type'] == 'deduct':
-                                self.month_total_list[cnt] = self.month_total_list[cnt] - line.total
-                                tot += line.total
-                                result.append(line.total)
+                                if res:
+                                    self.month_total_list[cnt] = self.month_total_list[cnt] - line.total
+                                    result[append_index] += line.total
+                                    tot += line.total
+                                    res[mnth] = result[append_index]
+                                else:
+                                    self.month_total_list[cnt] = self.month_total_list[cnt] - line.total
+                                    tot += line.total
+                                    res[mnth] = line.total
+                                    append_index = len(result) - 1
+                                    result.append(line.total)
                             if category_name['type'] == 'other':
-                                tot += line.total
-                                result.append(line.total)
+                                if res:
+                                    result[append_index] += line.total
+                                    tot += line.total
+                                    res[mnth] = result[append_index]
+                                else:
+                                    res[mnth] = line.total
+                                    result.append(res[mnth])
+                                    append_index = len(result) - 1
+                                    tot += line.total
             else:
                 result.append(0.00)
+                res[mnth] = 0.00
+            if not res:
+                result.append(0.00)
+            res = {}
             cnt = cnt + 1 
         cnt = 1
         result.append(tot)

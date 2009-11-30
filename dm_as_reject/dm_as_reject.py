@@ -44,7 +44,7 @@ class dm_as_reject(osv.osv):#{{{
     def on_change_reject_type(self, cr, uid, ids, type_od):
         res = {'value': {}}
         if type_od:
-         reject_type = self.pool.get('dm.as.reject.type').read(cr, uid, [type_od])[0]
+            reject_type = self.pool.get('dm.as.reject.type').read(cr, uid, [type_od])[0]
             res['value'] = {'reject_type': reject_type['code']}
         return res
     

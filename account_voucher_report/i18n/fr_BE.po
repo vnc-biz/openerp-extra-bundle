@@ -1,0 +1,167 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_voucher_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.6\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-11-24 13:35:47+0000\n"
+"PO-Revision-Date: 2009-11-24 13:35:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_voucher_report
+#: model:ir.module.module,description:account_voucher_report.module_meta_information
+msgid "\n"
+"    India Accounting module includes all the basic requirenment of \n"
+"    Basic Accounting, like\n"
+"    * Bank Payment, Receipt\n"
+"    * Cash Payent, Receipt\n"
+"    "
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "On Account of :"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Journal Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Ref. :"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Particulars"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "State :"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Draft"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Debit"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "PRO-FORMA"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Contra Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Cash Payment Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Authorised Signatory"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "-"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Journal Purchase Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid ":"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Posted"
+msgstr ""
+
+#. module: account_voucher_report
+#: model:ir.module.module,shortdesc:account_voucher_report.module_meta_information
+msgid "Accounting Voucher Reports"
+msgstr ""
+
+#. module: account_voucher_report
+#: model:ir.actions.report.xml,name:account_voucher_report.report_account_voucher_new
+msgid "Voucher Report (Cr/Dr)"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Dated :"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Credit"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Through :"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Receiver's Signature"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "No."
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Amount (in words) :"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Cash Receipt Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Canceled"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Bank Payment Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Journal Sale Voucher"
+msgstr ""
+
+#. module: account_voucher_report
+#: rml:account.move.voucher:0
+msgid "Bank Receipt Voucher"
+msgstr ""
+

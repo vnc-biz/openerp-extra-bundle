@@ -1,0 +1,70 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* cci_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.6\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-11-25 09:53:53+0000\n"
+"PO-Revision-Date: 2009-11-25 09:53:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cci_purchase
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr ""
+
+#. module: cci_purchase
+#: model:ir.module.module,description:cci_purchase.module_meta_information
+msgid "\n"
+"        specific module for cci project which will use purchase module\n"
+"    "
+msgstr ""
+
+#. module: cci_purchase
+#: view:purchase.order:0
+msgid "By Pass Approval"
+msgstr ""
+
+#. module: cci_purchase
+#: view:purchase.order:0
+#: field:purchase.order,internal_notes:0
+msgid "Internal Note"
+msgstr ""
+
+#. module: cci_purchase
+#: view:purchase.order:0
+msgid "Cancel Purchase Order"
+msgstr ""
+
+#. module: cci_purchase
+#: field:purchase.order,approvator:0
+msgid "Approved by"
+msgstr ""
+
+#. module: cci_purchase
+#: view:purchase.order:0
+msgid "Confirm Purchase Order"
+msgstr ""
+
+#. module: cci_purchase
+#: view:purchase.order:0
+msgid "Internal Approval"
+msgstr ""
+
+#. module: cci_purchase
+#: view:purchase.order:0
+msgid "Notes to display on Purchase Order Report"
+msgstr ""
+
+#. module: cci_purchase
+#: model:ir.module.module,shortdesc:cci_purchase.module_meta_information
+msgid "CCI Purchase"
+msgstr ""
+

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.0\n"
+"Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-01-29 21:19:05+0000\n"
-"PO-Revision-Date: 2009-01-29 21:19:05+0000\n"
+"POT-Creation-Date: 2009-11-26 09:50:12+0000\n"
+"PO-Revision-Date: 2009-11-26 09:50:12+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,46 +16,63 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_fr_account_generation
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "XML non valide pour l'architecture de la vue"
+#: code:addons/l10n_fr_account_generation/partner.py:0
+#, python-format
+msgid "You need to define an default account generation config"
+msgstr ""
 
 #. module: l10n_fr_account_generation
-#: field:account.generation.config,supplier:0
-msgid "Global Supplier"
-msgstr "Collectif client"
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr ""
+
+#. module: l10n_fr_account_generation
+#: code:addons/l10n_fr_account_generation/partner.py:0
+#, python-format
+msgid "Error !"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: field:account.generation.config,name:0
 msgid "Configuration Name"
-msgstr "Nom de la configuration"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: field:account.generation.config,nbcar:0
 msgid "Char size"
-msgstr "Nombre de caractère"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: view:account.generation.config:0
 #: model:ir.actions.act_window,name:l10n_fr_account_generation.action_account_generation_config_form
 #: model:ir.ui.menu,name:l10n_fr_account_generation.menu_action_account_generation_config_form
 msgid "Account generation config"
-msgstr "Génération des comptes"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: model:ir.model,name:l10n_fr_account_generation.model_account_generation_config
 msgid "Account Generation Configuration"
-msgstr "Configuration de la génération des comptes"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: field:account.generation.config,customer:0
 msgid "Global Customer"
-msgstr "Collectif fournisseur"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: help:account.generation.config,nbcar:0
 msgid "Number of character for the creation of accounts"
-msgstr "Nombre de caracteres pris en compte pour la création du compte"
+msgstr ""
+
+#. module: l10n_fr_account_generation
+#: field:account.generation.config,supplier:0
+msgid "Global Supplier"
+msgstr ""
+
+#. module: l10n_fr_account_generation
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: model:ir.module.module,shortdesc:l10n_fr_account_generation.module_meta_information
@@ -65,7 +82,7 @@ msgstr ""
 #. module: l10n_fr_account_generation
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Le nom de l'objet doit commencer avec x_ et ne pas contenir de charactères spéciaux !"
+msgstr ""
 
 #. module: l10n_fr_account_generation
 #: model:ir.module.module,description:l10n_fr_account_generation.module_meta_information
@@ -78,5 +95,5 @@ msgstr ""
 #. module: l10n_fr_account_generation
 #: view:res.partner:0
 msgid "Account generate"
-msgstr "Générer les comptes"
+msgstr ""
 

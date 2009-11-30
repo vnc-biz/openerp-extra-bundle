@@ -39,6 +39,7 @@ class dm_as_reject(osv.osv):#{{{
         'origin':fields.char('Origin', size=64),
         'type_od': fields.many2one('dm.as.reject.type', 'Type', required=True),
         'reject_type': fields.char('Type', size=64),
+        'to_disable': fields.boolean('To Disable')
    
     }
     def on_change_reject_type(self, cr, uid, ids, type_od):
@@ -90,6 +91,19 @@ class res_partner(osv.osv): # {{{
         'reject_ids': fields.one2many('dm.as.reject.incident', 'partner_id', 'Rejects')      
         }
     
+    def write(self, cr, uid, ids, vals, context):
+        result = super(res_partner, self).write(cr, uid, ids, vals, context)
+        rej_inc_ids = self.browse(cr, uid, ids)[0].reject_ids
+        for rej_inc_id in rej_inc_ids:
+            for reject_id in rej_inc_id.reject_ids:
+                if reject_id.to_disable:
+                    cr.execute("update res_partner set active=False where id = %s" %(ids[0]))
+                    cr.commit()
+                    address_ids = self.pool.get('res.partner.address').search(cr, uid, [('partner_id', '=', ids[0])])
+                    for add_id in address_ids:
+                        self.pool.get('res.partner.address').write(cr, uid, [add_id], {'active': False}, context)
+        return result
+    
 res_partner() # }}}
 
 class res_partner_address(osv.osv): # {{{
@@ -98,6 +112,16 @@ class res_partner_address(osv.osv): # {{{
     _columns = {
         'reject_ids': fields.one2many('dm.as.reject.incident', 'partner_address_id', 'Rejects')      
         }
+    
+    def write(self, cr, uid, ids, vals, context):
+        result = super(res_partner_address, self).write(cr, uid, ids, vals, context)
+        rej_inc_ids = self.browse(cr, uid, ids)[0].reject_ids
+        for rej_inc_id in rej_inc_ids:
+            for reject_id in rej_inc_id.reject_ids:
+                if reject_id.to_disable:
+                    cr.execute("update res_partner_address set active=False where id = %s" %(ids[0]))
+                    cr.commit()
+        return result
     
 res_partner_address() # }}}
 

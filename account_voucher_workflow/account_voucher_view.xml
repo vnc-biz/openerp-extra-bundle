@@ -13,8 +13,7 @@
 						<button name="open_voucher" string="Pro-forma" states="draft"/>
 						<button name="proforma_voucher" string="Create" states="proforma"/>
 						<button name="recheck_voucher" string="Validate" states="recheck"/>
-						<button name="audit_complete" string="Audit Transection" states="posted"/>
-						<button name="cancel_voucher" string="Cancel" states="draft,proforma,recheck,posted"  type="object"/>
+						<button name="cancel_voucher" string="Cancel" states="draft,proforma,recheck"  type="object"/>
 						<button name="action_cancel_draft" states="cancel" string="Set to Draft"/>
 					</group>
 				</group>

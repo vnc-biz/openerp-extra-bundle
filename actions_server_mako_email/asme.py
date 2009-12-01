@@ -23,7 +23,7 @@ from osv import osv
 from mako.template import Template as MakoTemplate
 import time
 
-def actions_server(osv.osv):
+class actions_server(osv.osv):
     _inherit = 'ir.actions.server'
 
     def merge_message(self, cr, uid, keystr, action, context):

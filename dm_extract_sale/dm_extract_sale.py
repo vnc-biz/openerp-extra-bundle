@@ -44,8 +44,8 @@ class dm_address_segmentation(osv.osv): # {{{
             for i in browse_id.order_date_criteria_ids:
                 criteria.append("so.%s %s '%s'"%(i.field_id.name, i.operator, i.value))
         if criteria:
-            so_sql_query = ("""select distinct so.partner_invoice_id \n from sale_order so\n where %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
-            sql_query += ''' and id in (%s)'''%so_sql_query
+            so_sql_query = ("""select distinct so.partner_invoice_id \nfrom sale_order so\nwhere %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
+            sql_query += '''and pa.id in (%s)'''%so_sql_query
         return sql_query
     _columns = {
         'order_text_criteria_ids' : fields.one2many('dm.extract.sale.text_criteria', 'segmentation_id', 'Customers Order Textual Criteria'),

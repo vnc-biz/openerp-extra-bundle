@@ -72,7 +72,10 @@ class dm_address_segmentation(osv.osv): # {{{
     def set_address_criteria(self, cr, uid, ids, context={}):
         sql_query = super(dm_address_segmentation,self).set_address_criteria(cr, uid, ids, context)
         if self.browse(cr, uid, [ids])[0].active_only:
-            sql_query = sql_query + ' and pa.active = True'
+            if sql_query.find('where') >= 0:
+                sql_query = sql_query + ' and pa.active = True'
+            else:
+                sql_query = sql_query + 'where pa.active = True'
         return sql_query
         
 dm_address_segmentation() # }}}

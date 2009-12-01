@@ -30,7 +30,7 @@
     """,
     'author': 'Tiny',
     'website': 'http://www.openerp.com',
-    'depends': ['crm', 'project'],
+    'depends': [ 'crm_configuration','project'],
     'init_xml': [
         'crm_lp_data.xml',
         'crm_lp.xml',

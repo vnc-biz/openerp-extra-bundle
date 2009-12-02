@@ -643,6 +643,72 @@
             action="action_hr_passport_tree" 
             parent="hr.menu_open_view_employee_list_my" 
         />
+
+<!--
+		Contribution Register
+-->
+       <record id="hr_contibution_register_form" model="ir.ui.view">
+            <field name="name">hr.contibution.register.form</field>
+            <field name="model">hr.contibution.register</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Contribution">
+					<group col="6" colspan="6">
+                        <field name="name" select="1"/>
+                        <field name="account_id" select="1"/>
+                        <field name="analytic_account_id" select="1"/>			
+                    <group col="2" colspan="4">
+                         <separator colspan="4" string="Year"/>
+								<field name="yearly_total_by_emp"/>
+								<field name="yearly_total_by_comp"/>
+                    </group>
+                        <group col="2" colspan="2">
+                           <separator colspan="2" string="Month"/>
+								<field name="monthly_total_by_emp"/>
+								<field name="monthly_total_by_comp"/>
+                     </group>	
+					</group>
+				    <field colspan="4" name="register_line_ids" nolabel="1" select="1">
+                                <tree string="Register Lines">
+                                    <field name="code"/>
+									 <field name="employee_id"/>
+									 <field name="period_id"/>	
+									<field name="emp_deduction"/>
+									<field name="comp_deduction"/>	
+									<field name="total"/>						
+                                </tree>
+                     </field>
+				</form>
+            </field>
+        </record>
+		 <record id="action_contibution_register_form" model="ir.actions.act_window">
+            <field name="name">Contibution Register</field>
+            <field name="res_model">hr.contibution.register</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_contibution_register_form"/>
+        </record>
+        <menuitem
+            id="menu_action_hr_contibution_register_form" 
+            action="action_contibution_register_form" 
+            parent="payroll_configure" 
+        />
+    <record id="hr_contibution_register_line_form" model="ir.ui.view">
+            <field name="name">hr.contibution.register.line.form</field>
+            <field name="model">hr.contibution.register.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Contribution">
+					  <field name="name"/>
+					  <field name="code"/>	
+					<!--  <field name="register_id"/>		-->
+                      <field name="employee_id"/>	
+				      <field name="period_id"/>	
+					  <field name="emp_deduction"/>
+					  <field name="comp_deduction"/>	
+					  <field name="total"/>					
+				</form>
+            </field>
+        </record>
     </data>
 </openerp>
 

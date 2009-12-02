@@ -384,9 +384,19 @@ class contrib_register(osv.osv):
     _name = 'hr.contibution.register'
     _description = 'Contribution Register'
     
+    def _total_contrib(self, cr, uid, ids, field_names, arg, context):
+		res={}
+		return res
+
     _columns = {
-        'name':fields.char('Name', size=256, required=False, readonly=False),
+        'name':fields.char('Name', size=256, required=True, readonly=False),
         'account_id':fields.many2one('account.account', 'Account', required=True),
+		'analytic_account_id':fields.many2one('account.analytic.account', 'AnalyticAccount', required=True),
+		'register_line_ids':fields.one2many('hr.contibution.register.line', 'register_id', 'Register Line', required=False),
+        'yearly_total_by_emp': fields.function(_total_contrib, method=True, store=True,string='Total By Employee', digits=(16, int(config['price_accuracy']))),
+        'yearly_total_by_comp': fields.function(_total_contrib, method=True, store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),
+        'monthly_total_by_emp': fields.function(_total_contrib, method=True, store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
+        'monthly_total_by_comp': fields.function(_total_contrib, method=True, store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),		
     }
 contrib_register()
 
@@ -396,10 +406,21 @@ class contrib_register_line(osv.osv):
     '''
     _name = 'hr.contibution.register.line'
     _description = 'Contribution Register Line'
-    
+  
+    def _total(self, cr, uid, ids, field_names, arg, context):
+		res={}
+		return res
+  
     _columns = {
+		'name':fields.char('Name', size=256, required=True, readonly=False),
         'register_id':fields.many2one('hr.contibution.register', 'Register', required=False),
-        'name':fields.char('Name', size=256, required=True, readonly=False),
+        'code':fields.char('Code', size=64, required=False, readonly=False),
+		'employee_id':fields.many2one('hr.employee', 'Employee', required=True),
+		'period_id': fields.many2one('account.period', 'Period'),
+		'emp_deduction': fields.float('Employee Deduction', digits=(16, int(config['price_accuracy']))),
+		'comp_deduction': fields.float('Company Deduction', digits=(16, int(config['price_accuracy']))),
+        'total': fields.function(_total, method=True, store=True,  string='Total', digits=(16, int(config['price_accuracy']))),	
+		
     }
 contrib_register_line()
 
@@ -427,6 +448,10 @@ class payment_category(osv.osv):
         'sequence': fields.integer('Sequence', required=True, help='Use to arrange calculation sequence'),
         'register_id':fields.many2one('hr.contibution.register', 'Contribution Register', required=False),
         'note': fields.text('Description'),
+		#add fields to resolve error	
+		'user_id':fields.char('User', size=64, required=False, readonly=False),
+		'state':fields.char('Label', size=64, required=False, readonly=False),
+		 
     }
     _defaults = {
         'condition': lambda *a: 'True',

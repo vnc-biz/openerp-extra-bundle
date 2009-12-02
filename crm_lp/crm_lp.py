@@ -113,7 +113,7 @@ class crm_case(osv.osv):
         val={}
         pool=pooler.get_pool(cr.dbname)
 
-        lp_server = lpServer()
+
         sec_obj = pool.get('crm.case.section')
         sec_id = sec_obj.search(cr, uid, [('code', '=', 'BugSup')])
 
@@ -132,6 +132,7 @@ class crm_case(osv.osv):
             for prj_id in prj.browse(cr,uid, project_id):
                 project_name=str(prj_id.name)
                 if project_name.find('openobject') ==0:
+                    lp_server = lpServer()
                     res=lp_server.get_lp_bugs(project_name)
                     for key, bugs in res.items():
                         for bug in bugs:

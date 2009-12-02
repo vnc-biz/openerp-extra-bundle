@@ -31,7 +31,7 @@
     "version" : "1.1",
     "author" : "Tiny",
     "category" : "Generic Modules/Base",
-    "depends" : ["base", 'product', 'crm'],
+    "depends" : ["sale", 'crm'],
     "init_xml" : [],
     "demo_xml" : [
     ],
@@ -45,6 +45,7 @@
         "maintenance_sequence.xml",
         "maintenance_report.xml",
         "maintenance_wizard.xml",
+        "maintenance_editor_workflow.xml",
         ],
     "active": False,
     "installable": True

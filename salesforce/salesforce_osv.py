@@ -25,7 +25,10 @@ try:
     from pyax.connection import Connection
 except:
     raise osv.except_osv(_('Error!'), _('The pyax module is not installed\nRefer to documentation.'))
-from base_external_referentials import external_osv
+try:
+    from base_external_referentials import external_osv
+except:
+    raise osv.except_osv(_('Error!'), _('Base External Referentials Module is not installed\nRefer to documentation.'))
 #If debug is true everything is logged
 DEBUG = True
 TIMEOUT = 2

@@ -23,7 +23,14 @@
     "author" : "Sharoon Thomas",
     "version" : "0.1",
     "category" : "Integration",
+    "website" : "http://sharoonthomas.blogspot.com/2009/12/open-erp-sales-force-integration.html",
     "depends" : ["base","base_contact","base_external_referentials"],
+    "description": """
+    Please visit my blog for how to use this module:
+    http://sharoonthomas.blogspot.com/2009/12/open-erp-sales-force-integration.html
+    
+    Dependencies on pyax available at https://launchpad.net/pyax
+""",
     "demo_xml" : [],
     "update_xml" : [
             'settings/external.referential.type.csv',

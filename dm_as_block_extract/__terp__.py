@@ -19,13 +19,13 @@
 #
 ##############################################################################
 {
-    "name" : "After-Sale Service wizards for DM",
+    "name" : "Block Extract for DM",
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-            This module manages after-sale wizard.
+            This module manages extract blocks.
             """,
     "depends" : ["dm_as_reject"],
     "init_xml" : [],

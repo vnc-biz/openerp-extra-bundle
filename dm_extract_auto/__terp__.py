@@ -25,7 +25,7 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-           
+           Allows to schedule automatic extractions of customers with the dm_extract module
             """,
     "depends" : ["dm_extract"],
     "init_xml" : ["dm_extract_auto_data.xml"],

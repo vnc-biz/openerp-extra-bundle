@@ -25,7 +25,8 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-           
+            Allows the extraction of customers based on personal and purchase criteria. 
+            The customers are extracted in a customer file that can be used with to target the marketing campaings.
             """,
     "depends" : ["dm"],
     "init_xml" : [

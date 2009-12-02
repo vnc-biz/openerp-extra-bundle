@@ -26,7 +26,7 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-           
+           This module manages crm case for dm
             """,
     "depends" : [
                 "dm",

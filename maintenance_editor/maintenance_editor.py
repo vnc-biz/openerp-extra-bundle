@@ -47,8 +47,33 @@ import release
 import wizard
 import pooler
 
+class one2many_mod_advert(fields.one2many):
+
+    def get(self, cr, obj, ids, name, user=None, offset=0, context=None, values=None):
+        if not context:
+            context = {}
+        if not values:
+            values = {}
+        res = {}
+
+        cr.execute('select t.id , tg.type, m.id as m_id from test as t  \
+            left join maintenance_maintenance_module as m on m.id=t.module_id \
+            left join test_template as tt on tt.id=t.template_id  \
+            left join test_category as tg on tg.id=tt.category_id \
+            where m.id in ('+','.join(map(str,map(int, ids)))+') \
+            group by tg.type,t.id,m.id')
+        datas = cr.dictfetchall()
+        for id in ids:
+            res[id] = []
+        for data in datas:
+            if name == 'test_tech_ids' and data['type'] == 'technical':
+                res[data['m_id']].append(data['id'])
+            elif name == 'test_func_ids' and data['type'] == 'functional' :
+                res[data['m_id']].append(data['id'])
+        return res
+
 class maintenance_maintenance_module(osv.osv):
-    
+
     __root_path = os.path.join(config['root_path'], 'maintenance', 'addons')
 
     def _get_module_path(self, cr, uid, ids, name, args, context=None):
@@ -56,19 +81,52 @@ class maintenance_maintenance_module(osv.osv):
         for module in self.browse(cr, uid, ids, context):
             result[module.id] = os.path.join(self.__root_path, module.name)
         return result
-    
-    
+
+    def module_open(self, cr, uid, ids, context={}):
+        for id in ids:
+            self.write(cr, uid, [id], {'state' : 'open'})
+        return True
+
+    def module_done(self, cr, uid, ids, context={}):
+        for id in ids:
+            self.write(cr, uid, [id], {'state' : 'done'})
+        return True
+
+    def module_cancel(self, cr, uid, ids, context={}):
+        for id in ids:
+            self.write(cr, uid, [id], {'state' : 'cancel'})
+        return True
+
+    def module_failed(self, cr, uid, ids, context={}):
+        for id in ids:
+            self.write(cr, uid, [id], {'state' : 'failed'})
+        return True
+
     _name ="maintenance.maintenance.module"
     _description = "maintenance modules"
     _columns = {
         'name' : fields.char('Name', size=128, required=True, readonly=True),
         'version': fields.char('Version', size=64, readonly=True),
-        'certificate': fields.char('Certificate Code', size=42, 
+        'certificate': fields.char('Certificate Code', size=42,
                                   required=True, readonly=True),
         'path': fields.function(_get_module_path, method=True, string='Path',
                                 type='char', size=512, readonly=True),
+        'technical_certificate': fields.selection([('not_started', 'Not Started'), ('failed', 'Failed'), ('succeeded', 'Succeeded'), ('skipped', 'Skipped')], 'Technical Certification'),
+        'functional_certificate': fields.selection([('not_started', 'Not Started'), ('failed', 'Failed'), ('succeeded', 'Succeeded'), ('skipped', 'Skipped')], 'Functional Certification'),
+        'sale_ids': fields.many2many('sale.order', 'maintenance_module_sale_rel', 'module_id', 'sale_id', 'Sale orders'),
+        'nbr_source_line': fields.integer('Source Line of Code', help= 'number of source line of code of uploaded module'),
+        'module_zip': fields.binary('Module Zip File'),
+        'state': fields.selection([('draft', 'Draft'), ('open', 'Open'), ('failed', 'Failed'), ('done', 'Done'), ('cancel', 'Cancel')], 'State', readonly=True),
+        'test_ids': fields.one2many('test', 'module_id', 'Tests'),
+        'test_tech_ids': one2many_mod_advert('test', 'id', "Tests"),
+        'test_func_ids': one2many_mod_advert('test', 'id', "Tests"),
     }
-    
+
+    _defaults = {
+        'technical_certificate':lambda *a: 'not_started',
+        'functional_certificate': lambda *a: 'not_started',
+        'state': lambda *a: 'draft',
+    }
 
     def refresh(self, cr, uid):
         def get_version(terp):
@@ -98,15 +156,15 @@ class maintenance_maintenance_module(osv.osv):
         for element in os.listdir(self.__root_path):
             if element in names:
                 continue
-            
+
             element_dir = os.path.join(self.__root_path, element)
             if not os.path.isdir(element_dir):
                 continue
 
             terp = get_terp(element_dir)
             if terp and 'certificate' in terp:
-                self.create(cr, uid, {'name': element, 
-                                      'version': get_version(terp), 
+                self.create(cr, uid, {'name': element,
+                                      'version': get_version(terp),
                                       'certificate': terp['certificate']}
                 )
 
@@ -114,7 +172,7 @@ class maintenance_maintenance_module(osv.osv):
 
     def init(self, cr):
         self.refresh(cr, 1)
-            
+
 maintenance_maintenance_module()
 
 
@@ -125,7 +183,7 @@ class maintenance_contract_type(osv.osv):
         'name': fields.char('Name', size=32, required=True, select=1),
         'product_id': fields.many2one('product.product', 'Product'),
         'crm_case_section_id': fields.many2one('crm.case.section', 'CRM Case Section', required=True),
-        'crm_case_categ_id': fields.many2one('crm.case.categ', 'CRM Case Category', required=True, 
+        'crm_case_categ_id': fields.many2one('crm.case.categ', 'CRM Case Category', required=True,
             domain="[('section_id', '=', crm_case_section_id)]"),
 
     }
@@ -133,7 +191,7 @@ class maintenance_contract_type(osv.osv):
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'The name of the maintenance contract type must be unique !')
     ]
-    
+
 maintenance_contract_type()
 
 
@@ -144,16 +202,16 @@ class maintenance_maintenance(osv.osv):
     def _contract_date(self, cr, uid, ids):
         for contract in self.browse(cr, uid, ids):
             cr.execute("""
-                        SELECT count(1) 
-                          FROM maintenance_maintenance 
+                        SELECT count(1)
+                          FROM maintenance_maintenance
                          WHERE (   (%(date_from)s BETWEEN date_from AND date_to)
                                 OR (%(date_to)s BETWEEN date_from AND date_to)
                                 OR (%(date_from)s < date_from AND %(date_to)s > date_to)
                                )
-                           AND partner_id = %(partner)s 
+                           AND partner_id = %(partner)s
                            AND id <> %(id)s
                            AND state = %(state)s
-                        """, { 
+                        """, {
                          "date_from": contract.date_from,
                          "date_to": contract.date_to,
                          "partner": contract.partner_id.id,
@@ -209,7 +267,7 @@ class maintenance_maintenance(osv.osv):
             for module in modules:
                 if (module['name'], module['installed_version']) not in contract_module_list:
                     external_modules.append(module['name'])
-        return { 
+        return {
             'id': (maintenance_ids and maintenance_ids[0] or 0),
             'status': (maintenance_ids and ('full', 'partial')[bool(external_modules)] or 'none'),
             'external_modules': external_modules,
@@ -228,9 +286,9 @@ class maintenance_maintenance(osv.osv):
     def onchange_date_from(self, cr, uid, ids, date_from):
         if not date_from:
             return {'value:':{'date_to':False}}
-        return { 
-            'value': { 
-                'date_to' : (mx.DateTime.strptime(date_from, '%Y-%m-%d') + mx.DateTime.RelativeDate(years=1)).strftime("%Y-%m-%d") 
+        return {
+            'value': {
+                'date_to' : (mx.DateTime.strptime(date_from, '%Y-%m-%d') + mx.DateTime.RelativeDate(years=1)).strftime("%Y-%m-%d")
             }
         }
 
@@ -257,7 +315,7 @@ class maintenance_maintenance(osv.osv):
 
     def submit(self, cr, uid, id, tb, explanations, remarks=None, origin=None):
         contract = self.browse(cr, uid, id)
-        
+
         origin_to_channelname = {
             'client': 'Client Bug Reporting Form',
             'openerp.com': 'OpenERP.com Web Form',
@@ -272,13 +330,13 @@ class maintenance_maintenance(osv.osv):
                 channelid = channelobj.create(cr, uid, {'name': channelname})
         else:
             channelid = False   # no Channel for the CRM Case
-        
+
 
         crmcase = self.pool.get('crm.case')
         desc = "%s\n\n-----\n%s" % (explanations, tb)
         if remarks:
             desc = "%s\n\n----\n%s" % (desc, remarks)
-        
+
         caseid = crmcase.create(cr, uid, {
             'name': 'Maintenance report from %s' % (contract.name),
             'section_id': contract.type_id.crm_case_section_id.id,
@@ -292,5 +350,42 @@ class maintenance_maintenance(osv.osv):
 
 maintenance_maintenance()
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+class test_category(osv.osv):
+    _name = 'test.category'
+    _description = 'Test Category'
 
+    _columns = {
+        'name': fields.char('Name', size=32, translate=True, required=True),
+        'type': fields.selection([('functional', 'Functional'), ('technical', 'Technical')], 'Type', readonly=False)
+                }
+
+test_category()
+
+class test_template(osv.osv):
+    _name = 'test.template'
+    _description = 'Test Template'
+
+    _columns = {
+        'name': fields.char('Name', size=32, required=True),
+        'category_id': fields.many2one('test.category', 'Test Category'),
+        'importance': fields.selection([('suggestion', 'Suggestion'), ('important', 'Important'), ('critical', 'Critical')], 'Importance'),
+        'description': fields.char('Description', size=128),
+        'add_value': fields.text('Added Value', translate=True)
+                }
+
+test_template()
+
+class test(osv.osv):
+    _name = 'test'
+    _description = 'Test Template'
+
+    _columns = {
+        'template_id': fields.many2one('test.template', 'Test Template'),
+        'module_id': fields.many2one('maintenance.maintenance.module', 'Maintenance Module'),
+        'result': fields.selection([('succeeded', 'Succeeded'), ('failed', 'Failed'), ('skipped', 'Skipped')], 'Result'),
+        'remark': fields.text('Remark')
+                }
+
+test()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

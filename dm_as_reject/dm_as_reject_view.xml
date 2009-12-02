@@ -104,6 +104,7 @@
                 <field name="date"/>
 				<field name="user_id"/>
                 <field name="origin"/>
+                <field name="active"/>
 				<newline/>
 				<separator colspan="4" string="Notes"/>
 				<field name="note" colspan="4" nolabel="1"/>
@@ -132,17 +133,18 @@
             <field name="state_ids" position="after">
 				<field name="reject_ids" nolabel="1" colspan="4" mode="tree,form">
 					<form string="Reject Information">
+		                <field name="reject_id"/>
+		                <field name="origin"/>
 		                <field name="date"/>
 						<field name="user_id"/>
-						<field name="partner_address_id"/>
-		                <field name="origin"/>
 						<newline/>
-						<field name="note" colspan="4"/>
+                        <separator string="Description" colspan="4"/>
+						<field name="note" colspan="4" nolabel="1"/>
 		            </form>
 					<tree string="Reject Information">
 		                <field name="date"/>
+		                <field name="reject_id"/>
 		                <field name="user_id"/>
-						<field name="partner_address_id"/>
 		                <field name="origin"/>
 		            </tree>
 				</field>
@@ -159,17 +161,17 @@
 			<field name="origin_country_id" position="after">
 				<field name="reject_ids" nolabel="1" colspan="4" mode="tree,form">
 					<form string="Reject Information">
+		                <field name="reject_id"/>
+		                <field name="origin"/>
 		                <field name="date"/>
 						<field name="user_id"/>
-						<field name="partner_id"/>
-		                <field name="origin"/>
 						<newline/>
 						<field name="note" colspan="4"/>
 		            </form>
 					<tree string="Reject Information">
 		                <field name="date"/>
+		                <field name="reject_id"/>
 		                <field name="user_id"/>
-						<field name="partner_id"/>
 		                <field name="origin"/>
 		            </tree>
 				</field>

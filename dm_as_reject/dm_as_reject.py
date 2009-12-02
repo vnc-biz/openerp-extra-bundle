@@ -89,7 +89,8 @@ class dm_as_reject_incident(osv.osv): # {{{
         'partner_address_id': fields.many2one('res.partner.address', 'Partner Address'),
         'reject_id': fields.many2one('dm.as.reject', 'Reject', required=True),
         'origin': fields.char('Origin', size=64),
-        'note': fields.text('Description')
+        'note': fields.text('Description'),
+        'active': fields.boolean('Active'),
         }
 dm_as_reject_incident() # }}}
 

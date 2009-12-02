@@ -10,7 +10,8 @@
         	<field name= "type_od" position="after">
 				<newline/>
 					<group colspan="4" attrs="{'invisible':[('reject_type','!=','paymethod')]}">
-						<field name="payment_method_ids" colspan="4"/>
+                        <separator string="Payment Methods"/>
+						<field name="payment_method_ids" colspan="4" nolabel="1"/>
 					</group>
 			</field>
  		</field>

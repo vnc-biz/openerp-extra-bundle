@@ -25,7 +25,7 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-            
+            This module allows the use of the base_contact module with dm.
             """,
     "depends" : ["dm_partner_address","base_contact"],
     "init_xml" : [],

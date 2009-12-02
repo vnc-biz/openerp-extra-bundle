@@ -137,27 +137,30 @@ class crm_case(osv.osv):
                     for key, bugs in res.items():
                         for bug in bugs:
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
+                            val['project_id']=prj_id.id
+                            val['lp_project']=key
+                            val['bug_id']=bug.bug.id
+                            val['name']=bug.bug.title
+                            val['section_id']=sec_id[
+                                                     0]
+                            if bug.importance == 'Wishlist':
+                                val['stage_id']=categ_future_id[0]
+                                val['priority']='5'
+                            elif bug.importance=='High':
+                                val['priority']='1'
+                            elif bug.importance=='Medium':
+                                val['priority']='3'
+                            if bug.status in ('Confirmed','Fix Released'):
+                                val['stage_id']=categ_fix_id[0]
+                            if bug.status =='invaild':
+                                val['stage_id']= val['stage_id']=categ_inv_id[0]
+
                             if not b_id:
-                                val['project_id']=prj_id.id
-                                val['lp_project']=key
-                                val['bug_id']=bug.bug.id
-                                val['name']=bug.bug.title
-                                val['section_id']=sec_id[0]
-
-                                if bug.importance == 'Wishlist':
-                                    val['stage_id']=categ_future_id[0]
-                                    val['priority']='5'
-                                elif bug.importance=='High':
-                                    val['priority']='1'
-                                elif bug.importance=='Medium':
-                                    val['priority']='3'
-                                if bug.status in ('Confirmed','Fix Released'):
-                                    val['stage_id']=categ_fix_id[0]
-                                if bug.status =='invaild':
-                                    val['stage_id']= val['stage_id']=categ_inv_id[0]
-
                                 self.create(cr, uid, val,context=context)
-                                cr.commit()
+                            if b_id:
+                                self.write(cr,uid,b_id,val,context=context)
+                            cr.commit()
+
             return True
 
 crm_case()

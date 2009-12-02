@@ -37,9 +37,7 @@ class dm_as_reject(osv.osv):#{{{
     _name = "dm.as.reject"
     
     _columns = {
-        'date': fields.datetime('Date', required=True),
         'name': fields.char('Description', size=128, required=True),
-        'origin':fields.char('Origin', size=64),
         'type_od': fields.many2one('dm.as.reject.type', 'Type', required=True),
         'reject_type': fields.char('Type', size=64),
         'to_disable': fields.boolean('To Disable')
@@ -61,7 +59,7 @@ class dm_address_segmentation(osv.osv): # {{{
     
     _columns = {
         'ignore_rejects': fields.boolean('Ignore Rejects'),
-        'active_only': fields.boolean('Active'),
+        'active_only': fields.boolean('Active Only'),
         }
     
     _defaults = {
@@ -89,11 +87,10 @@ class dm_as_reject_incident(osv.osv): # {{{
         'user_id': fields.many2one('res.users', 'User', required=True),
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'partner_address_id': fields.many2one('res.partner.address', 'Partner Address'),
-        'reject_ids': fields.many2many('dm.as.reject', 'incident_reject_rel', 'incident_id', 'reject_id', 'Rejects'),
+        'reject_id': fields.many2one('dm.as.reject', 'Reject', required=True),
         'origin': fields.char('Origin', size=64),
         'note': fields.text('Description')
         }
-    
 dm_as_reject_incident() # }}}
 
 class res_partner(osv.osv): # {{{

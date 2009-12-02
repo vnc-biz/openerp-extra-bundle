@@ -32,8 +32,6 @@
         <field name="arch" type="xml">
             <tree string="Rejects">
                 <field name="name" string="Name"/>
-                <field name="date"/>
-                <field name="origin"/>
 				<field name="to_disable"/>
             </tree>
         </field>
@@ -46,10 +44,8 @@
         <field name="arch" type="xml">
             <form string="Rejects">
                 <field name="name" string="Name"/>
-                <field name="date"/>
-                <field name="origin"/>
-				<field name="to_disable"/>
                 <field name="type_od" on_change="on_change_reject_type(type_od)" widget="selection"/>
+				<field name="to_disable"/>
                 <field name="reject_type" on_change="on_change_reject_type(type_od)" invisible="1"/>
             </form>
          </field>
@@ -102,13 +98,13 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Reject Information">
-                <field name="date"/>
-				<field name="user_id"/>
 				<field name="partner_id"/>
 				<field name="partner_address_id"/>
+				<field name="reject_id"/>
+                <field name="date"/>
+				<field name="user_id"/>
                 <field name="origin"/>
 				<newline/>
-				<field name="reject_ids" colspan="4" nolabel="1"/>
 				<separator colspan="4" string="Notes"/>
 				<field name="note" colspan="4" nolabel="1"/>
             </form>

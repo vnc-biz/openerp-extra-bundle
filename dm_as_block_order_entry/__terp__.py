@@ -19,19 +19,19 @@
 #
 ##############################################################################
 {
-    "name" : "After-Sale Service wizards for DM",
+    "name" : "DM Block Order Entry",
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-            This module manages after-sale wizard.
+            This module allows to block sale order entries for customers that are set as rejected
             """,
     "depends" : ["dm_as_reject"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [
-                    "dm_as_block_order_entry _view.xml",
+                    "dm_as_block_order_entry_view.xml",
                     ],
     "active": False,
     "installable": True,

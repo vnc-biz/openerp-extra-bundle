@@ -1,0 +1,17 @@
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_crm_lp_form">
+        <field name="name">crm.case</field>
+        <field name="model">crm.case</field>
+        <field name="inherit_id" ref="crm_configuration.crm_case_form_view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        	<field name="id" position="after">
+        		<field name="project_id"/>
+        		<field name="lp_project"/>
+        		<field name="bug_id"/>
+        	</field>
+       </field>
+    </record>
+</data>
+</openerp>

@@ -2,6 +2,7 @@
 <openerp>
 <data>
 
+	<menuitem name="Customers" id="menu_dm_config_customer" parent="dm.menu_dm_config" sequence="7"/>
     <menuitem name="Documents" id="menu_action_offer_doc" parent="dm.menu_dm_config" sequence="1" />
     <menuitem name="Campaign Documents" id="menu_dm_config_lowlevel_campaign_doc" parent="dm.menu_dm_config_lowlevel" groups="res_groups_dmadmin" sequence="1"/>
 

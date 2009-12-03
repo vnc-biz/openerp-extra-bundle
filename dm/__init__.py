@@ -23,7 +23,6 @@ import plugin
 import dm_offer
 import dm_offer_step
 import dm_campaign
-import dm_customer
 import dm_engine
 import dm_document
 import dm_inherit

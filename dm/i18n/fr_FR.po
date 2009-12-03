@@ -2015,12 +2015,6 @@ msgid "Default Translation for Direct Marketing Campaigns"
 msgstr "Traduction par défaut pour les campagnes marketing"
 
 #. module: dm
-#: model:ir.actions.act_window,name:dm.action_dm_order_form
-#: model:ir.ui.menu,name:dm.menu_action_dm_order_form
-msgid "All Orders"
-msgstr "Toutes les commandes"
-
-#. module: dm
 #: help:dm.customer.order,invoice_ids:0
 msgid ""
 "This is the list of invoices that have been generated for this sale order. "
@@ -3177,11 +3171,6 @@ msgstr "Quantité totale planifiée"
 #: selection:dm.mail_service,unit_interval:0
 msgid "Weeks"
 msgstr "Semaines"
-
-#. module: dm
-#: model:ir.model,name:dm.model_dm_order
-msgid "dm.order"
-msgstr "dm.order"
 
 #. module: dm
 #: view:dm.campaign:0

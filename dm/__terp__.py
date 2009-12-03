@@ -64,7 +64,6 @@
                     "dm_campaign_view.xml",
                     "dm_offer_view.xml",
                     "dm_offer_step_view.xml",
-                    "dm_customer_view.xml",
                     "dm_engine_view.xml",
                     "dm_inherit_view.xml",
                     "dm_report.xml",

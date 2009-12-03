@@ -26,32 +26,89 @@ from report import report_sxw
 
 class module_test_report(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
-        print  "module_test_report"
         super(module_test_report, self).__init__(cr, uid, name, context)
         self.localcontext.update({
             'time': time,
             'get_state_msg' : self.get_state_msg,
             'get_check_certi': self.get_check_certi,
+            'get_data':self.get_data,
+            'get_certificate_state':self.get_certificate_state,
         })
 
+    def get_certificate_state(self,state_name):
+        if state_name == 'not_started':
+            result =  'Not Started'
+        elif state_name == 'failed':
+            result = 'Failed'
+        elif state_name == 'succeeded':
+            result = 'Succeeded'
+        elif state_name == 'skipped':
+            result = 'Skipped'
+        else:
+            result = ''
+        return result
+    
     def get_state_msg(self, state, cert_no):
-        x = ''
+        state_string = ''
         if state=='done':
-            x = '''Congratulations, your module has succesfully succedded our quality tests. Find here the  certificate number of this module: %s
+            state_string = '''Congratulations, your module has succesfully succedded our quality tests. Find here the  certificate number of this module: %s
 
 Please note it carefully, we strongly recommend you to even to integrate it into the __terp__.py file of your module  because it may be asked for any help on migration process. \n\n'''%cert_no
         elif state=='failed':
-            x = '''Unfortunately, your module didn't succeed our quality tests. Please find below the reasons of this failure. \n\n'''
-        return x
+            state_string = '''Unfortunately, your module didn't succeed our quality tests. Please find below the reasons of this failure. \n\n'''
+        return state_string
 
     def get_check_certi(self, tech_cert, func_cert):
-        x = ''
+        certificate_string = ''
         if not tech_cert:
-            x += '''Please note that, as requested from your side, the certificaiton process was only based on the functional quality tests. Tiny sprl disclaims any liability for failure resulting from a technical bug and for maintenance matters.\n\n'''
+            certificate_string += '''Please note that, as requested from your side, the certificaiton process was only based on the functional quality tests. Tiny sprl disclaims any liability for failure resulting from a technical bug and for maintenance matters.\n\n'''
         if not func_cert:
-            x += '''Please note that, as requested from your side, the certificaiton process was only based on the technical quality tests. Tiny sprl disclaims any liability for failure resulting from a functional bug or error analysis.'''
-        return x
-
+            certificate_string += '''Please note that, as requested from your side, the certificaiton process was only based on the technical quality tests. Tiny sprl disclaims any liability for failure resulting from a functional bug or error analysis.'''
+        return certificate_string
+    
+    def get_data(self,line_ids):
+        category_list = []
+        value_list = []
+        cmp_gp = {}
+        result=[]
+        for line in line_ids:
+            res = {}
+            res['category'] = line.template_id.category_id.name
+            res['name'] = line.template_id.name
+            res['status'] = line.template_id.importance
+            res['remark'] = line.remark
+            res['value'] = line.template_id.add_value
+            if len(result):
+                if (line.template_id.category_id.name in category_list) and (line.template_id.add_value in value_list):
+                    for r in result:
+                        if(r['category'] == line.template_id.category_id.name) and (r['value'] == line.template_id.add_value):
+                            result[result.index(r)]['name'] = result[result.index(r)]['name']+", "+ str(line.template_id.name)
+                            result[result.index(r)]['remark'] = result[result.index(r)]['remark']+", "+str(line.remark)
+                        else:
+                            continue
+                elif (line.template_id.category_id.name in category_list):
+                    res['category'] = ''
+                    result.append(res)
+                else:
+                    result.append(res)
+            else:
+                result.append(res)
+            if line.template_id.category_id.name not in category_list:
+                category_list.append(line.template_id.category_id.name)
+            if line.template_id.add_value not in value_list:
+                value_list.append(line.template_id.add_value)
+        cnt_cate = 1 
+        for r in result:
+            cnt = 1
+            if result[result.index(r)]['category']:
+                result[result.index(r)]['category'] = str(cnt_cate)+". "+"Test Category: "+result[result.index(r)]['category']
+                result[result.index(r)]['name'] = str(cnt)+") "+"Test: "+result[result.index(r)]['name']
+                cnt_cate = cnt_cate + 1
+            else:
+                cnt = cnt + 1
+                result[result.index(r)]['name'] = str(cnt)+") "+"Test: "+result[result.index(r)]['name']
+        return result
+    
 report_sxw.report_sxw('report.maintenance.module.test','maintenance.maintenance.module','addons/maintenance_editor/report/module_test.rml',parser=module_test_report,header=False)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

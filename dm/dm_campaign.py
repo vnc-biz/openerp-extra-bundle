@@ -568,7 +568,13 @@ class dm_campaign(osv.osv): #{{{
 
 dm_campaign()#}}}
 
-
+class dm_offer_history(osv.osv): # {{{
+    _inherit = "dm.offer.history"
+    _columns = {
+			'campaign_id': fields.many2one('dm.campaign', 'Name', ondelete="cascade"),        
+    }
+dm_offer_history() # }}}
+		
 class dm_campaign_proposition(osv.osv): #{{{
     _name = "dm.campaign.proposition"
     _inherits = {'account.analytic.account': 'analytic_account_id'}
@@ -1123,7 +1129,6 @@ AVAILABLE_ITEM_TYPES = [#
     ('main', 'Main Item'),
     ('standart', 'Standart Item'),
 ]#
-
 
 class dm_campaign_proposition_item(osv.osv):#{{{
     _name = "dm.campaign.proposition.item"

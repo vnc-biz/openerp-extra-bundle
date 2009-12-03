@@ -120,6 +120,8 @@ class maintenance_maintenance_module(osv.osv):
         'test_ids': fields.one2many('test', 'module_id', 'Tests'),
         'test_tech_ids': one2many_mod_advert('test', 'id', "Tests"),
         'test_func_ids': one2many_mod_advert('test', 'id', "Tests"),
+        'tech_certificate': fields.boolean('Technicle certificate', help='tick if you want technicle certificate'),
+        'func_certificate': fields.boolean('Functional certificate', help='tick if you want functional certificate')
     }
 
     _defaults = {

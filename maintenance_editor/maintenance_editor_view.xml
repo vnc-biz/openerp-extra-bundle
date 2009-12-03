@@ -89,6 +89,8 @@
                         	<page string="General">
 		                        <field name="technical_certificate"/>
 		                        <field name="functional_certificate"/>
+		                        <field name="tech_certificate"/>
+		                        <field name="func_certificate"/>
 		                        <field name="nbr_source_line"/>
 		                        <field name="module_zip"/>
 		                        <field name="state"/>
@@ -292,4 +294,3 @@
 
     </data>
 </openerp>
-

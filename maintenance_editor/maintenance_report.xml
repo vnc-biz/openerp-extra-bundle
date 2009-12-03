@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-  
+
         <report
 			id="report_basic_contract_maintenance"
 			string="Basic Contract"
@@ -27,6 +27,14 @@
 			name="maintenance.corporate.contract"
 			rml="maintenance_editor/report/corporate_contract.rml"
 			menu="False"
+			/>
+
+		<report
+			id="report_module_test"
+			string="Get Test Result"
+			model="maintenance.maintenance.module"
+			name="maintenance.module.test"
+			rml="maintenance_editor/report/module_test.rml"
 			/>
 
     </data>

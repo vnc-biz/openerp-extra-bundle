@@ -75,7 +75,8 @@ class CalDAV(object):
                     self.ical_set(cal_data.name.lower(), cal_data.value, 'value')
         return True
 
-class Calendar(CalDAV):
+class Calendar(CalDAV, osv.osv_memory):
+    _name = 'caldav.calendar'
     __attribute__ = {
         'prodid' : None, # Use: R-1, Type: TEXT, Specifies the identifier for the product that created the iCalendar object.
         'version' : None, # Use: R-1, Type: TEXT, Specifies the identifier corresponding to the highest version number
@@ -159,7 +160,10 @@ class Calendar(CalDAV):
                 self.ical_set(child_name, child_value)
         return True
 
-class Event(CalDAV):
+Calendar()
+
+class Event(CalDAV, osv.osv_memory):
+    _name = 'caldav.event'
     __attribute__ = {
         'class' : None, # Use: O-1, Type: TEXT,         Defines the access classification for a calendar  component like "PUBLIC" / "PRIVATE" / "CONFIDENTIAL"
         'created' : None, # Use: O-1, Type: DATE-TIME,    Specifies the date and time that the calendar information  was created by the calendar user agent in the calendar store.
@@ -227,6 +231,8 @@ class Event(CalDAV):
 #        # example : 123-20091111170822
         pass
 
+Event()
+
 class ToDo(CalDAV):
     __attribute__ = {
     }
@@ -287,7 +293,8 @@ class Alarm(CalDAV):
             if self.__attribute__.has_key(val.name.lower()):
                 self.__attribute__[val.name] = val.value
 
-class Attendee(CalDAV):
+class Attendee(CalDAV, osv.osv_memory):
+    _name = 'caldav.attendee'
     __attribute__ = {
     'cutype' : None,    # Use: 0-1    Specify the type of calendar user specified by the property like "INDIVIDUAL"/"GROUP"/"RESOURCE"/"ROOM"/"UNKNOWN".
     'member' : None,    # Use: 0-1    Specify the group or list membership of the calendar user specified by the property.
@@ -312,257 +319,5 @@ class Attendee(CalDAV):
                 else:
                     self.__attribute__[key] = val
         return
-    
-class crm_section(osv.osv, Calendar):
-    _name = 'crm.case.section'
-    _inherit = 'crm.case.section'
-    _description = 'Cases Section'
 
-    def export_cal(self, cr, uid, ids, context={}):
-        # Set all property of CalDAV
-        self.export_ical()
-
-    def import_cal(self, cr, uid, ids, context={}):
-        self.import_ical(cr, uid)
-        # get all property of CalDAV
-crm_section()
-
-class caldav_attendee(Attendee, osv.osv):
-    _name = 'caldav.attendee'
-    _description = 'Attendee information'
-    _rec_name = 'cutype'
-    
-    Attendee.__attribute__.update({
-        'cutype' : {'field':'cutype', 'type':'text'},    # Use: 0-1    Specify the type of calendar user specified by the property like "INDIVIDUAL"/"GROUP"/"RESOURCE"/"ROOM"/"UNKNOWN".
-        'member' : {'field':'member', 'type':'text'},    # Use: 0-1    Specify the group or list membership of the calendar user specified by the property.
-        'role' : {'field':'role', 'type':'text'},    # Use: 0-1    Specify the participation role for the calendar user specified by the property like "CHAIR"/"REQ-PARTICIPANT"/"OPT-PARTICIPANT"/"NON-PARTICIPANT"
-        'partstat' : {'field':'partstat', 'type':'text'}, # Use: 0-1    Specify the participation status for the calendar user specified by the property. like use for VEVENT :- "NEEDS-ACTION"/"ACCEPTED"/"DECLINED"/"TENTATIVE"/"DELEGATED", use for VTODO :-"NEEDS-ACTION"/"ACCEPTED"/"DECLINED"/"TENTATIVE"/"DELEGATED"/"COMPLETED"/"IN-PROCESS" and use for VJOURNAL :- "NEEDS-ACTION"/"ACCEPTED"/"DECLINED".
-        'rsvp' : {'field':'rsvp', 'type':'boolean'},    # Use: 0-1    Specify whether there is an expectation of a favor of a reply from the calendar user specified by the property value like TRUE / FALSE.
-        'delegated-to' : {'field':'delegated_to', 'type':'char'},    # Use: 0-1    Specify the calendar users to whom the calendar user specified by the property has delegated participation.
-        'delegated-from' : {'field':'delegated_from', 'type':'char'},    # Use: 0-1    Specify the calendar users that have delegated their participation to the calendar user specified by the property.
-        'sent-by' : {'field':'sent_by', 'type':'text'},    # Use: 0-1    Specify the calendar user that is acting on behalf of the calendar user specified by the property.
-        'cn' : {'field':'cn', 'type':'text'},    # Use: 0-1    Specify the common name to be associated with the calendar user specified by the property.
-        'dir' : {'field':'dir', 'type':'text'},    # Use: 0-1    Specify reference to a directory entry associated with the calendar user specified by the property.
-        'language' : {'field':'language', 'type':'text'},    # Use: 0-1    Specify the language for text values in a property or property parameter.
-    })
-     
-    _columns = {
-                'cutype' : fields.selection([('INDIVIDUAL','INDIVIDUAL'), ('GROUP','GROUP'),\
-                        ('RESOURCE','RESOURCE'), ('ROOM','ROOM'), ('UNKNOWN','UNKNOWN') ], 'CUTYPE'),
-                'member' : fields.char('Member', size=124),
-                'role' : fields.selection([('CHAIR','CHAIR'), ('REQ-PARTICIPANT','REQ-PARTICIPANT'),\
-                        ('OPT-PARTICIPANT','OPT-PARTICIPANT'), ('NON-PARTICIPANT','NON-PARTICIPANT')], 'ROLE'),
-                'partstat' : fields.selection([('NEEDS-ACTION','NEEDS-ACTION'), ('ACCEPTED','ACCEPTED'),\
-                        ('DECLINED','DECLINED'), ('TENTATIVE','TENTATIVE'), ('DELEGATED', 'DELEGATED' )], 'PARTSTAT'),
-                'rsvp' :  fields.boolean('RSVP'), 
-                'delegated_to' : fields.char('DELEGATED-TO', size=124),
-                'delegated_from' : fields.char('DELEGATED-FROM', size=124),
-                'sent_by' : fields.char('SENT-BY', size=124),
-                'cn' : fields.char('CN', size=124),
-                'dir' : fields.char('DIR', size=124),
-                'language' : fields.char('LANGUAGE', size=124),
-                }
-
-caldav_attendee()
-
-class crm_case(osv.osv, Event):
-    _name = 'crm.case'
-    _inherit = 'crm.case'
-    _description = 'Cases'
-    
-    Event.__attribute__.update({
-        'class' : {'field':'class', 'type':'text'}, 
-        'created' : {'field':'create_date', 'type':'datetime'}, # keep none for now
-        'description' : {'field':'description', 'type':'text'}, 
-        'dtstart' : {'field':'date', 'type':'datetime'}, 
-        #'last-mod' : {'field':'write_date', 'type':'datetime'}, 
-        'location' : {'field':'location', 'type':'text'}, 
-        'organizer' : {'field':'partner_id', 'sub-field':'name', 'type':'text'}, 
-        'priority' : {'field':'priority', 'type':'int'}, 
-        'dtstamp'  : {'field':'date', 'type':'datetime'}, 
-        'seq' : None, 
-        'status' : {'field':'state', 'type':'text'}, 
-        'summary' : {'field':'name', 'type':'text'}, 
-        'transp' : {'field':'transparent', 'type':'text'}, 
-        'uid' : {'field':'id', 'type':'text'}, 
-        'url' : {'field':'caldav_url', 'type':'text'}, 
-        'recurid' : None, 
-#        'attach' : {'field':'attachment_ids', 'sub-field':'datas', 'type':'list'}, 
-        'attendee' : {'field':'attendees', 'type':'text'},
-#        'categories' : {'field':'categ_id', 'sub-field':'name'},
-#        'categories' : {'field':None , 'sub-field':'name', 'type':'text'}, # keep none for now
-        'comment' : None, 
-        'contact' : None, 
-        'exdate'  : None, 
-        'exrule'  : None, 
-        'rstatus' : None, 
-        'related' : None, 
-        'resources' : None, 
-        'rdate' : None, 
-        'rrule' : {'field':'rrule', 'type':'text'}, 
-        'x-openobject-id' : {'field':'id', 'type':'text'}, 
-        'x-openobject-model' : {'value':_name, 'type':'text'}, 
-#        'duration' : {'field':'duration'}, 
-        'dtend' : {'field':'date_closed', 'type':'datetime'}, 
-    })
-    
-    def _get_location(self, cr, uid, ids, name, arg, context=None):
-        res = {}
-        for case in self.browse(cr, uid, ids):
-            if case.partner_address_id:
-                add = case.partner_address_id
-                st = add.street and add.street+',\n'  or ''
-                st2 = add.street2 and add.street2+',\n'  or ''
-                ct = add.city and add.city+',\n'  or ''
-                zip = add.zip and add.zip or ''
-                country = add.country_id and add.country_id.name+',\n'  or ''
-                res[case.id] = st + st2+ ct + country + zip
-            else:
-                res[case.id] = ''
-        return res
-    
-    def _get_rdates(self, cr, uid, ids, name, arg, context=None):
-        res = {}
-        context.update({'read':True})
-        for case in self.read(cr, uid, ids, ['date', 'rrule'], context=context):
-            if case['rrule']:
-                rule = case['rrule'].split('\n')[0]
-                exdate = case['rrule'].split('\n')[1:]
-                res[case['id']] = str(self.get_recurrent_dates(str(rule), exdate, case['date']))
-        return res
-    
-    _columns = {
-        'categ_id': fields.many2many('crm.case.categ', 'crm_category_rel', 'case_id', 'category_id', 'Categories'),
-        'class' : fields.selection([('PUBLIC','PUBLIC'), ('PRIVATE','PRIVATE'),\
-                 ('CONFIDENTIAL','CONFIDENTIAL')], 'Class'),
-        'location' : fields.function(_get_location, method=True, store = True, string='Location', type='text'), 
-        'freebusy' : fields.text('FreeBusy'), 
-        'transparent' : fields.selection([('OPAQUE','OPAQUE'), ('TRANSPARENT','TRANSPARENT')], 'Trensparent'),
-        'caldav_url' : fields.char('Caldav URL', size=34), 
-#        'attachment_ids' : function ("one2many from ir.attachemnt"), 
-        'attendee' :  fields.text('Attendee'),  #TODO : display dynamic view from text value
-        'rrule' : fields.text('Recurrent Rule'), 
-        'rdates' : fields.function(_get_rdates, method=True, string='Recurrent Dates',\
-                                   store=True, type='text'),
-       'attendees': fields.many2many('caldav.attendee', 'crm_attendee_rel', 'case_id', 'attendee_id', 'Attendees'),
-    }
-    
-    _defaults = {
-             'caldav_url': lambda *a: 'http://localhost:8080',
-             'class': lambda *a: 'PUBLIC',
-             'transparent': lambda *a: 'OPAQUE',
-        }
-     
-    def export_cal(self, cr, uid, ids, context={}):
-        crm_data = self.read(cr, uid, ids, ['name', 'class', 'create_date',\
-                     'description', 'date', 'write_date', 'duration', 'priority', \
-                     'date', 'state', 'transparent', 'caldav_url', 'categ_id', \
-                     'date_closed', 'partner_id', 'location', 'rrule'])
-        ical = vobject.iCalendar()
-        event = Event()
-        for crm in crm_data:
-            ical.add('vevent')
-            vevent = ical.vevent
-            for key, val in event.__attribute__.items():
-                if val == None or key == 'rrule':  
-                    continue
-                if val.has_key('field') and val.has_key('sub-field') and crm[val['field']] and crm[val['field']]:
-                    vevent.add(key).value = crm[val['field']][1]
-                elif val.has_key('field') and crm[val['field']]:
-                    if val['type'] == "text":
-                        vevent.add(key).value = str(crm[val['field']])
-                    elif val['type'] == 'datetime' and crm[val['field']]:
-                        vevent.add(key).value = datetime.strptime(crm[val['field']], "%Y-%m-%d %H:%M:%S")
-            if crm[event.__attribute__['rrule']['field']]:
-                startdate = datetime.strptime(crm['date'],"%Y-%m-%d %H:%M:%S")
-                if not startdate:
-                    startdate = datetime.now()
-                rset1 = rrulestr(str(crm[event.__attribute__['rrule']['field']]), dtstart=startdate, forceset=True)
-                vevent.rruleset = rset1
-            
-        return ical.serialize().replace(vobject.icalendar.CRLF, vobject.icalendar.LF).strip()
-
-    def import_cal(self, cr, uid, ids, data, context={}):
-        file_content = base64.decodestring(data['form']['file_path'])
-        self.import_ical(cr, uid, file_content)
-        vals = {}
-        for map_dict in self.__attribute__:
-            map_val = self.ical_get(map_dict, 'value')
-            field = self.ical_get(map_dict, 'field')
-            if field and map_val:
-                    vals[field] = map_val
-        section_id = self.pool.get('crm.case.section').search(cr, uid, [('name', 'like', 'Meet%')])[0]
-        vals.update({'section_id' : section_id})
-        vals.pop('id')
-        vals.pop('create_date')
-        case_id = self.create(cr, uid, vals)
-        return
-
-    def search(self, cr, uid, args, offset=0, limit=None, order=None,
-            context=None, count=False):
-        res = super(crm_case, self).search(cr, uid, args, offset,
-                limit, order, context,count )
-#        Event.search(self, cr, uid, args, offset, limit, order, context, count)
-        return res
-
-    def browse(self, cr, uid, select, context=None, list_class=None, fields_process={}):
-        select = map(lambda x:int(str(x).split('-')[0]), select)
-        return super(crm_case, self).browse(cr, uid, select, context, list_class, fields_process)
-
-    def read(self, cr, uid, ids, fields=None, context={},
-            load='_classic_read'):
-        if context and context.has_key('read'):
-            return super(crm_case, self).read(cr, uid, ids, fields=fields,context=context, load=load)
-#         logic for recurrent event
-#         example : 123-20091111170822
-        ids = map(lambda x:int(str(x).split('-')[0]), ids)
-        res = super(crm_case, self).read(cr, uid, ids, fields=fields,context=context, load=load)
-        result =  res + []
-        read_ids = ",".join([str(x) for x in ids])
-        cr.execute('select id,rrule,rdates from crm_case where id in (%s)' % read_ids)
-        rrules = filter(lambda x: not x['rrule']==None,cr.dictfetchall())
-        rdates = []
-        for data in rrules:
-            if data['rrule'] and data['rdates']: # delete 2nd condition at last
-                rdates = eval(data['rdates'])
-            for res_temp in res:
-                if res_temp['id'] == data['id']:
-                    val = res_temp
-                    if rdates:
-                        result.remove(val)
-
-            for rdate in rdates:
-                import re
-                idval = (re.compile('\d')).findall(rdate)
-                val['date'] = rdate
-                id = str(val['id']).split('-')[0]
-#             COMMENTED BECAUSE OF PROBLEM OF INTEGER ID
-                val['id'] = id + '-' + ''.join(idval)
-                val1 = val.copy()
-                result += [val1]
-        return result 
-    
-    def unlink(self, cr, uid, ids, context=None):
-        #TODO: Change RRULE
-        for id in ids:
-            if len(str(id).split('-')) > 1:
-                date_new = time.strftime("%Y-%m-%d %H:%M:%S", time.strptime(str(str(id).split('-')[1]), "%Y%m%d%H%M%S"))
-                for record in self.read(cr,uid, [str(id).split('-')[0]], ['date', 'rdates', 'rrule']):
-                    if record['date'] == date_new:
-                        self.write(cr, uid, [int(str(id).split('-')[0])], {'rrule' : record['rrule'] +"\n" + str(date_new)})
-            else:
-                return super(crm_case, self).unlink(cr, uid, ids)
-crm_case()
-
-
-class ir_attachment(osv.osv):
-    _name = 'ir.attachment'
-    _inherit = 'ir.attachment'
-
-    def search_count(self, cr, user, args, context=None):
-        args1 = []
-        for arg in args:
-            args1.append(map(lambda x:str(x).split('-')[0], arg))
-        return super(ir_attachment, self).search_count(cr, user, args1, context)
-
-ir_attachment()
+Attendee()

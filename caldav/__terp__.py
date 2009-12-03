@@ -25,8 +25,6 @@
     "version" : "1.0",
     "depends" : [
                     "base",
-                    "crm",
-                    "crm_configuration",
                 ],
      'description': """
  To develop a full featured caldav system that support:
@@ -40,8 +38,6 @@
     "init_xml" : [],
     
     "update_xml" : [  
-                    "caldav_wizard.xml",
-                    "crm_view.xml"
                     ],
     "installable" : True,
     "active" : False,

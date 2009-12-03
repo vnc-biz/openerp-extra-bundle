@@ -53,6 +53,20 @@ class dm_dynamic_text(osv.osv): # {{{
         }
 dm_dynamic_text() # }}}
 
+class dm_media_content(osv.osv): # {{{
+    _name = "dm.media.content"
+    _description = "Dm Media Contents"
+    _rec_name = 'media_url'
+    
+    _columns = {
+        'preview_image' : fields.binary('Preview Image'),
+        'media_url' : fields.char('Media URL', size=64),
+        'res_url' : fields.char('Res URL', size=64),
+        'alternative_text': fields.char('Alternative Text', size=64)
+    }
+    
+dm_media_content() # }}}
+
 class dm_dtp_plugin(osv.osv): # {{{
     _name = "dm.dtp.plugin"
 
@@ -158,6 +172,7 @@ class dm_dtp_plugin(osv.osv): # {{{
 #        'key': fields.char('DES Key',size=64),
         'ref_text_id': fields.many2one('dm.dynamic_text', 'Reference Text'),
         'preview_value':fields.char('Preview Text', size=64),
+        'media_content_id': fields.many2one('dm.media.content', 'Media Content')
      }
     _sql_constraints = [
         ('code_uniq', 'UNIQUE(code)', 'The code must be unique!'),
@@ -184,9 +199,8 @@ class dm_document_template(osv.osv): # {{{
     _columns = {
         'name': fields.char('Template Name', size=128),
         'plugin_ids':fields.many2many('dm.dtp.plugin', 'dm_template_plugin_rel',
-                                       'dm_dtp_plugin_id',
-                                       'dm_document_template_id',
-                                       'Plugin'),
+                                'dm_dtp_plugin_id', 'dm_document_template_id',
+                                'Plugin'),
         'note': fields.text('Description')
         }
     
@@ -436,4 +450,5 @@ class dm_plugins_value(osv.osv): # {{{
     }
     
 dm_plugins_value() # }}}
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

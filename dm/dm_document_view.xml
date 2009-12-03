@@ -4,7 +4,35 @@
 
     <menuitem name="Documents" id="menu_action_offer_doc" parent="dm.menu_dm_config" sequence="1" />
     <menuitem name="Campaign Documents" id="menu_dm_config_lowlevel_campaign_doc" parent="dm.menu_dm_config_lowlevel" groups="res_groups_dmadmin" sequence="1"/>
-    <!--
+
+	<record model="ir.ui.view" id="view_dm_media_content_form">
+        <field name="name">dm.media.content.form</field>
+        <field name="model">dm.media.content</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Media Content">
+                <field name="preview_image"/>
+                <field name="media_url"/>
+				<field name="res_url"/>
+				<field name="alternative_text"/>
+            </form>
+        </field>
+    </record>    
+
+	<record model="ir.ui.view" id="view_dm_media_content_tree">
+        <field name="name">dm.media.content.tree</field>
+        <field name="model">dm.media.content</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Media Content">
+                <field name="media_url"/>
+				<field name="res_url"/>
+				<field name="alternative_text"/>
+            </tree>
+        </field>
+    </record>
+
+	<!--
     =======================================================
     OFFER STEP DOCUMENT CATEGORY VIEWS
     =======================================================
@@ -183,7 +211,8 @@
             	    <field name="code" select="1" />                    
             	    <field name="type" select="1" />
             	    <field name="store_value" />
-		    <field name="preview_value" attrs="{'required':[('type','!=','image')]}"/>
+		    		<field name="preview_value" attrs="{'required':[('type','!=','image')]}"/>
+					<field name="media_content_id"/>
                 </group>
                 <newline/>
         		<separator string="Description" colspan="4"/>

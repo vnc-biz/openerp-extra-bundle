@@ -39,9 +39,9 @@
         <field name="inherit_id" ref="dm_edition.view_dm_edition_campaign_job_form"/>
         <field name="arch" type="xml">
          	<field name="sorting_rule_id" position="after">
-            		<field name="user_id" />
-            		<field name="use_front_recap" />
-            		<field name="use_bottom_recap" />
+           		<field name="user_id" />
+           		<field name="use_front_recap" />
+           		<field name="use_bottom_recap" />
         	</field>
         </field>
     </record>

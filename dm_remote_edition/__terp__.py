@@ -26,15 +26,11 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-           
+            This module allows to remotely print documents, with the use of printing service partners.
             """,
-    "depends" : [
-                'dm_edition',
-            ],
+    "depends" : ['dm_edition'],
     "init_xml" : [],
-    "demo_xml" : [
-                'dm_remote_edition_demo.xml',
-                ],
+    "demo_xml" : ['dm_remote_edition_demo.xml'],
     "update_xml" : [
                 'dm_remote_edition_view.xml',
                 'dm_remote_edition_data.xml',

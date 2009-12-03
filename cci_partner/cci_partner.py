@@ -213,6 +213,15 @@ class res_partner(osv.osv):
             return ids[0]
         return False
 
+    def _get_followup_level(self, cr, uid, ids, field_name, arg, context={}):
+        result = {}
+        for rec in self.browse(cr, uid, ids, context):
+            cr.execute('select l.id from account_followup_followup_line l left join account_move_line ml on (ml.followup_line_id=l.id) where ml.partner_id = %s order by l.sequence DESC limit 1' % (rec.id))
+            r = cr.fetchone () 
+            result[rec.id] = r and r[0] or False
+        return result
+
+
     _columns = {
         'employee_nbr': fields.integer('Nbr of Employee (Area)',help="Nbr of Employee in the area of the CCI"),
         'employee_nbr_total':fields.integer('Nbr of Employee (Tot)',help="Nbr of Employee all around the world"),
@@ -252,7 +261,7 @@ class res_partner(osv.osv):
         'address': fields.one2many('res.partner.address', 'partner_id', 'Addresses'),# overridden just to change the name with "Addresses" instead of "Contacts"
         'relation_ids' : fields.one2many('res.partner.relation','current_partner_id','Partner Relation'),
         'canal_id': fields.many2one('res.partner.canal', 'Favourite Channel'),
-
+        'followup_max_level': fields.function(_get_followup_level, method=True, type='many2one', relation="account_followup.followup.line", string="Max. Followup Level"),
         'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles')
         #Never,Always,Managed_by_Poste,Prospect
 

@@ -246,7 +246,7 @@ class report_xml(osv.osv):
             if report.property_printjob_action and report.property_printjob_action.type != 'user_default':
                 action = report.property_printjob_action.type
             if report.printjob_printer_id:
-                printer = report.printjob_printer_id
+                printer = report.printjob_printer_id.system_name
 
             # Retrieve report-user specific values
             user_action = self.pool.get('printjob.report.xml.action').behaviour(cr, uid, report.id, context)

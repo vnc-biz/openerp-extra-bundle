@@ -408,6 +408,17 @@ class dm_offer(osv.osv): # {{{
 
 dm_offer() # }}}
 
+class dm_offer_history(osv.osv): # {{{
+    _name = "dm.offer.history"
+    _order = 'date'
+    _columns = {
+        'offer_id': fields.many2one('dm.offer', 'Offer', required=True, 
+                                                            ondelete="cascade"),
+        'date': fields.date('Drop Date'),
+        'code': fields.char('Code', size=16),
+        'responsible_id': fields.many2one('res.users', 'Responsible'),
+    }
+dm_offer_history() # }}}
 
 class dm_offer_translation(osv.osv): # {{{
     _name = "dm.offer.translation"

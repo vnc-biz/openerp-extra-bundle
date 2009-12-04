@@ -83,7 +83,34 @@ class maintenance_maintenance_module(osv.osv):
         return result
 
     def compute_lines(self, cr, uid, ids, context={}):
-        # computation code will be added here
+        for module in self.browse(cr, uid, ids, context):
+            dirs = []
+            cnt = 0
+            list_files = os.listdir(module.path)
+            dirs.append(module.path)
+            for i in list_files:
+                path = os.path.join(module.path, i)
+                if os.path.isdir(path):
+                   dirs.append(path)
+            for direcotry in dirs:
+                res = os.popen('sloccount' + ' ' +  direcotry).read()
+                if not res:
+                    raise osv.except_osv(_('Error'), _('Is sloccount installed on your system, Its necessary tool to count the source code lines'))
+                src = res.split('\n')
+                flag = False
+                for i in src:
+                    if flag:
+                        if i:
+                            line = i.split()[0]
+                            try:
+                                cnt += int(line)
+                            except Exception, e:
+                                pass
+                        else:
+                            flag = False
+                    if i.startswith('SLOC\t'):
+                        flag = True
+            self.write(cr, uid, [module.id], {'nbr_source_line' : cnt})
         return True
 
     def module_open(self, cr, uid, ids, context={}):

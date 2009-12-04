@@ -71,6 +71,7 @@
                     "dm_data.xml",
                     "dm_workflow.xml",
                     "dm_document_view.xml",
+                    "security/dm_security_post.xml",
                     ],
     "active": False,
     "installable": True,

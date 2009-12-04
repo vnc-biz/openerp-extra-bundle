@@ -70,7 +70,6 @@ class lpServer(threading.Thread):
 
 
     def get_lp_bugs(self, projects):
-
         launchpad = self.launchpad
         res = {}
         if not launchpad:
@@ -97,7 +96,23 @@ class lpServer(threading.Thread):
     def getProject(self, project):
         project = launchpad.projects[project]
         return project
-
+    
+    def getSeries(self, project):
+        lp_project =  launchpad.projects[project]
+        if 'series' in lp_project.lp_collections:
+                return lp_project.series.entries
+        else:
+            return None
+        
+    def getMilestones(self, project, ml):
+        lp_project =  launchpad.projects[project]
+        if 'all_milestones' in lp_project.lp_collections:
+                temp = lp_project.all_milestones.entries 
+                res = [item for item in temp if item['series_target_link'] == ml]
+                return res 
+        else:
+            return None
+        
 
 class lp_project(osv.osv):
     _name="lp.project"
@@ -105,21 +120,34 @@ class lp_project(osv.osv):
     _columns={
         'name': fields.char("Project Name", size=200, required=True, help="The name of the project"),
         'title': fields.char("Project Title", size=200, required=True, help="The project title. Should be just a few words."),
-        'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph.")
+        'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph."),
+        'series_ids' : fields.one2many('lp.series', 'name', 'LP Series'),
+        'milestone_ids' : fields.one2many('lp.project.milestone', 'name', 'LP Series'),
             }
 lp_project()
 
-
-class lp_project_milstone(osv.osv):
-    _name="lp.project.milstone"
-    _description= "LP milstone"
+class lp_series(osv.osv):
+    _name="lp.series"
+    _description="LP Series"
     _columns={
-        'serious_id':fields.integer('Serious',readonly=True),
-        'project_id': fields.many2one('project.project', 'Project'),
+              'name':fields.char("Series Name",size=200, required=True, help="The name of the series"),
+              'status': fields.char("Status", size=100),
+              'summary': fields.char("Summary", size=1000, help="The summary should be a single short paragraph."),
+              'project_id': fields.many2one('lp.project', 'LP Project')  
+              }
+lp_series()   
+
+class lp_project_milestone(osv.osv):
+    _name="lp.project.milestone"
+    _description= "LP milestone"
+    _columns={
+        'name':fields.char('Version', size=100,required=True),
+        'series_id':fields.many2one('lp.series', 'Series', readonly=True),
+        'project_id': fields.many2one('lp.project', 'Project', readonly=True),
         'expect_date': fields.datetime('Expected Date', readonly=True),
         }
 
-lp_project_milstone()
+lp_project_milestone()
 
 class crm_case(osv.osv):
     _inherit = "crm.case"
@@ -159,27 +187,56 @@ class crm_case(osv.osv):
                 if project_name.find('openobject') ==0:
                     lp_server = lpServer()
                     res=lp_server.get_lp_bugs(project_name)
-                    cnt=0
                     for key, bugs in res.items():
                         for bug in bugs:
-                            cnt+=1
-                            if cnt == 5:
-                                break
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                             val['project_id']=prj_id.id
                             project = str(bug.target).split('/')[-1]
-                            lp_prj = self.pool.get('lp.project')
+                            lp_prj = pool.get('lp.project')
                             lp_project_ids=lp_prj.search(cr,uid,[('name','=',project)])
-                            lp_project = lp_server.getProject(project)#launchpad.projects[project]
+                            lp_project = lp_server.getProject(project)
                             res={}
                             res['name'] = lp_project.name
                             res['title'] = lp_project.title
                             res['summary'] = lp_project.summary
                             if not lp_project_ids:
-                                lp_project_id=lp_prj.create(cr, uid, res,context=context)
+                                lp_project_id=lp_prj.create(cr, uid, res,context=context) 
+                                all_series = lp_server.getSeries(lp_project)
+                                if all_series:
+                                    series_ids=[]
+                                    prj_milestone_ids=[]
+                                    lp_series = pool.get('lp.series')
+                                    for series in all_series:
+                                         s={}
+                                         s['name'] = series['name']
+                                         s['status'] = series['status']
+                                         s['summary'] = series['summary']
+                                         s['project_id'] = lp_project_id
+                                         lp_series_id=lp_series.create(cr, uid, s,context=context)
+                                         cr.commit()
+                                         series_ids.append(lp_series_id)
+                                         
+                                         ml = series['all_milestones_collection_link'].rsplit('/',1)[0]
+                                         all_milestones = lp_server.getMilestones(lp_project, ml)
+                                         if all_milestones:
+                                            milestone_ids=[]
+                                            lp_milestones = pool.get('lp.project.milestone')
+                                            for ms in all_milestones:
+                                                 s={}
+                                                 s['name'] = ms['name']
+                                                 s['series_id'] = lp_series_id
+                                                 s['project_id'] = lp_project_id
+                                                 if ms['date_targeted']:
+                                                     s['expect_date'] = ms['date_targeted']
+                                                 lp_milestones_id=lp_milestones.create(cr, uid, s,context=context)
+                                                 cr.commit()
+                                                 milestone_ids.append(lp_milestones_id)
+                                                 prj_milestone_ids.append(lp_milestones_id)
                             else:
                                 lp_project_id = lp_project_ids[0]
                                 lp_prj.write(cr, uid, lp_project_id, res, context=context)
+                                
+                                
                             cr.commit()
                             val['lp_project']=lp_project_id
                             val['bug_id']=bug.bug.id

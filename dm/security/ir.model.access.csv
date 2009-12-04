@@ -103,6 +103,7 @@
 "access_dm_offer_production_cost_dtpadmin","dm.offer.production_cost","model_dm_offer_production_cost","dm.res_groups_dtpadmin",1,0,0,0
 "access_dm_offer_production_cost_dtpmanager","dm.offer.production_cost","model_dm_offer_production_cost","dm.res_groups_dtpmanager",1,0,0,0
 "access_dm_offer_production_cost_dmadmin","dm.offer.production_cost","model_dm_offer_production_cost","dm.res_groups_dmadmin",1,1,1,1
+"access_dm_offer_step_type_alluser","dm.offer.step.type","model_dm_offer_step_type","dm.res_groups_alluser",0,0,0,0
 "access_dm_offer_step_type_offeradmin","dm.offer.step.type","model_dm_offer_step_type","dm.res_groups_offeradmin",1,1,1,1
 "access_dm_offer_step_type_offermanager","dm.offer.step.type","model_dm_offer_step_type","dm.res_groups_offermanager",1,0,0,0
 "access_dm_offer_step_type_campadmin","dm.offer.step.type","model_dm_offer_step_type","dm.res_groups_campaignadmin",1,0,0,0
@@ -546,3 +547,19 @@
 "access_partner_gender_dtpadmin","partner.gender","base_partner_gender.model_partner_gender","dm.res_groups_dtpadmin",1,0,0,0
 "access_partner_gender_dtpmanager","partner.gender","base_partner_gender.model_partner_gender","dm.res_groups_dtpmanager",1,0,0,0
 "access_partner_gender_dmadmin","partner.gender","base_partner_gender.model_partner_gender","dm.res_groups_dmadmin",1,1,1,1
+"access_dm_workitem_control","dm.workitem","model_dm_workitem","dm.res_groups_control",1,0,0,0
+"access_dm_campaign_document_control","dm.campaign.document","model_dm_campaign_document","dm.res_groups_control",1,0,0,0
+"access_dm_campaign_proposition_segment_control","dm.campaign.proposition.segment","model_dm_campaign_proposition_segment","dm.res_groups_control",1,0,0,0
+"access_dm_mail_service_control","dm.mail_service","model_dm_mail_service","dm.res_groups_control",1,0,0,0
+"access_dm_mail_service_type_control","dm.mail_service.type","model_dm_mail_service_type","dm.res_groups_control",1,0,0,0
+"access_dm_media","dm.media","model_dm_media","dm.res_groups_control",1,0,0,0
+"access_dm_offer_control","dm.offer","model_dm_offer","dm.res_groups_control",1,0,0,0
+"access_dm_offer_step_control","dm.offer.step","model_dm_offer_step","dm.res_groups_control",1,0,0,0
+"access_dm_offer_step_type_control","dm.offer.step.type","model_dm_offer_step_type","dm.res_groups_control",1,0,0,0
+"access_dm_offer_step_transition_control","dm.offer.step.transition","model_dm_offer_step_transition","dm.res_groups_control",1,0,0,0
+"access_dm_offer_step_transition_trigger_control","dm.offer.step.transition.trigger","model_dm_offer_step_transition_trigger","dm.res_groups_control",1,0,0,0
+"access_account_invoice_control","account.invoice","account.model_account_invoice","dm.res_groups_control",1,0,0,0
+"access_account_invoice_line_control","account.invoice.line","account.model_account_invoice_line","dm.res_groups_control",1,0,0,0
+"access_purchase_order_control","purchase.order","purchase.model_purchase_order","dm.res_groups_control",1,0,0,0
+"access_sale_order_control","sale.order","sale.model_sale_order","dm.res_groups_control",1,0,0,0
+"access_sale_order_line_control","sale.order.line","sale.model_sale_order_line","dm.res_groups_control",1,0,0,0

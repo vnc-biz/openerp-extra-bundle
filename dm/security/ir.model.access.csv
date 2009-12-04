@@ -547,8 +547,8 @@
 "access_partner_gender_dtpadmin","partner.gender","base_partner_gender.model_partner_gender","dm.res_groups_dtpadmin",1,0,0,0
 "access_partner_gender_dtpmanager","partner.gender","base_partner_gender.model_partner_gender","dm.res_groups_dtpmanager",1,0,0,0
 "access_partner_gender_dmadmin","partner.gender","base_partner_gender.model_partner_gender","dm.res_groups_dmadmin",1,1,1,1
-"access_dm_workitem_control","dm.workitem","model_dm_workitem","dm.res_groups_control",1,0,0,0
-"access_dm_campaign_document_control","dm.campaign.document","model_dm_campaign_document","dm.res_groups_control",1,0,0,0
+"access_dm_workitem_control","dm.workitem","model_dm_workitem","dm.res_groups_control",1,1,1,1
+"access_dm_campaign_document_control","dm.campaign.document","model_dm_campaign_document","dm.res_groups_control",1,1,1,1
 "access_dm_campaign_proposition_segment_control","dm.campaign.proposition.segment","model_dm_campaign_proposition_segment","dm.res_groups_control",1,0,0,0
 "access_dm_mail_service_control","dm.mail_service","model_dm_mail_service","dm.res_groups_control",1,0,0,0
 "access_dm_mail_service_type_control","dm.mail_service.type","model_dm_mail_service_type","dm.res_groups_control",1,0,0,0

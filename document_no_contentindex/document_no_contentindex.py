@@ -89,7 +89,7 @@ class ir_attachment(osv.osv):
             datas=base64.encodestring(urllib.urlopen(vals['link']).read())
         else:
             datas=vals.get('datas',False)
-        vals['file_size']= len(datas)
+        vals['file_size'] = datas and len(datas) or 0
         if not self._check_duplication(cr,uid,vals):
             raise except_orm(_('ValidateError'), _('File name must be unique!'))
         result = super(ir_attachment,self).create(cr, uid, vals, context)

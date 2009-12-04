@@ -97,8 +97,8 @@ class lpServer(threading.Thread):
     def getProject(self, project):
         project = launchpad.projects[project]
         return project
-        
-        
+
+
 class lp_project(osv.osv):
     _name="lp.project"
     _description= "LP Projects"
@@ -108,6 +108,18 @@ class lp_project(osv.osv):
         'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph.")
             }
 lp_project()
+
+
+class lp_project_milstone(osv.osv):
+    _name="lp.project.milstone"
+    _description= "LP milstone"
+    _columns={
+        'serious_id':fields.integer('Serious',readonly=True),
+        'project_id': fields.many2one('project.project', 'Project'),
+        'expect_date': fields.datetime('Expected Date', readonly=True),
+        }
+
+lp_project_milstone()
 
 class crm_case(osv.osv):
     _inherit = "crm.case"
@@ -164,9 +176,9 @@ class crm_case(osv.osv):
                             res['title'] = lp_project.title
                             res['summary'] = lp_project.summary
                             if not lp_project_ids:
-                                lp_project_id=lp_prj.create(cr, uid, res,context=context) 
+                                lp_project_id=lp_prj.create(cr, uid, res,context=context)
                             else:
-                                lp_project_id = lp_project_ids[0] 
+                                lp_project_id = lp_project_ids[0]
                                 lp_prj.write(cr, uid, lp_project_id, res, context=context)
                             cr.commit()
                             val['lp_project']=lp_project_id

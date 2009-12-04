@@ -1,12 +1,12 @@
 <openerp>
 <data>
 
-    <record model="ir.ui.view" id="view_lp_project">
-        <field name="name">lp.project</field>
+    <record model="ir.ui.view" id="view_lp_project_from">
+        <field name="name">lp.project.form</field>
         <field name="model">lp.project</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-        	<form>
+        	<form string="Lp project ">
        		<field name="name"/>
        		<field name="title"/>
        		<field name="summary"/>
@@ -14,16 +14,53 @@
        </field>
     </record>
 
+    <record model="ir.ui.view" id="view_lp_project_tree">
+        <field name="name">lp.project.tree</field>
+        <field name="model">lp.project</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        	<form string="Lp project ">
+       		<field name="name"/>
+       		<field name="title"/>
+       		<field name="summary"/>
+       		</form>
+       </field>
+    </record>
 
- 	<record model="ir.actions.act_window" id="lp_project_form">
-        <field name="name">Launchpad Projects</field>
-        <field name="res_model">lp.project</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="view_lp_project"/>
- 	</record>
-    
-    <menuitem name="Launchpad Projects" id="menu_lp_projects"  parent="crm_configuration.menu_aftersale" action="lp_project_form"/>
-    
+	<record model="ir.actions.act_window" id="action_lp_project_all">
+		<field name="name">Seance Participations</field>
+		<field name="res_model">lp.project.milstone</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record model="ir.ui.view" id="lp_project_milstone_form">
+            <field name="name">lp.project.milstone.form</field>
+            <field name="model">lp.project.milstone</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Milstone">
+                     <field name="serious_id" />
+                    <field name="project_id" />
+                    <field name="expect_date" />
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="lp_project_milstone_tree">
+            <field name="name">lp.project.milstone.tree</field>
+            <field name="model">lp.project.milstone</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Milstone">
+                 	<field name="serious_id" />
+                    <field name="project_id" />
+                    <field name="expect_date" />
+                </tree>
+            </field>
+        </record>
+	<menuitem name="Launchpad Projects" id="menu_lp_projects" parent="crm.menu_crm" sequence="0"/>
+    <menuitem name="Launchpad Projects" id="menu_lp_projects_mi"  parent="menu_lp_projects" action="action_lp_project_all"/>
+
     <record model="ir.ui.view" id="view_crm_lp_form">
         <field name="name">crm.case</field>
         <field name="model">crm.case</field>
@@ -37,7 +74,7 @@
         	</field>
        </field>
     </record>
-    
+
 </data>
 
 </openerp>

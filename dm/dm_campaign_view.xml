@@ -106,6 +106,7 @@
         <field name="name">dm.campaign.tree</field>
         <field name="model">dm.campaign</field>
         <field name="type">tree</field>
+		<field eval="10" name="priority"/>
         <field name="arch" type="xml">
             <tree string="Campaigns">
                 <field name="name" string="Name"/>

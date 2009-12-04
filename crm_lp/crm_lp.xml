@@ -28,7 +28,7 @@
     </record>
 
 	<record model="ir.actions.act_window" id="action_lp_project_all">
-		<field name="name">Seance Participations</field>
+		<field name="name">Project Milstone</field>
 		<field name="res_model">lp.project.milstone</field>
 		<field name="view_type">form</field>
 		<field name="view_mode">tree,form</field>

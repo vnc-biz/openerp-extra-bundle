@@ -91,7 +91,10 @@
 		                        <field name="functional_certificate"/>
 		                        <field name="tech_certificate"/>
 		                        <field name="func_certificate"/>
-		                        <field name="nbr_source_line"/>
+		                        <group colspan="4">
+			                        <field name="nbr_source_line"/>
+			                        <button name="compute_lines" type="object" string="Compute lines" icon="gtk-execute"/>
+		                        </group>
 		                        <field name="module_zip"/>
 		                        <field name="state"/>
 		                        <group col="4" colspan="4">
@@ -105,7 +108,9 @@
 		                        <field name="sale_ids" />
 	                       </page>
 	                       <page string="Technicle Tests">
-		                        <field name="test_tech_ids" >
+	                       		<field name="tech_user_id" />
+	                       		<newline/>
+		                        <field name="test_tech_ids" nolabel="1" colspan="4" >
 		                        	<tree editable="bottom" string="Technicle Tests" >
 	                        			<field name="template_id" domain="[('category_id.type','=','technical')]" />
 										<field name="module_id" domain="[('id','=',parent.id)]"/>
@@ -121,7 +126,9 @@
 		                        </field>
 	                       </page>
 	                        <page string="Functional Tests">
-		                        <field name="test_func_ids" >
+		                        <field name="func_user_id"/>
+		                        <newline/>
+		                        <field name="test_func_ids" nolabel="1" colspan="4" >
 		                        	<tree editable="bottom" string="Functional Tests">
 	                        			<field name="template_id" domain="[('category_id.type','=','functional')]"/>
 										<field name="module_id" domain="[('id','=',parent.id)]"/>

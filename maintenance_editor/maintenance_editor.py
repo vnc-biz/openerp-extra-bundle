@@ -82,6 +82,10 @@ class maintenance_maintenance_module(osv.osv):
             result[module.id] = os.path.join(self.__root_path, module.name)
         return result
 
+    def compute_lines(self, cr, uid, ids, context={}):
+        # computation code will be added here
+        return True
+
     def module_open(self, cr, uid, ids, context={}):
         for id in ids:
             self.write(cr, uid, [id], {'state' : 'open'})
@@ -121,7 +125,9 @@ class maintenance_maintenance_module(osv.osv):
         'test_tech_ids': one2many_mod_advert('test', 'id', "Tests"),
         'test_func_ids': one2many_mod_advert('test', 'id', "Tests"),
         'tech_certificate': fields.boolean('Technicle certificate', help='tick if you want technicle certificate'),
-        'func_certificate': fields.boolean('Functional certificate', help='tick if you want functional certificate')
+        'func_certificate': fields.boolean('Functional certificate', help='tick if you want functional certificate'),
+        'tech_user_id': fields.many2one('res.users', 'Technicle User', help='User for Technicle tests'),
+        'func_user_id': fields.many2one('res.users', 'Functional User', help='User for Functional tests'),
     }
 
     _defaults = {

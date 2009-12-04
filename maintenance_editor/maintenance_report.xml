@@ -39,7 +39,5 @@
 			attachment="(object.state in ('done','failed')) and ('Certificate_'+(object.name or '').replace('/',''))"
             attachment_use="1"/>
 
-			/>
-
     </data>
 </openerp>

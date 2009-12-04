@@ -106,7 +106,7 @@
   <images/>
   <story>
     <para style="terp_default_8">[[ repeatIn(objects,'o') ]]</para>
-    <para style="terp_default_Right_9_Bold">Date: [[ formatLang(time.strftime('%Y-%m-%d %H:%M:%S'),date_time=True) ]] </para>
+    <para style="terp_default_Right_9_Bold">Date: [[ formatLang(time.strftime('%Y-%m-%d'),date=True) ]] </para>
     <para style="P1">Module Certification:</para>
     <para style="P1">[[ o.name ]]</para>
     <para style="terp_default_space">
@@ -182,7 +182,7 @@
 
      <para> <font color="white"> [[ o.func_certificate!=True and removeParentNode('section')]]</font></para>
       <para style="terp_default_8">[[ repeatIn( get_data(o.test_func_ids), 'line1') ]]</para>
-      <condPageBreak height="2cm"/>
+      <condPageBreak height="5cm"/>
       <blockTable colWidths="539.0" style="Table7">
         <tr>
           <td>
@@ -219,9 +219,9 @@
     <para style="terp_default_space">
       <font color="white"> </font>
     </para>
-    <condPageBreak height="2cm"/>
+    <condPageBreak height="5cm"/>
     <blockTable colWidths="539.0" style="Table5">
-    <para>  [[ o.tech_certificate!=True and removeParentNode('blockTable')]]</para>
+    <para> [[ o.tech_certificate!=True and removeParentNode('blockTable')]]</para>
       <tr>
         <td>
           <para style="terp_header">Technical Detail : </para>

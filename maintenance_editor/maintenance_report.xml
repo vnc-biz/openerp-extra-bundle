@@ -35,6 +35,7 @@
 			model="maintenance.maintenance.module"
 			name="maintenance.module.test"
 			rml="maintenance_editor/report/module_test.rml"
+			header="False"
 			/>
 
     </data>

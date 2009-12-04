@@ -1,5 +1,29 @@
 <openerp>
 <data>
+
+    <record model="ir.ui.view" id="view_lp_project">
+        <field name="name">lp.project</field>
+        <field name="model">lp.project</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        	<form>
+       		<field name="name"/>
+       		<field name="title"/>
+       		<field name="summary"/>
+       		</form>
+       </field>
+    </record>
+
+
+ 	<record model="ir.actions.act_window" id="lp_project_form">
+        <field name="name">Launchpad Projects</field>
+        <field name="res_model">lp.project</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_lp_project"/>
+ 	</record>
+    
+    <menuitem name="Launchpad Projects" id="menu_lp_projects"  parent="crm_configuration.menu_aftersale" action="lp_project_form"/>
+    
     <record model="ir.ui.view" id="view_crm_lp_form">
         <field name="name">crm.case</field>
         <field name="model">crm.case</field>
@@ -13,5 +37,7 @@
         	</field>
        </field>
     </record>
+    
 </data>
+
 </openerp>

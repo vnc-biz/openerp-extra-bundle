@@ -37,8 +37,6 @@ import threading
 import pickle
 import time
 
-
-
 class lpServer(threading.Thread):
 
     cachedir = ".launchpad/cache/"
@@ -51,6 +49,7 @@ class lpServer(threading.Thread):
         self.launchpad = self.get_lp()
 
     def get_lp(self):
+        global launchpad
         launchpad = False
         if not os.path.isdir(self.cachedir):
             try:
@@ -95,14 +94,28 @@ class lpServer(threading.Thread):
                 res[project]=bug_list
         return  res
 
+    def getProject(self, project):
+        project = launchpad.projects[project]
+        return project
+        
+        
+class lp_project(osv.osv):
+    _name="lp.project"
+    _description= "LP Projects"
+    _columns={
+        'name': fields.char("Project Name", size=200, required=True, help="The name of the project"),
+        'title': fields.char("Project Title", size=200, required=True, help="The project title. Should be just a few words."),
+        'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph.")
+            }
+lp_project()
 
 class crm_case(osv.osv):
     _inherit = "crm.case"
 
     _columns = {
                 'project_id': fields.many2one('project.project', 'Project'),
-                'lp_project':fields.char('LP Project',size=64,readonly=True),
-                'bug_id': fields.integer('Bug ID',readonly=True)
+                'lp_project':fields.many2one('lp.project','LP Project'),
+                'bug_id': fields.integer('Bug ID',readonly=True),
                 }
 
     def _check_bug(self, cr, uid, ids=False, context={}):
@@ -134,15 +147,32 @@ class crm_case(osv.osv):
                 if project_name.find('openobject') ==0:
                     lp_server = lpServer()
                     res=lp_server.get_lp_bugs(project_name)
+                    cnt=0
                     for key, bugs in res.items():
                         for bug in bugs:
+                            cnt+=1
+                            if cnt == 5:
+                                break
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                             val['project_id']=prj_id.id
-                            val['lp_project']=key
+                            project = str(bug.target).split('/')[-1]
+                            lp_prj = self.pool.get('lp.project')
+                            lp_project_ids=lp_prj.search(cr,uid,[('name','=',project)])
+                            lp_project = lp_server.getProject(project)#launchpad.projects[project]
+                            res={}
+                            res['name'] = lp_project.name
+                            res['title'] = lp_project.title
+                            res['summary'] = lp_project.summary
+                            if not lp_project_ids:
+                                lp_project_id=lp_prj.create(cr, uid, res,context=context) 
+                            else:
+                                lp_project_id = lp_project_ids[0] 
+                                lp_prj.write(cr, uid, lp_project_id, res, context=context)
+                            cr.commit()
+                            val['lp_project']=lp_project_id
                             val['bug_id']=bug.bug.id
                             val['name']=bug.bug.title
-                            val['section_id']=sec_id[
-                                                     0]
+                            val['section_id']=sec_id[0]
                             if bug.importance == 'Wishlist':
                                 val['stage_id']=categ_future_id[0]
                                 val['priority']='5'
@@ -164,5 +194,3 @@ class crm_case(osv.osv):
             return True
 
 crm_case()
-
-

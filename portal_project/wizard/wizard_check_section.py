@@ -30,11 +30,11 @@ def _check_sections(self, cr, uid, data, context):
     bug_id = sec_obj.search(cr, uid, [('code','=','BugSup')])
     if not bug_id:
         raise wizard.except_wizard(_('Error !'),
-            _('You did not installed the Bug Tracking when you configured the crm_configuration module.' \
+            _('You did not installed the Bug Tracking when you configured the crm module.' \
               '\nyou must create a section with the code \'BugSup\'.'
               ))
     else:
-        id1 = data_obj._get_id(cr, uid, 'crm_configuration', 'crm_case_form_view')
+        id1 = data_obj._get_id(cr, uid, 'crm', 'crm_case_form_view')
         if id1:
             id1 = data_obj.browse(cr, uid, id1, context=context).res_id
         return {

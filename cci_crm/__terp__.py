@@ -28,7 +28,7 @@
         - define some groups with access rules
         - so using above rules , new object which will be confidential (can only be accessed by some users of group)
     """,
-    "depends" : ["base","crm_configuration","event","cci_partner"],
+    "depends" : ["base","crm","event","cci_partner"],
     "init_xml" : ["cci_crm_data.xml"],
     "demo_xml" : ["cci_crm_demo.xml"],
     "update_xml" : ["cci_crm_view.xml",'security/ir.model.access.csv','security/security.xml'],

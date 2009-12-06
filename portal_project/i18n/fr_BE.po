@@ -359,7 +359,7 @@ msgstr ""
 #. module: portal_project
 #: code:addons/portal_project/wizard/wizard_check_section.py:0
 #, python-format
-msgid "You did not installed the Bug Tracking when you configured the crm_configuration module.' \\n"
+msgid "You did not installed the Bug Tracking when you configured the crm module.' \\n"
 "              '\nyou must create a section with the code \'BugSup\'."
 msgstr ""
 

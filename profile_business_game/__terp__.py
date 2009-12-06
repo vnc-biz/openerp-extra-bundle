@@ -44,7 +44,7 @@ The game is structured into two phases:
     'sale',
     'sale_wo_production',
     'stock_planning',
-    'crm_configuration',
+    'crm',
     'mrp_jit',
     'l10n_fr',
     'account_budget',

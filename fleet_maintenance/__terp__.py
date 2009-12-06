@@ -58,7 +58,7 @@ advised to use it along with the mrp_prodlot_autosplit module.
     "author":"Smile for Anevia (Anevia.com)",
     "website": "http://www.smile.fr",
     "category":"Custom",
-    "depends":["base", "product", "stock", "sale", "crm_configuration", "account", "delivery"],#the delivery dependence is important
+    "depends":["base", "product", "stock", "sale", "crm", "account", "delivery"],#the delivery dependence is important
     #because if delivery is installed, then declaring the dependence controls where our stock.picking.action_invoice_create action is called
     #and makes it properly add extra invoice line fields to the invoice line, even if invoiced on delivery. 
     "demo_xml":["fleet_demo.xml"],

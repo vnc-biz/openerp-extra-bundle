@@ -29,7 +29,7 @@ For example, suppose you receive lots of email into sales@openerp.com. Some emai
 Required Package:-
     -> python-reverend""",
     "category" : "Generic Modules/Others",
-    "depends" : ['crm_configuration',"base"],
+    "depends" : ['crm',"base"],
     "init_xml" : [],
     "demo_xml" : ['crm_bayes_demo.xml'],
     "update_xml" : ['crm_bayes_wizard.xml','crm_bayes_view.xml','security/ir.model.access.csv'],

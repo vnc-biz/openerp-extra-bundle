@@ -31,18 +31,15 @@ New wizard on CRM Case to create a new case
 """,
     "depends" : [
         "crm",
-        "crm_configuration",
+        "crm",
         "crm_profiling",
     ],
     "init_xml" : [
-#        "crm_configuration_wizard.xml",
     ],
     "demo_xml" : [],
     "update_xml" : [
         "crm_profiling_wizard.xml",
         "crm_profiling_view.xml",
-#         "security/ir.model.access.csv",
-#         "process/crm_configuration_process.xml",
     ],
     "active": False,
     "installable": True

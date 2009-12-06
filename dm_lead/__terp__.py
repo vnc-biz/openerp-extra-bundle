@@ -27,7 +27,7 @@
     "description": """
             This module deals with lead generation.
             """,
-    "depends" : ["crm_configuration","dm"],
+    "depends" : ["crm","dm"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [

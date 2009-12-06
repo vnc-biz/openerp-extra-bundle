@@ -45,7 +45,7 @@ This module implements a dashboard for project member that includes:
         'hr_timesheet_sheet',
         'portal_project',
         'base',
-        'crm_configuration',
+        'crm',
     ],
     'update_xml': ['board_portal_view.xml'],
     'demo_xml': [],

@@ -1,12 +1,12 @@
 <openerp>
 <data>
-	<record model="ir.ui.view" id="lp_project_milestone_form">
+    <record model="ir.ui.view" id="lp_project_milestone_form">
             <field name="name">lp.project.milestone.form</field>
             <field name="model">lp.project.milestone</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Milestone">
-                	<field name="name"/>
+                    <field name="name"/>
                     <field name="series_id" />
                     <field name="project_id" />
                     <field name="expect_date" />
@@ -19,8 +19,8 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Milestone">
-                	<field name="name"/>
-                 	<field name="series_id" />
+                    <field name="name"/>
+                     <field name="series_id" />
                     <field name="project_id" />
                     <field name="expect_date" />
                 </tree>
@@ -28,24 +28,24 @@
         </record>
         
       <record model="ir.actions.act_window" id="action_lp_milestone">
-		<field name="name">LP Milestones</field>
-		<field name="res_model">lp.project.milestone</field>
-		<field name="view_type">form</field>
-		<field name="view_mode">tree,form</field>
-		<field name="view_id" ref="lp_project_milestone_tree"/>
-	  </record>
-	
+        <field name="name">LP Milestones</field>
+        <field name="res_model">lp.project.milestone</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="lp_project_milestone_tree"/>
+      </record>
+    
     <record model="ir.ui.view" id="form_lp_series">
         <field name="name">lp.series</field>
         <field name="model">lp.series</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-        	<form>
-       		<field name="name"/>
-       		<field name="status"/>
-       		<field name="summary"/>
-       		<field name="project_id"/>
-       		</form>
+            <form>
+               <field name="name"/>
+               <field name="status"/>
+               <field name="summary"/>
+               <field name="project_id"/>
+               </form>
        </field>
     </record>
     
@@ -54,34 +54,34 @@
         <field name="model">lp.series</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-        	<tree>
-       		<field name="name"/>
-       		<field name="status"/>
-       		<field name="project_id"/>
-       		</tree>
+            <tree>
+               <field name="name"/>
+               <field name="status"/>
+               <field name="project_id"/>
+               </tree>
        </field>
     </record>
 
 
- 	<record model="ir.actions.act_window" id="action_lp_series">
+     <record model="ir.actions.act_window" id="action_lp_series">
         <field name="name">Project Series</field>
         <field name="res_model">lp.series</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="tree_lp_series"/>
- 	</record>
+     </record>
         
     <record model="ir.ui.view" id="view_lp_project_form">
         <field name="name">lp.project.form</field>
         <field name="model">lp.project</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-        	<form string="Lp project ">
-       		<field name="name"/>
-       		<field name="title"/>
-       		<field name="summary"/>
-       		
-       		</form>
+            <form string="Lp project ">
+               <field name="name"/>
+               <field name="title"/>
+               <field name="summary"/>
+               
+               </form>
        </field>
     </record>
 
@@ -90,11 +90,11 @@
         <field name="model">lp.project</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-        	<form string="Lp project ">
-       		<field name="name"/>
-       		<field name="title"/>
-       		<field name="summary"/>
-       		</form>
+            <form string="Lp project ">
+               <field name="name"/>
+               <field name="title"/>
+               <field name="summary"/>
+               </form>
        </field>
     </record>
         
@@ -103,22 +103,22 @@
         <field name="res_model">lp.project</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
- 	</record>
- 	
-	<menuitem name="Launchpad Projects" id="menu_lp_projects" parent="crm.menu_crm" sequence="0"/>
+     </record>
+     
+    <menuitem name="Launchpad Projects" id="menu_lp_projects" parent="crm.menu_crm" sequence="0"/>
     <menuitem name="Launchpad Projects" id="menu_lp_projects_mi"  parent="menu_lp_projects" action="lp_project_act"/>
 
     <record model="ir.ui.view" id="view_crm_lp_form">
         <field name="name">crm.case</field>
         <field name="model">crm.case</field>
-        <field name="inherit_id" ref="crm_configuration.crm_case_form_view"/>
+        <field name="inherit_id" ref="crm.crm_case_form_view"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-        	<field name="id" position="after">
-        		<field name="project_id"/>
-        		<field name="lp_project"/>
-        		<field name="bug_id"/>
-        	</field>
+            <field name="id" position="after">
+                <field name="project_id"/>
+                <field name="lp_project"/>
+                <field name="bug_id"/>
+            </field>
        </field>
     </record>
 <menuitem name="Launchpad Series" id="menu_lp_series"  parent="menu_lp_projects_mi" action="action_lp_series"/>

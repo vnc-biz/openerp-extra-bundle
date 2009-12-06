@@ -25,7 +25,7 @@
     "author" : "Tiny",
     "category" : "Generic Modules/CRM",
     "description": """ Synchronize between Project task and CRM Case.""",
-    "depends" : ["base","crm","project","crm_configuration"],
+    "depends" : ["base","crm","project","crm"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : ["project_wizard.xml","project_crm_view.xml"],

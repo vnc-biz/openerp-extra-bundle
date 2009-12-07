@@ -440,8 +440,8 @@
 "access_dm_workitem_itemmanager","dm.workitem","model_dm_workitem","dm.res_groups_itemmanager",1,0,0,0
 "access_dm_workitem_manufacturingadmin","dm.workitem","model_dm_workitem","dm.res_groups_manufacturingadmin",1,0,0,0
 "access_dm_workitem_manufacturingmanager","dm.workitem","model_dm_workitem","dm.res_groups_manufacturingmanager",1,0,0,0
-"access_dm_workitem_dtpadmin","dm.workitem","model_dm_workitem","dm.res_groups_dtpadmin",1,0,0,0
-"access_dm_workitem_dtpmanager","dm.workitem","model_dm_workitem","dm.res_groups_dtpmanager",1,0,0,0
+"access_dm_workitem_dtpadmin","dm.workitem","model_dm_workitem","dm.res_groups_dtpadmin",1,1,1,0
+"access_dm_workitem_dtpmanager","dm.workitem","model_dm_workitem","dm.res_groups_dtpmanager",1,1,1,0
 "access_dm_workitem_dmadmin","dm.workitem","model_dm_workitem","dm.res_groups_dmadmin",1,1,1,1
 "access_account_journal_offeradmin","account.journal","account.model_account_journal","dm.res_groups_offeradmin",1,0,0,0
 "access_account_journal_offermanager","account.journal","account.model_account_journal","dm.res_groups_offermanager",1,0,0,0

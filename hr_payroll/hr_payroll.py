@@ -70,7 +70,8 @@ class hr_contract(osv.osv):
         'visa_no':fields.char('Visa No', size=64, required=False, readonly=False),
         'visa_expire': fields.date('Visa Expire Date'),
         'function' : fields.many2one('hr.employee.grade', 'Function'),
-        'working_days_per_week': fields.integer('Working Days / Week')
+        'working_days_per_week': fields.integer('Working Days / Week'),
+        'working_hours_per_day':fields.integer('Working Hours / Day'),
     }
     _defaults = {
         'working_days_per_week': lambda *args: 5

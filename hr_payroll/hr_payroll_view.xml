@@ -293,7 +293,7 @@
         <menuitem id="menu_hr_root_payroll" parent="hr.menu_hr_root" name="Payroll"/>
         <menuitem action="action_view_hr_payslip_form" id="menu_department_tree" parent="menu_hr_root_payroll"/>
         
-        <menuitem id="payroll_configure" parent="hr.menu_hr_configuration" name="Configure Payroll"/>
+        <menuitem id="payroll_configure" parent="hr.menu_hr_configuration" name="Payroll"/>
         
         <record id="view_hr_employee_grade_tree" model="ir.ui.view">
             <field name="name">hr.employee.grade.tree</field>

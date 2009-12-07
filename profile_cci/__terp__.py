@@ -51,8 +51,9 @@
         "cci_crm",
         "cci_timesheet",
         "cci_audittrail",
-        "cci_data_csv",
+        "l10n_be_postal_subscriber",
 #        "cci_security"
+
     ],
     "demo_xml":[],
     "update_xml":[],

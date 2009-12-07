@@ -46,7 +46,7 @@ def check_phone_num(self, cr, uid, id, phone):
                     _('Invalid Phone number. Only 9 figures numbers are allowed.'))
     result['phone'] = phone
     return {'value': result}
- 
+
 
 class res_company(osv.osv):
     _inherit = 'res.company'
@@ -217,7 +217,7 @@ class res_partner(osv.osv):
         result = {}
         for rec in self.browse(cr, uid, ids, context):
             cr.execute('select l.id from account_followup_followup_line l left join account_move_line ml on (ml.followup_line_id=l.id) where ml.partner_id = %s order by l.sequence DESC limit 1' % (rec.id))
-            r = cr.fetchone () 
+            r = cr.fetchone ()
             result[rec.id] = r and r[0] or False
         return result
 
@@ -262,7 +262,8 @@ class res_partner(osv.osv):
         'relation_ids' : fields.one2many('res.partner.relation','current_partner_id','Partner Relation'),
         'canal_id': fields.many2one('res.partner.canal', 'Favourite Channel'),
         'followup_max_level': fields.function(_get_followup_level, method=True, type='many2one', relation="account_followup.followup.line", string="Max. Followup Level"),
-        'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles')
+        'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles'),
+         'badge_partner':fields.char('Badge Partner',size=128),
         #Never,Always,Managed_by_Poste,Prospect
 
         #virement belge,virement iban
@@ -387,11 +388,11 @@ class res_partner_job(osv.osv):
         if 'function_id' in vals and not vals['function_id']:
             vals['function_id'] = self.pool.get('res.partner.function').search(cr, uid, [])[0]
         return super(res_partner_job,self).write(cr, uid, ids,vals, *args, **kwargs)
-    
-    
+
+
     def _on_change_phone_num(self, cr, uid, id, phone):
         return check_phone_num(self, cr, uid, id, phone)
-    
+
     _inherit = 'res.partner.job'
     _columns = {
         'function_label':fields.char('Function Label',size=128),
@@ -410,7 +411,7 @@ class res_partner_job(osv.osv):
         'dir_presence' : lambda *a: True,
         'active' : lambda *a: True,
     }
-    
+
 res_partner_job()
 
 class res_partner_address(osv.osv):
@@ -429,7 +430,7 @@ class res_partner_address(osv.osv):
             vals['city'] = self.pool.get('res.partner.zip').browse(cr, uid,vals['zip_id']).city
         return super(res_partner_address,self).write(cr, uid, ids,vals, *args, **kwargs)
 
-    
+
     def get_city(self, cr, uid, id):
         return self.browse(cr, uid, id).zip_id.city
 #que faire du name?
@@ -445,7 +446,7 @@ class res_partner_address(osv.osv):
 
     def _on_change_phone_num(self, cr, uid, id, phone):
         return check_phone_num(self, cr, uid, id, phone)
-    
+
     _columns = {
         #'name': fields.function(_get_name, method=True, string='Contact Name',type='char',size=64),#override parent field
         'state': fields.selection([('correct','Correct'),('to check','To check')],'Code'),
@@ -458,7 +459,7 @@ class res_partner_address(osv.osv):
     _defaults = {
                  'state' : lambda *a: 'correct',
     }
-    
+
     def onchange_user_id(self, cr, uid, ids,zip_id):
     #Changing the zip code can change the salesman
         if not ids or not zip_id:
@@ -588,15 +589,15 @@ class res_partner_country_relation(osv.osv):
 res_partner_country_relation()
 
 class res_partner_contact(osv.osv):
-    
+
     def _on_change_phone_num(self, cr, uid, id, phone):
         return check_phone_num(self, cr, uid, id, phone)
-    
+
     _inherit='res.partner.contact'
     _columns = {
         'article_ids':fields.many2many('res.partner.article','res_partner_contact_article_rel','contact_id','article_id','Articles'),
     }
-    
+
 res_partner_contact()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

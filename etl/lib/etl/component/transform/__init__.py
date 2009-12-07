@@ -39,4 +39,5 @@ from schema_validator import schema_validator
 from unique import unique
 from subjob import subjob
 
+from sql_join import sql_join
 from data_exist import data_exist

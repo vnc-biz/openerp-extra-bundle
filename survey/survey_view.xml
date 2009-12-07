@@ -46,12 +46,16 @@
 											<field name="is_require_answer" select="1" />
 											<field name="allow_comment" select="2"/>
 											<field name="tot_resp" select="2"/>
+											<field name="type" />
 											<notebook colspan="4">
 						                        <page string="Answer">
 													<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 												</page>
 												 <page string="Response">
 													<field name="response_ids" nolabel="1" colspan="4"/>
+												</page>
+												<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
+													<field name="descriptive_text" colspan="4"/>
 												</page>
 											</notebook>
 										</form>
@@ -168,6 +172,7 @@
 						<field name="is_require_answer" select="1"/>
 						<field name="allow_comment" select="2"/>
 						<field name="tot_resp" select="2"/>
+						<field name="type" />
 						<notebook colspan="4">
 	                        <page string="Answer">
 								<field name="answer_choice_ids" nolabel="1" colspan="4"/>
@@ -175,6 +180,9 @@
 							 <page string="Response">
 								<field name="response_ids" nolabel="1" colspan="4"/>
 							</page>
+							<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
+								<field name="descriptive_text" colspan="4"/>
+							</page>							
 						</notebook>
 					</form>
 					<tree string="Survey Question">
@@ -246,12 +254,17 @@
 					<field name="is_require_answer" select="1" />
 					<field name="allow_comment" select="2"/>
 					<field name="tot_resp" select="2"/>
+					<field name="type" />
 					<notebook colspan="4">
-                        <page string="Answer">
+                        <page string="Answer" attrs="{'readonly':[('type','=','descriptive text')]}" >
 							<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 						</page>
 						 <page string="Response">
 							<field name="response_ids" nolabel="1" colspan="4" />
+						</page>
+						<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
+							<separator string="Descriptive Text" colspan="4"/>
+							<field name="descriptive_text" colspan="4" nolabel="1"/>
 						</page>
 					</notebook>
 				</form>
@@ -272,6 +285,7 @@
 					<field name="survey" select="1"/>
 					<field name="allow_comment" select="2"/>
 					<field name="tot_resp" select="2"/>
+					<field name="type" select="2" />
 				</tree>
 			</field>
 		</record>
@@ -369,6 +383,9 @@
 						<separator string="Description" colspan="4"/>
 						<field name="comment" nolabel="1" colspan="4"/>
 					</page>
+					<page string="Single Textbox">
+						<field name="single_text" colspan="4"/>
+					</page>
 				</notebook>
 				</form>
 			</field>
@@ -402,6 +419,7 @@
 			<field name="arch" type="xml">
 				<form string="Survey Response Answer">
 					<field name="answer_id"/>
+					<field name="answer" />
 				</form>
 			</field>
 		</record>
@@ -413,6 +431,7 @@
 			<field name="arch" type="xml">
 				<tree string="Survey Response Answer">
 					<field name="answer_id"/>
+					<field name="answer" />
 				</tree>
 			</field>
 		</record>

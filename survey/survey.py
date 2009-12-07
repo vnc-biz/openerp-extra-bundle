@@ -137,7 +137,17 @@ class survey_question(osv.osv):
         'allow_comment' : fields.boolean('Allow Comment Field'),
         'sequence' : fields.integer('Sequence'),
         'tot_resp' : fields.function(_calc_response, method=True, string="Total Response"),
-        'survey':fields.related('page_id', 'survey_id', type='many2one', relation='survey', string='Survey'),
+        'survey' : fields.related('page_id', 'survey_id', type='many2one', relation='survey', string='Survey'),
+        'descriptive_text' : fields.text('Descriptive Text', size=255),
+        'type' : fields.selection([('multiple choice (only one answer)','Multiple Choice (Only One Answer)'),\
+                                   ('multiple choice (multiple answer)','Multiple Choice (Multiple Answer)'),\
+                                   ('matrix of choices (only one answer per row)','Matrix of Choices (Only One Answers Per Row)'),\
+                                   ('matrix of choices (multiple one answer per row)','Matrix of Choices (Multiple Answers Per Row)'),\
+                                   ('matrix of drop-down menus','Matrix of Drop-down Menus'),\
+                                   ('rating scale','Rating Scale'),('single textbox','Single Textbox'),\
+                                   ('multiple textboxes','Multiple Textboxes'),('comment/essay box','Comment/Essay Box'),\
+                                   ('numerical textboxes','Numerical Textboxes'),('date','Date'),\
+                                   ('date and time','Date and Time'),('image','Image'),('descriptive text','Descriptive Text')], 'Question Type') 
     }
     _defaults = {
          'sequence' : lambda * a: 5
@@ -200,6 +210,7 @@ class survey_response(osv.osv):
         'response_type' : fields.selection([('manually', 'Manually'), ('link', 'Link')], 'Response Type'),
         'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
         'comment' : fields.text('Notes'),
+        'single_text' : fields.char('Text', size=255),
     }
     _defaults = {
         'state' : lambda * a: "draft"
@@ -226,6 +237,7 @@ class survey_response_answer(osv.osv):
     _columns = {
         'response_id' : fields.many2one('survey.response', 'Response', ondelete='cascade'),
         'answer_id' : fields.many2one('survey.answer', 'Answer', required=1, ondelete='cascade'),
+        'answer' : fields.char('Answer', size =255), 
         'comment' : fields.text('Notes'),
     }
 
@@ -352,17 +364,50 @@ class survey_question_wiz(osv.osv_memory):
                 for que in que_ids:
                     qu_no += 1
                     que_rec = que_obj.read(cr, uid, que)
-                    fields[str(que) + "_" + 'skip'] = {'type':'boolean', 'string':'Skip'}
+                    descriptive_text = ""
+                    if que_rec['type'] != 'descriptive text':
+                        descriptive_text = ''' <label align="3.0" colspan="1" string="Answer later"/> 
+                            <field  name="''' + str(que) + "_" + 'skip' + '''" colspan="1" nolabel="1"/>'''
+                        fields[str(que) + "_" + 'skip'] = {'type':'boolean', 'string':'Skip'}
                     xml += '''<group col="4" colspan="4">
                     <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/> 
-                        <label align="3.0" colspan="1" string="Answer later"/>    
-                       <field  name="''' + str(que) + "_" + 'skip' + '''" colspan="1" nolabel="1"/>
+                       ''' + descriptive_text + '''
                        </group>
                     <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
-                    for ans in ans_ids:
-                        xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
-                        fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
+                    if que_rec['type'] == 'multiple choice (multiple answer)':
+                        for ans in ans_ids:
+                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
+                    
+                    elif que_rec['type'] == 'multiple textboxes':
+                        for ans in ans_ids:
+                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            fields[str(que) + "_" + str(ans['id'])] = {'type':'char', 'size':255, 'string':ans['answer']}
+
+                    elif que_rec['type'] == 'numerical textboxes':
+                        for ans in ans_ids:
+                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            fields[str(que) + "_" + str(ans['id'])] = {'type':'integer', 'string':ans['answer']}
+
+                    elif que_rec['type'] == 'date':
+                        for ans in ans_ids:
+                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            fields[str(que) + "_" + str(ans['id'])] = {'type':'date', 'string':ans['answer']}
+
+                    elif que_rec['type'] == 'date and time':
+                        for ans in ans_ids:
+                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            fields[str(que) + "_" + str(ans['id'])] = {'type':'datetime', 'string':ans['answer']}
+
+                    elif que_rec['type'] == 'descriptive text':
+                        xml += '''<label string="''' +  str(que_rec['descriptive_text']) + '''"/>'''
+
+                    if que_rec['type'] == 'single textbox':
+                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_single" '''"/> '''
+                        fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"Single Textbox", 'views':{}}
+
+                    
                     if que_rec['allow_comment']:
                         xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
@@ -397,10 +442,8 @@ class survey_question_wiz(osv.osv_memory):
         ans_list = []
         for key,val in sur_name_read['store_ans'].items():
             for field in fields_list:
-                if field in list(val) and field.split('_')[1] == 'other':
+                if field in list(val):
                     value[field] = val[field]
-                elif field in list(val):
-                    value[field] = True
         return value
         
     def create(self, cr, uid, vals, context=None):
@@ -443,10 +486,14 @@ class survey_question_wiz(osv.osv_memory):
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             ans = True
+                        elif val1 and key1.split('_')[1] == "single" and key1.split('_')[0] == que_id:
+                            resp_obj.write(cr, uid, resp_id, {'single_text':val1})
+                            sur_name_read['store_ans'][resp_id].update({key1:val1})
+                            ans = True
                         elif val1 and que_id == key1.split('_')[0]:
                             ans_id_len = key1.split('_')
-                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1]})
-                            sur_name_read['store_ans'][resp_id].update({key1:ans_create_id})
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
+                            sur_name_read['store_ans'][resp_id].update({key1:val1})
                             ans = True
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     if que_rec[0]['is_require_answer'] and not ans:
@@ -478,10 +525,14 @@ class survey_question_wiz(osv.osv_memory):
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})
                             ans = True
+                        elif key.split('_')[1] == "single":
+                            resp_obj.write(cr, uid, update, {'single_text':val})
+                            sur_name_read['store_ans'][update].update({key:val})
+                            ans = True
                         else:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
-                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1]})
-                            sur_name_read['store_ans'][update].update({key:ans_create_id})
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1], 'answer' : val})
+                            sur_name_read['store_ans'][update].update({key:val})
                             ans = True
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                 if que_rec[0]['is_require_answer'] and not ans:

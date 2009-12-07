@@ -26,6 +26,7 @@ import pooler
 from random import choice
 import string
 import tools
+from tools.translate import _
 
 _survey_form = '''<?xml version="1.0"?>
 <form string="Send Invitation">

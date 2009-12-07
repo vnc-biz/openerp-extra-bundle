@@ -64,13 +64,23 @@ map_keys = {'main':{
 }}
 map = etl.component.transform.map(map_keys)
 
+
+sqlconnector_partner=etl.connector.sql_connector('localhost',5432, 'etl', 'qdp', 'qdp')
+
+sql_in1= etl.component.transform.sql_join(
+    sqlconnector_partner,"select res_id from ir_model_data where name = '%s'",'user_id',outputkey='unique_res_id')
+
+
 #definition of the transitions
 tran0=etl.transition(csv_in_groups, oo_out_groups)
 tran1=etl.transition(csv_in_users, map)
 tran2=etl.transition(map, oo_out_users)
+tran3=etl.transition(oo_out_users, sql_in1)
+tran4=etl.transition(sql_in1, log1)
 
 
-job1=etl.job([oo_out_groups,oo_out_users])
+
+job1=etl.job([oo_out_groups,oo_out_users,log1])
 #print job1
 job1.run()
 #print job1.get_statitic_info()

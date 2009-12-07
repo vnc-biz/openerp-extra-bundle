@@ -89,6 +89,7 @@ groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_gr
         <field name="name">dm.offer.tree</field>
         <field name="model">dm.offer</field>
         <field name="type">tree</field>
+		<field name="priority">10</field>
         <field name="arch" type="xml">
             <tree string="Offers" colors="blue:state=='draft'">
                 <field name="name"/>
@@ -103,6 +104,7 @@ groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_gr
         <field name="name">dm.offer.form</field>
         <field name="model">dm.offer</field>
         <field name="type">form</field>
+		<field name="priority">10</field>
         <field name="arch" type="xml">
             <form string="Offers">
                 <group colspan="3" col="4">

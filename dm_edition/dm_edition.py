@@ -85,8 +85,6 @@ class dm_offer_document(osv.osv): # {{{
     _columns = {
         'printer': fields.char('Printer', size=64),
         'printer_tray': fields.char('Printer Tray', size=64),
-#        'document_job': fields.many2one('dm.offer.document.job', 'Document Job'),
-        'document_job_position': fields.integer('Document Job Position'),
         'verso': fields.boolean('Verso'),
         'sequence': fields.integer('Sequence')
     }

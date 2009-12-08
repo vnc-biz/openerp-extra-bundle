@@ -186,8 +186,6 @@
                 <page string="Edition">
 					<field name="printer"/>
 					<field name="printer_tray"/>
-					<!--field name="document_job"/-->
-					<field name="document_job_position"/>
 					<field name="verso"/>
 					<field name="sequence"/>
 				</page>

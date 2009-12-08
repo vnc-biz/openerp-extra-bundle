@@ -36,6 +36,8 @@ from tools.translate import _
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEImage import MIMEImage
+from email import Encoders
+from email.MIMEBase import MIMEBase
 import urllib2
 
 
@@ -163,7 +165,8 @@ class dm_dtp_plugin(osv.osv): # {{{
         'note': fields.text('Description'),
         'type': fields.selection([('fields', 'Customer'),('dynamic', 'Dynamic'),
                                 ('url', 'URL'),('dynamic_text', 'Dynamic Text'),
-                                ('image', 'Trademark Image')], 
+                                ('image', 'Trademark Image'),
+                                ('special_url', 'Special URL')], 
                                 'Type', required=True),
         'model_id': fields.many2one('ir.model', 'Object'),
         'field_id': fields.many2one('ir.model.fields', 'Customers Field'),
@@ -208,17 +211,21 @@ dm_document_template() # }}}
 
 def set_image_email(node,msg): # {{{
     if not node.getchildren():
-        if  node.tag=='img' and node.get('src'):
+        if  node.tag=='img' :
             content = ''
-            if node.get('src').find('data:image/gif;base64,') >= 0:
-                content = base64.decodestring(node.get('src').replace('data: image/gif; base64,', ''))
-            elif node.get('src').find('http') >= 0:
-                content=urllib2.urlopen(node.get('src')).read()
-            msgImage = MIMEImage(content)
-            image_name = ''.join( Random().sample(string.letters+string.digits, 12) )
-            msgImage.add_header('Content-ID','<%s>'%image_name)
-            msg.attach(msgImage)
-            node.set('src',"cid:%s"%image_name)
+            if node.get('name') and node.get('name').find('http') >=0:
+                content=urllib2.urlopen(node.get('name')).read()
+                node.set('src', node.get('name'))                
+            elif node.get('src'):
+                if node.get('src').find('data:image/gif;base64,') >= 0:
+                    content = base64.decodestring(node.get('src').replace('data:image/gif;base64,', ''))
+                elif node.get('src').find('http') >= 0:
+                    content=urllib2.urlopen(node.get('src')).read()
+                msgImage = MIMEImage(content)
+                image_name = ''.join( Random().sample(string.letters+string.digits, 12) )
+                msgImage.add_header('Content-ID','<%s>'%image_name)
+                msg.attach(msgImage)
+                node.set('src',"cid:%s"%image_name)
     else:
         for n in node.getchildren():
             set_image_email(n,msg)

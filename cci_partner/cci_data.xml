@@ -2,6 +2,11 @@
 <openerp>
 	<data>
 
+        <record model="res.groups" id="group_partner_extended">
+                <field name="name">CCI Partner Extended</field>
+        </record>
+
+
         <record id="base.main_address" model="res.partner.address">
             <field name="partner_id" ref="base.main_partner"/>
             <field name="name">Philippe Vandermeer</field>

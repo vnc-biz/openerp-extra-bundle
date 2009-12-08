@@ -105,10 +105,12 @@ class report_xml(osv.osv):
         list_image_id = []
         def process_tag(node, list_image_id):
             if not node.getchildren():
-                if  node.tag=='img' and node.get('name') and \
-                                    node.get('name').find('setHtmlImage') >= 0:
-                    res_id= _regex.split(node.get('name'))[1]
-                    list_image_id.append((res_id,node.get('src')))
+                if  node.tag=='img' and node.get('name'):
+                    if node.get('name').find('setHtmlImage') >= 0:
+                        res_id= _regex.split(node.get('name'))[1]
+                        list_image_id.append((res_id,node.get('src')))
+                    if node.get('name').find('http') >= 0:
+                        list_image_id.append(('URL,%s'%node.get('name'),node.get('src')))
             else:
                 for n in node.getchildren():
                     process_tag(n, list_image_id)

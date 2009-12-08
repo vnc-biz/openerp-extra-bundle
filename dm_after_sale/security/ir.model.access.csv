@@ -13,7 +13,7 @@
 "access_dm_mail_service_as_admin","dm.mail_service","dm.model_dm_mail_service","res_groups_as_admin",1,0,0,0
 "access_dm_mail_service_type_as_admin","dm.mail_service.type","dm.model_dm_mail_service_type","res_groups_as_admin",1,0,0,0
 "access_dm_media_as_admin","dm.media","dm.model_dm_media","res_groups_as_admin",1,0,0,0
-"access_dm_offer_document_as_admin","dm.offer.document","dm.model_dm_offer_document","res_groups_as_admin",1,1,1,0
+"access_dm_offer_document_as_admin","dm.offer.document","dm.model_dm_offer_document","res_groups_as_admin",1,1,1,1
 "access_dm_offer_document_category_as_admin","dm.offer.document.category","dm.model_dm_offer_document_category","res_groups_as_admin",1,0,0,0
 "access_dm_offer_step_transition_trigger_as_admin","dm.offer.step.transition.trigger","dm.model_dm_offer_step_transition_trigger","res_groups_as_admin",1,0,0,0
 "access_dm_offer_step_transition_as_admin","dm.offer.step.transition","dm.model_dm_offer_step_transition","res_groups_as_admin",1,0,0,0

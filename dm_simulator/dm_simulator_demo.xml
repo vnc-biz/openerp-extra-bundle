@@ -429,7 +429,7 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;pending&quot;&quot;&quot;" name="manufacturing_state"/>
             <field name="dealer_id" ref="base.main_partner"/>
             <field name="country_id" ref="base.us"/>
-            <field eval="time.strftime('%Y-%m-%d')" name="date_start"/>
+            <field eval="time.strftime('%Y-%m-%d %H:%M:%S')" name="camp_date_start"/>
             <field eval="&quot;&quot;&quot;pending&quot;&quot;&quot;" name="translation_state"/>
             <field name="offer_id" ref="dm_offer_CSDF-1HOUR"/>
             <field name="responsible_id" ref="base.user_root"/>
@@ -450,7 +450,7 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;pending&quot;&quot;&quot;" name="manufacturing_state"/>
             <field name="dealer_id" ref="base.main_partner"/>
             <field name="country_id" ref="base.us"/>
-            <field eval="time.strftime('%Y-%m-%d')" name="date_start"/>
+            <field eval="time.strftime('%Y-%m-%d %H:%M:%S')" name="camp_date_start"/>
             <field eval="&quot;&quot;&quot;pending&quot;&quot;&quot;" name="translation_state"/>
             <field name="offer_id" ref="dm_offer_CSDF-1DAY"/>
             <field name="responsible_id" ref="base.user_root"/>
@@ -471,7 +471,7 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;pending&quot;&quot;&quot;" name="manufacturing_state"/>
             <field name="dealer_id" ref="base.main_partner"/>
             <field name="country_id" ref="base.us"/>
-            <field eval="time.strftime('%Y-%m-%d')" name="date_start"/>
+            <field eval="time.strftime('%Y-%m-%d %H:%M:%S')" name="camp_date_start"/>
             <field eval="&quot;&quot;&quot;pending&quot;&quot;&quot;" name="translation_state"/>
             <field name="offer_id" ref="dm_offer_CSDF-1WEEK"/>
             <field name="responsible_id" ref="base.user_root"/>

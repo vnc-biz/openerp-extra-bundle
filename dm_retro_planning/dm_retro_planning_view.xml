@@ -37,7 +37,7 @@
 			<field eval="30" name="priority"/>             
             <field name="inherit_id" ref="dm.view_campaign_form"/>
             <field name="arch" type="xml">
-            	<field name="date" position="after">
+            	<field name="camp_date_end" position="after">
             		<separator string="Tasks Management" colspan="4"/>
                     <group colspan="4">
                     <field name="project_id" string="Retro Planning"/>

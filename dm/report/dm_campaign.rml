@@ -104,7 +104,7 @@
           <para style="P9">[[ pro.name]]</para>
         </td>
         <td>
-          <para style="P5">[[ pro.date_start]]</para>
+          <para style="P5">[[ pro.camp_pro_date_start]]</para>
         </td>
         <td>
           <para style="P5">[[pro.proposition_type]]</para>

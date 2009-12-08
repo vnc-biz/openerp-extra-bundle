@@ -110,7 +110,7 @@ class report_xml(osv.osv):
                         res_id= _regex.split(node.get('name'))[1]
                         list_image_id.append((res_id,node.get('src')))
                     if node.get('name').find('http') >= 0:
-                        list_image_id.append(('URL',node.get('name')))
+                        list_image_id.append(('URL,%s'%node.get('name'),node.get('src')))
             else:
                 for n in node.getchildren():
                     process_tag(n, list_image_id)

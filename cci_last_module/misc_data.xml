@@ -24,56 +24,56 @@
                     </group>
                     <notebook colspan="4">
                         <page string="General">
-                        <field name="lang" select="2"/>
-                       <field domain="[('domain', '=', 'partner')]" name="title"/>
-                        <field name="state_id" select="2"/>
-       	                 <field name="state_id2"/>
-           			<field name="address" mode="form,tree" colspan="4" nolabel="1" select="1">
+                        	<field name="lang" select="2"/>
+                       		<field domain="[('domain', '=', 'partner')]" name="title"/>
+                        	<field name="state_id" select="2"/>
+       	                 	<field name="state_id2"/>
+           					<field name="address" mode="form,tree" colspan="4" nolabel="1" select="1">
 			                    <form string="Address">
-			                       <group string="Postal Address" colspan="2" col="2">
-			                           <field name="type" select="2" />
-		                           <field name="street" select="2"/>
+			                       	<group string="Postal Address" colspan="2" col="2">
+			                           	<field name="type" select="2" />
+		                           		<field name="street" select="2"/>
 			                           <field name="street2"/>
 			                           <field name="zip" select="2"/>
 			                           <field name="city" select="2"/>
 			                           <field name="country_id" select="2" completion="1"/>
 			                           <field name="state_id" select="2"/>
 			                        </group>
-		                        <group string="Communication" colspan="2" col="2">
+		                        	<group string="Communication" colspan="2" col="2">
 			                           <field name="phone"/>
 			                           <field name="fax"/>
 			                           <field name="email" widget="email"/>
 			                        </group>
-		                        <field name="job_ids" mode="tree,form" nolabel="1" colspan="4">
+		                    	<field name="job_ids" mode="tree,form" nolabel="1" colspan="4">
 			                            <tree string="Contacts" editable="top">
 			                                <field name="sequence_partner"/>
 			                                <field name="contact_id"/>
 			                                <field name="function_id"/>
 			                                <field name="phone"/>
 			                                <field name="fax"/>
-		                                <field name="extension"/>
+		                               	    <field name="extension"/>
 			                                <field name="other"/>
 			                                <field name="email"/>
 			                            </tree>
 			                            <form string="Contacts">
-			                            <group string="Partner" colspan="2" col="2">
-			                                <field name="sequence_partner"/>
-		                                <field name="name"/>
-			                                <field name="contact_id"/>
-			                                <field name="function_id"/>
-			                            </group>
-			                            <group string="Communication" colspan="2" col="2">
-			                                <field name="phone"/>
-			                                <field name="fax"/>
-		                                <field name="extension"/>
-			                                <field name="other"/>
-			                                <field name="email" widget="email"/>
-			                                <field name="extension"/>
-			                                <field name="other"/>
-			                            </group>
+			                            	<group string="Partner" colspan="2" col="2">
+			                                	<field name="sequence_partner"/>
+		                               			<field name="name"/>
+			                                	<field name="contact_id"/>
+			                                	<field name="function_id"/>
+			                            	</group>
+			                            	<group string="Communication" colspan="2" col="2">
+			                                	<field name="phone"/>
+			                                	<field name="fax"/>
+		                                		<field name="extension"/>
+				                                <field name="other"/>
+				                                <field name="email" widget="email"/>
+				                                <field name="extension"/>
+				                                <field name="other"/>
+			                            	</group>
 			                            </form>
 			                        </field>
-		                    </form>
+		                    	</form>
 			                    <tree string="Addresses">
 			                        <field name="type"/>
 			                        <field name="zip"/>
@@ -85,13 +85,13 @@
 			                </field>
                         </page>
                         <page string="Extra Information">
-                           <field name="vat" on_change="vat_change(vat)" select="2"/>
+                           	<field name="vat" on_change="vat_change(vat)" select="2"/>
 		                    <field name="vat_subjected"/>
 		                    <field name="credit" select="2"/>
-		                     <field name="debit" select="2"/>
-		                     <field name="user_id" select="2"/>
-		                     <field name="website" widget="url"/>
-							 <separator string="Miscelleanous" colspan="4"/>
+		                    <field name="debit" select="2"/>
+		                    <field name="user_id" select="2"/>
+		                    <field name="website" widget="url"/>
+							<separator string="Miscelleanous" colspan="4"/>
 							<field name="name_official"/>
 							<field name="name_old"/>
 							<field name="wall_exclusion"/>
@@ -99,8 +99,7 @@
 							<field name="canal_id"/>
 							<separator string="Events" colspan="4"/>
 							<field name="training_authorization"/>
-
-						<separator string="Alerts" colspan="4"/>
+							<separator string="Alerts" colspan="4"/>
 							<field name="alert_advertising"/>
 							<field name="alert_legalisations"/>
 							<field name="alert_events"/>
@@ -108,124 +107,123 @@
 							<field name="alert_others"/>
 							<newline/>
 							<field name="alert_explanation" colspan="4"/>
-					</page>
-                    <page string="Notes">
+						</page>
+                    	<page string="Notes">
                             <separator string="Description" colspan="4"/>
                             <field colspan="4" name="comment" nolabel="1"/>
                             <separator string="History" colspan="4"/>
                             <field colspan="4" name="events" nolabel="1" widget="one2many_list"/>
-                   </page>
-                    <page string="Membership">
-                        <group colspan="2" col="2">
-	                    <separator string="employees" colspan="2"/>
-	                    <field name="employee_nbr"/>
-			    <field name="employee_nbr_total"/>
-                         </group>
-                        <group colspan="2" col="2">
-                              <separator string="calls to premium" colspan="2"/>
-                              <field name="membership_amount" select="2"/>   
-                              <field name="membership_vcs"/>
-                         </group>                                                
-                        <group colspan="2" col="2">
-                          <separator string="dates" colspan="2"/>
-                              <field name="membership_start" select="2"/>
-                              <field name="membership_stop" select="2"/>
-                              <field name="membership_cancel" select="2"/>
-                         </group>
-                        <group colspan="2" col="2">                                                    
-                            <separator string="special" colspan="2"/>
-                                <field name="associate_member"/>
-                                <field name="free_member" select="2"/>
-				<field name="refuse_membership" select="2"/>
-                         </group>
-                         <separator string="Membership Lines" colspan="4"/>
-                        <field name="member_lines" select="2" colspan="4" nolabel="1"/>
+                   		</page>
+                    	<page string="Membership">
+                        	<group colspan="2" col="2">
+		                    	<separator string="employees" colspan="2"/>
+		                    	<field name="employee_nbr"/>
+				    			<field name="employee_nbr_total"/>
+                         	</group>
+	                        <group colspan="2" col="2">
+	                              <separator string="calls to premium" colspan="2"/>
+	                              <field name="membership_amount" select="2"/>
+	                              <field name="membership_vcs"/>
+	                         </group>
+	                        <group colspan="2" col="2">
+	                          <separator string="dates" colspan="2"/>
+	                              <field name="membership_start" select="2"/>
+	                              <field name="membership_stop" select="2"/>
+	                              <field name="membership_cancel" select="2"/>
+	                         </group>
+	                        <group colspan="2" col="2">
+	                            <separator string="special" colspan="2"/>
+	                            <field name="associate_member"/>
+	                            <field name="free_member" select="2"/>
+								<field name="refuse_membership" select="2"/>
+	                         </group>
+                         	<separator string="Membership Lines" colspan="4"/>
+                        	<field name="member_lines" select="2" colspan="4" nolabel="1"/>
                     </page>
-		<page string="Activities">
-			<separator string="Activity Description" colspan="4"/>
-			<field name="activity_description" colspan="4" nolabel="1"/>
-			<separator string="Activity Codes" colspan="4"/>
-			<field name="activity_code_ids" nolabel="1">
-				<tree string="Activity" editable="bottom">
-					<field name="activity_id"/>
-					<field name="importance"/>
-				</tree>
-				<form string="Activity">
-					<field name="activity_id"/>
-					<field name="importance"/>
-				</form>
-			</field>
-		</page>
-		<page string="Profiling Categories">
-			<button string="Use a questionnaire" name="574" type="action" colspan="1" icon="gtk-justify-fill"/>
-		  	<newline/>
-		  	<field name="answers_ids" colspan="4" nolabel="1"/>
-		   	<separator colspan="4" string="Categories"/>
-                   	<field colspan="4" name="category_id" nolabel="1" select="2" height="90"/>
-		</page>
-		<page string="Missions" groups="cci_mission.group_cci_missions_user">
-                  <group colspan="2" col="2">
-		  <separator string="Asker Info" colspan="2"/>
-                    <field name="asker_name" select="2"/>
-                    <field name="asker_address"/>
-                    <field name="asker_zip_id"/>
-                  </group>
-                  <group colspan="2" col="2">
-                    <separator string="Sender Info" colspan="4"/>
-                    <field name="sender_name"/>
-                  </group>
-                  <group colspan="2" col="2">
-                  <separator string="ATA infos" colspan="4"/>
-                    <field name="insurer_id" />
-                  </group>
-                  <group colspan="2" col="2">
-                  <separator string="Translation info" colspan="4"/>
-                     <field name="awex_eligible"/>
-                  </group>
-		</page>
-		<page string="Directory" groups="cci_partner.group_partner_extended">
-			<field name="dir_name"/>
-			<field name="dir_name2"/>
-			<field name="dir_name3"/>
-			<field name="dir_date_last"/>
-			<field name="dir_date_accept"/>
-			<field name="dir_date_publication"/>
-			<field name="dir_presence"/>
-			<field name="active" select="2"/>
-		</page>
-		<page string="Relations" groups="cci_partner.group_partner_extended">
- 			<field name="parent_id" widget="selection" colspan="4"/>
-			<field name="relation_ids" mode="tree, form" nolabel="1" colspan="4">
-				<form string="Partner Link">
-					<field name="type_id" select="1"/>
-					<field name="percent" />
-					<newline/>
-					<field name="partner_id" select="1" colspan="4"/>
-					<newline/>
-					<field name="description" colspan="4"/>
-				</form>
-				<tree string="Partner Link">
-					<field name="type_id" select="1"/>
-					<field name="partner_id" select="1"/>
-				</tree>
-			</field>
-		</page>
-
-		<page string="Accounting" groups="account.group_account_user" >
-			<separator string="invoices" colspan="4"/>
-			<field name="invoice_nbr"/>
-			<field name="invoice_paper"/>
-			<field name="invoice_public"/>
-			<field name="invoice_special"/>
-			<separator string="Domiciliation" colspan="4"/>
-                        <field name="domiciliation"/>
-			<field name="domiciliation_bool" string="Domiciliation (Cotisation)"/>
-			<separator string="miscalleanous" colspan="4"/>
-			<field name="property_account_receivable"/>
-			<field name="property_account_payable"/>
-                        <field name="property_account_position" widget="selection"/>
-                        <field name="property_payment_term" widget="selection"/>
-                        <field name="credit_limit" select="2"/>
+					<page string="Activities">
+						<separator string="Activity Description" colspan="4"/>
+						<field name="activity_description" colspan="4" nolabel="1"/>
+						<separator string="Activity Codes" colspan="4"/>
+						<field name="activity_code_ids" nolabel="1">
+							<tree string="Activity" editable="bottom">
+								<field name="activity_id"/>
+								<field name="importance"/>
+							</tree>
+							<form string="Activity">
+								<field name="activity_id"/>
+								<field name="importance"/>
+							</form>
+						</field>
+					</page>
+					<page string="Profiling Categories">
+						<button string="Use a questionnaire" name="574" type="action" colspan="1" icon="gtk-justify-fill"/>
+					  	<newline/>
+					  	<field name="answers_ids" colspan="4" nolabel="1"/>
+					   	<separator colspan="4" string="Categories"/>
+			            <field colspan="4" name="category_id" nolabel="1" select="2" height="90"/>
+					</page>
+					<page string="Missions" groups="cci_mission.group_cci_missions_user">
+                  		<group colspan="2" col="2">
+			  				<separator string="Asker Info" colspan="2"/>
+		                    <field name="asker_name" select="2"/>
+		                    <field name="asker_address"/>
+		                    <field name="asker_zip_id"/>
+                  		</group>
+	                  <group colspan="2" col="2">
+	                    	<separator string="Sender Info" colspan="4"/>
+	                    	<field name="sender_name"/>
+	                  </group>
+	                  <group colspan="2" col="2">
+	                  		<separator string="ATA infos" colspan="4"/>
+	                    	<field name="insurer_id" />
+	                  </group>
+	                  <group colspan="2" col="2">
+	                  		<separator string="Translation info" colspan="4"/>
+	                        <field name="awex_eligible"/>
+	                  </group>
+				</page>
+				<page string="Directory" groups="cci_partner.group_partner_extended">
+					<field name="dir_name"/>
+					<field name="dir_name2"/>
+					<field name="dir_name3"/>
+					<field name="dir_date_last"/>
+					<field name="dir_date_accept"/>
+					<field name="dir_date_publication"/>
+					<field name="dir_presence"/>
+					<field name="active" select="2"/>
+				</page>
+				<page string="Relations" groups="cci_partner.group_partner_extended">
+		 			<field name="parent_id" widget="selection" colspan="4"/>
+					<field name="relation_ids" mode="tree, form" nolabel="1" colspan="4">
+						<form string="Partner Link">
+							<field name="type_id" select="1"/>
+							<field name="percent" />
+							<newline/>
+							<field name="partner_id" select="1" colspan="4"/>
+							<newline/>
+							<field name="description" colspan="4"/>
+						</form>
+						<tree string="Partner Link">
+							<field name="type_id" select="1"/>
+							<field name="partner_id" select="1"/>
+						</tree>
+					</field>
+				</page>
+				<page string="Accounting" groups="account.group_account_user" >
+					<separator string="invoices" colspan="4"/>
+					<field name="invoice_nbr"/>
+					<field name="invoice_paper"/>
+					<field name="invoice_public"/>
+					<field name="invoice_special"/>
+					<separator string="Domiciliation" colspan="4"/>
+		            <field name="domiciliation"/>
+					<field name="domiciliation_bool" string="Domiciliation (Cotisation)"/>
+					<separator string="miscalleanous" colspan="4"/>
+					<field name="property_account_receivable"/>
+					<field name="property_account_payable"/>
+                    <field name="property_account_position" widget="selection"/>
+                    <field name="property_payment_term" widget="selection"/>
+                    <field name="credit_limit" select="2"/>
                     <field colspan="4" context="address=address" name="bank_ids" nolabel="1" select="2">
                         <form string="Bank account">
                             <field name="state" select="2"/>
@@ -252,44 +250,41 @@
                             <field name="acc_number"/>
                         </tree>
                     </field>
-		</page>
-                <page string="Countries">
+			</page>
+	         <page string="Countries">
                     <field name="export_procent"/>
                     <field name="export_year"/>
                     <field name="import_procent"/>
                     <field name="import_year"/>
                     <field name="country_relation" select="1" colspan="4" nolabel="1"/>
-                </page>
-                <page string="Articles" groups="cci_partner.group_partner_extended">
-                         <field name="article_ids" nolabel="1"/>
-                </page>
-		<page string="Sales &amp; Purchases" groups="base.group_partner_manager">
-                      	<group colspan="2" col="2">
-                      		<separator string="General Information" colspan="2"/>
-                      		<field name="date" select="2"/>
-                      	</group>
-		      	<group colspan="2" col="2">
-				<separator string="Stock Properties" colspan="2"/>
-				<field name="property_stock_customer" widget="selection"/>
-				<field name="property_stock_supplier" widget="selection"/>
-			</group>
-			<newline/>
-		        <group col="2" colspan="2" name="sale_list">
-		                <separator string="Sales Properties" colspan="2"/>
-		                <field name="property_product_pricelist"/>
-		        </group>
-			<group colspan="2" col="2">
-			        <separator string="Purchases Properties" colspan="2"/>
-			        <field name="property_product_pricelist_purchase"/>
-			</group>
-                </page>
-
-                    </notebook>
-                </form>
-            </field>
-        </record>
-
+              </page>
+             <page string="Articles" groups="cci_partner.group_partner_extended">
+                     <field name="article_ids" nolabel="1"/>
+             </page>
+			 <page string="Sales &amp; Purchases" groups="base.group_partner_manager">
+                  	<group colspan="2" col="2">
+                  		<separator string="General Information" colspan="2"/>
+                  		<field name="date" select="2"/>
+                  	</group>
+		      		<group colspan="2" col="2">
+						<separator string="Stock Properties" colspan="2"/>
+						<field name="property_stock_customer" widget="selection"/>
+						<field name="property_stock_supplier" widget="selection"/>
+					</group>
+					<newline/>
+			        <group col="2" colspan="2" name="sale_list">
+			                <separator string="Sales Properties" colspan="2"/>
+			                <field name="property_product_pricelist"/>
+			        </group>
+					<group colspan="2" col="2">
+					        <separator string="Purchases Properties" colspan="2"/>
+					        <field name="property_product_pricelist_purchase"/>
+					</group>
+	            </page>
+    	    </notebook>
+	    </form>
+	</field>
+</record>
 
 	</data>
 </openerp>
-

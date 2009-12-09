@@ -28,7 +28,7 @@ import pooler
 import mx.DateTime
 import base64
 from tools.translate import _
-from launchpadlib.launchpad import Launchpad, STAGING_SERVICE_ROOT
+from launchpadlib.launchpad import Launchpad, EDGE_SERVICE_ROOT
 from launchpadlib.credentials import Credentials
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
@@ -49,20 +49,18 @@ class lpServer(threading.Thread):
         self.launchpad = self.get_lp()
 
     def get_lp(self):
-        global launchpad
+
         launchpad = False
-        if not os.path.isdir(self.cachedir):
-            os.makedirs(self.cachedir)
-        if not os.path.isfile(self.lp_credential_file):
-            try:
-                launchpad = Launchpad.get_token_and_login('openerp', STAGING_SERVICE_ROOT, self.cachedir)
-                launchpad.credentials.save(file(self.lp_credential_file, "w"))
-            except Exception,e:
-                print 'Service Unavailable !',e
-        else:
-            credentials = Credentials()
-            credentials.load(open(self.lp_credential_file))
-            launchpad = Launchpad(credentials, STAGING_SERVICE_ROOT, self.cachedir)
+        cachedir = os.path.expanduser('~/.launchpadlib/cache')
+        if not os.path.exists(cachedir):
+                os.makedirs(cachedir,0700)
+        credfile = os.path.expanduser('~/.launchpadlib/credentials')
+        try:
+                credentials = Credentials()
+                credentials.load(open(credfile))
+                launchpad = Launchpad(credentials, EDGE_SERVICE_ROOT, cachedir)
+        except:
+                launchpad = Launchpad.get_token_and_login(sys.argv[0], EDGE_SERVICE_ROOT, cachedir)
         return launchpad
 
 

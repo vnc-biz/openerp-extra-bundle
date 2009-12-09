@@ -60,13 +60,15 @@ def _create_reg(self, cr, uid, data, context={}):
                     part_dict[part.id] = job.contact_id.id
                     contact_ids.append(job.contact_id.id)
                     break
-    cr.execute('select e.id, e.contact_id from event_registration as e  \
+
+    if contact_ids:
+        cr.execute('select e.id, e.contact_id from event_registration as e  \
                 left join res_partner_contact as c on c.id=e.contact_id \
                 where e.event_id = %s and c.id in ('+','.join(map(str, contact_ids))+') \
                 group by e.contact_id,e.id', (event.id,))
-    regs = cr.dictfetchall()
-    if regs:
-        map(lambda x: filter_contacts.append(x['contact_id']), regs)
+        regs = cr.dictfetchall()
+        if regs:
+            map(lambda x: filter_contacts.append(x['contact_id']), regs)
 
     contacts_list = []
     for part, contact in part_dict.items():

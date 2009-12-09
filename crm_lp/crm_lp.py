@@ -183,7 +183,7 @@ class crm_case(osv.osv):
             lp_server = lpServer()
             crm_case_obj = self.pool.get('crm.case')
             crm=crm_case_obj.read(cr,uid,[1],['bug_id'])[0]
-            crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0])])
+            crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
             launchpad = lp_server.launchpad
             for case in crm_case_obj.browse(cr,uid, crm_ids):
                 title = case.name

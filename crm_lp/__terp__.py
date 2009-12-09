@@ -34,7 +34,7 @@
     'init_xml': [
         'crm_lp_data.xml',
         'crm_lp.xml',
-
+        'lp_sync_wizard.xml'
     ],
     'demo_xml': [],
     'installable': True,

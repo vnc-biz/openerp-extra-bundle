@@ -76,7 +76,7 @@ class lpServer(threading.Thread):
         for project in projects:
             result = {}
             r = {}
-            lp_project = launchpad.projects[str(project)]
+            lp_project = self.launchpad.projects[str(project)]
             result['non-series'] = lp_project.searchTasks(status=bug_status)
             if 'series' in lp_project.lp_collections:
                 for series in lp_project.series:
@@ -89,18 +89,18 @@ class lpServer(threading.Thread):
         return  res
 
     def getProject(self, project):
-        project = launchpad.projects[project]
+        project =self.launchpad.projects[project]
         return project
     
     def getSeries(self, project):
-        lp_project =  launchpad.projects[project]
+        lp_project = self.launchpad.projects[project]
         if 'series' in lp_project.lp_collections:
                 return lp_project.series.entries
         else:
             return None
         
     def getMilestones(self, project, ml):
-        lp_project =  launchpad.projects[project]
+        lp_project =self.launchpad.projects[project]
         if 'all_milestones' in lp_project.lp_collections:
                 temp = lp_project.all_milestones.entries 
                 res = [item for item in temp if item['series_target_link'] == ml]

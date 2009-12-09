@@ -285,7 +285,7 @@
         <field name="name">All Media Content</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">dm.media.content</field>
-        <field name="view_mode">form,tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="menu_action_dm_media_content" parent="dm.menu_action_offer_doc" action="action_dm_media_content" sequence="3" />

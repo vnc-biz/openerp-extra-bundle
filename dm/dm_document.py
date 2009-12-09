@@ -62,8 +62,8 @@ class dm_media_content(osv.osv): # {{{
     
     _columns = {
         'preview_image' : fields.binary('Preview Image'),
-        'media_url' : fields.char('Media URL', size=64),
-        'res_url' : fields.char('Res URL', size=64),
+        'media_url' : fields.char('Media URL', size=256),
+        'res_url' : fields.char('Res URL', size=256),
         'alternative_text': fields.char('Alternative Text', size=64)
     }
     

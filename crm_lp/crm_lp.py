@@ -52,16 +52,13 @@ class lpServer(threading.Thread):
         global launchpad
         launchpad = False
         if not os.path.isdir(self.cachedir):
-            try:
-                os.makedirs(self.cachedir)
-            except:
-                raise
+            os.makedirs(self.cachedir)
         if not os.path.isfile(self.lp_credential_file):
             try:
                 launchpad = Launchpad.get_token_and_login('openerp', STAGING_SERVICE_ROOT, self.cachedir)
                 launchpad.credentials.save(file(self.lp_credential_file, "w"))
-            except:
-                print 'Service Unavailable !'
+            except Exception,e:
+                print 'Service Unavailable !',e
         else:
             credentials = Credentials()
             credentials.load(open(self.lp_credential_file))
@@ -112,7 +109,17 @@ class lpServer(threading.Thread):
                 return res 
         else:
             return None
-        
+
+class project_project(osv.osv):
+    _inherit = "project.project"
+    _columns = {
+                'bugs_target': fields.char('Bugs Target', size=300),
+                } 
+    def onchange_project_name(self, cr, uid, ids, project_name):
+         val={}
+         val['bugs_target'] = "https://api.staging.launchpad.net/beta/" + project_name
+         return {'value' : val}   
+project_project()        
 
 class lp_project(osv.osv):
     _name="lp.project"
@@ -153,7 +160,7 @@ class crm_case(osv.osv):
     _inherit = "crm.case"
 
     _columns = {
-                'project_id': fields.many2one('project.project', 'Project'),
+                'project_id': fields.many2one('project.project', 'Project', required=True),
                 'lp_project':fields.many2one('lp.project','LP Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
                 }
@@ -173,7 +180,19 @@ class crm_case(osv.osv):
         case_stage= pool.get('crm.case.stage')
 
         if sec_id:
-
+            lp_server = lpServer()
+            crm_case_obj = self.pool.get('crm.case')
+            crm=crm_case_obj.read(cr,uid,[1],['bug_id'])[0]
+            crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0])])
+#            crm_ids = [37, 35]
+            launchpad = lp_server.launchpad
+            for case in crm_case_obj.browse(cr,uid, crm_ids):
+                title = case.name
+                target = case.project_id.bugs_target
+                description=case.description
+                b=launchpad.bugs.createBug(title=title, target=target, description=description)
+                self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
+                print "----b.id--",b.id
             categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
             categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
             categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
@@ -181,14 +200,19 @@ class crm_case(osv.osv):
 
             prj = self.pool.get('project.project')
             project_id=prj.search(cr,uid,[])
-
+            
             for prj_id in prj.browse(cr,uid, project_id):
                 project_name=str(prj_id.name)
-                if project_name.find('openobject') ==0:
-                    lp_server = lpServer()
-                    res=lp_server.get_lp_bugs(project_name)
-                    for key, bugs in res.items():
+#                if project_name.find('openobject') == 0:
+                if project_name == "openerp-outlook-plugin":
+                    prjs=lp_server.get_lp_bugs(project_name)
+                    for key, bugs in prjs.items():
+                        cnt=0
                         for bug in bugs:
+                            cnt+=1
+#                            if cnt > 5:
+#                                print "--break--",key
+#                                break
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                             val['project_id']=prj_id.id
                             project = str(bug.target).split('/')[-1]
@@ -257,6 +281,7 @@ class crm_case(osv.osv):
                             if not b_id:
                                 self.create(cr, uid, val,context=context)
                             if b_id:
+                                print "---write--",b_id
                                 self.write(cr,uid,b_id,val,context=context)
                             cr.commit()
 

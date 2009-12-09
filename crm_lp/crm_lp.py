@@ -182,7 +182,6 @@ class crm_case(osv.osv):
         if sec_id:
             lp_server = lpServer()
             crm_case_obj = self.pool.get('crm.case')
-            crm=crm_case_obj.read(cr,uid,[1],['bug_id'])[0]
             crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
             launchpad = lp_server.launchpad
             for case in crm_case_obj.browse(cr,uid, crm_ids):
@@ -204,7 +203,6 @@ class crm_case(osv.osv):
                 if project_name.find('openobject') == 0:
                     prjs=lp_server.get_lp_bugs(project_name)
                     for key, bugs in prjs.items():
-                        cnt=0
                         for bug in bugs:
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                             val['project_id']=prj_id.id

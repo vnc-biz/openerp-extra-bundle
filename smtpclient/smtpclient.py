@@ -118,8 +118,17 @@ class SmtpClient(osv.osv):
         return res_id
     
     def write(self, cr, user, ids, vals, context=None):
+        flag = False
         if vals.get('password', False) != False:
-            vals['password'] = base64.b64encode(vals.get('password'))
+            for pass_char in vals.get('password'):
+                if pass_char != '*':
+                    flag= True
+                    break
+
+            if flag:    
+                vals['password'] = base64.b64encode(vals.get('password'))
+            else:
+                del vals['password']    
             
         res = super(SmtpClient, self).write(cr, user, ids, vals, context)
         return res

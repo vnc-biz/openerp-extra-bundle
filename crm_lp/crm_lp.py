@@ -160,7 +160,7 @@ class crm_case(osv.osv):
     _inherit = "crm.case"
 
     _columns = {
-                'project_id': fields.many2one('project.project', 'Project', required=True),
+                'project_id': fields.many2one('project.project', 'Project'),
                 'lp_project':fields.many2one('lp.project','LP Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
                 }
@@ -184,7 +184,6 @@ class crm_case(osv.osv):
             crm_case_obj = self.pool.get('crm.case')
             crm=crm_case_obj.read(cr,uid,[1],['bug_id'])[0]
             crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0])])
-#            crm_ids = [37, 35]
             launchpad = lp_server.launchpad
             for case in crm_case_obj.browse(cr,uid, crm_ids):
                 title = case.name
@@ -192,7 +191,6 @@ class crm_case(osv.osv):
                 description=case.description
                 b=launchpad.bugs.createBug(title=title, target=target, description=description)
                 self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
-                print "----b.id--",b.id
             categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
             categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
             categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
@@ -203,16 +201,11 @@ class crm_case(osv.osv):
             
             for prj_id in prj.browse(cr,uid, project_id):
                 project_name=str(prj_id.name)
-#                if project_name.find('openobject') == 0:
-                if project_name == "openerp-outlook-plugin":
+                if project_name.find('openobject') == 0:
                     prjs=lp_server.get_lp_bugs(project_name)
                     for key, bugs in prjs.items():
                         cnt=0
                         for bug in bugs:
-                            cnt+=1
-#                            if cnt > 5:
-#                                print "--break--",key
-#                                break
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                             val['project_id']=prj_id.id
                             project = str(bug.target).split('/')[-1]
@@ -281,7 +274,6 @@ class crm_case(osv.osv):
                             if not b_id:
                                 self.create(cr, uid, val,context=context)
                             if b_id:
-                                print "---write--",b_id
                                 self.write(cr,uid,b_id,val,context=context)
                             cr.commit()
 

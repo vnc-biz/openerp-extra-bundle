@@ -23,5 +23,7 @@ import event_copy
 import registration_missing_checks
 import registration_send_email
 import cci_confirm_registrations
+import create_job_registration
+import create_partner_registration
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

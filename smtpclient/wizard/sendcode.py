@@ -23,6 +23,7 @@ import pooler
 from osv import osv
 import time
 import sys
+from tools.translate import _
 
 form = '''<?xml version="1.0"?>
 <form string="Send Code">

@@ -30,5 +30,17 @@
 			menu="True"
 			id="wizard_confirm_registrations"/>
 
+	<wizard string="Create Registration"
+			model="res.partner.job"
+			menu="True"
+			name="event.job_registration"
+			id="wizard_job_registration" />
+
+	<wizard string="Create Registration"
+			model="res.partner"
+			menu="True"
+			name="event.partner_registration"
+			id="wizard_partner_registration" />
+
 	</data>
 </openerp>

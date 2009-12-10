@@ -185,7 +185,6 @@ class crm_case(osv.osv):
         categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
         categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
         
-        pool=pooler.get_pool(cr.dbname)
         crm_case_obj = pool.get('crm.case')
         crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
         launchpad = lp_server.launchpad
@@ -215,8 +214,7 @@ class crm_case(osv.osv):
                     t.status = status
                     t.importance = imp
                     t.lp_save()
-                    return True
-                return False
+                return True
         else:
                 return False
 

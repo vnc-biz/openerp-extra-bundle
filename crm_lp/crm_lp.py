@@ -36,7 +36,7 @@ import os
 import threading
 import pickle
 import time
-
+import sys
 class lpServer(threading.Thread):
 
     cachedir = ".launchpad/cache/"

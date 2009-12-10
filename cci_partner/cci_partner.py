@@ -263,7 +263,7 @@ class res_partner(osv.osv):
         'canal_id': fields.many2one('res.partner.canal', 'Favourite Channel'),
         'followup_max_level': fields.function(_get_followup_level, method=True, type='many2one', relation="account_followup.followup.line", string="Max. Followup Level"),
         'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles'),
-         'badge_partner':fields.char('Badge Partner',size=128),
+        'badge_partner':fields.char('Badge Partner',size=128),
         #Never,Always,Managed_by_Poste,Prospect
 
         #virement belge,virement iban
@@ -595,7 +595,7 @@ class res_partner_contact(osv.osv):
 
     _inherit='res.partner.contact'
     _columns = {
-        'article_ids':fields.many2many('res.partner.article','res_partner_contact_article_rel','contact_id','article_id','Articles'),
+        'article_ids': fields.many2many('res.partner.article','res_partner_contact_article_rel','contact_id','article_id','Articles'),
     }
 
 res_partner_contact()

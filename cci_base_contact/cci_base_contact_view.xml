@@ -10,13 +10,13 @@
         <field name="inherit_id" ref="base_contact.view_partner_contact_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='phone']" position="replace">   
+            <xpath expr="//field[@name='phone']" position="replace">
                 <field name="phone"  on_change="_on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
-    
-    
+
+
     <record model="ir.ui.view" id="view_partner_contact_form_inherit_p2">
         <field name="name">res.partner.contact.inherit.phone2</field>
         <field name="model">res.partner</field>
@@ -29,7 +29,7 @@
         </field>
     </record>
 
-    
+
     <record model="ir.ui.view" id="view_partner_contact_form_inherit_p3">
         <field name="name">res.partner.contact.inherit.phone3</field>
         <field name="model">res.partner</field>
@@ -41,8 +41,8 @@
             </xpath>
         </field>
     </record>
-    
-        
+
+
     <record model="ir.ui.view" id="view_partner_contact_form_inherit_p4">
         <field name="name">res.partner.contact.inherit.phone4</field>
         <field name="model">res.partner.address</field>
@@ -54,7 +54,7 @@
             </xpath>
         </field>
     </record>
-        
+
     <record model="ir.ui.view" id="view_partner_contact_form_inherit_p5">
         <field name="name">res.partner.contact.inherit.phone5</field>
         <field name="model">res.partner.job</field>
@@ -66,8 +66,8 @@
             </xpath>
         </field>
     </record>
-    
-    
+
+
     <record model="ir.ui.view" id="view_partner_contact_form_inherit_p6">
         <field name="name">res.partner.contact.inherit.phone6</field>
         <field name="model">res.partner.contact</field>
@@ -79,19 +79,19 @@
             </xpath>
         </field>
     </record>
-    
+
        <record model="ir.ui.view" id="view_partner_address_form_inherit_p7">
         <field name="name">res.partner.address.inherit.phone7</field>
 		<field name="model">res.partner.address</field>
         <field name="inherit_id" ref="base.view_partner_address_form1"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='phone']" position="replace">   
+            <xpath expr="//field[@name='phone']" position="replace">
                 <field name="phone"  on_change="_on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
-    
+
 <!-- res.partner.country.relation views -->
     <record model="ir.ui.view" id="view_partner_country_relation_tree">
         <field name="name">res.partner.country.relation.tree</field>
@@ -189,6 +189,9 @@
                     <field name="fse_work_status" select="2"/>
                     <field name="fse_work_experience" select="2"/>
                     <field name="fse_studies" select="2" />
+                    <separator string="Events" colspan="4"/>
+                    <field name="badge_title" select="2" />
+                    <field name="badge_name" select="2" />
                 </page>
             </notebook>
         </field>

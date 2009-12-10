@@ -234,6 +234,17 @@ class event_registration(osv.osv):
                 args[1]['training_authorization'] = data_partner.training_authorization
         return super(event_registration, self).write(cr, uid, *args, **argv)
 
+    def onchange_contact_id(self, cr, uid, ids, contact, partner):
+        data = super(event_registration,self).onchange_contact_id(cr, uid, ids, contact, partner)
+        if not contact:
+            return data
+        contact = self.pool.get('res.partner.contact').browse(cr, uid, contact)
+        if contact.badge_name:
+            data['value']['badge_name'] = contact.badge_name
+        if contact.badge_title:
+            data['value']['badge_title'] = contact.badge_title
+        return data
+
     def onchange_partner_id(self, cr, uid, ids, part, event_id, email=False):
     #raise an error if the partner cannot participate to event.
         badge_part = False

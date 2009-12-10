@@ -69,6 +69,7 @@ def _create_reg(self, cr, uid, data, context={}):
                 'name': 'Registration'
                 }
         reg_id = obj_reg.create(cr, uid, vals, context=context)
+        contacts_list.append(job.contact_id.id)
         reg_ids.append(reg_id)
     return {'reg_ids': reg_ids}
 

@@ -72,5 +72,36 @@
 
     <menuitem id="menu_action_dm_campaign_proposition_prices_progression_form" parent="dm.menu_dm_config_campaign" action="action_dm_campaign_proposition_prices_progression_form"/>
 
+	<record model="ir.ui.view" id="view_campaign_proposition_price_form">
+        <field name="name">dm.campaign.proposition.price.form.inherit</field>
+        <field name="model">dm.campaign.proposition</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm_sale.view_campaign_proposition_form_inherit"/>
+        <field name="arch" type="xml">
+			<field name="item_ids" position="replace">
+				<field name="item_ids" colspan="4" nolabel="1">
+	                <form string="Catalogue">
+	                    <field name="offer_step_id"/>
+	                    <field name="product_id" string="Product"/>
+	                    <field name="price"/>
+	                    <field name="qty_default"/>
+	                    <field name="qty_real"/>
+	                    <field name="qty_planned"/>
+	                    <separator string="Notes" colspan="4"/>
+	                    <field name="notes" nolabel="1" colspan="4" widget="text_wiki"/>
+	                </form>
+	                <tree string="Catalogue" editable="bottom">
+	                    <field name="offer_step_id"/>
+	                    <field name="product_id" string="Product"/>
+	                    <field name="price"/>
+	                    <field name="forecasted_yield"/>
+	                    <field name="qty_default"/>
+	                    <field name="notes"/>
+	                </tree>
+				</field>
+            </field>
+        </field>
+    </record>
+
 </data>
 </openerp>

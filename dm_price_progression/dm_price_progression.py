@@ -40,4 +40,21 @@ class dm_campaign_proposition_prices_progression(osv.osv):#{{{
     }
 dm_campaign_proposition_prices_progression()#}}}
 
+class product_product(osv.osv): # {{{
+    _inherit = "product.product"
+    
+    _columns = {
+        'qty_default': fields.float('Default Quantity')
+    }
+    
+product_product() # }}}
+
+class dm_campaign_proposition_item(osv.osv):#{{{
+    _inherit = "dm.campaign.proposition.item"
+
+    _columns = {
+        'qty_default': fields.float('Default Quantity')
+    }
+dm_campaign_proposition_item()#}}}
+
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

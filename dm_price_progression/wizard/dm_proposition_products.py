@@ -95,6 +95,7 @@ class wizard_proposition_products(wizard.interface):
                             'price':item.list_price,
                             'notes':item.description,
                             'forecasted_yield' : step.forecasted_yield,
+                            'qty_default': item.qty_default,
                             }
                     new_id=pool.get('dm.campaign.proposition.item').create(cr, uid, vals)
             stp=stp+1

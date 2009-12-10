@@ -38,7 +38,6 @@ class sale_order(osv.osv):
         moveline_obj = self.pool.get('account.move.line')
         movelines = moveline_obj.search(cr, uid, [('partner_id', '=', partner.id),('account_id.type', 'in', ['receivable', 'payable']), ('state', '<>', 'draft'), ('reconcile_id', '=', False)])
         movelines = moveline_obj.browse(cr, uid, movelines)
-        amount = 0.0
         
         debit, credit = 0.0, 0.0
         for line in movelines:

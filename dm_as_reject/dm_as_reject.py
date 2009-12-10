@@ -92,6 +92,9 @@ class dm_as_reject_incident(osv.osv): # {{{
         'note': fields.text('Description'),
         'active': fields.boolean('Active'),
         }
+    _defaults = {
+        'active': lambda *a: 1,         
+        }
 dm_as_reject_incident() # }}}
 
 class res_partner(osv.osv): # {{{

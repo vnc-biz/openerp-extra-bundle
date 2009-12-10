@@ -170,14 +170,17 @@ class crm_case(osv.osv):
         '''
         val={}
         pool=pooler.get_pool(cr.dbname)
+        sec_obj = pool.get('crm.case.section')
+        sec_id = sec_obj.search(cr, uid, [('code', '=', 'BugSup')])
+        if sec_id:
+            lp_server = lpServer()
+            self._create_bug(cr, uid, sec_id,lp_server, context)
+            self._find_project_bug(cr,uid,sec_id,lp_server)
+            return True
+        else:
+            return False
 
-
-        lp_server = lpServer()
-        self._find_project_bug(cr,uid,lp_server)
-
-        return True
-
-    def _create_bug(self, cr, uid, crm_id=False,lp_server=None,context={}):
+    def _create_bug(self, cr, uid, sec_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         crm_case_obj = pool.get('crm.case')
         crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
@@ -193,12 +196,9 @@ class crm_case(osv.osv):
         else:
                 return False
 
-    def _find_project_bug(self, cr, uid,lp_server=None,context={}):
+    def _find_project_bug(self, cr, uid,sec_id,p_server=None,context={}):
 
         pool=pooler.get_pool(cr.dbname)
-        sec_obj = pool.get('crm.case.section')
-        sec_id = sec_obj.search(cr, uid, [('code', '=', 'BugSup')])
-
         case_stage= pool.get('crm.case.stage')
 
         categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])

@@ -196,7 +196,7 @@ class crm_case(osv.osv):
         else:
                 return False
 
-    def _find_project_bug(self, cr, uid,sec_id,p_server=None,context={}):
+    def _find_project_bug(self, cr, uid,sec_id,lp_server=None,context={}):
 
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')

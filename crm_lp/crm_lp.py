@@ -127,7 +127,6 @@ class lp_project(osv.osv):
         'title': fields.char("Project Title", size=200, required=True, help="The project title. Should be just a few words."),
         'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph."),
         'series_ids' : fields.one2many('lp.series', 'project', 'LP Series'),
-        'milestone_ids' : fields.one2many('lp.project.milestone', 'name', 'LP Series'),
             }
 lp_project()
 
@@ -138,7 +137,8 @@ class lp_series(osv.osv):
               'name':fields.char("Series Name",size=200, required=True, help="The name of the series"),
               'status': fields.char("Status", size=100),
               'summary': fields.char("Summary", size=1000, help="The summary should be a single short paragraph."),
-              'project_id': fields.many2one('lp.project', 'LP Project', ondelete='cascade')
+              'project_id': fields.many2one('lp.project', 'LP Project', ondelete='cascade'),
+               'milestone_ids' : fields.one2many('lp.project.milestone', 'series_id', 'LP Milestone'),
               }
 lp_series()
 
@@ -147,7 +147,7 @@ class lp_project_milestone(osv.osv):
     _description= "LP milestone"
     _columns={
         'name':fields.char('Version', size=100,required=True),
-        'series_id':fields.many2one('lp.series', 'Series', readonly=True),
+        'series_id':fields.many2one('lp.series', 'Series', readonly=True,ondelete='cascade'),
         'project_id': fields.many2one('lp.project', 'Project', readonly=True),
         'expect_date': fields.datetime('Expected Date', readonly=True),
         }

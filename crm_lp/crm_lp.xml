@@ -45,6 +45,8 @@
                <field name="status"/>
                <field name="summary"/>
                <field name="project_id"/>
+		<separator string="Milestone Information" colspan="4" />
+               	<field name="milestone_ids" colspan="2" />
                </form>
        </field>
     </record>

@@ -32,7 +32,7 @@
     'website': 'http://www.openerp.com',
     'depends': [ 'crm','project'],
     'init_xml': [
-        'crm_lp_data.xml',
+        #'crm_lp_data.xml',
     ],
     'update_xml': [
         'crm_lp.xml',

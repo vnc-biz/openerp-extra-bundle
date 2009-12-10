@@ -26,7 +26,7 @@
                 </tree>
             </field>
         </record>
-        
+
       <record model="ir.actions.act_window" id="action_lp_milestone">
         <field name="name">LP Milestones</field>
         <field name="res_model">lp.project.milestone</field>
@@ -34,7 +34,7 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="lp_project_milestone_tree"/>
       </record>
-    
+
     <record model="ir.ui.view" id="form_lp_series">
         <field name="name">lp.series</field>
         <field name="model">lp.series</field>
@@ -45,12 +45,12 @@
                <field name="status"/>
                <field name="summary"/>
                <field name="project_id"/>
-		<separator string="Milestone Information" colspan="4" />
-               	<field name="milestone_ids" colspan="2" />
+			<separator string="Milestone Information" colspan="4" />
+               	<field name="milestone_ids" colspan="4" />
                </form>
        </field>
     </record>
-    
+
     <record model="ir.ui.view" id="tree_lp_series">
         <field name="name">lp.series</field>
         <field name="model">lp.series</field>
@@ -72,7 +72,7 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="tree_lp_series"/>
      </record>
-        
+
     <record model="ir.ui.view" id="view_lp_project_form">
         <field name="name">lp.project.form</field>
         <field name="model">lp.project</field>
@@ -83,7 +83,7 @@
                <field name="title"/>
                <field name="summary"/>
 		<separator string="Series Information" colspan="4" />
-		<field name="series_ids" colspan="4"  nolabel="1"  />               
+		<field name="series_ids" colspan="4"  nolabel="1"  />
                </form>
        </field>
     </record>
@@ -100,14 +100,14 @@
                </form>
        </field>
     </record>
-        
+
     <record model="ir.actions.act_window" id="lp_project_act">
         <field name="name">Launchpad Projects</field>
         <field name="res_model">lp.project</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
      </record>
-     
+
     <menuitem name="Launchpad Projects" id="menu_lp_projects" parent="crm.menu_crm" sequence="0"/>
     <menuitem name="Launchpad Projects" id="menu_lp_projects_mi"  parent="menu_lp_projects" action="lp_project_act"/>
 

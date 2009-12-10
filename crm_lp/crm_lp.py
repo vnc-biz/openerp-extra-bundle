@@ -37,11 +37,9 @@ import threading
 import pickle
 import time
 import sys
-class lpServer(threading.Thread):
+import datetime
 
-    cachedir = ".launchpad/cache/"
-    lp_credential_file = ".launchpad/lp_credential2.txt"
-    bugs_pck = 'bugs.pck'
+class lpServer(threading.Thread):
     launchpad = False
 
     def __init__(self):
@@ -49,7 +47,6 @@ class lpServer(threading.Thread):
         self.launchpad = self.get_lp()
 
     def get_lp(self):
-
         launchpad = False
         cachedir = os.path.expanduser('~/.launchpadlib/cache')
         if not os.path.exists(cachedir):
@@ -72,7 +69,7 @@ class lpServer(threading.Thread):
         if not isinstance(projects,list):
             projects = [projects]
 
-        bug_status = ['New','Confirmed','In Progress']
+        bug_status=[]
         for project in projects:
             result = {}
             r = {}
@@ -89,7 +86,7 @@ class lpServer(threading.Thread):
         return  res
 
     def getProject(self, project):
-        project =self.launchpad.projects[project]
+        project = self.launchpad.projects[project]
         return project
 
     def getSeries(self, project):
@@ -114,13 +111,13 @@ class project_project(osv.osv):
                 'series_ids' : fields.one2many('lp.series', 'project_id', 'LP Series'),
                 'milestone_ids' : fields.one2many('lp.project.milestone', 'project_id', 'LP Milestone'),
                 'bugs_target': fields.char('Bugs Target', size=300),
-                }
-    def onchange_project_name(self, cr, uid, ids, project_name):
-         val={}
-         val['bugs_target'] = "https://api.staging.launchpad.net/beta/" + project_name
-         return {'value' : val}
-project_project()
-
+                }        
+    def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
+        vals['bugs_target'] = "https://api.edge.launchpad.net/beta/" + vals['name']
+        result = super(osv.osv, self).write(cr, uid, ids[0], vals, context)
+        return result
+    
+project_project()        
 
 class lp_series(osv.osv):
     _name="lp.series"
@@ -153,6 +150,14 @@ class crm_case(osv.osv):
                 'project_id': fields.many2one('project.project', 'Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
                 }
+    
+    def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
+        attrs = ['stage_id', 'priority']
+        for attr in attrs:
+            if attr in vals:
+                vals['date_action_last'] = time.strftime('%Y-%m-%d %H:%M:%S')
+        result = super(osv.osv, self).write(cr, uid, ids, vals, context)
+        return result
 
     def _check_bug(self, cr, uid, ids=False, context={}):
         '''
@@ -173,6 +178,14 @@ class crm_case(osv.osv):
 
     def _create_bug(self, cr, uid, sec_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
+        case_stage= pool.get('crm.case.stage')
+        
+        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
+        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
+        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
+        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
+        
+        pool=pooler.get_pool(cr.dbname)
         crm_case_obj = pool.get('crm.case')
         crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
         launchpad = lp_server.launchpad
@@ -180,10 +193,30 @@ class crm_case(osv.osv):
             for case in crm_case_obj.browse(cr,uid, crm_ids):
                 title = case.name
                 target = case.project_id.bugs_target
+                if not target:
+                    target = "https://api.edge.launchpad.net/beta/" + case.project_id.name
                 description=case.description
                 b=launchpad.bugs.createBug(title=title, target=target, description=description)
-                self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
-                return True
+                if b:
+                    bool = self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
+                    status='New'
+                    imp ='Undecided'
+                    if case.stage_id.id == categ_future_id[0] and case.priority == '5':
+                        imp = 'Wishlist'
+                    elif case.priority == '1':
+                        imp = 'High'
+                    elif case.priority == '3':
+                        imp = 'Medium'
+                    if case.stage_id.id == categ_fix_id[0]:
+                        status = 'Fix Released'
+                    if case.stage_id.id == categ_inv_id[0]:
+                        status = 'invalid'
+                    t=b.bug_tasks[0]
+                    t.status = status
+                    t.importance = imp
+                    t.lp_save()
+                    return True
+                return False
         else:
                 return False
 
@@ -217,8 +250,10 @@ class crm_case(osv.osv):
                             if bug.importance == 'Wishlist':
                                 val['stage_id']=categ_future_id[0]
                                 val['priority']='5'
-                            elif bug.importance=='High':
+                            elif bug.importance == 'Critical':
                                 val['priority']='1'
+                            elif bug.importance=='High':
+                                val['priority']='2'
                             elif bug.importance=='Medium':
                                 val['priority']='3'
                             if bug.status in ('Confirmed','Fix Released'):
@@ -230,9 +265,26 @@ class crm_case(osv.osv):
                             if not b_id:
                                 self.create(cr, uid, val,context=context)
                             if b_id:
-                                self.write(cr,uid,b_id,val,context=context)
+                                crm_case = self.browse(cr,uid, b_id[0])
+                                lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
+                                lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,'%Y-%m-%d %H:%M:%S'))
+                                if not crm_case.date_action_last:
+                                    local_last_up_time=0
+                                    local_last_up_timestamp = 0
+                                    local_last_up_timestamp1=0
+                                else:
+                                    local_last_up_time = str(crm_case.date_action_last).split('.')[0]
+                                    local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S')) + time.timezone
+                                    local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S'))
+                                    
+                                args = (cr, uid, context, sec_id, crm_case, bug, val)
+                                if lp_last_up_timestamp >= local_last_up_timestamp:
+                                    self._update_local_record(*args)
+                                elif lp_last_up_timestamp < local_last_up_timestamp:
+                                    self._update_lp_record(*args)
                             cr.commit()
         return True
+    
     def _get_project_series(self, cr, uid,lp_project,lp_project_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         all_series = lp_server.getSeries(lp_project)
@@ -268,6 +320,42 @@ class crm_case(osv.osv):
                 lp_milestones_id=lp_milestones.create(cr, uid, res,context=context)
                 cr.commit()
         return True
+    
+    def _update_local_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
+        pool=pooler.get_pool(cr.dbname)
+        case= pool.get('crm.case')
+        b=case.write(cr,uid,crm_bug.id,val,context=context)
+        if b:
+            return True
+        return False
+    
+    def _update_lp_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
+        pool=pooler.get_pool(cr.dbname)
+        case_stage= pool.get('crm.case.stage')
 
+        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
+        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
+        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
+        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
+        
+        status='New'
+        imp ='Undecided'
+        if crm_bug.stage_id.id == categ_future_id[0] and crm_bug.priority == '5':
+            imp = 'Wishlist'
+        elif crm_bug.priority == '1':
+            imp = 'Critical'
+        elif crm_bug.priority == '2':
+            imp = 'High'
+        elif crm_bug.priority == '3':
+            imp = 'Medium'
+        if crm_bug.stage_id.id == categ_fix_id[0]:
+            status = 'Fix Released'
+        if crm_bug.stage_id.id == categ_inv_id[0]:
+            status = 'Invalid'
+        t=lp_bug.bug.bug_tasks[0]
+        t.status = status
+        t.importance = imp
+        t.lp_save()
+        return True
 crm_case()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

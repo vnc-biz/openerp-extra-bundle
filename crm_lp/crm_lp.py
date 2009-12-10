@@ -261,7 +261,6 @@ class crm_case(osv.osv):
         pool=pooler.get_pool(cr.dbname)
         all_series = lp_server.getSeries(lp_project)
         if all_series:
-            series_ids=[]
             prj_milestone_ids=[]
             lp_series = pool.get('lp.series')
             for series in all_series:
@@ -271,10 +270,9 @@ class crm_case(osv.osv):
                 res['summary'] = series['summary']
                 res['project_id'] = lp_project_id
                 lp_series_id=lp_series.create(cr, uid, res,context=context)
-                series_ids.append(lp_series_id)
                 ml = series['all_milestones_collection_link'].rsplit('/',1)[0]
                 cr.commit()
-                self._get_project_milestone(cr, uid, series_ids,ml,lp_project,lp_project_id, lp_server)
+                self._get_project_milestone(cr, uid, lp_series_id,ml,lp_project,lp_project_id, lp_server)
 
         return True
 
@@ -287,7 +285,7 @@ class crm_case(osv.osv):
             lp_milestones = pool.get('lp.project.milestone')
             for ms in all_milestones:
                 res['name'] = ms['name']
-                res['series_id'] = lp_series_id[0]
+                res['series_id'] = lp_series_id
                 res['project_id'] = lp_project_id
                 if ms['date_targeted']:
                     res['expect_date'] = ms['date_targeted']

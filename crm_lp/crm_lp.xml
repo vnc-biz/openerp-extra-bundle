@@ -40,7 +40,7 @@
         <field name="model">lp.series</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Project Series ">
                <field name="name"/>
                <field name="status"/>
                <field name="summary"/>
@@ -56,7 +56,7 @@
         <field name="model">lp.series</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree>
+	 <tree string="Project Series ">
                <field name="name"/>
                <field name="status"/>
                <field name="project_id"/>

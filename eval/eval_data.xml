@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+  <data>
+    <record model="ir.sequence.type" id="seq_type_eval">
+          <field name="name">Evaluations</field>
+          <field name="code">hr.evaluation</field>
+    </record>
+     <record model="ir.sequence" id="seq_eval">
+          <field name="name">Evaluations</field>
+          <field name="code">hr.evaluation</field>
+          <field name="prefix">EVAL%(year)s%(month)s%(day)s_</field>
+          <field name="padding">2</field>
+     </record>
+
+
+  <record model="ir.cron" id="nexteval_date_cron">
+    <field name="name">Next evaluations</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="numbercall">-1</field>
+    <field name="model">hr.employee</field>
+    <field name="function">running_nexteval_dates</field>
+  </record>
+  </data>
+</openerp>

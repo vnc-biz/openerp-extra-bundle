@@ -57,6 +57,9 @@
 												<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 													<field name="descriptive_text" colspan="4"/>
 												</page>
+												<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)')]}">
+													<field name="column_heading_ids" colspan="4" nolabel="1"/>
+												</page>
 											</notebook>
 										</form>
 										<tree string="Survey Question">
@@ -182,7 +185,10 @@
 							</page>
 							<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 								<field name="descriptive_text" colspan="4"/>
-							</page>							
+							</page>	
+							<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)')]}">
+								<field name="column_heading_ids" colspan="4" nolabel="1"/>
+							</page>
 						</notebook>
 					</form>
 					<tree string="Survey Question">
@@ -265,6 +271,9 @@
 						<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 							<separator string="Descriptive Text" colspan="4"/>
 							<field name="descriptive_text" colspan="4" nolabel="1"/>
+						</page>
+						<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)')]}">
+							<field name="column_heading_ids" colspan="4" nolabel="1"/>
 						</page>
 					</notebook>
 				</form>
@@ -436,6 +445,31 @@
 			</field>
 		</record>
 
+	    <!--
+			Survey Question Column Heading
+		-->
+
+		<record model="ir.ui.view" id="survey_question_column_heading_form">
+			<field name="name">survey_question_column_heading_form</field>
+			<field name="model">survey.question.column.heading</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Column Heading">
+					<field name="title"/>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="survey_question_column_heading_tree">
+			<field name="name">survey_question_column_heading_tree</field>
+			<field name="model">survey.question.column.heading</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Column Heading">
+					<field name="title"/>
+				</tree>
+			</field>
+		</record>
 
 	    <!--
 			res.users

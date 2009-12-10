@@ -149,6 +149,7 @@ class crm_case(osv.osv):
     _columns = {
                 'project_id': fields.many2one('project.project', 'Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
+                'milestone_url':fields.char("Milestone Target",readonly=True, size=100),
                 }
     
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):

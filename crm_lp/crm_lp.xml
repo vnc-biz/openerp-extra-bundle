@@ -80,7 +80,8 @@
                <field name="name"/>
                <field name="title"/>
                <field name="summary"/>
-               
+		<separator string="Series Information" colspan="4" />
+		<field name="series_ids" colspan="4"  nolabel="1"  />               
                </form>
        </field>
     </record>

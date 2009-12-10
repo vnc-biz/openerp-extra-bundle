@@ -126,7 +126,7 @@ class lp_project(osv.osv):
         'name': fields.char("Project Name", size=200, required=True, help="The name of the project"),
         'title': fields.char("Project Title", size=200, required=True, help="The project title. Should be just a few words."),
         'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph."),
-        'series_ids' : fields.one2many('lp.series', 'name', 'LP Series'),
+        'series_ids' : fields.one2many('lp.series', 'project', 'LP Series'),
         'milestone_ids' : fields.one2many('lp.project.milestone', 'name', 'LP Series'),
             }
 lp_project()
@@ -138,7 +138,7 @@ class lp_series(osv.osv):
               'name':fields.char("Series Name",size=200, required=True, help="The name of the series"),
               'status': fields.char("Status", size=100),
               'summary': fields.char("Summary", size=1000, help="The summary should be a single short paragraph."),
-              'project_id': fields.many2one('lp.project', 'LP Project')
+              'project_id': fields.many2one('lp.project', 'LP Project', ondelete='cascade')
               }
 lp_series()
 

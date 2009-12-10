@@ -111,6 +111,8 @@ class lpServer(threading.Thread):
 class project_project(osv.osv):
     _inherit = "project.project"
     _columns = {
+                'series_ids' : fields.one2many('lp.series', 'project_id', 'LP Series'),
+                'milestone_ids' : fields.one2many('lp.project.milestone', 'project_id', 'LP Milestone'),
                 'bugs_target': fields.char('Bugs Target', size=300),
                 }
     def onchange_project_name(self, cr, uid, ids, project_name):
@@ -119,16 +121,6 @@ class project_project(osv.osv):
          return {'value' : val}
 project_project()
 
-class lp_project(osv.osv):
-    _name="lp.project"
-    _description= "LP Projects"
-    _columns={
-        'name': fields.char("Project Name", size=200, required=True, help="The name of the project"),
-        'title': fields.char("Project Title", size=200, required=True, help="The project title. Should be just a few words."),
-        'summary': fields.char("Project Summary", size=100, help="The summary should be a single short paragraph."),
-        'series_ids' : fields.one2many('lp.series', 'project', 'LP Series'),
-            }
-lp_project()
 
 class lp_series(osv.osv):
     _name="lp.series"
@@ -137,7 +129,7 @@ class lp_series(osv.osv):
               'name':fields.char("Series Name",size=200, required=True, help="The name of the series"),
               'status': fields.char("Status", size=100),
               'summary': fields.char("Summary", size=1000, help="The summary should be a single short paragraph."),
-              'project_id': fields.many2one('lp.project', 'LP Project', ondelete='cascade'),
+              'project_id': fields.many2one('project.project', 'LP Project', ondelete='cascade'),
                'milestone_ids' : fields.one2many('lp.project.milestone', 'series_id', 'LP Milestone'),
               }
 lp_series()
@@ -148,7 +140,7 @@ class lp_project_milestone(osv.osv):
     _columns={
         'name':fields.char('Version', size=100,required=True),
         'series_id':fields.many2one('lp.series', 'Series', readonly=True,ondelete='cascade'),
-        'project_id': fields.many2one('lp.project', 'Project', readonly=True),
+        'project_id': fields.many2one('project.project', 'Project', readonly=True),
         'expect_date': fields.datetime('Expected Date', readonly=True),
         }
 
@@ -159,7 +151,6 @@ class crm_case(osv.osv):
 
     _columns = {
                 'project_id': fields.many2one('project.project', 'Project'),
-                'lp_project':fields.many2one('lp.project','LP Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
                 }
 
@@ -214,28 +205,12 @@ class crm_case(osv.osv):
             project_name=str(prj_id.name)
             if project_name.find('openobject') == 0:
                 prjs=lp_server.get_lp_bugs(project_name)
+                lp_project = lp_server.getProject(project_name)
+                self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
                 for key, bugs in prjs.items():
                         for bug in bugs:
                             b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
-
-                            project = str(bug.target).split('/')[-1]
-
-                            lp_prj = self.pool.get('lp.project')
-                            lp_project_ids=lp_prj.search(cr,uid,[('name','=',project)])
-                            lp_project = lp_server.getProject(project)
-
-                            res['name'] = lp_project.name
-                            res['title'] = lp_project.title
-                            res['summary'] = lp_project.summary
-                            if not lp_project_ids:
-                                lp_project_id=lp_prj.create(cr, uid, res,context=context)
-                                self._get_project_series( cr, uid,lp_project,lp_project_id,lp_server)
-                            else:
-                                lp_project_id = lp_project_ids[0]
-                                lp_prj.write(cr, uid, lp_project_id, res, context=context)
-
                             val['project_id']=prj_id.id
-                            val['lp_project']=lp_project_id
                             val['bug_id']=bug.bug.id
                             val['name']=bug.bug.title
                             val['section_id']=sec_id[0]

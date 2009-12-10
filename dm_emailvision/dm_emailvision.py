@@ -49,7 +49,7 @@ class dm_mail_service(osv.osv):
     _columns = {
         'ev_host': fields.char('Emailvision Host', size=64),
         'ev_service': fields.char('Emailvision Service', size=64),
-        'ev_template': fields.many2one('dm.emailvision.template', 'Default Emailvision Template'),
+        'ev_template': fields.many2one('dm.emailvision.template', 'Emailvision Template'),
     }
     _defaults = {
         'ev_host': lambda *a : 'api.notificationmessaging.com',

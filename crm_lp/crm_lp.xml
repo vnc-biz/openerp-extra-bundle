@@ -101,6 +101,7 @@
             <field name="id" position="after">
                 <field name="project_id"/>
                 <field name="bug_id"/>
+				<field name="milestone_url"/>
             </field>
        </field>
     </record>

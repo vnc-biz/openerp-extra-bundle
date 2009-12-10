@@ -225,7 +225,8 @@ class crm_case(osv.osv):
                                 val['stage_id']=categ_fix_id[0]
                             if bug.status =='invaild':
                                 val['stage_id']= val['stage_id']=categ_inv_id[0]
-
+                            if bug.milestone_link:
+                                val['milestone_url']=bug.milestone_link
                             if not b_id:
                                 self.create(cr, uid, val,context=context)
                             if b_id:

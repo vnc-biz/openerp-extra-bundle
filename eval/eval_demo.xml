@@ -20,7 +20,7 @@
 			<field name="address_id" ref="base.res_partner_address_3"/>
 			<field eval="&quot;&quot;&quot;en_US&quot;&quot;&quot;" name="context_lang"/>
 			<field eval="&quot;&quot;&quot;Vir&quot;&quot;&quot;" name="name"/>
-			<field eval="[(6,0,[ref('base.group_user')])]" name="groups_id"/>
+			<field eval="[(6,0,[ref('base.group_user'),ref('res_groups_253'),ref('hr_contract.group_hr_contract'),ref('hr.group_hr_user')])]" name="groups_id"/>
 			<field name="company_id" ref="base.main_company"/>
 			<field eval="[(6,0,[])]" name="roles_id"/>
 			<field eval="[(6,0,[])]" name="rules_id"/>

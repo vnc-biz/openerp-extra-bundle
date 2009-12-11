@@ -192,6 +192,8 @@ class hr_evaluation_setting(osv.osv):
     }
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        if not context:
+           context={}
         if context.get('set', None) == 'my':
             cr.execute("select distinct s.id from hr_evaluation_setting s, hr_evaluation_form f, hr_employee e, res_users r where f.setting_id = s.id and f.employee_id2 = e.id and r.id = %d and e.user_id=r.id"%(uid))
             res = cr.fetchall()
@@ -217,6 +219,8 @@ class hr_evaluation_form(osv.osv):
     _description = "Evaluation Form"
 
     def button_show(self, cr, uid, ids, context):
+        if not context:
+           context={}
         setting_id = self.browse(cr, uid, ids[0]).setting_id.id
         context.update({'setting_id': setting_id})
         return {
@@ -231,6 +235,8 @@ class hr_evaluation_form(osv.osv):
                 }
 
     def fields_get(self, cr, uid, fields=None, context=None, read_access=True):
+        if not context:
+           context={}
         result = super(hr_evaluation_form, self).fields_get(cr, uid, fields, context)
         setting_obj = self.pool.get('hr.evaluation.setting')
         groups = self.pool.get('hr.evaluation.setting').search(cr, uid, [])
@@ -262,6 +268,8 @@ class hr_evaluation_form(osv.osv):
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
         result = super(hr_evaluation_form, self).search(cr, uid, args, offset, limit, order, context, count)
+        if not context:
+           context={}
         user_id = context.get('uid', None)
         setting_id = context.get('setting_id', None)
         states = context.get('states', None)
@@ -290,6 +298,8 @@ class hr_evaluation_form(osv.osv):
         for grid in self.browse(cr, uid, ids, context=context):
             model_id = grid.id
             perms_rel = ['form_id', 'criteria_id', 'text_criteria', 'rating', 'employee_id']
+        if not context:
+           context={}
         setting_id = context.get('active_id', False)
         if not setting_id:
             setting_id = context.get('setting_id', False)
@@ -331,6 +341,8 @@ class hr_evaluation_form(osv.osv):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
+        if not context:
+           context={}
         setting_id = context.get('active_id', False)
         if not setting_id:
             setting_id = context.get('setting_id', False)
@@ -374,6 +386,8 @@ class hr_evaluation_form(osv.osv):
         return True
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
+        if not context:
+           context={}
         setting_obj = self.pool.get('hr.evaluation.setting')
         values_obj = self.pool.get('hr.evaluation.values')
         sett_obj = self.pool.get('hr.evaluation.setting')

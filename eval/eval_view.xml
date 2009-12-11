@@ -128,8 +128,7 @@
                     <field name="old_grid_id"/>
                     <field name="employee_id"/>
                     <field name="salary_market"/>
-                    <field name="ratio"/>
-                    <field name="variance"/>
+
                 </form>
             </field>
         </record>
@@ -146,8 +145,6 @@
                     <field name="old_grid_id"/>
                     <field name="employee_id"/>
                     <field name="salary_market"/>
-                    <field name="ratio"/>
-                    <field name="variance"/>
                 </tree>
             </field>
         </record>

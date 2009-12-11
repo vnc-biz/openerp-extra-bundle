@@ -101,8 +101,8 @@
             </field>
        </field>
     </record>
-<menuitem name="Project Series" id="menu_lp_series"  parent="project.menu_main" action="action_lp_series"/>
-<menuitem name="Project Milestones" id="menu_lp_milestones"  parent="project.menu_main" action="action_lp_milestone"/>
+<menuitem name="Project Series" id="menu_lp_series"  parent="project.menu_all_project" action="action_lp_series"/>
+<menuitem name="Project Milestones" id="menu_lp_milestones"  parent="project.menu_all_project" action="action_lp_milestone"/>
 </data>
 
 </openerp>

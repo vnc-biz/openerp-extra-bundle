@@ -165,6 +165,7 @@ class survey_question_column_heading(osv.osv):
     _columns = {
         'title' : fields.char('Column Heading', size=128, required=1),
         'menu_choice' : fields.text('Menu Choice'),
+        'rating_weight' : fields.integer('Weight'),
         'question_id' : fields.many2one('survey.question', 'Question'),
     }
 survey_question_column_heading()
@@ -437,7 +438,11 @@ class survey_question_wiz(osv.osv_memory):
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
                     
                     elif que_rec['type'] == 'rating scale':
-                        pass
+                        for row in ans_ids:
+                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
 
                     elif que_rec['type'] == 'multiple textboxes':
                         for ans in ans_ids:

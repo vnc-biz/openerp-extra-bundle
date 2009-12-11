@@ -363,7 +363,6 @@ class payroll_advice_line(osv.osv):
     }
     
     def onchange_employee_id(self, cr, uid, ids, ddate, employee_id, context={}):
-        
         vals = {}
         slip_pool = self.pool.get('hr.payslip')        
         if employee_id:
@@ -387,21 +386,44 @@ class contrib_register(osv.osv):
     _name = 'hr.contibution.register'
     _description = 'Contribution Register'
     
-    def _total_contrib(self, cr, uid, ids, field_names, arg, context):
-		res={}
-	    
-		return res
+    def _total_contrib(self, cr, uid, ids, field_names, arg, context={}):
+        line_pool = self.pool.get('hr.contibution.register.line')
+        period_id = self.pool.get('account.period').search(cr,uid,[('date_start','<=',time.strftime('%Y-%m-%d')),('date_stop','>=',time.strftime('%Y-%m-%d'))])[0]
+        fiscalyear_id = self.pool.get('account.period').browse(cr, uid, period_id).fiscalyear_id
+        res = {}
+        for cur in self.browse(cr, uid, ids):
+            current = line_pool.search(cr, uid, [('period_id','=',period_id),('register_id','=',cur.id)])
+            years = line_pool.search(cr, uid, [('period_id.fiscalyear_id','=',fiscalyear_id.id), ('register_id','=',cur.id)])
+        
+            e_month = 0.0
+            c_month = 0.0
+            for i in line_pool.browse(cr, uid, current):
+                e_month += i.emp_deduction
+                c_month += i.comp_deduction
+            
+            e_year = 0.0
+            c_year = 0.0
+            for j in line_pool.browse(cr, uid, years):
+                e_year += i.emp_deduction
+                c_year += i.comp_deduction
+                
+            res[cur.id]={
+                'monthly_total_by_emp':e_month,
+                'monthly_total_by_comp':c_month,
+                'yearly_total_by_emp':e_year,
+                'yearly_total_by_comp':c_year
+            }
+            
+        return res
 
     _columns = {
         'company_id':fields.many2one('res.company', 'Company', required=False),
         'name':fields.char('Name', size=256, required=True, readonly=False),
-        'account_id':fields.many2one('account.account', 'Account', required=True),
-		'analytic_account_id':fields.many2one('account.analytic.account', 'AnalyticAccount', required=True),
-		'register_line_ids':fields.one2many('hr.contibution.register.line', 'register_id', 'Register Line', required=False),
-        'yearly_total_by_emp': fields.function(_total_contrib, method=True, store=True,string='Total By Employee', digits=(16, int(config['price_accuracy']))),
-        'yearly_total_by_comp': fields.function(_total_contrib, method=True, store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),
-        'monthly_total_by_emp': fields.function(_total_contrib, method=True, store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
-        'monthly_total_by_comp': fields.function(_total_contrib, method=True, store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),		
+		'register_line_ids':fields.one2many('hr.contibution.register.line', 'register_id', 'Register Line', readonly=True),
+        'yearly_total_by_emp': fields.function(_total_contrib, method=True, multi='dc', store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
+        'yearly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),
+        'monthly_total_by_emp': fields.function(_total_contrib, method=True, multi='dc', store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
+        'monthly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),		
     }
 contrib_register()
 
@@ -413,11 +435,10 @@ class contrib_register_line(osv.osv):
     _description = 'Contribution Register Line'
   
     def _total(self, cr, uid, ids, field_names, arg, context):
-		res={}
-		for line in self.browse(cr, uid, ids, context):
+	    res={}
+	    for line in self.browse(cr, uid, ids, context):
 		    res[line.id] = line.emp_deduction + line.comp_deduction
-
-		return res
+		    return res
 	
     _columns = {
 		'name':fields.char('Name', size=256, required=True, readonly=False),
@@ -428,7 +449,6 @@ class contrib_register_line(osv.osv):
 		'emp_deduction': fields.float('Employee Deduction', digits=(16, int(config['price_accuracy']))),
 		'comp_deduction': fields.float('Company Deduction', digits=(16, int(config['price_accuracy']))),
         'total': fields.function(_total, method=True, store=True,  string='Total', digits=(16, int(config['price_accuracy']))),	
-		
     }
 contrib_register_line()
 
@@ -927,7 +947,7 @@ class hr_payslip(osv.osv):
                         'name':line.name,
                         'code':line.code,
                         'employee_id':slip.employee_id.id,
-                        'period_id':slip.period_id.id,
+                        'period_id':period_id,
                         'emp_deduction':amount,
                     }
                     if line.category_id.contribute:
@@ -1088,9 +1108,13 @@ class hr_payslip(osv.osv):
                         except Exception, e:
                             raise osv.except_osv(_('Variable Error !'), _('Variable Error : %s ' % (e)))
                         if amt <= 0:
-                            amt =line.amount
+                            amt = line.amount
                         else:
                             amt =  line.amount + (amt * line.amount)
+                            
+                        if line.category_id.contribute and line.category_id.include_in_salary:
+                            amt *= 2
+                            
                         if line.type == 'allounce':
                             all_per += amt
                         elif line.type == 'deduction':
@@ -1100,8 +1124,12 @@ class hr_payslip(osv.osv):
                             all_fix += line.amount
                         elif line.type == 'deduction':
                             ded_fix += line.amount
-                slip_line_pool.copy(cr, uid, line.id, {'slip_id':slip.id, 'employee_id':False, 'function_id':False}, {})
 
+                amount = line.amount
+                if line.category_id.contribute and line.category_id.include_in_salary:
+                    amount = line.amount * 2
+                slip_line_pool.copy(cr, uid, line.id, {'amount':amount, 'slip_id':slip.id, 'employee_id':False, 'function_id':False}, {})
+    
             for line in emp.line_ids:
                 if line.category_id.code in ad:
                     continue
@@ -1128,6 +1156,9 @@ class hr_payslip(osv.osv):
                             amt =line.amount
                         else:
                             amt =  line.amount + (amt * line.amount)
+                        
+                        if line.category_id.contribute and line.category_id.include_in_salary:
+                            amt *= 2
                         if line.type == 'allounce':
                             all_per += amt
                         elif line.type == 'deduction':
@@ -1137,13 +1168,18 @@ class hr_payslip(osv.osv):
                             all_fix += line.amount
                         elif line.type == 'deduction':
                             ded_fix += line.amount
-                slip_line_pool.copy(cr, uid, line.id, {'slip_id':slip.id, 'employee_id':False, 'function_id':False}, {})
-
+                            
+                amount = line.amount
+                if line.category_id.contribute and line.category_id.include_in_salary:
+                    amount = line.amount * 2
+                slip_line_pool.copy(cr, uid, line.id, {'amount':amount, 'slip_id':slip.id, 'employee_id':False, 'function_id':False}, {})
+                
             if sal_type == 'net':
                 sal = contract.wage
-                sal += ded_fix
+                #TODO : if we need to adjust every things uncomeent this line 
+                #sal += ded_fix
                 sal -= all_fix
-                per = (all_per - ded_per)
+                per = (all_per - ded_per + ded_per)
                 if per <=0 :
                     per *= -1
                 final = (per * 100) + 100

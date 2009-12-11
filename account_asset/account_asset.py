@@ -102,7 +102,6 @@ class account_asset_asset(osv.osv):
             cp = property.entry_asset_ids[-1].period_id
             cpid = self.pool.get('account.period').next(cr, uid, cp, property.method_period, context)
             current_period = self.pool.get('account.period').browse(cr, uid, cpid, context)
-
         else:
             current_period = property.asset_id.period_id
         return current_period
@@ -114,7 +113,9 @@ class account_asset_asset(osv.osv):
             total += move.debit-move.credit
         for move in property.entry_asset_ids:
             if move.account_id == property.account_asset_ids:
-                total += move.debit-move.credit
+                print 'XXXXXXXXXXXXXXX : ', move.debit
+                total += move.debit
+                total += -move.credit
         periods = (len(property.entry_asset_ids)/2) - property.method_delay
         if periods==1:
             amount = total

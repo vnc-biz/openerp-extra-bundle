@@ -349,7 +349,7 @@ class hr_evaluation_form(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
             context = {}
-        setting_id = context and context.get('active_id', context.get('setting_id')) or False
+        setting_id = context and context.get('setting_id', context.get('active_id')) or False
         acc_obj = self.pool.get('hr.evaluation.values')
         crit_obj = self.pool.get('hr.evaluation.criteria')
         set_obj = self.pool.get('hr.evaluation.setting')

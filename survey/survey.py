@@ -160,7 +160,57 @@ class survey_question(osv.osv):
          'allow_comment' : lambda * a: False,
          'req_error_msg' : lambda * a: 'This question requires an answer.',
     }
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        read = self.read(cr,uid, ids, ['answer_choice_ids', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans'])[0]
+        ans_len = len(read['answer_choice_ids'])
+        if vals.has_key('answer_choice_ids'):
+            for ans in vals['answer_choice_ids']:
+                if type(ans[2]) == type({}):
+                    ans_len += 1
+                else:
+                    ans_len -= 1
+        type = ""
+        if vals.has_key('required_type'):
+            type = vals['required_type']
+        else:
+            type = read['required_type']
+        if type in ['at least','exactly']:
+            if vals.has_key('req_ans'):
+                if not vals['req_ans'] or  vals['req_ans'] > ans_len:
+                    raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+            else:
+                if not read['req_ans'] or  read['req_ans'] > ans_len:
+                    raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+        if type == 'a range':
+            if vals.has_key('minimum_req_ans'):
+                if not vals['minimum_req_ans'] or  vals['minimum_req_ans'] > ans_len:
+                    raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+            else:
+                if not read['minimum_req_ans'] or  read['minimum_req_ans'] > ans_len:
+                    raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+            if vals.has_key('maximum_req_ans'):
+                if not vals['maximum_req_ans'] or vals['maximum_req_ans'] > ans_len:
+                    raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+            else:
+                if not read['maximum_req_ans'] or read['maximum_req_ans'] > ans_len:
+                    raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+        return super(survey_question, self).write(cr, uid, ids, vals, context=context)
 
+    def create(self, cr, uid, vals, context):
+        if vals.has_key('required_type') and vals['required_type'] in ['at least','exactly']:
+            if vals['req_ans'] > len(vals['answer_choice_ids']) or not vals['req_ans']:
+                print ":ADA::"
+                raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
+        if vals.has_key('required_type') and vals['required_type'] == 'a range':
+            if vals['minimum_req_ans'] > len(vals['answer_choice_ids']) or not vals['minimum_req_ans']:
+                raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
+            if vals['maximum_req_ans'] > len(vals['answer_choice_ids']) or not vals['maximum_req_ans']:
+                raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
+
+        res = super(survey_question, self).create(cr, uid, vals, context)
+        return res
+    
 survey_question()
 
 class survey_question_column_heading(osv.osv):

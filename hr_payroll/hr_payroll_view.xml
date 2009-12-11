@@ -356,10 +356,10 @@
                         </group>
                         <group col="2" colspan="2">
                             <separator colspan="2" string="Contributions Configuration"/>
-                            <field name="register_id"/>
+                            <field name="register_id" attrs="{'required': [('contribute','=',True)]}"/>
                             <field name="contribute"/>
+                            <field name="contribute_per" attrs="{'required': [('contribute','=',True)]}"/>
                             <field name="include_in_salary"/>
-                            <field name="contribute_per"/>
                         </group>
                     </group>
                     <separator colspan="4" string="Description"/>

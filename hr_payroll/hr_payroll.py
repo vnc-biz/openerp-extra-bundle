@@ -56,6 +56,7 @@ class hr_employee_grade(osv.osv):
         'function_id':fields.many2one('res.partner.function', 'Function', required=False),
         'line_ids':fields.one2many('hr.payslip.line', 'function_id', 'Salary Structure', required=False),
         'account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
+        'company_id':fields.many2one('res.company', 'Company', required=False),
     }
 hr_employee_grade()
 
@@ -307,6 +308,7 @@ class payroll_advice(osv.osv):
         'line_ids':fields.one2many('hr.payroll.advice.line', 'advice_id', 'Employee Salary', required=False),
         'chaque_nos':fields.char('Chaque Nos', size=256, required=False, readonly=False),
         'account_id': fields.many2one('account.account', 'Account', required=True),
+        'company_id':fields.many2one('res.company', 'Company', required=False),
     }
     
     _defaults = {
@@ -387,9 +389,11 @@ class contrib_register(osv.osv):
     
     def _total_contrib(self, cr, uid, ids, field_names, arg, context):
 		res={}
+	    
 		return res
 
     _columns = {
+        'company_id':fields.many2one('res.company', 'Company', required=False),
         'name':fields.char('Name', size=256, required=True, readonly=False),
         'account_id':fields.many2one('account.account', 'Account', required=True),
 		'analytic_account_id':fields.many2one('account.analytic.account', 'AnalyticAccount', required=True),
@@ -410,8 +414,11 @@ class contrib_register_line(osv.osv):
   
     def _total(self, cr, uid, ids, field_names, arg, context):
 		res={}
+		for line in self.browse(cr, uid, ids, context):
+		    res[line.id] = line.emp_deduction + line.comp_deduction
+
 		return res
-  
+	
     _columns = {
 		'name':fields.char('Name', size=256, required=True, readonly=False),
         'register_id':fields.many2one('hr.contibution.register', 'Register', required=False),
@@ -448,11 +455,10 @@ class payment_category(osv.osv):
         'condition':fields.char('Condition', size=64, required=True, readonly=False, help='Applied this head for calculation if condition is true'),
         'sequence': fields.integer('Sequence', required=True, help='Use to arrange calculation sequence'),
         'register_id':fields.many2one('hr.contibution.register', 'Contribution Register', required=False),
-        'note': fields.text('Description'),
-		#add fields to resolve error	
+        'note': fields.text('Description'),	
 		'user_id':fields.char('User', size=64, required=False, readonly=False),
 		'state':fields.char('Label', size=64, required=False, readonly=False),
-		 
+        'company_id':fields.many2one('res.company', 'Company', required=False),
     }
     _defaults = {
         'condition': lambda *a: 'True',
@@ -913,6 +919,20 @@ class hr_payslip(osv.osv):
                     line_ids += [movel_pool.create(cr, uid, ded_rec)]
                 
                 line_ids += [movel_pool.create(cr, uid, rec)]
+                
+                #make an entry line to contribution register
+                if line.category_id.register_id:
+                    ctr = {
+                        'register_id':line.category_id.register_id.id,
+                        'name':line.name,
+                        'code':line.code,
+                        'employee_id':slip.employee_id.id,
+                        'period_id':slip.period_id.id,
+                        'emp_deduction':amount,
+                    }
+                    if line.category_id.contribute:
+                        ctr['comp_deduction'] = amount
+                    self.pool.get('hr.contibution.register.line').create(cr, uid, ctr)
             
             adj_move_id = False
             if total_deduct > 0:
@@ -1048,8 +1068,18 @@ class hr_payslip(osv.osv):
                 ad.append(line.category_id.code)
                 
                 cd = line.category_id.code.lower()
-                #obj[cd] = line.amount
                 
+                goto_next = True
+                try:
+                    exp = line.category_id.condition
+                    goto_next = eval(exp, obj)
+                except Exception, e:
+                    raise osv.except_osv(_('Variable Error !'), _('Variable Error : %s ' % (e)))
+                    pass
+                    
+                if not goto_next:
+                    continue
+                    
                 if sal_type == 'net':
                     if line.amount_type == 'per':
                         exp = line.category_id.base
@@ -1076,7 +1106,17 @@ class hr_payslip(osv.osv):
                 if line.category_id.code in ad:
                     continue
                 ad.append(line.category_id.code)
-                
+
+                goto_next = True
+                try:
+                    exp = line.category_id.condition
+                    goto_next = eval(exp, obj)
+                except Exception, e:
+                    raise osv.except_osv(_('Variable Error !'), _('Variable Error : %s ' % (e)))
+                    
+                if not goto_next:
+                    continue
+
                 if sal_type == 'net':
                     if line.amount_type == 'per':
                         exp = line.category_id.base

@@ -304,6 +304,7 @@
                     <field name="name"/>
                     <field name="code"/>
                     <field name="line_ids"/>
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
@@ -318,6 +319,7 @@
                         <field name="name" select="1"/>
                         <field name="code" select="1"/>
                         <field name="account_id" select="1"/>
+                        <field name="company_id"/>
                     </group>
                     <field name="line_ids" nolabel="1" colspan="4"/>
                 </form>
@@ -336,7 +338,7 @@
             parent="payroll_configure" 
         />
         
-        <record id="hr_allounce_deduction_form" model="ir.ui.view">
+        <record id="hr_allounce_deduction_categoty_form" model="ir.ui.view">
             <field name="name">hr.allounce.deduction.categoty.form</field>
             <field name="model">hr.allounce.deduction.categoty</field>
             <field name="type">form</field>
@@ -364,7 +366,7 @@
                 </form>
             </field>
         </record>
-         <record id="hr_allounce_deduction_tree" model="ir.ui.view">
+         <record id="hr_allounce_deduction_categoty_tree" model="ir.ui.view">
             <field name="name">hr.allounce.deduction.categoty.tree</field>
             <field name="model">hr.allounce.deduction.categoty</field>
             <field name="type">tree</field>
@@ -380,7 +382,7 @@
             <field name="name">Allowance/Deduction Heads</field>
             <field name="res_model">hr.allounce.deduction.categoty</field>
             <field name="view_type">form</field>
-            <field name="view_id" ref="hr_allounce_deduction_tree"/>
+            <field name="view_id" ref="hr_allounce_deduction_categoty_tree"/>
         </record>
         <menuitem 
             id="menu_hr_allounce_deduction_tree" 
@@ -388,7 +390,7 @@
             parent="payroll_configure" 
         />
         
-        
+        <!-- Contract Form-->
         <record id="hr_contract.hr_contract_view_form" model="ir.ui.view">
             <field name="name">hr.contract.view.form</field>
             <field name="model">hr.contract</field>
@@ -445,6 +447,7 @@
                     <field name="name" select="1"/>
                     <field name="date" select="1"/>
                     <field name="number" select="1"/>
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
@@ -474,6 +477,7 @@
                                     <field name="flag"/>
                                 </tree>
                             </field>
+                            <field name="company_id"/>
                             <field name="chaque_nos"/>
                         </page>
                         <page string="Letter Content">
@@ -585,23 +589,6 @@
             parent="menu_hr_root_payroll"
         />
         
-<!--   Contract Form     -->
-<!--        <record id="hr_contract_view_form" model="ir.ui.view">-->
-<!--            <field name="name">hr.contract.view.form</field>-->
-<!--            <field name="model">hr.contract</field>-->
-<!--            <field name="type">form</field>-->
-<!--            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <field name="notes" position="after">-->
-<!--                    <separator colspan="4" string="Passport and Visa"/>-->
-<!--                    <field name="permit_no"/>-->
-<!--                    <field name="passport_id"/>-->
-<!--                    <field name="visa_no"/>-->
-<!--                    <field name="visa_expire"/>-->
-<!--                </field>-->
-<!--            </field>-->
-<!--        </record>-->
-
         <!--    Passport Views    -->
         <record id="hr_passport_form" model="ir.ui.view">
             <field name="name">hr.passport.form</field>
@@ -656,27 +643,28 @@
 					<group col="6" colspan="6">
                         <field name="name" select="1"/>
                         <field name="account_id" select="1"/>
-                        <field name="analytic_account_id" select="1"/>			
-                    <group col="2" colspan="4">
+                        <field name="analytic_account_id" select="1"/>	
+                        <field name="company_id" select="1"/>
+                    </group>		
+                    <group col="2" colspan="2">
                          <separator colspan="4" string="Year"/>
-								<field name="yearly_total_by_emp"/>
-								<field name="yearly_total_by_comp"/>
+					    <field name="yearly_total_by_emp"/>
+					    <field name="yearly_total_by_comp"/>
                     </group>
-                        <group col="2" colspan="2">
-                           <separator colspan="2" string="Month"/>
-								<field name="monthly_total_by_emp"/>
-								<field name="monthly_total_by_comp"/>
-                     </group>	
-					</group>
+                    <group col="2" colspan="2">
+                        <separator colspan="2" string="Month"/>
+                        <field name="monthly_total_by_emp"/>
+                        <field name="monthly_total_by_comp"/>
+                    </group>
 				    <field colspan="4" name="register_line_ids" nolabel="1" select="1">
-                                <tree string="Register Lines">
-                                    <field name="code"/>
-									 <field name="employee_id"/>
-									 <field name="period_id"/>	
-									<field name="emp_deduction"/>
-									<field name="comp_deduction"/>	
-									<field name="total"/>						
-                                </tree>
+                        <tree string="Register Lines" editable="top">
+                            <field name="code"/>
+                            <field name="employee_id"/>
+                            <field name="period_id"/>	
+                            <field name="emp_deduction"/>
+                            <field name="comp_deduction"/>	
+                            <field name="total"/>						
+                        </tree>
                      </field>
 				</form>
             </field>
@@ -699,8 +687,7 @@
             <field name="arch" type="xml">
                 <form string="Contribution">
 					  <field name="name"/>
-					  <field name="code"/>	
-					<!--  <field name="register_id"/>		-->
+					  <field name="code"/>
                       <field name="employee_id"/>	
 				      <field name="period_id"/>	
 					  <field name="emp_deduction"/>

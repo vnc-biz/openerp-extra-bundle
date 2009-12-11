@@ -192,17 +192,15 @@ class hr_evaluation_setting(osv.osv):
     }
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
-        if not context:
-           context={}
+        if context is None:
+            context = {}
         if context.get('set', None) == 'my':
-            cr.execute("select distinct s.id from hr_evaluation_setting s, hr_evaluation_form f, hr_employee e, res_users r where f.setting_id = s.id and f.employee_id2 = e.id and r.id = %d and e.user_id=r.id"%(uid))
+            cr.execute("""select distinct s.id from hr_evaluation_setting s, hr_evaluation_form f, hr_employee e,
+                          res_users r where f.setting_id = s.id and f.employee_id2 = e.id and
+                          r.id = %s and e.user_id=r.id""", [uid])
             res = cr.fetchall()
             ids = [r[0] for r in res]
         return super(hr_evaluation_setting, self).read(cr, uid, ids, fields, context, load)
-
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
-        result = super(hr_evaluation_setting, self).search(cr, uid, args, offset, limit, order, context, count)
-        return result
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
         eval_form_obj = self.pool.get('hr.evaluation.form')
@@ -219,8 +217,8 @@ class hr_evaluation_form(osv.osv):
     _description = "Evaluation Form"
 
     def button_show(self, cr, uid, ids, context):
-        if not context:
-           context={}
+        if context is None:
+            context = {}
         setting_id = self.browse(cr, uid, ids[0]).setting_id.id
         context.update({'setting_id': setting_id})
         return {
@@ -230,26 +228,26 @@ class hr_evaluation_form(osv.osv):
                 'view_type': 'form',
                 'view_mode': 'form,tree',
                 'res_model': 'hr.evaluation.form',
-                'context': {'setting_id':self.browse(cr, uid, ids[0]).setting_id.id},
-
+                'context': context,
                 }
 
     def fields_get(self, cr, uid, fields=None, context=None, read_access=True):
-        if not context:
-           context={}
+        if context is None:
+            context = {}
         result = super(hr_evaluation_form, self).fields_get(cr, uid, fields, context)
         setting_obj = self.pool.get('hr.evaluation.setting')
         groups = self.pool.get('hr.evaluation.setting').search(cr, uid, [])
         groups_br = self.pool.get('hr.evaluation.setting').browse(cr, uid, groups)
-        result['name'] = {'string': 'Name', 'type': 'char', 'size': 64, 'required': True}
-        result['state'] = {'string': 'State', 'type': 'selection', 'selection': [('draft', 'Draft'),
+        # XXX to translate:
+        result['name'] = {'string': _('Name'), 'type': 'char', 'size': 64, 'required': True}
+        result['state'] = {'string': _('State'), 'type': 'selection', 'selection': [('draft', 'Draft'),
                                                                                  ('cancel', 'Cancel'),
                                                                                  ('done', 'Done'),
                                                                                  ('review', 'Reviewed by top management')]}
-        result['note'] = {'string': 'Note', 'type': 'text'}
-        result['employee_id'] = {'string': 'Employee', 'type': 'many2one', 'relation': 'hr.employee'}
-        result['setting_id'] = {'string': 'Setting', 'type': 'many2one', 'relation': 'hr.evaluation.setting', 'required': True}
-        result['employee_id2'] = {'string': 'Employee that evaluates', 'type': 'many2one', 'relation': 'hr.employee'}
+        result['note'] = {'string': _('Note'), 'type': 'text'}
+        result['employee_id'] = {'string': _('Employee'), 'type': 'many2one', 'relation': 'hr.employee'}
+        result['setting_id'] = {'string': _('Setting'), 'type': 'many2one', 'relation': 'hr.evaluation.setting', 'required': True}
+        result['employee_id2'] = {'string': _('Employee that evaluates'), 'type': 'many2one', 'relation': 'hr.employee'}
         setting_id = context.get('active_id', False)
         if not setting_id:
             setting_id = context.get('setting_id', False)
@@ -267,39 +265,51 @@ class hr_evaluation_form(osv.osv):
         return result
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        if context is None:
+            context = {}
         result = super(hr_evaluation_form, self).search(cr, uid, args, offset, limit, order, context, count)
-        if not context:
-           context={}
         user_id = context.get('uid', None)
         setting_id = context.get('setting_id', None)
         states = context.get('states', None)
         if user_id and setting_id and states:
-            cr.execute("select f.id from hr_evaluation_form f, hr_employee e, res_users r where e.user_id=r.id and r.id=%d and f.employee_id2 = e.id and f.setting_id = %d and f.state in ('%s')"%(user_id, setting_id, states))
+            cr.execute("""select f.id from hr_evaluation_form f, hr_employee e, res_users r
+                          where e.user_id=r.id and r.id=%s and f.employee_id2 = e.id and
+                          f.setting_id = %s and f.state in %s""", [user_id, setting_id, tuple(states)])
             return [a[0] for a in cr.fetchall()]
         elif states and user_id:
-            cr.execute("select f.id from hr_evaluation_form f, hr_employee e, res_users r where e.user_id=r.id and f.states in (%s) and f.employee_id2 = e.id and r.id = %d"%(states, setting_id))
+            cr.execute("""select f.id from hr_evaluation_form f, hr_employee e, res_users r
+                          where e.user_id=r.id and f.states in %s and
+                          f.employee_id2 = e.id and r.id = %s""", [tuple(states), setting_id])
         elif states and setting_id:
-            cr.execute("select f.id from hr_evaluation_form f, hr_employee e, res_users r where e.user_id=r.id and f.state in ('%s') and f.employee_id2 = e.id and f.setting_id = %d"%(states, setting_id))
+            cr.execute("""select f.id from hr_evaluation_form f, hr_employee e, res_users r
+                          where e.user_id=r.id and f.state in %s and
+                          f.employee_id2 = e.id and f.setting_id = %s""", [tuple(states), setting_id])
             return [a[0] for a in cr.fetchall()]
         elif user_id and setting_id:
-            cr.execute("select f.id from hr_evaluation_form f, hr_employee e, res_users r where e.user_id=r.id and r.id=%d and f.employee_id2 = e.id and f.setting_id = %d"%(user_id, setting_id))
+            cr.execute("""select f.id from hr_evaluation_form f, hr_employee e, res_users r
+                          where e.user_id=r.id and r.id=%s and f.employee_id2 = e.id and
+                          f.setting_id = %s""", [user_id, setting_id])
             return [a[0] for a in cr.fetchall()]
         elif setting_id:
-            cr.execute("select f.id from hr_evaluation_form f, hr_employee e, res_users r where e.user_id=r.id and f.employee_id2 = e.id and f.setting_id = %d"%(setting_id))
+            cr.execute("""select f.id from hr_evaluation_form f, hr_employee e, res_users r
+                          where e.user_id=r.id and f.employee_id2 = e.id and
+                          f.setting_id = %s""", [setting_id])
             return [a[0] for a in cr.fetchall()]
         elif user_id:
             user_id = uid
-            cr.execute("select f.id from hr_evaluation_form f, hr_employee e, res_users r where e.user_id=r.id and r.id=%d and f.employee_id2 = e.id"%user_id)
+            cr.execute("""select f.id from hr_evaluation_form f, hr_employee e, res_users r
+                          where e.user_id=r.id and r.id=%s and
+                          f.employee_id2 = e.id""", [user_id])
             return [a[0] for a in cr.fetchall()]
 
         return result
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        if context is None:
+            context = {}
         for grid in self.browse(cr, uid, ids, context=context):
             model_id = grid.id
             perms_rel = ['form_id', 'criteria_id', 'text_criteria', 'rating', 'employee_id']
-        if not context:
-           context={}
         setting_id = context.get('active_id', False)
         if not setting_id:
             setting_id = context.get('setting_id', False)
@@ -309,27 +319,23 @@ class hr_evaluation_form(osv.osv):
         states = context.get('state', None)
         user_id = context.get('uid', None)
         set_id = context.get('set', None)
-        if states and user_id and set_id:
-            ids = self.search(cr, uid, [('state', 'in', [states]), ('create_uid', '=', uid)], context=context)
-        elif states and user_id:
+        if states and user_id:
             ids = self.search(cr, uid, [('state', 'in', [states]), ('create_uid', '=', uid)], context=context)
         elif states:
             ids = self.search(cr, uid, [('state', 'in', [states])], context=context)
         result = super(hr_evaluation_form, self).read(cr, uid, ids, fields, context, load)
-#        allgr = self.pool.get('hr.evaluation.values').search(cr, uid, [], context=context)
         if not isinstance(result, list):
             result = [result]
-        for res in result:
-            if not setting_id:
-                continue
-            current_setting = set_obj.browse(cr, uid, setting_id)
-            for crit in current_setting.criteria_ids:
-                rules = acc_obj.search(cr, uid, [('form_id', '=', res['id']), ('criteria_id', '=', crit.id)])
-                rules_br = acc_obj.browse(cr, uid, rules, context=context)
-                for rule in rules_br:
-                    res['id'] = rule.form_id.id
-                    res['val_q_%d' % crit.id] = rule.val_question
-                    res['rating_%d' % crit.id] = rule.rating
+        if setting_id:
+            for res in result:
+                current_setting = set_obj.browse(cr, uid, setting_id)
+                for crit in current_setting.criteria_ids:
+                    rules = acc_obj.search(cr, uid, [('form_id', '=', res['id']), ('criteria_id', '=', crit.id)])
+                    rules_br = acc_obj.browse(cr, uid, rules, context=context)
+                    for rule in rules_br:
+                        res['id'] = rule.form_id.id
+                        res['val_q_%d' % crit.id] = rule.val_question
+                        res['rating_%d' % crit.id] = rule.rating
         return result
 
     def create(self, cr, uid, vals, context=None):
@@ -341,11 +347,9 @@ class hr_evaluation_form(osv.osv):
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        if not context:
-           context={}
-        setting_id = context.get('active_id', False)
-        if not setting_id:
-            setting_id = context.get('setting_id', False)
+        if context is None:
+            context = {}
+        setting_id = context and context.get('active_id', context.get('setting_id')) or False
         acc_obj = self.pool.get('hr.evaluation.values')
         crit_obj = self.pool.get('hr.evaluation.criteria')
         set_obj = self.pool.get('hr.evaluation.setting')
@@ -365,9 +369,9 @@ class hr_evaluation_form(osv.osv):
                 if not rules:
                     data_new.update({
                      'form_id': grid.id,
-                     'employee_id': vals.get('employee_id', None),
-                     'val_question': vals.get('val_q_%d'%crit.id, None),
-                     'rating': vals.get('rating_%d'%crit.id, None),
+                     'employee_id': vals.get('employee_id'),
+                     'val_question': vals.get('val_q_%d'%crit.id),
+                     'rating': vals.get('rating_%d'%crit.id),
                      'criteria_id': crit.id})
                     rule_id = [acc_obj.create(cr, uid, data_new)]
                 else:
@@ -386,8 +390,8 @@ class hr_evaluation_form(osv.osv):
         return True
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
-        if not context:
-           context={}
+        if context is None:
+            context = {}
         setting_obj = self.pool.get('hr.evaluation.setting')
         values_obj = self.pool.get('hr.evaluation.values')
         sett_obj = self.pool.get('hr.evaluation.setting')
@@ -400,7 +404,6 @@ class hr_evaluation_form(osv.osv):
         cols = ['criteria_id', 'form_id', 'text_criteria', 'rating']
         flag='y'
         r_only = 1
-        has_group = []
         has_group = [x.name for x in self.pool.get('res.users').browse(cr,uid,uid).groups_id if x.name=='Human Resources / Manager']
         if has_group:
             r_only = 0
@@ -508,14 +511,12 @@ class hr_evaluation_form(osv.osv):
         'employee_id2': fields.many2one('hr.employee', 'Employee that evaluates', select=True),
         'setting_id': fields.many2one('hr.evaluation.setting', 'Setting', select=True),
         'eval_id': fields.many2one('hr.evaluation', 'Employee that evaluates', select=True),
-        'user_id': fields.many2one('res.users', 'Connected User', readonly=True),
         'state': fields.selection([('draft', 'Draft'),
                                    ('cancel', 'Cancel'),
                                    ('done', 'Done'),
                                    ('review', 'Reviewed by top management')], 'State', readonly=True),
     }
     _defaults = {
-        'user_id': lambda self, cr, uid, context: uid,
         'state': lambda *a: 'draft',
         'send_date': lambda *a: time.strftime('%Y-%m-%d'),
 
@@ -563,15 +564,16 @@ class hr_evaluation_grid(osv.osv):
             result[rec.id] = rec.salary_market != 0 and (rec.salary/rec.salary_market)*100 or 0.0
         return result
 
-    def _current_salary(self, cr, uid, ids, name, arg, context={}):
-        res = {}
+    def _current_salary(self, cr, uid, ids, name, arg, context=None):
+        if context is None:
+            context = {}
+        res = dict.fromkeys(ids, 0)
         for id in ids:
-            cr.execute("SELECT grid_id, rate FROM hr_grid_rate WHERE grid_id = %s  ORDER BY date_rate desc LIMIT 1" % (id))
+            cr.execute("""SELECT grid_id, rate FROM hr_grid_rate WHERE
+                          grid_id = %s  ORDER BY date_rate desc LIMIT 1""", [id])
             if cr.rowcount:
                 id, rate = cr.fetchall()[0]
                 res[id] = rate
-            else:
-                res[id] = 0
         return res
 
     _columns = {
@@ -596,13 +598,13 @@ hr_evaluation_grid()
 class hr_evaluation_history(osv.osv):
     _name = "hr.evaluation.history"
 
-    def _variance(self, cr, uid, ids, field_name, arg, context={}):
+    def _variance(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
         for rec in self.browse(cr, uid, ids, context):
             result[rec.id] = rec.old_grid_id.salary_market != 0 and (100*rec.old_salary/rec.old_grid_id.salary_market) or 0.0
         return result
 
-    def _ratio(self, cr, uid, ids, field_name, arg, context={}):
+    def _ratio(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
         for rec in self.browse(cr, uid, ids, context):
             result[rec.id] = rec.salary_market != 0 and (100*rec.old_salary/rec.salary_market) or 0.0
@@ -631,15 +633,17 @@ class hr_employee(osv.osv):
         for emp in employee_obj.browse(cr, uid, employee_ids):
             if not len(emp.history_ids):
                 #USE date on contract instead of date defined on the employee
-                cr.execute("select date_start from hr_contract where employee_id = %d and (date_end >= '%s' or date_end is NULL) order by date_start desc"%(emp.id, time.strftime('%Y-%m-%d')))
+                cr.execute("""select date_start from hr_contract where employee_id = %s and
+                              (date_end >= %s or date_end is NULL) order by date_start desc""", [emp.id, time.strftime('%Y-%m-%d')])
                 last_date = cr.fetchone()
                 last_date = last_date and last_date[0] or None
               #  last_date=emp.date_entry or None
-         #       salary_market=emp.grid_id and emp.grid_id.salary_market or 0.0
+              #  salary_market=emp.grid_id and emp.grid_id.salary_market or 0.0
                 old_grid_id = emp.grid_id.id or None
                 old_salary = emp.current_salary or 0.0
             else:
-                cr.execute('select max(date_eval),old_grid_id,old_salary from hr_evaluation_history where employee_id=%d group by old_grid_id,old_salary'%emp.id)
+                cr.execute("""select max(date_eval),old_grid_id,old_salary from hr_evaluation_history
+                              where employee_id=%s group by old_grid_id,old_salary""", [emp.id])
                 res = cr.fetchone()
                 last_date = res and res[0] or None
                 old_grid_id = res and res[1] or None

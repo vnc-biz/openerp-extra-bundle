@@ -19,8 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-
 {
     'name': 'Evaluations of Employees',
     'version': '1.0',
@@ -30,11 +28,12 @@
     'author': 'Tiny',
     'depends': ['base','product','hr', 'hr_contract'],
     'init_xml': [],
-    'update_xml': [ 'eval_view.xml',
-                    'eval_report.xml',
-                    'eval_data.xml',
-                    'eval_wizard.xml',
-                    'security/ir.model.access.csv'
+    'update_xml': ['eval_view.xml',
+                   'eval_report.xml',
+                   'eval_data.xml',
+                   'eval_wizard.xml',
+                   'security/eval_security.xml',
+                   'security/ir.model.access.csv'
     ],
     'demo_xml': ['eval_demo.xml'],
     'installable': True,

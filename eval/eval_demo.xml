@@ -1,81 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-
-<data>
-		<record id="res_groups_253" model="res.groups">
-			<field eval="&quot;&quot;&quot;Evaluation&quot;&quot;&quot;" name="name"/>
-		</record>
-	</data>
-
-<data>
-		<record id="ir_model_access_246" model="ir.model.access">
-			<field name="model_id" ref="eval.model_hr_evaluation"/>
-			<field eval="1" name="perm_read"/>
-			<field eval="&quot;&quot;&quot;Evaluation&quot;&quot;&quot;" name="name"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="1" name="perm_write"/>
-			<field eval="0" name="perm_create"/>
-			<field model="res.groups" name="group_id" search="[('name', '=', u'Evaluation')]"/>
-		</record>
-	</data>
 	<data>
-		<record id="ir_model_access_247" model="ir.model.access">
-			<field name="model_id" ref="eval.model_hr_evaluation_section"/>
-			<field eval="1" name="perm_read"/>
-			<field eval="&quot;&quot;&quot;Evaluation Section&quot;&quot;&quot;" name="name"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="1" name="perm_write"/>
-			<field eval="0" name="perm_create"/>
-			<field model="res.groups" name="group_id" search="[('name', '=', u'Evaluation')]"/>
-		</record>
-	</data>
-	<data>
-		<record id="ir_model_access_248" model="ir.model.access">
-			<field name="model_id" ref="eval.model_hr_evaluation_criteria"/>
-			<field eval="1" name="perm_read"/>
-			<field eval="&quot;&quot;&quot;Evaluation Criteria&quot;&quot;&quot;" name="name"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="1" name="perm_write"/>
-			<field eval="0" name="perm_create"/>
-			<field model="res.groups" name="group_id" search="[('name', '=', u'Evaluation')]"/>
-		</record>
-	</data>
-	<data>
-		<record id="ir_model_access_249" model="ir.model.access">
-			<field name="model_id" ref="eval.model_hr_evaluation_setting"/>
-			<field eval="1" name="perm_read"/>
-			<field eval="&quot;&quot;&quot;Setting Evaluation Form&quot;&quot;&quot;" name="name"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="1" name="perm_write"/>
-			<field eval="0" name="perm_create"/>
-			<field model="res.groups" name="group_id" search="[('name', '=', u'Evaluation')]"/>
-		</record>
-	</data>
-	<data>
-		<record id="ir_model_access_250" model="ir.model.access">
-			<field name="model_id" ref="eval.model_hr_evaluation_form"/>
-			<field eval="1" name="perm_read"/>
-			<field eval="&quot;&quot;&quot;Evaluation Form&quot;&quot;&quot;" name="name"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="1" name="perm_write"/>
-			<field eval="0" name="perm_create"/>
-			<field model="res.groups" name="group_id" search="[('name', '=', u'Evaluation')]"/>
-		</record>
-	</data>
-	<data>
-		<record id="ir_model_access_251" model="ir.model.access">
-			<field name="model_id" ref="eval.model_hr_evaluation_values"/>
-			<field eval="1" name="perm_read"/>
-			<field eval="&quot;&quot;&quot;Evaluation values&quot;&quot;&quot;" name="name"/>
-			<field eval="0" name="perm_unlink"/>
-			<field eval="1" name="perm_write"/>
-			<field eval="0" name="perm_create"/>
-			<field model="res.groups" name="group_id" search="[('name', '=', u'Evaluation')]"/>
-		</record>
-	</data>
-
-
-	<data noupdate="1">
 		<record id="base.user_root" model="res.users">
 			<field model="ir.actions.actions" name="menu_id" search="[('name', '=', u'Menu')]"/>
 			<field name="address_id" ref="base.main_address"/>
@@ -94,7 +19,7 @@
 			<field model="ir.actions.actions" name="menu_id" search="[('name', '=', u'Menu')]"/>
 			<field name="address_id" ref="base.res_partner_address_3"/>
 			<field eval="&quot;&quot;&quot;en_US&quot;&quot;&quot;" name="context_lang"/>
-			<field eval="&quot;&quot;&quot;Viral Rami&quot;&quot;&quot;" name="name"/>
+			<field eval="&quot;&quot;&quot;Vir&quot;&quot;&quot;" name="name"/>
 			<field eval="[(6,0,[ref('base.group_user')])]" name="groups_id"/>
 			<field name="company_id" ref="base.main_company"/>
 			<field eval="[(6,0,[])]" name="roles_id"/>
@@ -109,7 +34,7 @@
 			<field model="ir.actions.actions" name="menu_id" search="[('name', '=', u'Menu')]"/>
 			<field name="address_id" ref="base.res_partner_address_6"/>
 			<field eval="&quot;&quot;&quot;en_US&quot;&quot;&quot;" name="context_lang"/>
-			<field eval="&quot;&quot;&quot;Najlaa&quot;&quot;&quot;" name="name"/>
+			<field eval="&quot;&quot;&quot;Nel&quot;&quot;&quot;" name="name"/>
 			<field eval="[(6,0,[ref('base.group_erp_manager'),ref('base.group_system'),ref('base.group_user'),ref('hr_contract.group_hr_contract'),ref('hr.group_hr_manager'),ref('hr.group_hr_user'),ref('base.group_maintenance_manager'),ref('base.group_partner_manager'),ref('product.group_product_manager'),ref('base.group_extended'),ref('base.group_no_one'),ref('product.group_uos')])]" name="groups_id"/>
 			<field name="company_id" ref="base.main_company"/>
 			<field eval="[(6,0,[])]" name="roles_id"/>
@@ -124,7 +49,7 @@
 			<field model="ir.actions.actions" name="menu_id" search="[('name', '=', u'Menu')]"/>
 			<field name="address_id" ref="base.res_partner_address_3000"/>
 			<field eval="&quot;&quot;&quot;en_US&quot;&quot;&quot;" name="context_lang"/>
-			<field eval="&quot;&quot;&quot;Amit Patel&quot;&quot;&quot;" name="name"/>
+			<field eval="&quot;&quot;&quot;Apa&quot;&quot;&quot;" name="name"/>
 			<field eval="[(6,0,[ref('base.group_user'),ref('res_groups_253'),ref('hr_contract.group_hr_contract'),ref('hr.group_hr_user')])]" name="groups_id"/>
 			<field name="company_id" ref="base.main_company"/>
 			<field eval="[(6,0,[])]" name="roles_id"/>
@@ -134,17 +59,13 @@
 			<field eval="&quot;&quot;&quot;apa&quot;&quot;&quot;" name="password"/>
 			<field model="ir.actions.actions" name="action_id" search="[('name', '=', u'Menu')]"/>
 		</record>
-	</data>
 
-	<data>
 		<record id="res_groups_253" model="res.groups">
 			<field eval="[(6,0,[])]" name="rule_groups"/>
 			<field eval="[(6,0,[ref('eval.menu_eval_form_id'),ref('eval.m_menu_action_evaluationhr_form'),ref('eval.m_menu_action_evaluation2'),ref('eval.m_menu_action_evaluationhr_form1')])]" name="menu_access"/>
 			<field eval="&quot;&quot;&quot;Evaluation&quot;&quot;&quot;" name="name"/>
 			<field eval="[(6,0,[ref('base.user_root'),ref('base.user_demo'),ref('eval.res_users_4'),ref('eval.res_users_5'),ref('eval.res_users_6')])]" name="users"/>
 		</record>
-	</data>
-	<data noupdate="1">
 
 		<record id="hr.employee1" model="hr.employee">
 			<field eval="1" name="active"/>
@@ -154,15 +75,13 @@
 			<field name="product_id" ref="product.product_product_pc1"/>
 		</record>
 
-
-
 		<record id="hr_employee_9" model="hr.employee">
 			<field eval="1" name="active"/>
 			<field eval="1" name="manager"/>
 			<field name="user_id" ref="res_users_5"/>
 			<field name="company_id" ref="base.main_company"/>
 			<field name="parent_id" ref="hr.employee1"/>
-			<field eval="&quot;&quot;&quot;Najlaa&quot;&quot;&quot;" name="name"/>
+			<field eval="&quot;&quot;&quot;Nel&quot;&quot;&quot;" name="name"/>
 			<field name="product_id" ref="product.product_product_pc1"/>
 		</record>
 
@@ -172,7 +91,7 @@
 			<field name="user_id" ref="res_users_6"/>
 			<field name="company_id" ref="base.main_company"/>
 			<field name="parent_id" ref="hr_employee_9"/>
-			<field eval="&quot;&quot;&quot;Amit Patel&quot;&quot;&quot;" name="name"/>
+			<field eval="&quot;&quot;&quot;Apa&quot;&quot;&quot;" name="name"/>
 			<field name="product_id" ref="product.product_product_pc1"/>
 		</record>
 
@@ -181,154 +100,7 @@
 			<field eval="0" name="manager"/>
 			<field name="user_id" ref="res_users_4"/>
 			<field name="parent_id" ref="hr_employee_9"/>
-			<field eval="&quot;&quot;&quot;Viral Rami&quot;&quot;&quot;" name="name"/>
-			<field name="product_id" ref="product.product_product_pc1"/>
-		</record>
-	</data>
-
-  <data noupdate="1">
-		<record id="hr_evaluation_section_0" model="hr.evaluation.section">
-			<field eval="1" name="active"/>
-			<field eval="&quot;&quot;&quot;OE&quot;&quot;&quot;" name="code"/>
-			<field eval="&quot;&quot;&quot;Objective Evaluation&quot;&quot;&quot;" name="name"/>
-		</record>
-
-		<record id="hr_evaluation_section_1" model="hr.evaluation.section">
-			<field eval="1" name="active"/>
-			<field eval="&quot;&quot;&quot;SE&quot;&quot;&quot;" name="code"/>
-			<field eval="&quot;&quot;&quot;Subjective Evaluation&quot;&quot;&quot;" name="name"/>
-		</record>
-
-		<record id="hr_evaluation_section_2" model="hr.evaluation.section">
-			<field eval="1" name="active"/>
-			<field eval="&quot;&quot;&quot;Introduce Employee of the month&quot;&quot;&quot;" name="name"/>
-		</record>
-	</data>
-	<data noupdate="1">
-		<record id="hr_evaluation_criteria_3" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Productivity&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_0"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_4" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Punctuality&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_0"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_5" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Time management&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_0"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_6" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Quality of work&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_1"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_7" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Attitude of the employee&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_1"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_8" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Initiative&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_1"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_9" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Dependability&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_1"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_10" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Effective communication&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_1"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_11" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Proactive exchange of information&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_1"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_12" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Monthly Attendance&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_2"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_13" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Performance for the month&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_2"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_14" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;New Initiative&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_2"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_15" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Suggestion Given&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_2"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_16" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Value adding activity&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_2"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-
-		<record id="hr_evaluation_criteria_17" model="hr.evaluation.criteria">
-			<field eval="&quot;&quot;&quot;Customer calls attended&quot;&quot;&quot;" name="name"/>
-			<field eval="1" name="format_select"/>
-			<field name="section_id" ref="hr_evaluation_section_2"/>
-			<field eval="1" name="active"/>
-			<field eval="1" name="format_text"/>
-		</record>
-	</data>
-	<data noupdate="1">
-		<record id="hr_evaluation_setting_18" model="hr.evaluation.setting">
-			<field eval="[(6,0,[ref('hr_evaluation_criteria_3'),ref('hr_evaluation_criteria_4'),ref('hr_evaluation_criteria_5'),ref('hr_evaluation_criteria_6'),ref('hr_evaluation_criteria_7'),ref('hr_evaluation_criteria_8'),ref('hr_evaluation_criteria_9'),ref('hr_evaluation_criteria_10'),ref('hr_evaluation_criteria_11'),ref('hr_evaluation_criteria_12'),ref('hr_evaluation_criteria_13'),ref('hr_evaluation_criteria_14'),ref('hr_evaluation_criteria_15'),ref('hr_evaluation_criteria_16'),ref('hr_evaluation_criteria_17')])]" name="criteria_ids"/>
-			<field eval="&quot;&quot;&quot;Evaluation-1&quot;&quot;&quot;" name="name"/>
+			<field eval="&quot;&quot;&quot;Vir&quot;&quot;&quot;" name="name"/>
 			<field name="product_id" ref="product.product_product_pc1"/>
 		</record>
 	</data>

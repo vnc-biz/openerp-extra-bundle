@@ -148,7 +148,7 @@ class survey_question(osv.osv):
                                    ('rating scale','Rating Scale'),('single textbox','Single Textbox'),\
                                    ('multiple textboxes','Multiple Textboxes'),('comment/essay box','Comment/Essay Box'),\
                                    ('numerical textboxes','Numerical Textboxes'),('date','Date'),\
-                                   ('date and time','Date and Time'),('image','Image'),('descriptive text','Descriptive Text')], 'Question Type')
+                                   ('date and time','Date and Time'),('descriptive text','Descriptive Text')], 'Question Type')
     }
     _defaults = {
          'sequence' : lambda * a: 5,
@@ -164,6 +164,7 @@ class survey_question_column_heading(osv.osv):
     _rec_name = 'title'
     _columns = {
         'title' : fields.char('Column Heading', size=128, required=1),
+        'menu_choice' : fields.text('Menu Choice'),
         'question_id' : fields.many2one('survey.question', 'Question'),
     }
 survey_question_column_heading()
@@ -250,7 +251,8 @@ class survey_response_answer(osv.osv):
     _columns = {
         'response_id' : fields.many2one('survey.response', 'Response', ondelete='cascade'),
         'answer_id' : fields.many2one('survey.answer', 'Answer', required=1, ondelete='cascade'),
-        'answer' : fields.char('Answer', size =255), 
+        'answer' : fields.char('Value', size =255),
+        'value_choice' : fields.char('Value Choice (Use Only Matrix of Drop-down Menus)', size =255),
         'comment' : fields.text('Notes'),
     }
 
@@ -389,11 +391,54 @@ class survey_question_wiz(osv.osv_memory):
                        </group>
                     <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
-                    if que_rec['type'] == 'multiple choice (multiple answer)':
+                    if que_rec['type'] == 'multiple choice (only one answer)':
                         for ans in ans_ids:
-                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            xml += '''<field name="''' + str(que) + "_" + str(ans['id']) + '''" /> '''
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
+
+                    elif que_rec['type'] == 'multiple choice (multiple answer)':
+                        for ans in ans_ids:
+                            xml += '''<field name="''' + str(que) + "_" + str(ans['id']) + '''" /> '''
+                            fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
+
+                    elif que_rec['type'] == 'matrix of choices (only one answer per row)':
+                        for row in ans_ids:
+                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
+
+                    elif que_rec['type'] == 'matrix of choices (multiple answer per row)':
+                        for row in ans_ids:
+                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
+                        
+#                        for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+#                            xml += '''<label align="5.0" string="''' + str(col['title']) + '''"/>'''
+#                        for row in ans_ids:
+#                            xml += '''<group colspan="4">'''
+#                            xml += '''<label align="5.0" string="''' + str(row['answer']) + '''"/>'''
+#                            for col in que_rec['column_heading_ids']:
+#                                xml += '''<field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + '''" nolabel="1"/> '''
+#                                fields[str(que) + "_" + str(row['id'])] = {'type':'boolean', 'string':''}
+#                            xml += '''</group>'''
+
+                    elif que_rec['type'] == 'matrix of drop-down menus':
+                        for row in ans_ids:
+                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+                                selection = []
+                                if col['menu_choice']:
+                                    for item in col['menu_choice'].split('\n'):
+                                        if item: selection.append((item ,item))
+                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
                     
+                    elif que_rec['type'] == 'rating scale':
+                        pass
+
                     elif que_rec['type'] == 'multiple textboxes':
                         for ans in ans_ids:
                             xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
@@ -414,30 +459,13 @@ class survey_question_wiz(osv.osv_memory):
                             xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'datetime', 'string':ans['answer']}
 
-                    elif que_rec['type'] == 'matrix of choices (multiple answer per row)':
-                        for row in ans_ids:
-                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
-                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
-                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
-                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
-
-                        
-#                        for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
-#                            xml += '''<label align="5.0" string="''' + str(col['title']) + '''"/>'''
-#                        for row in ans_ids:
-#                            xml += '''<group colspan="4">'''
-#                            xml += '''<label align="5.0" string="''' + str(row['answer']) + '''"/>'''
-#                            for col in que_rec['column_heading_ids']:
-#                                xml += '''<field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + '''" nolabel="1"/> '''
-#                                fields[str(que) + "_" + str(row['id'])] = {'type':'boolean', 'string':''}
-#                            xml += '''</group>'''
-
                     elif que_rec['type'] == 'descriptive text':
                         xml += '''<label string="''' +  str(que_rec['descriptive_text']) + '''"/>'''
                         
                     elif que_rec['type'] == 'single textbox':
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_single" '''"/> '''
                         fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"Single Textbox", 'views':{}}
+
                     if que_rec['allow_comment']:
                         xml += '''<newline/><label string="Add Coment"  colspan="4"/> '''                    
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
@@ -522,13 +550,15 @@ class survey_question_wiz(osv.osv_memory):
                             ans = True
 
                         elif val1 and que_id == key1.split('_')[0] and len(key1.split('_')) == 3:
-                            ans_id_len = key1.split('_')
-                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2]})
-                            sur_name_read['store_ans'][resp_id].update({key1:True})
+                            if type(val1) == type(''):
+                                ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2], 'value_choice' : val1})
+                                sur_name_read['store_ans'][resp_id].update({key1:val1})
+                            else:
+                                ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2]})
+                                sur_name_read['store_ans'][resp_id].update({key1:True})
                             ans = True
 
                         elif val1 and que_id == key1.split('_')[0]:
-                            ans_id_len = key1.split('_')
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             ans = True
@@ -570,10 +600,13 @@ class survey_question_wiz(osv.osv_memory):
 
                         elif len(key.split('_')) == 3:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
-                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : ans_id_len[2]})
-                            sur_name_read['store_ans'][update].update({key:True})
+                            if type(val) == type(''):
+                                ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : ans_id_len[2], 'value_choice' : val})
+                                sur_name_read['store_ans'][update].update({key:val})
+                            else:
+                                ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : ans_id_len[2]})
+                                sur_name_read['store_ans'][update].update({key:True})
                             ans = True
-
                         else:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1], 'answer' : val})

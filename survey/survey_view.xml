@@ -57,7 +57,7 @@
 												<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 													<field name="descriptive_text" colspan="4"/>
 												</page>
-												<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)')]}">
+												<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus')]}">
 													<field name="column_heading_ids" colspan="4" nolabel="1"/>
 												</page>
 											</notebook>
@@ -186,7 +186,7 @@
 							<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 								<field name="descriptive_text" colspan="4"/>
 							</page>	
-							<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)')]}">
+							<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus')]}">
 								<field name="column_heading_ids" colspan="4" nolabel="1"/>
 							</page>
 						</notebook>
@@ -272,7 +272,7 @@
 							<separator string="Descriptive Text" colspan="4"/>
 							<field name="descriptive_text" colspan="4" nolabel="1"/>
 						</page>
-						<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)')]}">
+						<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus')]}">
 							<field name="column_heading_ids" colspan="4" nolabel="1"/>
 						</page>
 					</notebook>
@@ -429,6 +429,7 @@
 				<form string="Survey Response Answer">
 					<field name="answer_id"/>
 					<field name="answer" />
+					<field name="value_choice" />
 				</form>
 			</field>
 		</record>
@@ -441,6 +442,7 @@
 				<tree string="Survey Response Answer">
 					<field name="answer_id"/>
 					<field name="answer" />
+					<field name="value_choice" />
 				</tree>
 			</field>
 		</record>
@@ -456,6 +458,8 @@
 			<field name="arch" type="xml">
 				<form string="Column Heading">
 					<field name="title"/>
+					<separator string="Menu Choices (each choice on separate lines)" colspan="4"/>
+					<field name="menu_choice" nolabel="1" colspan="4"/>
 				</form>
 			</field>
 		</record>

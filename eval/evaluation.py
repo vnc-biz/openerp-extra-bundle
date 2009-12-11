@@ -510,7 +510,7 @@ class hr_evaluation_form(osv.osv):
         'employee_id': fields.many2one('hr.employee', 'Employee', select=True),
         'employee_id2': fields.many2one('hr.employee', 'Employee that evaluates', select=True),
         'setting_id': fields.many2one('hr.evaluation.setting', 'Setting', select=True),
-        'eval_id': fields.many2one('hr.evaluation', 'Employee that evaluates', select=True),
+        'eval_id': fields.many2one('hr.evaluation', 'Employee that evaluates', select=True, ondelete='cascade'),
         'state': fields.selection([('draft', 'Draft'),
                                    ('cancel', 'Cancel'),
                                    ('done', 'Done'),

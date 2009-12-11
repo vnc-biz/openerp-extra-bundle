@@ -359,6 +359,7 @@
                             <field name="register_id"/>
                             <field name="contribute"/>
                             <field name="include_in_salary"/>
+                            <field name="contribute_per"/>
                         </group>
                     </group>
                     <separator colspan="4" string="Description"/>

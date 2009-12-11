@@ -146,7 +146,7 @@ class survey_question(osv.osv):
                                    ('matrix of choices (multiple answer per row)','Matrix of Choices (Multiple Answers Per Row)'),\
                                    ('matrix of drop-down menus','Matrix of Drop-down Menus'),\
                                    ('rating scale','Rating Scale'),('single textbox','Single Textbox'),\
-                                   ('multiple textboxes','Multiple Textboxes'),('comment/essay box','Comment/Essay Box'),\
+                                   ('multiple textboxes','Multiple Textboxes'),\
                                    ('numerical textboxes','Numerical Textboxes'),('date','Date'),\
                                    ('date and time','Date and Time'),('descriptive text','Descriptive Text')], 'Question Type')
     }

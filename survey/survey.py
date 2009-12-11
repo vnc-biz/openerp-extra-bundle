@@ -134,6 +134,11 @@ class survey_question(osv.osv):
         'answer_choice_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
         'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readnoly=1),
         'is_require_answer' : fields.boolean('Required Answer'),
+        'required_type' : fields.selection([('all','All'),('at least','At Least'),('exactly','Exactly'),('a range','A Range')], 'Respondent must answer'),
+        'req_ans' : fields.integer('#Required Answer'),
+        'maximum_req_ans' : fields.integer('Maximum Required Answer'),
+        'minimum_req_ans' : fields.integer('Minimum Required Answer'),
+        'req_error_msg' : fields.text('Error Message'),
         'allow_comment' : fields.boolean('Allow Comment Field'),
         'sequence' : fields.integer('Sequence'),
         'tot_resp' : fields.function(_calc_response, method=True, string="Total Response"),
@@ -152,8 +157,8 @@ class survey_question(osv.osv):
     }
     _defaults = {
          'sequence' : lambda * a: 5,
-         'is_require_answer' : lambda * a: False,
          'allow_comment' : lambda * a: False,
+         'req_error_msg' : lambda * a: 'This question requires an answer.',
     }
 
 survey_question()
@@ -415,16 +420,6 @@ class survey_question_wiz(osv.osv_memory):
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
                                 xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
-                        
-#                        for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
-#                            xml += '''<label align="5.0" string="''' + str(col['title']) + '''"/>'''
-#                        for row in ans_ids:
-#                            xml += '''<group colspan="4">'''
-#                            xml += '''<label align="5.0" string="''' + str(row['answer']) + '''"/>'''
-#                            for col in que_rec['column_heading_ids']:
-#                                xml += '''<field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + '''" nolabel="1"/> '''
-#                                fields[str(que) + "_" + str(row['id'])] = {'type':'boolean', 'string':''}
-#                            xml += '''</group>'''
 
                     elif que_rec['type'] == 'matrix of drop-down menus':
                         for row in ans_ids:
@@ -529,9 +524,8 @@ class survey_question_wiz(osv.osv_memory):
             for key, val in vals.items():
                 que_id = key.split('_')[0]
                 if que_id not in que_li:
-                    ans = False
                     que_li.append(que_id)
-                    que_rec = que_obj.read(cr, uid , [que_id], ['is_require_answer', 'question'])
+                    que_rec = que_obj.read(cr, uid , [que_id], ['is_require_answer', 'question', 'required_type', 'req_ans', 'maximum_req_ans', 'minimum_req_ans', 'answer_choice_ids', 'req_error_msg'])[0]
                     resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
                         'response_type':'link', 'state':'done'})
@@ -539,21 +533,22 @@ class survey_question_wiz(osv.osv_memory):
                     sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                    select_count = 0
+                    ans = False
                     for key1, val1 in vals.items():
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
                              resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                              sur_name_read['store_ans'][resp_id].update({key1:'skip'})
-                             ans = True
+                             select_count += 1
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
-                            ans = True
+                            select_count += 1
                         elif val1 and key1.split('_')[1] == "single" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'single_text':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
-                            ans = True
-
+                            select_count += 1
                         elif val1 and que_id == key1.split('_')[0] and len(key1.split('_')) == 3:
                             if type(val1) == type(''):
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2], 'value_choice' : val1})
@@ -561,31 +556,40 @@ class survey_question_wiz(osv.osv_memory):
                             else:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2]})
                                 sur_name_read['store_ans'][resp_id].update({key1:True})
-                            ans = True
-
+                            select_count += 1
                         elif val1 and que_id == key1.split('_')[0]:
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
-                            ans = True
-                            
+                            select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
-                    if que_rec[0]['is_require_answer'] and not ans:
+                    if que_rec['required_type']:
+                        if (que_rec['required_type'] == 'all' and select_count != len(que_rec['answer_choice_ids'])) or \
+                            (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
+                            (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
+                            (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
+                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                            for res in resp_id_list:
+                                sur_name_read['store_ans'].pop(res)
+                            raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
+                    elif que_rec['is_require_answer'] and select_count <= 0:
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
-                        raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
+                        raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
+
         else:
             resp_id_list = []
             for update in click_update:
                 ans = False
                 sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                que_rec = que_obj.read(cr, uid, sur_name_read['store_ans'][update]['question_id'])
+                que_rec = que_obj.read(cr, uid , [sur_name_read['store_ans'][update]['question_id']], ['is_require_answer', 'question', 'required_type', 'req_ans', 'maximum_req_ans', 'minimum_req_ans', 'answer_choice_ids', 'req_error_msg'])[0]
                 res_ans_obj.unlink(cr, uid,res_ans_obj.search(cr, uid, [('response_id', '=', update)]))
                 resp_id_list.append(update)
 
                 sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                 sur_name_read['store_ans'].update({update:{'question_id':sur_name_read['store_ans'][update]['question_id']}})
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                select_count = 0
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if val and ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
@@ -593,16 +597,15 @@ class survey_question_wiz(osv.osv_memory):
                         if ans_id_len[-1] =='skip':
                             resp_obj.write(cr, uid, update, {'state': 'skip'})
                             sur_name_read['store_ans'][update].update({key:'skip'})
-                            ans = True
+                            select_count += 1
                         elif key.split('_')[1] == "other":
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})
-                            ans = True
+                            select_count += 1
                         elif key.split('_')[1] == "single":
                             resp_obj.write(cr, uid, update, {'single_text':val})
                             sur_name_read['store_ans'][update].update({key:val})
-                            ans = True
-
+                            select_count += 1
                         elif len(key.split('_')) == 3:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             if type(val) == type(''):
@@ -611,19 +614,27 @@ class survey_question_wiz(osv.osv_memory):
                             else:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : ans_id_len[2]})
                                 sur_name_read['store_ans'][update].update({key:True})
-                            ans = True
+                            select_count += 1
                         else:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1], 'answer' : val})
                             sur_name_read['store_ans'][update].update({key:val})
-                            ans = True
+                            select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
-                if que_rec[0]['is_require_answer'] and not ans:
+                if que_rec['required_type']:
+                    if (que_rec['required_type'] == 'all' and select_count != len(que_rec['answer_choice_ids'])) or \
+                        (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
+                        (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
+                        (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
+                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                        for res in resp_id_list:
+                            sur_name_read['store_ans'].pop(res)
+                        raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
+                elif que_rec['is_require_answer'] and select_count <= 0:
                     sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     for res in resp_id_list:
                         sur_name_read['store_ans'].pop(res)
-
-                    raise osv.except_osv(_('Error !'), _("'" + que_rec[0]['question'] + "' This question requires an answer."))
+                    raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
         return True
 
     def action_next(self, cr, uid, ids, context=None):

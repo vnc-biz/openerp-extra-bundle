@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import netsvc
@@ -38,10 +38,13 @@ class res_partner_contact(osv.osv):
         'country_ids': fields.many2many('res.country','res_country_rel','contact','country',"Expertize's Countries"),
         'link_ids':fields.one2many('res.partner.contact.link','current_contact_id','Contact Link'),
         'canal_id': fields.many2one('res.partner.canal', 'Favourite Channel'),
-        'national_number' : fields.char( 'National Number',size=15), 
+        'national_number' : fields.char( 'National Number',size=15),
         'magazine_subscription':fields.selection( [('never','Never'),('prospect','Prospect'),('personal','Personal'), ('postal','Postal')], "Magazine subscription"),
         'magazine_subscription_source':fields.char('Mag. Subscription Source',size=30),
         'old_id':fields.integer('Old Datman ID'),
+        'badge_title': fields.char('Badge Title', size=128),
+        'badge_name': fields.char('Badge Name', size=128),
+
     }
     _defaults = {
         'data_private' : lambda *a : False,
@@ -81,7 +84,7 @@ project()
 class res_partner_job(osv.osv):
     _inherit = 'res.partner.job'
     _columns = {
-        'login_name': fields.char('Login Name',size=80), 
+        'login_name': fields.char('Login Name',size=80),
         'password': fields.char('Password',size=50),
         'token': fields.char('Token',size=40),
     }

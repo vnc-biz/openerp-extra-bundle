@@ -39,28 +39,24 @@
         <record id="survey_question_1" model="survey.question">
             <field name="question">Please let us know what you think about our module?</field>
             <field name="page_id" ref="survey_page_1" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
 
         <record id="survey_question_2" model="survey.question">
             <field name="question">What kind of connection do you have to the Internet?</field>
             <field name="page_id" ref="survey_page_2" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
 
         <record id="survey_question_3" model="survey.question">
             <field name="question">Where are you located??</field>
             <field name="page_id" ref="survey_page_3" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
 
         <record id="survey_question_4" model="survey.question">
             <field name="question">Are you satisfied with the overall usability of this module??</field>
             <field name="page_id" ref="survey_page_4" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
 
@@ -157,7 +153,6 @@
         <record id="survey_question_2_1_1" model="survey.question">
             <field name="question">Which of the following countries won the final of the triangular cricket series held in durban in februarry 1997 ?</field>
             <field name="page_id" ref="survey_page_2_1" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
 
@@ -181,7 +176,6 @@
         <record id="survey_question_2_1_2" model="survey.question">
             <field name="question">In which year did Milkha Singh win the first National title in the 400 m race??</field>
             <field name="page_id" ref="survey_page_2_1" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_2_1_2_1" model="survey.answer">
@@ -210,7 +204,6 @@
         <record id="survey_question_2_2_1" model="survey.question">
             <field name="question">When was Amateur Athletics Federation of India established?</field>
             <field name="page_id" ref="survey_page_2_2" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_2_2_1_1" model="survey.answer">
@@ -233,7 +226,6 @@
         <record id="survey_question_2_2_2" model="survey.question">
             <field name="question">In which Indian state did the game of Polo originate?</field>
             <field name="page_id" ref="survey_page_2_2" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_2_2_2_1" model="survey.answer">
@@ -261,7 +253,6 @@
         <record id="survey_question_2_3_1" model="survey.question">
             <field name="question">How many gold medals have been won by India in the Olympics so far?</field>
             <field name="page_id" ref="survey_page_2_3" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_2_3_1_1" model="survey.answer">
@@ -297,7 +288,6 @@
         <record id="survey_question_3_1_1" model="survey.question">
             <field name="question">'.BAK' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_1" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_1_1_1" model="survey.answer">
@@ -320,7 +310,6 @@
         <record id="survey_question_3_1_2" model="survey.question">
             <field name="question">'.MPG' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_1" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_1_2_1" model="survey.answer">
@@ -349,7 +338,6 @@
         <record id="survey_question_3_2_1" model="survey.question">
             <field name="question">'.INI' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_2" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_2_1_1" model="survey.answer">
@@ -379,7 +367,6 @@
         <record id="survey_question_3_3_1" model="survey.question">
             <field name="question">'.BAT' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_3" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_3_1_1" model="survey.answer">
@@ -408,7 +395,6 @@
         <record id="survey_question_3_4_1" model="survey.question">
             <field name="question">'.JPG' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_4" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_4_1_1" model="survey.answer">
@@ -437,7 +423,6 @@
         <record id="survey_question_3_5_1" model="survey.question">
             <field name="question">'.MOV' extension refers usually to what kind of file?</field>
             <field name="page_id" ref="survey_page_3_5" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_5_1_1" model="survey.answer">
@@ -465,7 +450,6 @@
         <record id="survey_question_3_6_1" model="survey.question">
             <field name="question">Who co-founded Hotmail in 1996 and then sold the company to Microsoft?</field>
             <field name="page_id" ref="survey_page_3_6" />
-            <field name="is_require_answer">1</field>
             <field name="type">multiple choice (multiple answer)</field>
         </record>
         <record id="survey_answer_3_6_1_1" model="survey.answer">

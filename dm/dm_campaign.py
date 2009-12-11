@@ -52,7 +52,7 @@ class dm_campaign_type(osv.osv): #{{{
     }
 dm_campaign_type()#}}}
 
-class dm_overlay(osv.osv):
+class dm_overlay(osv.osv): # {{{
     _name = 'dm.overlay'
     _rec_name = 'trademark_id'
 
@@ -83,7 +83,7 @@ class dm_overlay(osv.osv):
 #                                   'overlay_id', 'payment_rule_id',
 #                                    'Payment Method Rules')
     }
-dm_overlay()
+dm_overlay() # }}}
 
 class dm_campaign(osv.osv): #{{{
     _name = "dm.campaign"
@@ -1134,10 +1134,10 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 
 dm_campaign_proposition_segment()#}}}
 
-AVAILABLE_ITEM_TYPES = [#
-    ('main', 'Main Item'),
-    ('standart', 'Standart Item'),
-]#
+AVAILABLE_ITEM_TYPES = [ # {{{
+    ('main','Main Item'),
+    ('standart','Standart Item'),
+] # }}}
 
 class dm_campaign_proposition_item(osv.osv):#{{{
     _name = "dm.campaign.proposition.item"
@@ -1169,28 +1169,18 @@ class dm_campaign_manufacturing_cost(osv.osv):#{{{
     }
 dm_campaign_manufacturing_cost()#}}}
 
-
-class dm_mail_service_type(osv.osv):
+class dm_mail_service_type(osv.osv): # {{{
     _name = "dm.mail_service.type"
     _columns = {
         'name': fields.char('Name', size=64),
         'code': fields.char('Code', size=64),
     }
-dm_mail_service_type()
+dm_mail_service_type() # }}}
 
-
-class dm_mail_service(osv.osv):
+class dm_mail_service(osv.osv): # {{{
     _name = "dm.mail_service"
-
-    def _default_name(self, cr, uid, ids, name, args, context={}):
-        res = {}
-        for rec in self.browse(cr, uid, ids):
-            res[rec.id] = (rec.partner_id and rec.partner_id.name or '') + ' for ' + (rec.media_id and rec.media_id.name or '')
-        return res
-
     _columns = {
-        'name': fields.function(_default_name, method=True, string='Name', 
-                                store=True , type='char' , size=128),
+        'name': fields.char('Name', size=64, required=True),
         'partner_id': fields.many2one('res.partner', 'Partner', 
                             domain=[('category_id', 'ilike', 'Mail Service')], 
                             context={'category': 'Mail Service'}),
@@ -1234,9 +1224,9 @@ class dm_mail_service(osv.osv):
             res['value'] = {'service_type': service_type['code']}
         return res
 
-dm_mail_service()
+dm_mail_service() # }}}
 
-class dm_campaign_mail_service(osv.osv):
+class dm_campaign_mail_service(osv.osv): # {{{
     _name = "dm.campaign.mail_service"
     _rec_name = 'mail_service_id'
     _columns = {
@@ -1244,7 +1234,6 @@ class dm_campaign_mail_service(osv.osv):
         'campaign_id' : fields.many2one('dm.campaign', 'Campaign'),
         'offer_step_id' : fields.many2one('dm.offer.step', 'Offer Step'),
     }
-    
-dm_campaign_mail_service()
+dm_campaign_mail_service() # }}}
 
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

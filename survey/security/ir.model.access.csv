@@ -16,3 +16,5 @@
 "access_survey_question_wiz_manager","survey.question.wiz","model_survey_question_wiz","group_survey_manager",1,1,1,1
 "access_survey_question_wiz_user","survey.question.wiz","model_survey_question_wiz","group_survey_user",1,0,0,0
 "access_survey_history","survey.history","model_survey_history","group_survey_user",1,1,1,0
+"access_survey_question_column_heading","survey.question.column.heading","model_survey_question_column_heading","group_survey_manager",1,1,1,1
+"access_survey_question_column_heading","survey.question.column.heading","model_survey_question_column_heading","group_survey_user",1,0,0,0

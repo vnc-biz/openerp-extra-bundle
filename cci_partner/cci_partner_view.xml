@@ -313,7 +313,7 @@ TODO: revoir la vue tree aussi
 				</form>
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="view_partner_zip_tree">
 			<field name="name">res.partner.zip.tree</field>
 			<field name="type">tree</field>
@@ -329,7 +329,7 @@ TODO: revoir la vue tree aussi
 				</tree>
 			</field>
 		</record>
-		
+
 		<record model="ir.ui.view" id="view_partner_zip_tree">
 			<field name="name">res.partner.zip.tree</field>
 			<field name="type">tree</field>
@@ -625,6 +625,7 @@ TODO: revoir la vue tree aussi
 			</notebook>
 		</field>
 	</record>
+
 
 	<record model="ir.ui.view" id="view_partner_contact_form_inherit_2">
 		<field name="name">res.partner.contact.form</field>
@@ -975,6 +976,7 @@ TODO: revoir la vue tree aussi
 						<field name="canal_id"/>
 						<separator string="Events" colspan="4"/>
 						<field name="training_authorization"/>
+						<field name="badge_partner"/>
 						<separator string="Alerts" colspan="4"/>
 						<field name="alert_advertising"/>
 						<field name="alert_legalisations"/>

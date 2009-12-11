@@ -35,17 +35,15 @@ import math
 import uuid
 import addons
 import os
-
 from tools import config
 from tools.parse_version import parse_version
 from tools.misc import file_open, debug
 import mx.DateTime
-
+import hashlib
 import release
-
-
 import wizard
 import pooler
+from tools.translate import _
 
 class one2many_mod_advert(fields.one2many):
 
@@ -119,8 +117,11 @@ class maintenance_maintenance_module(osv.osv):
         return True
 
     def module_done(self, cr, uid, ids, context={}):
-        for id in ids:
-            self.write(cr, uid, [id], {'state' : 'done'})
+        for cert in self.browse(cr, uid, ids, context=context):
+            if not cert.certificate:
+               raise osv.except_osv(_('Error !'),
+                                    _('Certificate code cannot be empty.'))
+            self.write(cr, uid, [cert.id], {'state' : 'done'})
         return True
 
     def module_cancel(self, cr, uid, ids, context={}):
@@ -133,13 +134,30 @@ class maintenance_maintenance_module(osv.osv):
             self.write(cr, uid, [id], {'state' : 'failed'})
         return True
 
+    def get_code(self,cr, uid,ids,context={}):
+        obj_module = self.pool.get('maintenance.maintenance.module')
+        module = obj_module.browse(cr,uid,ids)[0]
+        if not module.module_zip:
+              raise osv.except_osv(_('Error !'),
+                                   _('You should have zip file of module loaded'))
+        m = hashlib.md5()
+        m.update(module.module_zip)
+        m.update(module.name)
+        cert_num = int(m.hexdigest() ,16)
+        oldcertif = obj_module.search(cr, uid, [('certificate', '=', cert_num)])
+        if oldcertif:
+            raise osv.except_osv(_('Error !'), _('Certificate code Already Exists.'))
+        else:
+            obj_module.write(cr, uid, module.id, {'certificate': cert_num})
+        return True
+
     _name ="maintenance.maintenance.module"
     _description = "maintenance modules"
     _columns = {
-        'name' : fields.char('Name', size=128, required=True, readonly=True),
-        'version': fields.char('Version', size=64, readonly=True),
+        'name' : fields.char('Name', size=128, required=True, readonly=False),
+        'version': fields.char('Versions', size=64, readonly=False),
         'certificate': fields.char('Certificate Code', size=42,
-                                  required=True, readonly=True),
+                                  required=False, readonly=False),
         'path': fields.function(_get_module_path, method=True, string='Path',
                                 type='char', size=512, readonly=True),
         'technical_certificate': fields.selection([('not_started', 'Not Started'), ('failed', 'Failed'), ('succeeded', 'Succeeded'), ('skipped', 'Skipped')], 'Technical Certification'),

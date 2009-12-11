@@ -84,6 +84,7 @@
                 <form string="Maintenance Modules">
                         <field name="name" select="1"/>
                         <field name="version" select="1"/>
+                        <field name="certificate"/>
                         <field name="path"/>
                         <notebook colspan="4">
                         	<page string="General">
@@ -96,6 +97,7 @@
 			                        <button name="compute_lines" type="object" string="Compute lines" icon="gtk-execute"/>
 		                        </group>
 		                        <field name="module_zip"/>
+		                        <button name="get_code" type="object" states="draft,failed,open" string="Get Certificate Code" icon="gtk-execute"/>
 		                        <field name="state"/>
 		                        <group col="4" colspan="4">
                                     <button name="set_open" states="draft,failed" string="Open" icon="gtk-execute"/>

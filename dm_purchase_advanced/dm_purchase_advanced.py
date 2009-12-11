@@ -179,16 +179,24 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                     if pline.desc_from_offer:
                         for step in obj.offer_id.step_ids:
                             for const in step.manufacturing_constraint_ids:
-                                if not const.country_ids:
-                                    note.append("---------------------------------------------------------------------------")
-                                    note.append("Description : ")
-                                    note.append("---------------------------------------------------------------------------")
-                                    note.append(const.name)
-                                    note.append(const.constraint)
-                                elif obj.country_id in const.country_ids:
-                                    note.append("---------------------------------------------------------------------------")
-                                    note.append(const.name + ' for country :' +  obj.country_id.name)
-                                    note.append(const.constraint)
+                                # if const is a compound product then get each of its products
+                                cr.execute("select id from mrp_bom where product_id = %s limit 1" % (const.id))
+                                const_bom_id = cr.fetchone()
+                                if const_bom_id:
+                                    const_bom = self.pool.get('mrp.bom').browse(cr, uid, [const_bom_id[0]])[0]
+                                    for const_bom_child in const_bom.child_ids:
+                                        pass     
+                                else:
+                                    if not const.country_ids:
+                                        note.append("---------------------------------------------------------------------------")
+                                        note.append("Description : ")
+                                        note.append("---------------------------------------------------------------------------")
+                                        note.append(const.name)
+                                        note.append(const.constraint)
+                                    elif obj.country_id in const.country_ids:
+                                        note.append("---------------------------------------------------------------------------")
+                                        note.append(const.name + ' for country :' +  obj.country_id.name)
+                                        note.append(const.constraint)
 
                     "Add note if defined"
                     if pline.notes:

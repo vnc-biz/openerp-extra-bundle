@@ -79,6 +79,13 @@ class hr_contract(osv.osv):
     }
 hr_contract()
 
+class hr_contract_wage_type(osv.osv):
+    _inherit = 'hr.contract.wage.type'
+    _columns = {
+        'type' : fields.selection([('basic','Basic'), ('gross','Gross'), ('net','Net')], 'Type', required=True),
+    }
+hr_contract_wage_type()
+
 class payroll_register(osv.osv):
     '''
     Payroll Register
@@ -1100,7 +1107,7 @@ class hr_payslip(osv.osv):
                 if not goto_next:
                     continue
                     
-                if sal_type == 'net':
+                if sal_type in ('gross', 'net'):
                     if line.amount_type == 'per':
                         exp = line.category_id.base
                         try:
@@ -1145,7 +1152,7 @@ class hr_payslip(osv.osv):
                 if not goto_next:
                     continue
 
-                if sal_type == 'net':
+                if sal_type in ('gross', 'net'):
                     if line.amount_type == 'per':
                         exp = line.category_id.base
                         try:
@@ -1174,12 +1181,16 @@ class hr_payslip(osv.osv):
                     amount = line.amount * 2
                 slip_line_pool.copy(cr, uid, line.id, {'amount':amount, 'slip_id':slip.id, 'employee_id':False, 'function_id':False}, {})
                 
-            if sal_type == 'net':
+            if sal_type in ('gross', 'net'):
                 sal = contract.wage
-                #TODO : if we need to adjust every things uncomeent this line 
-                #sal += ded_fix
+                if sal_type == 'net':
+                    sal += ded_fix
                 sal -= all_fix
-                per = (all_per - ded_per + ded_per)
+                per = 0.0
+                if sal_type == 'net':
+                    per = (all_per - ded_per)
+                else:
+                    per = all_per
                 if per <=0 :
                     per *= -1
                 final = (per * 100) + 100

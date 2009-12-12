@@ -20,4 +20,15 @@
 #
 ##############################################################################
 
+from osv import fields, osv
 import report
+
+class account_move(osv.osv):
+    _inherit = "account.move"
+    _columns = {
+        'name':fields.char('Name', size=256, required=True, readonly=True, states={'draft':[('readonly',False)]}),
+        'narration':fields.text('Narration', readonly=True, select=True, states={'draft':[('readonly',False)]}),
+    }
+account_move()
+
+

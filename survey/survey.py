@@ -129,7 +129,7 @@ class survey_question(osv.osv):
         return val
 
     _columns = {
-        'page_id' : fields.many2one('survey.page', 'Survey Page', ondelete='cascade'),
+        'page_id' : fields.many2one('survey.page', 'Survey Page', ondelete='cascade', required=1),
         'question' :  fields.char('Question', size=128, required=1),
         'answer_choice_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
         'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readnoly=1),
@@ -153,7 +153,7 @@ class survey_question(osv.osv):
                                    ('rating scale','Rating Scale'),('single textbox','Single Textbox'),\
                                    ('multiple textboxes','Multiple Textboxes'),\
                                    ('numerical textboxes','Numerical Textboxes'),('date','Date'),\
-                                   ('date and time','Date and Time'),('descriptive text','Descriptive Text')], 'Question Type')
+                                   ('date and time','Date and Time'),('descriptive text','Descriptive Text')], 'Question Type',  required=1,)
     }
     _defaults = {
          'sequence' : lambda * a: 5,
@@ -163,13 +163,7 @@ class survey_question(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=None):
         read = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])[0]
-        ans_len = len(read['answer_choice_ids'])
-        if vals.has_key('answer_choice_ids'):
-            for ans in vals['answer_choice_ids']:
-                if type(ans[2]) == type({}):
-                    ans_len += 1
-                else:
-                    ans_len -= 1
+
         col_len = len(read['column_heading_ids'])
         if vals.has_key('column_heading_ids'):
             for col in vals['column_heading_ids']:
@@ -178,12 +172,24 @@ class survey_question(osv.osv):
                 else:
                     col_len -= 1
         if vals.has_key('type'):
-            req_type = vals['type']
+            que_type = vals['type']
         else:
-            req_type = read['type']
-        if req_type in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
+            que_type = read['type']
+        if que_type in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
             if not col_len:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
+
+        ans_len = len(read['answer_choice_ids'])
+        if vals.has_key('answer_choice_ids'):
+            for ans in vals['answer_choice_ids']:
+                if type(ans[2]) == type({}):
+                    ans_len += 1
+                else:
+                    ans_len -= 1
+        if que_type not in ['descriptive text','single textbox']:
+            if not ans_len:
+                raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
+
         req_type = ""
         if vals.has_key('required_type'):
             req_type = vals['required_type']
@@ -212,11 +218,12 @@ class survey_question(osv.osv):
         return super(survey_question, self).write(cr, uid, ids, vals, context=context)
 
     def create(self, cr, uid, vals, context):
-
+        if vals.has_key('answer_choice_ids') and  not len(vals['answer_choice_ids']):
+            if vals.has_key('type') and vals['type'] not in ['descriptive text','single textbox']:
+                raise osv.except_osv(_('Error !'),_("You must enter one or more answer."))
         if vals.has_key('column_heading_ids') and  not len(vals['column_heading_ids']):
             if vals.has_key('type') and vals['type'] in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
-                if not vals['column_heading_ids']:
-                    raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
+                raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
         if vals.has_key('required_type') and vals['required_type'] in ['at least','exactly']:
             if vals['req_ans'] > len(vals['answer_choice_ids']) or not vals['req_ans']:
                 raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
@@ -239,7 +246,7 @@ class survey_question_column_heading(osv.osv):
         'title' : fields.char('Column Heading', size=128, required=1),
         'menu_choice' : fields.text('Menu Choice'),
         'rating_weight' : fields.integer('Weight'),
-        'question_id' : fields.many2one('survey.question', 'Question'),
+        'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
     }
 survey_question_column_heading()
 

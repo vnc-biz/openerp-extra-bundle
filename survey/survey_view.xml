@@ -48,7 +48,7 @@
 											<field name="tot_resp" select="2"/>
 											<field name="type" />
 											<notebook colspan="4">
-						                        <page string="Answer">
+						                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}">
 													<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 												</page>
 												 <page string="Response">
@@ -196,7 +196,7 @@
 						<field name="tot_resp" select="2"/>
 						<field name="type" />
 						<notebook colspan="4">
-	                        <page string="Answer">
+	                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}">
 								<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 							</page>
 							 <page string="Response">
@@ -299,7 +299,7 @@
 					<field name="tot_resp" select="2"/>
 					<field name="type" />
 					<notebook colspan="4">
-                        <page string="Answer" attrs="{'readonly':[('type','=','descriptive text')]}" >
+                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}"> 
 							<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 						</page>
 						 <page string="Response">

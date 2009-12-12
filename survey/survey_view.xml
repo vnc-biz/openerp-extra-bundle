@@ -44,11 +44,10 @@
 											<field name="question" colspan="4" select="1"/>
 											<field name="sequence"/>
 											<field name="is_require_answer" select="1" />
-											<field name="allow_comment" select="2"/>
 											<field name="tot_resp" select="2"/>
 											<field name="type" />
 											<notebook colspan="4">
-						                        <page string="Answer">
+						                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}">
 													<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 												</page>
 												 <page string="Response">
@@ -78,6 +77,19 @@
 												</page>
 												<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 													<field name="column_heading_ids" colspan="4" nolabel="1"/>
+												</page>
+												<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
+													<field name="comment_field_type"/>
+													<field name="comment_label"/>
+													<group col="6" colspan="4">
+														<field name="comment_valid_type"/>
+														<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number'), ('comment_valid_type','!=','must be a decimal number'), ('comment_valid_type','!=','must be a date')]}">
+															<field name="comment_minimum_no" string="Between"/>
+															<field name="comment_maximum_no" string="and"/>
+														</group>
+													</group>
+													<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
+													<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
 												</page>
 											</notebook>
 										</form>
@@ -192,11 +204,10 @@
 						<field name="question" colspan="4" select="1"/>
 						<field name="sequence"/>
 						<field name="is_require_answer" select="1"/>
-						<field name="allow_comment" select="2"/>
 						<field name="tot_resp" select="2"/>
 						<field name="type" />
 						<notebook colspan="4">
-	                        <page string="Answer">
+	                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}">
 								<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 							</page>
 							 <page string="Response">
@@ -226,6 +237,19 @@
 							</page>	
 							<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 								<field name="column_heading_ids" colspan="4" nolabel="1"/>
+							</page>
+							<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
+								<field name="comment_field_type"/>
+								<field name="comment_label"/>
+								<group col="6" colspan="4">
+									<field name="comment_valid_type"/>
+									<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number'), ('comment_valid_type','!=','must be a decimal number'), ('comment_valid_type','!=','must be a date')]}">
+										<field name="comment_minimum_no" string="Between"/>
+										<field name="comment_maximum_no" string="and"/>
+									</group>
+								</group>
+								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
+								<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
 							</page>
 						</notebook>
 					</form>
@@ -295,11 +319,10 @@
 					<field name="question" colspan="4" select="1"/>
 					<field name="page_id" select="1"/>
 					<field name="sequence"/>
-					<field name="allow_comment" select="2"/>
 					<field name="tot_resp" select="2"/>
 					<field name="type" />
 					<notebook colspan="4">
-                        <page string="Answer" attrs="{'readonly':[('type','=','descriptive text')]}" >
+                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}"> 
 							<field name="answer_choice_ids" nolabel="1" colspan="4"/>
 						</page>
 						 <page string="Response">
@@ -331,6 +354,19 @@
 						<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 							<field name="column_heading_ids" colspan="4" nolabel="1"/>
 						</page>
+						<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
+							<field name="comment_field_type"/>
+							<field name="comment_label"/>
+							<group col="6" colspan="4">
+								<field name="comment_valid_type"/>
+								<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number'), ('comment_valid_type','!=','must be a decimal number'), ('comment_valid_type','!=','must be a date')]}">
+									<field name="comment_minimum_no" string="Between"/>
+									<field name="comment_maximum_no" string="and"/>
+								</group>
+							</group>
+							<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
+							<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
+						</page>
 					</notebook>
 				</form>
 			</field>
@@ -348,7 +384,6 @@
 					<field name="is_require_answer" select="1"/>
 					<field name="page_id" select="1"/>
 					<field name="survey" select="1"/>
-					<field name="allow_comment" select="2"/>
 					<field name="tot_resp" select="2"/>
 					<field name="type" select="2" />
 				</tree>

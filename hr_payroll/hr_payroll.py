@@ -425,6 +425,8 @@ class contrib_register(osv.osv):
 
     _columns = {
         'company_id':fields.many2one('res.company', 'Company', required=False),
+        'account_id': fields.many2one('account.account', 'Account', required=True),
+        'analytic_account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
         'name':fields.char('Name', size=256, required=True, readonly=False),
 		'register_line_ids':fields.one2many('hr.contibution.register.line', 'register_id', 'Register Line', readonly=True),
         'yearly_total_by_emp': fields.function(_total_contrib, method=True, multi='dc', store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),

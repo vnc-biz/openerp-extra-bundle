@@ -660,6 +660,8 @@
         <field name="arch" type="xml">
             <form string="Contribution">
                 <field name="name" select="1"/>
+                <field name="account_id"/>
+                <field name="analytic_account_id"/>
                 <field name="company_id" select="1"/>
 			    <field colspan="4" name="register_line_ids" nolabel="1" select="1">
                     <tree string="Register Lines" editable="top">

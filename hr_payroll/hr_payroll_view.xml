@@ -252,6 +252,7 @@
                                 <field name="company_id"/>
                                 <field name="register_id"/>
                                 <field name="deg_id"/>
+                                <field name="contract_id" domain="[('employee_id','=',employee_id)]"/>
                             </group>
                             <group col="2" colspan="2">
                                 <separator colspan="4" string="Accounting Informations"/>
@@ -356,9 +357,10 @@
                         </group>
                         <group col="2" colspan="2">
                             <separator colspan="2" string="Contributions Configuration"/>
-                            <field name="register_id" attrs="{'required': [('contribute','=',True)]}"/>
                             <field name="contribute"/>
+                            <field name="amount_type"/>
                             <field name="contribute_per" attrs="{'required': [('contribute','=',True)]}"/>
+                            <field name="register_id" attrs="{'required': [('contribute','=',True)]}"/>
                             <field name="include_in_salary"/>
                         </group>
                     </group>

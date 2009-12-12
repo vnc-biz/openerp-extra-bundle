@@ -39,7 +39,8 @@
         'hr','account',
         'hr_contract', 
         'hr_holidays',
-        'hr_expense'
+        'hr_expense',
+        'account_voucher_report'
     ],
     'init_xml': [
     ],
@@ -49,11 +50,11 @@
         'hr_payroll_sequence.xml',
         'hr_paroll_report.xml',
         'hr_payroll_data.xml',
-        'hr_payroll_wizard.xml',
-        'hr_payroll_analytic.xml'
-        
+        'hr_payroll_wizard.xml'
     ],
-    'demo_xml': [],
+    'demo_xml': [
+        'hr_payroll_analytic.xml'
+    ],
     'installable': True,
     'active': False,
 }

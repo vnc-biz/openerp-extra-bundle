@@ -22,6 +22,8 @@
 
 from osv import fields
 from osv import osv
+import time
+from time import strftime
 
 STATE = [ #{{{
      ('pending','Pending'),
@@ -45,7 +47,15 @@ class dm_order_session(osv.osv): # {{{
         'date_start': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'state': lambda *a: 'pending',
     }
-
+    
+    def start_session(self, cr, uid, ids, *args):
+        self.write(cr, uid, ids, {'state': 'running'})
+        return True
+    
+    def stop_session(self, cr, uid, ids, *args):
+        self.write(cr, uid, ids, {'state': 'done'})
+        return True
+    
 dm_order_session() # }}}
 
 class dm_order(osv.osv): # {{{

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <!--
+    =======================================================
+    ORDER SESSION VIEWS
+    =======================================================
+    -->
+
+   
+
+    <record model="ir.actions.act_window" id="action_dm_order_session_form">
+        <field name="name">All Session Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.order.session</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem id="menu_action_dm_order_session_form" parent="dm.menu_dm_config_customer" action="action_dm_order_session_form" sequence="4" />
+
+    </data>
+</openerp>

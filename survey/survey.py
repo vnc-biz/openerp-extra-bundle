@@ -23,6 +23,7 @@
 from osv import fields, osv
 import datetime
 from time import strftime
+import datetime
 import copy
 from tools.translate import _
 
@@ -160,13 +161,15 @@ class survey_question(osv.osv):
                                                  ('must be specific length', 'Must Be Specific Length'),\
                                                  ('must be a whole number', 'Must Be A Whole Number'),\
                                                  ('must be a decimal number', 'Must Be A Decimal Number'),\
-#                                                 ('must be a date', 'Must Be A Date'),\
+                                                 ('must be a date', 'Must Be A Date'),\
 #                                                 ('must be an email address', 'Must Be An Email Address')\
                                                  ], 'Text Validation'),
         'comment_minimum_no' : fields.integer(''),
         'comment_maximum_no' : fields.integer(''),
         'comment_minimum_float' : fields.float(''),
         'comment_maximum_float' : fields.float(''),
+        'comment_minimum_date' : fields.date(''),
+        'comment_maximum_date' : fields.date(''),
         'comment_valid_err_msg' : fields.text(''),
     }
     _defaults = {
@@ -645,16 +648,20 @@ class survey_question_wiz(osv.osv_memory):
                                     for res in resp_id_list:
                                         sur_name_read['store_ans'].pop(res)
                                     raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'\n" + str(que_rec['comment_valid_err_msg'])))
-                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number']:
+                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
                                 error = False
                                 try:
                                     if que_rec['comment_valid_type'] == 'must be a whole number':
                                         value = int(val1)
                                         if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
                                             error = True
-                                    else:
+                                    elif que_rec['comment_valid_type'] == 'must be a decimal number':
                                         value = float(val1)
                                         if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
+                                            error = True
+                                    elif que_rec['comment_valid_type'] == 'must be a date':
+                                        value = datetime.datetime.strptime(val1, "%Y-%m-%d")
+                                        if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
                                             error = True
                                 except:
                                     error = True
@@ -727,16 +734,20 @@ class survey_question_wiz(osv.osv_memory):
                                     for res in resp_id_list:
                                         sur_name_read['store_ans'].pop(res)
                                     raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number']:
+                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
                                 error = False
                                 try:
                                     if que_rec['comment_valid_type'] == 'must be a whole number':
                                         value = int(val)
                                         if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
                                             error = True
-                                    else:
+                                    elif que_rec['comment_valid_type'] == 'must be a decimal number':
                                         value = float(val)
                                         if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
+                                            error = True
+                                    elif que_rec['comment_valid_type'] == 'must be a date':
+                                        value = datetime.datetime.strptime(val, "%Y-%m-%d")
+                                        if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
                                             error = True
                                 except:
                                     error = True

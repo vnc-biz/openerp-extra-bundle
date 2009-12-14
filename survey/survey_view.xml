@@ -83,9 +83,17 @@
 													<field name="comment_label"/>
 													<group col="6" colspan="4">
 														<field name="comment_valid_type"/>
-														<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number'), ('comment_valid_type','!=','must be a decimal number'), ('comment_valid_type','!=','must be a date')]}">
+														<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number')]}">
 															<field name="comment_minimum_no" string="Between"/>
 															<field name="comment_maximum_no" string="and"/>
+														</group>
+														<group attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number')]}">
+															<field name="comment_minimum_float" string="Between"/>
+															<field name="comment_maximum_float" string="and"/>
+														</group>
+														<group attrs="{'invisible':[('comment_valid_type','!=','must be a date')]}">
+															<field name="comment_minimum_date" string="Between"/>
+															<field name="comment_maximum_date" string="and"/>
 														</group>
 													</group>
 													<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
@@ -241,11 +249,19 @@
 							<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 								<field name="comment_field_type"/>
 								<field name="comment_label"/>
-								<group col="6" colspan="4">
+								<group col="4" colspan="4">
 									<field name="comment_valid_type"/>
-									<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number'), ('comment_valid_type','!=','must be a decimal number'), ('comment_valid_type','!=','must be a date')]}">
+									<group attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number')]}">
 										<field name="comment_minimum_no" string="Between"/>
 										<field name="comment_maximum_no" string="and"/>
+									</group>
+									<group attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number')]}">
+										<field name="comment_minimum_float" string="Between"/>
+										<field name="comment_maximum_float" string="and"/>
+									</group>
+									<group attrs="{'invisible':[('comment_valid_type','!=','must be a date')]}">
+										<field name="comment_minimum_date" string="Between"/>
+										<field name="comment_maximum_date" string="and"/>
 									</group>
 								</group>
 								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
@@ -363,9 +379,13 @@
 									<field name="comment_minimum_no" string="Between"/>
 									<field name="comment_maximum_no" string="and"/>
 								</group>
-								<group attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number'), ('comment_valid_type','!=','must be a date')]}">
+								<group attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number')]}">
 									<field name="comment_minimum_float" string="Between"/>
 									<field name="comment_maximum_float" string="and"/>
+								</group>
+								<group attrs="{'invisible':[('comment_valid_type','!=','must be a date')]}">
+									<field name="comment_minimum_date" string="Between"/>
+									<field name="comment_maximum_date" string="and"/>
 								</group>
 							</group>
 							<separator string="When the comment is an invalid format, display this error message" colspan="4"/>

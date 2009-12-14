@@ -20,7 +20,7 @@
 #
 ##############################################################################
 {
-    "name" : "DM REMOTE EDITION ",
+    "name" : "DM Remote Edition",
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",

@@ -32,5 +32,10 @@
 			<field name="name">Agenda</field>
 		</record>
 
+<!-- The base section for CF -->
+		<record model="crm.case.section" id="case_section_cf">
+			<field name="name">CF</field>
+		</record>
+
 	</data>
 </openerp>

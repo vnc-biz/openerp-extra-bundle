@@ -47,6 +47,12 @@ class account_invoice(osv.osv):
         'vat_num' : fields.related('partner_id', 'vat',  type='char', string="VAT"),
     }
 
+    def create(self, cr, uid, vals, context={}):
+        if vals.has_key('partner_id') and vals['partner_id']:
+            partner = self.pool.get('res.partner').browse(cr, uid, vals['partner_id'], context=context)
+            vals.update({'invoice_special':partner.invoice_special})
+        return super(account_invoice, self).create(cr, uid, vals, context=context)
+
     def action_move_create(self, cr, uid, ids, context=None):
         flag = membership_flag = False
         product_ids = []

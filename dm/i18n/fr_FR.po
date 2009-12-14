@@ -2882,7 +2882,7 @@ msgstr "Modèle de campagne"
 #: view:dm.offer.step:0
 msgid "Outgoing Transitions"
 msgstr "Transitions sortantes"
-d
+
 #. module: dm
 #: wizard_button:campaign.group.project,init,done:0
 #: wizard_button:campaign.project,init,done:0

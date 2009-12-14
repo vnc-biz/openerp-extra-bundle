@@ -99,6 +99,25 @@
 													<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 													<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
 												</page>
+												<page string="Validation" attrs="{'invisible':[('type','!=','single textbox'), ('type','!=','multiple textboxes')]}">
+													<group col="6" colspan="4">
+														<field name="validation_type"/>
+														<group attrs="{'invisible':[('validation_type','!=','must be specific length'), ('validation_type','!=','must be a whole number')]}">
+															<field name="validation_minimum_no" string="Between"/>
+															<field name="validation_maximum_no" string="and"/>
+														</group>
+														<group attrs="{'invisible':[('validation_type','!=','must be a decimal number')]}">
+															<field name="validation_minimum_float" string="Between"/>
+															<field name="validation_maximum_float" string="and"/>
+														</group>
+														<group attrs="{'invisible':[('validation_type','!=','must be a date')]}">
+															<field name="validation_minimum_date" string="Between"/>
+															<field name="validation_maximum_date" string="and"/>
+														</group>
+													</group>
+													<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
+													<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
+												</page>
 											</notebook>
 										</form>
 										<tree string="Survey Question">
@@ -267,6 +286,25 @@
 								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 								<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
 							</page>
+							<page string="Validation" attrs="{'invisible':[('type','!=','single textbox'), ('type','!=','multiple textboxes')]}">
+								<group col="6" colspan="4">
+									<field name="validation_type"/>
+									<group attrs="{'invisible':[('validation_type','!=','must be specific length'), ('validation_type','!=','must be a whole number')]}">
+										<field name="validation_minimum_no" string="Between"/>
+										<field name="validation_maximum_no" string="and"/>
+									</group>
+									<group attrs="{'invisible':[('validation_type','!=','must be a decimal number')]}">
+										<field name="validation_minimum_float" string="Between"/>
+										<field name="validation_maximum_float" string="and"/>
+									</group>
+									<group attrs="{'invisible':[('validation_type','!=','must be a date')]}">
+										<field name="validation_minimum_date" string="Between"/>
+										<field name="validation_maximum_date" string="and"/>
+									</group>
+								</group>
+								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
+								<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
+							</page>
 						</notebook>
 					</form>
 					<tree string="Survey Question">
@@ -391,6 +429,26 @@
 							<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 							<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
 						</page>
+						<page string="Validation" attrs="{'invisible':[('type','!=','single textbox'), ('type','!=','multiple textboxes')]}">
+							<group col="6" colspan="4">
+								<field name="validation_type"/>
+								<group attrs="{'invisible':[('validation_type','!=','must be specific length'), ('validation_type','!=','must be a whole number')]}">
+									<field name="validation_minimum_no" string="Between"/>
+									<field name="validation_maximum_no" string="and"/>
+								</group>
+								<group attrs="{'invisible':[('validation_type','!=','must be a decimal number')]}">
+									<field name="validation_minimum_float" string="Between"/>
+									<field name="validation_maximum_float" string="and"/>
+								</group>
+								<group attrs="{'invisible':[('validation_type','!=','must be a date')]}">
+									<field name="validation_minimum_date" string="Between"/>
+									<field name="validation_maximum_date" string="and"/>
+								</group>
+							</group>
+							<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
+							<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
+						</page>
+
 					</notebook>
 				</form>
 			</field>

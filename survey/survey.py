@@ -171,6 +171,21 @@ class survey_question(osv.osv):
         'comment_minimum_date' : fields.date(''),
         'comment_maximum_date' : fields.date(''),
         'comment_valid_err_msg' : fields.text(''),
+
+        'validation_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
+                                                 ('must be specific length', 'Must Be Specific Length'),\
+                                                 ('must be a whole number', 'Must Be A Whole Number'),\
+                                                 ('must be a decimal number', 'Must Be A Decimal Number'),\
+                                                 ('must be a date', 'Must Be A Date'),\
+                                                 ('must be an email address', 'Must Be An Email Address')\
+                                                 ], 'Text Validation'),
+        'validation_minimum_no' : fields.integer(''),
+        'validation_maximum_no' : fields.integer(''),
+        'validation_minimum_float' : fields.float(''),
+        'validation_maximum_float' : fields.float(''),
+        'validation_minimum_date' : fields.date(''),
+        'validation_maximum_date' : fields.date(''),
+        'validation_valid_err_msg' : fields.text(''),
     }
     _defaults = {
          'sequence' : lambda * a: 5,

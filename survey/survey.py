@@ -482,13 +482,8 @@ class survey_question_wiz(osv.osv_memory):
                     qu_no += 1
                     que_rec = que_obj.read(cr, uid, que)
                     descriptive_text = ""
-                    if que_rec['type'] != 'descriptive text':
-                        descriptive_text = ''' <label align="3.0" colspan="1" string="Answer later"/> 
-                            <field  name="''' + str(que) + "_" + 'skip' + '''" colspan="1" nolabel="1"/>'''
-                        fields[str(que) + "_" + 'skip'] = {'type':'boolean', 'string':'Skip'}
                     xml += '''<group col="4" colspan="4">
                     <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/> 
-                       ''' + descriptive_text + '''
                        </group>
                     <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
@@ -637,11 +632,7 @@ class survey_question_wiz(osv.osv_memory):
                     ans = False
                     for key1, val1 in vals.items():
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                        if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
-                             resp_obj.write(cr, uid, resp_id, {'state':'skip'})
-                             sur_name_read['store_ans'][resp_id].update({key1:'skip'})
-                             select_count += 1
-                        elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                        if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val1 and  que_rec['comment_minimum_no']) or len(val1) <  que_rec['comment_minimum_no'] or len(val1) > que_rec['comment_maximum_no']:
@@ -693,6 +684,8 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                    if not select_count:
+                        resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                     if que_rec['required_type']:
                         if (que_rec['required_type'] == 'all' and select_count != len(que_rec['answer_choice_ids'])) or \
                             (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
@@ -725,11 +718,7 @@ class survey_question_wiz(osv.osv_memory):
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                        if val and ans_id_len[-1] =='skip':
-                            resp_obj.write(cr, uid, update, {'state': 'skip'})
-                            sur_name_read['store_ans'][update].update({key:'skip'})
-                            select_count += 1
-                        elif val and key.split('_')[1] == "other":
+                        if val and key.split('_')[1] == "other":
                             error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:
@@ -779,6 +768,8 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                if not select_count:
+                    resp_obj.write(cr, uid, update, {'state': 'skip'})
                 if que_rec['required_type']:
                     if (que_rec['required_type'] == 'all' and select_count != len(que_rec['answer_choice_ids'])) or \
                         (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \

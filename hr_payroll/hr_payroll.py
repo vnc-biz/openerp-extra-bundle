@@ -563,6 +563,7 @@ class hr_payslip(osv.osv):
             allow = 0.0
             deduct = 0.0
             others = 0.0
+            
             obj = {'basic':rs.basic}
             
             for line in rs.line_ids:
@@ -580,8 +581,10 @@ class hr_payslip(osv.osv):
                 
                 if line.type == 'allounce':
                     allow += amount
+                    allow += line.company_contrib
                 elif line.type == 'deduction':
                     deduct += amount
+                    allow -= line.company_contrib
                 elif line.type == 'advance':
                     others += amount
                 elif line.type == 'loan':

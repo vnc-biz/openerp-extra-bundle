@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import cci_wizard_aged_trial_balance
@@ -25,5 +25,6 @@ import cci_switched_debit_credit
 import cci_wizard_vcs
 import invoice_special_message
 import cci_use_model
+import cci_wizard_pay_invoice
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

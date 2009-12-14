@@ -25,7 +25,6 @@ from osv import osv
 import time
 from time import strftime
 
-import time
 from tools.translate import _
 
 STATE = [ #{{{

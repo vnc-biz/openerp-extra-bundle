@@ -755,9 +755,6 @@ class survey_question_wiz(osv.osv_memory):
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
                                         error = True
                             if error:
-                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                for res in resp_id_list:
-                                    sur_name_read['store_ans'].pop(res)
                                 raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
                             
                             resp_obj.write(cr, uid, update, {'comment':val})

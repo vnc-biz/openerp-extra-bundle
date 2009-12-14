@@ -162,7 +162,7 @@ class survey_question(osv.osv):
                                                  ('must be a whole number', 'Must Be A Whole Number'),\
                                                  ('must be a decimal number', 'Must Be A Decimal Number'),\
                                                  ('must be a date', 'Must Be A Date'),\
-#                                                 ('must be an email address', 'Must Be An Email Address')\
+                                                 ('must be an email address', 'Must Be An Email Address')\
                                                  ], 'Text Validation'),
         'comment_minimum_no' : fields.integer(''),
         'comment_maximum_no' : fields.integer(''),
@@ -642,12 +642,10 @@ class survey_question_wiz(osv.osv_memory):
                              sur_name_read['store_ans'][resp_id].update({key1:'skip'})
                              select_count += 1
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                            error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val1 and  que_rec['comment_minimum_no']) or len(val1) <  que_rec['comment_minimum_no'] or len(val1) > que_rec['comment_maximum_no']:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'\n" + str(que_rec['comment_valid_err_msg'])))
+                                    error = True
                             elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
                                 error = False
                                 try:
@@ -665,11 +663,15 @@ class survey_question_wiz(osv.osv_memory):
                                             error = True
                                 except:
                                     error = True
-                                if error:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
+                            elif que_rec['comment_valid_type'] == 'must be an email address':
+                                import re
+                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
+                                        error = True
+                            if error:
+                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                                for res in resp_id_list:
+                                    sur_name_read['store_ans'].pop(res)
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
 
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
@@ -728,14 +730,11 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][update].update({key:'skip'})
                             select_count += 1
                         elif val and key.split('_')[1] == "other":
+                            error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
+                                    error = True
                             elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
-                                error = False
                                 try:
                                     if que_rec['comment_valid_type'] == 'must be a whole number':
                                         value = int(val)
@@ -751,12 +750,15 @@ class survey_question_wiz(osv.osv_memory):
                                             error = True
                                 except:
                                     error = True
-                                if error:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-
+                            elif que_rec['comment_valid_type'] == 'must be an email address':
+                                import re
+                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
+                                        error = True
+                            if error:
+                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                                for res in resp_id_list:
+                                    sur_name_read['store_ans'].pop(res)
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
                             
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})

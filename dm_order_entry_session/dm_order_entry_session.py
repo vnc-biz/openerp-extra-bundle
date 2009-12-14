@@ -23,11 +23,12 @@
 from osv import fields
 from osv import osv
 
-STATE [ #{{{
+STATE = [ #{{{
      ('pending','Pending'),
     ('running','Running'),
     ('done','Done')
 ] # }}}
+
 
 class dm_order_session(osv.osv): # {{{
     _name = "dm.order.session"
@@ -41,10 +42,18 @@ class dm_order_session(osv.osv): # {{{
     }
     _defaults = {
         'user_id': lambda obj, cr, uid, context: uid,
-       'date_start': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        'date_start': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'state': lambda *a: 'pending',
     }
 
 dm_order_session() # }}}
+
+class dm_order(osv.osv): # {{{
+    _inherit= "dm.order"
+    _columns = {
+        'order_session_id': fields.many2one('dm.order.session', 'Session')  
+                }
+dm_order() # }}}
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

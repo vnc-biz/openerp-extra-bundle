@@ -25,15 +25,19 @@ from osv import osv
 import time
 from time import strftime
 
+import time
+from tools.translate import _
+
 STATE = [ #{{{
      ('pending','Pending'),
-    ('running','Running'),
-    ('done','Done')
+     ('running','Running'),
+     ('done','Done')
 ] # }}}
-
 
 class dm_order_session(osv.osv): # {{{
     _name = "dm.order.session"
+    _rec_name = "user_id"
+    
     _columns = {
         'user_id': fields.many2one('res.users', 'User', readonly=True ),
         'date_start': fields.datetime('Start Date'),
@@ -60,9 +64,20 @@ dm_order_session() # }}}
 
 class dm_order(osv.osv): # {{{
     _inherit= "dm.order"
+    
     _columns = {
         'order_session_id': fields.many2one('dm.order.session', 'Session')  
-                }
+    }
+    
+    def create(self, cr, uid, vals, context={}):
+        if vals.has_key('order_session_id') and vals['order_session_id']:
+            session_obj = self.pool.get('dm.order.session').browse(cr, uid, vals['order_session_id'])
+            if session_obj.state == 'running':
+                return super(dm_order, self).create(cr, uid, vals, context)
+            else:
+                raise osv.except_osv(_('Error!'),_("There is no running session for this order entry"))
+        return super(dm_order, self).create(cr, uid, vals, context)
+    
 dm_order() # }}}
 
 

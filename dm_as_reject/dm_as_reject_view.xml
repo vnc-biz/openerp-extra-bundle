@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
+
+	<menuitem name="Rejects" id="menu_dm_config_custo_rejects" parent="dm.menu_dm_config_customer" sequence="1"/>
+
 	<record model="ir.ui.view" id="view_dm_reject_type_tree">
         <field name="name">dm.as.reject.type.tree</field>
         <field name="model">dm.as.reject.type</field>
@@ -75,7 +78,7 @@
         <field name="view_id" ref="view_dm_reject_tree"/>
     </record>
     
-    <menuitem id="menu_action_dm_reject_form" parent="dm.menu_dm_config_customer" action="action_dm_reject" sequence="4" />
+    <menuitem id="menu_action_dm_reject_form" parent="menu_dm_config_custo_rejects" action="action_dm_reject" sequence="0" />
 
 	<record model="ir.ui.view" id="view_dm_reject_incident_tree">
         <field name="name">dm.as.reject.incident.tree</field>
@@ -121,7 +124,7 @@
         <field name="view_id" ref="view_dm_reject_incident_tree"/>
     </record>
     
-    <menuitem id="menu_action_dm_reject_incident_form" parent="dm.menu_dm_config_customer" action="action_dm_reject_incident_form" />
+    <menuitem id="menu_action_dm_reject_incident_form" parent="menu_dm_config_custo_rejects" action="action_dm_reject_incident_form" sequence="1"/>
 
 
 	<record model="ir.ui.view" id="view_dm_reject_res_partner_form">

@@ -2,7 +2,7 @@
 <openerp>
 <data>
 
-	<menuitem name="Extractions" id="menu_dm_config_extract" parent="dm.menu_dm_config"/>
+	<menuitem name="Extractions" id="menu_dm_config_extract" parent="dm.menu_dm_config" sequence="4"/>
 
     <!--
     =======================================================

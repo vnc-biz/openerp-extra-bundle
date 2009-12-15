@@ -125,6 +125,7 @@ def generate_openoffice_reports(cr, uid, report_type,
     for report in pool.get('ir.actions.report.xml').browse(cr, uid, report_ids):
         srv = netsvc.LocalService('report.' + report.report_name)
         report_data, report_type = srv.create(cr, uid, [], {}, context)
+        
         if re.search('!!!Missing-Plugin-in DTP document!!!', report_data, re.IGNORECASE):
             return 'plugin_missing' 
         if re.search('!!!Missing-Plugin-Value!!!', report_data, re.IGNORECASE):

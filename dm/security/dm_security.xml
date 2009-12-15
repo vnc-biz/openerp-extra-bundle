@@ -55,5 +55,7 @@
       <field eval="[(4, ref('res_groups_offeradmin')), (4, ref('res_groups_campaignadmin'))]" name="groups_id"/>
   </record>
 
+
+
 </data>
 </openerp>

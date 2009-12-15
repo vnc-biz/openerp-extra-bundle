@@ -28,8 +28,6 @@ import pooler
 import mx.DateTime
 import base64
 from tools.translate import _
-from launchpadlib.launchpad import Launchpad, EDGE_SERVICE_ROOT
-from launchpadlib.credentials import Credentials
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 import os
@@ -38,6 +36,12 @@ import pickle
 import time
 import sys
 import datetime
+
+try:
+    from launchpadlib.launchpad import Launchpad, EDGE_SERVICE_ROOT
+    from launchpadlib.credentials import Credentials
+except:
+    raise osv.except_osv('Warning!','Please install launchpadlib direction package from https://help.launchpad.net/API/launchpadlib#Installation ')
 
 class lpServer(threading.Thread):
     launchpad = False

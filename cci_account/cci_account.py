@@ -173,6 +173,8 @@ class account_invoice(osv.osv):
                 vcs=vcs1+'/'+vcs2+'/'+ '0' +str(check_digit)
 
                 self.write(cr, uid, [inv.id], {'name':vcs})
+                ids = self.pool.get('account.move.line').search(cr, uid, [('move_id','=',inv.move_id.id)])
+                self.pool.get('account.move.line').write(cr, uid, ids, {'name':vcs})
         return res
 
     #raise an error if the partner has the warning 'alert_others' when we choose him in the account_invoice form

@@ -124,17 +124,16 @@ def _coda_parsing(self, cr, uid, data, context):
                 # movement data record 2.1
                 st_line = {}
                 st_line['statement_id']=0
-                st_line['name'] = line[2:10]
-                st_line['date'] = str2date(line[115:121])
+                st_line['ref'] = line[2:10]
+                st_line['date'] = time.strftime('%Y-%m-%d',time.strptime(str2date(line[115:121]),"%y/%m/%d")),
                 st_line_amt = list2float(line[32:47])
 
                 if line[61]=='1':
-                    st_line['ref']=(line[65:77])
-                    st_line['free_comm']=''
+                    st_line['name']=line[65:77]
                 else:
-                    st_line['free_comm']=line[62:115]
-                    st_line['ref']=''
+                    st_line['name']=line[62:115]
 
+                st_line['free_comm'] = st_line['name']
                 st_line['val_date']=time.strftime('%Y-%m-%d',time.strptime(str2date(line[47:53]),"%y/%m/%d")),
                 st_line['entry_date']=time.strftime('%Y-%m-%d',time.strptime(str2date(line[115:121]),"%y/%m/%d")),
                 st_line['partner_id']=0
@@ -149,7 +148,7 @@ def _coda_parsing(self, cr, uid, data, context):
 
             elif line[1] == '3':
                 # movement data record 3.1
-                st_line_name = line[2:10]
+                st_line_name = st_line['name']
                 st_line_partner_acc = str(line[10:47]).strip()
                 cntry_number=line[10:47]
                 contry_name=line[47:125]
@@ -164,9 +163,9 @@ def _coda_parsing(self, cr, uid, data, context):
                     if line and bank.partner_id:
                         line['partner_id']=bank.partner_id.id
                         if line['amount'] < 0 :
-                            line['account_id']=bank.partner_id.property_account_payable[0]
+                            line['account_id']=bank.partner_id.property_account_payable.id
                         else :
-                            line['account_id']=bank.partner_id.property_account_receivable[0]
+                            line['account_id']=bank.partner_id.property_account_receivable.id
 
                         bank_statement_lines[st_line_name]=line
                 else:
@@ -216,6 +215,13 @@ def _coda_parsing(self, cr, uid, data, context):
             lines=statement["bank_statement_line"]
             for value in lines:
                 line=lines[value]
+                reconcile_id = False
+                rec_id = pool.get('account.move.line').search(cr, uid, [('name','=',line['name']),('account_id.reconcile','=',True)])
+                if rec_id:
+                    reconcile_id = pool.get('account.bank.statement.reconcile').create(cr, uid, {
+                        'line_ids': [(6, 0, rec_id)]
+                        }, context=context)
+
                 str_not1="Partner name:%s \n Partner Account Number:%s \n Communication:%s \n Value Date:%s \n Entry Date:%s \n"%(line["contry_name"],line["cntry_number"],line["free_comm"],line["val_date"],line["entry_date"][0])
                 id=pool.get('account.bank.statement.line').create(cr,uid,{
                            'name':line['name'],
@@ -225,6 +231,7 @@ def _coda_parsing(self, cr, uid, data, context):
                            'partner_id':line['partner_id'] or 0,
                            'account_id':line['account_id'],
                            'statement_id': bk_st_id,
+                           'reconcile_id': reconcile_id,
                            'note':str_not1,
                            'ref':line['ref'],
                            })

@@ -43,35 +43,11 @@ class account_invoice_with_message(report_sxw.rml_parse):
         self.context = context
 
     def find_vcs(self,invoice_id):
-        print "======== find_vcs  in cci"
         item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
-        vcs =''
-        if item.number:
-            vcs3=str(item.number).split('/')[1]
-            vcs1='0'+ str(item.date_invoice[2:4])
-            if len(str(vcs3))>=5:
-                vcs2=str(item.number[3]) + str(vcs3[0:5])
-            elif len(str(vcs3))==4:
-                vcs2=str(item.number[3]) + '0' +str(vcs3)
-            else:
-                vcs2=str(item.number[3]) + '00' +str(vcs3)
-
-            vcs4= vcs1 + vcs2 + '0'
-
-            vcs5=int(vcs4)
-            check_digit=vcs5%97
-
-            if check_digit==0:
-                check_digit='97'
-            if check_digit<=9:
-                check_digit='0'+str(check_digit)
-            vcs=vcs1+'/'+vcs2+'/'+ '0' +str(check_digit)
-        return vcs
+        return item.name
 
     def fr_convert(self, amount):
         amount = Decimal("%f" % (amount, ))
-        print "=========== amount",amount
-        print "amount_to_text_fr(amount, 'euro')",amount_to_text_fr(amount, 'euro')
         return amount_to_text_fr(amount, 'euro')
 
     def en_convert(self, amount):

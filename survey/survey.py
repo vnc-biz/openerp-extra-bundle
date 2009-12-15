@@ -729,7 +729,7 @@ class survey_question_wiz(osv.osv_memory):
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
-                            numeric_sum += val1
+                            numeric_sum += int(val1)
                         elif val1 and que_id == key1.split('_')[0] and len(key1.split('_')) == 3:
                             if type(val1) == type(''):
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2], 'value_choice' : val1})
@@ -853,7 +853,7 @@ class survey_question_wiz(osv.osv_memory):
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : val})
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
-                            numeric_sum += val
+                            numeric_sum += int(val)
                         elif val and len(key.split('_')) == 3:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             if type(val) == type(''):

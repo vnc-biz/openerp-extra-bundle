@@ -71,6 +71,14 @@
 														<separator string="When the question is not answered, display this error message:"/>
 														<field name="req_error_msg" colspan="4" nolabel="1"/>
 													</group>
+													<group colspan="4" attrs="{'invisible':[('type','!=','numerical textboxes')]}">
+														<group colspan="2" >
+															<field name="numeric_required_sum"/>
+														</group>
+														<newline/>
+														<separator string="When the choices do not add up correctly, display this error message"/>
+														<field name="numeric_required_sum_err_msg" colspan="4" nolabel="1"/>
+													</group>
 												</page>
 												<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 													<field name="descriptive_text" colspan="4"/>
@@ -258,6 +266,14 @@
 									<separator string="When the question is not answered, display this error message:"/>
 									<field name="req_error_msg" colspan="4" nolabel="1"/>
 								</group>
+								<group colspan="4" attrs="{'invisible':[('type','!=','numerical textboxes')]}">
+									<group colspan="2" >
+										<field name="numeric_required_sum"/>
+									</group>
+									<newline/>
+									<separator string="When the choices do not add up correctly, display this error message"/>
+									<field name="numeric_required_sum_err_msg" colspan="4" nolabel="1"/>
+								</group>
 							</page>
 							<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">
 								<field name="descriptive_text" colspan="4"/>
@@ -399,6 +415,14 @@
 							<group colspan="4">
 								<separator string="When the question is not answered, display this error message:"/>
 								<field name="req_error_msg" colspan="4" nolabel="1"/>
+							</group>
+							<group colspan="4" attrs="{'invisible':[('type','!=','numerical textboxes')]}">
+								<group colspan="2" >
+									<field name="numeric_required_sum"/>
+								</group>
+								<newline/>
+								<separator string="When the choices do not add up correctly, display this error message"/>
+								<field name="numeric_required_sum_err_msg" colspan="4" nolabel="1"/>
 							</group>
 						</page>
 						<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive text')]}">

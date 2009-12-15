@@ -986,6 +986,8 @@ class hr_payslip(osv.osv):
                     
                 if line.type == 'allounce' or line.type == 'otherpay':
                     rec['debit'] = amount
+                    if not partner.property_account_payable:
+                        raise osv.except_osv(_('Integrity Error !'), _('Please Configure Partners Payable Account!!'))
                     ded_rec = {
                         'move_id':move_id,
                         'name': name,
@@ -1001,6 +1003,8 @@ class hr_payslip(osv.osv):
                     }
                     line_ids += [movel_pool.create(cr, uid, ded_rec)]
                 elif line.type == 'deduction' or line.type == 'otherdeduct':
+                    if not partner.property_account_receivable:
+                        raise osv.except_osv(_('Integrity Error !'), _('Please Configure Partners Receivable Account!!'))
                     rec['credit'] = amount
                     total_deduct += amount
                     ded_rec = {
@@ -1177,7 +1181,7 @@ class hr_payslip(osv.osv):
             
             obj = {'basic':0.0}
             if contract.wage_type_id.type == 'gross':
-                obj['gross'] = contract.wage                
+                obj['gross'] = contract.wage
             
             for line in lines:
                 cd = line.code.lower()

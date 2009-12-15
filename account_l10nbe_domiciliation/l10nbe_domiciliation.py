@@ -28,12 +28,14 @@ class account_invoice(osv.osv):
         'domiciled_send_date' : fields.date('Domiciliation Sending Date'),
         }
 
-    def on_change_partner_id(self, cr, uid, id, partner):
-        if not partner:
-            return {'value' : {'domiciled' : False}}
-        partner_obj = self.pool.get('res.partner').browse(cr, uid, partner)
+    def on_change_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False):
+        data=super(account_invoice,self).onchange_partner_id( cr, uid, ids, type, partner_id,date_invoice, payment_term)
+        if not partner_id:
+            return data['value'].update({'domiciled' : False})
+        partner_obj = self.pool.get('res.partner').browse(cr, uid, partner_id)
         domiciled = partner_obj.domiciliation_bool
-        return {'value' : {'domiciled' : domiciled} }
+        data['value']['domiciled'] = domiciled
+        return data
 
 account_invoice()
 

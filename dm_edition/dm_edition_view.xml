@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+	<menuitem name="Edition Jobs" id="menu_dm_config_doc_jobs" parent="dm.menu_action_offer_doc" sequence="0"/>
+
 	<!-- 
 		Campaign Document Job Batch 
 	-->
@@ -170,7 +172,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 	
-	<menuitem action="act_dm_campaign_document_job_sorting_rule_form" id="menu_dm_campaign_document_job_sorting_rule_form" parent="dm.menu_action_offer_doc"/>	
+	<menuitem action="act_dm_campaign_document_job_sorting_rule_form" id="menu_dm_campaign_document_job_sorting_rule_form" parent="menu_dm_config_doc_jobs"/>	
 
 	<!-- 
 		Offer Documents 

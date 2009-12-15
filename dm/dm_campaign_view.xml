@@ -4,14 +4,15 @@
 
     <menuitem name="Direct Marketing" icon="terp-crm" id="menu_dm"/>
     <menuitem name="Configuration" id="menu_dm_config" parent="menu_dm" groups="res_groups_offeradmin,res_groups_offermanager,res_groups_campaignadmin,res_groups_campaignmanager,res_groups_dtpmanager" sequence="0"/>
-    <menuitem name="Campaigns" id="menu_dm_config_campaign" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
-    <menuitem name="Customers Lists and Files" id="menu_dm_config_custlist" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
+	<menuitem name="Low Level" id="menu_dm_config_lowlevel" parent="dm.menu_dm_config" groups="res_groups_dmadmin" sequence="0"/>
+	<menuitem name="Customers Lists and Files" id="menu_dm_config_custlist" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
+    <menuitem name="Campaigns" id="menu_dm_config_campaign" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="5"/>
+    
 	<menuitem name="Customers Lists" id="menu_dm_config_custlist_list" parent="dm.menu_dm_config_custlist" groups="res_groups_offeradmin,res_groups_campaignadmin"/>
 	<menuitem name="Customers Files" id="menu_dm_config_custlist_file" parent="dm.menu_dm_config_custlist" groups="res_groups_offeradmin,res_groups_campaignadmin"/>
     <menuitem name="Campaigns" id="menu_dm_campaign" parent="menu_dm" 
     groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_groups_campaignmanager,res_groups_offermanager"
     sequence="4"/>
-    <menuitem name="Low Level" id="menu_dm_config_lowlevel" parent="dm.menu_dm_config" groups="res_groups_dmadmin" sequence="0"/>
     <menuitem name="Mail Service" id="menu_dm_config_mail_service" parent="dm.menu_dm_config" sequence="7"/>
 
     <!--

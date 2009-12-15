@@ -83,10 +83,16 @@ def _pay_and_reconcile(self, cr, uid, data, context):
             amount, acc_id, period_id, journal_id, writeoff_account_id,
             period_id, writeoff_journal_id, context, data['form']['name'])
 
-#    lines = pool.get('account.move.line').browse(cr, uid, form['line_ids'][0][2])
-#    for line in lines:
-#        amount_line = line.credit
-#        pool.get('account.move.line').reconcile(cr, uid, [line.id], 'manual', writeoff_account_id, period_id, writeoff_journal_id, context)
+    list_lines = []
+    for line in invoice.move_id.line_id:
+        if line.reconcile_partial_id and line.reconcile_partial_id.line_partial_ids:
+            for lp in line.reconcile_partial_id.line_partial_ids:
+                list_lines.append(lp.id)
+    if len(form['line_ids'][0][2]):
+        for line in form['line_ids'][0][2]:
+            list_lines.append(line)
+    if len(list_lines):
+        res = pool.get('account.move.line').reconcile_partial(cr, uid, list_lines, 'auto', context=context)
     return {}
 
 def _wo_check(self, cr, uid, data, context):

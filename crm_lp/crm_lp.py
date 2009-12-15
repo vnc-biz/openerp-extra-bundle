@@ -90,7 +90,10 @@ class lpServer(threading.Thread):
         return  res
 
     def getProject(self, project):
-        project = self.launchpad.projects[project]
+        try:
+            project = self.launchpad.projects[project]
+        except:
+            return None
         return project
 
     def getSeries(self, project):
@@ -239,9 +242,9 @@ class crm_case(osv.osv):
         project_id=prj.search(cr,uid,[])
         for prj_id in prj.browse(cr,uid, project_id):
             project_name=str(prj_id.name)
-            if project_name.find('openobject') == 0:
+            lp_project = lp_server.getProject(project_name)
+            if lp_project:
                 prjs=lp_server.get_lp_bugs(project_name)
-                lp_project = lp_server.getProject(project_name)
                 self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
                 for key, bugs in prjs.items():
                         for bug in bugs:

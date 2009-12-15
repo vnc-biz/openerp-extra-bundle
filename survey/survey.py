@@ -164,13 +164,13 @@ class survey_question(osv.osv):
                                                  ('must be a date', 'Must Be A Date'),\
                                                  ('must be an email address', 'Must Be An Email Address')\
                                                  ], 'Text Validation'),
-        'comment_minimum_no' : fields.integer(''),
-        'comment_maximum_no' : fields.integer(''),
-        'comment_minimum_float' : fields.float(''),
-        'comment_maximum_float' : fields.float(''),
-        'comment_minimum_date' : fields.date(''),
-        'comment_maximum_date' : fields.date(''),
-        'comment_valid_err_msg' : fields.text(''),
+        'comment_minimum_no' : fields.integer('Minimum number'),
+        'comment_maximum_no' : fields.integer('Maximum number'),
+        'comment_minimum_float' : fields.float('Minimum decimal number'),
+        'comment_maximum_float' : fields.float('Maximum decimal number'),
+        'comment_minimum_date' : fields.date('Minimum date'),
+        'comment_maximum_date' : fields.date('Maximum date'),
+        'comment_valid_err_msg' : fields.text('Error message'),
         'validation_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
                                                  ('must be specific length', 'Must Be Specific Length'),\
                                                  ('must be a whole number', 'Must Be A Whole Number'),\
@@ -178,15 +178,15 @@ class survey_question(osv.osv):
                                                  ('must be a date', 'Must Be A Date'),\
                                                  ('must be an email address', 'Must Be An Email Address')\
                                                  ], 'Text Validation'),
-        'validation_minimum_no' : fields.integer(''),
-        'validation_maximum_no' : fields.integer(''),
-        'validation_minimum_float' : fields.float(''),
-        'validation_maximum_float' : fields.float(''),
-        'validation_minimum_date' : fields.date(''),
-        'validation_maximum_date' : fields.date(''),
-        'validation_valid_err_msg' : fields.text(''),
-        'numeric_required_sum' : fields.integer(''),
-        'numeric_required_sum_err_msg' : fields.text(''),
+        'validation_minimum_no' : fields.integer('Minimum number'),
+        'validation_maximum_no' : fields.integer('Maximum number'),
+        'validation_minimum_float' : fields.float('Minimum decimal number'),
+        'validation_maximum_float' : fields.float('Maximum decimal number'),
+        'validation_minimum_date' : fields.date('Minimum date'),
+        'validation_maximum_date' : fields.date('Maximum date'),
+        'validation_valid_err_msg' : fields.text('Error message'),
+        'numeric_required_sum' : fields.integer('Sum of all choices'),
+        'numeric_required_sum_err_msg' : fields.text('Error message'),
     }
     _defaults = {
          'sequence' : lambda * a: 5,
@@ -204,59 +204,60 @@ class survey_question(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if vals.has_key('type'):
             raise osv.except_osv(_('Error !'),_("You cannot change question type."))
-        read = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])[0]
-        col_len = len(read['column_heading_ids'])
-        if vals.has_key('column_heading_ids'):
-            for col in vals['column_heading_ids']:
-                if type(col[2]) == type({}):
-                    col_len += 1
+        questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
+        for question in questions:
+            col_len = len(question['column_heading_ids'])
+            if vals.has_key('column_heading_ids'):
+                for col in vals['column_heading_ids']:
+                    if type(col[2]) == type({}):
+                        col_len += 1
+                    else:
+                        col_len -= 1
+            if vals.has_key('type'):
+                que_type = vals['type']
+            else:
+                que_type = question['type']
+            if que_type in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
+                if not col_len:
+                    raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
+    
+            ans_len = len(question['answer_choice_ids'])
+            if vals.has_key('answer_choice_ids'):
+                for ans in vals['answer_choice_ids']:
+                    if type(ans[2]) == type({}):
+                        ans_len += 1
+                    else:
+                        ans_len -= 1
+            if que_type not in ['descriptive text', 'single textbox']:
+                if not ans_len:
+                    raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
+    
+            req_type = ""
+            if vals.has_key('required_type'):
+                req_type = vals['required_type']
+            else:
+                req_type = question['required_type']
+            if req_type in ['at least','exactly']:
+                if vals.has_key('req_ans'):
+                    if not vals['req_ans'] or  vals['req_ans'] > ans_len:
+                        raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
                 else:
-                    col_len -= 1
-        if vals.has_key('type'):
-            que_type = vals['type']
-        else:
-            que_type = read['type']
-        if que_type in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
-            if not col_len:
-                raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
-
-        ans_len = len(read['answer_choice_ids'])
-        if vals.has_key('answer_choice_ids'):
-            for ans in vals['answer_choice_ids']:
-                if type(ans[2]) == type({}):
-                    ans_len += 1
+                    if not question['req_ans'] or  question['req_ans'] > ans_len:
+                        raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+    
+            if req_type == 'a range':
+                if vals.has_key('minimum_req_ans'):
+                    if not vals['minimum_req_ans'] or  vals['minimum_req_ans'] > ans_len:
+                        raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
                 else:
-                    ans_len -= 1
-        if que_type not in ['descriptive text', 'single textbox']:
-            if not ans_len:
-                raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
-
-        req_type = ""
-        if vals.has_key('required_type'):
-            req_type = vals['required_type']
-        else:
-            req_type = read['required_type']
-        if req_type in ['at least','exactly']:
-            if vals.has_key('req_ans'):
-                if not vals['req_ans'] or  vals['req_ans'] > ans_len:
-                    raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
-            else:
-                if not read['req_ans'] or  read['req_ans'] > ans_len:
-                    raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
-
-        if req_type == 'a range':
-            if vals.has_key('minimum_req_ans'):
-                if not vals['minimum_req_ans'] or  vals['minimum_req_ans'] > ans_len:
-                    raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
-            else:
-                if not read['minimum_req_ans'] or  read['minimum_req_ans'] > ans_len:
-                    raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
-            if vals.has_key('maximum_req_ans'):
-                if not vals['maximum_req_ans'] or vals['maximum_req_ans'] > ans_len:
-                    raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
-            else:
-                if not read['maximum_req_ans'] or read['maximum_req_ans'] > ans_len:
-                    raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+                    if not question['minimum_req_ans'] or  question['minimum_req_ans'] > ans_len:
+                        raise osv.except_osv(_('Error !'),_("Minimum Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+                if vals.has_key('maximum_req_ans'):
+                    if not vals['maximum_req_ans'] or vals['maximum_req_ans'] > ans_len:
+                        raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+                else:
+                    if not question['maximum_req_ans'] or question['maximum_req_ans'] > ans_len:
+                        raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
         return super(survey_question, self).write(cr, uid, ids, vals, context=context)
 
     def create(self, cr, uid, vals, context):

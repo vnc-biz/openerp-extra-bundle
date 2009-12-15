@@ -339,7 +339,7 @@ class dm_campaign(osv.osv): #{{{
               'offer_id': camp.offer_id.id,
               'date': camp.camp_date_start.split(' ')[0],
               'campaign_id': camp.id,
-              'code': camp.code1,
+              'code': camp.code,
               'responsible_id': camp.responsible_id.id,
               }
         history = self.pool.get("dm.offer.history")

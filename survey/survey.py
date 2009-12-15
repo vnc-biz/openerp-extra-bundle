@@ -135,7 +135,7 @@ class survey_question(osv.osv):
         'answer_choice_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
         'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readnoly=1),
         'is_require_answer' : fields.boolean('Required Answer'),
-        'required_type' : fields.selection([('all','All'), ('at least','At Least'), ('at most','At Most'), ('exactly','Exactly'), ('a range','A Range')], 'Respondent must answer'),
+        'required_type' : fields.selection([('',''), ('all','All'), ('at least','At Least'), ('at most','At Most'), ('exactly','Exactly'), ('a range','A Range')], 'Respondent must answer'),
         'req_ans' : fields.integer('#Required Answer'),
         'maximum_req_ans' : fields.integer('Maximum Required Answer'),
         'minimum_req_ans' : fields.integer('Minimum Required Answer'),
@@ -190,10 +190,12 @@ class survey_question(osv.osv):
          'sequence' : lambda * a: 5,
          'type' : lambda * a: 'multiple choice (only one answer)',
          'req_error_msg' : lambda * a: 'This question requires an answer.',
+         'required_type' : lambda * a: '',
          'comment_label' : lambda * a: 'Other',
          'comment_valid_type' : lambda * a: 'do not validate',
          'comment_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
          'validation_type' : lambda * a: 'do not validate',
+         'validation_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
     }
     
     def write(self, cr, uid, ids, vals, context=None):

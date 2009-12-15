@@ -36,7 +36,7 @@ pay_form = '''<?xml version="1.0"?>
     <field name="period_id"/>
     <separator string="Reconcile with already encoded entries" colspan="4"/>
     <newline/>
-    <field name="line_ids" width="400" height="400" />
+    <field name="line_ids" colspan="4" nolabel="1" height="300" />
 </form>'''
 
 pay_fields = {

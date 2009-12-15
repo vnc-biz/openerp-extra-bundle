@@ -547,8 +547,8 @@ class survey_question_wiz(osv.osv_memory):
 
                     elif que_rec['type'] == 'multiple textboxes':
                         for ans in ans_ids:
-                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
-                            fields[str(que) + "_" + str(ans['id'])] = {'type':'char', 'size':255, 'string':ans['answer']}
+                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_multi" + '''"/> '''
+                            fields[str(que) + "_" + str(ans['id']) + "_multi"] = {'type':'char', 'size':255, 'string':ans['answer']}
 
                     elif que_rec['type'] == 'numerical textboxes':
                         for ans in ans_ids:
@@ -650,14 +650,14 @@ class survey_question_wiz(osv.osv_memory):
                         if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
-                                if (not val1 and  que_rec['comment_minimum_no']) or len(val1) <  que_rec['comment_minimum_no'] or len(val1) > que_rec['comment_maximum_no']:
+                                if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_maximum_no'] or len(val1) > que_rec['comment_maximum_no']:
                                     error = True
                             elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
                                 error = False
                                 try:
                                     if que_rec['comment_valid_type'] == 'must be a whole number':
                                         value = int(val1)
-                                        if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
+                                        if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
                                             error = True
                                     elif que_rec['comment_valid_type'] == 'must be a decimal number':
                                         value = float(val1)
@@ -681,8 +681,41 @@ class survey_question_wiz(osv.osv_memory):
 
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
-                        elif val1 and key1.split('_')[1] == "single" and key1.split('_')[0] == que_id:
-                            resp_obj.write(cr, uid, resp_id, {'single_text':val1})
+                        elif val1 and key1.split('_')[0] == que_id and (key1.split('_')[1] == "single"  or (len(key1.split('_')) > 2 and key1.split('_')[2] == 'multi')):
+                            error = False
+                            if que_rec['validation_type'] == 'must be specific length':
+                                if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_minimum_no'] or len(val1) > que_rec['validation_maximum_no']:
+                                    error = True
+                            elif que_rec['validation_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
+                                error = False
+                                try:
+                                    if que_rec['validation_type'] == 'must be a whole number':
+                                        value = int(val1)
+                                        if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
+                                            error = True
+                                    elif que_rec['validation_type'] == 'must be a decimal number':
+                                        value = float(val1)
+                                        if value <  que_rec['validation_minimum_float'] or value > que_rec['validation_maximum_float']:
+                                            error = True
+                                    elif que_rec['validation_type'] == 'must be a date':
+                                        value = datetime.datetime.strptime(val1, "%Y-%m-%d")
+                                        if value <  datetime.datetime.strptime(que_rec['validation_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['validation_maximum_date'], "%Y-%m-%d"):
+                                            error = True
+                                except:
+                                    error = True
+                            elif que_rec['validation_type'] == 'must be an email address':
+                                import re
+                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
+                                        error = True
+                            if error:
+                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                                for res in resp_id_list:
+                                    sur_name_read['store_ans'].pop(res)
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['validation_valid_err_msg'])))
+                            if key1.split('_')[1] == "single" :
+                                resp_obj.write(cr, uid, resp_id, {'single_text':val1})
+                            else:
+                                ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
                         elif val1 and que_id == key1.split('_')[0] and len(key1.split('_')) == 3:
@@ -698,6 +731,7 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+
                     if not select_count:
                         resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                     if que_rec['required_type']:
@@ -762,10 +796,42 @@ class survey_question_wiz(osv.osv_memory):
                             
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})
-                        elif val and key.split('_')[1] == "single":
-                            resp_obj.write(cr, uid, update, {'single_text':val})
+
+                        elif val and (key.split('_')[1] == "single"  or (len(key.split('_')) > 2 and key.split('_')[2] == 'multi')):
+                            error = False
+                            if que_rec['validation_type'] == 'must be specific length':
+                                if (not val and  que_rec['validation_minimum_no']) or len(val) <  que_rec['validation_minimum_no'] or len(val) > que_rec['validation_maximum_no']:
+                                    error = True
+                            elif que_rec['validation_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
+                                error = False
+                                try:
+                                    if que_rec['validation_type'] == 'must be a whole number':
+                                        value = int(val)
+                                        if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
+                                            error = True
+                                    elif que_rec['validation_type'] == 'must be a decimal number':
+                                        value = float(val)
+                                        if value <  que_rec['validation_minimum_float'] or value > que_rec['validation_maximum_float']:
+                                            error = True
+                                    elif que_rec['validation_type'] == 'must be a date':
+                                        value = datetime.datetime.strptime(val, "%Y-%m-%d")
+                                        if value <  datetime.datetime.strptime(que_rec['validation_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['validation_maximum_date'], "%Y-%m-%d"):
+                                            error = True
+                                except Exception ,e:
+                                    error = True
+                            elif que_rec['validation_type'] == 'must be an email address':
+                                import re
+                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
+                                        error = True
+                            if error:
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['validation_valid_err_msg'])))
+                            if key.split('_')[1] == "single" :
+                                resp_obj.write(cr, uid, update, {'single_text':val})
+                            else:
+                                ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : val})
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
+#                        
                         elif val and len(key.split('_')) == 3:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             if type(val) == type(''):

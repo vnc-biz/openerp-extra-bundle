@@ -118,11 +118,12 @@ class project_project(osv.osv):
                 'series_ids' : fields.one2many('lp.series', 'project_id', 'LP Series'),
                 'milestone_ids' : fields.one2many('lp.project.milestone', 'project_id', 'LP Milestone'),
                 'bugs_target': fields.char('Bugs Target', size=300),
+                'flag':fields.boolean('Synchronize Lp'),
                 }        
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
-        vals['bugs_target'] = "https://api.edge.launchpad.net/beta/" + vals['name']
-        result = super(osv.osv, self).write(cr, uid, ids[0], vals, context)
-        return result
+        if vals.get('name' , False):
+            vals['bugs_target'] = "https://api.edge.launchpad.net/beta/" + vals['name']
+        return  super(osv.osv, self).write(cr, uid, ids, vals, context)
     
 project_project()        
 

@@ -45,7 +45,7 @@ pay_fields = {
     'date': {'string': 'Payment date', 'type':'date', 'required':True, 'default':lambda *args: time.strftime('%Y-%m-%d')},
     'journal_id': {'string': 'Journal/Payment Mode', 'type': 'many2one', 'relation':'account.journal', 'required':True, 'domain':[('type','=','cash')]},
     'period_id': {'string': 'Period', 'type': 'many2one', 'relation':'account.period', 'required':True},
-    'line_ids': {'string': 'Account Moves', 'type': 'many2many', 'relation': 'account.move.line', 'required': False},
+    'line_ids': {'string': 'Account Moves', 'type': 'many2many', 'relation': 'account.move.line', 'required': False,},
 }
 
 def _pay_and_reconcile(self, cr, uid, data, context):
@@ -79,73 +79,22 @@ def _pay_and_reconcile(self, cr, uid, data, context):
     acc_id = journal.default_credit_account_id and journal.default_credit_account_id.id
     if not acc_id:
         raise wizard.except_wizard(_('Error !'), _('Your journal must have a default credit and debit account.'))
+
+    list_lines = []
+    if len(form['line_ids'][0][2]):
+        for line in invoice.move_id.line_id:
+            if line.account_id.reconcile:
+                list_lines.append(line.id) 
+        for line in form['line_ids'][0][2]:
+            list_lines.append(line)
+        if len(list_lines):
+            res = pool.get('account.move.line').reconcile_partial(cr, uid, list_lines, 'auto', context=context)
+
     pool.get('account.invoice').pay_and_reconcile(cr, uid, [data['id']],
             amount, acc_id, period_id, journal_id, writeoff_account_id,
             period_id, writeoff_journal_id, context, data['form']['name'])
 
-    list_lines = []
-    for line in invoice.move_id.line_id:
-        if line.reconcile_partial_id and line.reconcile_partial_id.line_partial_ids:
-            for lp in line.reconcile_partial_id.line_partial_ids:
-                list_lines.append(lp.id)
-    if len(form['line_ids'][0][2]):
-        for line in form['line_ids'][0][2]:
-            list_lines.append(line)
-    if len(list_lines):
-        res = pool.get('account.move.line').reconcile_partial(cr, uid, list_lines, 'auto', context=context)
     return {}
-
-def _wo_check(self, cr, uid, data, context):
-    pool = pooler.get_pool(cr.dbname)
-    invoice = pool.get('account.invoice').browse(cr, uid, data['id'], context)
-    journal = pool.get('account.journal').browse(cr, uid, data['form']['journal_id'], context)
-    cur_obj = pool.get('res.currency')
-    # Here we need that:
-    #    The invoice total amount in company's currency <> paid amount in company currency
-    #    (according to the correct day rate, invoicing rate and payment rate are may be different)
-    #    => Ask to a write-off of the difference. This could happen even if both amount are equal,
-    #    because if the currency rate
-    # Get the amount in company currency for the invoice (according to move lines)
-    inv_amount_company_currency=invoice.move_id.amount
-    # Get the current amount paid in company currency
-    if journal.currency and invoice.company_id.currency_id.id<>journal.currency.id:
-        ctx = {'date':data['form']['date']}
-        amount_paid = cur_obj.compute(cr, uid, journal.currency.id, invoice.company_id.currency_id.id, data['form']['amount'], round=True, context=ctx)
-    else:
-        amount_paid = data['form']['amount']
-    # Get the old payment if there are some
-    if invoice.payment_ids:
-        debit=credit=0.0
-        for payment in invoice.payment_ids:
-            debit+=payment.debit
-            credit+=payment.credit
-        amount_paid+=abs(debit-credit)
-
-    # Test if there is a difference according to currency rouding setting
-    if pool.get('res.currency').is_zero(cr, uid, invoice.company_id.currency_id,
-            (amount_paid - inv_amount_company_currency)):
-        return 'reconcile'
-    return 'addendum'
-
-_transaction_add_form = '''<?xml version="1.0"?>
-<form string="Information addendum">
-    <separator string="Write-Off Move" colspan="4"/>
-    <field name="writeoff_journal_id"/>
-    <field name="writeoff_acc_id" domain="[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation')]"/>
-    <field name="comment"/>
-    <separator string="Analytic" colspan="4"/>
-    <field name="analytic_id"/>
-</form>'''
-
-_transaction_add_fields = {
-    'writeoff_acc_id': {'string':'Write-Off account', 'type':'many2one', 'relation':'account.account', 'required':True},
-    'writeoff_journal_id': {'string': 'Write-Off journal', 'type': 'many2one', 'relation':'account.journal', 'required':True},
-    'comment': {'string': 'Comment', 'type':'char', 'size': 64 , 'required':True},
-    'analytic_id': {'string':'Analytic Account', 'type': 'many2one', 'relation':'account.analytic.account'},
-}
-
-def _get_value_addendum(self, cr, uid, data, context={}):
-    return {'comment': _('Write-Off')}
 
 def _get_period(self, cr, uid, data, context={}):
     pool = pooler.get_pool(cr.dbname)
@@ -154,11 +103,13 @@ def _get_period(self, cr, uid, data, context={}):
     if len(ids):
         period_id = ids[0]
     invoice = pool.get('account.invoice').browse(cr, uid, data['id'], context)
-    if invoice.type in ['out_invoice', 'out_refund']:
+    if invoice.type in ['out_invoice', 'in_refund']:
+        field = 'credit'
         type = 'receivable'
     else:
+        field = 'debit'
         type = 'payable'
-    line_ids = pool.get('account.move.line').search(cr, uid, [('partner_id','=',invoice.partner_id.id), ('account_id.type','=', type), ('reconcile_id','=',False)])
+    line_ids = pool.get('account.move.line').search(cr, uid, [('partner_id','=',invoice.partner_id.id), ('account_id.type','=',type), (field,'>',0), ('reconcile_id','=',False),('reconcile_partial_id','=',False)])
     pay_fields['line_ids']['domain'] = ('id','in', line_ids),
     if invoice.state in ['draft', 'proforma2', 'cancel']:
         raise wizard.except_wizard(_('Error !'), _('Can not pay draft/proforma/cancel invoice.'))
@@ -173,15 +124,7 @@ class wizard_pay_invoice(wizard.interface):
     states = {
         'init': {
             'actions': [_get_period],
-            'result': {'type':'form', 'arch':pay_form, 'fields':pay_fields, 'state':[('end','Cancel'),('reconcile','Partial Payment'),('writeoff_check','Full Payment')]}
-        },
-        'writeoff_check': {
-            'actions': [],
-            'result' : {'type': 'choice', 'next_state': _wo_check }
-        },
-        'addendum': {
-            'actions': [_get_value_addendum],
-            'result': {'type': 'form', 'arch':_transaction_add_form, 'fields':_transaction_add_fields, 'state':[('end','Cancel'),('reconcile','Pay and reconcile')]}
+            'result': {'type':'form', 'arch':pay_form, 'fields':pay_fields, 'state':[('end','Cancel'),('reconcile','Payment')]}
         },
         'reconcile': {
             'actions': [_pay_and_reconcile],

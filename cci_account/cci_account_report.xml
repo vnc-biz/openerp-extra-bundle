@@ -9,7 +9,7 @@
 			rml="cci_account/report/cci_draft_invoice_info.rml"
 			id="partner_draft_invoices"/>
 
-		<report
+<!--		<report
 			string="Print VCS"
 			model="account.invoice"
 			name="cci.vcs"
@@ -24,14 +24,14 @@
 			model="account.invoice"
 			name="wizard.cci.vcs"
 			keyword="client_print_multi"/>
-
-		<report id="account_invoice_layout.account_invoices_1"
+-->
+<!--		<report id="account_invoice_layout.account_invoices_1"
 			string="Formatted Inv."
 			model="account.invoice"
 			name="cci.account.invoice.layout"
 			rml="cci_account/report/report_account_invoice_layout.rml"
 			auto="False"/>
-
+-->
 		<wizard	string="Formatted Inv. + Message"
 			model="account.invoice"
 			name="wizard.cci_account_message"

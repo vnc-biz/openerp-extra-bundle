@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<!-- 
+		Order Entry Filter
+	-->
+
+	<record model="ir.ui.view" id="view_dm_order_entry_filter_tree">
+        <field name="name">dm.order.entry.filter.tree</field>
+        <field name="model">dm.order.entry.filter</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Order Entry Filter">
+                <field name="name"/>
+				<field name="code"/>
+				<field name="country_id"/>
+				<field name="currency_id"/>
+				<field name="dealer_id"/>
+				<field name="trademark_id"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model="ir.ui.view" id="view_dm_order_entry_filter_form">
+        <field name="name">dm.order.entry.filter.form</field>
+        <field name="model">dm.order.entry.filter</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Order Entry Filter">
+                <field name="name"/>
+				<field name="code"/>
+				<field name="country_id"/>
+				<field name="currency_id"/>
+				<field name="dealer_id"/>
+				<field name="trademark_id"/>
+            </form>
+        </field>
+    </record>
+	
+	<record model="ir.actions.act_window" id="action_dm_order_entry_filter_form">
+        <field name="name">All Order Entry Filters</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.order.entry.filter</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_dm_order_entry_filter_tree"/>
+    </record>
+
+    <menuitem id="menu_dm_order_entry_filter_form" parent="dm.menu_dm_config_customer" action="action_dm_order_entry_filter_form"/>
+
+	<!-- 
+		Order Entry Session
+	-->
+	
+	<record model="ir.ui.view" id="view_dm_order_filter_session_form">
+        <field name="name">dm.order.session.form.inherit</field>
+        <field name="model">dm.order.session</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm_order_entry_session.view_dm_order_session_form"/>
+        <field name="arch" type="xml">
+            <field name="date_stop" position="after">
+				<field name="filter_id"/>
+			</field>
+        </field>
+    </record>
+
+	</data>
+</openerp>

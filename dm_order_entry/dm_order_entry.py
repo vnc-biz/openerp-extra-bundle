@@ -25,6 +25,7 @@ from osv import osv
 
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
+    _rec_name = 'customer_code'
     _columns = {
         'raw_datas': fields.char('Raw Datas', size=128),
         'customer_code': fields.char('Customer Code', size=64),

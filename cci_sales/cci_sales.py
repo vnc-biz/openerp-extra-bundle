@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
@@ -52,7 +52,46 @@ class sale_order(osv.osv):
         'parent_so':fields.many2one("sale.order","Parent Sales Order"),
         'child_so':fields.one2many("sale.order","parent_so","Child Sales Order"),
         'case_ids': one2many_mod_advert('crm.case', 'id', "Related Cases"),
+        'internal_notes': fields.text('Internal Note'),
+        'deadline': fields.date('Deadline'),
     }
+
+    def _make_invoice(self, cr, uid, order, lines, context={}):
+        a = order.partner_id.property_account_receivable.id
+        if order.payment_term:
+            pay_term = order.payment_term.id
+        else:
+            pay_term = False
+        for preinv in order.invoice_ids:
+            if preinv.state not in ('cancel',):
+                for preline in preinv.invoice_line:
+                    inv_line_id = self.pool.get('account.invoice.line').copy(cr, uid, preline.id, {'invoice_id': False, 'price_unit': -preline.price_unit})
+                    lines.append(inv_line_id)
+        inv = {
+            'name': order.client_order_ref or order.name,
+            'origin': order.name,
+            'type': 'out_invoice',
+            'reference': "P%dSO%d" % (order.partner_id.id, order.id),
+            'account_id': a,
+            'partner_id': order.partner_id.id,
+            'address_invoice_id': order.partner_invoice_id.id,
+            'address_contact_id': order.partner_order_id.id,
+            'invoice_line': [(6, 0, lines)],
+            'currency_id': order.pricelist_id.currency_id.id,
+            'comment': order.note,
+            'payment_term': pay_term,
+            'fiscal_position': order.partner_id.property_account_position.id,
+            'internal_note':order.internal_notes
+        }
+        inv_obj = self.pool.get('account.invoice')
+        inv.update(self._inv_get(cr, uid, order))
+        inv_id = inv_obj.create(cr, uid, inv)
+        data = inv_obj.onchange_payment_term_date_invoice(cr, uid, [inv_id], pay_term, time.strftime('%Y-%m-%d'))
+        if data.get('value', False):
+            inv_obj.write(cr, uid, [inv_id], data['value'], context=context)
+        inv_obj.button_compute(cr, uid, [inv_id])
+        return inv_id
+
 sale_order()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

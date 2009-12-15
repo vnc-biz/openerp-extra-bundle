@@ -19,24 +19,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
-    "name" : "DM Remote Edition",
+    "name" : "DM Order Entry Session",
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-            This module allows to remotely print documents, with the use of printing service partners.
-            """,
-    "depends" : ['dm_edition'],
-    "init_xml" : [],
-    "demo_xml" : ['dm_remote_edition_demo.xml'],
-    "update_xml" : [
-                'dm_remote_edition_view.xml',
-                'dm_remote_edition_data.xml',
-            ],
+                    """,
+    "depends": ["dm_order_entry"],
+    "init_xml": [],
+    "demo_xml": [],
+    "update_xml": ["dm_order_entry_session_view.xml"],
     "active": False,
     "installable": True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

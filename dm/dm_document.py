@@ -208,14 +208,13 @@ class dm_document_template(osv.osv): # {{{
         }
     
 dm_document_template() # }}}
-
 def set_image_email(node,msg): # {{{
     if not node.getchildren():
         if  node.tag=='img' :
             content = ''
             if node.get('name') and node.get('name').find('http') >=0:
                 content=urllib2.urlopen(node.get('name')).read()
-                node.set('src', node.get('name'))                
+                node.set('src', node.get('name'))
             elif node.get('src'):
                 if node.get('src').find('data:image/gif;base64,') >= 0:
                     content = base64.decodestring(node.get('src').replace('data:image/gif;base64,', ''))
@@ -258,8 +257,8 @@ def create_email_queue(cr, uid, obj, context): # {{{
         if report_data in ('plugin_error','plugin_missing') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
+ 
     for msg  in message:
-        print message
         root = etree.HTML(msg)
         body = root.find('body')
         msgRoot = MIMEMultipart('related')
@@ -283,18 +282,17 @@ def create_email_queue(cr, uid, obj, context): # {{{
         set_image_email(body,msgRoot)
         msgText = MIMEText(etree.tostring(body), 'html')
         msg.attach(msgText)
-        if message:
-            vals = {
-                'to': str(obj.address_id.email),
-                'server_id': obj.mail_service_id.smtp_server_id.id,
-                'cc': False,
-                'bcc': False,
-                'name': subject,
-                'body': msgRoot.as_string(),
-                'serialized_message': msgRoot.as_string(),
-                'date_create': time.strftime('%Y-%m-%d %H:%M:%S')
-                }
-            email_queue_obj.create(cr,uid,vals)
+        vals = {
+            'to': str(obj.address_id.email),
+            'server_id': obj.mail_service_id.smtp_server_id.id,
+            'cc': False,
+            'bcc': False,
+            'name': subject,
+            'body': msgRoot.as_string(),
+            'serialized_message': msgRoot.as_string(),
+            'date_create': time.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        email_queue_obj.create(cr,uid,vals)
     #v dnt knw it s sent or not
     return {'code':'smtp_doc_sent','ids':obj.id} # }}}
 
@@ -407,11 +405,18 @@ class dm_offer_document(osv.osv): # {{{
     }
     _defaults = {
         'state': lambda *a: 'draft',
-        'editor' : lambda *a : 'oord',
+        'editor': lambda *a: 'internal',
+        'content': lambda *a: '<p>Test Content</p>'
     }
     def state_validate_set(self, cr, uid, ids, context={}):
-        self.write(cr, uid, ids, {'state': 'validate'})
-        return True
+        group_obj = self.pool.get('ir.actions.report.xml')
+        doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
+        field = self.read(cr,uid,ids,['editor'])
+        if field:
+            field_val = field[0]['editor']
+            if field_val =='internal' or doc_rep_id:
+                self.write(cr, uid, ids, {'state': 'validate'})
+            return True
   
 dm_offer_document() # }}}
 

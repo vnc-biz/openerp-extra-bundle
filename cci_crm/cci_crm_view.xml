@@ -89,7 +89,6 @@
 
             <!-- context="{'partner_id':active_id,'section_id':ref('case_section_rsf')}" -->
 
-
 <!-- view for Agenda -->
         <record model="ir.ui.view" id="agenda_form">
             <field name="name">meeting.confidential.info.form</field>

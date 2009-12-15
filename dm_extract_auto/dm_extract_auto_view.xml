@@ -16,17 +16,20 @@
 	   <field name="arch" type="xml">
 	 	   <field name="segmentation_id" position="after">
 		 	   <group colspan="4" col="4">
-		          <separator string="Automatic Extraction"/>
-		            <field name="auto_extract" colspan="4"/>
-		             <group colspan ="2" col="2" attrs="{'readonly':[('auto_extract','!=',True)]}" >
-		              <field name="extract_date_start" on_change="onchange_extract_date_start(extract_date_start, extract_delay, extract_unit_delay)"/>
-		              <field name="extract_date_end"/>
-		              <field name="extract_date_previous"/>
-		              <field name="extract_date_next" on_change="onchange_extract_date_start(extract_date_start, extract_delay, extract_unit_delay)"/>
-		              <field name="extract_delay"/>
-		              <field name="extract_unit_delay"/>
-		             </group>    
-		        </group>          
+                    <group colspan="2" col="2">
+		                <separator string="Automatic Extraction"/>
+		                <field name="auto_extract"/>
+                    </group>
+                    <newline/>
+		            <group attrs="{'readonly':[('auto_extract','!=',True)]}" >
+		                <field name="extract_date_start" on_change="onchange_extract_date_start(extract_date_start, extract_delay, extract_unit_delay)"/>
+		                <field name="extract_date_end"/>
+		                <field name="extract_date_previous"/>
+		                <field name="extract_date_next" on_change="onchange_extract_date_start(extract_date_start, extract_delay, extract_unit_delay)"/>
+		                <field name="extract_delay"/>
+		                <field name="extract_unit_delay"/>
+		            </group>    
+		       </group>          
 		   </field>
 	  </field>
   	</record>

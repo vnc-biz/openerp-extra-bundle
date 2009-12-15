@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
@@ -40,6 +40,50 @@ class purchase_order(osv.osv):
             else:
                 wf_service.trg_validate(uid, 'purchase.order', po.id, 'purchase_tempo', cr)
         return True
+
+    def action_invoice_create(self, cr, uid, ids, *args):
+        res = False
+        journal_obj = self.pool.get('account.journal')
+        for o in self.browse(cr, uid, ids):
+            il = []
+            for ol in o.order_line:
+
+                if ol.product_id:
+                    a = ol.product_id.product_tmpl_id.property_account_expense.id
+                    if not a:
+                        a = ol.product_id.categ_id.property_account_expense_categ.id
+                    if not a:
+                        raise osv.except_osv(_('Error !'), _('There is no expense account defined for this product: "%s" (id:%d)') % (ol.product_id.name, ol.product_id.id,))
+                else:
+                    a = self.pool.get('ir.property').get(cr, uid, 'property_account_expense_categ', 'product.category')
+                fpos = o.fiscal_position or False
+                a = self.pool.get('account.fiscal.position').map_account(cr, uid, fpos, a)
+                il.append(self.inv_line_create(cr, uid, a, ol))
+
+            a = o.partner_id.property_account_payable.id
+            journal_ids = journal_obj.search(cr, uid, [('type', '=','purchase')], limit=1)
+            inv = {
+                'name': o.partner_ref or o.name,
+                'reference': "P%dPO%d" % (o.partner_id.id, o.id),
+                'account_id': a,
+                'type': 'in_invoice',
+                'partner_id': o.partner_id.id,
+                'currency_id': o.pricelist_id.currency_id.id,
+                'address_invoice_id': o.partner_address_id.id,
+                'address_contact_id': o.partner_address_id.id,
+                'journal_id': len(journal_ids) and journal_ids[0] or False,
+                'origin': o.name,
+                'invoice_line': il,
+                'fiscal_position': o.partner_id.property_account_position.id,
+                'payment_term':o.partner_id.property_payment_term and o.partner_id.property_payment_term.id or False,
+                'internal_note': o.internal_notes,
+            }
+            inv_id = self.pool.get('account.invoice').create(cr, uid, inv, {'type':'in_invoice'})
+            self.pool.get('account.invoice').button_compute(cr, uid, [inv_id], {'type':'in_invoice'}, set_total=True)
+
+            self.write(cr, uid, [o.id], {'invoice_id': inv_id})
+            res = inv_id
+        return res
 
 #    def wkf_write_approvator(self, cr, uid, ids, context={}):
 #        wf_service = netsvc.LocalService('workflow')

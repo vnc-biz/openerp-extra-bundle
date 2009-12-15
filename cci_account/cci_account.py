@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 from osv import fields, osv
@@ -46,7 +46,13 @@ class account_invoice(osv.osv):
         'internal_note': fields.text('Internal Note'),
         'vat_num' : fields.related('partner_id', 'vat',  type='char', string="VAT"),
     }
-   
+
+    def create(self, cr, uid, vals, context={}):
+        if vals.has_key('partner_id') and vals['partner_id']:
+            partner = self.pool.get('res.partner').browse(cr, uid, vals['partner_id'], context=context)
+            vals.update({'invoice_special':partner.invoice_special})
+        return super(account_invoice, self).create(cr, uid, vals, context=context)
+
     def action_move_create(self, cr, uid, ids, context=None):
         flag = membership_flag = False
         product_ids = []

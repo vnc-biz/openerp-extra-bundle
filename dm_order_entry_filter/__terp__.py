@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,16 +15,25 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-import cci_wizard_aged_trial_balance
-import cci_wizard_partner_balance_report
-import cci_wizard_third_party_ledger
-import cci_switched_debit_credit
-import cci_wizard_vcs
-import invoice_special_message
-import cci_use_model
-import cci_wizard_pay_invoice
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+{
+    "name" : "DM Order Entry Filter",
+    "version" : "1.0",
+    "author" : "Tiny",
+    "website" : "http://www.openerp.com",
+    "category" : "Generic Modules/Direct Marketing",
+    "description": """
+           This module allows you to filter customer order entries.
+            """,
+    "depends": ["dm_order_entry_session"],
+    "init_xml": [],
+    "demo_xml": [],
+    "update_xml": ["dm_order_entry_filter_view.xml"],
+    "active": False,
+    "installable": True,
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

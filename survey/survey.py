@@ -23,6 +23,7 @@
 from osv import fields, osv
 import datetime
 from time import strftime
+import datetime
 import copy
 from tools.translate import _
 
@@ -134,7 +135,7 @@ class survey_question(osv.osv):
         'answer_choice_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
         'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readnoly=1),
         'is_require_answer' : fields.boolean('Required Answer'),
-        'required_type' : fields.selection([('all','All'),('at least','At Least'),('exactly','Exactly'),('a range','A Range')], 'Respondent must answer'),
+        'required_type' : fields.selection([('all','All'), ('at least','At Least'), ('at most','At Most'), ('exactly','Exactly'), ('a range','A Range')], 'Respondent must answer'),
         'req_ans' : fields.integer('#Required Answer'),
         'maximum_req_ans' : fields.integer('Maximum Required Answer'),
         'minimum_req_ans' : fields.integer('Minimum Required Answer'),
@@ -159,13 +160,31 @@ class survey_question(osv.osv):
         'comment_valid_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
                                                  ('must be specific length', 'Must Be Specific Length'),\
                                                  ('must be a whole number', 'Must Be A Whole Number'),\
-#                                                 ('must be a decimal number', 'Must Be A Decimal Number'),\
-#                                                 ('must be a date', 'Must Be A Date'),\
-#                                                 ('must be an email address', 'Must Be An Email Address')\
+                                                 ('must be a decimal number', 'Must Be A Decimal Number'),\
+                                                 ('must be a date', 'Must Be A Date'),\
+                                                 ('must be an email address', 'Must Be An Email Address')\
                                                  ], 'Text Validation'),
         'comment_minimum_no' : fields.integer(''),
         'comment_maximum_no' : fields.integer(''),
+        'comment_minimum_float' : fields.float(''),
+        'comment_maximum_float' : fields.float(''),
+        'comment_minimum_date' : fields.date(''),
+        'comment_maximum_date' : fields.date(''),
         'comment_valid_err_msg' : fields.text(''),
+        'validation_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
+                                                 ('must be specific length', 'Must Be Specific Length'),\
+                                                 ('must be a whole number', 'Must Be A Whole Number'),\
+                                                 ('must be a decimal number', 'Must Be A Decimal Number'),\
+                                                 ('must be a date', 'Must Be A Date'),\
+                                                 ('must be an email address', 'Must Be An Email Address')\
+                                                 ], 'Text Validation'),
+        'validation_minimum_no' : fields.integer(''),
+        'validation_maximum_no' : fields.integer(''),
+        'validation_minimum_float' : fields.float(''),
+        'validation_maximum_float' : fields.float(''),
+        'validation_minimum_date' : fields.date(''),
+        'validation_maximum_date' : fields.date(''),
+        'validation_valid_err_msg' : fields.text(''),
     }
     _defaults = {
          'sequence' : lambda * a: 5,
@@ -174,11 +193,13 @@ class survey_question(osv.osv):
          'comment_label' : lambda * a: 'Other',
          'comment_valid_type' : lambda * a: 'do not validate',
          'comment_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
+         'validation_type' : lambda * a: 'do not validate',
     }
     
     def write(self, cr, uid, ids, vals, context=None):
+        if vals.has_key('type'):
+            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         read = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])[0]
-
         col_len = len(read['column_heading_ids'])
         if vals.has_key('column_heading_ids'):
             for col in vals['column_heading_ids']:
@@ -201,7 +222,7 @@ class survey_question(osv.osv):
                     ans_len += 1
                 else:
                     ans_len -= 1
-        if que_type not in ['descriptive text','single textbox']:
+        if que_type not in ['descriptive text', 'single textbox']:
             if not ans_len:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
 
@@ -217,6 +238,7 @@ class survey_question(osv.osv):
             else:
                 if not read['req_ans'] or  read['req_ans'] > ans_len:
                     raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
+
         if req_type == 'a range':
             if vals.has_key('minimum_req_ans'):
                 if not vals['minimum_req_ans'] or  vals['minimum_req_ans'] > ans_len:
@@ -234,12 +256,12 @@ class survey_question(osv.osv):
 
     def create(self, cr, uid, vals, context):
         if vals.has_key('answer_choice_ids') and  not len(vals['answer_choice_ids']):
-            if vals.has_key('type') and vals['type'] not in ['descriptive text','single textbox']:
+            if vals.has_key('type') and vals['type'] not in ['descriptive text', 'single textbox']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more answer."))
         if vals.has_key('column_heading_ids') and  not len(vals['column_heading_ids']):
             if vals.has_key('type') and vals['type'] in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
-        if vals.has_key('required_type') and vals['required_type'] in ['at least','exactly']:
+        if vals.has_key('required_type') and vals['required_type'] in ['at least', 'exactly']:
             if vals['req_ans'] > len(vals['answer_choice_ids']) or not vals['req_ans']:
                 raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
         if vals.has_key('required_type') and vals['required_type'] == 'a range':
@@ -351,7 +373,6 @@ class survey_response_answer(osv.osv):
         'value_choice' : fields.char('Value Choice (Use Only Matrix of Drop-down Menus)', size =255),
         'comment' : fields.text('Notes'),
     }
-
 survey_response_answer()
 
 
@@ -448,7 +469,7 @@ class survey_question_wiz(osv.osv_memory):
             flag = False
             if sur_name_read['page'] == "next" or sur_name_rec['page_no'] == - 1 :
                 if len(p_id) > sur_name_rec['page_no'] + 1 :
-                    if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] and not sur_name_rec['page_no']+1:
+                    if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] and not sur_name_rec['page_no'] + 1:
                         survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
                     p_id = p_id[sur_name_rec['page_no'] + 1]
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
@@ -477,13 +498,8 @@ class survey_question_wiz(osv.osv_memory):
                     qu_no += 1
                     que_rec = que_obj.read(cr, uid, que)
                     descriptive_text = ""
-                    if que_rec['type'] != 'descriptive text':
-                        descriptive_text = ''' <label align="3.0" colspan="1" string="Answer later"/> 
-                            <field  name="''' + str(que) + "_" + 'skip' + '''" colspan="1" nolabel="1"/>'''
-                        fields[str(que) + "_" + 'skip'] = {'type':'boolean', 'string':'Skip'}
                     xml += '''<group col="4" colspan="4">
                     <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/> 
-                       ''' + descriptive_text + '''
                        </group>
                     <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
@@ -620,7 +636,7 @@ class survey_question_wiz(osv.osv_memory):
                 que_id = key.split('_')[0]
                 if que_id not in que_li:
                     que_li.append(que_id)
-                    que_rec = que_obj.read(cr, uid , [que_id], [])[0]
+                    que_rec = que_obj.read(cr, uid, [que_id], [])[0]
                     resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
                         'response_type':'link', 'state':'done'})
@@ -629,37 +645,42 @@ class survey_question_wiz(osv.osv_memory):
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     select_count = 0
-                    ans = False
                     for key1, val1 in vals.items():
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                        if val1 and key1.split('_')[1] == "skip" and key1.split('_')[0] == que_id:
-                             resp_obj.write(cr, uid, resp_id, {'state':'skip'})
-                             sur_name_read['store_ans'][resp_id].update({key1:'skip'})
-                             select_count += 1
-                        elif key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                        if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                            error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val1 and  que_rec['comment_minimum_no']) or len(val1) <  que_rec['comment_minimum_no'] or len(val1) > que_rec['comment_maximum_no']:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'\n" + str(que_rec['comment_valid_err_msg'])))
-                            elif que_rec['comment_valid_type'] == 'must be a whole number':
+                                    error = True
+                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
                                 error = False
                                 try:
-                                    value = int(val1)
-                                    if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
-                                        error = True
+                                    if que_rec['comment_valid_type'] == 'must be a whole number':
+                                        value = int(val1)
+                                        if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
+                                            error = True
+                                    elif que_rec['comment_valid_type'] == 'must be a decimal number':
+                                        value = float(val1)
+                                        if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
+                                            error = True
+                                    elif que_rec['comment_valid_type'] == 'must be a date':
+                                        value = datetime.datetime.strptime(val1, "%Y-%m-%d")
+                                        if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
+                                            error = True
                                 except:
                                     error = True
-                                if error:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
+                            elif que_rec['comment_valid_type'] == 'must be an email address':
+                                import re
+                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
+                                        error = True
+                            if error:
+                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+                                for res in resp_id_list:
+                                    sur_name_read['store_ans'].pop(res)
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
 
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
-                            select_count += 1
                         elif val1 and key1.split('_')[1] == "single" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'single_text':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
@@ -677,9 +698,12 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                    if not select_count:
+                        resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                     if que_rec['required_type']:
                         if (que_rec['required_type'] == 'all' and select_count != len(que_rec['answer_choice_ids'])) or \
                             (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
+                            (que_rec['required_type'] == 'at most' and select_count > que_rec['req_ans']) or \
                             (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
                             (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
                             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
@@ -695,7 +719,6 @@ class survey_question_wiz(osv.osv_memory):
         else:
             resp_id_list = []
             for update in click_update:
-                ans = False
                 sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                 que_rec = que_obj.read(cr, uid , [sur_name_read['store_ans'][update]['question_id']], [])[0]
                 res_ans_obj.unlink(cr, uid,res_ans_obj.search(cr, uid, [('response_id', '=', update)]))
@@ -709,34 +732,36 @@ class survey_question_wiz(osv.osv_memory):
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                        if val and ans_id_len[-1] =='skip':
-                            resp_obj.write(cr, uid, update, {'state': 'skip'})
-                            sur_name_read['store_ans'][update].update({key:'skip'})
-                            select_count += 1
-                        elif key.split('_')[1] == "other":
+                        if val and key.split('_')[1] == "other":
+                            error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-                            elif que_rec['comment_valid_type'] == 'must be a whole number':
-                                error = False
+                                    error = True
+                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
                                 try:
-                                    value = int(val)
-                                    if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
-                                        error = True
+                                    if que_rec['comment_valid_type'] == 'must be a whole number':
+                                        value = int(val)
+                                        if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
+                                            error = True
+                                    elif que_rec['comment_valid_type'] == 'must be a decimal number':
+                                        value = float(val)
+                                        if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
+                                            error = True
+                                    elif que_rec['comment_valid_type'] == 'must be a date':
+                                        value = datetime.datetime.strptime(val, "%Y-%m-%d")
+                                        if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
+                                            error = True
                                 except:
                                     error = True
-                                if error:
-                                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                                    for res in resp_id_list:
-                                        sur_name_read['store_ans'].pop(res)
-                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-
+                            elif que_rec['comment_valid_type'] == 'must be an email address':
+                                import re
+                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
+                                        error = True
+                            if error:
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
+                            
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})
-                            select_count += 1
                         elif val and key.split('_')[1] == "single":
                             resp_obj.write(cr, uid, update, {'single_text':val})
                             sur_name_read['store_ans'][update].update({key:val})
@@ -756,16 +781,19 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                if not select_count:
+                    resp_obj.write(cr, uid, update, {'state': 'skip'})
                 if que_rec['required_type']:
                     if (que_rec['required_type'] == 'all' and select_count != len(que_rec['answer_choice_ids'])) or \
                         (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
+                        (que_rec['required_type'] == 'at most' and select_count > que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
-                elif que_rec['is_require_answer'] and select_count <= 0:
+                elif que_rec['is_require_answer'] and select_count <= 0 :
                     sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     for res in resp_id_list:
                         sur_name_read['store_ans'].pop(res)

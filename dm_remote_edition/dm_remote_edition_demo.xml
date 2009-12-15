@@ -28,6 +28,7 @@
        <!-- Mail Service -->
 
 		<record id="dm_mail_service_printing_server" model="dm.mail_service">
+			<field name="name">Printing Server Mail Service</field>
 			<field name="type_id" ref="dm_remote_edition.dm_remote_edition_mail_service_type"/>
 			<field eval="0" name="store_email_document"/>
 			<field name="partner_id" ref="dm.res_partner_print_send0"/>

@@ -35,7 +35,8 @@ class dm_workitem(osv.osv): # {{{
     _description = "workitem"
     _SOURCES = [('address_id','Partner Address')]
     SELECTION_LIST = [('pending', 'Pending'), ('error', 'Error'), 
-                      ('cancel', 'Cancelled'), ('done', 'Done')]
+                      ('cancel', 'Cancelled'), ('freeze', 'Frozen'),
+                      ('done', 'Done')]
     _rec_name = 'step_id'
 
     def _customer_id(self, cr, uid, ids, name, arg, context=None):

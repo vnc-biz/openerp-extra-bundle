@@ -98,7 +98,7 @@
                     <separator string="Status" colspan="4"/>
                     <group col="2" colspan="4">
                         <field name="state" nolabel="1"/>
-                        <button name="state_validate_set" string="Validate" states="draft"/>
+                        <button name="state_validate_set" string="Validate" states="draft" type="object"/>
                     </group>
                 </page>
                 <page string="Dynamic Fields">

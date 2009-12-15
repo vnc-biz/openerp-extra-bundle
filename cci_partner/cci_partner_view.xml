@@ -1072,6 +1072,13 @@ TODO: revoir la vue tree aussi
 		</field>
 	</record>
 
+	<act_window name="Open a New Case"
+            domain="[('partner_id', '=', active_id)]"
+            res_model="crm.case"
+            src_model="res.partner"
+            view_mode='form'
+            id="act_res_partner"/>
+
 	</data>
 </openerp>
 

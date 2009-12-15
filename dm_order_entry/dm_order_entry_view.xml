@@ -2,6 +2,8 @@
 <openerp>
 <data>
 
+	<menuitem name="Order Entries" id="menu_dm_config_custo_entries" parent="dm.menu_dm_config_customer" sequence="0"/>
+
     <!--
     =======================================================
     ORDER VIEWS
@@ -64,7 +66,7 @@
         <field name="view_id" ref="view_dm_order_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_order_form" parent="dm.menu_dm_config_customer" action="action_dm_order_form" sequence="4" />
+    <menuitem id="menu_action_dm_order_form" parent="menu_dm_config_custo_entries" action="action_dm_order_form" sequence="3" />
 
     </data>
 </openerp>

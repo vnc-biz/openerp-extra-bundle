@@ -88,7 +88,7 @@ class db_backup(osv.osv):
                         os.makedirs(rec.bkp_dir)
                 except:
                     raise
-                bkp_file='%s_%s.sql' % (rec.name, time.strftime('%Y%m%d_%H:%M'))
+                bkp_file='%s_%s.sql' % (rec.name, time.strftime('%Y%m%d_%H_%M_%S'))
                 file_path = os.path.join(rec.bkp_dir,bkp_file)
                 fp = open(file_path,'wb')
                 uri = 'http://' + rec.host + ':' + rec.port

@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+
+	<menuitem name="Events" id="menu_dm_config_lowlevel_events" parent="dm.menu_dm_config_lowlevel"/>
     
     <!--
     =======================================================
@@ -111,7 +113,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem action="act_dm_event_form" id="menu_act_dm_event_form" parent="dm.menu_dm_config_lowlevel"/>
+    <menuitem action="act_dm_event_form" id="menu_act_dm_event_form" parent="dm.menu_dm_config_lowlevel_events"/>
 
     <!--
     ======================

@@ -43,19 +43,9 @@ msgid "Mailing Supplier"
 msgstr "Fournisseur de Mailing"
 
 #. module: dm
-#: field:dm.order,title:0
-msgid "Title"
-msgstr "Titre"
-
-#. module: dm
 #: view:dm.campaign:0
 msgid "Real Date"
 msgstr "Date Réelle"
-
-#. module: dm
-#: field:dm.order,offer_step_code:0
-msgid "Offer Step Code"
-msgstr "Code de l'étape d'offre"
 
 #. module: dm
 #: field:dm.campaign.purchase_line,purchase_order_ids:0
@@ -66,15 +56,6 @@ msgstr "Ligne de commande"
 #: model:dm.campaign.type,code:dm.dm_campaign_type_loyalty
 msgid "loyalty"
 msgstr "Fidélisation"
-
-#. module: dm
-#: help:dm.customer.order,picking_policy:0
-msgid ""
-"If you don't have enough stock available to deliver all at once, do you "
-"accept partial shipments or not?"
-msgstr ""
-"Si vous n'avez pas assez de stock pour tout livrer en un fois, acceptez-vous "
-"les livraisons partieles ?"
 
 #. module: dm
 #: field:res.country,main_language:0
@@ -204,17 +185,10 @@ msgid "ALIM"
 msgstr "LAMI"
 
 #. module: dm
-#: field:dm.customer.order,origin:0
 #: view:dm.offer:0
 #: field:dm.offer.step,origin_id:0
 msgid "Origin"
 msgstr "Origine"
-
-#. module: dm
-#: selection:dm.customer.boolean_criteria,value:0
-#: selection:dm.customer.order.boolean_criteria,value:0
-msgid "False"
-msgstr "Faux"
 
 #. module: dm
 #: field:dm.campaign,forwarding_charge:0
@@ -270,12 +244,10 @@ msgstr "Campagnes ouvertes"
 #: field:dm.campaign,analytic_account_id:0
 #: field:dm.campaign.proposition,analytic_account_id:0
 #: field:dm.campaign.proposition.segment,analytic_account_id:0
-#: field:dm.customer.order,project_id:0
 msgid "Analytic Account"
 msgstr "Compte analytique"
 
 #. module: dm
-#: view:dm.customer.order:0
 #: field:dm.mail_service,partner_id:0
 #: field:dm.trademark,partner_id:0
 msgid "Partner"
@@ -387,11 +359,6 @@ msgid "Document Category"
 msgstr "Catégorie de document"
 
 #. module: dm
-#: selection:dm.customer.order,invoice_quantity:0
-msgid "Ordered Quantities"
-msgstr "Quantité commandée"
-
-#. module: dm
 #: field:dm.offer.step,dtp_note:0
 msgid "DTP Notes"
 msgstr "Notes PAO"
@@ -414,23 +381,6 @@ msgstr "Plugin PAO"
 #: model:ir.model,name:dm.model_dm_mail_service
 msgid "dm.mail_service"
 msgstr "dm.mail_service"
-
-#. module: dm
-#: field:dm.customer.order,name:0
-msgid "Order Reference"
-msgstr "Référence de la commande"
-
-#. module: dm
-#: view:dm.customer.order:0
-#: view:dm.order:0
-msgid "Customer Infos"
-msgstr "Informations client"
-
-#. module: dm
-#: selection:dm.customer.boolean_criteria,value:0
-#: selection:dm.customer.order.boolean_criteria,value:0
-msgid "True"
-msgstr "Vrai"
 
 #. module: dm
 #: view:dm.offer:0
@@ -460,12 +410,6 @@ msgid "All Plugins Values"
 msgstr "Toutes les valeurs des plugins PAO"
 
 #. module: dm
-#: field:dm.customer.boolean_criteria,value:0
-#: field:dm.customer.numeric_criteria,value:0
-#: field:dm.customer.order.boolean_criteria,value:0
-#: field:dm.customer.order.numeric_criteria,value:0
-#: field:dm.customer.order.text_criteria,value:0
-#: field:dm.customer.text_criteria,value:0
 #: field:dm.plugins.value,value:0
 msgid "Value"
 msgstr "Valeur"
@@ -506,7 +450,6 @@ msgid "Other Cost"
 msgstr "Autres coûts"
 
 #. module: dm
-#: field:dm.order,customer_lastname:0
 #: field:res.partner,lastname:0
 msgid "Last Name"
 msgstr "Nom de famille"
@@ -594,14 +537,6 @@ msgid "Trademark"
 msgstr "Enseigne"
 
 #. module: dm
-#: selection:dm.customer.date_criteria,operator:0
-#: selection:dm.customer.numeric_criteria,operator:0
-#: selection:dm.customer.order.date_criteria,operator:0
-#: selection:dm.customer.order.numeric_criteria,operator:0
-msgid "equals"
-msgstr "égal à"
-
-#. module: dm
 #: model:ir.actions.act_window,name:dm.action_document_form
 #: model:ir.ui.menu,name:dm.menu_action_document_form
 msgid "All DTP Documents"
@@ -636,11 +571,6 @@ msgstr "Transition sortante"
 #: view:res.partner:0
 msgid "Customers"
 msgstr "Clients"
-
-#. module: dm
-#: field:dm.customer.order,picking_policy:0
-msgid "Packing Policy"
-msgstr "Politique de Colisage"
 
 #. module: dm
 #: view:dm.customers_list.type:0
@@ -768,11 +698,6 @@ msgid "Georgraphical Criteria"
 msgstr "Critères géographiques"
 
 #. module: dm
-#: field:dm.customer.order,fiscal_position:0
-msgid "Fiscal Position"
-msgstr "Position Fiscale"
-
-#. module: dm
 #: model:dm.offer.step.type,code:dm.dm_offer_step_type_startingmailing0
 msgid "SM"
 msgstr "MD"
@@ -817,12 +742,6 @@ msgid "Xor"
 msgstr "Xor"
 
 #. module: dm
-#: selection:dm.customer.boolean_criteria,operator:0
-#: selection:dm.customer.order.boolean_criteria,operator:0
-msgid "is not"
-msgstr "n'est pas"
-
-#. module: dm
 #: view:dm.campaign:0
 #: field:dm.campaign,customer_file_state:0
 msgid "Customers Files Status"
@@ -865,11 +784,6 @@ msgstr "Critères de sélection par date clients"
 #: view:dm.offer.step:0
 msgid "Incoming Transitions"
 msgstr "Transition entrante"
-
-#. module: dm
-#: field:dm.order,zip_summary:0
-msgid "Zip Summary"
-msgstr "Résumé du zip"
 
 #. module: dm
 #: wizard_button:wizard_document_report,init,print_report:0
@@ -955,7 +869,6 @@ msgstr "Idée"
 #: field:dm.campaign.proposition,segment_ids:0
 #: view:dm.campaign.proposition.segment:0
 #: rml:dm.campaign.report:0
-#: field:dm.customer.order,segment_id:0
 msgid "Segment"
 msgstr "Segment"
 
@@ -968,18 +881,11 @@ msgstr "Segment"
 #: view:dm.campaign.proposition.segment:0
 #: field:dm.campaign.proposition.segment,note:0
 #: field:dm.campaign.purchase_line,notes:0
-#: field:dm.customer.order,note:0
 #: view:dm.offer:0
 #: field:dm.offer.step,notes:0
 #: field:dm.offer.translation,notes:0
 msgid "Notes"
 msgstr "Notes"
-
-#. module: dm
-#: help:dm.customer.order,partner_order_id:0
-msgid ""
-"The name and address of the contact that requested the order or quotation."
-msgstr "Le nom et l'adresse du contacte ayant demandé le devis."
 
 #. module: dm
 #: model:ir.actions.report.xml,name:dm.dm_offer_report_graph
@@ -996,12 +902,6 @@ msgstr "Étapes d'offre de la transition entrante"
 #: view:dm.offer.document:0
 msgid "Template Plugins"
 msgstr "Plugins du modèle"
-
-#. module: dm
-#: selection:dm.customer.date_criteria,operator:0
-#: selection:dm.customer.order.date_criteria,operator:0
-msgid "after"
-msgstr "après"
 
 #. module: dm
 #: view:dm.media:0
@@ -1023,11 +923,6 @@ msgstr "Commande de listes clients"
 #: field:dm.campaign.purchase_line,quantity:0
 msgid "Total Quantity"
 msgstr "Quantité totale"
-
-#. module: dm
-#: field:dm.customer.order,amount_tax:0
-msgid "Taxes"
-msgstr "Taxes"
 
 #. module: dm
 #: rml:offer.report:0
@@ -1060,11 +955,6 @@ msgstr "Propriétaire de l'adresse piège"
 #: selection:dm.campaign.proposition,proposition_type:0
 msgid "Relauching"
 msgstr "Relance"
-
-#. module: dm
-#: selection:dm.customer.order,order_policy:0
-msgid "Payment Before Delivery"
-msgstr "Paiement avant livraison"
 
 #. module: dm
 #: rml:dm.campaign.report:0
@@ -1131,12 +1021,6 @@ msgid "Customers Boolean Criteria"
 msgstr "Criètes de sélection binaire pour les clients"
 
 #. module: dm
-#: selection:dm.customer.date_criteria,operator:0
-#: selection:dm.customer.order.date_criteria,operator:0
-msgid "before"
-msgstr "avant le"
-
-#. module: dm
 #: field:dm.offer.step,trademark_category_ids:0
 msgid "Trademark Categories"
 msgstr "Catégorie d'enseigne"
@@ -1199,11 +1083,6 @@ msgid "Ready To Plan"
 msgstr "Prêt pour planning"
 
 #. module: dm
-#: selection:dm.customer.order,order_policy:0
-msgid "Invoice from the Packing"
-msgstr "Facturé après colisage"
-
-#. module: dm
 #: field:dm.customers_list,selection_cost:0
 msgid "Selection Cost Per Thousand"
 msgstr "Prix de sélection au mille"
@@ -1212,11 +1091,6 @@ msgstr "Prix de sélection au mille"
 #: model:ir.model,name:dm.model_dm_campaign_mail_service
 msgid "dm.campaign.mail_service"
 msgstr "dm.campaign.mail_service"
-
-#. module: dm
-#: field:dm.customer.order,partner_invoice_id:0
-msgid "Invoice Address"
-msgstr "Adresse de facturation"
 
 #. module: dm
 #: field:project.task,date_reviewed:0
@@ -1281,12 +1155,6 @@ msgid "All Offer Models"
 msgstr "Tous les modèles d'offres"
 
 #. module: dm
-#: view:dm.customer.order:0
-#: view:dm.order:0
-msgid "Campaign Infos"
-msgstr "Informations de la campagne"
-
-#. module: dm
 #: view:dm.customers_list:0
 msgid "Descrition"
 msgstr "Description"
@@ -1345,17 +1213,6 @@ msgid "Segmentation Criteria"
 msgstr "Critères de segmentation"
 
 #. module: dm
-#: field:dm.order,raw_datas:0
-msgid "Raw Datas"
-msgstr "Données brutes"
-
-#. module: dm
-#: selection:dm.customer.numeric_criteria,operator:0
-#: selection:dm.customer.order.numeric_criteria,operator:0
-msgid "bigger then"
-msgstr "plus grand que"
-
-#. module: dm
 #: view:dm.offer.step.manufacturing_constraint:0
 msgid "Manufacturing Descriptions"
 msgstr "Descriptions de fabrication"
@@ -1380,11 +1237,6 @@ msgstr "Campagne de recrutement"
 #: model:ir.model,name:dm.model_dm_offer_production_cost
 msgid "dm.offer.production.cost"
 msgstr "dm.offer.production.cost"
-
-#. module: dm
-#: field:dm.customer.order,pricelist_id:0
-msgid "Pricelist"
-msgstr "Liste de prix"
 
 #. module: dm
 #: view:dm.campaign.proposition:0
@@ -1421,12 +1273,6 @@ msgstr "État :"
 #: rml:offer.report:0
 msgid "Legal State :"
 msgstr "État légal"
-
-#. module: dm
-#: view:dm.customer.order:0
-#: view:dm.customer.segmentation:0
-msgid "Customer Orders"
-msgstr "Commandes clients"
 
 #. module: dm
 #: field:dm.offer,order_date:0
@@ -1585,11 +1431,6 @@ msgid "dm.campaign.proposition.item"
 msgstr "dm.campaign.proposition.item"
 
 #. module: dm
-#: field:dm.customer.order,partner_shipping_id:0
-msgid "Shipping Address"
-msgstr "Adresse d'expédition"
-
-#. module: dm
 #: model:dm.campaign.type,code:dm.dm_campaign_type_recruiting
 msgid "recruiting"
 msgstr "Recrutement"
@@ -1612,8 +1453,6 @@ msgid "At Open"
 msgstr "Á l'ouverture"
 
 #. module: dm
-#: field:dm.customer.date_criteria,value:0
-#: field:dm.customer.order.date_criteria,value:0
 #: field:dm.offer.translation,date:0
 #: field:dm.plugins.value,date:0
 msgid "Date"
@@ -1695,11 +1534,6 @@ msgid "My Draft Offers"
 msgstr "Mes offres brouillons"
 
 #. module: dm
-#: field:dm.customer.order,order_policy:0
-msgid "Shipping Policy"
-msgstr "Politique d'expédition"
-
-#. module: dm
 #: rml:dm.campaign.report:0
 #: rml:preoffer.report:0
 msgid "Type :"
@@ -1740,7 +1574,6 @@ msgstr "Intermédiaires"
 
 
 #. module: dm
-#: field:dm.order,customer_firstname:0
 #: view:res.partner:0
 #: field:res.partner.address,firstname:0
 msgid "First Name"
@@ -1770,11 +1603,6 @@ msgid "Prospect for Media"
 msgstr "Prospect pour le média"
 
 #. module: dm
-#: field:dm.customer.order,partner_order_id:0
-msgid "Ordering Contact"
-msgstr "Contact pour commande"
-
-#. module: dm
 #: model:ir.model,name:dm.model_dm_campaign_manufacturing_cost
 msgid "dm.campaign.manufacturing_cost"
 msgstr "dm.campaign.manufacturing_cost"
@@ -1793,19 +1621,6 @@ msgstr "Enveloppe d'envoi démo US"
 #: selection:dm.offer,legal_state:0
 msgid "Refused"
 msgstr "Refusé"
-
-#. module: dm
-#: field:dm.customer.boolean_criteria,field:0
-#: field:dm.customer.date_criteria,field:0
-#: field:dm.customer.numeric_criteria,field:0
-#: field:dm.customer.order.boolean_criteria,field:0
-#: field:dm.customer.order.date_criteria,field:0
-#: field:dm.customer.order.numeric_criteria,field:0
-#: field:dm.customer.order.text_criteria,field:0
-#: field:dm.customer.text_criteria,field:0
-#: field:dm.dtp.plugin,field:0
-msgid "Customers Field"
-msgstr "Champ clients"
 
 #. module: dm
 #: model:dm.campaign.type,name:dm.dm_campaign_type_deleting
@@ -1954,11 +1769,6 @@ msgid "Delay After Trigger Date:"
 msgstr "Délai après déclanchement"
 
 #. module: dm
-#: selection:dm.customer.order,picking_policy:0
-msgid "Partial Delivery"
-msgstr "Livraison partielle"
-
-#. module: dm
 #: view:dm.campaign:0
 msgid "Set to In Progress"
 msgstr "En cours"
@@ -1976,11 +1786,6 @@ msgstr ""
 #: field:dm.offer,offer_origin_id:0
 msgid "Original Offer"
 msgstr "Offre d'origine"
-
-#. module: dm
-#: field:dm.customer.order,picking_ids:0
-msgid "Related Packing"
-msgstr "Colisage lié"
 
 #. module: dm
 #: field:dm.campaign.proposition.item,proposition_id:0
@@ -2015,17 +1820,6 @@ msgid "Default Translation for Direct Marketing Campaigns"
 msgstr "Traduction par défaut pour les campagnes marketing"
 
 #. module: dm
-#: help:dm.customer.order,invoice_ids:0
-msgid ""
-"This is the list of invoices that have been generated for this sale order. "
-"The same sale order may have been invoiced in several times (by line for "
-"example)."
-msgstr ""
-"C'est la liste des factures qui ont étées générées pour cette commande. Le "
-"même commande peut avoir été facturé en plusieurs fois (par lignes par "
-"example)."
-
-#. module: dm
 #: field:dm.customers_list,broker_cost:0
 msgid "Broker Cost"
 msgstr "Coût du broker"
@@ -2041,11 +1835,6 @@ msgid "Raw Addresses Quantity"
 msgstr "Quantité brute d'adresses"
 
 #. module: dm
-#: field:dm.order,zip:0
-msgid "Zip Code"
-msgstr "Code postal"
-
-#. module: dm
 #: field:dm.campaign.purchase_line,date_order:0
 msgid "Order date"
 msgstr "Date de commande"
@@ -2055,13 +1844,6 @@ msgstr "Date de commande"
 #: model:res.partner.category,name:dm.cat_translator
 msgid "Translator"
 msgstr "Traducteur"
-
-#. module: dm
-#: help:dm.customer.order,picking_ids:0
-msgid ""
-"This is the list of picking list that have been generated for this invoice"
-msgstr ""
-"C'est la liste de liste de picking qui a été générée pour cette facture"
 
 #. module: dm
 #: model:dm.offer.step.type,description:dm.dm_offer_step_type_startingmailing0
@@ -2312,11 +2094,6 @@ msgid "Trademark Advices"
 msgstr "Conseils de fabrication"
 
 #. module: dm
-#: selection:dm.customer.order,invoice_quantity:0
-msgid "Shipped Quantities"
-msgstr "Quantités livrées"
-
-#. module: dm
 #: view:dm.campaign:0
 msgid "Campaign Description"
 msgstr "Description de la campagne"
@@ -2414,11 +2191,6 @@ msgid "All Customers"
 msgstr "Tous les clients"
 
 #. module: dm
-#: field:dm.customer.order,client_order_ref:0
-msgid "Customer Ref"
-msgstr "Référence client"
-
-#. module: dm
 #: selection:dm.campaign.purchase_line,trigger:0
 msgid "Manual"
 msgstr "Manuel"
@@ -2458,11 +2230,6 @@ msgstr "Vous devez d'abord valider tous les services de cette campagne."
 #: view:dm.offer:0
 msgid "Create Offers"
 msgstr "Créer l'offre"
-
-#. module: dm
-#: selection:dm.customer.order,order_policy:0
-msgid "Shipping & Manual Invoice"
-msgstr "Livraison et facture manuelle"
 
 #. module: dm
 #: field:dm.campaign,offer_id:0
@@ -2544,21 +2311,6 @@ msgid "Customers Lists"
 msgstr "Listes clients"
 
 #. module: dm
-#: help:dm.customer.order,order_policy:0
-msgid ""
-"The Shipping Policy is used to synchronise invoice and delivery operations.\n"
-"  - The 'Pay before delivery' choice will first generate the invoice and "
-"then generate the packing order after the payment of this invoice.\n"
-"  - The 'Shipping & Manual Invoice' will create the packing order directly "
-"and wait for the user to manually click on the 'Invoice' button to generate "
-"the draft invoice.\n"
-"  - The 'Invoice on Order Ater Delivery' choice will generate the draft "
-"invoice based on sale order after all packing lists have been finished.\n"
-"  - The 'Invoice from the packing' choice is used to create an invoice "
-"during the packing process."
-msgstr ""
-
-#. module: dm
 #: help:dm.customers_list,recruiting_origin:0
 msgid "Origin of the recruiting of the adresses"
 msgstr "Origine du recrutement des adresses"
@@ -2586,20 +2338,6 @@ msgstr "Tous les donneurs d'ordres"
 #: field:dm.campaign,dtp_purchase_line_ids:0
 msgid "DTP Purchase Lines"
 msgstr "Commande de PAO"
-
-#. module: dm
-#: help:dm.customer.order,invoice_quantity:0
-msgid ""
-"The sale order will automatically create the invoice proposition (draft "
-"invoice). Ordered and delivered quantities may not be the same. You have to "
-"choose if you invoice based on ordered or shipped quantities. If the product "
-"is a service, shipped quantities means hours spent on the associated tasks."
-msgstr ""
-"La commande créera une proposition de facturation (facture brouillon). Les "
-"quantités commandées et facturées peuvent ne pas être les mêmes. Vous devez "
-"choisir si vous facturez sur base des quantités commandées ou expédiées. Si "
-"le produit est un service, les quantitées expédiées signifies les heures "
-"dépensées aux tâches associées."
 
 #. module: dm
 #: rml:offer.model.report:0
@@ -2635,34 +2373,9 @@ msgid "Purchase Advices"
 msgstr "Consignes d'approvisionnement"
 
 #. module: dm
-#: field:dm.order,customer_add1:0
-msgid "Address1"
-msgstr "Adresse1"
-
-#. module: dm
-#: field:dm.order,customer_add2:0
-msgid "Address2"
-msgstr "Adresse2"
-
-#. module: dm
-#: field:dm.order,customer_add3:0
-msgid "Address3"
-msgstr "Address3"
-
-#. module: dm
-#: field:dm.order,customer_add4:0
-msgid "Address4"
-msgstr "Address4"
-
-#. module: dm
 #: model:ir.model,name:dm.model_dm_trademark
 msgid "dm.trademark"
 msgstr "dm.trademark"
-
-#. module: dm
-#: field:dm.customer.order,invoiced:0
-msgid "Paid"
-msgstr "Payé"
 
 #. module: dm
 #: model:dm.media,name:dm.media_phone
@@ -2815,15 +2528,8 @@ msgstr "Niveau de déduplication"
 #: selection:dm.campaign,manufacturing_state:0
 #: selection:dm.campaign,planning_state:0
 #: selection:dm.campaign,translation_state:0
-#: selection:dm.customer.order,state:0
-#: selection:dm.order,state:0
 msgid "Done"
 msgstr "Terminé"
-
-#. module: dm
-#: field:dm.customer.order,invoice_ids:0
-msgid "Invoice"
-msgstr "Facture"
 
 #. module: dm
 #: field:dm.plugin.argument,name:0
@@ -2862,12 +2568,6 @@ msgid ""
 msgstr ""
 "Le nom de l'objet doit démarrer avec x_ et ne pas contenir de charactère "
 "spéciaux !"
-
-#. module: dm
-#: selection:dm.customer.boolean_criteria,operator:0
-#: selection:dm.customer.order.boolean_criteria,operator:0
-msgid "is"
-msgstr "est"
 
 #. module: dm
 #: field:dm.campaign,dtp_responsible_id:0
@@ -2923,11 +2623,6 @@ msgid "Direct Marketing"
 msgstr "Marketing direct"
 
 #. module: dm
-#: field:dm.customer.order,incoterm:0
-msgid "Incoterm"
-msgstr "Incoterm"
-
-#. module: dm
 #: field:dm.campaign.proposition.item,product_id:0
 #: field:dm.campaign.purchase_line,product_id:0
 #: field:dm.customers_list,product_id:0
@@ -2945,7 +2640,6 @@ msgid "The quantity of duplicated addresses removed by the cleaner."
 msgstr "La quantité d'adresses en double supprimée par le nettoyeur"
 
 #. module: dm
-#: view:dm.order:0
 #: view:res.partner:0
 msgid "Address"
 msgstr "Adresse"
@@ -2991,19 +2685,9 @@ msgid "Client for Media"
 msgstr "Client pour le média"
 
 #. module: dm
-#: field:dm.customer.order,invoice_quantity:0
-msgid "Invoice on"
-msgstr "Facture sur"
-
-#. module: dm
 #: model:ir.model,name:dm.model_dm_offer
 msgid "dm.offer"
 msgstr "dm.offer"
-
-#. module: dm
-#: field:dm.customer.order,date_order:0
-msgid "Date Ordered"
-msgstr "Date de Commande"
 
 #. module: dm
 #: view:res.partner:0
@@ -3017,19 +2701,9 @@ msgid "Deduplication Quantity"
 msgstr "Quantité dédupliquées"
 
 #. module: dm
-#: field:dm.order,distribution_office:0
-msgid "Distribution Office"
-msgstr "Bureau de distribution"
-
-#. module: dm
 #: model:dm.offer.step.type,code:dm.dm_offer_step_type_intermediatemailing0
 msgid "IM"
 msgstr "MI"
-
-#. module: dm
-#: view:dm.order:0
-msgid "Order"
-msgstr "Commande"
 
 #. module: dm
 #: field:dm.customers_list,delivery_cost:0
@@ -3068,11 +2742,6 @@ msgid "ALPI"
 msgstr "LAAC"
 
 #. module: dm
-#: field:dm.customer.order,amount_total:0
-msgid "Total"
-msgstr "Total"
-
-#. module: dm
 #: field:dm.campaign.purchase_line,type_document:0
 msgid "Document Type"
 msgstr "Type de document"
@@ -3099,15 +2768,12 @@ msgstr ""
 "adresses disponibles)."
 
 #. module: dm
-#: field:dm.customer.order,state:0
 #: view:dm.offer:0
 #: field:dm.offer,state:0
 #: view:dm.offer.document:0
 #: field:dm.offer.document,state:0
 #: view:dm.offer.step:0
 #: field:dm.offer.step,state:0
-#: view:dm.order:0
-#: field:dm.order,state:0
 msgid "Status"
 msgstr "État"
 
@@ -3180,15 +2846,7 @@ msgstr "Listes clients"
 #. module: dm
 #: view:dm.campaign.proposition:0
 #: view:dm.campaign.proposition.segment:0
-#: field:dm.customer.boolean_criteria,segmentation_id:0
-#: field:dm.customer.date_criteria,segmentation_id:0
-#: field:dm.customer.numeric_criteria,segmentation_id:0
-#: field:dm.customer.order.boolean_criteria,segmentation_id:0
-#: field:dm.customer.order.date_criteria,segmentation_id:0
-#: field:dm.customer.order.numeric_criteria,segmentation_id:0
-#: field:dm.customer.order.text_criteria,segmentation_id:0
 #: view:dm.customer.segmentation:0
-#: field:dm.customer.text_criteria,segmentation_id:0
 #: model:ir.model,name:dm.model_dm_customer_segmentation
 msgid "Segmentation"
 msgstr "Segmentation"
@@ -3247,11 +2905,6 @@ msgstr "Modèle de campagne"
 #: view:dm.offer.step:0
 msgid "Outgoing Transitions"
 msgstr "Transitions sortantes"
-
-#. module: dm
-#: field:dm.customer.order,shop_id:0
-msgid "Shop"
-msgstr "Magasin"
 
 #. module: dm
 #: wizard_button:campaign.group.project,init,done:0
@@ -3337,27 +2990,6 @@ msgid "My Campaign Propositions"
 msgstr "Mes propositions commerciales"
 
 #. module: dm
-#: view:dm.customer.order:0
-msgid "Sale Infos"
-msgstr "Informations sur les ventes"
-
-#. module: dm
-#: view:dm.customer.order:0
-msgid "Note"
-msgstr "Remarques"
-
-#. module: dm
-#: field:dm.order,segment_code:0
-msgid "Segment Code"
-msgstr "Code du segment"
-
-#. module: dm
-#: selection:dm.customer.order.text_criteria,operator:0
-#: selection:dm.customer.text_criteria,operator:0
-msgid "like"
-msgstr "comme"
-
-#. module: dm
 #: view:dm.campaign:0
 #: field:dm.offer.history,date:0
 msgid "Drop Date"
@@ -3405,18 +3037,6 @@ msgid "SQL"
 msgstr "SQL"
 
 #. module: dm
-#: field:dm.customer.boolean_criteria,operator:0
-#: field:dm.customer.date_criteria,operator:0
-#: field:dm.customer.numeric_criteria,operator:0
-#: field:dm.customer.order.boolean_criteria,operator:0
-#: field:dm.customer.order.date_criteria,operator:0
-#: field:dm.customer.order.numeric_criteria,operator:0
-#: field:dm.customer.order.text_criteria,operator:0
-#: field:dm.customer.text_criteria,operator:0
-msgid "Operator"
-msgstr "Opérateur"
-
-#. module: dm
 #: model:product.template,description:dm.product_product_ondemandassociationfreetrial0_product_template
 msgid "A 1 month Free Trial for the Association profile"
 msgstr "Un mois d'essais gratuit pour le profile association"
@@ -3444,12 +3064,6 @@ msgstr "Documents"
 #, python-format
 msgid "Could not open this offer step !"
 msgstr "Impossible d'ouvrir cette étape d'offre"
-
-#. module: dm
-#: view:dm.customer.order:0
-#: view:dm.order:0
-msgid "Confirm"
-msgstr "Confirmer"
 
 #. module: dm
 #: view:dm.campaign:0
@@ -3518,12 +3132,6 @@ msgid "Item Supplier"
 msgstr "Fournisseur d'articles"
 
 #. module: dm
-#: selection:dm.customer.order.text_criteria,operator:0
-#: selection:dm.customer.text_criteria,operator:0
-msgid "ilike"
-msgstr "comme (avec casse)"
-
-#. module: dm
 #: help:res.partner.address,decoy_owner:0
 msgid "The partner this decoy address belongs to"
 msgstr "Le partenaire à qui appartient l'adresse piège"
@@ -3575,19 +3183,9 @@ msgid "Supplying"
 msgstr "Approvisionnement"
 
 #. module: dm
-#: selection:dm.customer.order,order_policy:0
-msgid "Invoice on Order After Delivery"
-msgstr "Facture basée sur la commande après livraison"
-
-#. module: dm
 #: model:ir.actions.wizard,name:dm.wizard_offer_documents
 msgid "View Documents"
 msgstr "Visuliser les documents"
-
-#. module: dm
-#: selection:dm.customer.order,picking_policy:0
-msgid "Complete Delivery"
-msgstr "Livraison complète"
 
 #. module: dm
 #: view:dm.customer.segmentation:0
@@ -3648,26 +3246,15 @@ msgstr "Mixe"
 
 #. module: dm
 #: field:dm.campaign.mail_service,offer_step_id:0
-#: field:dm.customer.order,offer_step_id:0
 #: field:dm.offer.document,step_id:0
 #: view:dm.offer.step:0
 msgid "Offer Step"
 msgstr "Étape de l'offre"
 
 #. module: dm
-#: field:dm.customer.order,user_id:0
-msgid "Salesman"
-msgstr "Vendeur"
-
-#. module: dm
 #: help:res.partner.address,decoy_external_ref:0
 msgid "The reference of the decoy address for the owner"
 msgstr "La référence de l'adresse piège pour son propriétaire"
-
-#. module: dm
-#: field:dm.customer.order,invoiced_rate:0
-msgid "Invoiced"
-msgstr "Facturé"
 
 #. module: dm
 #: field:dm.offer,lang_orig:0
@@ -3701,18 +3288,11 @@ msgid "Products and Prices"
 msgstr "Prix et produits"
 
 #. module: dm
-#: selection:dm.customer.order,state:0
 #: selection:dm.offer,state:0
 #: selection:dm.offer.document,state:0
 #: selection:dm.offer.step,state:0
-#: selection:dm.order,state:0
 msgid "Draft"
 msgstr "Brouillon"
-
-#. module: dm
-#: field:dm.customer.order,amount_untaxed:0
-msgid "Untaxed Amount"
-msgstr "Montant hors-taxes"
 
 #. module: dm
 #: view:dm.plugins.value:0
@@ -3928,11 +3508,6 @@ msgid "New"
 msgstr "Nouveau"
 
 #. module: dm
-#: view:dm.order:0
-msgid "Scanned Data"
-msgstr "Données scannées"
-
-#. module: dm
 #: view:dm.campaign.proposition:0
 #: view:dm.campaign.proposition.segment:0
 msgid "- Deduplication"
@@ -3949,24 +3524,9 @@ msgid "Accompanying Letter of the Intermediate Mailing"
 msgstr "Lettre d'accompagnement du mailing intermédiaire"
 
 #. module: dm
-#: field:dm.customer.order,order_line:0
-msgid "Order Lines"
-msgstr "Lignes de la commande"
-
-#. module: dm
-#: view:dm.customer.order:0
-msgid "Customer Order"
-msgstr "Commande client"
-
-#. module: dm
 #: rml:dm.campaign.report:0
 msgid "Starting Date"
 msgstr "Date de début"
-
-#. module: dm
-#: field:dm.order,customer_code:0
-msgid "Customer Code"
-msgstr "Code client"
 
 #. module: dm
 #: field:dm.campaign.manufacturing_cost,name:0
@@ -4061,8 +3621,6 @@ msgid "The origin of the adresses of a list"
 msgstr "L'origine des adresses d'une liste"
 
 #. module: dm
-#: field:dm.customer.order,customer_id:0
-#: field:dm.customer.order,partner_id:0
 #: selection:dm.dtp.plugin,type:0
 #: view:res.partner:0
 msgid "Customer"
@@ -4075,12 +3633,6 @@ msgid "Months"
 msgstr "Mois"
 
 #. module: dm
-#: selection:dm.customer.numeric_criteria,operator:0
-#: selection:dm.customer.order.numeric_criteria,operator:0
-msgid "smaller then"
-msgstr "plus petit que"
-
-#. module: dm
 #: field:dm.mail_service,action_interval:0
 msgid "Action Interval"
 msgstr "Intervale de l'action"
@@ -4088,7 +3640,6 @@ msgstr "Intervale de l'action"
 #. module: dm
 #: field:dm.campaign,country_id:0
 #: field:dm.customers_list,country_id:0
-#: field:dm.order,country:0
 #: field:dm.overlay,country_ids:0
 msgid "Country"
 msgstr "Pays"

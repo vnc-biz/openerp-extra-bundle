@@ -120,7 +120,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="act_dm_event_sale_form" id="menu_act_dm_event_sale_form" parent="dm.menu_dm_config_lowlevel"/>
+    <menuitem action="act_dm_event_sale_form" id="menu_act_dm_event_sale_form" parent="dm.menu_dm_config_lowlevel_events"/>
     
 	<!--
 	======================================================= 

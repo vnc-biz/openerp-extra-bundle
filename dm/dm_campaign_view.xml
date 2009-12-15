@@ -4,12 +4,15 @@
 
     <menuitem name="Direct Marketing" icon="terp-crm" id="menu_dm"/>
     <menuitem name="Configuration" id="menu_dm_config" parent="menu_dm" groups="res_groups_offeradmin,res_groups_offermanager,res_groups_campaignadmin,res_groups_campaignmanager,res_groups_dtpmanager" sequence="0"/>
-    <menuitem name="Campaigns" id="menu_dm_config_campaign" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
-    <menuitem name="Customers Lists and Files" id="menu_dm_config_custlist" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
+	<menuitem name="Low Level" id="menu_dm_config_lowlevel" parent="dm.menu_dm_config" groups="res_groups_dmadmin" sequence="0"/>
+	<menuitem name="Customers Lists and Files" id="menu_dm_config_custlist" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
+    <menuitem name="Campaigns" id="menu_dm_config_campaign" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="5"/>
+    
+	<menuitem name="Customers Lists" id="menu_dm_config_custlist_list" parent="dm.menu_dm_config_custlist" groups="res_groups_offeradmin,res_groups_campaignadmin"/>
+	<menuitem name="Customers Files" id="menu_dm_config_custlist_file" parent="dm.menu_dm_config_custlist" groups="res_groups_offeradmin,res_groups_campaignadmin"/>
     <menuitem name="Campaigns" id="menu_dm_campaign" parent="menu_dm" 
     groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_groups_campaignmanager,res_groups_offermanager"
     sequence="4"/>
-    <menuitem name="Low Level" id="menu_dm_config_lowlevel" parent="dm.menu_dm_config" groups="res_groups_dmadmin" sequence="0"/>
     <menuitem name="Mail Service" id="menu_dm_config_mail_service" parent="dm.menu_dm_config" sequence="7"/>
 
     <!--
@@ -129,7 +132,7 @@
                 <group colspan="4">
                     <separator string="Campaign Description" colspan="4"/>
                     <field name="name" string="Name" select="1"/>
-                    <field name="code1" string="Code" select="2"/>
+                    <field name="code" string="Code" select="2"/>
                 </group>
                 <notebook colspan="4">
                     <page string="General">
@@ -459,7 +462,7 @@
                         <separator string="Global Information" colspan="4"/>
                         <group col="10" colspan="4">
                             <field name="name" string="Name" select="1" />
-                            <field name="code1" string="Code" select="2"/>
+                            <field name="code" string="Code" select="2"/>
                         </group>
                         <group col="10" colspan="4">
                             <field name="country_id" select="1"/>
@@ -517,7 +520,7 @@
             <group colspan="3" col="4">
             <separator string="Commercial Proposition Description" colspan="5"/>
             <field name="name" string="Name" select="1" />
-            <field name="code1" string="Code" select="2" />
+            <field name="code" string="Code" select="2" />
             </group>
             <notebook colspan="4">
                 <page string="General">
@@ -636,7 +639,7 @@
             <tree string="Propositions">
                 <field name="camp_id"/>
                 <field name="name" string="Name"/>
-                <field name="code1" string="Code"/>
+                <field name="code" string="Code"/>
                 <field name="camp_pro_date_start" colspan="4"/>
                 <field name="sale_rate"/>
                 <field name="quantity_real" select="2"/>
@@ -903,10 +906,10 @@
         <field name="context">{'category':'Broker'}</field>
     </record>
 
-    <menuitem id="menu_action_campaign_broker_form" parent="dm.menu_dm_config_custlist" action="action_campaign_broker_form" sequence="0"/>
+    <menuitem id="menu_action_campaign_broker_form" parent="dm.menu_dm_config_custlist_list" action="action_campaign_broker_form" sequence="1"/>
 
     <record model="ir.actions.act_window" id="action_campaign_duplicator_form">
-        <field name="name">All Deduplicator</field>
+        <field name="name">All Deduplicators</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
@@ -915,7 +918,7 @@
         <field name="domain">[('category_id','like','Deduplicator')]</field>
         <field name="context">{'category':'Deduplicator'}</field>
     </record>
-    <menuitem id="menu_action_campaign_duplicator_form" parent="dm.menu_dm_config_custlist" action="action_campaign_duplicator_form"/>
+    <menuitem id="menu_action_campaign_duplicator_form" parent="dm.menu_dm_config_custlist_list" action="action_campaign_duplicator_form" sequence="4"/>
 
     <!--
     =======================================================
@@ -986,7 +989,7 @@
         <field name="view_id" ref="view_dm_customers_list_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_customers_list" parent="dm.menu_dm_config_custlist" action="action_dm_customers_list" sequence="1" />
+    <menuitem id="menu_action_dm_customers_list" parent="dm.menu_dm_config_custlist_list" action="action_dm_customers_list" sequence="3"/>
 
     <!--
     =======================================================
@@ -1020,14 +1023,14 @@
     </record>
 
     <record model="ir.actions.act_window" id="action_dm_customers_list_type">
-        <field name="name">All Customers List Type</field>
+        <field name="name">All Customers Lists Types</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">dm.customers_list.type</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="view_dm_customers_list_type_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_customers_list_type" parent="dm.menu_dm_config_custlist" action="action_dm_customers_list_type" sequence="1" />
+    <menuitem id="menu_action_dm_customers_list_type" parent="dm.menu_dm_config_custlist_list" action="action_dm_customers_list_type" sequence="2"/>
 
     <!--
     =======================================================
@@ -1061,14 +1064,14 @@
     </record>
 
     <record model="ir.actions.act_window" id="action_dm_customers_list_recruit_origin">
-        <field name="name">All Customers List Recruiting Origin</field>
+        <field name="name">All Customers Lists Recruiting Origins</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">dm.customers_list.recruit_origin</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="view_dm_customers_list_recruit_origin_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_customers_list_recruit_origin" parent="dm.menu_dm_config_custlist" action="action_dm_customers_list_recruit_origin" sequence="1" />
+    <menuitem id="menu_action_dm_customers_list_recruit_origin" parent="dm.menu_dm_config_custlist_list" action="action_dm_customers_list_recruit_origin" sequence="0"/>
 
     <!--
         =======================================================
@@ -1146,7 +1149,7 @@
                         <field name="segment_ids" colspan="4" nolabel="1">
                         <form>
                             <field name="name" string="Name" select="1"/>
-                            <field name="code1" string="Code"/>
+                            <field name="code" string="Code"/>
                             <field name="proposition_id" />
                             <field name="active" />
                             <newline/>
@@ -1159,7 +1162,7 @@
                         </form>
                         <tree string="Segments">
                             <field name="name" string="Name"/>
-                            <field name="code1" string="Code"/>
+                            <field name="code" string="Code"/>
                         </tree>
                         </field>
                     </page>
@@ -1190,7 +1193,7 @@
         <field name="view_id" ref="view_dm_customers_file_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_customers_file" parent="dm.menu_dm_config_custlist" action="action_dm_customers_file" sequence="2" />
+    <menuitem id="menu_action_dm_customers_file" parent="dm.menu_dm_config_custlist_file" action="action_dm_customers_file"/>
 
 
 <!--

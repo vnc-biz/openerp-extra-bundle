@@ -28,8 +28,6 @@ import pooler
 import mx.DateTime
 import base64
 from tools.translate import _
-from launchpadlib.launchpad import Launchpad, EDGE_SERVICE_ROOT
-from launchpadlib.credentials import Credentials
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 import os
@@ -38,6 +36,12 @@ import pickle
 import time
 import sys
 import datetime
+
+try:
+    from launchpadlib.launchpad import Launchpad, EDGE_SERVICE_ROOT
+    from launchpadlib.credentials import Credentials
+except:
+    raise osv.except_osv('Warning!','Please install launchpadlib direction package from https://help.launchpad.net/API/launchpadlib#Installation ')
 
 class lpServer(threading.Thread):
     launchpad = False
@@ -86,7 +90,10 @@ class lpServer(threading.Thread):
         return  res
 
     def getProject(self, project):
-        project = self.launchpad.projects[project]
+        try:
+            project = self.launchpad.projects[project]
+        except:
+            return None
         return project
 
     def getSeries(self, project):
@@ -111,11 +118,12 @@ class project_project(osv.osv):
                 'series_ids' : fields.one2many('lp.series', 'project_id', 'LP Series'),
                 'milestone_ids' : fields.one2many('lp.project.milestone', 'project_id', 'LP Milestone'),
                 'bugs_target': fields.char('Bugs Target', size=300),
+                'flag':fields.boolean('Synchronize Lp'),
                 }        
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
-        vals['bugs_target'] = "https://api.edge.launchpad.net/beta/" + vals['name']
-        result = super(osv.osv, self).write(cr, uid, ids[0], vals, context)
-        return result
+        if vals.get('name' , False):
+            vals['bugs_target'] = "https://api.edge.launchpad.net/beta/" + vals['name']
+        return  super(osv.osv, self).write(cr, uid, ids, vals, context)
     
 project_project()        
 
@@ -235,9 +243,9 @@ class crm_case(osv.osv):
         project_id=prj.search(cr,uid,[])
         for prj_id in prj.browse(cr,uid, project_id):
             project_name=str(prj_id.name)
-            if project_name.find('openobject') == 0:
+            lp_project = lp_server.getProject(project_name)
+            if lp_project:
                 prjs=lp_server.get_lp_bugs(project_name)
-                lp_project = lp_server.getProject(project_name)
                 self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
                 for key, bugs in prjs.items():
                         for bug in bugs:

@@ -5,19 +5,19 @@
 <pageGraphics>
 
 <place x="0.8cm" y="-2.05cm"  width="100.0cm" height="5cm">
-<para style="P24">[[ (o.partner_id.membership_vcs or o.name) or '' ]] </para>
+<para style="P24">[[ (o.domiciled and '**********') or (o.name) or '' ]] </para>
 </place>
 <place x="0.8cm" y="3.65cm"  width="100.0cm" height="5cm">
-<para style="P25d1">[[ fr_convert(o.amount_total).upper()[:28] ]]</para>
+<para style="P25d1">[[ (o.domiciled and '**') or fr_convert(o.amount_total).upper()[:28] ]]</para>
 </place>
 <place x="0.8cm" y="2.85cm"  width="100.0cm" height="5cm">
-<para style="P25d1">[[ fr_convert(o.amount_total).upper()[28:] ]]</para>
+<para style="P25d1">[[ (o.domiciled and '**') or fr_convert(o.amount_total).upper()[28:] ]]</para>
 </place>
 <place x="4.1cm" y="2.1cm"  width="100.0cm" height="5cm">
-<para style="P24c1">[[ o.amount_total ]]</para>
+<para style="P24c1">[[ (o.domiciled and '***') or o.amount_total ]]</para>
 </place>
 <place x="7.12cm" y="-2.1cm"  width="100.0cm" height="5cm">
-<para style="P24bis"> [[ '    '.join(map(lambda i : i , str(o.partner_id.membership_vcs or o.name or ''))) ]] </para>
+<para style="P24bis"> [[ '    '.join(map(lambda i : i , (o.domiciled and '***********') or str(o.name or ''))) ]] </para>
 </place>
 
 <place x="10" y="0.5cm"  width="541.0" height="8.35cm">
@@ -140,8 +140,8 @@
 										<td><para style="P24"></para></td>
 									</tr>
 									<tr>
-										<td><para style="P25c"></para><xpre style="P25c">[[ '     '.join(map(lambda i : i , str(get_value(o.amount_total)))) ]]</xpre></td>
-										<td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10">[[ get_decimal_value(o.amount_total) ]]</xpre></td>
+										<td><para style="P25c"></para><xpre style="P25c">[[ '     '.join(map(lambda i : i , (o.domiciled and '***') or str(get_value(o.amount_total)))) ]]</xpre></td>
+										<td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10">[[ (o.domiciled and '**') or get_decimal_value(o.amount_total) ]]</xpre></td>
 									</tr>
 								</blockTable>
 							</td>
@@ -181,7 +181,7 @@
 						<blockTable colWidths="194.0,196.0" style="Tableau10">
 						<tr>
 							<td>
-								<para style="P25d" leftIndent="30">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]][[ o.address_invoice_id.title or '' ]] [[ o.address_invoice_id.name ]] </para>
+								<para style="P25d" leftIndent="30">[[ (o.domiciled and 'Ne pas payer' or o.partner_id.title) or '' ]] [[ not(o.domiciled) and (o.partner_id.name+' ') ]][[ (not(o.domiciled) and o.address_invoice_id.title) or '' ]] [[ (not(o.domiciled) and o.address_invoice_id.name) or '' ]] </para>
 							</td>
 							<td>
 								<para style="P24"></para>
@@ -190,7 +190,7 @@
 						<tr>
 							<td>
 								<para style="P24"></para>
-								<para style="P25d" leftIndent="30"> [[ o.address_invoice_id.street ]] [[ o.address_invoice_id.street2 or '' ]]</para>
+								<para style="P25d" leftIndent="30"> [[ (o.domiciled and 'Paiement demande a votre organisme bancaire') or o.address_invoice_id.street ]] [[ not(o.domiciled) and o.address_invoice_id.street2 or '' ]]</para>
 							</td>
 							<td>
 								<para style="P24"></para>
@@ -199,7 +199,7 @@
 						<tr>
 							<td>
 								<para style="P24"></para>
-								<para style="P25d" leftIndent="30"> [[ o.address_invoice_id.zip or '' ]] [[ o.address_invoice_id.city or '' ]]</para>
+								<para style="P25d" leftIndent="30"> [[ not(o.domiciled) and o.address_invoice_id.zip or '' ]] [[ not(o.domiciled) and o.address_invoice_id.city or '' ]]</para>
 							</td>
 							<td>
 								<para style="P24"></para>
@@ -386,7 +386,6 @@
 </para>
 
 <para style="P23">Invoice [[ ((o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')) or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
-<para style="P23">VCS Number : [[ find_vcs(o.id) ]]</para>
 <para style="P23">PRO-FORMA [[ ((o.type == 'out_invoice' and o.state == 'proforma') or removeParentNode('para')) and '' ]]</para>
 <para style="P23">Draft Invoice [[ ((o.type == 'out_invoice' and o.state == 'draft') or removeParentNode('para')) and '' ]]</para>
 <para style="P23">Canceled Invoice [[ ((o.type == 'out_invoice' and o.state == 'cancel') or removeParentNode('para')) and '' ]]</para>

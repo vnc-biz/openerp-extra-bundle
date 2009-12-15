@@ -39,14 +39,14 @@
     </record>
 	
 	<record model="ir.actions.act_window" id="action_dm_order_entry_filter_form">
-        <field name="name">All Order Entry Filters</field>
+        <field name="name">All Orders Sessions Filters</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">dm.order.entry.filter</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="view_dm_order_entry_filter_tree"/>
     </record>
 
-    <menuitem id="menu_dm_order_entry_filter_form" parent="dm.menu_dm_config_customer" action="action_dm_order_entry_filter_form"/>
+    <menuitem id="menu_dm_order_entry_filter_form" parent="dm_order_entry.menu_dm_config_custo_entries" action="action_dm_order_entry_filter_form" sequence="0"/>
 
 	<!-- 
 		Order Entry Session

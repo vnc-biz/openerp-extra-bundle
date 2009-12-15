@@ -25,11 +25,13 @@ import pooler
 
 invoice_form = """<?xml version="1.0"?>
 <form string="Select Message">
+    <label string="You can here specify a message to print in footer of each invoice" colspan="4"/>
+    <separator colspan="4"/>
     <field name="message"/>
 </form>"""
 
 invoice_fields = {
-    'message': {'string': 'Message', 'type': 'many2one', 'relation': 'notify.message', 'required': True},
+    'message': {'string': 'Message', 'type': 'many2one', 'relation': 'notify.message', 'required': False},
    }
 
 class wizard_report(wizard.interface):

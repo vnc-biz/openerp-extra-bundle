@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
+
+	<menuitem name="Extractions" id="menu_dm_config_extract" parent="dm.menu_dm_config" sequence="4"/>
+
     <!--
     =======================================================
     SEGMENTATION VIEWS
@@ -102,7 +105,7 @@
         <field name="view_id" ref="view_dm_address_segmentation_tree"/>
     </record>
 	
-    <menuitem id="menu_action_dm_address_segmentation_form" parent="dm.menu_dm_config_customer" action="action_dm_address_segmentation_form" sequence="0" />
+    <menuitem id="menu_action_dm_address_segmentation_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_address_segmentation_form" sequence="0" />
    
 	<record id="view_dm_campaign_proposition_segments" model="ir.ui.view">
 	   <field name="name">dm_campaign_proposition_segments</field>
@@ -154,7 +157,7 @@
    </field>
   </record>
 -->
-<menuitem id="menu_action_dm_address_segmentation_form" parent="dm.menu_dm_config_customer" action="action_dm_address_segmentation_form" sequence="0" />	
+
     </data>
 </openerp>
     

@@ -77,7 +77,7 @@ class account_invoice(osv.osv):
                     membership_flag = True
         if data_invoice.partner_id.alert_membership and membership_flag:
             raise osv.except_osv('Error!',data_invoice.partner_id.alert_explanation or 'Partner is not valid')
-
+        
         #create other move lines if the invoice_line is related to a check payment or an AWEX credence
         for inv in self.browse(cr, uid, ids):
             for item in self.pool.get('account.invoice.line').search(cr, uid, [('invoice_id','=',inv.id)]):
@@ -147,8 +147,38 @@ class account_invoice(osv.osv):
 
         return True
 
+    def action_number(self, cr, uid, ids, *args):
+        res = super(account_invoice,self).action_number(cr, uid, ids, args)
+        for inv in self.browse(cr, uid, ids):
+            vcs =''
+            if inv.number and not inv.name:
+                vcs3=str(inv.number).split('/')[1]
+                vcs1='0'+ str(inv.date_invoice[2:4])
+                if len(str(vcs3))>=5:
+                    vcs2=str(inv.number[3]) + str(vcs3[0:5])
+                elif len(str(vcs3))==4:
+                    vcs2=str(inv.number[3]) + '0' +str(vcs3)
+                else:
+                    vcs2=str(inv.number[3]) + '00' +str(vcs3)
+
+                vcs4= vcs1 + vcs2 + '0'
+
+                vcs5=int(vcs4)
+                check_digit=vcs5%97
+
+                if check_digit==0:
+                    check_digit='97'
+                if check_digit<=9:
+                    check_digit='0'+str(check_digit)
+                vcs=vcs1+'/'+vcs2+'/'+ '0' +str(check_digit)
+
+                self.write(cr, uid, [inv.id], {'name':vcs})
+                ids = self.pool.get('account.move.line').search(cr, uid, [('move_id','=',inv.move_id.id)])
+                self.pool.get('account.move.line').write(cr, uid, ids, {'name':vcs})
+        return res
+
     #raise an error if the partner has the warning 'alert_others' when we choose him in the account_invoice form
-    def onchange_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False, partner_bank_id=False):
+    def onchange_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False):
         inv_special=False
         if partner_id:
             data_partner = self.pool.get('res.partner').browse(cr,uid,partner_id)
@@ -156,7 +186,7 @@ class account_invoice(osv.osv):
             if data_partner.alert_others:
                 raise osv.except_osv('Error!',data_partner.alert_explanation or 'Partner is not valid')
 
-        data=super(account_invoice,self).onchange_partner_id( cr, uid, ids, type, partner_id,date_invoice, payment_term, partner_bank_id)
+        data=super(account_invoice,self).onchange_partner_id( cr, uid, ids, type, partner_id,date_invoice, payment_term)
         data['value']['invoice_special']=inv_special
         return data
 

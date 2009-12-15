@@ -96,25 +96,6 @@ class dm_campaign(osv.osv): #{{{
             result[i] = 0.0
         return result
 
-    def _campaign_code(self, cr, uid, ids, name, args, context={}):
-        result = {}
-        for id in ids:
-            camp = self.browse(cr, uid, [id])[0]
-            offer_code = camp.offer_id and camp.offer_id.code or ''
-            trademark_code = camp.trademark_id and camp.trademark_id.code or ''
-            dealer_code = camp.dealer_id and camp.dealer_id.ref or ''
-            date_start = camp.camp_date_start or ''
-            country_code = camp.country_id.code or ''
-            date = date_start.split('-')
-            year = month = ''
-            if len(date) == 3:
-                year = date[0][2:]
-                month = date[1]
-            final_date = month + year
-            code1 = '-'.join([offer_code, dealer_code, trademark_code, final_date, country_code])
-            result[id] = code1
-        return result
-
     def onchange_lang_currency(self, cr, uid, ids, country_id):
         value = {}
         if country_id:
@@ -195,10 +176,8 @@ class dm_campaign(osv.osv): #{{{
                 result[campaign.id] = str(quantity)
         return result
 
-
     _columns = {
-        'code1': fields.function(_campaign_code, string='Code', type="char", 
-                                 size=64, method=True, readonly=True),
+        'code': fields.char('Code', size=64),                       
         'offer_id': fields.many2one('dm.offer', 'Offer', 
                                     domain=[('state', 'in', ['ready', 'open']),
                                 ('type', 'in', ['new', 'standart', 'rewrite'])], 
@@ -360,7 +339,7 @@ class dm_campaign(osv.osv): #{{{
               'offer_id': camp.offer_id.id,
               'date': camp.camp_date_start.split(' ')[0],
               'campaign_id': camp.id,
-              'code': camp.code1,
+              'code': camp.code,
               'responsible_id': camp.responsible_id.id,
               }
         history = self.pool.get("dm.offer.history")
@@ -653,30 +632,7 @@ class dm_campaign_proposition(osv.osv): #{{{
                 self.write(cr, uid, proposition_id, {'item_ids': [(6, 0, [])]})
         return proposition_id
 
-    def _proposition_code(self, cr, uid, ids, name, args, context={}):
-        result = {}
-        for id in ids:
-            pro = self.browse(cr, uid, [id])[0]
-            pro_ids = self.search(cr, uid, [('camp_id', '=', pro.camp_id.id)])
-            i = 1
-            for pro_id in pro_ids:
-                camp_code = pro.camp_id.code1 or ''
-                offer_code = pro.camp_id.offer_id and pro.camp_id.offer_id.code or ''
-                trademark_code = pro.camp_id.trademark_id and pro.camp_id.trademark_id.name or ''
-                dealer_code = pro.camp_id.dealer_id and pro.camp_id.dealer_id.ref or ''
-                date_start = pro.camp_pro_date_start or ''
-                date = date_start.split('-')
-                year = month = ''
-                if len(date) == 3:
-                    year = date[0][2:]
-                    month = date[1]
-                country_code = pro.camp_id.country_id.code or ''
-                seq = '%%0%sd' % 2 % i
-                final_date = month + year
-                code1 = '-'.join([camp_code, seq])
-                result[pro_id] = code1
-                i += 1
-        return result
+   
 
     def _quantity_wanted_get(self, cr, uid, ids, name, args, context={}):
         result = {}
@@ -767,7 +723,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         return []
 
     _columns = {
-        'code1': fields.function(_proposition_code, string='Code', type="char", size=64, method=True, readonly=True),
+        'code': fields.char('Code', size=64),         
         'camp_id': fields.many2one('dm.campaign', 'Campaign', 
                                    ondelete = 'cascade', required=True),
         'sale_rate': fields.float('Sale Rate (%)', digits=(16, 2),
@@ -1062,7 +1018,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         return seg_copy_id
 
     _columns = {
-        'code1': fields.function(_segment_code, string='Code', type="char", 
+        'code': fields.function(_segment_code, string='Code', type="char", 
                                  size=64, method=True, readonly=True),
         'campaign_id': fields.related('proposition_id', 'camp_id', 
                                       type='many2one', relation='dm.campaign', 

@@ -43,7 +43,6 @@
 										<form string="Survey Question">
 											<field name="question" colspan="4" select="1"/>
 											<field name="sequence"/>
-											<field name="is_require_answer" select="1" />
 											<field name="tot_resp" select="2"/>
 											<field name="type" />
 											<notebook colspan="4">
@@ -238,7 +237,6 @@
 					<form string="Survey Question">
 						<field name="question" colspan="4" select="1"/>
 						<field name="sequence"/>
-						<field name="is_require_answer" select="1"/>
 						<field name="tot_resp" select="2"/>
 						<field name="type" />
 						<notebook colspan="4">

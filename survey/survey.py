@@ -27,6 +27,17 @@ import datetime
 import copy
 from tools.translate import _
 
+QUESTION_TYPE =[('multiple choice (only one answer)','Multiple Choice (Only One Answer)'),
+                 ('multiple choice (multiple answer)','Multiple Choice (Multiple Answer)'),
+                 ('matrix of choices (only one answer per row)','Matrix of Choices (Only One Answers Per Row)'),
+                 ('matrix of choices (multiple answer per row)','Matrix of Choices (Multiple Answers Per Row)'),
+                 ('matrix of drop-down menus','Matrix of Drop-down Menus'),
+                 ('rating scale','Rating Scale'),('single textbox','Single Textbox'),
+                 ('multiple textboxes','Multiple Textboxes'),
+                 ('numerical textboxes','Numerical Textboxes'),('date','Date'),
+                 ('date and time','Date and Time'),('descriptive text','Descriptive Text')
+                ]
+                                   
 class survey(osv.osv):
     _name = 'survey'
     _description = 'Survey'
@@ -146,15 +157,7 @@ class survey_question(osv.osv):
         'survey' : fields.related('page_id', 'survey_id', type='many2one', relation='survey', string='Survey'),
         'descriptive_text' : fields.text('Descriptive Text', size=255),
         'column_heading_ids' : fields.one2many('survey.question.column.heading', 'question_id',' Column heading'),
-        'type' : fields.selection([('multiple choice (only one answer)','Multiple Choice (Only One Answer)'),\
-                                   ('multiple choice (multiple answer)','Multiple Choice (Multiple Answer)'),\
-                                   ('matrix of choices (only one answer per row)','Matrix of Choices (Only One Answers Per Row)'),\
-                                   ('matrix of choices (multiple answer per row)','Matrix of Choices (Multiple Answers Per Row)'),\
-                                   ('matrix of drop-down menus','Matrix of Drop-down Menus'),\
-                                   ('rating scale','Rating Scale'),('single textbox','Single Textbox'),\
-                                   ('multiple textboxes','Multiple Textboxes'),\
-                                   ('numerical textboxes','Numerical Textboxes'),('date','Date'),\
-                                   ('date and time','Date and Time'),('descriptive text','Descriptive Text')], 'Question Type',  required=1,),
+        'type' : fields.selection(QUESTION_TYPE, 'Question Type',  required=1,),
         'comment_label' : fields.char('Field Label', size = 255),
         'comment_field_type' : fields.selection([('',''),('char', 'Single Line Of Text'), ('text', 'Paragraph of Text')], 'Comment Field Type'),
         'comment_valid_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
@@ -202,8 +205,8 @@ class survey_question(osv.osv):
     }
     
     def write(self, cr, uid, ids, vals, context=None):
-        if vals.has_key('type'):
-            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
+#        if vals.has_key('type'):
+#            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
         for question in questions:
             col_len = len(question['column_heading_ids'])
@@ -362,6 +365,8 @@ class survey_response(osv.osv):
         'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
         'comment' : fields.text('Notes'),
         'single_text' : fields.char('Text', size=255),
+        'question_type' : fields.related('question_id', 'type', type='selection',
+                            selection = QUESTION_TYPE, string='Question Type', readonly=1),
     }
     _defaults = {
         'state' : lambda * a: "draft"

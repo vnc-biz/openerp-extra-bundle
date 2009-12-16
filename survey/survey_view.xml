@@ -566,32 +566,33 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Survey Response">
-				<field name="response_id"/>
-				<field name="date_create" select="1"/>
-				<field name="date_modify" select="2"/>
-				<field name="response_type" select="1"/>
-				<notebook colspan="4">
-					<page string="Response">
-						<field name="response_answer_ids" colspan="4" nolabel="1"/>
-						<group col="5" colspan="4">
-							<field name="state"/>
-							<button name="response_draft"
-								string="Set to draft" states="done,skip" type="object"
-								icon="gtk-new"/>
-							<button name="response_done" string="Done"
-								states="draft" type="object" icon="gtk-go-forward"/>
-							<button name="response_skip" string="Skip"
-								states="draft" type="object" icon="gtk-close"/>
-						</group>
-					</page>
-					<page string="Comment">
-						<separator string="Description" colspan="4"/>
-						<field name="comment" nolabel="1" colspan="4"/>
-					</page>
-					<page string="Single Textbox">
-						<field name="single_text" colspan="4"/>
-					</page>
-				</notebook>
+					<field name="question_type"/>
+					<field name="response_id"/>
+					<field name="date_create" select="1"/>
+					<field name="date_modify" select="2"/>
+					<field name="response_type" select="1"/>
+					<notebook colspan="4">
+						<page string="Response">
+							<field name="response_answer_ids" colspan="4" nolabel="1"/>
+							<group col="5" colspan="4">
+								<field name="state"/>
+								<button name="response_draft"
+									string="Set to draft" states="done,skip" type="object"
+									icon="gtk-new"/>
+								<button name="response_done" string="Done"
+									states="draft" type="object" icon="gtk-go-forward"/>
+								<button name="response_skip" string="Skip"
+									states="draft" type="object" icon="gtk-close"/>
+							</group>
+						</page>
+						<page string="Comment" attrs="{'invisible':[('question_type','!=','multiple choice (only one answer)'), ('question_type','!=','multiple choice (multiple answer)'), ('question_type','!=','matrix of choices (multiple answer per row)'),('question_type','!=','matrix of choices (only one answer per row)'),('question_type','!=','matrix of drop-down menus'),('question_type','!=','rating scale')]}">
+							<separator string="Description" colspan="4"/>
+							<field name="comment" nolabel="1" colspan="4"/>
+						</page>
+						<page string="Single Textboxes" attrs="{'invisible':[('question_type','!=','single textbox')]}">
+							<field name="single_text" colspan="4"/>
+						</page>
+					</notebook>
 				</form>
 			</field>
 		</record>
@@ -662,7 +663,6 @@
 					<label align="0.0" string="Use if question type is rating scale" />
 					<separator string="Menu Choices (each choice on separate lines)" colspan="4"/>
 					<field name="menu_choice" nolabel="1" colspan="4"/>
-					
 				</form>
 			</field>
 		</record>

@@ -141,6 +141,8 @@ class maintenance_maintenance_module(osv.osv):
               raise osv.except_osv(_('Error !'),
                                    _('You should have zip file of module loaded'))
         m = hashlib.md5()
+        # todo: - except dont allow : __terp__file in order to allow them to add the certificate number
+        #       - move this function on pressing on button to put module in 'done' state
         m.update(module.module_zip)
         m.update(module.name)
         cert_num = int(m.hexdigest() ,16)

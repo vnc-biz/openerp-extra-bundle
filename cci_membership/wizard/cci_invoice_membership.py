@@ -89,11 +89,12 @@ def _invoice_membership(self, cr, uid, data, context):
             'domain': [
                 ('id', 'in', invoice_list),
                 ],
-            'name': 'Membership invoice',
+            'name': _('Membership invoice'),
             'view_type': 'form',
             'view_mode': 'tree,form',
             'res_model': 'account.invoice',
             'type': 'ir.actions.act_window',
+            'context':{'type':'out_invoice'},
         }
     return value
 

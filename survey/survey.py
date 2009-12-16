@@ -376,7 +376,7 @@ class survey_response_answer(osv.osv):
         'response_id' : fields.many2one('survey.response', 'Response', ondelete='cascade'),
         'answer_id' : fields.many2one('survey.answer', 'Answer', required=1, ondelete='cascade'),
         'answer' : fields.char('Value', size =255),
-        'value_choice' : fields.char('Value Choice (Use Only Matrix of Drop-down Menus)', size =255),
+        'value_choice' : fields.char('Value Choice', size =255),
         'comment' : fields.text('Notes'),
     }
 survey_response_answer()

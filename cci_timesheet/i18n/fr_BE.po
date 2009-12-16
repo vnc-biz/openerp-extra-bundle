@@ -18,50 +18,50 @@ msgstr ""
 #. module: cci_timesheet
 #: field:cci.timesheet,asked_amount:0
 msgid "Asked Amount"
-msgstr ""
+msgstr "Montant réclamé"
 
 #. module: cci_timesheet
 #: wizard_field:cci_timesheet.create_lines,init,date1:0
 msgid "Date1"
-msgstr ""
+msgstr "Date 1"
 
 #. module: cci_timesheet
 #: selection:cci.timesheet,state:0
 msgid "Confirmed"
-msgstr ""
+msgstr "Confirmée"
 
 #. module: cci_timesheet
 #: wizard_field:cci_timesheet.create_lines,init,date2:0
 msgid "Date2"
-msgstr ""
+msgstr "Date 2"
 
 #. module: cci_timesheet
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'Objet doit commence par x_ et ne pas comporter de caractères spéciaux"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,zip_id:0
 #: field:crm.case,zip_id:0
 #: field:project.task.work,zip_id:0
 msgid "Zip"
-msgstr ""
+msgstr "Code postal"
 
 #. module: cci_timesheet
 #: view:cci.timesheet:0
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #. module: cci_timesheet
 #: model:ir.model,name:cci_timesheet.model_cci_timesheet_line
 msgid "CCI Timesheet Line"
-msgstr ""
+msgstr "Ligne de Timesheet"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,hour_from:0
 #: field:report.timesheet.affectation,hour_from:0
 msgid "Hour From"
-msgstr ""
+msgstr "Heure de début"
 
 #. module: cci_timesheet
 #: view:cci.timesheet:0
@@ -71,82 +71,82 @@ msgstr ""
 #: model:ir.ui.menu,name:cci_timesheet.menu_time_timesheet
 #: model:ir.ui.menu,name:cci_timesheet.menu_timesheet
 msgid "Timesheet"
-msgstr ""
+msgstr "Timesheet"
 
 #. module: cci_timesheet
 #: wizard_button:cci_timesheet.create_lines,init,open:0
 msgid "Create lines"
-msgstr ""
+msgstr "Créer des lignes"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,state:0
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 #. module: cci_timesheet
 #: model:ir.model,name:cci_timesheet.model_report_timesheet_affectation
 msgid "Report on Timesheet and Affectation"
-msgstr ""
+msgstr "Rapport sur les timesheet et les affectations"
 
 #. module: cci_timesheet
 #: selection:cci.timesheet,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,date_from:0
 #: field:cci_timesheet.affectation,date_from:0
 #: field:report.timesheet.affectation,date_from:0
 msgid "From Date"
-msgstr ""
+msgstr "Date de début"
 
 #. module: cci_timesheet
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle incorrecte dans la définition de l'action"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,diff_hours:0
 msgid "Hour To - Hour From"
-msgstr ""
+msgstr "Heure de fin - heure de fin"
 
 #. module: cci_timesheet
 #: field:report.timesheet.affectation,user_name:0
 msgid "Employee"
-msgstr ""
+msgstr "Employé"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.grant,name:0
 msgid "Grant Name"
-msgstr ""
+msgstr "Nom de la subvention"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.affectation,percentage:0
 #: field:report.timesheet.affectation,th_percentage:0
 msgid "Percentage"
-msgstr ""
+msgstr "Pourcentage"
 
 #. module: cci_timesheet
 #: view:cci.timesheet:0
 msgid "Set to Draft"
-msgstr ""
+msgstr "Mettre à Brouillon"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,hour_to:0
 #: field:report.timesheet.affectation,hour_to:0
 msgid "Hour To"
-msgstr ""
+msgstr "Heure de fin"
 
 #. module: cci_timesheet
 #: model:ir.ui.menu,name:cci_timesheet.menu_time_reporting
 msgid "Reporting"
-msgstr ""
+msgstr "Reporting"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,description:0
 #: field:report.timesheet.affectation,description:0
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,line_ids:0
@@ -155,7 +155,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:cci_timesheet.action_cci_timesheet_line_tree
 #: model:ir.ui.menu,name:cci_timesheet.menu_time_line
 msgid "Timesheet Lines"
-msgstr ""
+msgstr "Lignes de timesheet"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,grant_id:0
@@ -166,62 +166,62 @@ msgstr ""
 #: field:project.task.work,grant_id:0
 #: field:report.timesheet.affectation,grant_name:0
 msgid "Grant"
-msgstr ""
+msgstr "Subvention"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.affectation,rate:0
 #: field:report.timesheet.affectation,rate:0
 msgid "Rate"
-msgstr ""
+msgstr "Taux"
 
 #. module: cci_timesheet
 #: model:ir.model,name:cci_timesheet.model_cci_timesheet
 #: model:ir.module.module,shortdesc:cci_timesheet.module_meta_information
 msgid "CCI Timesheet"
-msgstr ""
+msgstr "CCI Timesheet"
 
 #. module: cci_timesheet
 #: field:report.timesheet.affectation,diff_hours:0
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #. module: cci_timesheet
 #: wizard_field:cci_timesheet.create_lines,init,grant:0
 msgid "Grants"
-msgstr ""
+msgstr "Subventions"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.affectation,user_id:0
 #: field:cci_timesheet.line,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,kms:0
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilomètres"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,sending_date:0
 msgid "Sending Date"
-msgstr ""
+msgstr "Date d'envoi"
 
 #. module: cci_timesheet
 #: model:ir.ui.menu,name:cci_timesheet.menu_time_configuration
 msgid "Configuration"
-msgstr ""
+msgstr "Configuration"
 
 #. module: cci_timesheet
 #: model:ir.actions.act_window,name:cci_timesheet.action_report_timesheet_affectation
 #: model:ir.ui.menu,name:cci_timesheet.menu_time_reporting_employee
 #: view:report.timesheet.affectation:0
 msgid "Timesheets per Employee"
-msgstr ""
+msgstr "Timesheets par employé"
 
 #. module: cci_timesheet
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,name:0
@@ -229,68 +229,70 @@ msgstr ""
 #: field:cci_timesheet.line,name:0
 #: field:report.timesheet.affectation,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.affectation,hours_per_week:0
 #: field:report.timesheet.affectation,hours_per_week:0
 msgid "Hours Per Week"
-msgstr ""
+msgstr "Heures par semaine"
 
 #. module: cci_timesheet
 #: wizard_view:cci_timesheet.create_lines,init:0
 msgid "Create Timesheet Line"
-msgstr ""
+msgstr "Créer la ligne de timesheet"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,contact_id:0
 #: field:project.task.work,contact_id:0
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,partner_id:0
 #: field:project.task.work,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: cci_timesheet
 #: selection:cci.timesheet,state:0
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulée"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,accepted_amount:0
 msgid "Accepted Amount"
-msgstr ""
+msgstr "Montant accepté"
 
 #. module: cci_timesheet
 #: view:cci.timesheet:0
 msgid "Validate"
-msgstr ""
+msgstr "Valider"
 
 #. module: cci_timesheet
 #: model:ir.model,name:cci_timesheet.model_cci_timesheet_grant
 msgid "CCI Timesheet Grant"
-msgstr ""
+msgstr "Timesheet de subvention"
 
 #. module: cci_timesheet
 #: model:ir.module.module,description:cci_timesheet.module_meta_information
 msgid "\n"
 "        A Customized timesheet module.\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        un module de timesheet personalisé.\n"
+"    "
 
 #. module: cci_timesheet
 #: field:crm.case,timesheet_line_id:0
 #: field:project.task.work,timesheet_line_id:0
 msgid "Timesheet Line"
-msgstr ""
+msgstr "Ligne de timesheet"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,suppl_cost:0
 msgid "Supplementary Cost"
-msgstr ""
+msgstr "Coûts supplémentaire"
 
 #. module: cci_timesheet
 #: view:cci_timesheet.affectation:0
@@ -298,66 +300,66 @@ msgstr ""
 #: model:ir.model,name:cci_timesheet.model_cci_timesheet_affectation
 #: model:ir.ui.menu,name:cci_timesheet.menu_time_timesheet_affect
 msgid "Timesheet Affectation"
-msgstr ""
+msgstr "Affectation de timesheet"
 
 #. module: cci_timesheet
 #: field:cci.timesheet,date_to:0
 #: field:cci_timesheet.affectation,date_to:0
 #: field:report.timesheet.affectation,date_to:0
 msgid "To Date"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: cci_timesheet
 #: view:cci_timesheet.line:0
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.grant,affectation_ids:0
 msgid "Affectation Lines"
-msgstr ""
+msgstr "Lignes d'affectation"
 
 #. module: cci_timesheet
 #: field:cci_timesheet.line,day_date:0
 #: field:report.timesheet.affectation,day_date:0
 msgid "Date of the Day"
-msgstr ""
+msgstr "Date du jour"
 
 #. module: cci_timesheet
 #: view:cci_timesheet.line:0
 msgid "Extra Info"
-msgstr ""
+msgstr "Info supplémentaire"
 
 #. module: cci_timesheet
 #: view:cci.timesheet:0
 #: wizard_button:cci_timesheet.create_lines,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #. module: cci_timesheet
 #: field:report.timesheet.affectation,affectation_name:0
 msgid "Affectation"
-msgstr ""
+msgstr "Affectation"
 
 #. module: cci_timesheet
 #: selection:cci.timesheet,state:0
 msgid "Validated"
-msgstr ""
+msgstr "Validée"
 
 #. module: cci_timesheet
 #: view:cci_timesheet.grant:0
 #: model:ir.actions.act_window,name:cci_timesheet.action_grant_tree
 msgid "Timesheet Grant"
-msgstr ""
+msgstr "Timesheet de subvention"
 
 #. module: cci_timesheet
 #: field:report.timesheet.affectation,timesheet_id:0
 msgid "Timesheet Ref"
-msgstr ""
+msgstr "Réf de timesheet"
 
 #. module: cci_timesheet
 #: model:ir.actions.wizard,name:cci_timesheet.cci_timesheet_lines
 #: model:ir.ui.menu,name:cci_timesheet.cci_timesheet_lines_menu
 msgid "Create Timesheet Lines"
-msgstr ""
+msgstr "Créer des lignes de timesheet"
 

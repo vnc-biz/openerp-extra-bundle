@@ -18,53 +18,55 @@ msgstr ""
 #. module: cci_purchase
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues"
 
 #. module: cci_purchase
 #: model:ir.module.module,description:cci_purchase.module_meta_information
 msgid "\n"
 "        specific module for cci project which will use purchase module\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        module spécifique au projet CCI basé sur le module purchase\n"
+"    "
 
 #. module: cci_purchase
 #: view:purchase.order:0
 msgid "By Pass Approval"
-msgstr ""
+msgstr "Contouner l'Approbation"
 
 #. module: cci_purchase
 #: view:purchase.order:0
 #: field:purchase.order,internal_notes:0
 msgid "Internal Note"
-msgstr ""
+msgstr "Note Interne"
 
 #. module: cci_purchase
 #: view:purchase.order:0
 msgid "Cancel Purchase Order"
-msgstr ""
+msgstr "Annuler le bon d'achat"
 
 #. module: cci_purchase
 #: field:purchase.order,approvator:0
 msgid "Approved by"
-msgstr ""
+msgstr "Approuvé par"
 
 #. module: cci_purchase
 #: view:purchase.order:0
 msgid "Confirm Purchase Order"
-msgstr ""
+msgstr "Confirmer le bon d'achat"
 
 #. module: cci_purchase
 #: view:purchase.order:0
 msgid "Internal Approval"
-msgstr ""
+msgstr "Approbation Interne"
 
 #. module: cci_purchase
 #: view:purchase.order:0
 msgid "Notes to display on Purchase Order Report"
-msgstr ""
+msgstr "Notes a afficher sur les listes des bons d'achats"
 
 #. module: cci_purchase
 #: model:ir.module.module,shortdesc:cci_purchase.module_meta_information
 msgid "CCI Purchase"
-msgstr ""
+msgstr "CCI Purchase"
 

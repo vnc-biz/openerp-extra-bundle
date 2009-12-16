@@ -18,188 +18,188 @@ msgstr ""
 #. module: account_l10nbe_domiciliation
 #: view:res.company:0
 msgid "Dom80 Export"
-msgstr ""
+msgstr "Export DOM80"
 
 #. module: account_l10nbe_domiciliation
 #: model:ir.module.module,shortdesc:account_l10nbe_domiciliation.module_meta_information
 msgid "Account l10nbe Domiciliation"
-msgstr ""
+msgstr "Account l10nbe Domiciliation"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,export,note:0
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,file:0
 msgid "Saved File"
-msgstr ""
+msgstr "Fichier enregistré"
 
 #. module: account_l10nbe_domiciliation
 #: field:account.invoice,domiciled_send_date:0
 msgid "Domiciliation Sending Date"
-msgstr ""
+msgstr "Date d'envoi de la domiciliation"
 
 #. module: account_l10nbe_domiciliation
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'Objet doit commencer par x_ et ne pas comporter de caractères spéciaux !"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,init,msg2:0
 msgid "Message to the payer, part 2."
-msgstr ""
+msgstr "Messaye pour le payeur, seconde partie"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,init,collection_date:0
 msgid "Collection Date"
-msgstr ""
+msgstr "Date pivot"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_view:invoice.export.dom,export:0
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #. module: account_l10nbe_domiciliation
 #: selection:invoice.export.log,state:0
 msgid "Failed"
-msgstr ""
+msgstr "Raté"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_view:invoice.export.dom,export:0
 msgid "Save File..."
-msgstr ""
+msgstr "Enregistre fichier..."
 
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,note:0
 msgid "Creation Log"
-msgstr ""
+msgstr "Log de création"
 
 #. module: account_l10nbe_domiciliation
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle incorrect dans la définition de l'action"
 
 #. module: account_l10nbe_domiciliation
 #: model:ir.actions.act_window,name:account_l10nbe_domiciliation.action_account_invoice_log_tree
 #: model:ir.ui.menu,name:account_l10nbe_domiciliation.menu_action_action_invoice_export_tree
 msgid "Invoice Export Logs"
-msgstr ""
+msgstr "Logs des exportations de factures"
 
 #. module: account_l10nbe_domiciliation
 #: field:res.company,id_sender:0
 msgid "Identification number of the Sender"
-msgstr ""
+msgstr "Numéro d'identification de l'expéditeur"
 
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,state:0
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #. module: account_l10nbe_domiciliation
 #: help:res.company,id_creditor:0
 msgid "Creditor Id for Dom80 export header"
-msgstr ""
+msgstr "ID créditeur dans l'en-tête DOM80"
 
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Date de création"
 
 #. module: account_l10nbe_domiciliation
 #: view:invoice.export.log:0
 msgid "Payment Export Logs"
-msgstr ""
+msgstr "Logs des Export de paiement"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,init,msg1:0
 msgid "Message to the payer, part 1."
-msgstr ""
+msgstr "Message au payeur, première partie"
 
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,create_uid:0
 msgid "Creation User"
-msgstr ""
+msgstr "Créateur"
 
 #. module: account_l10nbe_domiciliation
 #: field:res.partner.bank,institution_code:0
 msgid "Institution Code"
-msgstr ""
+msgstr "Code de l'institution"
 
 #. module: account_l10nbe_domiciliation
 #: help:res.company,id_sender:0
 msgid "Sender Id for Dom80 export header"
-msgstr ""
+msgstr "ID de l'expéditeur dans le'en-tête DOM80"
 
 #. module: account_l10nbe_domiciliation
 #: model:ir.ui.menu,name:account_l10nbe_domiciliation.menu_action_action_invoice_export
 msgid "Invoice Export"
-msgstr ""
+msgstr "Exporter les factures"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_view:invoice.export.dom,init:0
 msgid "Export invoice to DOM80 format"
-msgstr ""
+msgstr "Exporter les factures au format DOM80"
 
 #. module: account_l10nbe_domiciliation
 #: field:res.partner,domiciliation:0
 msgid "Domiciliation Number"
-msgstr ""
+msgstr "Numéro de domiciliation"
 
 #. module: account_l10nbe_domiciliation
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues !"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_button:invoice.export.dom,export,close:0
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #. module: account_l10nbe_domiciliation
 #: model:ir.actions.wizard,name:account_l10nbe_domiciliation.wizard_invoice_export_dom
 msgid "Export Invoice"
-msgstr ""
+msgstr "Exoporte les factures"
 
 #. module: account_l10nbe_domiciliation
 #: selection:invoice.export.log,state:0
 msgid "Succeeded"
-msgstr ""
+msgstr "Réussi"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,export,invoice_file:0
 msgid "Export File"
-msgstr ""
+msgstr "Fichier Exporté"
 
 #. module: account_l10nbe_domiciliation
 #: field:res.company,id_creditor:0
 msgid "Identification number of the Creditor"
-msgstr ""
+msgstr "Numéro d'identification du créditeur"
 
 #. module: account_l10nbe_domiciliation
 #: help:invoice.export.dom,init,collection_date:0
 msgid "Requested collection date"
-msgstr ""
+msgstr "Date pivot"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_view:invoice.export.dom,init:0
 msgid "Export Invoices"
-msgstr ""
+msgstr "Exporter les factures"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,init,ref_file:0
 msgid "Reference of the file"
-msgstr ""
+msgstr "Référence du fichier"
 
 #. module: account_l10nbe_domiciliation
 #: field:account.invoice,domiciled:0
 msgid "Domiciled"
-msgstr ""
+msgstr "Domiciliée"
 
 #. module: account_l10nbe_domiciliation
 #: help:invoice.export.dom,init,ref_file:0
 msgid "Reference of the file, Used for Dom80 header"
-msgstr ""
+msgstr "Référence du fichier, utilisée dans l'en-tête DOM80"
 
 #. module: account_l10nbe_domiciliation
 #: model:ir.module.module,description:account_l10nbe_domiciliation.module_meta_information
@@ -208,30 +208,34 @@ msgid "\n"
 "        Adds Domiciled and Domiciled send date fields on invoice.\n"
 "        Domiciliation and Domiciliation Number fields on partner.\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        Lié au module l10n_be.\n"
+"        Ajoute les champs 'Domiciled' and 'Domiciled send date' aux factures,\n"
+"        et 'Domiciliation' et 'Domiciliation Number' sur les partenaires.\n"
+"    "
 
 #. module: account_l10nbe_domiciliation
 #: wizard_button:invoice.export.dom,init,export:0
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #. module: account_l10nbe_domiciliation
 #: help:res.partner.bank,institution_code:0
 msgid "Code of the financial institution used for Dom80 Export"
-msgstr ""
+msgstr "Code de l'institution financière utilisée dans l'export DOM80"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_button:invoice.export.dom,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annule"
 
 #. module: account_l10nbe_domiciliation
 #: field:res.partner,domiciliation_bool:0
 msgid "Domiciliation"
-msgstr ""
+msgstr "Domiciliation"
 
 #. module: account_l10nbe_domiciliation
 #: model:ir.model,name:account_l10nbe_domiciliation.model_invoice_export_log
 msgid "Invoice Export History"
-msgstr ""
+msgstr "Historique de l'Export des factures"
 

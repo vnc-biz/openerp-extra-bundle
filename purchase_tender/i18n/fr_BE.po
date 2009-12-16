@@ -18,94 +18,94 @@ msgstr ""
 #. module: purchase_tender
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues!"
 
 #. module: purchase_tender
 #: field:purchase.tender,date_end:0
 msgid "Date End"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: purchase_tender
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'Objet doit commencer par x_ et ne pas comporter de caractères spéciaux !"
 
 #. module: purchase_tender
 #: view:purchase.tender:0
 #: field:purchase.tender,description:0
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: purchase_tender
 #: model:ir.model,name:purchase_tender.model_purchase_tender
 #: field:purchase.order,tender_id:0
 #: view:purchase.tender:0
 msgid "Purchase Tender"
-msgstr ""
+msgstr "Appel d'Offre"
 
 #. module: purchase_tender
 #: model:ir.actions.act_window,name:purchase_tender.action_purchase_tender
 #: model:ir.ui.menu,name:purchase_tender.menu_purchase_Tender1
 #: model:ir.ui.menu,name:purchase_tender.menu_purchase_tender
 msgid "Purchase Tenders"
-msgstr ""
+msgstr "Appels d'offre"
 
 #. module: purchase_tender
 #: selection:purchase.tender,state:0
 msgid "Open"
-msgstr ""
+msgstr "Ouvert"
 
 #. module: purchase_tender
 #: field:purchase.tender,user_id:0
 msgid "Responsible"
-msgstr ""
+msgstr "Responsable"
 
 #. module: purchase_tender
 #: model:ir.actions.act_window,name:purchase_tender.action_purchase_tender_draft
 #: model:ir.ui.menu,name:purchase_tender.menu_purchase_Tender1_draft
 msgid "Draft Purchase Tenders"
-msgstr ""
+msgstr "Appels d'Offre brouillons"
 
 #. module: purchase_tender
 #: field:purchase.tender,state:0
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 #. module: purchase_tender
 #: selection:purchase.tender,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: purchase_tender
 #: model:ir.actions.act_window,name:purchase_tender.action_purchase_tender_open
 #: model:ir.ui.menu,name:purchase_tender.menu_purchase_Tender1_open
 msgid "Open Purchase Tenders"
-msgstr ""
+msgstr "Appels d'offre ouverts"
 
 #. module: purchase_tender
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle incorrect pour la définition de l'action"
 
 #. module: purchase_tender
 #: model:ir.module.module,shortdesc:purchase_tender.module_meta_information
 msgid "Purchase - Purchase Tender"
-msgstr ""
+msgstr "Achat - Appel d'offre"
 
 #. module: purchase_tender
 #: field:purchase.tender,name:0
 msgid "Tender Reference"
-msgstr ""
+msgstr "Référence"
 
 #. module: purchase_tender
 #: selection:purchase.tender,state:0
 msgid "Close"
-msgstr ""
+msgstr "Clôturé"
 
 #. module: purchase_tender
 #: field:purchase.tender,date_start:0
 msgid "Date Start"
-msgstr ""
+msgstr "Date de début"
 
 #. module: purchase_tender
 #: view:purchase.tender:0
@@ -117,16 +117,18 @@ msgstr ""
 msgid " This module allows you to manage your Purchase Tenders. When a purchase order is created, you now have the opportunity to save the related tender. \n"
 "    This new object will regroup and will allow you to easily keep track and order all your purchase orders.\n"
 ""
-msgstr ""
+msgstr "Ce module vous permet de gérer des appels d'offre. Quand un appel d'offre est créé, vous avez maintenant l'opportunité de conserver une trace. \n"
+"    Ce nouvel objet regroupe et conserve la trace de tous vos appels d'offre.\n"
+""
 
 #. module: purchase_tender
 #: model:ir.actions.act_window,name:purchase_tender.action_purchase_tender_new
 #: model:ir.ui.menu,name:purchase_tender.menu_purchase_Tender1_new
 msgid "New Purchase Tenders"
-msgstr ""
+msgstr "Nouveaux Appels d'Offre"
 
 #. module: purchase_tender
 #: field:purchase.tender,purchase_ids:0
 msgid "Purchase Orders"
-msgstr ""
+msgstr "Bons d'achat"
 

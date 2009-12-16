@@ -18,129 +18,129 @@ msgstr ""
 #. module: cci_crm
 #: field:meeting.confidential.info,group:0
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 #. module: cci_crm
 #: model:ir.module.module,shortdesc:cci_crm.module_meta_information
 msgid "CCI CRM"
-msgstr ""
+msgstr "CCI CRM"
 
 #. module: cci_crm
 #: model:crm.case.section,name:cci_crm.case_section_acp
 msgid "ACP"
-msgstr ""
+msgstr "ACP"
 
 #. module: cci_crm
 #: view:crm.case:0
 #: model:crm.case.section,name:cci_crm.case_section_sponsoring
 #: view:event.event:0
 msgid "Sponsoring"
-msgstr ""
+msgstr "Sponsoring"
 
 #. module: cci_crm
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle incorrect pour la définition de l'action"
 
 #. module: cci_crm
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'Objet doit commencer par x_ et ne doit pas comporter de caractères spéciaux !"
 
 #. module: cci_crm
 #: view:crm.case:0
 #: field:crm.case,event_ids:0
 msgid "Events"
-msgstr ""
+msgstr "Events"
 
 #. module: cci_crm
 #: model:crm.case.section,name:cci_crm.case_section_oups
 msgid "Oups"
-msgstr ""
+msgstr "Oups"
 
 #. module: cci_crm
 #: model:ir.module.module,description:cci_crm.module_meta_information
 msgid "\n"
-"        - define some groups with access rules\n"
-"        - so using above rules , new object which will be confidential (can only be accessed by some users of group)\n"
+"        - défini certains groupes avec des règles d'accès liées\n"
+"        - en utilisant ces nouvelles règles, des informations peuvent être indiquée comme étant réservées aux membres d'un certain groupe\n"
 "    "
 msgstr ""
 
 #. module: cci_crm
 #: field:meeting.confidential.info,description:0
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: cci_crm
 #: selection:meeting.confidential.info,group:0
 msgid "Every One"
-msgstr ""
+msgstr "Tout le monde"
 
 #. module: cci_crm
 #: constraint:crm.case.section:0
 msgid "Error ! You cannot create recursive sections."
-msgstr ""
+msgstr "Erreur ! Vous ne pouvez pas créer de sections récursives."
 
 #. module: cci_crm
 #: model:ir.model,name:cci_crm.model_meeting_confidential_info
 #: model:ir.ui.menu,name:cci_crm.menu_meeting_confidential_info
 msgid "Meeting Confidential Info"
-msgstr ""
+msgstr "Information confidentielle"
 
 #. module: cci_crm
 #: view:event.event:0
 #: field:event.event,case_ids:0
 msgid "Cases"
-msgstr ""
+msgstr "Cas"
 
 #. module: cci_crm
 #: field:crm.case,meeting_id:0
 msgid "Meeting confidential"
-msgstr ""
+msgstr "Rendez-vous confidentiel"
 
 #. module: cci_crm
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues !"
 
 #. module: cci_crm
 #: model:crm.case.section,name:cci_crm.case_section_agenda
 msgid "Agenda"
-msgstr ""
+msgstr "Agenda"
 
 #. module: cci_crm
 #: model:ir.actions.act_window,name:cci_crm.action_meeting_confidential_info
 #: view:meeting.confidential.info:0
 msgid "Confidential Info"
-msgstr ""
+msgstr "Info confidentielle"
 
 #. module: cci_crm
 #: model:crm.case.section,name:cci_crm.case_section_rsf
 msgid "RSF"
-msgstr ""
+msgstr "RSF"
 
 #. module: cci_crm
 #: model:ir.actions.act_window,name:cci_crm.act_res_partner_2_new_rsf
 msgid "Open a New RSF"
-msgstr ""
+msgstr "Ouvrir une nouvelle RSF"
 
 #. module: cci_crm
 #: selection:meeting.confidential.info,group:0
 msgid "Group1"
-msgstr ""
+msgstr "Groupe 1"
 
 #. module: cci_crm
 #: selection:meeting.confidential.info,group:0
 msgid "Group2"
-msgstr ""
+msgstr "Groupe 2"
 
 #. module: cci_crm
 #: field:meeting.confidential.info,name:0
 msgid "Table"
-msgstr ""
+msgstr "Table"
 
 #. module: cci_crm
 #: model:crm.case.section,name:cci_crm.case_section_ncf
 msgid "NCF"
-msgstr ""
+msgstr "NCF"
 

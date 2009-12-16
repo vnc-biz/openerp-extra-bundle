@@ -147,7 +147,7 @@ msgstr ""
 #. module: account_analytic_package
 #: field:account.analytic.line.package,account_id:0
 msgid "Account"
-msgstr ""
+msgstr "Compte"
 
 #. module: account_analytic_package
 #: model:ir.module.module,shortdesc:account_analytic_package.module_meta_information
@@ -157,7 +157,7 @@ msgstr ""
 #. module: account_analytic_package
 #: field:account.analytic.line.package,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: account_analytic_package
 #: view:account.analytic.line.package.month:0
@@ -195,12 +195,12 @@ msgstr ""
 #. module: account_analytic_package
 #: field:account.analytic.line.package,unit_amount:0
 msgid "Quantity"
-msgstr ""
+msgstr "Quantité"
 
 #. module: account_analytic_package
 #: field:crm.case.section,analytic_account_id:0
 msgid "Main Analytic Account"
-msgstr ""
+msgstr "Compte analytique principal"
 
 #. module: account_analytic_package
 #: field:account.analytic.account,package_ok:0
@@ -211,7 +211,7 @@ msgstr ""
 #: field:account.analytic.line.package,partner_id:0
 #: field:account.analytic.line.package.month,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: account_analytic_package
 #: field:account.analytic.line.package.month,total_activity:0

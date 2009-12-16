@@ -18,12 +18,12 @@ msgstr ""
 #. module: account_base
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'Objet doit commencer par x_ et ne pas comporter de caractères spéciaux !"
 
 #. module: account_base
 #: view:wizard.account.base.setup:0
 msgid "Create"
-msgstr ""
+msgstr "Créer"
 
 #. module: account_base
 #: field:wizard.account.base.setup,excise:0
@@ -33,7 +33,7 @@ msgstr ""
 #. module: account_base
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle incorrect dans la définition de l'action"
 
 #. module: account_base
 #: field:res.partner,pan_no:0
@@ -44,13 +44,13 @@ msgstr ""
 #. module: account_base
 #: model:ir.module.module,shortdesc:account_base.module_meta_information
 msgid "Accounting Base Properties"
-msgstr ""
+msgstr "Propriétés de base de la comptabilité"
 
 #. module: account_base
 #: field:res.partner,div:0
 #: field:wizard.account.base.setup,div:0
 msgid "Division"
-msgstr ""
+msgstr "Division"
 
 #. module: account_base
 #: model:ir.actions.act_window,name:account_base.action_wizard_account_base_setup_form
@@ -85,7 +85,7 @@ msgstr ""
 #. module: account_base
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture de la Vue!"
 
 #. module: account_base
 #: field:res.partner,excise:0
@@ -112,7 +112,7 @@ msgstr ""
 #: field:res.partner,vat_no:0
 #: field:wizard.account.base.setup,vat_no:0
 msgid "VAT Number"
-msgstr ""
+msgstr "Numéro TVA"
 
 #. module: account_base
 #: field:res.partner,ser_tax:0
@@ -123,15 +123,15 @@ msgstr ""
 #. module: account_base
 #: model:ir.actions.todo,note:account_base.config_wizard_account_base_setup_form
 msgid "Define Company Accounting Detail"
-msgstr ""
+msgstr "Définir les détails comptables de l'entreprise"
 
 #. module: account_base
 #: view:wizard.account.base.setup:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annule"
 
 #. module: account_base
 #: field:wizard.account.base.setup,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 

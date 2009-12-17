@@ -218,7 +218,7 @@ class survey_question(osv.osv):
                 que_type = vals['type']
             else:
                 que_type = question['type']
-            if que_type in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
+            if que_type in ['matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                 if not col_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
     
@@ -229,7 +229,7 @@ class survey_question(osv.osv):
                         ans_len += 1
                     else:
                         ans_len -= 1
-            if que_type not in ['descriptive text', 'single textbox']:
+            if que_type not in ['descriptive text', 'single_textbox']:
                 if not ans_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
     
@@ -273,10 +273,10 @@ class survey_question(osv.osv):
         minimum_ans = 0
         maximum_ans = 0
         if vals.has_key('answer_choice_ids') and  not len(vals['answer_choice_ids']):
-            if vals.has_key('type') and vals['type'] not in ['descriptive text', 'single textbox']:
+            if vals.has_key('type') and vals['type'] not in ['descriptive text', 'single_textbox']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more answer."))
         if vals.has_key('column_heading_ids') and  not len(vals['column_heading_ids']):
-            if vals.has_key('type') and vals['type'] in ['matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
+            if vals.has_key('type') and vals['type'] in ['matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
         if vals.has_key('required_type') and vals['required_type'] in ['at least', 'at most', 'exactly']:
             if vals['req_ans'] > len(vals['answer_choice_ids']) or not vals['req_ans']:
@@ -524,19 +524,19 @@ class survey_question_wiz(osv.osv_memory):
                        </group>
                     <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
-                    if que_rec['type'] == 'multiple choice (only one answer)':
+                    if que_rec['type'] == 'multiple_choice_only_one_ans':
                         selection = []
                         for ans in ans_ids:
                             selection.append((ans['id'], ans['answer']))
                         xml += '''<field name="''' + str(que) + "_selection" + '''" /> '''
                         fields[str(que) + "_selection"] = {'type':'selection', 'selection' :selection, 'string':"Answer"}
 
-                    elif que_rec['type'] == 'multiple choice (multiple answer)':
+                    elif que_rec['type'] == 'multiple_choice_multiple_ans':
                         for ans in ans_ids:
                             xml += '''<field name="''' + str(que) + "_" + str(ans['id']) + '''" /> '''
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
 
-                    elif que_rec['type'] == 'matrix of choices (only one answer per row)':
+                    elif que_rec['type'] == 'matrix_of_choices_only_one_ans':
                         for row in ans_ids:
                             xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
                             selection = [('','')]
@@ -545,14 +545,14 @@ class survey_question_wiz(osv.osv_memory):
                             xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + "_selection_" + str(row['id']) + '''"/> '''
                             fields[str(que) + "_" + "_selection_" + str(row['id'])] = {'type':'selection', 'selection' : selection, 'string': "Answer"}
 
-                    elif que_rec['type'] == 'matrix of choices (multiple answer per row)':
+                    elif que_rec['type'] == 'matrix_of_choices_only_multi_ans':
                         for row in ans_ids:
                             xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
                                 xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
 
-                    elif que_rec['type'] == 'matrix of drop-down menus':
+                    elif que_rec['type'] == 'matrix_of_drop_down_menus':
                         for row in ans_ids:
                             xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
@@ -563,19 +563,19 @@ class survey_question_wiz(osv.osv_memory):
                                 xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
                     
-                    elif que_rec['type'] == 'rating scale':
+                    elif que_rec['type'] == 'rating_scale':
                         for row in ans_ids:
                             xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
                                 xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
 
-                    elif que_rec['type'] == 'multiple textboxes':
+                    elif que_rec['type'] == 'multiple_textboxes':
                         for ans in ans_ids:
                             xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_multi" + '''"/> '''
                             fields[str(que) + "_" + str(ans['id']) + "_multi"] = {'type':'char', 'size':255, 'string':ans['answer']}
 
-                    elif que_rec['type'] == 'numerical textboxes':
+                    elif que_rec['type'] == 'numerical_textboxes':
                         for ans in ans_ids:
                             xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_numeric" + '''"/> '''
                             fields[str(que) + "_" + str(ans['id']) + "_numeric"] = {'type':'integer', 'string':ans['answer']}
@@ -585,7 +585,7 @@ class survey_question_wiz(osv.osv_memory):
                             xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'date', 'string':ans['answer']}
 
-                    elif que_rec['type'] == 'date and time':
+                    elif que_rec['type'] == 'date_and_time':
                         for ans in ans_ids:
                             xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'datetime', 'string':ans['answer']}
@@ -593,15 +593,15 @@ class survey_question_wiz(osv.osv_memory):
                     elif que_rec['type'] == 'descriptive text':
                         xml += '''<label string="''' +  str(que_rec['descriptive_text']) + '''"/>'''
                         
-                    elif que_rec['type'] == 'single textbox':
+                    elif que_rec['type'] == 'single_textbox':
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_single" '''"/> '''
-                        fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"Single Textbox", 'views':{}}
+                        fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"single_textbox", 'views':{}}
 
                     elif que_rec['type'] == 'comment':
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_comment" '''"/> '''
                         fields[str(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
 
-                    if que_rec['type'] in ['multiple choice (only one answer)', 'multiple choice (multiple answer)', 'matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
+                    if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                         if que_rec['comment_field_type'] == 'char':
                             xml += '''<newline/><label string="''' + que_rec['comment_label'] + '''"  colspan="4"/> '''                    
                             xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''

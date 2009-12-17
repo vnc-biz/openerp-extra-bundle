@@ -297,7 +297,7 @@ class crm_case(osv.osv):
         all_series = lp_server.getSeries(lp_project)
         if all_series:
             prj_milestone_ids=[]
-            lp_series = pool.get('lp.series')
+            lp_series = pool.get('project.series')
             for series in all_series:
                 res={}
                 res['name'] = series['name']

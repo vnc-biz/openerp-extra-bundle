@@ -106,7 +106,7 @@ def generate_internal_reports(cr, uid, report_type,
                        }
            attach_id = attachment_obj.create(cr,uid,attach_vals,{'not_index_context':True})
            return 'doc_done'
-        return [report_data] # }}}
+        return report_data # }}}
 
 def generate_openoffice_reports(cr, uid, report_type, 
                                 document_data, camp_doc, context): # {{{
@@ -209,11 +209,11 @@ def document_process(cr, uid, obj, report_type, context): # {{{
 
     """ Get offer step documents to process """
     document_id = dm_doc_obj.search(cr, uid, [('step_id', '=', obj.step_id.id),
-                                            ('category_id', '=', 'Production')])
+                                            ('category_id', '=', 'Production'),('state','=','validate')])
     if not document_id:
         return {'code': "no_document_for_step"}
     document_data = dm_doc_obj.browse(cr, uid, document_id[0])
-
+# TODO : Need to process reports of all document  - before that need to change dm_engine
     if not document_data.content and document_data.editor == 'internal':
         return {'code': "no_report_for_document"}
     report_ids = report_xml.search(cr, uid, 

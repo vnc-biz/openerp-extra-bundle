@@ -78,6 +78,9 @@
 														<separator string="When the choices do not add up correctly, display this error message"/>
 														<field name="numeric_required_sum_err_msg" colspan="4" nolabel="1"/>
 													</group>
+													<group colspan="4" attrs="{'invisible':[('type','!=','rating_scale')]}">
+														<field name="rating_allow_one_column_require"/>
+													</group>
 												</page>
 												<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive_text')]}">
 													<separator string="Descriptive Text" colspan="4"/>
@@ -274,6 +277,9 @@
 									<separator string="When the choices do not add up correctly, display this error message"/>
 									<field name="numeric_required_sum_err_msg" colspan="4" nolabel="1"/>
 								</group>
+								<group colspan="4" attrs="{'invisible':[('type','!=','rating_scale')]}">
+									<field name="rating_allow_one_column_require"/>
+								</group>
 							</page>
 							<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive_text')]}">
 								<separator string="Descriptive Text" colspan="4"/>
@@ -424,6 +430,9 @@
 								<newline/>
 								<separator string="When the choices do not add up correctly, display this error message"/>
 								<field name="numeric_required_sum_err_msg" colspan="4" nolabel="1"/>
+							</group>
+							<group colspan="4" attrs="{'invisible':[('type','!=','rating_scale')]}">
+								<field name="rating_allow_one_column_require"/>
 							</group>
 						</page>
 						<page string="Descriptive" attrs="{'invisible':[('type','!=','descriptive_text')]}">

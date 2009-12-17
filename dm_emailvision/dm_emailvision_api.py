@@ -51,7 +51,7 @@ def send_email(cr, uid, obj, context):
     pool = pooler.get_pool(cr.dbname)
 
     message = []
-    if obj.mail_service_id.store_email_document:
+    if obj.mail_service_id.store_document:
         ir_att_obj = pool.get('ir.attachment')
         ir_att_ids = ir_att_obj.search(cr, uid, [
                                       ('res_model','=','dm.campaign.document'),

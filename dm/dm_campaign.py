@@ -1160,7 +1160,7 @@ class dm_mail_service(osv.osv): # {{{
         'smtp_server_id': fields.many2one('email.smtpclient', 
                                           'SMTP Server', ondelete="cascade"),
         'service_type': fields.char('Type Code', size=64),
-        'store_email_document': fields.boolean('Store Email Document'),
+        'store_document': fields.boolean('Store Document'),
     }
 
     def _check_unique_mail_service(self, cr, uid, ids, media_id,

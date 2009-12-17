@@ -2,11 +2,61 @@
 <openerp>
 <data>
 
-    <menuitem name="Documents" id="menu_action_offer_doc" parent="dm.menu_dm_config" sequence="2" />
-	<menuitem name="Customers" id="menu_dm_config_customer" parent="dm.menu_dm_config" sequence="3"/>
-	<menuitem name="Multimedia" id="menu_dm_config_doc_media" parent="menu_action_offer_doc" sequence="1"/>
+	<menuitem name="Customers" id="menu_dm_config_customer" parent="dm.menu_dm_config" sequence="7"/>
+	<menuitem name="Multimedia" id="menu_dm_config_multimedia" parent="dm.menu_dm_config" sequence="7"/>	
+    <menuitem name="Documents" id="menu_action_offer_doc" parent="dm.menu_dm_config" sequence="7" />
 	<menuitem name="DTP Plugins" id="menu_dm_config_doc_plugins" parent="menu_action_offer_doc" sequence="2"/>
     <menuitem name="Campaign Documents" id="menu_dm_config_lowlevel_campaign_doc" parent="dm.menu_dm_config_lowlevel" groups="res_groups_dmadmin" sequence="1"/>
+
+
+
+	<!--
+    =======================================================
+    Media content type
+    =======================================================
+    -->
+
+	<record model="ir.ui.view" id="view_dm_media_content_type_form">
+        <field name="name">dm.media.content.type.form</field>
+        <field name="model">dm.media.content.type</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Media Content Type">
+				<field name="name"/>
+				<field name="code"/>
+            </form>
+        </field>
+    </record>    
+
+	<record model="ir.ui.view" id="view_dm_media_content_type_tree">
+        <field name="name">dm.media.content.type.tree</field>
+        <field name="model">dm.media.content.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="All Media Content Types">
+	            <field name="name"/>
+				<field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_media_content_type">
+        <field name="name">All Media Content Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.media.content.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_media_content_type_tree"/>
+        
+    </record>
+
+    <menuitem id="menu_action_dm_media_content_type" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content_type" sequence="3" />
+
+
+	<!--
+    =======================================================
+    Media content
+    =======================================================
+    -->
 
 	<record model="ir.ui.view" id="view_dm_media_content_form">
         <field name="name">dm.media.content.form</field>
@@ -14,10 +64,25 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Media Content">
-                <field name="preview_image"/>
-                <field name="media_url"/>
+	            <separator string="Image Details" colspan="4"/>
+	            <group colspan="4">
+	                <field name="preview_image" filename="preview_fname"/>
+    	            <field name="preview_fname"/>
+					<field name="alternative_text"/>
+	                <field name="media_url"/>
+				</group>
+	            <separator string="Resource Details" colspan="4"/>
 				<field name="res_url"/>
-				<field name="alternative_text"/>
+				<field name="type_id" widget="selection"/>
+				<field name="language_id"/>
+				<separator string="Preview" colspan="4"/>
+	            <field  name="preview" 
+ 	            	    widget="picture"
+                        readonly="1"
+						nolabel="1"
+						colspan="4"
+						img_height="300"
+						img_width="600"/>	            
             </form>
         </field>
     </record>    
@@ -28,13 +93,26 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Media Content">
+	            <field name="preview_fname"/>
+				<field name="alternative_text"/>
                 <field name="media_url"/>
 				<field name="res_url"/>
-				<field name="alternative_text"/>
+				<field name="type_id" widget="selection"/>
+				<field name="language_id"/>
             </tree>
         </field>
     </record>
 
+
+    <record model="ir.actions.act_window" id="action_dm_media_content">
+        <field name="name">All Media Contents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.media.content</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_media_content_tree"/>
+    </record>
+
+    <menuitem id="menu_action_dm_media_content" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content" sequence="3" />
 	<!--
     =======================================================
     OFFER STEP DOCUMENT CATEGORY VIEWS
@@ -282,16 +360,7 @@
         <field name="view_id" ref="view_dm_dtp_plugin_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_dtp_plugin" parent="menu_dm_config_doc_plugins" action="action_dm_dtp_plugin" sequence="1" />
-
-    <record model="ir.actions.act_window" id="action_dm_media_content">
-        <field name="name">All Media Contents</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">dm.media.content</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <menuitem id="menu_action_dm_media_content" parent="menu_dm_config_doc_media" action="action_dm_media_content"/>
+    <menuitem id="menu_action_dm_dtp_plugin" parent="dm.menu_action_offer_doc" action="action_dm_dtp_plugin" sequence="3" />
     <!--
     =======================================================
     Customer - Plugin - Value

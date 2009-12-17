@@ -117,7 +117,7 @@ class survey_question(osv.osv):
     _description = 'Survey Question'
     _rec_name = 'question'
     _order = 'sequence'
-    
+
     def _calc_response(self, cr, uid, ids, field_name, arg, context):
         val = {}
         cr.execute("select question_id, count(id) as Total_response from survey_response where question_id in (%s) group by question_id" % ",".join(map(str, map(int, ids))))
@@ -152,18 +152,18 @@ class survey_question(osv.osv):
                                      ('matrix of choices (multiple answer per row)','Matrix of Choices (Multiple Answers Per Row)'),
                                      ('matrix of drop-down menus','Matrix of Drop-down Menus'),
                                      ('rating scale','Rating Scale'),('single textbox','Single Textbox'),
-                                     ('multiple textboxes','Multiple Textboxes'),
+                                     ('multiple textboxes','Multiple Textboxes'),('comment','Comment/Essay Box'),
                                      ('numerical textboxes','Numerical Textboxes'),('date','Date'),
-                                     ('date and time','Date and Time'),('descriptive text','Descriptive Text')
+                                     ('date and time','Date and Time'),('descriptive text','Descriptive Text'),
                                     ], 'Question Type',  required=1,),
         'comment_label' : fields.char('Field Label', size = 255),
         'comment_field_type' : fields.selection([('',''),('char', 'Single Line Of Text'), ('text', 'Paragraph of Text')], 'Comment Field Type'),
-        'comment_valid_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
-                                                 ('must be specific length', 'Must Be Specific Length'),\
-                                                 ('must be a whole number', 'Must Be A Whole Number'),\
-                                                 ('must be a decimal number', 'Must Be A Decimal Number'),\
-                                                 ('must be a date', 'Must Be A Date'),\
-                                                 ('must be an email address', 'Must Be An Email Address')\
+        'comment_valid_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),
+                                                 ('must be specific length', 'Must Be Specific Length'),
+                                                 ('must be a whole number', 'Must Be A Whole Number'),
+                                                 ('must be a decimal number', 'Must Be A Decimal Number'),
+                                                 ('must be a date', 'Must Be A Date'),
+                                                 ('must be an email address', 'Must Be An Email Address'),
                                                  ], 'Text Validation'),
         'comment_minimum_no' : fields.integer('Minimum number'),
         'comment_maximum_no' : fields.integer('Maximum number'),
@@ -203,8 +203,8 @@ class survey_question(osv.osv):
     }
     
     def write(self, cr, uid, ids, vals, context=None):
-        if vals.has_key('type'):
-            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
+#        if vals.has_key('type'):
+#            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
         for question in questions:
             col_len = len(question['column_heading_ids'])
@@ -305,6 +305,7 @@ class survey_question_column_heading(osv.osv):
         'rating_weight' : fields.integer('Weight'),
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
     }
+
 survey_question_column_heading()
 
 class survey_answer(osv.osv):
@@ -592,6 +593,10 @@ class survey_question_wiz(osv.osv_memory):
                         xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_single" '''"/> '''
                         fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"Single Textbox", 'views':{}}
 
+                    elif que_rec['type'] == 'comment':
+                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_comment" '''"/> '''
+                        fields[str(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
+
                     if que_rec['type'] in ['multiple choice (only one answer)', 'multiple choice (multiple answer)', 'matrix of choices (only one answer per row)', 'matrix of choices (multiple answer per row)', 'matrix of drop-down menus', 'rating scale']:
                         if que_rec['comment_field_type'] == 'char':
                             xml += '''<newline/><label string="''' + que_rec['comment_label'] + '''"  colspan="4"/> '''                    
@@ -702,6 +707,10 @@ class survey_question_wiz(osv.osv_memory):
 
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
+                        elif val1 and key1.split('_')[1] == "comment" and key1.split('_')[0] == que_id:
+                            resp_obj.write(cr, uid, resp_id, {'comment':val1})
+                            sur_name_read['store_ans'][resp_id].update({key1:val1})
+                            select_count += 1
                         elif val1 and key1.split('_')[0] == que_id and (key1.split('_')[1] == "single"  or (len(key1.split('_')) > 2 and key1.split('_')[2] == 'multi')):
                             error = False
                             if que_rec['validation_type'] == 'must be specific length':
@@ -827,7 +836,10 @@ class survey_question_wiz(osv.osv_memory):
                             
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})
-
+                        elif val and key.split('_')[1] == "comment":
+                            resp_obj.write(cr, uid, update, {'comment':val})
+                            sur_name_read['store_ans'][update].update({key:val})
+                            select_count += 1
                         elif val and (key.split('_')[1] == "single"  or (len(key.split('_')) > 2 and key.split('_')[2] == 'multi')):
                             error = False
                             if que_rec['validation_type'] == 'must be specific length':

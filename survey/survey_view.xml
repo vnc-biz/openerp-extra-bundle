@@ -84,19 +84,7 @@
 														<field name="descriptive_text" colspan="4" nolabel="1"/>
 													</page>
 													<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
-														<field name="column_heading_ids" colspan="4" nolabel="1">
-														<form string="Column Heading">
-															<field name="title"/>
-															<newline/>
-															<field name="rating_weight"/>
-															<label align="0.0" string="Use if question type is rating scale" />
-															<separator string="Menu Choices (each choice on separate lines)" colspan="4"/>
-															<field name="menu_choice" nolabel="1" colspan="4"/>
-														</form>
-														<tree string="Column Heading">
-															<field name="title"/>
-														</tree>
-														</field>
+														<field name="column_heading_ids" colspan="4" nolabel="1"/>
 													</page>
 													<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 														<field name="comment_field_type"/>
@@ -291,19 +279,7 @@
 								<field name="descriptive_text" colspan="4" nolabel="1"/>
 							</page>
 							<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
-								<field name="column_heading_ids" colspan="4" nolabel="1">
-								<form string="Column Heading">
-									<field name="title"/>
-									<newline/>
-									<field name="rating_weight"/>
-									<label align="0.0" string="Use if question type is rating scale" />
-									<separator string="Menu Choices (each choice on separate lines)" colspan="4"/>
-									<field name="menu_choice" nolabel="1" colspan="4"/>
-								</form>
-								<tree string="Column Heading">
-									<field name="title"/>
-								</tree>
-								</field>
+								<field name="column_heading_ids" colspan="4" nolabel="1"/>
 							</page>
 							<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 								<field name="comment_field_type"/>
@@ -423,7 +399,7 @@
 							<field name="response_ids" nolabel="1" colspan="4" />
 						</page>
 						<page string="Required Answer">
-							<group colspan="4" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'),('type','!=','single textbox')]}">
+							<group colspan="4" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'),('type','!=','single textbox'),('type','!=','comment')]}">
 								<field name="is_require_answer"/>
 							</group>
 							<group attrs="{'invisible':[('type','!=','multiple choice (multiple answer)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale'),('type','!=','multiple textboxes'),('type','!=','numerical textboxes'),('type','!=','date'),('type','!=','date and time')]}">
@@ -454,19 +430,7 @@
 							<field name="descriptive_text" colspan="4" nolabel="1"/>
 						</page>
 						<page string="Column Heading" attrs="{'invisible':[('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
-							<field name="column_heading_ids" colspan="4" nolabel="1">
-							<form string="Column Heading">
-								<field name="title"/>
-								<newline/>
-								<field name="rating_weight"/>
-								<label align="0.0" string="Use if question type is rating scale" />
-								<separator string="Menu Choices (each choice on separate lines)" colspan="4"/>
-								<field name="menu_choice" nolabel="1" colspan="4"/>
-							</form>
-							<tree string="Column Heading">
-								<field name="title"/>
-							</tree>
-							</field>
+							<field name="column_heading_ids" colspan="4" nolabel="1"/>
 						</page>
 						<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple choice (only one answer)'), ('type','!=','multiple choice (multiple answer)'), ('type','!=','matrix of choices (multiple answer per row)'),('type','!=','matrix of choices (only one answer per row)'),('type','!=','matrix of drop-down menus'),('type','!=','rating scale')]}">
 							<field name="comment_field_type"/>
@@ -591,7 +555,6 @@
 			</field>
 		</record>
 
-
 	    <!--
 			Survey Response
 		-->
@@ -647,11 +610,9 @@
 			</field>
 		</record>
 
-
 	    <!--
 			Survey Response Answer
 		-->
-
 
 		<record model="ir.ui.view" id="survey_response_answer_form">
 			<field name="name">survey_response_answer_form</field>
@@ -682,9 +643,44 @@
 			</field>
 		</record>
 
+		<!--
+			Survey Question Column Heading 
+		 -->
+
+		<record model="ir.ui.view" id="survey_question_column_heading_form">
+			<field name="name">survey_question_column_heading_form</field>
+			<field name="model">survey.question.column.heading</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Column Heading">
+					<field name="title"/>
+					<group colspan="4">
+						<field name="rating_weight"/>
+						<label align="0.0" string="Use if question type is rating scale" />
+					</group>
+					<group colspan="4">
+						<separator string="Menu Choices (each choice on separate lines)" colspan="4"/>
+						<field name="menu_choice" nolabel="1" colspan="4"/>
+					</group>					
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="survey_question_column_heading_tree">
+			<field name="name">survey_question_column_heading_tree</field>
+			<field name="model">survey.question.column.heading</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Column Heading">
+					<field name="title"/>
+				</tree>
+			</field>
+		</record>
+
 	    <!--
 			res.users
 		-->
+
 	    <record id="view_res_user_form" model="ir.ui.view">
 			<field name="name">view.res.users.form</field>
 			<field name="model">res.users</field>

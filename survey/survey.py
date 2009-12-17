@@ -525,9 +525,11 @@ class survey_question_wiz(osv.osv_memory):
                     <newline/> '''
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
                     if que_rec['type'] == 'multiple choice (only one answer)':
+                        selection = []
                         for ans in ans_ids:
-                            xml += '''<field name="''' + str(que) + "_" + str(ans['id']) + '''" /> '''
-                            fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
+                            selection.append((ans['id'], ans['answer']))
+                        xml += '''<field name="''' + str(que) + "_selection" + '''" /> '''
+                        fields[str(que) + "_selection"] = {'type':'selection', 'selection' :selection, 'string':"Answer"}
 
                     elif que_rec['type'] == 'multiple choice (multiple answer)':
                         for ans in ans_ids:
@@ -673,7 +675,11 @@ class survey_question_wiz(osv.osv_memory):
                     numeric_sum = 0
                     for key1, val1 in vals.items():
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                        if val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                        if val1 and key1.split('_')[1] == "selection" and key1.split('_')[0] == que_id:
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':val1})
+                            sur_name_read['store_ans'][resp_id].update({key1:val1})
+                            select_count += 1
+                        elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_maximum_no'] or len(val1) > que_rec['comment_maximum_no']:
@@ -806,7 +812,12 @@ class survey_question_wiz(osv.osv_memory):
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
                         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
-                        if val and key.split('_')[1] == "other":
+                        if val and key.split('_')[1] == "selection":
+                            resp_obj.write(cr, uid, update, {'state': 'done'})
+                            ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id': val})
+                            sur_name_read['store_ans'][update].update({key:val})
+                            select_count += 1
+                        elif val and key.split('_')[1] == "other":
                             error = False
                             if que_rec['comment_valid_type'] == 'must be specific length':
                                 if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:

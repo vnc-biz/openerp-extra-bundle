@@ -362,6 +362,7 @@
                             <field name="contribute_per" attrs="{'required': [('contribute','=',True)], 'readonly': [('amount_type','=','func')]}"/>
                             <field name="register_id" attrs="{'required': [('contribute','=',True)], 'readonly': [('amount_type','=','func')]}"/>
                             <field name="include_in_salary" attrs="{'readonly': [('amount_type','=','func')]}"/>
+                            <field name="account_id" attrs="{'required': [('contribute','=',True)], 'readonly': [('amount_type','=','func')]}"/>
                         </group>
                     </group>
                     <notebook colspan="4">

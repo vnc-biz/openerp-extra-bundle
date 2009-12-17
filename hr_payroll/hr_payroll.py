@@ -520,6 +520,7 @@ class payment_category(osv.osv):
             ('fix','Fixed Amount'),
             ('func','Function Calculation'),
         ],'Amount Type', select=True),
+        'account_id': fields.many2one('account.account', 'Account', required=False),
     }
     _defaults = {
         'condition': lambda *a: 'True',
@@ -1042,7 +1043,7 @@ class hr_payslip(osv.osv):
                         'name': name,
                         'date': slip.date, 
                         'quantity':1,
-                        'account_id': slip.journal_id.default_debit_account_id.id,
+                        'account_id': line.category_id.account_id.id,
                         'debit': company_contrib,
                         'credit' : 0.0,
                         'journal_id': slip.journal_id.id,
@@ -1085,7 +1086,7 @@ class hr_payslip(osv.osv):
 #                        'partner_id': partner_id,
                         'date': slip.date, 
                         'quantity':1,
-                        'account_id': slip.journal_id.default_debit_account_id.id,
+                        'account_id': line.category_id.account_id.id,
                         'debit': 0.0,
                         'credit' : company_contrib,
                         'journal_id': slip.journal_id.id,

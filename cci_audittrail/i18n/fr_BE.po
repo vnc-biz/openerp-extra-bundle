@@ -18,10 +18,10 @@ msgstr ""
 #. module: cci_audittrail
 #: model:ir.module.module,description:cci_audittrail.module_meta_information
 msgid "Allows the administrator to track every user operations on all objects of the system."
-msgstr ""
+msgstr "Permet à l'administrateur de pister toutes les opérations effectuées sur chaque objet du système"
 
 #. module: cci_audittrail
 #: model:ir.module.module,shortdesc:cci_audittrail.module_meta_information
 msgid "Audit Trail"
-msgstr ""
+msgstr "Pistage pour Audit"
 

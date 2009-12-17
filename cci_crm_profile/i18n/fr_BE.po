@@ -18,36 +18,38 @@ msgstr ""
 #. module: cci_crm_profile
 #: selection:crm_profiling.question,target:0
 msgid "Function"
-msgstr ""
+msgstr "Job des contacts"
 
 #. module: cci_crm_profile
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues !"
 
 #. module: cci_crm_profile
 #: field:crm_profiling.question,target:0
 msgid "Target"
-msgstr ""
+msgstr "Cible"
 
 #. module: cci_crm_profile
 #: model:ir.module.module,shortdesc:cci_crm_profile.module_meta_information
 msgid "CCI CRM Profile"
-msgstr ""
+msgstr "CCI CRM Profile"
 
 #. module: cci_crm_profile
 #: view:res.partner.address:0
 #: view:res.partner.contact:0
 #: view:res.partner.job:0
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 #. module: cci_crm_profile
 #: model:ir.module.module,description:cci_crm_profile.module_meta_information
 msgid "\n"
 "        specific module for cci project which will use crm_profile module.\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        module spécifique que projet CCI qui se base sur le module crm_profile.\n"
+"    "
 
 #. module: cci_crm_profile
 #: view:crm_profiling.question:0
@@ -55,47 +57,47 @@ msgstr ""
 #: field:res.partner.contact,answers_ids:0
 #: field:res.partner.job,answers_ids:0
 msgid "Answers"
-msgstr ""
+msgstr "Réponses"
 
 #. module: cci_crm_profile
 #: view:res.partner.address:0
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #. module: cci_crm_profile
 #: field:crm_profiling.question,open_question:0
 msgid "Open Question"
-msgstr ""
+msgstr "Question ouverte"
 
 #. module: cci_crm_profile
 #: selection:crm_profiling.question,target:0
 msgid "Contact"
-msgstr ""
+msgstr "Contacts"
 
 #. module: cci_crm_profile
 #: view:res.partner.address:0
 msgid "Partner contacts"
-msgstr ""
+msgstr "Adresses"
 
 #. module: cci_crm_profile
 #: selection:crm_profiling.question,target:0
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #. module: cci_crm_profile
 #: selection:crm_profiling.question,target:0
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: cci_crm_profile
 #: view:res.partner.address:0
 #: view:res.partner.contact:0
 #: view:res.partner.job:0
 msgid "Use a questionnaire"
-msgstr ""
+msgstr "Utilisez un questionnaire"
 
 #. module: cci_crm_profile
 #: field:crm_profiling.answer,text:0
 msgid "Open Answer"
-msgstr ""
+msgstr "Réponse Ouverte"
 

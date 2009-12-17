@@ -4,7 +4,7 @@
 	<wizard string="Select Partners"
 			name="show_partners"
 			id="select_partners" />
-		<menuitem
+	<menuitem
 			name="Select Specific Members" parent="membership.menu_reporting"
 			action="select_partners"
 			type="wizard"
@@ -13,7 +13,12 @@
 	<wizard	string="Total Sold for partners"
 			model="res.partner"
 			name="cci_membership.check_total_sold"
-			id="wizard_cci_membership_totalsold"
-			 />
+			id="wizard_cci_membership_totalsold" />
+
+	<wizard string="Invoice Membership"
+            model="res.partner"
+            name="cci_wizard_invoice_membership"
+            id="membership.wizard_invoice_membership" />
+
 	</data>
 </openerp>

@@ -1,8 +1,8 @@
 <openerp>
 <data>
     <record model="ir.ui.view" id="lp_project_milestone_form">
-            <field name="name">lp.project.milestone.form</field>
-            <field name="model">lp.project.milestone</field>
+            <field name="name">project.milestone.form</field>
+            <field name="model">project.milestone</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Milestone">
@@ -14,8 +14,8 @@
             </field>
         </record>
         <record model="ir.ui.view" id="lp_project_milestone_tree">
-            <field name="name">lp.project.milsetone.tree</field>
-            <field name="model">lp.project.milestone</field>
+            <field name="name">project.milsetone.tree</field>
+            <field name="model">project.milestone</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Milestone">
@@ -29,7 +29,7 @@
 
       <record model="ir.actions.act_window" id="action_lp_milestone">
         <field name="name">LP Milestones</field>
-        <field name="res_model">lp.project.milestone</field>
+        <field name="res_model">project.milestone</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="lp_project_milestone_tree"/>
@@ -52,8 +52,8 @@
     </record>
 
     <record model="ir.ui.view" id="tree_lp_series">
-        <field name="name">lp.series</field>
-        <field name="model">lp.series</field>
+        <field name="name">project.series</field>
+        <field name="model">project.series</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
 	 <tree string="Project Series ">
@@ -67,7 +67,7 @@
 
      <record model="ir.actions.act_window" id="action_lp_series">
         <field name="name">Project Series</field>
-        <field name="res_model">lp.series</field>
+        <field name="res_model">project.series</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="tree_lp_series"/>

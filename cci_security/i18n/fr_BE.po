@@ -21,10 +21,13 @@ msgid "\n"
 "        This module add just somes users groups for the management \n"
 "        of users rights specific to the CCI domain\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        Ce module ajoute juste quelques groups d'utilisateurs  \n"
+"        pour la gestion des droits de sutilisateurs spécifiques au projet CCI\n"
+"    "
 
 #. module: cci_security
 #: model:ir.module.module,shortdesc:cci_security.module_meta_information
 msgid "CCI Security"
-msgstr ""
+msgstr "CCI Security"
 

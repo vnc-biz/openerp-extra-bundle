@@ -177,7 +177,7 @@ class dm_campaign(osv.osv): #{{{
         return result
 
     _columns = {
-        'code': fields.char('Code', size=64),                       
+        'code1': fields.char('Code', size=64),                       
         'offer_id': fields.many2one('dm.offer', 'Offer', 
                                     domain=[('state', 'in', ['ready', 'open']),
                                 ('type', 'in', ['new', 'standart', 'rewrite'])], 
@@ -339,7 +339,7 @@ class dm_campaign(osv.osv): #{{{
               'offer_id': camp.offer_id.id,
               'date': camp.camp_date_start.split(' ')[0],
               'campaign_id': camp.id,
-              'code': camp.code,
+              'code': camp.code1,
               'responsible_id': camp.responsible_id.id,
               }
         history = self.pool.get("dm.offer.history")
@@ -723,7 +723,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         return []
 
     _columns = {
-        'code': fields.char('Code', size=64),         
+        'code1': fields.char('Code', size=64),         
         'camp_id': fields.many2one('dm.campaign', 'Campaign', 
                                    ondelete = 'cascade', required=True),
         'sale_rate': fields.float('Sale Rate (%)', digits=(16, 2),
@@ -1018,7 +1018,7 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         return seg_copy_id
 
     _columns = {
-        'code': fields.function(_segment_code, string='Code', type="char", 
+        'code1': fields.function(_segment_code, string='Code', type="char", 
                                  size=64, method=True, readonly=True),
         'campaign_id': fields.related('proposition_id', 'camp_id', 
                                       type='many2one', relation='dm.campaign', 
@@ -1160,7 +1160,7 @@ class dm_mail_service(osv.osv): # {{{
         'smtp_server_id': fields.many2one('email.smtpclient', 
                                           'SMTP Server', ondelete="cascade"),
         'service_type': fields.char('Type Code', size=64),
-        'store_email_document': fields.boolean('Store Email Document'),
+        'store_document': fields.boolean('Store Document'),
     }
 
     def _check_unique_mail_service(self, cr, uid, ids, media_id,

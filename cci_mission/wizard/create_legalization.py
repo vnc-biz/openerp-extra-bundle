@@ -38,6 +38,16 @@ fields = {
     'leg_rej_reason': {'string':'Error Messages', 'type':'text', 'readonly':True},
          }
 
+introform = """<?xml version="1.0"?>
+<form string="Summary of Created Legalization">
+    <field name="leg_type_id"/>
+</form>
+"""
+introfields = {
+    'leg_type_id': {'type':'many2one','relation':'cci_missions.dossier_type','string':'Dossier Type','required':True,'domain':"[('section','=','legalization')]"},
+         }
+
+
 def _create_legalization(self, cr, uid, data, context):
     obj_pool = pooler.get_pool(cr.dbname)
     obj_certi = obj_pool.get('cci_missions.certificate')
@@ -46,13 +56,18 @@ def _create_legalization(self, cr, uid, data, context):
     leg_create = 0
     leg_reject = 0
     leg_rej_reason = ""
+    type_id = data['form']['leg_type_id']
+    type_rec = obj_pool.get('cci_missions.dossier_type').browse(cr, uid, type_id)
+
     for data in data_certi:
         leg_create = leg_create + 1
         prod_lines = []
+        newname = obj_pool.get('ir.sequence').get(cr, uid,type_rec.sequence_id.code)        
+
         map(lambda x: prod_lines.append(x.id), data.product_ids)
         leg_id =obj_pool.get('cci_missions.legalization').create(cr, uid, {
-            'name': data.name,
-            'type_id': data.type_id.id,
+            'name': newname,
+            'type_id': type_id,
             'date': data.date,
             'order_partner_id': data.order_partner_id.id,
             'quantity_original': data.quantity_original,
@@ -68,11 +83,13 @@ def _create_legalization(self, cr, uid, data, context):
             'to_bill': data.to_bill,
 #            'product_ids': [(6, 0, prod_lines)] => no need
             })
+        cr.execute('select dossier_id from cci_missions_legalization where id='"'%s'"''%(leg_id))
+        doss=cr.fetchone()
         leg_ids = []
         map(lambda x: leg_ids.append(x.id), data.legalization_ids)
         leg_ids.append(leg_id)
         obj_certi.write(cr, uid, [data.id], {'legalization_ids': [(6, 0, leg_ids)]})
-        list_leglization.append(leg_id)
+        list_leglization.append(doss)
     return {'leg_created': str(leg_create) , 'leg_rejected': str(leg_reject) , 'leg_rej_reason': leg_rej_reason, 'leg_ids' : list_leglization }
 
 class create_legalization(wizard.interface):
@@ -81,7 +98,7 @@ class create_legalization(wizard.interface):
         model_data_ids = pool_obj.get('ir.model.data').search(cr,uid,[('model','=','ir.ui.view'),('name','=','cci_missions_legalization_form')])
         resource_id = pool_obj.get('ir.model.data').read(cr, uid, model_data_ids,fields=['res_id'])[0]['res_id']
         val = {
-            'domain': "[('id','in', ["+','.join(map(str, data['form']['leg_ids']))+"])]",
+            'domain': "[('dossier_id','in', ["+','.join(map(str, data['form']['leg_ids']))+"])]",
             'name': 'Legalization',
             'view_type': 'form',
             'view_mode': 'tree, form',
@@ -93,6 +110,13 @@ class create_legalization(wizard.interface):
 
     states = {
         'init' : {
+            'actions' : [],
+            'result' : {'type' : 'form' ,   'arch' : introform,
+                    'fields' : introfields,
+                    'state' : [('end', 'Cancel'), ('next','Create')]}
+
+        },
+        'next': {
             'actions' : [_create_legalization],
             'result' : {'type' : 'form' ,   'arch' : form,
                     'fields' : fields,

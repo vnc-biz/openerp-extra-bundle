@@ -63,7 +63,7 @@ class purchase_order(osv.osv):
             a = o.partner_id.property_account_payable.id
             journal_ids = journal_obj.search(cr, uid, [('type', '=','purchase')], limit=1)
             inv = {
-                'name': o.partner_ref or o.name,
+                #'name': o.partner_ref or o.name,
                 'reference': "P%dPO%d" % (o.partner_id.id, o.id),
                 'account_id': a,
                 'type': 'in_invoice',

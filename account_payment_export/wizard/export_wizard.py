@@ -25,6 +25,7 @@ from osv import osv
 import time
 import mx.DateTime
 from mx.DateTime import RelativeDateTime, now, DateTime, localtime
+import pooler
 
 form = """<?xml version="1.0"?>
 <form string="Payment Export">

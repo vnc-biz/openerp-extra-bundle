@@ -31,11 +31,11 @@
                 <field name="customer_add4" select="2"/>
                 <field name="zip" select="2"/>
                 <field name="zip_summary" select="2"/>
-                <field name="country" select="1"/>
+                <field name="country_id" select="1"/>
                 <field name="distribution_office" select="2"/>
                 <separator string="Campaign Infos" colspan="4"/>
-                <field name="segment_code" select="1"/>
-                <field name="offer_step_code" select="1"/>
+                <field name="segment_id" select="1"/>
+                <field name="offer_step_id" select="1"/>
                 <separator string="Status" colspan="4"/>
                 <field name="state"/>
                 <button string="Confirm" name="set_confirm" type="object" states="draft" colspan="2"/>
@@ -52,8 +52,10 @@
                 <field name="customer_code"/>
                 <field name="customer_firstname"/>
                 <field name="customer_lastname"/>
-                <field name="country"/>
+                <field name="country_id"/>
                 <field name="distribution_office"/>
+                <field name="segment_id" select="1"/>
+                <field name="offer_step_id" select="1"/>                
             </tree>
         </field>
     </record>

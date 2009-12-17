@@ -55,16 +55,45 @@ class dm_dynamic_text(osv.osv): # {{{
         }
 dm_dynamic_text() # }}}
 
+class dm_media_content_type(osv.osv): # {{{
+    _name = "dm.media.content.type"
+    _description = "Dm Media Content Type"
+    _columns = {
+        'name' : fields.char('Name', size=64,required=True),
+        'code' : fields.char('Name', size=32,required=True),
+        }        
+dm_media_content_type() # }}}
+
+
 class dm_media_content(osv.osv): # {{{
     _name = "dm.media.content"
     _description = "Dm Media Contents"
     _rec_name = 'media_url'
+
+    def _get_preview(self, cr, uid, ids, name, arg, context=None):
+        result = {}
+        if context is None:
+            context = {}
+        ctx = context.copy()    
+        ctx['bin_size'] = False
+        for i in self.browse(cr, uid, ids, context=ctx):
+            result[i.id] = False
+            print i.preview_fname
+            for format in ('png','jpg','jpeg','gif','bmp'):
+                if (i.preview_fname and i.preview_fname.lower() or '').endswith(format):
+                    result[i.id]= i.preview_image
+                    break
+        return result
     
     _columns = {
-        'preview_image' : fields.binary('Preview Image'),
         'media_url' : fields.char('Media URL', size=256),
-        'res_url' : fields.char('Res URL', size=256),
-        'alternative_text': fields.char('Alternative Text', size=64)
+        'res_url' : fields.char('Resource URL', size=256),
+        'alternative_text': fields.char('Alternative Text', size=64),
+        'preview_image': fields.binary('Data'),
+        'preview': fields.function(_get_preview, type='binary', string='Image Preview', method=True),
+        'preview_fname': fields.char('Filename',size=64),
+        'type_id': fields.many2one('dm.media.content.type', 'Type'),
+        'language_id': fields.many2one('res.lang', 'Language'),
     }
     
 dm_media_content() # }}}
@@ -212,32 +241,36 @@ def set_image_email(node,msg): # {{{
     if not node.getchildren():
         if  node.tag=='img' :
             content = ''
-            if node.get('name') and node.get('name').find('http') >=0:
-                content=urllib2.urlopen(node.get('name')).read()
-                node.set('src', node.get('name'))
-            elif node.get('src'):
-                if node.get('src').find('data:image/gif;base64,') >= 0:
-                    content = base64.decodestring(node.get('src').replace('data:image/gif;base64,', ''))
-                elif node.get('src').find('http') >= 0:
-                    content=urllib2.urlopen(node.get('src')).read()
+            try :
+                if node.get('name') and node.get('name').find('http') >=0:
+                    content=urllib2.urlopen(node.get('name')).read()
+                    node.set('src', node.get('name'))                
+                elif node.get('src'):
+                    if node.get('src').find('data:image/gif;base64,') >= 0:
+                        content = base64.decodestring(node.get('src').replace('data:image/gif;base64,', ''))
+                    elif node.get('src').find('http') >= 0:
+                        content=urllib2.urlopen(node.get('src')).read()
                 msgImage = MIMEImage(content)
                 image_name = ''.join( Random().sample(string.letters+string.digits, 12) )
                 msgImage.add_header('Content-ID','<%s>'%image_name)
                 msg.attach(msgImage)
                 node.set('src',"cid:%s"%image_name)
+            except :
+                return 'image_content_error'
     else:
         for n in node.getchildren():
-            set_image_email(n,msg)
+            state = set_image_email(n,msg)
+            if state == 'image_content_error' :
+                return state
  # }}}
 
 def create_email_queue(cr, uid, obj, context): # {{{
     pool = pooler.get_pool(cr.dbname)
     email_queue_obj = pool.get('email.smtpclient.queue')
-#    context['document_id'] = obj.document_id.id
-#    context['address_id'] = obj.address_id.id
-#    context['workitem_id'] = obj.workitem_id.id
+
     message = []
-    if obj.mail_service_id.store_email_document:
+
+    if obj.mail_service_id.store_document:
         ir_att_obj = pool.get('ir.attachment')
         ir_att_ids = ir_att_obj.search(cr, uid, [('res_model', '=', 'dm.campaign.document'),
                                                  ('res_id', '=', obj.id),
@@ -263,14 +296,8 @@ def create_email_queue(cr, uid, obj, context): # {{{
         body = root.find('body')
         msgRoot = MIMEMultipart('related')
 
-#        plugin_list = [] 
-#        No need as it is set in the function
-#        if obj.document_id.subject and _regexp1.findall(obj.document_id.subject):
-#            raw_plugin_list = _regexp1.findall(obj.document_id.subject)
-#            for p in raw_plugin_list:
-#                plugin_list.append(p[2:-2])
-#        context['plugin_list'] = plugin_list'''
         subject =  merge_message(cr, uid, obj.document_id.subject, context)
+
         msgRoot['Subject'] = subject
         msgRoot['From'] = str(obj.mail_service_id.smtp_server_id.email)
         msgRoot['To'] = str(obj.address_id.email)
@@ -279,9 +306,11 @@ def create_email_queue(cr, uid, obj, context): # {{{
         msg = MIMEMultipart('alternative')
         msgRoot.attach(msg)
 
-        set_image_email(body,msgRoot)
+        state = set_image_email(body,msgRoot)
         msgText = MIMEText(etree.tostring(body), 'html')
         msg.attach(msgText)
+        if state == 'image_content_error' :
+            return {'code':'image_content_error','ids':obj.id}
         vals = {
             'to': str(obj.address_id.email),
             'server_id': obj.mail_service_id.smtp_server_id.id,

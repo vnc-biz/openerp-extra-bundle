@@ -18,38 +18,38 @@ msgstr ""
 #. module: cci_account
 #: model:ir.actions.report.xml,name:cci_account.partner_draft_invoices
 msgid "Draft Invoices"
-msgstr ""
+msgstr "Factures brouillon"
 
 #. module: cci_account
 #: wizard_view:cci_use_model,create:0
 msgid "Use Model"
-msgstr ""
+msgstr "Utiliser le Modèle"
 
 #. module: cci_account
 #: wizard_button:cci_debit_credit_switch,init,end:0
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #. module: cci_account
 #: wizard_view:cci_debit_credit_switch,init:0
 msgid "Are you sure you want to switch debit-credit for selected entries?"
-msgstr ""
+msgstr "Etes-vous sûr de vouloir intervertir les débit-crédit pour les lignes sélectionnées"
 
 #. module: cci_account
 #: rml:cci.vcs:0
 msgid "VCS -"
-msgstr ""
+msgstr "VCS -"
 
 #. module: cci_account
 #: rml:cci.vcs:0
 msgid "Printing date:"
-msgstr ""
+msgstr "Date d'impression:"
 
 #. module: cci_account
 #: model:ir.actions.report.xml,name:cci_account.report_cci_vcs
 #: model:ir.actions.wizard,name:cci_account.wizard_cci_vcs
 msgid "Print VCS"
-msgstr ""
+msgstr "Imprimer avec VCS"
 
 #. module: cci_account
 #: rml:cci.vcs:0
@@ -59,95 +59,95 @@ msgstr ""
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "........."
-msgstr ""
+msgstr "........."
 
 #. module: cci_account
 #: field:account.invoice,dept:0
 #: field:sale.order,dept:0
 msgid "Department"
-msgstr ""
+msgstr "Département"
 
 #. module: cci_account
 #: wizard_button:cci_use_model,create,end:0
 #: wizard_button:wizard.cci.vcs,init,report:0
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #. module: cci_account
 #: wizard_view:wizard.cci.vcs,init:0
 msgid "Are you sure?"
-msgstr ""
+msgstr "Etes-vous sûr ?"
 
 #. module: cci_account
 #: wizard_button:cci_use_model,init,create:0
 msgid "Create Entries"
-msgstr ""
+msgstr "Créer les Entrées"
 
 #. module: cci_account
 #: wizard_view:cci_debit_credit_switch,init:0
 msgid "Switch Values"
-msgstr ""
+msgstr "Intervertir les valeurs"
 
 #. module: cci_account
 #: wizard_view:cci_use_model,create:0
 msgid "Move Lines Created"
-msgstr ""
+msgstr "Lignes de mouvement créées"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Invoice Date"
-msgstr ""
+msgstr "Date de facture"
 
 #. module: cci_account
 #: wizard_view:wizard.cci.vcs,init:0
 msgid "Make Sure that the invoice has invoice number."
-msgstr ""
+msgstr "Soyez sûr que la facture a un numéro de facture."
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Membership"
-msgstr ""
+msgstr "Membership"
 
 #. module: cci_account
 #: field:account.invoice,invoice_special:0
 msgid "Special Invoice"
-msgstr ""
+msgstr "Facture spéciale"
 
 #. module: cci_account
 #: model:ir.module.module,shortdesc:cci_account.module_meta_information
 msgid "CCI Account"
-msgstr ""
+msgstr "CCI Account"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Customer Ref."
-msgstr ""
+msgstr "Réf. Client"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Nationality"
-msgstr ""
+msgstr "Nationalité"
 
 #. module: cci_account
 #: wizard_field:cci_use_model,init,model:0
 msgid "Account Model"
-msgstr ""
+msgstr "Modèle comptable"
 
 #. module: cci_account
 #: view:account.invoice:0
 #: field:account.invoice,internal_note:0
 msgid "Internal Note"
-msgstr ""
+msgstr "Note interne"
 
 #. module: cci_account
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues"
 
 #. module: cci_account
 #: model:ir.actions.wizard,name:cci_account.cci_switch_debit_credit
@@ -157,61 +157,63 @@ msgstr ""
 #. module: cci_account
 #: view:account.bank.statement:0
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #. module: cci_account
 #: wizard_view:cci_use_model,init:0
 msgid "Select Message"
-msgstr ""
+msgstr "Choisir Message"
 
 #. module: cci_account
 #: model:ir.module.module,description:cci_account.module_meta_information
 msgid "\n"
 "        specific module for cci project which will use account module (Reports).\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        Module spéicifique pour le projet CCI qui utilisera le module account (Reports).\n"
+"    "
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Total :"
-msgstr ""
+msgstr "Total:"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Draft Invoices:"
-msgstr ""
+msgstr "Factures brouillon"
 
 #. module: cci_account
 #: view:account.bank.statement:0
 msgid "Statement lines"
-msgstr ""
+msgstr "Lignes de paiement"
 
 #. module: cci_account
 #: wizard_button:cci_debit_credit_switch,init,open:0
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #. module: cci_account
 #: field:account.invoice,vat_num:0
 #: rml:partner.draft_invoices:0
 msgid "VAT"
-msgstr ""
+msgstr "TVA"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "General Account"
-msgstr ""
+msgstr "Compte général"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #. module: cci_account
 #: model:ir.actions.wizard,name:cci_account.wizard_use_model
 #: model:ir.ui.menu,name:cci_account.menu_use_model
 msgid "Use Models"
-msgstr ""
+msgstr "Utiliser les Modèles"
 
 #. module: cci_account
 #: rml:cci.vcs:0
@@ -221,25 +223,25 @@ msgstr ""
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Analytic Account"
-msgstr ""
+msgstr "Compte analytique"
 
 #. module: cci_account
 #: wizard_button:cci_use_model,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annule"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Domiciliation"
-msgstr ""
+msgstr "Domiciliation"
 
 #. module: cci_account
 #: field:account.invoice.line,cci_special_reference:0
 msgid "Special Reference"
-msgstr ""
+msgstr "Référence spéciale"
 
 #. module: cci_account
 #: rml:partner.draft_invoices:0
 msgid "Untaxed Amount"
-msgstr ""
+msgstr "Montant HTVA"
 

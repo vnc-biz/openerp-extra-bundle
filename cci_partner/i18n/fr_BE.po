@@ -18,120 +18,120 @@ msgstr ""
 #. module: cci_partner
 #: selection:res.partner,invoice_paper:0
 msgid "Transfer belgian"
-msgstr ""
+msgstr "Virement belge"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,type:0
 msgid "Expert"
-msgstr ""
+msgstr "Expert"
 
 #. module: cci_partner
 #: field:res.partner.article,title:0
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Sender Info"
-msgstr ""
+msgstr "Info sur l'expéditeur"
 
 #. module: cci_partner
 #: field:res.partner,dir_presence:0
 msgid "Dir. Presence"
-msgstr ""
+msgstr "Présence Répertoire"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Asker Info"
-msgstr ""
+msgstr "Info sur le demandeur"
 
 #. module: cci_partner
 #: field:res.partner,invoice_public:0
 msgid "Invoice Public"
-msgstr ""
+msgstr "'certifiée sincère...'"
 
 #. module: cci_partner
 #: field:res.partner,alert_legalisations:0
 msgid "Legal. Alert"
-msgstr ""
+msgstr "Aleter sur légalisations"
 
 #. module: cci_partner
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle incorrect dans la définition de l'action"
 
 #. module: cci_partner
 #: field:res.partner.job,department:0
 msgid "Department"
-msgstr ""
+msgstr "Département"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,document:0
 msgid "Document"
-msgstr ""
+msgstr "Document"
 
 #. module: cci_partner
 #: help:res.partner,alert_events:0
 msgid "Partners description to be shown when inserting new subscription to a meeting"
-msgstr ""
+msgstr "Message d'avertissement à afficher quand on ajoute une nouvelle inscription à une rencontre"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,type:0
 msgid "Type of Event"
-msgstr ""
+msgstr "Type de Rencontre"
 
 #. module: cci_partner
 #: model:res.partner.zip,city:cci_partner.res_partner_zip_0
 #: model:res.partner.zip,city:cci_partner.res_partner_zip_1
 msgid "Liège"
-msgstr ""
+msgstr "Liège"
 
 #. module: cci_partner
 #: help:res.partner,import_year:0
 msgid "year of the import_procent value"
-msgstr ""
+msgstr "Année de la valeur 'Import'"
 
 #. module: cci_partner
 #: model:ir.ui.menu,name:cci_partner.menu_partner_zip
 #: model:ir.ui.menu,name:cci_partner.menu_partner_zip_main
 #: field:res.partner.address,zip_id:0
 msgid "Zip"
-msgstr ""
+msgstr "Code postal"
 
 #. module: cci_partner
 #: field:res.partner.job,who_presence:0
 msgid "In Whos Who"
-msgstr ""
+msgstr "Dans le Who's Who"
 
 #. module: cci_partner
 #: field:res.partner.activity.relation,importance:0
 msgid "Importance"
-msgstr ""
+msgstr "Importance"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,type:0
 msgid "Purchase Offer"
-msgstr ""
+msgstr "Offre d'achat"
 
 #. module: cci_partner
 #: field:res.partner.zip,name:0
 msgid "Zip Code"
-msgstr ""
+msgstr "Code postal"
 
 #. module: cci_partner
 #: help:res.partner,dir_name3:0
 msgid "Second shortcut"
-msgstr ""
+msgstr "Second raccourci"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Profiling Categories"
-msgstr ""
+msgstr "Catégories de profiling"
 
 #. module: cci_partner
 #: help:res.partner,wall_exclusion:0
 msgid "exclusion of this partner from the walloon database"
-msgstr ""
+msgstr "exclusion de ce partenaire de la base de données wallonne"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_zip
@@ -141,118 +141,118 @@ msgstr ""
 #. module: cci_partner
 #: view:res.partner.contact:0
 msgid "Related Articles"
-msgstr ""
+msgstr "Articles liés"
 
 #. module: cci_partner
 #: field:res.partner.job,function_label:0
 msgid "Function Label"
-msgstr ""
+msgstr "Titre complet"
 
 #. module: cci_partner
 #: field:res.partner.zip,groups_id:0
 msgid "Areas"
-msgstr ""
+msgstr "Zones"
 
 #. module: cci_partner
 #: field:res.partner,dir_exclude:0
 msgid "Dir. exclude"
-msgstr ""
+msgstr "Exclusion répertoire"
 
 #. module: cci_partner
 #: help:res.partner,dir_date_last:0
 msgid "Date of latest update of the partner data by itself (via paper or Internet)"
-msgstr ""
+msgstr "Date dde la dernière mise à jour de ce partenaire par lui-même (via papier ou Internet)"
 
 #. module: cci_partner
 #: help:res.partner,dir_presence:0
 msgid "Present in the directory of the members"
-msgstr ""
+msgstr "Présent dans le répertoire des membres"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Countries"
-msgstr ""
+msgstr "Pays"
 
 #. module: cci_partner
 #: selection:res.partner.activity.relation,importance:0
 msgid "Secondary"
-msgstr ""
+msgstr "Secondaire"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #. module: cci_partner
 #: field:res.partner,dir_name2:0
 msgid "1st Shortcut name "
-msgstr ""
+msgstr "Premier raccourci"
 
 #. module: cci_partner
 #: help:res.partner,dir_exclude:0
 msgid "Exclusion from the Members directory"
-msgstr ""
+msgstr "Exclusion du répertoire des membres"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Purchase Order"
-msgstr ""
+msgstr "Bon d'achat"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_res_partner_article_keyoword
 #: model:ir.ui.menu,name:cci_partner.menu_res_partner_article_keyword
 msgid "Article Keyword"
-msgstr ""
+msgstr "Mot clé sur article"
 
 #. module: cci_partner
 #: field:res.partner.article,article_length:0
 msgid "Length"
-msgstr ""
+msgstr "Longueur"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Purchases Properties"
-msgstr ""
+msgstr "Propriétés de Fournisseur"
 
 #. module: cci_partner
 #: field:res.partner,alert_events:0
 msgid "Event Alert"
-msgstr ""
+msgstr "Alerte sur les Rencontres"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulée"
 
 #. module: cci_partner
 #: help:res.partner,alert_legalisations:0
 msgid "Partners description to be shown when inserting new legalisation"
-msgstr ""
+msgstr "Message d'avertissement à montrer quand on crée une nouvelle mission déléguée"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,frequency:0
 msgid "Frequent"
-msgstr ""
+msgstr "Fréquent"
 
 #. module: cci_partner
 #: field:res.partner,canal_id:0
 msgid "Favourite Channel"
-msgstr ""
+msgstr "Canal favori"
 
 #. module: cci_partner
 #: field:res.partner.article,subtitle:0
 msgid "Subtitle"
-msgstr ""
+msgstr "Sous-titre"
 
 #. module: cci_partner
 #: field:res.partner.article,canal_id:0
 msgid "Reference"
-msgstr ""
+msgstr "Référence"
 
 #. module: cci_partner
 #: field:res.partner.state2,name:0
 msgid "Customer Status"
-msgstr ""
+msgstr "Etat de client"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_relation
@@ -262,7 +262,7 @@ msgstr ""
 #. module: cci_partner
 #: view:res.partner:0
 msgid "miscalleanous"
-msgstr ""
+msgstr "Divers"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,partner_type:0
@@ -277,17 +277,17 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner.activity.list,abbreviation:0
 msgid "Abbreviation"
-msgstr ""
+msgstr "Abréviation"
 
 #. module: cci_partner
 #: help:res.partner.address,sequence_partner:0
 msgid "order of importance of this address in the list of addresses of the linked partner"
-msgstr ""
+msgstr "ordre d'importence de cette adresse dans la liste des adresses du partenaire lié"
 
 #. module: cci_partner
 #: field:res.partner,wall_exclusion:0
 msgid "Not in Walloon DB"
-msgstr ""
+msgstr "Pas dans la BD wallonne"
 
 #. module: cci_partner
 #: view:res.partner:0
@@ -297,12 +297,12 @@ msgstr ""
 #. module: cci_partner
 #: selection:res.partner,invoice_paper:0
 msgid "Transfer iban"
-msgstr ""
+msgstr "Virement IBAN"
 
 #. module: cci_partner
 #: selection:res.partner.address,state:0
 msgid "To check"
-msgstr ""
+msgstr "A valider"
 
 #. module: cci_partner
 #: view:res.partner:0
@@ -311,45 +311,45 @@ msgstr ""
 #: field:res.partner.relation,current_partner_id:0
 #: field:res.partner.relation,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: cci_partner
 #: field:res.partner,import_year:0
 msgid "Import Date"
-msgstr ""
+msgstr "Date Import(%)"
 
 #. module: cci_partner
 #: field:res.partner,export_procent:0
 msgid "Export(%)"
-msgstr ""
+msgstr "Export(%)"
 
 #. module: cci_partner
 #: model:res.partner.title,name:cci_partner.contact_title_mademoiselle0
 msgid "Mademoiselle"
-msgstr ""
+msgstr "Mademoiselle"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,partner_type:0
 msgid "Customer"
-msgstr ""
+msgstr "Client"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.act_partner_address_2_function
 #: view:res.partner.address:0
 #: view:res.partner.contact:0
 msgid "Functions"
-msgstr ""
+msgstr "Fonctions"
 
 #. module: cci_partner
 #: view:res.partner.article:0
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiques"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_zip
 #: view:res.partner.zip:0
 msgid "Partner Zip"
-msgstr ""
+msgstr "Code postal"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_activity_list
@@ -359,12 +359,12 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner.zip,distance:0
 msgid "Distance"
-msgstr ""
+msgstr "Distance"
 
 #. module: cci_partner
 #: field:res.partner.address,sequence_partner:0
 msgid "Sequence (Partner)"
-msgstr ""
+msgstr "Sequence (Partenaire)"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,type:0
@@ -374,12 +374,12 @@ msgstr ""
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,type:0
 msgid "Sale Opportunity"
-msgstr ""
+msgstr "Opportunité de Vente"
 
 #. module: cci_partner
 #: model:res.partner.zip,city:cci_partner.res_partner_zip_3
 msgid "Bassenge Glons"
-msgstr ""
+msgstr "Bassenge Glons"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_state2
@@ -387,120 +387,120 @@ msgstr ""
 #: field:res.partner,state_id2:0
 #: view:res.partner.state2:0
 msgid "Customer State"
-msgstr ""
+msgstr "Etat de client"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Accounting Information"
-msgstr ""
+msgstr "Info comptable"
 
 #. module: cci_partner
 #: help:res.partner,alert_others:0
 msgid "Partners description to be shown when inserting new sale not treated by _advertising, _events, _legalisations, _Membership"
-msgstr ""
+msgstr "Message d'avertissement à afficher quand on crée une nouvelle vente autre que Publicité, Rencontres, Legalisations et Membership"
 
 #. module: cci_partner
 #: model:res.partner.title,name:cci_partner.contact_title_matre0
 msgid "Maître"
-msgstr ""
+msgstr "Maître"
 
 #. module: cci_partner
 #: field:res.partner,badge_partner:0
 msgid "Badge Partner"
-msgstr ""
+msgstr "Partenaire sur le Badge"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,som:0
 msgid "State of Mind"
-msgstr ""
+msgstr "Etat d'esprit"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Bank account owner"
-msgstr ""
+msgstr "Propriétaire du compte bancaire"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,canal_id:0
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 #. module: cci_partner
 #: field:res.partner.article,picture:0
 msgid "Picture"
-msgstr ""
+msgstr "Image"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,partner_type:0
 #: field:res.partner,relation_ids:0
 msgid "Partner Relation"
-msgstr ""
+msgstr "Lien avec d'autres partenaires"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Miscelleanous"
-msgstr ""
+msgstr "Divers"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_zip_group
 #: model:ir.ui.menu,name:cci_partner.menu_partner_zip_group
 #: view:res.partner.zip.group:0
 msgid "Zip Group"
-msgstr ""
+msgstr "Groupe de communes"
 
 #. module: cci_partner
 #: model:res.partner.title,name:cci_partner.contact_title_monsieur0
 msgid "Monsieur"
-msgstr ""
+msgstr "Monsieur"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,frequency:0
 msgid "Occasionnel"
-msgstr ""
+msgstr "Occasionnel"
 
 #. module: cci_partner
 #: constraint:res.partner.zip:0
 msgid "Error: Only one group of the same group type is allowed!"
-msgstr ""
+msgstr "Erreur: seulement un groupe du même type de groupe est autorisé!"
 
 #. module: cci_partner
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'Objet doit commencer par x_ et ne pas comporter de caractères spéciaux!"
 
 #. module: cci_partner
 #: field:res.partner,dir_date_last:0
 msgid "Partner Data Date"
-msgstr ""
+msgstr "Date données Répertoire"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,planned_cost:0
 msgid "Planned Cost"
-msgstr ""
+msgstr "Coût prévu"
 
 #. module: cci_partner
 #: field:res.partner.zip,user_id:0
 msgid "Salesman Responsible"
-msgstr ""
+msgstr "Commercial attitré"
 
 #. module: cci_partner
 #: help:res.partner,export_year:0
 msgid "year of the export_procent value"
-msgstr ""
+msgstr "année de la valeur Export(%)"
 
 #. module: cci_partner
 #: field:res.partner,alert_explanation:0
 msgid "Warning"
-msgstr ""
+msgstr "Avertissement"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "invoices"
-msgstr ""
+msgstr "factures"
 
 #. module: cci_partner
 #: field:res.partner,alert_others:0
 msgid "Other alert"
-msgstr ""
+msgstr "Autres alertes"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_res_partner_article
@@ -509,32 +509,32 @@ msgstr ""
 #: view:res.partner.article:0
 #: field:res.partner.article,article_id:0
 msgid "Article"
-msgstr ""
+msgstr "Article"
 
 #. module: cci_partner
 #: field:res.partner,alert_advertising:0
 msgid "Adv.Alert"
-msgstr ""
+msgstr "Alerte sur Publicités"
 
 #. module: cci_partner
 #: help:res.partner,date_founded:0
 msgid "Date of foundation of this company"
-msgstr ""
+msgstr "Date de fondation de cette entreprise"
 
 #. module: cci_partner
 #: model:ir.ui.menu,name:cci_partner.menu_res_partner_article_review
 msgid "Article Reviews"
-msgstr ""
+msgstr "Revue de Presse"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Categories"
-msgstr ""
+msgstr "Catégories"
 
 #. module: cci_partner
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_article_keywords
@@ -549,12 +549,12 @@ msgstr ""
 #. module: cci_partner
 #: model:res.partner.title,name:cci_partner.contact_title_professeur0
 msgid "Professeur"
-msgstr ""
+msgstr "Professeur"
 
 #. module: cci_partner
 #: help:res.partner.article,press_review:0
 msgid "Must be inserted on the next press review"
-msgstr ""
+msgstr "Doit être inséré dans la prochaine revue de presse"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_article_review
@@ -564,27 +564,27 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner.article,keywords_ids:0
 msgid "Keywords"
-msgstr ""
+msgstr "Mots clés"
 
 #. module: cci_partner
 #: field:res.partner.relation.type,name:0
 msgid "Contact"
-msgstr ""
+msgstr "Nom"
 
 #. module: cci_partner
 #: view:res.partner.contact:0
 msgid "Civilite"
-msgstr ""
+msgstr "Civilité"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Directory"
-msgstr ""
+msgstr "Répertoire"
 
 #. module: cci_partner
 #: help:res.partner,invoice_nbr:0
 msgid "number of additive invoices to be printed for this customer"
-msgstr ""
+msgstr "Nombre d'exemplaires supplémentaires à imprimer pour ce client"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_zip_group_type
@@ -594,38 +594,38 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner,name_old:0
 msgid "Former Name"
-msgstr ""
+msgstr "Ancien nom"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Communication"
-msgstr ""
+msgstr "Communication"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "employees"
-msgstr ""
+msgstr "Pers. occupées"
 
 #. module: cci_partner
 #: field:res.partner.zip,post_center_special:0
 msgid "Post Center Special"
-msgstr ""
+msgstr "Centre de tri postal spécial"
 
 #. module: cci_partner
 #: field:res.partner,name_official:0
 msgid "Official Name"
-msgstr ""
+msgstr "Nom officiel"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,frequency:0
 msgid "Prospection"
-msgstr ""
+msgstr "En Prospection"
 
 #. module: cci_partner
 #: field:res.partner.relation,type_id:0
 #: field:res.partner.zip.group,type_id:0
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_activity
@@ -635,141 +635,141 @@ msgstr ""
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #. module: cci_partner
 #: field:res.partner.article,press_review:0
 msgid "In the next press review"
-msgstr ""
+msgstr "Dans la prochaine revue de presse"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "special"
-msgstr ""
+msgstr "spécial"
 
 #. module: cci_partner
 #: help:res.partner.job,canal_id:0
 msgid "favorite chanel for communication"
-msgstr ""
+msgstr "Canal favori"
 
 #. module: cci_partner
 #: field:res.partner,date_founded:0
 msgid "Founding Date"
-msgstr ""
+msgstr "Date de foundation"
 
 #. module: cci_partner
 #: field:res.partner.job,canal_id:0
 msgid "Canal"
-msgstr ""
+msgstr "Canal"
 
 #. module: cci_partner
 #: code:addons/cci_partner/cci_partner.py:0
 #, python-format
 msgid "Invalid Phone number. Only 9 figures numbers are allowed."
-msgstr ""
+msgstr "Numéro de téléphone incorrect. Seuls 9 chiffres sont acceptés"
 
 #. module: cci_partner
 #: field:res.partner,dir_name:0
 msgid "Name in Member Dir."
-msgstr ""
+msgstr "Nom dans le répertoire des membres"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_state
 #: model:ir.ui.menu,name:cci_partner.menu_partner_state
 #: view:res.partner.state:0
 msgid "Activity State"
-msgstr ""
+msgstr "Etat d'activité"
 
 #. module: cci_partner
 #: view:res.partner:0
 #: view:res.partner.article:0
 #: field:res.partner.article,contact_ids:0
 msgid "Contacts"
-msgstr ""
+msgstr "Contacts"
 
 #. module: cci_partner
 #: field:res.partner.article,graph:0
 msgid "Graph"
-msgstr ""
+msgstr "Graphique"
 
 #. module: cci_partner
 #: field:res.partner.article,review_id:0
 msgid "Review"
-msgstr ""
+msgstr "Revue de Presse"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Alerts"
-msgstr ""
+msgstr "Alertes"
 
 #. module: cci_partner
 #: help:res.partner,alert_advertising:0
 msgid "Partners description to be shown when inserting new advertising sale"
-msgstr ""
+msgstr "Message d'avertissement à afficher quand on créé une nouvelle vente de publicité"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Relations"
-msgstr ""
+msgstr "Liens"
 
 #. module: cci_partner
 #: help:res.partner,state_id2:0
 msgid "status of the partner as a customer"
-msgstr ""
+msgstr "etat de ce partenaire en tant que client comptable"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,partner_type:0
 msgid "Commercial Prospect"
-msgstr ""
+msgstr "Prospect commercial"
 
 #. module: cci_partner
 #: field:res.partner.zip,partner_id:0
 msgid "Master Cci"
-msgstr ""
+msgstr "CCI Maître"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "........."
-msgstr ""
+msgstr "........."
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,type:0
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_res_partner_article_review
 #: view:res.partner.article.review:0
 msgid "Article Review"
-msgstr ""
+msgstr "Revue de Presse"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,name:0
 #: view:res.partner:0
 msgid "Events"
-msgstr ""
+msgstr "Events"
 
 #. module: cci_partner
 #: wizard_button:cci.partner_event_history,init,create:0
 msgid "Create Event"
-msgstr ""
+msgstr "Créer un Event"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_activity
 #: model:ir.ui.menu,name:cci_partner.menu_partner_activity_main
 #: view:res.partner.activity:0
 msgid "Partner Activity"
-msgstr ""
+msgstr "Activités des partenaire"
 
 #. module: cci_partner
 #: help:res.partner,dir_date_accept:0
 msgid "Date of last acceptation of Bon a Tirer"
-msgstr ""
+msgstr "Date de la dernière acceptation du Bon à Tirer"
 
 #. module: cci_partner
 #: field:res.partner.activity,code_relations:0
@@ -779,67 +779,67 @@ msgstr ""
 #. module: cci_partner
 #: help:res.partner,employee_nbr_total:0
 msgid "Nbr of Employee all around the world"
-msgstr ""
+msgstr "Nombre de personnes occupées à travers le monde"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Membership"
-msgstr ""
+msgstr "Membership"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Paid"
-msgstr ""
+msgstr "Payée"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,planned_revenue:0
 msgid "Planned Revenue"
-msgstr ""
+msgstr "Revenus planifiés"
 
 #. module: cci_partner
 #: field:res.partner,country_relation:0
 msgid "Country Relation"
-msgstr ""
+msgstr "Pays de relation"
 
 #. module: cci_partner
 #: field:res.partner,dir_name3:0
 msgid "2nd Shortcut name "
-msgstr ""
+msgstr "Second nom raccourci"
 
 #. module: cci_partner
 #: field:res.partner.activity.list,name:0
 msgid "Code list"
-msgstr ""
+msgstr "Liste de code"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,probability:0
 msgid "Probability (0.50)"
-msgstr ""
+msgstr "Probabilité (0.50)"
 
 #. module: cci_partner
 #: field:res.partner.job,active:0
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Postal Address"
-msgstr ""
+msgstr "Adresse postale"
 
 #. module: cci_partner
 #: field:res.partner.article,data:0
 msgid "Data"
-msgstr ""
+msgstr "Données"
 
 #. module: cci_partner
 #: model:res.partner.zip,city:cci_partner.res_partner_zip_2
 msgid "Huy"
-msgstr ""
+msgstr "Huy"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,type:0
 msgid "Salon"
-msgstr ""
+msgstr "Salon commercial"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_article
@@ -849,242 +849,242 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner.job,date_end:0
 msgid "Date end"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: cci_partner
 #: help:res.company,federation_key:0
 msgid "ID key for the sending of data to the belgian CCI's Federation"
-msgstr ""
+msgstr "Clé d'identification pour l'envoi des données à la Fédération des CCI belges"
 
 #. module: cci_partner
 #: view:res.partner:0
 #: view:res.partner.article:0
 #: field:res.partner.article,partner_ids:0
 msgid "Partners"
-msgstr ""
+msgstr "Partenaires"
 
 #. module: cci_partner
 #: field:res.partner,import_procent:0
 msgid "Import (%)"
-msgstr ""
+msgstr "Import(%)"
 
 #. module: cci_partner
 #: view:res.partner.article.keywords:0
 msgid "Partner Article Keywords"
-msgstr ""
+msgstr "Mots clés des articles"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Extra Information"
-msgstr ""
+msgstr "Info supplémentaire"
 
 #. module: cci_partner
 #: view:res.partner:0
 #: view:res.partner.relation:0
 msgid "Partner Link"
-msgstr ""
+msgstr "Liens vers d'autres partenaire"
 
 #. module: cci_partner
 #: model:res.partner.title,name:cci_partner.contact_title_madame0
 msgid "Madame"
-msgstr ""
+msgstr "Madame"
 
 #. module: cci_partner
 #: wizard_field:cci.partner_event_history,init,date:0
 #: field:res.partner.article,date:0
 #: field:res.partner.article.review,date:0
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #. module: cci_partner
 #: field:res.partner,dir_date_accept:0
 msgid "Good to shoot Date"
-msgstr ""
+msgstr "Date Bon à Tirer"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,type:0
 msgid "Representation"
-msgstr ""
+msgstr "Représentation commerciale"
 
 #. module: cci_partner
 #: field:res.partner.activity,label:0
 msgid "Label"
-msgstr ""
+msgstr "Signification"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Pro-Forma"
-msgstr ""
+msgstr "Pro-Forma"
 
 #. module: cci_partner
 #: field:res.partner,dir_date_publication:0
 msgid "Publication Date"
-msgstr ""
+msgstr "Date de publication"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_zip_type_group
 #: model:ir.ui.menu,name:cci_partner.menu_partner_zip_group_type
 #: view:res.partner.zip.group.type:0
 msgid "Group Type"
-msgstr ""
+msgstr "Type de Groupe"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Production Lot"
-msgstr ""
+msgstr "Lot de Production"
 
 #. module: cci_partner
 #: field:res.partner.activity,code:0
 #: field:res.partner.address,state:0
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: cci_partner
 #: field:res.partner.article,source_id:0
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #. module: cci_partner
 #: wizard_view:cci.partner_event_history,init:0
 msgid "Document Link"
-msgstr ""
+msgstr "Lien vers un document"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Stock Properties"
-msgstr ""
+msgstr "Propriétés de stock"
 
 #. module: cci_partner
 #: view:res.partner:0
 #: view:res.partner.article:0
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "General Information"
-msgstr ""
+msgstr "Info générale"
 
 #. module: cci_partner
 #: field:res.partner.country.relation,frequency:0
 msgid "Frequency"
-msgstr ""
+msgstr "Fréquence"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Invoice"
-msgstr ""
+msgstr "Facture"
 
 #. module: cci_partner
 #: field:res.partner,followup_max_level:0
 msgid "Max. Followup Level"
-msgstr ""
+msgstr "Niveau rappel max."
 
 #. module: cci_partner
 #: wizard_button:cci.partner_event_history,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annulation"
 
 #. module: cci_partner
 #: field:res.partner,invoice_special:0
 msgid "Invoice Special"
-msgstr ""
+msgstr "Facture spéciale"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Open"
-msgstr ""
+msgstr "Ouverte"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Sales Properties"
-msgstr ""
+msgstr "Propriétés de Vente"
 
 #. module: cci_partner
 #: field:res.partner.zip,city:0
 msgid "City"
-msgstr ""
+msgstr "Localité"
 
 #. module: cci_partner
 #: field:res.partner.job,function_code_label:0
 msgid "Codes"
-msgstr ""
+msgstr "Codes"
 
 #. module: cci_partner
 #: help:res.partner.article,canal_id:0
 msgid "A text with or without a link incorporated"
-msgstr ""
+msgstr "Un texte avec ou sans lien incorporé"
 
 #. module: cci_partner
 #: wizard_view:cci.partner_event_history,init:0
 msgid "General Description"
-msgstr ""
+msgstr "Description générale"
 
 #. module: cci_partner
 #: help:res.partner,dir_name2:0
 msgid "First shortcut in the members directory, pointing to the dir_name field"
-msgstr ""
+msgstr "Premier nom raccourci dans le répertoire des membres, pointant vers le nom officiel"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Sales & Purchases"
-msgstr ""
+msgstr "Ventes & Achats"
 
 #. module: cci_partner
 #: selection:res.partner,invoice_paper:0
 msgid "No printed transfert"
-msgstr ""
+msgstr "Sans virement pré-imprimé"
 
 #. module: cci_partner
 #: code:addons/cci_partner/cci_partner.py:0
 #, python-format
 msgid "Validate Error"
-msgstr ""
+msgstr "Erreur de validation"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Domicilaition"
-msgstr ""
+msgstr "Domiciliation"
 
 #. module: cci_partner
 #: selection:res.partner.activity.relation,importance:0
 msgid "Primary"
-msgstr ""
+msgstr "Primaire"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Domiciliation (Cotisation)"
-msgstr ""
+msgstr "Domiciliation (pour les cotis)"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "ATA infos"
-msgstr ""
+msgstr "Infos ATA"
 
 #. module: cci_partner
 #: help:res.partner.zip,distance:0
 msgid "Distance (km) between zip location and the cci."
-msgstr ""
+msgstr "Distance (km) entre la CCI et cette commune"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Invoice Type"
-msgstr ""
+msgstr "Type de facture"
 
 #. module: cci_partner
 #: field:res.partner,employee_nbr:0
 msgid "Nbr of Employee (Area)"
-msgstr ""
+msgstr "Pers. occupées (Zone)"
 
 #. module: cci_partner
 #: selection:res.partner.activity.relation,importance:0
 msgid "Main"
-msgstr ""
+msgstr "Principal"
 
 #. module: cci_partner
 #: selection:res.partner.address,state:0
 msgid "Correct"
-msgstr ""
+msgstr "Correcte"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_activity_relation
@@ -1094,22 +1094,22 @@ msgstr ""
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Missions"
-msgstr ""
+msgstr "Missions"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Activities"
-msgstr ""
+msgstr "Activités"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Product"
-msgstr ""
+msgstr "Produit"
 
 #. module: cci_partner
 #: field:res.partner,employee_nbr_total:0
 msgid "Nbr of Employee (Tot)"
-msgstr ""
+msgstr "Pers. occupées (total)"
 
 #. module: cci_partner
 #: wizard_view:cci.partner_event_history,init:0
@@ -1118,38 +1118,38 @@ msgstr ""
 #: field:res.partner.activity,description:0
 #: field:res.partner.relation,description:0
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: cci_partner
 #: field:res.partner.zip,post_center_id:0
 msgid "Post Center"
-msgstr ""
+msgstr "Centre postal"
 
 #. module: cci_partner
 #: help:res.partner,dir_name:0
 msgid "Name under wich the partner will be inserted in the members directory"
-msgstr ""
+msgstr "Nom officiel sous lequel ce partenaire sera repris dans le répertoire des membres"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Bank account"
-msgstr ""
+msgstr "Compte bancaire"
 
 #. module: cci_partner
 #: field:res.partner.job,dir_presence:0
 msgid "In Directory"
-msgstr ""
+msgstr "Dans le Répertoire"
 
 #. module: cci_partner
 #: view:res.partner:0
 #: field:res.partner,activity_description:0
 msgid "Activity Description"
-msgstr ""
+msgstr "Description de l'activité"
 
 #. module: cci_partner
 #: field:res.company,federation_key:0
 msgid "ID for the Federation"
-msgstr ""
+msgstr "ID pour la Fédération"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_relation_type
@@ -1164,32 +1164,32 @@ msgstr ""
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #. module: cci_partner
 #: rml:cci.count.invoice:0
 msgid "Counted Invoices"
-msgstr ""
+msgstr "Factures comptées"
 
 #. module: cci_partner
 #: help:res.partner,employee_nbr:0
 msgid "Nbr of Employee in the area of the CCI"
-msgstr ""
+msgstr "Nombre de personnes occupées dans la zone d'activités de la CCI"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Use a questionnaire"
-msgstr ""
+msgstr "Utiliser un questionnaire"
 
 #. module: cci_partner
 #: field:res.partner.country.relation,type:0
 msgid "Types"
-msgstr ""
+msgstr "Types"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Case"
-msgstr ""
+msgstr "Cas"
 
 #. module: cci_partner
 #: view:res.partner:0
@@ -1198,12 +1198,12 @@ msgstr ""
 #: field:res.partner.article.review,article_ids:0
 #: field:res.partner.contact,article_ids:0
 msgid "Articles"
-msgstr ""
+msgstr "Articles"
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Sale Order"
-msgstr ""
+msgstr "Bon de commande"
 
 #. module: cci_partner
 #: field:res.partner.article.keywords,name:0
@@ -1211,70 +1211,70 @@ msgstr ""
 #: field:res.partner.zip.group,name:0
 #: field:res.partner.zip.group.type,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_link_type
 #: model:ir.ui.menu,name:cci_partner.menu_partner_link_type
 #: view:res.partner.relation.type:0
 msgid "Partner Link Type"
-msgstr ""
+msgstr "Type de lien entre partenaires"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_activity_list
 #: model:ir.ui.menu,name:cci_partner.menu_partner_activity_list
 #: view:res.partner.activity.list:0
 msgid "Activity List"
-msgstr ""
+msgstr "Liste d'Activités"
 
 #. module: cci_partner
 #: field:res.partner.country.relation,country_id:0
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #. module: cci_partner
 #: model:ir.module.module,shortdesc:cci_partner.module_meta_information
 msgid "CCI Partner"
-msgstr ""
+msgstr "CCI Partner"
 
 #. module: cci_partner
 #: view:res.partner:0
 #: field:res.partner,activity_code_ids:0
 msgid "Activity Codes"
-msgstr ""
+msgstr "Codes Activités"
 
 #. module: cci_partner
 #: field:res.partner.activity,list_id:0
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #. module: cci_partner
 #: code:addons/cci_partner/cci_partner.py:0
 #, python-format
 msgid "Invalid GSM Phone number. Only 10 figures numbers are allowed."
-msgstr ""
+msgstr "Numéro de GSM incorrect. On n'accepte que 10 chiffres."
 
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Project task"
-msgstr ""
+msgstr "Tâcche d'un projet"
 
 #. module: cci_partner
 #: wizard_view:cci.partner_event_history,init:0
 msgid "Partner Event"
-msgstr ""
+msgstr "Evénement partenaire"
 
 #. module: cci_partner
 #: model:ir.actions.report.xml,name:cci_partner.cci_count_invoices
 msgid "Count invoices"
-msgstr ""
+msgstr "Compter les factures"
 
 #. module: cci_partner
 #: model:ir.ui.menu,name:cci_partner.menu_partner_activity
 #: view:res.partner:0
 #: field:res.partner.activity.relation,activity_id:0
 msgid "Activity"
-msgstr ""
+msgstr "Activité"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_form_new
@@ -1285,7 +1285,7 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner.article,summary:0
 msgid "Summary"
-msgstr ""
+msgstr "Résumé"
 
 #. module: cci_partner
 #: model:ir.actions.act_window,name:cci_partner.action_partner_activity_relation
@@ -1297,12 +1297,12 @@ msgstr ""
 #. module: cci_partner
 #: field:res.partner.article,page:0
 msgid "Page"
-msgstr ""
+msgstr "Page"
 
 #. module: cci_partner
 #: field:res.partner,invoice_nbr:0
 msgid "Nbr of invoice to print"
-msgstr ""
+msgstr "Nombre de facture à imprimer"
 
 #. module: cci_partner
 #: model:ir.model,name:cci_partner.model_res_partner_country_relation
@@ -1312,77 +1312,79 @@ msgstr ""
 #. module: cci_partner
 #: selection:cci.partner_event_history,init,document:0
 msgid "Project"
-msgstr ""
+msgstr "Projet"
 
 #. module: cci_partner
 #: field:res.partner,alert_membership:0
 msgid "Membership Alert"
-msgstr ""
+msgstr "Alerte Membership"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Bank Details"
-msgstr ""
+msgstr "Détails bancaires"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Addresses"
-msgstr ""
+msgstr "Adresses"
 
 #. module: cci_partner
 #: field:res.partner,export_year:0
 msgid "Export date"
-msgstr ""
+msgstr "Date Export(%)"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Translation info"
-msgstr ""
+msgstr "Info Traductions"
 
 #. module: cci_partner
 #: help:res.partner,training_authorization:0
 msgid "Formation and Language Checks Authorization number"
-msgstr ""
+msgstr "Numéro agréation Chèque Formation et Langues"
 
 #. module: cci_partner
 #: model:ir.ui.menu,name:cci_partner.menu_partner_state_main
 msgid "States"
-msgstr ""
+msgstr "Etats"
 
 #. module: cci_partner
 #: model:ir.module.module,description:cci_partner.module_meta_information
 msgid "\n"
 "        Specific module for cci project which will inherit partner module\n"
 "    "
-msgstr ""
+msgstr "\n"
+"        Module spécifique pour le projet CCI qui se base sur le module Partner\n"
+"    "
 
 #. module: cci_partner
 #: help:res.partner,alert_membership:0
 msgid "Partners description to be shown when inserting new ship sale"
-msgstr ""
+msgstr "Message d'avertissement à montrer quand on facture le membership"
 
 #. module: cci_partner
 #: selection:res.partner.country.relation,type:0
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #. module: cci_partner
 #: view:res.partner:0
 msgid "Accounting"
-msgstr ""
+msgstr "Comptabilité"
 
 #. module: cci_partner
 #: field:res.partner,invoice_paper:0
 msgid "Bank Transfer Type"
-msgstr ""
+msgstr "Type de virement"
 
 #. module: cci_partner
 #: model:ir.actions.wizard,name:cci_partner.cci_partner_event_history
 msgid "Event History"
-msgstr ""
+msgstr "Historique des Evénements"
 
 #. module: cci_partner
 #: field:res.partner,training_authorization:0
 msgid "Checks Auth."
-msgstr ""
+msgstr "Num. agréation Chèques"
 

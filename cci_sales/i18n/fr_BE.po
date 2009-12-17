@@ -18,38 +18,38 @@ msgstr ""
 #. module: cci_sales
 #: field:sale.order,parent_so:0
 msgid "Parent Sales Order"
-msgstr ""
+msgstr "Bon de Commande parent"
 
 #. module: cci_sales
 #: view:sale.order:0
 #: field:sale.order,case_ids:0
 msgid "Related Cases"
-msgstr ""
+msgstr "Cas liés"
 
 #. module: cci_sales
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML incorrect pour l'Architecture des Vues"
 
 #. module: cci_sales
 #: model:ir.module.module,shortdesc:cci_sales.module_meta_information
 msgid "CCI Sales"
-msgstr ""
+msgstr "CCI Sales"
 
 #. module: cci_sales
 #: model:ir.module.module,description:cci_sales.module_meta_information
 msgid "\n"
-"        A Specific Module for CCI which will make the use of Sale module..\n"
+"        Un module spécifique au projet CCI basé sur le module Sale..\n"
 "    "
 msgstr ""
 
 #. module: cci_sales
 #: view:sale.order:0
 msgid "Riders"
-msgstr ""
+msgstr "Avenants"
 
 #. module: cci_sales
 #: field:sale.order,child_so:0
 msgid "Child Sales Order"
-msgstr ""
+msgstr "Bons de commande enfant"
 

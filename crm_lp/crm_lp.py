@@ -115,8 +115,8 @@ class lpServer(threading.Thread):
 class project_project(osv.osv):
     _inherit = "project.project"
     _columns = {
-                'series_ids' : fields.one2many('lp.series', 'project_id', 'LP Series'),
-                'milestone_ids' : fields.one2many('lp.project.milestone', 'project_id', 'LP Milestone'),
+                'series_ids' : fields.one2many('project.series', 'project_id', 'LP Series'),
+                'milestone_ids' : fields.one2many('project.milestone', 'project_id', 'LP Milestone'),
                 'bugs_target': fields.char('Bugs Target', size=300),
                 'flag':fields.boolean('Synchronize Lp'),
                 }
@@ -127,9 +127,9 @@ class project_project(osv.osv):
 
 project_project()
 
-class lp_series(osv.osv):
-    _name="lp.series"
-    _description="LP Series"
+class project_series(osv.osv):
+    _name="project.series"
+    _description="Project Series"
     _columns={
               'name':fields.char("Series Name",size=200, required=True, help="The name of the series"),
               'status': fields.char("Status", size=100),
@@ -137,14 +137,14 @@ class lp_series(osv.osv):
               'project_id': fields.many2one('project.project', 'LP Project', ondelete='cascade'),
                'milestone_ids' : fields.one2many('project.milestone', 'series_id', 'LP Milestone'),
               }
-lp_series()
+project_series()
 
 class project_milestone(osv.osv):
     _name="project.milestone"
     _description= "Project milestone"
     _columns={
         'name':fields.char('Version', size=100,required=True),
-        'series_id':fields.many2one('lp.series', 'Series', readonly=True,ondelete='cascade'),
+        'series_id':fields.many2one('project.series', 'Series', readonly=True,ondelete='cascade'),
         'project_id': fields.many2one('project.project', 'Project', readonly=True),
         'expect_date': fields.datetime('Expected Date', readonly=True),
         }

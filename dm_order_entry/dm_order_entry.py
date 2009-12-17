@@ -22,6 +22,7 @@
 
 from osv import fields
 from osv import osv
+from tools.translate import _
 
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
@@ -36,12 +37,12 @@ class dm_order(osv.osv): # {{{
         'customer_add2': fields.char('Address2', size=64),
         'customer_add3': fields.char('Address3', size=64),
         'customer_add4': fields.char('Address4', size=64),
-        'country': fields.char('Country', size=16),
+        'country_id': fields.many2one('res.country','Country'),
         'zip': fields.char('Zip Code', size=12),
         'zip_summary': fields.char('Zip Summary', size=64),
         'distribution_office': fields.char('Distribution Office', size=64),
-        'segment_code': fields.char('Segment Code', size=64),
-        'offer_step_code': fields.char('Offer Step Code', size=64),
+        'segment_id': fields.many2one('dm.campaign.proposition.segment','Segment Code'),
+        'offer_step_id': fields.many2one('dm.offer.step','Offer Step Code'),
         'state': fields.selection([('draft', 'Draft'),('done', 'Done')],
                                    'Status', readonly=True),
     }
@@ -55,13 +56,28 @@ class dm_order(osv.osv): # {{{
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-        raw_datas = "2;00573G;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;; GBR;BN;BN11 1XQ;WORTHING.LU.SX"
+        raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX"
         value = raw_datas.split(';')
-        key = ['datamatrix_type', 'segment_code', 'customer_code', 'title', 
+        key = ['datamatrix_type', 'segment_id', 'customer_code', 'title', 
                'customer_lastname', 'customer_firstname', 'customer_add1',
-               'customer_add2', 'customer_add3', 'customer_add4', 'country', 
+               'customer_add2', 'customer_add3', 'customer_add4', 'country_id', 
                'zip_summary', 'zip', 'distribution_office']
         value = dict(zip(key, value))
+        field_check = {'res.country':('country_id','Country'),
+                       'dm.campaign.proposition.segment' : ('segment_id','Segment')
+                      # 'dm.offer_step' : ('offer_step_id','Offer Step')
+                      }
+        for m in field_check:
+            field = field_check[m][0]
+            if value.has_key(field) and value[field]:
+                f_id = self.pool.get(m).search(cr,uid,[('code','=',value[field])])
+                if f_id:
+                    value[field]= f_id
+                raise osv.except_osv(_('Error !'),
+                    _('No %s found for the code '%field_check[m][1]))
+            else:
+                raise osv.except_osv(_('Error !'),
+                    _('There is no code defined for %s'%field_check[m][1]))
         return {'value': value}
 
 dm_order() # }}}

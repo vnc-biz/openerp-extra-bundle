@@ -46,13 +46,6 @@ class hr_passport(osv.osv):
     }
 hr_passport()
 
-#class res_partner_function(osv.osv):
-#    _inherit = 'res.partner.function'
-#    
-#    
-#        
-#res_partner_function()
-
 class hr_employee_grade(osv.osv):
     _name = 'hr.employee.grade'
     _description = 'Function of the Employee'
@@ -170,7 +163,7 @@ class payroll_register(osv.osv):
                 self.pool.get('res.users').browse(cr, uid, uid,
                     context=context).company_id.id,
     }
-    
+
     def compute_sheet(self, cr, uid, ids, context={}):
         emp_pool = self.pool.get('hr.employee')
         slip_pool = self.pool.get('hr.payslip')
@@ -634,14 +627,14 @@ class hr_payslip(osv.osv):
                 if contrib > amount:
                     contrib = amount
                 
-                self.pool.get('hr.payslip.line').write(cr, uid, [line.id], {'total':amount + contrib})
+                self.pool.get('hr.payslip.line').write(cr, uid, [line.id], {'total':amount})
                 
                 if line.type == 'allounce':
                     allow += amount
-                    allow += contrib
+                    others += contrib
                 elif line.type == 'deduction':
                     deduct += amount
-                    allow -= contrib
+                    others -= contrib
                 elif line.type == 'advance':
                     others += amount
                 elif line.type == 'loan':
@@ -1024,6 +1017,83 @@ class hr_payslip(osv.osv):
                 
                 line_ids += [movel_pool.create(cr, uid, rec)]
                 
+                if line.company_contrib > 0:
+                    
+                    company_contrib = 0
+                    if line.company_contrib > line.total:
+                        company_contrib = line.total
+                    else:
+                        company_contrib = line.company_contrib
+                        
+                    narration = """Company Contribution of %s Deducted from Employee and Encode same as a Company Expanse @ %s""" % (line.name, company_contrib)
+                    move = {
+                        #'name': slip.name, 
+                        'journal_id': slip.journal_id.id,
+                        'period_id': period_id, 
+                        'date': slip.date,
+                        'ref':slip.number,
+                        'narration': narration
+                    }
+                    company_contrib_move_id = move_pool.create(cr, uid, move)
+                    name = "[%s] - %s / %s - Company Contribution" % (line.code, line.name, slip.employee_id.name)
+
+                    ded_deb = {
+                        'move_id':company_contrib_move_id,
+                        'name': name,
+                        'date': slip.date, 
+                        'quantity':1,
+                        'account_id': slip.journal_id.default_debit_account_id.id,
+                        'debit': company_contrib,
+                        'credit' : 0.0,
+                        'journal_id': slip.journal_id.id,
+                        'period_id': period_id,
+                        'ref':slip.number
+                    }
+                    line_ids += [movel_pool.create(cr, uid, ded_deb)]
+                    ded_cre = {
+                        'move_id':company_contrib_move_id,
+                        'name': name,
+                        'date': slip.date, 
+                        'quantity':1,
+                        'account_id': line.category_id.register_id.account_id.id,
+                        'debit': 0.0,
+                        'credit' : company_contrib,
+                        'journal_id': slip.journal_id.id,
+                        'period_id': period_id,
+                        'ref':slip.number
+                    }
+                    line_ids += [movel_pool.create(cr, uid, ded_cre)]
+                    
+                    total_deduct += company_contrib
+                    ded_deb = {
+                        'move_id':company_contrib_move_id,
+                        'name': name,
+                        'partner_id': partner_id,
+                        'date': slip.date, 
+                        'quantity':1,
+                        'account_id': partner.property_account_receivable.id,
+                        'debit': company_contrib,
+                        'credit' : 0.0,
+                        'journal_id': slip.journal_id.id,
+                        'period_id': period_id,
+                        'ref':slip.number
+                    }
+                    line_ids += [movel_pool.create(cr, uid, ded_deb)]
+                    ded_cre = {
+                        'move_id':company_contrib_move_id,
+                        'name': name,
+#                        'partner_id': partner_id,
+                        'date': slip.date, 
+                        'quantity':1,
+                        'account_id': slip.journal_id.default_debit_account_id.id,
+                        'debit': 0.0,
+                        'credit' : company_contrib,
+                        'journal_id': slip.journal_id.id,
+                        'period_id': period_id,
+                        'ref':slip.number
+                    }
+                    line_ids += [movel_pool.create(cr, uid, ded_cre)]
+
                 #make an entry line to contribution register
                 if line.category_id.register_id:
                     ctr = {

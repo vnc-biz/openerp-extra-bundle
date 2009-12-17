@@ -844,6 +844,13 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field name="code">plugin_missing</field>
             <field name="message">Some plugins are missing in document which are used in report</field>
         </record>
+		<record id="dm_sysmsg_image_content_error" model="dm.sysmsg">
+			<field eval="&quot;&quot;&quot;image_content_error&quot;&quot;&quot;" name="code"/>
+			<field eval="&quot;&quot;&quot;Image Error&quot;&quot;&quot;" name="name"/>
+			<field name="field" ref="dm.field_dm_campaign_document_error_msg"/>
+			<field eval="&quot;&quot;&quot;Check the image value ,may be url is wrong or data is not coming properly&quot;&quot;&quot;" name="message"/>
+			<field name="model" ref="dm.model_dm_campaign_document"/>
+		</record>
 		<record id="dm_sysmsg_smtp_doc_sent" model="dm.sysmsg">
 			<field eval="&quot;&quot;&quot;smtp_doc_sent&quot;&quot;&quot;" name="code"/>
 			<field eval="&quot;&quot;&quot;SMTP Document Sent&quot;&quot;&quot;" name="name"/>

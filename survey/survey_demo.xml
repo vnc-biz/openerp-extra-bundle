@@ -1,474 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        <record model="survey" id="survey_title">
-	        <field name="title">About this project</field>
+    
+    	<!--  Partner Feedback Demo data -->
+        <record model="survey" id="survey_partner_feedback">
+	        <field name="title">Open ERP Partner Feedback</field>
 	        <field name="user_id" ref="base.user_root"/>
 	        <field name="max_response_limit">20</field>
    		</record>
 
-
-        <record id="survey_page_1" model="survey.page">
-            <field name="title">First Page</field>
-            <field name="sequence">1</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title" />
+        <record id="survey_page_who_are_you" model="survey.page">
+            <field name="title">Who are you?</field>
+            <field name="note">' '</field>
+            <field name="survey_id" ref="survey_partner_feedback" />
         </record>
 
-        <record id="survey_page_2" model="survey.page">
-            <field name="title">Second Page</field>
-            <field name="sequence">2</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title" />
+        <record id="survey_question_company_name" model="survey.question">
+            <field name="question"> What is your company's name?</field>
+            <field name="page_id" ref="survey_page_who_are_you" />
+            <field name="type">single_textbox</field>
         </record>
 
-        <record id="survey_page_3" model="survey.page">
-            <field name="title">Third Page</field>
-            <field name="sequence">3</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title" />
+        <record id="survey_question_company_size" model="survey.question">
+            <field name="question">What is your company's size?</field>
+            <field name="page_id" ref="survey_page_who_are_you" />
+            <field name="type">multiple_choice_only_one_ans</field>
+        </record>
+        <record id="survey_question_company_size_1" model="survey.answer">
+            <field name="answer">1 - 10</field>
+            <field name="question_id" ref="survey_question_company_size" />
+        </record>
+        <record id="survey_question_company_size_11" model="survey.answer">
+            <field name="answer">11 - 50</field>
+            <field name="question_id" ref="survey_question_company_size" />
+        </record>
+        <record id="survey_question_company_size_51" model="survey.answer">
+            <field name="answer">51 - 100</field>
+            <field name="question_id" ref="survey_question_company_size" />
+        </record>
+        <record id="survey_question_company_size_101" model="survey.answer">
+            <field name="answer">101 - 250</field>
+            <field name="question_id" ref="survey_question_company_size" />
+        </record>
+        <record id="survey_question_company_size_251" model="survey.answer">
+            <field name="answer">251 - 500</field>
+            <field name="question_id" ref="survey_question_company_size" />
+        </record>
+        <record id="survey_question_company_size_501" model="survey.answer">
+            <field name="answer">501 - 1000</field>
+            <field name="question_id" ref="survey_question_company_size" />
+        </record>
+        <record id="survey_question_company_size_1000" model="survey.answer">
+            <field name="answer">> 1000</field>
+            <field name="question_id" ref="survey_question_company_size" />
         </record>
 
-        <record id="survey_page_4" model="survey.page">
-            <field name="title">Fourth Page</field>
-            <field name="sequence">4</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title" />
-        </record>
-
-        <record id="survey_question_1" model="survey.question">
-            <field name="question">Please let us know what you think about our module?</field>
-            <field name="page_id" ref="survey_page_1" />
+        <record id="survey_question_located" model="survey.question">
+            <field name="question">Where are you located?</field>
+            <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
         </record>
+        <record id="survey_question_company_size_Europ" model="survey.answer">
+            <field name="answer">Europ</field>
+            <field name="question_id" ref="survey_question_located" />
+        </record>
+        <record id="survey_question_company_size_North_America" model="survey.answer">
+            <field name="answer">North America</field>
+            <field name="question_id" ref="survey_question_located" />
+        </record>
+        <record id="survey_question_company_size_Asia" model="survey.answer">
+            <field name="answer">Asia</field>
+            <field name="question_id" ref="survey_question_located" />
+        </record>
+        <record id="survey_question_company_size_South_America" model="survey.answer">
+            <field name="answer">South America</field>
+            <field name="question_id" ref="survey_question_located" />
+        </record>
+        <record id="survey_question_company_size_Australia" model="survey.answer">
+            <field name="answer">Australia</field>
+            <field name="question_id" ref="survey_question_located" />
+        </record>
 
-        <record id="survey_question_2" model="survey.question">
-            <field name="question">What kind of connection do you have to the Internet?</field>
-            <field name="page_id" ref="survey_page_2" />
+        <record id="survey_question_offical_partner" model="survey.question">
+            <field name="question">When did you become an OpenERP official partner?</field>
+            <field name="page_id" ref="survey_page_who_are_you" />
+            <field name="type">multiple_choice_only_one_ans</field>
+        </record>
+        <record id="survey_question_company_size_2009" model="survey.answer">
+            <field name="answer">in 2009</field>
+            <field name="question_id" ref="survey_question_offical_partner" />
+        </record>
+        <record id="survey_question_company_size_2008" model="survey.answer">
+            <field name="answer">in 2008</field>
+            <field name="question_id" ref="survey_question_offical_partner" />
+        </record>
+        <record id="survey_question_company_size_2007" model="survey.answer">
+            <field name="answer">in 2007</field>
+            <field name="question_id" ref="survey_question_offical_partner" />
+        </record>
+        <record id="survey_question_company_size_2006" model="survey.answer">
+            <field name="answer">in 2006</field>
+            <field name="question_id" ref="survey_question_offical_partner" />
+        </record>
+        <record id="survey_question_company_size_before_2006" model="survey.answer">
+            <field name="answer">before 2006</field>
+            <field name="question_id" ref="survey_question_offical_partner" />
+        </record>
+
+        <record id="survey_question_your_customers" model="survey.question">
+            <field name="question">What kind of solutions do you sell to your customers? </field>
+            <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
         </record>
-
-        <record id="survey_question_3" model="survey.question">
-            <field name="question">Where are you located??</field>
-            <field name="page_id" ref="survey_page_3" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_answer_specific_devlopments" model="survey.answer">
+            <field name="answer">Integrations without specific developments</field>
+            <field name="question_id" ref="survey_question_your_customers" />
         </record>
-
-        <record id="survey_question_4" model="survey.question">
-            <field name="question">Are you satisfied with the overall usability of this module??</field>
-            <field name="page_id" ref="survey_page_4" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_answer_with_specific_devlopments" model="survey.answer">
+            <field name="answer">Integrations with specific developments</field>
+            <field name="question_id" ref="survey_question_your_customers" />
         </record>
-
-	<!--  Survey Answer -->
-        <record id="survey_answer_1_1" model="survey.answer">
-            <field name="answer">Took someone else's survey</field>
-            <field name="question_id" ref="survey_question_1" />
-        </record>
-
-		 <record id="survey_answer_1_2" model="survey.answer">
-            <field name="answer">Banner Advertisement</field>
-            <field name="question_id" ref="survey_question_1" />
-        </record>
-
-        <record id="survey_answer_1_3" model="survey.answer">
-            <field name="answer">Search Engine</field>
-            <field name="question_id" ref="survey_question_1" />
-        </record>
-
-        <record id="survey_answer_1_4" model="survey.answer">
-            <field name="answer">Referral/Link from another site</field>
-            <field name="question_id" ref="survey_question_1" />
-        </record>
-
-        <record id="survey_answer_1_5" model="survey.answer">
-            <field name="answer">Magazine/Print Advertisement</field>
-            <field name="question_id" ref="survey_question_1" />
-        </record>
-
-        <record id="survey_answer_2_1" model="survey.answer">
-            <field name="answer">56 Kbps modem</field>
-            <field name="question_id" ref="survey_question_2" />
-        </record>
-
-        <record id="survey_answer_2_2" model="survey.answer">
-            <field name="answer">ISDN</field>
-            <field name="question_id" ref="survey_question_2" />
-        </record>
-
-        <record id="survey_answer_2_3" model="survey.answer">
-            <field name="answer">Cable modem</field>
-            <field name="question_id" ref="survey_question_2" />
-        </record>
-
-        <record id="survey_answer_2_4" model="survey.answer">
-            <field name="answer">T1 or better</field>
-            <field name="question_id" ref="survey_question_2" />
-        </record>
-
-        <record id="survey_answer_2_5" model="survey.answer">
-            <field name="answer">28.8 Kbps modem</field>
-            <field name="question_id" ref="survey_question_2" />
-        </record>
-
-        <record id="survey_answer_3_1" model="survey.answer">
-            <field name="answer">INDIA</field>
-            <field name="question_id" ref="survey_question_3" />
-        </record>
-
-        <record id="survey_answer_3_2" model="survey.answer">
-            <field name="answer">USA</field>
-            <field name="question_id" ref="survey_question_3" />
-        </record>
-
-        <record id="survey_answer_3_3" model="survey.answer">
-            <field name="answer">UK</field>
-            <field name="question_id" ref="survey_question_3" />
-        </record>
-
-        <record id="survey_answer_4_1" model="survey.answer">
-            <field name="answer">Yes</field>
-            <field name="question_id" ref="survey_question_4" />
-        </record>
-
-        <record id="survey_answer_4_2" model="survey.answer">
-            <field name="answer">No</field>
-            <field name="question_id" ref="survey_question_4" />
-        </record>
-
-		<!--  Second survey -->
-
-        <record model="survey" id="survey_title_cricket">
-	        <field name="title">Cricket</field>
-	        <field name="user_id" ref="base.user_root"/>
-	        <field name="max_response_limit">10</field>
-   		</record>
-
-        <record id="survey_page_2_1" model="survey.page">
-            <field name="title">Cricket</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_cricket" />
-        </record>
-
-        <record id="survey_question_2_1_1" model="survey.question">
-            <field name="question">Which of the following countries won the final of the triangular cricket series held in durban in februarry 1997 ?</field>
-            <field name="page_id" ref="survey_page_2_1" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-
-        <record id="survey_answer_2_1_1_1" model="survey.answer">
-            <field name="answer">India</field>
-            <field name="question_id" ref="survey_question_2_1_1" />
-        </record>
-        <record id="survey_answer_2_1_1_2" model="survey.answer">
-            <field name="answer">New zealand</field>
-            <field name="question_id" ref="survey_question_2_1_1" />
-        </record>
-        <record id="survey_answer_2_1_1_3" model="survey.answer">
-            <field name="answer">South africa</field>
-            <field name="question_id" ref="survey_question_2_1_1" />
-        </record>
-        <record id="survey_answer_2_1_1_4" model="survey.answer">
-            <field name="answer">Zimbabwe</field>
-            <field name="question_id" ref="survey_question_2_1_1" />
-        </record>
-
-        <record id="survey_question_2_1_2" model="survey.question">
-            <field name="question">In which year did Milkha Singh win the first National title in the 400 m race??</field>
-            <field name="page_id" ref="survey_page_2_1" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-        <record id="survey_answer_2_1_2_1" model="survey.answer">
-            <field name="answer">1955</field>
-            <field name="question_id" ref="survey_question_2_1_2" />
-        </record>
-        <record id="survey_answer_2_1_2_2" model="survey.answer">
-            <field name="answer">1956</field>
-            <field name="question_id" ref="survey_question_2_1_2" />
-        </record>
-        <record id="survey_answer_2_1_2_3" model="survey.answer">
-            <field name="answer">1957</field>
-            <field name="question_id" ref="survey_question_2_1_2" />
-        </record>
-        <record id="survey_answer_2_1_2_4" model="survey.answer">
-            <field name="answer">1970</field>
-            <field name="question_id" ref="survey_question_2_1_2" />
+        <record id="survey_answer_saas_services" model="survey.answer">
+            <field name="answer">Odoo Saas Offer</field>
+            <field name="question_id" ref="survey_question_your_customers" />
         </record>
 
 
-        <record id="survey_page_2_2" model="survey.page">
-            <field name="title">Cricket</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_cricket" />
-        </record>
-        <record id="survey_question_2_2_1" model="survey.question">
-            <field name="question">When was Amateur Athletics Federation of India established?</field>
-            <field name="page_id" ref="survey_page_2_2" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-        <record id="survey_answer_2_2_1_1" model="survey.answer">
-            <field name="answer">1936</field>
-            <field name="question_id" ref="survey_question_2_2_1" />
-        </record>
-        <record id="survey_answer_2_2_1_2" model="survey.answer">
-            <field name="answer">1946</field>
-            <field name="question_id" ref="survey_question_2_2_1" />
-        </record>
-        <record id="survey_answer_2_2_1_3" model="survey.answer">
-            <field name="answer">1956</field>
-            <field name="question_id" ref="survey_question_2_2_1" />
-        </record>
-        <record id="survey_answer_2_2_1_4" model="survey.answer">
-            <field name="answer">1966</field>
-            <field name="question_id" ref="survey_question_2_2_1" />
+        <record id="survey_page_Contracts" model="survey.page">
+            <field name="title">Contracts</field>
+            <field name="note">' '</field>
+            <field name="survey_id" ref="survey_partner_feedback" />
         </record>
 
-        <record id="survey_question_2_2_2" model="survey.question">
-            <field name="question">In which Indian state did the game of Polo originate?</field>
-            <field name="page_id" ref="survey_page_2_2" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_question_partnership_contract" model="survey.question">
+            <field name="question">What do you think about the partnership contract?</field>
+            <field name="page_id" ref="survey_page_Contracts" />
+            <field name="type">multiple_choice_only_one_ans</field>
         </record>
-        <record id="survey_answer_2_2_2_1" model="survey.answer">
-            <field name="answer">Meghalaya</field>
-            <field name="question_id" ref="survey_question_2_2_2" />
+        <record id="survey_answer_Ambiguous" model="survey.answer">
+            <field name="answer">Ambiguous</field>
+            <field name="question_id" ref="survey_question_partnership_contract" />
+        </record>        
+        <record id="survey_answer_enough" model="survey.answer">
+            <field name="answer">Not clear enough</field>
+            <field name="question_id" ref="survey_question_partnership_contract" />
         </record>
-        <record id="survey_answer_2_2_2_2" model="survey.answer">
-            <field name="answer">Rajasthan</field>
-            <field name="question_id" ref="survey_question_2_2_2" />
+        <record id="survey_answer_Clear" model="survey.answer">
+            <field name="answer">Clear</field>
+            <field name="question_id" ref="survey_question_partnership_contract" />
         </record>
-        <record id="survey_answer_2_2_2_3" model="survey.answer">
-            <field name="answer">Manipur</field>
-            <field name="question_id" ref="survey_question_2_2_2" />
-        </record>
-        <record id="survey_answer_2_2_2_4" model="survey.answer">
-            <field name="answer">West Bengal</field>
-            <field name="question_id" ref="survey_question_2_2_2" />
-        </record>
-
-        <record id="survey_page_2_3" model="survey.page">
-            <field name="title">Cricket</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_cricket" />
-        </record>
-        <record id="survey_question_2_3_1" model="survey.question">
-            <field name="question">How many gold medals have been won by India in the Olympics so far?</field>
-            <field name="page_id" ref="survey_page_2_3" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-        <record id="survey_answer_2_3_1_1" model="survey.answer">
-            <field name="answer">4</field>
-            <field name="question_id" ref="survey_question_2_3_1" />
-        </record>
-        <record id="survey_answer_2_3_1_2" model="survey.answer">
-            <field name="answer">6</field>
-            <field name="question_id" ref="survey_question_2_3_1" />
-        </record>
-        <record id="survey_answer_2_3_1_3" model="survey.answer">
-            <field name="answer">8</field>
-            <field name="question_id" ref="survey_question_2_3_1" />
-        </record>
-        <record id="survey_answer_2_3_1_4" model="survey.answer">
-            <field name="answer">10</field>
-            <field name="question_id" ref="survey_question_2_3_1" />
+        <record id="survey_answer_very_clear" model="survey.answer">
+            <field name="answer">Very Clear</field>
+            <field name="question_id" ref="survey_question_partnership_contract" />
         </record>
 
-        <!--  Third Survey -->
-
-        <record model="survey" id="survey_title_computer">
-	        <field name="title">Computer Related</field>
-	        <field name="user_id" ref="base.user_root"/>
-   		</record>
-
-        <record id="survey_page_3_1" model="survey.page">
-            <field name="title">File extenssion</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_computer" />
+        <record id="survey_question_contract_customers" model="survey.question">
+            <field name="question">When do you propose a maintenance contract to your customers?</field>
+            <field name="page_id" ref="survey_page_Contracts" />
+            <field name="type">multiple_choice_only_one_ans</field>
+            <field name="comment_field_type">text</field>
+            <field name="comment_label">Never... Why?</field>
         </record>
-
-        <record id="survey_question_3_1_1" model="survey.question">
-            <field name="question">'.BAK' extension refers usually to what kind of file?</field>
-            <field name="page_id" ref="survey_page_3_1" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_answer_very_integration" model="survey.answer">
+            <field name="answer">With each integration</field>
+            <field name="question_id" ref="survey_question_contract_customers" />
         </record>
-        <record id="survey_answer_3_1_1_1" model="survey.answer">
-            <field name="answer">Backup file</field>
-            <field name="question_id" ref="survey_question_3_1_1" />
+        <record id="survey_answer_sometimes" model="survey.answer">
+            <field name="answer">Sometimes</field>
+            <field name="question_id" ref="survey_question_contract_customers" />
         </record>
-        <record id="survey_answer_3_1_1_2" model="survey.answer">
-            <field name="answer">Audio file</field>
-            <field name="question_id" ref="survey_question_3_1_1" />
+        
+        <record id="survey_question_sell_to_your_customers" model="survey.question">
+            <field name="question">Which maintenance contract do you sell to your customers.</field>
+            <field name="page_id" ref="survey_page_Contracts" />
+            <field name="type">multiple_choice_only_one_ans</field>
         </record>
-        <record id="survey_answer_3_1_1_3" model="survey.answer">
-            <field name="answer">Animation/movie file</field>
-            <field name="question_id" ref="survey_question_3_1_1" />
+        <record id="survey_answer_maintenance_contract" model="survey.answer">
+            <field name="answer">OpenERP maintenance contract</field>
+            <field name="question_id" ref="survey_question_sell_to_your_customers" />
         </record>
-        <record id="survey_answer_3_1_1_4" model="survey.answer">
-            <field name="answer">MS Encarta document</field>
-            <field name="question_id" ref="survey_question_3_1_1" />
+        <record id="survey_answer_buy_an_openerp_one" model="survey.answer">
+            <field name="answer">Your own contract, but you buy an OpenERP one</field>
+            <field name="question_id" ref="survey_question_sell_to_your_customers" />
         </record>
-
-        <record id="survey_question_3_1_2" model="survey.question">
-            <field name="question">'.MPG' extension refers usually to what kind of file?</field>
-            <field name="page_id" ref="survey_page_3_1" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-        <record id="survey_answer_3_1_2_1" model="survey.answer">
-            <field name="answer">WordPerfect Document file</field>
-            <field name="question_id" ref="survey_question_3_1_2" />
-        </record>
-         <record id="survey_answer_3_1_2_2" model="survey.answer">
-            <field name="answer">MS Office document</field>
-            <field name="question_id" ref="survey_question_3_1_2" />
-        </record>
-        <record id="survey_answer_3_1_2_3" model="survey.answer">
-            <field name="answer">Animation/movie file</field>
-            <field name="question_id" ref="survey_question_3_1_2" />
-        </record>
-        <record id="survey_answer_3_1_2_4" model="survey.answer">
-            <field name="answer">Image file</field>
-            <field name="question_id" ref="survey_question_3_1_2" />
-        </record>
-
-        <record id="survey_page_3_2" model="survey.page">
-            <field name="title">File extenssion</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_computer" />
-        </record>
-
-        <record id="survey_question_3_2_1" model="survey.question">
-            <field name="question">'.INI' extension refers usually to what kind of file?</field>
-            <field name="page_id" ref="survey_page_3_2" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-        <record id="survey_answer_3_2_1_1" model="survey.answer">
-            <field name="answer">Backup file</field>
-            <field name="question_id" ref="survey_question_3_2_1" />
-        </record>
-        <record id="survey_answer_3_2_1_2" model="survey.answer">
-            <field name="answer">System file</field>
-            <field name="question_id" ref="survey_question_3_2_1" />
-        </record>
-        <record id="survey_answer_3_2_1_3" model="survey.answer">
-            <field name="answer">Hypertext related file</field>
-            <field name="question_id" ref="survey_question_3_2_1" />
-        </record>
-        <record id="survey_answer_3_2_1_4" model="survey.answer">
-            <field name="answer">Image Color Matching Profile file</field>
-            <field name="question_id" ref="survey_question_3_2_1" />
+        <record id="survey_answer_buying_an_openerp" model="survey.answer">
+            <field name="answer">Your own contract without buying an OpenERP one</field>
+            <field name="question_id" ref="survey_question_sell_to_your_customers" />
         </record>
 
 
-        <record id="survey_page_3_3" model="survey.page">
-            <field name="title">File extenssion</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_computer" />
+        <record id="survey_page_communication" model="survey.page">
+            <field name="title">Communication</field>
+            <field name="note">' '</field>
+            <field name="survey_id" ref="survey_partner_feedback" />
         </record>
 
-        <record id="survey_question_3_3_1" model="survey.question">
-            <field name="question">'.BAT' extension refers usually to what kind of file?</field>
-            <field name="page_id" ref="survey_page_3_3" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_question_launchpad_reporting" model="survey.question">
+            <field name="question">Give your opinion about Launchpad reporting :</field>
+            <field name="page_id" ref="survey_page_communication" />
+            <field name="type">matrix_of_choices_only_one_ans</field>
         </record>
-        <record id="survey_answer_3_3_1_1" model="survey.answer">
-            <field name="answer">Compressed Archive file</field>
-            <field name="question_id" ref="survey_question_3_3_1" />
+        <record id="survey_answer_find_openobject_website" model="survey.answer">
+            <field name="answer">Is Launchpad easy to find in OpenObject website?</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
-        <record id="survey_answer_3_3_1_2" model="survey.answer">
-            <field name="answer">System file</field>
-            <field name="question_id" ref="survey_question_3_3_1" />
+        <record id="survey_answer_bug_or_blueprint" model="survey.answer">
+            <field name="answer">Is it easy to report a bug or a blueprint?</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
-        <record id="survey_answer_3_3_1_3" model="survey.answer">
-            <field name="answer">Audio file</field>
-            <field name="question_id" ref="survey_question_3_3_1" />
+        <record id="survey_answer_modify_a_translation" model="survey.answer">
+            <field name="answer">Is it easy to add or modify a translation?</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
-        <record id="survey_answer_3_3_1_4" model="survey.answer">
-            <field name="answer">Backup file</field>
-            <field name="question_id" ref="survey_question_3_3_1" />
+        <record id="survey_column_not_at_all" model="survey.question.column.heading">
+            <field name="title">Not at all</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
-
-        <record id="survey_page_3_4" model="survey.page">
-            <field name="title">File extenssion</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_computer" />
+        <record id="survey_column_No" model="survey.question.column.heading">
+            <field name="title">No</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
-
-        <record id="survey_question_3_4_1" model="survey.question">
-            <field name="question">'.JPG' extension refers usually to what kind of file?</field>
-            <field name="page_id" ref="survey_page_3_4" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_column_yes_but_could_better" model="survey.question.column.heading">
+            <field name="title">Yes, but could be better</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
-        <record id="survey_answer_3_4_1_1" model="survey.answer">
-            <field name="answer">System file</field>
-            <field name="question_id" ref="survey_question_3_4_1" />
-        </record>
-        <record id="survey_answer_3_4_1_2" model="survey.answer">
-            <field name="answer">Animation/movie file</field>
-            <field name="question_id" ref="survey_question_3_4_1" />
-        </record>
-        <record id="survey_answer_3_4_1_3" model="survey.answer">
-            <field name="answer">MS Encarta document</field>
-            <field name="question_id" ref="survey_question_3_4_1" />
-        </record>
-        <record id="survey_answer_3_4_1_4" model="survey.answer">
-            <field name="answer">Image file</field>
-            <field name="question_id" ref="survey_question_3_4_1" />
+        <record id="survey_column_Absolutely" model="survey.question.column.heading">
+            <field name="title">Absolutely</field>
+            <field name="question_id" ref="survey_question_launchpad_reporting" />
         </record>
 
-
-        <record id="survey_page_3_5" model="survey.page">
-            <field name="title">File extenssion</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_computer" />
+        <record id="survey_question_Leads" model="survey.question">
+            <field name="question">Leads</field>
+            <field name="page_id" ref="survey_page_communication" />
+            <field name="type">matrix_of_choices_only_one_ans</field>
         </record>
-        <record id="survey_question_3_5_1" model="survey.question">
-            <field name="question">'.MOV' extension refers usually to what kind of file?</field>
-            <field name="page_id" ref="survey_page_3_5" />
-            <field name="type">multiple_choice_multiple_ans</field>
+        <record id="survey_answer_find_openobject_website" model="survey.answer">
+            <field name="answer">Is Launchpad easy to find in OpenObject website?</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
-        <record id="survey_answer_3_5_1_1" model="survey.answer">
-            <field name="answer">Image file</field>
-            <field name="question_id" ref="survey_question_3_5_1" />
+        <record id="survey_answer_converted_in_customers" model="survey.answer">
+            <field name="answer">How are the leads that you find thanks to Tiny be converted in customers?</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
-        <record id="survey_answer_3_5_1_2" model="survey.answer">
-            <field name="answer">Animation/movie file</field>
-            <field name="question_id" ref="survey_question_3_5_1" />
+        <record id="survey_column_need_new_leads" model="survey.question.column.heading">
+            <field name="title">I didn't try, I don't need new leads</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
-        <record id="survey_answer_3_5_1_3" model="survey.answer">
-            <field name="answer">Audio file</field>
-            <field name="question_id" ref="survey_question_3_5_1" />
+        <record id="survey_column_Hard" model="survey.question.column.heading">
+            <field name="title">Hard</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
-        <record id="survey_answer_3_5_1_4" model="survey.answer">
-            <field name="answer">Video file</field>
-            <field name="question_id" ref="survey_question_3_5_1" />
+        <record id="survey_column_Difficult" model="survey.question.column.heading">
+            <field name="title">Difficult</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
-
-        <record id="survey_page_3_6" model="survey.page">
-            <field name="title">File extenssion</field>
-            <field name="note">Description</field>
-            <field name="survey_id" ref="survey_title_computer" />
+        <record id="survey_column_Easy" model="survey.question.column.heading">
+            <field name="title">Easy</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
-        <record id="survey_question_3_6_1" model="survey.question">
-            <field name="question">Who co-founded Hotmail in 1996 and then sold the company to Microsoft?</field>
-            <field name="page_id" ref="survey_page_3_6" />
-            <field name="type">multiple_choice_multiple_ans</field>
-        </record>
-        <record id="survey_answer_3_6_1_1" model="survey.answer">
-            <field name="answer">Shawn Fanning</field>
-            <field name="question_id" ref="survey_question_3_6_1" />
-        </record>
-        <record id="survey_answer_3_6_1_2" model="survey.answer">
-            <field name="answer">Ada Byron Lovelace</field>
-            <field name="question_id" ref="survey_question_3_6_1" />
-        </record>
-        <record id="survey_answer_3_6_1_3" model="survey.answer">
-            <field name="answer">Sabeer Bhatia</field>
-            <field name="question_id" ref="survey_question_3_6_1" />
-        </record>
-        <record id="survey_answer_3_6_1_4" model="survey.answer">
-            <field name="answer">Ray Tomlinson</field>
-            <field name="question_id" ref="survey_question_3_6_1" />
+        <record id="survey_column_Very_Easy" model="survey.question.column.heading">
+            <field name="title">Very Easy</field>
+            <field name="question_id" ref="survey_question_Leads" />
         </record>
 
+        <record id="survey_question_partners_about" model="survey.question">
+            <field name="question">How is Tiny's communication with partners about...</field>
+            <field name="page_id" ref="survey_page_communication" />
+            <field name="type">matrix_of_choices_only_one_ans</field>
+        </record>
+        <record id="survey_answer_Maintenance_contracts" model="survey.answer">
+            <field name="answer">Maintenance contracts</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+        <record id="survey_answer_partner_Leads" model="survey.answer">
+            <field name="answer">Leads</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+        <record id="survey_answer_Training_sessions" model="survey.answer">
+            <field name="answer">Training sessions</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+        <record id="survey_column_very_bad" model="survey.question.column.heading">
+            <field name="title">Very Bad</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+        <record id="survey_column_Bad" model="survey.question.column.heading">
+            <field name="title">Bad</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+        <record id="survey_column_Good" model="survey.question.column.heading">
+            <field name="title">Good</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+        <record id="survey_column_Very_Good" model="survey.question.column.heading">
+            <field name="title">Very Good</field>
+            <field name="question_id" ref="survey_question_partners_about" />
+        </record>
+
+        <record id="survey_question_partners_on_which_subjects" model="survey.question">
+            <field name="question">In your opinion, how could Tiny better communicate with partners and on which subjects?</field>
+            <field name="page_id" ref="survey_page_communication" />
+            <field name="type">single_textbox</field>
+        </record>
 
     </data>
 </openerp>

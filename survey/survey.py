@@ -645,7 +645,7 @@ class survey_question_wiz(osv.osv_memory):
         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
         for key,val in sur_name_read['store_ans'].items():
             for field in vals:
-                if field.split('_')[0] in val['question_id']:
+                if field.split('_')[0] == val['question_id']:
                     click_state = False
                     click_update.append(key)
                     break

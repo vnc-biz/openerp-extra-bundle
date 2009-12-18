@@ -188,12 +188,7 @@ class crm_case(osv.osv):
     def _create_bug(self, cr, uid, sec_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
-
-        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
-        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
-        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
-        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
-
+        
         crm_case_obj = pool.get('crm.case')
         crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
         launchpad = lp_server.launchpad
@@ -209,15 +204,15 @@ class crm_case(osv.osv):
                     bool = self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
                     status='New'
                     imp ='Undecided'
-                    if case.stage_id.id == categ_future_id[0] and case.priority == '5':
+                    if case.stage_id.name == 'Future' and case.priority == '5':
                         imp = 'Wishlist'
                     elif case.priority == '1':
                         imp = 'High'
                     elif case.priority == '3':
                         imp = 'Medium'
-                    if case.stage_id.id == categ_fix_id[0]:
+                    if case.stage_id.name == 'Fixed':
                         status = 'Fix Released'
-                    if case.stage_id.id == categ_inv_id[0]:
+                    if case.stage_id.id == 'Invalid':
                         status = 'invalid'
                     t=b.bug_tasks[0]
                     t.status = status

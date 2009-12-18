@@ -57,6 +57,7 @@ class hr_employee_grade(osv.osv):
         'line_ids':fields.one2many('hr.payslip.line', 'function_id', 'Salary Structure', required=False),
         'account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
         'company_id':fields.many2one('res.company', 'Company', required=False),
+        'note': fields.text('Description'),
     }
     _defaults = {
         'company_id': lambda self, cr, uid, context: \
@@ -153,6 +154,7 @@ class payroll_register(osv.osv):
         'net': fields.function(_calculate, method=True, store=True, multi='dc', string='Net Salary', digits=(16, int(config['price_accuracy']))),
         'allounce': fields.function(_calculate, method=True, store=True, multi='dc', string='Allowance', digits=(16, int(config['price_accuracy']))),
         'deduction': fields.function(_calculate, method=True, store=True, multi='dc', string='Deduction', digits=(16, int(config['price_accuracy']))),        
+        'note': fields.text('Description'),
     }
     
     _defaults = {
@@ -454,6 +456,7 @@ class contrib_register(osv.osv):
         'yearly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),
         'monthly_total_by_emp': fields.function(_total_contrib, method=True, multi='dc', store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
         'monthly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),		
+        'note': fields.text('Description'),
     }
     _defaults = {
         'company_id': lambda self, cr, uid, context: \
@@ -790,7 +793,7 @@ class hr_payslip(osv.osv):
                 'date': slip.date, 
                 'account_id': slip.employee_id.property_bank_account.id, 
                 'debit': 0.0,
-                'credit' : slip.net,
+                'credit' : slip.total_pay,
                 'journal_id' : slip.journal_id.id,
                 'period_id' :period_id,
                 'ref':slip.number
@@ -803,7 +806,7 @@ class hr_payslip(osv.osv):
                 'partner_id': partner_id,
                 'date': slip.date,
                 'account_id': partner.property_account_payable.id,
-                'debit':  slip.net,
+                'debit':  slip.total_pay,
                 'credit' : 0.0,
                 'journal_id' : slip.journal_id.id,
                 'period_id' :period_id,
@@ -831,7 +834,7 @@ class hr_payslip(osv.osv):
                     
                     l_ids = movel_pool.search(cr, uid, [('invoice','=',line.expanse_id.invoice_id.id)])
                     exp_ids += l_ids
-                    
+            
             #Process for Other payment if any
             other_move_id = False
             if slip.other_pay > 0:
@@ -854,7 +857,7 @@ class hr_payslip(osv.osv):
                     'date':slip.date, 
                     'account_id':slip.employee_id.property_bank_account.id, 
                     'debit': 0.0,
-                    'credit':other_pay,
+                    'credit': other_pay,
                     'journal_id':slip.journal_id.id,
                     'period_id':period_id,
                     'ref':slip.number
@@ -867,7 +870,7 @@ class hr_payslip(osv.osv):
                     'partner_id':partner_id,
                     'date':slip.date,
                     'account_id':partner.property_account_payable.id,
-                    'debit':other_pay,
+                    'debit': other_pay,
                     'credit':0.0,
                     'journal_id':slip.journal_id.id,
                     'period_id':period_id,

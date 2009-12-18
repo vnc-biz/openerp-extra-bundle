@@ -329,7 +329,15 @@
                         <field name="account_id" select="1"/>
                         <field name="company_id"/>
                     </group>
-                    <field name="line_ids" nolabel="1" colspan="4"/>
+                    <notebook colspan="4">
+                        <page string="Salary Structure">
+                            <field name="line_ids" nolabel="1" colspan="4"/>
+                        </page>
+                        <page string="Job Profile">
+                            <separator colspan="4" string="Job Profile"/>
+                            <field name="note" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>
@@ -455,7 +463,6 @@
             <field name="res_model">hr.contract</field>
             <field name="view_type">form</field>
             <field name="view_mode">form,tree</field>
-            <field name="view_id" ref="hr_contract.hr_contract_view_form"/>
         </record>
         <menuitem 
             action="action_hr_contract" 
@@ -671,7 +678,6 @@
                 <field name="company_id" select="1"/>
                 <field name="monthly_total_by_emp"/>
                 <field name="monthly_total_by_comp"/>
-                
                 <field name="yearly_total_by_emp"/>
 			    <field name="yearly_total_by_comp"/>
             </tree>
@@ -687,41 +693,49 @@
                 <field name="account_id"/>
                 <field name="analytic_account_id"/>
                 <field name="company_id" select="1"/>
-			    <field colspan="4" name="register_line_ids" nolabel="1" select="1">
-                    <tree string="Register Lines" editable="top">
-                        <field name="code"/>
-                        <field name="employee_id"/>
-                        <field name="period_id"/>	
-                        <field name="emp_deduction"/>
-                        <field name="comp_deduction"/>	
-                        <field name="total"/>						
-                    </tree>
-                 </field>
-                 <group col="2" colspan="2">
+                <notebook colspan="4">
+                    <page string="Contribution Lines">
+			            <field colspan="4" name="register_line_ids" nolabel="1" select="1">
+                            <tree string="Register Lines" editable="top">
+                                <field name="code"/>
+                                <field name="employee_id"/>
+                                <field name="period_id"/>	
+                                <field name="emp_deduction"/>
+                                <field name="comp_deduction"/>	
+                                <field name="total"/>						
+                            </tree>
+                         </field>
+                     </page>
+                     <page string="Description">
+                        <separator colspan="4" string="Description"/>
+                        <field name="note" colspan="4" nolabel="1"/>
+                    </page>
+                </notebook>
+                <group col="2" colspan="2">
                     <separator colspan="4" string="Year"/>
-				    <field name="yearly_total_by_emp"/>
-				    <field name="yearly_total_by_comp"/>
+                    <field name="yearly_total_by_emp"/>
+                    <field name="yearly_total_by_comp"/>
                 </group>
                 <group col="2" colspan="2">
                     <separator colspan="2" string="Month"/>
                     <field name="monthly_total_by_emp"/>
                     <field name="monthly_total_by_comp"/>
                 </group>
-			</form>
-        </field>
-    </record>
-	 <record id="action_contibution_register_form" model="ir.actions.act_window">
-        <field name="name">Contibution Register</field>
-        <field name="res_model">hr.contibution.register</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="hr_contibution_register_form"/>
-    </record>
-    <menuitem
-        id="menu_action_hr_contibution_register_form" 
-        action="action_contibution_register_form" 
-        parent="payroll_configure" 
-    />
-    <record id="hr_contibution_register_line_form" model="ir.ui.view">
+                </form>
+            </field>
+        </record>
+        <record id="action_contibution_register_form" model="ir.actions.act_window">
+            <field name="name">Contibution Register</field>
+            <field name="res_model">hr.contibution.register</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_contibution_register_tree"/>
+        </record>
+        <menuitem
+            id="menu_action_hr_contibution_register_form" 
+            action="action_contibution_register_form" 
+            parent="payroll_configure" 
+        />
+        <record id="hr_contibution_register_line_form" model="ir.ui.view">
             <field name="name">hr.contibution.register.line.form</field>
             <field name="model">hr.contibution.register.line</field>
             <field name="type">form</field>

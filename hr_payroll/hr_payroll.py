@@ -703,6 +703,21 @@ class hr_payslip(osv.osv):
                     context=context).company_id.id,
     }
     
+    def copy(self, cr, uid, id, default=None, context=None):
+        company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
+        default = {
+            'line_ids': False,
+            'move_ids': False,
+            'move_line_ids': False,
+            'move_payment_ids': False,
+            'company_id':company_id,
+            'period_id': False,
+            'basic_before_leaves':0,
+            'basic':0
+        }
+        res_id = super(hr_payslip, self).copy(cr, uid, id, default, context)
+        return res_id
+    
     def create_voucher(self, cr, uid, ids, name, voucher, sequence=5):
         slip_move = self.pool.get('hr.payslip.account.move')
         for slip in ids:

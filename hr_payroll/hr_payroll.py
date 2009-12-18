@@ -660,8 +660,6 @@ class hr_payslip(osv.osv):
         'register_id':fields.many2one('hr.payroll.register', 'Register', required=False),
         'journal_id': fields.many2one('account.journal', 'Expanse Journal', required=True),
         'bank_journal_id': fields.many2one('account.journal', 'Bank Journal', required=True),
-        'payment_id': fields.many2one('account.move', 'Payment Entries', readonly=True),
-        
         'name':fields.char('Name', size=64, required=False, readonly=True, states={'draft': [('readonly', False)]}),
         'number':fields.char('Number', size=64, required=False, readonly=True),
         'employee_id':fields.many2one('hr.employee', 'Employee', required=True),
@@ -685,10 +683,7 @@ class hr_payslip(osv.osv):
         'other_pay': fields.function(_calculate, method=True, store=True, multi='dc', string='Others', digits=(16, 2)),
         'total_pay': fields.function(_calculate, method=True, store=True, multi='dc', string='Total Payment', digits=(16, 2)),
         'line_ids':fields.one2many('hr.payslip.line', 'slip_id', 'Payslip Line', required=False, readonly=True, states={'draft': [('readonly', False)]}),
-        'move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
-        'adj_move_id':fields.many2one('account.move', 'Adjustment Entries', required=False, readonly=True),
-        'other_move_id':fields.many2one('account.move', 'Other Payment', required=False, readonly=True),
-        
+        'move_ids':fields.one2many('hr.payslip.account.move', 'slip_id', 'Accounting vouchers', required=False),
         'move_line_ids':fields.many2many('account.move.line', 'payslip_lines_rel', 'slip_id', 'line_id', 'Accounting Lines', readonly=True),
         'move_payment_ids':fields.many2many('account.move.line', 'payslip_payment_rel', 'slip_id', 'payment_id', 'Payment Lines', readonly=True),
         'company_id':fields.many2one('res.company', 'Company', required=False),
@@ -708,6 +703,17 @@ class hr_payslip(osv.osv):
                     context=context).company_id.id,
     }
     
+    def create_voucher(self, cr, uid, ids, name, voucher, sequence=5):
+        slip_move = self.pool.get('hr.payslip.account.move')
+        for slip in ids:
+            res = {
+                'slip_id':slip,
+                'move_id':voucher,
+                'sequence':sequence,
+                'name':name
+            }
+            slip_move.create(cr, uid, res)
+            
     def set_to_draft(self, cr, uid, ids, context={}):
         self.write(cr, uid, ids, {'state':'draft'})
         return True
@@ -749,15 +755,17 @@ class hr_payslip(osv.osv):
             partner_id = partner.id
             
             period_id = self.pool.get('account.period').search(cr,uid,[('date_start','<=',slip.date),('date_stop','>=',slip.date)])[0]
+            name = 'Payment of Salary to %s' % (slip.employee_id.name)
             move = {
                 'journal_id': slip.bank_journal_id.id,
                 'period_id': period_id, 
                 'date': slip.date,
                 'type':'bank_pay_voucher',
                 'ref':slip.number,
-                'narration': 'Payment of Salary to %s' % (slip.employee_id.name)
+                'narration': name
             }
             move_id = move_pool.create(cr, uid, move)
+            self.create_voucher(cr, uid, [slip.id], name, move_id)
             
             name = "To %s account" % (slip.employee_id.name)
             ded_rec = {
@@ -811,16 +819,18 @@ class hr_payslip(osv.osv):
                     
             #Process for Other payment if any
             other_move_id = False
-            if slip.other_pay:
+            if slip.other_pay > 0:
+                narration = 'Payment of Other Payeble amounts to %s' % (slip.employee_id.name)
                 move = {
                     'journal_id': slip.bank_journal_id.id,
                     'period_id': period_id, 
                     'date': slip.date,
                     'type':'bank_pay_voucher',
                     'ref':slip.number,
-                    'narration': 'Payment of Other Payeble amounts to %s' % (slip.employee_id.name)
+                    'narration': narration
                 }
                 other_move_id = move_pool.create(cr, uid, move)
+                self.create_voucher(cr, uid, [slip.id], narration, move_id)
                 
                 name = "To %s account" % (slip.employee_id.name)
                 ded_rec = {
@@ -849,13 +859,11 @@ class hr_payslip(osv.osv):
                     'ref':slip.number
                 }
                 line_ids += [movel_pool.create(cr, uid, cre_rec)]
-                
+            
             rec = {
                 'state':'done',
-                'payment_id':move_id,
                 'move_payment_ids':[(6, 0, line_ids)],
-                'paid':True,
-                'other_move_id':other_move_id
+                'paid':True
             }
             self.write(cr, uid, [slip.id], rec)
             for exp_id in exp_ids:
@@ -909,6 +917,7 @@ class hr_payslip(osv.osv):
                 'narration': slip.name
             }
             move_id = move_pool.create(cr, uid, move)
+            self.create_voucher(cr, uid, [slip.id], slip.name, move_id)
             
             line = {
                 'move_id':move_id,
@@ -1019,14 +1028,13 @@ class hr_payslip(osv.osv):
                 line_ids += [movel_pool.create(cr, uid, rec)]
                 
                 if line.company_contrib > 0:
-                    
                     company_contrib = 0
                     if line.company_contrib > line.total:
                         company_contrib = line.total
                     else:
                         company_contrib = line.company_contrib
-                        
-                    narration = """Company Contribution of %s Deducted from Employee and Encode same as a Company Expanse @ %s""" % (line.name, company_contrib)
+                    
+                    narration = """Company Contribution of %s Encode same as a Company Expanse @ %s""" % (line.name, company_contrib)
                     move = {
                         #'name': slip.name, 
                         'journal_id': slip.journal_id.id,
@@ -1037,7 +1045,8 @@ class hr_payslip(osv.osv):
                     }
                     company_contrib_move_id = move_pool.create(cr, uid, move)
                     name = "[%s] - %s / %s - Company Contribution" % (line.code, line.name, slip.employee_id.name)
-
+                    self.create_voucher(cr, uid, [slip.id], name, company_contrib_move_id)
+                    
                     ded_deb = {
                         'move_id':company_contrib_move_id,
                         'name': name,
@@ -1065,35 +1074,47 @@ class hr_payslip(osv.osv):
                     }
                     line_ids += [movel_pool.create(cr, uid, ded_cre)]
                     
-                    total_deduct += company_contrib
-                    ded_deb = {
-                        'move_id':company_contrib_move_id,
-                        'name': name,
-                        'partner_id': partner_id,
-                        'date': slip.date, 
-                        'quantity':1,
-                        'account_id': partner.property_account_receivable.id,
-                        'debit': company_contrib,
-                        'credit' : 0.0,
-                        'journal_id': slip.journal_id.id,
-                        'period_id': period_id,
-                        'ref':slip.number
-                    }
-                    line_ids += [movel_pool.create(cr, uid, ded_deb)]
-                    ded_cre = {
-                        'move_id':company_contrib_move_id,
-                        'name': name,
-#                        'partner_id': partner_id,
-                        'date': slip.date, 
-                        'quantity':1,
-                        'account_id': line.category_id.account_id.id,
-                        'debit': 0.0,
-                        'credit' : company_contrib,
-                        'journal_id': slip.journal_id.id,
-                        'period_id': period_id,
-                        'ref':slip.number
-                    }
-                    line_ids += [movel_pool.create(cr, uid, ded_cre)]
+                    if line.category_id.include_in_salary:
+                        narration = """Company Contribution of %s Deducted from Employee %s""" % (line.name, company_contrib)
+                        move = {
+                            #'name': slip.name, 
+                            'journal_id': slip.journal_id.id,
+                            'period_id': period_id, 
+                            'date': slip.date,
+                            'ref':slip.number,
+                            'narration': narration
+                        }
+                        include_in_salary_move_id = move_pool.create(cr, uid, move)
+                        self.create_voucher(cr, uid, [slip.id], narration, include_in_salary_move_id)
+                        
+                        total_deduct += company_contrib
+                        ded_deb = {
+                            'move_id':include_in_salary_move_id,
+                            'name': name,
+                            'partner_id': partner_id,
+                            'date': slip.date, 
+                            'quantity':1,
+                            'account_id': partner.property_account_receivable.id,
+                            'debit': company_contrib,
+                            'credit' : 0.0,
+                            'journal_id': slip.journal_id.id,
+                            'period_id': period_id,
+                            'ref':slip.number
+                        }
+                        line_ids += [movel_pool.create(cr, uid, ded_deb)]
+                        ded_cre = {
+                            'move_id':include_in_salary_move_id,
+                            'name': name,
+                            'date': slip.date, 
+                            'quantity':1,
+                            'account_id': line.category_id.account_id.id,
+                            'debit': 0.0,
+                            'credit' : company_contrib,
+                            'journal_id': slip.journal_id.id,
+                            'period_id': period_id,
+                            'ref':slip.number
+                        }
+                        line_ids += [movel_pool.create(cr, uid, ded_cre)]
 
                 #make an entry line to contribution register
                 if line.category_id.register_id:
@@ -1138,6 +1159,8 @@ class hr_payslip(osv.osv):
                 }
                 adj_move_id = move_pool.create(cr, uid, move)
                 name = "Adjustment Entry - %s" % (slip.employee_id.name)
+                self.create_voucher(cr, uid, [slip.id], name, adj_move_id)
+                
                 ded_rec = {
                     'move_id':adj_move_id,
                     'name': name,
@@ -1169,8 +1192,6 @@ class hr_payslip(osv.osv):
 
             rec = {
                 'state':'confirm',
-                'move_id':move_id, 
-                'adj_move_id':adj_move_id,
                 'move_line_ids':[(6, 0,line_ids)],
             }
             if not slip.period_id:
@@ -1482,6 +1503,20 @@ class hr_payslip(osv.osv):
         return True
         
 hr_payslip()
+
+class account_move_link_slip(osv.osv):
+    '''
+    Account Move Link to Pay Slip
+    '''
+    _name = 'hr.payslip.account.move'
+    _description = 'Account Move Link to Pay Slip'
+    _columns = {
+        'name':fields.char('Name', size=256, required=True, readonly=False),
+        'move_id':fields.many2one('account.move', 'Expanse Entries', required=False, readonly=True),
+        'slip_id':fields.many2one('hr.payslip', 'Pay Slip', required=False),
+        'sequence': fields.integer('Sequence'),
+    }
+account_move_link_slip()
 
 class hr_payslip_line(osv.osv):
     '''

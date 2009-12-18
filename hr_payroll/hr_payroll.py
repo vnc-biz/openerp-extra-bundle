@@ -1536,6 +1536,24 @@ class account_move_link_slip(osv.osv):
     }
 account_move_link_slip()
 
+class line_condition(osv.osv):
+    '''
+    Line Condition
+    '''
+    _name = 'hr.payslip.line.condition'
+    _description = 'Line Condition'
+    
+    _columns = {
+        'name':fields.char('Name', size=64, required=False, readonly=False),
+        'date_start': fields.date('Start Date'),
+        'date_end': fields.date('End Date'),
+        'state':fields.selection([
+            ('total','Override By'),
+            ('add','Add to Structure')
+        ],'Condition', select=True, readonly=False),
+    }
+line_condition()
+
 class hr_payslip_line(osv.osv):
     '''
     Payslip Line
@@ -1577,6 +1595,7 @@ class hr_payslip_line(osv.osv):
     
     _columns = {
         'slip_id':fields.many2one('hr.payslip', 'Pay Slip', required=False),
+        'condition_id':fields.many2one('hr.payslip.line.condition', 'Condition', required=False),
         'function_id':fields.many2one('hr.employee.grade', 'Function', required=False),
         'employee_id':fields.many2one('hr.employee', 'Employee', required=False),
         'name':fields.char('Name', size=256, required=True, readonly=False),

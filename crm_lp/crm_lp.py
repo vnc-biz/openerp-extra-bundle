@@ -227,10 +227,10 @@ class crm_case(osv.osv):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
 
-        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
-        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
-        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
-        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
+        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])[0]
+        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])[0]
+        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])[0]
+        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])[0]
         val={}
         res={}
         series_ids=[]
@@ -250,7 +250,7 @@ class crm_case(osv.osv):
                             val['name']=bug.bug.title
                             val['section_id']=sec_id[0]
                             if bug.importance == 'Wishlist':
-                                val['stage_id']=categ_future_id[0]
+                                val['stage_id']=categ_future_id
                                 val['priority']='5'
                             elif bug.importance == 'Critical':
                                 val['priority']='1'
@@ -259,9 +259,9 @@ class crm_case(osv.osv):
                             elif bug.importance=='Medium':
                                 val['priority']='3'
                             if bug.status in ('Confirmed','Fix Released'):
-                                val['stage_id']=categ_fix_id[0]
+                                val['stage_id']=categ_fix_id
                             if bug.status =='invaild':
-                                val['stage_id']= val['stage_id']=categ_inv_id[0]
+                                val['stage_id']= val['stage_id']=categ_inv_id
                             if bug.milestone_link:
                                 val['milestone_url']=bug.milestone_link
                             if not b_id:
@@ -335,14 +335,9 @@ class crm_case(osv.osv):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
 
-        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
-        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
-        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
-        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
-
         status='New'
         imp ='Undecided'
-        if crm_bug.stage_id.id == categ_future_id[0] and crm_bug.priority == '5':
+        if crm_bug.stage_id.name == 'Future' and crm_bug.priority == '5':
             imp = 'Wishlist'
         elif crm_bug.priority == '1':
             imp = 'Critical'
@@ -350,9 +345,9 @@ class crm_case(osv.osv):
             imp = 'High'
         elif crm_bug.priority == '3':
             imp = 'Medium'
-        if crm_bug.stage_id.id == categ_fix_id[0]:
+        if crm_bug.stage_id.name == 'Fixed':
             status = 'Fix Released'
-        if crm_bug.stage_id.id == categ_inv_id[0]:
+        if crm_bug.stage_id.name == 'Invalid':
             status = 'Invalid'
         t=lp_bug.bug.bug_tasks[0]
         t.status = status

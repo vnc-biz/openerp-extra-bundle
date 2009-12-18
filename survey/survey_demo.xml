@@ -11,7 +11,6 @@
 
         <record id="survey_page_who_are_you" model="survey.page">
             <field name="title">Who are you?</field>
-            <field name="note">' '</field>
             <field name="survey_id" ref="survey_partner_feedback" />
         </record>
 
@@ -128,7 +127,6 @@
 
         <record id="survey_page_Contracts" model="survey.page">
             <field name="title">Contracts</field>
-            <field name="note">' '</field>
             <field name="survey_id" ref="survey_partner_feedback" />
         </record>
 
@@ -191,7 +189,6 @@
 
         <record id="survey_page_communication" model="survey.page">
             <field name="title">Communication</field>
-            <field name="note">' '</field>
             <field name="survey_id" ref="survey_partner_feedback" />
         </record>
 

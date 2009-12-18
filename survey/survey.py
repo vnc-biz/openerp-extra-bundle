@@ -230,7 +230,7 @@ class survey_question(osv.osv):
                         ans_len += 1
                     else:
                         ans_len -= 1
-            if que_type not in ['descriptive text', 'single_textbox']:
+            if que_type not in ['descriptive text', 'single_textbox', 'comment']:
                 if not ans_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
     
@@ -274,7 +274,7 @@ class survey_question(osv.osv):
         minimum_ans = 0
         maximum_ans = 0
         if vals.has_key('answer_choice_ids') and  not len(vals['answer_choice_ids']):
-            if vals.has_key('type') and vals['type'] not in ['descriptive text', 'single_textbox']:
+            if vals.has_key('type') and vals['type'] not in ['descriptive text', 'single_textbox', 'comment']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more answer."))
         if vals.has_key('column_heading_ids') and  not len(vals['column_heading_ids']):
             if vals.has_key('type') and vals['type'] in ['matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
@@ -597,11 +597,11 @@ class survey_question_wiz(osv.osv_memory):
 
                     if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                         if que_rec['comment_field_type'] == 'char':
-                            xml += '''<newline/><label string="''' + que_rec['comment_label'] + '''"  colspan="4"/> '''                    
+                            xml += '''<newline/><label string="''' + str(que_rec['comment_label']) + '''"  colspan="4"/> '''                    
                             xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
                             fields[str(que) + "_other"] = {'type': 'char', 'string': '', 'size':255, 'views':{}}
                         elif que_rec['comment_field_type'] == 'text':
-                            xml += '''<newline/><label string="''' + que_rec['comment_label'] + '''"  colspan="4"/> '''                    
+                            xml += '''<newline/><label string="''' + str(que_rec['comment_label']) + '''"  colspan="4"/> '''                    
                             xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
                             fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
                 xml += '''

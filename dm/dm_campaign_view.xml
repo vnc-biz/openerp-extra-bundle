@@ -132,7 +132,7 @@
                 <group colspan="4">
                     <separator string="Campaign Description" colspan="4"/>
                     <field name="name" string="Name" select="1"/>
-                    <field name="code1" string="Code" select="2"/>
+                    <field name="code" string="Code" select="2"/>
                 </group>
                 <notebook colspan="4">
                     <page string="General">
@@ -462,7 +462,7 @@
                         <separator string="Global Information" colspan="4"/>
                         <group col="10" colspan="4">
                             <field name="name" string="Name" select="1" />
-                            <field name="code1" string="Code" select="2"/>
+                            <field name="code" string="Code" select="2"/>
                         </group>
                         <group col="10" colspan="4">
                             <field name="country_id" select="1"/>
@@ -520,7 +520,7 @@
             <group colspan="3" col="4">
             <separator string="Commercial Proposition Description" colspan="5"/>
             <field name="name" string="Name" select="1" />
-            <field name="code1" string="Code" select="2" />
+            <field name="code" string="Code" select="2" />
             </group>
             <notebook colspan="4">
                 <page string="General">
@@ -552,8 +552,8 @@
                         <group colspan="4">
                             <separator string="Segment Description" colspan="4"/>
                             <field name="name" string="Name" select="1"/>
-<!--                            <field name="code1" string="Code" select="1"/>-->
-                            <field name="code1" string="Code" select="1"/>
+<!--                            <field name="code" string="Code" select="1"/>-->
+                            <field name="code" string="Code" select="1"/>
 							<group colspan="2">
 								<field name="type_src"/>
 							</group>
@@ -613,8 +613,7 @@
                    <tree string="Segments">
                         <field name="name" string="Name" />
                         <field name="deduplication_level" />
-                        <field name="code1" string="Code" />
-<!--                        <field name="code1" string="Code" />-->
+                        <field name="code" string="Code" />
                         <field name="quantity_planned" />
                         <field name="quantity_wanted" />
                         <field name="quantity_delivered" />
@@ -639,7 +638,7 @@
             <tree string="Propositions">
                 <field name="camp_id"/>
                 <field name="name" string="Name"/>
-                <field name="code1" string="Code"/>
+                <field name="code" string="Code"/>
                 <field name="camp_pro_date_start" colspan="4"/>
                 <field name="sale_rate"/>
                 <field name="quantity_real" select="2"/>
@@ -699,8 +698,7 @@
                 <group colspan="4">
                     <separator string="Segment Description" colspan="4"/>
                     <field name="name" string="Name" select="1"/>
-                    <field name="code1" string="Code" select="1"/>
-<!--                    <field name="code1" string="Code" select="1"/>-->
+                    <field name="code" string="Code" select="1"/>
                     <group colspan="2">
                         <field name="type_src"/>
                     </group>
@@ -768,8 +766,7 @@
         <field name="arch" type="xml">
             <tree string="Segments">
                 <field name="name" string="Name"/>
-                <field name="code1" string="Code"/>
-<!--                <field name="code1" string="Code"/>-->
+                <field name="code" string="Code"/>
                 <field name="type_src"/>
                 <field name="quantity_planned" select="2"/>
                 <field name="quantity_wanted" select="2"/>

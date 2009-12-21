@@ -153,7 +153,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
             if pline.state == 'pending':
 
                 obj = pline.campaign_id
-                code = pline.campaign_id.code1
+                code = pline.campaign_id.code
 
                 if not pline.product_id.seller_ids:
                     raise  osv.except_osv('Warning',
@@ -245,7 +245,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                             "Create po lines for each proposition"
                             lines = []
                             for propo in obj.proposition_ids:
-                                line_name = propo.code1 + '-' + propo.type
+                                line_name = propo.code + '-' + propo.type
 
                                 if pline.type_quantity == 'quantity_planned':
                                     quantity = propo.quantity_planned
@@ -329,7 +329,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                         "Create po lines for each proposition"
                         lines = []
                         for propo in obj.proposition_ids:
-                            line_name = propo.code1 + '-' + propo.type
+                            line_name = propo.code + '-' + propo.type
 
                             if pline.type_quantity == 'quantity_planned':
                                 quantity = propo.quantity_planned
@@ -382,7 +382,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                     if pline.desc_from_offer:
                         note.append("---------------------------------------------------------------------------")
                         note.append('Campaign Name: %s' % (obj.name,))
-                        note.append('Campaign Code: %s' % (obj.code1,))
+                        note.append('Campaign Code: %s' % (obj.code,))
                         note.append('Drop Date: %s' % (obj.camp_date_start,))
                         note.append("---------------------------------------------------------------------------")
                         note.append('Trademark: %s' % (obj.trademark_id.name,))
@@ -439,14 +439,14 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                             lines = []
                             for propo in obj.proposition_ids:
                                 for segment in propo.segment_ids:
-                                    line_name = propo.code1 + ' - ' + segment.customers_list_id.name
+                                    line_name = propo.code + ' - ' + segment.customers_list_id.name
                                     if pline.type_quantity == 'quantity_planned':
                                         quantity = segment.quantity_planned
                                     elif pline.type_quantity == 'quantity_wanted':
                                         quantity = segment.quantity_wanted
                                         if segment.all_add_avail:
                                             quantity = 0
-                                            line_name = propo.code1 + ' - ' + segment.customers_list_id.name + ' - All Addresses Available'
+                                            line_name = propo.code + ' - ' + segment.customers_list_id.name + ' - All Addresses Available'
                                     elif pline.type_quantity == 'quantity_delivered':
                                         quantity = propo.quantity_delivered
                                     elif pline.type_quantity == 'quantity_usable':
@@ -542,14 +542,14 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                             for propo in obj.proposition_ids:
                                 for segment in propo.segment_ids:
                                     if segment.customers_list_id == list:
-                                        line_name = propo.code1 + ' - ' + segment.customers_list_id.name
+                                        line_name = propo.code + ' - ' + segment.customers_list_id.name
                                         if pline.type_quantity == 'quantity_planned':
                                             quantity = segment.quantity_planned
                                         elif pline.type_quantity == 'quantity_wanted':
                                             quantity = segment.quantity_wanted
                                             if segment.all_add_avail:
                                                 quantity = 0
-                                                line_name = propo.code1 + ' - ' + segment.customers_list_id.name + ' - All Addresses Available'
+                                                line_name = propo.code + ' - ' + segment.customers_list_id.name + ' - All Addresses Available'
                                         elif pline.type_quantity == 'quantity_delivered':
                                             quantity = propo.quantity_delivered
                                         elif pline.type_quantity == 'quantity_usable':

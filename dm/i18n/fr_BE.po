@@ -1936,11 +1936,11 @@ msgstr "Suppression"
 
 #. module: dm
 #: view:dm.campaign:0
-#: field:dm.campaign,code1:0
+#: field:dm.campaign,code:0
 #: view:dm.campaign.proposition:0
-#: field:dm.campaign.proposition,code1:0
+#: field:dm.campaign.proposition,code:0
 #: view:dm.campaign.proposition.segment:0
-#: field:dm.campaign.proposition.segment,code1:0
+#: field:dm.campaign.proposition.segment,code:0
 #: field:dm.campaign.type,code:0
 #: field:dm.customer.segmentation,code:0
 #: view:dm.customers_file:0

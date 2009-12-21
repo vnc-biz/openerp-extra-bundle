@@ -124,8 +124,8 @@ class dm_campaign_group(osv.osv):#{{{
                     d = self.pool.get('dm.offer').browse(cr, uid, c.offer_id.id)
                     offer_code = d.code
                     offer_name = d.name
-            code1 = '-'.join([final_date, offer_code, offer_name])
-            result[id] = code1
+            code = '-'.join([final_date, offer_code, offer_name])
+            result[id] = code
         return result
 
     _columns = {

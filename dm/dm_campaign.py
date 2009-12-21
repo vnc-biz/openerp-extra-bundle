@@ -62,8 +62,8 @@ class dm_overlay(osv.osv): # {{{
             overlay = self.browse(cr, uid, id)
             trademark_code = overlay.trademark_id.code or ''
             dealer_code = overlay.dealer_id.ref or ''
-            code1 = '-'.join([trademark_code, dealer_code])
-            result[id] = code1
+            code = '-'.join([trademark_code, dealer_code])
+            result[id] = code
         return result
 
     _columns = {
@@ -85,6 +85,13 @@ class dm_overlay(osv.osv): # {{{
     }
 dm_overlay() # }}}
 
+class account_analytic_account(osv.osv): #{{{
+    _inherit = 'account.analytic.account'
+    _columns = {
+        'code' : fields.char('Code',size=64,readonly=True),    
+	}    
+account_analytic_account()
+
 class dm_campaign(osv.osv): #{{{
     _name = "dm.campaign"
     _inherits = {'account.analytic.account': 'analytic_account_id'}
@@ -94,6 +101,24 @@ class dm_campaign(osv.osv): #{{{
         result = {}
         for i in ids:
             result[i] = 0.0
+        return result
+
+    def _campaign_code(self, cr, uid, ids):
+        result ={}
+        for camp in self.browse(cr, uid, ids):
+            offer_code = camp.offer_id and camp.offer_id.code or ''
+            trademark_code = camp.trademark_id and camp.trademark_id.code or ''
+            dealer_code =camp.dealer_id and camp.dealer_id.ref or ''
+            date_start = camp.date_start or ''
+            country_code = camp.country_id.code or ''
+            date = date_start.split('-')
+            year = month = ''
+            if len(date)==3:
+                year = date[0][2:]
+                month = date[1]
+            final_date=month+year
+            code='-'.join([offer_code ,dealer_code ,trademark_code ,final_date ,country_code])
+            result[str(camp.id)]=code
         return result
 
     def onchange_lang_currency(self, cr, uid, ids, country_id):
@@ -177,7 +202,6 @@ class dm_campaign(osv.osv): #{{{
         return result
 
     _columns = {
-        'code1': fields.char('Code', size=64),                       
         'offer_id': fields.many2one('dm.offer', 'Offer', 
                                     domain=[('state', 'in', ['ready', 'open']),
                                 ('type', 'in', ['new', 'standart', 'rewrite'])], 
@@ -339,7 +363,7 @@ class dm_campaign(osv.osv): #{{{
               'offer_id': camp.offer_id.id,
               'date': camp.camp_date_start.split(' ')[0],
               'campaign_id': camp.id,
-              'code': camp.code1,
+              'code': camp.code,
               'responsible_id': camp.responsible_id.id,
               }
         history = self.pool.get("dm.offer.history")
@@ -632,6 +656,29 @@ class dm_campaign_proposition(osv.osv): #{{{
                 self.write(cr, uid, proposition_id, {'item_ids': [(6, 0, [])]})
         return proposition_id
 
+    def _proposition_code(self, cr, uid, ids):
+        result ={}
+        for pro in self.browse(cr,uid,ids):
+            pro_ids = self.search(cr,uid,[('camp_id','=',pro.camp_id.id)])
+            i=1
+            for pro_id in pro_ids:
+                camp_code = pro.camp_id.code or ''
+                offer_code = pro.camp_id.offer_id and pro.camp_id.offer_id.code or ''
+                trademark_code = pro.camp_id.trademark_id and pro.camp_id.trademark_id.name or ''
+                dealer_code =pro.camp_id.dealer_id and pro.camp_id.dealer_id.ref or ''
+                date_start = pro.date_start or ''
+                date = date_start.split('-')
+                year = month = ''
+                if len(date)==3:
+                    year = date[0][2:]
+                    month = date[1]
+                country_code = pro.camp_id.country_id.code or ''
+                seq = '%%0%sd' % 2 % i
+                final_date = month+year
+                code='-'.join([camp_code, seq])
+                result[str(pro.id)]=code
+                i +=1
+        return result
    
 
     def _quantity_wanted_get(self, cr, uid, ids, name, args, context={}):
@@ -723,7 +770,6 @@ class dm_campaign_proposition(osv.osv): #{{{
         return []
 
     _columns = {
-        'code1': fields.char('Code', size=64),         
         'camp_id': fields.many2one('dm.campaign', 'Campaign', 
                                    ondelete = 'cascade', required=True),
         'sale_rate': fields.float('Sale Rate (%)', digits=(16, 2),
@@ -956,9 +1002,9 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##                     country_code = seg.customers_list_id.country_id.code or ''
 ##                     cust_list_code =  seg.customers_list_id.code
 ##                     seq = '%%0%sd' % 2 % i
-##                     code1='-'.join([country_code[:3], cust_list_code[:3], 
+##                     code='-'.join([country_code[:3], cust_list_code[:3], 
 ##                                                                   seq[:4]])
-##                     result[s]=code1
+##                     result[s]=code
 ##                     i +=1
 ##             elif seg.customers_file_id:
 ##                 segment_list = self.search(cr, uid, 
@@ -967,17 +1013,16 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##                 for s in segment_list:
 ##                     cust_file_code =  seg.customers_file_id.code
 ##                     seq = '%%0%sd' % 2 % i
-##                     code1='-'.join([cust_file_code[:3], seq[:4]])
-##                     result[s]=code1
+##                     code='-'.join([cust_file_code[:3], seq[:4]])
+##                     result[s]=code
 ##                     i +=1
 ##             else:
 ##                 result[seg.id]=seg.type_src+'%d'%id
 ##         return result
 
-    def _segment_code(self, cr, uid, ids, name, args, context={}):
+    def _segment_code(self, cr, uid, ids):
         result ={}
-        for id in ids:
-            seg = self.browse(cr, uid, [id])[0]
+        for seg in self.browse(cr, uid, ids):
             if seg.customers_list_id:
                 segment_list = self.search(cr, uid, 
                         [('customers_list_id', '=', seg.customers_list_id.id)])
@@ -986,12 +1031,12 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
                     country_code = seg.customers_list_id.country_id.code or ''
                     cust_list_code =  seg.customers_list_id.code
                     seq = '%%0%sd' % 2 % i
-                    code1='-'.join([country_code[:3], cust_list_code[:3],
+                    code='-'.join([country_code[:3], cust_list_code[:3],
                                      seq[:4]])
-                    result[s]=code1
+                    result[str(s)]=code
                     i +=1
             else:
-                result[seg.id]=seg.type_src+'%d'%id
+                result[str(seg.id)]=seg.type_src+'%d'%id
         return result
 
     def onchange_list(self, cr, uid, ids, customers_list, start_census, 
@@ -1018,8 +1063,6 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         return seg_copy_id
 
     _columns = {
-        'code1': fields.function(_segment_code, string='Code', type="char", 
-                                 size=64, method=True, readonly=True),
         'campaign_id': fields.related('proposition_id', 'camp_id', 
                                       type='many2one', relation='dm.campaign', 
                                       string='Campaign'),

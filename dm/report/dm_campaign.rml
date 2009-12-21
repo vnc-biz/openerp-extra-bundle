@@ -63,7 +63,7 @@
       <tr>
         <td>
           <para style="P6"><font face="Times-Roman">Name : [[o.name]]</font></para>
-          <para style="P6"><font face="Times-Roman">Code : [[o.code1]]</font></para>
+          <para style="P6"><font face="Times-Roman">Code : [[o.code]]</font></para>
           <para style="P6"><font face="Times-Roman">Country of Campaign : [[o.country_id and o.country_id.name]]</font></para>
         </td>
         <td>

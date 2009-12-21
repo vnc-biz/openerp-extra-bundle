@@ -26,5 +26,6 @@ import cci_wizard_vcs
 import invoice_special_message
 import cci_use_model
 import cci_wizard_pay_invoice
+import cci_link_payment
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

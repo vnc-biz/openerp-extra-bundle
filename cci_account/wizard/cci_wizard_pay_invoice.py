@@ -34,9 +34,9 @@ pay_form = '''<?xml version="1.0"?>
     <field name="date"/>
     <field name="journal_id"/>
     <field name="period_id"/>
-    <separator string="Reconcile with already encoded entries" colspan="4"/>
+    <!-- <separator string="Reconcile with already encoded entries" colspan="4"/>
     <newline/>
-    <field name="line_ids" colspan="4" nolabel="1" height="300" />
+    <field name="line_ids" colspan="4" nolabel="1" height="300" /> -->
 </form>'''
 
 pay_fields = {
@@ -45,7 +45,7 @@ pay_fields = {
     'date': {'string': 'Payment date', 'type':'date', 'required':True, 'default':lambda *args: time.strftime('%Y-%m-%d')},
     'journal_id': {'string': 'Journal/Payment Mode', 'type': 'many2one', 'relation':'account.journal', 'required':True, 'domain':[('type','=','cash')]},
     'period_id': {'string': 'Period', 'type': 'many2one', 'relation':'account.period', 'required':True},
-    'line_ids': {'string': 'Account Moves', 'type': 'many2many', 'relation': 'account.move.line', 'required': False,},
+    #'line_ids': {'string': 'Account Moves', 'type': 'many2many', 'relation': 'account.move.line', 'required': False,},
 }
 
 def _pay_and_reconcile(self, cr, uid, data, context):
@@ -80,15 +80,15 @@ def _pay_and_reconcile(self, cr, uid, data, context):
     if not acc_id:
         raise wizard.except_wizard(_('Error !'), _('Your journal must have a default credit and debit account.'))
 
-    list_lines = []
-    if len(form['line_ids'][0][2]):
-        for line in invoice.move_id.line_id:
-            if line.account_id.reconcile:
-                list_lines.append(line.id) 
-        for line in form['line_ids'][0][2]:
-            list_lines.append(line)
-        if len(list_lines):
-            res = pool.get('account.move.line').reconcile_partial(cr, uid, list_lines, 'auto', context=context)
+#    list_lines = []
+#    if len(form['line_ids'][0][2]):
+#        for line in invoice.move_id.line_id:
+#            if line.account_id.reconcile:
+#                list_lines.append(line.id)
+#        for line in form['line_ids'][0][2]:
+#            list_lines.append(line)
+#        if len(list_lines):
+#            res = pool.get('account.move.line').reconcile_partial(cr, uid, list_lines, 'auto', context=context)
 
     pool.get('account.invoice').pay_and_reconcile(cr, uid, [data['id']],
             amount, acc_id, period_id, journal_id, writeoff_account_id,
@@ -103,21 +103,21 @@ def _get_period(self, cr, uid, data, context={}):
     if len(ids):
         period_id = ids[0]
     invoice = pool.get('account.invoice').browse(cr, uid, data['id'], context)
-    if invoice.type in ['out_invoice', 'in_refund']:
-        field = 'credit'
-        type = 'receivable'
-    else:
-        field = 'debit'
-        type = 'payable'
-    line_ids = pool.get('account.move.line').search(cr, uid, [('partner_id','=',invoice.partner_id.id), ('account_id.type','=',type), (field,'>',0), ('reconcile_id','=',False),('reconcile_partial_id','=',False)])
-    pay_fields['line_ids']['domain'] = ('id','in', line_ids),
+#    if invoice.type in ['out_invoice', 'in_refund']:
+#        field = 'credit'
+#        type = 'receivable'
+#    else:
+#        field = 'debit'
+#        type = 'payable'
+#    line_ids = pool.get('account.move.line').search(cr, uid, [('partner_id','=',invoice.partner_id.id), ('account_id.type','=',type), (field,'>',0), ('reconcile_id','=',False),('reconcile_partial_id','=',False)])
+#    pay_fields['line_ids']['domain'] = ('id','in', line_ids),
     if invoice.state in ['draft', 'proforma2', 'cancel']:
         raise wizard.except_wizard(_('Error !'), _('Can not pay draft/proforma/cancel invoice.'))
     return {
         'period_id': period_id,
         'amount': invoice.residual,
         'date': time.strftime('%Y-%m-%d'),
-        'line_ids': line_ids
+#        'line_ids': line_ids
     }
 
 class wizard_pay_invoice(wizard.interface):

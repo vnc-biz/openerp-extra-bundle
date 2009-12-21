@@ -88,7 +88,7 @@ dm_overlay() # }}}
 class account_analytic_account(osv.osv): #{{{
     _inherit = 'account.analytic.account'
     _columns = {
-        'code' : fields.char('Code',size=64,readonly=True),    
+        'code' : fields.char('Code',size=64),    
 	}    
 account_analytic_account()
 

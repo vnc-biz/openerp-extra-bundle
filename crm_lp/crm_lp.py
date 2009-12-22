@@ -270,6 +270,8 @@ class crm_case(osv.osv):
                                     val['state']='cancel'                                    
                                 if bug.milestone_link:
                                     val['milestone_url']=bug.milestone_link
+                                    ml = bug.milestone_link.rsplit('/',1)[0]
+                                    ml_ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',prj_id.id),('name','=', ml)])                          
                                 if not b_id:
                                     bug_id=self.create(cr, uid, val,context=context)
                                     self._check_state(cr, uid,[bug_id],val)                                    
@@ -311,7 +313,7 @@ class crm_case(osv.osv):
                     lp_series_id=lp_series.create(cr, uid, res,context=context)
                     ml = series['all_milestones_collection_link'].rsplit('/',1)[0]
                     cr.commit()
-                self._get_project_milestone(cr, uid, lp_series_id,ml,lp_project,lp_project_id, lp_server)
+                    self._get_project_milestone(cr, uid, lp_series_id,ml,lp_project,lp_project_id, lp_server)
         return True
 
     def _get_project_milestone(self, cr, uid,lp_series_id,milestone,lp_project,lp_project_id,lp_server=None,context={}):

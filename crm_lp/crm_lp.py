@@ -255,18 +255,24 @@ class crm_case(osv.osv):
                                     val['priority']='5'
                                 elif bug.importance == 'Critical':
                                     val['priority']='1'
+                                    val['state']='open'                                    
                                 elif bug.importance=='High':
                                     val['priority']='2'
+                                    val['state']='open'                                    
                                 elif bug.importance=='Medium':
                                     val['priority']='3'
+                                    val['state']='open'                                    
                                 if bug.status in ('Confirmed','Fix Released'):
                                     val['stage_id']=categ_fix_id
+                                    val['state']='done'
                                 if bug.status =='invaild':
                                     val['stage_id']= val['stage_id']=categ_inv_id
+                                    val['state']='cancel'                                    
                                 if bug.milestone_link:
                                     val['milestone_url']=bug.milestone_link
                                 if not b_id:
-                                    self.create(cr, uid, val,context=context)
+                                    bug_id=self.create(cr, uid, val,context=context)
+                                    self._check_state(cr, uid,[bug_id],val)                                    
                                 if b_id:
                                     crm_case = self.browse(cr,uid, b_id[0])
                                     lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
@@ -329,8 +335,8 @@ class crm_case(osv.osv):
         case= pool.get('crm.case')
         b=case.write(cr,uid,crm_bug.id,val,context=context)
         if b:
-            return True
-        return False
+            case._check_state(cr, uid,[crm_bug.id],val)
+        return True
 
     def _update_lp_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
         pool=pooler.get_pool(cr.dbname)
@@ -355,5 +361,17 @@ class crm_case(osv.osv):
         t.importance = imp
         t.lp_save()
         return True
+    
+    def _check_state(self, cr, uid,bug_id,vals={}):
+        partner = self.pool.get('res.users').browse(cr, uid, uid).address_id.partner_id.id
+        if not vals['partner_id']:
+            vals['partner_id']=partner
+        if vals['state']=='open': 
+            self.case_open(cr,uid,bug_id) 
+        if vals['state']=='cancel': 
+            self.case_cancel(cr,uid,bug_id)   
+        if vals['state']=='done': 
+            self.case_close(cr,uid,bug_id)
+        return True      
 crm_case()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

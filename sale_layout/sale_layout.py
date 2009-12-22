@@ -24,11 +24,19 @@ from tools import config
 class sale_order_line(osv.osv):
 
     def invoice_line_create(self, cr, uid, ids, context={}):
-        new_ids=[]
+        new_ids = []
+        list_seq = []
         for line in self.browse(cr, uid, ids, context):
             if line.layout_type == 'article':
                 new_ids.append(line.id)
-        return super(sale_order_line, self).invoice_line_create(cr, uid, new_ids, context)
+                list_seq.append(line.sequence)
+        invoice_line_ids = super(sale_order_line, self).invoice_line_create(cr, uid, new_ids, context)
+        pool_inv_line = self.pool.get('account.invoice.line')
+        seq = 0
+        for obj_inv_line in pool_inv_line.browse(cr, uid, invoice_line_ids, context=context):
+            pool_inv_line.write(cr, uid, [obj_inv_line.id], {'sequence': list_seq[seq]}, context=context)
+            seq += 1
+        return invoice_line_ids
 
     def _onchange_sale_order_line_view(self, cr, uid, id, type, context={}, *args):
             temp ={}

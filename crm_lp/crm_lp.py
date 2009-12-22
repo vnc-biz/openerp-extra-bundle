@@ -176,115 +176,116 @@ class crm_case(osv.osv):
         val={}
         pool=pooler.get_pool(cr.dbname)
         sec_obj = pool.get('crm.case.section')
-        sec_id = sec_obj.search(cr, uid, [('code', '=', 'BugSup')])
-        if sec_id:
+        section_id = sec_obj.search(cr, uid, [('code', '=', 'BugSup')])
+        if section_id:
             lp_server = lpServer()
-            self._create_bug(cr, uid, sec_id,lp_server, context)
-            self._find_project_bug(cr,uid,sec_id,lp_server)
+            self._create_bug(cr, uid, section_id,lp_server, context)
+            self._find_project_bug(cr,uid,section_id,lp_server)
             return True
         else:
             return False
 
-    def _create_bug(self, cr, uid, sec_id,lp_server=None,context={}):
+    def _create_bug(self, cr, uid, section_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
         
         crm_case_obj = pool.get('crm.case')
-        crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
-        launchpad = lp_server.launchpad
-        if crm_ids:
-            for case in crm_case_obj.browse(cr,uid, crm_ids):
-                title = case.name
-                target = case.project_id.bugs_target
-                if not target:
-                    target = "https://api.edge.launchpad.net/beta/" + case.project_id.name
-                description=case.description
-                b=launchpad.bugs.createBug(title=title, target=target, description=description)
-                if b:
-                    bool = self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
-                    status='New'
-                    imp ='Undecided'
-                    if case.stage_id.name == 'Future' and case.priority == '5':
-                        imp = 'Wishlist'
-                    elif case.priority == '1':
-                        imp = 'High'
-                    elif case.priority == '3':
-                        imp = 'Medium'
-                    if case.stage_id.name == 'Fixed':
-                        status = 'Fix Released'
-                    if case.stage_id.id == 'Invalid':
-                        status = 'invalid'
-                    t=b.bug_tasks[0]
-                    t.status = status
-                    t.importance = imp
-                    t.lp_save()
+        for sec_id in section_id:
+            crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id),('project_id','!=',False)])
+            launchpad = lp_server.launchpad
+            if crm_ids:
+                for case in crm_case_obj.browse(cr,uid, crm_ids):
+                    title = case.name
+                    target = case.project_id.bugs_target
+                    if not target:
+                        target = "https://api.edge.launchpad.net/beta/" + case.project_id.name
+                    description=case.description
+                    b=launchpad.bugs.createBug(title=title, target=target, description=description)
+                    if b:
+                        bool = self.write(cr,uid,case.id,{'bug_id' : b.id},context=None)
+                        status='New'
+                        imp ='Undecided'
+                        if case.stage_id.name == 'Future' and case.priority == '5':
+                            imp = 'Wishlist'
+                        elif case.priority == '1':
+                            imp = 'High'
+                        elif case.priority == '3':
+                            imp = 'Medium'
+                        if case.stage_id.name == 'Fixed':
+                            status = 'Fix Released'
+                        if case.stage_id.id == 'Invalid':
+                            status = 'invalid'
+                        t=b.bug_tasks[0]
+                        t.status = status
+                        t.importance = imp
+                        t.lp_save()
                 return True
-        else:
+            else:
                 return False
 
-    def _find_project_bug(self, cr, uid,sec_id,lp_server=None,context={}):
+    def _find_project_bug(self, cr, uid,section_id,lp_server=None,context={}):
 
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
-
-        categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])[0]
-        categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])[0]
-        categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])[0]
-        categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])[0]
-        val={}
-        res={}
-        series_ids=[]
-        prj = self.pool.get('project.project')
-        project_id=prj.search(cr,uid,[])
-        for prj_id in prj.browse(cr,uid, project_id):
-            project_name=str(prj_id.name)
-            lp_project = lp_server.getProject(project_name)
-            if lp_project and prj_id.flag:
-                prjs=lp_server.get_lp_bugs(project_name)
-                self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
-                for key, bugs in prjs.items():
-                        for bug in bugs:
-                            b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
-                            val['project_id']=prj_id.id
-                            val['bug_id']=bug.bug.id
-                            val['name']=bug.bug.title
-                            val['section_id']=sec_id[0]
-                            if bug.importance == 'Wishlist':
-                                val['stage_id']=categ_future_id
-                                val['priority']='5'
-                            elif bug.importance == 'Critical':
-                                val['priority']='1'
-                            elif bug.importance=='High':
-                                val['priority']='2'
-                            elif bug.importance=='Medium':
-                                val['priority']='3'
-                            if bug.status in ('Confirmed','Fix Released'):
-                                val['stage_id']=categ_fix_id
-                            if bug.status =='invaild':
-                                val['stage_id']= val['stage_id']=categ_inv_id
-                            if bug.milestone_link:
-                                val['milestone_url']=bug.milestone_link
-                            if not b_id:
-                                self.create(cr, uid, val,context=context)
-                            if b_id:
-                                crm_case = self.browse(cr,uid, b_id[0])
-                                lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
-                                lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,'%Y-%m-%d %H:%M:%S'))
-                                if not crm_case.date_action_last:
-                                    local_last_up_time=0
-                                    local_last_up_timestamp = 0
-                                    local_last_up_timestamp1=0
-                                else:
-                                    local_last_up_time = str(crm_case.date_action_last).split('.')[0]
-                                    local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S')) + time.timezone
-                                    local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S'))
-
-                                args = (cr, uid, context, sec_id, crm_case, bug, val)
-                                if lp_last_up_timestamp >= local_last_up_timestamp:
-                                    self._update_local_record(*args)
-                                elif lp_last_up_timestamp < local_last_up_timestamp:
-                                    self._update_lp_record(*args)
-                            cr.commit()
+        for sec_id in section_id:
+            categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id),('name','=','Fixed')])[0]
+            categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id),('name','=','Invalid')])[0]
+            categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id), ('name','=','Future')])[0]
+            categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id),('name','=',"Won't fix")])[0]
+            val={}
+            res={}
+            series_ids=[]
+            prj = self.pool.get('project.project')
+            project_id=prj.search(cr,uid,[])
+            for prj_id in prj.browse(cr,uid, project_id):
+                project_name=str(prj_id.name)
+                lp_project = lp_server.getProject(project_name)
+                if lp_project and prj_id.flag:
+                    prjs=lp_server.get_lp_bugs(project_name)
+                    self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
+                    for key, bugs in prjs.items():
+                            for bug in bugs:
+                                b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
+                                val['project_id']=prj_id.id
+                                val['bug_id']=bug.bug.id
+                                val['name']=bug.bug.title
+                                val['section_id']=sec_id
+                                if bug.importance == 'Wishlist':
+                                    val['stage_id']=categ_future_id
+                                    val['priority']='5'
+                                elif bug.importance == 'Critical':
+                                    val['priority']='1'
+                                elif bug.importance=='High':
+                                    val['priority']='2'
+                                elif bug.importance=='Medium':
+                                    val['priority']='3'
+                                if bug.status in ('Confirmed','Fix Released'):
+                                    val['stage_id']=categ_fix_id
+                                if bug.status =='invaild':
+                                    val['stage_id']= val['stage_id']=categ_inv_id
+                                if bug.milestone_link:
+                                    val['milestone_url']=bug.milestone_link
+                                if not b_id:
+                                    self.create(cr, uid, val,context=context)
+                                if b_id:
+                                    crm_case = self.browse(cr,uid, b_id[0])
+                                    lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
+                                    lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,'%Y-%m-%d %H:%M:%S'))
+                                    if not crm_case.date_action_last:
+                                        local_last_up_time=0
+                                        local_last_up_timestamp = 0
+                                        local_last_up_timestamp1=0
+                                    else:
+                                        local_last_up_time = str(crm_case.date_action_last).split('.')[0]
+                                        local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S')) + time.timezone
+                                        local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S'))
+    
+                                    args = (cr, uid, context, [sec_id], crm_case, bug, val)
+                                    if lp_last_up_timestamp >= local_last_up_timestamp:
+                                        self._update_local_record(*args)
+                                    elif lp_last_up_timestamp < local_last_up_timestamp:
+                                        self._update_lp_record(*args)
+                                cr.commit()
         return True
 
     def _get_project_series(self, cr, uid,lp_project,lp_project_id,lp_server=None,context={}):

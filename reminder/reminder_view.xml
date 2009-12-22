@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_reminder" name="Reminder"/>
+        
+        <record id="view_reminder_tree" model="ir.ui.view">
+            <field name="name">reminder.reminder.form</field>
+            <field name="model">reminder.reminder</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reminder">
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="field_id"/>
+                    <field name="domain"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="action_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_reminder_form" model="ir.ui.view">
+            <field name="name">reminder.reminder.form</field>
+            <field name="model">reminder.reminder</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reminder">
+                    <group col="6" colspan="4">
+                        <field name="name" colspan="4"/>
+                        <field name="model_id"/>
+                        <field name="start_date"/>
+                        <field name="running"/>
+                        <field name="domain"/>
+                    </group>
+                   
+                    <notebook colspan="4">
+                        <page string="Conditions">
+                            <field name="match"/>
+                            <field name="action_id"/>
+                            <field name="line_ids" colspan="4" nolabel="1">
+                                <tree editable="top">
+                                    <field name="sequence"/>
+                                    <field name="field_id" domain="[('model_id','=',parent.model_id)]"/>
+                                    <field name="operator"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description">              
+                            <field name="note" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
+                    <group col="6" colspan="4">
+                        <field name="state"/>
+                        <button name="start" string="Start"/>
+                        <button name="stop" string="Stop"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_reminder_tree" model="ir.actions.act_window">
+            <field name="name">Reminders</field>
+            <field name="res_model">reminder.reminder</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_reminder_tree"/>
+        </record>
+		<menuitem id="menu_reminder_configuration" name="Configuration" parent="menu_reminder"/>
+		<menuitem id="menu_reminder_configuration" action="action_view_reminder_tree" parent="menu_reminder"/>
+    </data>
+</openerp>

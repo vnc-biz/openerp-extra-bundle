@@ -30,8 +30,8 @@
             """,
     "depends" : ['dm_as_reject'],
     "init_xml" : [],
-    "demo_xml" : ['dm_as_reject_trademark_demo.xml',],
-    "update_xml" : ['dm_as_reject_trademark_view.xml',],
+    "demo_xml" : [],
+    "update_xml" : ['dm_as_reject_trademark_view.xml', 'dm_as_reject_trademark_data.xml'],
     "active": False,
     "installable": True,
 }

@@ -848,7 +848,6 @@
                 <field name="code"/>
                 <field name="trademark_id" select="1"/>
                 <field name="dealer_id" select="2"/>
-                <field name="bank_account_id" select="2"/>
 <!--                <separator string="Payment Method Rules" colspan="4"/>
                 <field name="payment_method_rule_ids" colspan="4" nolabel="1"/>-->
                 <separator string="Countries" colspan="4"/>
@@ -865,7 +864,6 @@
                 <field name="code"/>
                 <field name="trademark_id"/>
                 <field name="dealer_id"/>
-                <field name="bank_account_id"/>
 <!--                <field name="payment_method_rule_ids"/>-->
             </tree>
         </field>

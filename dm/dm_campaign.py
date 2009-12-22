@@ -77,7 +77,6 @@ class dm_overlay(osv.osv): # {{{
         'country_ids': fields.many2many('res.country', 'overlay_country_rel', 
                                         'overlay_id', 'country_id', 'Country', 
                                         required=True),
-        'bank_account_id': fields.many2one('account.account', 'Account'),
 #        'payment_method_rule_ids': fields.many2many('dm.overlay.payment_rule',
 #                                   'overlay_payment_method_rule_rel', 
 #                                   'overlay_id', 'payment_rule_id',

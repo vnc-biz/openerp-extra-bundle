@@ -113,6 +113,7 @@
         <field name="arch" type="xml">
             <tree string="Campaigns">
                 <field name="name" string="Name"/>
+                <field name="code" string="Code"/>
                 <field name="campaign_type_id"/>
                 <field name="camp_date_start"/>
                 <field name="responsible_id" />

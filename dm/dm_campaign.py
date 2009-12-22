@@ -103,24 +103,6 @@ class dm_campaign(osv.osv): #{{{
             result[i] = 0.0
         return result
 
-    def _campaign_code(self, cr, uid, ids):
-        result ={}
-        for camp in self.browse(cr, uid, ids):
-            offer_code = camp.offer_id and camp.offer_id.code or ''
-            trademark_code = camp.trademark_id and camp.trademark_id.code or ''
-            dealer_code =camp.dealer_id and camp.dealer_id.ref or ''
-            date_start = camp.date_start or ''
-            country_code = camp.country_id.code or ''
-            date = date_start.split('-')
-            year = month = ''
-            if len(date)==3:
-                year = date[0][2:]
-                month = date[1]
-            final_date=month+year
-            code='-'.join([offer_code ,dealer_code ,trademark_code ,final_date ,country_code])
-            result[str(camp.id)]=code
-        return result
-
     def onchange_lang_currency(self, cr, uid, ids, country_id):
         value = {}
         if country_id:
@@ -656,31 +638,6 @@ class dm_campaign_proposition(osv.osv): #{{{
                 self.write(cr, uid, proposition_id, {'item_ids': [(6, 0, [])]})
         return proposition_id
 
-    def _proposition_code(self, cr, uid, ids):
-        result ={}
-        for pro in self.browse(cr,uid,ids):
-            pro_ids = self.search(cr,uid,[('camp_id','=',pro.camp_id.id)])
-            i=1
-            for pro_id in pro_ids:
-                camp_code = pro.camp_id.code or ''
-                offer_code = pro.camp_id.offer_id and pro.camp_id.offer_id.code or ''
-                trademark_code = pro.camp_id.trademark_id and pro.camp_id.trademark_id.name or ''
-                dealer_code =pro.camp_id.dealer_id and pro.camp_id.dealer_id.ref or ''
-                date_start = pro.date_start or ''
-                date = date_start.split('-')
-                year = month = ''
-                if len(date)==3:
-                    year = date[0][2:]
-                    month = date[1]
-                country_code = pro.camp_id.country_id.code or ''
-                seq = '%%0%sd' % 2 % i
-                final_date = month+year
-                code='-'.join([camp_code, seq])
-                result[str(pro.id)]=code
-                i +=1
-        return result
-   
-
     def _quantity_wanted_get(self, cr, uid, ids, name, args, context={}):
         result = {}
         for propo in self.browse(cr, uid, ids):
@@ -1019,26 +976,6 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##             else:
 ##                 result[seg.id]=seg.type_src+'%d'%id
 ##         return result
-
-    def _segment_code(self, cr, uid, ids):
-        result ={}
-        for seg in self.browse(cr, uid, ids):
-            if seg.customers_list_id:
-                segment_list = self.search(cr, uid, 
-                        [('customers_list_id', '=', seg.customers_list_id.id)])
-                i = 1
-                for s in segment_list:
-                    country_code = seg.customers_list_id.country_id.code or ''
-                    cust_list_code =  seg.customers_list_id.code
-                    seq = '%%0%sd' % 2 % i
-                    code='-'.join([country_code[:3], cust_list_code[:3],
-                                     seq[:4]])
-                    result[str(s)]=code
-                    i +=1
-            else:
-                result[str(seg.id)]=seg.type_src+'%d'%id
-        return result
-
     def onchange_list(self, cr, uid, ids, customers_list, start_census, 
                                                                 end_census):
         if customers_list:

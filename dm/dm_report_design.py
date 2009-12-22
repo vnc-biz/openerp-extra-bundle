@@ -244,7 +244,7 @@ def document_process(cr, uid, obj, report_type, context): # {{{
 
         camp_doc = pool.get('dm.campaign.document').create(cr, uid, vals)
         """ If DMS stored document """
-        if mail_service.store_email_document:
+        if mail_service.store_document:
             context['address_id'] = address_id
             context['document_id'] = document_id[0]
 #v need it as store_document is true ...v need to calculate plugin values 

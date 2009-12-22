@@ -93,6 +93,7 @@ groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_gr
         <field name="arch" type="xml">
             <tree string="Offers" colors="blue:state=='draft'">
                 <field name="name"/>
+                <field name="code" />
                 <field name="copywriter_id"/>
                 <field name="quotation"/>
                 <field name="state"/>

@@ -26,21 +26,6 @@ from osv import fields
 from osv import osv
 from tools.translate import _
 
-## class dm_overlay_payment_rule(osv.osv):
-##     _name = 'dm.overlay.payment_rule'
-##     _rec_name = 'journal_id'
-##     _columns = {
-##         'journal_id': fields.many2one('account.journal', 'Journal'),
-##         'move': fields.selection([('Credit', 'credit'), ('Debit', 'debit')],
-##                                                                    'Move'),
-##         'currency_id':fields.many2one('res.currency', 'Currency'),
-##         'country_id':fields.many2one('res.country', 'Country'),
-##         'account_id':fields.many2one('account.account', 'Account'),
-##         'country_default':fields.boolean('Default for Country')
-##     }
-## 
-## dm_overlay_payment_rule()
-
 
 class dm_campaign_type(osv.osv): #{{{
     _name = "dm.campaign.type"
@@ -52,45 +37,12 @@ class dm_campaign_type(osv.osv): #{{{
     }
 dm_campaign_type()#}}}
 
-class dm_overlay(osv.osv): # {{{
-    _name = 'dm.overlay'
-    _rec_name = 'trademark_id'
-
-    def _overlay_code(self, cr, uid, ids, name, args, context={}):
-        result = {}
-        for id in ids:
-            overlay = self.browse(cr, uid, id)
-            trademark_code = overlay.trademark_id.code or ''
-            dealer_code = overlay.dealer_id.ref or ''
-            code = '-'.join([trademark_code, dealer_code])
-            result[id] = code
-        return result
-
-    _columns = {
-        'code': fields.function(_overlay_code, string='Code', type='char',
-                                                 method=True, readonly=True),
-        'trademark_id': fields.many2one('dm.trademark', 'Trademark', 
-                                                            required=True),
-        'dealer_id': fields.many2one('res.partner', 'Dealer',
-                                 domain=[('category_id', 'ilike', 'Dealer')],
-                                 context={'category': 'Dealer'}, required=True),
-        'country_ids': fields.many2many('res.country', 'overlay_country_rel', 
-                                        'overlay_id', 'country_id', 'Country', 
-                                        required=True),
-        'bank_account_id': fields.many2one('account.account', 'Account'),
-#        'payment_method_rule_ids': fields.many2many('dm.overlay.payment_rule',
-#                                   'overlay_payment_method_rule_rel', 
-#                                   'overlay_id', 'payment_rule_id',
-#                                    'Payment Method Rules')
-    }
-dm_overlay() # }}}
-
-class account_analytic_account(osv.osv): #{{{
+class account_analytic_account(osv.osv): # {{{
     _inherit = 'account.analytic.account'
     _columns = {
         'code' : fields.char('Code',size=64),    
 	}    
-account_analytic_account()
+account_analytic_account() # }}}
 
 class dm_campaign(osv.osv): #{{{
     _name = "dm.campaign"
@@ -101,24 +53,6 @@ class dm_campaign(osv.osv): #{{{
         result = {}
         for i in ids:
             result[i] = 0.0
-        return result
-
-    def _campaign_code(self, cr, uid, ids):
-        result ={}
-        for camp in self.browse(cr, uid, ids):
-            offer_code = camp.offer_id and camp.offer_id.code or ''
-            trademark_code = camp.trademark_id and camp.trademark_id.code or ''
-            dealer_code =camp.dealer_id and camp.dealer_id.ref or ''
-            date_start = camp.date_start or ''
-            country_code = camp.country_id.code or ''
-            date = date_start.split('-')
-            year = month = ''
-            if len(date)==3:
-                year = date[0][2:]
-                month = date[1]
-            final_date=month+year
-            code='-'.join([offer_code ,dealer_code ,trademark_code ,final_date ,country_code])
-            result[str(camp.id)]=code
         return result
 
     def onchange_lang_currency(self, cr, uid, ids, country_id):
@@ -254,7 +188,6 @@ class dm_campaign(osv.osv): #{{{
                                                    'Manufacturing Costs'),
         'manufacturing_product_id': fields.many2one('product.product', 
                                                     'Manufacturing Product'),
-        'overlay_id': fields.many2one('dm.overlay', 'Overlay'),
         'router_id': fields.many2one('res.partner', 'Router', 
                                     domain=[('category_id', 'ilike', 'Router')],
                                      context={'category': 'Router'},
@@ -423,28 +356,6 @@ class dm_campaign(osv.osv): #{{{
         else:
             country_id = camp.country_id.id
 
-        #check if an overlay exists else create it
-        overlay_country_ids = []
-        if trademark_id and dealer_id and country_id:
-            overlay_obj = self.pool.get('dm.overlay')
-            overlay_id = overlay_obj.search(cr, uid, [('trademark_id', '=', trademark_id), ('dealer_id', '=', dealer_id)])
-            if overlay_id:
-                browse_overlay = overlay_obj.browse(cr, uid, overlay_id)[0]
-                overlay_country_ids = [country_ids.id for country_ids in \
-                                       browse_overlay.country_ids]
-                vals['overlay_id'] = overlay_id[0]
-                if not (country_id in overlay_country_ids):
-                    overlay_country_ids.append(country_id)
-                    overlay_obj.write(cr, uid, browse_overlay.id, 
-                                {'country_ids': [[6, 0, overlay_country_ids]]},
-                                         context)
-            else:
-                overlay_ids1 = overlay_obj.create(cr, uid, 
-                                                  {'trademark_id': trademark_id,
-                                                    'dealer_id': dealer_id, 
-                                        'country_ids': [[6, 0, [country_id]]]}, 
-                                          context)
-                vals['overlay_id'] = overlay_ids1
         return super(dm_campaign, self).write(cr, uid, ids, vals, context)
 
     def create(self, cr, uid, vals, context={}):
@@ -509,33 +420,7 @@ class dm_campaign(osv.osv): #{{{
                 write_vals['trademark_id'] = offer_id.recommended_trademark_id.id
         if write_vals:
             super(dm_campaign, self).write(cr, uid, id_camp, write_vals)
-        # check if an overlay exists else create it
-        data_cam1 = self.browse(cr, uid, id_camp)
-        overlay_country_ids = []
-        if data_cam1.trademark_id and data_cam1.dealer_id and data_cam1.country_id:
-            overlay_obj = self.pool.get('dm.overlay')
-            overlay_id = overlay_obj.search(cr, uid, 
-                            [('trademark_id', '=', data_cam1.trademark_id.id),
-                              ('dealer_id', '=', data_cam1.dealer_id.id)])
-            new_write_vals = {}
-            if overlay_id:
-                browse_overlay = overlay_obj.browse(cr, uid, overlay_id)[0]
-                overlay_country_ids = [country_ids.id for country_ids in browse_overlay.country_ids]
-                new_write_vals['overlay_id'] = overlay_id[0]
-                if not (data_cam1.country_id.id in overlay_country_ids):
-                    overlay_country_ids.append(data_cam1.country_id.id)
-                    overlay_obj.write(cr, uid, browse_overlay.id, 
-                                {'country_ids': [[6, 0, overlay_country_ids]]},
-                                 context)
-            else:
-                overlay_ids1 = overlay_obj.create(cr, uid, 
-                                    {'trademark_id': data_cam1.trademark_id.id,
-                                      'dealer_id': data_cam1.dealer_id.id, 
-                            'country_ids': [[6, 0, [data_cam1.country_id.id]]]},
-                             context)
-                new_write_vals['overlay_id'] = overlay_ids1
-            super(dm_campaign, self).write(cr, uid, data_cam1.id, 
-                                           new_write_vals, context)
+
         return id_camp
 
 	def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,):# submenu=False): for trunk client
@@ -655,31 +540,6 @@ class dm_campaign_proposition(osv.osv): #{{{
                 self.pool.get('dm.campaign.proposition.item').unlink(cr, uid, l)
                 self.write(cr, uid, proposition_id, {'item_ids': [(6, 0, [])]})
         return proposition_id
-
-    def _proposition_code(self, cr, uid, ids):
-        result ={}
-        for pro in self.browse(cr,uid,ids):
-            pro_ids = self.search(cr,uid,[('camp_id','=',pro.camp_id.id)])
-            i=1
-            for pro_id in pro_ids:
-                camp_code = pro.camp_id.code or ''
-                offer_code = pro.camp_id.offer_id and pro.camp_id.offer_id.code or ''
-                trademark_code = pro.camp_id.trademark_id and pro.camp_id.trademark_id.name or ''
-                dealer_code =pro.camp_id.dealer_id and pro.camp_id.dealer_id.ref or ''
-                date_start = pro.date_start or ''
-                date = date_start.split('-')
-                year = month = ''
-                if len(date)==3:
-                    year = date[0][2:]
-                    month = date[1]
-                country_code = pro.camp_id.country_id.code or ''
-                seq = '%%0%sd' % 2 % i
-                final_date = month+year
-                code='-'.join([camp_code, seq])
-                result[str(pro.id)]=code
-                i +=1
-        return result
-   
 
     def _quantity_wanted_get(self, cr, uid, ids, name, args, context={}):
         result = {}
@@ -833,7 +693,6 @@ class dm_campaign_proposition(osv.osv): #{{{
 
 dm_campaign_proposition()#}}}
 
-
 class dm_customers_list_recruit_origin(osv.osv): #{{{
     _name = "dm.customers_list.recruit_origin"
     _description = "The origin of the adresses of a list"
@@ -842,7 +701,6 @@ class dm_customers_list_recruit_origin(osv.osv): #{{{
         'code': fields.char('Code', size=16, required=True),
     }
 dm_customers_list_recruit_origin()#}}}
-
 
 class dm_customers_list_type(osv.osv): #{{{
     _name = "dm.customers_list.type"
@@ -940,7 +798,6 @@ class dm_customers_file(osv.osv):#{{{
 
 dm_customers_file()#}}}
 
-
 class dm_campaign_proposition_segment(osv.osv):#{{{
 
     _name = "dm.campaign.proposition.segment"
@@ -1019,26 +876,6 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##             else:
 ##                 result[seg.id]=seg.type_src+'%d'%id
 ##         return result
-
-    def _segment_code(self, cr, uid, ids):
-        result ={}
-        for seg in self.browse(cr, uid, ids):
-            if seg.customers_list_id:
-                segment_list = self.search(cr, uid, 
-                        [('customers_list_id', '=', seg.customers_list_id.id)])
-                i = 1
-                for s in segment_list:
-                    country_code = seg.customers_list_id.country_id.code or ''
-                    cust_list_code =  seg.customers_list_id.code
-                    seq = '%%0%sd' % 2 % i
-                    code='-'.join([country_code[:3], cust_list_code[:3],
-                                     seq[:4]])
-                    result[str(s)]=code
-                    i +=1
-            else:
-                result[str(seg.id)]=seg.type_src+'%d'%id
-        return result
-
     def onchange_list(self, cr, uid, ids, customers_list, start_census, 
                                                                 end_census):
         if customers_list:
@@ -1157,7 +994,6 @@ class dm_campaign_proposition_item(osv.osv):#{{{
         'forecasted_yield': fields.float('Forecasted Yield'),
     }
 dm_campaign_proposition_item()#}}}
-
 
 class dm_campaign_manufacturing_cost(osv.osv):#{{{
     _name = 'dm.campaign.manufacturing_cost'

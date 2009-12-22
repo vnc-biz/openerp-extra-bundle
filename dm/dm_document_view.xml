@@ -360,7 +360,7 @@
         <field name="view_id" ref="view_dm_dtp_plugin_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_dtp_plugin" parent="dm.menu_action_offer_doc" action="action_dm_dtp_plugin" sequence="3" />
+    <menuitem id="menu_action_dm_dtp_plugin" parent="dm.menu_dm_config_doc_plugins" action="action_dm_dtp_plugin" sequence="3" />
     <!--
     =======================================================
     Customer - Plugin - Value

@@ -231,6 +231,9 @@ def document_process(cr, uid, obj, report_type, context): # {{{
 #    so = getattr(obj,'sale_order_id',False)
     for address_id in address_ids:
 
+        if len(address_ids) > 1:
+                    netsvc.Logger().notifyChannel('dm action', netsvc.LOG_ERROR, 'Duplicate workitem detected : %s' % (str(address_id)))
+
         """ Create campaign document """
         vals={
             'segment_id': obj.segment_id.id or False,
@@ -244,7 +247,7 @@ def document_process(cr, uid, obj, report_type, context): # {{{
 
         camp_doc = pool.get('dm.campaign.document').create(cr, uid, vals)
         """ If DMS stored document """
-        if mail_service.store_email_document:
+        if mail_service.store_document:
             context['address_id'] = address_id
             context['document_id'] = document_id[0]
 #v need it as store_document is true ...v need to calculate plugin values 

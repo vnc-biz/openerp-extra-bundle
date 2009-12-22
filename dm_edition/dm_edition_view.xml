@@ -138,7 +138,6 @@
 				<field name="code"/>
 				<field name="qty_limit"/>
 				<field name="by_customer_country"/>
-				<field name="by_overlay"/>
 				<field name="by_product"/>
 				<field name="by_page_qty"/>
 				<field name="by_offer_step"/>
@@ -156,7 +155,6 @@
 				<field name="code"/>
 				<field name="qty_limit"/>
 				<field name="by_customer_country"/>
-				<field name="by_overlay"/>
 				<field name="by_product"/>
 				<field name="by_page_qty"/>
 				<field name="by_offer_step"/>

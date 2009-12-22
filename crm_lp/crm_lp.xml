@@ -102,6 +102,19 @@
             </field>
        </field>
     </record>
+    
+    <record model="ir.ui.view" id="view_crm_lp_users_form">
+        <field name="name">res.users.lp.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="password" position="after">
+                <field name="lp_login"/>
+            </field>
+       </field>
+    </record>
+        
 <menuitem name="Project Series" id="menu_lp_series"  parent="project.menu_all_project" action="action_lp_series"/>
 <menuitem name="Project Milestones" id="menu_lp_milestones"  parent="project.menu_all_project" action="action_lp_milestone"/>
 </data>

@@ -302,15 +302,16 @@ class crm_case(osv.osv):
             lp_series = pool.get('project.series')
             for series in all_series:
                 res={}
-                res['name'] = series['name']
-                res['status'] = series['status']
-                res['summary'] = series['summary']
-                res['project_id'] = lp_project_id
-                lp_series_id=lp_series.create(cr, uid, res,context=context)
-                ml = series['all_milestones_collection_link'].rsplit('/',1)[0]
-                cr.commit()
+                ids = self.pool.get('project.series').search(cr, uid, [('project_id','=',lp_project_id),('name','=', series['name'])])
+                if not ids:                
+                    res['name'] = series['name']
+                    res['status'] = series['status']
+                    res['summary'] = series['summary']
+                    res['project_id'] = lp_project_id
+                    lp_series_id=lp_series.create(cr, uid, res,context=context)
+                    ml = series['all_milestones_collection_link'].rsplit('/',1)[0]
+                    cr.commit()
                 self._get_project_milestone(cr, uid, lp_series_id,ml,lp_project,lp_project_id, lp_server)
-
         return True
 
     def _get_project_milestone(self, cr, uid,lp_series_id,milestone,lp_project,lp_project_id,lp_server=None,context={}):
@@ -321,13 +322,15 @@ class crm_case(osv.osv):
             milestone_ids=[]
             lp_milestones = pool.get('project.milestone')
             for ms in all_milestones:
-                res['name'] = ms['name']
-                res['series_id'] = lp_series_id
-                res['project_id'] = lp_project_id
-                if ms['date_targeted']:
-                    res['expect_date'] = ms['date_targeted']
-                lp_milestones_id=lp_milestones.create(cr, uid, res,context=context)
-                cr.commit()
+                ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',lp_project_id),('series_id','=',lp_series_id),('name','=', ms['name'])])
+                if not ids:
+                    res['name'] = ms['name']
+                    res['series_id'] = lp_series_id
+                    res['project_id'] = lp_project_id
+                    if ms['date_targeted']:
+                        res['expect_date'] = ms['date_targeted']
+                    lp_milestones_id=lp_milestones.create(cr, uid, res,context=context)
+                    cr.commit()
         return True
 
     def _update_local_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
@@ -374,4 +377,12 @@ class crm_case(osv.osv):
             self.case_close(cr,uid,bug_id)
         return True      
 crm_case()
+
+class res_users(osv.osv):
+    _inherit = 'res.users'
+    _columns = {
+        'lp_login': fields.char('Launchpad Login', size=100),
+        }
+
+res_users()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

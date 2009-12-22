@@ -85,15 +85,6 @@ def generate_document_job(cr, uid, obj_id, context):
                 product.sort()
                 v = '_'.join(product)
                 sorting_name = sorting_name and sorting_name+'_'+v or v
-    if ms_id.sorting_rule_id.by_overlay:
-        if 'segment_id' in context:
-            res = pool.get('dm.campaign.proposition.segment').browse(cr,uid,context['segment_id'])
-            if res.campaign_id:
-                product =['%d:%s'%(line.product_id.id,line.product_uom_qty) for line in res.sale_order_id.order_line]
-                product.sort()
-                v = '_'.join(product)
-                sorting_name = sorting_name and sorting_name+'_'+v or v
-                
     if sorting_name:
         camp_doc_job_obj = pool.get('dm.campaign.document.job')
         job_ids = camp_doc_job_obj.search(cr, uid, [('state', '=', 'pending'),

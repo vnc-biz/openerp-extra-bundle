@@ -132,11 +132,6 @@ msgid "Forbidden Countries"
 msgstr "Pays interdits"
 
 #. module: dm
-#: view:dm.overlay:0
-msgid "Countries"
-msgstr "Pays"
-
-#. module: dm
 #: field:dm.offer,copywriter_id:0
 #: field:dm.offer.document,copywriter_id:0
 #: model:res.partner.category,name:dm.cat_copywriter
@@ -521,7 +516,6 @@ msgstr "Signature"
 
 #. module: dm
 #: field:dm.campaign,trademark_id:0
-#: field:dm.overlay,trademark_id:0
 #: model:res.partner.category,name:dm.cat_trademark
 msgid "Trademark"
 msgstr "Enseigne"
@@ -1332,17 +1326,6 @@ msgid "Offer Model"
 msgstr "Modèle d'offre"
 
 #. module: dm
-#: view:dm.overlay:0
-msgid "Overlays"
-msgstr "Fonds de page"
-
-#. module: dm
-#: model:ir.actions.act_window,name:dm.action_dm_overlay_form
-#: model:ir.ui.menu,name:dm.menu_action_dm_overlay_form
-msgid "All Overlays"
-msgstr "Tous les fonds de page"
-
-#. module: dm
 #: model:dm.offer.step.type,description:dm.dm_offer_step_type_packageinsert0
 msgid ""
 "A Package Insert is a particular mailing enclosed in the package of a "
@@ -1528,12 +1511,6 @@ msgstr "Type :"
 #: field:dm.offer.step.type,flow_start:0
 msgid "Flow Start"
 msgstr "Flux de départ"
-
-#. module: dm
-#: field:dm.campaign,overlay_id:0
-#: view:dm.overlay:0
-msgid "Overlay"
-msgstr "Fond de page"
 
 #. module: dm
 #: field:dm.offer.step.transition,delay:0
@@ -1858,11 +1835,6 @@ msgid "Accompanying Letter of the Package Insert"
 msgstr "Lettre d'accompagnement de l'asile colis"
 
 #. module: dm
-#: field:dm.overlay,bank_account_id:0
-msgid "Account"
-msgstr "Compte"
-
-#. module: dm
 #: model:product.template,name:dm.product_product_returnenveloppeus0_product_template
 msgid "Return Enveloppe US"
 msgstr "Enveloppe retour US"
@@ -1934,7 +1906,6 @@ msgstr "Suppression"
 #: field:dm.offer.step,code:0
 #: field:dm.offer.step.transition.trigger,code:0
 #: field:dm.offer.step.type,code:0
-#: field:dm.overlay,code:0
 #: field:dm.trademark,code:0
 #: rml:offer.model.report:0
 #: rml:offer.report:0
@@ -2253,7 +2224,6 @@ msgstr "Logo"
 
 #. module: dm
 #: field:dm.campaign,dealer_id:0
-#: field:dm.overlay,dealer_id:0
 #: model:res.partner.category,name:dm.cat_dealer
 msgid "Dealer"
 msgstr "Donneur d'ordre"
@@ -3197,11 +3167,6 @@ msgid "Segment Origin"
 msgstr "Origine du segment"
 
 #. module: dm
-#: model:ir.model,name:dm.model_dm_overlay
-msgid "dm.overlay"
-msgstr "dm.overlay"
-
-#. module: dm
 #: model:product.template,description:dm.product_product_papermailingus0_product_template
 msgid "Demo Paper Mailing for the US"
 msgstr "Mailing papier démo US"
@@ -3611,7 +3576,6 @@ msgstr "Intervale de l'action"
 #. module: dm
 #: field:dm.campaign,country_id:0
 #: field:dm.customers_list,country_id:0
-#: field:dm.overlay,country_ids:0
 msgid "Country"
 msgstr "Pays"
 

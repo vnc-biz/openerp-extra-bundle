@@ -248,29 +248,28 @@ class crm_case(osv.osv):
                             for bug in bugs:
                                 b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                                 val['project_id']=prj_id.id
+                                val['description']=bug.bug.description                                
                                 val['bug_id']=bug.bug.id
                                 val['name']=bug.bug.title
                                 val['section_id']=sec_id
                                 owner = bug.owner
                                 parnter_rec=self.pool.get('res.partner')
+                                user_rec=self.pool.get('res.users')                                  
                                 partner_id = parnter_rec.search(cr,uid,[('name', '=',owner.display_name)])
-                                if not partner_id:
-                                    partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name})
-                                else:
-                                    partner_id=  partner_id[0]
-                                    
-                                val['partner_id'] =partner_id                             
-                                user_rec=self.pool.get('res.users')  
                                 user_id = user_rec.search(cr,uid,[('login', '=',owner.name)])
-                                if not user_id:
+                                if not partner_id and user_id :
+                                   
                                     res={} 
                                     res['name']=owner.display_name
                                     res['login']=owner.name
                                     res['password']=owner.name
-                                    res['lp_login']=owner.name
-                                    user_id = user_rec.create(cr,uid,res,context=context)
+                                    res['lp_login']=owner.name                                    
+                                    user_id = user_rec.create(cr,uid,res,context=context)                                    
+                                    partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name,'user_id':user_id})
                                 else:
+                                    partner_id=  partner_id[0]
                                     user_id=user_id[0] 
+                                val['partner_id'] =partner_id                                           
                                 val['bug_owner_id']= user_id  
                                 if bug.importance == 'Wishlist':
                                     val['stage_id']=categ_future_id

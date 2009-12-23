@@ -295,7 +295,7 @@ class crm_case(osv.osv):
                                 if not b_id:
                                     bug_id=self.create(cr, uid, val,context=context)
                                     self._check_state(cr, uid,[bug_id],val)     
-                                   # self._store_bug_history(cr, user_id , bug_id, bug)                               
+                                   # self._store_bug_history(cr, uid , bug_id, bug)                               
                                 if b_id:
                                     crm_case = self.browse(cr,uid, b_id[0])
                                     lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
@@ -402,12 +402,13 @@ class crm_case(osv.osv):
     
     def _store_bug_history(self, cr, uid,bug_id,bug,context={}):
         obj = self.pool.get('crm.case.history')
-        for hist in bug.bug.messages.entries:
-            data = {
+        for key in bug.bug.messages.entries:        
+            if key['self_link'].rsplit('/',1)[1]!=0:
+                data = {
                 'name': bug.status,
                 'user_id': uid,
                 'case_id': bug_id,
-                'description':hist.content
+                'description':key['content'] 
             }        
             obj.create(cr, uid, data, context)
         return True      

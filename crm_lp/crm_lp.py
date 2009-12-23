@@ -119,13 +119,13 @@ class project_project(osv.osv):
                 'milestone_ids' : fields.one2many('lp.project.milestone', 'project_id', 'LP Milestone'),
                 'bugs_target': fields.char('Bugs Target', size=300),
                 'flag':fields.boolean('Synchronize Lp'),
-                }        
+                }
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
         if vals.get('name' , False):
             vals['bugs_target'] = "https://api.edge.launchpad.net/beta/" + vals['name']
         return  super(osv.osv, self).write(cr, uid, ids, vals, context)
-    
-project_project()        
+
+project_project()
 
 class lp_series(osv.osv):
     _name="lp.series"
@@ -135,13 +135,13 @@ class lp_series(osv.osv):
               'status': fields.char("Status", size=100),
               'summary': fields.char("Summary", size=1000, help="The summary should be a single short paragraph."),
               'project_id': fields.many2one('project.project', 'LP Project', ondelete='cascade'),
-               'milestone_ids' : fields.one2many('lp.project.milestone', 'series_id', 'LP Milestone'),
+               'milestone_ids' : fields.one2many('project.milestone', 'series_id', 'LP Milestone'),
               }
 lp_series()
 
-class lp_project_milestone(osv.osv):
-    _name="lp.project.milestone"
-    _description= "LP milestone"
+class project_milestone(osv.osv):
+    _name="project.milestone"
+    _description= "Project milestone"
     _columns={
         'name':fields.char('Version', size=100,required=True),
         'series_id':fields.many2one('lp.series', 'Series', readonly=True,ondelete='cascade'),
@@ -149,7 +149,7 @@ class lp_project_milestone(osv.osv):
         'expect_date': fields.datetime('Expected Date', readonly=True),
         }
 
-lp_project_milestone()
+project_milestone()
 
 class crm_case(osv.osv):
     _inherit = "crm.case"
@@ -157,9 +157,9 @@ class crm_case(osv.osv):
     _columns = {
                 'project_id': fields.many2one('project.project', 'Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
-                'milestone_id': fields.many2one('lp.project.milestone', 'Milestone'),
+                'milestone_id': fields.many2one('project.milestone', 'Milestone'),
                 }
-    
+
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
         attrs = ['stage_id', 'priority']
         for attr in attrs:
@@ -188,12 +188,12 @@ class crm_case(osv.osv):
     def _create_bug(self, cr, uid, sec_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
-        
+
         categ_fix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Fixed')])
         categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
         categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
         categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
-        
+
         crm_case_obj = pool.get('crm.case')
         crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('section_id','=',sec_id[0]),('project_id','!=',False)])
         launchpad = lp_server.launchpad
@@ -244,7 +244,7 @@ class crm_case(osv.osv):
         for prj_id in prj.browse(cr,uid, project_id):
             project_name=str(prj_id.name)
             lp_project = lp_server.getProject(project_name)
-            if lp_project:
+            if lp_project and prj_id.flag:
                 prjs=lp_server.get_lp_bugs(project_name)
                 self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
                 for key, bugs in prjs.items():
@@ -283,7 +283,7 @@ class crm_case(osv.osv):
                                     local_last_up_time = str(crm_case.date_action_last).split('.')[0]
                                     local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S')) + time.timezone
                                     local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S'))
-                                    
+
                                 args = (cr, uid, context, sec_id, crm_case, bug, val)
                                 if lp_last_up_timestamp >= local_last_up_timestamp:
                                     self._update_local_record(*args)
@@ -291,7 +291,7 @@ class crm_case(osv.osv):
                                     self._update_lp_record(*args)
                             cr.commit()
         return True
-    
+
     def _get_project_series(self, cr, uid,lp_project,lp_project_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         all_series = lp_server.getSeries(lp_project)
@@ -317,7 +317,7 @@ class crm_case(osv.osv):
         all_milestones = lp_server.getMilestones(lp_project, milestone)
         if all_milestones:
             milestone_ids=[]
-            lp_milestones = pool.get('lp.project.milestone')
+            lp_milestones = pool.get('project.milestone')
             for ms in all_milestones:
                 res['name'] = ms['name']
                 res['series_id'] = lp_series_id
@@ -327,7 +327,7 @@ class crm_case(osv.osv):
                 lp_milestones_id=lp_milestones.create(cr, uid, res,context=context)
                 cr.commit()
         return True
-    
+
     def _update_local_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
         pool=pooler.get_pool(cr.dbname)
         case= pool.get('crm.case')
@@ -335,7 +335,7 @@ class crm_case(osv.osv):
         if b:
             return True
         return False
-    
+
     def _update_lp_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
@@ -344,7 +344,7 @@ class crm_case(osv.osv):
         categ_inv_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=','Invalid')])
         categ_future_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]), ('name','=','Future')])
         categ_wfix_id=case_stage.search(cr, uid, [('section_id','=',sec_id[0]),('name','=',"Won'tFix")])
-        
+
         status='New'
         imp ='Undecided'
         if crm_bug.stage_id.id == categ_future_id[0] and crm_bug.priority == '5':

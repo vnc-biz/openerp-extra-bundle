@@ -99,6 +99,7 @@
                 <field name="project_id"/>
                 <field name="bug_id"/>
 				<field name="milestone_id"/>
+				<field name="bug_owner_id"/>				
             </field>
        </field>
     </record>

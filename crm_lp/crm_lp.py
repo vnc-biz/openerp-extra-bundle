@@ -158,6 +158,7 @@ class crm_case(osv.osv):
                 'project_id': fields.many2one('project.project', 'Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
                 'milestone_id': fields.many2one('project.milestone', 'Milestone'),
+                'bug_owner_id': fields.many2one('res.users', 'Bug Owner'),                
                 }
 
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
@@ -250,6 +251,17 @@ class crm_case(osv.osv):
                                 val['bug_id']=bug.bug.id
                                 val['name']=bug.bug.title
                                 val['section_id']=sec_id
+                                res={}
+                                owner = bug.owner
+                                res['name']=owner.display_name
+                                res['login']=owner.name
+                                res['password']=owner.name
+                                res['lp_login']=owner.name
+                                user_rec=self.pool.get('res.users')  
+                                user_id = user_rec.search(cr,uid,[('name', '=',owner.display_name)])
+                                if not user_id:
+                                    user_id = user_rec.create(cr,uid,res,context=context)
+                                val['bug_owner_id']= user_id  
                                 if bug.importance == 'Wishlist':
                                     val['stage_id']=categ_future_id
                                     val['priority']='5'

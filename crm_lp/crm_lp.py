@@ -257,8 +257,7 @@ class crm_case(osv.osv):
                                 user_rec=self.pool.get('res.users')                                  
                                 partner_id = parnter_rec.search(cr,uid,[('name', '=',owner.display_name)])
                                 user_id = user_rec.search(cr,uid,[('login', '=',owner.name)])
-                                if not partner_id and user_id :
-                                   
+                                if not partner_id and not user_id :
                                     res={} 
                                     res['name']=owner.display_name
                                     res['login']=owner.name
@@ -295,7 +294,8 @@ class crm_case(osv.osv):
                                     ml_ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',prj_id.id),('name','=', ml)])                          
                                 if not b_id:
                                     bug_id=self.create(cr, uid, val,context=context)
-                                    self._check_state(cr, uid,[bug_id],val)                                    
+                                    self._check_state(cr, uid,[bug_id],val)     
+                                   # self._store_bug_history(cr, user_id , bug_id, bug)                               
                                 if b_id:
                                     crm_case = self.browse(cr,uid, b_id[0])
                                     lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
@@ -398,6 +398,18 @@ class crm_case(osv.osv):
             self.case_cancel(cr,uid,bug_id)   
         if vals['state']=='done': 
             self.case_close(cr,uid,bug_id)
+        return True 
+    
+    def _store_bug_history(self, cr, uid,bug_id,bug,context={}):
+        obj = self.pool.get('crm.case.history')
+        for hist in bug.bug.messages.entries:
+            data = {
+                'name': bug.status,
+                'user_id': uid,
+                'case_id': bug_id,
+                'description':hist.content
+            }        
+            obj.create(cr, uid, data, context)
         return True      
 crm_case()
 

@@ -201,7 +201,7 @@ class sale_order(osv.osv): #{{{
 sale_order()#}}}
 
 
-class dm_offer_step(osv.osv):
+class dm_offer_step(osv.osv): # {{{
     _name = "dm.offer.step"
     _inherit = "dm.offer.step"
 
@@ -212,7 +212,7 @@ class dm_offer_step(osv.osv):
                     'dm_offer_step_product_rel', 'product_id', 'offer_step_id',
                     'Items', states={'closed': [('readonly', True)]}),
         }
-dm_offer_step()
+dm_offer_step() # }}}
 
 
 class dm_campaign_proposition(osv.osv): #{{{
@@ -258,7 +258,7 @@ class product_product(osv.osv): # {{{
 product_product() # }}}
 
 
-class dm_campaign(osv.osv): #{{{
+class dm_campaign(osv.osv): # {{{
     _inherit = "dm.campaign"
 
     def check_forbidden_country(self, cr, uid, offer_id, country):

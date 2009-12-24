@@ -35,7 +35,7 @@ dm_payment_method() # }}}
 class dm_campaign(osv.osv): #{{{
     _inherit = "dm.campaign"
     _columns = {
-         'journal_id': fields.many2one('dm.payment_method', 'Journal', domain="[('type','=','cash')]"),
+         'journal_id': fields.many2one('dm.payment_method', 'Journal'),
     }
 dm_campaign() #}}}
 

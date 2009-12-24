@@ -29,9 +29,6 @@ import datetime
 from dm.dm_report_design import get_so
 
 
-def get_so(cr,uid,wi_id):
-    return self.pool.get('dm.workitem').browse(cr,uid,wi_id).sale_order_id or False
-
 
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"

@@ -32,7 +32,8 @@
     'website': 'http://www.openerp.com',   
     'init_xml': [],
     'update_xml': [
-        "reminder_view.xml"
+        "reminder_view.xml",
+        "reminder_data.xml"
     ],
     'demo_xml': [],
     'installable': True,

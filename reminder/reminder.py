@@ -20,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import time
 
 from osv import osv
 from osv import fields
@@ -63,12 +64,43 @@ class reminder_reminder(osv.osv):
         'running': lambda *a: "hour",
     }
     
-    def _call(self, cr, uid, ids, context={}):
+    def _call(self, cr, uid, ids=False, context={}):
+        '''
+        Function called by the scheduler to process cases for date actions
+        Only works on not done and cancelled cases
+        '''
+        action_pool = model_pool = self.pool.get('ir.actions.server')
+        if not ids:
+            ids = self.search(cr, uid, [])
+
+        for rem in self.browse(cr, uid, ids):
+            model_pool = self.pool.get(rem.model_id.model)
+            mids = model_pool.search(cr, uid, [])
+            res = []
+            for rs in model_pool.browse(cr, uid, mids):
+                data = {
+                    'object':rs,
+                    'context':context,
+                    'time':time
+                }
+                final_result = True
+                any_true = False
+                for cond in rem.line_ids:
+                    result = eval(cond.name, data)
+                    final_result = final_result and result
+                    if result:
+                        any_true = result
+                
+                if rem.match == 'all' and final_result:
+                    action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
+                elif rem.match == 'one' and any_true:
+                    action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
+
         return True
     
 reminder_reminder()
 
-class reminder_reminder(osv.osv):
+class reminder_reminder_line(osv.osv):
     '''
     Reminder
     '''
@@ -77,18 +109,8 @@ class reminder_reminder(osv.osv):
     
     _columns = {
         'reminder_id':fields.many2one('reminder.reminder', 'Model', required=False),
-        'field_id':fields.many2one('ir.model.fields', 'Field Name', required=False),
-        'operator':fields.selection([
-            ('eq','Equal'),
-            ('neq','Not Equal'),
-            ('in','In'),
-            ('gt','Grater than'),
-            ('lt','Less than'),
-            ('gt','Grater than Equal'),
-            ('lt','Less than Equal'),
-        ],'Operator', select=True, readonly=False),
         'name':fields.char('Condition', size=256, required=True, readonly=False),
         'sequence': fields.integer('Sequence'),
     }
     
-reminder_reminder()
+reminder_reminder_line()

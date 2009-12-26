@@ -43,8 +43,7 @@ class reminder_reminder(osv.osv):
         'note': fields.text('Description'),
         'match':fields.selection([
             ('one','Any One'),
-            ('all','All'),
-            ('maxone','Maximim Priority One'),
+            ('all','All')
         ],'Match', select=True, readonly=False, required=True),
         'line_ids':fields.one2many('reminder.reminder.line', 'reminder_id', 'Conditions', required=False),
         'state':fields.selection([
@@ -75,7 +74,9 @@ class reminder_reminder(osv.osv):
 
         for rem in self.browse(cr, uid, ids):
             model_pool = self.pool.get(rem.model_id.model)
-            mids = model_pool.search(cr, uid, [])
+            domain = eval(rem.domain, {})
+            mids = model_pool.search(cr, uid, domain)
+
             res = []
             for rs in model_pool.browse(cr, uid, mids):
                 data = {

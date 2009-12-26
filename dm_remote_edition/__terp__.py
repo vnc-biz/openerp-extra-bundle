@@ -30,7 +30,9 @@
             """,
     "depends" : ['dm_edition'],
     "init_xml" : [],
-    "demo_xml" : ['dm_remote_edition_demo.xml'],
+    "demo_xml" : [
+                'dm_remote_edition_demo.xml'
+    ],
     "update_xml" : [
                 'dm_remote_edition_view.xml',
                 'dm_remote_edition_data.xml',

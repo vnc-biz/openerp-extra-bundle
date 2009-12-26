@@ -50,8 +50,8 @@
                     </notebook>
                     <group col="6" colspan="4">
                         <field name="state"/>
-                        <button name="start" string="Start"/>
-                        <button name="stop" string="Stop"/>
+                        <button name="start" string="Start" states="draft" type="object"/>
+                        <button name="stop" string="Stop" states="done" type="object"/>
                     </group>
                 </form>
             </field>

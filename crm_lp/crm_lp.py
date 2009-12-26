@@ -158,6 +158,7 @@ class crm_case(osv.osv):
                 'project_id': fields.many2one('project.project', 'Project'),
                 'bug_id': fields.integer('Bug ID',readonly=True),
                 'milestone_id': fields.many2one('project.milestone', 'Milestone'),
+                'bug_owner_id': fields.many2one('res.users', 'Bug Owner'),                
                 }
 
     def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
@@ -247,9 +248,28 @@ class crm_case(osv.osv):
                             for bug in bugs:
                                 b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
                                 val['project_id']=prj_id.id
+                                val['description']=bug.bug.description                                
                                 val['bug_id']=bug.bug.id
                                 val['name']=bug.bug.title
                                 val['section_id']=sec_id
+                                owner = bug.owner
+                                parnter_rec=self.pool.get('res.partner')
+                                user_rec=self.pool.get('res.users')                                  
+                                partner_id = parnter_rec.search(cr,uid,[('name', '=',owner.display_name)])
+                                user_id = user_rec.search(cr,uid,[('login', '=',owner.name)])
+                                if not partner_id and not user_id :
+                                    res={} 
+                                    res['name']=owner.display_name
+                                    res['login']=owner.name
+                                    res['password']=owner.name
+                                    res['lp_login']=owner.name                                    
+                                    user_id = user_rec.create(cr,uid,res,context=context)                                    
+                                    partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name,'user_id':user_id})
+                                else:
+                                    partner_id=  partner_id[0]
+                                    user_id=user_id[0] 
+                                val['partner_id'] =partner_id                                           
+                                val['bug_owner_id']= user_id  
                                 if bug.importance == 'Wishlist':
                                     val['stage_id']=categ_future_id
                                     val['priority']='5'
@@ -274,7 +294,8 @@ class crm_case(osv.osv):
                                     ml_ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',prj_id.id),('name','=', ml)])                          
                                 if not b_id:
                                     bug_id=self.create(cr, uid, val,context=context)
-                                    self._check_state(cr, uid,[bug_id],val)                                    
+                                    self._check_state(cr, uid,[bug_id],val)     
+                                   # self._store_bug_history(cr, uid , bug_id, bug)                               
                                 if b_id:
                                     crm_case = self.browse(cr,uid, b_id[0])
                                     lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
@@ -377,6 +398,19 @@ class crm_case(osv.osv):
             self.case_cancel(cr,uid,bug_id)   
         if vals['state']=='done': 
             self.case_close(cr,uid,bug_id)
+        return True 
+    
+    def _store_bug_history(self, cr, uid,bug_id,bug,context={}):
+        obj = self.pool.get('crm.case.history')
+        for key in bug.bug.messages.entries:        
+            if key['self_link'].rsplit('/',1)[1]!=0:
+                data = {
+                'name': bug.status,
+                'user_id': uid,
+                'case_id': bug_id,
+                'description':key['content'] 
+            }        
+            obj.create(cr, uid, data, context)
         return True      
 crm_case()
 

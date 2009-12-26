@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -26,12 +26,14 @@ from time import strftime
 import datetime
 import copy
 from tools.translate import _
+from lxml import etree
+from tools import to_xml
 
 class survey(osv.osv):
     _name = 'survey'
     _description = 'Survey'
     _rec_name = 'title'
-    _columns = {  
+    _columns = {
         'title' : fields.char('Survey Title', size=128, required=1),
         'page_ids' : fields.one2many('survey.page', 'survey_id', 'Page'),
         'date_open' : fields.datetime('Survey Open Date', readonly=1),
@@ -51,23 +53,23 @@ class survey(osv.osv):
         'tot_start_survey' : lambda * a: 0,
         'tot_comp_survey' : lambda * a: 0
     }
-    
+
     def survey_draft(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'draft'})
         return True
-     
+
     def survey_open(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'open', 'date_open':strftime("%Y-%m-%d %H:%M:%S")})
         return True
-     
+
     def survey_close(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S") })
         return True
-     
+
     def survey_cancel(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'cancel' })
         return True
-    
+
 survey()
 
 class survey_history(osv.osv):
@@ -202,7 +204,7 @@ class survey_question(osv.osv):
          'validation_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
          'numeric_required_sum_err_msg' : lambda * a :'The choices need to add up to [enter sum here].',
     }
-    
+
     def write(self, cr, uid, ids, vals, context=None):
 #        if vals.has_key('type'):
 #            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
@@ -222,7 +224,7 @@ class survey_question(osv.osv):
             if que_type in ['matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                 if not col_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more column heading."))
-    
+
             ans_len = len(question['answer_choice_ids'])
             if vals.has_key('answer_choice_ids'):
                 for ans in vals['answer_choice_ids']:
@@ -233,7 +235,7 @@ class survey_question(osv.osv):
             if que_type not in ['descriptive text', 'single_textbox', 'comment']:
                 if not ans_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
-    
+
             req_type = ""
             if vals.has_key('required_type'):
                 req_type = vals['required_type']
@@ -246,7 +248,7 @@ class survey_question(osv.osv):
                 else:
                     if not question['req_ans'] or  question['req_ans'] > ans_len:
                         raise osv.except_osv(_('Error !'),_("#Required Answer you entered is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
-    
+
             if req_type == 'a range':
                 minimum_ans = 0
                 maximum_ans = 0
@@ -293,7 +295,7 @@ class survey_question(osv.osv):
                 raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
         res = super(survey_question, self).create(cr, uid, vals, context)
         return res
-    
+
 survey_question()
 
 class survey_question_column_heading(osv.osv):
@@ -314,7 +316,7 @@ class survey_answer(osv.osv):
     _description = 'Survey Answer'
     _rec_name = 'answer'
     _order = 'sequence'
-    
+
     def _calc_response_avg(self, cr, uid, ids, field_name, arg, context):
         val = {}
         for rec in self.browse(cr, uid, ids):
@@ -336,7 +338,7 @@ class survey_answer(osv.osv):
                 'average': round(avg, 2),
             }
         return val
-    
+
     _columns = {
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
         'answer' : fields.char('Answer', size=128, required=1),
@@ -369,15 +371,15 @@ class survey_response(osv.osv):
     _defaults = {
         'state' : lambda * a: "draft"
     }
-    
+
     def response_draft(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'draft' })
         return True
-     
+
     def response_done(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'done' })
         return True
-     
+
     def response_skip(self, cr, uid, ids, arg):
         self.write(cr, uid, ids, { 'state' : 'skip' })
         return True
@@ -444,7 +446,7 @@ class survey_name_wiz(osv.osv_memory):
                                           'survey_id': survey_id})
         survey_obj = self.pool.get('survey')
         sur_rec = survey_obj.read(cr,uid,self.read(cr,uid,ids)[0]['survey_id'])
-        survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})                
+        survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})
 
         return {
             'view_type': 'form',
@@ -464,12 +466,12 @@ survey_name_wiz()
 class survey_question_wiz(osv.osv_memory):
     transfer = True
     store_ans = {}
-    
+
     _name = 'survey.question.wiz'
     _columns = {
         'name': fields.integer('Number'),
     }
-        
+
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar)
         surv_name_wiz = self.pool.get('survey.name.wiz')
@@ -496,136 +498,281 @@ class survey_question_wiz(osv.osv_memory):
                     p_id = p_id[sur_name_rec['page_no'] + 1]
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
                     flag = True
-                button = ""
-                if sur_name_rec['page_no'] > - 1:
-                    button = '''<button colspan="1" icon="gtk-go-back" name="action_previous" string="Previous" type="object"/>''' 
-                
             else:
                 if sur_name_rec['page_no'] != 0:
                     p_id = p_id[sur_name_rec['page_no'] - 1]
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] - 1})
                     flag = True
-                button = ""
-                if sur_name_rec['page_no'] > 1:
-                    button = '''<button colspan="1" icon="gtk-go-back" name="action_previous" string="Previous" type="object"/>'''
-                
             if flag:
                 fields = {}
                 pag_rec = page_obj.read(cr, uid, p_id)
-                xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="''' + str(pag_rec['title']) + '''">'''
-                xml += '''<label string="''' + str(pag_rec['note'] or '') + '''"/> <newline/> <newline/><newline/>'''
+                xml_form = etree.Element('form', {'string': _(str(pag_rec['title']))})
+                etree.SubElement(xml_form, 'label', {'string': to_xml(str(pag_rec['note'] or '')), 'align': '0.0'})
                 que_ids = pag_rec['question_ids']
                 qu_no = 0
                 for que in que_ids:
                     qu_no += 1
                     que_rec = que_obj.read(cr, uid, que)
                     descriptive_text = ""
-                    xml += '''<group col="4" colspan="4">
-                    <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/> 
-                       </group>
-                    <newline/> '''
+                    separator_string = str(qu_no) + "." + str(que_rec['question'])
+                    xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '4'})
+                    etree.SubElement(xml_group, 'separator', {'string': to_xml(separator_string), 'colspan': '4'})
                     ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
                     if que_rec['type'] == 'multiple_choice_only_one_ans':
                         selection = []
                         for ans in ans_ids:
                             selection.append((ans['id'], ans['answer']))
-                        xml += '''<field name="''' + str(que) + "_selection" + '''" /> '''
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
+                        etree.SubElement(xml_group, 'field', {'name': str(que) + "_selection"})
                         fields[str(que) + "_selection"] = {'type':'selection', 'selection' :selection, 'string':"Answer"}
-
                     elif que_rec['type'] == 'multiple_choice_multiple_ans':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '4', 'colspan': '4'})
                         for ans in ans_ids:
-                            xml += '''<field name="''' + str(que) + "_" + str(ans['id']) + '''" /> '''
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id'])})
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
-
                     elif que_rec['type'] in ['matrix_of_choices_only_one_ans', 'rating_scale']:
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         for row in ans_ids:
-                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            etree.SubElement(xml_group, 'newline')
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_selection_" + str(row['id']),'string':to_xml(str(row['answer']))})
                             selection = [('','')]
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
                                 selection.append((col['title'], col['title']))
-                            xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_selection_" + str(row['id']) + '''"/> '''
                             fields[str(que) + "_selection_" + str(row['id'])] = {'type':'selection', 'selection' : selection, 'string': "Answer"}
-
                     elif que_rec['type'] == 'matrix_of_choices_only_multi_ans':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         for row in ans_ids:
-                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            etree.SubElement(xml_group, 'label', {'string': to_xml(str(row['answer'])) +' :-', 'align': '0.0'})
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
-                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+                                etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(row['id']) + "_" + str(col['title'])})
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
-
                     elif que_rec['type'] == 'matrix_of_drop_down_menus':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         for row in ans_ids:
-                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+                            etree.SubElement(xml_group, 'label', {'string': to_xml(str(row['answer']))+' :-', 'align': '0.0'})
                             for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
                                 selection = []
                                 if col['menu_choice']:
                                     for item in col['menu_choice'].split('\n'):
                                         if item: selection.append((item ,item))
-                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+                                etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(row['id']) + "_" + str(col['title'])})
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
-
                     elif que_rec['type'] == 'multiple_textboxes':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '1', 'colspan': '4'})
                         for ans in ans_ids:
-                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_multi" + '''"/> '''
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id']) + "_multi"})
                             fields[str(que) + "_" + str(ans['id']) + "_multi"] = {'type':'char', 'size':255, 'string':ans['answer']}
-
                     elif que_rec['type'] == 'numerical_textboxes':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         for ans in ans_ids:
-                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_numeric" + '''"/> '''
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id']) + "_numeric"})
                             fields[str(que) + "_" + str(ans['id']) + "_numeric"] = {'type':'integer', 'string':ans['answer']}
-
                     elif que_rec['type'] == 'date':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         for ans in ans_ids:
-                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id'])})
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'date', 'string':ans['answer']}
-
                     elif que_rec['type'] == 'date_and_time':
+                        xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         for ans in ans_ids:
-                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id'])})
                             fields[str(que) + "_" + str(ans['id'])] = {'type':'datetime', 'string':ans['answer']}
-
                     elif que_rec['type'] == 'descriptive text':
-                        xml += '''<label string="''' +  str(que_rec['descriptive_text']) + '''"/>'''
-                        
+                        etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['descriptive_text']))})
                     elif que_rec['type'] == 'single_textbox':
-                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_single" '''"/> '''
+                        etree.SubElement(xml_group, 'field', {'name': str(que) + "_single", 'nolabel':"1" ,'colspan':"4"})
                         fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"single_textbox", 'views':{}}
-
                     elif que_rec['type'] == 'comment':
-                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_comment" '''"/> '''
+                        etree.SubElement(xml_group, 'field', {'name': str(que) + "_comment", 'nolabel':"1" ,'colspan':"4"})
                         fields[str(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
-
                     if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                         if que_rec['comment_field_type'] == 'char':
-                            xml += '''<newline/><label string="''' + str(que_rec['comment_label']) + '''"  colspan="4"/> '''                    
-                            xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
+                            etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['comment_label'])),'colspan':"4"})
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
                             fields[str(que) + "_other"] = {'type': 'char', 'string': '', 'size':255, 'views':{}}
                         elif que_rec['comment_field_type'] == 'text':
-                            xml += '''<newline/><label string="''' + str(que_rec['comment_label']) + '''"  colspan="4"/> '''                    
-                            xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
+                            etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['comment_label'])),'colspan':"4"})
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
                             fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
-                xml += '''
-                <separator colspan="4" />
-                <group cols="4" colspan="4">
-                    <label align="0.0" colspan="1" string=""/>    
-                    <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>''' + button + '''
-                    <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
-                </group>
-                </form>'''
-                result['arch'] = xml
+                etree.SubElement(xml_form, 'separator', {'colspan': '4'})
+                xml_group = etree.SubElement(xml_form, 'group', {'col': '4', 'colspan': '4'})
+                etree.SubElement(xml_group, 'label', {'string': "", 'align': '0.0','colspan':"1"})
+                etree.SubElement(xml_group, 'button', {'icon': "gtk-cancel", 'special': "cancel",'string':"Cancel"})
+                if sur_name_rec['page_no'] > - 1 or sur_name_rec['page_no'] > 1:
+                    etree.SubElement(xml_group, 'button', {'colspan':"1",'icon':"gtk-go-back",'name':"action_previous",'string':"Previous",'type':"object"})
+                etree.SubElement(xml_group, 'button', {'icon': "gtk-go-forward", 'name':"action_next",'string':"Next",'type':"object"})
+                root = xml_form.getroottree()
+                root.write('/tmp/arch4.xml', pretty_print=True)
+                result['arch'] = etree.tostring(root)
                 result['fields'] = fields
             else:
                 survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
-                xml_form = '''<?xml version="1.0"?>
-                            <form string="Complete Survey Response">
-                                <separator string="Complete Survey" colspan="4"/>
-                                    <label string = "Thanks for your response" />
-                                    <newline/>
-                                    <button colspan="2" icon="gtk-go-forward"  special="cancel" string="OK"/>
-                             </form>'''
-                result['arch'] = xml_form
+                xml_form = etree.Element('form', {'string': _('Complete Survey Response')})
+                etree.SubElement(xml_form, 'separator', {'string': 'Complete Survey', 'colspan': "4"})
+                etree.SubElement(xml_form, 'label', {'string': 'Thanks for your response'})
+                etree.SubElement(xml_form, 'newline')
+                etree.SubElement(xml_form, 'button', {'icon': "gtk-go-forward", 'special':"cancel",'string':"OK",'colspan':"2"})
+                root = xml_form.getroottree()
+                result['arch'] = etree.tostring(root)
                 result['fields'] = {}
         return result
+
+#    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
+#        result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar)
+#        surv_name_wiz = self.pool.get('survey.name.wiz')
+#        sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+#        survey_id = context['survey_id']
+#        survey_obj = self.pool.get('survey')
+#        sur_rec = survey_obj.read(cr, uid, survey_id, [])
+#        page_obj = self.pool.get('survey.page')
+#        que_obj = self.pool.get('survey.question')
+#        ans_obj = self.pool.get('survey.answer')
+#        response_obj = self.pool.get('survey.response')
+#        que_col_head = self.pool.get('survey.question.column.heading')
+#        p_id = sur_rec['page_ids']
+#        if not sur_name_rec['page_no'] + 1 :
+#            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
+#        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
+#        if sur_name_read['transfer'] or not sur_name_rec['page_no'] + 1 :
+#            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':False})
+#            flag = False
+#            if sur_name_read['page'] == "next" or sur_name_rec['page_no'] == - 1 :
+#                if len(p_id) > sur_name_rec['page_no'] + 1 :
+#                    if sur_rec['max_response_limit'] and sur_rec['max_response_limit'] <= sur_rec['tot_start_survey'] and not sur_name_rec['page_no'] + 1:
+#                        survey_obj.write(cr, uid, survey_id, {'state':'close', 'date_close':strftime("%Y-%m-%d %H:%M:%S")})
+#                    p_id = p_id[sur_name_rec['page_no'] + 1]
+#                    surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
+#                    flag = True
+#                button = ""
+#                if sur_name_rec['page_no'] > - 1:
+#                    button = '''<button colspan="1" icon="gtk-go-back" name="action_previous" string="Previous" type="object"/>'''
+#
+#            else:
+#                if sur_name_rec['page_no'] != 0:
+#                    p_id = p_id[sur_name_rec['page_no'] - 1]
+#                    surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] - 1})
+#                    flag = True
+#                button = ""
+#                if sur_name_rec['page_no'] > 1:
+#                    button = '''<button colspan="1" icon="gtk-go-back" name="action_previous" string="Previous" type="object"/>'''
+#
+#            if flag:
+#                fields = {}
+#                pag_rec = page_obj.read(cr, uid, p_id)
+#                xml = '''<?xml version="1.0" encoding="utf-8"?> <form string="''' + str(pag_rec['title']) + '''">'''
+#                xml += '''<label string="''' + str(pag_rec['note'] or '') + '''"/> <newline/> <newline/><newline/>'''
+#                que_ids = pag_rec['question_ids']
+#                qu_no = 0
+#                for que in que_ids:
+#                    qu_no += 1
+#                    que_rec = que_obj.read(cr, uid, que)
+#                    descriptive_text = ""
+#                    xml += '''<group col="4" colspan="4">
+#                    <separator string="''' + str(qu_no) + "." + str(que_rec['question']) + '''"  colspan="2"/>
+#                       </group>
+#                    <newline/> '''
+#                    ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
+#                    if que_rec['type'] == 'multiple_choice_only_one_ans':
+#                        selection = []
+#                        for ans in ans_ids:
+#                            selection.append((ans['id'], ans['answer']))
+#                        xml += '''<field name="''' + str(que) + "_selection" + '''" /> '''
+#                        fields[str(que) + "_selection"] = {'type':'selection', 'selection' :selection, 'string':"Answer"}
+#
+#                    elif que_rec['type'] == 'multiple_choice_multiple_ans':
+#                        for ans in ans_ids:
+#                            xml += '''<field name="''' + str(que) + "_" + str(ans['id']) + '''" /> '''
+#                            fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
+#
+#                    elif que_rec['type'] in ['matrix_of_choices_only_one_ans', 'rating_scale']:
+#                        for row in ans_ids:
+#                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+#                            selection = [('','')]
+#                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+#                                selection.append((col['title'], col['title']))
+#                            xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_selection_" + str(row['id']) + '''"/> '''
+#                            fields[str(que) + "_selection_" + str(row['id'])] = {'type':'selection', 'selection' : selection, 'string': "Answer"}
+#
+#                    elif que_rec['type'] == 'matrix_of_choices_only_multi_ans':
+#                        for row in ans_ids:
+#                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+#                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+#                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+#                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'boolean', 'string': col['title']}
+#
+#                    elif que_rec['type'] == 'matrix_of_drop_down_menus':
+#                        for row in ans_ids:
+#                            xml += '''<newline/><label string="''' + str(row['answer']) + ''' :- "/>'''
+#                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+#                                selection = []
+#                                if col['menu_choice']:
+#                                    for item in col['menu_choice'].split('\n'):
+#                                        if item: selection.append((item ,item))
+#                                xml += '''<newline/><field colspan="1"  name="''' + str(que) + "_" + str(row['id']) + "_" + str(col['title']) + '''"/> '''
+#                                fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
+#
+#                    elif que_rec['type'] == 'multiple_textboxes':
+#                        for ans in ans_ids:
+#                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_multi" + '''"/> '''
+#                            fields[str(que) + "_" + str(ans['id']) + "_multi"] = {'type':'char', 'size':255, 'string':ans['answer']}
+#
+#                    elif que_rec['type'] == 'numerical_textboxes':
+#                        for ans in ans_ids:
+#                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + "_numeric" + '''"/> '''
+#                            fields[str(que) + "_" + str(ans['id']) + "_numeric"] = {'type':'integer', 'string':ans['answer']}
+#
+#                    elif que_rec['type'] == 'date':
+#                        for ans in ans_ids:
+#                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+#                            fields[str(que) + "_" + str(ans['id'])] = {'type':'date', 'string':ans['answer']}
+#
+#                    elif que_rec['type'] == 'date_and_time':
+#                        for ans in ans_ids:
+#                            xml += '''<field  name="''' + str(que) + "_" + str(ans['id']) + '''"/> '''
+#                            fields[str(que) + "_" + str(ans['id'])] = {'type':'datetime', 'string':ans['answer']}
+#
+#                    elif que_rec['type'] == 'descriptive text':
+#                        xml += '''<label string="''' +  str(que_rec['descriptive_text']) + '''"/>'''
+#
+#                    elif que_rec['type'] == 'single_textbox':
+#                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_single" '''"/> '''
+#                        fields[str(que) + "_single"] = {'type':'char', 'size' : 255, 'string':"single_textbox", 'views':{}}
+#
+#                    elif que_rec['type'] == 'comment':
+#                        xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_comment" '''"/> '''
+#                        fields[str(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
+#
+#                    if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
+#                        if que_rec['comment_field_type'] == 'char':
+#                            xml += '''<newline/><label string="''' + str(que_rec['comment_label']) + '''"  colspan="4"/> '''
+#                            xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
+#                            fields[str(que) + "_other"] = {'type': 'char', 'string': '', 'size':255, 'views':{}}
+#                        elif que_rec['comment_field_type'] == 'text':
+#                            xml += '''<newline/><label string="''' + str(que_rec['comment_label']) + '''"  colspan="4"/> '''
+#                            xml += '''<field nolabel="1"  colspan="4"  name="''' + str(que) + "_other" '''"/> '''
+#                            fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
+#                xml += '''
+#                <separator colspan="4" />
+#                <group cols="4" colspan="4">
+#                    <label align="0.0" colspan="1" string=""/>
+#                    <button colspan="1" icon="gtk-cancel"  special="cancel" string="Cancel"/>''' + button + '''
+#                    <button colspan="1" icon="gtk-go-forward" name="action_next" string="Next" type="object"/>
+#                </group>
+#                </form>'''
+#                result['arch'] = xml
+#                result['fields'] = fields
+#            else:
+#                survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
+#                xml_form = '''<?xml version="1.0"?>
+#                            <form string="Complete Survey Response">
+#                                <separator string="Complete Survey" colspan="4"/>
+#                                    <label string = "Thanks for your response" />
+#                                    <newline/>
+#                                    <button colspan="2" icon="gtk-go-forward"  special="cancel" string="OK"/>
+#                             </form>'''
+#                result['arch'] = xml_form
+#                result['fields'] = {}
+#        return result
 
     def default_get(self, cr, uid, fields_list, context=None):
         surv_name_wiz = self.pool.get('survey.name.wiz')
@@ -637,7 +784,7 @@ class survey_question_wiz(osv.osv_memory):
                 if field in list(val):
                     value[field] = val[field]
         return value
-        
+
     def create(self, cr, uid, vals, context=None):
         click_state = True
         click_update = []
@@ -855,7 +1002,7 @@ class survey_question_wiz(osv.osv_memory):
                                         error = True
                             if error:
                                 raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-                            
+
                             resp_obj.write(cr, uid, update, {'comment':val})
                             sur_name_read['store_ans'][update].update({key:val})
                         elif val and key.split('_')[1] == "comment":
@@ -911,7 +1058,7 @@ class survey_question_wiz(osv.osv_memory):
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : ans_id_len[2]})
                                 sur_name_read['store_ans'][update].update({key:True})
                             select_count += 1
-                            
+
                         elif val:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1], 'answer' : val})

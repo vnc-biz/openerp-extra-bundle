@@ -63,6 +63,14 @@ class reminder_reminder(osv.osv):
         'running': lambda *a: "hour",
     }
     
+    def start(self, cr, uid, ids, context={}):
+        self.write(cr, uid, ids, {'state':'done'})
+        return True
+    
+    def stop(self, cr, uid, ids, context={}):
+        self.write(cr, uid, ids, {'state':'draft'})
+        return True
+        
     def _call(self, cr, uid, ids=False, context={}):
         '''
         Function called by the scheduler to process cases for date actions
@@ -70,7 +78,7 @@ class reminder_reminder(osv.osv):
         '''
         action_pool = model_pool = self.pool.get('ir.actions.server')
         if not ids:
-            ids = self.search(cr, uid, [])
+            ids = self.search(cr, uid, [('state','=','done')])
 
         for rem in self.browse(cr, uid, ids):
             model_pool = self.pool.get(rem.model_id.model)

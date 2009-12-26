@@ -208,11 +208,13 @@ class dm_campaign(osv.osv): #{{{
                                              type="char", size=64, method=True, 
                                              readonly=True),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
-        'payment_method_ids': fields.many2many('account.journal', 
-                                               'campaign_payment_method_rel', 
-                                               'campaign_id', 'journal_id', 
-                                               'Payment Methods', 
-                                               domain=[('type', '=', 'cash')]),
+        'journal_id': fields.many2one('account.journal', 'Payment Methods', domain="[('type','=','cash')]"),
+
+#        'payment_method_ids': fields.many2many('account.journal', 
+#                                               'campaign_payment_method_rel', 
+#                                               'campaign_id', 'journal_id', 
+#                                               'Payment Methods', 
+#                                               domain=[('type', '=', 'cash')]),
         'mail_service_ids': fields.one2many('dm.campaign.mail_service', 
                                             'campaign_id', 'Mailing Service'),
         'camp_date_start': fields.datetime('Campaign Start Date'),
@@ -318,12 +320,11 @@ class dm_campaign(osv.osv): #{{{
 #            if camp.country_id.forwarding_charge:
 #                vals['forwarding_charge'] = camp.country_id.forwarding_charge
 
-        if camp.country_id.payment_method_ids:
-            payment_methods = [payment_methods.id for payment_methods in 
-                               camp.country_id.payment_method_ids]
-            vals['payment_method_ids'] = [[6, 0, payment_methods]]
+        if camp.country_id.journal_id:
+            journal_id = camp.country_id.journal_id[0].id
+            vals['journal_id'] = journal_id
 
-        # Set campaign end date at one year after start date if end date does not exist
+        #Set campaign end date at one year after start date if end date does not exist
         if 'camp_date_end' not in vals and not camp.camp_date_end and 'camp_date_start' in vals and vals['camp_date_start']:
             time_format = "%Y-%m-%d %H:%M:%S"
             d = time.strptime(vals['camp_date_start'], time_format)
@@ -397,10 +398,9 @@ class dm_campaign(osv.osv): #{{{
 #                write_vals['forwarding_charge'] = 
 #                                          data_cam.country_id.forwarding_charge
 
-        if data_cam.country_id.payment_method_ids:
-            payment_methods = [payment_methods.id for payment_methods in \
-                               data_cam.country_id.payment_method_ids]
-            write_vals['payment_method_ids'] = [[6, 0, payment_methods]]
+        if data_cam.country_id.journal_id:
+            journal_id = data_cam.country_id.journal_id[0].id
+            write_vals['journal_id'] = journal_id
 
         # Set campaign end date at one year after start date if end date does 
         #                                                            not exist
@@ -500,10 +500,11 @@ class dm_campaign_proposition(osv.osv): #{{{
         if 'forwarding_charge' not in vals:
             if id.country_id.forwarding_charge:
                 vals['forwarding_charge'] = id.country_id.forwarding_charge
-        if id.payment_method_ids:
-            payment_methods = [payment_methods.id for payment_methods in id.payment_method_ids]
-            vals['payment_method_ids'] = [[6, 0, payment_methods]]
-
+        if id.journal_id:
+            print "journal_idjournal_idjournal_id",id.journal_id
+            journal_id = id.journal_id.id
+            print "ssssssssssss",journal_id
+            vals['journal_id'] = journal_id
         return super(dm_campaign_proposition, self).create(cr, uid, vals, context)
 
     def copy(self, cr, uid, id, default=None, context={}):
@@ -661,7 +662,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         'notes': fields.text('Notes'),
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', ondelete='cascade'),
         'item_ids': fields.one2many('dm.campaign.proposition.item', 'proposition_id', 'Catalogue'),
-        'payment_method_ids': fields.many2many('account.journal', 'proposition_payment_method_rel', 'proposition_id', 'journal_id', 'Payment Methods', domain=[('type', '=', 'cash')]),
+        'journal_id': fields.many2one('account.journal', 'Payment Methods', domain="[('type','=','cash')]"),
         'keep_segments': fields.boolean('Keep Segments'),
         'keep_prices': fields.boolean('Keep Prices At Duplication'),
         'manufacturing_costs': fields.float('Manufacturing Costs', digits=(16, 2)),

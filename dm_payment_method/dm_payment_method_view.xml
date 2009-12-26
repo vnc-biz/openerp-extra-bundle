@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <!--
+    ======================
+    PAYMENT METHODS
+    ======================
+    -->
+
+    <record model="ir.ui.view" id="view_dm_payment_method_form">
+        <field name="name">dm.payment_method.form</field>
+        <field name="model">dm.payment_method</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Payment Methods">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="journal_id"/>
+                <field name="logo"/>
+             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_payment_method_tree">
+        <field name="name">dm.payment_method.tree</field>
+        <field name="model">dm.payment_method</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Payment Methods">
+               <field name="name"/>
+                <field name="code"/>
+                <field name="journal_id"/>
+                <field name="logo"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_payment_method_form">
+        <field name="name">All Payment Methods</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.payment_method</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_payment_method_tree"/>
+    </record>
+	
+	<menuitem name="Accounts" id="menu_dm_config_payment_method" parent="dm.menu_dm_config" sequence="7"/>	
+    <menuitem id="menu_dm_payment_method_form" parent="menu_dm_config_payment_method" action="action_dm_payment_method_form" sequence="1" />
+	<!--
+    ======================
+    CAMPAIGN
+    ======================
+    -->
+
+	<record model="ir.ui.view" id="view_dm_campaign_inherit_form">
+        <field name="name">dm.campaign.inherit</field>
+        <field name="model">dm.campaign</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm.view_campaign_form"/>
+        <field name="arch" type="xml">
+        	<field name= "journal_id" position="replace">
+				<field name="journal_id"/>
+			</field>	
+        </field>
+    </record>
+
+</data>
+</openerp>

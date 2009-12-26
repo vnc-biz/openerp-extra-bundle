@@ -30,7 +30,7 @@ class res_country(osv.osv):#{{{
         'main_currency': fields.many2one('res.currency', 'Main Currency', 
                                                  ondelete = 'cascade'),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
-        'payment_method_ids': fields.many2many('account.journal', 
+        'journal_id': fields.many2many('account.journal', 
                                     'country_payment_method_rel', 'country_id',
                                     'journal_id', 'Payment Methods', 
                                      domain=[('type', '=', 'cash')]),

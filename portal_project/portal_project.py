@@ -53,7 +53,7 @@ class users(osv.osv):
 
     def context_get(self, cr, uid, context=None):
         return super(users, self).context_get(cr, uid, context)
-    
+
 users()
 
 class project_project(osv.osv):
@@ -343,6 +343,7 @@ class crm_case(osv.osv):
         res = super(crm_case, self).create(cr, uid, values, context=context)
         cr.commit()
         case = self.browse(cr, uid, res, context=context)
+        case = case[0]
         if case.project_id:
             desc = ''' Hello, \n \t The new case is created for the Project: %s \n\n And its Details are: \n \n Case: %s \n Created on: %s \n Responsible: %s \n Deadline: %s \n Section: %s \n For Partner: %s \n Case Summary: \n ====== \n %s \n \n ======= \n \nThanks,\nProject Manager \n%s''' \
                        %(case.project_id.name,\
@@ -358,19 +359,19 @@ class crm_case(osv.osv):
                                 'action' : 'create',
                                 'type' : 'case'})
         return res
-    
+
     def write(self, cr, uid, ids, vals, context={}):
         res = super(crm_case, self).write(cr, uid, ids, vals, context={})
         cr.commit()
         case_data = self.browse(cr, uid, ids[0], context)
+        case_data = case_data[0]
         desc = '''Hello ,\n\n  The case is updated for the project: %s\n\nModified Datas are:\n''' %(str(case_data.project_id.name),)
         for val in vals:
             if val.endswith('id') or val.endswith('ids'):
                 continue
             desc += val + ':' + str(vals[val]) + "\n"
-        
         if case_data.project_id:
-            desc += '\nThanks,\n' + 'Project Manager\n' + (case_data.project_id and case_data.project_id.manager and case_data.project_id.manager.name or False) 
+            desc += '\nThanks,\n' + 'Project Manager\n' + (case_data.project_id and case_data.project_id.manager and case_data.project_id.manager.name or False)
             self.pool.get('project.project')._log_event(cr, uid, case_data.project_id.id, {
                                                                 'res_id' : ids[0],
                                                                 'name' : case_data.name or '',
@@ -401,7 +402,7 @@ report_account_analytic_planning()
 class ir_attachment(osv.osv):
      _inherit = 'ir.attachment'
      _description = 'Attachments related project and task'
-     
+
      def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
          prj_model = 'project.project'
          task_model = 'project.task'

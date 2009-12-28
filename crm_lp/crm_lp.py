@@ -279,12 +279,14 @@ class crm_case(osv.osv):
                                 elif bug.importance=='Medium':
                                     val['priority']='3'
                                     val['state']='open'                                    
-                                if bug.status in ('Confirmed','Fix Released'):
+                                if bug.status =='Fix Released':
                                     val['stage_id']=categ_fix_id
                                     val['state']='done'
                                 if bug.status =='invaild':
                                     val['stage_id']= val['stage_id']=categ_inv_id
-                                    val['state']='cancel'                                    
+                                    val['state']='cancel'     
+                                if bug.status=='Confirmed':
+                                    val['state']='open'   
                                 if bug.milestone_link:
                                     val['milestone_url']=bug.milestone_link
                                     ml = bug.milestone_link.rsplit('/',1)[0]

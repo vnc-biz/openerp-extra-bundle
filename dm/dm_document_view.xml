@@ -49,7 +49,7 @@
         
     </record>
 
-    <menuitem id="menu_action_dm_media_content_type" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content_type" sequence="3" />
+    <menuitem id="menu_action_dm_media_content_type" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content_type" sequence="0" />
 
 
 	<!--
@@ -112,7 +112,7 @@
         <field name="view_id" ref="view_dm_media_content_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_media_content" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content" sequence="3" />
+    <menuitem id="menu_action_dm_media_content" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content" sequence="1" />
 	<!--
     =======================================================
     OFFER STEP DOCUMENT CATEGORY VIEWS

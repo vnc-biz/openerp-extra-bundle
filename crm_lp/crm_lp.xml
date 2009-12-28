@@ -92,7 +92,7 @@
     <record model="ir.ui.view" id="view_crm_lp_form">
         <field name="name">crm.case</field>
         <field name="model">crm.case</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view"/>
+        <field name="inherit_id" ref="crm.crm_case-view"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
             <field name="id" position="after">

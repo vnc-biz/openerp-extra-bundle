@@ -3,52 +3,6 @@
     <data>
 
 	<!-- 
-		Order Entry Filter
-	-->
-
-	<record model="ir.ui.view" id="view_dm_order_entry_filter_tree">
-        <field name="name">dm.order.entry.filter.tree</field>
-        <field name="model">dm.order.entry.filter</field>
-        <field name="type">tree</field>
-        <field name="arch" type="xml">
-            <tree string="Order Entry Filter">
-                <field name="name"/>
-				<field name="code"/>
-				<field name="country_id"/>
-				<field name="currency_id"/>
-				<field name="dealer_id"/>
-				<field name="trademark_id"/>
-            </tree>
-        </field>
-    </record>
-
-	<record model="ir.ui.view" id="view_dm_order_entry_filter_form">
-        <field name="name">dm.order.entry.filter.form</field>
-        <field name="model">dm.order.entry.filter</field>
-        <field name="type">form</field>
-        <field name="arch" type="xml">
-            <form string="Order Entry Filter">
-                <field name="name"/>
-				<field name="code"/>
-				<field name="country_id"/>
-				<field name="currency_id"/>
-				<field name="dealer_id"/>
-				<field name="trademark_id"/>
-            </form>
-        </field>
-    </record>
-	
-	<record model="ir.actions.act_window" id="action_dm_order_entry_filter_form">
-        <field name="name">All Orders Sessions Filters</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">dm.order.entry.filter</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="view_dm_order_entry_filter_tree"/>
-    </record>
-
-    <menuitem id="menu_dm_order_entry_filter_form" parent="dm_order_entry.menu_dm_config_custo_entries" action="action_dm_order_entry_filter_form" sequence="0"/>
-
-	<!-- 
 		Order Entry Session
 	-->
 	
@@ -58,8 +12,13 @@
         <field name="type">form</field>
 		<field name="inherit_id" ref="dm_order_entry_session.view_dm_order_session_form"/>
         <field name="arch" type="xml">
-            <field name="date_stop" position="after">
-				<field name="filter_id"/>
+            <field name="order_ids" position="after">
+				<separator string="Filter Criteria" colspan="4"/>
+				<field name="country_id" attrs="{'readonly':[('state','==','running')]}"/>
+				<field name="currency_id" attrs="{'readonly':[('state','==','running')]}"/>
+				<field name="dealer_id" attrs="{'readonly':[('state','==','running')]}"/>
+				<field name="trademark_id" attrs="{'readonly':[('state','==','running')]}"/>
+				<field name="payment_method_id" attrs="{'readonly':[('state','==','running')]}"/>
 			</field>
         </field>
     </record>

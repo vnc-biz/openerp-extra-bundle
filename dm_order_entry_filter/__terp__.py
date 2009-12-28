@@ -28,10 +28,14 @@
     "description": """
            This module allows you to filter customer order entries.
             """,
-    "depends": ["dm_order_entry_session"],
+    "depends": ["dm_order_entry_session", 
+                "dm_payment_method"
+                ],
     "init_xml": [],
     "demo_xml": [],
-    "update_xml": ["dm_order_entry_filter_view.xml"],
+    "update_xml": [
+                   "dm_order_entry_filter_view.xml"
+                   ],
     "active": False,
     "installable": True,
 }

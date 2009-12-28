@@ -28,7 +28,7 @@
     "description": """
             This module adds edition for Direct Marketing.
             """,
-    "depends" : ["dm",'board_dm',],
+    "depends" : ["dm"],
     "init_xml" : [],
     "demo_xml" : [],
 

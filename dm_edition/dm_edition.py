@@ -26,32 +26,6 @@ import re
 import base64
 pattern = re.compile("/Count\s+(\d+)")
 
-class dm_mail_service(osv.osv): # {{{
-    _inherit = "dm.mail_service"
-    
-    _columns = {
-          'default_printer': fields.char('Default Printer', size=64),
-          'default_printer_tray': fields.char('Default Printer Tray', size=64),
-          'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule'),
-          'front_job_recap': fields.many2one('dm.offer.document', 'Front Job Recap'),
-          'bottom_job_recap': fields.many2one('dm.offer.document', 'Bottom Job Recap'),
-        }
-dm_mail_service() # }}}
-
-class dm_campaign_document_job_batch(osv.osv): # {{{
-    _name = "dm.campaign.document.job.batch"
-
-    _columns = {
-        'name': fields.char('Name', required=True, size=64),
-        'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
-        'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
-    }
-    _defaults = {
-        'state': lambda *a: 'pending',
-        }
-    
-dm_campaign_document_job_batch() # }}}
-
 class dm_campaign_document_job_sorting_rule(osv.osv): # {{{
     _name = "dm.campaign.document.job.sorting_rule"
     
@@ -68,6 +42,22 @@ class dm_campaign_document_job_sorting_rule(osv.osv): # {{{
     }
     
 dm_campaign_document_job_sorting_rule() # }}}
+
+
+
+class dm_campaign_document_job_batch(osv.osv): # {{{
+    _name = "dm.campaign.document.job.batch"
+
+    _columns = {
+        'name': fields.char('Name', required=True, size=64),
+        'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
+        'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
+    }
+    _defaults = {
+        'state': lambda *a: 'pending',
+        }
+    
+dm_campaign_document_job_batch() # }}}
 
 class dm_campaign_document_job(osv.osv): # {{{
     _name = "dm.campaign.document.job"
@@ -88,24 +78,84 @@ class dm_campaign_document_job(osv.osv): # {{{
         }    
 dm_campaign_document_job() # }}}
 
+class dm_printer_model(osv.osv): # {{{
+    _name = "dm.printer.model"
+    
+    _columns = {
+        'name': fields.char('Description', size=64, required=True),
+        'code': fields.char('Code', size=16, required=True),
+        'note': fields.text('Description'),
+
+        }
+dm_printer_model() # }}}
+
+class dm_printer_tray_model(osv.osv): # {{{
+    _name = "dm.printer_tray.model"
+    
+    _columns = {
+        'name': fields.char('Description', size=64, required=True),
+        'code': fields.char('Code', size=16, required=True),
+        'note': fields.text('Note'),
+
+        }
+dm_printer_tray_model() # }}}
+
+class dm_printer(osv.osv): # {{{
+    _name = "dm.printer"
+    
+    _columns = {
+        'name': fields.char('Description', size=64, required=True),
+        'code': fields.char('Code', size=16, required=True),
+        'printer_model_id': fields.many2one('dm.printer.model','Printer'),
+        'mail_service_id': fields.many2one('dm.mail_service','Mail Service'),
+        'note': fields.text('Description'),
+
+        }
+dm_printer() # }}}
+
+class dm_printer_tray(osv.osv): # {{{
+    _name = "dm.printer_tray"
+    
+    _columns = {
+        'name': fields.char('Description', size=64, required=True),
+        'code': fields.char('Code', size=16, required=True),
+        'printer_tray_model_id' : fields.many2one('dm.printer_tray.model','Printer Tray'),
+        'printer_id' : fields.many2one('dm.printer','Printer'),
+        'note': fields.text('Description'),
+
+        }
+dm_printer_tray() # }}}        
+
 class dm_offer_document(osv.osv): # {{{
     _inherit = "dm.offer.document"
     
     _columns = {
-        'printer': fields.char('Printer', size=64),
-        'printer_tray': fields.char('Printer Tray', size=64),
+        'printer_tray_model_id':fields.many2one('dm.printer_tray.model','Document Type'),
         'verso': fields.boolean('Verso'),
         'sequence': fields.integer('Sequence')
     }
     
 dm_offer_document() # }}}
 
+class dm_mail_service(osv.osv): # {{{
+    _inherit = "dm.mail_service"
+    
+    _columns = {
+          'default_printer_id': fields.many2one('dm.printer', 'Default Printer'),
+          'default_printer_tray_id': fields.many2one('dm.printer_tray','Default Printer Tray'),
+          'sorting_rule_id': fields.many2one('dm.campaign.document.job.sorting_rule', 'Sorting Rule'),
+          'front_job_recap': fields.many2one('dm.offer.document', 'Front Job Recap'),
+          'bottom_job_recap': fields.many2one('dm.offer.document', 'Bottom Job Recap'),
+        }
+    
+dm_mail_service() # }}}
+
 class dm_campaign_document(osv.osv): # {{{
     _inherit = 'dm.campaign.document'
     
     _columns = {
-        'printer': fields.char('Printer', size=64),
-        'printer_tray': fields.char('Printer Tray', size=64),
+        'printer_id': fields.many2one('dm.printer','Printer'),
+        'printer_tray_id': fields.many2one('dm.printer_tray','Printer Tray'),
         'campaign_document_job': fields.many2one('dm.campaign.document.job', 'Campaign Document Job'),
         'campaign_document_job_position': fields.integer('Campaign Document Job Position'),
         'verso': fields.boolean('Verso')
@@ -123,6 +173,7 @@ def generate_document_job(cr, uid, obj_id, context):
     camp_doc_job = {}
     camp_doc = camp_doc_object.browse(cr,uid,obj_id)
     sorting_name = ''
+    
     if ms_id.sorting_rule_id.by_customer_country:
 	    sorting_name = str(camp_doc.address_id.country_id.id)
     if ms_id.sorting_rule_id.by_offer_step:
@@ -200,5 +251,7 @@ def generate_document_job(cr, uid, obj_id, context):
         else:
             camp_doc_job_obj.write(cr, uid, job_id, 
                                        {'campaign_document_ids': [[4,obj_id]]})
-    return {'code':'doc_done','ids': obj.id}					
+    return {'code':'doc_done','ids': obj.id}		
+
+	
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

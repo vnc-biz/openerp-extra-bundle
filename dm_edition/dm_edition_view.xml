@@ -3,6 +3,7 @@
     <data>
 
 	<menuitem name="Edition Jobs" id="menu_dm_config_doc_jobs" parent="dm.menu_action_offer_doc" sequence="0"/>
+	<menuitem name="Printing" id="menu_dm_printing" parent="dm.menu_dm_config_mail_service" sequence="7"/>
 
 	<!-- 
 		Campaign Document Job Batch 
@@ -152,8 +153,7 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Edition">
-					<field name="printer"/>
-					<field name="printer_tray"/>
+					<field name="printer_tray_model_id"/>
 					<field name="verso"/>
 					<field name="sequence"/>
 				</page>
@@ -172,8 +172,8 @@
 		<field name="inherit_id" ref="dm.view_dm_campaign_document_form"/>
         <field name="arch" type="xml">
 			<field name="state" position="after">
-				<field name="printer"/>
-				<field name="printer_tray"/>
+				<field name="printer_id"/>
+				<field name="printer_tray_id"/>
 				<field name="campaign_document_job"/>
 				<field name="campaign_document_job_position"/>
 				<field name="verso"/>
@@ -186,7 +186,7 @@
     DM MAIL SERVICE VIEWS
     =======================================================
     -->
-   
+    
     <record model="ir.ui.view" id="view_dm_edition_mail_service_form">
         <field name="name">dm.mail_service.form.inherit</field>
         <field name="model">dm.mail_service</field>
@@ -196,8 +196,8 @@
          	<field name="store_document" position="after">
          		<group colspan="4" attrs="{'invisible':[('service_type','!=','print_service')]}">
             		<separator string="Printer Informations" colspan="5"/>
-            		<field name="default_printer" />
-            		<field name="default_printer_tray" />
+            		<field name="default_printer_id" />
+            		<field name="default_printer_tray_id" attrs="{'readonly':[('default_printer_id','=',False)]}" />
 					<field name="sorting_rule_id"/>
 					<field name="front_job_recap"/>
 					<field name="bottom_job_recap"/>
@@ -205,6 +205,169 @@
         	</field>
         </field>
     </record>
+    
+    <!-- PRINTERS -->
+    
+    <!--dm.printer.model -->
+      <record model="ir.ui.view" id="view_dm_printer_model_form">
+        <field name="name">dm.printer.model.form</field>
+        <field name="model">dm.printer.model</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Printers Models">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="note"/>
+             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_printer_model_tree">
+        <field name="name">dm.printer.model.tree</field>
+        <field name="model">dm.printer.model</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Printers Models">
+               <field name="name"/>
+                <field name="code"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_printer_model_form">
+        <field name="name">All Printers Models</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.printer.model</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_printer_model_tree"/>
+    </record>
+	
+    <menuitem id="menu_dm_printer_models_form" parent="menu_dm_printing" action="action_dm_printer_model_form" sequence="1" />
+    
+    
+    <!--dm.printer_tray.model -->
+      <record model="ir.ui.view" id="view_dm_printer_tray_model_form">
+        <field name="name">dm.printer_tray.model.form</field>
+        <field name="model">dm.printer_tray.model</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Printers Trays Models">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="note"/>
+             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_printer_tray_model_tree">
+        <field name="name">dm.printer_tray.model.tree</field>
+        <field name="model">dm.printer_tray.model</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Printers Trays Models">
+               <field name="name"/>
+                <field name="code"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_printer_tray_model_form">
+        <field name="name">All Printers Tray Models</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.printer_tray.model</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_printer_tray_model_tree"/>
+    </record>
+	
+    <menuitem id="menu_dm_printer_tray_models_form" parent="menu_dm_printing" action="action_dm_printer_tray_model_form" sequence="2" />
+    
+    <!--dm.printer -->
+      <record model="ir.ui.view" id="view_dm_printer_form">
+        <field name="name">dm.printer.form</field>
+        <field name="model">dm.printer</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Printers">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="printer_model_id"/>
+                <field name="mail_service_id"/>
+                <field name="note"/>
+             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_printer_tree">
+        <field name="name">dm.printer.tree</field>
+        <field name="model">dm.printer</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Printers">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="printer_model_id"/>
+                <field name="mail_service_id"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_printer_form">
+        <field name="name">All Printers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.printer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_printer_tree"/>
+    </record>
+	
+    <menuitem id="menu_dm_printer_form" parent="menu_dm_printing" action="action_dm_printer_form" sequence="3" />
+    
+        <!--dm.printer_tray -->
+      <record model="ir.ui.view" id="view_dm_printer_tray_form">
+        <field name="name">dm.printer_tray.form</field>
+        <field name="model">dm.printer_tray</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Printers Trays">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="printer_tray_model_id"/>
+                <field name="printer_id"/>
+                <field name="note"/>
+             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_printer_tray_tree">
+        <field name="name">dm.printer_tray.tree</field>
+        <field name="model">dm.printer_tray</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Printers Trays">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="printer_tray_model_id"/>
+                <field name="printer_id"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_printer_tray_form">
+        <field name="name">All Printers Trays</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.printer_tray</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_printer_tray_tree"/>
+    </record>
+	
+    <menuitem id="menu_dm_printer_tray_form" parent="menu_dm_printing" action="action_dm_printer_tray_form" sequence="4" />
 	
 	</data>
 </openerp>

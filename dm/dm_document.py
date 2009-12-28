@@ -284,9 +284,9 @@ def create_email_queue(cr, uid, obj, context): # {{{
     else :
         document_data = pool.get('dm.offer.document').browse(cr,uid,obj.document_id.id)
         if obj.document_id.editor ==  'internal' :
-            report_data = generate_internal_reports(cr, uid, 'html2html', document_data, False, context)
+            report_data = generate_internal_reports(cr, uid, 'html2html', document_data.id, False, context)
         else :
-            report_data = generate_openoffice_reports(cr, uid, 'html2html', document_data, False, context)
+            report_data = generate_openoffice_reports(cr, uid, 'html2html', document_data.id, False, context)
         if report_data in ('plugin_error','plugin_missing') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)

@@ -26,6 +26,8 @@ import re
 import base64
 pattern = re.compile("/Count\s+(\d+)")
 
+from dm.dm_report_design import generate_internal_reports, generate_openoffice_reports
+
 class dm_campaign_document_job_sorting_rule(osv.osv): # {{{
     _name = "dm.campaign.document.job.sorting_rule"
     
@@ -43,7 +45,19 @@ class dm_campaign_document_job_sorting_rule(osv.osv): # {{{
     
 dm_campaign_document_job_sorting_rule() # }}}
 
+class dm_campaign_document_job_batch(osv.osv): # {{{
+    _name = "dm.campaign.document.job.batch"
 
+    _columns = {
+        'name': fields.char('Name', required=True, size=64),
+        'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
+        'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
+    }
+    _defaults = {
+        'state': lambda *a: 'pending',
+        }
+    
+dm_campaign_document_job_batch() # }}}
 
 class dm_campaign_document_job_batch(osv.osv): # {{{
     _name = "dm.campaign.document.job.batch"
@@ -170,7 +184,6 @@ def generate_document_job(cr, uid, obj_id, context):
     ms_id = obj.mail_service_id
     type_id = pool.get('dm.campaign.document.type').search(cr, uid, [('code', '=', 'pdf')])[0]
     s_rule = ms_id.sorting_rule_id.by_customer_country
-    camp_doc_job = {}
     camp_doc = camp_doc_object.browse(cr,uid,obj_id)
     sorting_name = ''
     
@@ -203,7 +216,6 @@ def generate_document_job(cr, uid, obj_id, context):
             if res.campaign_id and res.campaign_id.trademark_id:
                 v = str(res.campaign_id.trademark_id.id)
                 sorting_name = sorting_name and sorting_name+'_'+v or v
-    print sorting_name                
     if ms_id.sorting_rule_id.by_dealer:
         if 'segment_id' in context:
             res = pool.get('dm.campaign.proposition.segment').browse(cr,uid,context['segment_id'])
@@ -212,10 +224,8 @@ def generate_document_job(cr, uid, obj_id, context):
                 sorting_name = sorting_name and sorting_name+'_'+v or v
     if sorting_name:
         camp_doc_job_obj = pool.get('dm.campaign.document.job')
-        job_ids = camp_doc_job_obj.search(cr, uid, [('state', '=', 'pending'),
-                            ('sorting_rule_id', '=', ms_id.sorting_rule_id.id),('sorting_name','=',sorting_name)])
+        job_ids = camp_doc_job_obj.search(cr, uid, [('state', '=', 'pending'),('sorting_rule_id', '=', ms_id.sorting_rule_id.id),('sorting_name','=',sorting_name)])
         job_id = ''
-        no_camp_doc =''
         for j_id in camp_doc_job_obj.browse(cr, uid, job_ids):
             if not ms_id.sorting_rule_id.qty_limit or ms_id.sorting_rule_id.qty_limit ==0 :
                 job_id = j_id.id
@@ -224,7 +234,7 @@ def generate_document_job(cr, uid, obj_id, context):
         if not job_id :
             camp_doc = camp_doc_object.browse(cr,uid,obj_id)
             job_vals = {
-                    'name': camp_doc.segment_id.name or '' + str(k),
+                    'name': (camp_doc.segment_id and camp_doc.segment_id.name or '') + str(sorting_name),
 	             	'user_id': ms_id.user_id.id,
 		            'sorting_rule_id': ms_id.sorting_rule_id.id,
                     'sorting_name': sorting_name,
@@ -240,16 +250,28 @@ def generate_document_job(cr, uid, obj_id, context):
                        'type_id': type_id,
                        'mail_service_id': ms_id.id,
                        'address_id':camp_doc.address_id.id,
-                       'campaign_document_job_ids' : job_id
+                       'campaign_document_job' : job_id
                   }
                 if ms_id.front_job_recap: 
                     camp_vals['document_id'] = ms_id.front_job_recap.id
-                    no_camp_doc += 1
+                    new_camp_id = camp_doc_object.create(cr,uid,camp_vals)
+                    report_data = generate_openoffice_reports(cr, uid, 'pdf', ms_id.front_job_recap.id, new_camp_id, context)
+                    ms_status = pool.get('dm.workitem')._check_sysmsg(cr, uid, report_data, context)
+                    camp_doc_object.write(cr, uid, [new_camp_id],
+                        {'state': ms_status['state'],
+                        'error_msg': ms_status['msg'],})
+                        
                 if ms_id.bottom_job_recap:
                     camp_vals['document_id'] = ms_id.bottom_job_recap.id
-                    no_camp_doc += 1                
+                    new_camp_id = camp_doc_object.create(cr,uid,camp_vals)
+                    report_data = generate_openoffice_reports(cr, uid, 'pdf', ms_id.bottom_job_recap.id, new_camp_id, context)
+                    ms_status = pool.get('dm.workitem')._check_sysmsg(cr, uid, report_data, context)
+                    camp_doc_object.write(cr, uid, [new_camp_id],
+                        {'state': ms_status['state'],
+                        'error_msg': ms_status['msg'],})
+                        
         else:
-            camp_doc_job_obj.write(cr, uid, job_id, 
+          camp_doc_job_obj.write(cr, uid, job_id, 
                                        {'campaign_document_ids': [[4,obj_id]]})
     return {'code':'doc_done','ids': obj.id}		
 

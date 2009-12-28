@@ -85,6 +85,7 @@ def generate_internal_reports(cr, uid, report_type,
     "Generate documents from the internal editor"
     pool = pooler.get_pool(cr.dbname)
     attachment_obj = pool.get('ir.attachment')
+    document_data = pool.get('dm.offer.document').browse(cr,uid,document_data)
     if report_type == 'html2html' and document_data.content:
         "Check if to use the internal editor report"
         if not document_data.content:
@@ -106,7 +107,9 @@ def generate_internal_reports(cr, uid, report_type,
                        }
            attach_id = attachment_obj.create(cr,uid,attach_vals,{'not_index_context':True})
            return 'doc_done'
-        return report_data # }}}
+        return report_data 
+    else:
+        return 'wrong_report_type'# }}}
 
 def generate_openoffice_reports(cr, uid, report_type, 
                                 document_data, camp_doc, context): # {{{
@@ -116,6 +119,7 @@ def generate_openoffice_reports(cr, uid, report_type,
     report_content = []
     pool = pooler.get_pool(cr.dbname)    
     attachment_obj = pool.get('ir.attachment')
+    document_data = pool.get('dm.offer.document').browse(cr,uid,document_data)    
     report_xml = pool.get('ir.actions.report.xml')
     report_ids = report_xml.search(cr, uid, 
                     [('document_id', '=', document_data.id),
@@ -125,7 +129,6 @@ def generate_openoffice_reports(cr, uid, report_type,
     for report in pool.get('ir.actions.report.xml').browse(cr, uid, report_ids):
         srv = netsvc.LocalService('report.' + report.report_name)
         report_data, report_type = srv.create(cr, uid, [], {}, context)
-        
         if re.search('!!!Missing-Plugin-in DTP document!!!', report_data, re.IGNORECASE):
             return 'plugin_missing' 
         if re.search('!!!Missing-Plugin-Value!!!', report_data, re.IGNORECASE):
@@ -262,10 +265,10 @@ def document_process(cr, uid, obj, report_type, context): # {{{
                 context['workitem_id'] = obj.id
             if document_data.editor == 'internal':
                 res = generate_internal_reports(cr, uid, report_type, 
-                                            document_data, camp_doc, context)
+                                            document_data.id, camp_doc, context)
             elif document_data.editor == 'oord':
                 res = generate_openoffice_reports(cr, uid, report_type, 
-                                            document_data, camp_doc, context)
+                                            document_data.id, camp_doc, context)
     return {'code':res,'ids':[camp_doc]} # }}}
 """
 def compute_customer_plugin(cr, uid, **args): # {{{

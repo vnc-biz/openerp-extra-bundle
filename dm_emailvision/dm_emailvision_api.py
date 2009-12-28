@@ -62,11 +62,11 @@ def send_email(cr, uid, obj, context):
     else:
         if obj.document_id.editor ==  'internal':
             msg = generate_internal_reports(cr, uid, 'html2html', \
-                    obj.document_id, False, context)
+                    obj.document_id.id, False, context)
             message.append(msg)
         elif obj.document_id.editor ==  'oord':
             msg = generate_openoffice_reports(cr, uid, 'html2html', \
-                    obj.document_id, False, context)
+                    obj.document_id.id, False, context)
             message.extend(msg)
         else:
             return {'code':'emv_doc_error'}

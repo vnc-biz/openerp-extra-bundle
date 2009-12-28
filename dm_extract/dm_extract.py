@@ -113,7 +113,7 @@ DATE_OPERATORS = [ # {{{
 
 class dm_address_text_criteria(osv.osv): # {{{
     _name = "dm.address.text_criteria"
-    _description = "address Segmentation Textual Criteria"
+    _description = "Address Segmentation Textual Criteria"
     _rec_name = "segmentation_id"
 
     def _get_field_type(self, cr, uid, context={}):
@@ -145,7 +145,7 @@ dm_address_text_criteria() # }}}
 
 class dm_address_numeric_criteria(osv.osv): # {{{
     _name = "dm.address.numeric_criteria"
-    _description = "address Segmentation Numeric Criteria"
+    _description = "Address Segmentation Numeric Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {
@@ -163,7 +163,7 @@ dm_address_numeric_criteria() # }}}
 
 class dm_address_boolean_criteria(osv.osv): # {{{
     _name = "dm.address.boolean_criteria"
-    _description = "address Segmentation Boolean Criteria"
+    _description = "Address Segmentation Boolean Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {
@@ -182,7 +182,7 @@ dm_address_boolean_criteria() # }}}
 
 class dm_address_date_criteria(osv.osv): # {{{
     _name = "dm.address.date_criteria"
-    _description = "address Segmentation Date Criteria"
+    _description = "Address Segmentation Date Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {

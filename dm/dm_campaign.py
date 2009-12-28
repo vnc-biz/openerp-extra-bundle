@@ -209,12 +209,6 @@ class dm_campaign(osv.osv): #{{{
                                              readonly=True),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
         'journal_id': fields.many2one('account.journal', 'Payment Methods', domain="[('type','=','cash')]"),
-
-#        'payment_method_ids': fields.many2many('account.journal', 
-#                                               'campaign_payment_method_rel', 
-#                                               'campaign_id', 'journal_id', 
-#                                               'Payment Methods', 
-#                                               domain=[('type', '=', 'cash')]),
         'mail_service_ids': fields.one2many('dm.campaign.mail_service', 
                                             'campaign_id', 'Mailing Service'),
         'camp_date_start': fields.datetime('Campaign Start Date'),
@@ -501,9 +495,7 @@ class dm_campaign_proposition(osv.osv): #{{{
             if id.country_id.forwarding_charge:
                 vals['forwarding_charge'] = id.country_id.forwarding_charge
         if id.journal_id:
-            print "journal_idjournal_idjournal_id",id.journal_id
             journal_id = id.journal_id.id
-            print "ssssssssssss",journal_id
             vals['journal_id'] = journal_id
         return super(dm_campaign_proposition, self).create(cr, uid, vals, context)
 
@@ -817,7 +809,6 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         if 'proposition_id' in vals and vals['proposition_id'] :
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr,
                                                     uid, vals['proposition_id'])
-
             vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
         return super(dm_campaign_proposition_segment, self).create(cr, uid, vals, context)
 

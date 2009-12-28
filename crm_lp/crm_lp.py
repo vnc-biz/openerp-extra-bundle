@@ -271,10 +271,10 @@ class crm_case(osv.osv):
                                          val['user_id']=assing_id
                                     else: 
                                         res={}
-                                        res['name']=assignee.name
-                                        res['login']=assignee.name
-                                        res['password']=assignee.name
-                                        res['lp_login']=assignee.name                                                             
+                                        res['name']=bug.assignee.name
+                                        res['login']=bug.assignee.name
+                                        res['password']=bug.assignee.name
+                                        res['lp_login']=bug.assignee.name                                                             
                                         assing_id = user_rec.create(cr,uid,res,context=context)
                                         val['user_id']=assing_id                                          
                                 val['partner_id'] =partner_id                                           

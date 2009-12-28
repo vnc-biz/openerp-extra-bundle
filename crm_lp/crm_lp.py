@@ -265,6 +265,18 @@ class crm_case(osv.osv):
                                 else:
                                     partner_id=  partner_id[0]
                                     user_id=user_id[0] 
+                                if bug.assignee:
+                                    assing_id = user_rec.search(cr,uid,[('login', '=', bug.assignee.name)])
+                                    if assing_id:
+                                         val['user_id']=assing_id
+                                    else: 
+                                        res={}
+                                        res['name']=assignee.name
+                                        res['login']=assignee.name
+                                        res['password']=assignee.name
+                                        res['lp_login']=assignee.name                                                             
+                                        assing_id = user_rec.create(cr,uid,res,context=context)
+                                        val['user_id']=assing_id                                          
                                 val['partner_id'] =partner_id                                           
                                 val['bug_owner_id']= user_id  
                                 if bug.importance == 'Wishlist':

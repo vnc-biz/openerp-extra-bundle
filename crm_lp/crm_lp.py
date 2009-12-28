@@ -401,14 +401,34 @@ class crm_case(osv.osv):
         obj = self.pool.get('crm.case.history')
         for key in bug.bug.messages.entries:        
             if key['self_link'].rsplit('/',1)[1]!=0:
-                data = {
-                'name': bug.status,
-                'user_id': uid,
-                'case_id': bug_id,
-                'description':key['content'],
-                'bug_owner_id':user_id
-            }        
-            obj.create(cr, uid, data, context)
+                if bug.bug.attachments:
+                    attachment = bug.bug.attachments[0]  
+                    attachment_data = attachment.data
+                    attachment_fd = attachment_data.open() 
+                    attach_id=self.pool.get('ir.attachment').create(cr, uid, {
+                                        'name': attachment_fd.filename.split('.')[0],
+                                        'datas': base64.encodestring(attachment_fd.read()),
+                                        'datas_fname':attachment_fd.filename,
+                                        'res_model': 'crm.case',
+                                        'res_id': bug_id,
+                                        }, context=context  )     
+                                  
+                    data = {
+                    'name': bug.status,
+                    'user_id': uid,
+                    'case_id': bug_id,
+                    'description':key['content'],
+                    'bug_owner_id':user_id,
+                    'filename':attach_id}        
+                else:
+                    data = {
+                    'name': bug.status,
+                    'user_id': uid,
+                    'case_id': bug_id,
+                    'description':key['content'],
+                    'bug_owner_id':user_id}                    
+                obj.create(cr, uid, data, context)
+                cr.commit()
         return True      
 crm_case()
 

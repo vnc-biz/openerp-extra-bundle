@@ -182,9 +182,7 @@ class crm_case(osv.osv):
             lp_server = lpServer()
             self._create_bug(cr, uid, section_id,lp_server, context)
             self._find_project_bug(cr,uid,section_id,lp_server)
-            return True
-        else:
-            return False
+        return True
 
     def _create_bug(self, cr, uid, section_id,lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
@@ -220,9 +218,8 @@ class crm_case(osv.osv):
                         t.status = status
                         t.importance = imp
                         t.lp_save()
-                return True
-            else:
-                return False
+            return True
+            
 
     def _find_project_bug(self, cr, uid,section_id,lp_server=None,context={}):
 
@@ -295,7 +292,7 @@ class crm_case(osv.osv):
                                 if not b_id:
                                     bug_id=self.create(cr, uid, val,context=context)
                                     self._check_state(cr, uid,[bug_id],val)     
-                                   # self._store_bug_history(cr, uid , bug_id, bug)                               
+                                    self._store_bug_history(cr, uid , bug_id,bug,val['bug_owner_id'])                               
                                 if b_id:
                                     crm_case = self.browse(cr,uid, b_id[0])
                                     lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
@@ -400,7 +397,7 @@ class crm_case(osv.osv):
             self.case_close(cr,uid,bug_id)
         return True 
     
-    def _store_bug_history(self, cr, uid,bug_id,bug,context={}):
+    def _store_bug_history(self, cr, uid,bug_id,bug,user_id,context={}):
         obj = self.pool.get('crm.case.history')
         for key in bug.bug.messages.entries:        
             if key['self_link'].rsplit('/',1)[1]!=0:
@@ -408,7 +405,8 @@ class crm_case(osv.osv):
                 'name': bug.status,
                 'user_id': uid,
                 'case_id': bug_id,
-                'description':key['content'] 
+                'description':key['content'],
+                'bug_owner_id':user_id
             }        
             obj.create(cr, uid, data, context)
         return True      
@@ -419,6 +417,12 @@ class res_users(osv.osv):
     _columns = {
         'lp_login': fields.char('Launchpad Login', size=100),
         }
-
 res_users()
+class crm_case_history(osv.osv):
+    _inherit = 'crm.case.history'
+    _columns = {    
+        'bug_owner_id': fields.many2one('res.users', 'Bug Owner'),
+        'filename':fields.many2one('ir.attachment','File'),        
+    }
+crm_case_history()    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

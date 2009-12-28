@@ -116,6 +116,18 @@
        </field>
     </record>
         
+    <record model="ir.ui.view" id="view_crm_bug_history_form">
+        <field name="name">crm.case.lp.history</field>
+        <field name="model">crm.case.history</field>
+        <field name="inherit_id" ref="crm.crm_case_history-view"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="bug_owner_id"/>
+                <field name="filename"/>
+            </field>
+       </field>
+    </record>
 <menuitem name="Project Series" id="menu_lp_series"  parent="project.menu_all_project" action="action_lp_series"/>
 <menuitem name="Project Milestones" id="menu_lp_milestones"  parent="project.menu_all_project" action="action_lp_milestone"/>
 </data>

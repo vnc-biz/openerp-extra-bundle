@@ -206,9 +206,10 @@
         </field>
     </record>
     
-    <!-- PRINTERS -->
+	<!-- 
+		PRINTERS 
+	-->
     
-    <!--dm.printer.model -->
       <record model="ir.ui.view" id="view_dm_printer_model_form">
         <field name="name">dm.printer.model.form</field>
         <field name="model">dm.printer.model</field>
@@ -246,8 +247,7 @@
 	
     <menuitem id="menu_dm_printer_models_form" parent="menu_dm_printing" action="action_dm_printer_model_form" sequence="1" />
     
-    
-    <!--dm.printer_tray.model -->
+      
       <record model="ir.ui.view" id="view_dm_printer_tray_model_form">
         <field name="name">dm.printer_tray.model.form</field>
         <field name="model">dm.printer_tray.model</field>
@@ -285,7 +285,6 @@
 	
     <menuitem id="menu_dm_printer_tray_models_form" parent="menu_dm_printing" action="action_dm_printer_tray_model_form" sequence="2" />
     
-    <!--dm.printer -->
       <record model="ir.ui.view" id="view_dm_printer_form">
         <field name="name">dm.printer.form</field>
         <field name="model">dm.printer</field>
@@ -327,7 +326,6 @@
 	
     <menuitem id="menu_dm_printer_form" parent="menu_dm_printing" action="action_dm_printer_form" sequence="3" />
     
-        <!--dm.printer_tray -->
       <record model="ir.ui.view" id="view_dm_printer_tray_form">
         <field name="name">dm.printer_tray.form</field>
         <field name="model">dm.printer_tray</field>

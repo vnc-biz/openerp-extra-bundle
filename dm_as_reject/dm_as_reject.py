@@ -127,13 +127,16 @@ class res_partner_address(osv.osv): # {{{
         }
     
     def write(self, cr, uid, ids, vals, context):
+        for r_id in ids :
+            if 'reject_ids' in vals :
+                reject_ids = map(lambda x : x[2]['reject_id'],vals['reject_ids'])
+                rej_obj = self.pool.get('dm.as.reject').browse(cr,uid,reject_ids)
+            else:
+                rej_obj= map(lambda x: x.reject_id ,self.browse(cr, uid, r_id).reject_ids)
+            for rej_inc_id in rej_obj:
+                if rej_inc_id.to_disable:
+                    vals['active']=False
         result = super(res_partner_address, self).write(cr, uid, ids, vals, context)
-        rej_inc_ids = self.browse(cr, uid, ids)[0].reject_ids
-        for rej_inc_id in rej_inc_ids:
-            for reject_id in rej_inc_id.reject_ids:
-                if reject_id.to_disable:
-                    cr.execute("update res_partner_address set active=False where id = %s" %(ids[0]))
-                    cr.commit()
         return result
     
 res_partner_address() # }}}

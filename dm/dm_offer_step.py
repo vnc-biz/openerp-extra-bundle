@@ -67,7 +67,7 @@ class dm_offer_step(osv.osv): # {{{
         'parent_id': fields.many2one('dm.offer', 'Parent'),
         'legal_state': fields.char('Legal State', size=32, 
                                       states={'closed': [('readonly', True)]}),
-        'code': fields.char('Code', size=64, required=True, translate=True),
+        'code': fields.char('Code', size=64, required=True),
         'quotation': fields.char('Quotation', size=16, 
                                     states={'closed': [('readonly', True)]}),
         'media_id': fields.many2one('dm.media', 'Media', ondelete="cascade",
@@ -124,44 +124,6 @@ class dm_offer_step(osv.osv): # {{{
         'split_mode': lambda *a: 'or',
     }
 
-    def onchange_code(self, cr, uid, ids, type_id, context):
-        if not type_id:
-            return {'value': {'code': False}}
-        step_type = self.pool.get('dm.offer.step.type').browse(cr, 
-                                                            uid, [type_id])[0]
-        res_code = self.pool.get('ir.translation')._get_ids(cr, uid, 
-                        'dm.offer.step.type,code', 'model', 
-                        context.get('lang', False) or 'en_US', [step_type.id])
-        type_code = res_code[step_type.id] or step_type.code
-        value = {
-                 'code': type_code
-                }
-        return {'value': value}
-
-    def onchange_type(self, cr, uid, ids, type_id, offer_id, context):
-        step_type = self.pool.get('dm.offer.step.type').browse(cr, 
-                                                            uid, [type_id])[0]
-        value = {
-                    'flow_start': step_type['flow_start'],
-                }
-        if offer_id:
-            offer = self.pool.get('dm.offer').browse(cr, uid, [offer_id])[0]
-            if offer.type == 'model':
-                res_trans = self.pool.get('ir.translation')._get_ids(cr, uid, 
-                        'dm.offer.step.type,name', 'model', 
-                        context.get('lang', False) or 'en_US', [step_type.id])
-                type_code = res_trans[step_type.id] or step_type.name
-                value['name'] = step_type.name
-            else:
-                res_code = self.pool.get('ir.translation')._get_ids(cr, uid, 
-                        'dm.offer.step.type,code', 'model', 
-                        context.get('lang', False) or 'en_US', [step_type.id])
-                type_code = res_code[step_type.id] or step_type.code
-#                res_offer = self.pool.get('ir.translation')._get_ids(cr, uid, 'dm.offer,name', 'model', context.get('lang', False) or 'en_US',[offer.id])
-#                offer_name = res_offer[offer.id] or offer.name
-                value['name'] = "%s for %s"% (type_code, offer.name) 
-        return {'value': value}
-
     def create(self,cr,uid,vals,context={}):
         if 'type_id' in vals and vals['type_id']:
             type_seq = self.search(cr,uid,[('type_id','=',vals['type_id']),('offer_id','=',vals['offer_id'])])
@@ -177,7 +139,6 @@ class dm_offer_step(osv.osv): # {{{
                                          ('offer_id', '=', step.offer_id.id)])
                 vals['seq'] = len(type_seq) and len(type_seq)+1 or 1
         return super(dm_offer_step, self).write(cr, uid, ids, vals, context)
-
 
     def state_close_set(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'closed'})

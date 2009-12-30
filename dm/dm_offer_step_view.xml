@@ -144,7 +144,7 @@
                 <notebook colspan="4" >
                     <page string="General">
                         <field name="name" select="1" />
-                        <field name="type_id" select="2" widget="selection" on_change="onchange_code(type_id,context)"/>
+                        <field name="type_id" select="2" widget="selection"/>
                         <field name="media_id" select="1"/>
                         <field name="action_id" select="1" />
                         <field name="quotation" select="2" groups="base.group_extended"/>

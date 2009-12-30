@@ -23,7 +23,6 @@
 from osv import fields
 from osv import osv
 
-
 class dm_mail_service(osv.osv): # {{{
     _inherit = "dm.mail_service"
     

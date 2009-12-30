@@ -27,7 +27,7 @@ class dm_payment_method(osv.osv): # {{{
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
         'journal_id': fields.many2one('account.journal', 'Journal', domain="[('type','=','cash')]"),
-        'logo': fields.binary('Widget Image'),
+        'logo': fields.binary('Logo'),
         
     }
 dm_payment_method() # }}}

@@ -18,25 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-from osv import fields
-from osv import osv
+{
+    "name" : "DM Payment Rules",
+    "version" : "1.0",
+    "author" : "Tiny",
+    "website" : "http://www.openerp.com",
+    "category" : "Generic Modules/Direct Marketing",
+    "description": """
+            
+            """,
+    "depends" : ["dm_payment_method"],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "update_xml" : [
+                    "dm_payment_rules_view.xml",
+                    ],
+    "active": False,
+    "installable": True,
+}
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
-class dm_payment_method(osv.osv): # {{{
-    _name = 'dm.payment_method'
-    _columns = {
-        'name': fields.char('Name', size=64, required=True),
-        'code': fields.char('Code', size=16, required=True),
-        'journal_id': fields.many2one('account.journal', 'Journal', domain="[('type','=','cash')]"),
-        'logo': fields.binary('Logo'),
-        
-    }
-dm_payment_method() # }}}
-
-class dm_campaign(osv.osv): #{{{
-    _inherit = "dm.campaign"
-    _columns = {
-         'journal_id': fields.many2one('dm.payment_method', 'Journal'),
-    }
-dm_campaign() #}}}
-
-#vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

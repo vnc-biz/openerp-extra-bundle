@@ -16,7 +16,7 @@
         </record>
 
         <record id="survey_question_company_name" model="survey.question">
-            <field name="question"> What is your company's name?</field>
+            <field name="question">What is your company's name?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">single_textbox</field>
         </record>
@@ -315,7 +315,7 @@
         </record>
 
         <record id="survey_question_odoo_company_name" model="survey.question">
-            <field name="question"> What is your company's name?</field>
+            <field name="question">What is your company's name?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
             <field name="type">single_textbox</field>
         </record>
@@ -1003,7 +1003,7 @@
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
 			<field eval="0" name="rating_allow_one_column_require"/>
 			<field eval="&quot;&quot;&quot;This question requires an answer.&quot;&quot;&quot;" name="req_error_msg"/>
-			<field eval="&quot;&quot;&quot; Which modules are you using/testing?&quot;&quot;&quot;" name="question"/>
+			<field eval="&quot;&quot;&quot;Which modules are you using/testing?&quot;&quot;&quot;" name="question"/>
 			<field eval="0" name="is_require_answer"/>
 			<field eval="&quot;&quot;&quot;multiple_choice_multiple_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>

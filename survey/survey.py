@@ -206,8 +206,8 @@ class survey_question(osv.osv):
     }
 
     def write(self, cr, uid, ids, vals, context=None):
-#        if vals.has_key('type'):
-#            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
+        if vals.has_key('type'):
+            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
         for question in questions:
             col_len = len(question['column_heading_ids'])
@@ -270,6 +270,12 @@ class survey_question(osv.osv):
                         raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
                 if maximum_ans <= minimum_ans:
                     raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
+            if question['type'] ==  'matrix_of_drop_down_menus':
+                for col in vals['column_heading_ids']:
+                    if not col[2]['menu_choice']:
+                        raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading"))
+                    elif col[2]['menu_choice'].strip() == '':
+                        raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading (white spaces not allowed)"))
         return super(survey_question, self).write(cr, uid, ids, vals, context=context)
 
     def create(self, cr, uid, vals, context):
@@ -293,6 +299,13 @@ class survey_question(osv.osv):
                 raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
             if maximum_ans <= minimum_ans:
                 raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
+        if vals['type'] ==  'matrix_of_drop_down_menus':
+            for col in vals['column_heading_ids']:
+                if not col[2]['menu_choice']:
+                    raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading"))
+                elif col[2]['menu_choice'].strip() == '':
+                    raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading (white spaces not allowed)"))
+
         res = super(survey_question, self).create(cr, uid, vals, context)
         return res
 
@@ -485,6 +498,7 @@ class survey_question_wiz(osv.osv_memory):
         response_obj = self.pool.get('survey.response')
         que_col_head = self.pool.get('survey.question.column.heading')
         p_id = sur_rec['page_ids']
+        pre_button = False
         if not sur_name_rec['page_no'] + 1 :
             surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
@@ -498,11 +512,15 @@ class survey_question_wiz(osv.osv_memory):
                     p_id = p_id[sur_name_rec['page_no'] + 1]
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
                     flag = True
+                if sur_name_rec['page_no'] > - 1:
+                    pre_button = True
             else:
                 if sur_name_rec['page_no'] != 0:
                     p_id = p_id[sur_name_rec['page_no'] - 1]
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] - 1})
                     flag = True
+                if sur_name_rec['page_no'] > 1:
+                    pre_button = True
             if flag:
                 fields = {}
                 pag_rec = page_obj.read(cr, uid, p_id)
@@ -554,7 +572,7 @@ class survey_question_wiz(osv.osv_memory):
                                 selection = []
                                 if col['menu_choice']:
                                     for item in col['menu_choice'].split('\n'):
-                                        if item: selection.append((item ,item))
+                                        if item and not item.strip() == '': selection.append((item ,item))
                                 etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(row['id']) + "_" + str(col['title'])})
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
                     elif que_rec['type'] == 'multiple_textboxes':
@@ -598,7 +616,7 @@ class survey_question_wiz(osv.osv_memory):
                 xml_group = etree.SubElement(xml_form, 'group', {'col': '4', 'colspan': '4'})
                 etree.SubElement(xml_group, 'label', {'string': "", 'align': '0.0','colspan':"1"})
                 etree.SubElement(xml_group, 'button', {'icon': "gtk-cancel", 'special': "cancel",'string':"Cancel"})
-                if sur_name_rec['page_no'] > - 1 or sur_name_rec['page_no'] > 1:
+                if pre_button:
                     etree.SubElement(xml_group, 'button', {'colspan':"1",'icon':"gtk-go-back",'name':"action_previous",'string':"Previous",'type':"object"})
                 etree.SubElement(xml_group, 'button', {'icon': "gtk-go-forward", 'name':"action_next",'string':"Next",'type':"object"})
                 root = xml_form.getroottree()

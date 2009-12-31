@@ -59,20 +59,6 @@ class dm_campaign_document_job_batch(osv.osv): # {{{
     
 dm_campaign_document_job_batch() # }}}
 
-class dm_campaign_document_job_batch(osv.osv): # {{{
-    _name = "dm.campaign.document.job.batch"
-
-    _columns = {
-        'name': fields.char('Name', required=True, size=64),
-        'campaign_document_job_ids': fields.one2many('dm.campaign.document.job', 'batch_id', 'Campaign Document Jobs'),
-        'state': fields.selection([('pending', 'Pending'), ('error', 'Error'), ('done', 'Done')], 'State'),
-    }
-    _defaults = {
-        'state': lambda *a: 'pending',
-        }
-    
-dm_campaign_document_job_batch() # }}}
-
 class dm_campaign_document_job(osv.osv): # {{{
     _name = "dm.campaign.document.job"
 
@@ -161,7 +147,7 @@ class dm_mail_service(osv.osv): # {{{
           'front_job_recap': fields.many2one('dm.offer.document', 'Front Job Recap'),
           'bottom_job_recap': fields.many2one('dm.offer.document', 'Bottom Job Recap'),
         }
-    
+  
 dm_mail_service() # }}}
 
 class dm_campaign_document(osv.osv): # {{{
@@ -186,6 +172,18 @@ def generate_document_job(cr, uid, obj_id, context):
     s_rule = ms_id.sorting_rule_id.by_customer_country
     camp_doc = camp_doc_object.browse(cr,uid,obj_id)
     sorting_name = ''
+    offer_doc_obj = pool.get('dm.offer.document').browse(cr,uid,[obj.document_id.id])[0]
+    printer_tray_model_id = offer_doc_obj.printer_tray_model_id.id
+    
+    if printer_tray_model_id:
+        printer_tray_obj =pool.get('dm.printer_tray').browse(cr, uid, printer_tray_model_id)
+        printer_tray_id = printer_tray_obj.id
+        printer_id = printer_tray_obj.printer_id.id
+    else:
+        printer_tray_id = ms_id.default_printer_tray_id.id
+        printer_id = ms_id.default_printer_id.id
+    camp_doc_object.write(cr, uid, [obj_id], {'printer_tray_id': printer_tray_id,
+                                              'printer_id': printer_id})
     
     if ms_id.sorting_rule_id.by_customer_country:
 	    sorting_name = str(camp_doc.address_id.country_id.id)

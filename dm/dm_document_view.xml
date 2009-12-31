@@ -7,6 +7,7 @@
     <menuitem name="Documents" id="menu_action_offer_doc" parent="dm.menu_dm_config" sequence="7" />
 	<menuitem name="DTP Plugins" id="menu_dm_config_doc_plugins" parent="menu_action_offer_doc" sequence="2"/>
     <menuitem name="Campaign Documents" id="menu_dm_config_lowlevel_campaign_doc" parent="dm.menu_dm_config_lowlevel" groups="res_groups_dmadmin" sequence="1"/>
+    <menuitem name="Fonts" id="menu_dm_document_font" parent="dm.menu_action_offer_doc" sequence="7" />
 
 
 
@@ -543,8 +544,46 @@
     </record>
 
     <menuitem id="menu_action_dm_dynamic_text" parent="menu_dm_config_doc_plugins" action="action_dm_dynamic_text" sequence="2" />
+   
+    <record model="ir.ui.view" id="view_dm_document_font_form">
+        <field name="name">dm.document.font.form</field>
+        <field name="model">dm.document.font</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Document Fonts">
+                <field name="name"/>
+                <field name="code"/>
+                 <field name="file" filename="file_name"/>
+                <field name="file_name" />
+             </form>
+        </field>
+    </record>
 
+    <record model="ir.ui.view" id="view_dm_document_font_tree">
+        <field name="name">dm.document.font.tree</field>
+        <field name="model">dm.document.font</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Document Fonts">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="file" />
+                <field name="file_name"/>
+            </tree>
+        </field>
+    </record>
 
+    <record model="ir.actions.act_window" id="action_dm_document_font_form">
+        <field name="name">All Document Fonts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.document.font</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_document_font_tree"/>
+    </record>
+	
+    <menuitem id="menu_dm_document_font_form" parent="menu_dm_document_font" action="action_dm_document_font_form" sequence="7" />
+    
     <!--
     =======================================================
         RELATES

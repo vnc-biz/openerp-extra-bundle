@@ -59,7 +59,6 @@
                  ],
     "update_xml" : [
                     "security/dm_security.xml",
-                    "security/ir.model.access.csv",
                     "dm_wizard.xml",
                     "dm_campaign_view.xml",
                     "dm_offer_view.xml",
@@ -72,6 +71,7 @@
                     "dm_workflow.xml",
                     "dm_document_view.xml",
                     "security/dm_security_post.xml",
+                    "security/ir.model.access.csv",
                     ],
     "active": False,
     "installable": True,

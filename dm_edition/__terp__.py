@@ -26,13 +26,14 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-            This module adds edition for Direct Marketing.
+            This module adds paper edition management for Direct Marketing.
+            It allows the grouping of documents based on selection criteria and the selection of printers and printers trays for printing of paper documents.
             """,
     "depends" : ["dm"],
     "init_xml" : [],
     "demo_xml" : [],
 
-    "update_xml" : [
+    "update_xml" :[
             "security/ir.model.access.csv",
             'dm_edition_view.xml',
             'dm_edition_wizard.xml'

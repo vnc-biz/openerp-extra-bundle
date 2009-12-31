@@ -511,4 +511,15 @@ class dm_offer(osv.osv): # {{{
     
 dm_offer()
 
+class dm_document_font(osv.osv):
+    _name = "dm.document.font"
+    _columns = {
+        'name': fields.char('Name', size=64, required=True),
+        'code': fields.char('Code', size=32, required=True),
+        'file': fields.binary('File', required=True),
+        'file_name': fields.char('File Name', size=64)
+    }
+    
+dm_document_font()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

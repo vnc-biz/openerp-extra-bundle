@@ -270,6 +270,12 @@ class survey_question(osv.osv):
                         raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
                 if maximum_ans <= minimum_ans:
                     raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
+            if question['type'] ==  'matrix_of_drop_down_menus':
+                for col in vals['column_heading_ids']:
+                    if not col[2]['menu_choice']:
+                        raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading"))
+                    elif col[2]['menu_choice'].strip() == '':
+                        raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading (white spaces not allowed)"))
         return super(survey_question, self).write(cr, uid, ids, vals, context=context)
 
     def create(self, cr, uid, vals, context):
@@ -293,6 +299,13 @@ class survey_question(osv.osv):
                 raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (len(vals['answer_choice_ids'])+1))
             if maximum_ans <= minimum_ans:
                 raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
+        if vals['type'] ==  'matrix_of_drop_down_menus':
+            for col in vals['column_heading_ids']:
+                if not col[2]['menu_choice']:
+                    raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading"))
+                elif col[2]['menu_choice'].strip() == '':
+                    raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading (white spaces not allowed)"))
+
         res = super(survey_question, self).create(cr, uid, vals, context)
         return res
 
@@ -559,7 +572,7 @@ class survey_question_wiz(osv.osv_memory):
                                 selection = []
                                 if col['menu_choice']:
                                     for item in col['menu_choice'].split('\n'):
-                                        if item: selection.append((item ,item))
+                                        if item and not item.strip() == '': selection.append((item ,item))
                                 etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(row['id']) + "_" + str(col['title'])})
                                 fields[str(que) + "_" + str(row['id'])  + "_" + str(col['title'])] = {'type':'selection', 'string': col['title'], 'selection':selection}
                     elif que_rec['type'] == 'multiple_textboxes':

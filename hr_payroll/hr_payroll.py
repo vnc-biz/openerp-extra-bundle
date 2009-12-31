@@ -513,7 +513,16 @@ class payment_category(osv.osv):
         'base':fields.char('Based on', size=64, required=True, readonly=False, help='This will use to computer the % fields values, in general its on basic, but You can use all heads code field in small letter as a variable name i.e. hra, ma, lta, etc...., also you can use, static varible basic'),
         'condition':fields.char('Condition', size=1024, required=True, readonly=False, help='Applied this head for calculation if condition is true'),
         'sequence': fields.integer('Sequence', required=True, help='Use to arrange calculation sequence'),
-        'register_id':fields.many2one('hr.contibution.register', 'Contribution Register', required=False),
+        'register_id':fields.property(
+            'hr.contibution.register',
+            type='many2one',
+            relation='hr.contibution.register',
+            string="Contribution Register",
+            method=True,
+            view_load=True,
+            help="Contribution register based on company",
+            required=True
+        ),
         'note': fields.text('Description'),	
 		'user_id':fields.char('User', size=64, required=False, readonly=False),
 		'state':fields.char('Label', size=64, required=False, readonly=False),
@@ -523,7 +532,16 @@ class payment_category(osv.osv):
             ('fix','Fixed Amount'),
             ('func','Function Calculation'),
         ],'Amount Type', select=True),
-        'account_id': fields.many2one('account.account', 'Account', required=False),
+        'account_id':fields.property(
+            'account.account',
+            type='many2one',
+            relation='account.account',
+            string="Account",
+            method=True,
+            view_load=True,
+            help="Expanse account where company expanse will be encoded",
+            required=True
+        ),
     }
     _defaults = {
         'condition': lambda *a: 'True',

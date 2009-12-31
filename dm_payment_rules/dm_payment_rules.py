@@ -26,7 +26,7 @@ class dm_payment_rule(osv.osv): # {{{
     _columns = {
                 
         'name': fields.char('Name', size=64, required=True),
-        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category','=','dealer')]"),
+        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category_id.name','=','Dealer')]"),
         'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
         'country_id': fields.many2one('res.country', 'Country'),
         'currency_id': fields.many2one('res.currency', 'Currency'),
@@ -41,7 +41,7 @@ class dm_campaign_payment_rule(osv.osv): # {{{
     _columns = {
       
         'name': fields.char('Name', size=64, required=True),
-        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category','=','dealer')]"),
+        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category_id.name','=','Dealer')]"),
         'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
         'country_id': fields.many2one('res.country', 'Country'),
         'currency_id': fields.many2one('res.currency', 'Currency'),
@@ -66,7 +66,7 @@ class dm_campaign_proposition_payment_rule(osv.osv): # {{{
     _columns = {
       
         'name': fields.char('Name', size=64, required=True),
-        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category','=','dealer')]"),
+        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category_id.name','=','Dealer')]"),
         'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
         'country_id': fields.many2one('res.country', 'Country'),
         'currency_id': fields.many2one('res.currency', 'Currency'),

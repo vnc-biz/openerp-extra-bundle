@@ -553,8 +553,8 @@
             <form string="Document Fonts">
                 <field name="name"/>
                 <field name="code"/>
-                <field name="file" colspan="4"/>
-                <field name="file_name" colspan="4"/>
+                 <field name="file" filename="file_name"/>
+                <field name="file_name" />
              </form>
         </field>
     </record>
@@ -567,7 +567,7 @@
             <tree string="Document Fonts">
                 <field name="name"/>
                 <field name="code"/>
-                <field name="file"/>
+                <field name="file" />
                 <field name="file_name"/>
             </tree>
         </field>

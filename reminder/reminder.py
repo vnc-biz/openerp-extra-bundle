@@ -121,5 +121,4 @@ class reminder_reminder_line(osv.osv):
         'name':fields.char('Condition', size=256, required=True, readonly=False),
         'sequence': fields.integer('Sequence'),
     }
-    
 reminder_reminder_line()

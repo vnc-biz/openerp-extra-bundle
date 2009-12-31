@@ -72,7 +72,6 @@
                 <field name="currency_id"/>
                 <field name="payment_method_id"/>
                  <field name="journal_id"/>
-                 <field name="campaign_id"/>
              </form>
         </field>
     </record>
@@ -90,7 +89,6 @@
                 <field name="currency_id"/>
                 <field name="payment_method_id"/>
                 <field name="journal_id"/>
-                <field name="campaign_id"/>
             </tree>
         </field>
     </record>
@@ -128,7 +126,6 @@
                 <field name="currency_id"/>
                 <field name="payment_method_id"/>
                  <field name="journal_id"/>
-                 <field name="proposition_id"/>
              </form>
         </field>
     </record>
@@ -146,7 +143,6 @@
                 <field name="currency_id"/>
                 <field name="payment_method_id"/>
                 <field name="journal_id"/>
-                <field name="proposition_id"/>
             </tree>
         </field>
     </record>

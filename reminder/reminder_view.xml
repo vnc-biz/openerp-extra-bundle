@@ -11,10 +11,8 @@
                 <tree string="Reminder">
                     <field name="name"/>
                     <field name="model_id"/>
-                    <field name="field_id"/>
                     <field name="domain"/>
                     <field name="start_date"/>
-                    <field name="end_date"/>
                     <field name="action_id"/>
                 </tree>
             </field>
@@ -28,9 +26,8 @@
                     <group col="6" colspan="4">
                         <field name="name" colspan="4"/>
                         <field name="model_id"/>
+                        <field name="domain" colspan="4"/>
                         <field name="start_date"/>
-                        <field name="running"/>
-                        <field name="domain"/>
                     </group>
                    
                     <notebook colspan="4">

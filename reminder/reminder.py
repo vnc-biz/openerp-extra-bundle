@@ -43,7 +43,8 @@ class reminder_reminder(osv.osv):
         'note': fields.text('Description'),
         'match':fields.selection([
             ('one','Any One'),
-            ('all','All')
+            ('all','All'),
+            ('true','Always True')
         ],'Match', select=True, readonly=False, required=True),
         'line_ids':fields.one2many('reminder.reminder.line', 'reminder_id', 'Conditions', required=False),
         'state':fields.selection([
@@ -55,7 +56,6 @@ class reminder_reminder(osv.osv):
             ('day','Daily'),
             ('month','Monthly'),
         ],'Execute Mode', select=True, readonly=False),
-        'process_id': fields.many2one('ir.cron', 'MTA Process', readonly=True, help="Process"),
     }
     _defaults = {
         'domain': lambda *a: "[]",
@@ -122,3 +122,17 @@ class reminder_reminder_line(osv.osv):
         'sequence': fields.integer('Sequence'),
     }
 reminder_reminder_line()
+
+class reminder_reminder_log(osv.osv):
+    '''
+    Reminder
+    '''
+    _name = 'reminder.reminder.log'
+    _description = 'Reminder Log'
+    
+    _columns = {
+        'reminder_id':fields.many2one('reminder.reminder', 'Model', required=False),
+        'name':fields.char('Condition', size=256, required=True, readonly=False),
+        'sequence': fields.integer('Sequence'),
+    }
+reminder_reminder_log()

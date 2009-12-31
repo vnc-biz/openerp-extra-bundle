@@ -21,7 +21,6 @@
 #
 ##############################################################################
 import time
-
 from osv import osv
 from osv import fields
 
@@ -99,19 +98,35 @@ class reminder_reminder(osv.osv):
                     final_result = final_result and result
                     if result:
                         any_true = result
-                
-                if rem.match == 'all' and final_result:
-                    action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
-                elif rem.match == 'one' and any_true:
-                    action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
 
+                result = None
+
+                if rem.match == 'all' and final_result:
+                    result = action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
+                elif rem.match == 'one' and any_true:
+                    result = action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
+                elif rem.match == 'true':
+                    result = action_pool.run(cr, uid, [rem.action_id.id], {'active_id':rs.id, 'active_ids':[rs.id]})
+                    
+                log = {
+                    'name':'Called server actions %s' % (rem.action_id.name),
+                    'date':time.strftime('%Y-%m-%d'),
+                    'reminder_id':rem.id
+                }
+                if result == None or type(result) == type({}):
+                    log['state'] = 'warning'
+                    log['note'] = 'Client Action can not be work with Reminder'
+                elif result == False:
+                    log['state'] = 'exception'
+                else:
+                    log['state'] = 'info'
         return True
     
 reminder_reminder()
 
 class reminder_reminder_line(osv.osv):
     '''
-    Reminder
+    Reminder Conditions
     '''
     _name = 'reminder.reminder.line'
     _description = 'Reminder Conditions'
@@ -125,14 +140,19 @@ reminder_reminder_line()
 
 class reminder_reminder_log(osv.osv):
     '''
-    Reminder
+    Reminder Log
     '''
-    _name = 'reminder.reminder.log'
+    _name = 'reminder.log'
     _description = 'Reminder Log'
-    
     _columns = {
-        'reminder_id':fields.many2one('reminder.reminder', 'Model', required=False),
-        'name':fields.char('Condition', size=256, required=True, readonly=False),
-        'sequence': fields.integer('Sequence'),
+        'reminder_id':fields.many2one('reminder.reminder', 'Reminder', readonly=True, select=True),
+        'name':fields.char('Log Entry', size=1024, readonly=True, select=True),
+        'date': fields.datetime('Date', readonly=True, select=True),
+        'note': fields.text('Description', readonly=True, select=True),
+        'state':fields.selection([
+            ('info','INFO'),
+            ('exception','ERROR'),
+            ('warning','WARNING'),
+        ],'Level', readonly=True, select=True),
     }
 reminder_reminder_log()

@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <menuitem id="menu_reminder" name="Reminder"/>
-        
+
         <record id="view_reminder_tree" model="ir.ui.view">
             <field name="name">reminder.reminder.form</field>
             <field name="model">reminder.reminder</field>
@@ -29,7 +29,6 @@
                         <field name="domain" colspan="4"/>
                         <field name="start_date"/>
                     </group>
-                   
                     <notebook colspan="4">
                         <page string="Conditions">
                             <field name="match"/>
@@ -59,7 +58,62 @@
             <field name="view_type">form</field>
             <field name="view_id" ref="view_reminder_tree"/>
         </record>
-		<menuitem id="menu_reminder_configuration" name="Configuration" parent="menu_reminder"/>
-		<menuitem id="menu_reminder_configuration" action="action_view_reminder_tree" parent="menu_reminder"/>
+		<menuitem id="menu_reminder_configurations" name="Configuration" parent="menu_reminder"/>
+		<menuitem id="menu_reminder_reminder" action="action_view_reminder_tree" parent="menu_reminder_configurations"/>
+		
+		<record id="action_view_reminder_running_tree" model="ir.actions.act_window">
+            <field name="name">Running Reminders</field>
+            <field name="res_model">reminder.reminder</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_reminder_tree"/>
+            <field name="domain">[('state','=','done')]</field>
+        </record>
+        <menuitem id="menu_reminder_running_reminder" action="action_view_reminder_running_tree" parent="menu_reminder_reminder"/>
+        
+        <record id="action_view_reminder_stop_tree" model="ir.actions.act_window">
+            <field name="name">Stop Reminders</field>
+            <field name="res_model">reminder.reminder</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_reminder_tree"/>
+            <field name="domain">[('state','=','draft')]</field>
+        </record>
+        <menuitem id="menu_reminder_stop_reminder" action="action_view_reminder_stop_tree" parent="menu_reminder_reminder"/>
+        
+        <record id="view_reminder_log_tree" model="ir.ui.view">
+            <field name="name">reminder.log.tree</field>
+            <field name="model">reminder.log</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Reminder Logs" colors="blue:state=='warning';red:state=='exception'">
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="name"/>
+                    <field name="reminder_id"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_reminder_log_form" model="ir.ui.view">
+            <field name="name">reminder.log.form</field>
+            <field name="model">reminder.log</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Reminder Logs">
+                    <field name="reminder_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="name" colspan="4"/>
+                    <separator string="More Information" colspan="4"/>
+                    <field name="note" colspan="4" nolabel="1"/>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_reminder_logs" model="ir.actions.act_window">
+            <field name="name">Reminder Logs</field>
+            <field name="res_model">reminder.log</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_reminder_log_tree"/>
+        </record>
+        <menuitem id="menu_action_view_reminder_logs" action="action_view_reminder_logs" parent="menu_reminder"/>
     </data>
 </openerp>

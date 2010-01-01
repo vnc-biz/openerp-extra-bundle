@@ -343,7 +343,8 @@ class crm_case(osv.osv):
         res = super(crm_case, self).create(cr, uid, values, context=context)
         cr.commit()
         case = self.browse(cr, uid, res, context=context)
-        case = case[0]
+        if isinstance(case, list):
+            case = case[0]
         if case.project_id:
             desc = ''' Hello, \n \t The new case is created for the Project: %s \n\n And its Details are: \n \n Case: %s \n Created on: %s \n Responsible: %s \n Deadline: %s \n Section: %s \n For Partner: %s \n Case Summary: \n ====== \n %s \n \n ======= \n \nThanks,\nProject Manager \n%s''' \
                        %(case.project_id.name,\

@@ -190,7 +190,10 @@ class survey_question(osv.osv):
         'validation_valid_err_msg' : fields.text('Error message'),
         'numeric_required_sum' : fields.integer('Sum of all choices'),
         'numeric_required_sum_err_msg' : fields.text('Error message'),
-        'rating_allow_one_column_require' : fields.boolean('Allow Only One Response per Column (Forced Ranking)')
+        'rating_allow_one_column_require' : fields.boolean('Allow Only One Response per Column (Forced Ranking)'),
+        'in_visible_rating_weight':fields.boolean('Is Rating Scale Invisible?'),
+        'in_visible_menu_choice':fields.boolean('Is Menu Choice Invisible?'),
+        'in_visible_single_text':fields.boolean('Is Single Text Invisible?')
     }
     _defaults = {
          'sequence' : lambda * a: 5,
@@ -204,6 +207,16 @@ class survey_question(osv.osv):
          'validation_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
          'numeric_required_sum_err_msg' : lambda * a :'The choices need to add up to [enter sum here].',
     }
+
+    def on_change_type(self, cr, uid, ids, type, context=None):
+        if type in ['rating_scale']:
+            return {'value': {'in_visible_rating_weight':False,'in_visible_menu_choice':True,'in_visible_single_text':True}}
+        elif type in ['matrix_of_drop_down_menus']:
+            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':False,'in_visible_single_text':True}}
+        elif type in ['single_textbox']:
+            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':False}}
+        else:
+            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':True}}
 
     def write(self, cr, uid, ids, vals, context=None):
         if vals.has_key('type'):
@@ -315,13 +328,28 @@ class survey_question_column_heading(osv.osv):
     _name = 'survey.question.column.heading'
     _description = 'Survey Question Column Heading'
     _rec_name = 'title'
+
+    def _get_in_visible_rating_weight(self,cr, uid, context={}):
+        if context.get('in_visible_rating_weight',False):
+            return context['in_visible_rating_weight']
+        return False
+    def _get_in_visible_menu_choice(self,cr, uid, context={}):
+        if context.get('in_visible_menu_choice',False):
+            return context['in_visible_menu_choice']
+        return False
+
     _columns = {
         'title' : fields.char('Column Heading', size=128, required=1),
         'menu_choice' : fields.text('Menu Choice'),
         'rating_weight' : fields.integer('Weight'),
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
+        'in_visible_rating_weight':fields.boolean('Is Rating Scale Invisible ??'),
+        'in_visible_menu_choice':fields.boolean('Is Menu Choice Invisible??')
     }
-
+    _defaults={
+       'in_visible_rating_weight':_get_in_visible_rating_weight,
+       'in_visible_menu_choice':_get_in_visible_menu_choice,
+    }
 survey_question_column_heading()
 
 class survey_answer(osv.osv):
@@ -369,6 +397,12 @@ class survey_response(osv.osv):
     _name = 'survey.response'
     _description = 'Survey Response'
     _rec_name = 'date_create'
+
+    def _get_in_visible_single_text(self,cr, uid, context={}):
+        if context.get('in_visible_single_text',False):
+            return context['in_visible_single_text']
+        return False
+
     _columns = {
         'date_create' : fields.datetime('Create Date', required=1),
         'state' : fields.selection([('draft', 'Draft'), ('done', 'Answered'), \
@@ -379,9 +413,11 @@ class survey_response(osv.osv):
         'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
         'comment' : fields.text('Notes'),
         'single_text' : fields.char('Text', size=255),
+        'in_visible_single_text':fields.boolean('Is Single Text Invisible??')
     }
     _defaults = {
-        'state' : lambda * a: "draft"
+        'state' : lambda * a: "draft",
+        'in_visible_single_text':_get_in_visible_single_text,
     }
 
     def response_draft(self, cr, uid, ids, arg):

@@ -441,6 +441,10 @@ class test(osv.osv):
         'remark': fields.text('Remark')
                 }
 
+    _defaults = {
+        'result':lambda *a: 'skipped',
+    }
+
 test()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -365,7 +365,8 @@ class crm_case(osv.osv):
         res = super(crm_case, self).write(cr, uid, ids, vals, context={})
         cr.commit()
         case_data = self.browse(cr, uid, ids[0], context)
-        case_data = case_data[0]
+        if isinstance(case_data, list):
+            case_data = case_data[0]
         desc = '''Hello ,\n\n  The case is updated for the project: %s\n\nModified Datas are:\n''' %(str(case_data.project_id.name),)
         for val in vals:
             if val.endswith('id') or val.endswith('ids'):

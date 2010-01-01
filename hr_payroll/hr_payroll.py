@@ -593,6 +593,7 @@ class hr_holidays_status(osv.osv):
     _inherit = "hr.holidays.status"
     
     _columns = {
+        'company_id':fields.many2one('res.company', 'Company', required=False),
         'type':fields.selection([
             ('paid','Paid Holiday'), 
             ('unpaid','Un-Paid Holiday'), 
@@ -604,7 +605,10 @@ class hr_holidays_status(osv.osv):
         'code':fields.char('Code', size=64, required=True, readonly=False),
     }
     _defaults = {
-        'type': lambda *args: 'unpaid'
+        'type': lambda *args: 'unpaid',
+        'company_id': lambda self, cr, uid, context: \
+                self.pool.get('res.users').browse(cr, uid, uid,
+                    context=context).company_id.id,
     }
 hr_holidays_status()
 

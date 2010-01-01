@@ -6,7 +6,7 @@
             <field name="interval_number">1</field>
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
-            <field eval="True" name="doall"/>
+            <field eval="False" name="doall"/>
             <field eval="'reminder.reminder'" name="model"/>
             <field eval="'_call'" name="function"/>
             <field eval="'()'" name="args"/>

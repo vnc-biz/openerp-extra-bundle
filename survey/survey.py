@@ -704,14 +704,12 @@ class survey_question_wiz(osv.osv_memory):
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
                         'response_type':'link', 'state':'done'})
                     resp_id_list.append(resp_id)
-                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     select_count = 0
                     numeric_sum = 0
                     selected_value = []
                     for key1, val1 in vals.items():
-                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         if val1 and key1.split('_')[1] == "selection" and key1.split('_')[0] == que_id:
                             if len(key1.split('_')) > 2:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
@@ -747,7 +745,6 @@ class survey_question_wiz(osv.osv_memory):
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
                                         error = True
                             if error:
-                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                                 for res in resp_id_list:
                                     sur_name_read['store_ans'].pop(res)
                                 raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
@@ -785,7 +782,6 @@ class survey_question_wiz(osv.osv_memory):
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
                                         error = True
                             if error:
-                                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                                 for res in resp_id_list:
                                     sur_name_read['store_ans'].pop(res)
                                 raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['validation_valid_err_msg'])))
@@ -814,14 +810,12 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     if que_rec['type'] == "rating_scale" and que_rec['rating_allow_one_column_require'] and len(selected_value) > len(list(set(selected_value))):
-                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "\n you cannot select same answer more than one times'"))
                     if not select_count:
                         resp_obj.write(cr, uid, resp_id, {'state':'skip'})
                     if  numeric_sum > que_rec['numeric_required_sum']:
-                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['numeric_required_sum_err_msg'])))
@@ -831,12 +825,10 @@ class survey_question_wiz(osv.osv_memory):
                             (que_rec['required_type'] == 'at most' and select_count > que_rec['req_ans']) or \
                             (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
                             (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
-                            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                             for res in resp_id_list:
                                 sur_name_read['store_ans'].pop(res)
                             raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
                     elif que_rec['is_require_answer'] and select_count <= 0:
-                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
@@ -844,12 +836,9 @@ class survey_question_wiz(osv.osv_memory):
         else:
             resp_id_list = []
             for update in click_update:
-                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                 que_rec = que_obj.read(cr, uid , [sur_name_read['store_ans'][update]['question_id']], [])[0]
                 res_ans_obj.unlink(cr, uid,res_ans_obj.search(cr, uid, [('response_id', '=', update)]))
                 resp_id_list.append(update)
-
-                sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                 sur_name_read['store_ans'].update({update:{'question_id':sur_name_read['store_ans'][update]['question_id']}})
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                 select_count = 0
@@ -858,7 +847,6 @@ class survey_question_wiz(osv.osv_memory):
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
-                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         if val and key.split('_')[1] == "selection":
                             if len(key.split('_')) > 2:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':key.split('_')[-1], 'answer' : val})
@@ -958,7 +946,6 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                 if que_rec['type'] == "rating_scale" and que_rec['rating_allow_one_column_require'] and len(selected_value) > len(list(set(selected_value))):
-                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     for res in resp_id_list:
                         sur_name_read['store_ans'].pop(res)
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "\n you cannot select same answer more than one times'"))
@@ -972,12 +959,10 @@ class survey_question_wiz(osv.osv_memory):
                         (que_rec['required_type'] == 'at most' and select_count > que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
-                        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
                 elif que_rec['is_require_answer'] and select_count <= 0 :
-                    sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])[0]
                     for res in resp_id_list:
                         sur_name_read['store_ans'].pop(res)
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))

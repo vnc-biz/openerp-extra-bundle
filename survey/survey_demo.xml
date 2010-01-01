@@ -19,13 +19,17 @@
             <field name="question">What is your company's name?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">single_textbox</field>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_company_size" model="survey.question">
             <field name="question">What is your company's size?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
+        
         <record id="survey_question_company_size_1" model="survey.answer">
             <field name="answer">1 - 10</field>
             <field name="question_id" ref="survey_question_company_size" />
@@ -59,6 +63,7 @@
             <field name="question">Where are you located?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_question_company_size_Europ" model="survey.answer">
             <field name="answer">Europ</field>
@@ -85,6 +90,7 @@
             <field name="question">When did you become an OpenERP official partner?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_question_company_size_2009" model="survey.answer">
             <field name="answer">in 2009</field>
@@ -111,6 +117,7 @@
             <field name="question">What kind of solutions do you sell to your customers? </field>
             <field name="page_id" ref="survey_page_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_specific_devlopments" model="survey.answer">
             <field name="answer">Integrations without specific developments</field>
@@ -135,6 +142,7 @@
             <field name="question">What do you think about the partnership contract?</field>
             <field name="page_id" ref="survey_page_Contracts" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_Ambiguous" model="survey.answer">
             <field name="answer">Ambiguous</field>
@@ -159,6 +167,7 @@
             <field name="type">multiple_choice_only_one_ans</field>
             <field name="comment_field_type">text</field>
             <field name="comment_label">Never... Why?</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_very_integration" model="survey.answer">
             <field name="answer">With each integration</field>
@@ -197,6 +206,7 @@
             <field name="question">Give your opinion about Launchpad reporting :</field>
             <field name="page_id" ref="survey_page_communication" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_find_openobject_website" model="survey.answer">
             <field name="answer">Is Launchpad easy to find in OpenObject website?</field>
@@ -213,24 +223,32 @@
         <record id="survey_column_not_at_all" model="survey.question.column.heading">
             <field name="title">Not at all</field>
             <field name="question_id" ref="survey_question_launchpad_reporting" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_No" model="survey.question.column.heading">
             <field name="title">No</field>
             <field name="question_id" ref="survey_question_launchpad_reporting" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_yes_but_could_better" model="survey.question.column.heading">
             <field name="title">Yes, but could be better</field>
             <field name="question_id" ref="survey_question_launchpad_reporting" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Absolutely" model="survey.question.column.heading">
             <field name="title">Absolutely</field>
             <field name="question_id" ref="survey_question_launchpad_reporting" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
-
-        <record id="survey_question_Leads" model="survey.question">
+ 		<record id="survey_question_Leads" model="survey.question">
             <field name="question">Leads</field>
             <field name="page_id" ref="survey_page_communication" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_find_openobject_website" model="survey.answer">
             <field name="answer">Is Launchpad easy to find in OpenObject website?</field>
@@ -243,28 +261,39 @@
         <record id="survey_column_need_new_leads" model="survey.question.column.heading">
             <field name="title">I didn't try, I don't need new leads</field>
             <field name="question_id" ref="survey_question_Leads" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Hard" model="survey.question.column.heading">
             <field name="title">Hard</field>
             <field name="question_id" ref="survey_question_Leads" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Difficult" model="survey.question.column.heading">
             <field name="title">Difficult</field>
             <field name="question_id" ref="survey_question_Leads" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Easy" model="survey.question.column.heading">
             <field name="title">Easy</field>
             <field name="question_id" ref="survey_question_Leads" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Very_Easy" model="survey.question.column.heading">
             <field name="title">Very Easy</field>
             <field name="question_id" ref="survey_question_Leads" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_partners_about" model="survey.question">
             <field name="question">How is Tiny's communication with partners about...</field>
             <field name="page_id" ref="survey_page_communication" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_Maintenance_contracts" model="survey.answer">
             <field name="answer">Maintenance contracts</field>
@@ -281,24 +310,34 @@
         <record id="survey_column_very_bad" model="survey.question.column.heading">
             <field name="title">Very Bad</field>
             <field name="question_id" ref="survey_question_partners_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Bad" model="survey.question.column.heading">
             <field name="title">Bad</field>
             <field name="question_id" ref="survey_question_partners_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Good" model="survey.question.column.heading">
             <field name="title">Good</field>
             <field name="question_id" ref="survey_question_partners_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Very_Good" model="survey.question.column.heading">
             <field name="title">Very Good</field>
             <field name="question_id" ref="survey_question_partners_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_partners_on_which_subjects" model="survey.question">
             <field name="question">In your opinion, how could Tiny better communicate with partners and on which subjects?</field>
             <field name="page_id" ref="survey_page_communication" />
             <field name="type">single_textbox</field>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
     	<!--  Partner Feedback Demo data -->
@@ -318,12 +357,15 @@
             <field name="question">What is your company's name?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
             <field name="type">single_textbox</field>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_odoo_company_sector" model="survey.question">
             <field name="question">What is your company's sector?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_question_Agriculture" model="survey.answer">
             <field name="answer">Agriculture</field>
@@ -401,9 +443,7 @@
             <field name="answer">Other sector</field>
             <field name="question_id" ref="survey_question_odoo_company_sector" />
         </record>
-
-
-        <!--record id="survey_page_odoo_who_are_you_2" model="survey.page">
+ <!--record id="survey_page_odoo_who_are_you_2" model="survey.page">
             <field name="title">Who are you?</field>
             <field name="survey_id" ref="survey_odoo_feedback" />
 
@@ -413,6 +453,7 @@
             <field name="question">Which activities do you plan to manage with Odoo ?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_question_Customer_Relationship_Management" model="survey.answer">
             <field name="answer">Customer Relationship Management</field>
@@ -451,6 +492,7 @@
             <field name="question">How did you discover Odoo ?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
             <field name="type">multiple_choice_multiple_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_question_OpenERP_website" model="survey.answer">
             <field name="answer">OpenERP website</field>
@@ -488,6 +530,7 @@
             <field name="question">Why did you subscribe to Odoo?</field>
             <field name="page_id" ref="survey_page_odoo_Subscription_and_configuration" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_switch_to_online_offer" model="survey.answer">
             <field name="answer">I was already using OpenERP and wanted to switch to an online offer</field>
@@ -514,6 +557,7 @@
             <field name="question">How much time did you spend to configure the application?</field>
             <field name="page_id" ref="survey_page_odoo_Subscription_and_configuration" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_switch_to_online_offer" model="survey.answer">
             <field name="answer">Creating users and access rights</field>
@@ -538,22 +582,32 @@
         <record id="survey_column_i_didnot_try" model="survey.question.column.heading">
             <field name="title">I didn't try</field>
             <field name="question_id" ref="survey_question_odoo_configure_the_application" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_couple_of_weeks" model="survey.question.column.heading">
             <field name="title">A couple of weeks</field>
             <field name="question_id" ref="survey_question_odoo_configure_the_application" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_couple_of_days" model="survey.question.column.heading">
             <field name="title">A couple of days</field>
             <field name="question_id" ref="survey_question_odoo_configure_the_application" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_couple_of_hours" model="survey.question.column.heading">
             <field name="title">A couple of hours</field>
             <field name="question_id" ref="survey_question_odoo_configure_the_application" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_couple_of_minutes" model="survey.question.column.heading">
             <field name="title">A couple of minutes</field>
             <field name="question_id" ref="survey_question_odoo_configure_the_application" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_odoo_continue_using_odoo" model="survey.question">
@@ -562,6 +616,7 @@
             <field name="type">multiple_choice_only_one_ans</field>
             <field name="comment_field_type">text</field>
             <field name="comment_label">No...Why?</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_yes" model="survey.answer">
             <field name="answer">Yes</field>
@@ -581,6 +636,7 @@
             <field name="question">Which interface would you prefer to use?</field>
             <field name="page_id" ref="survey_page_odoo_using_odoo" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_web_interface" model="survey.answer">
             <field name="answer">The web interface</field>
@@ -599,6 +655,7 @@
             <field name="question">Give your opinion :</field>
             <field name="page_id" ref="survey_page_odoo_using_odoo" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_appropriately_structured" model="survey.answer">
             <field name="answer">Is Odoo Website appropriately structured?</field>
@@ -615,26 +672,38 @@
         <record id="survey_answer_control_center_user_friendly" model="survey.answer">
             <field name="answer">Is the Control Center user-friendly?</field>
             <field name="question_id" ref="survey_question_odoo_give_your_opinion" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_no_opinion" model="survey.question.column.heading">
             <field name="title">No Opinion</field>
             <field name="question_id" ref="survey_question_odoo_give_your_opinion" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_not_at_all" model="survey.question.column.heading">
             <field name="title">Not at all</field>
             <field name="question_id" ref="survey_question_odoo_give_your_opinion" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_not_enough" model="survey.question.column.heading">
             <field name="title">Not enough</field>
             <field name="question_id" ref="survey_question_odoo_give_your_opinion" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_yes_but_be_better" model="survey.question.column.heading">
             <field name="title">Yes, but could be better</field>
             <field name="question_id" ref="survey_question_odoo_give_your_opinion" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Absolutely" model="survey.question.column.heading">
             <field name="title">Absolutely</field>
             <field name="question_id" ref="survey_question_odoo_give_your_opinion" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_page_odoo_using_odoo_2" model="survey.page">
@@ -647,6 +716,9 @@
             <field name="question">What do you think about ... </field>
             <field name="page_id" ref="survey_page_odoo_using_odoo_2" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_answer_database_new_version" model="survey.answer">
             <field name="answer">Migrating a database to a new version</field>
@@ -671,28 +743,40 @@
         <record id="survey_column_think_need_new_leads" model="survey.question.column.heading">
             <field name="title">I didn't try</field>
             <field name="question_id" ref="survey_question_odoo_you_think_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_think_Hard" model="survey.question.column.heading">
             <field name="title">Hard</field>
             <field name="question_id" ref="survey_question_odoo_you_think_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_think_Difficult" model="survey.question.column.heading">
             <field name="title">Difficult</field>
             <field name="question_id" ref="survey_question_odoo_you_think_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_think_Easy" model="survey.question.column.heading">
             <field name="title">Easy</field>
             <field name="question_id" ref="survey_question_odoo_you_think_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_Very_think_Easy" model="survey.question.column.heading">
             <field name="title">Very Easy</field>
             <field name="question_id" ref="survey_question_odoo_you_think_about" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_odoo_modules_are_missing_in_odoo" model="survey.question">
             <field name="question">In your opinion, which modules are missing in Odoo? Give examples :</field>
             <field name="page_id" ref="survey_page_odoo_using_odoo_2" />
             <field name="type">single_textbox</field>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
 
@@ -706,6 +790,7 @@
             <field name="question">How often would you prefer to receive your prepaid bill?</field>
             <field name="page_id" ref="survey_page_odoo_the_offer" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_Monthly" model="survey.answer">
             <field name="answer">Monthly</field>
@@ -726,6 +811,7 @@
             <field name="type">multiple_choice_only_one_ans</field>
             <field name="comment_field_type">text</field>
             <field name="comment_label">Comment</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_No" model="survey.answer">
             <field name="answer">No</field>
@@ -740,6 +826,7 @@
             <field name="question">How satisfied are you with Odoo's support services :</field>
             <field name="page_id" ref="survey_page_odoo_the_offer" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_our_answer_is" model="survey.answer">
             <field name="answer">The time between your question and our answer is</field>
@@ -752,22 +839,32 @@
         <record id="survey_column_offer_No_Opinion" model="survey.question.column.heading">
             <field name="title">No Opinion</field>
             <field name="question_id" ref="survey_question_odoo_support_services" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_offer_very_bad" model="survey.question.column.heading">
             <field name="title">Very Bad</field>
             <field name="question_id" ref="survey_question_odoo_support_services" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_offer_Bad" model="survey.question.column.heading">
             <field name="title">Bad</field>
             <field name="question_id" ref="survey_question_odoo_support_services" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_offer_Good" model="survey.question.column.heading">
             <field name="title">Good</field>
             <field name="question_id" ref="survey_question_odoo_support_services" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_offer_Very_Good" model="survey.question.column.heading">
             <field name="title">Very Good</field>
             <field name="question_id" ref="survey_question_odoo_support_services" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_page_odoo_the_offer_2" model="survey.page">
@@ -780,6 +877,7 @@
             <field name="question">Give your opinion about Odoo's</field>
             <field name="page_id" ref="survey_page_odoo_the_offer_2" />
             <field name="type">matrix_of_choices_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_pricing_criteria" model="survey.answer">
             <field name="answer">Pricing criteria</field>
@@ -796,22 +894,32 @@
         <record id="survey_column_pricing_No_Opinion" model="survey.question.column.heading">
             <field name="title">No Opinion</field>
             <field name="question_id" ref="survey_question_offer_opinion_about_odoo" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_pricing_very_bad" model="survey.question.column.heading">
             <field name="title">Very Bad</field>
             <field name="question_id" ref="survey_question_offer_opinion_about_odoo" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_pricing_Bad" model="survey.question.column.heading">
             <field name="title">Bad</field>
             <field name="question_id" ref="survey_question_offer_opinion_about_odoo" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_pricing_Good" model="survey.question.column.heading">
             <field name="title">Good</field>
             <field name="question_id" ref="survey_question_offer_opinion_about_odoo" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
         <record id="survey_column_pricing_Very_Good" model="survey.question.column.heading">
             <field name="title">Very Good</field>
             <field name="question_id" ref="survey_question_offer_opinion_about_odoo" />
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
         </record>
 
         <record id="survey_question_offer_comments_them_here" model="survey.question">
@@ -819,14 +927,12 @@
             <field name="page_id" ref="survey_page_odoo_the_offer_2" />
             <field name="type">comment</field>
         </record>
-    </data>
-
-
-    <data>
+     </data>
+   	 <data>
 		<record id="survey_0" model="survey">
 			<field eval="&quot;&quot;&quot;OpenERP Feedback&quot;&quot;&quot;" name="title"/>
 			<field name="user_id" ref="base.user_root"/>
-	        <field name="max_response_limit">20</field>
+	        	<field name="max_response_limit">20</field>
 		</record>
 	</data>
 	<data>
@@ -903,6 +1009,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -921,6 +1028,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -939,8 +1047,10 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
+
 	<data>
 		<record id="survey_question_3" model="survey.question">
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
@@ -957,6 +1067,8 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
@@ -975,6 +1087,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -993,6 +1106,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -1011,6 +1125,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -1029,6 +1144,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -1047,6 +1163,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -1065,6 +1182,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -1083,6 +1201,8 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
@@ -1101,6 +1221,8 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
@@ -1119,6 +1241,7 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
 	</data>
 	<data>
@@ -1137,102 +1260,135 @@
 			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
+            <field name="in_visible_single_text">1</field>
 		</record>
-	</data>
+	</data>	
 	<data>
 		<record id="survey_question_column_heading_0" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_0"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_1" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_0"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_2" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_0"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_3" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_0"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_4" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_1"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_5" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_1"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_6" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_1"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_7" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_1"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_8" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Disagree	&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_9"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_9" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_9"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_10" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_9"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_11" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_9"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_12" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_13"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_13" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Disagree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_13"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_14" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_13"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
 		<record id="survey_question_column_heading_15" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Agree&quot;&quot;&quot;" name="title"/>
 			<field name="question_id" ref="survey_question_13"/>
+            <field name="in_visible_rating_weight">1</field>
+            <field name="in_visible_menu_choice">1</field>
 		</record>
 	</data>
 	<data>
@@ -1578,4 +1734,5 @@
 			<field eval="5" name="sequence"/>
 		</record>
 	</data>
+	
 </openerp>

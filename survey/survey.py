@@ -571,7 +571,7 @@ class survey_question_wiz(osv.osv_memory):
                     if que_rec['type'] == 'multiple_choice_only_one_ans':
                         selection = []
                         for ans in ans_ids:
-                            selection.append((ans['id'], ans['answer']))
+                            selection.append((str(ans['id']), ans['answer']))
                         xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                         etree.SubElement(xml_group, 'field', {'name': str(que) + "_selection"})
                         fields[str(que) + "_selection"] = {'type':'selection', 'selection' :selection, 'string':"Answer"}

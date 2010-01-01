@@ -595,7 +595,6 @@
 				<form string="Survey Response">
 					<field name="response_id"/>
 					<field name="date_create" select="1"/>
-					<field name="date_modify" select="2"/>
 					<field name="response_type" select="1"/>
 					<notebook colspan="4">
 						<page string="Response">
@@ -632,7 +631,6 @@
 					<field name="response_id"/>
 					<field name="response_type" select="1"/>
 					<field name="date_create" select="1"/>
-					<field name="date_modify" select="2"/>
 					<field name="state"/>
 				</tree>
 			</field>

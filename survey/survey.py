@@ -371,7 +371,6 @@ class survey_response(osv.osv):
     _rec_name = 'date_create'
     _columns = {
         'date_create' : fields.datetime('Create Date', required=1),
-        'date_modify' : fields.datetime('Modify Date'),
         'state' : fields.selection([('draft', 'Draft'), ('done', 'Answered'), \
                             ('skip', 'Skiped')], 'Status', readonly=True),
         'response_id' : fields.many2one('res.users', 'User'),
@@ -477,9 +476,6 @@ class survey_name_wiz(osv.osv_memory):
 survey_name_wiz()
 
 class survey_question_wiz(osv.osv_memory):
-    transfer = True
-    store_ans = {}
-
     _name = 'survey.question.wiz'
     _columns = {
         'name': fields.integer('Number'),

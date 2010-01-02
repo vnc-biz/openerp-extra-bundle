@@ -107,7 +107,8 @@
                                 </group>
 	                       </page>
 	                       <page string="Sales">
-		                        <field name="sale_ids" />
+		                       <separator colspan="4" string="Sale orders"/>
+		                        <field name="sale_ids" nolabel="1"/>
 	                       </page>
 	                       <page string="Technicle Tests">
 	                       		<field name="tech_user_id" />

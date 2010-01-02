@@ -11,5 +11,25 @@
             <field eval="'_call'" name="function"/>
             <field eval="'()'" name="args"/>
         </record>
+        
+        <record model="ir.actions.server" id="action_email">
+            <field name="model_id" ref="model_res_reminder"/>
+            <field name="name">Employee Reminders - Day</field>
+        </record>
+        
+        <record model="reminder.reminder" id="reminder_day">
+            <field name="name">Employee Reminders - Day</field>
+            <field model="ir.model" name="model_id" ref="model_res_reminder"/>
+            <field name="domain">[('state','=','day')]</field>
+            <field name="start_date" eval="time.strftime('%Y-%m-%d')"/>
+            <field name="match">one</field>
+            <field name="action_id" ref="action_email"/>
+        </record>
+        
+        <record model="reminder.reminder.line" id="reminder_day_line1">
+            <field name="reminder_id" ref="reminder_day"/>
+            <field name="sequence">5</field>
+            <field name="name">object.state == 'day' and object.repeat == True and object.start_date >= time.strftime('%Y-%m-%d')</field>
+        </record>
     </data>
 </openerp>

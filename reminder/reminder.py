@@ -23,6 +23,7 @@
 import time
 from osv import osv
 from osv import fields
+from datetime import datetime
 
 class reminder_reminder(osv.osv):
     '''
@@ -89,7 +90,8 @@ class reminder_reminder(osv.osv):
                 data = {
                     'object':rs,
                     'context':context,
-                    'time':time
+                    'time':time,
+                    'datetime':datetime
                 }
                 final_result = True
                 any_true = False
@@ -137,6 +139,36 @@ class reminder_reminder_line(osv.osv):
         'sequence': fields.integer('Sequence'),
     }
 reminder_reminder_line()
+
+class user_reminder(osv.osv):
+    '''
+    User Reminders
+    '''
+    _name = 'res.reminder'
+    _description = 'User Reminders'
+    _columns = {
+        'user_id':fields.many2one('res.users', 'User', required=False, readonly=True),
+        'name':fields.char('Name', size=1024, required=True, readonly=False),
+        'note': fields.text('Description'),
+        'datetime': fields.date('Date of Event'),
+        'start_date': fields.date('Start Date'),
+        'active':fields.boolean('Active', required=False),
+        'repeat':fields.boolean('Repeat Every Year', required=False),
+        'state':fields.selection([
+            ('day','Daily'),
+            ('month','Monthly'),
+            ('year','Yearly'),
+        ],'State', select=True, readonly=False),
+        'email':fields.char('Email Address', size=1024, required=True, readonly=False),
+    }
+    _defaults = {
+        'datetime': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        'start_date': lambda *a: time.strftime('%Y-%m-%d'),
+        'active': lambda *a: True,
+        'state': lambda *a: 'year',
+        'user_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context=context).id,
+    }
+user_reminder()
 
 class reminder_reminder_log(osv.osv):
     '''

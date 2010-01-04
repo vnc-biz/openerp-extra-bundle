@@ -219,8 +219,8 @@ class survey_question(osv.osv):
             return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':True}}
 
     def write(self, cr, uid, ids, vals, context=None):
-#        if vals.has_key('type'):
-#            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
+        if vals.has_key('type'):
+            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
         for question in questions:
             col_len = len(question['column_heading_ids'])

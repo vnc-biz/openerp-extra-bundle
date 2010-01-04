@@ -773,7 +773,6 @@ class survey_question_wiz(osv.osv_memory):
                                     for res in resp_id_list:
                                         sur_name_read['store_ans'].pop(res)
                                     raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-                                print "V:::::::::::",val1
                                 resp_obj.write(cr, uid, resp_id, {'comment':val1})
                                 sur_name_read['store_ans'][resp_id].update({key1:val1})
                         elif val1 and key1.split('_')[1] == "comment" and key1.split('_')[0] == que_id:
@@ -867,7 +866,7 @@ class survey_question_wiz(osv.osv_memory):
                             for res in resp_id_list:
                                 sur_name_read['store_ans'].pop(res)
                             raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
-                    elif que_rec['is_require_answer'] and select_count <= 0:
+                    if que_rec['is_require_answer'] and select_count <= 0:
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
@@ -1021,7 +1020,7 @@ class survey_question_wiz(osv.osv_memory):
                         (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
                             raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
-                elif que_rec['is_require_answer'] and select_count <= 0 :
+                if que_rec['is_require_answer'] and select_count <= 0 :
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
         return True
 

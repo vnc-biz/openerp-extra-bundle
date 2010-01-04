@@ -96,15 +96,15 @@
 													</group>
 													<group col="6" colspan="4" attrs="{'invisible':[('comment_field_type','=',False)]}">
 														<field name="comment_valid_type" colspan="2"/>
-														<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number')]}">
+														<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must_be_specific_length'), ('comment_valid_type','!=','must_be_whole_number')]}">
 															<field name="comment_minimum_no" string="Between"/>
 															<field name="comment_maximum_no" string="and"/>
 														</group>
-														<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number')]}">
+														<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_decimal_number')]}">
 															<field name="comment_minimum_float" string="Between"/>
 															<field name="comment_maximum_float" string="and"/>
 														</group>
-														<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must be a date')]}">
+														<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_date')]}">
 															<field name="comment_minimum_date" string="Between"/>
 															<field name="comment_maximum_date" string="and"/>
 														</group>
@@ -117,20 +117,20 @@
 												<page string="Validation" attrs="{'invisible':[('type','!=','single_textbox'), ('type','!=','multiple_textboxes')]}">
 													<group col="6" colspan="4">
 														<field name="validation_type" colspan="2"/>
-														<group colspan="2" attrs="{'invisible':[('validation_type','!=','must be specific length'), ('validation_type','!=','must be a whole number')]}">
+														<group colspan="2" attrs="{'invisible':[('validation_type','!=','must_be_specific_length'), ('validation_type','!=','must_be_whole_number')]}">
 															<field name="validation_minimum_no" string="Between"/>
 															<field name="validation_maximum_no" string="and"/>
 														</group>
-														<group colspan="4" attrs="{'invisible':[('validation_type','!=','must be a decimal number')]}">
+														<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_decimal_number')]}">
 															<field name="validation_minimum_float" string="Between"/>
 															<field name="validation_maximum_float" string="and"/>
 														</group>
-														<group colspan="4" attrs="{'invisible':[('validation_type','!=','must be a date')]}">
+														<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_date')]}">
 															<field name="validation_minimum_date" string="Between"/>
 															<field name="validation_maximum_date" string="and"/>
 														</group>
 													</group>
-													<group colspan="4" attrs="{'invisible':[('validation_type','=','do not validate')]}">
+													<group colspan="4" attrs="{'invisible':[('validation_type','=','do_not_validate')]}">
 														<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 														<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
 													</group>
@@ -301,15 +301,15 @@
 								</group>
 								<group col="6" colspan="4" attrs="{'invisible':[('comment_field_type','=',False)]}">
 									<field name="comment_valid_type" colspan="2"/>
-									<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number')]}">
+									<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must_be_specific_length'), ('comment_valid_type','!=','must_be_whole_number')]}">
 										<field name="comment_minimum_no" string="Between"/>
 										<field name="comment_maximum_no" string="and"/>
 									</group>
-									<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number')]}">
+									<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_decimal_number')]}">
 										<field name="comment_minimum_float" string="Between"/>
 										<field name="comment_maximum_float" string="and"/>
 									</group>
-									<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must be a date')]}">
+									<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_date')]}">
 										<field name="comment_minimum_date" string="Between"/>
 										<field name="comment_maximum_date" string="and"/>
 									</group>
@@ -322,20 +322,20 @@
 							<page string="Validation" attrs="{'invisible':[('type','!=','single_textbox'), ('type','!=','multiple_textboxes')]}">
 								<group col="6" colspan="4">
 									<field name="validation_type" colspan="2"/>
-									<group colspan="2" attrs="{'invisible':[('validation_type','!=','must be specific length'), ('validation_type','!=','must be a whole number')]}">
+									<group colspan="2" attrs="{'invisible':[('validation_type','!=','must_be_specific_length'), ('validation_type','!=','must_be_whole_number')]}">
 										<field name="validation_minimum_no" string="Between"/>
 										<field name="validation_maximum_no" string="and"/>
 									</group>
-									<group colspan="4" attrs="{'invisible':[('validation_type','!=','must be a decimal number')]}">
+									<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_decimal_number')]}">
 										<field name="validation_minimum_float" string="Between"/>
 										<field name="validation_maximum_float" string="and"/>
 									</group>
-									<group colspan="4" attrs="{'invisible':[('validation_type','!=','must be a date')]}">
+									<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_date')]}">
 										<field name="validation_minimum_date" string="Between"/>
 										<field name="validation_maximum_date" string="and"/>
 									</group>
 								</group>
-								<group colspan="4" attrs="{'invisible':[('validation_type','=','do not validate')]}">
+								<group colspan="4" attrs="{'invisible':[('validation_type','=','do_not_validate')]}">
 									<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 									<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
 								</group>
@@ -464,15 +464,15 @@
 							</group>
 							<group col="6" colspan="4" attrs="{'invisible':[('comment_field_type','=',False)]}">
 								<field name="comment_valid_type" colspan="2"/>
-								<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must be specific length'), ('comment_valid_type','!=','must be a whole number')]}">
+								<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must_be_specific_length'), ('comment_valid_type','!=','must_be_whole_number')]}">
 									<field name="comment_minimum_no" string="Between"/>
 									<field name="comment_maximum_no" string="and"/>
 								</group>
-								<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must be a decimal number')]}">
+								<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_decimal_number')]}">
 									<field name="comment_minimum_float" string="Between"/>
 									<field name="comment_maximum_float" string="and"/>
 								</group>
-								<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must be a date')]}">
+								<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_date')]}">
 									<field name="comment_minimum_date" string="Between"/>
 									<field name="comment_maximum_date" string="and"/>
 								</group>
@@ -485,20 +485,20 @@
 						<page string="Validation" attrs="{'invisible':[('type','!=','single_textbox'), ('type','!=','multiple_textboxes')]}">
 							<group col="6" colspan="4">
 								<field name="validation_type" colspan="2"/>
-								<group colspan="2" attrs="{'invisible':[('validation_type','!=','must be specific length'), ('validation_type','!=','must be a whole number')]}">
+								<group colspan="2" attrs="{'invisible':[('validation_type','!=','must_be_specific_length'), ('validation_type','!=','must_be_whole_number')]}">
 									<field name="validation_minimum_no" string="Between"/>
 									<field name="validation_maximum_no" string="and"/>
 								</group>
-								<group colspan="4" attrs="{'invisible':[('validation_type','!=','must be a decimal number')]}">
+								<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_decimal_number')]}">
 									<field name="validation_minimum_float" string="Between"/>
 									<field name="validation_maximum_float" string="and"/>
 								</group>
-								<group colspan="4" attrs="{'invisible':[('validation_type','!=','must be a date')]}">
+								<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_date')]}">
 									<field name="validation_minimum_date" string="Between"/>
 									<field name="validation_maximum_date" string="and"/>
 								</group>
 							</group>
-							<group colspan="4" attrs="{'invisible':[('validation_type','=','do not validate')]}">
+							<group colspan="4" attrs="{'invisible':[('validation_type','=','do_not_validate')]}">
 								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 								<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
 							</group>

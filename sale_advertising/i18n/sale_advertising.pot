@@ -1,0 +1,233 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* sale_advertising
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.6\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-11-25 14:25:04+0000\n"
+"PO-Revision-Date: 2009-11-25 14:25:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_advertising
+#: model:product.template,name:sale_advertising.advert_product_3_product_template
+msgid "Press Review Advertising Central Pages"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.order,published_customer:0
+msgid "Published Customer"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.model,name:sale_advertising.model_sale_advertising_proof
+msgid "Sale Advertising Proof"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.model,name:sale_advertising.model_sale_advertising_issue
+msgid "Sale Advertising Issue"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr ""
+
+#. module: sale_advertising
+#: view:sale.advertising.proof:0
+msgid "Advertising proof"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:product.template:0
+msgid "Error: The default UOM and the purchase UOM must be in the same category."
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.issue,state:0
+msgid "State"
+msgstr ""
+
+#. module: sale_advertising
+#: model:product.category,name:sale_advertising.product_category_advertisingmedium0
+msgid "Advertising Medium"
+msgstr ""
+
+#. module: sale_advertising
+#: view:sale.advertising.issue:0
+msgid "Advertising issue"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr ""
+
+#. module: sale_advertising
+#: model:product.template,name:sale_advertising.advert_product_2_product_template
+msgid "Press Review Advertising A4/2"
+msgstr ""
+
+#. module: sale_advertising
+#: view:sale.order:0
+#: view:sale.order.line:0
+#: field:sale.order.line,layout_remark:0
+msgid "Layout Remark"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.proof,target_id:0
+msgid "Target"
+msgstr ""
+
+#. module: sale_advertising
+#: model:product.category,name:sale_advertising.product_category_website0
+msgid "Website"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.issue,medium:0
+msgid "Medium"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.actions.act_window,name:sale_advertising.action_sale_advertising_proof
+#: model:ir.ui.menu,name:sale_advertising.menu_sale_advertising_proof
+msgid "Advertising Proof"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.actions.act_window,name:sale_advertising.advertising_sale_order_action
+#: model:ir.ui.menu,name:sale_advertising.menu_sale_advertising_sale_order
+msgid "All Advertising Sale Orders"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.order,advertising_agency:0
+msgid "Advertising Agency"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.actions.act_window,name:sale_advertising.action_sale_advertising_issue
+#: model:ir.ui.menu,name:sale_advertising.menu_sale_advertising_issue
+#: field:sale.order.line,adv_issue:0
+msgid "Advertising Issue"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.proof,address_id:0
+msgid "Delivery Address"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.proof,number:0
+msgid "Number of Copies"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.issue,name:0
+#: field:sale.advertising.proof,name:0
+msgid "Name"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:product.template:0
+msgid "Error: UOS must be in a different category than the UOM"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.order.line,to_date:0
+msgid "End of Validity"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.ui.menu,name:sale_advertising.menu_sale_advertising
+#: view:sale.order:0
+#: view:sale.order.line:0
+msgid "Advertising"
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.module.module,description:sale_advertising.module_meta_information
+msgid "This module allow you to use the Sale Management to encode your advertising sales ... TODO\n"
+""
+msgstr ""
+""
+
+#. module: sale_advertising
+#: model:product.category,name:sale_advertising.product_category_magazine0
+msgid "Press Review"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.order.line,from_date:0
+msgid "Start of Validity"
+msgstr ""
+
+#. module: sale_advertising
+#: field:product.product,equivalency_in_A4:0
+msgid "A4 Equivalency"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.order.line,page_reference:0
+msgid "Reference of the Page"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:product.category:0
+msgid "Error ! You can not create recursive categories."
+msgstr ""
+
+#. module: sale_advertising
+#: model:ir.module.module,shortdesc:sale_advertising.module_meta_information
+msgid "Sales: Avertising Sales"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.issue,default_note:0
+msgid "Default Note"
+msgstr ""
+
+#. module: sale_advertising
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr ""
+
+#. module: sale_advertising
+#: model:product.template,name:sale_advertising.advert_product_1_product_template
+msgid "Half Banner 234x60"
+msgstr ""
+
+#. module: sale_advertising
+#: selection:sale.advertising.issue,state:0
+msgid "Close"
+msgstr ""
+
+#. module: sale_advertising
+#: selection:sale.advertising.issue,state:0
+msgid "Open"
+msgstr ""
+
+#. module: sale_advertising
+#: field:sale.advertising.issue,issue_date:0
+msgid "Issue Date"
+msgstr ""
+
+#. module: sale_advertising
+#: model:product.template,name:sale_advertising.advert_product_0_product_template
+msgid "Full Banner 468x60"
+msgstr ""
+

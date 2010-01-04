@@ -160,12 +160,12 @@ class survey_question(osv.osv):
                                     ], 'Question Type',  required=1,),
         'comment_label' : fields.char('Field Label', size = 255),
         'comment_field_type' : fields.selection([('',''),('char', 'Single Line Of Text'), ('text', 'Paragraph of Text')], 'Comment Field Type'),
-        'comment_valid_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),
-                                                 ('must be specific length', 'Must Be Specific Length'),
-                                                 ('must be a whole number', 'Must Be A Whole Number'),
-                                                 ('must be a decimal number', 'Must Be A Decimal Number'),
-                                                 ('must be a date', 'Must Be A Date'),
-                                                 ('must be an email address', 'Must Be An Email Address'),
+        'comment_valid_type' : fields.selection([('do_not_validate', '''Don't Validate Comment Text.'''),
+                                                 ('must_be_specific_length', 'Must Be Specific Length'),
+                                                 ('must_be_whole_number', 'Must Be A Whole Number'),
+                                                 ('must_be_decimal_number', 'Must Be A Decimal Number'),
+                                                 ('must_be_date', 'Must Be A Date'),
+                                                 ('must_be_email_address', 'Must Be An Email Address'),
                                                  ], 'Text Validation'),
         'comment_minimum_no' : fields.integer('Minimum number'),
         'comment_maximum_no' : fields.integer('Maximum number'),
@@ -174,12 +174,12 @@ class survey_question(osv.osv):
         'comment_minimum_date' : fields.date('Minimum date'),
         'comment_maximum_date' : fields.date('Maximum date'),
         'comment_valid_err_msg' : fields.text('Error message'),
-        'validation_type' : fields.selection([('do not validate', '''Don't Validate Comment Text.'''),\
-                                                 ('must be specific length', 'Must Be Specific Length'),\
-                                                 ('must be a whole number', 'Must Be A Whole Number'),\
-                                                 ('must be a decimal number', 'Must Be A Decimal Number'),\
-                                                 ('must be a date', 'Must Be A Date'),\
-                                                 ('must be an email address', 'Must Be An Email Address')\
+        'validation_type' : fields.selection([('do_not_validate', '''Don't Validate Comment Text.'''),\
+                                                 ('must_be_specific_length', 'Must Be Specific Length'),\
+                                                 ('must_be_whole_number', 'Must Be A Whole Number'),\
+                                                 ('must_be_decimal_number', 'Must Be A Decimal Number'),\
+                                                 ('must_be_date', 'Must Be A Date'),\
+                                                 ('must_be_email_address', 'Must Be An Email Address')\
                                                  ], 'Text Validation'),
         'validation_minimum_no' : fields.integer('Minimum number'),
         'validation_maximum_no' : fields.integer('Maximum number'),
@@ -201,9 +201,9 @@ class survey_question(osv.osv):
          'req_error_msg' : lambda * a: 'This question requires an answer.',
          'required_type' : lambda * a: '',
          'comment_label' : lambda * a: 'Other',
-         'comment_valid_type' : lambda * a: 'do not validate',
+         'comment_valid_type' : lambda * a: 'do_not_validate',
          'comment_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
-         'validation_type' : lambda * a: 'do not validate',
+         'validation_type' : lambda * a: 'do_not_validate',
          'validation_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
          'numeric_required_sum_err_msg' : lambda * a :'The choices need to add up to [enter sum here].',
     }
@@ -219,8 +219,8 @@ class survey_question(osv.osv):
             return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':True}}
 
     def write(self, cr, uid, ids, vals, context=None):
-        if vals.has_key('type'):
-            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
+#        if vals.has_key('type'):
+#            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
         for question in questions:
             col_len = len(question['column_heading_ids'])
@@ -702,13 +702,14 @@ class survey_question_wiz(osv.osv_memory):
                     que_rec = que_obj.read(cr, uid, [que_id], [])[0]
                     resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
-                        'response_type':'link', 'state':'done'})
+                        'response_type':'link', 'state':'done', 'in_visible_single_text':que_rec['in_visible_single_text']})
                     resp_id_list.append(resp_id)
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
                     select_count = 0
                     numeric_sum = 0
                     selected_value = []
+                    matrix_list = []
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "selection" and key1.split('_')[0] == que_id:
                             if len(key1.split('_')) > 2:
@@ -720,27 +721,27 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                         elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
                             error = False
-                            if que_rec['comment_valid_type'] == 'must be specific length':
+                            if que_rec['comment_valid_type'] == 'must_be_specific_length':
                                 if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_maximum_no'] or len(val1) > que_rec['comment_maximum_no']:
                                     error = True
-                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
+                            elif que_rec['comment_valid_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
                                 error = False
                                 try:
-                                    if que_rec['comment_valid_type'] == 'must be a whole number':
+                                    if que_rec['comment_valid_type'] == 'must_be_whole_number':
                                         value = int(val1)
                                         if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
                                             error = True
-                                    elif que_rec['comment_valid_type'] == 'must be a decimal number':
+                                    elif que_rec['comment_valid_type'] == 'must_be_decimal_number':
                                         value = float(val1)
                                         if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
                                             error = True
-                                    elif que_rec['comment_valid_type'] == 'must be a date':
+                                    elif que_rec['comment_valid_type'] == 'must_be_date':
                                         value = datetime.datetime.strptime(val1, "%Y-%m-%d")
                                         if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
                                             error = True
                                 except:
                                     error = True
-                            elif que_rec['comment_valid_type'] == 'must be an email address':
+                            elif que_rec['comment_valid_type'] == 'must_be_email_address':
                                 import re
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
                                         error = True
@@ -757,27 +758,27 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                         elif val1 and key1.split('_')[0] == que_id and (key1.split('_')[1] == "single"  or (len(key1.split('_')) > 2 and key1.split('_')[2] == 'multi')):
                             error = False
-                            if que_rec['validation_type'] == 'must be specific length':
+                            if que_rec['validation_type'] == 'must_be_specific_length':
                                 if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_minimum_no'] or len(val1) > que_rec['validation_maximum_no']:
                                     error = True
-                            elif que_rec['validation_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
+                            elif que_rec['validation_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
                                 error = False
                                 try:
-                                    if que_rec['validation_type'] == 'must be a whole number':
+                                    if que_rec['validation_type'] == 'must_be_whole_number':
                                         value = int(val1)
                                         if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
                                             error = True
-                                    elif que_rec['validation_type'] == 'must be a decimal number':
+                                    elif que_rec['validation_type'] == 'must_be_decimal_number':
                                         value = float(val1)
                                         if value <  que_rec['validation_minimum_float'] or value > que_rec['validation_maximum_float']:
                                             error = True
-                                    elif que_rec['validation_type'] == 'must be a date':
+                                    elif que_rec['validation_type'] == 'must_be_date':
                                         value = datetime.datetime.strptime(val1, "%Y-%m-%d")
                                         if value <  datetime.datetime.strptime(que_rec['validation_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['validation_maximum_date'], "%Y-%m-%d"):
                                             error = True
                                 except:
                                     error = True
-                            elif que_rec['validation_type'] == 'must be an email address':
+                            elif que_rec['validation_type'] == 'must_be_email_address':
                                 import re
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
                                         error = True
@@ -803,6 +804,7 @@ class survey_question_wiz(osv.osv_memory):
                             else:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2]})
                                 sur_name_read['store_ans'][resp_id].update({key1:True})
+                            matrix_list.append(key1.split('_')[0] + '_' + key1.split('_')[1])
                             select_count += 1
                         elif val1 and que_id == key1.split('_')[0]:
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
@@ -820,7 +822,16 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['numeric_required_sum_err_msg'])))
                     if que_rec['required_type']:
-                        if (que_rec['required_type'] == 'all' and select_count < len(que_rec['answer_choice_ids'])) or \
+                        if matrix_list:
+                            if (que_rec['required_type'] == 'all' and len(list(set(matrix_list))) < len(que_rec['answer_choice_ids'])) or \
+                            (que_rec['required_type'] == 'at least' and len(list(set(matrix_list))) < que_rec['req_ans']) or \
+                            (que_rec['required_type'] == 'at most' and len(list(set(matrix_list))) > que_rec['req_ans']) or \
+                            (que_rec['required_type'] == 'exactly' and len(list(set(matrix_list))) != que_rec['req_ans']) or \
+                            (que_rec['required_type'] == 'a range' and (len(list(set(matrix_list))) < que_rec['minimum_req_ans'] or len(list(set(matrix_list))) > que_rec['maximum_req_ans'])):
+                                for res in resp_id_list:
+                                    sur_name_read['store_ans'].pop(res)
+                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
+                        elif (que_rec['required_type'] == 'all' and select_count < len(que_rec['answer_choice_ids'])) or \
                             (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
                             (que_rec['required_type'] == 'at most' and select_count > que_rec['req_ans']) or \
                             (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
@@ -844,6 +855,7 @@ class survey_question_wiz(osv.osv_memory):
                 select_count = 0
                 numeric_sum = 0
                 selected_value = []
+                matrix_list = []
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
@@ -858,26 +870,26 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                         elif val and key.split('_')[1] == "other":
                             error = False
-                            if que_rec['comment_valid_type'] == 'must be specific length':
+                            if que_rec['comment_valid_type'] == 'must_be_specific_length':
                                 if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:
                                     error = True
-                            elif que_rec['comment_valid_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
+                            elif que_rec['comment_valid_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
                                 try:
-                                    if que_rec['comment_valid_type'] == 'must be a whole number':
+                                    if que_rec['comment_valid_type'] == 'must_be_whole_number':
                                         value = int(val)
                                         if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
                                             error = True
-                                    elif que_rec['comment_valid_type'] == 'must be a decimal number':
+                                    elif que_rec['comment_valid_type'] == 'must_be_decimal_number':
                                         value = float(val)
                                         if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
                                             error = True
-                                    elif que_rec['comment_valid_type'] == 'must be a date':
+                                    elif que_rec['comment_valid_type'] == 'must_be_date':
                                         value = datetime.datetime.strptime(val, "%Y-%m-%d")
                                         if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
                                             error = True
                                 except:
                                     error = True
-                            elif que_rec['comment_valid_type'] == 'must be an email address':
+                            elif que_rec['comment_valid_type'] == 'must_be_email_address':
                                 import re
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
                                         error = True
@@ -892,27 +904,27 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                         elif val and (key.split('_')[1] == "single"  or (len(key.split('_')) > 2 and key.split('_')[2] == 'multi')):
                             error = False
-                            if que_rec['validation_type'] == 'must be specific length':
+                            if que_rec['validation_type'] == 'must_be_specific_length':
                                 if (not val and  que_rec['validation_minimum_no']) or len(val) <  que_rec['validation_minimum_no'] or len(val) > que_rec['validation_maximum_no']:
                                     error = True
-                            elif que_rec['validation_type'] in ['must be a whole number', 'must be a decimal number', 'must be a date']:
+                            elif que_rec['validation_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
                                 error = False
                                 try:
-                                    if que_rec['validation_type'] == 'must be a whole number':
+                                    if que_rec['validation_type'] == 'must_be_whole_number':
                                         value = int(val)
                                         if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
                                             error = True
-                                    elif que_rec['validation_type'] == 'must be a decimal number':
+                                    elif que_rec['validation_type'] == 'must_be_decimal_number':
                                         value = float(val)
                                         if value <  que_rec['validation_minimum_float'] or value > que_rec['validation_maximum_float']:
                                             error = True
-                                    elif que_rec['validation_type'] == 'must be a date':
+                                    elif que_rec['validation_type'] == 'must_be_date':
                                         value = datetime.datetime.strptime(val, "%Y-%m-%d")
                                         if value <  datetime.datetime.strptime(que_rec['validation_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['validation_maximum_date'], "%Y-%m-%d"):
                                             error = True
                                 except Exception ,e:
                                     error = True
-                            elif que_rec['validation_type'] == 'must be an email address':
+                            elif que_rec['validation_type'] == 'must_be_email_address':
                                 import re
                                 if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
                                         error = True
@@ -939,6 +951,7 @@ class survey_question_wiz(osv.osv_memory):
                             else:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[1], 'answer' : ans_id_len[2]})
                                 sur_name_read['store_ans'][update].update({key:True})
+                            matrix_list.append(key.split('_')[0] + '_' + key.split('_')[1])
                             select_count += 1
                         elif val:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
@@ -954,13 +967,21 @@ class survey_question_wiz(osv.osv_memory):
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['numeric_required_sum_err_msg'])))
                 if not select_count:
                     resp_obj.write(cr, uid, update, {'state': 'skip'})
+
                 if que_rec['required_type']:
-                    if (que_rec['required_type'] == 'all' and select_count < len(que_rec['answer_choice_ids'])) or \
+                    if matrix_list:
+                        if (que_rec['required_type'] == 'all' and len(list(set(matrix_list))) < len(que_rec['answer_choice_ids'])) or \
+                        (que_rec['required_type'] == 'at least' and len(list(set(matrix_list))) < que_rec['req_ans']) or \
+                        (que_rec['required_type'] == 'at most' and len(list(set(matrix_list))) > que_rec['req_ans']) or \
+                        (que_rec['required_type'] == 'exactly' and len(list(set(matrix_list))) != que_rec['req_ans']) or \
+                        (que_rec['required_type'] == 'a range' and (len(list(set(matrix_list))) < que_rec['minimum_req_ans'] or len(list(set(matrix_list))) > que_rec['maximum_req_ans'])):
+                            raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
+                    elif (que_rec['required_type'] == 'all' and select_count < len(que_rec['answer_choice_ids'])) or \
                         (que_rec['required_type'] == 'at least' and select_count < que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'at most' and select_count > que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'exactly' and select_count != que_rec['req_ans']) or \
                         (que_rec['required_type'] == 'a range' and (select_count < que_rec['minimum_req_ans'] or select_count > que_rec['maximum_req_ans'])):
-                        raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
+                            raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
                 elif que_rec['is_require_answer'] and select_count <= 0 :
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['req_error_msg'])))
         return True

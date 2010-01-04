@@ -434,7 +434,7 @@
 									<field name="maximum_req_ans"/>
 								</group>
 							</group>
-							<group colspan="4" attrs="{'invisible':[('required_type','!=','all'),('required_type','!=','at least'),('required_type','!=','at most'),('required_type','!=','exactly'),('required_type','!=','a range'),('is_require_answer','=',False)]}">
+							<group colspan="4" attrs="{'invisible':[('required_type','!=','all'),('required_type','!=','at least'),('required_type','!=','at most'),('required_type','!=','exactly'),('required_type','!=','a range'),('is_require_answer','!=',True)]}">
 								<separator string="When the question is not answered, display this error message:"/>
 								<field name="req_error_msg" colspan="4" nolabel="1"/>
 							</group>
@@ -459,10 +459,10 @@
 						</page>
 						<page string="Comment Field" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'), ('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale')]}">
 							<field name="comment_field_type"/>
-							<group colspan="2" attrs="{'invisible':[('comment_field_type','=',False)]}">
+							<group colspan="2" attrs="{'invisible':[('comment_field_type','!=','char'),('comment_field_type','!=','text')]}">
 								<field colspan="2" name="comment_label" />
 							</group>
-							<group col="6" colspan="4" attrs="{'invisible':[('comment_field_type','=',False)]}">
+							<group col="6" colspan="4" attrs="{'invisible':[('comment_field_type','!=','char'),('comment_field_type','!=','text')]}">
 								<field name="comment_valid_type" colspan="2"/>
 								<group colspan="2" attrs="{'invisible':[('comment_valid_type','!=','must_be_specific_length'), ('comment_valid_type','!=','must_be_whole_number')]}">
 									<field name="comment_minimum_no" string="Between"/>
@@ -477,7 +477,7 @@
 									<field name="comment_maximum_date" string="and"/>
 								</group>
 							</group>
-							<group colspan="4" attrs="{'invisible':[('comment_field_type','=',False)]}">
+							<group colspan="4" attrs="{'invisible':[('comment_valid_type','!=','must_be_specific_length'),('comment_valid_type','!=','must_be_decimal_number'),('comment_valid_type','!=','must_be_whole_number'),('comment_valid_type','!=','must_be_date'),('comment_valid_type','!=','must_be_email_address')]}">
 								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 								<field name="comment_valid_err_msg" nolabel="1" colspan="4"/>
 							</group>
@@ -498,7 +498,7 @@
 									<field name="validation_maximum_date" string="and"/>
 								</group>
 							</group>
-							<group colspan="4" attrs="{'invisible':[('validation_type','=','do_not_validate')]}">
+							<group colspan="4" attrs="{'invisible':[('validation_type','!=','must_be_specific_length'),('validation_type','!=','must_be_decimal_number'),('validation_type','!=','must_be_whole_number'),('validation_type','!=','must_be_date'),('validation_type','!=','must_be_email_address')]}">
 								<separator string="When the comment is an invalid format, display this error message" colspan="4"/>
 								<field name="validation_valid_err_msg" nolabel="1" colspan="4"/>
 							</group>

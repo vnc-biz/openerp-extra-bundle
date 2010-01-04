@@ -25,7 +25,12 @@
     "depends" : ["base", "account", "product", "stock"],
     "init_xml" : [],
     "demo_xml" : ["product_expiry_demo.xml"],
-    "description": "Track different dates on products and lots. Used, for exampel, in food industries: expiry date, alert date, date of removal, eso.",
+    "description": '''Track different dates on products and production lots:
+ - end of life
+ - best before date
+ - removal date
+ - alert date
+Used, for example, in food industries.''',
     "update_xml" : ["product_expiry_view.xml"],
     "active": False,
     "installable": True

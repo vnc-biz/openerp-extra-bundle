@@ -30,23 +30,29 @@ class stock_production_lot(osv.osv):
         def calc_date(self, cr, uid, context={}):
             if context.get('product_id', False):
                 product = pooler.get_pool(cr.dbname).get('product.product').browse(cr, uid, [context['product_id']])[0]
-                duree = getattr(product, dtype) or 0
-                date = datetime.datetime.today() + datetime.timedelta(days=duree)
+                duration = getattr(product, dtype)
+                # Return False when no expiry time was specified on the product
+                if not duration:
+                    return False
+                date = datetime.datetime.today() + datetime.timedelta(days=duration)
                 return date.strftime('%Y-%m-%d %H:%M:%S')
             else:
                 return False
         return calc_date
 
     _columns = {
-        'dlc': fields.datetime('Product usetime'),
-        'dluo': fields.datetime('DLUO'),
-        'removal_date': fields.datetime('Removal date'),
-        'alert_date': fields.datetime('Alert date'),
+        'life_date': fields.datetime('End of Life Date',
+            help='The date the lot may become dangerous and should not be consumed.'),
+        'use_date': fields.datetime('Best before Date',
+            help='The date the lot starts deteriorating without becoming dangerous.'),
+        'removal_date': fields.datetime('Removal Date',
+            help='The date the lot should be removed.'),
+        'alert_date': fields.datetime('Alert Date'),
     }
 
     _defaults = {
-        'dlc': _get_date('life_time'),
-        'dluo': _get_date('use_time'),
+        'life_date': _get_date('life_time'),
+        'use_date': _get_date('use_time'),
         'removal_date': _get_date('removal_time'),
         'alert_date': _get_date('alert_time'),
     }
@@ -56,9 +62,12 @@ class product_product(osv.osv):
     _inherit = 'product.product'
     _name = 'product.product'
     _columns = {
-        'life_time': fields.integer('Product lifetime'),
-        'use_time': fields.integer('Product usetime'),
-        'removal_time': fields.integer('Product removal time'),
+        'life_time': fields.integer('Product lifetime',
+            help='The number of days before a production lot may become dangerous and should not be consumed.'),
+        'use_time': fields.integer('Product usetime',
+            help='The number of days before a production lot starts deteriorating without becoming dangerous.'),
+        'removal_time': fields.integer('Product removal time',
+            help='The number of days before a production lot should be removed.'),
         'alert_time': fields.integer('Product alert time'),
     }
 product_product()

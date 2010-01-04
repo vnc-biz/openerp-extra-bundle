@@ -9,8 +9,8 @@
             <field name="arch" type="xml">
                 <field name="date" position="after">
                     <separator string="Dates" colspan="4" />
-                    <field name="dlc" />
-                    <field name="dluo" />
+                    <field name="life_date" />
+                    <field name="use_date" />
                     <field name="removal_date" />
                     <field name="alert_date" />
                 </field>

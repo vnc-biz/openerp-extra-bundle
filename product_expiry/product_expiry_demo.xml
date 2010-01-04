@@ -114,7 +114,7 @@
 			<field name="categ_id" search="[]" model="product.category"/>
 		</record>
 		<record model="product.packaging">
-			<field name="name">Boxes of 1liter</field>
+			<field name="name">Boxes of 1 liter</field>
 			<field name="qty">4</field>
 			<field name="ul" ref="product.product_ul_box" />
 			<field name="ul_qty">6</field>

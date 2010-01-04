@@ -150,24 +150,45 @@ class user_reminder(osv.osv):
         'user_id':fields.many2one('res.users', 'User', required=False, readonly=True),
         'name':fields.char('Name', size=1024, required=True, readonly=False),
         'note': fields.text('Description'),
-        'datetime': fields.date('Date of Event'),
-        'start_date': fields.date('Start Date'),
+        'datetime': fields.date('Date of Event', required=True),
+        'start_date': fields.date('Start Date', required=True),
         'active':fields.boolean('Active', required=False),
-        'repeat':fields.boolean('Repeat Every Year', required=False),
+        'repeat':fields.boolean('Repeat ?', required=False),
         'state':fields.selection([
             ('day','Daily'),
             ('month','Monthly'),
             ('year','Yearly'),
-        ],'State', select=True, readonly=False),
-        'email':fields.char('Email Address', size=1024, required=True, readonly=False),
+        ],'Repeat Every', select=True, readonly=False),
+        'notify':fields.selection([
+            ('email','Email Address'),
+            ('mobile','Mobile Number'),
+        ],'Notify On', select=True, reduired=True),
+        'email':fields.char('Email / Mobile', size=1024, help="This can be any things, it can be email address or mobile according to usage of action"),
     }
     _defaults = {
         'datetime': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'start_date': lambda *a: time.strftime('%Y-%m-%d'),
         'active': lambda *a: True,
         'state': lambda *a: 'year',
+        'notify': lambda *a: 'email',
         'user_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context=context).id,
     }
+    
+    def onchange_userid(self, cr, uid, ids, userid, notify, context=None):
+        notify_on = False
+        if userid:
+            user_add = self.pool.get('res.users').browse(cr, uid, userid, context=context).address_id
+            if notify == 'email':
+                notify_on = user_add.email
+            elif notify == 'mobile':
+                notify_on = user_add.mobile        
+#        if ids:
+#            self.write(cr, uid, ids, {'email': notify_on})
+#            
+        return {
+            'value': {'email': notify_on}
+        }
+    
 user_reminder()
 
 class reminder_reminder_log(osv.osv):

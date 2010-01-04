@@ -27,6 +27,7 @@
 				<notebook position="inside">
 					<page string="Google Event">
 						<field name="google_event_id" colspan="4"/>
+						<field name="google_event_uri" colspan="4"/>
 						<field name="event_modify_date"/>
 						<field name="write_date"/>
 						<field name="create_date"/>
@@ -34,6 +35,7 @@
 						<field name="privacy"/>
 						<newline/>
 						<field name="email" colspan="4"/>
+						<field name="event"/>
 					</page>
 				</notebook>
 			</field>

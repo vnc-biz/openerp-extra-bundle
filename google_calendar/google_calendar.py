@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,11 +15,12 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 from osv import fields, osv
+import pooler
 
 class res_users(osv.osv):
     _inherit = "res.users"
@@ -43,12 +44,39 @@ class event_event(osv.osv):
         'repeat_status': fields.selection([('norepeat', 'Does not Repeat'), ('daily', 'Daily'), ('everyweekday', 'Every weekday(Mon-Fri)'), ('every_m_w_f', 'Every Mon-Wed-Fri'), ('every_t_t', 'Every Tue-Thu'), ('weekly', 'Weekly'), ('monthly', 'Monthly'), ('yearly', 'Yearly')], 'Repeats', size=32, required=False, readonly=False, help="Repeated status in google"),
         'privacy': fields.selection([('default', 'Default'),('public', 'Public'), ('private', 'Private')], 'Privacy', readonly=True, size=32),
         'email': fields.char('Email', size=256, help="Enter email addresses separated by commas", readonly=True),
+        'event':fields.selection([('tiny_event', 'Tiny Event'), ('google_event', 'Google Event')], 'Event Type',required=False, readonly=True,help = "Event of Tiny or Google"),
+        'google_event_uri' : fields.char('Google Event URI', size=128, readonly=True),
                 }
 
     _defaults = {
         'repeat_status': lambda *a: 'norepeat',
         'privacy': lambda *a: 'public',
+        'event':lambda *a:'tiny_event'
     }
+
+    def unlink(self, cr, uid, ids, context={}):
+        event_ids = []
+        for event in self.browse(cr, uid, ids, context):
+            if event.event == 'tiny_event' or event.event == 'google_event':
+                vals = {
+                  'google_event_id':event.google_event_id,
+                  'google_event_uri':event.google_event_uri
+                 }
+                res = self.pool.get('google.event').create(cr,uid,vals,context)
+                event_ids.append(event.id)
+        return super(event_event, self).unlink(cr, uid, event_ids, context)
+
 event_event()
+
+class google_event(osv.osv):
+    _name = "google.event"
+    _description = "Google Events"
+
+    _columns = {
+        'google_event_id': fields.char('Google Event Id', size=128, readonly=True),
+        'google_event_uri':fields.char('Google Event URI', size=128, readonly=True)
+        }
+
+google_event()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

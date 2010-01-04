@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,10 +15,9 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 import time
 import datetime
 import dateutil
@@ -35,6 +34,7 @@ import atom
 import wizard
 import pooler
 from osv import fields, osv
+
 
 _google_form =  '''<?xml version="1.0"?>
         <form string="Export">
@@ -238,6 +238,8 @@ class google_calendar_wizard(wizard.interface):
 #            return new_event
         except Exception, e:
             raise osv.except_osv('Error !', e )
+    def delete_event(self,calendar_service,google_event_uri):
+            res = calendar_service.DeleteEvent(google_event_uri)
 
     def _synch_events(self, cr, uid, data, context={}):
 #        To do import:
@@ -247,6 +249,10 @@ class google_calendar_wizard(wizard.interface):
 #         To do export:
 #            1. multiple location of events
 #            2. delete events
+
+        google_event = pooler.get_pool(cr.dbname).get('google.event')
+        tiny_event_ids = google_event.search(cr, uid, [])
+        events = google_event.browse(cr,uid,tiny_event_ids,context)
 
         obj_user = pooler.get_pool(cr.dbname).get('res.users')
         product = pooler.get_pool(cr.dbname).get('product.product').search(cr, uid, [('name', 'like', 'Calendar Product')])
@@ -289,6 +295,7 @@ class google_calendar_wizard(wizard.interface):
                 summary_dict['Event Created In Google'] += 1
                 if not event.repeat_status == 'norepeat':
                     new_event = self.add_repeat_event(self.calendar_service, event.name, event.name, location, event.date_begin, event.date_end, event.repeat_status, None)
+
                     request_feed.AddInsert(entry=new_event)
                 else:
                     new_event = self.add_event(self.calendar_service, event.name, event.name, location, event.date_begin, event.date_end)
@@ -426,14 +433,23 @@ class google_calendar_wizard(wizard.interface):
                    'date_end': timestring_end,
                    'product_id': product and product[0] or 1,
                    'google_event_id': an_event.id.text,
+                   'google_event_uri': an_event.GetEditLink().href,
                    'event_modify_date': timestring_update,
                    'repeat_status': repeat_status or 'norepeat',
                    'privacy': _get_privacy(self, an_event.visibility.value),
-                   'email': ', '.join(map(lambda x: x.name, an_event.who))
+                   'email': ', '.join(map(lambda x: x.name, an_event.who)),
+                   'event':'google_event'
+
                     }
                 obj_event.create(cr, uid, val)
-                summary_dict['Event Created In Tiny'] += 1
-
+                for event in events:
+                    if an_event.id.text == event.google_event_id:
+                        self.delete_event(self.calendar_service,an_event.GetEditLink().href)
+                        obj_event_id = obj_event.search(cr,uid,[('google_event_id','=',an_event.id.text)])
+                        obj_event.unlink(cr,uid,obj_event_id,context)
+                    else:
+                        summary_dict['Event Created In Tiny'] += 1
+        google_event.unlink(cr,uid,tiny_event_ids,context)
         response_up_feed = self.calendar_service.ExecuteBatch(request_up_feed, gdata.calendar.service.DEFAULT_BATCH_URL)
         final_summary = '************Summary************ \n'
         for sum in summary_dict:

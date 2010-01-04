@@ -135,7 +135,7 @@ class survey_question(osv.osv):
         'page_id' : fields.many2one('survey.page', 'Survey Page', ondelete='cascade', required=1),
         'question' :  fields.char('Question', size=128, required=1),
         'answer_choice_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
-        'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readnoly=1),
+        'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readonly=1),
         'is_require_answer' : fields.boolean('Required Answer'),
         'required_type' : fields.selection([('',''), ('all','All'), ('at least','At Least'), ('at most','At Most'), ('exactly','Exactly'), ('a range','A Range')], 'Respondent must answer'),
         'req_ans' : fields.integer('#Required Answer'),
@@ -174,6 +174,8 @@ class survey_question(osv.osv):
         'comment_minimum_date' : fields.date('Minimum date'),
         'comment_maximum_date' : fields.date('Maximum date'),
         'comment_valid_err_msg' : fields.text('Error message'),
+        'make_comment_field' : fields.boolean('Make Comment Field an Answer Choice'),
+        'make_comment_field_err_msg' : fields.text('Error message'),
         'validation_type' : fields.selection([('do_not_validate', '''Don't Validate Comment Text.'''),\
                                                  ('must_be_specific_length', 'Must Be Specific Length'),\
                                                  ('must_be_whole_number', 'Must Be A Whole Number'),\
@@ -206,6 +208,7 @@ class survey_question(osv.osv):
          'validation_type' : lambda * a: 'do_not_validate',
          'validation_valid_err_msg' : lambda * a : 'The comment you entered is in an invalid format.',
          'numeric_required_sum_err_msg' : lambda * a :'The choices need to add up to [enter sum here].',
+         'make_comment_field_err_msg' : lambda * a : 'Please enter a comment.',
     }
 
     def on_change_type(self, cr, uid, ids, type, context=None):
@@ -636,14 +639,24 @@ class survey_question_wiz(osv.osv_memory):
                         etree.SubElement(xml_group, 'field', {'name': str(que) + "_comment", 'nolabel':"1" ,'colspan':"4"})
                         fields[str(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
                     if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
-                        if que_rec['comment_field_type'] == 'char':
-                            etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['comment_label'])),'colspan':"4"})
-                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
-                            fields[str(que) + "_other"] = {'type': 'char', 'string': '', 'size':255, 'views':{}}
-                        elif que_rec['comment_field_type'] == 'text':
-                            etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['comment_label'])),'colspan':"4"})
-                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
-                            fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
+                        if que_rec['make_comment_field']:
+                            etree.SubElement(xml_group, 'field', {'name': str(que) + "_otherfield", 'colspan':"4"})
+                            fields[str(que) + "_otherfield"] = {'type':'boolean', 'string':que_rec['comment_label'], 'views':{}}
+                            if que_rec['comment_field_type'] == 'char':
+                                etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
+                                fields[str(que) + "_other"] = {'type': 'char', 'string': '', 'size':255, 'views':{}}
+                            elif que_rec['comment_field_type'] == 'text':
+                                etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
+                                fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
+                        else: 
+                            if que_rec['comment_field_type'] == 'char':
+                                etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['comment_label'])),'colspan':"4"})
+                                etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
+                                fields[str(que) + "_other"] = {'type': 'char', 'string': '', 'size':255, 'views':{}}
+                            elif que_rec['comment_field_type'] == 'text':
+                                etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['comment_label'])),'colspan':"4"})
+                                etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
+                                fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
                 etree.SubElement(xml_form, 'separator', {'colspan': '4'})
                 xml_group = etree.SubElement(xml_form, 'group', {'col': '4', 'colspan': '4'})
                 etree.SubElement(xml_group, 'label', {'string': "", 'align': '0.0','colspan':"1"})
@@ -710,8 +723,16 @@ class survey_question_wiz(osv.osv_memory):
                     numeric_sum = 0
                     selected_value = []
                     matrix_list = []
+                    comment_field = False
+                    comment_value = False
                     for key1, val1 in vals.items():
-                        if val1 and key1.split('_')[1] == "selection" and key1.split('_')[0] == que_id:
+                        if val1 and key1.split('_')[1] == "otherfield" and key1.split('_')[0] == que_id:
+                            comment_field = True
+                            sur_name_read['store_ans'][resp_id].update({key1:val1})
+                            select_count += 1
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                            continue
+                        elif val1 and key1.split('_')[1] == "selection" and key1.split('_')[0] == que_id:
                             if len(key1.split('_')) > 2:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
                                 selected_value.append(val1)
@@ -719,39 +740,42 @@ class survey_question_wiz(osv.osv_memory):
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
-                        elif val1 and key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
-                            error = False
-                            if que_rec['comment_valid_type'] == 'must_be_specific_length':
-                                if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_maximum_no'] or len(val1) > que_rec['comment_maximum_no']:
-                                    error = True
-                            elif que_rec['comment_valid_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
+                        elif key1.split('_')[1] == "other" and key1.split('_')[0] == que_id:
+                            if not val1:
+                                comment_value = True
+                            else:
                                 error = False
-                                try:
-                                    if que_rec['comment_valid_type'] == 'must_be_whole_number':
-                                        value = int(val1)
-                                        if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
-                                            error = True
-                                    elif que_rec['comment_valid_type'] == 'must_be_decimal_number':
-                                        value = float(val1)
-                                        if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
-                                            error = True
-                                    elif que_rec['comment_valid_type'] == 'must_be_date':
-                                        value = datetime.datetime.strptime(val1, "%Y-%m-%d")
-                                        if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
-                                            error = True
-                                except:
-                                    error = True
-                            elif que_rec['comment_valid_type'] == 'must_be_email_address':
-                                import re
-                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
+                                if que_rec['comment_valid_type'] == 'must_be_specific_length':
+                                    if (not val1 and  que_rec['validation_minimum_no']) or len(val1) <  que_rec['validation_maximum_no'] or len(val1) > que_rec['comment_maximum_no']:
                                         error = True
-                            if error:
-                                for res in resp_id_list:
-                                    sur_name_read['store_ans'].pop(res)
-                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-
-                            resp_obj.write(cr, uid, resp_id, {'comment':val1})
-                            sur_name_read['store_ans'][resp_id].update({key1:val1})
+                                elif que_rec['comment_valid_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
+                                    error = False
+                                    try:
+                                        if que_rec['comment_valid_type'] == 'must_be_whole_number':
+                                            value = int(val1)
+                                            if value <  que_rec['validation_minimum_no'] or value > que_rec['validation_maximum_no']:
+                                                error = True
+                                        elif que_rec['comment_valid_type'] == 'must_be_decimal_number':
+                                            value = float(val1)
+                                            if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
+                                                error = True
+                                        elif que_rec['comment_valid_type'] == 'must_be_date':
+                                            value = datetime.datetime.strptime(val1, "%Y-%m-%d")
+                                            if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
+                                                error = True
+                                    except:
+                                        error = True
+                                elif que_rec['comment_valid_type'] == 'must_be_email_address':
+                                    import re
+                                    if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val1) == None:
+                                            error = True
+                                if error:
+                                    for res in resp_id_list:
+                                        sur_name_read['store_ans'].pop(res)
+                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
+                                print "V:::::::::::",val1
+                                resp_obj.write(cr, uid, resp_id, {'comment':val1})
+                                sur_name_read['store_ans'][resp_id].update({key1:val1})
                         elif val1 and key1.split('_')[1] == "comment" and key1.split('_')[0] == que_id:
                             resp_obj.write(cr, uid, resp_id, {'comment':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
@@ -811,6 +835,10 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                    if comment_field and comment_value:
+                        for res in resp_id_list:
+                            sur_name_read['store_ans'].pop(res)
+                        raise osv.except_osv(_('Error re !'), _("'" + que_rec['question']  + "' " + str(que_rec['make_comment_field_err_msg'])))
                     if que_rec['type'] == "rating_scale" and que_rec['rating_allow_one_column_require'] and len(selected_value) > len(list(set(selected_value))):
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
@@ -856,10 +884,18 @@ class survey_question_wiz(osv.osv_memory):
                 numeric_sum = 0
                 selected_value = []
                 matrix_list = []
+                comment_field = False
+                comment_value = False
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
-                        if val and key.split('_')[1] == "selection":
+                        if val and key.split('_')[1] == "otherfield" :
+                            comment_field = True
+                            sur_name_read['store_ans'][update].update({key:val})
+                            select_count += 1
+                            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                            continue
+                        elif val and key.split('_')[1] == "selection":
                             if len(key.split('_')) > 2:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':key.split('_')[-1], 'answer' : val})
                                 selected_value.append(val)
@@ -868,36 +904,39 @@ class survey_question_wiz(osv.osv_memory):
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
-                        elif val and key.split('_')[1] == "other":
-                            error = False
-                            if que_rec['comment_valid_type'] == 'must_be_specific_length':
-                                if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:
-                                    error = True
-                            elif que_rec['comment_valid_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
-                                try:
-                                    if que_rec['comment_valid_type'] == 'must_be_whole_number':
-                                        value = int(val)
-                                        if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
-                                            error = True
-                                    elif que_rec['comment_valid_type'] == 'must_be_decimal_number':
-                                        value = float(val)
-                                        if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
-                                            error = True
-                                    elif que_rec['comment_valid_type'] == 'must_be_date':
-                                        value = datetime.datetime.strptime(val, "%Y-%m-%d")
-                                        if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
-                                            error = True
-                                except:
-                                    error = True
-                            elif que_rec['comment_valid_type'] == 'must_be_email_address':
-                                import re
-                                if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
+                        elif key.split('_')[1] == "other":
+                            if not val:
+                                comment_value = True
+                            else:
+                                error = False
+                                if que_rec['comment_valid_type'] == 'must_be_specific_length':
+                                    if (not val and  que_rec['comment_minimum_no']) or len(val) <  que_rec['comment_minimum_no'] or len(val) > que_rec['comment_maximum_no']:
                                         error = True
-                            if error:
-                                raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
-
-                            resp_obj.write(cr, uid, update, {'comment':val,'state': 'done'})
-                            sur_name_read['store_ans'][update].update({key:val})
+                                elif que_rec['comment_valid_type'] in ['must_be_whole_number', 'must_be_decimal_number', 'must_be_date']:
+                                    try:
+                                        if que_rec['comment_valid_type'] == 'must_be_whole_number':
+                                            value = int(val)
+                                            if value <  que_rec['comment_minimum_no'] or value > que_rec['comment_maximum_no']:
+                                                error = True
+                                        elif que_rec['comment_valid_type'] == 'must_be_decimal_number':
+                                            value = float(val)
+                                            if value <  que_rec['comment_minimum_float'] or value > que_rec['comment_maximum_float']:
+                                                error = True
+                                        elif que_rec['comment_valid_type'] == 'must_be_date':
+                                            value = datetime.datetime.strptime(val, "%Y-%m-%d")
+                                            if value <  datetime.datetime.strptime(que_rec['comment_minimum_date'], "%Y-%m-%d") or value >  datetime.datetime.strptime(que_rec['comment_maximum_date'], "%Y-%m-%d"):
+                                                error = True
+                                    except:
+                                        error = True
+                                elif que_rec['comment_valid_type'] == 'must_be_email_address':
+                                    import re
+                                    if re.match("^[a-zA-Z0-9._%-+]+@[a-zA-Z0-9._%-]+.[a-zA-Z]{2,6}$", val) == None:
+                                            error = True
+                                if error:
+                                    raise osv.except_osv(_('Error !'), _("'" + que_rec['question'] + "'  \n" + str(que_rec['comment_valid_err_msg'])))
+    
+                                resp_obj.write(cr, uid, update, {'comment':val,'state': 'done'})
+                                sur_name_read['store_ans'][update].update({key:val})
                         elif val and key.split('_')[1] == "comment":
                             resp_obj.write(cr, uid, update, {'comment':val,'state': 'done'})
                             sur_name_read['store_ans'][update].update({key:val})
@@ -959,9 +998,9 @@ class survey_question_wiz(osv.osv_memory):
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                if comment_field and comment_value:
+                    raise osv.except_osv(_('Error re !'), _("'" + que_rec['question']  + "' " + str(que_rec['make_comment_field_err_msg'])))
                 if que_rec['type'] == "rating_scale" and que_rec['rating_allow_one_column_require'] and len(selected_value) > len(list(set(selected_value))):
-#                    for res in resp_id_list:
-#                        sur_name_read['store_ans'].pop(res)
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "\n you cannot select same answer more than one times'"))
                 if numeric_sum > que_rec['numeric_required_sum']:
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['numeric_required_sum_err_msg'])))

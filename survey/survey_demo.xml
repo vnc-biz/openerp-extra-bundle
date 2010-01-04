@@ -182,6 +182,7 @@
             <field name="question">Which maintenance contract do you sell to your customers.</field>
             <field name="page_id" ref="survey_page_Contracts" />
             <field name="type">multiple_choice_only_one_ans</field>
+            <field name="in_visible_single_text">1</field>
         </record>
         <record id="survey_answer_maintenance_contract" model="survey.answer">
             <field name="answer">OpenERP maintenance contract</field>
@@ -926,6 +927,7 @@
             <field name="question">If you have any additional comments, write them here :</field>
             <field name="page_id" ref="survey_page_odoo_the_offer_2" />
             <field name="type">comment</field>
+            <field name="in_visible_single_text">1</field>
         </record>
      </data>
    	 <data>

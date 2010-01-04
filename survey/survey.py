@@ -702,7 +702,7 @@ class survey_question_wiz(osv.osv_memory):
                     que_rec = que_obj.read(cr, uid, [que_id], [])[0]
                     resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
                         'question_id':que_id, 'date_create':datetime.datetime.now(), \
-                        'response_type':'link', 'state':'done'})
+                        'response_type':'link', 'state':'done', 'in_visible_single_text':que_rec['in_visible_single_text']})
                     resp_id_list.append(resp_id)
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})

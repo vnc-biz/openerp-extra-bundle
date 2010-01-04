@@ -997,7 +997,7 @@
 	</data>
 	<data>
 		<record id="survey_question_0" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="1" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1008,7 +1008,7 @@
 			<field eval="&quot;&quot;&quot;matrix_of_choices_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_1"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1016,7 +1016,7 @@
 	</data>
 	<data>
 		<record id="survey_question_1" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="2" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1027,7 +1027,7 @@
 			<field eval="&quot;&quot;&quot;matrix_of_choices_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_1"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1035,7 +1035,7 @@
 	</data>
 	<data>
 		<record id="survey_question_2" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="3" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1046,7 +1046,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_0"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1055,7 +1055,7 @@
 
 	<data>
 		<record id="survey_question_3" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="3" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1066,7 +1066,7 @@
 			<field eval="&quot;&quot;&quot;single_textbox&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_1"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_rating_weight">1</field>
@@ -1075,7 +1075,7 @@
 	</data>
 	<data>
 		<record id="survey_question_4" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="4" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1086,7 +1086,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_multiple_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_2"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1094,7 +1094,7 @@
 	</data>
 	<data>
 		<record id="survey_question_5" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="4" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1105,7 +1105,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_0"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1113,7 +1113,7 @@
 	</data>
 	<data>
 		<record id="survey_question_6" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1124,7 +1124,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_multiple_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_0"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1132,7 +1132,7 @@
 	</data>
 	<data>
 		<record id="survey_question_7" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1143,7 +1143,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_7"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1151,7 +1151,7 @@
 	</data>
 	<data>
 		<record id="survey_question_8" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1162,7 +1162,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_multiple_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_6"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1170,7 +1170,7 @@
 	</data>
 	<data>
 		<record id="survey_question_9" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1181,7 +1181,7 @@
 			<field eval="&quot;&quot;&quot;matrix_of_choices_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_2"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1189,7 +1189,7 @@
 	</data>
 	<data>
 		<record id="survey_question_10" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1200,7 +1200,7 @@
 			<field eval="&quot;&quot;&quot;single_textbox&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_6"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_rating_weight">1</field>
@@ -1209,7 +1209,7 @@
 	</data>
 	<data>
 		<record id="survey_question_11" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1220,7 +1220,7 @@
 			<field eval="&quot;&quot;&quot;single_textbox&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_6"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_rating_weight">1</field>
@@ -1229,7 +1229,7 @@
 	</data>
 	<data>
 		<record id="survey_question_12" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1240,7 +1240,7 @@
 			<field eval="&quot;&quot;&quot;multiple_choice_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_3"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
@@ -1248,7 +1248,7 @@
 	</data>
 	<data>
 		<record id="survey_question_13" model="survey.question">
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="comment_valid_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="comment_valid_type"/>
 			<field eval="5" name="sequence"/>
 			<field eval="&quot;&quot;&quot;The choices need to add up to [enter sum here].&quot;&quot;&quot;" name="numeric_required_sum_err_msg"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="validation_valid_err_msg"/>
@@ -1259,7 +1259,7 @@
 			<field eval="&quot;&quot;&quot;matrix_of_choices_only_one_ans&quot;&quot;&quot;" name="type"/>
 			<field eval="&quot;&quot;&quot;The comment you entered is in an invalid format.&quot;&quot;&quot;" name="comment_valid_err_msg"/>
 			<field name="page_id" ref="survey_page_3"/>
-			<field eval="&quot;&quot;&quot;do not validate&quot;&quot;&quot;" name="validation_type"/>
+			<field eval="&quot;&quot;&quot;do_not_validate&quot;&quot;&quot;" name="validation_type"/>
 			<field eval="&quot;&quot;&quot;Other&quot;&quot;&quot;" name="comment_label"/>
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>

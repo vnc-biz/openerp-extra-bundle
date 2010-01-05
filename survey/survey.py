@@ -560,7 +560,7 @@ class survey_question_wiz(osv.osv_memory):
                 fields = {}
                 pag_rec = page_obj.read(cr, uid, p_id)
                 xml_form = etree.Element('form', {'string': _(str(pag_rec['title']))})
-                etree.SubElement(xml_form, 'label', {'string': to_xml(str(pag_rec['note'] or '')), 'align': '0.0'})
+                etree.SubElement(xml_form, 'label', {'string': to_xml(str(pag_rec['note'] or '')), 'align': '0.0', 'colspan':'4'})
                 que_ids = pag_rec['question_ids']
                 qu_no = 0
                 for que in que_ids:

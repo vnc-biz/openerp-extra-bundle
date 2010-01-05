@@ -794,7 +794,20 @@ class hr_payslip(osv.osv):
             partner = slip.employee_id.address_home_id.partner_id
             partner_id = partner.id
             
-            period_id = self.pool.get('account.period').search(cr,uid,[('date_start','<=',slip.date),('date_stop','>=',slip.date)])[0]
+            fiscal_year_ids = self.pool.get('account.fiscalyear').search(cr, uid, [])
+            if not fiscal_year_ids:
+                raise osv.except_osv(_('Warning !'), _('Please define fiscal year for perticular contract'))
+            fiscal_year_objs = self.pool.get('account.fiscalyear').read(cr, uid, fiscal_year_ids, ['date_start','date_stop'])
+            year_exist = False
+            for fiscal_year in fiscal_year_objs:
+                if ((fiscal_year['date_start'] <= slip.date) and (fiscal_year['date_stop'] >= slip.date)):
+                    year_exist = True
+            if not year_exist:
+                raise osv.except_osv(_('Warning !'), _('Fiscal Year is not defined for slip date %s'%slip.date))
+            search_period = self.pool.get('account.period').search(cr,uid,[('date_start','<=',slip.date),('date_stop','>=',slip.date)])
+            if not search_period:
+                raise osv.except_osv(_('Warning !'), _('Period is not defined for slip date %s'%slip.date))
+            period_id = search_period[0]
             name = 'Payment of Salary to %s' % (slip.employee_id.name)
             move = {
                 'journal_id': slip.bank_journal_id.id,
@@ -946,7 +959,20 @@ class hr_payslip(osv.osv):
             if slip.period_id:
                 period_id = slip.period_id.id
             else:
-                period_id = self.pool.get('account.period').search(cr,uid,[('date_start','<=',slip.date),('date_stop','>=',slip.date)])[0]
+                fiscal_year_ids = self.pool.get('account.fiscalyear').search(cr, uid, [])
+                if not fiscal_year_ids:
+                    raise osv.except_osv(_('Warning !'), _('Please define fiscal year for perticular contract'))
+                fiscal_year_objs = self.pool.get('account.fiscalyear').read(cr, uid, fiscal_year_ids, ['date_start','date_stop'])
+                year_exist = False
+                for fiscal_year in fiscal_year_objs:
+                    if ((fiscal_year['date_start'] <= slip.date) and (fiscal_year['date_stop'] >= slip.date)):
+                        year_exist = True
+                if not year_exist:
+                    raise osv.except_osv(_('Warning !'), _('Fiscal Year is not defined for slip date %s'%slip.date))
+                search_period = self.pool.get('account.period').search(cr,uid,[('date_start','<=',slip.date),('date_stop','>=',slip.date)])
+                if not search_period:
+                    raise osv.except_osv(_('Warning !'), _('Period is not defined for slip date %s'%slip.date))
+                period_id = search_period[0]
             
             move = {
                 #'name': slip.name, 

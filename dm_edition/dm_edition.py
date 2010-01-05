@@ -82,7 +82,7 @@ class dm_printer_model(osv.osv): # {{{
     _name = "dm.printer.model"
     
     _columns = {
-        'name': fields.char('Description', size=64, required=True),
+        'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
         'note': fields.text('Description'),
 
@@ -93,9 +93,9 @@ class dm_printer_tray_model(osv.osv): # {{{
     _name = "dm.printer_tray.model"
     
     _columns = {
-        'name': fields.char('Description', size=64, required=True),
+        'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
-        'note': fields.text('Note'),
+        'note': fields.text('Description'),
 
         }
 dm_printer_tray_model() # }}}
@@ -104,7 +104,7 @@ class dm_printer(osv.osv): # {{{
     _name = "dm.printer"
     
     _columns = {
-        'name': fields.char('Description', size=64, required=True),
+        'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
         'printer_model_id': fields.many2one('dm.printer.model','Printer'),
         'mail_service_id': fields.many2one('dm.mail_service','Mail Service'),
@@ -117,7 +117,7 @@ class dm_printer_tray(osv.osv): # {{{
     _name = "dm.printer_tray"
     
     _columns = {
-        'name': fields.char('Description', size=64, required=True),
+        'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
         'printer_tray_model_id' : fields.many2one('dm.printer_tray.model','Printer Tray'),
         'printer_id' : fields.many2one('dm.printer','Printer'),
@@ -147,7 +147,7 @@ class dm_mail_service(osv.osv): # {{{
           'front_job_recap': fields.many2one('dm.offer.document', 'Front Job Recap'),
           'bottom_job_recap': fields.many2one('dm.offer.document', 'Bottom Job Recap'),
         }
-  
+    
 dm_mail_service() # }}}
 
 class dm_campaign_document(osv.osv): # {{{
@@ -247,8 +247,8 @@ def generate_document_job(cr, uid, obj_id, context):
                        'name': camp_doc.document_id.step_id.code + "_" + str(camp_doc.address_id.id),
                        'type_id': type_id,
                        'mail_service_id': ms_id.id,
-                       'address_id':camp_doc.address_id.id,
-                       'campaign_document_job' : job_id
+                       'address_id': camp_doc.address_id.id,
+                       'campaign_document_job': job_id
                   }
                 if ms_id.front_job_recap: 
                     camp_vals['document_id'] = ms_id.front_job_recap.id

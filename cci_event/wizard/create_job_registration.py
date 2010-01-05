@@ -28,7 +28,7 @@ form = """<?xml version="1.0"?>
 </form>
 """
 fields = {
-      'event_id': {'string':'Event', 'type':'many2one', 'readonly':False, 'relation': 'event.event'},
+      'event_id': {'string':'Event', 'type':'many2one', 'readonly':False, 'relation': 'event.event', 'required':True},
       }
 
 form_result = """<?xml version="1.0"?>
@@ -62,13 +62,18 @@ def _create_reg(self, cr, uid, data, context={}):
     for job in obj_job.browse(cr, uid, data['ids'], context=context):
         if job.contact_id.id in filter_contacts or job.contact_id.id in contacts_list:
             continue
-        vals = {'event_id': event.id,
+        data = obj_reg.onchange_partner_id(cr, uid, [], job.name.id, event.id)
+        data2 = obj_reg.onchange_contact_id(cr, uid, [], job.contact_id.id, job.name.id)
+        data['value'].update(data2['value'])
+        data = data['value']
+
+        data.update({'event_id': event.id,
                 'partner_id': job.name.id,
                 'contact_id': job.contact_id.id,
                 'invoice_label': event.product_id.name,
                 'name': 'Registration'
-                }
-        reg_id = obj_reg.create(cr, uid, vals, context=context)
+                })
+        reg_id = obj_reg.create(cr, uid, data, context=context)
         contacts_list.append(job.contact_id.id)
         reg_ids.append(reg_id)
     return {'reg_ids': reg_ids}
@@ -95,7 +100,7 @@ class job_registration(wizard.interface):
     states = {
         'init': {
            'actions': [],
-           'result': {'type': 'form', 'arch': form, 'fields': fields, 'state':[('create', 'Create'), ('end', 'Cancel')]}
+           'result': {'type': 'form', 'arch': form, 'fields': fields, 'state':[('end', 'Cancel'), ('create', 'Create')]}
             },
         'create': {
             'actions': [_create_reg],

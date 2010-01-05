@@ -28,12 +28,12 @@ form = """<?xml version="1.0"?>
 </form>
 """
 fields = {
-      'event_id': {'string':'Event', 'type':'many2one', 'readonly':False, 'relation': 'event.event'},
+      'event_id': {'string':'Event', 'type':'many2one', 'readonly':False, 'relation': 'event.event', 'required':True},
       }
 
 form_result = """<?xml version="1.0"?>
 <form string="Result">
-    <label colspan="2" string="Registration created" align="0.0"/>
+    <label colspan="2" string="Registrations Created" align="0.0"/>
 </form>
 """
 fields_result = {}
@@ -71,13 +71,17 @@ def _create_reg(self, cr, uid, data, context={}):
         res = cr.dictfetchall()
         if id in filter_contacts or id in contacts_list:
             continue
-        vals = {'event_id': event.id,
+        data = obj_reg.onchange_partner_id(cr, uid, [], res[0]['partner_id'], event)
+        data2 = obj_reg.onchange_contact_id(cr, uid, [], res[0]['contact_id'], res[0]['partner_id'])
+        data['value'].update(data2['value'])
+        data = data['value']
+        data.update({'event_id': event.id,
                 'partner_id': res[0]['partner_id'],
                 'contact_id': res[0]['contact_id'],
                 'invoice_label': event.product_id.name,
                 'name': 'Registration'
-                }
-        reg_id = obj_reg.create(cr, uid, vals, context=context)
+                })
+        reg_id = obj_reg.create(cr, uid, data, context=context)
         contacts_list.append(contact.id)
         reg_ids.append(reg_id)
     return {'reg_ids': reg_ids}
@@ -104,7 +108,7 @@ class contact_registration(wizard.interface):
     states = {
         'init': {
            'actions': [],
-           'result': {'type': 'form', 'arch': form, 'fields': fields, 'state':[('create', 'Create'), ('end', 'Cancel')]}
+           'result': {'type': 'form', 'arch': form, 'fields': fields, 'state':[('end', 'Cancel'), ('create', 'Create')]}
             },
         'create': {
             'actions': [_create_reg],

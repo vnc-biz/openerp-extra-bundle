@@ -71,10 +71,13 @@ class survey_form(report_rml):
       <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,0" stop="2,-1"/>
       <blockValign value="TOP"/>
     </blockTableStyle>
-    <blockTableStyle id="Table4">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
+    <blockTableStyle id="page_tbl">
+        <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
+        <blockBackground colorName="gray" start="0,0" stop="-1,-1"/>
+        <blockTextColor colorName="white" start="0,0" stop="0,0"/>
+        <blockAlignment value="LEFT"/>
+        <blockValign value="TOP"/>
+        <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
     </blockTableStyle>
     <blockTableStyle id="Table5">
       <blockAlignment value="LEFT"/>
@@ -103,29 +106,11 @@ class survey_form(report_rml):
     <paraStyle name="Table Contents" fontName="helvetica"/>
   </stylesheet>
   <images/>
-  <story>
-                    <para style="Title"><u>Response Summary</u></para>
-                    <para style="Standard"><font></font></para>
-                    <!--para style="Standard">[[repeatIn(objects,'y')]]</para-->
-                    <para style="Standard"><font></font></para>
-                    <blockTable colWidths="90,500,150,50" style="Table2">
-                      <tr>
-                        <td><para style="Standard">Survey Title :-</para></td>
-                        <td><para style="header1">""" + survey.title + """</para></td>
-                        <td><para style="Standard">Total Started Survey :- </para></td>
-                        <td><para style="header1">""" + str(survey.tot_start_survey)  + """</para></td>
-                      </tr>
-                      <tr>
-                        <td><para style="Standard"></para></td>
-                        <td><para style="header1"></para></td>
-                        <td><para style="Standard">Total Completed Survey :-</para></td>
-                        <td><para style="header1">""" + str(survey.tot_comp_survey) + """</para></td>
-                      </tr>
-                    </blockTable> """
+  <story>"""
             for page in survey.page_ids:
                 rml += """
                 <para style="P2"><font></font></para>
-                <blockTable colWidths="1000.0" style="Table4">
+                <blockTable colWidths="1000.0" style="page_tbl">
                               <tr>
                                 <td><para style="page">Page :- """ + page.title + """</para></td>
                               </tr>
@@ -145,7 +130,7 @@ class survey_form(report_rml):
                             answer.append(str((ans.answer.replace('&','&amp;')).replace('<','below')))
                         def divide_list(lst, n):
                             return [lst[i::n] for i in range(n)]
-                        rows = 5
+                        rows = 4
                         divide_list = divide_list(answer,rows)
                         for lst in divide_list:
                             if que.type == 'multiple_choice_multiple_ans':

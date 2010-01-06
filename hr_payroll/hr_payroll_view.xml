@@ -199,7 +199,7 @@
                         <field name="category_id" on_change="onchange_category(category_id)"/>
                         <field name="type"/>
                         <field name="amount_type"/>
-                        <field name="amount" on_change="onchange_amount(amount, amount_type)"/>
+                        <field name="amount" on_change="onchange_amount(amount, amount_type)" attrs="{'readonly':[('amount_type','=','func')]}"/>
                         <field name="sequence"/>
                     </group>
                     <group col="2" colspan="2">
@@ -209,8 +209,24 @@
                         <separator colspan="4" string="Reambusement Informations"/>
                         <field name="expanse_id"/>
                     </group>
-                    <separator colspan="4" string="Description"/>
-                    <field name="note" colspan="4" nolabel="1"/>
+                    <notebook colspan="4">
+                        <page string="Function">
+                            <field name="line_ids" colspan="4" nolabel="1" attrs="{'readonly':[('amount_type','!=','func')]}">
+                                <tree string="Function Arguments" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="sequence"/>
+                                    <field name="from"/>
+                                    <field name="to"/>
+                                    <field name="amount_type"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <separator colspan="4" string="Description"/>
+                            <field name="note" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>
@@ -394,16 +410,16 @@
                         </group>
                         <group col="2" colspan="2">
                             <separator colspan="2" string="Contributions Configuration"/>
-                            <field name="contribute" attrs="{'readonly': [('amount_type','=','func')]}"/>
-                            <field name="amount_type"/>
-                            <field name="contribute_per" attrs="{'required': [('contribute','=',True)], 'readonly': [('amount_type','=','func')]}"/>
-                            <field name="register_id" attrs="{'required': [('contribute','=',True)], 'readonly': [('amount_type','=','func')]}"/>
-                            <field name="include_in_salary" attrs="{'readonly': [('amount_type','=','func')]}"/>
-                            <field name="account_id" attrs="{'required': [('contribute','=',True)], 'readonly': [('amount_type','=','func')]}"/>
+                            <field name="contribute"/>
+                            <field name="amount_type" attrs="{'required': [('contribute','=',True)]}"/>
+                            <field name="contribute_per" attrs="{'required': [('contribute','=',True)], 'readonly':[(('amount_type','=','func'))]}"/>
+                            <field name="register_id" attrs="{'required': [('contribute','=',True)]}"/>
+                            <field name="include_in_salary"/>
+                            <field name="account_id" attrs="{'required': [('contribute','=',True)]}"/>
                         </group>
                     </group>
                     <notebook colspan="4">
-                        <page string="Function">
+                        <page string="Function" attrs="{'invisible': [('amount_type','!=','func')]}">
                             <field name="line_ids" colspan="4" nolabel="1">
                                 <tree string="Function Arguments" editable="bottom">
                                     <field name="name"/>

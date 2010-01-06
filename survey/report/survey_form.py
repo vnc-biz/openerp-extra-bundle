@@ -76,12 +76,15 @@ class survey_form(report_rml):
                 <paraStyle name="Index" fontName="helvetica"/>
                 <paraStyle name="Table Contents" fontName="helvetica"/>
             </stylesheet>
-            <story>"""
+            <story>
+            """
+            seq = 0
             for page in survey.page_ids:
+                seq+=1
                 rml += """
                 <para style="P2"><font></font></para>
                 <blockTable colWidths="1000.0" style="page_tbl">
-                    <tr><td><para style="page"><seq/>. """ + page.title + """</para></td></tr>
+                    <tr><td><para style="page">"""+ str(seq) + """. """ + page.title + """</para></td></tr>
                 </blockTable>"""
                 for que in page.question_ids:
                     cols_widhts=[]

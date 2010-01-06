@@ -77,7 +77,7 @@ class account_invoice(osv.osv):
                     membership_flag = True
         if data_invoice.partner_id.alert_membership and membership_flag:
             raise osv.except_osv('Error!',data_invoice.partner_id.alert_explanation or 'Partner is not valid')
-        
+
         #create other move lines if the invoice_line is related to a check payment or an AWEX credence
         for inv in self.browse(cr, uid, ids):
             for item in self.pool.get('account.invoice.line').search(cr, uid, [('invoice_id','=',inv.id)]):
@@ -178,16 +178,21 @@ class account_invoice(osv.osv):
         return res
 
     #raise an error if the partner has the warning 'alert_others' when we choose him in the account_invoice form
-    def onchange_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False):
+    def onchange_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False, partner_bank_id=False):
+        warning = False
         inv_special=False
         if partner_id:
             data_partner = self.pool.get('res.partner').browse(cr,uid,partner_id)
             inv_special=data_partner.invoice_special
             if data_partner.alert_others:
-                raise osv.except_osv('Error!',data_partner.alert_explanation or 'Partner is not valid')
-
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
         data=super(account_invoice,self).onchange_partner_id( cr, uid, ids, type, partner_id,date_invoice, payment_term)
         data['value']['invoice_special']=inv_special
+        if warning:
+            data['warning'] = warning
         return data
 
 account_invoice()

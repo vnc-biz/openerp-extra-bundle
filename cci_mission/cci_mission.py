@@ -130,17 +130,21 @@ class cci_missions_embassy_folder(osv.osv):
         self._history(cr, uid,self.browse(cr, uid, [temp]), 'Created', history=True)
         return temp
 
-
-
     def onchange_partner_id(self, cr, uid, ids, part):
+        warning = False
         if not part:
             return {'value':{'partner_address_id': False}}
         part_obj = self.pool.get('res.partner')
         data_partner = part_obj.browse(cr,uid,part)
         if data_partner.alert_legalisations:
-                raise osv.except_osv('Error!',data_partner.alert_explanation or 'Partner is not valid')
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
         addr = part_obj.address_get(cr, uid, [part], ['contact'])
         data = {'partner_address_id':addr['contact']}
+        if warning:
+            return {'value':data, 'warning': warning}
         return {'value':data}
 
     def check_folder_line(self, cr, uid, ids):
@@ -419,11 +423,15 @@ class cci_missions_certificate(osv.osv):
         sender_name=False
         asker_address=False
         zip=False
+        warning = False
 
         if order_partner_id:
             partner_info = self.pool.get('res.partner').browse(cr, uid,order_partner_id)
             if partner_info.alert_legalisations:
-                raise osv.except_osv('Error!',partner_info.alert_explanation or 'Partner is not valid')
+                warning = {
+                    'title': "Warning:",
+                    'message': partner_info.alert_explanation or 'Partner is not valid'
+                        }
             if not partner_info.asker_name:
                 asker_name=partner_info.name
             else:
@@ -455,6 +463,8 @@ class cci_missions_certificate(osv.osv):
             'asker_zip_id': zip,
             'sender_name': sender_name}
         }
+        if warning:
+            result['warning'] =  warning
         return result
 
     def create(self, cr, uid, vals, *args, **kwargs):
@@ -542,10 +552,14 @@ class cci_missions_legalization(osv.osv):
         asker_name=False
         sender_name=False
         member_state=False
+        warning = False
         if order_partner_id:
             partner_info = self.pool.get('res.partner').browse(cr, uid,order_partner_id)
             if partner_info.alert_legalisations:
-                raise osv.except_osv('Error!',partner_info.alert_explanation or 'Partner is not valid')
+                warning = {
+                    'title': "Warning:",
+                    'message': partner_info.alert_explanation or 'Partner is not valid'
+                        }
             if partner_info.membership_state == 'none': #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
                 member_state = False
             else:
@@ -564,6 +578,8 @@ class cci_missions_legalization(osv.osv):
             'member_price':member_state
             }
         }
+        if warning:
+            result['warning'] = warning
         return result
 
     def create(self, cr, uid, vals, *args, **kwargs):
@@ -858,14 +874,20 @@ class cci_missions_ata_carnet(osv.osv):
     def onchange_partner_id(self,cr,uid,ids,partner_id):
         #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
         member_state = False
+        warning = False
         if partner_id:
             partner_info = self.pool.get('res.partner').browse(cr, uid,partner_id)
             if partner_info.alert_legalisations:
-                raise osv.except_osv('Error!',partner_info.alert_explanation or 'Partner is not valid')
+                warning = {
+                    'title': "Warning:",
+                    'message': partner_info.alert_explanation or 'Partner is not valid'
+                        }
             if partner_info.membership_state == 'none':
                 member_state = False
             else:
                 member_state = True
+        if warning:
+            return {'value':{'member_price' : member_state}, 'warning': warning}
         return {'value':{'member_price' : member_state}}
 
     def onchange_warranty_product_id(self,cr,uid,ids,prod_id):

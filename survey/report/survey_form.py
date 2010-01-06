@@ -21,17 +21,8 @@
 ##############################################################################
 
 import time
-from report import report_sxw
 import pooler
-from mx import DateTime
-import netsvc
-import rml_parse
-from lxml import etree
-from tools import to_xml
-import base64
 from report.interface import report_rml
-
-#from addons.account.wizard import wizard_account_balance_report
 
 class survey_form(report_rml):
     def create(self, cr, uid, ids, datas, context):
@@ -90,7 +81,7 @@ class survey_form(report_rml):
                 rml += """
                 <para style="P2"><font></font></para>
                 <blockTable colWidths="1000.0" style="page_tbl">
-                    <tr><td><para style="page">Page :- """ + page.title + """</para></td></tr>
+                    <tr><td><para style="page"><seq/>. """ + page.title + """</para></td></tr>
                 </blockTable>"""
                 for que in page.question_ids:
                     cols_widhts=[]

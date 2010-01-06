@@ -56,6 +56,20 @@ class sale_order(osv.osv):
         'deadline': fields.date('Deadline'),
     }
 
+    def onchange_partner_id(self, cr, uid, ids, part):
+        warning = False
+        data = super(sale_order,self).onchange_partner_id(cr, uid, ids, part)
+        if part:
+            data_partner = self.pool.get('res.partner').browse(cr,uid,part)
+            if data_partner.alert_others:
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
+        if warning:
+            data['warning'] =  warning
+        return data
+
     def _make_invoice(self, cr, uid, order, lines, context={}):
         a = order.partner_id.property_account_receivable.id
         if order.payment_term:
@@ -92,6 +106,33 @@ class sale_order(osv.osv):
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
 
+    def onchange_published_customer(self, cursor, user, ids ,published_customer):
+        warning  = False
+        data = super(sale_order,self).onchange_published_customer(cursor, user, ids ,published_customer)
+        if published_customer:
+            data_partner = self.pool.get('res.partner').browse(cursor, user, published_customer)
+            if data_partner.alert_advertising:
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
+        if warning:
+            data['warning'] =  warning
+        return data
+
+    def onchange_advertising_agency(self, cursor, user, ids, ad_agency):
+        warning  = False
+        data = super(sale_order,self).onchange_advertising_agency(cursor, user, ids ,ad_agency)
+        if ad_agency:
+            data_partner = self.pool.get('res.partner').browse(cursor, user, ad_agency)
+            if data_partner.alert_advertising:
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
+        if warning:
+            data['warning'] =  warning
+        return data
 sale_order()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

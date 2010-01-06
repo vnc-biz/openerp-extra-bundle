@@ -248,15 +248,21 @@ class event_registration(osv.osv):
     def onchange_partner_id(self, cr, uid, ids, part, event_id, email=False):
     #raise an error if the partner cannot participate to event.
         badge_part = False
+        warning = False
         if part:
             data_partner = self.pool.get('res.partner').browse(cr,uid,part)
             if data_partner.alert_events:
-                raise osv.except_osv('Error!',data_partner.alert_explanation or 'Partner is not valid')
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
             if data_partner.badge_partner:
                 badge_part = data_partner.badge_partner
         data = super(event_registration,self).onchange_partner_id(cr, uid, ids, part, event_id, email)
         if badge_part:
             data['value']['badge_partner'] = badge_part
+        if warning:
+            data['warning'] =  warning
         return data
 
     def onchange_partner_invoice_id(self, cr, uid, ids, event_id, partner_invoice_id):

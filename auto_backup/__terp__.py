@@ -38,7 +38,7 @@ Automatic backup for all such configured databases under this can then be schedu
     "depends" : [],
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : ["bkp_conf_view.xml"],
+    "update_xml" : ["bkp_conf_view.xml","backup_data.xml"],
     "active": False,
     "installable": True
 }

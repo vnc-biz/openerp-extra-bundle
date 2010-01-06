@@ -268,7 +268,7 @@ class crm_case(osv.osv):
                                 if bug.assignee:
                                     assing_id = user_rec.search(cr,uid,[('login', '=', bug.assignee.name)])
                                     if assing_id:
-                                         val['user_id']=assing_id
+                                         val['user_id']=assing_id[0]
                                     else: 
                                         res={}
                                         res['name']=bug.assignee.name
@@ -310,15 +310,15 @@ class crm_case(osv.osv):
                                 if b_id:
                                     crm_case = self.browse(cr,uid, b_id[0])
                                     lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
-                                    lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,'%Y-%m-%d %H:%M:%S'))
+                                    lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,"%Y-%m-%dT%H:%M:%S"))+ time.timezone
                                     if not crm_case.date_action_last:
                                         local_last_up_time=0
                                         local_last_up_timestamp = 0
                                         local_last_up_timestamp1=0
                                     else:
                                         local_last_up_time = str(crm_case.date_action_last).split('.')[0]
-                                        local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S')) + time.timezone
-                                        local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%d %H:%M:%S'))
+                                        local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,"%Y-%m-%dT%H:%M:%S")) + time.timezone
+                                        local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%dT%H:%M:%S'))
     
                                     args = (cr, uid, context, [sec_id], crm_case, bug, val)
                                     if lp_last_up_timestamp >= local_last_up_timestamp:

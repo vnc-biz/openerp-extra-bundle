@@ -22,6 +22,7 @@
 
 from osv import fields
 from osv import osv
+import time
 
 class dm_as_reject_type(osv.osv):#{{{
     _name = "dm.as.reject.type"
@@ -94,6 +95,8 @@ class dm_as_reject_incident(osv.osv): # {{{
         }
     _defaults = {
         'active': lambda *a: 1,         
+        'date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        'user_id': lambda obj, cr, uid, context: uid,
         }
 dm_as_reject_incident() # }}}
 

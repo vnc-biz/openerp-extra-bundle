@@ -122,6 +122,7 @@ class reminder_reminder(osv.osv):
                     log['state'] = 'exception'
                 else:
                     log['state'] = 'info'
+                self.pool.get('reminder.log').create(cr, uid, log)
         return True
     
 reminder_reminder()
@@ -182,9 +183,7 @@ class user_reminder(osv.osv):
                 notify_on = user_add.email
             elif notify == 'mobile':
                 notify_on = user_add.mobile        
-#        if ids:
-#            self.write(cr, uid, ids, {'email': notify_on})
-#            
+
         return {
             'value': {'email': notify_on}
         }

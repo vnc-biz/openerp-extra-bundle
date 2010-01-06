@@ -93,7 +93,7 @@ class survey_form(report_rml):
     <paraStyle name="header1" fontName="Helvetica" fontSize="11.0"/>
     <paraStyle name="Standard2" fontName="Helvetica-bold" fontSize="11.0"/>
     <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
-    <paraStyle name="page" fontName="helvetica-bold" fontSize="15.0" leftIndent="0.0"/>
+    <paraStyle name="page" fontName="helvetica-bold" fontSize="15.0" leftIndent="0.0" textColor="white"/>
     <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
     <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>

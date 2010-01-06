@@ -56,6 +56,20 @@ class sale_order(osv.osv):
         'deadline': fields.date('Deadline'),
     }
 
+    def onchange_partner_id(self, cr, uid, ids, part):
+        warning = False
+        data = super(sale_order,self).onchange_partner_id(cr, uid, ids, part)
+        if part:
+            data_partner = self.pool.get('res.partner').browse(cr,uid,part)
+            if data_partner.alert_others:
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
+        if warning:
+            data['warning'] =  warning
+        return data
+
     def _make_invoice(self, cr, uid, order, lines, context={}):
         a = order.partner_id.property_account_receivable.id
         if order.payment_term:

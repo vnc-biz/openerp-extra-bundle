@@ -130,7 +130,7 @@ class survey_form(report_rml):
                             answer.append(str((ans.answer.replace('&','&amp;')).replace('<','below')))
                         def divide_list(lst, n):
                             return [lst[i::n] for i in range(n)]
-                        rows = 4
+                        rows = 5
                         divide_list = divide_list(answer,rows)
                         for lst in divide_list:
                             if que.type == 'multiple_choice_multiple_ans':

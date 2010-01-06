@@ -92,6 +92,33 @@ class sale_order(osv.osv):
         inv_obj.button_compute(cr, uid, [inv_id])
         return inv_id
 
+    def onchange_published_customer(self, cursor, user, ids ,published_customer):
+        warning  = False
+        data = super(sale_order,self).onchange_published_customer(cursor, user, ids ,published_customer)
+        if published_customer:
+            data_partner = self.pool.get('res.partner').browse(cursor, user, published_customer)
+            if data_partner.alert_advertising:
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
+        if warning:
+            data['warning'] =  warning
+        return data
+
+    def onchange_advertising_agency(self, cursor, user, ids, ad_agency):
+        warning  = False
+        data = super(sale_order,self).onchange_advertising_agency(cursor, user, ids ,ad_agency)
+        if ad_agency:
+            data_partner = self.pool.get('res.partner').browse(cursor, user, ad_agency)
+            if data_partner.alert_advertising:
+                warning = {
+                    'title': "Warning:",
+                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                        }
+        if warning:
+            data['warning'] =  warning
+        return data
 sale_order()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

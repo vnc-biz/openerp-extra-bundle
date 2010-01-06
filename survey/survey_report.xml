@@ -2,10 +2,11 @@
 <openerp>
 	<data>
 
-		<report auto="True" id="survey" model="survey"
-			name="survey_analysis_report"
-			rml="survey/report/survey_analysis_report.rml"
-			string="Survey Analysis Report"/>
+		<report auto="False"
+				id="report_survey_form"
+				model="survey"
+				name="survey.form"
+				string="Survey Form"/>
 
 	</data>
 </openerp>

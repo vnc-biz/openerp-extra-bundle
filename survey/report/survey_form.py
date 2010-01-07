@@ -33,7 +33,14 @@ class survey_form(report_rml):
             <document filename="Survey Form.pdf">
             <template pageSize="(1120.5,767.8)" title="Survey Form" author="Martin Simon" allowSplitting="20" >
                 <pageTemplate id="first">
-                    <frame id="first" x1="22.0" y1="31.0" width="1080" height="680"/>
+                    <frame id="first" x1="22.0" y1="35.0" width="1080" height="680"/>
+                    <pageGraphics>
+                        <lineMode width="1.7"/>
+                        <lines>2.10cm 25.09cm 37.51cm 25.09cm</lines>
+                        <lines>2.15cm 25.09cm 2.2cm 2.15cm</lines>
+                        <lines>37.51cm 25.09cm 37.51cm 2.15cm</lines>
+                        <lines>2.15cm 2.15cm 37.51cm 2.15cm</lines>
+                    </pageGraphics>
                 </pageTemplate>
             </template>
             <stylesheet>
@@ -82,7 +89,7 @@ class survey_form(report_rml):
             for page in survey.page_ids:
                 seq+=1
                 rml += """
-                <para style="P2"><font></font></para>
+
                 <blockTable colWidths="1000.0" style="page_tbl">
                     <tr><td><para style="page">"""+ str(seq) + """. """ + page.title + """</para></td></tr>
                 </blockTable>"""

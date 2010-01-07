@@ -23,9 +23,11 @@
 import time
 import pooler
 from report.interface import report_rml
+from tools import to_xml
 
 class survey_form(report_rml):
     def create(self, cr, uid, ids, datas, context):
+        page_number = '&lt;pageNumber/&gt;'
         rml=''
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for survey in surv_obj.browse(cr,uid,ids):
@@ -37,10 +39,16 @@ class survey_form(report_rml):
                     <pageGraphics>
                         <lineMode width="1.7"/>
                         <lines>2.10cm 25.09cm 37.51cm 25.09cm</lines>
-                        <lines>2.15cm 25.09cm 2.2cm 2.15cm</lines>
-                        <lines>37.51cm 25.09cm 37.51cm 2.15cm</lines>
-                        <lines>2.15cm 2.15cm 37.51cm 2.15cm</lines>
-                    </pageGraphics>
+                        <lines>2.15cm 25.09cm 2.2cm 1.50cm</lines>
+                        <lines>37.51cm 25.09cm 37.51cm 1.50cm</lines>
+                        <lines>2.15cm 1.50cm 37.51cm 1.50cm</lines>"""
+            if datas['form']['page_number']:
+                rml +="""
+                <fill color="gray"/>
+                <setFont name="Helvetica" size="10"/>
+                <drawRightString x="37.51cm" y="1.0cm">Page : <pageNumber/> </drawRightString>"""
+            rml +="""
+            </pageGraphics>
                 </pageTemplate>
             </template>
             <stylesheet>
@@ -52,6 +60,14 @@ class survey_form(report_rml):
                 <blockTableStyle id="page_tbl">
                   <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
                   <blockBackground colorName="gray" start="0,0" stop="-1,-1"/>
+                  <blockTextColor colorName="white" start="0,0" stop="0,0"/>
+                  <blockAlignment value="LEFT"/>
+                  <blockValign value="TOP"/>
+                  <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
+                </blockTableStyle>
+                <blockTableStyle id="title_tbl">
+                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
+                  <blockBackground colorName="black" start="0,0" stop="-1,-1"/>
                   <blockTextColor colorName="white" start="0,0" stop="0,0"/>
                   <blockAlignment value="LEFT"/>
                   <blockValign value="TOP"/>
@@ -72,6 +88,7 @@ class survey_form(report_rml):
                 <paraStyle name="Standard2" fontName="Helvetica-bold" fontSize="11.0"/>
                 <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
                 <paraStyle name="page" fontName="helvetica-bold" fontSize="15.0" leftIndent="0.0" textColor="white"/>
+                <paraStyle name="title" fontName="helvetica-bold" fontSize="18.0" leftIndent="0.0" textColor="white"/>
                 <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
                 <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
                 <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -85,11 +102,15 @@ class survey_form(report_rml):
             </stylesheet>
             <story>
             """
+            if datas['form']['survey_title']:
+                    rml += """
+                    <blockTable colWidths="1000.0" style="title_tbl" repeatRows="1">
+                        <tr><td><para style="title">""" + survey.title + """</para><para style="P2"><font></font></para></td></tr>
+                    </blockTable>"""
             seq = 0
             for page in survey.page_ids:
                 seq+=1
                 rml += """
-
                 <blockTable colWidths="1000.0" style="page_tbl">
                     <tr><td><para style="page">"""+ str(seq) + """. """ + page.title + """</para></td></tr>
                 </blockTable>"""
@@ -104,7 +125,7 @@ class survey_form(report_rml):
                     if que.type in ['multiple_choice_multiple_ans','multiple_choice_only_one_ans']:
                         answer=[]
                         for ans in que.answer_choice_ids:
-                            answer.append(str((ans.answer.replace('&','&amp;')).replace('<','below')))
+                            answer.append(to_xml(str((ans.answer))))
 
                         def divide_list(lst, n):
                             return [lst[i::n] for i in range(n)]
@@ -139,7 +160,6 @@ class survey_form(report_rml):
                                                 </illustration>
                                            </td>
                                            <td><para style="answer">""" + divide[div] + """</para></td>"""
-
                                    else:
                                        rml+="""
                                        <td>
@@ -175,7 +195,7 @@ class survey_form(report_rml):
                         rml+="""</tr>"""
                         for ans in que.answer_choice_ids:
                             rml+= """<tr>"""
-                            rml+="""<td><para style="answer">""" + str(ans.answer.replace('&','&amp;')) + """</para></td>"""
+                            rml+="""<td><para style="answer">""" + to_xml(str(ans.answer)) + """</para></td>"""
                             for mat_col in range(1,len(matrix_ans)):
                                 rml+="""
                                 <td>
@@ -200,7 +220,8 @@ class survey_form(report_rml):
                             </tr>
                         </blockTable>
                         """
-                rml+="""<pageBreak/>"""
+                if not datas['form']['without_pagebreak']:
+                    rml+="""<pageBreak/>"""
         rml+="""</story></document>"""
         report_type = datas.get('report_type', 'pdf')
         create_doc = self.generators[report_type]

@@ -286,7 +286,7 @@ class survey_question(osv.osv):
                         raise osv.except_osv(_('Error !'),_("Maximum Required Answer you entered for your maximum is greater than the number of answer. Please use a number that is smaller than %d.") % (ans_len + 1))
                 if maximum_ans <= minimum_ans:
                     raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
-            if question['type'] ==  'matrix_of_drop_down_menus':
+            if question['type'] ==  'matrix_of_drop_down_menus' and vals.has_key('column_heading_ids'):
                 for col in vals['column_heading_ids']:
                     if not col[2]['menu_choice']:
                         raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading"))

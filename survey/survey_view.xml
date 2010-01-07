@@ -229,7 +229,7 @@
 			<field name="name">New Survey</field>
 			<field name="res_model">survey</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
+			<field name="view_mode">form,tree</field>
 			<field name="view_id" ref="survey_form"></field>
 		</record>
 
@@ -402,7 +402,7 @@
 			<field name="name">New Survey Page</field>
 			<field name="res_model">survey.page</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
+			<field name="view_mode">form,tree</field>
 			<field name="view_id" ref="survey_page_form"></field>
 		</record>
 
@@ -570,7 +570,7 @@
 			<field name="name">New Survey Question</field>
 			<field name="res_model">survey.question</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
+			<field name="view_mode">form,tree</field>
 			<field name="view_id" ref="survey_question_form"/>
 		</record>
 

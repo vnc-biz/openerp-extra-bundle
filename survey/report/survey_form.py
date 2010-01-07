@@ -27,7 +27,6 @@ from tools import to_xml
 
 class survey_form(report_rml):
     def create(self, cr, uid, ids, datas, context):
-        page_number = '&lt;pageNumber/&gt;'
         rml=''
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for survey in surv_obj.browse(cr,uid,ids):
@@ -105,21 +104,21 @@ class survey_form(report_rml):
             if datas['form']['survey_title']:
                     rml += """
                     <blockTable colWidths="1000.0" style="title_tbl" repeatRows="1">
-                        <tr><td><para style="title">""" + survey.title + """</para><para style="P2"><font></font></para></td></tr>
+                        <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para></td></tr>
                     </blockTable>"""
             seq = 0
             for page in survey.page_ids:
                 seq+=1
                 rml += """
                 <blockTable colWidths="1000.0" style="page_tbl">
-                    <tr><td><para style="page">"""+ str(seq) + """. """ + page.title + """</para></td></tr>
+                    <tr><td><para style="page">"""+ str(seq) + """. """ + to_xml(page.title) + """</para></td></tr>
                 </blockTable>"""
                 for que in page.question_ids:
                     cols_widhts=[]
                     rml +="""
                     <para style="P2"><font></font></para>
                     <blockTable colWidths="1000.0" style="question_tbl">
-                        <tr><td><para style="question">Que: """+ que.question + """</para></td></tr>
+                        <tr><td><para style="question">Que: """+ to_xml(que.question) + """</para></td></tr>
                     </blockTable>
                     <para style="P2"><font></font></para>"""
                     if que.type in ['multiple_choice_multiple_ans','multiple_choice_only_one_ans']:
@@ -191,7 +190,7 @@ class survey_form(report_rml):
                             <tr>"""
                         for mat_col in matrix_ans:
                             rml+="""
-                            <td><para style="response">""" + mat_col + """</para></td>"""
+                            <td><para style="response">""" + to_xml(mat_col) + """</para></td>"""
                         rml+="""</tr>"""
                         for ans in que.answer_choice_ids:
                             rml+= """<tr>"""

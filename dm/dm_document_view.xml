@@ -300,7 +300,7 @@
         		<field name="note" nolabel="1" colspan="4"/>
                 <notebook colspan="4">
                     <page string="Customer Plugin" attrs="{'invisible':[('type','not in',['fields','image'])]}">
-                        <field name="model_id" colspan="4" attrs="{'required':[('type','=','fields')]}" />
+                        <field name="model_id" colspan="4" attrs="{'required':[('type','=','fields')]}" domain="[('model', 'in', ['dm.workitem', 'dm.campaign', 'dm.trademark', 'dm.campaign.proposition.segment', 'dm.offer.step',  'dm.offer.document', 'res.partner.address', 'res.partner', 'res.partner.contact', 'res.partner.job', 'res.lang', 'res.country', 'dm.offer.step.transition'])]" />
                         <field name="field_id"  colspan="4" domain = "[('model_id','=',model_id),('ttype','not in',('many2one','many2many','one2many'))]" attrs="{'required':[('type','=','fields')]}" />
                     </page>
                     <page string="Dnynamic Text Plugin" attrs="{'invisible':[('type','!=','dynamic_text')]}">

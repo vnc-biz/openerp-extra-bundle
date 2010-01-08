@@ -42,6 +42,12 @@ class dm_workitem(osv.osv): # {{{
         result = super(dm_workitem, self).run(cr, uid, wi, context)
         if wi.sale_order_id:
             so_res = self.pool.get('sale.order')._sale_order_process(cr, uid, wi.sale_order_id.id)
+        if wi.step_id.partner_event_create:
+            self.pool.get('res.partner.event').create(cr, uid, {
+                            'name': wi.step_id.name,
+                            'partner_type': 'customer',
+                            'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+                            'document': wi.sale_order_id and ('sale.order' +','+ wi.sale_order_id.name) or ''})
         return result
 
     def copy(self, cr, uid, id, default=None, context=None):

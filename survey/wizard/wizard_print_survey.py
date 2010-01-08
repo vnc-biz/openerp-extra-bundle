@@ -31,16 +31,27 @@ from tools.translate import _
 _survey_form = '''<?xml version="1.0"?>
 <form string="Print Survey">
     <separator string="Print Option" colspan="4"/>
-    <group cols="2" colspan="4">
-        <field name="survey_title"/>
-        <newline/>
-        <field name="page_number"/>
-        <newline/>
-        <field name="without_pagebreak"/>
-    </group>
+    <field name="orientation" colspan="4"/>
+    <field name="paper_size" colspan="4"/>
+    <field name="survey_title" colspan="4"/>
+    <field name="page_number" colspan="4"/>
+    <field name="without_pagebreak" colspan="4"/>
 </form>'''
 
 _survey_fields = {
+    'orientation':{
+        'string':"Orientation",
+        'type':'selection',
+        'selection':[('vertical','Portrait(Vertical)'),
+                     ('horizontal','Landscape(Horizontal)')],
+        'default': lambda *a:'vertical'},
+    'paper_size':{
+        'string':"Paper Size",
+        'type':'selection',
+        'selection':[('letter','Letter (8.5" x 11")'),
+                     ('legal','Legal (8.5" x 14")'),
+                     ('a4','A4 (210mm x 297mm)')],
+        'default': lambda *a:'letter'},
     'survey_title': {'string':'Include Survey Title', 'type':'boolean', 'default':lambda *a: 0},
     'page_number': {'string':'Include Page Numbers', 'type':'boolean', 'default':lambda *a: 0},
     'without_pagebreak': {'string':'Print Without Page Breaks', 'type':'boolean', 'default':lambda *a: 0},

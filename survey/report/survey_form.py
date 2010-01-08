@@ -27,25 +27,48 @@ from tools import to_xml
 
 class survey_form(report_rml):
     def create(self, cr, uid, ids, datas, context):
+
+        _divide_columns_for_matrix = 0.7
+        _display_ans_in_rows = 5
+
+        if datas['form']['orientation']=='vertical':
+            if datas['form']['paper_size']=='letter':
+                _pageSize = ('21.6cm','27.9cm')
+            elif datas['form']['paper_size']=='legal':
+                _pageSize = ('21.6cm','35.6cm')
+            elif datas['form']['paper_size']=='a4':
+                _pageSize = ('21.1cm','29.7cm')
+        elif datas['form']['orientation']=='horizontal':
+            if datas['form']['paper_size']=='letter':
+                _pageSize = ('27.9cm','21.6cm')
+            elif datas['form']['paper_size']=='legal':
+                _pageSize = ('35.6cm','21.6cm')
+            elif datas['form']['paper_size']=='a4':
+                _pageSize = ('29.7cm','21.1cm')
+
+        _frame_width = str(_pageSize[0])
+        _frame_height = str(float(_pageSize[1].replace('cm','')) - float(2.50))+'cm'
+        _tbl_widths = str(float(_pageSize[0].replace('cm','')) - float(2.10))+'cm'
+
         rml=''
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for survey in surv_obj.browse(cr,uid,ids):
             rml="""
             <document filename="Survey Form.pdf">
-            <template pageSize="(1120.5,767.8)" title="Survey Form" author="Martin Simon" allowSplitting="20" >
+            <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title="Survey Form" author="Martin Simon" allowSplitting="20" >
                 <pageTemplate id="first">
-                    <frame id="first" x1="22.0" y1="35.0" width="1080" height="680"/>
+                    <frame id="first" x1="0.0cm" y1="1.0cm" width='"""+_frame_width+"""' height='"""+_frame_height+"""'/>
                     <pageGraphics>
-                        <lineMode width="1.7"/>
-                        <lines>2.10cm 25.09cm 37.51cm 25.09cm</lines>
-                        <lines>2.15cm 25.09cm 2.2cm 1.50cm</lines>
-                        <lines>37.51cm 25.09cm 37.51cm 1.50cm</lines>
-                        <lines>2.15cm 1.50cm 37.51cm 1.50cm</lines>"""
+                        <lineMode width="1.0"/>
+                        <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+"""</lines>
+                        <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" 1.0cm 1.00cm</lines>
+                        <lines>"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>
+                        <lines>1.0cm 1.00cm """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>"""
             if datas['form']['page_number']:
                 rml +="""
                 <fill color="gray"/>
                 <setFont name="Helvetica" size="10"/>
-                <drawRightString x="37.51cm" y="1.0cm">Page : <pageNumber/> </drawRightString>"""
+                <drawRightString x='"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+"""' y="0.6cm">Page : <pageNumber/> </drawRightString>"""
             rml +="""
             </pageGraphics>
                 </pageTemplate>
@@ -103,21 +126,21 @@ class survey_form(report_rml):
             """
             if datas['form']['survey_title']:
                     rml += """
-                    <blockTable colWidths="1000.0" style="title_tbl" repeatRows="1">
+                    <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
                         <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para></td></tr>
                     </blockTable>"""
             seq = 0
             for page in survey.page_ids:
                 seq+=1
                 rml += """
-                <blockTable colWidths="1000.0" style="page_tbl">
+                <blockTable colWidths='"""+_tbl_widths+"""' style="page_tbl">
                     <tr><td><para style="page">"""+ str(seq) + """. """ + to_xml(page.title) + """</para></td></tr>
                 </blockTable>"""
                 for que in page.question_ids:
                     cols_widhts=[]
                     rml +="""
                     <para style="P2"><font></font></para>
-                    <blockTable colWidths="1000.0" style="question_tbl">
+                    <blockTable colWidths='"""+_tbl_widths+"""' style="question_tbl">
                         <tr><td><para style="question">Que: """+ to_xml(que.question) + """</para></td></tr>
                     </blockTable>
                     <para style="P2"><font></font></para>"""
@@ -129,23 +152,23 @@ class survey_form(report_rml):
                         def divide_list(lst, n):
                             return [lst[i::n] for i in range(n)]
 
-                        rows = 5
-                        divide_list = divide_list(answer,rows)
+                        divide_list = divide_list(answer,_display_ans_in_rows)
                         for lst in divide_list:
                             if que.type == 'multiple_choice_multiple_ans':
-                                if len(lst)<>0 and len(lst)<>int(round(float(len(answer))/rows,0)):
+                                if len(lst)<>0 and len(lst)<>int(round(float(len(answer))/_display_ans_in_rows,0)):
                                    lst.append('')
                             if not lst:
                                del divide_list[divide_list.index(lst):]
 
                         for divide in divide_list:
-                            a = 20*len(divide)
-                            b = 1000 - a
+                            a = _divide_columns_for_matrix*len(divide)
+                            b = float(_tbl_widths.replace('cm','')) - float(a)
                             cols_widhts=[]
                             for div in range(0,len(divide)):
                                 cols_widhts.append(float(a/len(divide)))
                                 cols_widhts.append(float(b/len(divide)))
-                            colWidths = ",".join(map(str, cols_widhts))
+                            colWidths = "cm,".join(map(str, cols_widhts))
+                            colWidths = colWidths+'cm'
                             rml+="""<blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
                                         <tr>"""
                             for div in range(0,len(divide)):
@@ -175,12 +198,13 @@ class survey_form(report_rml):
                             </tr></blockTable>"""
                     elif que.type in ['matrix_of_choices_only_one_ans','matrix_of_choices_only_multi_ans']:
                         if len(que.column_heading_ids):
-                            cols_widhts.append(600)
+                            cols_widhts.append(float(_tbl_widths.replace('cm',''))/float(2.0))
                             for col in que.column_heading_ids:
-                                cols_widhts.append(float(400/len(que.column_heading_ids)))
+                                cols_widhts.append(float((float(_tbl_widths.replace('cm',''))/float(2.0))/len(que.column_heading_ids)))
                         else:
-                            cols_widhts.append(1000.0)
-                        colWidths = ",".join(map(str, cols_widhts))
+                            cols_widhts.append(float(_tbl_widths.replace('cm','')))
+                        colWidths = "cm,".join(map(str, cols_widhts))
+                        colWidths = colWidths+'cm'
                         matrix_ans = ['',]
                         for col in que.column_heading_ids:
                             if col.title not in matrix_ans:
@@ -205,8 +229,9 @@ class survey_form(report_rml):
                             rml+= """</tr>"""
                         rml+="""</blockTable>"""
                     else:
-                        cols_widhts.append(1000.00)
-                        colWidths = ",".join(map(str, cols_widhts))
+                        cols_widhts.append(float(_tbl_widths.replace('cm','')))
+                        colWidths = "cm,".join(map(str, cols_widhts))
+                        colWidths = colWidths+'cm'
                         rml+="""
                         <para style="P2"><font color="white"> </font></para>
                         <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
@@ -221,6 +246,8 @@ class survey_form(report_rml):
                         """
                 if not datas['form']['without_pagebreak']:
                     rml+="""<pageBreak/>"""
+                else:
+                    rml+="""<para style="P2"><font></font></para>"""
         rml+="""</story></document>"""
         report_type = datas.get('report_type', 'pdf')
         create_doc = self.generators[report_type]

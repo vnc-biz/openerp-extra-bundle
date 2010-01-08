@@ -844,7 +844,7 @@ class survey_question_wiz(osv.osv_memory):
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "\n you cannot select same answer more than one times'"))
                     if not select_count:
                         resp_obj.write(cr, uid, resp_id, {'state':'skip'})
-                    if  numeric_sum > que_rec['numeric_required_sum']:
+                    if que_rec['numeric_required_sum'] and numeric_sum > que_rec['numeric_required_sum']:
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
                         raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['numeric_required_sum_err_msg'])))
@@ -1001,7 +1001,7 @@ class survey_question_wiz(osv.osv_memory):
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question']  + "' " + str(que_rec['make_comment_field_err_msg'])))
                 if que_rec['type'] == "rating_scale" and que_rec['rating_allow_one_column_require'] and len(selected_value) > len(list(set(selected_value))):
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "\n you cannot select same answer more than one times'"))
-                if numeric_sum > que_rec['numeric_required_sum']:
+                if que_rec['numeric_required_sum'] and numeric_sum > que_rec['numeric_required_sum']:
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + str(que_rec['numeric_required_sum_err_msg'])))
                 if not select_count:
                     resp_obj.write(cr, uid, update, {'state': 'skip'})

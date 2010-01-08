@@ -30,15 +30,15 @@ class survey_form(report_rml):
 
         _divide_columns_for_matrix = 0.7
         _display_ans_in_rows = 5
-
-        if datas['form']['orientation']=='vertical':
+        _pageSize = ('21.6cm','27.9cm')
+        if datas.has_key('form') and datas['form']['orientation']=='vertical':
             if datas['form']['paper_size']=='letter':
                 _pageSize = ('21.6cm','27.9cm')
             elif datas['form']['paper_size']=='legal':
                 _pageSize = ('21.6cm','35.6cm')
             elif datas['form']['paper_size']=='a4':
                 _pageSize = ('21.1cm','29.7cm')
-        elif datas['form']['orientation']=='horizontal':
+        elif datas.has_key('form') and datas['form']['orientation']=='horizontal':
             if datas['form']['paper_size']=='letter':
                 _pageSize = ('27.9cm','21.6cm')
             elif datas['form']['paper_size']=='legal':
@@ -64,7 +64,7 @@ class survey_form(report_rml):
                         <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" 1.0cm 1.00cm</lines>
                         <lines>"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>
                         <lines>1.0cm 1.00cm """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>"""
-            if datas['form']['page_number']:
+            if datas.has_key('form') and datas['form']['page_number']:
                 rml +="""
                 <fill color="gray"/>
                 <setFont name="Helvetica" size="10"/>
@@ -124,7 +124,7 @@ class survey_form(report_rml):
             </stylesheet>
             <story>
             """
-            if datas['form']['survey_title']:
+            if datas.has_key('form') and datas['form']['survey_title']:
                     rml += """
                     <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
                         <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para></td></tr>
@@ -244,7 +244,9 @@ class survey_form(report_rml):
                             </tr>
                         </blockTable>
                         """
-                if not datas['form']['without_pagebreak']:
+                if datas.has_key('form') and not datas['form']['without_pagebreak']:
+                    rml+="""<pageBreak/>"""
+                elif not datas.has_key('form'):
                     rml+="""<pageBreak/>"""
                 else:
                     rml+="""<para style="P2"><font></font></para>"""

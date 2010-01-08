@@ -27,6 +27,10 @@ from random import choice
 import string
 import tools
 from tools.translate import _
+import tools
+import os
+import datetime
+import netsvc
 
 _survey_form = '''<?xml version="1.0"?>
 <form string="Send Invitation">
@@ -58,7 +62,7 @@ _survey_fields = {
     'send_mail_existing': {'string':'Send reminder for existing user', 'type':'boolean', 'default':lambda *a: 1}, 
     'mail_subject': {'string':'Subject', 'type':'char', 'default':lambda *a: "New user account.", "size":256}, 
     'mail_subject_existing': {'string':'Subject', 'type':'char', 'default':lambda *a: "User account info.", "size":256}, 
-    'mail_from': {'string':'From', 'type':'char', "size":256, 'required':True}, 
+    'mail_from': {'string':'From', 'type':'char', "size":256, 'required':True, 'default':lambda *a: tools.config['email_from']  },
     'mail': {'string':'Body', 'type':'text'}, 
     }
 
@@ -137,8 +141,17 @@ def send_mail(self, cr, uid, data, context):
             out+= addr.email + ',' + passwd + '\n'
             mail= data['form']['mail'] % {'login' : addr.email, 'passwd' : passwd, 'name' : addr.name}
             if data['form']['send_mail']:
+                report = create_report(cr, uid, data['ids'], 'report.survey.form', "survey")
+                file = open("/tmp/survey.pdf")
+                file_data = ""
+                while 1:
+                    line = file.readline()
+                    file_data += line
+                    if not line:
+                        break
+                attachments = [('survey.pdf',file_data)]
                 ans = tools.email_send(data['form']['mail_from'], [addr.email], \
-                                       data['form']['mail_subject'], mail)
+                                       data['form']['mail_subject'], mail,attach = attachments)
                 if ans:
                     user = user_ref.create(cr, uid, {'name' : addr.name or 'Unknown', 
                                         'login' : addr.email, 
@@ -165,7 +178,22 @@ def send_mail(self, cr, uid, data, context):
     if res_user:
         note += 'E-mail ID used the following user:\n====================\n%s\n' % (res_user)
     return {'note': note}
-    
+
+
+def create_report(cr, uid, res_ids, report_name=False, file_name=False):
+    if not report_name or not res_ids:
+        return (False, Exception('Report name and Resources ids are required !!!'))
+    try:
+        ret_file_name = '/tmp/'+file_name+'.pdf'
+        service = netsvc.LocalService(report_name);
+        (result, format) = service.create(cr, uid, res_ids, {}, {})
+        fp = open(ret_file_name, 'wb+');
+        fp.write(result);
+        fp.close();
+    except Exception,e:
+        print 'Exception in create report:',e
+        return (False, str(e))
+    return (True, ret_file_name)
 
 class send_mail_wizard(wizard.interface):
     states = {

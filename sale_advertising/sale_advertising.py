@@ -71,8 +71,8 @@ class sale_order_line(osv.osv):
         'layout_remark': fields.text('Layout Remark'),
         'adv_issue': fields.many2one('sale.advertising.issue','Advertising Issue'),
         'page_reference': fields.char('Reference of the Page', size=32),
-        'from_date': fields.datetime('Start of Validity'),
-        'to_date': fields.datetime('End of Validity'),
+        'from_date': fields.datetime('Start of Validity', help='You can use this field if you are selling advertising limited in time, like banners on a website'),
+        'to_date': fields.datetime('End of Validity', help='You can use this field if you are selling advertising limited in time, like banners on a website'),
     }
 sale_order_line()
 

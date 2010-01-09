@@ -36,9 +36,9 @@ form = """<?xml version="1.0"?>
 </form>
 """
 fields = {
-  'subject': {'string':'Subject', 'type':'char', 'size':64},
-  'email_from': {'string':'Email From', 'type':'char', 'size':32},
-  'body': {'string':'Body', 'type':'text'},
+  'subject': {'string':'Subject', 'type':'char', 'size':64, 'required':True},
+  'email_from': {'string':'Email From', 'type':'char', 'size':32, 'required':True},
+  'body': {'string':'Body', 'type':'text', 'required':True},
       }
 
 msg_form = """<?xml version="1.0"?>

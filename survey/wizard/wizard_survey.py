@@ -98,6 +98,7 @@ def send_mail(self, cr, uid, data, context):
     partner_ids = data['form']['partner_ids'][0][2]
     pool= pooler.get_pool(cr.dbname)
     user_ref= pool.get('res.users')
+    survey_ref= pool.get('survey')
     group_id= pool.get('res.groups').search(cr, uid, [('name', '=', 'Survey / User')])
     act_id = pool.get('ir.actions.act_window')
     act_id = act_id.search(cr, uid, [('name', '=', 'Give Survey Response'), \
@@ -109,6 +110,18 @@ def send_mail(self, cr, uid, data, context):
     error= ""
     res_user = ""
     user_exists = False
+    attachments = []
+    for id in survey_ref.browse(cr, uid, data['ids']):
+        report = create_report(cr, uid, [id.id], 'report.survey.form', id.title)
+        file = open("/tmp/" + id.title +".pdf")
+        file_data = ""
+        while 1:
+            line = file.readline()
+            file_data += line
+            if not line:
+                break
+        attachments.append((id.title +".pdf",file_data))
+
     for partner in pool.get('res.partner').browse(cr, uid, partner_ids):
         for addr in partner.address:
             if not addr.email:
@@ -141,17 +154,10 @@ def send_mail(self, cr, uid, data, context):
             out+= addr.email + ',' + passwd + '\n'
             mail= data['form']['mail'] % {'login' : addr.email, 'passwd' : passwd, 'name' : addr.name}
             if data['form']['send_mail']:
-                report = create_report(cr, uid, data['ids'], 'report.survey.form', "survey")
-                file = open("/tmp/survey.pdf")
-                file_data = ""
-                while 1:
-                    line = file.readline()
-                    file_data += line
-                    if not line:
-                        break
-                attachments = [('survey.pdf',file_data)]
+                
                 ans = tools.email_send(data['form']['mail_from'], [addr.email], \
                                        data['form']['mail_subject'], mail,attach = attachments)
+
                 if ans:
                     user = user_ref.create(cr, uid, {'name' : addr.name or 'Unknown', 
                                         'login' : addr.email, 

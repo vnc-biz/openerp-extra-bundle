@@ -30,7 +30,7 @@ class survey_form(report_rml):
 
         _divide_columns_for_matrix = 0.7
         _display_ans_in_rows = 5
-        _pageSize = ('21.6cm','27.9cm')
+        _pageSize = ('29.7cm','21.1cm')
         if datas.has_key('form') and datas['form']['orientation']=='vertical':
             if datas['form']['paper_size']=='letter':
                 _pageSize = ('21.6cm','27.9cm')
@@ -55,7 +55,7 @@ class survey_form(report_rml):
         for survey in surv_obj.browse(cr,uid,ids):
             rml="""
             <document filename="Survey Form.pdf">
-            <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title="Survey Form" author="Martin Simon" allowSplitting="20" >
+            <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title='""" + survey.title + """' author="Martin Simon" allowSplitting="20" >
                 <pageTemplate id="first">
                     <frame id="first" x1="0.0cm" y1="1.0cm" width='"""+_frame_width+"""' height='"""+_frame_height+"""'/>
                     <pageGraphics>
@@ -141,7 +141,8 @@ class survey_form(report_rml):
             if datas.has_key('form') and datas['form']['survey_title']:
                     rml += """
                     <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
-                        <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para></td></tr>
+                        <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para>
+                        </td></tr>
                     </blockTable>"""
             seq = 0
             for page in survey.page_ids:

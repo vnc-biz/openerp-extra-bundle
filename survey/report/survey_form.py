@@ -248,7 +248,8 @@ class survey_form(report_rml):
                                 <td>
                                     <illustration>
                                         <fill color="white"/>
-                                        <rect x="0.25cm" y="-0.5cm" width="0.8 cm" height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/>
+                                        <!--rect x="0.25cm" y="-0.5cm" width="0.8 cm" height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/-->
+                                        <circle x="0.35cm" y="-0.18cm" radius="0.25 cm" fill="yes" stroke="yes"/>
                                     </illustration>
                                 </td>"""
                             rml+= """</tr></blockTable>"""

@@ -206,13 +206,6 @@ class SmtpClient(osv.osv):
         serverid = ids[0]
         self.open_connection(cr, uid, ids, serverid)
         
-        msg = self._set_error(cr, uid, self.server[serverid]['id'])
-#        if not self.server[serverid]['code'] and msg!='server_not_confirm':
-        if (not self.server[serverid]['code'] and msg!='server_not_confirm') or (self.server[serverid]['code'] and msg in error_msg.keys())  :
-            pooler.get_pool(cr.dbname).get('email.smtpclient.history').create \
-                (cr, uid, {'date_create':time.strftime('%Y-%m-%d %H:%M:%S'),'server_id' : ids[0],
-                            'name':_(error_msg[msg])})
-            raise osv.except_osv(_('Server Error!'), _(error_msg[msg]))
         key = False
         if test and self.server[serverid]['state'] == 'confirm':
             body = self.server[serverid]['test_email'] or ''
@@ -488,12 +481,12 @@ class SmtpClient(osv.osv):
                 open_server.append(email.server_id.id)
                 self.open_connection(cr, uid, ids, email.server_id.id)
             try:
-                msg= self._set_error(cr, uid, email.server_id.id, context)
-                if msg in error_msg.keys():
-                    queue.write(cr, uid, [email.id], {'error':error_msg[msg], 'state':'error'})
-                    continue
-                else:
-                    self.smtpServer[email.server_id.id].sendmail(str(email.server_id.email), email.to, tools.ustr(email.serialized_message))
+                #msg= self._set_error(cr, uid, email.server_id.id, context)
+                #if msg in error_msg.keys():
+                #    queue.write(cr, uid, [email.id], {'error':error_msg[msg], 'state':'error'})
+                #    continue
+                #else:
+                self.smtpServer[email.server_id.id].sendmail(str(email.server_id.email), email.to, tools.ustr(email.serialized_message))
             except Exception, e:
                 queue.write(cr, uid, [email.id], {'error':e, 'state':'error'})
                 continue

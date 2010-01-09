@@ -1584,9 +1584,15 @@ class hr_payslip(osv.osv):
             res = cr.fetchall()
             
             working_day = 0
-            saturday = get_days(1, dates[1].day, dates[1].month, dates[1].year, 5)
-            sunday = get_days(1, dates[1].day, dates[1].month, dates[1].year, 6)
-            total_off = saturday + sunday
+            off_days = 0
+            
+            days_arr = [0, 1, 2, 3, 4, 5, 6]
+            print 'XXXXXXXXXXXXX : ', dates[1].day, dates[1].month, dates[1].year
+            for dy in range(contract.working_days_per_week, 7):
+                off_days += get_days(1, dates[1].day, dates[1].month, dates[1].year, days_arr[dy])
+                print 'XXXXXXXXXX : ', off_days
+
+            total_off = off_days
             working_day = dates[1].day - total_off
             perday = basic / working_day
             total = 0.0

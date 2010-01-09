@@ -32,8 +32,8 @@
     Partners are also sent mails with user name and password for the invitation of the survey
     """,
     'author': 'Tiny',
-    'depends': ['base'],
-    'update_xml': ['survey_data.xml','survey_view.xml','survey_que_wizard.xml','security/ir.model.access.csv','survey_wizard.xml','survey_report.xml',],
+    'depends': ['base','document_ftp'],
+    'update_xml': ['survey_report.xml','survey_data.xml','survey_view.xml','survey_que_wizard.xml','security/ir.model.access.csv','survey_wizard.xml'],
     'demo_xml': ['survey_demo.xml'],
     'installable': True,
     'active': False,

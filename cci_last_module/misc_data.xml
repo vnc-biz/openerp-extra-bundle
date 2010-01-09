@@ -34,8 +34,8 @@
 			                           	<field name="type" select="2" />
 		                           		<field name="street" select="2"/>
 			                           <field name="street2"/>
-			                           <field name="zip" select="2"/>
-			                           <field name="city" select="2"/>
+			                           <field name="zip_id" select="2"/>
+			                           <!--<field name="city" select="2"/>-->
 			                           <field name="country_id" select="2" completion="1"/>
 			                           <field name="state_id" select="2"/>
 			                        </group>
@@ -48,7 +48,8 @@
 			                            <tree string="Contacts" editable="top">
 			                                <field name="sequence_partner"/>
 			                                <field name="contact_id"/>
-			                                <field name="function_id"/>
+			                                <!--<field name="function_id"/>-->
+			                                <field name="function_code_label"/>
 			                                <field name="phone"/>
 			                                <field name="fax"/>
 		                               	    <field name="extension"/>
@@ -60,7 +61,9 @@
 			                                	<field name="sequence_partner"/>
 		                               			<field name="name"/>
 			                                	<field name="contact_id"/>
-			                                	<field name="function_id"/>
+			                                	<!--<field name="function_id"/>-->
+                                                                <field name="function_label"/>
+								<field name="function_code_label"/>
 			                            	</group>
 			                            	<group string="Communication" colspan="2" col="2">
 			                                	<field name="phone"/>
@@ -89,7 +92,7 @@
 		                    <field name="vat_subjected"/>
 		                    <field name="credit" select="2"/>
 		                    <field name="debit" select="2"/>
-		                    <field name="user_id" select="2"/>
+		                    <field name="user_id" select="2" readonly="1"/>
 		                    <field name="website" widget="url"/>
 							<separator string="Miscelleanous" colspan="4"/>
 							<field name="name_official"/>
@@ -118,7 +121,7 @@
                         	<group colspan="2" col="2">
 		                    	<separator string="employees" colspan="2"/>
 		                    	<field name="employee_nbr"/>
-				    			<field name="employee_nbr_total"/>
+				    			<field name="employee_nbr_total" select="2"/>
                          	</group>
 	                        <group colspan="2" col="2">
 	                              <separator string="calls to premium" colspan="2"/>
@@ -138,7 +141,21 @@
 								<field name="refuse_membership" select="2"/>
 	                         </group>
                          	<separator string="Membership Lines" colspan="4"/>
-                        	<field name="member_lines" select="2" colspan="4" nolabel="1"/>
+                        	<field name="member_lines" select="2" colspan="4" nolabel="1">
+	                            <tree string="Membership">
+        	                        <field name="date_from"/>
+                	                <field name="date_to"/>
+                                        <field name="date_cancel"/>
+                        	        <field name="state"/>
+	                            </tree>
+        	                    <form string="Membership">
+                	                <field name="date_from"/>
+                        	        <field name="date_to"/>
+					<field name="date_cancel"/>
+                                	<field name="account_invoice_line"/>
+        	                        <field name="state"/>
+                	            </form>
+				</field>
                     </page>
 					<page string="Activities">
 						<separator string="Activity Description" colspan="4"/>

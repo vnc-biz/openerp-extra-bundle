@@ -486,7 +486,8 @@ class cci_missions_certificate(osv.osv):
         'customs_ids' : fields.many2many('cci_missions.custom_code','certificate_custome_code_rel','certificate_id','custom_id','Custom Codes'),
         'sending_spf': fields.date('SPF Sending Date',help='Date of the sending of this record to the external database'),
         'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
-        'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
+        'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True),
+        'digital_number': fields.float('Digital Number', digits=(11,0)),
     }
     _order = "cci_missions_certificate.date desc"
 

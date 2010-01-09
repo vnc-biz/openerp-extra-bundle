@@ -24,6 +24,7 @@ import time
 
 from osv import fields, osv
 import netsvc
+from tools.translate import _
 
 def check_phone_num(self, cr, uid, id, phone):
     if not phone:

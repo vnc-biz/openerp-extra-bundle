@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
     <openerp>
         <data noupdate="1">
+        <!--
             <record id="dm_dtp_plugin_wi_so_id" model="dm.dtp.plugin">
                 <field eval="&quot;&quot;&quot;sale_order_id&quot;&quot;&quot;" name="code"/>
                 <field eval="&quot;&quot;&quot;Sale Order ID&quot;&quot;&quot;" name="name"/>
@@ -10,5 +11,6 @@
                 <field name="field_id" ref="field_dm_workitem_sale_order_id"/>
                 <field eval="&quot;&quot;&quot;fields&quot;&quot;&quot;" name="type"/>
             </record>
+        -->
         </data>
     </openerp>

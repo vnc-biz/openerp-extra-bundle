@@ -1736,5 +1736,27 @@
 			<field eval="5" name="sequence"/>
 		</record>
 	</data>
-	
+
+	<data noupdate="1">
+		<record id="document_directory_survey0" model="document.directory">
+			<field name="ressource_type_id" ref="survey.model_survey"/>
+			<field name="resource_field">title</field>
+			<field eval="0" name="ressource_tree"/>
+			<field name="parent_id" ref="document.dir_root"/>
+			<field name="storage_id" ref="document.storage_default"/>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="type">ressource</field>
+			<field name="name">Survey</field>
+		</record>
+	</data>
+	<data>
+		<record id="document_directory_content_surveyform0" model="document.directory.content">
+			<field name="name">Survey Form</field>
+			<field name="extension">.pdf</field>
+			<field eval="1" name="sequence"/>
+			<field name="directory_id" ref="document_directory_survey0"/>
+			<field eval="1" name="include_name"/>
+			<field name="report_id" ref="report_survey_form"/>
+		</record>
+	</data>
 </openerp>

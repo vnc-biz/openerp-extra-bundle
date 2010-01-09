@@ -134,8 +134,8 @@ class account_voucher(osv.osv):
                 move_line['credit'] = inv.amount * (-1)
             self.pool.get('account.move.line').create(cr, uid, move_line)
             id_mapping_dict = {}
+            mline_ids = []
             for line in inv.voucher_line_ids:
-                
                 move_line = {
                     'name':line.name,
                     'invoice' : iml[0]['invoice'],
@@ -158,7 +158,7 @@ class account_voucher(osv.osv):
                     amount=line.amount * (-1)
                 ml_id=self.pool.get('account.move.line').create(cr, uid, move_line)
                 id_mapping_dict[line.id] = ml_id
-                mline_ids = []
+                
                 total = 0.0
                 mline = self.pool.get('account.move.line')
                 if line.invoice_id.id:
@@ -173,7 +173,6 @@ class account_voucher(osv.osv):
                         if ml.account_id.id==src_account_id:
                             mline_ids.append(ml.id)
                             total += (ml.debit or 0.0) - (ml.credit or 0.0)
-                    self.pool.get('account.move.line').reconcile_partial(cr, uid, mline_ids, 'manual', context={})
                 #end if line.invoice_id.id:
                 if inv.narration:
                     line.name=inv.narration
@@ -192,7 +191,8 @@ class account_voucher(osv.osv):
                          'ref':ref
                      }
                     self.pool.get('account.analytic.line').create(cr,uid,an_line)
-                        
+            
+            self.pool.get('account.move.line').reconcile_partial(cr, uid, mline_ids, 'manual', context={})
             self.write(cr, uid, [inv.id], {'move_id': move_id})
             obj=self.pool.get('account.move').browse(cr, uid, move_id)
             

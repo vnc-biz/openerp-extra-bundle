@@ -873,7 +873,7 @@ TODO: revoir la vue tree aussi
 
 			<act_window name="Functions"
 				res_model="res.partner.function"
-				src_model="res.partner.address"
+				src_model="res.partner.job"
 				id="act_partner_address_2_function"/>
 
         <!--

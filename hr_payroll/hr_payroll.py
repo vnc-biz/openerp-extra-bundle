@@ -1415,7 +1415,7 @@ class hr_payslip(osv.osv):
                             ded_per += amt
                             ded_fix += com_value
                             ded_fix += value
-                            
+                        
                     elif line.amount_type == 'func':
                         value = self.pool.get('hr.payslip.line').execute_function(cr, uid, line.id, contract.wage, context)
                         com_value = 0.0
@@ -1426,7 +1426,7 @@ class hr_payslip(osv.osv):
                             com_value = line.category_id.contribute_per
                         elif line.category_id.contribute and line.category_id.include_in_salary and line.category_id.amount_type == 'func':
                             com_value = self.pool.get('hr.allounce.deduction.categoty').execute_function(cr, uid, line.category_id.id, contract.wage, context)
-                            
+                        
                         if line.type == 'allounce':
                             all_per += amt
                             all_fix += com_value
@@ -1462,7 +1462,7 @@ class hr_payslip(osv.osv):
                     goto_next = eval(exp, obj)
                 except Exception, e:
                     raise osv.except_osv(_('Variable Error !'), _('Variable Error : %s ' % (e)))
-                    
+                
                 if not goto_next:
                     continue
 
@@ -1584,9 +1584,13 @@ class hr_payslip(osv.osv):
             res = cr.fetchall()
             
             working_day = 0
-            saturday = get_days(1, dates[1].day, dates[1].month, dates[1].year, 5)
-            sunday = get_days(1, dates[1].day, dates[1].month, dates[1].year, 6)
-            total_off = saturday + sunday
+            off_days = 0
+            
+            days_arr = [0, 1, 2, 3, 4, 5, 6]
+            for dy in range(contract.working_days_per_week, 7):
+                off_days += get_days(1, dates[1].day, dates[1].month, dates[1].year, days_arr[dy])
+
+            total_off = off_days
             working_day = dates[1].day - total_off
             perday = basic / working_day
             total = 0.0

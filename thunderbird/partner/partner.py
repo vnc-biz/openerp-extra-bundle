@@ -51,6 +51,7 @@ import ir
 from osv import osv,fields
 import base64
 import netsvc
+from tools.translate import _
 
 class tinythunderbird_partner(osv.osv):
 

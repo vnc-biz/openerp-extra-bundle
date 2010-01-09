@@ -1,5 +1,6 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,35 +15,11 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Direct Marketing - Reporting",
-    "version" : "1.0",
-    "author" : "Tiny",
-    "website" : "http://www.openerp.com",
-    "category" : "Generic Modules/Direct Marketing",
-    "description": """
 
-        This module allows to see statstic of marketing 
+import dm_ftp
 
-            """,
-    "depends" : [
-                 "dm",
-                 "dm_sale",
-                 "report_dm",
-                 "dm_partner_address",
-                 ],
-    "init_xml" : [ ],
-    "demo_xml" : [ ],
-    "update_xml" : [
-                    "dm_statistics_report.xml",
-                    "security/dm_statistics_security.xml",
-                    "security/ir.model.access.csv",
-                    ],
-    "active": False,
-    "installable": True,
-}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

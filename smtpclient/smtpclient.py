@@ -44,6 +44,10 @@ import release
 import socket
 from tools.translate import _
 
+error_msg = {'not_active' : "Please activate Email Server, without activating you can not send Email(s).",
+             'server_stop' : 'Please start Email Server, without starting  you can not send Email(s).',
+             'server_not_confirm' : 'Please Verify Email Server, without verifying you can not send Email(s).'}
+             
 class SmtpClient(osv.osv):
     _name = 'email.smtpclient'
     _description = 'Email Client'
@@ -184,21 +188,29 @@ class SmtpClient(osv.osv):
         new_key.sort()
         key = ''.join(new_key)
         return key
+
+    
+    def _set_error(self, cr, uid, server_id, context={}):
+        server_obj = self.browse(cr, uid, server_id)
+        if not server_obj.active:
+            return 'not_active'
+        if server_obj.pstate == 'stop' :
+            return 'server_stop' 
+        if server_obj.state != 'confirm':
+            return 'server_not_confirm'
+        return True
+
         
     def test_verify_email(self, cr, uid, ids, toemail, test=False, code=False):
         
         serverid = ids[0]
         self.open_connection(cr, uid, ids, serverid)
-
-        if test and self.server[serverid]['state'] != 'confirm':
-            pooler.get_pool(cr.dbname).get('email.smtpclient.history').create \
-                (cr, uid, {'date_create':time.strftime('%Y-%m-%d %H:%M:%S'),'server_id' : ids[0],'name':_('Please verify Email Server, without verification you can not send Email(s).')})
-            raise osv.except_osv(_('Server Error!'), _('Please verify Email Server, without verification you can not send Email(s).'))
+        
         key = False
         if test and self.server[serverid]['state'] == 'confirm':
-            body = self.server[serverid]['test_email']
+            body = self.server[serverid]['test_email'] or ''
         else:
-            body = self.server[serverid]['verify_email']
+            body = self.server[serverid]['verify_email'] or ''
             #ignore the code
             key = self.gen_private_key(cr, uid, ids)
             #md5(time.strftime('%Y-%m-%d %H:%M:%S') + toemail).hexdigest();
@@ -450,7 +462,7 @@ class SmtpClient(osv.osv):
                 queue.unlink(cr, uid, qids)
                 
         return result
-    
+        
     def _send_emails(self, cr, uid, ids, context={}):
         fp = os.popen('ping www.google.com -c 1 -w 5',"r")
         if not fp.read():
@@ -464,11 +476,16 @@ class SmtpClient(osv.osv):
         remove = []
         open_server = []
         for email in queue.browse(cr, uid, ids):
-
+        
             if not email.server_id.id in open_server:
                 open_server.append(email.server_id.id)
                 self.open_connection(cr, uid, ids, email.server_id.id)
             try:
+                #msg= self._set_error(cr, uid, email.server_id.id, context)
+                #if msg in error_msg.keys():
+                #    queue.write(cr, uid, [email.id], {'error':error_msg[msg], 'state':'error'})
+                #    continue
+                #else:
                 self.smtpServer[email.server_id.id].sendmail(str(email.server_id.email), email.to, tools.ustr(email.serialized_message))
             except Exception, e:
                 queue.write(cr, uid, [email.id], {'error':e, 'state':'error'})
@@ -496,7 +513,7 @@ class SmtpClient(osv.osv):
             sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
         else:
             sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('server_id','in',ids)], order="priority", limit=30)
-        
+
         result = self. _send_emails(cr, uid, sids, context)
         return result
         

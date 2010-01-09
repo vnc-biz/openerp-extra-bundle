@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -17,9 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-
-import order_statistics_reports
-import order_statistics_all_reports
-
+{
+    "name" : "DM FTP",
+    "version" : "1.0",
+    "author" : "Tiny",
+    "website" : "http://www.openerp.com",
+    "category" : "Generic Modules/Direct Marketing",
+    "description": """
+            """,
+    "depends" : ["dm"],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "update_xml" : [
+                    "dm_ftp_data.xml",
+                    "dm_ftp_view.xml",
+                    ],
+    "active": False,
+    "installable": True,
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

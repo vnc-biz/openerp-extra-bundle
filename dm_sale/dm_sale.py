@@ -28,8 +28,6 @@ import sys
 import datetime
 from dm.dm_report_design import get_so
 
-
-
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"
     _inherit = "dm.workitem"
@@ -54,7 +52,6 @@ class dm_workitem(osv.osv): # {{{
         return copy_id
 
 dm_workitem() # }}}
-
 
 class dm_event_sale(osv.osv_memory): # {{{
     _name = "dm.event.sale"
@@ -132,7 +129,6 @@ class dm_event_sale(osv.osv_memory): # {{{
 
 dm_event_sale() # }}}
 
-
 class sale_order(osv.osv): #{{{
     _name = "sale.order"
     _inherit = "sale.order"
@@ -141,7 +137,8 @@ class sale_order(osv.osv): #{{{
         'offer_step_id': fields.many2one('dm.offer.step', 'Offer Step', select="1"),
         'segment_id': fields.many2one('dm.campaign.proposition.segment',
                                                         'Segment', select="1"),
-        'journal_id': fields.many2one('account.journal', 'Journal'),
+        'sale_journal_id': fields.many2one('account.journal', 'Sales Journal'),
+        'payment_journal_id': fields.many2one('account.journal', 'Payment Journal'),
         'lines_number': fields.integer('Number of sale order lines'),
         'so_confirm_do': fields.boolean('Auto confirm sale order'),
         'invoice_create_do': fields.boolean('Auto create invoice'),
@@ -159,10 +156,10 @@ class sale_order(osv.osv): #{{{
                                             'order_confirm', cr)
                 if so.invoice_create_do:
                     inv_id = self.pool.get('sale.order').action_invoice_create(cr, uid, [sale_order_id])
-                    if so.journal_id and so.journal_id.default_credit_account_id and so.journal_id.default_credit_account_id.reconcile:
+                    if so.sale_journal_id and so.sale_journal_id.default_credit_account_id:
                         self.pool.get('account.invoice').write(cr, uid, inv_id,
-                                            {'journal_id': so.journal_id.id,
-                                            'account_id': so.journal_id.default_credit_account_id.id})
+                                            {'journal_id': so.sale_journal_id.id,
+                                            'account_id': so.sale_journal_id.default_credit_account_id.id})
                     if inv_id and so.invoice_validate_do:
                         wf_service.trg_validate(uid, 'account.invoice', inv_id,
                                                         'invoice_open', cr)
@@ -175,7 +172,9 @@ class sale_order(osv.osv): #{{{
                             cur_obj = self.pool.get('res.currency')
 
                             for invoice in so.invoice_ids:
-                                journal = invoice.journal_id
+                                journal = so.payment_journal_id
+                                if not journal:
+                                    raise osv.except_osv('Error !', 'There is no payment journal defined.')
                                 amount = invoice.residual
                                 if journal.currency and invoice.company_id.currency_id.id != journal.currency.id:
                                     ctx = {'date': time.strftime('%Y-%m-%d')}
@@ -200,7 +199,6 @@ class sale_order(osv.osv): #{{{
 
 sale_order()#}}}
 
-
 class dm_offer_step(osv.osv): # {{{
     _name = "dm.offer.step"
     _inherit = "dm.offer.step"
@@ -213,7 +211,6 @@ class dm_offer_step(osv.osv): # {{{
                     'Items', states={'closed': [('readonly', True)]}),
         }
 dm_offer_step() # }}}
-
 
 class dm_campaign_proposition(osv.osv): #{{{
     _inherit = "dm.campaign.proposition"
@@ -240,7 +237,6 @@ class dm_campaign_proposition(osv.osv): #{{{
 
 dm_campaign_proposition()#}}}
 
-
 class product_product(osv.osv): # {{{
     _inherit = "product.product"
 
@@ -256,7 +252,6 @@ class product_product(osv.osv): # {{{
         return result
 
 product_product() # }}}
-
 
 class dm_campaign(osv.osv): # {{{
     _inherit = "dm.campaign"

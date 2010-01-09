@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    OpenERP, Open Source Management Solution    
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -20,8 +20,21 @@
 #
 ##############################################################################
 
-import survey_analysis_report
+from osv import fields
+from osv import osv
+
+class dm_mail_service(osv.osv): # {{{
+    _inherit = "dm.mail_service"
+    
+    _columns = {
+            'ftp_address': fields.char('Address', size=64),
+            'ftp_port': fields.integer('Port'),   
+            'ftp_dir': fields.char('Directory', size=128),
+            'ftp_user': fields.char('User', size=64),
+            'ftp_password': fields.char('Password', size=64),
+            'ssh_use': fields.boolean('Use SFTP'),
+            'ssh_key': fields.char('SSH Key', size=64),
+        }
+dm_mail_service() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
-import survey_form

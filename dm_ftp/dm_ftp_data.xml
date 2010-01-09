@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+
+    <!-- Mail Service Type -->
+  
+        <record model="dm.mail_service.type" id="dm_mail_service_type_ftp">
+            <field name="name" eval="&quot;FTP&quot;"/>
+            <field name="code" eval="&quot;ftp&quot;"/>
+        </record>
+
+    </data>
+</openerp>

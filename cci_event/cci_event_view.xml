@@ -522,7 +522,7 @@
 			</field>
 		</field>
 	</record>
-	
+
 	<record model="ir.ui.view" id="event_registration_inherit2">
 		<field name="name">event.registration.form.cci</field>
 		<field name="type">form</field>
@@ -623,6 +623,19 @@
 					</group>
 			</field>
 	</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="tree_event_registration_inherit9">
+		<field name="name">event.registration.form.tree.inherit</field>
+		<field name="type">tree</field>
+		<field name="model">event.registration</field>
+		<field name="inherit_id" ref="event.event_registration_tree"/>
+		<field name="arch" type="xml">
+			<field name="state" position="after" >
+				 <field name="nbr_event_check" select="2"/>
+			</field>
+		</field>
 	</record>
 <!-- end event
 

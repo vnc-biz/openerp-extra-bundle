@@ -117,6 +117,8 @@ class dm_offer_step(osv.osv): # {{{
         'action_id': fields.many2one('ir.actions.server', 
                                             string='Action', required=True),
         'graph_hide': fields.boolean('Hide in Offer Graph'),
+        'partner_event_create': fields.boolean('Create Partner Event'),
+        
     }
 
     _defaults = {

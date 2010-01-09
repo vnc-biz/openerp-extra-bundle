@@ -297,6 +297,7 @@
 <blockValign value="TOP"/>
 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="2,0"/>
 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,2" stop="2,2"/>
+<lineStyle kind="LINEABOVE" colorName="#000000" start="0,3" stop="3,3"/>
 </blockTableStyle>
 <initialize>
 <paraStyle name="all" alignment="justify"/>
@@ -454,7 +455,10 @@
 <td>
 	<blockTable colWidths="100.0,73.0,100.0" style="Tableau8">
 		<tr>
-		<td><para style="P10"><font color="white"></font></para></td>
+		<td><para style="P8"><font color="white"></font></para></td>
+		<td><para style="P8"><font color="white"></font></para></td>
+		</tr>
+		<tr>
 		<td><para style="P8"><font color="white"></font></para></td>
 		<td><para style="P8"><font color="white"></font></para></td>
 		</tr>
@@ -463,6 +467,14 @@
 		<td><para style="P11"><font color="white"></font></para></td>
 		<td><para style="P11"><font color="white"></font></para></td>
 		</tr>
+		<tr>
+		<para>[[ repeatIn(o.payment_ids,'obj_pay') ]]</para>
+		<td><para>[[ obj_pay.name or removeParentNode('tr') ]]</para>
+		</td>
+		<td><para style="P11"><font color="white"></font></para></td>
+		<td><para style="P11a"><font color="white"></font></para></td>
+		</tr>
+
 	</blockTable>
 </td>
 <td>
@@ -478,10 +490,23 @@
 		<td><para style="P11a">[[ '%.2f' % o.amount_tax ]] [[o.currency_id.code ]]</para></td>
 		</tr>
 		<tr>
-		<td><para style="P13">Total <font>(Incl. taxes):</font></para></td>
-		<td><para style="P12"><u>[[ '%.2f' % o.amount_total ]] [[o.currency_id.code ]]</u></para></td>
+		<td>
+		<blockTable colWidths="200.0" style="Tableau3">
+		<tr>
+		<td>
+		<para>[[ repeatIn(o.payment_ids,'obj') ]]</para>
+		<para style="P11a"><b> - [[ '%.2f' % obj.credit !=0 and obj.credit or obj.debit !=0 and obj.debit or removeParentNode('tr') ]] [[obj.currency_id.code ]]</b></para></td>
+		</tr>
+		</blockTable>
+		</td>
+		</tr>
+		<tr>
+		<td><para style="P13">Residual Amount: <font></font></para></td>
+		<td><para style="P12"><u>[[ '%.2f' % o.residual ]] [[o.currency_id.code ]]</u></para></td>
 		</tr>
 	</blockTable>
+
+
 </td>
 </tr>
 </blockTable>
@@ -523,6 +548,9 @@
 <para style="P8b">
 <font color="white"> </font>
 </para>
+<section>
+
+</section>
 <para style="P19">[[ format(o.comment) or removeParentNode('para') ]]</para>
 <para style="P19">[[ format(o.payment_term and o.payment_term.note) or removeParentNode('para') ]]</para>
 <section>

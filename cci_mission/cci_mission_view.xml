@@ -493,6 +493,7 @@
                         <field name="type_id" select="1" domain="[('section','=','certificate')]"/>
                         <field name="destination_id" select="1" />
                         <field name="order_partner_id" on_change="get_certification_details(order_partner_id)" select="1"/>
+                        <field name="digital_number" select="2"/>
                         <newline/>
                         <field name="asker_name" />
                         <newline/>

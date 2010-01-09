@@ -20,14 +20,9 @@
 #
 ##############################################################################
 
-import time
-from report import report_sxw
 import pooler
-from mx import DateTime
 from report.interface import report_rml
 from tools import to_xml
-
-#from addons.account.wizard import wizard_account_balance_report
 
 class survey_analysis(report_rml):
     def create(self, cr, uid, ids, datas, context):
@@ -39,10 +34,6 @@ class survey_analysis(report_rml):
                 </pageTemplate>
                   </template>
                   <stylesheet>
-                    <blockTableStyle id="Standard_Outline">
-                      <blockAlignment value="LEFT"/>
-                      <blockValign value="TOP"/>
-                    </blockTableStyle>
                     <blockTableStyle id="Table1">
                       <blockAlignment value="LEFT"/>
                       <blockValign value="TOP"/>
@@ -70,38 +61,23 @@ class survey_analysis(report_rml):
                     <initialize>
                       <paraStyle name="all" alignment="justify"/>
                     </initialize>
-                    <paraStyle name="P1" fontName="helvetica"/>
                     <paraStyle name="answer_right" alignment="RIGHT" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
                     <paraStyle name="Standard1" fontName="helvetica-bold" alignment="RIGHT" fontSize="09.0"/>
                     <paraStyle name="Standard" alignment="LEFT" fontName="Helvetica-Bold" fontSize="11.0"/>
                     <paraStyle name="header1" fontName="Helvetica" fontSize="11.0"/>
-                    <paraStyle name="Standard2" fontName="Helvetica-bold" fontSize="11.0"/>
                     <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
                     <paraStyle name="page" fontName="helvetica" fontSize="11.0" leftIndent="0.0"/>
                     <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
                     <paraStyle name="answer_bold" fontName="Helvetica-Bold" fontSize="09.0" leftIndent="2.0"/>
                     <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
-                    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
-                    <paraStyle name="Text body" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-                    <paraStyle name="List" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-                    <paraStyle name="Caption" fontName="helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
                     <paraStyle name="Title" fontName="helvetica" fontSize="20.0" leading="15" spaceBefore="6.0" spaceAfter="6.0" alignment="CENTER"/>
-                    <paraStyle name="Index" fontName="helvetica"/>
-                    <paraStyle name="Table Contents" fontName="helvetica"/>
                   </stylesheet>
                   <images/>
                   <story>
                     <para style="Title"><u>Response Summary</u></para>
-                    <para style="Standard"><font></font></para>
-                    <para style="Standard"><font></font></para>
-                    <para style="Standard"><font></font></para>
-                    <para style="Standard"><font></font></para>
-                    <para style="Standard"><font></font></para>
-                    <para style="Standard"><font></font></para>
-                    <!--para style="Standard">[[repeatIn(objects,'y')]]</para-->
                     <para style="Standard"><font></font></para>"""
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
-        for survey in surv_obj.browse(cr,uid,ids):
+        for survey in surv_obj.browse(cr, uid, ids):
             rml += """
                     <blockTable colWidths="95,215,150,40" style="Table2">
                       <tr>
@@ -126,14 +102,14 @@ class survey_analysis(report_rml):
                 for que in page.question_ids:
                     rml +="""<blockTable colWidths="500" style="Table5">
                               <tr>
-                                <td><para style="question">Que: """+ to_xml(que.question) + """</para></td>
+                                <td><para style="question">Que: """ + to_xml(que.question) + """</para></td>
                               </tr>
                              </blockTable>"""
                     cols_widhts = []
                     if que.type in ['matrix_of_choices_only_one_ans','matrix_of_choices_only_multi_ans']:
                         cols_widhts.append(200)
-                        for col in range(0, len(que.column_heading_ids)+1):
-                            cols_widhts.append(float(300/(len(que.column_heading_ids)+1)))
+                        for col in range(0, len(que.column_heading_ids) + 1):
+                            cols_widhts.append(float(300 / (len(que.column_heading_ids) + 1)))
                         colWidths = ",".join(map(str, cols_widhts))
                         matrix_ans = ['',]
                         for col in que.column_heading_ids:
@@ -148,7 +124,7 @@ class survey_analysis(report_rml):
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>"""
                             cr.execute("select count(id) from survey_response_answer sra where sra.answer_id = %d"%(ans.id))
                             tot_res = cr.fetchone()[0]
-                            cr.execute("select count(id) ,sra.answer from survey_response_answer sra where sra.answer_id = %d group by sra.answer"%ans.id)
+                            cr.execute("select count(id) ,sra.answer from survey_response_answer sra where sra.answer_id = %d group by sra.answer" % ans.id)
                             calc_res = cr.dictfetchall()
                             for mat_col in range(1, len(matrix_ans)):
                                 percantage = 0
@@ -199,11 +175,9 @@ class survey_analysis(report_rml):
                             </blockTable>"""
                     elif que.type in['rating_scale']:
                         cols_widhts.append(200)
-                        for col in range(0,len(que.column_heading_ids)+2):
-                            cols_widhts.append(float(300/(len(que.column_heading_ids) +2)))
+                        for col in range(0,len(que.column_heading_ids) + 2):
+                            cols_widhts.append(float(300 / (len(que.column_heading_ids) + 2)))
                         colWidths = ",".join(map(str, cols_widhts))
-                        ans_td=''
-                        que_td=''
                         matrix_ans = ['',]
                         for col in que.column_heading_ids:
                             if col.title not in matrix_ans:
@@ -220,50 +194,50 @@ class survey_analysis(report_rml):
                             rating_weight_sum = 0
                             for mat_col in range(1, len(matrix_ans)):
                                 cr.execute("select count(sra.answer_id) from survey_response sr, survey_response_answer sra\
-                                     where sr.id = sra.response_id and  sra.answer_id = %d and sra.answer ='%s'"%(ans.id,matrix_ans[mat_col]))
+                                     where sr.id = sra.response_id and  sra.answer_id = %d and sra.answer ='%s'" % (ans.id,matrix_ans[mat_col]))
                                 tot_res = cr.fetchone()[0]
                                 cr.execute("select count(sra.answer_id),sqc.rating_weight from survey_response sr, survey_response_answer sra ,\
                                         survey_question_column_heading sqc where sr.id = sra.response_id and \
                                         sqc.question_id = sr.question_id  and sra.answer_id = %d and sqc.title ='%s'\
-                                        group by sra.answer_id,sqc.rating_weight"%(ans.id,matrix_ans[mat_col]))
+                                        group by sra.answer_id,sqc.rating_weight" % (ans.id,matrix_ans[mat_col]))
                                 col_weight =  cr.fetchone()
                                 res_count = col_weight[0]
                                 if tot_res:
                                     rating_weight_sum += col_weight[1] * tot_res
-                                    tot_per = round((float(tot_res) * 100)/ int(res_count),2)
+                                    tot_per = round((float(tot_res) * 100) / int(res_count), 2)
                                 else:
                                     tot_res = 0
                                     tot_per = 0.0
                                 if tot_res:
-                                    rml+="""<td><para style="answer_bold">""" + str(tot_per)+"%(" + str(tot_res) + """)</para></td>"""
+                                    rml += """<td><para style="answer_bold">""" + str(tot_per) + "%(" + str(tot_res) + """)</para></td>"""
                                 else:
-                                    rml+="""<td><para style="answer">""" + str(tot_per)+"%(" + str(tot_res) + """)</para></td>"""
+                                    rml += """<td><para style="answer">""" + str(tot_per)+"%(" + str(tot_res) + """)</para></td>"""
                             percantage = 0.00
                             if res_count:
-                                percantage = round((float(rating_weight_sum)/res_count),2)
+                                percantage = round((float(rating_weight_sum)/res_count), 2)
                             rml+="""<td><para style="answer">""" + str(percantage) + """</para></td>
                                 <td><para style="answer">""" + str(res_count) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
                     elif que.type in['matrix_of_drop_down_menus']:
                         for column in que.column_heading_ids:
-                            rml+="""<blockTable colWidths="500" style="Table1"><tr>
+                            rml += """<blockTable colWidths="500" style="Table1"><tr>
                                 <td><para style="answer">""" + to_xml(column.title) + """</para></td></tr></blockTable>"""
                             menu_choices = column.menu_choice.split('\n')
                             cols_widhts = []   
                             cols_widhts.append(200)
-                            for col in range(0,len(menu_choices)+1):
-                                cols_widhts.append(float(300/(len(menu_choices)+1)))
+                            for col in range(0, len(menu_choices) + 1):
+                                cols_widhts.append(float(300 / (len(menu_choices) + 1)))
                             colWidths = ",".join(map(str, cols_widhts))
                             rml +="""<blockTable colWidths=" """ + colWidths + """ " style="Table1"><tr>
                                 <td><para style="response"></para></td>"""
                             for menu in menu_choices:
-                                rml+="""<td><para style="response">""" + to_xml(menu) + """</para></td>"""
+                                rml += """<td><para style="response">""" + to_xml(menu) + """</para></td>"""
                             rml += """<td><para style="response">Response Count</para></td></tr>"""
                             cr.execute("select count(id), sra.answer_id from survey_response_answer sra \
-                                     where sra.answer='%s' group by sra.answer_id " %(column.title))
+                                     where sra.answer='%s' group by sra.answer_id "  % (column.title))
                             res_count = cr.dictfetchall()
                             cr.execute("select count(sra.id),sra.value_choice, sra.answer_id, sra.answer from survey_response_answer sra \
-                                 where sra.answer='%s'  group by sra.value_choice ,sra.answer_id, sra.answer"%(column.title))
+                                 where sra.answer='%s'  group by sra.value_choice ,sra.answer_id, sra.answer" % (column.title))
                             calc_percantage = cr.dictfetchall()
                             for ans in que.answer_choice_ids:
                                 rml+="""<tr><td><para style="answer_right">""" + to_xml(ans.answer) + """</para></td>"""
@@ -302,9 +276,12 @@ class survey_analysis(report_rml):
                             total = 0
                             for  tot in tot_res:
                                 total += int(tot['answer'])
+                            per = 0.00
+                            if len(tot_res):
+                                per = round((float(total) / len(tot_res)),2)
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>
                                     <td> <para style="Standard"> </para></td>
-                                    <td> <para style="answer">""" + str(round((float(total) / len(tot_res)),2)) +"""</para></td>
+                                    <td> <para style="answer">""" + str(per) +"""</para></td>
                                     <td><para style="answer">""" + str(total) + """</para></td>
                                     <td><para style="answer">""" + str(len(tot_res)) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
@@ -322,9 +299,10 @@ class survey_analysis(report_rml):
                         </tr>
                         </blockTable>"""
             rml += """<pageBreak/>"""
-        rml+="""</story></document>"""
+        rml += """</story></document>"""
         report_type = datas.get('report_type', 'pdf')
         create_doc = self.generators[report_type]
         pdf = create_doc(rml, title=self.title)
         return (pdf, report_type)
+
 survey_analysis('report.survey.analysis', 'survey','','')

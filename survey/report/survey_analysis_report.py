@@ -31,69 +31,66 @@ from tools import to_xml
 
 class survey_analysis(report_rml):
     def create(self, cr, uid, ids, datas, context):
-        rml=''
-        surv_obj = pooler.get_pool(cr.dbname).get('survey')
-        for survey in surv_obj.browse(cr,uid,ids):
-            rml="""
-                    <document filename="Survey Analysis Report.pdf">
-                    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
-                        <pageTemplate id="first">
-                          <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
-                    </pageTemplate>
-  </template>
-  <stylesheet>
-    <blockTableStyle id="Standard_Outline">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-    </blockTableStyle>
-    <blockTableStyle id="Table1">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-      <lineStyle kind="LINEBELOW" colorName="#e6e6e6"/>
-    </blockTableStyle>
-    <blockTableStyle id="Table2">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-    </blockTableStyle>
-    <blockTableStyle id="Table3">
-      <blockAlignment value="LEFT"/>
-      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,0" stop="2,-1"/>
-      <blockValign value="TOP"/>
-    </blockTableStyle>
-    <blockTableStyle id="Table4">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
-    </blockTableStyle>
-    <blockTableStyle id="Table5">
-      <blockAlignment value="LEFT"/>
-      <blockValign value="TOP"/>
-      <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
-    </blockTableStyle>
-    <initialize>
-      <paraStyle name="all" alignment="justify"/>
-    </initialize>
-    <paraStyle name="P1" fontName="helvetica"/>
-    <paraStyle name="answer_right" alignment="RIGHT" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
-    <paraStyle name="Standard1" fontName="helvetica-bold" alignment="RIGHT" fontSize="09.0"/>
-    <paraStyle name="Standard" alignment="LEFT" fontName="Helvetica-Bold" fontSize="11.0"/>
-    <paraStyle name="header1" fontName="Helvetica" fontSize="11.0"/>
-    <paraStyle name="Standard2" fontName="Helvetica-bold" fontSize="11.0"/>
-    <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
-    <paraStyle name="page" fontName="helvetica" fontSize="11.0" leftIndent="0.0"/>
-    <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
-    <paraStyle name="answer_bold" fontName="Helvetica-Bold" fontSize="09.0" leftIndent="2.0"/>
-    <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
-    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="Text body" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-    <paraStyle name="List" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-    <paraStyle name="Caption" fontName="helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
-    <paraStyle name="Title" fontName="helvetica" fontSize="20.0" leading="15" spaceBefore="6.0" spaceAfter="6.0" alignment="CENTER"/>
-    <paraStyle name="Index" fontName="helvetica"/>
-    <paraStyle name="Table Contents" fontName="helvetica"/>
-  </stylesheet>
-  <images/>
-  <story>
+        rml ="""
+                <document filename="Survey Analysis Report.pdf">
+                <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+                    <pageTemplate id="first">
+                      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+                </pageTemplate>
+                  </template>
+                  <stylesheet>
+                    <blockTableStyle id="Standard_Outline">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="Table1">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#e6e6e6"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="Table2">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="Table3">
+                      <blockAlignment value="LEFT"/>
+                      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,0" stop="2,-1"/>
+                      <blockValign value="TOP"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="Table4">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="Table5">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
+                    </blockTableStyle>
+                    <initialize>
+                      <paraStyle name="all" alignment="justify"/>
+                    </initialize>
+                    <paraStyle name="P1" fontName="helvetica"/>
+                    <paraStyle name="answer_right" alignment="RIGHT" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
+                    <paraStyle name="Standard1" fontName="helvetica-bold" alignment="RIGHT" fontSize="09.0"/>
+                    <paraStyle name="Standard" alignment="LEFT" fontName="Helvetica-Bold" fontSize="11.0"/>
+                    <paraStyle name="header1" fontName="Helvetica" fontSize="11.0"/>
+                    <paraStyle name="Standard2" fontName="Helvetica-bold" fontSize="11.0"/>
+                    <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
+                    <paraStyle name="page" fontName="helvetica" fontSize="11.0" leftIndent="0.0"/>
+                    <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
+                    <paraStyle name="answer_bold" fontName="Helvetica-Bold" fontSize="09.0" leftIndent="2.0"/>
+                    <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
+                    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+                    <paraStyle name="Text body" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+                    <paraStyle name="List" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+                    <paraStyle name="Caption" fontName="helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+                    <paraStyle name="Title" fontName="helvetica" fontSize="20.0" leading="15" spaceBefore="6.0" spaceAfter="6.0" alignment="CENTER"/>
+                    <paraStyle name="Index" fontName="helvetica"/>
+                    <paraStyle name="Table Contents" fontName="helvetica"/>
+                  </stylesheet>
+                  <images/>
+                  <story>
                     <para style="Title"><u>Response Summary</u></para>
                     <para style="Standard"><font></font></para>
                     <para style="Standard"><font></font></para>
@@ -102,7 +99,10 @@ class survey_analysis(report_rml):
                     <para style="Standard"><font></font></para>
                     <para style="Standard"><font></font></para>
                     <!--para style="Standard">[[repeatIn(objects,'y')]]</para-->
-                    <para style="Standard"><font></font></para>
+                    <para style="Standard"><font></font></para>"""
+        surv_obj = pooler.get_pool(cr.dbname).get('survey')
+        for survey in surv_obj.browse(cr,uid,ids):
+            rml += """
                     <blockTable colWidths="95,215,150,40" style="Table2">
                       <tr>
                         <td><para style="Standard">Survey Title :-</para></td>
@@ -321,6 +321,7 @@ class survey_analysis(report_rml):
                             <td><para style="Standard1">""" + str(survey.tot_start_survey - que.tot_resp) + """</para></td>
                         </tr>
                         </blockTable>"""
+            rml += """<pageBreak/>"""
         rml+="""</story></document>"""
         report_type = datas.get('report_type', 'pdf')
         create_doc = self.generators[report_type]

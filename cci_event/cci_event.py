@@ -197,6 +197,13 @@ class event_registration(osv.osv):
             res[reg.id] = total
         return res
 
+    def get_nbr_checks(self, cr, uid, ids, name, arg, context={}):
+        res = {}
+        data_reg = self.browse(cr, uid, ids, context=context)
+        for reg in data_reg:
+            res[reg.id] = len(reg.check_ids)
+        return res
+
     def _create_invoice_lines(self, cr, uid, ids, vals):
         for reg in self.browse(cr, uid, ids):
             note = ''
@@ -221,7 +228,9 @@ class event_registration(osv.osv):
             "check_ids":fields.one2many('event.check','reg_id',"Check ids"),
             "payment_ids":fields.many2many("account.move.line","move_line_registration", "reg_id", "move_line_id","Payment", readonly=True),
             "training_authorization":fields.char('Training Auth.',size=12,help='Formation Checks Authorization number',readonly=True),
-            "check_amount":fields.function(cal_check_amount,method=True,type='float', string='Check Amount')
+            "check_amount":fields.function(cal_check_amount,method=True,type='float', string='Check Amount'),
+            "nbr_event_check": fields.function(get_nbr_checks, method=True, type='integer', string="Number of Checks", help="This field simply computes the number of event check records for this registration")
+
     }
     _defaults = {
         'name': lambda *a: 'Registration',

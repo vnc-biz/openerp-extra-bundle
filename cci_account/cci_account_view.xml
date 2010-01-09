@@ -144,6 +144,29 @@
             </field>
     </record>
 
+	<!-- Remove buttons 'import invoices' and 'import payments' -->
+    <record model="ir.ui.view" id="bank_statement_form_inherit_button">
+			<field name="name">account.bank.statement.form.button</field>
+			<field name="type">form</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account.view_bank_statement_form"/>
+			<field name="arch" type="xml">
+				<button position="replace" name="%(account.wizard_populate_statement_from_inv)d"
+                    	string="Import Invoice" type="action" attrs="{'invisible':[('state','=','confirm')]}"/>
+			</field>
+		</record>
+
+    <record model="ir.ui.view" id="bank_statement_form_inherit_button_payments">
+			<field name="name">account.bank.statement.form.button.payments</field>
+			<field name="type">form</field>
+			<field name="model">account.bank.statement</field>
+			<field name="inherit_id" ref="account_payment.view_bank_statement_form"/>
+			<field name="arch" type="xml">
+				<button position="replace" name="%(account_payment.wizard_populate_statement)d" string="Import payment lines" type="action"/>
+			</field>
+	</record>
+	<!-- End -->
+
     <record model="ir.ui.view" id="invoice_form_inherit_cci_sup">
             <field name="name">account.invoice.supplier.form</field>
             <field name="model">account.invoice</field>

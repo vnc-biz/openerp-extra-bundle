@@ -69,6 +69,7 @@ class survey_form(report_rml):
                 <fill color="gray"/>
                 <setFont name="Helvetica" size="10"/>
                 <drawRightString x='"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+"""' y="0.6cm">Page : <pageNumber/> </drawRightString>"""
+
             rml +="""
             </pageGraphics>
                 </pageTemplate>
@@ -78,6 +79,19 @@ class survey_form(report_rml):
                   <blockAlignment value="LEFT"/>
                   <blockValign value="TOP"/>
                   <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                </blockTableStyle>
+                <blockTableStyle id="ans_tbl_matrix_0">
+                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
+                  <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                  <blockAlignment value="LEFT"/>
+                  <blockValign value="TOP"/>
+                </blockTableStyle>
+                <blockTableStyle id="ans_tbl_matrix_1">
+                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
+                  <blockBackground colorName="gainsboro" start="0,0" stop="-1,-1"/>
+                  <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                  <blockAlignment value="LEFT"/>
+                  <blockValign value="TOP"/>
                 </blockTableStyle>
                 <blockTableStyle id="page_tbl">
                   <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
@@ -216,18 +230,28 @@ class survey_form(report_rml):
                             rml+="""
                             <td><para style="response">""" + to_xml(mat_col) + """</para></td>"""
                         rml+="""</tr>"""
+                        rml+="""</blockTable>"""
+                        i=0
                         for ans in que.answer_choice_ids:
-                            rml+= """<tr>"""
+                            if i%2!=0:
+                                style='ans_tbl_matrix_0'
+                            else:
+                                style='ans_tbl_matrix_1'
+                            i+=1
+                            rml+="""
+                            <blockTable colWidths=" """ + colWidths + """ " style='"""+style+"""'>
+                            <tr>"""
                             rml+="""<td><para style="answer">""" + to_xml(str(ans.answer)) + """</para></td>"""
                             for mat_col in range(1,len(matrix_ans)):
                                 rml+="""
                                 <td>
                                     <illustration>
-                                        <rect x="0.25cm" y="-0.5cm" width="0.8 cm" height="0.5cm" fill="no" stroke="yes" round="0.1cm"/>
+                                        <fill color="white"/>
+                                        <rect x="0.25cm" y="-0.5cm" width="0.8 cm" height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/>
                                     </illustration>
                                 </td>"""
-                            rml+= """</tr>"""
-                        rml+="""</blockTable>"""
+                            rml+= """</tr></blockTable>"""
+#                        rml+="""</blockTable>"""
                     else:
                         cols_widhts.append(float(_tbl_widths.replace('cm','')))
                         colWidths = "cm,".join(map(str, cols_widhts))

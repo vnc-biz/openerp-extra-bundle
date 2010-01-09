@@ -248,7 +248,7 @@ class survey_question(osv.osv):
                         ans_len += 1
                     else:
                         ans_len -= 1
-            if que_type not in ['descriptive text', 'single_textbox', 'comment']:
+            if que_type not in ['descriptive_text', 'single_textbox', 'comment']:
                 if not ans_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
 
@@ -298,7 +298,7 @@ class survey_question(osv.osv):
         minimum_ans = 0
         maximum_ans = 0
         if vals.has_key('answer_choice_ids') and  not len(vals['answer_choice_ids']):
-            if vals.has_key('type') and vals['type'] not in ['descriptive text', 'single_textbox', 'comment']:
+            if vals.has_key('type') and vals['type'] not in ['descriptive_text', 'single_textbox', 'comment']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more answer."))
         if vals.has_key('column_heading_ids') and  not len(vals['column_heading_ids']):
             if vals.has_key('type') and vals['type'] in ['matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
@@ -635,7 +635,7 @@ class survey_question_wiz(osv.osv_memory):
                             for ans in ans_ids:
                                 etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id'])})
                                 fields[str(que) + "_" + str(ans['id'])] = {'type':'datetime', 'string':ans['answer']}
-                        elif que_rec['type'] == 'descriptive text':
+                        elif que_rec['type'] == 'descriptive_text':
                             etree.SubElement(xml_group, 'label', {'string': to_xml(str(que_rec['descriptive_text']))})
                         elif que_rec['type'] == 'single_textbox':
                             etree.SubElement(xml_group, 'field', {'name': str(que) + "_single", 'nolabel':"1" ,'colspan':"4"})

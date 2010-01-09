@@ -111,26 +111,26 @@ class res_partner_address(osv.osv):
 		return res
 
 	# XXX The following search function could have been written with SQL...
-	def _zip_search(self, cr, uid, obj, name, args):
+	def _zip_search(self, cr, uid, obj, name, args, context={}):
 		"""Search for addresses in cities with this zip code"""
 		cities = self.pool.get('city.city').search(cr, uid, args=[('zipcode', args[0][1], args[0][2])])
 		ids=self.search(cr, uid, args=[('location','in',cities)])
 		return [('id', 'in', ids)]
 	
-	def _city_search(self, cr, uid, obj, name, args):
+	def _city_search(self, cr, uid, obj, name, args, context={}):
 		"""Search for addresses in cities with this city name"""
 		cities = self.pool.get('city.city').search(cr, uid, args=[('name', args[0][1], args[0][2])])
 		ids=self.search(cr, uid, args=[('location','in',cities)])
 		return [('id', 'in', ids)]
 
-	def _state_search(self, cr, uid, obj, name, args):
+	def _state_search(self, cr, uid, obj, name, args, context={}):
 		print """Search for addresses in cities in this state"""
 		states = self.pool.get('res.country.state').search(cr, uid, args=[('name', args[0][1], args[0][2])])
 		cities = self.pool.get('city.city').search(cr, uid, args=[('state_id', 'in', states)])
 		ids=self.search(cr, uid, args=[('location','in',cities)])
 		return [('id', 'in', ids)]
 	
-	def _country_search(self, cr, uid, obj, name, args):
+	def _country_search(self, cr, uid, obj, name, args, context={}):
 		print """Search for addresses in cities in this country"""
 		countries = self.pool.get('res.country').search(cr, uid, args=[('name', args[0][1], args[0][2])])
 		cities = self.pool.get('city.city').search(cr, uid, args=[('country_id', 'in', countries)])

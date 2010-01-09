@@ -26,7 +26,7 @@ class scrum_product_backlog(osv.osv):
         cr.execute('select b.id, p.partner from scrum_product_backlog b join project_project p on (b.project_id = p.id) where id in (%s)', ','.join(ids))
         return dict(cr.fetchall())
 
-    def _search_partner(self, cr, uid, obj, name, args):
+    def _search_partner(self, cr, uid, obj, name, args, context={}):
         print args
         if not len(args):
             return []

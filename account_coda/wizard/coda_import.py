@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -317,7 +317,7 @@ class coda_import(wizard.interface):
             'result' : {'type' : 'form',
                     'arch' : codawiz_form,
                     'fields' : codawiz_fields,
-                    'state' : [('extraction', '_Ok') ]}
+                    'state' : [('end', '_Close'),('extraction', '_Ok') ]}
         },
         'extraction' : {
             'actions' : [_coda_parsing],

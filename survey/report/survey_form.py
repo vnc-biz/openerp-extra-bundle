@@ -20,7 +20,6 @@
 #
 ##############################################################################
 
-import time
 import pooler
 from report.interface import report_rml
 from tools import to_xml
@@ -31,6 +30,7 @@ class survey_form(report_rml):
         _divide_columns_for_matrix = 0.7
         _display_ans_in_rows = 5
         _pageSize = ('29.7cm','21.1cm')
+
         if datas.has_key('form') and datas['form']['orientation']=='vertical':
             if datas['form']['paper_size']=='letter':
                 _pageSize = ('21.6cm','27.9cm')
@@ -50,100 +50,84 @@ class survey_form(report_rml):
         _frame_height = str(float(_pageSize[1].replace('cm','')) - float(2.50))+'cm'
         _tbl_widths = str(float(_pageSize[0].replace('cm','')) - float(2.10))+'cm'
 
-        rml=''
+        rml="""
+        <document filename="Survey Form.pdf">
+        <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title='Survey Form.pdf' author="Martin Simon" allowSplitting="20" >
+            <pageTemplate id="first">
+                <frame id="first" x1="0.0cm" y1="1.0cm" width='"""+_frame_width+"""' height='"""+_frame_height+"""'/>
+                <pageGraphics>
+                    <lineMode width="1.0"/>
+                    <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+"""</lines>
+                    <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" 1.0cm 1.00cm</lines>
+                    <lines>"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>
+                    <lines>1.0cm 1.00cm """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>"""
+
+        if datas.has_key('form') and datas['form']['page_number']:
+            rml +="""
+                    <fill color="gray"/>
+                    <setFont name="Helvetica" size="10"/>
+                    <drawRightString x='"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+"""' y="0.6cm">Page : <pageNumber/> </drawRightString>"""
+
+        rml +="""
+                </pageGraphics>
+            </pageTemplate>
+        </template>
+        <stylesheet>
+            <blockTableStyle id="ans_tbl">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+            </blockTableStyle>
+            <blockTableStyle id="ans_tbl_white">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+            </blockTableStyle>
+            <blockTableStyle id="ans_tbl_gainsboro">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+              <blockBackground colorName="gainsboro" start="0,0" stop="-1,-1"/>
+            </blockTableStyle>
+            <blockTableStyle id="page_tbl">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
+              <blockBackground colorName="gray" start="0,0" stop="-1,-1"/>
+              <blockTextColor colorName="white" start="0,0" stop="0,0"/>
+            </blockTableStyle>
+            <blockTableStyle id="title_tbl">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
+              <blockBackground colorName="black" start="0,0" stop="-1,-1"/>
+              <blockTextColor colorName="white" start="0,0" stop="0,0"/>
+            </blockTableStyle>
+            <blockTableStyle id="question_tbl">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
+            </blockTableStyle>
+            <initialize>
+              <paraStyle name="all" alignment="justify"/>
+            </initialize>
+            <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
+            <paraStyle name="page" fontName="helvetica-bold" fontSize="15.0" leftIndent="0.0" textColor="white"/>
+            <paraStyle name="title" fontName="helvetica-bold" fontSize="18.0" leftIndent="0.0" textColor="white"/>
+            <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
+            <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
+            <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+        </stylesheet>
+        <story>
+        """
+
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for survey in surv_obj.browse(cr,uid,ids):
-            rml="""
-            <document filename="Survey Form.pdf">
-            <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title='""" + survey.title + """' author="Martin Simon" allowSplitting="20" >
-                <pageTemplate id="first">
-                    <frame id="first" x1="0.0cm" y1="1.0cm" width='"""+_frame_width+"""' height='"""+_frame_height+"""'/>
-                    <pageGraphics>
-                        <lineMode width="1.0"/>
-                        <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+"""</lines>
-                        <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" 1.0cm 1.00cm</lines>
-                        <lines>"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>
-                        <lines>1.0cm 1.00cm """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>"""
-            if datas.has_key('form') and datas['form']['page_number']:
-                rml +="""
-                <fill color="gray"/>
-                <setFont name="Helvetica" size="10"/>
-                <drawRightString x='"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+"""' y="0.6cm">Page : <pageNumber/> </drawRightString>"""
-
-            rml +="""
-            </pageGraphics>
-                </pageTemplate>
-            </template>
-            <stylesheet>
-                <blockTableStyle id="ans_tbl">
-                  <blockAlignment value="LEFT"/>
-                  <blockValign value="TOP"/>
-                  <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-                </blockTableStyle>
-                <blockTableStyle id="ans_tbl_matrix_0">
-                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
-                  <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-                  <blockAlignment value="LEFT"/>
-                  <blockValign value="TOP"/>
-                </blockTableStyle>
-                <blockTableStyle id="ans_tbl_matrix_1">
-                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
-                  <blockBackground colorName="gainsboro" start="0,0" stop="-1,-1"/>
-                  <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-                  <blockAlignment value="LEFT"/>
-                  <blockValign value="TOP"/>
-                </blockTableStyle>
-                <blockTableStyle id="page_tbl">
-                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
-                  <blockBackground colorName="gray" start="0,0" stop="-1,-1"/>
-                  <blockTextColor colorName="white" start="0,0" stop="0,0"/>
-                  <blockAlignment value="LEFT"/>
-                  <blockValign value="TOP"/>
-                  <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
-                </blockTableStyle>
-                <blockTableStyle id="title_tbl">
-                  <blockFont name="Helvetica-BoldOblique" size="18" start="0,0" stop="-1,-1"/>
-                  <blockBackground colorName="black" start="0,0" stop="-1,-1"/>
-                  <blockTextColor colorName="white" start="0,0" stop="0,0"/>
-                  <blockAlignment value="LEFT"/>
-                  <blockValign value="TOP"/>
-                  <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="1,-1"/>
-                </blockTableStyle>
-                <blockTableStyle id="question_tbl">
-                  <blockAlignment value="LEFT"/>
-                  <blockValign value="TOP"/>
-                  <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
-                </blockTableStyle>
-                <initialize>
-                  <paraStyle name="all" alignment="justify"/>
-                </initialize>
-                <paraStyle name="P1" fontName="helvetica"/>
-                <paraStyle name="Standard1" fontName="helvetica-bold" alignment="RIGHT" fontSize="09.0"/>
-                <paraStyle name="Standard" alignment="LEFT" fontName="Helvetica-Bold" fontSize="11.0" />
-                <paraStyle name="header1" fontName="Helvetica" fontSize="11.0"/>
-                <paraStyle name="Standard2" fontName="Helvetica-bold" fontSize="11.0"/>
-                <paraStyle name="response" fontName="Helvetica-oblique" fontSize="9.5"/>
-                <paraStyle name="page" fontName="helvetica-bold" fontSize="15.0" leftIndent="0.0" textColor="white"/>
-                <paraStyle name="title" fontName="helvetica-bold" fontSize="18.0" leftIndent="0.0" textColor="white"/>
-                <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
-                <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
-                <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
-                <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
-                <paraStyle name="Text body" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-                <paraStyle name="List" fontName="helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
-                <paraStyle name="Caption" fontName="helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
-                <paraStyle name="Title" fontName="helvetica" fontSize="20.0" leading="15" spaceBefore="6.0" spaceAfter="6.0" alignment="CENTER"/>
-                <paraStyle name="Index" fontName="helvetica"/>
-                <paraStyle name="Table Contents" fontName="helvetica"/>
-            </stylesheet>
-            <story>
-            """
             if datas.has_key('form') and datas['form']['survey_title']:
-                    rml += """
-                    <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
-                        <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para>
-                        </td></tr>
-                    </blockTable>"""
+                rml += """
+                <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
+                    <tr><td><para style="title">""" + to_xml(survey.title) + """</para><para style="P2"><font></font></para></td></tr>
+                </blockTable>"""
             seq = 0
             for page in survey.page_ids:
                 seq+=1
@@ -235,9 +219,9 @@ class survey_form(report_rml):
                         i=0
                         for ans in que.answer_choice_ids:
                             if i%2!=0:
-                                style='ans_tbl_matrix_0'
+                                style='ans_tbl_white'
                             else:
-                                style='ans_tbl_matrix_1'
+                                style='ans_tbl_gainsboro'
                             i+=1
                             rml+="""
                             <blockTable colWidths=" """ + colWidths + """ " style='"""+style+"""'>
@@ -253,7 +237,6 @@ class survey_form(report_rml):
                                     </illustration>
                                 </td>"""
                             rml+= """</tr></blockTable>"""
-#                        rml+="""</blockTable>"""
                     else:
                         cols_widhts.append(float(_tbl_widths.replace('cm','')))
                         colWidths = "cm,".join(map(str, cols_widhts))

@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -17,30 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-
-from osv import fields, osv
-class scrum_product_backlog(osv.osv):
-    _inherit = 'scrum.product.backlog'
-
-    def _get_partner(self, cr, uid, ids, name, args, context):
-        cr.execute('select b.id, p.partner from scrum_product_backlog b join project_project p on (b.project_id = p.id) where id in (%s)', ','.join(ids))
-        return dict(cr.fetchall())
-
-    def _search_partner(self, cr, uid, obj, name, args, context={}):
-        print args
-        if not len(args):
-            return []
-
-        pids= self.pool.get('project.project').search(cr,uid,args)
-        cr.execute('select id form scrum_product_backlog where project_id in (%s)', ','.join(pids) )
-        res= cr.fetchall()
-        if not res:
-            return [('id','=','0')]
-        return [('id','in',bids)]
-    
-    _columns = {
-        'partner_id': fields.function(_get_partner, method=True, string='Customer', fnct_search=_search_partner),
-        }
-scrum_product_backlog()
+{
+    "name" : "DM FTP",
+    "version" : "1.0",
+    "author" : "Tiny",
+    "website" : "http://www.openerp.com",
+    "category" : "Generic Modules/Direct Marketing",
+    "description": """
+            """,
+    "depends" : ["dm"],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "update_xml" : [
+                    "dm_ftp_data.xml",
+                    "dm_ftp_view.xml",
+                    ],
+    "active": False,
+    "installable": True,
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

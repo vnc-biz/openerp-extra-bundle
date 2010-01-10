@@ -46,6 +46,7 @@ class survey(osv.osv):
         'tot_start_survey' : fields.integer("Total Started Survey", readonly=1),
         'tot_comp_survey' : fields.integer("Total Completed Survey", readonly=1),
         'note' : fields.text('Description', size=128),
+        'history' : fields.one2many('survey.history', 'survey_id', 'History Lines', readonly=True),
         'users': fields.many2many('res.users', 'survey_users_rel', 'sid', 'uid', 'Users'),
     }
     _defaults = {
@@ -87,15 +88,6 @@ class survey_history(osv.osv):
 
 survey_history()
 
-
-class survey_inherit(osv.osv):
-    _inherit = 'survey'
-    _columns = {
-        'history' : fields.one2many('survey.history', 'survey_id', 'History Lines', readonly=True),
-    }
-survey_inherit()
-
-
 class survey_page(osv.osv):
     _name = 'survey.page'
     _description = 'Survey Pages'
@@ -105,7 +97,7 @@ class survey_page(osv.osv):
         'title' : fields.char('Page Title', size=128, required=1),
         'survey_id' : fields.many2one('survey', 'Survey', ondelete='cascade'),
         'question_ids' : fields.one2many('survey.question', 'page_id', 'Question'),
-        'sequence' : fields.integer('Sequence'),
+        'sequence' : fields.integer('Page Nr'),
         'note' : fields.text('Description'),
     }
     _defaults = {
@@ -222,8 +214,8 @@ class survey_question(osv.osv):
             return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':True}}
 
     def write(self, cr, uid, ids, vals, context=None):
-        if vals.has_key('type'):
-            raise osv.except_osv(_('Error !'),_("You cannot change question type."))
+        #if vals.has_key('type'):
+        #    raise osv.except_osv(_('Error !'),_("You cannot change question type."))
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
         for question in questions:
             col_len = len(question['column_heading_ids'])

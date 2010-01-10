@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,28 +15,115 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 import time
 from osv import fields, osv
 
+class hr_evaluation_plan(osv.osv):
+    _name = "hr_evaluation.plan"
+    _description = "Evaluation Plan"
+    _columns = {
+        'name': fields.char("Evaluation Plan", size=64, required=True),
+        'company_id': fields.many2one("res.company", 'Company', required=True),
+
+        'phase_ids': fields.many2one('survey.survey', 'Top-Down Appraisal Forms', required=True),
+
+        'month_first': fields.integer('First Interview', help="Number of months for the first interview"),
+        'month_next': fields.integer('First Interview', help="Number of months between each interview"),
+        'active': fields.boolean('Active')
+    }
+    _defaults = {
+        'active' : lambda *a: True,
+    }
+hr_evaluation_plan()
+
+class hr_evaluation_plan_phase(osv.osv):
+    _name = "hr_evaluation.plan.phase"
+    _description = "Evaluation Plan Phase"
+    _order = "sequence"
+    _columns = {
+        'name': fields.char("Phase", size=64, required=True),
+        'sequence': fields.integer("Sequence"),
+        'company_id': fields.related("plan_id", "company_id", string="Company"),
+        'plan_id': fields.many2one('hr_evaluation.plan','Evaluation Plan', required=True, ondelete='cascade'),
+
+        'action': fields.selection([
+            ('top-down','Top-Down Appraisal Requests'),
+            ('bottom-up','Bottom-Up Appraisal Requests'),
+            ('self','Self Appraisal Requests'),
+            ('final','Final Interview')], 'Action', required=True),
+
+        'survey_id': fields.many2one('survey.survey', 'Appraisal Form', required=True),
+        'send_answer_manager': fields.boolean('All Answers',
+            help="Send all answers to the manager"),
+        'send_answer_employee': fields.boolean('All Answers'
+            help="Send all answers to the employee"),
+        'send_anonymous_manager': fields.boolean('Anonymous Summary'
+            help="Send an anonymous summary to the manager"),
+        'send_anonymous_employee': fields.boolean('Anonymous Summary'),
+            help="Send an anonymous summary to the employee"),
+        'wait': fields.boolean('Wait Previous Phases',
+            help="Check this box if you want to wait that all preceeding phases " +
+              "are finished before launching this phase.".
+
+    }
+    _defaults = {
+        'sequence' : lambda *a: 1,
+    }
+hr_evaluation_plan_phase()
+
+class hr_employee(osv.osv):
+    _inherit="hr.employee"
+    _columns = {
+        'evaluation_plan_id': fields.many2one('hr_evaluation.plan', 'Evaluation Plan'),
+        'evaluation_date': fields.date('Next Evaluation', help="Date of the next evaluation"),
+    }
+    def onchange_evaluation_plan_id(self, *args):
+        # return the right evaluation date
+        pass
+hr_employee()
+
 class hr_evaluation(osv.osv):
     _name = "hr_evaluation.evaluation"
     _description = "Employee Evaluation"
+    _rec_name = 'employee_id'
     _columns = {
-        'name': fields.char("Summary", size=64, required=True),
-        'date': fields.date("Date", required=True),
+        'date': fields.date("Evaluation Deadline", required=True),
         'employee_id': fields.many2one("hr.employee", "Employee", required=True),
-        'user_id': fields.many2one("res.users", "Evaluation User", required=True),
-        'info_good': fields.text('Good Points'),
-        'info_bad': fields.text('Bad Points'),
-        'info_improve': fields.text('To Improve'),
-        'score': fields.float("Score"),
-        'info_employee': fields.text('Employee Response'),
-        'quote_ids': fields.one2many('hr_evaluation.quote', 'evaluation_id', 'Quotes'),
-        'state': fields.selection([('draft','Draft'),('done','Done')], 'State')
+        'manager_id': fields.many2one("res.users", "Manager", required=True),
+
+
+        'note_summary': fields.text('Evaluation Summary'),
+        'note_action': fields.text('Action Plan'
+            help="If the evaluation does not meet the expectations, you can propose
+              an action plan"),
+        'rating': fields.selection([
+            ('0','Significantly bellow expectations'),
+            ('1','Did not meet expectations'),
+            ('2','Meet expectations'),
+            ('3','Exceeds expectations'),
+            ('4','Significantly exceeds expectations'),
+        ], "Overall Rating", help="This is the overall rating on that summarize the evaluation"),
+
+        'survey_request_ids': fields.many2many('survey.request',
+            'hr_evaluation_evaluation_requests',
+            'evaluation_id',
+            'survey_id',
+            'Appraisal Forms'),
+
+        'plan_id': fields.many2one('hr_evaluation.plan', 'Plan'),
+        'phase_id': fields.many2one('hr_evaluation.plan', 'Phase'),
+
+        'state': fields.selection([
+            ('draft','Draft'),
+            ('wait','Plan In Progress'),
+            ('progress','Final Validation'),
+            ('done','Done')
+            ('cancel','Cancelled'),
+        ], 'State', required=True)
     }
     _defaults = {
         'date' : lambda *a: time.strftime('%Y-%m-%d'),
@@ -45,42 +132,4 @@ class hr_evaluation(osv.osv):
     }
 hr_evaluation()
 
-class hr_evaluation_type(osv.osv):
-    _name = "hr_evaluation.type"
-    _description = "Employee Evaluation Type"
-    _columns = {
-        'name': fields.char("Evaluation Criterion", size=64, required=True),
-        'category_ids': fields.many2many('hr.employee.category', 'hr_evaluation_category_rel', 'type_id', 'category_id', 'Appliable Role'),
-        'active': fields.boolean("Active"),
-        'value_ids': fields.one2many('hr_evaluation.type.value', 'type_id', 'Values'),
-        'info': fields.text('Information'),
-        'score': fields.float('Score'),
-    }
-    _defaults = {
-        'active' : lambda *a: True,
-    }
-hr_evaluation_type()
-
-class hr_evaluation_type_value(osv.osv):
-    _name = "hr_evaluation.type.value"
-    _description = "Evaluation Type Value"
-    _columns = {
-        'name': fields.char("Value", size=64, required=True),
-        'score': fields.float("Score"),
-        'type_id': fields.many2one('hr_evaluation.type', 'Evaluation Type', required=True),
-    }
-hr_evaluation_type_value()
-
-class hr_evaluation_quote(osv.osv):
-    _name = "hr_evaluation.quote"
-    _description = "Employee Evaluation Quote"
-    _columns = {
-        'name': fields.char("Quote", size=64),
-        'type_id': fields.many2one('hr_evaluation.type', 'Type'),
-        'score': fields.float("Score"),
-        'value_id': fields.many2one('hr_evaluation.type.value', 'Value', domain="[('type_id','=',type_id)])"),
-        'evaluation_id': fields.many2one('hr_evaluation.evaluation', 'Evaluation', required=True)
-    }
-hr_evaluation_quote()
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

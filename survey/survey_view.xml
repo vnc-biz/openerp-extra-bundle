@@ -695,6 +695,40 @@
             </field>
         </record>
 
+        <!--
+            Survey Request
+        -->
+
+        <record model="ir.ui.view" id="survey_request_form">
+            <field name="name">survey_request_form</field>
+            <field name="model">survey.request</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Survey Request">
+                    <field name="date_deadline"/>
+                    <field name="survey_id"/>
+                    <field name="email"/>
+                    <field name="user_id"/>
+                    <field name="answer_ids" nolabel="1" colspan="4"/>
+                    <field name="state"/>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="survey_request_tree">
+            <field name="name">survey_request_tree</field>
+            <field name="model">survey.request</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Survey Request">
+                    <field name="date_deadline"/>
+                    <field name="survey_id" />
+                    <field name="email" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
         <act_window domain="[('survey_id', '=', active_id)]"
             id="act_survey_pages"
             name="Survey Pages"

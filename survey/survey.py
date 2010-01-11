@@ -1057,4 +1057,17 @@ class res_users(osv.osv):
     }
 res_users()
 
+class survey_request(osv.osv):
+    _name = "survey.request"
+    _order = 'date_deadline'
+    _columns = {
+        'date_deadline' : fields.date("Deadline date"),
+        'user_id' : fields.many2one("res.users", "User"),
+        'email' : fields.char("E-mail", size=64),
+        'survey_id' : fields.many2one("survey", "Survey", required=1),
+        'answer_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
+        'state' : fields.selection([('waitin_answer', 'Wating Answer'),('done', 'Done'),('cancelled', 'Cancelled')], 'State')
+    }
+survey_request()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

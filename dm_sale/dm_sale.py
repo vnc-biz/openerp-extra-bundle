@@ -37,14 +37,19 @@ class dm_workitem(osv.osv): # {{{
     }
 
     def run(self, cr, uid, wi, context={}):
-        result = super(dm_workitem, self).run(cr, uid, wi, context)
-        if wi.sale_order_id:
-            so_res = self.pool.get('sale.order')._sale_order_process(cr, uid, wi.sale_order_id.id)
-        return result
-
-    def copy(self, cr, uid, id, default=None, context=None):
-        if not default:
-            default = {}
+    	result = super(dm_workitem, self).run(cr, uid, wi, context)
+    	if wi.sale_order_id:
+    		so_res = self.pool.get('sale.order')._sale_order_process(cr, uid, wi.sale_order_id.id)
+		if wi.step_id.partner_event_create:
+			self.pool.get('res.partner.event').create(cr, uid, {
+						'name': wi.step_id.name,
+						'partner_type': 'customer',
+						'date': time.strftime('%Y-%m-%d %H:%M:%S'),
+						'document': wi.sale_order_id and ('sale.order' +','+ wi.sale_order_id.name) or ''})
+		return result
+	def copy(self, cr, uid, id, default=None, context=None):
+	    if not default:
+	        default = {}
         if context is None:
             context = {}
         default.update({'sale_order_id': False})
@@ -268,3 +273,4 @@ class dm_campaign(osv.osv): # {{{
 
 dm_campaign() # }}}
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

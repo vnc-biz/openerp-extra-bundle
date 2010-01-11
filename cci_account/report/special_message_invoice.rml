@@ -297,7 +297,7 @@
 <blockValign value="TOP"/>
 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="2,0"/>
 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,2" stop="2,2"/>
-<lineStyle kind="LINEABOVE" colorName="#000000" start="0,3" stop="3,3"/>
+
 </blockTableStyle>
 <initialize>
 <paraStyle name="all" alignment="justify"/>
@@ -490,15 +490,10 @@
 		<td><para style="P11a">[[ '%.2f' % o.amount_tax ]] [[o.currency_id.code ]]</para></td>
 		</tr>
 		<tr>
-		<td>
-		<blockTable colWidths="200.0" style="Tableau3">
-		<tr>
+		<td><para style="P11"><font color="white"></font></para></td>
 		<td>
 		<para>[[ repeatIn(o.payment_ids,'obj') ]]</para>
-		<para style="P11a"><b> - [[ '%.2f' % obj.credit !=0 and obj.credit or obj.debit !=0 and obj.debit or removeParentNode('tr') ]] [[obj.currency_id.code ]]</b></para></td>
-		</tr>
-		</blockTable>
-		</td>
+		<para style="P12"><b> - [[ '%.2f' % obj.credit !=0 and obj.credit or obj.debit !=0 and obj.debit or removeParentNode('tr') ]] [[obj.currency_id.code ]]</b></para></td>
 		</tr>
 		<tr>
 		<td><para style="P13">Residual Amount: <font></font></para></td>

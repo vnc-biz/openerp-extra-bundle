@@ -273,7 +273,7 @@ class survey_form(report_rml):
                         colWidths = "cm,".join(map(str, cols_widhts))
                         colWidths = colWidths+'cm'
                         rml+="""
-                        <para style="P1"><font color="white"> </font></para>
+                        <para style="P2"><font color="white"> </font></para>
                         <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
                             <tr>
                                 <td><para style="P2"><font color="white"> </font></para>

@@ -256,6 +256,11 @@ class survey_form(report_rml):
                         cols_widhts.append(float(_tbl_widths.replace('cm',''))/2)
                         colWidths = "cm,".join(map(str, cols_widhts))
                         colWidths = str(colWidths) + 'cm'
+                        rect_len = ""
+                        if que.type in ['multiple_textboxes']:
+                            rect_len =  str(cols_widhts[0] - 0.3) + "cm"
+                        else:
+                            rect_len = "6cm"
                         for ans in que.answer_choice_ids:
                             rml +="""<para style="P1"></para>
                             <blockTable colWidths=" """+ colWidths + """ " style="ans_tbl">
@@ -263,7 +268,7 @@ class survey_form(report_rml):
                                 <td><para style="answer">""" + to_xml(str(ans.answer)) + """</para></td>
                                     <td>
                                     <illustration>
-                                        <rect x="0.0cm" y="-0.5cm" width="9.5 cm" height="0.6cm" fill="no" stroke="yes"/>
+                                        <rect x="0.0cm" y="-0.5cm" width='""" + str(rect_len) + """' height="0.6cm" fill="no" stroke="yes"/>
                                     </illustration>
                                     </td>
                                 </tr>

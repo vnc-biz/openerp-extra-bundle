@@ -30,7 +30,6 @@ class survey_form(report_rml):
         _divide_columns_for_matrix = 0.7
         _display_ans_in_rows = 5
         _pageSize = ('29.7cm','21.1cm')
-
         if datas.has_key('form') and datas['form']['orientation']=='vertical':
             if datas['form']['paper_size']=='letter':
                 _pageSize = ('21.6cm','27.9cm')
@@ -47,27 +46,28 @@ class survey_form(report_rml):
                 _pageSize = ('29.7cm','21.1cm')
 
         _frame_width = str(_pageSize[0])
-        _frame_height = str(float(_pageSize[1].replace('cm','')) - float(2.50))+'cm'
+        _frame_height = str(float(_pageSize[1].replace('cm','')) - float(1.90))+'cm'
         _tbl_widths = str(float(_pageSize[0].replace('cm','')) - float(2.10))+'cm'
 
+        rml= ""
+
         rml="""
-        <document filename="Survey Form.pdf">
-        <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title='Survey Form.pdf' author="Martin Simon" allowSplitting="20" >
-            <pageTemplate id="first">
-                <frame id="first" x1="0.0cm" y1="1.0cm" width='"""+_frame_width+"""' height='"""+_frame_height+"""'/>
-                <pageGraphics>
-                    <lineMode width="1.0"/>
-                    <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+"""</lines>
-                    <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" 1.0cm 1.00cm</lines>
-                    <lines>"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.65))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>
-                    <lines>1.0cm 1.00cm """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>"""
+            <document filename="Survey Form.pdf">
+            <template pageSize="("""+_pageSize[0]+""","""+_pageSize[1]+""")" title='Survey Form.pdf' author="Martin Simon" allowSplitting="20" >
+                <pageTemplate id="first">
+                    <frame id="first" x1="0.0cm" y1="1.0cm" width='"""+_frame_width+"""' height='"""+_frame_height+"""'/>
+                    <pageGraphics>
+                        <lineMode width="1.0"/>
+                        <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.00))+'cm'+"""</lines>
+                        <lines>1.0cm """+str(float(_pageSize[1].replace('cm','')) - float(1.00))+'cm'+""" 1.0cm 1.00cm</lines>
+                        <lines>"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[1].replace('cm','')) - float(1.00))+'cm'+""" """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>
+                        <lines>1.0cm 1.00cm """+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+""" 1.00cm</lines>"""
 
         if datas.has_key('form') and datas['form']['page_number']:
             rml +="""
                     <fill color="gray"/>
                     <setFont name="Helvetica" size="10"/>
                     <drawRightString x='"""+str(float(_pageSize[0].replace('cm','')) - float(1.00))+'cm'+"""' y="0.6cm">Page : <pageNumber/> </drawRightString>"""
-
         rml +="""
                 </pageGraphics>
             </pageTemplate>
@@ -117,12 +117,15 @@ class survey_form(report_rml):
             <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
             <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
             <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+            <paraStyle name="comment" fontName="Helvetica" fontSize="14.0" leading="50" spaceBefore="0.0" spaceAfter="0.0"/>
+            <paraStyle name="P1" fontName="Helvetica" fontSize="9.0" leading="12" spaceBefore="0.0" spaceAfter="1.0"/>
         </stylesheet>
         <story>
         """
 
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for survey in surv_obj.browse(cr,uid,ids):
+
             if datas.has_key('form') and datas['form']['survey_title']:
                 rml += """
                 <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
@@ -143,7 +146,19 @@ class survey_form(report_rml):
                         <tr><td><para style="question">Que: """+ to_xml(que.question) + """</para></td></tr>
                     </blockTable>
                     <para style="P2"><font></font></para>"""
-                    if que.type in ['multiple_choice_multiple_ans','multiple_choice_only_one_ans']:
+                    if que.type in ['descriptive_text']:
+                        cols_widhts.append(float(_tbl_widths.replace('cm','')))
+                        colWidths = "cm,".join(map(str, cols_widhts))
+                        colWidths = colWidths+'cm'
+                        rml+="""
+                        <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
+                            <tr>
+                                <td>
+                                <para style="answer">""" + to_xml(str(que.descriptive_text)) + """</para>
+                                </td>
+                            </tr>
+                        </blockTable>"""
+                    elif que.type in ['multiple_choice_multiple_ans','multiple_choice_only_one_ans']:
                         answer=[]
                         for ans in que.answer_choice_ids:
                             answer.append(to_xml(str((ans.answer))))
@@ -237,7 +252,44 @@ class survey_form(report_rml):
                                     </illustration>
                                 </td>"""
                             rml+= """</tr></blockTable>"""
-                    else:
+                    elif que.type in ['multiple_textboxes','numerical_textboxes', 'date_and_time','date']:
+                        cols_widhts.append(float(_tbl_widths.replace('cm',''))/2)
+                        cols_widhts.append(float(_tbl_widths.replace('cm',''))/2)
+                        colWidths = "cm,".join(map(str, cols_widhts))
+                        colWidths = str(colWidths) + 'cm'
+                        rect_len = ""
+                        if que.type in ['multiple_textboxes']:
+                            rect_len =  str(cols_widhts[0] - 0.3) + "cm"
+                        else:
+                            rect_len = "6cm"
+                        for ans in que.answer_choice_ids:
+                            rml +="""<para style="P1"></para>
+                            <blockTable colWidths=" """+ colWidths + """ " style="ans_tbl">
+                                <tr>
+                                <td><para style="answer">""" + to_xml(str(ans.answer)) + """</para></td>
+                                    <td>
+                                    <illustration>
+                                        <rect x="0.0cm" y="-0.5cm" width='""" + str(rect_len) + """' height="0.6cm" fill="no" stroke="yes"/>
+                                    </illustration>
+                                    </td>
+                                </tr>
+                            </blockTable>"""
+                    elif que.type in ['comment']:
+                        cols_widhts.append(float(_tbl_widths.replace('cm','')))
+                        colWidths = "cm,".join(map(str, cols_widhts))
+                        colWidths = colWidths+'cm'
+                        rml+="""
+                        <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
+                            <tr>
+                                <td><para style="comment"><font color="white"> </font></para>
+                                    <illustration>
+                                        <rect x="0.0cm" y="0.3cm" width="15.0 cm" height="1.5cm" fill="no" stroke="yes"/>
+                                    </illustration>
+                                </td>
+                            </tr>
+                        </blockTable>
+                        """
+                    elif que.type in ['single_textbox']:
                         cols_widhts.append(float(_tbl_widths.replace('cm','')))
                         colWidths = "cm,".join(map(str, cols_widhts))
                         colWidths = colWidths+'cm'

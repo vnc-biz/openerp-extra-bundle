@@ -517,21 +517,27 @@ class survey_question_wiz(osv.osv_memory):
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False,submenu=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar,submenu)
         surv_name_wiz = self.pool.get('survey.name.wiz')
-        sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])
-        survey_id = context['survey_id']
-        survey_obj = self.pool.get('survey')
-        sur_rec = survey_obj.read(cr, uid, survey_id, [])
-        page_obj = self.pool.get('survey.page')
-        que_obj = self.pool.get('survey.question')
-        ans_obj = self.pool.get('survey.answer')
-        response_obj = self.pool.get('survey.response')
-        que_col_head = self.pool.get('survey.question.column.heading')
-        p_id = sur_rec['page_ids']
-        pre_button = False
-        if not sur_name_rec['page_no'] + 1 :
-            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
-        sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
         if view_type =='form':
+            if not context.has_key('sur_name_id'):
+                 id = surv_name_wiz.create(cr,uid,{'transfer': 1, 'page': 'next', 'page_no': -1})
+                 context.update({'sur_name_id':id})
+                 sur_name_rec = surv_name_wiz.read(cr, uid,id)
+            else:
+                 sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])
+            sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])
+            survey_id = context['survey_id']
+            survey_obj = self.pool.get('survey')
+            sur_rec = survey_obj.read(cr, uid, survey_id, [])
+            page_obj = self.pool.get('survey.page')
+            que_obj = self.pool.get('survey.question')
+            ans_obj = self.pool.get('survey.answer')
+            response_obj = self.pool.get('survey.response')
+            que_col_head = self.pool.get('survey.question.column.heading')
+            p_id = sur_rec['page_ids']
+            pre_button = False
+            if not sur_name_rec['page_no'] + 1 :
+                surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
+            sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
             if sur_name_read['transfer'] or not sur_name_rec['page_no'] + 1 :
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':False})
                 flag = False
@@ -663,8 +669,10 @@ class survey_question_wiz(osv.osv_memory):
                     root.write('/tmp/arch4.xml', pretty_print=True)
                     result['arch'] = etree.tostring(root)
                     result['fields'] = fields
+                    result['context'] = context
                 else:
-                    survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
+                    if not context.has_key('active'):
+                        survey_obj.write(cr, uid, survey_id, {'tot_comp_survey' : sur_rec['tot_comp_survey'] + 1})
                     xml_form = etree.Element('form', {'string': _('Complete Survey Response')})
                     etree.SubElement(xml_form, 'separator', {'string': 'Complete Survey', 'colspan': "4"})
                     etree.SubElement(xml_form, 'label', {'string': 'Thanks for your response'})
@@ -673,9 +681,12 @@ class survey_question_wiz(osv.osv_memory):
                     root = xml_form.getroottree()
                     result['arch'] = etree.tostring(root)
                     result['fields'] = {}
+                    result['context'] = context
         return result
 
     def default_get(self, cr, uid, fields_list, context=None):
+        if context.has_key('active') and context['active']:
+            return {}
         surv_name_wiz = self.pool.get('survey.name.wiz')
         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
         value = {}
@@ -687,6 +698,8 @@ class survey_question_wiz(osv.osv_memory):
         return value
 
     def create(self, cr, uid, vals, context=None):
+        if context.has_key('active') and context['active']:
+            return True
         click_state = True
         click_update = []
         surv_name_wiz = self.pool.get('survey.name.wiz')
@@ -1019,6 +1032,9 @@ class survey_question_wiz(osv.osv_memory):
         return True
 
     def action_next(self, cr, uid, ids, context=None):
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        sur_id = surv_name_wiz.search(cr, uid, [])
+        context.update({'sur_name_id' : sur_id[-1]})
         surv_name_wiz = self.pool.get('survey.name.wiz')
         search_obj = self.pool.get('ir.ui.view')
         search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])

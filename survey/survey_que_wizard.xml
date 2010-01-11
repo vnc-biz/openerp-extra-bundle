@@ -69,9 +69,5 @@
 			<field name="target">new</field>
 		</record>
 
-		<menuitem name="Give Survey Response" id="menu_run_survey_form"
-			action="action_view_survey_name" parent="main_menu_survey"
-			groups="group_survey_manager,group_survey_user" icon="STOCK_INDEX"/>
-
 	</data>
 </openerp>

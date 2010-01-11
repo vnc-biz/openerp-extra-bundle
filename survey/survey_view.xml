@@ -220,19 +220,6 @@
             action="action_survey_form1" parent="menu_survey_config"
             groups="group_survey_manager"/>
 
-
-        <record model="ir.actions.act_window" id="action_new_survey_form1">
-            <field name="name">New Survey</field>
-            <field name="res_model">survey</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-            <field name="view_id" ref="survey_form"></field>
-        </record>
-
-        <menuitem name="New Survey" id="menu_new_survey_form"
-            action="action_new_survey_form1" parent="menu_survey_form"
-            groups="group_survey_manager"/>
-
         <!--
             Survey Pages
         -->
@@ -393,20 +380,6 @@
             action="action_survey_page_form" parent='menu_survey_config'
             groups="group_survey_manager"/>
 
-
-        <record model="ir.actions.act_window" id="action_new_survey_page_form">
-            <field name="name">New Survey Page</field>
-            <field name="res_model">survey.page</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-            <field name="view_id" ref="survey_page_form"></field>
-        </record>
-
-        <menuitem name="New Survey Page" id="menu_new_survey_page_form1"
-            action="action_new_survey_page_form" parent='menu_survey_page_form1'
-            groups="group_survey_manager"/>
-
-
         <!--
             Survey Question
         -->
@@ -547,33 +520,6 @@
                 </tree>
             </field>
         </record>
-
-        <record model="ir.actions.act_window" id="action_survey_question_form">
-            <field name="name">All Survey Questions</field>
-            <field name="res_model">survey.question</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="survey_question_tree"></field>
-        </record>
-
-
-        <menuitem name="Survey Questions"
-            id="menu_survey_question_form1" action="action_survey_question_form"
-            parent='menu_survey_config' groups="group_survey_manager"/>
-
-
-        <record model="ir.actions.act_window" id="action_new_survey_question_form">
-            <field name="name">New Survey Question</field>
-            <field name="res_model">survey.question</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-            <field name="view_id" ref="survey_question_form"/>
-        </record>
-
-        <menuitem name="New Survey Question"
-            id="menu_new_survey_question_form1"
-            action="action_new_survey_question_form"
-            parent='menu_survey_question_form1' groups="group_survey_manager"/>
 
         <!--
             Survey Answer

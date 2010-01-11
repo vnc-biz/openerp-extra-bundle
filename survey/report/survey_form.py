@@ -117,6 +117,7 @@ class survey_form(report_rml):
             <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
             <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
             <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+            <paraStyle name="comment" fontName="Helvetica" fontSize="14.0" leading="50" spaceBefore="0.0" spaceAfter="0.0"/>
             <paraStyle name="P1" fontName="Helvetica" fontSize="9.0" leading="12" spaceBefore="0.0" spaceAfter="1.0"/>
         </stylesheet>
         <story>
@@ -278,17 +279,15 @@ class survey_form(report_rml):
                         colWidths = "cm,".join(map(str, cols_widhts))
                         colWidths = colWidths+'cm'
                         rml+="""
-                        <para style="P2"><font color="white"> </font></para>
                         <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
                             <tr>
-                                <td><para style="P2"><font color="white"> </font></para>
+                                <td><para style="comment"><font color="white"> </font></para>
                                     <illustration>
-                                        <rect x="0.2cm" y="0cm" width="15.0 cm" height="1.5cm" fill="no" stroke="yes"/>
+                                        <rect x="0.0cm" y="0.3cm" width="15.0 cm" height="1.5cm" fill="no" stroke="yes"/>
                                     </illustration>
                                 </td>
                             </tr>
                         </blockTable>
-                        <para style="P2"><font color="white"> </font></para>
                         """
                     elif que.type in ['single_textbox']:
                         cols_widhts.append(float(_tbl_widths.replace('cm','')))

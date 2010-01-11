@@ -27,12 +27,10 @@ class hr_evaluation_plan(osv.osv):
     _description = "Evaluation Plan"
     _columns = {
         'name': fields.char("Evaluation Plan", size=64, required=True),
-        'company_id': fields.many2one("res.company", 'Company', required=True),
-
-        'phase_ids': fields.many2one('survey.survey', 'Top-Down Appraisal Forms', required=True),
-
-        'month_first': fields.integer('First Interview', help="Number of months for the first interview"),
-        'month_next': fields.integer('First Interview', help="Number of months between each interview"),
+        'company_id': fields.many2one('res.company', 'Company', required=True),
+        'phase_ids' : fields.one2many('hr_evaluation.plan.phase', 'plan_id', 'Evaluation Phases'),
+        'month_first': fields.integer('First Evaluation After'),
+        'month_next': fields.integer('Next Evaluation After'),
         'active': fields.boolean('Active')
     }
     _defaults = {
@@ -47,27 +45,25 @@ class hr_evaluation_plan_phase(osv.osv):
     _columns = {
         'name': fields.char("Phase", size=64, required=True),
         'sequence': fields.integer("Sequence"),
-        'company_id': fields.related("plan_id", "company_id", string="Company"),
+        'company_id': fields.related('plan_id','company_id',type='many2one',relation='res.company',string='Company',store=True),
         'plan_id': fields.many2one('hr_evaluation.plan','Evaluation Plan', required=True, ondelete='cascade'),
-
         'action': fields.selection([
             ('top-down','Top-Down Appraisal Requests'),
             ('bottom-up','Bottom-Up Appraisal Requests'),
             ('self','Self Appraisal Requests'),
             ('final','Final Interview')], 'Action', required=True),
-
-        'survey_id': fields.many2one('survey.survey', 'Appraisal Form', required=True),
+        'survey_id': fields.many2one('survey','Appraisal Form'),
         'send_answer_manager': fields.boolean('All Answers',
             help="Send all answers to the manager"),
-        'send_answer_employee': fields.boolean('All Answers'
+        'send_answer_employee': fields.boolean('All Answers',
             help="Send all answers to the employee"),
-        'send_anonymous_manager': fields.boolean('Anonymous Summary'
+        'send_anonymous_manager': fields.boolean('Anonymous Summary',
             help="Send an anonymous summary to the manager"),
-        'send_anonymous_employee': fields.boolean('Anonymous Summary'),
+        'send_anonymous_employee': fields.boolean('Anonymous Summary',
             help="Send an anonymous summary to the employee"),
         'wait': fields.boolean('Wait Previous Phases',
             help="Check this box if you want to wait that all preceeding phases " +
-              "are finished before launching this phase.".
+              "are finished before launching this phase.")
 
     }
     _defaults = {
@@ -92,14 +88,12 @@ class hr_evaluation(osv.osv):
     _rec_name = 'employee_id'
     _columns = {
         'date': fields.date("Evaluation Deadline", required=True),
-        'employee_id': fields.many2one("hr.employee", "Employee", required=True),
-        'manager_id': fields.many2one("res.users", "Manager", required=True),
-
-
+        'employee_id': fields.many2one('hr.employee', "Employee", required=True),
+        'manager_id': fields.many2one('res.users', "Manager", required=True),
         'note_summary': fields.text('Evaluation Summary'),
-        'note_action': fields.text('Action Plan'
-            help="If the evaluation does not meet the expectations, you can propose
-              an action plan"),
+        'note_action': fields.text('Action Plan',
+            help="If the evaluation does not meet the expectations, you can propose"+
+              "an action plan"),
         'rating': fields.selection([
             ('0','Significantly bellow expectations'),
             ('1','Did not meet expectations'),
@@ -107,28 +101,24 @@ class hr_evaluation(osv.osv):
             ('3','Exceeds expectations'),
             ('4','Significantly exceeds expectations'),
         ], "Overall Rating", help="This is the overall rating on that summarize the evaluation"),
-
         'survey_request_ids': fields.many2many('survey.request',
             'hr_evaluation_evaluation_requests',
             'evaluation_id',
             'survey_id',
             'Appraisal Forms'),
-
         'plan_id': fields.many2one('hr_evaluation.plan', 'Plan'),
-        'phase_id': fields.many2one('hr_evaluation.plan', 'Phase'),
-
+        'phase_id': fields.many2one('hr_evaluation.plan.phase', 'Phase'),
         'state': fields.selection([
             ('draft','Draft'),
             ('wait','Plan In Progress'),
             ('progress','Final Validation'),
-            ('done','Done')
+            ('done','Done'),
             ('cancel','Cancelled'),
         ], 'State', required=True)
     }
     _defaults = {
         'date' : lambda *a: time.strftime('%Y-%m-%d'),
         'state' : lambda *a: 'draft',
-        'user_id' : lambda self,cr,uid,context={}: uid
     }
 hr_evaluation()
 

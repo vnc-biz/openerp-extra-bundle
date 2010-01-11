@@ -143,7 +143,7 @@
                                     </field>
                                 </form>
                             </field>
-                            <group col="6" colspan="4">
+                            <group col="7" colspan="4">
                                 <field name="state"/>
                                 <button name="survey_draft"
                                     string="Set to draft" states="cancel,close" type="object"
@@ -154,6 +154,8 @@
                                     string="Close" states="open" type="object" icon="gtk-close"/>
                                 <button name="survey_cancel"
                                     string="Cancel" states="open" type="object" icon="gtk-cancel"/>
+								<button name="%(action_view_survey_question_message)d"
+                                	string="Test Survey" type="action" icon="gtk-go-forward" context="{'active':True,'survey_id': active_id}"/>
                             </group>
                         </page>
                         <page string="Other">
@@ -203,6 +205,8 @@
                     <field name="tot_comp_survey" select="2"/>
                     <field name="responsible_id" select="2"/>
                     <field name="state" select="1"/>
+					<button name="%(action_view_survey_question_message)d" states="open,draft,close,cancel"
+                                	string="Test Survey" type="action" icon="gtk-execute" context="{'active':True,'survey_id': active_id}"/>
                 </tree>
             </field>
         </record>
@@ -633,7 +637,7 @@
             <field name="model">survey.response.answer</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Survey Response Answer">
+                <tree editable="top" string="Survey Response Answer">
                     <field name="answer_id"/>
                     <field name="answer" />
                     <field name="value_choice" />
@@ -754,5 +758,10 @@
             res_model="survey.answer"
             src_model="survey.question"/>
 
+
+		<menuitem name="Give Survey Response" id="menu_run_survey_form"
+			action="action_view_survey_name" parent="main_menu_survey"
+			groups="group_survey_manager,group_survey_user" icon="STOCK_INDEX"/>
+			
     </data>
 </openerp>

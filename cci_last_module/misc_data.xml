@@ -303,5 +303,24 @@
 	</field>
 </record>
 
+		<record id="action_partner_form_spl" model="ir.actions.act_window">
+            <field name="name">Partners (Special View)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+        </record>
+
+		<record id="action_partner_form_view2_spl" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_partner_form_new"/>
+            <field name="act_window_id" ref="action_partner_form_spl"/>
+        </record>
+
+        <menuitem
+            action="action_partner_form_spl"
+            id="menu_partner_form_spl"
+            parent="base.menu_partner_form"
+            sequence="2"/>
 	</data>
 </openerp>

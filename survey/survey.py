@@ -447,6 +447,10 @@ class survey_name_wiz(osv.osv_memory):
     def _get_survey(self, cr, uid, context=None):
         surv_obj = self.pool.get("survey")
         result = []
+        if context.has_key('survey_id'):
+            for sur in surv_obj.browse(cr, uid, [context['survey_id']]):
+                result.append((sur.id, sur.title))
+            return result
         group_id = self.pool.get('res.groups').search(cr, uid, [('name', '=', 'Survey / Manager')])
         user_obj = self.pool.get('res.users')
         user_rec = user_obj.read(cr, uid, uid)
@@ -515,15 +519,10 @@ class survey_question_wiz(osv.osv_memory):
     }
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False,submenu=False):
+        print " VIEW TYPE :",view_type
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar,submenu)
         surv_name_wiz = self.pool.get('survey.name.wiz')
-        if view_type =='form':
-            if not context.has_key('sur_name_id'):
-                 id = surv_name_wiz.create(cr,uid,{'transfer': 1, 'page': 'next', 'page_no': -1})
-                 context.update({'sur_name_id':id})
-                 sur_name_rec = surv_name_wiz.read(cr, uid,id)
-            else:
-                 sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])
+        if view_type in ['form','tree']:
             sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])
             survey_id = context['survey_id']
             survey_obj = self.pool.get('survey')
@@ -1046,9 +1045,6 @@ class survey_question_wiz(osv.osv_memory):
         return True
 
     def action_next(self, cr, uid, ids, context=None):
-        surv_name_wiz = self.pool.get('survey.name.wiz')
-        sur_id = surv_name_wiz.search(cr, uid, [])
-        context.update({'sur_name_id' : sur_id[-1]})
         surv_name_wiz = self.pool.get('survey.name.wiz')
         search_obj = self.pool.get('ir.ui.view')
         search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])

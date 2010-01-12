@@ -154,7 +154,7 @@
                                     string="Close" states="open" type="object" icon="gtk-close"/>
                                 <button name="survey_cancel"
                                     string="Cancel" states="open" type="object" icon="gtk-cancel"/>
-								<button name="%(action_view_survey_question_message)d"
+								<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
                                 	string="Test Survey" type="action" icon="gtk-go-forward" context="{'active':True,'survey_id': active_id}"/>
                             </group>
                         </page>
@@ -205,7 +205,7 @@
                     <field name="tot_comp_survey" select="2"/>
                     <field name="responsible_id" select="2"/>
                     <field name="state" select="1"/>
-					<button name="%(action_view_survey_question_message)d" states="open,draft,close,cancel"
+					<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
                                 	string="Test Survey" type="action" icon="gtk-execute" context="{'active':True,'survey_id': active_id}"/>
                 </tree>
             </field>

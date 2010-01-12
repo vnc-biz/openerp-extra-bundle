@@ -32,7 +32,7 @@
     Partners are also sent mails with user name and password for the invitation of the survey
     """,
     'author': 'Tiny',
-    'depends': ['base','document_ftp'],
+    'depends': ['base'],
     'update_xml': ['survey_report.xml','survey_data.xml','survey_que_wizard.xml','survey_wizard.xml','survey_view.xml','security/ir.model.access.csv'],
     'demo_xml': ['survey_demo.xml'],
     'installable': True,

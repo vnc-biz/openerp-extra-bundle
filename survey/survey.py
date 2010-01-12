@@ -519,7 +519,6 @@ class survey_question_wiz(osv.osv_memory):
     }
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False,submenu=False):
-        print " VIEW TYPE :",view_type
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar,submenu)
         surv_name_wiz = self.pool.get('survey.name.wiz')
         if view_type in ['form','tree']:

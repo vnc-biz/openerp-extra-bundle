@@ -143,7 +143,7 @@
                                     </field>
                                 </form>
                             </field>
-                            <group col="7" colspan="4">
+                            <group col="9" colspan="4">
                                 <field name="state"/>
                                 <button name="survey_draft"
                                     string="Set to draft" states="cancel,close" type="object"
@@ -155,7 +155,9 @@
                                 <button name="survey_cancel"
                                     string="Cancel" states="open" type="object" icon="gtk-cancel"/>
 								<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
-                                	string="Test Survey" type="action" icon="gtk-go-forward" context="{'active':True,'survey_id': active_id}"/>
+                                	string="Test Survey" type="action" icon="gtk-new" context="{'active':True,'survey_id': active_id}"/>
+								<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
+                                	string="Answer Survey" type="action" icon="gtk-print" context="{'survey_id': active_id}"/>
                             </group>
                         </page>
                         <page string="Other">
@@ -207,6 +209,10 @@
                     <field name="state" select="1"/>
 					<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
                                 	string="Test Survey" type="action" icon="gtk-execute" context="{'active':True,'survey_id': active_id}"/>
+					<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
+                                	string="Answer Survey" type="action" icon="gtk-new" context="{'survey_id': active_id}"/>
+					<button name="%(wizard_print_survey)d" states="open,draft,close,cancel"
+                                	string="Print Survey" type="action" icon="gtk-print" context="{'active':True,'survey_id': active_id}"/>
                 </tree>
             </field>
         </record>

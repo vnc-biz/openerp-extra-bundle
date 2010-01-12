@@ -110,7 +110,6 @@ class res_partner_address(osv.osv):
 				res[obj.id] = False
 		return res
 
-	# XXX The following search function could have been written with SQL...
 	def _zip_search(self, cr, uid, obj, name, args, context={}):
 		"""Search for addresses in cities with this zip code"""
 		cities = self.pool.get('city.city').search(cr, uid, args=[('zipcode', args[0][1], args[0][2])])
@@ -124,14 +123,14 @@ class res_partner_address(osv.osv):
 		return [('id', 'in', ids)]
 
 	def _state_search(self, cr, uid, obj, name, args, context={}):
-		print """Search for addresses in cities in this state"""
+		"""Search for addresses in cities in this state"""
 		states = self.pool.get('res.country.state').search(cr, uid, args=[('name', args[0][1], args[0][2])])
 		cities = self.pool.get('city.city').search(cr, uid, args=[('state_id', 'in', states)])
 		ids=self.search(cr, uid, args=[('location','in',cities)])
 		return [('id', 'in', ids)]
 	
 	def _country_search(self, cr, uid, obj, name, args, context={}):
-		print """Search for addresses in cities in this country"""
+		"""Search for addresses in cities in this country"""
 		countries = self.pool.get('res.country').search(cr, uid, args=[('name', args[0][1], args[0][2])])
 		cities = self.pool.get('city.city').search(cr, uid, args=[('country_id', 'in', countries)])
 		ids=self.search(cr, uid, args=[('location','in',cities)])
@@ -140,9 +139,13 @@ class res_partner_address(osv.osv):
 	_inherit = "res.partner.address"
 	_columns = {
 		'location': fields.many2one('city.city', 'Location', select=1),
+        # XXX add store={...}
 		'zip': fields.function(_get_zip, method=True, type="char", string='Zip', size=24, fnct_search=_zip_search),
+        # XXX add store={...}
 		'city': fields.function(_get_city, method=True, type="char", string='City', size=128, fnct_search=_city_search),
+        # XXX add store={...}
 		'state_id': fields.function(_get_state, obj="res.country.state", method=True, type="many2one", string='State', fnct_search=_state_search),
+        # XXX add store={...}
 		'country_id': fields.function(_get_country, obj="res.country" , method=True, type="many2one", string='Country', fnct_search=_country_search),
 	}
 res_partner_address()

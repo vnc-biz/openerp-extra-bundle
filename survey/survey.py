@@ -538,6 +538,7 @@ class survey_question_wiz(osv.osv_memory):
             if not sur_name_rec['page_no'] + 1 :
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
+            page_number = int(sur_name_rec['page_no'])
             if sur_name_read['transfer'] or not sur_name_rec['page_no'] + 1 :
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':False})
                 flag = False
@@ -548,6 +549,7 @@ class survey_question_wiz(osv.osv_memory):
                         p_id = p_id[sur_name_rec['page_no'] + 1]
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] + 1})
                         flag = True
+                        page_number += 1
                     if sur_name_rec['page_no'] > - 1:
                         pre_button = True
                 else:
@@ -555,6 +557,7 @@ class survey_question_wiz(osv.osv_memory):
                         p_id = p_id[sur_name_rec['page_no'] - 1]
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'page_no' : sur_name_rec['page_no'] - 1})
                         flag = True
+                        page_number -= 1
                     if sur_name_rec['page_no'] > 1:
                         pre_button = True
                 if flag:
@@ -659,8 +662,9 @@ class survey_question_wiz(osv.osv_memory):
                                     etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
                                     fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
                     etree.SubElement(xml_form, 'separator', {'colspan': '4'})
-                    xml_group = etree.SubElement(xml_form, 'group', {'col': '4', 'colspan': '4'})
-                    etree.SubElement(xml_group, 'label', {'string': "", 'align': '0.0','colspan':"1"})
+                    xml_group = etree.SubElement(xml_form, 'group', {'col': '5', 'colspan': '4'})
+                    etree.SubElement(xml_group, 'field', {'name': 'progress_bar_' + str(page_number) , 'widget':'progressbar'})
+                    fields['progress_bar_' + str(page_number)] = {'type':'int', 'string':"Progress", 'views':{}}
                     etree.SubElement(xml_group, 'button', {'icon': "gtk-cancel", 'special': "cancel",'string':"Cancel"})
                     if pre_button:
                         etree.SubElement(xml_group, 'button', {'colspan':"1",'icon':"gtk-go-back",'name':"action_previous",'string':"Previous",'type':"object"})
@@ -685,11 +689,17 @@ class survey_question_wiz(osv.osv_memory):
         return result
 
     def default_get(self, cr, uid, fields_list, context=None):
+        value = {}
+        for field in fields_list:
+            if field.split('_')[0] == 'progress':
+                tot_page_id = self.pool.get('survey').browse(cr, uid, context['survey_id'])
+                tot_per = (float(100) * (int(field.split('_')[2]) + 1) / len(tot_page_id.page_ids))
+                value[field] = tot_per
         if context.has_key('active') and context['active']:
-            return {}
+            return value
         surv_name_wiz = self.pool.get('survey.name.wiz')
         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
-        value = {}
+        
         ans_list = []
         for key,val in sur_name_read['store_ans'].items():
             for field in fields_list:
@@ -700,6 +710,10 @@ class survey_question_wiz(osv.osv_memory):
     def create(self, cr, uid, vals, context=None):
         if context.has_key('active') and context['active']:
             return True
+        for key,val in vals.items():
+            if key.split('_')[0] == "progress":
+                vals.pop(key)
+                break
         click_state = True
         click_update = []
         surv_name_wiz = self.pool.get('survey.name.wiz')

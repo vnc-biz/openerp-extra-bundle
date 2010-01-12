@@ -114,7 +114,7 @@ class survey_question(osv.osv):
 
     def _calc_response(self, cr, uid, ids, field_name, arg, context):
         val = {}
-        cr.execute("select question_id, count(id) as Total_response from survey_response where state='done' and question_id in (%s) group by question_id" % ",".join(map(str, map(int, ids))))
+        cr.execute("select question_id, count(id) as Total_response from survey_response_line where state='done' and question_id in (%s) group by question_id" % ",".join(map(str, map(int, ids))))
         ids1 = copy.deepcopy(ids)
         for rec in  cr.fetchall():
             ids1.remove(rec[0])
@@ -127,7 +127,7 @@ class survey_question(osv.osv):
         'page_id' : fields.many2one('survey.page', 'Survey Page', ondelete='cascade', required=1),
         'question' :  fields.char('Question', size=128, required=1),
         'answer_choice_ids' : fields.one2many('survey.answer', 'question_id', 'Answer'),
-        'response_ids' : fields.one2many('survey.response', 'question_id', 'Response', readonly=1),
+        'response_ids' : fields.one2many('survey.response.line', 'question_id', 'Response', readonly=1),
         'is_require_answer' : fields.boolean('Required Answer'),
         'required_type' : fields.selection([('',''), ('all','All'), ('at least','At Least'), ('at most','At Most'), ('exactly','Exactly'), ('a range','A Range')], 'Respondent must answer'),
         'req_ans' : fields.integer('#Required Answer'),
@@ -187,7 +187,6 @@ class survey_question(osv.osv):
         'rating_allow_one_column_require' : fields.boolean('Allow Only One Response per Column (Forced Ranking)'),
         'in_visible_rating_weight':fields.boolean('Is Rating Scale Invisible?'),
         'in_visible_menu_choice':fields.boolean('Is Menu Choice Invisible?'),
-        'in_visible_single_text':fields.boolean('Is Single Text Invisible?')
     }
     _defaults = {
          'sequence' : lambda * a: 5,
@@ -205,13 +204,13 @@ class survey_question(osv.osv):
 
     def on_change_type(self, cr, uid, ids, type, context=None):
         if type in ['rating_scale']:
-            return {'value': {'in_visible_rating_weight':False,'in_visible_menu_choice':True,'in_visible_single_text':True}}
+            return {'value': {'in_visible_rating_weight':False,'in_visible_menu_choice':True}}
         elif type in ['matrix_of_drop_down_menus']:
-            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':False,'in_visible_single_text':True}}
+            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':False}}
         elif type in ['single_textbox']:
-            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':False}}
+            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True}}
         else:
-            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True,'in_visible_single_text':True}}
+            return {'value': {'in_visible_rating_weight':True,'in_visible_menu_choice':True}}
 
     def write(self, cr, uid, ids, vals, context=None):
         questions = self.read(cr,uid, ids, ['answer_choice_ids', 'type', 'required_type','req_ans', 'minimum_req_ans', 'maximum_req_ans', 'column_heading_ids'])
@@ -356,9 +355,9 @@ class survey_answer(osv.osv):
         for rec in self.browse(cr, uid, ids):
 
             cr.execute("select count(question_id) ,(select count(answer_id) \
-                from survey_response_answer sra, survey_response sa \
+                from survey_response_answer sra, survey_response_line sa \
                 where sra.response_id = sa.id and sra.answer_id = %d \
-                and sa.state='done') as tot_ans from survey_response \
+                and sa.state='done') as tot_ans from survey_response_line \
                 where question_id = %d and state = 'done'"\
                      % (rec.id, rec.question_id.id))
 
@@ -387,30 +386,34 @@ class survey_answer(osv.osv):
 survey_answer()
 
 class survey_response(osv.osv):
-    _name = 'survey.response'
-    _description = 'Survey Response'
+    _name = "survey.response"
     _rec_name = 'date_create'
-
-    def _get_in_visible_single_text(self,cr, uid, context={}):
-        if context.get('in_visible_single_text',False):
-            return context['in_visible_single_text']
-        return False
-
     _columns = {
+        'survey_id' : fields.many2one('survey', 'Survey', required=1),
         'date_create' : fields.datetime('Create Date', required=1),
-        'state' : fields.selection([('draft', 'Draft'), ('done', 'Answered'), \
-                            ('skip', 'Skiped')], 'Status', readonly=True),
-        'response_id' : fields.many2one('res.users', 'User'),
+        'user_id' : fields.many2one('res.users', 'User'),
+        'response_type' : fields.selection([('manually', 'Manually'), ('link', 'Link')], 'Response Type', required=1),
+        'question_ids' : fields.one2many('survey.response.line', 'response_id', 'Response Answer'),
+    }
+
+survey_response()
+
+class survey_response_line(osv.osv):
+    _name = 'survey.response.line'
+    _description = 'Survey Response Line'
+    _rec_name = 'date_create'
+    _columns = {
+        'response_id' : fields.many2one('survey.response', 'Response'),
+        'date_create' : fields.datetime('Create Date', required=1),
+        'state' : fields.selection([('draft', 'Draft'), ('done', 'Answered'),('skip', 'Skiped')], 'Status', readonly=True),
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
-        'response_type' : fields.selection([('manually', 'Manually'), ('link', 'Link')], 'Response Type'),
+        'page_id' : fields.related('question_id', 'page_id', type='many2one', relation='survey.page', string='Page'),
         'response_answer_ids' : fields.one2many('survey.response.answer', 'response_id', 'Response Answer'),
         'comment' : fields.text('Notes'),
         'single_text' : fields.char('Text', size=255),
-        'in_visible_single_text':fields.boolean('Is Single Text Invisible??')
     }
     _defaults = {
         'state' : lambda * a: "draft",
-        'in_visible_single_text':_get_in_visible_single_text,
     }
 
     def response_draft(self, cr, uid, ids, arg):
@@ -425,14 +428,14 @@ class survey_response(osv.osv):
         self.write(cr, uid, ids, { 'state' : 'skip' })
         return True
 
-survey_response()
+survey_response_line()
 
 class survey_response_answer(osv.osv):
     _name = 'survey.response.answer'
     _description = 'Survey Response Answer'
     _rec_name = 'response_id'
     _columns = {
-        'response_id' : fields.many2one('survey.response', 'Response', ondelete='cascade'),
+        'response_id' : fields.many2one('survey.response.line', 'Response', ondelete='cascade'),
         'answer_id' : fields.many2one('survey.answer', 'Answer', required=1, ondelete='cascade'),
         'answer' : fields.char('Value', size =255),
         'value_choice' : fields.char('Value Choice', size =255),
@@ -468,12 +471,14 @@ class survey_name_wiz(osv.osv_memory):
         'note' : fields.text("Description"),
         'page' : fields.char('Page Position',size = 12),
         'transfer' : fields.boolean('Page Transfer'),
-        'store_ans' : fields.text('Store Answer')
+        'store_ans' : fields.text('Store Answer'),
+        'response' : fields.char('Response',size=16)
     }
     _defaults = {
         'page_no' : lambda * a: - 1,
         'page' : lambda * a: 'next',
         'transfer' : lambda * a: 1,
+        'response' : lambda * a: 0,
     }
 
     def action_next(self, cr, uid, ids, context=None):
@@ -529,7 +534,7 @@ class survey_question_wiz(osv.osv_memory):
             page_obj = self.pool.get('survey.page')
             que_obj = self.pool.get('survey.question')
             ans_obj = self.pool.get('survey.answer')
-            response_obj = self.pool.get('survey.response')
+            response_obj = self.pool.get('survey.response.line')
             que_col_head = self.pool.get('survey.question.column.heading')
             p_id = sur_rec['page_ids']
             pre_button = False
@@ -715,14 +720,21 @@ class survey_question_wiz(osv.osv_memory):
         click_state = True
         click_update = []
         surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_all_resp_obj = self.pool.get('survey.response')
         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
+        response_id =  0
+        if not sur_name_read['response']:
+            response_id = surv_all_resp_obj.create(cr, uid, {'response_type':'link', 'user_id':uid, 'date_create':datetime.datetime.now(), 'survey_id' : context['survey_id']})
+            surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'response' : str(response_id)})
+        else:
+            response_id = int(sur_name_read['response'])
         for key,val in sur_name_read['store_ans'].items():
             for field in vals:
                 if field.split('_')[0] == val['question_id']:
                     click_state = False
                     click_update.append(key)
                     break
-        resp_obj = self.pool.get('survey.response')
+        resp_obj = self.pool.get('survey.response.line')
         res_ans_obj = self.pool.get('survey.response.answer')
         que_obj = self.pool.get('survey.question')
         if click_state:
@@ -733,9 +745,8 @@ class survey_question_wiz(osv.osv_memory):
                 if que_id not in que_li:
                     que_li.append(que_id)
                     que_rec = que_obj.read(cr, uid, [que_id], [])[0]
-                    resp_id = resp_obj.create(cr, uid, {'response_id':uid, \
-                        'question_id':que_id, 'date_create':datetime.datetime.now(), \
-                        'response_type':'link', 'state':'done', 'in_visible_single_text':que_rec['in_visible_single_text']})
+                    resp_id = resp_obj.create(cr, uid, {'question_id':que_id, 'date_create':datetime.datetime.now(), \
+                         'state':'done','response_id' : response_id })
                     resp_id_list.append(resp_id)
                     sur_name_read['store_ans'].update({resp_id:{'question_id':que_id}})
                     surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})

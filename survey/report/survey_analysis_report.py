@@ -154,7 +154,7 @@ class survey_analysis(report_rml):
                                     <td><para style="answer">""" + str(ans.response) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
                     elif que.type in['single_textbox']:
-                        cr.execute("select count(id) from survey_response where question_id = %d and single_text!=''" % que.id)
+                        cr.execute("select count(id) from survey_response_line where question_id = %d and single_text!=''" % que.id)
                         rml +="""<blockTable colWidths="400.0,100.0" style="Table1">
                              <tr> 
                                  <td> <para style="Standard"> </para></td> 
@@ -164,7 +164,7 @@ class survey_analysis(report_rml):
                                 <td><para style="answer">""" + str(cr.fetchone()[0]) + """ </para></td></tr>
                             </blockTable>"""
                     elif que.type in['comment']:
-                        cr.execute("select count(id) from survey_response where question_id = %d and comment !=''" % que.id)
+                        cr.execute("select count(id) from survey_response_line where question_id = %d and comment !=''" % que.id)
                         rml +="""<blockTable colWidths="400.0,100.0" style="Table1">
                              <tr> 
                                  <td> <para style="Standard"> </para></td> 
@@ -193,10 +193,10 @@ class survey_analysis(report_rml):
                             res_count = 0
                             rating_weight_sum = 0
                             for mat_col in range(1, len(matrix_ans)):
-                                cr.execute("select count(sra.answer_id) from survey_response sr, survey_response_answer sra\
+                                cr.execute("select count(sra.answer_id) from survey_response_line sr, survey_response_answer sra\
                                      where sr.id = sra.response_id and  sra.answer_id = %d and sra.answer ='%s'" % (ans.id,matrix_ans[mat_col]))
                                 tot_res = cr.fetchone()[0]
-                                cr.execute("select count(sra.answer_id),sqc.rating_weight from survey_response sr, survey_response_answer sra ,\
+                                cr.execute("select count(sra.answer_id),sqc.rating_weight from survey_response_line sr, survey_response_answer sra ,\
                                         survey_question_column_heading sqc where sr.id = sra.response_id and \
                                         sqc.question_id = sr.question_id  and sra.answer_id = %d and sqc.title ='%s'\
                                         group by sra.answer_id,sqc.rating_weight" % (ans.id,matrix_ans[mat_col]))

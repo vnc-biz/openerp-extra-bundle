@@ -129,9 +129,6 @@
                                                     <separator string="Descriptive Text" colspan="4"/>
                                                     <field name="descriptive_text" colspan="4" nolabel="1"/>
                                                 </page>
-                                                <page string="Response">
-                                                    <field name="response_ids" nolabel="1" colspan="4" default_get="{'in_visible_single_text':in_visible_single_text}"/>
-                                                </page>
                                             </notebook>
                                         </form>
                                         <tree string="Survey Question">
@@ -157,7 +154,7 @@
 								<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
                                 	string="Test Survey" type="action" icon="gtk-new" context="{'active':True,'survey_id': active_id}"/>
 								<button name="%(action_view_survey_name)d" states="open,draft,close,cancel"
-                                	string="Answer Survey" type="action" icon="gtk-print" context="{'survey_id': active_id}"/>
+                                	string="Answer Survey" type="action" icon="gtk-execute" context="{'survey_id': active_id}"/>
                             </group>
                         </page>
                         <page string="Other">
@@ -347,9 +344,6 @@
                                 <separator string="Descriptive Text" colspan="4"/>
                                 <field name="descriptive_text" colspan="4" nolabel="1"/>
                             </page>
-                            <page string="Response">
-                                <field name="response_ids" nolabel="1" colspan="4" default_get="{'in_visible_single_text':in_visible_single_text}"/>
-                            </page>
                         </notebook>
                     </form>
                     <tree string="Survey Question">
@@ -408,7 +402,6 @@
                     <field name="type" on_change="on_change_type(type)"/>
                     <field name="in_visible_rating_weight" invisible="1"/>
                     <field name="in_visible_menu_choice" invisible="1"/>
-                    <field name="in_visible_single_text" invisible="1"/>
                     <notebook colspan="4">
                         <page string="Answer" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale'),('type','!=','multiple_textboxes'),('type','!=','numerical_textboxes'),('type','!=','date'),('type','!=','date_and_time')]}">
                             <field name="answer_choice_ids" nolabel="1" colspan="4"/>
@@ -505,9 +498,6 @@
                             <separator string="Descriptive Text" colspan="4"/>
                             <field name="descriptive_text" colspan="4" nolabel="1"/>
                         </page>
-                        <page string="Response">
-                            <field name="response_ids" nolabel="1" colspan="4" default_get="{'in_visible_single_text':in_visible_single_text}"/>
-                        </page>
                     </notebook>
                 </form>
             </field>
@@ -543,8 +533,6 @@
                 <form string="Survey Answer">
                     <field name="answer" colspan="4" select="1"/>
                     <field name="sequence"/>
-                    <field name="response"/>
-                    <field name="average"/>
                 </form>
             </field>
         </record>
@@ -558,28 +546,24 @@
                 <tree string="Survey Answer">
                     <field name="sequence" string="Seq"/>
                     <field name="answer" select="1"/>
-                    <field name="response"/>
-                    <field name="average"/>
                 </tree>
             </field>
         </record>
 
         <!--
-            Survey Response
+            Survey Response Line
         -->
 
-        <record model ="ir.ui.view" id= "survey_response_form">
-            <field name="name">survey_response_form</field>
-            <field name="model">survey.response</field>
+        <record model ="ir.ui.view" id= "survey_response_line_form">
+            <field name="name">survey_response_line_form</field>
+            <field name="model">survey.response.line</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Survey Response">
-                    <field name="response_id"/>
+                	<field name="question_id"/>
                     <field name="date_create" select="1"/>
-                    <field name="response_type" select="1"/>
-                    <field name="in_visible_single_text" invisible="1"/>
                     <notebook colspan="4">
-                        <page string="Response" attrs="{'invisible':[('in_visible_single_text','=',False)]}">
+                        <page string="Response">
                             <field name="response_answer_ids" colspan="4" nolabel="1"/>
                             <group col="5" colspan="4">
                                 <field name="state"/>
@@ -592,7 +576,7 @@
                                     states="draft" type="object" icon="gtk-close"/>
                             </group>
                         </page>
-                        <page string="Single Textboxes" attrs="{'invisible':[('in_visible_single_text','=',True)]}">
+                        <page string="Single Textboxes">
                             <field name="single_text" colspan="4"/>
                         </page>
                         <page string="Comment">
@@ -604,19 +588,65 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="survey_response_tree">
-            <field name="name">survey_response_tree</field>
-            <field name="model">survey.response</field>
+        <record model="ir.ui.view" id="survey_response_line_tree">
+            <field name="name">survey_response_line_tree</field>
+            <field name="model">survey.response.line</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree string="Survey Response">
-                    <field name="response_id"/>
-                    <field name="response_type" select="1"/>
+                <tree string="Survey Response Line">
+                	<field name="page_id"/>
+                    <field name="question_id"/>
                     <field name="date_create" select="1"/>
                     <field name="state"/>
                 </tree>
             </field>
         </record>
+
+        <!--
+            Survey Response
+        -->
+
+        <record model="ir.ui.view" id="survey_response_form">
+            <field name="name">survey_response_form</field>
+            <field name="model">survey.response</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Survey Response Answer">
+					<field name="survey_id" select="1"/>
+                    <field name="date_create" select="1"/>
+                    <field name="user_id" select="1"/>
+                    <field name="response_type" select="1"/>
+                    <field name="question_ids" nolabel="1" colspan="4" />
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="survey_response_tree">
+            <field name="name">survey_response_tree</field>
+            <field name="model">survey.response</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Survey Response Answer">
+                	<field name="survey_id" select="1"/>
+                    <field name="date_create" select="1"/>
+                    <field name="user_id" select="1"/>
+                    <field name="response_type" select="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_survey_request_form">
+            <field name="name">Survey Response</field>
+            <field name="res_model">survey.response</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="survey_response_tree"></field>
+        </record>
+
+        <menuitem name="Survey Response" id="menu_survey_response_tree"
+            action="action_survey_request_form" parent='menu_survey_config'
+            groups="group_survey_manager"/>
+
 
         <!--
             Survey Response Answer

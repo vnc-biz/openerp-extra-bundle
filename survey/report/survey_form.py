@@ -272,7 +272,6 @@ class survey_form(report_rml):
                                 value = """ <fill color="white"/>
                                     <rect x="0.1cm" y="-0.4cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"/>
                                     """
-
                             for mat_col in range(1,len(matrix_ans)):
                                 if matrix_ans[mat_col]==que.column_name:
                                     if mat_col==1:
@@ -283,7 +282,7 @@ class survey_form(report_rml):
                                       rml+="""
                                             <td><illustration>
                                                 <fill color="white"/>
-                                                <rect x="-0.15cm" y="-0.5cm" width='"""+str(rec_width)+"""' height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/>
+                                                <rect x="0.0cm" y="-0.5cm" width='"""+str((sum-tmp)-0.2)+ "cm" + """' height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/>
                                                 <!--circle x="0.15cm" y="-0.18cm" radius="0.25 cm" fill="yes" stroke="yes"/-->
                                                 </illustration>
                                             </td>"""

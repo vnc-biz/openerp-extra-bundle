@@ -214,6 +214,20 @@
     </record>
 	
     <menuitem id="menu_action_dm_segmentation_step_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_step_form" sequence="1" />
+    
+    <record id="view_dm_campaign_proposition_segments" model="ir.ui.view">
+	   <field name="name">dm_campaign_proposition_segments</field>
+	   <field name="model">dm.campaign.proposition.segment</field>
+	   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
+	   <field name="type">form</field>
+	   <field name="arch" type="xml">
+   			<notebook colspan="4" position="inside">
+     			<page string="Extraction">
+	  				<field name="segmentation_id" string="Segmentation"/>
+ 				</page>
+     		</notebook>
+   		</field>
+  </record>
      
     </data>
 </openerp>

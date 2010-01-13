@@ -45,6 +45,7 @@ class account_invoice(osv.osv):
         'invoice_special':fields.boolean('Special Invoice'),
         'internal_note': fields.text('Internal Note'),
         'vat_num' : fields.related('partner_id', 'vat',  type='char', string="VAT"),
+        'create_uid': fields.many2one('res.users', 'Creation User', readonly=True),
     }
 
     def create(self, cr, uid, vals, context={}):

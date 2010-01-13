@@ -54,21 +54,6 @@
          </field>
    </record>
    
-   <record model="ir.ui.view" id="view_dm_reject_segmentation_form">
-        <field name="name">dm.address.segmentation.inherit</field>
-        <field name="model">dm.address.segmentation</field>
-        <field name="type">form</field>
-		<field name="inherit_id" ref="dm_extract.view_dm_address_segmentation_form"/>
-        <field name="arch" type="xml">
- 			<page string="SQL" position="before">
-     			<page string="Advanced" >
-	  				<field name="ignore_rejects"/>
-	  				<field name="active_only"/>
- 				</page>
-			</page>
-        </field>
-    </record>
-   
      <record model="ir.actions.act_window" id="action_dm_reject">
         <field name="name">All Rejects</field>
         <field name="type">ir.actions.act_window</field>
@@ -79,6 +64,18 @@
     </record>
     
     <menuitem id="menu_action_dm_reject_form" parent="menu_dm_config_custo_rejects" action="action_dm_reject" sequence="0" />
+
+	<record model="ir.ui.view" id="view_dm_reject_segmentation_form">
+        <field name="name">dm.segmentation.inherit</field>
+        <field name="model">dm.segmentation</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm_extract.view_dm_segmentation_form"/>
+        <field name="arch" type="xml">
+			<page string="General" position="inside">
+				<field name="ignore_rejects"/>
+			</page>
+	    </field>
+    </record>
 
 	<record model="ir.ui.view" id="view_dm_reject_incident_tree">
         <field name="name">dm.as.reject.incident.tree</field>

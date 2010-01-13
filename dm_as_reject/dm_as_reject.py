@@ -53,23 +53,21 @@ class dm_as_reject(osv.osv):#{{{
     
 dm_as_reject() #}}}
 
-class dm_address_segmentation(osv.osv): # {{{
-    _name = "dm.address.segmentation"
+class dm_segmentation(osv.osv): # {{{
+    _name = "dm.segmentation"
     _description = "Segmentation"
-    _inherit = "dm.address.segmentation"
+    _inherit = "dm.segmentation"
     
     _columns = {
         'ignore_rejects': fields.boolean('Ignore Rejects'),
-        'active_only': fields.boolean('Active Only'),
         }
     
     _defaults = {
         'ignore_rejects': lambda *a: 1,         
-        'active_only': lambda *a: 1,
         }
     
     def set_address_criteria(self, cr, uid, ids, context={}):
-        sql_query = super(dm_address_segmentation,self).set_address_criteria(cr, uid, ids, context)
+        sql_query = super(dm_segmentation,self).set_address_criteria(cr, uid, ids, context)
         if self.browse(cr, uid, [ids])[0].active_only:
             if sql_query.find('where') >= 0:
                 sql_query = sql_query + ' and pa.active = True'
@@ -77,7 +75,7 @@ class dm_address_segmentation(osv.osv): # {{{
                 sql_query = sql_query + 'where pa.active = True'
         return sql_query
         
-dm_address_segmentation() # }}}
+dm_segmentation() # }}}
 
 class dm_as_reject_incident(osv.osv): # {{{
     _name = "dm.as.reject.incident"

@@ -297,7 +297,12 @@
 <blockValign value="TOP"/>
 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="2,0"/>
 <lineStyle kind="LINEABOVE" colorName="#000000" start="0,2" stop="2,2"/>
-
+</blockTableStyle>
+<blockTableStyle id="Tableau_line">
+<blockAlignment value="LEFT"/>
+<blockValign value="TOP"/>
+<lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="2,0"/>
+<lineStyle kind="LINEABOVE" colorName="#000000" start="0,2" stop="2,2"/>
 </blockTableStyle>
 <initialize>
 <paraStyle name="all" alignment="justify"/>
@@ -453,26 +458,29 @@
 <blockTable colWidths="321.0,210.0" style="Tableau3">
 <tr>
 <td>
-	<blockTable colWidths="100.0,73.0,100.0" style="Tableau8">
+	<blockTable colWidths="273.0" style="Tableau8">
 		<tr>
-		<td><para style="P8"><font color="white"></font></para></td>
 		<td><para style="P8"><font color="white"></font></para></td>
 		</tr>
 		<tr>
 		<td><para style="P8"><font color="white"></font></para></td>
-		<td><para style="P8"><font color="white"></font></para></td>
 		</tr>
 		<tr>
-		<td><para style="P11a"><font color="white"></font></para></td>
-		<td><para style="P11"><font color="white"></font></para></td>
-		<td><para style="P11"><font color="white"></font></para></td>
+		<td><para style="P8"><font color="white"></font></para></td>
+		</tr>
+			<tr>
+		<td><para style="P8"><font color="white"></font></para></td>
+		</tr>
+			<tr>
+		<td><para style="P8"><font color="white"></font></para></td>
+		</tr>
+			<tr>
+		<td><para style="P8"><font color="white"></font></para></td>
 		</tr>
 		<tr>
 		<para>[[ repeatIn(o.payment_ids,'obj_pay') ]]</para>
-		<td><para>[[ obj_pay.name or removeParentNode('tr') ]]</para>
+		<td><para style="P8a">[[ obj_pay.name or removeParentNode('tr') ]]</para>
 		</td>
-		<td><para style="P11"><font color="white"></font></para></td>
-		<td><para style="P11a"><font color="white"></font></para></td>
 		</tr>
 
 	</blockTable>
@@ -495,6 +503,9 @@
 		<para>[[ repeatIn(o.payment_ids,'obj') ]]</para>
 		<para style="P12"><b> - [[ '%.2f' % obj.credit !=0 and obj.credit or obj.debit !=0 and obj.debit or removeParentNode('tr') ]] [[obj.currency_id.code ]]</b></para></td>
 		</tr>
+		</blockTable>
+
+		<blockTable colWidths="110.0,90.0" style="Tableau_line">
 		<tr>
 		<td><para style="P13">Residual Amount: <font></font></para></td>
 		<td><para style="P12"><u>[[ '%.2f' % o.residual ]] [[o.currency_id.code ]]</u></para></td>

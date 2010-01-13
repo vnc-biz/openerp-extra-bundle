@@ -32,7 +32,8 @@
     "init_xml" : [ ],
     "demo_xml" : [],
     "update_xml" : [
-                   "security/ir.model.access.csv",
+                   #"security/ir.model.access.csv",
+                   "dm_extract_sale_data.xml",
                    "dm_extract_sale_view.xml",                    ],
     "active": False,
     "installable": True,

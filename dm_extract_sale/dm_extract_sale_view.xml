@@ -7,15 +7,16 @@
     =======================================================
     -->
 
-    <record model="ir.ui.view" id="view_dm_customer_segmentation_form">
-        <field name="name">dm.address.segmentation.form.inherit</field>
-        <field name="model">dm.address.segmentation</field>
+    <record model="ir.ui.view" id="view_dm_segmentation_step_sales_form">
+        <field name="name">dm.segmentation.step.form.inherit</field>
+        <field name="model">dm.segmentation.step</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="dm_extract.view_dm_address_segmentation_form"/>
+        <field name="inherit_id" ref="dm_extract.view_dm_segmentation_step_form"/>
         <field name="arch" type="xml">
-		   <page string="Customers"  position="after">
-		       <page string="Customer Orders">
-		           <field name="order_text_criteria_ids" colspan="2" nolabel="1" select="2">
+		   	<page string= "Customers" position="after">
+               <page string="Sales">
+          		<group colspan="4" attrs="{'invisible':[('segment_type','!=','sale')]}">
+		           <field name="order_text_criteria_ids" colspan="2" nolabel="1" select="2" height="225">
 		               <form string="Customer Order Textual Criteria">
 		                   <field name="field_id"/>
 		                   <field name="operator" nolabel="1"/>
@@ -27,7 +28,7 @@
 		                   <field name="value"/>
 		               </tree>
 		           </field>
-		           <field name="order_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
+		           <field name="order_numeric_criteria_ids" colspan="2" nolabel="1" select="2" height="225">
 		               <form string="Customer Order Numeric Criteria">
 		                   <field name="field_id"/>
 		                   <field name="operator" nolabel="1"/>
@@ -39,7 +40,7 @@
 		                   <field name="value"/>
 		               </tree>
 		           </field>
-		           <field name="order_boolean_criteria_ids" colspan="2" nolabel="1" select="2">
+		           <field name="order_boolean_criteria_ids" colspan="2" nolabel="1" select="2" height="225">
 		               <form string="Customer Order Boolean Criteria">
 		                   <field name="field_id"/>
 		                   <field name="operator" nolabel="1"/>
@@ -51,7 +52,7 @@
 		                   <field name="value"/>
 		               </tree>
 		           </field>
-		           <field name="order_date_criteria_ids" colspan="2" nolabel="1" select="2">
+		           <field name="order_date_criteria_ids" colspan="2" nolabel="1" select="2" height="225">
 		               <form string="Customer Order Date Criteria">
 		                   <field name="field_id" />
 		                   <field name="operator" nolabel="1"/>
@@ -63,7 +64,8 @@
 		                   <field name="value"/>
 		               </tree>
 		           </field>
-		       </page>
+		     </group>
+		    </page>
 	       </page>		       
 	    </field>
     </record>

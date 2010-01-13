@@ -21,32 +21,10 @@
 from osv import fields
 from osv import osv
 
-class dm_address_segmentation(osv.osv): # {{{
-    _inherit = "dm.address.segmentation"
-    _description = "Order Segmentation"
+class dm_segmentation_step(osv.osv): # {{{
+    _inherit = "dm.segmentation.step"
+    _description = "Segmentation"
 
-    def set_address_criteria(self, cr, uid, ids, context={}):
-        sql_query = super(dm_address_segmentation,self).set_address_criteria(cr, uid, ids, context)
-        if isinstance(ids, (int, long)):
-            ids = [ids]    
-        criteria=[]
-        browse_id = self.browse(cr, uid, ids)[0]
-        if browse_id.order_text_criteria_ids:
-            for i in browse_id.order_text_criteria_ids:
-                criteria.append("so.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
-        if browse_id.order_numeric_criteria_ids:
-            for i in browse_id.order_numeric_criteria_ids:
-                criteria.append("so.%s %s %f"%(i.field_id.name, i.operator, i.value))
-        if browse_id.order_boolean_criteria_ids:
-            for i in browse_id.order_boolean_criteria_ids:
-                criteria.append("so.%s %s %s"%(i.field_id.name, i.operator, i.value))
-        if browse_id.order_date_criteria_ids:
-            for i in browse_id.order_date_criteria_ids:
-                criteria.append("so.%s %s '%s'"%(i.field_id.name, i.operator, i.value))
-        if criteria:
-            so_sql_query = ("""select distinct so.partner_invoice_id \nfrom sale_order so\nwhere %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
-            sql_query += '''and pa.id in (%s)'''%so_sql_query
-        return sql_query
     _columns = {
         'order_text_criteria_ids' : fields.one2many('dm.extract.sale.text_criteria', 'segmentation_id', 'Customers Order Textual Criteria'),
         'order_numeric_criteria_ids' : fields.one2many('dm.extract.sale.numeric_criteria', 'segmentation_id', 'Customers Order Numeric Criteria'),
@@ -55,7 +33,7 @@ class dm_address_segmentation(osv.osv): # {{{
     }
    
  
-dm_address_segmentation() # }}}
+dm_segmentation_step() # }}}
   
 TEXT_OPERATORS = [ # {{{
     ('like','like'),
@@ -86,7 +64,7 @@ class dm_extract_sale_text_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','like','char')],
@@ -102,7 +80,7 @@ class dm_extract_sale_numeric_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','in',['integer','float'])],
@@ -118,7 +96,7 @@ class dm_extract_sale_boolean_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','like','boolean')],
@@ -134,7 +112,7 @@ class dm_extract_sale_date_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','in',['date','datetime'])],

@@ -191,6 +191,8 @@ class survey_question(osv.osv):
         'rating_allow_one_column_require' : fields.boolean('Allow Only One Response per Column (Forced Ranking)'),
         'in_visible_rating_weight':fields.boolean('Is Rating Scale Invisible?'),
         'in_visible_menu_choice':fields.boolean('Is Menu Choice Invisible?'),
+        'comment_column':fields.boolean('Add comment column in matrix'),
+        'column_name':fields.char('Column Name',size=256),
     }
     _defaults = {
          'sequence' : lambda * a: 1,
@@ -542,7 +544,7 @@ class survey_question_wiz(osv.osv_memory):
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False,submenu=False):
         result = super(survey_question_wiz, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar,submenu)
         surv_name_wiz = self.pool.get('survey.name.wiz')
-        if view_type in ['form','tree']:
+        if view_type in ['form']:
             sur_name_rec = surv_name_wiz.read(cr, uid, context['sur_name_id'])
             survey_id = context['survey_id']
             survey_obj = self.pool.get('survey')
@@ -608,7 +610,14 @@ class survey_question_wiz(osv.osv_memory):
                                 etree.SubElement(xml_group, 'field', {'name': str(que) + "_" + str(ans['id'])})
                                 fields[str(que) + "_" + str(ans['id'])] = {'type':'boolean', 'string':ans['answer']}
                         elif que_rec['type'] in ['matrix_of_choices_only_one_ans', 'rating_scale']:
-                            xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
+                            if que_rec['comment_column']:
+                                col = "4"
+                                colspan = "4"
+                            else:
+                               col = "2"
+                               colspan = "2"
+                            xml_group = etree.SubElement(xml_group, 'group', {'col': str(col), 'colspan': str(colspan)})
+                            i=0
                             for row in ans_ids:
                                 etree.SubElement(xml_group, 'newline')
                                 etree.SubElement(xml_group, 'field', {'name': str(que) + "_selection_" + str(row['id']),'string':to_xml(str(row['answer']))})
@@ -616,6 +625,10 @@ class survey_question_wiz(osv.osv_memory):
                                 for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
                                     selection.append((col['title'], col['title']))
                                 fields[str(que) + "_selection_" + str(row['id'])] = {'type':'selection', 'selection' : selection, 'string': "Answer"}
+                                if que_rec['comment_column']:
+                                   fields[str(que) + "_comment_column"+str(i)] = {'type':'char', 'size' : 255, 'string':str(que_rec['column_name']), 'views':{}}
+                                   etree.SubElement(xml_group, 'field', {'name': str(que) + "_comment_column"+str(i)})
+                                   i+=1
                         elif que_rec['type'] == 'matrix_of_choices_only_multi_ans':
                             xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                             for row in ans_ids:
@@ -720,7 +733,7 @@ class survey_question_wiz(osv.osv_memory):
             return value
         surv_name_wiz = self.pool.get('survey.name.wiz')
         sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
-        
+
         ans_list = []
         for key,val in sur_name_read['store_ans'].items():
             for field in fields_list:

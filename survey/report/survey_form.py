@@ -115,7 +115,8 @@ class survey_form(report_rml):
             <paraStyle name="page" fontName="helvetica-bold" fontSize="15.0" leftIndent="0.0" textColor="white"/>
             <paraStyle name="title" fontName="helvetica-bold" fontSize="18.0" leftIndent="0.0" textColor="white"/>
             <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
-            <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="2.0"/>
+            <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="0.0"/>
+            <paraStyle name="answer_left" alignment="LEFT" fontName="helvetica-bold" fontSize="8.0" leftIndent="0.0"/>
             <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
             <paraStyle name="comment" fontName="Helvetica" fontSize="14.0" leading="50" spaceBefore="0.0" spaceAfter="0.0"/>
             <paraStyle name="P1" fontName="Helvetica" fontSize="9.0" leading="12" spaceBefore="0.0" spaceAfter="1.0"/>
@@ -217,12 +218,26 @@ class survey_form(report_rml):
                                 cols_widhts.append(float((float(_tbl_widths.replace('cm',''))/float(2.0))/len(que.column_heading_ids)))
                         else:
                             cols_widhts.append(float(_tbl_widths.replace('cm','')))
+                        tmp=0.0
+                        sum = 0.0
+                        i = 0
+                        if que.type in ['matrix_of_choices_only_one_ans'] and que.comment_column:
+                            for col in cols_widhts:
+                                cols_widhts[i] = col - 1.1
+                                sum += col
+                                tmp+= col - 1.1
+                                i+=1
+                            cols_widhts.append(round(sum-tmp,2))
                         colWidths = "cm,".join(map(str, cols_widhts))
                         colWidths = colWidths+'cm'
                         matrix_ans = ['',]
                         for col in que.column_heading_ids:
                             if col.title not in matrix_ans:
                                 matrix_ans.append(col.title)
+
+                        if que.type in ['matrix_of_choices_only_one_ans'] and que.comment_column:
+                            matrix_ans.append(str(que.column_name))
+
                         rml+="""
                         <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
                             <tr>"""
@@ -242,26 +257,43 @@ class survey_form(report_rml):
                             <blockTable colWidths=" """ + colWidths + """ " style='"""+style+"""'>
                             <tr>"""
                             rml+="""<td><para style="answer">""" + to_xml(str(ans.answer)) + """</para></td>"""
-                            for mat_col in range(1,len(matrix_ans)):
-                                value = ""
-                                if que.type in ['matrix_of_drop_down_menus']:
+                            rec_width = float((sum-tmp)*10+100)
+                            value = ""
+
+                            if que.type in ['matrix_of_drop_down_menus']:
                                     value = """ <fill color="white"/>
                                         <rect x="-0.1cm" y="-0.45cm" width='""" + str(cols_widhts[-1] - 0.5) +"cm" + """' height="0.5cm" fill="yes" stroke="yes"/>
                                         """
-                                elif que.type in ['matrix_of_choices_only_one_ans']:
-                                    value = """ <fill color="white"/>
-                                        <!--rect x="0.25cm" y="-0.5cm" width="0.8 cm" height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/-->
-                                        <circle x="0.35cm" y="-0.18cm" radius="0.25 cm" fill="yes" stroke="yes"/>"""
+                            elif que.type in ['matrix_of_choices_only_one_ans']:
+                                value = """ <fill color="white"/>
+                                    <!--rect x="0.25cm" y="-0.5cm" width="0.8 cm" height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/-->
+                                    <circle x="0.35cm" y="-0.18cm" radius="0.25 cm" fill="yes" stroke="yes"/>"""
+                            else:
+                                value = """ <fill color="white"/>
+                                    <rect x="0.1cm" y="-0.4cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"/>
+                                    """
+
+                            for mat_col in range(1,len(matrix_ans)):
+                                if matrix_ans[mat_col]==que.column_name:
+                                    if mat_col==1:
+                                        rml+="""
+                                            <td><para style="answer_left">""" + to_xml(str(que.column_name)) + """</para>
+                                            </td>"""
+                                    else:
+                                      rml+="""
+                                            <td><illustration>
+                                                <fill color="white"/>
+                                                <rect x="-0.15cm" y="-0.5cm" width='"""+str(rec_width)+"""' height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/>
+                                                <!--circle x="0.15cm" y="-0.18cm" radius="0.25 cm" fill="yes" stroke="yes"/-->
+                                                </illustration>
+                                            </td>"""
                                 else:
-                                    value = """ <fill color="white"/>
-                                        <rect x="0.1cm" y="-0.4cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"/>
-                                        """
-                                rml+="""
-                                <td>
-                                    <illustration>
-                                        """ + value + """
-                                    </illustration>
-                                </td>"""
+                                    rml+="""
+                                    <td>
+                                        <illustration>
+                                            """ + value + """
+                                        </illustration>
+                                    </td>"""
                             rml+= """</tr></blockTable>"""
                     elif que.type in ['multiple_textboxes','numerical_textboxes', 'date_and_time','date']:
                         cols_widhts.append(float(_tbl_widths.replace('cm',''))/2)

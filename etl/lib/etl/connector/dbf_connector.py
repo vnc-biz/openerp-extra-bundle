@@ -20,7 +20,7 @@
 #
 ##############################################################################
 """
- To provide connectivity with file.
+ To provide connectivity with dbf file.
 
  Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
  GNU General Public License.
@@ -52,19 +52,34 @@ class dbf_connector(connector):
 
     def open(self):
         """
-        Opens file connections.
+        Opens dbf file connections.
         """
         return dbf.Dbf(self.uri)
-    
+
     def close(self):
         """
-        Closes file connections.
+        Closes dbf file connections.
         """
         return self.conn.close()
 
+    def __getstate__(self):
+        res = super(dbf_connector, self).__getstate__()
+        res.update({'bufsize':self.bufsize, 'encoding':self.encoding, 'uri':self.uri })#
+        return res
+
+    def __setstate__(self, state):
+        super(dbf_connector, self).__setstate__(state)
+        self.__dict__ = state
+
+    def __copy__(self):
+        """
+        Overrides copy method.
+        """
+        res = dbf_connector(self.uri, self.bufsize, self.encoding, self.name)
+        return res
 
 def test():
-    file_conn = dbf_connector('/input/DE000446.dbf')
+    file_conn = dbf_connector('../../demo/input/DE000446.dbf')# /input/DE000446.dbf
     con = file_conn.open()
     file_conn.close()
 

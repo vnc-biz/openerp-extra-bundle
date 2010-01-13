@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -16,7 +16,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import sys
@@ -26,13 +26,11 @@ import etl
 
 fileconnector_partner = etl.connector.dbf_connector('input/DE000446.dbf')
 
-csv_in1= etl.component.input.dbf_in(fileconnector_partner,name='Partner Data')
-log1=etl.component.transform.logger(name='Read Partner File')
+csv_in1= etl.component.input.dbf_in(fileconnector_partner,name='DBF data')
+log1=etl.component.transform.logger(name='Read dbf File')
 
 tran=etl.transition(csv_in1,log1)
 
 job1=etl.job([log1])
 
-#job2 = job1.copy()
 job1.run()
-

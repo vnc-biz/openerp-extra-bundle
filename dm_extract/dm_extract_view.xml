@@ -6,26 +6,84 @@
 
     <!--
     =======================================================
-    SEGMENTATION VIEWS
+    SEGMENTATION STEP TYPE VIEWS
     =======================================================
     -->
 
-    <record model="ir.ui.view" id="view_dm_address_segmentation_form">
-        <field name="name">dm.address.segmentation.form</field>
-        <field name="model">dm.address.segmentation</field>
+    <record model="ir.ui.view" id="view_dm_segmentation_type_form">
+        <field name="name">dm.segmentation.type.form</field>
+        <field name="model">dm.segmentation.type</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Segmentation">
-                <separator string="Segmentation Informations" colspan="4"/>
-                <field name="name" select="1"/>
-                <field name="code" select="1"/>
-                <notebook colspan="4">
+            <form string="Segmentation Types">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="mode"/>
+             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_segmentation_type_tree">
+        <field name="name">dm.segmentation.type.tree</field>
+        <field name="model">dm.segmentation.type</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Segmentation Types">
+               <field name="name"/>
+                <field name="code"/>
+                <field name="mode"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_segmentation_type_form">
+        <field name="name">All Segmentation Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.segmentation.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_segmentation_type_tree"/>
+    </record>
+	
+    <menuitem id="menu_action_dm_segmentation_type_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_type_form" sequence="0" />
+   
+   <!--
+    =======================================================
+    SEGMENTATION STEP VIEWS
+    =======================================================
+    -->
+
+    <record model="ir.ui.view" id="view_dm_segmentation_step_form">
+        <field name="name">dm.segmentation.step.form</field>
+        <field name="model">dm.segmentation.step</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Segmentation Steps">
+            	<notebook colspan="4">
                     <page string="General">
-                        <separator string="Description" colspan="4"/>
-                        <field name="notes" nolabel="1" select="2" colspan="4" widget="text_wiki"/>
-                    </page>
-                    <page string="Customers">
-                        <field name="address_text_criteria_ids" colspan="2" nolabel="1" select="2">
+                     <group colspan="4">
+		                <field name="name"/>
+		                <field name="mode"/>
+		                <field name="segmentation_id"/>
+		                <field name="type_id" on_change="on_change_segment_type(type_id)" widget="selection"/>
+		                <field name="segment_type" on_change="on_change_segment_type(type_id)" invisible="1"/>
+		                <field name="previous_step_ids" colspan="4" height="200"/>
+		                <field name="next_step_id" colspan="4"/>
+		          </group>
+		                <group attrs="{'invisible':[('segment_type','!=','campaign')]}">
+			                <field name="campaign_id"/>
+			                <field name="proposition_id"/>
+			                <field name="segment_id"/>
+			                <field name="offer_id"/>
+			                <field name="trademark_id"/>
+			                <field name="dealer_id"/>
+			                <field name="country_id"/>
+			                <field name="currency_id"/>
+	               		</group>
+	                </page>
+	               <page string="Customers">
+	               <group attrs="{'invisible':[('segment_type','!=','customer')]}">
+                        <field name="address_text_criteria_ids" colspan="2" nolabel="1" select="2" height="232">
                             <form string="Customer Textual Criteria">
                                 <field name="field_id"/>
                                 <field name="operator" nolabel="1"/>
@@ -37,7 +95,7 @@
                                 <field name="value"/>
 		                      </tree>
 		                </field>
-                        <field name="address_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
+                        <field name="address_numeric_criteria_ids" colspan="2" nolabel="1" select="2" height="232">
                             <form string="Customer Numeric Criteria">
                                 <field name="field_id"/>
                                 <field name="operator" nolabel="1"/>
@@ -49,7 +107,7 @@
                                 <field name="value"/>
                             </tree>
                         </field>
-                        <field name="address_boolean_criteria_ids" colspan="2" nolabel="1" select="2">
+                        <field name="address_boolean_criteria_ids" colspan="2" nolabel="1" select="2" height="232">
                             <form string="Customer Boolean Criteria">
                                 <field name="field_id"/>
                                 <field name="operator" nolabel="1"/>
@@ -61,7 +119,7 @@
                                 <field name="value"/>
                             </tree>
                         </field>
-                        <field name="address_date_criteria_ids" colspan="2" nolabel="1" select="2">
+                        <field name="address_date_criteria_ids" colspan="2" nolabel="1" select="2" height="232">
                             <form string="Customer Date Criteria">
                                 <field name="field_id"/>
                                 <field name="operator" nolabel="1"/>
@@ -73,91 +131,89 @@
                                 <field name="value"/>
                             </tree>
                         </field>
-                    </page>
-                    <page string="SQL">
-                        <separator string="SQL Query" colspan="4"/>
-                        <field name="sql_query" nolabel="1" select="2" colspan="4"/>
-                        <button string="Compute Sql Query" name="set_address_criteria" type="object"/>
+                   	</group>
                     </page>
                 </notebook>
-            </form>
+             </form>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_dm_address_segmentation_tree">
-        <field name="name">dm.address.segmentation.tree</field>
-        <field name="model">dm.address.segmentation</field>
+    <record model="ir.ui.view" id="view_dm_segmentation_step_tree">
+        <field name="name">dm.segmentation.step.tree</field>
+        <field name="model">dm.segmentation.step</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Segmentations">
-                <field name="name"/>
-                <field name="code"/>
-                <field name="notes"/>
+            <tree string="Segmentation Steps">
+               <field name="name"/>
+                <field name="mode"/>
+                <field name="type_id"/>
             </tree>
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_dm_address_segmentation_form">
-        <field name="name">All Segmentations</field>
+    <record model="ir.actions.act_window" id="action_dm_segmentation_step_form">
+        <field name="name">All Segmentation Steps</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">dm.address.segmentation</field>
+        <field name="res_model">dm.segmentation.step</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="view_dm_address_segmentation_tree"/>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_segmentation_step_tree"/>
     </record>
 	
-    <menuitem id="menu_action_dm_address_segmentation_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_address_segmentation_form" sequence="0" />
-   
-	<record id="view_dm_campaign_proposition_segments" model="ir.ui.view">
-	   <field name="name">dm_campaign_proposition_segments</field>
-	   <field name="model">dm.campaign.proposition.segment</field>
-	   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-	   <field name="type">form</field>
-	   <field name="arch" type="xml">
-   			<notebook colspan="4" position="inside">
-     			<page string="Extraction">
-	  				<field name="segmentation_id" colspan="4" string="Segmentation"/>             
- 				</page>
-     		</notebook>
-   		</field>
-  </record>
-  
-  <!--<record id="view_dm_campaign_proposition_segments_start_census" model="ir.ui.view">
-   <field name="name">dm_campaign_proposition_segments_start_census</field>
-   <field name="model">dm.campaign.proposition.segment</field>
-   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-   <field name="type">form</field>
-   <field name="arch" type="xml">
-    	<field name="start_census" position="replace">
-			<field name="start_census" attrs="{'readonly':[('segmentation_id','!=',False)]}"/>             
-      </field>
-   </field>
-  </record>
-  
-   <record id="view_dm_campaign_proposition_segments_end_census" model="ir.ui.view">
-   <field name="name">dm_campaign_proposition_segments_end_census</field>
-   <field name="model">dm.campaign.proposition.segment</field>
-   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-   <field name="type">form</field>
-   <field name="arch" type="xml">
-    	<field name="end_census" position="replace">
-			<field name="end_census" attrs="{'readonly':[('segmentation_id','!=',False)]}"/>             
-      </field>
-   </field>
-  </record>
-  
-   <record id="view_dm_campaign_proposition_segments_type_census" model="ir.ui.view">
-   <field name="name">dm_campaign_proposition_segments_type_census</field>
-   <field name="model">dm.campaign.proposition.segment</field>
-   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-   <field name="type">form</field>
-   <field name="arch" type="xml">
-    	<field name="type_census" position="replace">
-			<field name="type_census" attrs="{'readonly':[('segmentation_id','!=',False)]}"/>             
-      </field>
-   </field>
-  </record>
--->
+    <menuitem id="menu_action_dm_segmentation_step_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_step_form" sequence="1" />
+     
+      <!--
+    =======================================================
+    SEGMENTATION VIEWS
+    =======================================================
+    -->
 
+    <record model="ir.ui.view" id="view_dm_segmentation_form">
+        <field name="name">dm.segmentation.form</field>
+        <field name="model">dm.segmentation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Segmentation">
+            <separator string="Segmentation Informations" colspan="4"/>
+                <field name="name" select="1"/>
+                <field name="code" select="1"/>
+                 <field name="step_id"/>
+                <notebook colspan="4">
+                    <page string="General">
+                        <separator string="Description" colspan="4"/>
+                        <field name="notes" nolabel="1" select="2" colspan="4" widget="text_wiki"/>
+                     	<field name="active_only"/>
+                    </page>
+                </notebook>
+           </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_segmentation_tree">
+        <field name="name">dm.segmentation.tree</field>
+        <field name="model">dm.segmentation</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Segmentation">
+               <field name="name"/>
+               <field name="code"/>
+               <field name="step_id"/>
+               <field name="active_only"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_segmentation_form">
+        <field name="name">All Segmentations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.segmentation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_segmentation_tree"/>
+    </record>
+	
+    <menuitem id="menu_action_dm_segmentation_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_form" sequence="1" />
+   
     </data>
 </openerp>
     

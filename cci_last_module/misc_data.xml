@@ -338,7 +338,7 @@
                         <field name="number" select="1"/>
                         <field name="partner_id" on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term)" select="1" groups="base.group_user"/>
                         <field domain="[('partner_id','=',partner_id)]" name="address_invoice_id"/>
-                        <field name="currency_id" on_change="onchange_currency_id(currency_id)" select="2"/>
+                        <field name="vat_num" readonly="1"/>
                         <field name="date_invoice" select="1"/>
                         <field name="domiciled"/>
                         <field name="domiciled_send_date"/>
@@ -422,6 +422,7 @@
                             <field name="company_id"/>
                             <field name="dept" select="2"/>
                             <field name="fiscal_position" groups="base.group_extended,base.group_user"/>
+                            <field name="currency_id" on_change="onchange_currency_id(currency_id)" select="2"/>
                             <newline/>
                             <field name="date_due" select="1"/>
                             <field name="invoice_special" select="2"/>

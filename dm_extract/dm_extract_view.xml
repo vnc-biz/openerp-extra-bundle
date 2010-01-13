@@ -47,7 +47,58 @@
 	
     <menuitem id="menu_action_dm_segmentation_type_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_type_form" sequence="0" />
    
-   <!--
+  
+      <!--
+    =======================================================
+    SEGMENTATION VIEWS
+    =======================================================
+    -->
+
+    <record model="ir.ui.view" id="view_dm_segmentation_form">
+        <field name="name">dm.segmentation.form</field>
+        <field name="model">dm.segmentation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Segmentation">
+            <separator string="Segmentation Informations" colspan="4"/>
+                <field name="name" select="1"/>
+                <field name="code" select="1"/>
+                 <field name="step_ids" nolabel="1" colspan="4" />
+                <notebook colspan="4">
+                    <page string="General">
+                        <separator string="Description" colspan="4"/>
+                        <field name="notes" nolabel="1" select="2" colspan="4" widget="text_wiki"/>
+                     	<field name="active_only"/>
+                    </page>
+                </notebook>
+           </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_segmentation_tree">
+        <field name="name">dm.segmentation.tree</field>
+        <field name="model">dm.segmentation</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Segmentation">
+               <field name="name"/>
+               <field name="code"/>
+               <field name="active_only"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_segmentation_form">
+        <field name="name">All Segmentations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.segmentation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_segmentation_tree"/>
+    </record>
+	
+    <menuitem id="menu_action_dm_segmentation_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_form" sequence="1" />
+    <!--
     =======================================================
     SEGMENTATION STEP VIEWS
     =======================================================
@@ -67,8 +118,8 @@
 		                <field name="segmentation_id"/>
 		                <field name="type_id" on_change="on_change_segment_type(type_id)" widget="selection"/>
 		                <field name="segment_type" on_change="on_change_segment_type(type_id)" invisible="1"/>
-		                <field name="previous_step_ids" colspan="4" height="200"/>
 		                <field name="next_step_id" colspan="4"/>
+		                 <field name="previous_step_ids" colspan="4"/>
 		          </group>
 		                <group attrs="{'invisible':[('segment_type','!=','campaign')]}">
 			                <field name="campaign_id"/>
@@ -162,58 +213,6 @@
 	
     <menuitem id="menu_action_dm_segmentation_step_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_step_form" sequence="1" />
      
-      <!--
-    =======================================================
-    SEGMENTATION VIEWS
-    =======================================================
-    -->
-
-    <record model="ir.ui.view" id="view_dm_segmentation_form">
-        <field name="name">dm.segmentation.form</field>
-        <field name="model">dm.segmentation</field>
-        <field name="type">form</field>
-        <field name="arch" type="xml">
-            <form string="Segmentation">
-            <separator string="Segmentation Informations" colspan="4"/>
-                <field name="name" select="1"/>
-                <field name="code" select="1"/>
-                 <field name="step_id"/>
-                <notebook colspan="4">
-                    <page string="General">
-                        <separator string="Description" colspan="4"/>
-                        <field name="notes" nolabel="1" select="2" colspan="4" widget="text_wiki"/>
-                     	<field name="active_only"/>
-                    </page>
-                </notebook>
-           </form>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="view_dm_segmentation_tree">
-        <field name="name">dm.segmentation.tree</field>
-        <field name="model">dm.segmentation</field>
-        <field name="type">tree</field>
-        <field name="arch" type="xml">
-            <tree string="Segmentation">
-               <field name="name"/>
-               <field name="code"/>
-               <field name="step_id"/>
-               <field name="active_only"/>
-            </tree>
-        </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="action_dm_segmentation_form">
-        <field name="name">All Segmentations</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">dm.segmentation</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_dm_segmentation_tree"/>
-    </record>
-	
-    <menuitem id="menu_action_dm_segmentation_form" parent="dm_extract.menu_dm_config_extract" action="action_dm_segmentation_form" sequence="1" />
-   
     </data>
 </openerp>
     

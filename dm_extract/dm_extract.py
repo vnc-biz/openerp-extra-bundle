@@ -40,12 +40,12 @@ class dm_segmentation(osv.osv): # {{{
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=64, required=True),
-        'step_id':fields.many2one('dm.segmentation.step',
+        'step_ids':fields.one2many('dm.segmentation.step','segmentation_id',
                                             'Steps'),
         'notes': fields.text('Description', translate=True),
         'active_only': fields.boolean('Active'),
         }  
-dm_segmentation()
+dm_segmentation() 
 
 class dm_segmentation_step(osv.osv): # {{{
     _name = "dm.segmentation.step"
@@ -61,28 +61,20 @@ class dm_segmentation_step(osv.osv): # {{{
          'type_id':fields.many2one('dm.segmentation.type',
                                             'Segmentation Type',required=True),
         'segment_type': fields.char('Type Code', size=64),                                   
-        'previous_step_ids':fields.one2many('dm.segmentation.step','prev_step_id',
+        'next_step_id':fields.many2one('dm.segmentation.step', 'Next Step'),
+        'previous_step_ids':fields.one2many('dm.segmentation.step','next_step_id',
                                             'Previous Step'),
-        'prev_step_id':fields.many2one('dm.segmentation.step',
-                                            'Previous Step'), 
-        'next_step_id':fields.many2one('dm.segmentation.step',
-                                            'Next Step'),
         'campaign_id':fields.many2one('dm.campaign', 'Campaign'),                              
                                             
        'proposition_id':fields.many2one('dm.campaign.proposition',
                                             'Proposition'),
-                                            
-        'segment_id':fields.many2one('dm.campaign.proposition.segment',
-                                            'Segments'),                               
+        'segment_id':fields.many2one('dm.campaign.proposition.segment','Segments'),                               
         'offer_id':fields.many2one('dm.offer', 'Offer'),  
-        'trademark_id':fields.many2one('dm.trademark',
-                                           'Trademark'),
+        'trademark_id':fields.many2one('dm.trademark', 'Trademark'),
         'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category_id.name','=','Dealer')]"),
 
-        'country_id':fields.many2one('res.country',
-                                            'Country'),   
-        'currency_id':fields.many2one('res.currency',
-                                            'Currency'),
+        'country_id':fields.many2one('res.country', 'Country'),   
+        'currency_id':fields.many2one('res.currency', 'Currency'),
         'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria', attrs="{'invisible':[('type','!=','customer')]}"),
         'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
         'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
@@ -95,7 +87,7 @@ class dm_segmentation_step(osv.osv): # {{{
             res['value'] = {'segment_type': segment_type['code']}
         return res 
     
-dm_segmentation_step() 
+dm_segmentation_step()
 
 TEXT_OPERATORS = [ # {{{
     ('like','like'),

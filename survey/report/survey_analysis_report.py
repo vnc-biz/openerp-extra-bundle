@@ -23,6 +23,7 @@
 import pooler
 from report.interface import report_rml
 from tools import to_xml
+import tools
 
 class survey_analysis(report_rml):
     def create(self, cr, uid, ids, datas, context):
@@ -84,13 +85,13 @@ class survey_analysis(report_rml):
                         <td><para style="Standard">Survey Title :-</para></td>
                         <td><para style="header1">""" + to_xml(survey.title) + """</para></td>
                         <td><para style="Standard">Total Started Survey :- </para></td>
-                        <td><para style="header1">""" + str(survey.tot_start_survey)  + """</para></td>
+                        <td><para style="header1">""" + tools.ustr(survey.tot_start_survey)  + """</para></td>
                       </tr>
                       <tr>
                         <td><para style="Standard"></para></td>
                         <td><para style="header1"></para></td>
                         <td><para style="Standard">Total Completed Survey :-</para></td>
-                        <td><para style="header1">""" + str(survey.tot_comp_survey) + """</para></td>
+                        <td><para style="header1">""" + tools.ustr(survey.tot_comp_survey) + """</para></td>
                       </tr>
                     </blockTable> """
             for page in survey.page_ids:
@@ -110,7 +111,7 @@ class survey_analysis(report_rml):
                         cols_widhts.append(200)
                         for col in range(0, len(que.column_heading_ids) + 1):
                             cols_widhts.append(float(300 / (len(que.column_heading_ids) + 1)))
-                        colWidths = ",".join(map(str, cols_widhts))
+                        colWidths = ",".join(map(tools.ustr, cols_widhts))
                         matrix_ans = ['',]
                         for col in que.column_heading_ids:
                             if col.title not in matrix_ans:
@@ -135,10 +136,10 @@ class survey_analysis(report_rml):
                                 if tot_res:
                                     percantage = float(cal_count)*100 / tot_res 
                                 if percantage:
-                                    rml += """<td color="#FFF435"><para style="answer_bold">""" + str(percantage) +"% (" + str(cal_count) + """)</para></td>"""
+                                    rml += """<td color="#FFF435"><para style="answer_bold">""" + tools.ustr(percantage) +"% (" + tools.ustr(cal_count) + """)</para></td>"""
                                 else:
-                                    rml += """<td color="#FFF435"><para style="answer">""" + str(percantage) +"% (" + str(cal_count) + """)</para></td>"""
-                            rml+="""<td><para style="response">""" + str(tot_res) + """</para></td>
+                                    rml += """<td color="#FFF435"><para style="answer">""" + tools.ustr(percantage) +"% (" + tools.ustr(cal_count) + """)</para></td>"""
+                            rml+="""<td><para style="response">""" + tools.ustr(tot_res) + """</para></td>
                                 </tr>"""
                         rml+="""</blockTable>"""
                     elif que.type in['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'multiple_textboxes','date_and_time','date']:
@@ -150,8 +151,8 @@ class survey_analysis(report_rml):
                          </tr>"""
                         for ans in que.answer_choice_ids:
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>
-                                    <td><para style="answer">""" + str(ans.average) + """%</para></td>
-                                    <td><para style="answer">""" + str(ans.response) + """</para></td></tr>"""
+                                    <td><para style="answer">""" + tools.ustr(ans.average) + """%</para></td>
+                                    <td><para style="answer">""" + tools.ustr(ans.response) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
                     elif que.type in['single_textbox']:
                         cr.execute("select count(id) from survey_response_line where question_id = %d and single_text!=''" % que.id)
@@ -161,7 +162,7 @@ class survey_analysis(report_rml):
                                  <td> <para style="response">Response Count</para></td>                 
                              </tr>
                             <tr><td><para style="answer"></para></td>
-                                <td><para style="answer">""" + str(cr.fetchone()[0]) + """ </para></td></tr>
+                                <td><para style="answer">""" + tools.ustr(cr.fetchone()[0]) + """ </para></td></tr>
                             </blockTable>"""
                     elif que.type in['comment']:
                         cr.execute("select count(id) from survey_response_line where question_id = %d and comment !=''" % que.id)
@@ -171,13 +172,13 @@ class survey_analysis(report_rml):
                                  <td> <para style="response">Response Count</para></td>                 
                              </tr>
                             <tr><td><para style="answer"></para></td>
-                                <td><para style="answer">""" + str(cr.fetchone()[0]) + """ </para></td></tr>
+                                <td><para style="answer">""" + tools.ustr(cr.fetchone()[0]) + """ </para></td></tr>
                             </blockTable>"""
                     elif que.type in['rating_scale']:
                         cols_widhts.append(200)
                         for col in range(0,len(que.column_heading_ids) + 2):
                             cols_widhts.append(float(300 / (len(que.column_heading_ids) + 2)))
-                        colWidths = ",".join(map(str, cols_widhts))
+                        colWidths = ",".join(map(tools.ustr, cols_widhts))
                         matrix_ans = ['',]
                         for col in que.column_heading_ids:
                             if col.title not in matrix_ans:
@@ -209,14 +210,14 @@ class survey_analysis(report_rml):
                                     tot_res = 0
                                     tot_per = 0.0
                                 if tot_res:
-                                    rml += """<td><para style="answer_bold">""" + str(tot_per) + "%(" + str(tot_res) + """)</para></td>"""
+                                    rml += """<td><para style="answer_bold">""" + tools.ustr(tot_per) + "%(" + tools.ustr(tot_res) + """)</para></td>"""
                                 else:
-                                    rml += """<td><para style="answer">""" + str(tot_per)+"%(" + str(tot_res) + """)</para></td>"""
+                                    rml += """<td><para style="answer">""" + tools.ustr(tot_per)+"%(" + tools.ustr(tot_res) + """)</para></td>"""
                             percantage = 0.00
                             if res_count:
                                 percantage = round((float(rating_weight_sum)/res_count), 2)
-                            rml+="""<td><para style="answer">""" + str(percantage) + """</para></td>
-                                <td><para style="answer">""" + str(res_count) + """</para></td></tr>"""
+                            rml+="""<td><para style="answer">""" + tools.ustr(percantage) + """</para></td>
+                                <td><para style="answer">""" + tools.ustr(res_count) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
                     elif que.type in['matrix_of_drop_down_menus']:
                         for column in que.column_heading_ids:
@@ -227,7 +228,7 @@ class survey_analysis(report_rml):
                             cols_widhts.append(200)
                             for col in range(0, len(menu_choices) + 1):
                                 cols_widhts.append(float(300 / (len(menu_choices) + 1)))
-                            colWidths = ",".join(map(str, cols_widhts))
+                            colWidths = ",".join(map(tools.ustr, cols_widhts))
                             rml +="""<blockTable colWidths=" """ + colWidths + """ " style="Table1"><tr>
                                 <td><para style="response"></para></td>"""
                             for menu in menu_choices:
@@ -253,13 +254,13 @@ class survey_analysis(report_rml):
                                     if calc and response:
                                         percantage = (float(calc)* 100) / response
                                     if calc:
-                                        rml+="""<td><para style="answer_bold">""" +str(percantage)+"% (" +  str(calc) + """)</para></td>"""
+                                        rml+="""<td><para style="answer_bold">""" +tools.ustr(percantage)+"% (" +  tools.ustr(calc) + """)</para></td>"""
                                     else:
-                                        rml+="""<td><para style="answer">""" +str(percantage)+"% (" +  str(calc) + """)</para></td>"""
+                                        rml+="""<td><para style="answer">""" +tools.ustr(percantage)+"% (" +  tools.ustr(calc) + """)</para></td>"""
                                 response = 0
                                 for res in res_count:
                                     if res['answer_id'] == ans.id: response = res['count']
-                                rml += """<td><para style="response">""" + str(response) + """</para></td></tr>"""
+                                rml += """<td><para style="response">""" + tools.ustr(response) + """</para></td></tr>"""
                             rml += """</blockTable>"""
                     elif que.type in['numerical_textboxes']:
                         rml +="""<blockTable colWidths="240.0,20,100.0,70,70.0" style="Table1">
@@ -281,21 +282,21 @@ class survey_analysis(report_rml):
                                 per = round((float(total) / len(tot_res)),2)
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>
                                     <td> <para style="Standard"> </para></td>
-                                    <td> <para style="answer">""" + str(per) +"""</para></td>
-                                    <td><para style="answer">""" + str(total) + """</para></td>
-                                    <td><para style="answer">""" + str(len(tot_res)) + """</para></td></tr>"""
+                                    <td> <para style="answer">""" + tools.ustr(per) +"""</para></td>
+                                    <td><para style="answer">""" + tools.ustr(total) + """</para></td>
+                                    <td><para style="answer">""" + tools.ustr(len(tot_res)) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
 
                     rml +="""<blockTable colWidths="300,100,100.0" style="Table3">
                         <tr>
                               <td><para style="Standard1"></para></td>
                               <td><para style="Standard1">Answered Question</para></td>
-                              <td><para style="Standard1">""" + str(que.tot_resp) + """</para></td>
+                              <td><para style="Standard1">""" + tools.ustr(que.tot_resp) + """</para></td>
                         </tr>
                         <tr>
                             <td><para style="Standard1"></para></td>
                             <td><para style="Standard1">Skipped Question</para></td>
-                            <td><para style="Standard1">""" + str(survey.tot_start_survey - que.tot_resp) + """</para></td>
+                            <td><para style="Standard1">""" + tools.ustr(survey.tot_start_survey - que.tot_resp) + """</para></td>
                         </tr>
                         </blockTable>"""
             rml += """<pageBreak/>"""

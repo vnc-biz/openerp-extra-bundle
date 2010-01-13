@@ -22,12 +22,12 @@
                     <field name="responsible_id"/>
                     <notebook colspan="4">
                         <page string="Survey">
-                            <field name="page_ids" colspan="4" nolabel="1" mode="form,tree" context="{'line_order': page_ids and page_ids[-1][2] and page_ids[-1][2]['sequence']}">
+                            <field name="page_ids" colspan="4" nolabel="1" mode="form,tree" context="{'line_order': page_ids}">
                                 <form string="Survey Page">
                                     <field name="title" select="1"/>
                                     <field name="sequence"/>
                                     <field name="note" colspan="4" nolabel="1"/>
-                                    <field name="question_ids" colspan="4" nolabel="1" context="{'line_order': question_ids and question_ids[-1][2] and question_ids[-1][2]['sequence']}">
+                                    <field name="question_ids" colspan="4" nolabel="1" context="{'line_order': question_ids}">
                                         <form string="Survey Question">
                                             <field name="question" colspan="4" select="1"/>
                                             <field name="sequence"/>
@@ -35,7 +35,7 @@
                                             <field name="type" />
                                             <notebook colspan="4">
                                                 <page string="Answer" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale'),('type','!=','multiple_textboxes'),('type','!=','numerical_textboxes'),('type','!=','date'),('type','!=','date_and_time')]}">
-                                                    <field name="answer_choice_ids" nolabel="1" colspan="4" context="{'line_order': answer_choice_ids and answer_choice_ids[-1][2] and answer_choice_ids[-1][2]['sequence']}"/>
+                                                    <field name="answer_choice_ids" nolabel="1" colspan="4" context="{'line_order': answer_choice_ids}"/>
 							                       <group attrs="{'invisible':[('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale')]}">
 							                           <field name="column_heading_ids" colspan="4" nolabel="1" default_get="{'in_visible_rating_weight':in_visible_rating_weight,'in_visible_menu_choice':in_visible_menu_choice}"/>
 							                       </group>
@@ -247,7 +247,7 @@
                     <field name="sequence"/>
                     <separator string="Description" colspan="4"/>
                     <field name="note" colspan="4" nolabel="1"/>
-                    <field name="question_ids" colspan="4" nolabel="1" context="{'line_order': question_ids and question_ids[-1][2] and question_ids[-1][2]['sequence']}">
+                    <field name="question_ids" colspan="4" nolabel="1" context="{'line_order': question_ids}">
                     <form string="Survey Question">
                         <field name="question" colspan="4" select="1"/>
                         <field name="sequence"/>
@@ -255,7 +255,7 @@
                         <field name="type" />
                         <notebook colspan="4">
                             <page string="Answer" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale'),('type','!=','multiple_textboxes'),('type','!=','numerical_textboxes'),('type','!=','date'),('type','!=','date_and_time')]}">
-                                <field name="answer_choice_ids" nolabel="1" colspan="4" context="{'line_order': answer_choice_ids and answer_choice_ids[-1][2] and answer_choice_ids[-1][2]['sequence']}"/>
+                                <field name="answer_choice_ids" nolabel="1" colspan="4" context="{'line_order': answer_choice_ids}"/>
 		                       <group attrs="{'invisible':[('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale')]}">
 		                           <field name="column_heading_ids" colspan="4" nolabel="1" default_get="{'in_visible_rating_weight':in_visible_rating_weight,'in_visible_menu_choice':in_visible_menu_choice}"/>
 		                       </group>
@@ -408,7 +408,7 @@
                     <field name="in_visible_menu_choice" invisible="1"/>
                     <notebook colspan="4">
                         <page string="Answer" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale'),('type','!=','multiple_textboxes'),('type','!=','numerical_textboxes'),('type','!=','date'),('type','!=','date_and_time')]}">
-                            <field name="answer_choice_ids" nolabel="1" colspan="4" context="{'line_order': answer_choice_ids and answer_choice_ids[-1][2] and answer_choice_ids[-1][2]['sequence']}"/>
+                            <field name="answer_choice_ids" nolabel="1" colspan="4" context="{'line_order': answer_choice_ids}"/>
 	                       <group attrs="{'invisible':[('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale')]}">
 	                           <field name="column_heading_ids" colspan="4" nolabel="1" default_get="{'in_visible_rating_weight':in_visible_rating_weight,'in_visible_menu_choice':in_visible_menu_choice}"/>
 	                       </group>

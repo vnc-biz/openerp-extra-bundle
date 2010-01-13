@@ -23,6 +23,7 @@
 import pooler
 from report.interface import report_rml
 from tools import to_xml
+import tools
 
 class survey_browse_response(report_rml):
     def create(self, cr, uid, ids, datas, context):
@@ -162,7 +163,7 @@ class survey_browse_response(report_rml):
                                 cols_widhts.append(200)
                                 for col in range(0, len(que.column_heading_ids)):
                                     cols_widhts.append(float(300 / (len(que.column_heading_ids))))
-                                colWidths = ",".join(map(str, cols_widhts))
+                                colWidths = ",".join(map(tools.ustr, cols_widhts))
                                 matrix_ans = ['',]
                                 for col in que.column_heading_ids:
                                     if col.title not in matrix_ans:
@@ -178,18 +179,32 @@ class survey_browse_response(report_rml):
                                         for res_ans in answer[0].response_answer_ids:
                                             if res_ans.answer_id.id == ans.id and res_ans.answer == matrix_ans[mat_col]:
                                                 if que.type in ['matrix_of_drop_down_menus']:
-                                                    value = """<para style="response">""" + to_xml(str(res_ans.value_choice)) + """</para>"""
+                                                    value = """<para style="response">""" + to_xml(tools.ustr(res_ans.value_choice)) + """</para>"""
                                                 elif que.type in ['matrix_of_choices_only_one_ans','rating_scale']:
                                                     value = """<illustration><fill color="gray"/>
                                                             <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="no" stroke="yes"/>
                                                             <circle x="0.3cm" y="-0.18cm" radius="0.10 cm" fill="yes" stroke="no"/>
                                                         </illustration>"""
-                                                else:
+                                                elif que.type in ['matrix_of_choices_only_multi_ans']:
+                                                    
                                                     value = """<illustration>
-                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"/>
+                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
                                                         <fill color="gray"/>
-                                                        <rect x="0.2cm" y="-0.35cm" width="0.3 cm" height="0.3cm" fill="yes" stroke="no"/>
+                                                        <rect x="0.2cm" y="-0.35cm" width="0.3 cm" height="0.3cm" fill="yes" stroke="no"  round="0.1cm"/>
                                                         </illustration>"""
+                                                break
+                                            else:
+                                                if que.type in ['matrix_of_drop_down_menus']:
+                                                    value = """"""
+                                                elif que.type in ['matrix_of_choices_only_one_ans','rating_scale']:
+                                                    value = """<illustration><fill color="gray"/>
+                                                            <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="no" stroke="yes"  round="0.1cm"/>
+                                                        </illustration>"""
+                                                elif que.type in ['matrix_of_choices_only_multi_ans']:
+                                                    value = """<illustration>
+                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
+                                                        </illustration>"""
+                                                
                                         rml+= """<td>""" + value + """</td>"""
                                     rml+="""  </tr>"""
                                 rml+="""</blockTable>"""

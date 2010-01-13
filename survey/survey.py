@@ -101,9 +101,13 @@ class survey_page(osv.osv):
         'note' : fields.text('Description'),
     }
     _defaults = {
-         'sequence' : lambda * a: 5
+        'sequence' : lambda * a: 1
     }
-
+    def default_get(self, cr, uid, fields, context={}):
+        data = super(survey_page, self).default_get(cr, uid, fields, context)        
+        if context.has_key('line_order') and context['line_order']:
+            data['sequence'] = context['line_order'] +1     
+        return data   
 survey_page()
 
 class survey_question(osv.osv):
@@ -189,7 +193,7 @@ class survey_question(osv.osv):
         'in_visible_menu_choice':fields.boolean('Is Menu Choice Invisible?'),
     }
     _defaults = {
-         'sequence' : lambda * a: 5,
+         'sequence' : lambda * a: 1,
          'type' : lambda * a: 'multiple_choice_multiple_ans',
          'req_error_msg' : lambda * a: 'This question requires an answer.',
          'required_type' : lambda * a: '',
@@ -277,9 +281,9 @@ class survey_question(osv.osv):
                     raise osv.except_osv(_('Error !'),_("Maximum Required Answer is greater than Minimum Required Answer"))
             if question['type'] ==  'matrix_of_drop_down_menus' and vals.has_key('column_heading_ids'):
                 for col in vals['column_heading_ids']:
-                    if not col[2]['menu_choice']:
+                    if col[2].has_key('menu_choice') and not col[2]['menu_choice']:
                         raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading"))
-                    elif col[2]['menu_choice'].strip() == '':
+                    elif col[2].has_key('menu_choice') and col[2]['menu_choice'].strip() == '':
                         raise osv.except_osv(_('Error !'),_("You must enter one or more menu choices in column heading (white spaces not allowed)"))
         return super(survey_question, self).write(cr, uid, ids, vals, context=context)
 
@@ -314,6 +318,12 @@ class survey_question(osv.osv):
         res = super(survey_question, self).create(cr, uid, vals, context)
         return res
 
+    def default_get(self, cr, uid, fields, context={}):
+        data = super(survey_question, self).default_get(cr, uid, fields, context)        
+        if context.has_key('line_order') and context['line_order']:
+            data['sequence'] = context['line_order'] +1     
+        return data   
+    
 survey_question()
 
 class survey_question_column_heading(osv.osv):
@@ -380,9 +390,15 @@ class survey_answer(osv.osv):
         'average' : fields.function(_calc_response_avg, method=True, string="#Avg", multi='sums'),
     }
     _defaults = {
-         'sequence' : lambda * a: 5
+         'sequence' : lambda * a: 1
     }
 
+    def default_get(self, cr, uid, fields, context={}):
+        data = super(survey_answer, self).default_get(cr, uid, fields, context)        
+        if context.has_key('line_order') and context['line_order']:
+            data['sequence'] = context['line_order'] +1     
+        return data   
+    
 survey_answer()
 
 class survey_response(osv.osv):

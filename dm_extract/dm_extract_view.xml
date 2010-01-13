@@ -119,7 +119,7 @@
 		                <field name="type_id" on_change="on_change_segment_type(type_id)" widget="selection"/>
 		                <field name="segment_type" on_change="on_change_segment_type(type_id)" invisible="1"/>
 		                <field name="next_step_id" colspan="4"/>
-		                 <field name="previous_step_ids" colspan="4"/>
+		                 <field name="previous_step_ids" colspan="4" height="200"/>
 		          </group>
 		                <group attrs="{'invisible':[('segment_type','!=','campaign')]}">
 			                <field name="campaign_id"/>

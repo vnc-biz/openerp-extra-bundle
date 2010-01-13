@@ -525,10 +525,12 @@
                     <notebook colspan="4">
                         <page string="Invoice">
                             <field name="date_due" select="1"/>
+                            <field name="invoice_special" select="2"/>
                             <field domain="[('partner_id', '=', partner_id)]" name="partner_bank" on_change="onchange_partner_bank(partner_bank)" select="2"/>
                             <field name="reference_type" nolabel="1" select="2" size="0"/>
                             <field name="reference" nolabel="1" select="1"/>
                             <field name="check_total" required="2"/>
+                            <field name="name" colspan="4"/>
                             <field colspan="4" default_get="{'check_total': check_total, 'invoice_line': invoice_line, 'address_invoice_id': address_invoice_id, 'partner_id': partner_id, 'price_type': 'price_type' in dir() and price_type or False}" name="invoice_line" nolabel="1">
                             	<form string="Invoice Line">
                     			<notebook>
@@ -602,17 +604,21 @@
                         </page>
                         <page string="Other Info">
                             <field name="company_id"/>
-                            <field name="fiscal_position" groups="base.group_extended"/>
+            	            <field name="dept" select="2"/>                               
                             <newline/>
+                            <field name="fiscal_position" groups="base.group_extended"/>
                             <field name="payment_term"/>
-                            <field name="name" select="2"/>
                             <newline/>
                             <field name="number" select="2"/>
                             <field name="origin" select="2"/>
                             <field colspan="4" domain="[('partner_id','=',partner_id)]" name="address_contact_id"/>
                             <field name="move_id"/>
                         <field domain="[('type','&lt;&gt;','view'), ('company_id', '=', company_id),('journal_id','=',journal_id)]" name="account_id"/>
+                        <field name="domiciled_send_date"/>
                         <field name="currency_id" on_change="onchange_currency_id(currency_id)" select="2"/>
+            	            <field name="domiciled"/>
+            	            <field name="amount_to_pay"/>
+                    		<newline/>                 		
                             <field name="period_id"/>
                             <label align="0.0" colspan="2" string="(keep empty to use the current period)"/>
                             <separator colspan="4" string="Additional Information"/>

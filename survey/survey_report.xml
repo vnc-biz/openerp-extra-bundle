@@ -14,5 +14,10 @@
 			rml=""
 			string="Survey Analysis Report"/>
 
+		<report auto="True" id="survey_browse_response" model="survey"
+			name="survey.browse.response"
+			rml=""
+			string="Browse Response"/>
+
 	</data>
 </openerp>

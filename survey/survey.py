@@ -403,7 +403,7 @@ class survey_response_line(osv.osv):
     _description = 'Survey Response Line'
     _rec_name = 'date_create'
     _columns = {
-        'response_id' : fields.many2one('survey.response', 'Response'),
+        'response_id' : fields.many2one('survey.response', 'Response', ondelete='cascade'),
         'date_create' : fields.datetime('Create Date', required=1),
         'state' : fields.selection([('draft', 'Draft'), ('done', 'Answered'),('skip', 'Skiped')], 'Status', readonly=True),
         'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
@@ -852,7 +852,7 @@ class survey_question_wiz(osv.osv_memory):
                             select_count += 1
                             numeric_sum += int(val1)
                         elif val1 and que_id == key1.split('_')[0] and len(key1.split('_')) == 3:
-                            if type(val1) == type(''):
+                            if type(val1) == type('') or type(val1) == type(u''):
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[1], 'answer' : key1.split('_')[2], 'value_choice' : val1})
                                 sur_name_read['store_ans'][resp_id].update({key1:val1})
                             else:

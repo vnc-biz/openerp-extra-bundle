@@ -237,7 +237,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                 #'dest_address_id': delivery_address.id,
                                 'location_id': 1,
                                 'pricelist_id': pricelist_id,
-                                'notes': "\n".join(note),
+                                'notes': "\n".join(filter(lambda x: x != False, note)),
                                 'tender_id': tender_id,
                                 'dm_campaign_purchase_line': pline.id
                             })
@@ -316,7 +316,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                             #'dest_address_id': delivery_address.id,
                             'location_id': 1,
                             'pricelist_id': pricelist_id,
-                            'notes': "\n".join(note),
+                            'notes': "\n".join(filter(lambda x: x != False, note)),
                             'dm_campaign_purchase_line': pline.id
                         })
 
@@ -430,7 +430,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                 #'dest_address_id': delivery_address.id,
                                 'location_id': 1,
                                 'pricelist_id': pricelist_id,
-                                'notes': "\n".join(note),
+                                'notes': "\n".join(filter(lambda x: x != False, note)),
                                 'tender_id': tender_id,
                                 'dm_campaign_purchase_line': pline.id
                             })
@@ -525,7 +525,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                 'dest_address_id': dest_address_id,
                                 'location_id': 1,
                                 'pricelist_id': pricelist_id,
-                                'notes': "\n".join(note),
+                                'notes': "\n".join(filter(lambda x: x != False, note)),
                                 'dm_campaign_purchase_line': pline.id
                             })
 

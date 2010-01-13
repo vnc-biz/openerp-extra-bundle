@@ -79,7 +79,7 @@ class dbf_connector(connector):
         return res
 
 def test():
-    file_conn = dbf_connector('../../demo/input/DE000446.dbf')# /input/DE000446.dbf
+    file_conn = dbf_connector('../../demo/input/dbf_file.dbf.dbf')# /input/DE000446.dbf
     con = file_conn.open()
     file_conn.close()
 

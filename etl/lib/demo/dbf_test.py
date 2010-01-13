@@ -24,7 +24,7 @@ sys.path.append('..')
 
 import etl
 
-fileconnector_partner = etl.connector.dbf_connector('input/DE000446.dbf')
+fileconnector_partner = etl.connector.dbf_connector('input/dbf_file.dbf')
 
 csv_in1= etl.component.input.dbf_in(fileconnector_partner,name='DBF data')
 log1=etl.component.transform.logger(name='Read dbf File')

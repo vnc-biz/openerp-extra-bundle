@@ -76,18 +76,16 @@ class dm_segmentation_step(osv.osv): # {{{
 
         'country_id':fields.many2one('res.country', 'Country'),   
         'currency_id':fields.many2one('res.currency', 'Currency'),
-        'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria', attrs="{'invisible':[('type','!=','customer')]}"),
+        'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria'),
         'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
         'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
         'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),   
         } 
     def on_change_segment_type(self, cr, uid, ids, type_id):
-        print "dsasdasdasd",type_id
         res = {'value': {}}
         if type_id:
             segment_type = self.pool.get('dm.segmentation.type').read(cr, uid, [type_id])[0]
             res['value'] = {'segment_type': segment_type['code']}
-        print "res",res
         return res 
     
 dm_segmentation_step()
@@ -129,22 +127,22 @@ class dm_address_text_criteria(osv.osv): # {{{
     _description = "address Segmentation Textual Criteria"
     _rec_name = "segmentation_id"
 
-    def _get_field_type(self, cr, uid, context={}):
-        ttype_filter = ['many2many', 'many2one']
-        cr.execute("select distinct ttype from ir_model_fields where ttype \
-                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
-                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
-        field_type = map(lambda x: x[0], cr.fetchall())
-        res = []
-        for type in field_type:
-            if type == 'selection':
-                res.append(('char', type))
-            else :
-                res.append((type, type))
-        return res
+#    def _get_field_type(self, cr, uid, context={}):
+#        ttype_filter = ['many2many', 'many2one']
+#        cr.execute("select distinct ttype from ir_model_fields where ttype \
+#                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
+#                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
+#        field_type = map(lambda x: x[0], cr.fetchall())
+#        res = []
+#        for type in field_type:
+#            if type == 'selection':
+#                res.append(('char', type))
+#            else :
+#                res.append((type, type))
+#        return res
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation',
+        'segmentation_id':fields.many2one('dm.segmentation.step',
                                           'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -162,7 +160,7 @@ class dm_address_numeric_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation',
+        'segmentation_id':fields.many2one('dm.segmentation.step',
                                             'Segmentation'),
         'field_id': fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -180,7 +178,7 @@ class dm_address_boolean_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation',
+        'segmentation_id':fields.many2one('dm.segmentation.step',
                                             'Segmentation'),
         'field_id':fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -199,7 +197,7 @@ class dm_address_date_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation',
+        'segmentation_id':fields.many2one('dm.segmentation.step',
                                                 'Segmentation'),
         'field_id':fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),

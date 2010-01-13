@@ -63,12 +63,14 @@
             <separator string="Segmentation Informations" colspan="4"/>
                 <field name="name" select="1"/>
                 <field name="code" select="1"/>
-                 <field name="step_ids" nolabel="1" colspan="4" />
                 <notebook colspan="4">
                     <page string="General">
                         <separator string="Description" colspan="4"/>
                         <field name="notes" nolabel="1" select="2" colspan="4" widget="text_wiki"/>
                      	<field name="active_only"/>
+                    </page>
+                    <page string="Steps">
+                       <field name="step_ids" nolabel="1" colspan="4" />
                     </page>
                 </notebook>
            </form>

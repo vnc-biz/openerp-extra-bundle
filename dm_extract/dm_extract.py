@@ -82,10 +82,12 @@ class dm_segmentation_step(osv.osv): # {{{
         'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),   
         } 
     def on_change_segment_type(self, cr, uid, ids, type_id):
+        print "dsasdasdasd",type_id
         res = {'value': {}}
         if type_id:
             segment_type = self.pool.get('dm.segmentation.type').read(cr, uid, [type_id])[0]
             res['value'] = {'segment_type': segment_type['code']}
+        print "res",res
         return res 
     
 dm_segmentation_step()

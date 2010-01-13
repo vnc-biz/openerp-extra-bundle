@@ -64,7 +64,7 @@ class dm_extract_sale_text_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation.step', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','like','char')],
@@ -80,7 +80,7 @@ class dm_extract_sale_numeric_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation.step', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','in',['integer','float'])],
@@ -96,7 +96,7 @@ class dm_extract_sale_boolean_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation.step', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','like','boolean')],
@@ -112,7 +112,7 @@ class dm_extract_sale_date_criteria(osv.osv): # {{{
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id' : fields.many2one('dm.segmentation', 'Segmentation'),
+        'segmentation_id' : fields.many2one('dm.segmentation.step', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
                ('ttype','in',['date','datetime'])],

@@ -35,14 +35,4 @@ class dm_trademark(osv.osv):#{{{
     }
 dm_trademark()#}}}
 
-class dm_address_segmentation(osv.osv): # {{{
-    _name = "dm.address.segmentation"
-    _description = "Segmentation"
-    _inherit = "dm.address.segmentation"
-    
-    _columns = {
-                
-        'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
-        }
-dm_address_segmentation()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -553,6 +553,7 @@ class survey_question_wiz(osv.osv_memory):
             response_obj = self.pool.get('survey.response.line')
             que_col_head = self.pool.get('survey.question.column.heading')
             p_id = sur_rec['page_ids']
+            total_pages = len(p_id)
             pre_button = False
             if not sur_name_rec['page_no'] + 1 :
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
@@ -662,7 +663,7 @@ class survey_question_wiz(osv.osv_memory):
                             etree.SubElement(xml_group, 'field', {'name': str(que) + "_comment", 'nolabel':"1" ,'colspan':"4"})
                             fields[str(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
                         if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
-                            if que_rec['make_comment_field']:
+                            if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans'] and que_rec['comment_field_type'] in ['char','text'] and que_rec['make_comment_field']:
                                 etree.SubElement(xml_group, 'field', {'name': str(que) + "_otherfield", 'colspan':"4"})
                                 fields[str(que) + "_otherfield"] = {'type':'boolean', 'string':que_rec['comment_label'], 'views':{}}
                                 if que_rec['comment_field_type'] == 'char':
@@ -681,9 +682,10 @@ class survey_question_wiz(osv.osv_memory):
                                     etree.SubElement(xml_group, 'field', {'name': str(que) + "_other", 'nolabel':"1" ,'colspan':"4"})
                                     fields[str(que) + "_other"] = {'type': 'text', 'string': '', 'views':{}}
                     etree.SubElement(xml_form, 'separator', {'colspan': '4'})
-                    xml_group = etree.SubElement(xml_form, 'group', {'col': '5', 'colspan': '4'})
+                    xml_group = etree.SubElement(xml_form, 'group', {'col': '6', 'colspan': '4'})
                     etree.SubElement(xml_group, 'field', {'name': 'progress_bar_' + str(page_number) , 'widget':'progressbar'})
                     fields['progress_bar_' + str(page_number)] = {'type':'int', 'string':"Progress", 'views':{}}
+                    etree.SubElement(xml_group, 'label', {'string': str(page_number+ 1) + "/" + str(total_pages)})
                     etree.SubElement(xml_group, 'button', {'icon': "gtk-cancel", 'special': "cancel",'string':"Cancel"})
                     if pre_button:
                         etree.SubElement(xml_group, 'button', {'colspan':"1",'icon':"gtk-go-back",'name':"action_previous",'string':"Previous",'type':"object"})

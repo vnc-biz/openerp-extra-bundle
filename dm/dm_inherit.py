@@ -107,6 +107,9 @@ class res_partner(osv.osv):#{{{
             return res
         # END def id_get.
 
+        if  context is None:
+            context = {}
+
         if 'category_xml_id' in context and context['category_xml_id']:
             cat_id = id_get(cr, 'res.partner.category', context['category_xml_id'], 'dm')
 

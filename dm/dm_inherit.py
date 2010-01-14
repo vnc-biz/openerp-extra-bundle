@@ -95,6 +95,32 @@ class res_partner(osv.osv):#{{{
             return [id_cat]
         return []
 
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        def id_get(cr, model, id_str, mod):
+            if '.' in id_str:
+                mod, id_str = id_str.split('.')
+            try:
+                idn = self.pool.get('ir.model.data')._get_id(cr, uid, mod, id_str)
+                res = int(self.pool.get('ir.model.data').read(cr, uid, [idn], ['res_id'])[0]['res_id'])
+            except Exception, e:
+                res = None
+            return res
+        # END def id_get.
+
+        if 'category_xml_id' in context and context['category_xml_id']:
+            cat_id = id_get(cr, 'res.partner.category', context['category_xml_id'], 'dm')
+
+            if cat_id is not None:
+                old_args = args
+                args = []
+                for arg in old_args:
+                    if arg[0] == 'category_id':
+                        arg = ['category_id', 'in', [cat_id]]
+                    args.append(arg)
+
+        res = super(res_partner, self).search(cr, uid, args, offset=offset, limit=limit, order=order, context=context, count=count)
+        return res
+
 #    def _default_all_country(self, cr, uid, context={}):
 #        id_country = self.pool.get('res.country').search(cr,uid,[])
 #        return id_country

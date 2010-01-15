@@ -41,22 +41,6 @@
             </field>
         </record>
 
-       <record model="ir.ui.view" id="view_company_dom_form">
-            <field name="name">res.company.inherit.dom</field>
-            <field name="type">form</field>
-            <field name="model">res.company</field>
-            <field name="inherit_id" ref="base.view_company_form"/>
-            <field name="arch" type="xml">
-                <notebook position="inside">
-               		<page string="Dom80 Export">
-	               		<field name="id_sender" colspan="4"/>
-	                    <field name="id_creditor" colspan="4"/>
-                    </page>
-                </notebook>
-            </field>
-        </record>
-
-
 
 <!-- Partner object view (inherited) -->
         <record model="ir.ui.view" id="view_partner_domicile_form">

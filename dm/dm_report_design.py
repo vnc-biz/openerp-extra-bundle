@@ -75,7 +75,7 @@ def merge_message(cr, uid, keystr, context): # {{{
             return str("!!!Missing-Plugin-Value!!!")
         return result
     com = re.compile('(\[\[.+?\]\])')
-    context['plugin_list'] = map(lambda x:x[2:-2],com.findall(keystr))
+    context['plugin_list'] = map(lambda x:x[2:-2].strip(),com.findall(keystr))
     message = com.sub(merge, keystr)
     return message # }}}
     
@@ -107,7 +107,7 @@ def generate_internal_reports(cr, uid, report_type,
                        }
            attach_id = attachment_obj.create(cr,uid,attach_vals,{'not_index_context':True})
            return 'doc_done'
-        return report_data 
+        return [report_data]
     else:
         return 'wrong_report_type'# }}}
 
@@ -324,7 +324,7 @@ def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
             plugin_func = getattr(X, plugin_name)
             plugin_value = plugin_func(cr, uid, **args)
     return plugin_value or '!!!Missing-Plugin-Value!!!' # }}}
-    return plugin_value # }}}
+#    return plugin_value # }}}
 
 def generate_plugin_value(cr, uid, **args): # {{{
     if not 'document_id' in args and not args['document_id']:

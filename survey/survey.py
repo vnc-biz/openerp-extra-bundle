@@ -466,6 +466,7 @@ class survey_response_answer(osv.osv):
         'answer' : fields.char('Value', size =255),
         'value_choice' : fields.char('Value Choice', size =255),
         'comment' : fields.text('Notes'),
+        'comment_field' : fields.char('Comment', size = 255)
     }
 survey_response_answer()
 
@@ -625,7 +626,6 @@ class survey_question_wiz(osv.osv_memory):
                                col = "2"
                                colspan = "2"
                             xml_group = etree.SubElement(xml_group, 'group', {'col': tools.ustr(col), 'colspan': tools.ustr(colspan)})
-                            i=0
                             for row in ans_ids:
                                 etree.SubElement(xml_group, 'newline')
                                 etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_selection_" + tools.ustr(row['id']),'string':to_xml(tools.ustr(row['answer']))})
@@ -634,9 +634,8 @@ class survey_question_wiz(osv.osv_memory):
                                     selection.append((col['title'], col['title']))
                                 fields[tools.ustr(que) + "_selection_" + tools.ustr(row['id'])] = {'type':'selection', 'selection' : selection, 'string': "Answer"}
                                 if que_rec['comment_column']:
-                                   fields[tools.ustr(que) + "_comment_column"+tools.ustr(i)] = {'type':'char', 'size' : 255, 'string':tools.ustr(que_rec['column_name']), 'views':{}}
-                                   etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_comment_column"+tools.ustr(i)})
-                                   i+=1
+                                   fields[tools.ustr(que) + "_commentcolumn_"+tools.ustr(row['id']) + "_field"] = {'type':'char', 'size' : 255, 'string':tools.ustr(que_rec['column_name']), 'views':{}}
+                                   etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_commentcolumn_"+tools.ustr(row['id'])+ "_field"})
                         elif que_rec['type'] == 'matrix_of_choices_only_multi_ans':
                             xml_group = etree.SubElement(xml_group, 'group', {'col': '2', 'colspan': '2'})
                             for row in ans_ids:
@@ -790,11 +789,9 @@ class survey_question_wiz(osv.osv_memory):
             que_li = []
             resp_id_list = []
             for key, val in vals.items():
-                print key, val
                 que_id = key.split('_')[0]
                 if que_id not in que_li:
                     que_li.append(que_id)
-                    print que_id
                     que_rec = que_obj.read(cr, uid, [que_id], [])[0]
                     resp_id = resp_obj.create(cr, uid, {'question_id':que_id, 'date_create':datetime.datetime.now(), \
                          'state':'done','response_id' : response_id })
@@ -807,6 +804,7 @@ class survey_question_wiz(osv.osv_memory):
                     matrix_list = []
                     comment_field = False
                     comment_value = False
+                    response_list = [] 
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "otherfield" and key1.split('_')[0] == que_id:
                             comment_field = True
@@ -818,6 +816,7 @@ class survey_question_wiz(osv.osv_memory):
                             if len(key1.split('_')) > 2:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
                                 selected_value.append(val1)
+                                response_list.append(str(ans_create_id) + "_" + str(key1.split('_')[-1]))
                             else:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
@@ -911,11 +910,17 @@ class survey_question_wiz(osv.osv_memory):
                                 sur_name_read['store_ans'][resp_id].update({key1:True})
                             matrix_list.append(key1.split('_')[0] + '_' + key1.split('_')[1])
                             select_count += 1
-                        elif val1 and que_id == key1.split('_')[0]:
+                        elif val1 and que_id == key1.split('_')[0] and len(key1.split('_')) == 2:
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':resp_id, 'answer_id':key1.split('_')[-1], 'answer' : val1})
                             sur_name_read['store_ans'][resp_id].update({key1:val1})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                    for key,val in vals.items():
+                        if val and key.split('_')[1] == "commentcolumn" and key.split('_')[0] == que_id:
+                            for res_id in response_list:
+                                if key.split('_')[2] in res_id.split('_')[1]:
+                                    a = res_ans_obj.write(cr, uid, [res_id.split('_')[0]], {'comment_field':val})
+                                    sur_name_read['store_ans'][resp_id].update({key:val})
                     if comment_field and comment_value:
                         for res in resp_id_list:
                             sur_name_read['store_ans'].pop(res)
@@ -967,6 +972,7 @@ class survey_question_wiz(osv.osv_memory):
                 matrix_list = []
                 comment_field = False
                 comment_value = False
+                response_list = []
                 for key, val in vals.items():
                     ans_id_len = key.split('_')
                     if ans_id_len[0] == sur_name_read['store_ans'][update]['question_id']:
@@ -980,6 +986,7 @@ class survey_question_wiz(osv.osv_memory):
                             if len(key.split('_')) > 2:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':key.split('_')[-1], 'answer' : val})
                                 selected_value.append(val)
+                                response_list.append(str(ans_create_id) + "_" + str(key.split('_')[-1]))
                             else:
                                 ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id': val})
                             resp_obj.write(cr, uid, update, {'state': 'done'})
@@ -1073,12 +1080,19 @@ class survey_question_wiz(osv.osv_memory):
                                 sur_name_read['store_ans'][update].update({key:True})
                             matrix_list.append(key.split('_')[0] + '_' + key.split('_')[1])
                             select_count += 1
-                        elif val:
+                        elif val and len(key.split('_')) == 2:
                             resp_obj.write(cr, uid, update, {'state': 'done'})
                             ans_create_id = res_ans_obj.create(cr, uid, {'response_id':update, 'answer_id':ans_id_len[-1], 'answer' : val})
                             sur_name_read['store_ans'][update].update({key:val})
                             select_count += 1
                         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':sur_name_read['store_ans']})
+                for key,val in vals.items():
+                    if val and key.split('_')[1] == "commentcolumn" and key.split('_')[0] == sur_name_read['store_ans'][update]['question_id']:
+                        for res_id in response_list:
+                            if key.split('_')[2] in res_id.split('_')[1]:
+                                a = res_ans_obj.write(cr, uid, [res_id.split('_')[0]], {'comment_field':val})
+                                sur_name_read['store_ans'][update].update({key:val})
+
                 if comment_field and comment_value:
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question']  + "' " + tools.ustr(que_rec['make_comment_field_err_msg'])))
                 if que_rec['type'] == "rating_scale" and que_rec['rating_allow_one_column_require'] and len(selected_value) > len(list(set(selected_value))):

@@ -676,6 +676,7 @@
                     </group>
                     <field name="value_choice"/>
                     <label string="(Use Only Question Type is matrix_of_drop_down_menus)" align="0.0"/>
+                    <field name="comment_field"/>
                 </form>
             </field>
         </record>
@@ -689,6 +690,7 @@
                     <field name="answer_id"/>
                     <field name="answer" />
                     <field name="value_choice" />
+                    <field name="comment_field"/>
                 </tree>
             </field>
         </record>

@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+from tools.translate import _
+
 __all__ = [
     'get_period', 
     'get_bank_account',
@@ -184,14 +186,11 @@ def get_company_bank_account(pool, cursor, uid, account_number,
         ('partner_bank_id', '=', bank_account.id)
     ])
     if bank_settings_ids:
-        settings = bank_settings_obj.browse( cursor, uid, bank_settings_ids)[0]
+        settings = bank_settings_obj.browse(cursor, uid, bank_settings_ids)[0]
         results.journal_id = settings.journal_id
         results.default_debit_account_id = settings.default_debit_account_id
         results.default_credit_account_id = settings.default_credit_account_id
     return results
-
-import urllib, urllib2
-from BeautifulSoup import BeautifulSoup
 
 def get_iban_bic_NL(bank_acc):
     '''
@@ -200,6 +199,9 @@ def get_iban_bic_NL(bank_acc):
     banks operating in the Netherlands and will only convert Dutch local
     account numbers.
     '''
+    import urllib, urllib2
+    from BeautifulSoup import BeautifulSoup
+
     IBANlink = 'http://www.ibannl.org/iban_check.php'
     data = urllib.urlencode(dict(number=bank_acc, method='POST'))
     request = urllib2.Request(IBANlink, data)
@@ -251,7 +253,7 @@ def create_bank_account(pool, cursor, uid, partner_id,
         if country.code in sepa.IBAN.countries \
            and country.code in online_account_info \
            :
-            account_info = online_account_info[country.code](acc_number)
+            account_info = online_account_info[country.code](values.acc_number)
             if account_info and iban in account_info:
                 values.iban = iban = account_info.iban
                 values.state = 'iban'

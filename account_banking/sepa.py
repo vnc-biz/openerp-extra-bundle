@@ -44,23 +44,23 @@
 
 __all__ = ['IBAN']
 
-def modulo_97_base10(buffer):
+def modulo_97_base10(abuffer):
     '''
     Calculate the modulo 97 value of a string in base10
     '''
-    checksum = int(buffer[0])
-    for digit in buffer[1:]:
-        checksum *= 10;
+    checksum = int(abuffer[0])
+    for digit in abuffer[1:]:
+        checksum *= 10
         checksum += int(digit)
         checksum %= 97
     return checksum
 
-def base36_to_base10str(buffer):
+def base36_to_base10str(abuffer):
     '''
     Convert a base36 string value to a string of base10 digits.
     '''
     result = ''
-    for digit in buffer:
+    for digit in abuffer:
         if digit.isalpha():
             result += str(ord(digit) - 55)
         else:
@@ -121,6 +121,7 @@ class BBANFormat(object):
         self._nolz = nolz
     
     def __extract__(self, spec, value):
+        '''Extract the value based on the spec'''
         i = self._iban.find(spec)
         if i < 0:
             return ''
@@ -132,12 +133,15 @@ class BBANFormat(object):
         return self._nolz and result.lstrip('0') or result
 
     def bankcode(self, iban):
+        '''Return the bankcode'''
         return self.__extract__('B', iban)
 
     def branchcode(self, iban):
+        '''Return the branch code'''
         return self.__extract__('C', iban)
 
     def account(self, iban):
+        '''Return the account number'''
         if self._iban.find('N') >= 0:
             prefix = self.__extract__('N', iban).lstrip('0')
         else:
@@ -283,8 +287,8 @@ class IBAN(str):
             self.BBAN_format = self.BBAN_formats[self.countrycode]
 
     @classmethod
-    def create(cls, BIC=None, countrycode=None, BBAN=None, bankcode=None, branchcode=None,
-               account=None
+    def create(cls, BIC=None, countrycode=None, BBAN=None, bankcode=None,
+               branchcode=None, account=None
               ):
         '''
         Create a IBAN number from a BBAN and a country code. Optionaly create
@@ -311,8 +315,8 @@ class IBAN(str):
 
         if BBAN:
             if len(BBAN) == len(formats._iban):
-                iban = cls(countrycode + '00' + BBAN)
-                return cls(countrycode + iban.checksum + BBAN)
+                ibanno = cls(countrycode + '00' + BBAN)
+                return cls(countrycode + ibanno.checksum + BBAN)
             raise ValueError, \
                     'Insufficient data to generate IBAN'
 
@@ -321,8 +325,8 @@ class IBAN(str):
         '''
         Check if the string + check digits deliver a valid checksum
         '''
-        buffer = self[4:] + self[:4]
-        return int(base36_to_base10str(buffer)) % 97 == 1
+        _buffer = self[4:] + self[:4]
+        return int(base36_to_base10str(_buffer)) % 97 == 1
 
     def __repr__(self):
         '''
@@ -348,9 +352,9 @@ class IBAN(str):
         NOTE: This is the responsability of the banks. No guaranties whatsoever
         that this delivers usable IBAN accounts. Mind your money!
         '''
-        buffer = self[4:] + self[:2] + '00'
-        buffer = base36_to_base10str(buffer)
-        return '%.2d' % (98 - modulo_97_base10(buffer))
+        _buffer = self[4:] + self[:2] + '00'
+        _buffer = base36_to_base10str(_buffer)
+        return '%.2d' % (98 - modulo_97_base10(_buffer))
 
     @property
     def checkdigits(self):
@@ -361,10 +365,16 @@ class IBAN(str):
 
     @property
     def countrycode(self):
+        '''
+        Return the ISO country code
+        '''
         return self[:2]
 
     @property
     def bankcode(self):
+        '''
+        Return the bank code
+        '''
         return self.BBAN_format.bankcode(self)
 
     @property
@@ -387,6 +397,9 @@ class IBAN(str):
 
     @property
     def branchcode(self):
+        '''
+        Return the branch code
+        '''
         return self.BBAN_format.branchcode(self)
 
     @property
@@ -395,8 +408,10 @@ class IBAN(str):
         Localized format of local or Basic Bank Account Number, aka BBAN
         '''
         if self.countrycode == 'TR':
-            raise NotImplementedError, \
-                'The Turkish BBAN requires information that is not in the IBAN number.'
+            raise NotImplementedError, (
+                'The Turkish BBAN requires information that is not in the '
+                'IBAN number.'
+            )
         return self.BBAN_format.BBAN(self)
 
     @property

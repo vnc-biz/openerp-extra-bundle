@@ -27,7 +27,6 @@ import pooler
 import time
 import wizard
 import base64
-from osv import osv
 from tools import config
 from tools.translate import _
 from account_banking.parsers import models
@@ -116,7 +115,7 @@ def _link_invoice(pool, cursor, uid, trans, move_lines,
            manually correct the wrong assumptions. 
     '''
     # First on partner
-    candidates = filter(lambda x, y=partner_id: x.partner_id.id == y, move_lines)
+    candidates = [x for x in move_lines if x.partner_id.id == partner_id]
 
     # Next on reference/invoice number. Mind that this uses the invoice
     # itself, as the move_line references have been fiddled with on invoice
@@ -124,14 +123,12 @@ def _link_invoice(pool, cursor, uid, trans, move_lines,
     # reference instead of the other way around, as most human interventions
     # *add* text.
     if not candidates:
-        candidates = filter(lambda x, y=trans.reference.upper(),
-                                      z=trans.message.upper():
-                                x.invoice and (
-                                    x.invoice.number.upper() in y or
-                                    x.invoice.number.upper() in z
-                                ),
-                            move_lines
-                           )
+        ref = trans.reference.upper()
+        msg = trans.message.upper()
+        candidates = [x for x in move_lines 
+                      if x.invoice.number.upper() in ref or
+                         x.invoice.number.upper() in msg
+                     ]
 
     if len(candidates) > 1:
         # TODO: currency coercing
@@ -142,7 +139,7 @@ def _link_invoice(pool, cursor, uid, trans, move_lines,
         else:
             func = lambda x, y=abs(trans.transferred_amount), z=digits:\
                     round(x.credit, z) == round(y, z)
-        best = filter(func, move_lines)
+        best = [x for x in move_lines if func(x)]
         if len(best) != 1:
             log.append(
                 _('Unable to link transaction %(trans)s to invoice: '
@@ -205,7 +202,9 @@ def _banking_import_statements_file(self, cursor, uid, data, context):
     company = form['company']
     if not company:
         user_data = user_obj.browse(cursor, uid, uid, context)
-    company = company_obj.browse(cursor, uid, company or user_data.company_id.id, context)
+    company = company_obj.browse(
+        cursor, uid, company or user_data.company_id.id, context
+    )
 
     # Parse the file
     statements = parser.parse(data)
@@ -254,9 +253,9 @@ def _banking_import_statements_file(self, cursor, uid, data, context):
                 ('active', '=', True),
                 ('company_id', '=', False),
             ])
-        # Get all unreconciled moves predating the last statement in one big swoop
-        # Assumption: the statements in the file are sorted in ascending order of
-        #             date.
+        # Get all unreconciled moves predating the last statement in one big
+        # swoop. Assumption: the statements in the file are sorted in ascending
+        # order of date.
         move_line_ids = move_line_obj.search(cursor, uid, [
             ('reconcile_id', '=', False),
             ('journal_id', 'in', journal_ids),
@@ -450,7 +449,7 @@ def _banking_import_statements_file(self, cursor, uid, data, context):
                   "AND id IN (%s)"
                ")" % (
                    time.strftime('%Y-%m-%d'),
-                   ','.join(map(str, payment_line_ids))
+                   ','.join([str(x) for x in payment_line_ids])
                )
         )
     report = [
@@ -529,8 +528,15 @@ result_fields = dict(
 )
 
 class banking_import(wizard.interface):
+    '''
+    Wizard to import bank statements. Generic code, parsing is done in the
+    parser modules.
+    '''
 
     def _action_open_window(self, cursor, uid, data, context):
+        '''
+        Open a window with the resulting bank statements
+        '''
         # TODO: this needs fiddling. The resulting window is informative,
         # but not very usefull...
         form = data['form']

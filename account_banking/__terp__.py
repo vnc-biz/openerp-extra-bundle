@@ -28,9 +28,9 @@
     'version': '0.1',
     'license': 'GPL-3',
     'author': 'EduSense BV',
+    'website': 'http://www.edusense.nl',
     'category': 'Account Banking',
-    'depends': ['base', 'base_iban', 'account', 'account_payment',
-                'BeautifulSoup'],
+    'depends': ['base', 'base_iban', 'account', 'account_payment'],
     'init_xml': [],
     'update_xml': [
         #'security/ir.model.access.csv',
@@ -38,8 +38,12 @@
         'account_banking_view.xml',
         'account_banking_workflow.xml',
     ],
+    'demo_xml': [],
     'description': '''
     Module to do banking.
+
+    Note: This module is depending on BeautifulSoup when using the Dutch
+    online database. Make sure it is installed.
 
     This modules tries to combine all current banking import and export
     schemes. Rationale for this is that it is quite common to have foreign
@@ -68,7 +72,9 @@
       + National online databases can be used to convert BBAN's to IBAN's.
 
     * Adds dropin extensible import facility for bank communication in:
-      + MultiBank (NL) format transaction files,
+      - Drop-in input parser development.
+      - MultiBank (NL) format transaction files available as
+        account_banking_nl_multibank,
       - (todo) MT940 (Swift) format transaction files,
       - (todo) CODA (BE) format transaction files,
       - (wish) SEPA Credits (ISO 200022) messages,

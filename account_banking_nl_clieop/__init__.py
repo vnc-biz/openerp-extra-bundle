@@ -25,6 +25,6 @@
 #
 ##############################################################################
 import wizard
-import account_banking_clieop
+import account_banking_nl_clieop
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

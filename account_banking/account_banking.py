@@ -199,7 +199,7 @@ class account_bank_statement(osv.osv):
                     _('Please verify that an account is defined in the journal.'))
 
             for line in st.move_line_ids:
-                if line.state <> 'valid':
+                if line.state != 'valid':
                     raise osv.except_osv(_('Error !'),
                         _('The account entries lines are not in valid state.'))
 
@@ -303,7 +303,7 @@ class account_bank_statement(osv.osv):
                 for line in account_move_line_obj.browse(cursor, uid, [x.id for x in 
                         account_move_obj.browse(cursor, uid, move_id, context=context).line_id
                         ], context=context):
-                    if line.state <> 'valid':
+                    if line.state != 'valid':
                         raise osv.except_osv(
                             _('Error !'),
                             _('Account move line "%s" is not valid')
@@ -416,8 +416,9 @@ class account_bank_statement_line(osv.osv):
         users_obj = self.pool.get('res.users')
         partner_obj = self.pool.get('res.partner')
         
-        company_currency_id = users_obj.browse(cursor, uid, uid, context=context)\
-                .company_id.currency_id.id
+        company_currency_id = users_obj.browse(
+                cursor, uid, uid, context=context
+            ).company_id.currency_id.id
             
         if not currency_id:
             currency_id = company_currency_id
@@ -433,7 +434,7 @@ class account_bank_statement_line(osv.osv):
             account_id = 0
             type = 'general'
 
-        return {'value': {'type': type , 'account_id': account_id}}
+        return {'value': {'type': type, 'account_id': account_id}}
 
     def write(self, cursor, uid, ids, values, context={}):
         # TODO: Not sure what to do with this, as it seems that most of

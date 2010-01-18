@@ -107,46 +107,46 @@ file_form = '''<?xml version="1.0"?>
 </form>'''
 
 file_fields = {
-    'testcode' : {
+    'testcode': {
         'string': 'Test Run',
         'type': 'selection',
         'selection': [('T', _('Yes')), ('P', _('No'))],
         'required': False,
         'readonly': True,
     },
-    'prefered_date' : {
+    'prefered_date': {
         'string': 'Prefered Processing Date',
         'type': 'date',
         'required': False,
         'readonly': True,
     },
-    'no_transactions' : {
+    'no_transactions': {
         'string': 'Number of Transactions',
         'type': 'int',
         'required': False,
         'readonly': True,
     },
-    'check_no_accounts' : {
+    'check_no_accounts': {
         'string': 'Check Number Accounts',
         'type': 'char',
         'size': 5,
         'required': False,
         'readonly': True,
     },
-    'total_amount' : {
+    'total_amount': {
         'string': 'Total Amount',
         'type': 'float',
         'required': False,
         'readonly': True,
     },
-    'identification' : {
+    'identification': {
         'string': 'Identification',
         'type': 'char',
         'size': 6,
         'required': False,
         'readonly': True,
     },
-    'filetype' : {
+    'filetype': {
         'string': 'File Type',
         'type': 'selection',
         'selection': [
@@ -157,13 +157,13 @@ file_fields = {
         'required': False,
         'readonly': True,
     },
-    'file' : {
+    'file': {
         'string': 'ClieOp File',
         'type': 'binary',
         'required': False,
         'readonly': True,
     },
-    'log' : {
+    'log': {
         'string': 'Log',
         'type': 'text',
         'readonly': True,
@@ -171,9 +171,11 @@ file_fields = {
 }
 
 def strpdate(arg, format='%Y-%m-%d'):
+    '''shortcut'''
     return datetime.strptime(arg, format).date()
 
 def strfdate(arg, format='%Y-%m-%d'):
+    '''shortcut'''
     return arg.strftime(format)
 
 def _check_orders(self, cursor, uid, data, context):
@@ -239,6 +241,9 @@ def _check_orders(self, cursor, uid, data, context):
     return form
 
 def _create_clieop(self, cursor, uid, data, context):
+    '''
+    Wizard to actually create the ClieOp3 file
+    '''
     pool = pooler.get_pool(cursor.dbname)
     payment_order_obj = pool.get('payment.order')
     form = data['form']
@@ -327,10 +332,10 @@ class wizard_banking_export_clieop(wizard.interface):
         'init': {
             'actions': [_check_orders],
             'result': {
-                'type' : 'form',
-                'arch' : form,
+                'type': 'form',
+                'arch': form,
                 'fields' : fields,
-                'state' : [
+                'state': [
                     ('end', 'Cancel', 'gtk-cancel'),
                     ('create', 'Create', 'gtk-ok'),
                 ]

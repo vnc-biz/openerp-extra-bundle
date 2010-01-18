@@ -76,6 +76,9 @@ class clieop_export(osv.osv):
             ], 'State', readonly=True),
     }
     def _get_daynr(self, cursor, uid, ids, context):
+        '''
+        Return highest day number
+        '''
         last = cursor.execute('SELECT max(daynumber) '
                               'FROM banking_export_clieop '
                               'WHERE date_generated = "%s"' % 

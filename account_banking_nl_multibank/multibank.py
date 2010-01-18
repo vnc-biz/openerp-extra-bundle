@@ -27,14 +27,17 @@ Dutch Banking Tools uses the concept of 'Afschrift' or Bank Statement.
 Every transaction is bound to a Bank Statement. As such, this module generates
 Bank Statements along with Bank Transactions.
 '''
-__all__ = ['parser']
-
 from account_banking.parsers import models
 from account_banking.parsers.convert import str2date
 from tools.translate import _
 import csv
 
+__all__ = ['parser']
+
 class transaction_message(object):
+    '''
+    A auxiliary class to validate and coerce read values
+    '''
     attrnames = [
         'date', 'local_account', 'remote_account', 'remote_owner', 'u1', 'u2',
         'u3', 'local_currency', 'start_balance', 'remote_currency',
@@ -63,6 +66,9 @@ class transaction_message(object):
         return accountno
 
     def __init__(self, values):
+        '''
+        Initialize own dict with attributes and coerce values to right type
+        '''
         self.__dict__.update(dict(zip(self.attrnames, values)))
         #self.local_account = self.clean_account(self.local_account)
         #self.remote_account = self.clean_account(self.remote_account)
@@ -72,12 +78,18 @@ class transaction_message(object):
         self.effective_date = str2date(self.effective_date, '%d-%m-%Y')
 
 class transaction(models.mem_bank_transaction):
+    '''
+    Implementation of transaction communication class for account_banking.
+    '''
     attrnames = ['remote_account', 'remote_currency', 'transferred_amount',
                  'execution_date', 'effective_date', 'transfer_type',
                  'reference', 'message'
                 ]
 
     def __init__(self, line, *args, **kwargs):
+        '''
+        Initialize own dict with read values.
+        '''
         super(transaction, self).__init__(*args, **kwargs)
         for attr in self.attrnames:
             setattr(self, attr, getattr(line, attr))
@@ -111,7 +123,13 @@ class transaction(models.mem_bank_transaction):
                     ])
 
 class statement(models.mem_bank_statement):
+    '''
+    Implementation of bank_statement communication class of account_banking
+    '''
     def __init__(self, msg, *args, **kwargs):
+        '''
+        Set decent start values based on first transaction read
+        '''
         super(statement, self).__init__(*args, **kwargs)
         self.id = msg.statement_id
         self.local_account = msg.local_account
@@ -120,6 +138,9 @@ class statement(models.mem_bank_statement):
         self.import_transaction(msg)
 
     def import_transaction(self, msg):
+        '''
+        Import a transaction and keep some house holding in the mean time.
+        '''
         trans = transaction(msg)
         self.end_balance += trans.transferred_amount
         self.transactions.append(trans)

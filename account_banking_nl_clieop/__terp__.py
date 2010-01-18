@@ -28,15 +28,17 @@
     'version': '0.1',
     'license': 'GPL-3',
     'author': 'EduSense BV',
+    'website': 'http://www.edusense.nl',
     'category': 'Account Banking',
     'depends': ['account_banking'],
     'init_xml': [],
     'update_xml': [
         #'security/ir.model.access.csv',
-        'account_banking_clieop.xml',
+        'account_banking_nl_clieop.xml',
         'account_banking_export_wizard.xml',
         'data/banking_export_clieop.xml',
     ],
+    'demo_xml': [],
     'description': '''
     Module to export payment orders in ClieOp format.
 

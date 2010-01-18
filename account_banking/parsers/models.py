@@ -19,6 +19,8 @@
 #
 ##############################################################################
 
+from tools.translate import _
+
 class mem_bank_statement(object):
     '''
     A mem_bank_statement is a real life projection of a bank statement paper
@@ -94,6 +96,9 @@ class mem_bank_transaction(object):
                 and self.transferred_amount and True) or False
 
 class parser_type(type):
+    '''
+    Meta annex factory class for house keeping and collecting parsers.
+    '''
     parsers = []
     parser_by_name = {}
     parser_by_code = {}
@@ -110,6 +115,9 @@ class parser_type(type):
 
     @classmethod
     def get_parser_types(cls, sort='name'):
+        '''
+        Return the parser class names, optional in sort order.
+        '''
         if sort == 'name':
             keys = cls.parser_by_name.keys()
             parsers = cls.parser_by_name
@@ -156,6 +164,8 @@ class parser(object):
         by your bank. Doing so enables the users to re-load old transaction
         files without creating multiple identical bank statements.
         '''
-        raise NotImplementedError(_('This is a stub. Please implement your own.'))
+        raise NotImplementedError(
+            _('This is a stub. Please implement your own.')
+        )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -28,12 +28,14 @@
     'version': '0.1',
     'license': 'GPL-3',
     'author': 'EduSense BV',
+    'website': 'http://www.edusense.nl',
     'category': 'Account Banking',
     'depends': ['account_banking'],
     'init_xml': [],
     'update_xml': [
         #'security/ir.model.access.csv',
     ],
+    'demo_xml': [],
     'description': '''
     Module to import Dutch Multibank format transation files.
 

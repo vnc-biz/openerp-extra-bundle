@@ -111,7 +111,7 @@ class survey_page(osv.osv):
         if context.has_key('line_order') and context['line_order']:
             if len(context['line_order'][-1]) > 2 and context['line_order'][-1][2].has_key('sequence'):
                 data['sequence'] = context['line_order'][-1][2]['sequence'] + 1
-        return data   
+        return data
 survey_page()
 
 class survey_question(osv.osv):
@@ -157,6 +157,7 @@ class survey_question(osv.osv):
                                      ('multiple_textboxes','Multiple Textboxes'),('comment','Comment/Essay Box'),
                                      ('numerical_textboxes','Numerical Textboxes'),('date','Date'),
                                      ('date_and_time','Date and Time'),('descriptive_text','Descriptive Text'),
+                                     ('table','Table'),
                                     ], 'Question Type',  required=1,),
         'comment_label' : fields.char('Field Label', size = 255),
         'comment_field_type' : fields.selection([('',''),('char', 'Single Line Of Text'), ('text', 'Paragraph of Text')], 'Comment Field Type'),
@@ -197,6 +198,7 @@ class survey_question(osv.osv):
         'in_visible_menu_choice':fields.boolean('Is Menu Choice Invisible?'),
         'comment_column':fields.boolean('Add comment column in matrix'),
         'column_name':fields.char('Column Name',size=256),
+        'no_of_rows' : fields.integer('No of Rows'),
     }
     _defaults = {
          'sequence' : lambda * a: 1,
@@ -247,7 +249,7 @@ class survey_question(osv.osv):
                         ans_len += 1
                     else:
                         ans_len -= 1
-            if que_type not in ['descriptive_text', 'single_textbox', 'comment']:
+            if que_type not in ['descriptive_text', 'single_textbox', 'comment','table']:
                 if not ans_len:
                     raise osv.except_osv(_('Error !'),_("You must enter one or more Answer."))
 
@@ -297,7 +299,7 @@ class survey_question(osv.osv):
         minimum_ans = 0
         maximum_ans = 0
         if vals.has_key('answer_choice_ids') and  not len(vals['answer_choice_ids']):
-            if vals.has_key('type') and vals['type'] not in ['descriptive_text', 'single_textbox', 'comment']:
+            if vals.has_key('type') and vals['type'] not in ['descriptive_text', 'single_textbox', 'comment','table']:
                 raise osv.except_osv(_('Error !'),_("You must enter one or more answer."))
         if vals.has_key('column_heading_ids') and  not len(vals['column_heading_ids']):
             if vals.has_key('type') and vals['type'] in ['matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
@@ -329,8 +331,8 @@ class survey_question(osv.osv):
         if context.has_key('line_order') and context['line_order']:
             if len(context['line_order'][-1]) > 2 and context['line_order'][-1][2].has_key('sequence'):
                 data['sequence'] = context['line_order'][-1][2]['sequence'] + 1
-        return data    
-    
+        return data
+
 survey_question()
 
 class survey_question_column_heading(osv.osv):
@@ -405,8 +407,8 @@ class survey_answer(osv.osv):
         if context.has_key('line_order') and context['line_order']:
             if len(context['line_order'][-1]) > 2 and context['line_order'][-1][2].has_key('sequence'):
                 data['sequence'] = context['line_order'][-1][2]['sequence'] + 1
-        return data    
-    
+        return data
+
 survey_answer()
 
 class survey_response(osv.osv):
@@ -683,6 +685,14 @@ class survey_question_wiz(osv.osv_memory):
                         elif que_rec['type'] == 'comment':
                             etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_comment", 'nolabel':"1" ,'colspan':"4"})
                             fields[tools.ustr(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
+                        elif que_rec['type'] == 'table':
+                            xml_group = etree.SubElement(xml_group, 'group', {'col': str(len(que_rec['column_heading_ids'])), 'colspan': '4'})
+                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+                                etree.SubElement(xml_group, 'separator', {'string': to_xml(col['title']),'colspan': '1'})
+                            for row in range(0,que_rec['no_of_rows']):
+                                for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
+                                    etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) +"_"+ tools.ustr(row)+ to_xml(col['title']), 'nolabel':"1"})
+                                    fields[tools.ustr(que)+"_"+ tools.ustr(row)+to_xml(col['title'])] = {'type':'char','size':255,'views':{}}
                         if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                             if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans'] and que_rec['comment_field_type'] in ['char','text'] and que_rec['make_comment_field']:
                                 etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_otherfield", 'colspan':"4"})
@@ -780,9 +790,11 @@ class survey_question_wiz(osv.osv_memory):
             que_li = []
             resp_id_list = []
             for key, val in vals.items():
+                print key, val
                 que_id = key.split('_')[0]
                 if que_id not in que_li:
                     que_li.append(que_id)
+                    print que_id
                     que_rec = que_obj.read(cr, uid, [que_id], [])[0]
                     resp_id = resp_obj.create(cr, uid, {'question_id':que_id, 'date_create':datetime.datetime.now(), \
                          'state':'done','response_id' : response_id })

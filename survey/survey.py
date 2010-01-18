@@ -148,6 +148,7 @@ class survey_question(osv.osv):
         'survey' : fields.related('page_id', 'survey_id', type='many2one', relation='survey', string='Survey'),
         'descriptive_text' : fields.text('Descriptive Text', size=255),
         'column_heading_ids' : fields.one2many('survey.question.column.heading', 'question_id',' Column heading'),
+        'column_ids' : fields.one2many('survey.tbl.column.heading', 'question_id',' Column'),
         'type' : fields.selection([('multiple_choice_only_one_ans','Multiple Choice (Only One Answer)'),
                                      ('multiple_choice_multiple_ans','Multiple Choice (Multiple Answer)'),
                                      ('matrix_of_choices_only_one_ans','Matrix of Choices (Only One Answers Per Row)'),
@@ -334,6 +335,15 @@ class survey_question(osv.osv):
         return data
 
 survey_question()
+
+
+class survey_tbl_column_heading(osv.osv):
+    _name = 'survey.tbl.column.heading'
+    _columns = {
+        'name' : fields.char('Column', size=255),
+        'question_id' : fields.many2one('survey.question', 'Question', ondelete='cascade'),
+    }
+survey_tbl_column_heading()
 
 class survey_question_column_heading(osv.osv):
     _name = 'survey.question.column.heading'
@@ -563,6 +573,7 @@ class survey_question_wiz(osv.osv_memory):
             ans_obj = self.pool.get('survey.answer')
             response_obj = self.pool.get('survey.response.line')
             que_col_head = self.pool.get('survey.question.column.heading')
+            tbl_col = self.pool.get('survey.tbl.column.heading')
             p_id = sur_rec['page_ids']
             total_pages = len(p_id)
             pre_button = False
@@ -685,13 +696,13 @@ class survey_question_wiz(osv.osv_memory):
                             etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_comment", 'nolabel':"1" ,'colspan':"4"})
                             fields[tools.ustr(que) + "_comment"] = {'type':'text', 'string':"Comment/Eassy Box", 'views':{}}
                         elif que_rec['type'] == 'table':
-                            xml_group = etree.SubElement(xml_group, 'group', {'col': str(len(que_rec['column_heading_ids'])), 'colspan': '4'})
-                            for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
-                                etree.SubElement(xml_group, 'separator', {'string': to_xml(col['title']),'colspan': '1'})
+                            xml_group = etree.SubElement(xml_group, 'group', {'col': str(len(que_rec['column_ids'])), 'colspan': '4'})
+                            for col in tbl_col.read(cr, uid, que_rec['column_ids']):
+                                etree.SubElement(xml_group, 'separator', {'string': tools.ustr(col['name']),'colspan': '1'})
                             for row in range(0,que_rec['no_of_rows']):
-                                for col in que_col_head.read(cr, uid, que_rec['column_heading_ids']):
-                                    etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) +"_"+ tools.ustr(row)+ to_xml(col['title']), 'nolabel':"1"})
-                                    fields[tools.ustr(que)+"_"+ tools.ustr(row)+to_xml(col['title'])] = {'type':'char','size':255,'views':{}}
+                                for col in tbl_col.read(cr, uid, que_rec['column_ids']):
+                                    etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) +"_"+ tools.ustr(row)+ tools.ustr(col['name']), 'nolabel':"1"})
+                                    fields[tools.ustr(que)+"_"+ tools.ustr(row)+tools.ustr(col['name'])] = {'type':'char','size':255,'views':{}}
                         if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'matrix_of_choices_only_one_ans', 'matrix_of_choices_only_multi_ans', 'matrix_of_drop_down_menus', 'rating_scale']:
                             if que_rec['type'] in ['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans'] and que_rec['comment_field_type'] in ['char','text'] and que_rec['make_comment_field']:
                                 etree.SubElement(xml_group, 'field', {'name': tools.ustr(que) + "_otherfield", 'colspan':"4"})
@@ -804,7 +815,7 @@ class survey_question_wiz(osv.osv_memory):
                     matrix_list = []
                     comment_field = False
                     comment_value = False
-                    response_list = [] 
+                    response_list = []
                     for key1, val1 in vals.items():
                         if val1 and key1.split('_')[1] == "otherfield" and key1.split('_')[0] == que_id:
                             comment_field = True

@@ -109,6 +109,23 @@ class survey_form(report_rml):
               <blockValign value="TOP"/>
               <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
             </blockTableStyle>
+            <blockTableStyle id="Table4">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="4,-1" stop="4,-1"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="5,-1" stop="5,-1"/>
+            </blockTableStyle>
+            <blockTableStyle id="Table5">
+              <blockAlignment value="LEFT"/>
+              <blockValign value="TOP"/>
+              <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+              <!--lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+              <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,0" stop="-1,-1"/-->
+            </blockTableStyle>
             <initialize>
               <paraStyle name="all" alignment="justify"/>
             </initialize>
@@ -121,6 +138,8 @@ class survey_form(report_rml):
             <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
             <paraStyle name="comment" fontName="Helvetica" fontSize="14.0" leading="50" spaceBefore="0.0" spaceAfter="0.0"/>
             <paraStyle name="P1" fontName="Helvetica" fontSize="9.0" leading="12" spaceBefore="0.0" spaceAfter="1.0"/>
+            <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+            <paraStyle name="terp_default_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
         </stylesheet>
         <story>
         """
@@ -347,6 +366,29 @@ class survey_form(report_rml):
                                     </illustration>
                                 </td>
                             </tr>
+                        </blockTable>
+                        """
+                    elif que.type in ['table']:
+                        tbl_width = float(_tbl_widths.replace('cm',''))
+                        for i in range(0,len(que.column_ids)):
+                            cols_widhts.append(tbl_width/float(len(que.column_ids)))
+                        colWidths = "cm,".join(map(tools.ustr, cols_widhts))
+                        colWidths = colWidths+'cm'
+                        rml+="""
+                        <blockTable colWidths=" """ + colWidths + """ " style="Table4"><tr>"""
+                        for col in que.column_ids:
+                            rml+="""<td><para style="terp_tblheader_Details">""" + tools.ustr(col.name) + """</para></td>"""
+                        rml+="""</tr></blockTable>
+                        <blockTable colWidths=" """ + colWidths + """ " style="Table5">"""
+                        for r in range(0,que.no_of_rows):
+                            rml+="""
+                            <tr>"""
+                            for c in que.column_ids:
+                               rml+="""
+                                <td><para style="terp_default_9"><font color="white"> </font></para></td>"""
+                            rml+="""
+                            </tr>"""
+                        rml+="""
                         </blockTable>
                         """
                 if datas.has_key('form') and not datas['form']['without_pagebreak']:

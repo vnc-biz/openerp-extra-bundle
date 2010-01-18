@@ -142,17 +142,17 @@
             <field name="domain">[('user_id','=',uid)]</field>
         </record>
         
-        <menuitem id="menu_stock_manual_plannification" name="Plannification" parent="stock.menu_stock_root"/>
+        <menuitem id="menu_stock_manual_plannification" name="Procurement Forecast" parent="stock.menu_stock_root"/>
         
         <menuitem id="menu_stock_prevision" name="Sales Forecasts" parent="sale.menu_sale_root"/>
         
         <menuitem id="menu_stock_prevision_all" name="All Sales Forecasts" parent="menu_stock_prevision" action="action_view_stock_planning_prevision_form"/>
         
-         <menuitem id="menu_stock_prevision_current" name="Sales Previsions of Current Period" parent="menu_stock_prevision_all" action="action_view_stock_planning_prevision_form"/>
+         <menuitem id="menu_stock_prevision_current" name="Sales Forecast of Current Period" parent="menu_stock_prevision_all" action="action_view_stock_planning_prevision_form"/>
          
         <menuitem id="menu_stock_prevision_my" name="My Sales Forecasts" parent="menu_stock_prevision" action="action_view_stock_planning_prevision_form_my"/>
         
-        <menuitem id="menu_stock_prevision_my_current" name="My Previsions of Current Period" parent="menu_stock_prevision_my" action="action_view_stock_planning_prevision_form"/>
+        <menuitem id="menu_stock_prevision_my_current" name="My Forecasts of Current Period" parent="menu_stock_prevision_my" action="action_view_stock_planning_prevision_form"/>
         
         <record id="view_stock_planning_form" model="ir.ui.view">
             <field name="name">stock.planning.form</field>
@@ -160,22 +160,30 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Stock Planning">
-                    <field name="period_id" select="1"/>
-                    <field name="product_id" select="1" on_change="product_id_change(product_id,product_uom)" />
-                    <field name="product_uom" on_change="product_id_change(product_id,product_uom)" />
-                    <field name="planned_outgoing"/>
-                    <field name="stock_start" string="Stock"/>
-                    <field name="incoming" string="Confirmed In"/>
-                    <field name="incoming_left"/>
-                    <field name="to_procure"/>
-                    <field name="outgoing_left"/>
-                    <field name="outgoing"/>
-                    <field name="planned_sale"/>
-                    <field name="warehouse_id"/>
-                    <group col="10" colspan="4">
-                        <field name="state"/>
-                        <button name="procure_incomming_left" states="draft" string="Procure Incoming Left" type="object"/>
-                    </group> 
+                	<separator string="Product Information" colspan="4"/> 
+                	<group colspan="4">
+                    	<field name="period_id" select="1"/>
+                    	<field name="warehouse_id"/>
+                    	<field name="product_id" select="1" on_change="product_id_change(product_id,product_uom)" />
+                    	<field name="product_uom" on_change="product_id_change(product_id,product_uom)" />
+                    </group>
+                    <separator string="Forecast" colspan="4"/>
+                    <group colspan="4" col="6">
+	                    <field name="planned_sale"/>
+                    	<field name="stock_start"/>
+                    	<newline/>					
+	                    <field name="planned_outgoing"/>
+	                    <field name="outgoing"/>
+	                    <field name="outgoing_left"/>
+	                    <field name="to_procure"/>
+	                    <field name="incoming"/>
+	                    <field name="incoming_left"/>
+                    	<newline/>
+					</group>
+					<separator colspan="4"/>
+                    <field name="state"/>
+                    <button name="procure_incomming_left" states="draft" 
+                    	confirm="Are you sure you want to create a Procurement Order using 'Delta In' quantity, for the given Warehouse?" string="Procure Delta In" type="object"/>
                 </form>
             </field>
         </record>
@@ -188,14 +196,14 @@
                     <field name="period_id" select="1"/>
                     <field name="product_id" select="1" on_change="product_id_change(product_id,product_uom)" />
                     <field name="product_uom" on_change="product_id_change(product_id,product_uom)" />
-                    <field name="stock_start" string="Stock"/>
+                    <field name="stock_start" string="Stock Simulation"/>
+                    <field name="planned_sale"/>
+                    <field name="planned_outgoing"/>
+                    <field name="outgoing" />
+                    <field name="outgoing_left"/>
+                    <field name="to_procure"/>
                     <field name="incoming" string="Confirmed In"/>
                     <field name="incoming_left"/>
-                    <field name="to_procure"/>
-                    <field name="outgoing_left"/>
-                    <field name="outgoing" />
-                    <field name="planned_outgoing" string="Planned Out"/>
-                    <field name="planned_sale"/>
                     <field name="line_time"/>
                     <field name="state"/>
                 </tree>

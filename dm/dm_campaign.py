@@ -216,8 +216,8 @@ class dm_campaign(osv.osv): #{{{
         'journal_id': fields.many2one('account.journal', 'Payment Methods', domain="[('type','=','cash')]"),
         'mail_service_ids': fields.one2many('dm.campaign.mail_service',
                                             'campaign_id', 'Mailing Service'),
-        'camp_date_start': fields.datetime('Campaign Start Date'),
-        'camp_date_end': fields.datetime('Campaign End Date')
+        'camp_date_start': fields.date('Campaign Start Date'),
+        'camp_date_end': fields.date('Campaign End Date')
     }
 
     _defaults = {
@@ -664,8 +664,8 @@ class dm_campaign_proposition(osv.osv): #{{{
         'keep_prices': fields.boolean('Keep Prices At Duplication'),
         'manufacturing_costs': fields.float('Manufacturing Costs', digits=(16, 2)),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
-        'camp_pro_date_start': fields.datetime('Campaign Proposition Start Date'),
-        'camp_pro_date_end': fields.datetime('Campaign Proposition End Date')
+        'camp_pro_date_start': fields.date('Campaign Proposition Start Date'),
+        'camp_pro_date_end': fields.date('Campaign Proposition End Date')
     }
 
     _defaults = {

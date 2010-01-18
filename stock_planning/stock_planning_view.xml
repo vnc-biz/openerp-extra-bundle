@@ -30,7 +30,7 @@
             <field name="target">new</field>
         </record>
         
-        <menuitem id="menu_stock_planning_period" name="Create Sales Periods" parent="sale.menu_shop_configuration" action="action_stock_planning_period_form"/>
+        <menuitem id="menu_stock_planning_period" name="Create Sales Periods" parent="base.menu_base_config" action="action_stock_planning_period_form"/>
         
         <record id="view_stock_period_form" model="ir.ui.view">
             <field name="name">stock.period.form</field>
@@ -68,7 +68,7 @@
         </record>
         <menuitem
             id="menu_stock_period"
-            parent="sale.menu_shop_configuration"
+            parent="base.menu_base_config"
             action="action_stock_period_form"/>
         
         
@@ -144,7 +144,7 @@
         
         <menuitem id="menu_stock_manual_plannification" name="Procurement Forecast" parent="stock.menu_stock_root"/>
         
-        <menuitem id="menu_stock_prevision" name="Sales Forecasts" parent="sale.menu_sale_root"/>
+        <menuitem id="menu_stock_prevision" name="Sales Forecasts" parent="base.menu_sales"/>
         
         <menuitem id="menu_stock_prevision_all" name="All Sales Forecasts" parent="menu_stock_prevision" action="action_view_stock_planning_prevision_form"/>
         

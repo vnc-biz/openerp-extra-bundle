@@ -219,6 +219,31 @@
 	</data>
 
 	<data>
+		<record id="survey_question_9" model="survey.question">
+			<field name="validation_type">do_not_validate</field>
+			<field name="comment_valid_type">do_not_validate</field>
+			<field name="make_comment_field_err_msg">Please enter a comment.</field>
+			<field name="numeric_required_sum_err_msg">The choices need to add up to [enter sum here].</field>
+			<field eval="0" name="comment_column"/>
+			<field name="validation_valid_err_msg">The comment you entered is in an invalid format.</field>
+			<field eval="0" name="rating_allow_one_column_require"/>
+			<field name="req_error_msg">This question requires an answer.</field>
+			<field eval="4" name="sequence"/>
+			<field name="question">WORK PLAN</field>
+			<field eval="0" name="is_require_answer"/>
+			<field name="type">table</field>
+			<field name="comment_valid_err_msg">The comment you entered is in an invalid format.</field>
+			<field eval="0" name="make_comment_field"/>
+			<field eval="0" name="in_visible_menu_choice"/>
+			<field name="page_id" ref="survey_page_5"/>
+			<field name="comment_label">Other</field>
+			<field eval="0" name="in_visible_rating_weight"/>
+			<field eval="0" name="allow_comment"/>
+			<field eval="5" name="no_of_rows"/>
+		</record>
+	</data>
+
+	<data>
 		<record id="survey_question_10" model="survey.question">
 			<field name="validation_type">do_not_validate</field>
 			<field name="comment_valid_type">do_not_validate</field>
@@ -1123,13 +1148,30 @@
 		</record>
 	</data>
 
-
-
 	<data>
 		<record id="survey_answer_98" model="survey.answer">
 			<field name="answer">Title</field>
 			<field name="question_id" ref="survey_question_2"/>
 			<field eval="6" name="sequence"/>
+		</record>
+	</data>
+
+	<data>
+		<record id="survey_tbl_column_heading_objectives0" model="survey.tbl.column.heading">
+			<field name="name">Objectives</field>
+			<field name="question_id" ref="survey_question_9"/>
+		</record>
+	</data>
+	<data>
+		<record id="survey_tbl_column_heading_results0" model="survey.tbl.column.heading">
+			<field name="name">Results</field>
+			<field name="question_id" ref="survey_question_9"/>
+		</record>
+	</data>
+	<data>
+		<record id="survey_tbl_column_heading_comments0" model="survey.tbl.column.heading">
+			<field name="name">Comments</field>
+			<field name="question_id" ref="survey_question_9"/>
 		</record>
 	</data>
 </openerp>

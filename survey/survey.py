@@ -111,7 +111,28 @@ class survey_page(osv.osv):
         if context.has_key('line_order') and context['line_order']:
             if len(context['line_order'][-1]) > 2 and context['line_order'][-1][2].has_key('sequence'):
                 data['sequence'] = context['line_order'][-1][2]['sequence'] + 1
+        if context.has_key('survey_id'):
+            data['survey_id'] = context['survey_id']
         return data
+
+    def survey_save(self, cr, uid, ids, context):
+        search_obj = self.pool.get('ir.ui.view')
+        search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
+
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page_no' : context['page_number'] })
+        
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question.wiz',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'search_view_id':search_id[0],
+                'context': context
+                }
+
+    
 survey_page()
 
 class survey_question(osv.osv):
@@ -121,6 +142,8 @@ class survey_question(osv.osv):
     _order = 'sequence'
 
     def _calc_response(self, cr, uid, ids, field_name, arg, context):
+        if len(ids) == 0:
+            return {}
         val = {}
         cr.execute("select question_id, count(id) as Total_response from survey_response_line where state='done' and question_id in (%s) group by question_id" % ",".join(map(str, map(int, ids))))
         ids1 = copy.deepcopy(ids)
@@ -326,12 +349,32 @@ class survey_question(osv.osv):
 
         res = super(survey_question, self).create(cr, uid, vals, context)
         return res
+    
+    def survey_save(self, cr, uid, ids, context):
+        search_obj = self.pool.get('ir.ui.view')
+        search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
 
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page_no' : context['page_number'] })
+        
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question.wiz',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'search_view_id':search_id[0],
+                'context': context
+                }
+
+    
     def default_get(self, cr, uid, fields, context={}):
         data = super(survey_question, self).default_get(cr, uid, fields, context)
         if context.has_key('line_order') and context['line_order']:
             if len(context['line_order'][-1]) > 2 and context['line_order'][-1][2].has_key('sequence'):
                 data['sequence'] = context['line_order'][-1][2]['sequence'] + 1
+        if context.has_key('page_id'):
+            data['page_id']= context['page_id']
         return data
 
 survey_question()
@@ -425,7 +468,7 @@ class survey_response(osv.osv):
     _name = "survey.response"
     _rec_name = 'date_create'
     _columns = {
-        'survey_id' : fields.many2one('survey', 'Survey', required=1),
+        'survey_id' : fields.many2one('survey', 'Survey', required=1, ondelete='cascade'),
         'date_create' : fields.datetime('Create Date', required=1),
         'user_id' : fields.many2one('res.users', 'User'),
         'response_type' : fields.selection([('manually', 'Manually'), ('link', 'Link')], 'Response Type', required=1),
@@ -522,18 +565,19 @@ class survey_name_wiz(osv.osv_memory):
         sur_id = self.read(cr, uid, ids, [])[0]
         survey_id = sur_id['survey_id']
         context.update({'survey_id' : survey_id, 'sur_name_id' : sur_id['id']})
-        cr.execute('select count(id) from survey_history where user_id=%s\
-                    and survey_id=%s' % (uid,survey_id))
-        res = cr.fetchone()[0]
-        user_limit = self.pool.get('survey').read(cr, uid, survey_id, ['response_user'])['response_user']
-        if user_limit and res >= user_limit:
-            raise osv.except_osv(_('Warning !'),_("You can not give response for this survey more than %s times") % (user_limit))
-        his_id = self.pool.get('survey.history').create(cr, uid, {'user_id': uid, \
-                                          'date': strftime('%Y-%m-%d %H:%M:%S'),\
-                                          'survey_id': survey_id})
-        survey_obj = self.pool.get('survey')
-        sur_rec = survey_obj.read(cr,uid,self.read(cr,uid,ids)[0]['survey_id'])
-        survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})
+        if not context.has_key('active'):
+            cr.execute('select count(id) from survey_history where user_id=%s\
+                        and survey_id=%s' % (uid,survey_id))
+            res = cr.fetchone()[0]
+            user_limit = self.pool.get('survey').read(cr, uid, survey_id, ['response_user'])['response_user']
+            if user_limit and res >= user_limit:
+                raise osv.except_osv(_('Warning !'),_("You can not give response for this survey more than %s times") % (user_limit))
+            his_id = self.pool.get('survey.history').create(cr, uid, {'user_id': uid, \
+                                              'date': strftime('%Y-%m-%d %H:%M:%S'),\
+                                              'survey_id': survey_id})
+            survey_obj = self.pool.get('survey')
+            sur_rec = survey_obj.read(cr,uid,self.read(cr,uid,ids)[0]['survey_id'])
+            survey_obj.write(cr, uid, survey_id, {'tot_start_survey' : sur_rec['tot_start_survey'] + 1})
 
         search_obj = self.pool.get('ir.ui.view')
         search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
@@ -581,7 +625,7 @@ class survey_question_wiz(osv.osv_memory):
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
             page_number = int(sur_name_rec['page_no'])
-            if sur_name_read['transfer'] or not sur_name_rec['page_no'] + 1 :
+            if sur_name_read['transfer'] or not sur_name_rec['page_no'] :
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':False})
                 flag = False
                 if sur_name_read['page'] == "next" or sur_name_rec['page_no'] == - 1 :
@@ -614,9 +658,19 @@ class survey_question_wiz(osv.osv_memory):
                         que_rec = que_obj.read(cr, uid, que)
                         descriptive_text = ""
                         separator_string = tools.ustr(qu_no) + "." + tools.ustr(que_rec['question'])
-                        xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '4'})
-                        etree.SubElement(xml_group, 'separator', {'string': to_xml(separator_string), 'colspan': '4'})
+                        
+                        xml_group = etree.SubElement(xml_form, 'group', {'col': '2', 'colspan': '4'})
+                        xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '2'})
+
+                        etree.SubElement(xml_group, 'separator', {'string': to_xml(separator_string), 'colspan': '3'})
+
+                        if context.has_key('active') and context.has_key('edit'):
+                            xml_group1 = etree.SubElement(xml_form, 'group', {'col': '2', 'colspan': '2'})
+                            context.update({'question_id' : tools.ustr(que),'page_number' : sur_name_rec['page_no'] , 'transfer' : sur_name_read['transfer'], 'page_id' : p_id})
+                            etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-edit", 'type' :'object','name':"action_edit_question", 'context' : tools.ustr(context)})                            
+                            etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-delete", 'type' :'object','name':"action_delete_question", 'context' : tools.ustr(context)})
                         ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
+                        xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '4'})
                         if que_rec['type'] == 'multiple_choice_only_one_ans':
                             selection = []
                             for ans in ans_ids:
@@ -731,8 +785,17 @@ class survey_question_wiz(osv.osv_memory):
                     if pre_button:
                         etree.SubElement(xml_group, 'button', {'colspan':"1",'icon':"gtk-go-back",'name':"action_previous",'string':"Previous",'type':"object"})
                     etree.SubElement(xml_group, 'button', {'icon': "gtk-go-forward", 'name':"action_next",'string':"Next",'type':"object"})
+                    
+                    if context.has_key('active') and context.has_key('edit'):
+                        etree.SubElement(xml_form, 'separator', {'string' : '','colspan': '4'})
+                        context.update({'page_id' : tools.ustr(p_id),'page_number' : sur_name_rec['page_no'] , 'transfer' : sur_name_read['transfer']})
+                        xml_group3 = etree.SubElement(xml_form, 'group', {'col': '4', 'colspan': '4'})
+                        etree.SubElement(xml_group3, 'button', {'string' :'Add Page','icon': "gtk-new", 'type' :'object','name':"action_new_page", 'context' : tools.ustr(context)})
+                        etree.SubElement(xml_group3, 'button', {'string' :'Edit Page','icon': "gtk-edit", 'type' :'object','name':"action_edit_page", 'context' : tools.ustr(context)})
+                        etree.SubElement(xml_group3, 'button', {'string' :'Delete Page','icon': "gtk-delete", 'type' :'object','name':"action_delete_page", 'context' : tools.ustr(context)})
+                        etree.SubElement(xml_group3, 'button', {'string' :'Add Question','icon': "gtk-new", 'type' :'object','name':"action_new_question", 'context' : tools.ustr(context)})
+
                     root = xml_form.getroottree()
-                    root.write('/tmp/arch4.xml', pretty_print=True)
                     result['arch'] = etree.tostring(root)
                     result['fields'] = fields
                     result['context'] = context
@@ -1130,6 +1193,105 @@ class survey_question_wiz(osv.osv_memory):
                     raise osv.except_osv(_('Error re !'), _("'" + que_rec['question'] + "' " + tools.ustr(que_rec['req_error_msg'])))
         return True
 
+    def action_new_question(self,cr, uid, ids, context):
+        for key,val in context.items():
+            if type(key) == type(True):
+                context.pop(key)
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','survey.question'),('name','=','survey_question_wizard_test')])
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'view_id': view_id,
+                'context': context
+                }
+    
+    def action_new_page(self, cr, uid, ids, context):
+        for key,val in context.items():
+            if type(key) == type(True):
+                context.pop(key)
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','survey.page'),('name','=','survey_page_wizard_test')])
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.page',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'view_id': view_id,
+                'context': context
+                }
+        
+    def action_edit_page(self,cr, uid, ids, context):
+        for key,val in context.items():
+            if type(key) == type(True):
+                context.pop(key)
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','survey.page'),('name','=','survey_page_wizard_test')])
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.page',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'res_id' : int(context['page_id']),
+                'view_id': view_id,
+                'context': context
+                }
+
+    def action_delete_page(self,cr, uid, ids, context):
+        for key,val in context.items():
+            if type(key) == type(True):
+                context.pop(key)
+        self.pool.get('survey.page').unlink(cr, uid, [context['page_id']])
+        search_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page_no' : context['page_number'] })
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question.wiz',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'search_view_id':search_id[0],
+                'context': context
+                }
+
+    def action_edit_question(self,cr, uid, ids, context):
+        for key,val in context.items():
+            if type(key) == type(True):
+                context.pop(key)
+        view_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','survey.question'),('name','=','survey_question_wizard_test')])
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'res_id' : int(context['question_id']),
+                'view_id': view_id,
+                'context': context
+                }
+        
+    def action_delete_question(self,cr, uid, ids, context):
+        for key,val in context.items():
+            if type(key) == type(True):
+                context.pop(key)
+        que_obj = self.pool.get('survey.question')
+        que_obj.unlink(cr, uid, [context['question_id']])
+        search_id = self.pool.get('ir.ui.view').search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
+        surv_name_wiz = self.pool.get('survey.name.wiz')
+        surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page_no' : context['page_number'] })
+        return {
+                'view_type': 'form',
+                "view_mode": 'form',
+                'res_model': 'survey.question.wiz',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'search_view_id':search_id[0],
+                'context': context
+                }
+
     def action_next(self, cr, uid, ids, context=None):
         surv_name_wiz = self.pool.get('survey.name.wiz')
         search_obj = self.pool.get('ir.ui.view')
@@ -1159,6 +1321,7 @@ class survey_question_wiz(osv.osv_memory):
                 'search_view_id':search_id[0],
                 'context': context
                 }
+
 survey_question_wiz()
 
 class res_users(osv.osv):

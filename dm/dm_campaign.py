@@ -35,14 +35,18 @@ class dm_campaign_type(osv.osv): #{{{
         'code': fields.char('Code', size=16, translate=True, required=True),
         'description': fields.text('Description', translate=True),
     }
+
 dm_campaign_type()#}}}
+
 
 class account_analytic_account(osv.osv): # {{{
     _inherit = 'account.analytic.account'
     _columns = {
-        'code' : fields.char('Code',size=64),    
-	}    
+        'code': fields.char('Code', size=64),
+    }
+
 account_analytic_account() # }}}
+
 
 class dm_campaign(osv.osv): #{{{
     _name = "dm.campaign"
@@ -136,9 +140,9 @@ class dm_campaign(osv.osv): #{{{
         return result
 
     _columns = {
-        'offer_id': fields.many2one('dm.offer', 'Offer', 
+        'offer_id': fields.many2one('dm.offer', 'Offer',
                                     domain=[('state', 'in', ['ready', 'open']),
-                                ('type', 'in', ['new', 'standart', 'rewrite'])], 
+                                ('type', 'in', ['new', 'standart', 'rewrite'])],
                                 required=True,
                                 help="Choose the commercial offer to use with this campaign, only offers in ready to plan or open state can be assigned"),
         'country_id': fields.many2one('res.country', 'Country', required=True,
@@ -149,32 +153,32 @@ class dm_campaign(osv.osv): #{{{
         'proposition_ids': fields.one2many('dm.campaign.proposition', 'camp_id',
                                             'Proposition'),
         'campaign_type_id': fields.many2one('dm.campaign.type', 'Type'),
-        'analytic_account_id': fields.many2one('account.analytic.account', 
-                                               'Analytic Account', 
+        'analytic_account_id': fields.many2one('account.analytic.account',
+                                               'Analytic Account',
                                                ondelete='cascade'),
-        'planning_state': fields.selection([('pending', 'Pending'), 
-                                            ('inprogress', 'In Progress'), 
-                                            ('done', 'Done')], 
-                                            'Planning Status', 
+        'planning_state': fields.selection([('pending', 'Pending'),
+                                            ('inprogress', 'In Progress'),
+                                            ('done', 'Done')],
+                                            'Planning Status',
                                             readonly=True),
-        'translation_state': fields.selection([('pending', 'Pending'), 
-                                               ('inprogress', 'In Progress'), 
-                                               ('done', 'Done')], 
-                                               'Translation Status', 
+        'translation_state': fields.selection([('pending', 'Pending'),
+                                               ('inprogress', 'In Progress'),
+                                               ('done', 'Done')],
+                                               'Translation Status',
                                                readonly=True),
-        'dealer_id': fields.many2one('res.partner', 'Dealer', 
+        'dealer_id': fields.many2one('res.partner', 'Dealer',
                                      domain=[('category_id', 'ilike', 'Dealer')],
                                      context={'category_xml_id': 'cat_dealer'},
                                      help="The dealer is the partner the campaign is planned for."),
         'responsible_id': fields.many2one('res.users', 'Responsible'),
-#        'invoiced_partner_id': fields.many2one('res.partner', 
+#        'invoiced_partner_id': fields.many2one('res.partner',
 #                                                'Invoiced Partner'),
 #        'files_delivery_address_id': fields.many2one('res.partner.address',
 #                                                         'Delivery Address'),
         'dtp_making_time': fields.function(dtp_making_time_get,
                                             method=True, type='float',
                                              string='Making Time'),
-        'deduplicator_id': fields.many2one('res.partner', 'Deduplicator', 
+        'deduplicator_id': fields.many2one('res.partner', 'Deduplicator',
                             domain=[('category_id', 'ilike', 'Deduplicator')],
                             context={'category_xml_id': 'cat_deduplicator'},
                             help="The deduplicator is a partner responsible to remove identical addresses from the customers list"),
@@ -182,35 +186,35 @@ class dm_campaign(osv.osv): #{{{
                                  domain=[('category_id', 'ilike', 'Cleaner')],
                                  context={'category_xml_id': 'cat_cleaner'},
                                  help="The cleaner is a partner responsible to remove bad addresses from the customers list"),
-        'currency_id': fields.many2one('res.currency', 'Currency', 
+        'currency_id': fields.many2one('res.currency', 'Currency',
                                                         ondelete='cascade'),
         'manufacturing_cost_ids': fields.one2many('dm.campaign.manufacturing_cost',
-                                                   'campaign_id', 
+                                                   'campaign_id',
                                                    'Manufacturing Costs'),
-        'manufacturing_product_id': fields.many2one('product.product', 
+        'manufacturing_product_id': fields.many2one('product.product',
                                                     'Manufacturing Product'),
-        'router_id': fields.many2one('res.partner', 'Router', 
+        'router_id': fields.many2one('res.partner', 'Router',
                                     domain=[('category_id', 'ilike', 'Router')],
                                     context={'category_xml_id': 'cat_router'},
             help="The router is the partner who will send the mailing to the final customer"),
-        'quantity_planned_total': fields.function(_quantity_planned_total, 
-                                    string='Total planned Quantity',type="char",
+        'quantity_planned_total': fields.function(_quantity_planned_total,
+                                    string='Total planned Quantity' ,type="char",
                                      size=64, method=True, readonly=True),
-        'quantity_wanted_total': fields.function(_quantity_wanted_total, 
-                                        string='Total Wanted Quantity', 
-                                        type="char", size=64, method=True, 
+        'quantity_wanted_total': fields.function(_quantity_wanted_total,
+                                        string='Total Wanted Quantity',
+                                        type="char", size=64, method=True,
                                         readonly=True),
-        'quantity_delivered_total': fields.function(_quantity_delivered_total, 
-                                            string='Total Delivered Quantity', 
-                                            type="char", size=64, method=True, 
+        'quantity_delivered_total': fields.function(_quantity_delivered_total,
+                                            string='Total Delivered Quantity',
+                                            type="char", size=64, method=True,
                                             readonly=True),
-        'quantity_usable_total': fields.function(_quantity_usable_total, 
+        'quantity_usable_total': fields.function(_quantity_usable_total,
                                              string='Total Usable Quantity',
-                                             type="char", size=64, method=True, 
+                                             type="char", size=64, method=True,
                                              readonly=True),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
         'journal_id': fields.many2one('account.journal', 'Payment Methods', domain="[('type','=','cash')]"),
-        'mail_service_ids': fields.one2many('dm.campaign.mail_service', 
+        'mail_service_ids': fields.one2many('dm.campaign.mail_service',
                                             'campaign_id', 'Mailing Service'),
         'camp_date_start': fields.datetime('Campaign Start Date'),
         'camp_date_end': fields.datetime('Campaign End Date')
@@ -237,7 +241,7 @@ class dm_campaign(osv.osv): #{{{
         offers = self.pool.get('dm.offer').browse(cr, uid, offer_id)
         forbidden_state_ids = [state_id.country_id.id for state_id in
                                 offers.forbidden_state_ids]
-        forbidden_country_ids = [country_id.id for country_id in 
+        forbidden_country_ids = [country_id.id for country_id in
                                  offers.forbidden_country_ids]
         forbidden_country_ids.extend(forbidden_state_ids)
         if country  in  forbidden_country_ids:
@@ -261,34 +265,34 @@ class dm_campaign(osv.osv): #{{{
             raise osv.except_osv("Error!!", "Campaign cannot be opened before drop date")
 
         # Create Flow Start Workitems
-        start_type_ids = self.pool.get('dm.offer.step.type').search(cr, uid, 
+        start_type_ids = self.pool.get('dm.offer.step.type').search(cr, uid,
                                                     [('flow_start', '=', True)])
-        step_ids = self.pool.get('dm.offer.step').search(cr, uid, 
-                                        [('offer_id', '=', camp.offer_id.id), 
+        step_ids = self.pool.get('dm.offer.step').search(cr, uid,
+                                        [('offer_id', '=', camp.offer_id.id),
                                          ('type_id', 'in', start_type_ids)])
         for step in step_ids:
             for propo in camp.proposition_ids:
                 for seg in propo.segment_ids:
                     if seg.type_src == 'internal' and seg.customers_file_id:
-                        res = self.pool.get('dm.workitem').create(cr, uid, 
-                            {'segment_id': seg.id, 
+                        res = self.pool.get('dm.workitem').create(cr, uid,
+                            {'segment_id': seg.id,
                              'step_id': step,
-                            'source': seg.customers_file_id.source, 
-                            'is_global':True,
+                            'source': seg.customers_file_id.source,
+                            'is_global': True,
                             'action_time': time.strftime("%Y-%m-%d %H:%M:%S")})
 
         # Check for mail service for each offer step of a campaign
         for step in camp.offer_id.step_ids:
-            mail_service = self.pool.get('dm.campaign.mail_service').search(cr, 
+            mail_service = self.pool.get('dm.campaign.mail_service').search(cr,
                                         uid, [('offer_step_id', '=', step.id)])
             if not mail_service:
-                raise osv.except_osv(_('Could not open this Campaign'),_('Assign a Mail Service for "%s".' % step.name))
+                raise osv.except_osv(_('Could not open this Campaign'), _('Assign a Mail Service for "%s".' % step.name))
 
-        self.write(cr, uid, ids, {'state': 'open', 
+        self.write(cr, uid, ids, {'state': 'open',
                                   'planning_state': 'inprogress'})
 
-        ''' create offer history'''
-        
+        # create offer history
+
         history_vals = {
               'offer_id': camp.offer_id.id,
               'date': camp.camp_date_start.split(' ')[0],
@@ -302,13 +306,13 @@ class dm_campaign(osv.osv): #{{{
 
     def write(self, cr, uid, ids, vals, context=None):
         camp = self.pool.get('dm.campaign').browse(cr, uid, ids)[0]
-        
+
         offer_id = 'offer_id' in vals and vals['offer_id'] or camp.offer_id.id
         country_id = 'country_id' in vals and vals['country_id'] or camp.country_id.id
-        
+
         if not self.check_forbidden_country(cr, uid, offer_id, country_id):
             raise osv.except_osv("Error", "You cannot use this offer in this country")
-        
+
         # In campaign, if no forwarding_charge is given,
         # it gets the 'forwarding_charge' from offer
 #        if not camp.forwarding_charge:
@@ -328,14 +332,13 @@ class dm_campaign(osv.osv): #{{{
             vals['camp_date_end'] = date_end
             self.pool.get('account.analytic.account').write(cr, uid, [camp.analytic_account_id.id], {'date_start': vals['camp_date_start'].split(' ')[0],
                                                                                                  'date': vals['camp_date_end'].date()})
-			#  moved in dm_retro_planning as project_id moved in retro_planning
+            #  moved in dm_retro_planning as project_id moved in retro_planning
             #if 'project_id' in vals and vals['project_id']:
-                #self.pool.get('project.project').write(cr, uid, 
-                 #                               [vals['project_id']], 
+                #self.pool.get('project.project').write(cr, uid,
+                 #                               [vals['project_id']],
                  #                           {'date_end': vals['camp_date_start']})
 
-        """ In campaign, if no trademark is given, it gets the 'recommended 
-                        trademark' from offer """
+        # In campaign, if no trademark is given, it gets the 'recommended trademark' from offer
         if (not camp.trademark_id) and camp.offer_id.recommended_trademark_id:
             vals['trademark_id'] = camp.offer_id.recommended_trademark_id.id
 
@@ -360,7 +363,7 @@ class dm_campaign(osv.osv): #{{{
             vals['campaign_type_id'] = type_id
         id_camp = super(dm_campaign, self).create(cr, uid, vals, context)
         data_cam = self.browse(cr, uid, id_camp)
-        if not self.check_forbidden_country(cr, uid, data_cam.offer_id.id, 
+        if not self.check_forbidden_country(cr, uid, data_cam.offer_id.id,
                                             data_cam.country_id.id):
             raise osv.except_osv("Error", "You cannot use this offer in this country")
         ''' create campaign mail service '''
@@ -372,7 +375,7 @@ class dm_campaign(osv.osv): #{{{
 #        action_id = the action_id of the mail service
         mail_service_obj = self.pool.get('dm.mail_service')
         for step_id in data_cam.offer_id.step_ids:
-            mail_service_id = mail_service_obj.search(cr, uid, 
+            mail_service_id = mail_service_obj.search(cr, uid,
                                         [('media_id', '=', step_id.media_id.id),
                                           ('default_for_media', '=', True)])
             mail_service = mail_service_obj.browse(cr, uid, mail_service_id)
@@ -383,34 +386,34 @@ class dm_campaign(osv.osv): #{{{
                     'mail_service_id': mail.id,
 #                   'action_id': mail_service.action_id.id
                 }
-                self.pool.get('dm.campaign.mail_service').create(cr, uid, 
+                self.pool.get('dm.campaign.mail_service').create(cr, uid,
                                                                  mail_vals)
-        # In campaign, if no forwarding_charge is given, it gets the 
+        # In campaign, if no forwarding_charge is given, it gets the
         #'forwarding_charge' from offer
         write_vals = {}
 #        if not data_cam.forwarding_charge:
 #            if data_cam.country_id.forwarding_charge:
-#                write_vals['forwarding_charge'] = 
+#                write_vals['forwarding_charge'] =
 #                                          data_cam.country_id.forwarding_charge
 
         if data_cam.country_id.journal_id:
             journal_id = data_cam.country_id.journal_id[0].id
             write_vals['journal_id'] = journal_id
 
-        # Set campaign end date at one year after start date if end date does 
+        # Set campaign end date at one year after start date if end date does
         #                                                            not exist
         if (data_cam.camp_date_start) and (not data_cam.camp_date_end):
             d = time.strptime(data_cam.camp_date_start, "%Y-%m-%d %H:%M:%S")
             d = datetime.datetime(d[0], d[1], d[2], d[3], d[4], d[5])
             date_end = d + datetime.timedelta(days=365)
             write_vals['camp_date_end'] = date_end
-            self.pool.get('account.analytic.account').write(cr, uid, [data_cam.analytic_account_id.id], {'date_start': data_cam.camp_date_start.split(' ')[0], 
+            self.pool.get('account.analytic.account').write(cr, uid, [data_cam.analytic_account_id.id], {'date_start': data_cam.camp_date_start.split(' ')[0],
                                                                                                          'date': write_vals['camp_date_end'].date()})
-            
+
         # Set trademark to offer's trademark only if trademark is null
         if vals['campaign_type_id'] != type_id:
             if vals['offer_id'] and (not vals['trademark_id']):
-                offer_id = self.pool.get('dm.offer').browse(cr, uid, 
+                offer_id = self.pool.get('dm.offer').browse(cr, uid,
                                                             vals['offer_id'])
                 write_vals['trademark_id'] = offer_id.recommended_trademark_id.id
         if write_vals:
@@ -418,8 +421,8 @@ class dm_campaign(osv.osv): #{{{
 
         return id_camp
 
-	def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,):# submenu=False): for trunk client
-		result = super(dm_campaign, self).fields_view_get(cr, user, view_id, view_type, context, toolbar,)# submenu=submenu) for trunk client
+    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,): # submenu=False): for trunk client
+        result = super(dm_campaign, self).fields_view_get(cr, user, view_id, view_type, context, toolbar,) # submenu=submenu) for trunk client
         if 'campaign_type' in context:
             if context['campaign_type'] == 'model':
                 if 'toolbar' in result:
@@ -458,13 +461,16 @@ class dm_campaign(osv.osv): #{{{
 
 dm_campaign()#}}}
 
+
 class dm_offer_history(osv.osv): # {{{
     _inherit = "dm.offer.history"
     _columns = {
-			'campaign_id': fields.many2one('dm.campaign', 'Name', ondelete="cascade"),        
+        'campaign_id': fields.many2one('dm.campaign', 'Name', ondelete="cascade"),
     }
+
 dm_offer_history() # }}}
-		
+
+
 class dm_campaign_proposition(osv.osv): #{{{
     _name = "dm.campaign.proposition"
     _inherits = {'account.analytic.account': 'analytic_account_id'}
@@ -502,7 +508,7 @@ class dm_campaign_proposition(osv.osv): #{{{
 
     def copy(self, cr, uid, id, default=None, context={}):
         """
-        Function to duplicate segments only if 'keep_segments' is set to yes 
+        Function to duplicate segments only if 'keep_segments' is set to yes
                                                 else not to duplicate segments
         """
         proposition_id = super(dm_campaign_proposition, self).copy(cr, uid, id, default, context=context)
@@ -511,9 +517,9 @@ class dm_campaign_proposition(osv.osv): #{{{
 
         data = self.browse(cr, uid, proposition_id, context)
         default_name = ' %s (Copy)' % data.name
-        super(dm_campaign_proposition, self).write(cr, uid, proposition_id, 
-                                                    {'name': default_name, 
-                                                     'camp_pro_date_start': False, 
+        super(dm_campaign_proposition, self).write(cr, uid, proposition_id,
+                                                    {'name': default_name,
+                                                     'camp_pro_date_start': False,
                                                 'initial_proposition_id': id})
 
         if data.keep_segments == False:
@@ -523,10 +529,8 @@ class dm_campaign_proposition(osv.osv): #{{{
                 self.pool.get('dm.campaign.proposition.segment').unlink(cr, uid, l)
                 self.write(cr, uid, proposition_id, {'segment_ids': [(6, 0, [])]})
 
-        """
-        Function to duplicate products only if 'keep_prices' is set to yes else
-         not to duplicate products
-        """
+        # Function to duplicate products only if 'keep_prices' is set to yes else
+        #  not to duplicate products
         if data.keep_prices == False:
             l = []
             for i in data.item_ids:
@@ -624,23 +628,23 @@ class dm_campaign_proposition(osv.osv): #{{{
         return []
 
     _columns = {
-        'camp_id': fields.many2one('dm.campaign', 'Campaign', 
+        'camp_id': fields.many2one('dm.campaign', 'Campaign',
                                    ondelete = 'cascade', required=True),
         'sale_rate': fields.float('Sale Rate (%)', digits=(16, 2),
                     help='This is the planned sale rate (in percent) for this commercial proposition'),
-        'proposition_type': fields.selection([('init', 'Initial'), 
+        'proposition_type': fields.selection([('init', 'Initial'),
                                               ('relaunching', 'Relauching'),
                                                ('split', 'Split')], "Type"),
         'initial_proposition_id': fields.many2one('dm.campaign.proposition',
                                                    'Initial proposition'),
-        'segment_ids': fields.one2many('dm.campaign.proposition.segment', 
+        'segment_ids': fields.one2many('dm.campaign.proposition.segment',
                                        'proposition_id', 'Segment',
                                         ondelete='cascade'),
         'quantity_planned': fields.integer('Planned Quantity',
-                             help='The planned quantity is an estimation of the usable quantity of addresses you  will get after delivery, deduplication and cleaning.\n' 
+                             help='The planned quantity is an estimation of the usable quantity of addresses you  will get after delivery, deduplication and cleaning.\n'
                             'This is usually the quantity used to order the manufacturing of the mailings'),
         'quantity_wanted': fields.function(_quantity_wanted_get, string='Wanted Quantity', type="char", size=64, method=True, readonly=True,
-                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n' 
+                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n'
                             'This is usually the quantity used to order Customers Lists.\n'
                             'The wanted quantity could be AAA for All Addresses Available'),
         'quantity_delivered': fields.function(_quantity_delivered_get, string='Delivered Quantity', type="char", size=64, method=True, readonly=True,
@@ -687,6 +691,7 @@ class dm_campaign_proposition(osv.osv): #{{{
 
 dm_campaign_proposition()#}}}
 
+
 class dm_customers_list_recruit_origin(osv.osv): #{{{
     _name = "dm.customers_list.recruit_origin"
     _description = "The origin of the adresses of a list"
@@ -694,7 +699,9 @@ class dm_customers_list_recruit_origin(osv.osv): #{{{
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
     }
+
 dm_customers_list_recruit_origin()#}}}
+
 
 class dm_customers_list_type(osv.osv): #{{{
     _name = "dm.customers_list.type"
@@ -703,7 +710,9 @@ class dm_customers_list_type(osv.osv): #{{{
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
     }
+
 dm_customers_list_type()#}}}
+
 
 class dm_customers_list(osv.osv): #{{{
     _name = "dm.customers_list"
@@ -711,32 +720,32 @@ class dm_customers_list(osv.osv): #{{{
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
-        'owner_id': fields.many2one('res.partner', 'Owner', 
-                                    domain=[('category_id', 'ilike', 'Owner')], 
+        'owner_id': fields.many2one('res.partner', 'Owner',
+                                    domain=[('category_id', 'ilike', 'Owner')],
                                     context={'category_xml_id': 'cat_owner'}),
-        'broker_id': fields.many2one('res.partner', 'Broker', 
+        'broker_id': fields.many2one('res.partner', 'Broker',
                                     domain=[('category_id', 'ilike', 'Broker')],
                                      context={'category_xml_id': 'cat_broker'}),
         'country_id': fields.many2one('res.country', 'Country'),
         'currency_id': fields.many2one('res.currency', 'Currency'),
-        'product_id': fields.many2one('product.product', 'Product', 
+        'product_id': fields.many2one('product.product', 'Product',
                             domain=[('categ_id', 'ilike', 'Customers List')],
-                            context={'category':'Customers List'},
+                            context={'category': 'Customers List'},
                             required=True),
-        'per_thousand_price': fields.float('Price per Thousand', 
+        'per_thousand_price': fields.float('Price per Thousand',
                                            digits=(16, 2)),
         'delivery_cost': fields.float('Delivery Cost', digits=(16, 2)),
-        'selection_cost': fields.float('Selection Cost Per Thousand', 
+        'selection_cost': fields.float('Selection Cost Per Thousand',
                                        digits=(16, 2)),
         'broker_cost': fields.float('Broker Cost', digits=(16, 2),
                     help='The amount given to the broker for the list renting'),
         'broker_discount': fields.float('Broker Discount (%)', digits=(16, 2)),
         'other_cost': fields.float('Other Cost', digits=(16, 2)),
-        'invoice_base': fields.selection([('net', 'Net Addresses Quantity'), 
-                                          ('raw', 'Raw Addresses Quantity')], 
+        'invoice_base': fields.selection([('net', 'Net Addresses Quantity'),
+                                          ('raw', 'Raw Addresses Quantity')],
                                           'Invoicing based on',
-                    help='Net or raw quantity on which is based the final invoice depending of the term negotiated with the broker.\n' 
-                            'Net : Usable quantity after deduplication.\n' 
+                    help='Net or raw quantity on which is based the final invoice depending of the term negotiated with the broker.\n'
+                            'Net : Usable quantity after deduplication.\n'
                             'Raw : Delivered quantity.\n' \
                             'Real : Realy used qunatity.'),
         'recruiting_origin_id': fields.many2one('dm.customers_list.recruit_origin',
@@ -747,9 +756,10 @@ class dm_customers_list(osv.osv): #{{{
         'notes': fields.text('Description'),
         'media_id': fields.many2one('dm.media', 'Media'),
     }
-    _defaults =  {
+    _defaults = {
         'invoice_base': lambda *a: 'net',
     }
+
 dm_customers_list()#}}}
 
 #class dm_customers_file_source(osv.osv):#{{{
@@ -762,7 +772,7 @@ dm_customers_list()#}}}
 #            }
 #dm_customers_file_source()#}}}
 
-class dm_customers_file(osv.osv):#{{{
+class dm_customers_file(osv.osv): #{{{
     _name = "dm.customers_file"
     _description = "A File of addresses"
 
@@ -776,23 +786,24 @@ class dm_customers_file(osv.osv):#{{{
         'customers_list_id': fields.many2one('dm.customers_list',
                                               'Customers List'),
         'delivery_date': fields.date('Delivery Date'),
-        'address_ids': fields.many2many('res.partner.address', 
-                                        'dm_cust_file_address_rel', 
-                                        'cust_file_id', 'address_id', 
+        'address_ids': fields.many2many('res.partner.address',
+                                        'dm_cust_file_address_rel',
+                                        'cust_file_id', 'address_id',
                                         'Customers File Addresses'),
-        'segment_ids': fields.one2many('dm.campaign.proposition.segment', 
-                                       'customers_file_id', 'Segments', 
+        'segment_ids': fields.one2many('dm.campaign.proposition.segment',
+                                       'customers_file_id', 'Segments',
                                        readonly=True),
         'source': fields.selection(_FILE_SOURCES, 'Source', required=True),
         'note': fields.text('Notes'),
     }
-    _defaults =  {
+    _defaults = {
         'source': lambda *a: 'address_id',
     }
 
 dm_customers_file()#}}}
 
-class dm_campaign_proposition_segment(osv.osv):#{{{
+
+class dm_campaign_proposition_segment(osv.osv): #{{{
 
     _name = "dm.campaign.proposition.segment"
     _inherits = {'account.analytic.account': 'analytic_account_id'}
@@ -802,42 +813,42 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
         if 'proposition_id' in vals and vals['proposition_id']:
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr,
                                                  uid, vals['proposition_id'])
-            vals['parent_id'] = self.pool.get('account.analytic.account').search(cr,uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
+            vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
         return super(dm_campaign_proposition_segment, self).write(cr, uid, ids,
                                                                  vals, context)
 
     def create(self, cr, uid, vals, context={}):
-        if 'proposition_id' in vals and vals['proposition_id'] :
+        if 'proposition_id' in vals and vals['proposition_id']:
             proposition_id = self.pool.get('dm.campaign.proposition').browse(cr,
                                                     uid, vals['proposition_id'])
             vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', proposition_id.analytic_account_id.id)])[0]
         return super(dm_campaign_proposition_segment, self).create(cr, uid, vals, context)
 
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, 
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
                                 context=None, count=False):
         if context and 'dm_camp_id' in context:
             if not context['dm_camp_id']:
                 return []
-            res  = self.pool.get('dm.campaign').browse(cr, uid, 
+            res = self.pool.get('dm.campaign').browse(cr, uid,
                                                        context['dm_camp_id'])
             seg_ids = []
             for pro  in res.proposition_ids:
                 seg_ids.extend(map(lambda x: x.id, pro.segment_ids))
             return seg_ids
-        return super(dm_campaign_proposition_segment, self).search(cr, uid, 
-                                                        args, offset, limit, 
+        return super(dm_campaign_proposition_segment, self).search(cr, uid,
+                                                        args, offset, limit,
                                                         order, context, count)
 
     def _quantity_usable_get(self, cr, uid, ids, name, args, context={}):
-        result ={}
+        result = {}
         for segment in self.browse(cr, uid, ids):
-            result[segment.id] = segment.quantity_delivered - segment.quantity_dedup_dedup - segment.quantity_cleaned_dedup - segment.quantity_dedup_cleaner- segment.quantity_cleaned_cleaner
+            result[segment.id] = segment.quantity_delivered - segment.quantity_dedup_dedup - segment.quantity_cleaned_dedup - segment.quantity_dedup_cleaner - segment.quantity_cleaned_cleaner
         return result
 
     def _quantity_purged_get(self, cr, uid, ids, name, args, context={}):
-        result ={}
+        result = {}
         for segment in self.browse(cr, uid, ids):
-            result[segment.id]=segment.quantity_delivered - segment.quantity_usable
+            result[segment.id] = segment.quantity_delivered - segment.quantity_usable
         return result
 
 ##     def _segment_code(self, cr, uid, ids, name, args, context={}):
@@ -852,12 +863,12 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##                     country_code = seg.customers_list_id.country_id.code or ''
 ##                     cust_list_code =  seg.customers_list_id.code
 ##                     seq = '%%0%sd' % 2 % i
-##                     code='-'.join([country_code[:3], cust_list_code[:3], 
+##                     code='-'.join([country_code[:3], cust_list_code[:3],
 ##                                                                   seq[:4]])
 ##                     result[s]=code
 ##                     i +=1
 ##             elif seg.customers_file_id:
-##                 segment_list = self.search(cr, uid, 
+##                 segment_list = self.search(cr, uid,
 ##                       [('customers_file_id', '=', seg.customers_file_id.id)])
 ##                 i = 1
 ##                 for s in segment_list:
@@ -869,10 +880,10 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 ##             else:
 ##                 result[seg.id]=seg.type_src+'%d'%id
 ##         return result
-    def onchange_list(self, cr, uid, ids, customers_list, start_census, 
+    def onchange_list(self, cr, uid, ids, customers_list, start_census,
                                                                 end_census):
         if customers_list:
-            list = self.pool.get('dm.customers_list').browse(cr, uid, 
+            list = self.pool.get('dm.customers_list').browse(cr, uid,
                                                         [customers_list])[0]
             if start_census == 0 and end_census == 0:
                 file_name = list.name
@@ -887,30 +898,30 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
             default = {}
         segment_id = self.browse(cr, uid, id)
         if not default.get('name', False):
-            default['name'] =  segment_id.name + ' (Copy)'
+            default['name'] = segment_id.name + ' (Copy)'
         seg_copy_id = super(dm_campaign_proposition_segment, self).copy(cr, uid,
                                                          id, default, context)
         return seg_copy_id
 
     _columns = {
-        'campaign_id': fields.related('proposition_id', 'camp_id', 
-                                      type='many2one', relation='dm.campaign', 
+        'campaign_id': fields.related('proposition_id', 'camp_id',
+                                      type='many2one', relation='dm.campaign',
                                       string='Campaign'),
         'country_id': fields.many2one('res.country', 'Country'),
-        'proposition_id': fields.many2one('dm.campaign.proposition', 
+        'proposition_id': fields.many2one('dm.campaign.proposition',
                                           'Proposition', ondelete='cascade'),
-        'type_src': fields.selection([('internal', 'Internal'), 
+        'type_src': fields.selection([('internal', 'Internal'),
                                       ('external', 'External')], 'Type'),
-        'customers_list_id': fields.many2one('dm.customers_list', 
+        'customers_list_id': fields.many2one('dm.customers_list',
                                              'Customers List'),
-        'customers_file_id': fields.many2one('dm.customers_file', 
+        'customers_file_id': fields.many2one('dm.customers_file',
                                              'Customers File'),
         'quantity_real': fields.integer('Real Quantity',
                    help='The real quantity is the number of addresses that are really in the customers file (by counting).'),
         'quantity_planned': fields.integer('planned Quantity',
                     help='The planned quantity is an estimation of the usable quantity of addresses you  will get after delivery, deduplication and cleaning.\n This is usually the quantity used to order the manufacturing of the mailings'),
         'quantity_wanted': fields.integer('Wanted Quantity',
-                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n This is usually the quantity used to order Customers Lists.\n' 
+                    help='The wanted quantity is the number of addresses you wish to get for that segment.\n This is usually the quantity used to order Customers Lists.\n'
                             'The wanted quantity could be AAA for All Addresses Available.'),
         'quantity_delivered': fields.integer('Delivered Quantity',
                 help = 'The delivered quantity is the number of addresses you receive from the broker.'),
@@ -922,40 +933,40 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
                     help='The quantity of wrong addresses removed by the deduplicator.'),
         'quantity_cleaned_cleaner': fields.integer('Cleaned Quantity',
                     help='The quantity of wrong addresses removed by the cleaner.'),
-        'quantity_usable': fields.function(_quantity_usable_get, 
-                                           string='Usable Quantity', 
-                                           type="integer", 
-                                           method=True, 
+        'quantity_usable': fields.function(_quantity_usable_get,
+                                           string='Usable Quantity',
+                                           type="integer",
+                                           method=True,
                                            readonly=True,
                     help='The usable quantity is the number of addresses you have after delivery, deduplication and cleaning.'),
-        'quantity_purged': fields.function(_quantity_purged_get, 
+        'quantity_purged': fields.function(_quantity_purged_get,
                                            string='Purged Quantity',
-                                           type="integer", 
-                                           method=True, 
+                                           type="integer",
+                                           method=True,
                                            readonly=True,
                     help='The purged quantity is the number of addresses removed from deduplication and cleaning.'),
         'all_add_avail': fields.boolean('All Adresses Available',
                     help='Used to order all adresses available in the customers list based on the segmentation criteria'),
         'split_id': fields.many2one('dm.campaign.proposition.segment', 'Split'),
-        'start_census':fields.integer('Start Census',
+        'start_census': fields.integer('Start Census',
                         help='The recency is the time since the latest purchase.\n For example: A 0-30 recency means all the customers that have purchased in the last 30 days.'),
         'end_census': fields.integer('End Census'),
         'deduplication_level': fields.integer('Deduplication Level',
                     help='The deduplication level defines the order in which the deduplication takes place.'),
         'reuse_id': fields.many2one('dm.campaign.proposition.segment', 'Reuse'),
-        'analytic_account_id': fields.many2one('account.analytic.account', 
-                                               'Analytic Account', 
+        'analytic_account_id': fields.many2one('account.analytic.account',
+                                               'Analytic Account',
                                                ondelete='cascade'),
         'note': fields.text('Notes'),
         'segmentation_criteria': fields.text('Segmentation Criteria'),
-        'type_census': fields.selection([('minutes', 'Minutes'), 
-                                         ('hour', 'Hours'), 
-                                         ('day', 'Days'), 
-                                         ('month', 'Months')], 
+        'type_census': fields.selection([('minutes', 'Minutes'),
+                                         ('hour', 'Hours'),
+                                         ('day', 'Days'),
+                                         ('month', 'Months')],
                                          'Census Type'),
     }
     _order = 'deduplication_level'
-    _defaults =  {
+    _defaults = {
         'all_add_avail': lambda *a: True,
         'type_census': lambda *a: 'day',
         'type_src': lambda *a: 'internal',
@@ -964,38 +975,43 @@ class dm_campaign_proposition_segment(osv.osv):#{{{
 dm_campaign_proposition_segment()#}}}
 
 AVAILABLE_ITEM_TYPES = [ # {{{
-    ('main','Main Item'),
-    ('standart','Standart Item'),
+    ('main', 'Main Item'),
+    ('standart', 'Standart Item'),
 ] # }}}
 
-class dm_campaign_proposition_item(osv.osv):#{{{
+
+class dm_campaign_proposition_item(osv.osv): #{{{
     _name = "dm.campaign.proposition.item"
     _rec_name = 'product_id'
     _columns = {
-        'product_id': fields.many2one('product.product', 'Product', 
-                                      required=True, 
-                                      context={'flag':True}),
+        'product_id': fields.many2one('product.product', 'Product',
+                                      required=True,
+                                      context={'flag': True}),
         'qty_planned': fields.integer('Planned Quantity'),
         'qty_real': fields.integer('Real Quantity'),
         'price': fields.float('Sale Price'),
-        'proposition_id': fields.many2one('dm.campaign.proposition', 
+        'proposition_id': fields.many2one('dm.campaign.proposition',
                                           'Commercial Proposition'),
-        'item_type': fields.selection(AVAILABLE_ITEM_TYPES, 
+        'item_type': fields.selection(AVAILABLE_ITEM_TYPES,
                                       'Product Type', size=64),
         'offer_step_id': fields.many2one('dm.offer.step', 'Offer Step Name'),
         'notes': fields.text('Notes'),
         'forecasted_yield': fields.float('Forecasted Yield'),
     }
+
 dm_campaign_proposition_item()#}}}
 
-class dm_campaign_manufacturing_cost(osv.osv):#{{{
+
+class dm_campaign_manufacturing_cost(osv.osv): #{{{
     _name = 'dm.campaign.manufacturing_cost'
     _columns = {
         'name': fields.char('Description', size=64, required=True),
         'amount': fields.float('Amount', digits=(16, 2)),
         'campaign_id': fields.many2one('dm.campaign', 'Campaign'),
     }
+
 dm_campaign_manufacturing_cost()#}}}
+
 
 class dm_mail_service_type(osv.osv): # {{{
     _name = "dm.mail_service.type"
@@ -1003,33 +1019,35 @@ class dm_mail_service_type(osv.osv): # {{{
         'name': fields.char('Name', size=64),
         'code': fields.char('Code', size=64),
     }
+
 dm_mail_service_type() # }}}
+
 
 class dm_mail_service(osv.osv): # {{{
     _name = "dm.mail_service"
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'partner_id': fields.many2one('res.partner', 'Partner', 
-                            domain=[('category_id', 'ilike', 'Mail Service')], 
+        'partner_id': fields.many2one('res.partner', 'Partner',
+                            domain=[('category_id', 'ilike', 'Mail Service')],
                             context={'category_xml_id': 'cat_mail_service'}),
         'media_id': fields.many2one('dm.media', 'Media'),
-        'time_mode': fields.selection([('hour', 'Fixed Hour'), 
-                                       ('date', 'Fixed Date'), 
-                                       ('interval', 'Interval')], 
+        'time_mode': fields.selection([('hour', 'Fixed Hour'),
+                                       ('date', 'Fixed Date'),
+                                       ('interval', 'Interval')],
                                        'Time Mode'),
         'action_hour': fields.float('Hours'),
         'action_date': fields.datetime('Date'),
         'action_interval': fields.integer('Interval'),
-        'unit_interval': fields.selection( [('minutes', 'Minutes'),
+        'unit_interval': fields.selection([('minutes', 'Minutes'),
             ('hours', 'Hours'),
             ('days', 'Days'),
             ('weeks', 'Weeks'), ('months', 'Months')], 'Interval Unit'),
         'default_for_media': fields.boolean('Default Mail Service for Media'),
         'action_id': fields.many2one('ir.actions.server', 'Server Action'),
-        'type_id': fields.many2one('dm.mail_service.type', 'Type', 
+        'type_id': fields.many2one('dm.mail_service.type', 'Type',
                                                     ondelete="cascade"),
         'hosted_image_use': fields.boolean('Hosted Image'),
-        'smtp_server_id': fields.many2one('email.smtpclient', 
+        'smtp_server_id': fields.many2one('email.smtpclient',
                                           'SMTP Server', ondelete="cascade"),
         'service_type': fields.char('Type Code', size=64),
         'store_document': fields.boolean('Store Document'),
@@ -1037,8 +1055,8 @@ class dm_mail_service(osv.osv): # {{{
 
     def _check_unique_mail_service(self, cr, uid, ids, media_id,
                                     default_for_media):
-        if default_for_media :
-            res = self.search(cr, uid, [('media_id', '=', media_id), 
+        if default_for_media:
+            res = self.search(cr, uid, [('media_id', '=', media_id),
                                         ('default_for_media', '=', True)])
             if res and (ids and (res in ids) or True):
                 return {'value': {'default_for_media': False}}
@@ -1054,14 +1072,15 @@ class dm_mail_service(osv.osv): # {{{
 
 dm_mail_service() # }}}
 
+
 class dm_campaign_mail_service(osv.osv): # {{{
     _name = "dm.campaign.mail_service"
     _rec_name = 'mail_service_id'
     _columns = {
-        'mail_service_id' : fields.many2one('dm.mail_service', 'Mail Service'),
-        'campaign_id' : fields.many2one('dm.campaign', 'Campaign'),
-        'offer_step_id' : fields.many2one('dm.offer.step', 'Offer Step'),
+        'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service'),
+        'campaign_id': fields.many2one('dm.campaign', 'Campaign'),
+        'offer_step_id': fields.many2one('dm.offer.step', 'Offer Step'),
     }
+
 dm_campaign_mail_service() # }}}
 
-#vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

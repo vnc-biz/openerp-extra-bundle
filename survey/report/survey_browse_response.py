@@ -114,7 +114,7 @@ class survey_browse_response(report_rml):
                         rml += """<para style="P2"></para>"""
                         rml +="""<blockTable colWidths="500" style="Table5">
                                   <tr>
-                                    <td><para style="question">Que: """ + to_xml(que.question) + """</para></td>
+                                    <td><para style="question">""" + survey.question_prefix + """: """ + to_xml(que.question) + """</para></td>
                                   </tr>
                                  </blockTable>"""
                         answer = surv_resp_line_obj.browse(cr,uid, surv_resp_line_obj.search(cr, uid, [('question_id','=',que.id),('response_id','=',response.id)]))

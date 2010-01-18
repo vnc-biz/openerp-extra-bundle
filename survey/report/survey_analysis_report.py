@@ -103,7 +103,7 @@ class survey_analysis(report_rml):
                 for que in page.question_ids:
                     rml +="""<blockTable colWidths="500" style="Table5">
                               <tr>
-                                <td><para style="question">Que: """ + to_xml(que.question) + """</para></td>
+                                <td><para style="question">""" + survey.question_prefix + """: """ + to_xml(que.question) + """</para></td>
                               </tr>
                              </blockTable>"""
                     cols_widhts = []

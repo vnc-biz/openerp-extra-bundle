@@ -145,7 +145,7 @@ class survey_form(report_rml):
                     rml +="""
                     <para style="P2"><font></font></para>
                     <blockTable colWidths='"""+_tbl_widths+"""' style="question_tbl">
-                        <tr><td><para style="question">Que: """+ to_xml(que.question) + """</para></td></tr>
+                        <tr><td><para style="question">""" + survey.question_prefix + """: """+ to_xml(que.question) + """</para></td></tr>
                     </blockTable>
                     <para style="P2"><font></font></para>"""
                     if que.type in ['descriptive_text']:

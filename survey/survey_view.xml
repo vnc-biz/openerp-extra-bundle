@@ -161,10 +161,13 @@
                             </group>
                         </page>
                         <page string="Other">
-                            <field name="max_response_limit" select="1"
-                                attrs="{'readonly':[('state','in',('open','close'))]}"/>
-                            <field name="response_user" select="2"
-                                attrs="{'readonly':[('state','in',('open','close'))]}"/>
+                        	<group colspan="4" col='6'>
+	                            <field name="max_response_limit" select="1"
+	                                attrs="{'readonly':[('state','in',('open','close'))]}"/>
+	                            <field name="response_user" select="2"
+	                                attrs="{'readonly':[('state','in',('open','close'))]}"/>
+	                            <field name="question_prefix"/>
+							</group>
                             <separator colspan="4" string="Survey Details"/>
                             <field name="note" colspan="4" nolabel="1"/>
                         </page>

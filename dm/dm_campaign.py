@@ -675,6 +675,12 @@ class dm_campaign_proposition(osv.osv): #{{{
         'keep_prices': lambda *a: True
     }
 
+    def onchange_campaign(self, cr, uid, ids, camp_id):
+        if camp_id:
+            forwarding_charge = self.pool.get('dm.campaign').read(cr, uid, camp_id, ['forwarding_charge'])['forwarding_charge'] or 0.0
+            return {'value': {'forwarding_charge': forwarding_charge}}
+        return False
+
     def _check(self, cr, uid, ids=False, context={}):
         '''
         Function called by the scheduler to create workitem from the segments of propositions.

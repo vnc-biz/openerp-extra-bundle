@@ -21,81 +21,69 @@
 from osv import fields
 from osv import osv
 
-class dm_segmentation_type(osv.osv): # {{{
-    _name = "dm.segmentation.type"
-    _description = "Segmentation Type"
+class dm_address_segmentation(osv.osv): # {{{
+    _name = "dm.address.segmentation"
+    _description = "Segmentation"
+
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=32, required=True),
-        'mode': fields.selection([('input', 'Input'), 
-                                            ('output', 'Output'), 
-                                            ('process', 'Process')], 
-                                            'Mode',  readonly=True),
-        }  
-dm_segmentation_type()
+        'notes': fields.text('Description'),
+        'sql_query': fields.text('SQL Query'),
+         'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria'),
+         'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
+         'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
+         'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),
+      }
+      
+    def set_address_criteria(self, cr, uid, ids, context={}):
+        if isinstance(ids, (int, long)):
+            ids = [ids]    
+        criteria=[]
+        browse_id = self.browse(cr, uid, ids)[0]
+        if browse_id.address_text_criteria_ids:
+            for i in browse_id.address_text_criteria_ids:
+                criteria.append("pa.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
+        if browse_id.address_numeric_criteria_ids:
+            for i in browse_id.address_numeric_criteria_ids:
+                criteria.append("pa.%s %s %f"%(i.field_id.name, i.operator, i.value))
+        if browse_id.address_boolean_criteria_ids:
+            for i in browse_id.address_boolean_criteria_ids:
+                criteria.append("pa.%s %s %s"%(i.field_id.name, i.operator, i.value))
+        if browse_id.address_date_criteria_ids:
+            for i in browse_id.address_date_criteria_ids:
+                criteria.append("pa.%s %s '%s'"%(i.field_id.name, i.operator, i.value))
+        if criteria:
+            sql_query = ("""select distinct pa.id \nfrom res_partner_address pa \nwhere %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
+        else:
+            sql_query = """select distinct pa.id \nfrom res_partner_address pa """
+        return sql_query
 
-class dm_segmentation(osv.osv): # {{{
-    _name = "dm.segmentation"
-    _description = "Segmentation"
-    _columns = {
-        'name': fields.char('Name', size=64, required=True),
-        'code': fields.char('Code', size=64, required=True),
-        'step_ids':fields.one2many('dm.segmentation.step','segmentation_id',
-                                            'Steps'),
-        'notes': fields.text('Description', translate=True),
-        'active_only': fields.boolean('Active'),
-        }  
-dm_segmentation() 
+    def create(self, cr, uid, vals, context={}):
+        ids =super(dm_address_segmentation, self).create(cr, uid, vals, context)
+        sql_query = self.set_address_criteria(cr, uid, ids)
+        self.write(cr, uid, ids, {'sql_query':sql_query})
+        return ids
 
-class dm_segmentation_step(osv.osv): # {{{
-    _name = "dm.segmentation.step"
-    _description = "Segmentation Type"
-    _columns = {
-        'name': fields.char('Name', size=64, required=True),
-        'mode': fields.selection([('input', 'Input'), 
-                                            ('output', 'Output'), 
-                                            ('process', 'Process')], 
-                                            'Mode',  required=True),
-        'segmentation_id':fields.many2one('dm.segmentation',
-                                            'Segmentation'),
-        'type_id':fields.many2one('dm.segmentation.type',
-                                            'Segmentation Type',required=True),
-        'segment_type': fields.char('Type Code', size=64),                                   
-        'next_step_id':fields.many2one('dm.segmentation.step', 'Next Step'),
-        'prev_step_id':fields.many2one('dm.segmentation.step', 'Previous Step'),
-        'previous_step_ids':fields.one2many('dm.segmentation.step','prev_step_id',
-                                            'Previous Steps'),
-        'campaign_id':fields.many2one('dm.campaign', 'Campaign'),                              
-                                            
-        'proposition_id':fields.many2one('dm.campaign.proposition',
-                                            'Proposition'),
-        'segment_id':fields.many2one('dm.campaign.proposition.segment','Segments'),                               
-        'offer_id':fields.many2one('dm.offer', 'Offer'),  
-        'trademark_id':fields.many2one('dm.trademark', 'Trademark'),
-        'dealer_id': fields.many2one('res.partner','Dealer', domain="[('category_id.name','=','Dealer')]"),
+    def write(self, cr, uid, ids, vals, context=None):
+        super(dm_address_segmentation, self).write(cr, uid, ids, vals, context)
+        if isinstance(ids, (int, long)):
+            ids = [ids]
+        for i in ids:
+            sql_query = self.set_address_criteria(cr, uid, i)
+            super(dm_address_segmentation, self).write(cr, uid, i, 
+                                                {'sql_query': sql_query})
+        return ids
 
-        'country_id':fields.many2one('res.country', 'Country'),   
-        'currency_id':fields.many2one('res.currency', 'Currency'),
-        'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria'),
-        'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
-        'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
-        'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),   
-        } 
-    def on_change_segment_type(self, cr, uid, ids, type_id):
-        res = {'value': {}}
-        if type_id:
-            segment_type = self.pool.get('dm.segmentation.type').read(cr, uid, [type_id])[0]
-            res['value'] = {'segment_type': segment_type['code']}
-        return res 
-    
-dm_segmentation_step()
+dm_address_segmentation() # }}}
 
 class dm_campaign_proposition_segment(osv.osv):
     _name = "dm.campaign.proposition.segment"
     _description = "Segmentation"
     _inherit = "dm.campaign.proposition.segment"
     _columns = {
-                'segmentation_id':fields.many2one('dm.segmentation', 'Segmentation'),
+                'segmentation_id':fields.many2one('dm.address.segmentation',
+                                                  'Segmentation'),
                 }
     
 dm_campaign_proposition_segment()
@@ -122,27 +110,28 @@ DATE_OPERATORS = [ # {{{
     ('>','after'),
 ] # }}}
 
+
 class dm_address_text_criteria(osv.osv): # {{{
     _name = "dm.address.text_criteria"
-    _description = "address Segmentation Textual Criteria"
+    _description = "Address Segmentation Textual Criteria"
     _rec_name = "segmentation_id"
 
-#    def _get_field_type(self, cr, uid, context={}):
-#        ttype_filter = ['many2many', 'many2one']
-#        cr.execute("select distinct ttype from ir_model_fields where ttype \
-#                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
-#                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
-#        field_type = map(lambda x: x[0], cr.fetchall())
-#        res = []
-#        for type in field_type:
-#            if type == 'selection':
-#                res.append(('char', type))
-#            else :
-#                res.append((type, type))
-#        return res
+    def _get_field_type(self, cr, uid, context={}):
+        ttype_filter = ['many2many', 'many2one']
+        cr.execute("select distinct ttype from ir_model_fields where ttype \
+                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
+                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
+        field_type = map(lambda x: x[0], cr.fetchall())
+        res = []
+        for type in field_type:
+            if type == 'selection':
+                res.append(('char', type))
+            else :
+                res.append((type, type))
+        return res
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation.step',
+        'segmentation_id':fields.many2one('dm.address.segmentation',
                                           'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -156,11 +145,11 @@ dm_address_text_criteria() # }}}
 
 class dm_address_numeric_criteria(osv.osv): # {{{
     _name = "dm.address.numeric_criteria"
-    _description = "address Segmentation Numeric Criteria"
+    _description = "Address Segmentation Numeric Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation.step',
+        'segmentation_id':fields.many2one('dm.address.segmentation',
                                             'Segmentation'),
         'field_id': fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -174,11 +163,11 @@ dm_address_numeric_criteria() # }}}
 
 class dm_address_boolean_criteria(osv.osv): # {{{
     _name = "dm.address.boolean_criteria"
-    _description = "address Segmentation Boolean Criteria"
+    _description = "Address Segmentation Boolean Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation.step',
+        'segmentation_id':fields.many2one('dm.address.segmentation',
                                             'Segmentation'),
         'field_id':fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -193,11 +182,11 @@ dm_address_boolean_criteria() # }}}
 
 class dm_address_date_criteria(osv.osv): # {{{
     _name = "dm.address.date_criteria"
-    _description = "address Segmentation Date Criteria"
+    _description = "Address Segmentation Date Criteria"
     _rec_name = "segmentation_id"
 
     _columns = {
-        'segmentation_id':fields.many2one('dm.segmentation.step',
+        'segmentation_id':fields.many2one('dm.address.segmentation',
                                                 'Segmentation'),
         'field_id':fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
@@ -208,6 +197,5 @@ class dm_address_date_criteria(osv.osv): # {{{
         'value': fields.date('Date',required=True),
     }
 dm_address_date_criteria() # }}}
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
+
 from osv import fields
 from osv import osv
 
@@ -30,11 +31,11 @@ class dm_address_segmentation(osv.osv): # {{{
         'code': fields.char('Code', size=32, required=True),
         'notes': fields.text('Description'),
         'sql_query': fields.text('SQL Query'),
-         'address_text_criteria_ids' : fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria'),
-         'address_numeric_criteria_ids' : fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
-         'address_boolean_criteria_ids' : fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
-         'address_date_criteria_ids' : fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),
-      }
+        'address_text_criteria_ids': fields.one2many('dm.address.text_criteria', 'segmentation_id', 'Address Textual Criteria'),
+        'address_numeric_criteria_ids': fields.one2many('dm.address.numeric_criteria', 'segmentation_id', 'Address Numeric Criteria'),
+        'address_boolean_criteria_ids': fields.one2many('dm.address.boolean_criteria', 'segmentation_id', 'Address Boolean Criteria'),
+        'address_date_criteria_ids': fields.one2many('dm.address.date_criteria', 'segmentation_id', 'Address Date Criteria'),
+    }
       
     def set_address_criteria(self, cr, uid, ids, context={}):
         if isinstance(ids, (int, long)):
@@ -60,7 +61,7 @@ class dm_address_segmentation(osv.osv): # {{{
         return sql_query
 
     def create(self, cr, uid, vals, context={}):
-        ids =super(dm_address_segmentation, self).create(cr, uid, vals, context)
+        ids = super(dm_address_segmentation, self).create(cr, uid, vals, context)
         sql_query = self.set_address_criteria(cr, uid, ids)
         self.write(cr, uid, ids, {'sql_query':sql_query})
         return ids
@@ -108,7 +109,6 @@ DATE_OPERATORS = [ # {{{
     ('<','before'),
     ('>','after'),
 ] # }}}
-
 
 class dm_address_text_criteria(osv.osv): # {{{
     _name = "dm.address.text_criteria"

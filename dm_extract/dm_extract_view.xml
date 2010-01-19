@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
-<data>
+	<data>
 
 	<menuitem name="Extractions" id="menu_dm_config_extract" parent="dm.menu_dm_config" sequence="4"/>
 
@@ -30,12 +30,12 @@
                                 <field name="field_id"/>
                                 <field name="operator" nolabel="1"/>
                                 <field name="value" nolabel="1"/>
-	                      </form>
+	                        </form>
                             <tree string="Customer Textual Criteria">
                                 <field name="field_id"/>
                                 <field name="operator"/>
                                 <field name="value"/>
-		                      </tree>
+		                    </tree>
 		                </field>
                         <field name="address_numeric_criteria_ids" colspan="2" nolabel="1" select="2">
                             <form string="Customer Numeric Criteria">
@@ -121,41 +121,41 @@
    		</field>
   </record>
   
-  <record id="view_dm_campaign_proposition_segments_start_census" model="ir.ui.view">
-   <field name="name">dm_campaign_proposition_segments_start_census</field>
-   <field name="model">dm.campaign.proposition.segment</field>
-   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-   <field name="type">form</field>
-   <field name="arch" type="xml">
-    	<field name="start_census" position="replace">
-			<field name="start_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
-      </field>
-   </field>
-  </record>
+    <record id="view_dm_campaign_proposition_segments_start_census" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segments_start_census</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+		    <field name="start_census" position="replace">
+		    	<field name="start_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
+		    </field>
+	    </field>
+    </record>
   
-   <record id="view_dm_campaign_proposition_segments_end_census" model="ir.ui.view">
-   <field name="name">dm_campaign_proposition_segments_end_census</field>
-   <field name="model">dm.campaign.proposition.segment</field>
-   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-   <field name="type">form</field>
-   <field name="arch" type="xml">
-    	<field name="end_census" position="replace">
-			<field name="end_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
-      </field>
-   </field>
-  </record>
+    <record id="view_dm_campaign_proposition_segments_end_census" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segments_end_census</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+	    	<field name="end_census" position="replace">
+				<field name="end_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
+	        </field>
+    	</field>
+    </record>
   
-   <record id="view_dm_campaign_proposition_segments_type_census" model="ir.ui.view">
-   <field name="name">dm_campaign_proposition_segments_type_census</field>
-   <field name="model">dm.campaign.proposition.segment</field>
-   <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
-   <field name="type">form</field>
-   <field name="arch" type="xml">
-    	<field name="type_census" position="replace">
-			<field name="type_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
-      </field>
-   </field>
-  </record>
+    <record id="view_dm_campaign_proposition_segments_type_census" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segments_type_census</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+	    	<field name="type_census" position="replace">
+				<field name="type_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
+	        </field>
+    	</field>
+    </record>
 
     </data>
 </openerp>

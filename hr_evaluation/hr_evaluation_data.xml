@@ -1157,20 +1157,20 @@
 	</data>
 
 	<data>
-		<record id="survey_tbl_column_heading_objectives0" model="survey.tbl.column.heading">
-			<field name="name">Objectives</field>
+		<record id="survey_tbl_column_heading_objectives0" model="survey.question.column.heading">
+			<field name="title">Objectives</field>
 			<field name="question_id" ref="survey_question_9"/>
 		</record>
 	</data>
 	<data>
-		<record id="survey_tbl_column_heading_results0" model="survey.tbl.column.heading">
-			<field name="name">Results</field>
+		<record id="survey_tbl_column_heading_results0" model="survey.question.column.heading">
+			<field name="title">Results</field>
 			<field name="question_id" ref="survey_question_9"/>
 		</record>
 	</data>
 	<data>
-		<record id="survey_tbl_column_heading_comments0" model="survey.tbl.column.heading">
-			<field name="name">Comments</field>
+		<record id="survey_tbl_column_heading_comments0" model="survey.question.column.heading">
+			<field name="title">Comments</field>
 			<field name="question_id" ref="survey_question_9"/>
 		</record>
 	</data>

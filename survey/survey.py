@@ -409,6 +409,7 @@ survey_question_column_heading()
 
 class survey_tbl_column_heading(osv.osv):
     _name = 'survey.tbl.column.heading'
+    _order = 'name'
     _columns = {
         'name' : fields.integer('Row Number'),
         'column_id' : fields.many2one('survey.question.column.heading', 'Column', ondelete='cascade'),
@@ -780,7 +781,7 @@ class survey_question_wiz(osv.osv_memory):
                     etree.SubElement(xml_form, 'separator', {'colspan': '4'})
                     xml_group = etree.SubElement(xml_form, 'group', {'col': '6', 'colspan': '4'})
                     etree.SubElement(xml_group, 'field', {'name': 'progress_bar_' + tools.ustr(page_number) , 'widget':'progressbar'})
-                    fields['progress_bar_' + tools.ustr(page_number)] = {'type':'int', 'string':"Progress", 'views':{}}
+                    fields['progress_bar_' + tools.ustr(page_number)] = {'type':'float', 'string':"Progress", 'views':{}}
                     etree.SubElement(xml_group, 'label', {'string': tools.ustr(page_number+ 1) + "/" + tools.ustr(total_pages)})
                     etree.SubElement(xml_group, 'button', {'icon': "gtk-cancel", 'special': "cancel",'string':"Cancel"})
                     if pre_button:

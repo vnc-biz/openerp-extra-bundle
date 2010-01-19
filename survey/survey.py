@@ -627,7 +627,7 @@ class survey_question_wiz(osv.osv_memory):
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'store_ans':{}})
             sur_name_read = surv_name_wiz.read(cr, uid, context['sur_name_id'])
             page_number = int(sur_name_rec['page_no'])
-            if sur_name_read['transfer'] or not sur_name_rec['page_no'] :
+            if sur_name_read['transfer'] or not sur_name_rec['page_no'] + 1:
                 surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':False})
                 flag = False
                 if sur_name_read['page'] == "next" or sur_name_rec['page_no'] == - 1 :

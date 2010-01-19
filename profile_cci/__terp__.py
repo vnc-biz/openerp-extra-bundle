@@ -36,6 +36,7 @@
         "l10n_be",
         #"account_asset",
         "account_budget",
+        "account_followup",
         "account_l10nbe_domiciliation",
         "hr_holidays",
         "cci_base_contact",

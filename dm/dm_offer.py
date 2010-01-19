@@ -339,16 +339,13 @@ class dm_offer(osv.osv): # {{{
         return result
 
     def fields_get(self, cr, uid, fields=None, context=None):
-        print "FFFFF", fields
         res = super(dm_offer, self).fields_get(cr, uid, fields, context)
-        print "RES", res
         if context and not 'type' in context and 'type' in res:
             print "in if"
             res['type']['selection'] = [('new', 'New'), 
                                         ('standart', 'Standart'),
                                         ('rewrite', 'Rewrite'), 
                                         ('as', 'After-Sale')]
-        print "RRRR", res
         return res
 
     def default_get(self, cr, uid, fields, context=None):

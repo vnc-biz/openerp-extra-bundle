@@ -78,11 +78,10 @@ class dm_address_segmentation(osv.osv): # {{{
 dm_address_segmentation() # }}}
 
 class dm_campaign_proposition_segment(osv.osv):
-    _name = "dm.campaign.proposition.segment"
     _description = "Segmentation"
     _inherit = "dm.campaign.proposition.segment"
     _columns = {
-                'segmentation_id':fields.many2one('dm.address.segmentation',
+                'segmentations_id':fields.many2one('dm.address.segmentation',
                                                   'Segmentation'),
                 }
     

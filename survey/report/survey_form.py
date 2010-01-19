@@ -255,7 +255,7 @@ class survey_form(report_rml):
                             if col.title not in matrix_ans:
                                 matrix_ans.append(col.title)
 
-                        if que.type in ['matrix_of_choices_only_one_ans'] and que.comment_column:
+                        if que.comment_column:
                             matrix_ans.append(tools.ustr(que.column_name))
 
                         rml+="""

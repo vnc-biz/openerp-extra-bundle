@@ -19,7 +19,7 @@
        <!-- Server Action -->
        
 		<record id="ir_actions_server_generatedocumentjob0" model="ir.actions.server">
-            <field eval="&quot;&quot;&quot;from dm_edition import dm_edition \naction = dm_remote_edition.generate_document_job(cr, uid, obj.id, context)&quot;&quot;&quot;" name="code"/>
+            <field eval="&quot;&quot;&quot;from dm_edition import dm_edition \naction = dm_edition.generate_document_job(cr, uid, obj.id, context)&quot;&quot;&quot;" name="code"/>
 			<field eval="5" name="sequence"/>
 			<field eval="[(6,0,[])]" name="file_ids"/>
 			<field eval="&quot;&quot;&quot;code&quot;&quot;&quot;" name="state"/>

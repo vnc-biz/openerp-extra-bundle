@@ -123,15 +123,19 @@ class hr_evaluation(osv.osv):
 
     def button_plan_in_progress(self,cr, uid, ids, context):
         self.write(cr,uid,ids,{'state':'wait'})
+        return True
 
     def button_final_validation(self,cr, uid, ids, context):
         self.write(cr,uid,ids,{'state':'progress'})
+        return True
 
     def button_done(self,cr, uid, ids, context):
         self.write(cr,uid,ids,{'state':'done'})
+        return True
 
     def button_cancel(self,cr, uid, ids, context):
         self.write(cr,uid,ids,{'state':'cancel'})
+        return True
 
 hr_evaluation()
 

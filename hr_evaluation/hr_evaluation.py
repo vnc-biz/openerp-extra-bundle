@@ -114,12 +114,25 @@ class hr_evaluation(osv.osv):
             ('progress','Final Validation'),
             ('done','Done'),
             ('cancel','Cancelled'),
-        ], 'State', required=True)
+        ], 'State', required=True,readonly=True)
     }
     _defaults = {
         'date' : lambda *a: time.strftime('%Y-%m-%d'),
         'state' : lambda *a: 'draft',
     }
+
+    def button_plan_in_progress(self,cr, uid, ids, context):
+        self.write(cr,uid,ids,{'state':'wait'})
+
+    def button_final_validation(self,cr, uid, ids, context):
+        self.write(cr,uid,ids,{'state':'progress'})
+
+    def button_done(self,cr, uid, ids, context):
+        self.write(cr,uid,ids,{'state':'done'})
+
+    def button_cancel(self,cr, uid, ids, context):
+        self.write(cr,uid,ids,{'state':'cancel'})
+
 hr_evaluation()
 
 

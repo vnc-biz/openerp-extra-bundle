@@ -228,7 +228,7 @@
 			<field name="validation_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="rating_allow_one_column_require"/>
 			<field name="req_error_msg">This question requires an answer.</field>
-			<field eval="4" name="sequence"/>
+			<field eval="1" name="sequence"/>
 			<field name="question">WORK PLAN</field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">table</field>
@@ -304,7 +304,7 @@
 			<field name="validation_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="rating_allow_one_column_require"/>
 			<field name="req_error_msg">This question requires an answer.</field>
-			<field eval="5" name="sequence"/>
+			<field eval="2" name="sequence"/>
 			<field name="question">Additional comments : </field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">comment</field>
@@ -353,7 +353,7 @@
 			<field name="validation_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="rating_allow_one_column_require"/>
 			<field name="req_error_msg">This question requires an answer.</field>
-			<field eval="5" name="sequence"/>
+			<field eval="3" name="sequence"/>
 			<field name="question">OVERALL PERFORMANCE SUMMARY RATING</field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">comment</field>
@@ -377,7 +377,7 @@
 			<field name="validation_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="rating_allow_one_column_require"/>
 			<field name="req_error_msg">This question requires an answer.</field>
-			<field eval="6" name="sequence"/>
+			<field eval="2" name="sequence"/>
 			<field name="question">OVERALL PURPOSE OF EMPLOYEE APPRAISAL</field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">comment</field>
@@ -446,7 +446,7 @@
 			<field name="validation_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="rating_allow_one_column_require"/>
 			<field name="req_error_msg">This question requires an answer.</field>
-			<field eval="8" name="sequence"/>
+			<field eval="3" name="sequence"/>
 			<field name="question">EVALUATION PROCESS</field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">multiple_textboxes</field>

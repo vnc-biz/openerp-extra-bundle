@@ -66,7 +66,7 @@ def send_email(cr, uid, obj, context):
         elif obj.document_id.editor ==  'oord':
             msg = generate_openoffice_reports(cr, uid, 'html2html', \
                     obj.document_id.id, False, context)
-        if msg in ('plugin_error','plugin_missing') :
+        if msg in ('plugin_error','plugin_missing','wrong_report_type') :
             return {'code':msg,'ids':[obj.id]}
         message.extend(msg)
     for msg  in message:

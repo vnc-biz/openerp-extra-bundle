@@ -118,7 +118,35 @@ class survey_browse_response(report_rml):
                                   </tr>
                                  </blockTable>"""
                         answer = surv_resp_line_obj.browse(cr,uid, surv_resp_line_obj.search(cr, uid, [('question_id','=',que.id),('response_id','=',response.id)]))
-                        if que.type in ['multiple_choice_only_one_ans','multiple_choice_multiple_ans']:
+                        if que.type in ['table']:
+                            if len(answer) and answer[0].state == "done":
+                                col_heading = pooler.get_pool(cr.dbname).get('survey.tbl.column.heading')
+                                cols_widhts = []
+                                for col in range(0, len(que.column_heading_ids)):
+                                    cols_widhts.append(float(500 / (len(que.column_heading_ids))))
+                                colWidths = ",".join(map(tools.ustr, cols_widhts))
+                                matrix_ans = []
+                                rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table1"><tr>"""
+                                for col in que.column_heading_ids:
+                                    if col.title not in matrix_ans:
+                                        matrix_ans.append(col.title)                                    
+                                        rml +="""<td> <para style="response">""" + col.title +"""</para></td>"""
+                                rml += """</tr></blockTable>"""
+                                for row in range(0, que.no_of_rows):
+                                    rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table1"><tr>"""
+                                    table_data = col_heading.browse(cr, uid, col_heading.search(cr, uid, [('response_table_id', '=', answer[0].id),('name','=',row)]))
+                                    for column in matrix_ans:
+                                        value = ""
+                                        for col in table_data:
+                                            if column == col.column_id.title:
+                                                value = col.value
+                                        rml += """<td> <para style="response">""" + value +"""</para></td>"""
+                                    rml += """</tr></blockTable>"""
+                            else:
+                                rml +="""<blockTable colWidths="500" style="Table1">
+                                 <tr>  <td> <para style="response">No Response</para></td> </tr>
+                                </blockTable>"""
+                        elif que.type in ['multiple_choice_only_one_ans','multiple_choice_multiple_ans']:
                             if len(answer) and answer[0].state == "done":
                                 for ans in answer[0].response_answer_ids:
                                     rml +="""<blockTable colWidths="500" style="Table1">

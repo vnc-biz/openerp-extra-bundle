@@ -662,15 +662,16 @@ class survey_question_wiz(osv.osv_memory):
                         separator_string = tools.ustr(qu_no) + "." + tools.ustr(que_rec['question'])
 
                         xml_group = etree.SubElement(xml_form, 'group', {'col': '2', 'colspan': '4'})
-                        xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '2'})
-
-                        etree.SubElement(xml_group, 'separator', {'string': to_xml(separator_string), 'colspan': '3'})
-
                         if context.has_key('active') and context.has_key('edit'):
+                            xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '2'})
+                            etree.SubElement(xml_group, 'separator', {'string': to_xml(separator_string), 'colspan': '3'})
                             xml_group1 = etree.SubElement(xml_form, 'group', {'col': '2', 'colspan': '2'})
                             context.update({'question_id' : tools.ustr(que),'page_number' : sur_name_rec['page_no'] , 'transfer' : sur_name_read['transfer'], 'page_id' : p_id})
                             etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-edit", 'type' :'object','name':"action_edit_question", 'context' : tools.ustr(context)})
                             etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-delete", 'type' :'object','name':"action_delete_question", 'context' : tools.ustr(context)})
+                        else:
+                            xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '4'})
+                            etree.SubElement(xml_group, 'separator', {'string': to_xml(separator_string), 'colspan': '4'})
                         ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
                         xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '4'})
                         if que_rec['type'] == 'multiple_choice_only_one_ans':

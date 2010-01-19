@@ -341,12 +341,14 @@ class survey_form(report_rml):
                         cols_widhts.append(float(_tbl_widths.replace('cm','')))
                         colWidths = "cm,".join(map(tools.ustr, cols_widhts))
                         colWidths = colWidths+'cm'
+                        rect_len = ""
+                        rect_len =  tools.ustr(cols_widhts[0] - 0.4) + "cm"
                         rml+="""
                         <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
                             <tr>
                                 <td><para style="comment"><font color="white"> </font></para>
                                     <illustration>
-                                        <rect x="0.0cm" y="0.3cm" width="15.0 cm" height="1.5cm" fill="no" stroke="yes"/>
+                                        <rect x="0.0cm" y="0.3cm" width='""" + tools.ustr(rect_len) + """' height="1.5cm" fill="no" stroke="yes"/>
                                     </illustration>
                                 </td>
                             </tr>

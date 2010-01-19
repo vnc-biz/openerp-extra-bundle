@@ -63,13 +63,12 @@ def send_email(cr, uid, obj, context):
         if obj.document_id.editor ==  'internal':
             msg = generate_internal_reports(cr, uid, 'html2html', \
                     obj.document_id.id, False, context)
-            message.append(msg)
         elif obj.document_id.editor ==  'oord':
             msg = generate_openoffice_reports(cr, uid, 'html2html', \
                     obj.document_id.id, False, context)
-            message.extend(msg)
-        else:
-            return {'code':'emv_doc_error'}
+        if msg in ('plugin_error','plugin_missing') :
+            return {'code':msg,'ids':[obj.id]}
+        message.extend(msg)
     for msg  in message:
         root = etree.HTML(msg)
         body = root.find('body')

@@ -60,6 +60,23 @@ class survey_browse_response(report_rml):
                       <blockValign value="TOP"/>
                       <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
                     </blockTableStyle>
+                    <blockTableStyle id="Table4">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="4,-1" stop="4,-1"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="5,-1" stop="5,-1"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="Table5">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                      <!--lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                      <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,0" stop="-1,-1"/-->
+                    </blockTableStyle>
                     <initialize>
                       <paraStyle name="all" alignment="justify"/>
                     </initialize>
@@ -77,7 +94,8 @@ class survey_browse_response(report_rml):
                     <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
                     <paraStyle name="comment" fontName="Helvetica" fontSize="14.0" leading="50" spaceBefore="0.0" spaceAfter="0.0"/>
                     <paraStyle name="P1" fontName="Helvetica" fontSize="9.0" leading="12" spaceBefore="0.0" spaceAfter="1.0"/>
-
+                    <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+                    <paraStyle name="terp_default_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
                   </stylesheet>
                   <images/>
                   <story>
@@ -126,21 +144,21 @@ class survey_browse_response(report_rml):
                                     cols_widhts.append(float(500 / (len(que.column_heading_ids))))
                                 colWidths = ",".join(map(tools.ustr, cols_widhts))
                                 matrix_ans = []
-                                rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table1"><tr>"""
+                                rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table4"><tr>"""
                                 for col in que.column_heading_ids:
                                     if col.title not in matrix_ans:
                                         matrix_ans.append(col.title)                                    
-                                        rml +="""<td> <para style="response">""" + col.title +"""</para></td>"""
+                                        rml +="""<td> <para style="terp_tblheader_Details">""" + col.title +"""</para></td>"""
                                 rml += """</tr></blockTable>"""
                                 for row in range(0, que.no_of_rows):
-                                    rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table1"><tr>"""
+                                    rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table5"><tr>"""
                                     table_data = col_heading.browse(cr, uid, col_heading.search(cr, uid, [('response_table_id', '=', answer[0].id),('name','=',row)]))
                                     for column in matrix_ans:
-                                        value = ""
+                                        value = """<font color="white"> </font>"""
                                         for col in table_data:
                                             if column == col.column_id.title:
                                                 value = col.value
-                                        rml += """<td> <para style="response">""" + value +"""</para></td>"""
+                                        rml += """<td> <para style="terp_default_9">""" + value +"""</para></td>"""
                                     rml += """</tr></blockTable>"""
                             else:
                                 rml +="""<blockTable colWidths="500" style="Table1">

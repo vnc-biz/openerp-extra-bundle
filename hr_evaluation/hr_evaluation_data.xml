@@ -4,6 +4,7 @@
 		<record id="survey_2" model="survey">
 			<field name="title">Evaluation</field>
 			<field name="max_response_limit">20</field>
+			<field name="question_prefix">EVAL</field>
 			<field eval="[(6,0,[])]" name="users"/>
 		</record>
 	</data>
@@ -11,6 +12,7 @@
 		<record id="survey_3" model="survey">
 			<field name="title">EMPLOYEE OPINION</field>
 			<field name="max_response_limit">20</field>
+			<field name="question_prefix">EVAL</field>
 			<field eval="[(6,0,[])]" name="users"/>
 		</record>
 	</data>

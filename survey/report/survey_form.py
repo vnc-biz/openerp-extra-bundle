@@ -241,7 +241,7 @@ class survey_form(report_rml):
                         tmp=0.0
                         sum = 0.0
                         i = 0
-                        if que.type in ['matrix_of_choices_only_one_ans'] and que.comment_column:
+                        if que.comment_column:
                             for col in cols_widhts:
                                 cols_widhts[i] = col - 1.1
                                 sum += col

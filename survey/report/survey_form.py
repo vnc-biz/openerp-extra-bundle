@@ -372,20 +372,20 @@ class survey_form(report_rml):
                         """
                     elif que.type in ['table']:
                         tbl_width = float(_tbl_widths.replace('cm',''))
-                        for i in range(0,len(que.column_ids)):
-                            cols_widhts.append(tbl_width/float(len(que.column_ids)))
+                        for i in range(0,len(que.column_heading_ids)):
+                            cols_widhts.append(tbl_width/float(len(que.column_heading_ids)))
                         colWidths = "cm,".join(map(tools.ustr, cols_widhts))
                         colWidths = colWidths+'cm'
                         rml+="""
                         <blockTable colWidths=" """ + colWidths + """ " style="Table4"><tr>"""
-                        for col in que.column_ids:
-                            rml+="""<td><para style="terp_tblheader_Details">""" + tools.ustr(col.name) + """</para></td>"""
+                        for col in que.column_heading_ids:
+                            rml+="""<td><para style="terp_tblheader_Details">""" + tools.ustr(col.title) + """</para></td>"""
                         rml+="""</tr></blockTable>
                         <blockTable colWidths=" """ + colWidths + """ " style="Table5">"""
                         for r in range(0,que.no_of_rows):
                             rml+="""
                             <tr>"""
-                            for c in que.column_ids:
+                            for c in que.column_heading_ids:
                                rml+="""
                                 <td><para style="terp_default_9"><font color="white"> </font></para></td>"""
                             rml+="""

@@ -121,7 +121,7 @@ class survey_page(osv.osv):
 
         surv_name_wiz = self.pool.get('survey.name.wiz')
         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page_no' : context['page_number'] })
-        
+
         return {
                 'view_type': 'form',
                 "view_mode": 'form',
@@ -132,7 +132,7 @@ class survey_page(osv.osv):
                 'context': context
                 }
 
-    
+
 survey_page()
 
 class survey_question(osv.osv):
@@ -348,14 +348,14 @@ class survey_question(osv.osv):
 
         res = super(survey_question, self).create(cr, uid, vals, context)
         return res
-    
+
     def survey_save(self, cr, uid, ids, context):
         search_obj = self.pool.get('ir.ui.view')
         search_id = search_obj.search(cr,uid,[('model','=','survey.question.wiz'),('name','=','Survey Search')])
 
         surv_name_wiz = self.pool.get('survey.name.wiz')
         surv_name_wiz.write(cr, uid, [context['sur_name_id']], {'transfer':True, 'page_no' : context['page_number'] })
-        
+
         return {
                 'view_type': 'form',
                 "view_mode": 'form',
@@ -366,7 +366,7 @@ class survey_question(osv.osv):
                 'context': context
                 }
 
-    
+
     def default_get(self, cr, uid, fields, context={}):
         data = super(survey_question, self).default_get(cr, uid, fields, context)
         if context.has_key('line_order') and context['line_order']:
@@ -406,17 +406,6 @@ class survey_question_column_heading(osv.osv):
        'in_visible_menu_choice':_get_in_visible_menu_choice,
     }
 survey_question_column_heading()
-
-class survey_tbl_column_heading(osv.osv):
-    _name = 'survey.tbl.column.heading'
-    _order = 'name'
-    _columns = {
-        'name' : fields.integer('Row Number'),
-        'column_id' : fields.many2one('survey.question.column.heading', 'Column', ondelete='cascade'),
-        'value' : fields.char('Value', size = 255),
-        'response_table_id' : fields.many2one('survey.response.line', 'Response', ondelete='cascade'),
-    }
-survey_tbl_column_heading()
 
 class survey_answer(osv.osv):
     _name = 'survey.answer'
@@ -511,6 +500,17 @@ class survey_response_line(osv.osv):
         return True
 
 survey_response_line()
+
+class survey_tbl_column_heading(osv.osv):
+    _name = 'survey.tbl.column.heading'
+    _order = 'name'
+    _columns = {
+        'name' : fields.integer('Row Number'),
+        'column_id' : fields.many2one('survey.question.column.heading', 'Column', ondelete='cascade'),
+        'value' : fields.char('Value', size = 255),
+        'response_table_id' : fields.many2one('survey.response.line', 'Response', ondelete='cascade'),
+    }
+survey_tbl_column_heading()
 
 class survey_response_answer(osv.osv):
     _name = 'survey.response.answer'
@@ -660,7 +660,7 @@ class survey_question_wiz(osv.osv_memory):
                         que_rec = que_obj.read(cr, uid, que)
                         descriptive_text = ""
                         separator_string = tools.ustr(qu_no) + "." + tools.ustr(que_rec['question'])
-                        
+
                         xml_group = etree.SubElement(xml_form, 'group', {'col': '2', 'colspan': '4'})
                         xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '2'})
 
@@ -669,7 +669,7 @@ class survey_question_wiz(osv.osv_memory):
                         if context.has_key('active') and context.has_key('edit'):
                             xml_group1 = etree.SubElement(xml_form, 'group', {'col': '2', 'colspan': '2'})
                             context.update({'question_id' : tools.ustr(que),'page_number' : sur_name_rec['page_no'] , 'transfer' : sur_name_read['transfer'], 'page_id' : p_id})
-                            etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-edit", 'type' :'object','name':"action_edit_question", 'context' : tools.ustr(context)})                            
+                            etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-edit", 'type' :'object','name':"action_edit_question", 'context' : tools.ustr(context)})
                             etree.SubElement(xml_group1, 'button', {'string' :'','icon': "gtk-delete", 'type' :'object','name':"action_delete_question", 'context' : tools.ustr(context)})
                         ans_ids = ans_obj.read(cr, uid, que_rec['answer_choice_ids'], [])
                         xml_group = etree.SubElement(xml_form, 'group', {'col': '1', 'colspan': '4'})
@@ -787,7 +787,7 @@ class survey_question_wiz(osv.osv_memory):
                     if pre_button:
                         etree.SubElement(xml_group, 'button', {'colspan':"1",'icon':"gtk-go-back",'name':"action_previous",'string':"Previous",'type':"object"})
                     etree.SubElement(xml_group, 'button', {'icon': "gtk-go-forward", 'name':"action_next",'string':"Next",'type':"object"})
-                    
+
                     if context.has_key('active') and context.has_key('edit'):
                         etree.SubElement(xml_form, 'separator', {'string' : '','colspan': '4'})
                         context.update({'page_id' : tools.ustr(p_id),'page_number' : sur_name_rec['page_no'] , 'transfer' : sur_name_read['transfer']})
@@ -1219,7 +1219,7 @@ class survey_question_wiz(osv.osv_memory):
                 'view_id': view_id,
                 'context': context
                 }
-    
+
     def action_new_page(self, cr, uid, ids, context):
         for key,val in context.items():
             if type(key) == type(True):
@@ -1234,7 +1234,7 @@ class survey_question_wiz(osv.osv_memory):
                 'view_id': view_id,
                 'context': context
                 }
-        
+
     def action_edit_page(self,cr, uid, ids, context):
         for key,val in context.items():
             if type(key) == type(True):
@@ -1284,7 +1284,7 @@ class survey_question_wiz(osv.osv_memory):
                 'view_id': view_id,
                 'context': context
                 }
-        
+
     def action_delete_question(self,cr, uid, ids, context):
         for key,val in context.items():
             if type(key) == type(True):

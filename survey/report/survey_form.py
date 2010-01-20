@@ -112,19 +112,16 @@ class survey_form(report_rml):
             <blockTableStyle id="Table4">
               <blockAlignment value="LEFT"/>
               <blockValign value="TOP"/>
-              <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-              <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-              <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-              <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-              <lineStyle kind="LINEBELOW" colorName="#000000" start="4,-1" stop="4,-1"/>
-              <lineStyle kind="LINEBELOW" colorName="#000000" start="5,-1" stop="5,-1"/>
+              <lineStyle kind="LINEBELOW" colorName="#000000" start="0,0" stop="-1,-1"/>
+              <lineStyle kind="LINEBEFORE" colorName="#777777" start="0,0" stop="-1,-1"/>
+              <lineStyle kind="LINEAFTER" colorName="#777777" start="0,0" stop="-1,-1"/>
             </blockTableStyle>
             <blockTableStyle id="Table5">
               <blockAlignment value="LEFT"/>
               <blockValign value="TOP"/>
               <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-              <!--lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-              <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,0" stop="-1,-1"/-->
+              <lineStyle kind="LINEBEFORE" colorName="#777777" start="0,0" stop="-1,-1"/>
+              <lineStyle kind="LINEAFTER" colorName="#777777" start="0,0" stop="-1,-1"/>
             </blockTableStyle>
             <initialize>
               <paraStyle name="all" alignment="justify"/>

@@ -36,6 +36,17 @@ class survey_browse_response(report_rml):
                 </pageTemplate>
                   </template>
                   <stylesheet>
+                    <blockTableStyle id="ans_tbl_white">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                    </blockTableStyle>
+                    <blockTableStyle id="ans_tbl_gainsboro">
+                      <blockAlignment value="LEFT"/>
+                      <blockValign value="TOP"/>
+                      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+                      <blockBackground colorName="gainsboro" start="0,0" stop="-1,-1"/>
+                    </blockTableStyle>
                     <blockTableStyle id="Table1">
                       <blockAlignment value="LEFT"/>
                       <blockValign value="TOP"/>
@@ -214,11 +225,12 @@ class survey_browse_response(report_rml):
                                 i = 0
                                 if que.comment_column:
                                     for col in cols_widhts:
-                                        cols_widhts[i] = col - 20
+                                        if i==0:
+                                            cols_widhts[i] = cols_widhts[i]/1.5
+                                            tmp = cols_widhts[i]
                                         sum += col
-                                        tmp+= col - 20
                                         i+=1
-                                    cols_widhts.append(round(sum-tmp,2))                                    
+                                    cols_widhts.append(round(tmp,2))
                                 colWidths = ",".join(map(tools.ustr, cols_widhts))
                                 matrix_ans = ['',]
                                 for col in que.column_heading_ids:
@@ -231,7 +243,17 @@ class survey_browse_response(report_rml):
                                 for mat_col in matrix_ans:
                                     rml+="""<td><para style="response">""" + to_xml(mat_col) + """</para></td>"""
                                 rml +="""</tr>"""
+                                rml+="""</blockTable>"""
+                                
+                                i=0
                                 for ans in que.answer_choice_ids:
+                                    if i%2!=0:
+                                        style='ans_tbl_white'
+                                    else:
+                                        style='ans_tbl_gainsboro'
+                                    i+=1
+                                    rml+="""
+                                    <blockTable colWidths=" """ + colWidths + """ " style='"""+style+"""'>"""
                                     rml+="""<tr><td><para style="response">""" + to_xml(ans.answer) + """</para></td>"""
                                     comment_value = ""
                                     for mat_col in range(1, len_matrix):
@@ -242,14 +264,16 @@ class survey_browse_response(report_rml):
                                                 if que.type in ['matrix_of_drop_down_menus']:
                                                     value = """<para style="response">""" + to_xml(tools.ustr(res_ans.value_choice)) + """</para>"""
                                                 elif que.type in ['matrix_of_choices_only_one_ans','rating_scale']:
-                                                    value = """<illustration><fill color="gray"/>
-                                                            <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="no" stroke="yes"/>
+                                                    value = """<illustration><fill color="white"/>
+                                                            <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="yes" stroke="yes"/>
+                                                            <fill color="gray"/>
                                                             <circle x="0.3cm" y="-0.18cm" radius="0.10 cm" fill="yes" stroke="no"/>
                                                         </illustration>"""
                                                 elif que.type in ['matrix_of_choices_only_multi_ans']:
 
                                                     value = """<illustration>
-                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
+                                                        <fill color="white"/>
+                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"  round="0.1cm"/>
                                                         <fill color="gray"/>
                                                         <rect x="0.2cm" y="-0.35cm" width="0.3 cm" height="0.3cm" fill="yes" stroke="no"  round="0.1cm"/>
                                                         </illustration>"""
@@ -258,19 +282,18 @@ class survey_browse_response(report_rml):
                                                 if que.type in ['matrix_of_drop_down_menus']:
                                                     value = """"""
                                                 elif que.type in ['matrix_of_choices_only_one_ans','rating_scale']:
-                                                    value = """<illustration><fill color="gray"/>
-                                                            <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="no" stroke="yes"  round="0.1cm"/>
+                                                    value = """<illustration><fill color="white"/>
+                                                            <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="yes" stroke="yes"  round="0.1cm"/>
                                                         </illustration>"""
                                                 elif que.type in ['matrix_of_choices_only_multi_ans']:
-                                                    value = """<illustration>
+                                                    value = """<illustration><fill color="gray"/>
                                                         <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
                                                         </illustration>"""
 
                                         rml+= """<td>""" + value + """</td>"""
                                     if que.comment_column:
                                         rml+= """<td>""" + comment_value + """</td>"""
-                                    rml+="""  </tr>"""
-                                rml+="""</blockTable>"""
+                                    rml+="""  </tr></blockTable>"""
                             else:
                                 rml +="""<blockTable colWidths="500" style="Table1">
                                  <tr>  <td> <para style="response">No Response</para></td> </tr>

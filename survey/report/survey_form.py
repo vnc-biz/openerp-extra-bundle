@@ -240,11 +240,12 @@ class survey_form(report_rml):
                         i = 0
                         if que.comment_column:
                             for col in cols_widhts:
-                                cols_widhts[i] = col - 1.1
+                                if i==0:
+                                    cols_widhts[i] = cols_widhts[i]/2.0
+                                    tmp = cols_widhts[i]
                                 sum += col
-                                tmp+= col - 1.1
                                 i+=1
-                            cols_widhts.append(round(sum-tmp,2))
+                            cols_widhts.append(round(tmp,2))
                         colWidths = "cm,".join(map(tools.ustr, cols_widhts))
                         colWidths = colWidths+'cm'
                         matrix_ans = ['',]

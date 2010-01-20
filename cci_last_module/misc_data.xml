@@ -7,6 +7,7 @@
             <field name="name">res.partner.new.form</field>
             <field name="model">res.partner</field>
             <field name="type">form</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="Partners">
                     <group col="6" colspan="4">
@@ -303,27 +304,6 @@
 	</field>
 </record>
 
-		<record id="action_partner_form_spl" model="ir.actions.act_window">
-            <field name="name">Partners (Special View)</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">res.partner</field>
-            <field name="view_type">form</field>
-        </record>
-
-		<record id="action_partner_form_view2_spl" model="ir.actions.act_window.view">
-            <field eval="20" name="sequence"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_partner_form_new"/>
-            <field name="act_window_id" ref="action_partner_form_spl"/>
-        </record>
-
-        <menuitem
-            action="action_partner_form_spl"
-            id="menu_partner_form_spl"
-            parent="base.menu_partner_form"
-            sequence="2"/>
-
-
 <!--customer invoice Special-->
 
         <record id="invoice_new_form" model="ir.ui.view">
@@ -605,7 +585,7 @@
                         </page>
                         <page string="Other Info">
                             <field name="company_id"/>
-            	            <field name="dept" select="2"/>                               
+            	            <field name="dept" select="2"/>
                             <newline/>
                             <field name="fiscal_position" groups="base.group_extended"/>
                             <field name="payment_term"/>
@@ -619,7 +599,7 @@
                         <field name="currency_id" on_change="onchange_currency_id(currency_id)" select="2"/>
             	            <field name="domiciled"/>
             	            <field name="amount_to_pay"/>
-                    		<newline/>                 		
+                    		<newline/>
                             <field name="period_id"/>
                             <label align="0.0" colspan="2" string="(keep empty to use the current period)"/>
                             <separator colspan="4" string="Additional Information"/>

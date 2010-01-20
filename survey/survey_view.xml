@@ -33,6 +33,8 @@
                                             <field name="sequence"/>
                                             <field name="tot_resp" select="2"/>
                                             <field name="type" on_change="on_change_type(type)"/>
+						                    <field name="in_visible_rating_weight" invisible="1"/>
+						                    <field name="in_visible_menu_choice" invisible="1"/>
                                             <notebook colspan="4">
 						                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale'),('type','!=','multiple_textboxes'),('type','!=','numerical_textboxes'),('type','!=','date'),('type','!=','date_and_time'),('type','!=','table')]}">
 												   <group colspan="4" attrs="{'invisible':[('type','=','table')]}">                        
@@ -267,6 +269,8 @@
                         <field name="sequence"/>
                         <field name="tot_resp" select="2"/>
                         <field name="type" on_change="on_change_type(type)"/>
+	                    <field name="in_visible_rating_weight" invisible="1"/>
+	                    <field name="in_visible_menu_choice" invisible="1"/>
                         <notebook colspan="4">
 	                        <page string="Answer" attrs="{'invisible':[('type','!=','multiple_choice_only_one_ans'), ('type','!=','multiple_choice_multiple_ans'),('type','!=','matrix_of_choices_only_one_ans'),('type','!=','matrix_of_choices_only_multi_ans'),('type','!=','matrix_of_drop_down_menus'),('type','!=','rating_scale'),('type','!=','multiple_textboxes'),('type','!=','numerical_textboxes'),('type','!=','date'),('type','!=','date_and_time'),('type','!=','table')]}">
 							   <group colspan="4" attrs="{'invisible':[('type','=','table')]}">                        

@@ -125,6 +125,7 @@ class survey_analysis(report_rml):
                             rml+="""<td><para style="response">""" + to_xml(mat_col) + """</para></td>"""
                         rml+="""<td><para style="response">Response Count</para></td>
                                 </tr>"""
+                        last_col = cols_widhts[-1]
                         for ans in que.answer_choice_ids:
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>"""
                             cr.execute("select count(id) from survey_response_answer sra where sra.answer_id = %d"%(ans.id))
@@ -146,6 +147,12 @@ class survey_analysis(report_rml):
                             rml+="""<td><para style="response">""" + tools.ustr(tot_res) + """</para></td>
                                 </tr>"""
                         rml+="""</blockTable>"""
+                        if que.comment_field_type:
+                            cr.execute("select count(id) from survey_response_line where question_id = %d and comment != ''"% que.id)
+                            tot_res = cr.fetchone()[0]
+                            rml+="""<blockTable colWidths=" """+ str(500 - last_col) +"," + str(last_col) + """ " style="Table1"><tr><td><para style="answer_right">""" + to_xml(que.comment_label) + """</para></td>
+                                    <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr></blockTable>"""
+                        
                     elif que.type in['multiple_choice_only_one_ans', 'multiple_choice_multiple_ans', 'multiple_textboxes','date_and_time','date']:
                         rml +="""<blockTable colWidths="280.0,120,100.0" style="Table1">"""
                         rml += """ <tr> 
@@ -157,6 +164,7 @@ class survey_analysis(report_rml):
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>
                                     <td><para style="answer">""" + tools.ustr(ans.average) + """%</para></td>
                                     <td><para style="answer">""" + tools.ustr(ans.response) + """</para></td></tr>"""
+                        rml+="""</blockTable>"""
                         if que.comment_field_type:
                             if que.make_comment_field:
                                 cr.execute("select count(id) from survey_response_line where question_id = %d and comment != ''"% que.id)
@@ -164,16 +172,15 @@ class survey_analysis(report_rml):
                                 tot_avg = 0.00
                                 if que.tot_resp:
                                     tot_avg = round(float(tot_res * 100)/ que.tot_resp,2)
-                                rml+="""<tr><td><para style="answer">""" + to_xml(que.comment_label) + """</para></td>
+                                rml+="""<blockTable colWidths="280.0,120,100.0" style="Table1"><tr><td><para style="answer">""" + to_xml(que.comment_label) + """</para></td>
                                         <td><para style="answer">""" + str(tot_avg) + """%</para></td>
-                                        <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr>"""
+                                        <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr></blockTable>"""
                             else:
                                 cr.execute("select count(id) from survey_response_line where question_id = %d and comment != ''"% que.id)
                                 tot_res = cr.fetchone()[0]
-                                rml+="""<tr><td><para style="answer">""" + to_xml(que.comment_label) + """</para></td>
-                                        <td><para style="answer"></para></td>
-                                        <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr>"""
-                        rml+="""</blockTable>"""
+                                rml+="""<blockTable colWidths="400.0,100.0" style="Table1"><tr><td><para style="answer_right">""" + to_xml(que.comment_label) + """</para></td>
+                                        <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr></blockTable>"""
+                       
                     elif que.type in['single_textbox']:
                         cr.execute("select count(id) from survey_response_line where question_id = %d and single_text!=''" % que.id)
                         rml +="""<blockTable colWidths="400.0,100.0" style="Table1">

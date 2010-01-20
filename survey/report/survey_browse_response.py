@@ -182,6 +182,9 @@ class survey_browse_response(report_rml):
                                     rml +="""<blockTable colWidths="500" style="Table1">
                                          <tr> <td> <para style="response">""" + to_xml(ans.answer_id.answer) + """</para></td></tr>
                                         </blockTable>"""
+                                if que.comment_field_type:
+                                    rml+="""<blockTable colWidths="500" style="Table1"><tr>
+                                            <td><para style="answer">""" + tools.ustr(answer[0].comment) + """</para></td></tr></blockTable>"""
                             else:
                                 rml +="""<blockTable colWidths="500" style="Table1">
                                  <tr>  <td> <para style="response">No Response</para></td> </tr>
@@ -298,6 +301,10 @@ class survey_browse_response(report_rml):
                                     if que.comment_column:
                                         rml+= """<td>""" + comment_value + """</td>"""
                                     rml+="""  </tr></blockTable>"""
+                                if que.comment_field_type:
+                                    rml+="""<blockTable colWidths="500" style="Table1"><tr>
+                                            <td><para style="answer">""" + tools.ustr(answer[0].comment) + """</para></td></tr></blockTable>"""
+
                             else:
                                 rml +="""<blockTable colWidths="500" style="Table1">
                                  <tr>  <td> <para style="response">No Response</para></td> </tr>

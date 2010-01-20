@@ -3,12 +3,16 @@
 	<data>
 
 		<wizard
-			string="Export Invoice"
+			string="Export Domiciliated Invoices"
 			model="account.invoice"
 			name="invoice.export.dom"
  			id="wizard_invoice_export_dom"
-            multi="True"
+                        menu="False"
  			/>
+
+        <menuitem name="Export Domiciliated Invoices" action="wizard_invoice_export_dom" parent="account.menu_finance_periodical_processing"
+        type="wizard"  id="menu_account_coda_wizard" sequence="15"/>
+
 
 	</data>
 </openerp>

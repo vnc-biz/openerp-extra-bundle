@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<document filename="test.pdf">
-  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+<document filename="dom80.pdf">
+  <template pageSize="(595.0,842.0)" title="dom80" author="Martin Simon" allowSplitting="20">
     <pageTemplate id="first">
       <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
     </pageTemplate>
@@ -165,7 +165,7 @@
     <blockTable colWidths="482.0" style="Table3">
       <tr>
         <td>
-          <para style="P17">[[ repeatIn(invoice_details(), 'a') ]]</para>
+          <para style="P17">[[ repeatIn(invoice_details(data['form']['inv_ids']), 'a') ]]</para>
           <blockTable colWidths="95.0,95.0,95.0,95.0,95.0" style="Table4">
             <tr>
               <td>
@@ -200,7 +200,7 @@
     <blockTable colWidths="96.0,96.0,96.0,96.0,96.0" style="Table5">
       <tr>
         <td>
-          <para style="P17">[[ repeatIn(statastics_details(), 's') ]]</para>
+          <para style="P17">[[ repeatIn(statastics_details(data['form']['account_bank_number'],data['form']['inv_ids']), 's') ]]</para>
         </td>
         <td>
           <para style="P8">Banque [[ s['bank_name'] ]]</para>

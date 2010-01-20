@@ -36,7 +36,7 @@ def customer_function(cr, uid, **args):
     elif model_name in ['dm.campaign', 'dm.trademark'] and 'segment_id' in args:
         segment_id = pool.get('dm.campaign.proposition.segment').browse(cr,uid,
                                                             args['segment_id'])
-        if not segment_id.proposition_id or segment_id.proposition_id.camp_id:
+        if not segment_id.proposition_id or not segment_id.proposition_id.camp_id:
             return False
         if model_name == 'dm.campaign':
             res = pool.get(model_name).read(cr, uid, 

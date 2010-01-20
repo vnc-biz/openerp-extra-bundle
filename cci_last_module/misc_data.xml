@@ -7,6 +7,7 @@
             <field name="name">res.partner.new.form</field>
             <field name="model">res.partner</field>
             <field name="type">form</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="Partners">
                     <group col="6" colspan="4">
@@ -303,33 +304,13 @@
 	</field>
 </record>
 
-		<record id="action_partner_form_spl" model="ir.actions.act_window">
-            <field name="name">Partners (Special View)</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">res.partner</field>
-            <field name="view_type">form</field>
-        </record>
-
-		<record id="action_partner_form_view2_spl" model="ir.actions.act_window.view">
-            <field eval="20" name="sequence"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_partner_form_new"/>
-            <field name="act_window_id" ref="action_partner_form_spl"/>
-        </record>
-
-        <menuitem
-            action="action_partner_form_spl"
-            id="menu_partner_form_spl"
-            parent="base.menu_partner_form"
-            sequence="2"/>
-
-
 <!--customer invoice Special-->
 
         <record id="invoice_new_form" model="ir.ui.view">
             <field name="name">account.invoice.new.form</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="Invoice">
                     <group colspan="4" col="6">
@@ -456,33 +437,76 @@
             </field>
         </record>
 
-		<record id="action_invoice_new_spl" model="ir.actions.act_window">
-            <field name="name">Customer Invoice(Special View)</field>
-            <field name="type">ir.actions.act_window</field>
+		<record id="account.action_invoice_tree1_new" model="ir.actions.act_window">
+            <field name="name">New Customer Invoice</field>
             <field name="res_model">account.invoice</field>
             <field name="view_type">form</field>
+            <field name="view_mode">form,tree,calendar,graph</field>
+            <field eval="invoice_new_form" name="view_id"/>
+            <field name="domain">[('type','=','out_invoice')]</field>
+            <field name="context">{'type':'out_invoice'}</field>
         </record>
 
-		<record id="action_invoice_new_view_spl" model="ir.actions.act_window.view">
-            <field eval="20" name="sequence"/>
+        <record id="account.action_invoice_tree5_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
             <field name="view_mode">form</field>
             <field name="view_id" ref="invoice_new_form"/>
-            <field name="act_window_id" ref="action_invoice_new_spl"/>
+            <field name="act_window_id" ref="account.action_invoice_tree5"/>
         </record>
 
-        <record id="action_invoice_new_view_spl_tree" model="ir.actions.act_window.view">
-            <field eval="40" name="sequence"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="account.invoice_tree"/>
-            <field name="act_window_id" ref="action_invoice_new_spl"/>
+        <record id="account.action_invoice_tree6_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_new_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree6"/>
         </record>
 
-        <menuitem
-            action="action_invoice_new_spl"
-            id="menu_invoice_new_spl"
-            parent="account.menu_action_invoice_tree1"
-            sequence="2"/>
+		<record id="account.action_invoice_tree7_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_new_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree7"/>
+        </record>
 
+        <record id="account.action_invoice_tree1_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_new_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree1"/>
+        </record>
+
+
+		<!-- refund -->
+        <record id="account.action_invoice_tree3_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_new_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree3"/>
+        </record>
+
+        <record id="account.action_invoice_tree3_new" model="ir.actions.act_window">
+            <field name="name">New Customer Refund</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree,calendar,graph</field>
+            <field eval="invoice_new_form" name="view_id"/>
+            <field name="domain">[('type','=','out_refund')]</field>
+            <field name="context">{'type':'out_refund'}</field>
+        </record>
+
+		<record id="account.action_invoice_tree10_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_new_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree10"/>
+        </record>
+
+        <record id="account.action_invoice_tree11_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_new_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree11"/>
+        </record>
 
 <!--Supplier invoice Special-->
         <record id="invoice_tree_spl" model="ir.ui.view">
@@ -605,7 +629,7 @@
                         </page>
                         <page string="Other Info">
                             <field name="company_id"/>
-            	            <field name="dept" select="2"/>                               
+            	            <field name="dept" select="2"/>
                             <newline/>
                             <field name="fiscal_position" groups="base.group_extended"/>
                             <field name="payment_term"/>
@@ -619,7 +643,7 @@
                         <field name="currency_id" on_change="onchange_currency_id(currency_id)" select="2"/>
             	            <field name="domiciled"/>
             	            <field name="amount_to_pay"/>
-                    		<newline/>                 		
+                    		<newline/>
                             <field name="period_id"/>
                             <label align="0.0" colspan="2" string="(keep empty to use the current period)"/>
                             <separator colspan="4" string="Additional Information"/>

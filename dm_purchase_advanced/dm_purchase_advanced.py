@@ -229,6 +229,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                             price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist_id], pline.product_id.id, pline.quantity, False, {'uom': pline.uom_id.id})[pricelist_id]
                             newdate = DateTime.strptime(pline.date_planned, '%Y-%m-%d %H:%M:%S') - DateTime.RelativeDateTime(days=pline.product_id.product_tmpl_id.seller_delay or 0.0)
 
+                            note = filter(lambda x: x != False, note)
                             "Create Document"
                             purchase_id = self.pool.get('purchase.order').create(cr, uid, {
                                 'origin': code,
@@ -757,7 +758,6 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         'state': lambda *a : 'pending',
         'type_quantity': _default_quantity_get,
         'type_document': _default_doctype_get,
-        'desc_from_offer': lambda *a: True,
     }
 dm_campaign_purchase_line()#}}}
 

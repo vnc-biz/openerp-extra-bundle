@@ -33,10 +33,9 @@
                     ],
     "demo_xml" : [],
     "update_xml" : [
-                    #"security/ir.model.access.csv",
-                    "dm_extract_data.xml",  
+                    "security/ir.model.access.csv",  
                     "dm_extract_view.xml",
-                    #"dm_extract_wizard.xml"
+                    "dm_extract_wizard.xml"
                     ],
     "active": False,
     "installable": True,

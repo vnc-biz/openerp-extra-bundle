@@ -527,7 +527,7 @@
                 <page string="General">
                     <group colspan="2" col="2">
                     <separator string="Global Information" colspan="2"/>
-                    <field name="camp_id"/>
+                    <field name="camp_id" on_change="onchange_campaign(camp_id)"/>
                     <field name="proposition_type" select="1"/>
                     <group colspan="2" attrs="{'invisible':[('proposition_type','!=','relaunching')]}">
                         <field name="initial_proposition_id" select="1"/>

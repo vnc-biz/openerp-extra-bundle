@@ -28,7 +28,7 @@
     "description": """
             This module allows to remotely print documents, with the use of printing service partners.
             """,
-    "depends" : ['dm_edition','board_dm',],
+    "depends" : ['portal', 'dm_edition', 'board_dm',],
     "init_xml" : [],
     "demo_xml" : [
                 'dm_remote_edition_demo.xml'

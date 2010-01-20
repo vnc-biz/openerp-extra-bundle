@@ -1,3 +1,6 @@
+ #!/usr/bin/python
+ #-*- encoding: utf-8 -*-
+
 from win32com import universal
 from win32com.server.exception import COMException
 from win32com.client import gencache, DispatchWithEvents
@@ -133,6 +136,6 @@ if __name__ == '__main__':
     win32com.server.register.UseCommandLine(OutlookAddin)
     win32com.server.register.UseCommandLine(NewConn)
     if "--unregister" in sys.argv:
-        UnregisterAddin(OutlookAddin)
+        UnregisterAddin(NewConn)
     else:
-        RegisterAddin(OutlookAddin)
+        RegisterXMLConn(NewConn)

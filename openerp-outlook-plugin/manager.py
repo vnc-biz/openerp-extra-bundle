@@ -1,6 +1,6 @@
 import os
 import sys
-import win32api, win32con, win32gui
+import win32api, win32con
 import win32com.client
 import win32com.client.gencache
 import pythoncom
@@ -44,7 +44,34 @@ except ImportError:
                "Don't build binary versions without bsddb!"
         use_db = False
 
-# Our main "bayes manager"
+def ustr(value):
+    """This method is similar to the builtin `str` method, except
+    it will return Unicode string.
+
+    @param value: the value to convert
+
+    @rtype: unicode
+    @return: unicode string
+    """
+    if isinstance(value, unicode):
+        return value
+
+    if hasattr(value, '__unicode__'):
+        return unicode(value)
+    if not isinstance(value, str):
+        value = str(value)
+    try: # first try utf-8
+        return unicode(value, 'utf-8')
+    except:
+        pass
+
+    try: # then extened iso-8858
+        return unicode(value, 'iso-8859-15')
+    except:
+        pass
+    filesystem_encoding = sys.getfilesystemencoding()
+    d = unicode(value, filesystem_encoding)
+    return d
 
 class OpenERPManager:
     def __init__(self, config_base="default", outlook=None, verbose=0):

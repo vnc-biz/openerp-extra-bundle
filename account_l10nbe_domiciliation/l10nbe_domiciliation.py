@@ -25,7 +25,7 @@ class account_invoice(osv.osv):
     _description = 'Account Invoice'
     _columns = {
         'domiciled' : fields.boolean('Domiciled'),
-        'domiciled_send_date' : fields.date('Domiciliation Sending Date'),
+        'domiciled_send_date' : fields.date('Domiciliation Sending Date', readonly=True, help='This field contains the sending date of the document for direct debit invoices collecting'),
         }
 
     def on_change_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False):
@@ -43,8 +43,8 @@ class res_partner(osv.osv):
     _inherit = 'res.partner'
     _description = 'Partner'
     _columns = {
-        'domiciliation_bool':fields.boolean('Domiciliation'),
-        'domiciliation' : fields.char('Domiciliation Number', size=32)
+        'domiciliation_bool':fields.boolean('Direct Debit Permission', help="Check this field if you can collect direct debit invoices for this partner."),
+        'domiciliation' : fields.char('Direct Debit Number', size=12)
         }
 res_partner()
 
@@ -54,16 +54,6 @@ class res_partner_bank(osv.osv):
         'institution_code':fields.char('Institution Code', size=3, help="Code of the financial institution used for Dom80 Export"),
     }
 res_partner_bank()
-
-class res_company(osv.osv):
-    _inherit = 'res.company'
-    _description = 'Company'
-    _columns = {
-        'id_sender' : fields.char('Identification number of the Sender' , size=11, help="Sender Id for Dom80 export header"),
-        'id_creditor' : fields.char('Identification number of the Creditor' , size=11, help="Creditor Id for Dom80 export header")
-        }
-res_company()
-
 
 class invoice_export_log(osv.osv):
     _name = "invoice.export.log"

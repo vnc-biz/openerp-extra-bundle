@@ -478,7 +478,7 @@ groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_gr
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="base.view_partner_tree"/>
-        <field name="domain">[('category_id','like','Copywriter')]</field>
+        <field name="domain">[('category_id.name','like','Copywriter')]</field>
         <field name="context">{'category':'Copywriter'}</field>
     </record>
 

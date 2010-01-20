@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from osv import fields
 from osv import osv
 
@@ -47,6 +48,7 @@ class dm_address_segmentation(osv.osv): # {{{
             so_sql_query = ("""select distinct so.partner_invoice_id \nfrom sale_order so\nwhere %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
             sql_query += '''and pa.id in (%s)'''%so_sql_query
         return sql_query
+    
     _columns = {
         'order_text_criteria_ids' : fields.one2many('dm.extract.sale.text_criteria', 'segmentation_id', 'Customers Order Textual Criteria'),
         'order_numeric_criteria_ids' : fields.one2many('dm.extract.sale.numeric_criteria', 'segmentation_id', 'Customers Order Numeric Criteria'),
@@ -54,7 +56,6 @@ class dm_address_segmentation(osv.osv): # {{{
         'order_date_criteria_ids' : fields.one2many('dm.extract.sale.date_criteria', 'segmentation_id', 'Customers Order Date Criteria'),
     }
    
- 
 dm_address_segmentation() # }}}
   
 TEXT_OPERATORS = [ # {{{
@@ -78,7 +79,6 @@ DATE_OPERATORS = [ # {{{
     ('<','before'),
     ('>','after'),
 ] # }}}
-
 
 class dm_extract_sale_text_criteria(osv.osv): # {{{
     _name = "dm.extract.sale.text_criteria"

@@ -28,6 +28,7 @@ import netsvc
 import math
 import mx.DateTime
 from mx.DateTime import RelativeDateTime, now, DateTime, localtime
+from tools.translate import _
 
 class stock_planning_period(osv.osv_memory):
     _name = "stock.planning.period"
@@ -258,14 +259,14 @@ class stock_planning(osv.osv):
         'period_id': fields.many2one('stock.period' , 'Period', required=True),
         'product_id': fields.many2one('product.product' , 'Product', required=True),
         'product_uom' : fields.many2one('product.uom', 'UoM', required=True),
-        'planned_outgoing' : fields.float('Planned Out', required=True),
-        'planned_sale': fields.function(_get_planned_sale, method=True, string='Planned Sales'),
-        'stock_start': fields.function(_get_stock_start, method=True, string='Stock Start'),
+        'planned_outgoing' : fields.float('Forecast Out', required=True),
+        'planned_sale': fields.function(_get_planned_sale, method=True, string='Sales Forecast'),
+        'stock_start': fields.function(_get_stock_start, method=True, string='Stock Simulation'),
         'incoming': fields.function(_get_product_qty, method=True, type='float', string='Confirmed In', multi='incoming'),
         'outgoing': fields.function(_get_product_qty, method=True, type='float', string='Confirmed Out', multi='outgoing'),
-        'incoming_left': fields.function(_get_value_left, method=True, string='Expected In', multi="stock_incoming_left"),
-        'outgoing_left': fields.function(_get_value_left, method=True, string='Expected Out', multi="outgoing_left"),
-        'to_procure': fields.float(string='Planned In', required=True),
+        'incoming_left': fields.function(_get_value_left, method=True, string='Delta In', multi="stock_incoming_left"),
+        'outgoing_left': fields.function(_get_value_left, method=True, string='Delta Out', multi="outgoing_left"),
+        'to_procure': fields.float(string='Forecast In', required=True),
         'warehouse_id' : fields.many2one('stock.warehouse','Warehouse'),
         'line_time' : fields.function(_get_past_future, method=True,type='char', string='Past/Future'),
     }
@@ -278,11 +279,13 @@ class stock_planning(osv.osv):
     
     def procure_incomming_left(self, cr, uid, ids, context, *args):
         result = {}
-        # need to check with requirement
         for obj in self.browse(cr, uid, ids):
-            location_id = obj.warehouse_id and obj.warehouse_id.lot_stock_id.id or False
-            output_id = obj.warehouse_id and obj.warehouse_id.lot_output_id.id or False
-            if location_id and output_id:
+            # source location is virtual procurement location for the product (will be mapped to supplier or
+            # production location by mrp workflow)
+            src_id = obj.product_id.property_stock_procurement and obj.product_id.property_stock_procurement.id
+            # target location is input location of selected warehouse
+            location_id = obj.warehouse_id and obj.warehouse_id.lot_input_id.id or False
+            if location_id and src_id:
                 move_id = self.pool.get('stock.move').create(cr, uid, {
                                 'name': obj.product_id.name[:64],
                                 'product_id': obj.product_id.id,
@@ -291,12 +294,12 @@ class stock_planning(osv.osv):
                                 'product_uom': obj.product_uom.id,
                                 'product_uos_qty': obj.incoming_left,
                                 'product_uos': obj.product_uom.id,
-                                'location_id': location_id,
-                                'location_dest_id': output_id,
+                                'location_id': src_id,
+                                'location_dest_id': location_id,
                                 'state': 'waiting',
                             })
                 proc_id = self.pool.get('mrp.procurement').create(cr, uid, {
-                                'name': 'Procure left From Planning',
+                                'name': _('Procure Delta In From MPS'),
                                 'origin': 'Stock Planning',
                                 'date_planned': obj.period_id.date_start,
                                 'product_id': obj.product_id.id,
@@ -304,13 +307,15 @@ class stock_planning(osv.osv):
                                 'product_uom': obj.product_uom.id,
                                 'product_uos_qty': obj.incoming_left,
                                 'product_uos': obj.product_uom.id,
-                                'location_id': obj.warehouse_id.lot_stock_id.id,
+                                'location_id': location_id,
                                 'procure_method': obj.product_id.product_tmpl_id.procure_method,
                                 'move_id': move_id,
                             })
                 wf_service = netsvc.LocalService("workflow")
                 wf_service.trg_validate(uid, 'mrp.procurement', proc_id, 'button_confirm', cr)
                 self.write(cr, uid, obj.id,{'state':'done'})
+            else:
+                raise osv.except_osv(_('Warning'), _('Please specify a warehouse to create the procurement'))
         return True
     
     

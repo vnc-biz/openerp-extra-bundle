@@ -34,7 +34,7 @@ _form_init =  '''<?xml version="1.0"?>
         </form>'''
 
 _fields_init = {
-        'template_id':{'string': 'template', 'type': 'many2one','relation':'product.product','domain':(('variants','=',False),)},
+        'template_id':{'string': 'template', 'type': 'many2one','relation':'product.product','domain':[('variants','=',False)]},
         'characteristic_ids': {'string': 'characteristic to combine', 'type': 'many2many','relation':'mrp.characteristic'},
         'message':{'string':'', 'type': 'char' ,'readonly':True,'size':'100'}
     }
@@ -63,27 +63,27 @@ for example: combine((1,2),(3,4)) returns
 
 
 class fashion_help_wizard(wizard.interface):
+    
     def _complete(self, cr, uid, data, context):
         def field_value(f):
-                res=data['form'][f]
-                if isinstance(res, list):
-                    if len(res):
-                        res=res[0][2]
-                    else:
-                        res=False
-                return res
+            res=data['form'][f]
+            if isinstance(res, list):
+                if len(res):
+                    res=res[0][2]
+                else:
+                    res=False
+            return res
 
         newfields={
             'message': '',
             'template_id' : field_value('template_id'),
             'characteristic_ids' : field_value('characteristic_ids')
              }
-
         if field_value('template_id') and (field_value('characteristic_ids')):
             pool = pooler.get_pool(cr.dbname)
             template= pool.get('product.product').browse(cr, uid, field_value('template_id'))
             groups={}
-            for char in pool.get('mrp.characteristic').browse(cr, uid,field_value('characteristic_ids')):
+            for char in pool.get('mrp.characteristic').browse(cr, uid, field_value('characteristic_ids')):
                 if not char.group_id.id in groups :
                     groups[char.group_id.id]=()
                 groups[char.group_id.id]=groups[char.group_id.id]+(char.id,)
@@ -91,12 +91,11 @@ class fashion_help_wizard(wizard.interface):
             if len(combi)>100:
                 newfields['message']='too much variants (more than 100), check values.'
                 return newfields
-
             newfields['message']= '%s variants of %s created' % (len(combi),template.name)
             for chars in combi:
-                var_id=pool.get('product.product').copy(cr, uid,field_value('template_id'))
-                pool.get('product.product').write(cr, uid,[var_id],{'characteristic_ids':[(6,0,chars,)]})
-                return newfields
+                var_id=pool.get('product.product').copy(cr, uid, field_value('template_id'))
+                pool.get('product.product').write(cr, uid, [var_id], {'characteristic_ids':[(6,0,chars,)]})
+            return newfields
                 # bom?
                 #self.pool.get('product.product').create(cr,uid,{'id':var_id,'name':template.name,'type':'phantom'})
         else:
@@ -116,3 +115,5 @@ class fashion_help_wizard(wizard.interface):
 
 
 fashion_help_wizard('fashion.help.wizard')
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

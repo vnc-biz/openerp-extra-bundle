@@ -33,71 +33,73 @@ class invoice_domiciliations(report_sxw.rml_parse):
             'statastics_details' : self._statastics_details,
         })
 
-    def _get_invoice_details(self):
+    def _get_invoice_details(self, inv_ids):
         lines = []
         inv_obj = self.pool.get('account.invoice')
-        self.cr.execute('select id from account_invoice where \
-                        domiciled=True and domiciled_send_date is null')
-        inv_ids = map(lambda x:x[0], self.cr.fetchall())
         for inv in inv_obj.browse(self.cr, self.uid, inv_ids):
             res = {}
             res['client'] = inv.partner_id.name
-            res['number'] =  inv.number
-            res['bank'] = ((inv.partner_bank and inv.partner_bank.bank) and inv.partner_bank.bank.name or '')
-            res['amount'] = inv.amount_total
-            res['communication'] = (inv.name or '') + ' '  +  (inv.number or '')  
+            res['number'] = inv.partner_id.domiciliation
+            res['bank'] = inv.partner_id.bank_ids and (inv.partner_id.bank_ids[0].bank and inv.partner_id.bank_ids[0].bank.name or '') or ''
+            res['amount'] = (inv.type == 'out_refund') and -inv.residual or inv.residual
+            res['communication'] = inv.name or ''  
             lines.append(res)
         return lines
     
-    def _statastics_details(self):
+    def _statastics_details(self, bank_account_id, inv_ids):
         lines = []
         datas = ['rec_bank_tot', 'rec_bank_val', 'ref_bank_tot', 'ref_bank_val' , \
                                           'rec_other_tot', 'rec_other_val', 'ref_other_tot', 'ref_other_val' ]
         res = {}
-        
         user = self.pool.get('res.users').browse(self.cr, self.uid, self.uid)
-        bank = user.company_id.partner_id.bank_ids and user.company_id.partner_id.bank_ids[0].bank
-        res['bank_name'] = bank.name
-        if not bank.id:
-            bank_ids = '0'
+        bank = self.pool.get('res.partner.bank').browse(self.cr, self.uid, bank_account_id)
+        res['bank_name'] = ''
+        if not bank.bank:
+            bank_id = '0'
         else:
-            bank_ids = ','.join([str(bank.id)])
-        
-        self.cr.execute("select count(id) as tot, coalesce(sum(amount_total),0)as val from account_invoice \
+            bank_id = str(bank.bank.id)
+            res['bank_name'] = bank.bank.name
+        invoice_ids = ','.join(map(str,inv_ids)) 
+        self.cr.execute("select count(id) as tot, coalesce(sum(residual),0)as val from account_invoice \
                     where partner_id in (select p.id from res_partner p \
                         join res_partner_bank a on (a.partner_id=p.id)\
-                         join res_bank b on (b.id=a.bank) where b.id in (%s)) \
-                             and type not like '%%refund'" % (bank_ids))
+                         join res_bank b on (b.id=a.bank) where b.id =%s) \
+                             and type not like '%%refund' \
+                             and id in (%s)" % (bank_id,invoice_ids))
         val1= self.cr.dictfetchall()
         if val1:
             res['rec_bank_tot'] = val1[0]['tot'] # 1
             res['rec_bank_val'] = val1[0]['val'] # 2
         
-        self.cr.execute("select count(id) as tot, coalesce(sum(amount_total),0)as val from account_invoice \
+
+        self.cr.execute("select count(id) as tot, coalesce(sum(residual),0)as val from account_invoice \
                     where partner_id in (select p.id from res_partner p \
                         join res_partner_bank a on (a.partner_id=p.id)\
-                         join res_bank b on (b.id=a.bank) where b.id in (%s)) \
-                              and type like '%%refund'" % (bank_ids))
+                         join res_bank b on (b.id=a.bank) where b.id =%s) \
+                             and type like '%%refund' \
+                             and id in (%s)" % (bank_id,invoice_ids))
         val2= self.cr.dictfetchall()
         if val2:
             res['ref_bank_tot'] = val2[0]['tot'] # 5
             res['ref_bank_val'] = val2[0]['val'] # 6
         
-        self.cr.execute("select count(id) as tot, coalesce(sum(amount_total),0)as val from account_invoice \
-                    where partner_id not in (select p.id from res_partner p \
+        self.cr.execute("select count(id) as tot, coalesce(sum(residual),0)as val from account_invoice \
+                    where partner_id in (select p.id from res_partner p \
                         join res_partner_bank a on (a.partner_id=p.id)\
-                         join res_bank b on (b.id=a.bank) where b.id in (%s)) \
-                              and type not like '%%refund'" % (bank_ids))
+                         join res_bank b on (b.id=a.bank) where b.id !=%s) \
+                             and type not like '%%refund' \
+                             and id in (%s)" % (bank_id,invoice_ids))
         val3= self.cr.dictfetchall()
         if val3:
             res['rec_other_tot'] = val3[0]['tot'] # 3
             res['rec_other_val'] = val3[0]['val'] # 4
-        
-        self.cr.execute("select count(id) as tot, coalesce(sum(amount_total),0) as val from account_invoice \
-                    where partner_id not in (select p.id from res_partner p \
+       
+        self.cr.execute("select count(id) as tot, coalesce(sum(residual),0)as val from account_invoice \
+                    where partner_id in (select p.id from res_partner p \
                         join res_partner_bank a on (a.partner_id=p.id)\
-                         join res_bank b on (b.id=a.bank) where b.id in (%s)) \
-                              and type like '%%refund'" % (bank_ids))
+                         join res_bank b on (b.id=a.bank) where b.id !=%s) \
+                             and type like '%%refund' \
+                             and id in (%s)" % (bank_id,invoice_ids))
         val4= self.cr.dictfetchall()
         if val4:
             res['ref_other_tot'] = val4[0]['tot'] # 7

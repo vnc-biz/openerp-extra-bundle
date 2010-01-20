@@ -486,10 +486,10 @@ class cci_missions_certificate(osv.osv):
         'customs_ids' : fields.many2many('cci_missions.custom_code','certificate_custome_code_rel','certificate_id','custom_id','Custom Codes'),
         'sending_spf': fields.date('SPF Sending Date',help='Date of the sending of this record to the external database'),
         'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
-        'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True),
+        'date_certificate' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True),
         'digital_number': fields.float('Digital Number', digits=(11,0)),
     }
-    _order = "cci_missions_certificate.date desc"
+    _order = "cci_missions_certificate.date_certificate desc"
 
     _defaults = {
         'special_reason': lambda *a: 'none',
@@ -605,9 +605,9 @@ class cci_missions_legalization(osv.osv):
         'certificate_id' : fields.many2one('cci_missions.certificate','Related Certificate'),
         'partner_member_state': fields.function(_get_member_state, method=True,selection=STATE,string='Member State of the Partner',readonly=True,type="selection"),
         'member_price' : fields.boolean('Apply the Member Price'),
-        'date' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
+        'date_legalization' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True)
     }
-    _order = "cci_missions_legalization.date desc"
+    _order = "cci_missions_legalization.date_legalization desc"
 
 cci_missions_legalization()
 

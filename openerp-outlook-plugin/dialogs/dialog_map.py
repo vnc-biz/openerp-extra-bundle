@@ -1,3 +1,6 @@
+ #!/usr/bin/python
+ #-*- encoding: utf-8 -*-
+
 from processors import *
 from opt_processors import *
 import sys
@@ -14,6 +17,7 @@ import win32com
 import win32gui_struct
 import pywintypes
 import xmlrpclib
+from manager import ustr
 
 try:
     enumerate
@@ -205,7 +209,7 @@ def getMessage(e):
         elif hasattr(e, 'message') and e.message:
             msg = e.message
     return msg
-    
+
 class OKButtonProcessor(ButtonProcessor):
     def __init__(self, window, control_ids):
         self.mngr = window.manager
@@ -340,6 +344,7 @@ class DialogCommand(ButtonProcessor):
     def GetPopupHelpText(self, id):
         dd = self.window.manager.dialog_parser.dialogs[self.idd]
         return "Displays the %s dialog" % dd.caption
+
 def ReloadAllControls(btnProcessor,*args):
     server = NewConn._server
     port = NewConn._port
@@ -347,6 +352,7 @@ def ReloadAllControls(btnProcessor,*args):
     if not NewConn._running:
         win32ui.MessageBox("No server running on host "+ server+" at port "+str(port), "Server Connection", flag_excl)
     return
+
 def TestConnection(btnProcessor,*args):
     server = NewConn._server
     port = NewConn._port
@@ -404,7 +410,7 @@ def TestConnection(btnProcessor,*args):
     except Exception,e:
         msg = "Connection could not be made.\n\n" + getMessage(e)
         flag = flag_error
-    win32ui.MessageBox(msg, "Database Connection", flag_excl)
+    win32ui.MessageBox(msg, "Database Connection", flag)
     return
 
 def BrowseCallbackProc(hwnd, msg, lp, data):
@@ -647,7 +653,7 @@ def GetSearchText(txtProcessor,*args):
     assert ex.Selection.Count == 1
     mail = ex.Selection.Item(1)
     try:
-        search_text = str(mail.SenderEmailAddress)
+        search_text = ustr(mail.SenderEmailAddress).encode('iso-8859-1')
     except Exception,e:
         pass
     win32gui.SendMessage(search_box, win32con.WM_SETTEXT, 0, search_text)
@@ -748,7 +754,7 @@ def CreateContact(btnProcessor,*args):
     if not name:
         win32ui.MessageBox("Please enter name.", "Create Contact", flag_stop)
         return
-    res = {'name':name, 'email':email, 'phone':office_no, 'mobile':mobile_no}
+    res = {'name':ustr(name), 'email':ustr(email), 'phone':ustr(office_no), 'mobile':ustr(mobile_no)}
     try:
         id = NewConn.CreateContact(sel, res)
         msg="New contact created for partner '%s'."%partner
@@ -844,8 +850,8 @@ def SetDefaultContact(txtProcessor,*args):
 
     try:
         mail = GetMail(txtProcessor)
-        name = mail.SenderName
-        email = mail.SenderEmailAddress
+        name = ustr(mail.SenderName).encode('iso-8859-1')
+        email = ustr(mail.SenderEmailAddress).encode('iso-8859-1')
     except Exception,e:
         pass
 
@@ -922,7 +928,7 @@ def CreatePartner(btnProcessor,*args):
     if not partner_name:
         win32ui.MessageBox("Please enter Partner name.", "Create Partner", flag_excl)
         return
-    res = {'name':partner_name}
+    res = {'name':ustr(partner_name)}
     try:
         id = NewConn.CreatePartner(res)
     except Exception,e:

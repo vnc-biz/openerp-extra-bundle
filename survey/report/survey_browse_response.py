@@ -60,22 +60,19 @@ class survey_browse_response(report_rml):
                       <blockValign value="TOP"/>
                       <lineStyle kind="LINEBELOW" colorName="#8f8f8f" start="0,-1" stop="1,-1"/>
                     </blockTableStyle>
-                    <blockTableStyle id="Table4">
+                    <blockTableStyle id="Table41">
                       <blockAlignment value="LEFT"/>
                       <blockValign value="TOP"/>
-                      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
-                      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
-                      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
-                      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
-                      <lineStyle kind="LINEBELOW" colorName="#000000" start="4,-1" stop="4,-1"/>
-                      <lineStyle kind="LINEBELOW" colorName="#000000" start="5,-1" stop="5,-1"/>
+                      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,0" stop="-1,-1"/>
+                      <lineStyle kind="LINEBEFORE" colorName="#777777" start="0,0" stop="-1,-1"/>
+                      <lineStyle kind="LINEAFTER" colorName="#777777" start="0,0" stop="-1,-1"/>
                     </blockTableStyle>
-                    <blockTableStyle id="Table5">
+                    <blockTableStyle id="Table51">
                       <blockAlignment value="LEFT"/>
                       <blockValign value="TOP"/>
                       <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-                      <!--lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
-                      <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,0" stop="-1,-1"/-->
+                      <lineStyle kind="LINEBEFORE" colorName="#777777" start="0,0" stop="-1,-1"/>
+                      <lineStyle kind="LINEAFTER" colorName="#777777" start="0,0" stop="-1,-1"/>
                     </blockTableStyle>
                     <initialize>
                       <paraStyle name="all" alignment="justify"/>
@@ -144,14 +141,14 @@ class survey_browse_response(report_rml):
                                     cols_widhts.append(float(500 / (len(que.column_heading_ids))))
                                 colWidths = ",".join(map(tools.ustr, cols_widhts))
                                 matrix_ans = []
-                                rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table4"><tr>"""
+                                rml +="""<para style="P2"></para><blockTable colWidths=" """ + str(colWidths) + """ " style="Table41"><tr>"""
                                 for col in que.column_heading_ids:
                                     if col.title not in matrix_ans:
-                                        matrix_ans.append(col.title)                                    
+                                        matrix_ans.append(col.title)
                                         rml +="""<td> <para style="terp_tblheader_Details">""" + col.title +"""</para></td>"""
                                 rml += """</tr></blockTable>"""
                                 for row in range(0, que.no_of_rows):
-                                    rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table5"><tr>"""
+                                    rml +="""<blockTable colWidths=" """ + str(colWidths) + """ " style="Table51"><tr>"""
                                     table_data = col_heading.browse(cr, uid, col_heading.search(cr, uid, [('response_table_id', '=', answer[0].id),('name','=',row)]))
                                     for column in matrix_ans:
                                         value = """<font color="white"> </font>"""
@@ -243,7 +240,7 @@ class survey_browse_response(report_rml):
                                                             <circle x="0.3cm" y="-0.18cm" radius="0.10 cm" fill="yes" stroke="no"/>
                                                         </illustration>"""
                                                 elif que.type in ['matrix_of_choices_only_multi_ans']:
-                                                    
+
                                                     value = """<illustration>
                                                         <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
                                                         <fill color="gray"/>
@@ -261,7 +258,7 @@ class survey_browse_response(report_rml):
                                                     value = """<illustration>
                                                         <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
                                                         </illustration>"""
-                                                
+
                                         rml+= """<td>""" + value + """</td>"""
                                     if que.comment_column:
                                         rml+= """<td>""" + comment_value + """</td>"""
@@ -277,5 +274,5 @@ class survey_browse_response(report_rml):
         create_doc = self.generators[report_type]
         pdf = create_doc(rml, title=self.title)
         return (pdf, report_type)
-    
+
 survey_browse_response('report.survey.browse.response', 'survey','','')

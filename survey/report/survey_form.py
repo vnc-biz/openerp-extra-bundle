@@ -124,6 +124,7 @@ class survey_form(report_rml):
             <paraStyle name="title" fontName="helvetica-bold" fontSize="18.0" leftIndent="0.0" textColor="white"/>
             <paraStyle name="question" fontName="helvetica-boldoblique" fontSize="10.0" leftIndent="3.0"/>
             <paraStyle name="answer" fontName="helvetica" fontSize="09.0" leftIndent="0.0"/>
+            <paraStyle name="descriptive_text" fontName="helvetica" fontSize="10.0" leftIndent="0.0"/>
             <paraStyle name="answer_left" alignment="LEFT" fontName="helvetica-bold" fontSize="8.0" leftIndent="0.0"/>
             <paraStyle name="P2" fontName="Helvetica" fontSize="14.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
             <paraStyle name="comment" fontName="Helvetica" fontSize="14.0" leading="50" spaceBefore="0.0" spaceAfter="0.0"/>
@@ -166,7 +167,7 @@ class survey_form(report_rml):
                         <blockTable colWidths=" """ + colWidths + """ " style="ans_tbl">
                             <tr>
                                 <td>
-                                <para style="answer">""" + to_xml(tools.ustr(que.descriptive_text)) + """</para>
+                                <para style="descriptive_text">""" + to_xml(tools.ustr(que.descriptive_text)) + """</para>
                                 </td>
                             </tr>
                         </blockTable>"""

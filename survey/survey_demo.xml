@@ -67,6 +67,9 @@
             <field name="question_id" ref="survey_question_company_size" />
             <field name="sequence" eval="7"/>
         </record>
+        <record id="survey_question_company_size" model="survey.question">
+			<field eval="True" name="is_require_answer"/>
+        </record>
 
         <record id="survey_question_located" model="survey.question">
             <field name="question">Where are you located?</field>
@@ -100,7 +103,12 @@
             <field name="question_id" ref="survey_question_located" />
             <field name="sequence" eval="5"/>
         </record>
-
+       	<record id="survey_question_located" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+        </record>
+        
         <record id="survey_question_offical_partner" model="survey.question">
             <field name="question">When did you become an OpenERP official partner?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
@@ -133,6 +141,9 @@
             <field name="question_id" ref="survey_question_offical_partner" />
             <field name="sequence" eval="5"/>
         </record>
+        <record id="survey_question_offical_partner" model="survey.question">
+			<field eval="True" name="is_require_answer"/>
+        </record>
 
         <record id="survey_question_your_customers" model="survey.question">
             <field name="question">What kind of solutions do you sell to your customers? </field>
@@ -161,7 +172,7 @@
         <record id="survey_page_Contracts" model="survey.page">
             <field name="title">Contracts</field>
             <field name="survey_id" ref="survey_partner_feedback" />
-            <field name="sequence" eval="3"/>
+            <field name="sequence" eval="2"/>
         </record>
 
         <record id="survey_question_partnership_contract" model="survey.question">
@@ -191,6 +202,9 @@
             <field name="question_id" ref="survey_question_partnership_contract" />
             <field name="sequence" eval="4"/>
         </record>
+        <record id="survey_question_partnership_contract" model="survey.question">
+			<field eval="True" name="is_require_answer"/>
+        </record>
 
         <record id="survey_question_contract_customers" model="survey.question">
             <field name="question">When do you propose a maintenance contract to your customers?</field>
@@ -211,7 +225,12 @@
             <field name="question_id" ref="survey_question_contract_customers" />
             <field name="sequence" eval="2"/>
         </record>
-
+        <record id="survey_question_contract_customers" model="survey.question">
+            <field name="make_comment_field">True</field>
+            <field name="make_comment_field_err_msg">Please enter a comment.</field>
+			<field eval="True" name="is_require_answer"/>
+        </record>
+        
         <record id="survey_question_sell_to_your_customers" model="survey.question">
             <field name="question">Which maintenance contract do you sell to your customers.</field>
             <field name="page_id" ref="survey_page_Contracts" />
@@ -234,12 +253,14 @@
             <field name="question_id" ref="survey_question_sell_to_your_customers" />
             <field name="sequence" eval="3"/>
         </record>
-
+        <record id="survey_question_sell_to_your_customers" model="survey.question">
+			<field eval="True" name="is_require_answer"/>
+        </record>
 
         <record id="survey_page_communication" model="survey.page">
             <field name="title">Communication</field>
             <field name="survey_id" ref="survey_partner_feedback" />
-            <field name="sequence" eval="2"/>
+            <field name="sequence" eval="3"/>
         </record>
 
         <record id="survey_question_launchpad_reporting" model="survey.question">
@@ -381,6 +402,11 @@
             <field name="in_visible_rating_weight">1</field>
             <field name="in_visible_menu_choice">1</field>
         </record>
+        <record id="survey_question_partners_about" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+        </record>
 
         <record id="survey_question_partners_on_which_subjects" model="survey.question">
             <field name="question">In your opinion, how could Tiny better communicate with partners and on which subjects?</field>
@@ -515,12 +541,12 @@
             <field name="question_id" ref="survey_question_odoo_company_sector" />
             <field name="sequence" eval="19"/>
         </record>
- <!--record id="survey_page_odoo_who_are_you_2" model="survey.page">
-            <field name="title">Who are you?</field>
-            <field name="survey_id" ref="survey_odoo_feedback" />
-
-        </record-->
-
+        <record id="survey_question_odoo_company_sector" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+         </record>
+        
          <record id="survey_question_odoo_mange_with_odoo" model="survey.question">
             <field name="question">Which activities do you plan to manage with Odoo ?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
@@ -568,6 +594,11 @@
             <field name="question_id" ref="survey_question_odoo_mange_with_odoo" />
             <field name="sequence" eval="8"/>
         </record>
+        <record id="survey_question_odoo_mange_with_odoo" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+        </record>
 
         <record id="survey_question_odoo_discover_odoo" model="survey.question">
             <field name="question">How did you discover Odoo ?</field>
@@ -606,12 +637,15 @@
             <field name="question_id" ref="survey_question_odoo_discover_odoo" />
             <field name="sequence" eval="6"/>
         </record>
-
+        <record id="survey_question_odoo_discover_odoo" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+        </record>
 
         <record id="survey_page_odoo_Subscription_and_configuration" model="survey.page">
             <field name="title">Subscription and configuration</field>
             <field name="survey_id" ref="survey_odoo_feedback" />
-            <field eval="1" name="sequence"/>
             <field name="sequence" eval="2"/>
         </record>
 
@@ -758,6 +792,9 @@
             <field name="question_id" ref="survey_question_odoo_would_you_prefer_use" />
             <field name="sequence" eval="3"/>
         </record>
+        <record id="survey_question_odoo_would_you_prefer_use" model="survey.question">
+			<field eval="True" name="is_require_answer"/>
+        </record>
 
         <record id="survey_question_odoo_give_your_opinion" model="survey.question">
             <field name="question">Give your opinion :</field>
@@ -818,16 +855,15 @@
             <field name="in_visible_rating_weight">1</field>
             <field name="in_visible_menu_choice">1</field>
         </record>
-
-        <record id="survey_page_odoo_using_odoo_2" model="survey.page">
-            <field name="title">The offer</field>
-            <field name="survey_id" ref="survey_odoo_feedback" />
-            <field eval="4" name="sequence"/>
+        <record id="survey_question_odoo_give_your_opinion" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
         </record>
 
         <record id="survey_question_odoo_you_think_about" model="survey.question">
             <field name="question">What do you think about ... </field>
-            <field name="page_id" ref="survey_page_odoo_using_odoo_2" />
+            <field name="page_id" ref="survey_page_odoo_using_odoo" />
             <field name="type">matrix_of_choices_only_one_ans</field>
             <field name="in_visible_single_text">1</field>
             <field name="in_visible_rating_weight">1</field>
@@ -889,10 +925,15 @@
             <field name="in_visible_rating_weight">1</field>
             <field name="in_visible_menu_choice">1</field>
         </record>
+        <record id="survey_question_odoo_you_think_about" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+        </record>
 
         <record id="survey_question_odoo_modules_are_missing_in_odoo" model="survey.question">
             <field name="question">In your opinion, which modules are missing in Odoo? Give examples :</field>
-            <field name="page_id" ref="survey_page_odoo_using_odoo_2" />
+            <field name="page_id" ref="survey_page_odoo_using_odoo" />
             <field name="type">single_textbox</field>
             <field name="in_visible_rating_weight">1</field>
             <field name="in_visible_menu_choice">1</field>
@@ -903,7 +944,7 @@
         <record id="survey_page_odoo_the_offer" model="survey.page">
             <field name="title">The offer</field>
             <field name="survey_id" ref="survey_odoo_feedback" />
-            <field eval="5" name="sequence"/>
+            <field eval="4" name="sequence"/>
         </record>
 
         <record id="survey_question_odoo_would_you_prefer_receive_your_prepaid_bill" model="survey.question">
@@ -928,13 +969,16 @@
             <field name="question_id" ref="survey_question_odoo_would_you_prefer_receive_your_prepaid_bill" />
             <field name="sequence" eval="3"/>
         </record>
+        <record id="survey_question_odoo_would_you_prefer_receive_your_prepaid_bill" model="survey.question">
+			<field eval="True" name="is_require_answer"/>
+        </record>
 
         <record id="survey_question_odoo_dms" model="survey.question">
             <field name="question">Do you plan to use the document management system?</field>
             <field name="page_id" ref="survey_page_odoo_the_offer" />
             <field name="type">multiple_choice_only_one_ans</field>
             <field name="comment_field_type">text</field>
-            <field name="comment_label">Comment</field>
+            <field name="comment_label">Yes, I plan to use (GB) :</field>
             <field name="in_visible_single_text">1</field>
             <field name="sequence" eval="2"/>
         </record>
@@ -943,10 +987,10 @@
             <field name="question_id" ref="survey_question_odoo_dms" />
             <field name="sequence" eval="1"/>
         </record>
-        <record id="survey_answer_yes_plan_to_use" model="survey.answer">
-            <field name="answer">Yes, I plan to use (GB) :</field>
-            <field name="question_id" ref="survey_question_odoo_dms" />
-            <field name="sequence" eval="2"/>
+        <record id="survey_question_odoo_dms" model="survey.question">
+            <field name="make_comment_field">True</field>
+            <field name="make_comment_field_err_msg">Please enter a comment.</field>
+			<field eval="True" name="is_require_answer"/>
         </record>
 
         <record id="survey_question_odoo_support_services" model="survey.question">
@@ -996,16 +1040,15 @@
             <field name="in_visible_rating_weight">1</field>
             <field name="in_visible_menu_choice">1</field>
         </record>
-
-        <record id="survey_page_odoo_the_offer_2" model="survey.page">
-            <field name="title">The offer</field>
-            <field name="survey_id" ref="survey_odoo_feedback" />
-            <field eval="6" name="sequence"/>
+        <record id="survey_question_odoo_support_services" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
         </record>
 
         <record id="survey_question_offer_opinion_about_odoo" model="survey.question">
             <field name="question">Give your opinion about Odoo's</field>
-            <field name="page_id" ref="survey_page_odoo_the_offer_2" />
+            <field name="page_id" ref="survey_page_odoo_the_offer" />
             <field name="type">matrix_of_choices_only_one_ans</field>
             <field name="in_visible_single_text">1</field>
             <field name="sequence" eval="1"/>
@@ -1055,10 +1098,15 @@
             <field name="in_visible_rating_weight">1</field>
             <field name="in_visible_menu_choice">1</field>
         </record>
+        <record id="survey_question_offer_opinion_about_odoo" model="survey.question">
+            <field name="required_type">at least</field>
+            <field eval="1" name="req_ans"/>
+            <field name="req_error_msg">This question requires an answer.</field>
+        </record>
 
         <record id="survey_question_offer_comments_them_here" model="survey.question">
             <field name="question">If you have any additional comments, write them here :</field>
-            <field name="page_id" ref="survey_page_odoo_the_offer_2" />
+            <field name="page_id" ref="survey_page_odoo_the_offer" />
             <field name="type">comment</field>
             <field name="in_visible_single_text">1</field>
             <field name="sequence" eval="2"/>

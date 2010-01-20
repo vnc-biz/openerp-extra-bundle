@@ -6,6 +6,7 @@
         <record model="survey" id="survey_partner_feedback">
 	        <field name="title">Open ERP Partner Feedback</field>
 	        <field name="user_id" ref="base.user_root"/>
+	        <field name="question_prefix">Que</field>
 	        <field name="max_response_limit">20</field>
    		</record>
 
@@ -31,7 +32,7 @@
             <field name="in_visible_single_text">1</field>
             <field eval="2" name="sequence"/>
         </record>
-        
+
         <record id="survey_question_company_size_1" model="survey.answer">
             <field name="answer">1 - 10</field>
             <field name="question_id" ref="survey_question_company_size" />
@@ -108,7 +109,7 @@
             <field eval="1" name="req_ans"/>
             <field name="req_error_msg">This question requires an answer.</field>
         </record>
-        
+
         <record id="survey_question_offical_partner" model="survey.question">
             <field name="question">When did you become an OpenERP official partner?</field>
             <field name="page_id" ref="survey_page_who_are_you" />
@@ -230,7 +231,7 @@
             <field name="make_comment_field_err_msg">Please enter a comment.</field>
 			<field eval="True" name="is_require_answer"/>
         </record>
-        
+
         <record id="survey_question_sell_to_your_customers" model="survey.question">
             <field name="question">Which maintenance contract do you sell to your customers.</field>
             <field name="page_id" ref="survey_page_Contracts" />
@@ -420,6 +421,7 @@
     	<!--  Partner Feedback Demo data -->
         <record model="survey" id="survey_odoo_feedback">
 	        <field name="title">Odoo Feedback</field>
+	        <field name="question_prefix">Que</field>
 	        <field name="user_id" ref="base.user_root"/>
 	        <field name="max_response_limit">20</field>
    		</record>
@@ -529,7 +531,7 @@
         <record id="survey_question_Telecommunication" model="survey.answer">
             <field name="answer">Telecommunication And ICT</field>
             <field name="question_id" ref="survey_question_odoo_company_sector" />
-           <field name="sequence" eval="17"/> 
+           <field name="sequence" eval="17"/>
         </record>
         <record id="survey_question_Tourism_Catering" model="survey.answer">
             <field name="answer">Tourism &amp; Catering</field>
@@ -546,7 +548,7 @@
             <field eval="1" name="req_ans"/>
             <field name="req_error_msg">This question requires an answer.</field>
          </record>
-        
+
          <record id="survey_question_odoo_mange_with_odoo" model="survey.question">
             <field name="question">Which activities do you plan to manage with Odoo ?</field>
             <field name="page_id" ref="survey_page_odoo_who_are_you" />
@@ -1116,7 +1118,8 @@
 		<record id="survey_0" model="survey">
 			<field eval="&quot;&quot;&quot;OpenERP Feedback&quot;&quot;&quot;" name="title"/>
 			<field name="user_id" ref="base.user_root"/>
-	        	<field name="max_response_limit">20</field>
+			<field name="question_prefix">Que</field>
+	        <field name="max_response_limit">20</field>
 		</record>
 	</data>
 	<data>
@@ -1446,7 +1449,7 @@
 			<field eval="0" name="allow_comment"/>
             <field name="in_visible_single_text">1</field>
 		</record>
-	</data>	
+	</data>
 	<data>
 		<record id="survey_question_column_heading_0" model="survey.question.column.heading">
 			<field eval="&quot;&quot;&quot;Totally Disagree&quot;&quot;&quot;" name="title"/>

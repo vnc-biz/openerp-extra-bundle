@@ -143,7 +143,10 @@ class survey_form(report_rml):
 
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for survey in surv_obj.browse(cr,uid,ids):
-
+            if survey.question_prefix:
+                prefix = survey.question_prefix + " : "
+            else:
+                prefix = ''
             if datas.has_key('form') and datas['form']['survey_title']:
                 rml += """
                 <blockTable colWidths='"""+_tbl_widths+"""' style="title_tbl">
@@ -154,14 +157,14 @@ class survey_form(report_rml):
                 seq+=1
                 rml += """
                 <blockTable colWidths='"""+_tbl_widths+"""' style="page_tbl">
-                    <tr><td><para style="page">"""+ tools.ustr(seq) + """. """ + to_xml(page.title) + """</para></td></tr>
+                    <tr><td><para style="page">"""+ tools.ustr(seq) + """. """ + tools.ustr(page.title) + """</para></td></tr>
                 </blockTable>"""
                 for que in page.question_ids:
                     cols_widhts=[]
                     rml +="""
                     <para style="P2"><font></font></para>
                     <blockTable colWidths='"""+_tbl_widths+"""' style="question_tbl">
-                        <tr><td><para style="question">""" + survey.question_prefix + """: """+ to_xml(que.question) + """</para></td></tr>
+                        <tr><td><para style="question">""" + tools.ustr(prefix) + tools.ustr(que.question) + """</para></td></tr>
                     </blockTable>
                     <para style="P2"><font></font></para>"""
                     if que.type in ['descriptive_text']:

@@ -49,13 +49,12 @@ class survey(osv.osv):
         'note' : fields.text('Description', size=128),
         'history' : fields.one2many('survey.history', 'survey_id', 'History Lines', readonly=True),
         'users': fields.many2many('res.users', 'survey_users_rel', 'sid', 'uid', 'Users'),
-        'question_prefix' : fields.char('Question Prefix', size=128, required=1),
+        'question_prefix' : fields.char('Question Prefix', size=128),
     }
     _defaults = {
         'state' : lambda * a: "draft",
         'tot_start_survey' : lambda * a: 0,
         'tot_comp_survey' : lambda * a: 0,
-        'question_prefix' : lambda * a: "Que ",
     }
 
     def survey_draft(self, cr, uid, ids, arg):

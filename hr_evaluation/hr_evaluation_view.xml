@@ -41,7 +41,7 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-		<menuitem name="Evaluations" parent="hr.menu_hr_root" id="menu_eval_hr"/>
+		<menuitem name="Evaluations" parent="hr.menu_hr_root" id="menu_eval_hr" sequence="3"/>
 		<!--menuitem name="HR Responsible" parent="menu_eval_hr" id="menu_resp_hr"/-->
 		<menuitem
 			name="Evaluation Plan" parent="menu_eval_hr"

@@ -153,6 +153,22 @@ class survey_analysis(report_rml):
                             rml+="""<tr><td><para style="answer">""" + to_xml(ans.answer) + """</para></td>
                                     <td><para style="answer">""" + tools.ustr(ans.average) + """%</para></td>
                                     <td><para style="answer">""" + tools.ustr(ans.response) + """</para></td></tr>"""
+                        if que.comment_field_type:
+                            if que.make_comment_field:
+                                cr.execute("select count(id) from survey_response_line where question_id = %d and comment != ''"% que.id)
+                                tot_res = cr.fetchone()[0]
+                                tot_avg = 0.00
+                                if que.tot_resp:
+                                    tot_avg = round(float(tot_res * 100)/ que.tot_resp,2)
+                                rml+="""<tr><td><para style="answer">""" + to_xml(que.comment_label) + """</para></td>
+                                        <td><para style="answer">""" + str(tot_avg) + """%</para></td>
+                                        <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr>"""
+                            else:
+                                cr.execute("select count(id) from survey_response_line where question_id = %d and comment != ''"% que.id)
+                                tot_res = cr.fetchone()[0]
+                                rml+="""<tr><td><para style="answer">""" + to_xml(que.comment_label) + """</para></td>
+                                        <td><para style="answer"></para></td>
+                                        <td><para style="answer">""" + tools.ustr(tot_res) + """</para></td></tr>"""
                         rml+="""</blockTable>"""
                     elif que.type in['single_textbox']:
                         cr.execute("select count(id) from survey_response_line where question_id = %d and single_text!=''" % que.id)

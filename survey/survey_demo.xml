@@ -761,10 +761,10 @@
             <field name="question_id" ref="survey_question_odoo_continue_using_odoo" />
             <field name="sequence" eval="1"/>
         </record>
-        <record id="survey_answer_no" model="survey.answer">
-            <field name="answer">No</field>
-            <field name="question_id" ref="survey_question_odoo_continue_using_odoo" />
-            <field name="sequence" eval="2"/>
+        <record id="survey_question_odoo_continue_using_odoo" model="survey.question">
+            <field name="make_comment_field">True</field>
+            <field name="make_comment_field_err_msg">Please enter a comment.</field>
+			<field eval="True" name="is_require_answer"/>
         </record>
 
         <record id="survey_page_odoo_using_odoo" model="survey.page">

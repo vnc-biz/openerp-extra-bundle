@@ -513,6 +513,7 @@
             <field name="name">account.invoice.tree.spl</field>
             <field name="model">account.invoice</field>
             <field name="type">tree</field>
+            <field name="priority">50</field>
             <field name="arch" type="xml">
                 <tree colors="blue:state=='draft'" string="Invoice">
                     <field name="origin"/>
@@ -536,7 +537,7 @@
             <field name="name">account.invoice.supplier.spe.form</field>
             <field name="model">account.invoice</field>
             <field name="type">form</field>
-            <field name="priority">2</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
             <form string="Supplier invoice">
                     <group col="6" colspan="4">
@@ -670,34 +671,115 @@
              </field>
         </record>
 
-        <record id="action_supplier_invoice_new_spl" model="ir.actions.act_window">
-            <field name="name">Supplier Invoice(Special View)</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">account.invoice</field>
-            <field name="view_type">form</field>
-             <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="action_supplier_invoice_spl_view1" model="ir.actions.act_window.view">
-            <field eval="30" name="sequence"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="invoice_supplier_spl_form"/>
-            <field name="act_window_id" ref="action_supplier_invoice_new_spl"/>
-        </record>
-
-		<record id="action_supplier_invoice_spl_view2" model="ir.actions.act_window.view">
-            <field eval="40" name="sequence"/>
+		 <record id="action_invoice_tree3_view1_sp" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="invoice_tree_spl"/>
-            <field name="act_window_id" ref="action_supplier_invoice_new_spl"/>
+            <field name="act_window_id" ref="account.action_invoice_tree2"/>
+        </record>
+        <record id="account.action_invoice_tree8_view_sp" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree2"/>
         </record>
 
-        <menuitem
-            action="action_supplier_invoice_new_spl"
-            id="menu_supplier_invoice_spl"
-            parent="account.menu_action_invoice_tree2"
-            sequence="2"/>
+		<record id="account.action_invoice_tree2_new" model="ir.actions.act_window">
+            <field name="name">New Supplier Invoice</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree,calendar,graph</field>
+            <field eval="invoice_supplier_spl_form" name="view_id"/>
+            <field name="domain">[('type','=','in_invoice')]</field>
+            <field name="context">{'type':'in_invoice'}</field>
+        </record>
+		 <record id="action_invoice_tree3_view1_sp_new" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoice_tree_spl"/>
+            <field name="act_window_id" ref="account.action_invoice_tree2_new"/>
+        </record>
+        <record id="account.action_invoice_tree8_view_sp_new" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree2_new"/>
+        </record>
 
+		 <record id="account.action_invoice_tree8_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoice_tree_spl"/>
+            <field name="act_window_id" ref="account.action_invoice_tree8"/>
+        </record>
+        <record id="account.action_invoice_tree8_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree8"/>
+        </record>
+
+
+		<record id="account.action_invoice_tree9_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="invoice_tree_spl"/>
+            <field name="act_window_id" ref="account.action_invoice_tree9"/>
+        </record>
+        <record id="account.action_invoice_tree9_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree9"/>
+        </record>
+
+        <!-- refund -->
+
+       	<record id="action_invoice_tree3_view1_sp_ref" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="account.action_invoice_tree4"/>
+        </record>
+        <record id="account.action_invoice_tree8_view_sp_ref" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree4"/>
+        </record>
+
+        <record id="account.action_invoice_tree4" model="ir.actions.act_window">
+            <field name="name">Supplier Refunds</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="invoice_supplier_spl_form" name="view_id"/>
+            <field name="domain">[('type','=','in_refund')]</field>
+            <field name="context">{'type':'in_refund'}</field>
+        </record>
+
+        <record id="account.action_invoice_tree4_new" model="ir.actions.act_window">
+            <field name="name">New Supplier Refund</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree,calendar,graph</field>
+            <field eval="invoice_supplier_spl_form" name="view_id"/>
+            <field name="domain">[('type','=','in_refund')]</field>
+            <field name="context">{'type':'in_refund'}</field>
+        </record>
+
+         <record id="account.action_invoice_tree12_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree12"/>
+        </record>
+
+		<record id="account.action_invoice_tree13_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_supplier_spl_form"/>
+            <field name="act_window_id" ref="account.action_invoice_tree13"/>
+        </record>
 
 	</data>
 </openerp>

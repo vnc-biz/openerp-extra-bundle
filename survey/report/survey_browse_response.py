@@ -27,9 +27,7 @@ import tools
 
 class survey_browse_response(report_rml):
     def create(self, cr, uid, ids, datas, context):
-
-        rml ="""
-                <document filename="Survey Analysis Report.pdf">
+        rml ="""<document filename="Survey Analysis Report.pdf">
                 <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
                     <pageTemplate id="first">
                       <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
@@ -118,8 +116,7 @@ class survey_browse_response(report_rml):
                     prefix = survey.question_prefix + " : "
                 else:
                     prefix = ''
-                rml += """
-                        <blockTable colWidths="150,350" style="Table2">
+                rml += """<blockTable colWidths="150,350" style="Table2">
                           <tr>
                             <td><para style="Standard">Survey Title :-</para></td>
                             <td><para style="header1">""" + to_xml(survey.title) + """</para></td>
@@ -132,17 +129,17 @@ class survey_browse_response(report_rml):
                             <td><para style="Standard">User Name :-</para></td>
                             <td><para style="header1">""" + to_xml(response.user_id.name) + """</para></td>
                           </tr>
-                        </blockTable> """
+                        </blockTable>"""
                 for page in survey.page_ids:
-                    rml += """<para style="P2"></para>"""
-                    rml += """ <blockTable colWidths="500" style="Table4">
+                    rml += """<para style="P2"></para>
+                             <blockTable colWidths="500" style="Table4">
                                   <tr>
                                     <td><para style="page">Page :- """ + to_xml(page.title) + """</para></td>
                                   </tr>
                                </blockTable>"""
                     for que in page.question_ids:
-                        rml += """<para style="P2"></para>"""
-                        rml +="""<blockTable colWidths="500" style="Table5">
+                        rml += """<para style="P2"></para>
+                                <blockTable colWidths="500" style="Table5">
                                   <tr>
                                     <td><para style="question">""" + tools.ustr(prefix) + to_xml(que.question) + """</para></td>
                                   </tr>
@@ -251,7 +248,6 @@ class survey_browse_response(report_rml):
                                     rml+="""<td><para style="response">""" + to_xml(mat_col) + """</para></td>"""
                                 rml +="""</tr>"""
                                 rml+="""</blockTable>"""
-                                
                                 i=0
                                 for ans in que.answer_choice_ids:
                                     if i%2!=0:
@@ -259,9 +255,8 @@ class survey_browse_response(report_rml):
                                     else:
                                         style='ans_tbl_gainsboro'
                                     i+=1
-                                    rml+="""
-                                    <blockTable colWidths=" """ + colWidths + """ " style='"""+style+"""'>"""
-                                    rml+="""<tr><td><para style="response">""" + to_xml(ans.answer) + """</para></td>"""
+                                    rml+="""<blockTable colWidths=" """ + colWidths + """ " style='"""+style+"""'>
+                                    <tr><td><para style="response">""" + to_xml(ans.answer) + """</para></td>"""
                                     comment_value = ""
                                     for mat_col in range(1, len_matrix):
                                         value = """"""
@@ -277,7 +272,6 @@ class survey_browse_response(report_rml):
                                                             <circle x="0.3cm" y="-0.18cm" radius="0.10 cm" fill="yes" stroke="no"/>
                                                         </illustration>"""
                                                 elif que.type in ['matrix_of_choices_only_multi_ans']:
-
                                                     value = """<illustration>
                                                         <fill color="white"/>
                                                         <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"  round="0.1cm"/>
@@ -296,7 +290,6 @@ class survey_browse_response(report_rml):
                                                     value = """<illustration><fill color="white"/>
                                                         <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"  round="0.1cm"/>
                                                         </illustration>"""
-
                                         rml+= """<td>""" + value + """</td>"""
                                     if que.comment_column:
                                         rml+= """<td>""" + comment_value + """</td>"""
@@ -304,7 +297,6 @@ class survey_browse_response(report_rml):
                                 if que.comment_field_type:
                                     rml+="""<blockTable colWidths="500" style="Table1"><tr>
                                             <td><para style="answer">""" + tools.ustr(answer[0].comment) + """</para></td></tr></blockTable>"""
-
                             else:
                                 rml +="""<blockTable colWidths="500" style="Table1">
                                  <tr>  <td> <para style="response">No Response</para></td> </tr>
@@ -317,3 +309,6 @@ class survey_browse_response(report_rml):
         return (pdf, report_type)
 
 survey_browse_response('report.survey.browse.response', 'survey','','')
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

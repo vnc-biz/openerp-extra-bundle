@@ -27,8 +27,7 @@ import tools
 
 class survey_analysis(report_rml):
     def create(self, cr, uid, ids, datas, context):
-        rml ="""
-                <document filename="Survey Analysis Report.pdf">
+        rml ="""<document filename="Survey Analysis Report.pdf">
                 <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
                     <pageTemplate id="first">
                       <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
@@ -83,8 +82,7 @@ class survey_analysis(report_rml):
                 prefix = survey.question_prefix + " : "
             else:
                 prefix = ''
-            rml += """
-                    <blockTable colWidths="95,215,150,40" style="Table2">
+            rml += """<blockTable colWidths="95,215,150,40" style="Table2">
                       <tr>
                         <td><para style="Standard">Survey Title :-</para></td>
                         <td><para style="header1">""" + to_xml(survey.title) + """</para></td>
@@ -334,3 +332,5 @@ class survey_analysis(report_rml):
         return (pdf, report_type)
 
 survey_analysis('report.survey.analysis', 'survey','','')
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

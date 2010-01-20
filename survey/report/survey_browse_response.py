@@ -286,8 +286,8 @@ class survey_browse_response(report_rml):
                                                             <circle x="0.3cm" y="-0.18cm" radius="0.22 cm" fill="yes" stroke="yes"  round="0.1cm"/>
                                                         </illustration>"""
                                                 elif que.type in ['matrix_of_choices_only_multi_ans']:
-                                                    value = """<illustration><fill color="gray"/>
-                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="no" stroke="yes"  round="0.1cm"/>
+                                                    value = """<illustration><fill color="white"/>
+                                                        <rect x="0.1cm" y="-0.45cm" width="0.5 cm" height="0.5cm" fill="yes" stroke="yes"  round="0.1cm"/>
                                                         </illustration>"""
 
                                         rml+= """<td>""" + value + """</td>"""

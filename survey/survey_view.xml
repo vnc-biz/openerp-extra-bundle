@@ -420,14 +420,13 @@
             groups="group_survey_manager"/>
 
 
-        <record model="ir.ui.view" id="survey_page_wizard_test">
+        <record model="ir.ui.view" id="survey_page_wizard_test1">
             <field name="name">survey_page_wizard_test</field>
             <field name="model">survey.page</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Survey Page">
+                <form string="Survey Pages">
                     <field name="title" colspan="4" select="1"/>
-                    <field name="survey_id" select="1" widget="selection" invisible="1"/>
                     <field name="sequence"/>
                     <separator string="Description" colspan="4"/>
                     <field name="note" colspan="4" nolabel="1"/>
@@ -442,7 +441,6 @@
         <!--
             Survey Question
         -->
-
 
         <record model="ir.ui.view" id="survey_question_form">
             <field name="name">survey_question_form</field>

@@ -141,7 +141,7 @@
 			<field name="question">SUBJECT</field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">matrix_of_choices_only_one_ans</field>
-			<field name="column_name">RECOMMENDATIONS/EVALUATIONS</field>
+			<field name="column_name">RECOMMENDATIONS / EVALUATIONS</field>
 			<field name="comment_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="make_comment_field"/>
 			<field eval="0" name="in_visible_menu_choice"/>
@@ -209,7 +209,7 @@
 			<field name="question">Supervisors only : </field>
 			<field eval="0" name="is_require_answer"/>
 			<field name="type">matrix_of_choices_only_one_ans</field>
-			<field name="column_name">RECOMMENDATIONS/EVALUATIONS </field>
+			<field name="column_name">RECOMMENDATIONS / EVALUATIONS </field>
 			<field name="comment_valid_err_msg">The comment you entered is in an invalid format.</field>
 			<field eval="0" name="make_comment_field"/>
 			<field eval="0" name="in_visible_menu_choice"/>

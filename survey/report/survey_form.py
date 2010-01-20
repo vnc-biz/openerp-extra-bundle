@@ -301,12 +301,7 @@ class survey_form(report_rml):
                                             </td>"""
                                     else:
                                       rml+="""
-                                            <td><illustration>
-                                                <fill color="white"/>
-                                                <rect x="-0.15cm" y="-0.5cm" width='"""+tools.ustr(rec_width)+"""' height="0.5cm" fill="yes" stroke="yes" round="0.1cm"/>
-                                                <!--circle x="0.15cm" y="-0.18cm" radius="0.25 cm" fill="yes" stroke="yes"/-->
-                                                </illustration>
-                                            </td>"""
+                                            <td></td>"""
                                 else:
                                     rml+="""
                                     <td>

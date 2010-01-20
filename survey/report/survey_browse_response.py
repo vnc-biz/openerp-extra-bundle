@@ -206,12 +206,19 @@ class survey_browse_response(report_rml):
                                     pass
                                 cols_widhts = []
                                 cols_widhts.append(200)
-                                if que.comment_column:
-                                    len_col_heading = len(que.column_heading_ids) + 1
-                                else:
-                                    len_col_heading = len(que.column_heading_ids)
+                                len_col_heading = len(que.column_heading_ids)
                                 for col in range(0, len_col_heading):
                                     cols_widhts.append(float(300 / len_col_heading))
+                                tmp=0.0
+                                sum = 0.0
+                                i = 0
+                                if que.comment_column:
+                                    for col in cols_widhts:
+                                        cols_widhts[i] = col - 20
+                                        sum += col
+                                        tmp+= col - 20
+                                        i+=1
+                                    cols_widhts.append(round(sum-tmp,2))                                    
                                 colWidths = ",".join(map(tools.ustr, cols_widhts))
                                 matrix_ans = ['',]
                                 for col in que.column_heading_ids:
@@ -219,7 +226,7 @@ class survey_browse_response(report_rml):
                                         matrix_ans.append(col.title)
                                 len_matrix = len(matrix_ans)
                                 if que.comment_column:
-                                    matrix_ans.append('')
+                                    matrix_ans.append(que.column_name)
                                 rml+="""<blockTable colWidths=" """ + colWidths + """ " style="Table1"><tr>"""
                                 for mat_col in matrix_ans:
                                     rml+="""<td><para style="response">""" + to_xml(mat_col) + """</para></td>"""

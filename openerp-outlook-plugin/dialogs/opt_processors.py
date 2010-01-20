@@ -6,10 +6,11 @@
 # The Python Software Foundation and is covered by the Python Software
 # Foundation license.
 
-import win32gui, win32api, win32con
+import win32gui, win32api, win32con, win32ui
 import commctrl
 import struct, array
 from dlgutils import *
+import xmlrpclib
 
 import processors
 
@@ -110,17 +111,26 @@ class PartnersComboProcessor(ComboProcessor):
     def UpdateControl_FromValue(self):
         combo = self.GetControl()
         conn = self.func()
-        list = conn.GetPartners()
         win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
         id_list = {}
-        cnt=0
-        for item in list:
-            win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, item[1])
-            id_list[cnt] = item[0]
-            cnt+=1
-        conn.partner_id_list = id_list
-        cnt = win32gui.SendMessage(combo, win32con.CB_GETCOUNT, 0, 0)
-        win32gui.SendMessage(combo, win32con.CB_SETCURSEL, cnt-1, 0)
+        list=[]
+        try:
+            list = conn.GetPartners()
+            cnt=0
+            for item in list:
+                win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, item[1])
+                id_list[cnt] = item[0]
+                cnt+=1
+            conn.partner_id_list = id_list
+            cnt = win32gui.SendMessage(combo, win32con.CB_GETCOUNT, 0, 0)
+            win32gui.SendMessage(combo, win32con.CB_SETCURSEL, cnt-1, 0)
+            return
+        except xmlrpclib.Fault,e:
+             msg = str(e.faultCode) or e.faultString or e.message or str(e)
+        except Exception,e:
+            msg = str(e)
+        win32ui.MessageBox(str(e),"Partners",win32con.MB_ICONEXCLAMATION)
+        win32gui.DestroyWindow(self.window.hwnd)
 
     def UpdateValue_FromControl(self):
         combo = self.GetControl()
@@ -132,11 +142,20 @@ class CSComboProcessor(ComboProcessor):
     def UpdateControl_FromValue(self):
         combo = self.GetControl()
         conn = self.func()
-        list = conn.GetCSList()
-        win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
-        for item in list:
-            win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, item)
-        win32gui.SendMessage(combo, win32con.CB_SETCURSEL, 0, 0)
+        if not conn._iscrm:
+            win32gui.EnableWindow(combo, False)
+            return
+        try:
+            list = conn.GetCSList()
+            win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
+            for item in list:
+                win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, item)
+            win32gui.SendMessage(combo, win32con.CB_SETCURSEL, 0, 0)
+            return
+        except xmlrpclib.Fault,e:
+            win32ui.MessageBox(str(e.faultCode),"CRM Case",win32con.MB_ICONEXCLAMATION)
+        except Exception,e:
+            win32ui.MessageBox(str(e),"CRM Case",win32con.MB_ICONEXCLAMATION)
 
     def UpdateValue_FromControl(self):
         pass

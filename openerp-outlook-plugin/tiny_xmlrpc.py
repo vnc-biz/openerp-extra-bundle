@@ -4,6 +4,7 @@ import socket
 import os
 import pythoncom
 import time
+from manager import ustr
 
 waittime = 10
 wait_count = 0
@@ -71,7 +72,7 @@ class XMLRpcConn:
         self._uname = user
         self._pwd = pwd
         conn = xmlrpclib.ServerProxy(self._uri + '/xmlrpc/common')
-        uid = execute(conn,'login',dbname, user, pwd)
+        uid = execute(conn,'login',dbname, ustr(user), ustr(pwd))
         return uid
 
     def GetAllObjects(self):
@@ -86,7 +87,7 @@ class XMLRpcConn:
         return self._obj_list
 
     def InsertObj(self, obj_title,obj_name,image_path):
-        self._obj_list.append((obj_title,obj_name,image_path))
+        self._obj_list.append((obj_title,obj_name,ustr(image_path).encode('iso-8859-1')))
         self._obj_list.sort(reverse=True)
 
     def DeleteObject(self,sel_text):
@@ -100,7 +101,7 @@ class XMLRpcConn:
         conn = xmlrpclib.ServerProxy(self._uri + '/xmlrpc/object')
         import eml
         eml_path=eml.generateEML(mail)
-        att_name = eml_path.split('\\')[-1]
+        att_name = ustr(eml_path.split('\\')[-1])
         cnt=1
         for rec in recs: #[('res.partner', 3, 'Agrolait')]
             cnt+=1
@@ -112,7 +113,10 @@ class XMLRpcConn:
                 msg="This mail is already attached to object with name '%s'"%name
                 win32ui.MessageBox(msg,"Make Attachment",win32con.MB_ICONINFORMATION)
                 continue
-            sub = mail.Subject
+            sub = ustr(mail.Subject)
+            if len(sub) > 60:
+                l = 60 - len(sub)
+                sub = sub[0:l]
             res={}
             res['res_model'] = obj
             content = "".join(open(eml_path,"r").readlines()).encode('base64')
@@ -131,7 +135,7 @@ class XMLRpcConn:
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         ids = execute(conn,'execute',self._dbname,int(int(self._uid)),self._pwd,'crm.case.section','search',[])
         objects = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'crm.case.section','read',ids,['name'])
-        obj_list = [item['name'] for item in objects]
+        obj_list = [ustr(item['name']).encode('iso-8859-1') for item in objects]
         return obj_list
 
     def GetPartners(self):
@@ -141,7 +145,7 @@ class XMLRpcConn:
         obj_list=[]
         for id in ids:
             object = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','read',[id],['id','name'])[0]
-            obj_list.append((object['id'], object['name']))
+            obj_list.append((object['id'], ustr(object['name']).encode('iso-8859-1')))
         return obj_list
 
     def GetObjectItems(self, search_list=[], search_text=''):
@@ -149,30 +153,29 @@ class XMLRpcConn:
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         for obj in search_list:
             if obj == "res.partner.address":
-                ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'search',['|',('name','ilike',search_text),('email','ilike',search_text)])
+                ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'search',['|',('name','ilike',ustr(search_text)),('email','ilike',ustr(search_text))])
                 recs = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'read',ids,['id','name','street','city'])
                 for rec in recs:
-                    name = str(rec['name'])
+                    name = ustr(rec['name']).encode('iso-8859-1')
                     if rec['street']:
-                        name += ', ' + str(rec['street'])
+                        name += ', ' + ustr(rec['street']).encode('iso-8859-1')
                     if rec['city']:
-                        name += ', ' + str(rec['city'])
+                        name += ', ' + ustr(rec['city']).encode('iso-8859-1')
                     res.append((obj,rec['id'],name))
             else:
-                ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'search',[('name','ilike',search_text)])
+                ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'search',[('name','ilike',ustr(search_text))])
                 recs = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'read',ids,['id','name'])
                 for rec in recs:
-                    name = str(rec['name'])
+                    name = ustr(rec['name']).encode('iso-8859-1')
                     res.append((obj,rec['id'],name))
         return res
 
     def CreateCase(self, section, mail, partner_ids):
         res={}
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
-        res['name'] = mail.Subject
-        res['note'] = mail.Body
-        attachments = mail.Attachments
-        ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'crm.case.section','search',[('name','=',section)])
+        res['name'] = ustr(mail.Subject)
+        res['note'] = ustr(mail.Body)
+        ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'crm.case.section','search',[('name','=',ustr(section))])
         res['section_id'] = ids[0]
         if partner_ids:
             for partner_id in partner_ids:
@@ -190,21 +193,27 @@ class XMLRpcConn:
     def MakeAttachment(self, recs, mail):
         attachments = mail.Attachments
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
+        att_folder_path = os.path.abspath(os.path.dirname(__file__)+"\\dialogs\\resources\\attachments\\")
+        if not os.path.exists(att_folder_path):
+            os.makedirs(att_folder_path)
         for rec in recs: #[('res.partner', 3, 'Agrolait')]
             obj = rec[0]
             obj_id = rec[1]
             res={}
             res['res_model'] = obj
             for i in xrange(1, attachments.Count+1):
-                fn = attachments[i].FileName
-                att_folder_path = os.path.abspath(os.path.dirname(__file__)+"\\dialogs\\resources\\attachments\\")
-                attachments[i].SaveAsFile(os.path.join(att_folder_path, fn))
+                fn = ustr(attachments[i].FileName).encode('iso-8859-1')
+                if len(fn) > 64:
+                    l = 64 - len(fn)
+                    f = fn.split('.')
+                    fn = f[0][0:l] + '.' + f[-1]
                 att_path = os.path.join(att_folder_path,fn)
+                attachments[i].SaveAsFile(att_path)
                 f=open(att_path,"r")
                 content = "".join(f.readlines()).encode('base64')
                 f.close()
-                res['name'] = attachments[i].DisplayName
-                res['datas_fname'] = fn
+                res['name'] = ustr(attachments[i].DisplayName)
+                res['datas_fname'] = ustr(fn)
                 res['datas'] = content
                 res['res_id'] = obj_id
                 execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.attachment','create',res)

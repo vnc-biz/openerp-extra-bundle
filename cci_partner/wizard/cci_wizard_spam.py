@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -60,7 +60,7 @@ def _mass_mail_send(self, cr, uid, data, context):
                 to = '%s <%s>' % (name, adr.email)
 #TODO: add some tests to check for invalid email addresses
 #CHECKME: maybe we should use res.partner/email_send
-                res = tools.email_send(data['form']['from'], [to], data['form']['subject'], data['form']['text'])
+                res = tools.email_send(data['form']['from'], [to], data['form']['subject'], data['form']['text'], subtype='html')
                 nbr += 1
         pooler.get_pool(cr.dbname).get('res.partner.event').create(cr, uid,
                 {'name': 'Email sent through mass mailing',

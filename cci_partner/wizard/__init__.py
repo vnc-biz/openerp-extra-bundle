@@ -22,5 +22,6 @@ import cci_partner_event_history
 import cci_wizard_spam
 import cci_wizard_sms
 import cci_wizard_spam_contact
+import cci_wizard_spam_job
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

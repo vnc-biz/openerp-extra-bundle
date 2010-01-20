@@ -205,25 +205,36 @@ class survey_browse_response(report_rml):
                                 </blockTable>"""
                         elif que.type in ['matrix_of_choices_only_one_ans','matrix_of_choices_only_multi_ans','rating_scale','matrix_of_drop_down_menus']:
                             if len(answer) and answer[0].state == "done":
+                                if que.comment_column:
+                                    pass
                                 cols_widhts = []
                                 cols_widhts.append(200)
-                                for col in range(0, len(que.column_heading_ids)):
-                                    cols_widhts.append(float(300 / (len(que.column_heading_ids))))
+                                if que.comment_column:
+                                    len_col_heading = len(que.column_heading_ids) + 1
+                                else:
+                                    len_col_heading = len(que.column_heading_ids)
+                                for col in range(0, len_col_heading):
+                                    cols_widhts.append(float(300 / len_col_heading))
                                 colWidths = ",".join(map(tools.ustr, cols_widhts))
                                 matrix_ans = ['',]
                                 for col in que.column_heading_ids:
                                     if col.title not in matrix_ans:
                                         matrix_ans.append(col.title)
+                                len_matrix = len(matrix_ans)
+                                if que.comment_column:
+                                    matrix_ans.append('')
                                 rml+="""<blockTable colWidths=" """ + colWidths + """ " style="Table1"><tr>"""
                                 for mat_col in matrix_ans:
                                     rml+="""<td><para style="response">""" + to_xml(mat_col) + """</para></td>"""
                                 rml +="""</tr>"""
                                 for ans in que.answer_choice_ids:
                                     rml+="""<tr><td><para style="response">""" + to_xml(ans.answer) + """</para></td>"""
-                                    for mat_col in range(1, len(matrix_ans)):
+                                    comment_value = ""
+                                    for mat_col in range(1, len_matrix):
                                         value = """"""
                                         for res_ans in answer[0].response_answer_ids:
                                             if res_ans.answer_id.id == ans.id and res_ans.answer == matrix_ans[mat_col]:
+                                                comment_value = """<para style="response">""" + to_xml(tools.ustr(res_ans.comment_field)) + """</para>"""
                                                 if que.type in ['matrix_of_drop_down_menus']:
                                                     value = """<para style="response">""" + to_xml(tools.ustr(res_ans.value_choice)) + """</para>"""
                                                 elif que.type in ['matrix_of_choices_only_one_ans','rating_scale']:
@@ -252,6 +263,8 @@ class survey_browse_response(report_rml):
                                                         </illustration>"""
                                                 
                                         rml+= """<td>""" + value + """</td>"""
+                                    if que.comment_column:
+                                        rml+= """<td>""" + comment_value + """</td>"""
                                     rml+="""  </tr>"""
                                 rml+="""</blockTable>"""
                             else:

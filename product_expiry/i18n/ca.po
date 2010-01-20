@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-01-12 04:53+0000\n"
+"X-Launchpad-Export-Date: 2010-01-20 04:42+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: product_expiry
@@ -120,7 +120,6 @@ msgstr ""
 
 #. module: product_expiry
 #: field:product.product,use_time:0
-#: field:stock.production.lot,dlc:0
 msgid "Product usetime"
 msgstr "Temps d'ús producte"
 

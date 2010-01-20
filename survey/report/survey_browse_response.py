@@ -114,6 +114,10 @@ class survey_browse_response(report_rml):
         surv_obj = pooler.get_pool(cr.dbname).get('survey')
         for response in surv_resp_obj.browse(cr,uid, surv_resp_obj.search(cr,uid, [('survey_id','=',ids[0])])):
             for survey in surv_obj.browse(cr, uid, ids):
+                if survey.question_prefix:
+                    prefix = survey.question_prefix + " : "
+                else:
+                    prefix = ''
                 rml += """
                         <blockTable colWidths="150,350" style="Table2">
                           <tr>
@@ -140,7 +144,7 @@ class survey_browse_response(report_rml):
                         rml += """<para style="P2"></para>"""
                         rml +="""<blockTable colWidths="500" style="Table5">
                                   <tr>
-                                    <td><para style="question">""" + survey.question_prefix + """: """ + to_xml(que.question) + """</para></td>
+                                    <td><para style="question">""" + tools.ustr(prefix) + to_xml(que.question) + """</para></td>
                                   </tr>
                                  </blockTable>"""
                         answer = surv_resp_line_obj.browse(cr,uid, surv_resp_line_obj.search(cr, uid, [('question_id','=',que.id),('response_id','=',response.id)]))
@@ -226,7 +230,7 @@ class survey_browse_response(report_rml):
                                 if que.comment_column:
                                     for col in cols_widhts:
                                         if i==0:
-                                            cols_widhts[i] = cols_widhts[i]/1.5
+                                            cols_widhts[i] = cols_widhts[i]/2.0
                                             tmp = cols_widhts[i]
                                         sum += col
                                         i+=1

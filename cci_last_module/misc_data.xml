@@ -304,6 +304,14 @@
 	</field>
 </record>
 
+        <record id="base.action_partner_form_view2" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_partner_form_new"/>
+            <field name="act_window_id" ref="base.action_partner_form"/>
+        </record>
+
+
 <!--customer invoice Special-->
 
         <record id="invoice_new_form" model="ir.ui.view">

@@ -25,6 +25,7 @@ import pooler
 
 import wizard
 from osv import osv
+from tools.translate import _
 
 _moves_arch = UpdateableStr()
 _moves_fields = UpdateableDict()

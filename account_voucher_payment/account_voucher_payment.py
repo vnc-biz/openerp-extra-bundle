@@ -20,6 +20,8 @@
 ##############################################################################
 
 from osv import fields, osv
+from tools.translate import _
+
 
 class account_move_line(osv.osv):
     _inherit = "account.move.line"

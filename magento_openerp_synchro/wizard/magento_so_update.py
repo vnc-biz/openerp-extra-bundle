@@ -32,6 +32,7 @@ import pooler
 import wizard
 import netsvc
 from xml.parsers.expat import ExpatError
+from tools.translate import _
 
 
 def _do_update(self, cr, uid, data, context):

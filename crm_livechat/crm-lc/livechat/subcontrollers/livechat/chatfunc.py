@@ -31,6 +31,7 @@ from livechat import rpc, common
 from livechat.rpc import *
 import jabber
 import string
+from tools.translate import _
 
 class ChatFunc(controllers.RootController):
 

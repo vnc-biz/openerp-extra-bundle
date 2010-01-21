@@ -23,6 +23,7 @@ import netsvc
 import pooler
 import time
 import datetime
+from tools.translate import _
 
 form_journal = """<?xml version="1.0"?>
 <form string="Select Journal">

@@ -2,6 +2,7 @@ import netsvc
 import xmlrpclib
 import pooler
 import wizard
+from tools.translate import _
 
 #===============================================================================
 #    Payment mapping constants; change them if you need

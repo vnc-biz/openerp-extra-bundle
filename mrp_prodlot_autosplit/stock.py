@@ -23,6 +23,7 @@ from osv import fields, osv
 import tools
 import ir
 import pooler
+from tools.translate import _
 
 
 class stock_move(osv.osv):

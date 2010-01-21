@@ -28,6 +28,7 @@ import time
 import xmlrpclib
 from osv import osv
 import export_table
+from tools.translate import _
 
 def _export(self, cr, uid, data, context):
     """Export (synchronize) the radiotv channels, categories, programs and channel_program_relations to Joomla PHP server."""

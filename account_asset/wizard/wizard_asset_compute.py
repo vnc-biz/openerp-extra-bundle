@@ -21,6 +21,8 @@
 
 import wizard
 import pooler
+from tools.translate import _
+
 
 asset_end_arch = '''<?xml version="1.0"?>
 <form string="Compute assets">

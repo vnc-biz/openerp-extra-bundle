@@ -26,6 +26,7 @@ from osv import fields,osv
 import time
 import netsvc
 from tools.misc import UpdateableStr, UpdateableDict
+from tools.translate import _
 
 email_send_form = '''<?xml version="1.0"?>
 <form string="Send sale order/s by Email">

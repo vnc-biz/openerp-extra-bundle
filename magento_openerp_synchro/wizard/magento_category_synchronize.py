@@ -30,6 +30,7 @@
 
 import wizard
 import pooler
+from tools.translate import _
 
 
 def do_export(self, cr, uid, data, context):

@@ -27,6 +27,7 @@ import netsvc
 import pooler
 from osv import osv, fields
 import os
+from tools.translate import _
 
 class etl_project(osv.osv):
     _name='etl.project'

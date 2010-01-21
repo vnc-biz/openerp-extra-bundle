@@ -24,6 +24,7 @@ import tools
 import time
 import netsvc
 from tools.misc import UpdateableStr, UpdateableDict
+from tools.translate import _
 
 class sale_order(osv.osv):
     _name = "sale.order"

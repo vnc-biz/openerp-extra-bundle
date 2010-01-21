@@ -25,6 +25,7 @@ import pooler
 import netsvc
 from tools.misc import UpdateableStr, UpdateableDict
 import threading
+from tools.translate import _
 
 class Invoice(osv.osv):
     _inherit = "account.invoice"

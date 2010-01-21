@@ -23,6 +23,7 @@
 
 import pooler
 import wizard
+from tools.translate import _
 
 _export_done_form = '''<?xml version="1.0" encoding="utf-8"?>
 <form string="Product Export">

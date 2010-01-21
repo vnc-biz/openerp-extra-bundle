@@ -1,3 +1,4 @@
+from tools.translate import _
 
 class TinyException(Exception):
 

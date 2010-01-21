@@ -22,6 +22,7 @@ import re
 from osv import osv, fields
 from osv.orm import except_orm
 import pooler
+from tools.translate import _
 
 class document_directory(osv.osv):
     _inherit='document.directory'

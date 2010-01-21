@@ -31,6 +31,7 @@ import xmlrpclib
 
 import tiny_socket
 import common
+from tools.translate import _
 
 class RPCException(Exception):
 

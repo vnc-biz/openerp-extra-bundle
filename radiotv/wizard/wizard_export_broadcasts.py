@@ -28,6 +28,7 @@ import time
 import xmlrpclib
 from osv import osv
 import export_table
+from tools.translate import _
 
 export_form = '''<?xml version="1.0" encoding="utf-8"?>
 <form string="Export broadcasts">

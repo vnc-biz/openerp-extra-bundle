@@ -24,6 +24,7 @@ from osv import osv
 
 import time
 import sys
+from tools.translate import _
 if sys.version[0:3] > '2.4':
     from hashlib import md5
 else:

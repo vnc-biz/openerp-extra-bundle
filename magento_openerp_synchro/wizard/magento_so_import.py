@@ -33,6 +33,7 @@ import pooler
 import wizard
 from xml.parsers.expat import ExpatError
 from xmlrpclib import ProtocolError
+from tools.translate import _
 
 #===============================================================================
 #    Payment mapping constants; change them if you need

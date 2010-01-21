@@ -27,6 +27,7 @@ import ir
 import time
 import xmlrpclib
 from mx import DateTime
+from tools.translate import _
 
 class esale_oscom_web(osv.osv):
     _name = "esale.oscom.web"

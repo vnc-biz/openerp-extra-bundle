@@ -20,6 +20,7 @@
 #
 ##############################################################################
 from osv import fields, osv
+from tools.translate import _
 
 class sale_product_multistep_configurator_configurator_step(osv.osv):
     _inherit = "sale_product_multistep_configurator.configurator.step"

@@ -22,6 +22,7 @@ import time
 from osv import fields,osv
 import netsvc
 from mx import DateTime
+from tools.translate import _
 
 class sale_delivery_line(osv.osv):
     _name = 'sale.delivery.line'

@@ -24,6 +24,7 @@ import time
 
 from osv import fields, osv
 import pooler
+from tools.translate import _
 
 
 class res_partner(osv.osv):

@@ -24,6 +24,7 @@ import time
 from tools import config
 import netsvc
 import wizard
+from tools.translate import _
 
 class ecommerce_saleorder(osv.osv):
 

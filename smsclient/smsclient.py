@@ -21,6 +21,7 @@
 from osv import fields, osv
 import time
 import urllib
+from tools.translate import _
 
 class SMSClient(osv.osv):
     _name = 'sms.smsclient'

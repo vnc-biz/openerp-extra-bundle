@@ -3,6 +3,7 @@ import sqlalchemy
 import common
 import axis_map
 import pooler,tools
+from tools.translate import _
 
 class level(object):
     def __init__(self, level, sublevels=[]):

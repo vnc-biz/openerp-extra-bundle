@@ -28,6 +28,8 @@ import tools
 import StringIO
 import zipfile
 from tools import config, convert, misc
+from tools.translate import _
+
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'

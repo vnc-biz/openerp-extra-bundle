@@ -20,6 +20,7 @@
 ##############################################################################
 
 from osv import osv, fields
+from tools.translate import _
 
 class account_move_line(osv.osv):
     _name = 'account.move.line'

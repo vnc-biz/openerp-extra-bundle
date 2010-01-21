@@ -27,6 +27,7 @@ from tempfile import TemporaryFile
 import gnccontent
 from xml import sax
 import netsvc
+from tools.translate import _
 
 view_form="""<?xml version="1.0"?>
 <form string="Import GnuCash Data">

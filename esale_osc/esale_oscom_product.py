@@ -23,6 +23,7 @@
 
 from osv import fields,osv,orm
 import xmlrpclib
+from tools.translate import _
 
 class esale_oscom_product_manufacturer(osv.osv):
     _name = 'product.manufacturer'

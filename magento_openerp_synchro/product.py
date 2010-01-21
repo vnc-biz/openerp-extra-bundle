@@ -31,6 +31,7 @@
 from osv import fields,osv
 import netsvc
 import xmlrpclib
+from tools.translate import _
 
 class product_product(osv.osv):
     _inherit = 'product.product'

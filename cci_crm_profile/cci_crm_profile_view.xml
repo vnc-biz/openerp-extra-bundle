@@ -116,7 +116,34 @@
         </field>
     </record>
 
+	<!-- Questionnaires -->
 
+	<record model="ir.ui.view" id="view_questionnaires_form_inherited">
+        <field name="name">Questionnaires inherit</field>
+        <field name="model">crm_profiling.questionnaire</field>
+        <field name="inherit_id" ref="crm_profiling.view_questionnaire_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="target" select="2" />
+	            <newline/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_questionnaires_tree_inherited">
+        <field name="name">Questionnaires inherit</field>
+        <field name="model">crm_profiling.questionnaire</field>
+        <field name="inherit_id" ref="crm_profiling.view_questionnaire_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="target" select="2"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Questionnaires  End-->
 
 <!-- Add new page for Tags in parent notebook -->
 

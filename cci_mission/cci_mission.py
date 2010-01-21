@@ -385,7 +385,7 @@ class cci_missions_certificate(osv.osv):
         for data in data_dosseir:
             if data.state =='draft':
                 data_partner = self.pool.get('res.partner').browse(cr,uid,data.order_partner_id.id)
-                context.update({'partner_id':data_partner})
+                context.update({'partner_id':data_partner.id})
                 context.update({'force_member':False})
                 context.update({'force_non_member':False})
                 context.update({'date':data.date})
@@ -515,7 +515,7 @@ class cci_missions_legalization(osv.osv):
                     force_member=True
                 else:
                     force_non_member=True
-                context.update({'partner_id':data_partner})
+                context.update({'partner_id':data_partner.id})
                 context.update({'force_member':force_member})
                 context.update({'force_non_member':force_non_member})
                 context.update({'date':data.date})

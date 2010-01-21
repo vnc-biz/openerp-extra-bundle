@@ -174,7 +174,7 @@
 						</field>
 					</page>
 					<page string="Profiling Categories">
-						<button string="Use a questionnaire" name="574" type="action" colspan="1" icon="gtk-justify-fill"/>
+						<button string="Use a questionnaire" name="%(crm_profiling.wizard_open_questionnaire)d" type="action" colspan="1" icon="gtk-justify-fill"/>
 					  	<newline/>
 					  	<field name="answers_ids" colspan="4" nolabel="1"/>
 					   	<separator colspan="4" string="Categories"/>

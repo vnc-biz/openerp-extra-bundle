@@ -363,6 +363,7 @@
                             	<tree string="Invoice Line">
 	                    			<field name="name"/>
 	                    			<field name="account_id" groups="base.group_user"/>
+		                 			<field required="1" name="analytics_id" domain="[('plan_id','&lt;&gt;',False)]" context="{'journal_id':parent.journal_id}"/>
 	                    			<field name="quantity"/>
 	                    			<field name="uos_id"/>
 	                    			<field name="price_unit"/>
@@ -741,6 +742,7 @@
        	<record id="action_invoice_tree3_view1_sp_ref" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
+            <!--<field name="view_id" ref="invoice_tree_spl"/>--> <!-- check me..=> supplier refund tree open special tree view of supplier invoice -->
             <field name="act_window_id" ref="account.action_invoice_tree4"/>
         </record>
         <record id="account.action_invoice_tree8_view_sp_ref" model="ir.actions.act_window.view">

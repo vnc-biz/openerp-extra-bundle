@@ -41,6 +41,15 @@
         <menuitem name="Partners/Partner by Profiles" action="action_cci_partner_answer" id="menu_partner_answer"/>
 -->
 
+<!-- override wizard -->
+		<wizard
+			string="Using a questionnaire"
+			model="crm_profiling.questionnaire"
+			name="cci.open_questionnaire"
+			menu="False"
+			id="crm_profiling.wizard_open_questionnaire"/>
+
+
 <!-- addings of new fields -->
 
 <!-- ANSWERS -->

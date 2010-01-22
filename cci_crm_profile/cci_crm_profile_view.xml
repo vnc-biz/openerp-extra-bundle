@@ -152,6 +152,18 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_questionnaires_form_inherited_dom">
+        <field name="name">Questionnaires inherit</field>
+        <field name="model">crm_profiling.questionnaire</field>
+        <field name="inherit_id" ref="crm_profiling.view_questionnaire_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <field name="questions_ids" colspan="4" position="replace" >
+				<field name="questions_ids" colspan="4" domain="[('target', '=', target)]"/>
+            </field>
+        </field>
+    </record>
+
     <!-- Questionnaires  End-->
 
 <!-- Add new page for Tags in parent notebook -->

@@ -38,8 +38,6 @@ class open_questionnaire(wizard.interface):
 
     def build_form(self, cr, uid, data, context):
         quest_form, quest_fields = pooler.get_pool(cr.dbname).get('crm_profiling.questionnaire').build_form(cr, uid, data, context)
-#        for field in quest_fields:
-#            quest_fields[field]['domain'].append(('question_id.target', '=', str(data['model'])))
         _QUEST_FORM. __init__(quest_form)
         _QUEST_FIELDS.__init__(quest_fields)
         return{}

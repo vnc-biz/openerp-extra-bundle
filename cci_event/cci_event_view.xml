@@ -625,6 +625,17 @@
 	</field>
 	</record>
 
+        <record model="ir.ui.view" id="registration_form_inherit_event_id">
+                <field name="name">event.registration.form</field>
+                <field name="type">form</field>
+                <field name="model">event.registration</field>
+                <field name="inherit_id" ref="event.event_registration_form"/>
+                <field name="arch" type="xml">
+                        <field name="event_id" position="replace">
+                            <field name="event_id" select="1" on_change="onchange_event(event_id, partner_invoice_id)" domain="[('state','not in',('cancel','close'))]"/>
+                        </field>
+                </field>
+        </record>
 
 	<record model="ir.ui.view" id="tree_event_registration_inherit9">
 		<field name="name">event.registration.form.tree.inherit</field>

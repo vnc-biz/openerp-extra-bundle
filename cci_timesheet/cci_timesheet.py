@@ -48,6 +48,7 @@ class cci_timesheet(osv.osv):
         'asked_amount' : fields.float('Asked Amount',digits=(16,2)),
         'accepted_amount' : fields.float('Accepted Amount',digits=(16,2)),
         'line_ids': fields.one2many('cci_timesheet.line', 'timesheet_id', 'Timesheet Lines',readonly=False,states={'validated':[('readonly',True)],'cancelled':[('readonly',True)]}),
+        'user_id': fields.many2one('res.users', 'User', readonly=True, required=True, states={'draft':[('readonly',False)]}),
     }
     _defaults = {
         'state' : lambda *a: 'draft',

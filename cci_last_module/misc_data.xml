@@ -121,8 +121,8 @@
                     	<page string="Membership">
                         	<group colspan="2" col="2">
 		                    	<separator string="employees" colspan="2"/>
-		                    	<field name="employee_nbr"/>
-				    			<field name="employee_nbr_total" select="2"/>
+		                    	<field name="employee_nbr" select="2"/>
+				    			<field name="employee_nbr_total"/>
                          	</group>
 	                        <group colspan="2" col="2">
 	                              <separator string="calls to premium" colspan="2"/>
@@ -131,14 +131,14 @@
 	                         </group>
 	                        <group colspan="2" col="2">
 	                          <separator string="dates" colspan="2"/>
-	                              <field name="membership_start" select="2"/>
-	                              <field name="membership_stop" select="2"/>
-	                              <field name="membership_cancel" select="2"/>
+	                              <field name="membership_start"/>
+	                              <field name="membership_stop" />
+	                              <field name="membership_cancel"/>
 	                         </group>
 	                        <group colspan="2" col="2">
 	                            <separator string="special" colspan="2"/>
 	                            <field name="associate_member"/>
-	                            <field name="free_member" select="2"/>
+	                            <field name="free_member"/>
 								<field name="refuse_membership" select="2"/>
 	                         </group>
                          	<separator string="Membership Lines" colspan="4"/>
@@ -183,7 +183,7 @@
 					<page string="Missions" groups="cci_mission.group_cci_missions_user">
                   		<group colspan="2" col="2">
 			  				<separator string="Asker Info" colspan="2"/>
-		                    <field name="asker_name" select="2"/>
+		                    <field name="asker_name"/>
 		                    <field name="asker_address"/>
 		                    <field name="asker_zip_id"/>
                   		</group>
@@ -274,7 +274,7 @@
                     <field name="export_year"/>
                     <field name="import_procent"/>
                     <field name="import_year"/>
-                    <field name="country_relation" select="1" colspan="4" nolabel="1"/>
+                    <field name="country_relation" colspan="4" nolabel="1"/>
               </page>
              <page string="Articles" groups="cci_partner.group_partner_extended">
                      <field name="article_ids" nolabel="1"/>
@@ -282,7 +282,7 @@
 			 <page string="Sales &amp; Purchases" groups="base.group_partner_manager">
                   	<group colspan="2" col="2">
                   		<separator string="General Information" colspan="2"/>
-                  		<field name="date" select="2"/>
+                  		<field name="date" />
                   	</group>
 		      		<group colspan="2" col="2">
 						<separator string="Stock Properties" colspan="2"/>

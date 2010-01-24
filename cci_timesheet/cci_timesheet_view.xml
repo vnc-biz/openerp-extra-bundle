@@ -51,6 +51,7 @@
                     <field name="date_from"  select="2" />
                     <field name="date_to"  select="2" />
                     <newline/>
+                    <field name="user_id" select="2"/>
                     <field name="sending_date" />
                     <field name="asked_amount" />
                     <field name="accepted_amount" />
@@ -108,6 +109,7 @@
                 <tree string="Timesheet">
                     <field name="name"/>
                     <field name="grant_id"/>
+                    <field name="user_id" />
                     <field name="date_from"/>
                     <field name="date_to"/>
                     <field name="state"/>

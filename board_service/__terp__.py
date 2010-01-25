@@ -62,6 +62,7 @@
                  "board_project",
                  "sale_forecast",
                  "crm",
+                 "crm_configuration",
                  "report_account",
                  "report_analytic_planning",
                  "report_sale",

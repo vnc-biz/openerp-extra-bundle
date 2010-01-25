@@ -166,7 +166,7 @@
    	<record model="ir.actions.act_window.view" id="act_my_meetings_form">
        	<field name="sequence" eval="2"/>
        	<field name="view_mode">form</field>
-       	<field name="view_id" ref="crm.crm_case_form_view_meet"/>
+       	<field name="view_id" ref="crm_configuration.crm_case_form_view_meet"/>
        	<field name="act_window_id" ref="action_my_meetings"/>
    	</record>
    

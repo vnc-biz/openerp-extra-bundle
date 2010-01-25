@@ -41,7 +41,7 @@
 			                           <field name="state_id" select="2"/>
 			                        </group>
 		                        	<group string="Communication" colspan="2" col="2">
-			                           <field name="phone"/>
+			                           <field name="phone" on_change="_on_change_phone_num(phone)"/>
 			                           <field name="fax"/>
 			                           <field name="email" widget="email"/>
 			                        </group>
@@ -51,7 +51,7 @@
 			                                <field name="contact_id"/>
 			                                <!--<field name="function_id"/>-->
 			                                <field name="function_code_label"/>
-			                                <field name="phone"/>
+			                                <field name="phone" on_change="_on_change_phone_num(phone)"/>
 			                                <field name="fax"/>
 		                               	    <field name="extension"/>
 			                                <field name="other"/>
@@ -67,7 +67,7 @@
 								<field name="function_code_label"/>
 			                            	</group>
 			                            	<group string="Communication" colspan="2" col="2">
-			                                	<field name="phone"/>
+			                                	<field name="phone" on_change="_on_change_phone_num(phone)"/>
 			                                	<field name="fax"/>
 		                                		<field name="extension"/>
 				                                <field name="other"/>
@@ -83,7 +83,7 @@
 			                        <field name="zip"/>
 			                        <field name="city"/>
 		                        <field name="country_id"/>
-			                        <field name="phone"/>
+			                        <field name="phone" on_change="_on_change_phone_num(phone)"/>
 			                        <field name="job_ids"/>
 			                    </tree>
 			                </field>
@@ -93,7 +93,7 @@
 		                    <field name="vat_subjected"/>
 		                    <field name="credit" select="2"/>
 		                    <field name="debit" select="2"/>
-		                    <field name="user_id" select="2" readonly="1"/>
+		                    <field name="user_id" select="2"/>
 		                    <field name="website" widget="url"/>
 							<separator string="Miscelleanous" colspan="4"/>
 							<field name="name_official"/>
@@ -121,8 +121,8 @@
                     	<page string="Membership">
                         	<group colspan="2" col="2">
 		                    	<separator string="employees" colspan="2"/>
-		                    	<field name="employee_nbr"/>
-				    			<field name="employee_nbr_total" select="2"/>
+		                    	<field name="employee_nbr" select="2"/>
+				    			<field name="employee_nbr_total"/>
                          	</group>
 	                        <group colspan="2" col="2">
 	                              <separator string="calls to premium" colspan="2"/>
@@ -131,14 +131,14 @@
 	                         </group>
 	                        <group colspan="2" col="2">
 	                          <separator string="dates" colspan="2"/>
-	                              <field name="membership_start" select="2"/>
-	                              <field name="membership_stop" select="2"/>
-	                              <field name="membership_cancel" select="2"/>
+	                              <field name="membership_start"/>
+	                              <field name="membership_stop" />
+	                              <field name="membership_cancel"/>
 	                         </group>
 	                        <group colspan="2" col="2">
 	                            <separator string="special" colspan="2"/>
 	                            <field name="associate_member"/>
-	                            <field name="free_member" select="2"/>
+	                            <field name="free_member"/>
 								<field name="refuse_membership" select="2"/>
 	                         </group>
                          	<separator string="Membership Lines" colspan="4"/>
@@ -183,7 +183,7 @@
 					<page string="Missions" groups="cci_mission.group_cci_missions_user">
                   		<group colspan="2" col="2">
 			  				<separator string="Asker Info" colspan="2"/>
-		                    <field name="asker_name" select="2"/>
+		                    <field name="asker_name"/>
 		                    <field name="asker_address"/>
 		                    <field name="asker_zip_id"/>
                   		</group>
@@ -274,7 +274,7 @@
                     <field name="export_year"/>
                     <field name="import_procent"/>
                     <field name="import_year"/>
-                    <field name="country_relation" select="1" colspan="4" nolabel="1"/>
+                    <field name="country_relation" colspan="4" nolabel="1"/>
               </page>
              <page string="Articles" groups="cci_partner.group_partner_extended">
                      <field name="article_ids" nolabel="1"/>
@@ -282,7 +282,7 @@
 			 <page string="Sales &amp; Purchases" groups="base.group_partner_manager">
                   	<group colspan="2" col="2">
                   		<separator string="General Information" colspan="2"/>
-                  		<field name="date" select="2"/>
+                  		<field name="date" />
                   	</group>
 		      		<group colspan="2" col="2">
 						<separator string="Stock Properties" colspan="2"/>
@@ -329,9 +329,8 @@
                         <field domain="[('partner_id','=',partner_id)]" name="address_invoice_id"/>
                         <field name="vat_num" readonly="1"/>
                         <field name="date_invoice" select="1"/>
-                        <field name="domiciled"/>
-                        <field name="domiciled_send_date"/>
                         <field name="period_id" groups="base.group_user"/>
+                        <field name="domiciled"/>
                         <group colspan="2" col="1" groups="base.group_user">
                             <label align="0.0" string="(keep empty to use the current period)"/>
                         </group>
@@ -419,7 +418,8 @@
                             <newline/>
                             <field domain="[('partner_id.ref_companies', 'in', [company_id])]" name="partner_bank" select="2"/>
                             <field name="origin" select="2"/>
-                            <field colspan="4" domain="[('partner_id','=',partner_id)]" name="address_contact_id"/>
+                            <field domain="[('partner_id','=',partner_id)]" name="address_contact_id"/>
+                            <field name="domiciled_send_date"/>
                             <field name="move_id" groups="base.group_user"/>
                             <field domain="[('type','&lt;&gt;','view'), ('company_id', '=', company_id),('journal_id','=',journal_id)]" name="account_id" groups="base.group_user"/>
                             <separator colspan="4" string="Additionnal Information"/>
@@ -527,7 +527,7 @@
             <field name="priority">50</field>
             <field name="arch" type="xml">
                 <tree colors="blue:state=='draft'" string="Invoice">
-                    <field name="origin"/>
+                    <field name="reference"/>
                     <field name="name"/>
                     <field name="type"/>
                     <field name="number"/>
@@ -535,7 +535,6 @@
                     <field name="vat_num"/>
                     <field name="amount_untaxed" sum="Untaxed amount"/>
                     <field name="amount_total" sum="Total amount"/>
-                    <field name="currency_id"/>
                     <field name="date_invoice" select="1"/>
                     <field name="date_due" select="1"/>
                     <field name="residual"/>

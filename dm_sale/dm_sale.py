@@ -47,9 +47,10 @@ class dm_workitem(osv.osv): # {{{
 						'date': time.strftime('%Y-%m-%d %H:%M:%S'),
 						'document': wi.sale_order_id and ('sale.order' +','+ wi.sale_order_id.name) or ''})
 		return result
-	def copy(self, cr, uid, id, default=None, context=None):
-	    if not default:
-	        default = {}
+    
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
         if context is None:
             context = {}
         default.update({'sale_order_id': False})

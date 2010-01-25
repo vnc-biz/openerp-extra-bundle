@@ -61,8 +61,7 @@ def _get_payment(self, cr, uid, data, context={}):
         field = 'debit'
         type = 'payable'
     line_ids = pool.get('account.move.line').search(cr, uid, [('partner_id','=',invoice.partner_id.id), ('account_id.type','=',type), (field,'>',0), ('reconcile_id','=',False),('reconcile_partial_id','=',False)])
-    # to be check: if line_ids does not exists then : error: bad domain expression
-    fields['line_ids']['domain'] = ('id','in', line_ids)
+    fields['line_ids']['domain'] = [('id','in', line_ids)]
     return {
         'line_ids': line_ids
     }

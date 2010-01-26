@@ -325,9 +325,8 @@ class dm_campaign(osv.osv): #{{{
 
         #Set campaign end date at one year after start date if end date does not exist
         if 'camp_date_end' not in vals and not camp.camp_date_end and 'camp_date_start' in vals and vals['camp_date_start']:
-            time_format = "%Y-%m-%d %H:%M:%S"
-            d = time.strptime(vals['camp_date_start'], time_format)
-            d = datetime.datetime(d[0], d[1], d[2], d[3], d[4], d[5])
+            d = time.strptime(vals['camp_date_start'], "%Y-%m-%d")
+            d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
             vals['camp_date_end'] = date_end
             self.pool.get('account.analytic.account').write(cr, uid, [camp.analytic_account_id.id], {'date_start': vals['camp_date_start'].split(' ')[0],
@@ -403,8 +402,8 @@ class dm_campaign(osv.osv): #{{{
         # Set campaign end date at one year after start date if end date does
         #                                                            not exist
         if (data_cam.camp_date_start) and (not data_cam.camp_date_end):
-            d = time.strptime(data_cam.camp_date_start, "%Y-%m-%d %H:%M:%S")
-            d = datetime.datetime(d[0], d[1], d[2], d[3], d[4], d[5])
+            d = time.strptime(data_cam.camp_date_start, "%Y-%m-%d")
+            d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
             write_vals['camp_date_end'] = date_end
             self.pool.get('account.analytic.account').write(cr, uid, [data_cam.analytic_account_id.id], {'date_start': data_cam.camp_date_start.split(' ')[0],

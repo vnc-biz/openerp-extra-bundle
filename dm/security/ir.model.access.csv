@@ -550,5 +550,5 @@
 "access_purchase_order_control","purchase.order","purchase.model_purchase_order","dm.res_groups_control",1,0,0,0
 "access_sale_order_control","sale.order","sale.model_sale_order","dm.res_groups_control",1,0,0,0
 "access_sale_order_line_control","sale.order.line","sale.model_sale_order_line","dm.res_groups_control",1,0,0,0
-"access_dm_campaign_mail_service_dmacampaignmanager","dm.campaign.mail_service","model_dm_campaign_mail_service","dm."dm.res_groups_campaignmanager",1,1,1,0
-"access_dm_campaign_mail_service_dmacampaignadmin","dm.campaign.mail_service","model_dm_campaign_mail_service","dm."dm.res_groups_campaignadmin",1,1,1,1
+"access_dm_campaign_mail_service_dmacampaignmanager","dm.campaign.mail_service","model_dm_campaign_mail_service","dm.res_groups_campaignmanager",1,1,1,0
+"access_dm_campaign_mail_service_dmacampaignadmin","dm.campaign.mail_service","model_dm_campaign_mail_service","dm.res_groups_campaignadmin",1,1,1,1

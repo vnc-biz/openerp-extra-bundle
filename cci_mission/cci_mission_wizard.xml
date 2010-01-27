@@ -41,11 +41,17 @@
 			name="mission.simulation_carnet"
 			id="mission_simulation_carnet"
 			menu="True"/>
+
+		<!-- Federation Sending  from ata carnet -->
 		<wizard string="Federation Sending"
 			model="cci_missions.ata_carnet"
 			name="mission.fed_send"
 			id="mission_fed_send"
-			menu="True"/>"
+			menu="False"
+			/>"
+		<menuitem name="Federation Sending (ATA Carnet)" id="menu_fed_send_ata"
+			action="mission_fed_send" type="wizard"
+			parent="menu_mission" />
 
 		<wizard
 			string="Make Invoice"
@@ -95,7 +101,11 @@
 			model="cci_missions.certificate"
 			name="cci_mission.send_certificates_federation"
 			id="cci_mission_send_certificates_federation"
-			menu="True"/>
+			menu="False"/>
+		<menuitem name="Send to Federation (Certificates)" id="menu_fed_send_certi"
+			action="cci_mission_send_certificates_federation" type="wizard"
+			parent="menu_mission" />
+
 
 		<!-- Send followup for ata-carnet before and after validity date -->
 

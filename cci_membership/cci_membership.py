@@ -26,7 +26,11 @@ class res_partner(osv.osv):
 
     def _membership_state_job(self, cr, uid, ids=False, context={}):
         partner_ids = self.pool.get('res.partner').search(cr, uid, [], context=context)
-        return self._membership_state(cr, uid, partner_ids, 'membership_state', None, context=context)
+        self._membership_state(cr, uid, partner_ids, 'membership_state', None, context=context)
+        self._membership_start(cr, uid, partner_ids, 'membership_start', None, context=context)
+        self._membership_stop(cr, uid, partner_ids, 'membership_stop', None, context=context)
+        self._membership_cancel(cr, uid, partner_ids, 'membership_cancel', None, context=context)
+        return True
 
     def _membership_vcs(self, cr, uid, ids, field_name=None, arg=None, context={}):
         '''To obtain the ID of the partner in the form of a belgian VCS for a membership offer'''

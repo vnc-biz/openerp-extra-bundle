@@ -77,6 +77,27 @@ class crm_case(osv.osv):
 
 crm_case()
 
+
+class crm_case_section(osv.osv):
+    _inherit = 'crm.case.section'
+    _description = 'crm case.section'
+
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
+            context=None, count=False):
+        res = super(crm_case_section, self).search(cr, uid, args, offset, limit, order, context, count)
+        if context and context.has_key('section_event') and context['section_event']:
+            event_sec = []
+            event_child_sec = []
+            cr.execute('select id from crm_case_section where name=%s',('Events',))
+            map(lambda c: event_sec.append(c[0]), cr.fetchall())
+            cr.execute('select id from crm_case_section where parent_id in ('+','.join(map(str,event_sec))+')')
+            map(lambda c: event_child_sec.append(c[0]), cr.fetchall())
+            event_sec.extend(event_child_sec)
+            res = [x for x in res if x not in event_sec]
+        return res
+
+crm_case_section()
+
 class event_event(osv.osv):
     _inherit = 'event.event'
     _description = 'Event Event'

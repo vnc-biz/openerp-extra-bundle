@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
@@ -31,7 +31,7 @@
     "depends" : ["base","membership","cci_event"],
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : ["cci_membership_view.xml","cci_membership_report.xml","cci_membership_wizard.xml",'security/security.xml','security/ir.model.access.csv'],
+    "update_xml" : ["cci_membership_view.xml","cci_membership_report.xml","cci_membership_wizard.xml",'security/security.xml','security/ir.model.access.csv', 'cci_membership_data.xml'],
     "active": False,
     "installable": True
 }

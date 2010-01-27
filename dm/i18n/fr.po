@@ -1,0 +1,38 @@
+# Translation of OpenERP Server.
+# This file containt the translation of the following modules:
+#	* dm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 4.3.99Report-Msgid-Bugs-To: "
+"support@openerp.comPOT-Creation-Date: 2008-09-23 09:56:13+0000PO-Revision-"
+"Date: 2008-09-23 09:56:13+0000Last-Translator: <>Language-Team: MIME-"
+"Version: 1.0Content-Type: text/plain; charset=UTF-8Content-Transfer-"
+"Encoding: Plural-Forms:\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-06 13:58+0000\n"
+"PO-Revision-Date: 2010-01-26 11:21+0000\n"
+"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-01-27 04:51+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#. module: dm
+#: model:ir.module.module,shortdesc:dm.module_meta_information
+msgid "Direct Marketing"
+msgstr "Marketing direct"
+
+#~ msgid "dm.dtp.plugin"
+#~ msgstr "dm.dtp.plugin"
+
+#~ msgid "DTP Plugin Name"
+#~ msgstr "Nom du plugin de PAO"
+
+#~ msgid "Get Products"
+#~ msgstr "Obtenir les produits"
+
+#~ msgid "Products and Prices"
+#~ msgstr "Prix et produits"

@@ -1,0 +1,89 @@
+# Translation of OpenERP Server.
+# This file containt the translation of the following modules:
+#	* dm_price_progression
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 4.3.99Report-Msgid-Bugs-To: "
+"support@openerp.comPOT-Creation-Date: 2008-09-23 09:56:13+0000PO-Revision-"
+"Date: 2008-09-23 09:56:13+0000Last-Translator: <>Language-Team: MIME-"
+"Version: 1.0Content-Type: text/plain; charset=UTF-8Content-Transfer-"
+"Encoding: Plural-Forms:\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-20 13:58+0000\n"
+"PO-Revision-Date: 2010-01-26 11:22+0000\n"
+"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-01-27 04:51+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#. module: dm_price_progression
+#: model:ir.module.module,shortdesc:dm_price_progression.module_meta_information
+msgid "Price Progression for DM"
+msgstr ""
+
+#~ msgid "Assign Prices Progression"
+#~ msgstr "Assigner le progression de prix"
+
+#~ msgid "Progression"
+#~ msgstr "Progression"
+
+#~ msgid "Create New Prices Progression"
+#~ msgstr "Créer une nouvelle progression de prix"
+
+#~ msgid "Campaign Prices Progression"
+#~ msgstr "Progression de prix"
+
+#~ msgid "All Campaign Prices Progression"
+#~ msgstr "Toutes les progressions de prix"
+
+#~ msgid "Fixed Progression"
+#~ msgstr "Progression fixe"
+
+#~ msgid "Percent Progression Name"
+#~ msgstr "Nom de la progression par pourcentage"
+
+#~ msgid "Price Progression Description"
+#~ msgstr "Description de la progression de prix"
+
+#~ msgid "Price Progresson Assigned"
+#~ msgstr "Progression de prix assignée"
+
+#~ msgid "Percentage Prices Progression"
+#~ msgstr "Progression de prix par pourcentage"
+
+#~ msgid "Create Prices Progression"
+#~ msgstr "Créer la progression de prix"
+
+#~ msgid "Select Prices Progression"
+#~ msgstr "Sélectionnerl a progression de prix"
+
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#~ msgid "dm_price_progression.campaign.proposition.prices_progression"
+#~ msgstr "dm_price_progression.campaign.proposition.prices_progression"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Error!!!"
+#~ msgstr "Erreur"
+
+#~ msgid "error test"
+#~ msgstr "Test d'erreur"
+
+#~ msgid "Ok"
+#~ msgstr "Valider"
+
+#~ msgid "Starting Mail Price"
+#~ msgstr "Prix du mailing de départ"
+
+#~ msgid "Force Starting Mail Price"
+#~ msgstr "Forcer le prix du mailing de départ"
+
+#~ msgid "Price Progression"
+#~ msgstr "Progression de prix"

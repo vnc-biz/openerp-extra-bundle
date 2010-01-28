@@ -39,6 +39,7 @@ from email.MIMEImage import MIMEImage
 from email import Encoders
 from email.MIMEBase import MIMEBase
 import urllib2
+import tools
 
 
 from dm_report_design import merge_message, generate_internal_reports, generate_openoffice_reports
@@ -204,7 +205,8 @@ class dm_dtp_plugin(osv.osv): # {{{
 #        'key': fields.char('DES Key',size=64),
         'ref_text_id': fields.many2one('dm.dynamic_text', 'Reference Text'),
         'preview_value':fields.char('Preview Text', size=64),
-        'media_content_id': fields.many2one('dm.media.content', 'Media Content')
+        'media_content_id': fields.many2one('dm.media.content', 'Media Content'),
+        'err_notify': fields.boolean('Notify Error'),
      }
     _sql_constraints = [
         ('code_uniq', 'UNIQUE(code)', 'The code must be unique!'),
@@ -300,6 +302,7 @@ def create_email_queue(cr, uid, obj, context): # {{{
 
         msgRoot['Subject'] = subject
         msgRoot['From'] = str(obj.mail_service_id.smtp_server_id.email)
+        print "ssssssssss",str(obj.address_id.email)
         msgRoot['To'] = str(obj.address_id.email)
         msgRoot.preamble = 'This is a multi-part message in MIME format.'
     

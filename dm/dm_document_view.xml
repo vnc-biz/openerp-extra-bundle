@@ -294,6 +294,7 @@
             	    <field name="type" select="1" />
             	    <field name="store_value" />
 		    		<field name="preview_value" attrs="{'required':[('type','!=','image')]}"/>
+                	<field name="err_notify" />
                 </group>
                 <newline/>
         		<separator string="Description" colspan="4"/>

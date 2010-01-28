@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -27,12 +27,13 @@
     * This module generate the Technical Guides of selected modules in Restructured Text format (RST)
     * It uses the Sphinx (http://sphinx.pocoo.org) implementation of RST
     * It creates a tarball (.tgz file suffix) containing an index file and one file per module
+    * Generate Relationship Graph
     """,
     'author': 'Tiny',
     'website': 'http://www.openerp.com',
     'depends': ['base'],
     'init_xml': [],
-    'update_xml': ['base_module_doc_rst_wizard.xml'],
+    'update_xml': ['base_module_doc_rst_view.xml', 'base_module_doc_rst_wizard.xml'],
     'demo_xml': [],
     'installable': True,
     'certificate': '',

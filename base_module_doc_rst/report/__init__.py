@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -19,23 +19,7 @@
 #
 ##############################################################################
 
-{
-    'name': 'Module Technical Guide in Restructured Text ',
-    'version': '1.0',
-    'category': 'Generic Modules/Base',
-    'description': """
-    * This module generate the Technical Guides of selected modules in Restructured Text format (RST)
-    * It uses the Sphinx (http://sphinx.pocoo.org) implementation of RST
-    * It creates a tarball (.tgz file suffix) containing an index file and one file per module
-    * Generate Relationship Graph
-    """,
-    'author': 'Tiny',
-    'website': 'http://www.openerp.com',
-    'depends': ['base'],
-    'init_xml': [],
-    'update_xml': ['base_module_doc_rst_view.xml', 'base_module_doc_rst_wizard.xml', 'module_report.xml'],
-    'demo_xml': [],
-    'installable': True,
-    'certificate': '',
-}
+import ir_module_reference_print_graph
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

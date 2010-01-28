@@ -20,4 +20,4 @@
 ##############################################################################
 import base_module_doc_rst
 import wizard
-
+import report

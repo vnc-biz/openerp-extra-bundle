@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report auto="False" id="base.ir_module_reference_print" model="ir.module.module" name="ir.module.reference.graph" rml="base_module_doc_rst/report/ir_module_reference_graph.rml" string="Technical guide"/>
+
+    </data>
+</openerp>

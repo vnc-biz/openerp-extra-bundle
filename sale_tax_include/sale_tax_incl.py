@@ -84,8 +84,8 @@ class sale_order_line(osv.osv):
                     res[line.id]['price_subtotal'] = res[line.id]['price_subtotal'] - tax['amount']
                     res[line.id]['data'].append( tax)
 
-        res[line.id]['price_subtotal']= round(res[line.id]['price_subtotal'], 2)
-        res[line.id]['price_subtotal_incl']= round(res[line.id]['price_subtotal_incl'], 2)
+            res[line.id]['price_subtotal']= round(res[line.id]['price_subtotal'], 2)
+            res[line.id]['price_subtotal_incl']= round(res[line.id]['price_subtotal_incl'], 2)
         return res
 
     def _get_order(self, cr, uid, ids, context):

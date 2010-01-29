@@ -70,9 +70,6 @@ def merge_message(cr, uid, keystr, context): # {{{
             context.update(plugin_values)
             context.update({'object':obj, 'time':time})
         result = eval(exp, context)
-        if result in (None, False):
-            # What is that ?
-            return str("!!!Missing-Plugin-Value!!!")
         return result
     com = re.compile('(\[\[.+?\]\])')
     context['plugin_list'] = map(lambda x:x[2:-2].strip(),com.findall(keystr))
@@ -105,7 +102,7 @@ def generate_internal_reports(cr, uid, report_type,
                        'datas': base64.encodestring(report_data),
                        'file_type':'html'
                        }
-           attach_id = attachment_obj.create(cr,uid,attach_vals,{'not_index_context':True})
+           attach_id = attachment_obj.create(cr,uid,attach_vals)
            return 'doc_done'
         return [report_data]
     else:
@@ -150,19 +147,19 @@ def generate_openoffice_reports(cr, uid, report_type,
         return report_content
     else :
         return 'doc_done' # }}}
-
-def get_so(cr,uid,wi_id) :
-    return False
+        
+# TODO : to get sale order id in campign_document
+#def get_so(cr,uid,wi_id) :
+#    return False
 
 def get_address_id(cr,uid,source,s_id):
     if source == 'address_id' : 
         return getattr(obj, obj.source).id
     else : return False
 
-def document_process(cr, uid, obj, report_type, context): # {{{
-
-    """ Set addess_id depending of the source: partner address, 
-                                                            crm case, etc """
+def precheck(cr, uid, obj, context):	# {{{
+    pool = pooler.get_pool(cr.dbname)
+    """ Set addess_id depending of the source: partner address, crm case, etc """
     address_id = getattr(obj, obj.source).id
     address_ids = []
     if obj.is_global:
@@ -180,11 +177,7 @@ def document_process(cr, uid, obj, report_type, context): # {{{
     else:
         return {'code': "no_step_for_wi"}
 
-    pool = pooler.get_pool(cr.dbname)
-    dm_doc_obj = pool.get('dm.offer.document') 
-    report_xml = pool.get('ir.actions.report.xml')
     camp_mail_service_obj = pool.get('dm.campaign.mail_service')
-
 
     """ Set mail service to use """
     if obj.mail_service_id:
@@ -207,16 +200,20 @@ def document_process(cr, uid, obj, report_type, context): # {{{
                                         camp_mail_service_id)[0].mail_service_id
         else:
             return {'code': "no_segment_for_wi"}
-
-    ms_id = mail_service.id
-
     """ Get offer step documents to process """
+    dm_doc_obj = pool.get('dm.offer.document') 
     document_id = dm_doc_obj.search(cr, uid, [('step_id', '=', obj.step_id.id),
                                             ('category_id', '=', 'Production'),('state','=','validate')])
     if not document_id:
         return {'code': "no_document_for_step"}
+        
     document_data = dm_doc_obj.browse(cr, uid, document_id[0])
-# TODO : Need to process reports of all document  - before that need to change dm_engine
+    return (mail_service, document_data, address_ids)
+
+def process_report(cr, uid, obj, report_type, mail_service, document_data, address_ids, context):
+    pool = pooler.get_pool(cr.dbname)
+    report_xml = pool.get('ir.actions.report.xml')
+    # TODO : Need to process reports of all document  - before that need to change dm_engine
     if not document_data.content and document_data.editor == 'internal':
         return {'code': "no_report_for_document"}
     report_ids = report_xml.search(cr, uid, 
@@ -231,9 +228,7 @@ def document_process(cr, uid, obj, report_type, context): # {{{
 
     type_id = pool.get('dm.campaign.document.type').search(cr, uid, [('code', '=', r_type)])
     res = 'doc_done'
-#    so = getattr(obj,'sale_order_id',False)
     for address_id in address_ids:
-
         if len(address_ids) > 1:
                     netsvc.Logger().notifyChannel('dm action', netsvc.LOG_ERROR, 'Duplicate workitem detected : %s' % (str(address_id)))
 
@@ -242,17 +237,16 @@ def document_process(cr, uid, obj, report_type, context): # {{{
             'segment_id': obj.segment_id.id or False,
             'name': obj.step_id.code + "_" + str(address_id),
             'type_id': type_id[0],
-            'mail_service_id': ms_id,
-            'document_id': document_id[0],
+            'mail_service_id': mail_service.id,
+            'document_id': document_data.id,
             (obj.source): address_id,
-#            'origin': so,
             }
 
         camp_doc = pool.get('dm.campaign.document').create(cr, uid, vals)
         """ If DMS stored document """
         if mail_service.store_document:
             context['address_id'] = address_id
-            context['document_id'] = document_id[0]
+            context['document_id'] = document_data.id
 #v need it as store_document is true ...v need to calculate plugin values 
             context['store_document'] = True
             context['workitem_id'] = obj.id
@@ -270,6 +264,16 @@ def document_process(cr, uid, obj, report_type, context): # {{{
                 res = generate_openoffice_reports(cr, uid, report_type, 
                                             document_data.id, camp_doc, context)
     return {'code':res,'ids':[camp_doc]} # }}}
+
+def document_process(cr, uid, obj, report_type, context): # {{{
+    result = precheck(cr, uid, obj, context)
+    if type(result) == type({}):
+        return result
+    else:
+        mail_service, document_data, address_ids = result
+        result = process_report(cr, uid, obj, report_type, mail_service, document_data, address_ids, context)
+    return result#}}}
+	
 """
 def compute_customer_plugin(cr, uid, **args): # {{{
     res  = pool.get('ir.model').browse(cr, uid, args['plugin_obj'].model_id.id)    
@@ -279,9 +283,11 @@ def compute_customer_plugin(cr, uid, **args): # {{{
     args['field_relation'] = str(args['plugin_obj'].field_id.relation)
     return customer_function(cr, uid, **args) # }}}
 """
-def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
+def _generate_value(cr, uid, plugin_obj, **args): # {{{
     pool = pooler.get_pool(cr.dbname)
-    localcontext['plugin_obj'] = plugin_obj
+    localcontext = {'cr': cr,'uid': uid, 'plugin_obj' : plugin_obj}
+    localcontext.update(args)
+
     plugin_args = {}
     plugin_value = ''
     if plugin_obj.type in ('fields','image'):
@@ -290,9 +296,7 @@ def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
         args['field_name'] = str(plugin_obj.field_id.name)
         args['field_type'] = str(plugin_obj.field_id.ttype)
         args['field_relation'] = str(plugin_obj.field_id.relation)
-        plugin_value = customer_function(cr, uid, **args) or '!!!Missing-Plugin-Value!!!' 
-        if not plugin_value :
-            return False
+        plugin_value = customer_function(cr, uid, **args)
     else:
         arg_ids = pool.get('dm.plugin.argument').search(cr, uid, 
                                             [('plugin_id', '=', plugin_obj.id)])
@@ -301,7 +305,7 @@ def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
                 plugin_args[str(arg.name)] = arg.value
             else:
                 plugin_args[str(arg.name)] = _generate_value(cr, uid, 
-                                    arg.custome_plugin_id, localcontext, **args)
+                                    arg.custome_plugin_id, **args)
 
         if plugin_obj.type == 'dynamic' and plugin_obj.python_code:
             localcontext.update(plugin_args)
@@ -323,20 +327,17 @@ def _generate_value(cr, uid, plugin_obj, localcontext, **args): # {{{
             X =  __import__(plugin_name)
             plugin_func = getattr(X, plugin_name)
             plugin_value = plugin_func(cr, uid, **args)
-    return plugin_value or '!!!Missing-Plugin-Value!!!' # }}}
-#    return plugin_value # }}}
+    plugin_value = plugin_value and plugin_value or (plugin_obj.err_notify and '!!!Missing-Plugin-Value!!!' or '')
+    return plugin_value # }}}
 
 def generate_plugin_value(cr, uid, **args): # {{{
     if not 'document_id' in args and not args['document_id']:
         return False
     vals = {}
-    localcontext = {'cr': cr,'uid': uid}
-    localcontext.update(args)
-
     pool = pooler.get_pool(cr.dbname)
     dm_document = pool.get('dm.offer.document')
     dm_plugins_value = pool.get('dm.plugins.value')
-
+    
     plugins = dm_document.browse(cr, uid, args['document_id'] )
     doc_plugin_ids = map(lambda x: x.id,plugins.document_template_plugin_ids)
     if 'plugin_list' in args and args['plugin_list'] :
@@ -350,7 +351,7 @@ def generate_plugin_value(cr, uid, **args): # {{{
             plugin_value = '!!!Missing-Plugin-in DTP document!!!'
         else :
             "Compute plugin value"
-            plugin_value = _generate_value(cr, uid, plugin_obj, localcontext, **args)
+            plugin_value = _generate_value(cr, uid, plugin_obj, **args)
 #       dnt remove this comment it s for url changes
 #        if plugin_obj.type == 'url':
 #            vals['%s_text_display'%str(plugin_obj.code)] = plugin_value[-1]

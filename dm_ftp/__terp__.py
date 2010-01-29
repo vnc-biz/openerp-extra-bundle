@@ -26,7 +26,7 @@
     "category" : "Generic Modules/Direct Marketing",
     "description": """
             """,
-    "depends" : ["dm"],
+    "depends" : ["dm",],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [

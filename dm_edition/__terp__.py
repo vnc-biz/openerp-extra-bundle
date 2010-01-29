@@ -31,12 +31,15 @@
             """,
     "depends" : ["dm"],
     "init_xml" : [],
-    "demo_xml" : [],
+    "demo_xml" : [
+                'dm_edition_demo.xml',            
+    ],
 
     "update_xml" :[
             "security/ir.model.access.csv",
             'dm_edition_view.xml',
-            'dm_edition_wizard.xml'
+            'dm_edition_wizard.xml',
+            'dm_edition_data.xml',
             ],
     "active": False,
     "installable": True,

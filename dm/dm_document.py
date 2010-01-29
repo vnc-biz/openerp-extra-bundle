@@ -77,7 +77,6 @@ class dm_media_content(osv.osv): # {{{
         ctx['bin_size'] = False
         for i in self.browse(cr, uid, ids, context=ctx):
             result[i.id] = False
-            print i.preview_fname
             for format in ('png','jpg','jpeg','gif','bmp'):
                 if (i.preview_fname and i.preview_fname.lower() or '').endswith(format):
                     result[i.id]= i.preview_image
@@ -263,18 +262,15 @@ def set_image_email(node,msg): # {{{
             if state == 'image_content_error' :
                 return state
  # }}}
-
-def create_email_queue(cr, uid, obj, context): # {{{
+def generate_report(cr, uid, obj_id, file_type, report_type, context):
     pool = pooler.get_pool(cr.dbname)
-    email_queue_obj = pool.get('email.smtpclient.queue')
-
+    obj = pool.get('dm.campaign.document').browse(cr, uid, obj_id)
     message = []
-
     if obj.mail_service_id.store_document:
         ir_att_obj = pool.get('ir.attachment')
         ir_att_ids = ir_att_obj.search(cr, uid, [('res_model', '=', 'dm.campaign.document'),
                                                  ('res_id', '=', obj.id),
-                                                 ('file_type', '=', 'html')])
+                                                 ('file_type', '=', file_type)])
         for attach in ir_att_obj.browse(cr,uid,ir_att_ids):
             if re.search('!!!Missing-Plugin-in DTP document!!!',attach.datas,re.IGNORECASE) :
                 return {'code':'plugin_missing','ids':[obj.id]}
@@ -284,13 +280,21 @@ def create_email_queue(cr, uid, obj, context): # {{{
     else :
         document_data = pool.get('dm.offer.document').browse(cr,uid,obj.document_id.id)
         if obj.document_id.editor ==  'internal' :
-            report_data = generate_internal_reports(cr, uid, 'html2html', document_data.id, False, context)
+            report_data = generate_internal_reports(cr, uid, report_type, document_data.id, False, context)
         else :
-            report_data = generate_openoffice_reports(cr, uid, 'html2html', document_data.id, False, context)
-        if report_data in ('plugin_error','plugin_missing') :
+            report_data = generate_openoffice_reports(cr, uid, report_type, document_data.id, False, context)
+        if report_data in ('plugin_error','plugin_missing','wrong_report_type') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
- 
+    print len(message)
+    return message
+    
+def create_email_queue(cr, uid, obj, context): # {{{
+    pool = pooler.get_pool(cr.dbname)
+    email_queue_obj = pool.get('email.smtpclient.queue')
+    message = generate_report(cr, uid, obj.id, 'html', 'html2html', context)
+    if type(message) == type({}):
+        return message
     for msg  in message:
         root = etree.HTML(msg)
         body = root.find('body')
@@ -306,11 +310,11 @@ def create_email_queue(cr, uid, obj, context): # {{{
         msg = MIMEMultipart('alternative')
         msgRoot.attach(msg)
 
-        state = set_image_email(body,msgRoot)
+#        state = set_image_email(body,msgRoot)
         msgText = MIMEText(etree.tostring(body), 'html')
         msg.attach(msgText)
-        if state == 'image_content_error' :
-            return {'code':'image_content_error','ids':obj.id}
+#        if state == 'image_content_error' :
+#            return {'code':'image_content_error','ids':obj.id}
         vals = {
             'to': str(obj.address_id.email),
             'server_id': obj.mail_service_id.smtp_server_id.id,

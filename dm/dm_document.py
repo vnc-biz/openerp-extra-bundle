@@ -469,17 +469,19 @@ class dm_campaign_document(osv.osv): # {{{
         'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service',
                                                         ondelete='cascade',),
         'state': fields.selection([('pending', 'Pending'),('done', 'Done'),
-                                   ('error', 'Error'), ], 'State'),
+                                   ('error', 'Error'), ('resent','Resent') ], 'State'),
         'error_msg': fields.text('System Message'),
         'document_id': fields.many2one('dm.offer.document', 'Document', 
                                                             ondelete="cascade"),
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem',readonly=True), 
         }
     _defaults = {
         'state': lambda *a : 'pending',
        }
+    
 dm_campaign_document() # }}}
 
 class dm_plugins_value(osv.osv): # {{{

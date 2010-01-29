@@ -176,7 +176,7 @@ class dm_workitem(osv.osv): # {{{
                         ms_status = self._check_sysmsg(cr, uid, ms_res['code'], context)
                         camp_doc_obj.write(cr, uid, [camp_doc.id],
                             {'state': ms_status['state'],
-                            'error_msg': ms_status['msg'], 
+                            'error_msg': 'err_msg' in ms_res and ms_res['err_msg'] or  ms_status['msg'], 
                         'delivery_time': time.strftime('%Y-%m-%d  %H:%M:%S')})
 
             else:

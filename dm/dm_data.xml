@@ -774,7 +774,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
         <record model="dm.sysmsg" id="dm_sysmsg_document">
             <field name="name">No production document for an offer step</field>
             <field name="code">no_document_for_step</field>
-            <field name="message">There is no document for this offer step</field>
+            <field name="message">There is no validated document for this offer step</field>
         </record>
         <record model="dm.sysmsg" id="dm_sysmsg_step_wi">
             <field name="name">No address for a workitem</field>

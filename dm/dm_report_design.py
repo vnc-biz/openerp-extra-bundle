@@ -193,14 +193,23 @@ def precheck(cr, uid, obj, context):	# {{{
                                         camp_mail_service_id)[0].mail_service_id
         else:
             return {'code': "no_segment_for_wi"}
+
     """ Get offer step documents to process """
     dm_doc_obj = pool.get('dm.offer.document') 
-    # TO IMPROVE : Should find docs of the gender of the customer and the language of the campaign
+    title = pool.get('res.partner.address').browse(cr, uid, address_id).title
+    title_id = pool.get('res.partner.title').search(cr, uid, [('shortcut','=',title)])
+    if not title_id :
+        return {'code': "no_title_for_customer"}
+    gender_id = pool.get('res.partner.title').browse(cr, uid, title_id[0]).gender_id.id
     document_ids = dm_doc_obj.search(cr, uid, [('step_id', '=', obj.step_id.id),
-                                            ('category_id', '=', 'Production'),('state','=','validate')])
+                        ('category_id', '=', 'Production'),
+                        ('state','=','validate'),
+                        ('lang_id', '=', obj.segment_id.proposition_id.camp_id.lang_id.id),
+                        ('gender_id','in',[False,gender_id])
+                        ])
     if not document_ids:
         return {'code': "no_document_for_step"}
-        
+            
     # TO IMPROVE : Should process all the documents found
     document_data = dm_doc_obj.browse(cr, uid, document_ids[0])
     return (mail_service, document_data, address_id)

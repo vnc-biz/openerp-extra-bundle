@@ -62,7 +62,6 @@ class wizard_resend_campaign_document(wizard.interface):
         else:
             camp_doc_ids = camp_doc_obj.search(cr, uid, [('state', '=', data['form']['state'])])
             camp_doc_obj.state_resent(cr, uid, camp_doc_ids, context)
-                
         return {}
 
     states = {

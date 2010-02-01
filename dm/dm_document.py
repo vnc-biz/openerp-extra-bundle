@@ -480,7 +480,7 @@ class dm_campaign_document(osv.osv): # {{{
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
-        'wi_id': fields.many2one('dm.workitem', 'Workitem',), 
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem',), 
         }
     
     _defaults = {
@@ -490,9 +490,9 @@ class dm_campaign_document(osv.osv): # {{{
     def state_resent(self, cr, uid, ids, context={}):
         camp_doc_obj = self.browse(cr, uid, ids)
         for camp_doc in camp_doc_obj:
-            if camp_doc.wi_id:
+            if camp_doc.workitem_id:
                 self.pool.get('dm.workitem').write(cr, uid, 
-                                            [camp_doc.wi_id.id],
+                                            [camp_doc.workitem_id.id],
                                             {'state': 'pending',
                                              'is_preview': False,
                                              'is_realtime': False })

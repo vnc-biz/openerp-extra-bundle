@@ -373,9 +373,9 @@ class wizard_tech_guide_rst(wizard.interface):
                         tmp_file_graph = tempfile.NamedTemporaryFile()
                         tmp_file_graph.write(graph_mod)
                         tmp_file_graph.file.flush()
+                        tarf.add(tmp_file_graph.name, arcname= module.name + '_module.png')
                     finally:
                         tmp_file_graph.close()
-                    tarf.add(tmp_file_graph.name, arcname= module.name + '_module.png')
 
                 out = rstdoc.write(module_name)
                 try:

@@ -156,32 +156,21 @@ class res_partner(osv.osv):
                     self.write(cr,uid,[new_id],{'user_id':saleman_id})
         return new_id
 
-#    def write(self, cr, uid, ids,vals, *args, **kwargs):
-#        print "vals: ", vals
-#        print "IDS: ", ids
-#        print "args: ", args
-#        print "kwargs: ", kwargs
-
-#        list=[]
-#        for partner in self.browse(cr, uid, ids):
-#            if not partner.user_id:
-#        #if not self.pool.get('res.partner').browse(cr, uid, ids)[0].user_id.id:
-#                if 'address' in vals:
-#                    for add in vals['address']:
-#                        if add[2] and (add[2]['zip_id'] and add[2]['type']=='default'):
-#                            data=self.pool.get('res.partner.zip').browse(cr, uid, add[2]['zip_id'])
-#                            saleman_id = data.user_id.id
-#                            self.write(cr,uid,[partner.id],{'user_id':saleman_id})
-#                        else:
-#                           # data_partner=self.browse(cr, uid,ids)
-#                           # for d in data_partner:
-#                            for i in partner.address:
-#                                list.append(i.type)
-#                                if i.type=='default' and (not i.zip_id):
-#                                    self.write(cr,uid,[partner.id],{'user_id':False})
-#                            if (not partner.address) or (not 'default' in list):
- #                               self.write(cr,uid,[partner.id],{'user_id':False})
-#        return super(res_partner,self).write(cr, uid, ids,vals, *args, **kwargs)
+    def write(self, cr, uid, ids,vals, context=None):
+        list=[]
+        for partner in self.browse(cr, uid, ids):
+            if not partner.user_id:
+        #if not self.pool.get('res.partner').browse(cr, uid, ids)[0].user_id.id:
+                if 'address' in vals:
+                    for add in vals['address']:
+                        if add[2] and (add[2]['zip_id'] and add[2]['type']=='default'):
+                            data=self.pool.get('res.partner.zip').browse(cr, uid, add[2]['zip_id'])
+                            saleman_id = data.user_id and data.user_id.id or False
+                            if saleman_id:
+                                if context and ('__last_update' in context):
+                                    del context['__last_update']
+                                self.write(cr,uid,[partner.id],{'user_id':saleman_id},context=context)
+        return super(res_partner,self).write(cr, uid, ids,vals, context)
 
 
     def check_address(self, cr, uid, ids):
@@ -220,6 +209,12 @@ class res_partner(osv.osv):
             cr.execute('select l.id from account_followup_followup_line l left join account_move_line ml on (ml.followup_line_id=l.id) where ml.partner_id = %s order by l.sequence DESC limit 1' % (rec.id))
             r = cr.fetchone ()
             result[rec.id] = r and r[0] or False
+        return result
+
+    def _get_salesman(self, cr, uid, ids, field_name, arg, context={}):
+        result = {}
+        for rec in self.browse(cr, uid, ids, context):
+            result[rec.id] = rec.user_id and rec.user_id.id or False
         return result
 
 
@@ -265,6 +260,7 @@ class res_partner(osv.osv):
         'followup_max_level': fields.function(_get_followup_level, method=True, type='many2one', relation="account_followup.followup.line", string="Max. Followup Level"),
         'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles'),
         'badge_partner':fields.char('Badge Partner',size=128),
+        'user_id_readonly': fields.function(_get_salesman, method=True, string='Salesman', type='many2one', relation='res.users'),
         #Never,Always,Managed_by_Poste,Prospect
 
         #virement belge,virement iban

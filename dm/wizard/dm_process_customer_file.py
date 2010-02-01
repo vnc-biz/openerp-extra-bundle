@@ -36,11 +36,11 @@ seg_fields = { # {{{
                     'string': 'Action Date', 
                     'type': 'datetime',
                     'default': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
-                    },
+                },
     'step_id': {
-                'string': 'Offer Step', 
-              'type': 'many2one',
-              'relation': 'dm.offer.step',
+                'string': 'Offer Step',
+                'type': 'many2one',
+                'relation': 'dm.offer.step',
              },
     } # }}}
 

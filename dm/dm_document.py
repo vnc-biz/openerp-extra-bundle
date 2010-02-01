@@ -480,12 +480,25 @@ class dm_campaign_document(osv.osv): # {{{
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
-        'workitem_id': fields.many2one('dm.workitem', 'Workitem',readonly=True), 
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem',), 
         }
     _defaults = {
         'state': lambda *a : 'pending',
        }
-    
+    def state_resent(self, cr, uid, ids, context={}):
+        camp_doc_obj = self.browse(cr, uid, ids)[0]
+        
+        if camp_doc_obj.workitem_id:
+            self.pool.get('dm.workitem').write(cr, uid, 
+                                        [camp_doc_obj.workitem_id.id],
+                                        {'state': 'pending',
+                                         'is_preview': False,
+                                         'is_realtime': False })
+            self.write(cr, uid, ids, {'state': 'resent'})
+        else:
+            raise osv.except_osv("Error", 'Cannot resend, there is no workitem for this campaign document')
+        return True
+
 dm_campaign_document() # }}}
 
 class dm_plugins_value(osv.osv): # {{{

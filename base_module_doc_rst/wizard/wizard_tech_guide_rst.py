@@ -306,7 +306,7 @@ class RstDoc(object):
 
         return '\n'.join(sl)
 
-    def _write_relationship_graph(self, module_name=''):
+    def _write_relationship_graph(self, module_name=False):
         sl = ["",
               "Relationship Graph",
               "------------",
@@ -317,7 +317,7 @@ class RstDoc(object):
         sl.append("")
         return '\n'.join(sl)
 
-    def write(self, module_name=''):
+    def write(self, module_name=False):
         s = ''
         s += self._write_header()
         s += self._write_depends()
@@ -325,8 +325,8 @@ class RstDoc(object):
         s += self._write_menus()
         s += self._write_views()
         s += self._write_objects()
-        s += self._write_relationship_graph(module_name)
-
+        if module_name:
+            s += self._write_relationship_graph(module_name)
         return s
 
 
@@ -356,8 +356,28 @@ class wizard_tech_guide_rst(wizard.interface):
                 objects = self._get_objects(cr, uid, module)
                 module.test_views = self._get_views(cr, uid, module.id, context=context)
                 rstdoc = RstDoc(module, objects)
-                out = rstdoc.write(module.name)
 
+                # Append Relationship Graph on rst
+                graph_mod = False
+                module_name = False
+                if module.file_graph:
+                    graph_mod = base64.decodestring(module.file_graph)
+                else:
+                    module_data = module_model.get_relation_graph(cr, uid, module.name, context=context)
+                    if module_data['module_file']:
+                        graph_mod = base64.decodestring(module_data['module_file'])
+                if graph_mod:
+                    module_name = module.name
+                    try:
+                        tmpdir = tempfile.mkdtemp()
+                        tmp_file_graph = tempfile.NamedTemporaryFile()
+                        tmp_file_graph.write(graph_mod)
+                        tmp_file_graph.file.flush()
+                    finally:
+                        tmp_file_graph.close()
+                    tarf.add(tmp_file_graph.name, arcname= module.name + '_module.png')
+
+                out = rstdoc.write(module_name)
                 try:
                     tmp_file = tempfile.NamedTemporaryFile()
                     tmp_file.write(out.encode('utf8'))
@@ -365,21 +385,6 @@ class wizard_tech_guide_rst(wizard.interface):
                     tarf.add(tmp_file.name, arcname=module.name + '.rst')
                 finally:
                     tmp_file.close()
-
-                # Append Relationship Graph on rst
-                try:
-                    if module.file_graph:
-                        graph_mod = base64.decodestring(module.file_graph)
-                    else:
-                        module_data = module_model.get_relation_graph(cr, uid, module.name, context=context)
-                        graph_mod = base64.decodestring(module_data['module_file'])
-                    tmpdir = tempfile.mkdtemp()
-                    tmp_file_graph = tempfile.NamedTemporaryFile()
-                    tmp_file_graph.write(graph_mod)
-                    tmp_file_graph.file.flush()
-                    tarf.add(tmp_file_graph.name, arcname= module.name + '_module.png')
-                finally:
-                    tmp_file_graph.close()
 
             # write index file:
             tmp_file = tempfile.NamedTemporaryFile()

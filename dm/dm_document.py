@@ -449,6 +449,8 @@ class dm_offer_document(osv.osv): # {{{
             field_val = field[0]['editor']
             if field_val =='internal' or doc_rep_id:
                 self.write(cr, uid, ids, {'state': 'validate'})
+            else:
+                raise osv.except_osv("Error", 'Cannot validate, there is no report defined for this document')
             return True
   
 dm_offer_document() # }}}

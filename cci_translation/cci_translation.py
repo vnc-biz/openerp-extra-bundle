@@ -79,10 +79,11 @@ class translation_folder(osv.osv):
             data['state']='confirmed'
             if id.awex_eligible and id.partner_id.awex_eligible == 'yes':
                 #look for an existing credit line in the current time
-                credit_line = self.pool.get('credit.line').search(cr, uid, [('from_date','<=',time.strftime('%Y-%m-%d')), ('to_date', '>=', time.strftime('%Y-%m-%d'))])
+                credit_line = self.pool.get('credit.line').search(cr, uid, [('from_date','<=',id.order_date), ('to_date', '>=', id.order_date)]) 
+                #credit_line = self.pool.get('credit.line').search(cr, uid, [('from_date','<=',time.strftime('%Y-%m-%d')), ('to_date', '>=', time.strftime('%Y-%m-%d'))])
                 if credit_line:
                     #if there is one available: get available amount from it
-                    amount = self.pool.get('credit.line').browse(cr, uid,[credit_line[0]])[0].get_available_amount(cr, uid, credit_line[0], id.base_amount, id.partner_id.id)
+                    amount = self.pool.get('credit.line').get_available_amount(cr, uid, credit_line[0], id.base_amount, id.partner_id.id)
                     if amount > 0:
                         data['awex_amount'] = amount
                         data['credit_line_id'] =  credit_line[0]

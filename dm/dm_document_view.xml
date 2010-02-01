@@ -570,7 +570,6 @@
             <tree string="Document Fonts">
                 <field name="name"/>
                 <field name="code"/>
-                <field name="file" />
                 <field name="file_name"/>
             </tree>
         </field>

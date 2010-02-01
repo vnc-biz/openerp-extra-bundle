@@ -18,7 +18,7 @@
 "access_dm_offer_step_transition_trigger_as_admin","dm.offer.step.transition.trigger","dm.model_dm_offer_step_transition_trigger","res_groups_as_admin",1,0,0,0
 "access_dm_offer_step_transition_as_admin","dm.offer.step.transition","dm.model_dm_offer_step_transition","res_groups_as_admin",1,0,0,0
 "access_dm_workitem_as_admin","dm.workitem","dm.model_dm_workitem","res_groups_as_admin",1,1,1,0
-"access_dm_offer_step_as_admin","dm.offer.step","dm.model_offer_step","res_groups_as_admin",1,0,0,0
+"access_dm_offer_step_as_admin","dm.offer.step","dm.model_dm_offer_step","res_groups_as_admin",1,0,0,0
 "access_dm_campaign_proposition_segment_as_manager","dm.campaign.proposition.segment","dm.model_dm_campaign_proposition_segment","res_groups_as_manager",1,0,0,0
 "access_dm_mail_service_as_manager","dm.mail_service","dm.model_dm_mail_service","res_groups_as_manager",1,0,0,0
 "access_dm_mail_service_type_as_manager","dm.mail_service.type","dm.model_dm_mail_service_type","res_groups_as_manager",1,0,0,0

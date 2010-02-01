@@ -49,7 +49,6 @@ parameter_fields = {
 }
 
 def _change_state_action_time(self, cr, uid, data, context):
-    print "---------------------", data
     workitem_obj = pooler.get_pool(cr.dbname).get('dm.workitem')
     if data['form']['by_state']:
         workitem_ids=workitem_obj.search(cr,uid,[('state','=',data['form']['in_state'])])

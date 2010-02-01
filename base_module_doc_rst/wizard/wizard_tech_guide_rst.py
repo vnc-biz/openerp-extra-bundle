@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,18 +15,22 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from os.path import join
+
 import netsvc
 import wizard
 import pooler
 import os
+import tools
 
 import base64
 import tempfile
 import tarfile
 import httplib
+import base_module_doc_rst
 
 
 choose_file_form = '''<?xml version="1.0"?>
@@ -302,7 +306,18 @@ class RstDoc(object):
 
         return '\n'.join(sl)
 
-    def write(self):
+    def _write_relationship_graph(self, module_name=''):
+        sl = ["",
+              "Relationship Graph",
+              "------------",
+              ".. figure:: %s_module.png" %module_name ,
+              "  :scale: 50",
+              "  :align: center",
+              ""]
+        sl.append("")
+        return '\n'.join(sl)
+
+    def write(self, module_name=''):
         s = ''
         s += self._write_header()
         s += self._write_depends()
@@ -310,11 +325,13 @@ class RstDoc(object):
         s += self._write_menus()
         s += self._write_views()
         s += self._write_objects()
+        s += self._write_relationship_graph(module_name)
 
         return s
 
 
 class wizard_tech_guide_rst(wizard.interface):
+
 
     def _generate(self, cr, uid, data, context):
         pool = pooler.get_pool(cr.dbname)
@@ -339,7 +356,7 @@ class wizard_tech_guide_rst(wizard.interface):
                 objects = self._get_objects(cr, uid, module)
                 module.test_views = self._get_views(cr, uid, module.id, context=context)
                 rstdoc = RstDoc(module, objects)
-                out = rstdoc.write()
+                out = rstdoc.write(module.name)
 
                 try:
                     tmp_file = tempfile.NamedTemporaryFile()
@@ -349,13 +366,27 @@ class wizard_tech_guide_rst(wizard.interface):
                 finally:
                     tmp_file.close()
 
+                # Append Relationship Graph on rst
+                try:
+                    if module.file_graph:
+                        graph_mod = base64.decodestring(module.file_graph)
+                    else:
+                        module_data = module_model.get_relation_graph(cr, uid, module.name, context=context)
+                        graph_mod = base64.decodestring(module_data['module_file'])
+                    tmpdir = tempfile.mkdtemp()
+                    tmp_file_graph = tempfile.NamedTemporaryFile()
+                    tmp_file_graph.write(graph_mod)
+                    tmp_file_graph.file.flush()
+                    tarf.add(tmp_file_graph.name, arcname= module.name + '_module.png')
+                finally:
+                    tmp_file_graph.close()
+
             # write index file:
             tmp_file = tempfile.NamedTemporaryFile()
             out = self._create_index(module_index)
             tmp_file.write(out.encode('utf8'))
             tmp_file.file.flush()
             tarf.add(tmp_file.name, arcname='index.rst')
-
         finally:
             tarf.close()
 

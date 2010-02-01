@@ -84,7 +84,7 @@ class dm_trademark(osv.osv):
         'website': fields.char('Website', size=64),
     }
 
-dm_trademark()
+dm_trademark() # }}}
 
 
 class dm_offer_category(osv.osv): # {{{

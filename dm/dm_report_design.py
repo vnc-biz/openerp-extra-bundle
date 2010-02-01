@@ -125,6 +125,7 @@ def generate_openoffice_reports(cr, uid, report_type,
         return "no_report_for_document"
     for report in pool.get('ir.actions.report.xml').browse(cr, uid, report_ids):
         srv = netsvc.LocalService('report.' + report.report_name)
+        print "XXXXX generate_openoffice_reports :",context
         report_data, report_type = srv.create(cr, uid, [], {}, context)
         if re.search('!!!Missing-Plugin-in DTP document!!!', report_data, re.IGNORECASE):
             return 'plugin_missing' 
@@ -161,17 +162,9 @@ def precheck(cr, uid, obj, context):	# {{{
     pool = pooler.get_pool(cr.dbname)
     """ Set addess_id depending of the source: partner address, crm case, etc """
     address_id = getattr(obj, obj.source).id
-    address_ids = []
-    if obj.is_global:
-        """ if internal segment workitem """
-        for cust_id in getattr(obj.segment_id.customers_file_id, 
-                                                            obj.source + "s"):
-            address_ids.append(cust_id.id)
-    elif address_id:
-        """ if customer workitem """
-        address_ids.append(address_id)
-    else : 
+    if not address_id:    
         return {'code': "no_address_for_wi"}
+
     if obj.step_id:
         step_id = obj.step_id.id
     else:
@@ -202,15 +195,17 @@ def precheck(cr, uid, obj, context):	# {{{
             return {'code': "no_segment_for_wi"}
     """ Get offer step documents to process """
     dm_doc_obj = pool.get('dm.offer.document') 
-    document_id = dm_doc_obj.search(cr, uid, [('step_id', '=', obj.step_id.id),
+    # TO IMPROVE : Should find docs of the gender of the customer and the language of the campaign
+    document_ids = dm_doc_obj.search(cr, uid, [('step_id', '=', obj.step_id.id),
                                             ('category_id', '=', 'Production'),('state','=','validate')])
-    if not document_id:
+    if not document_ids:
         return {'code': "no_document_for_step"}
         
-    document_data = dm_doc_obj.browse(cr, uid, document_id[0])
-    return (mail_service, document_data, address_ids)
+    # TO IMPROVE : Should process all the documents found
+    document_data = dm_doc_obj.browse(cr, uid, document_ids[0])
+    return (mail_service, document_data, address_id)
 
-def process_report(cr, uid, obj, report_type, mail_service, document_data, address_ids, context):
+def process_report(cr, uid, obj, report_type, mail_service, document_data, address_id, context):
     pool = pooler.get_pool(cr.dbname)
     report_xml = pool.get('ir.actions.report.xml')
     # TODO : Need to process reports of all document  - before that need to change dm_engine
@@ -228,50 +223,48 @@ def process_report(cr, uid, obj, report_type, mail_service, document_data, addre
 
     type_id = pool.get('dm.campaign.document.type').search(cr, uid, [('code', '=', r_type)])
     res = 'doc_done'
-    for address_id in address_ids:
-        if len(address_ids) > 1:
-                    netsvc.Logger().notifyChannel('dm action', netsvc.LOG_ERROR, 'Duplicate workitem detected : %s' % (str(address_id)))
 
-        """ Create campaign document """
-        vals={
-            'segment_id': obj.segment_id.id or False,
-            'name': obj.step_id.code + "_" + str(address_id),
-            'type_id': type_id[0],
-            'mail_service_id': mail_service.id,
-            'document_id': document_data.id,
-            (obj.source): address_id,
-            }
+    """ Create campaign document """
+    vals={
+        'workitem_id': obj.id,
+        'segment_id': obj.segment_id.id or False,
+        'name': obj.step_id.code + "_" + str(address_id),
+        'type_id': type_id[0],
+        'mail_service_id': mail_service.id,
+        'document_id': document_data.id,
+        (obj.source): address_id,
+        }
 
-        camp_doc = pool.get('dm.campaign.document').create(cr, uid, vals)
-        """ If DMS stored document """
-        if mail_service.store_document:
-            context['address_id'] = address_id
-            context['document_id'] = document_data.id
-#v need it as store_document is true ...v need to calculate plugin values 
-            context['store_document'] = True
+    camp_doc = pool.get('dm.campaign.document').create(cr, uid, vals)
+
+    """ If DMS stored document """
+    if mail_service.store_document:
+        context['address_id'] = address_id
+        context['document_id'] = document_data.id
+        context['store_document'] = True
+        context['workitem_id'] = obj.id
+        context['step_id'] = obj.step_id.id
+        context['segment_id'] = obj.segment_id.id
+
+        if not 'camp_doc_id' in context : 
+            context['camp_doc_id'] = camp_doc
+        if not 'workitem_id' in context :
             context['workitem_id'] = obj.id
-            context['step_id'] = obj.step_id.id
-            context['segment_id'] = obj.segment_id.id
-
-            if not 'camp_doc_id' in context : 
-                context['camp_doc_id'] = camp_doc
-            if not 'workitem_id' in context :
-                context['workitem_id'] = obj.id
-            if document_data.editor == 'internal':
-                res = generate_internal_reports(cr, uid, report_type, 
-                                            document_data.id, camp_doc, context)
-            elif document_data.editor == 'oord':
-                res = generate_openoffice_reports(cr, uid, report_type, 
-                                            document_data.id, camp_doc, context)
-    return {'code':res,'ids':[camp_doc]} # }}}
+        if document_data.editor == 'internal':
+            res = generate_internal_reports(cr, uid, report_type, 
+                                        document_data.id, camp_doc, context)
+        elif document_data.editor == 'oord':
+            res = generate_openoffice_reports(cr, uid, report_type, 
+                                        document_data.id, camp_doc, context)
+    return {'code':res, 'model':'dm.campaign.document', 'ids':[camp_doc]} # }}}
 
 def document_process(cr, uid, obj, report_type, context): # {{{
     result = precheck(cr, uid, obj, context)
     if type(result) == type({}):
         return result
     else:
-        mail_service, document_data, address_ids = result
-        result = process_report(cr, uid, obj, report_type, mail_service, document_data, address_ids, context)
+        mail_service, document_data, address_id = result
+        result = process_report(cr, uid, obj, report_type, mail_service, document_data, address_id, context)
     return result#}}}
 	
 """

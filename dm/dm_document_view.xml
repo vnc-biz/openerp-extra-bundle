@@ -464,11 +464,11 @@
                 <field name="delivery_time" select="1"/>
                 <field name="address_id"/>
                 <field name="mail_service_id" select="2"/>
-                 <field name="wi_id" />
+                 <field name="workitem_id" />
                 <field name="origin" select="1"/>
                 <separator string="Status Message" colspan="4"/>
                 <field name="error_msg" colspan="4" nolabel="1"/>
-                <separator string="State" colspan="4"/>
+                <separator string="Status" colspan="4"/>
                 <field name="state" select="2" nolabel="1"/>
                 <button name="state_resent" string="Resend" states="error,done,resent" type="object"/>
             </form>

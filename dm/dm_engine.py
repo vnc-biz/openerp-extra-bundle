@@ -70,7 +70,7 @@ class dm_workitem(osv.osv): # {{{
         'action_time': fields.datetime('Action Time', select="1"),
         'source': fields.selection(_SOURCES, 'Source', required=True),
         'error_msg': fields.text('System Message'),
-        'is_global': fields.boolean('Global Workitem'),
+#        'is_global': fields.boolean('Global Workitem'),
         'is_preview': fields.boolean('Document Preview Workitem'),
         'tr_from_id': fields.many2one('dm.offer.step.transition', 
                                       'Source Transition',
@@ -82,7 +82,7 @@ class dm_workitem(osv.osv): # {{{
     _defaults = {
         'source': lambda *a: 'address_id',
         'state': lambda *a: 'pending',
-        'is_global': lambda *a: False,
+#        'is_global': lambda *a: False,
         'is_preview': lambda *a: False,
         'is_realtime': lambda *a: True,
         'action_time': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -161,23 +161,23 @@ class dm_workitem(osv.osv): # {{{
                 done = wi_status['result']
                 """ If workitem done then execute mail service action """
                 if done:
-                    camp_doc_obj = self.pool.get('dm.campaign.document')
-                    for camp_doc in camp_doc_obj.browse(cr, uid, wi_res['ids']):
+                    doc_context = {}
+                    doc_obj = self.pool.get(wi_res['model'])
+                    for doc in doc_obj.browse(cr, uid, wi_res['ids']):
                         "Set context value for plugin computation"
-                        context['active_id'] =context['camp_doc_id']=camp_doc.id
-                        context['workitem_id'] = wi.id
-                        context['address_id'] = wi.address_id.id
-                        context['step_id'] = wi.step_id.id
-                        context['document_id'] = camp_doc.document_id.id
-                        context['segment_id'] = wi.segment_id.id
+                        doc_context['active_id'] = doc.id
                         ms_res = server_obj.run(cr, uid,
-                                        [camp_doc.mail_service_id.action_id.id],
-                                        context.copy())
+                                        [doc.mail_service_id.action_id.id],
+                                        doc_context)
                         ms_status = self._check_sysmsg(cr, uid, ms_res['code'], context)
-                        camp_doc_obj.write(cr, uid, [camp_doc.id],
+                        doc_obj.write(cr, uid, [doc.id],
                             {'state': ms_status['state'],
                             'error_msg': 'err_msg' in ms_res and ms_res['err_msg'] or  ms_status['msg'], 
                         'delivery_time': time.strftime('%Y-%m-%d  %H:%M:%S')})
+                        " If doc in error, change workitem status "
+                        if not ms_status['result']:
+                            wr = self.write(cr, uid, [wi.id], {'state': ms_status['state'],
+                                                'error_msg':ms_status['msg']})
 
             else:
                 """ Dont Execute Action if workitem is not to be processed """
@@ -195,7 +195,7 @@ class dm_workitem(osv.osv): # {{{
 
 
         """ Check if it has to create next auto workitems """
-        if done and not wi.is_preview:
+        if done and not wi.is_preview and wi.step_id.outgoing_transition_ids:
             try:
                 for tr in wi.step_id.outgoing_transition_ids:
                     if tr.condition_id and tr.condition_id.gen_next_wi:

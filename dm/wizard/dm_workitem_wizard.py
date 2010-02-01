@@ -28,21 +28,34 @@ def selection_list(self, cr, uid, context):
 
 parameter_form = '''<?xml version="1.0"?>
 <form string="Modify Workitem" colspan="4">
-    <field name="state" colspan="4"/>
+    <field name="by_state" colspan="4"/>
     <field name="action_time" colspan="4"/>
+    <field name="state" colspan="4"/>
+    <field name="in_state" colspan="4" attrs="{'readonly':[('by_state','=',False)]}"/>/>
 </form>'''
 
 parameter_fields = {
+     'by_state': {'string': 'Change State of all workitem in state',
+                   'type': 'boolean'},     
     'action_time': {'string': 'Action Time', 'type': 'datetime', 
                     'required': True},
-    'state': {'string': 'Status', 'type': 'selection', 
+    'state': {'string': 'New State', 'type': 'selection', 
               'selection': selection_list, 'required': True},
+    'in_state': {'string': 'State', 'type': 'selection',
+              'selection': [('pending', 'Pending'), ('error', 'Error'), 
+                            ('freeze', 'Frozen'),('done', 'Done')],
+                            'default': lambda *a: 'error' },
+                       
 }
 
 def _change_state_action_time(self, cr, uid, data, context):
-    print "---------------------", data
     workitem_obj = pooler.get_pool(cr.dbname).get('dm.workitem')
-    workitem_obj.write(cr, uid, data['ids'], {'state': data['form']['state'],
+    if data['form']['by_state']:
+        workitem_ids=workitem_obj.search(cr,uid,[('state','=',data['form']['in_state'])])
+        workitem_obj.write(cr, uid, workitem_ids, {'state': data['form']['state'],
+                                    'action_time': data['form']['action_time']})
+    else:
+        workitem_obj.write(cr, uid, data['ids'], {'state': data['form']['state'],
                                     'action_time': data['form']['action_time']})
     return {}
 

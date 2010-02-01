@@ -482,9 +482,11 @@ class dm_campaign_document(osv.osv): # {{{
         'origin': fields.char('Origin', size=64),
         'wi_id': fields.many2one('dm.workitem', 'Workitem',), 
         }
+    
     _defaults = {
         'state': lambda *a : 'pending',
        }
+    
     def state_resent(self, cr, uid, ids, context={}):
         camp_doc_obj = self.browse(cr, uid, ids)
         for camp_doc in camp_doc_obj:

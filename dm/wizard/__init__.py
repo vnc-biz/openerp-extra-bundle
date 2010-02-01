@@ -27,6 +27,7 @@ import dm_address_after_sale_action
 import dm_so_after_sale_action
 import dm_all_document_report
 import dm_resend_campaign_documents
+import dm_process_customer_file
 #import proposition_copy
 #import campaign_copy
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -491,8 +491,9 @@ class dm_campaign_document(osv.osv): # {{{
         camp_doc_obj = self.browse(cr, uid, ids)
         for camp_doc in camp_doc_obj:
             if camp_doc.wi_id:
+                print "3333333333333"
                 self.pool.get('dm.workitem').write(cr, uid, 
-                                            [camp_doc.wi_id.id],
+                                            camp_doc.wi_id.id,
                                             {'state': 'pending',
                                              'is_preview': False,
                                              'is_realtime': False })

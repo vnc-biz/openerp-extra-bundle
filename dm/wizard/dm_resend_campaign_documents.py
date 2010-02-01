@@ -31,12 +31,14 @@ camp_doc_form = '''<?xml version="1.0"?>
     </form>'''
     
 camp_doc_fields = { # {{{
-    'resend_document': {'string': 'Resend Selected Documents', 
+    'resend_document': {
+                        'string': 'Resend Selected Documents', 
                         'type': 'boolean',
                         'help': 'Check this field to resend all the documents in a choosen state, else the selected documents will be send.',
                         'default': lambda *a: True,
                         },
-    'state': {'string': 'Resend all documents in state', 
+    'state': {
+              'string': 'Resend all documents in state', 
               'type': 'selection',
               'selection': [('error', 'Error'), ('done', 'Done'), ('resent', 'Resent')],
               'default': lambda *a: 'error'
@@ -59,20 +61,22 @@ class wizard_resend_campaign_document(wizard.interface):
     states = {
         'init': {
             'actions': [],
-            'result': {'type': 'form', 'arch': camp_doc_form, 
+            'result': {
+                       'type': 'form', 
+                       'arch': camp_doc_form, 
                        'fields': camp_doc_fields, 
-                       'state': [('end', 'Cancel'), ('done', 'Resend')]}
-
-        },
+                       'state': [('end', 'Cancel'), ('done', 'Resend')]
+                       }
+                },
         'done': {
             'actions': [],
             'result': {
-                'type': 'action',
-                'action': _resend_document,
-                'state': 'end'
+                       'type': 'action',
+                       'action': _resend_document,
+                       'state': 'end'
+                    }
+                },
             }
-        },
-    }
 
 wizard_resend_campaign_document("wizard.resend.campaign.documents")
 

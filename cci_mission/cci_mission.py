@@ -193,7 +193,11 @@ class cci_missions_embassy_folder_line (osv.osv):
 
 
     def create(self, cr, uid, vals, *args, **kwargs):
-        prod_name= vals['type'] + str(' Product')
+        t_name = ''
+        if vals['folder_id']:
+            site_id = self.pool.get('cci_missions.embassy_folder').browse(cr, uid, vals['folder_id']).site_id
+            t_name = site_id.name
+        prod_name= vals['type'] + str(' Product ') + t_name
         cr.execute('select id from product_template where name='"'%s'"''%str(prod_name))
         prod=cr.fetchone()
 
@@ -204,11 +208,13 @@ class cci_missions_embassy_folder_line (osv.osv):
             if not account:
                 account = prod_info.categ_id.property_account_income_categ.id
             vals['account_id']=account
+            vals['product_id']=product_id
         return super(osv.osv,self).create(cr, uid, vals, *args, **kwargs)
 
     def write(self, cr, uid, ids, vals, *args, **kwargs):
+        site_id = self.pool.get('cci_mission.embassy_folder_line').browse(cr, uid, ids)[0].folder_id.site_id
         if vals.has_key('type'):
-            prod_name = vals['type'] + str(' Product')
+            prod_name = vals['type'] + str(' Product ') + site_id.name
             cr.execute('select id from product_template where name='"'%s'"''%str(prod_name))
             prod=cr.fetchone()
             if prod:
@@ -218,9 +224,10 @@ class cci_missions_embassy_folder_line (osv.osv):
                 if not account:
                     account = prod_info.categ_id.property_account_income_categ.id
                 vals['account_id']=account
+                vals['product_id']=product_id
         return super(osv.osv,self).write( cr, uid, ids,vals, *args, **kwargs)
 
-    def onchange_line_type(self,cr,uid,ids,type):
+    def onchange_line_type(self,cr,uid,ids,type,site_id):
         data={}
         data['courier_cost']=data['customer_amount']=data['account_id']=data['name']=False
 
@@ -228,10 +235,10 @@ class cci_missions_embassy_folder_line (osv.osv):
             return {'value' : data }
 
         data['name']=type
-        prod_name= str(type) + str(' Product')
+        site_id = self.pool.get('cci_missions.site').browse(cr, uid, site_id)
+        prod_name= str(type) + str(' Product ') + site_id.name
         cr.execute('select id from product_template where name='"'%s'"''%str(prod_name))
         prod=cr.fetchone()
-
         if not prod:
             return {'value' : data }
 
@@ -258,6 +265,7 @@ class cci_missions_embassy_folder_line (osv.osv):
         'awex_eligible':fields.boolean('AWEX Eligible'),
         'awex_amount':fields.float('AWEX Amount', readonly=True),
         'credit_line_id':fields.many2one('credit.line', 'Credit Line', readonly=True),
+        'product_id': fields.many2one('product.product','Product',readonyl=True),
     }
 
 cci_missions_embassy_folder_line()

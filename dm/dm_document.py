@@ -482,7 +482,7 @@ class dm_campaign_document(osv.osv): # {{{
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
-        'workitem_id': fields.many2one('dm.workitem', 'Workitem',), 
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem', ondelete='cascade'), 
         }
     
     _defaults = {

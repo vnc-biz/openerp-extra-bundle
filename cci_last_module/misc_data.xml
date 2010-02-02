@@ -41,9 +41,12 @@
 			                           <field name="state_id" select="2"/>
 			                        </group>
 		                        	<group string="Communication" colspan="2" col="2">
+     						   <field name='name' string="Nom de l'adresse"/>
 			                           <field name="phone" on_change="_on_change_phone_num(phone)"/>
 			                           <field name="fax"/>
 			                           <field name="email" widget="email"/>
+                                                   <field name="magazine_subscription"/>
+                                                   <field name="magazine_subscription_source"/>
 			                        </group>
 		                    	<field name="job_ids" mode="tree,form" nolabel="1" colspan="4">
 			                            <tree string="Contacts" editable="top">
@@ -93,7 +96,7 @@
 		                    <field name="vat_subjected"/>
 		                    <field name="credit" select="2"/>
 		                    <field name="debit" select="2"/>
-		                    <field name="user_id" select="2"/>
+		                    <field name="user_id_readonly" select="2"/>
 		                    <field name="website" widget="url"/>
 							<separator string="Miscelleanous" colspan="4"/>
 							<field name="name_official"/>
@@ -103,6 +106,7 @@
 							<field name="canal_id"/>
 							<separator string="Events" colspan="4"/>
 							<field name="training_authorization"/>
+                                                        <field name="badge_partner"/>
 							<separator string="Alerts" colspan="4"/>
 							<field name="alert_advertising"/>
 							<field name="alert_legalisations"/>

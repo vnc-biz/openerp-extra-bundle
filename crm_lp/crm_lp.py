@@ -256,7 +256,7 @@ class crm_case(osv.osv):
                                 user_id = user_rec.create(cr,uid,res,context=context)                                    
                                 partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name,'user_id':user_id})
                             else:
-                                partner_id=partner_id and partner_id[0] or False
+                                partner_id= partner_id and partner_id[0] or False
                                 user_id=user_id and user_id[0] or False
                             if bug.assignee:
                                 assing_id = user_rec.search(cr,uid,[('login', '=', bug.assignee.name)])
@@ -425,8 +425,6 @@ class crm_case(osv.osv):
                                             'res_model': self._name,
                                             'res_id': bug_id,
                                             }, context=context  )
-                else:
-                    if attach_id:
                         data = {
                         'name': bug.status,
                         'user_id': uid,
@@ -434,9 +432,10 @@ class crm_case(osv.osv):
                         'res_id':bug_id,
                         'description':key['content'],
                         'filename':attach_id,
-                        'bug_owner_id':user_id}              
-                    else:
-                        data={'name': bug.status,
+                        'bug_owner_id':user_id}   
+                        obj.create(cr, uid, data, context)                                   
+                else:
+                    data={'name': bug.status,
                     'user_id': uid,
                     'model_id': model_ids[0] or False,
                     'res_id':bug_id,
@@ -461,5 +460,4 @@ class crm_case_history(osv.osv):
         'filename':fields.many2one('ir.attachment','File'),        
     }
 crm_case_history()    
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

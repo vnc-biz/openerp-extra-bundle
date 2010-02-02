@@ -256,8 +256,8 @@ class crm_case(osv.osv):
                                 user_id = user_rec.create(cr,uid,res,context=context)                                    
                                 partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name,'user_id':user_id})
                             else:
-                                partner_id=  partner_id[0]
-                                user_id=user_id[0] 
+                                partner_id=partner_id and partner_id[0] or False
+                                user_id=user_id and user_id[0] or False
                             if bug.assignee:
                                 assing_id = user_rec.search(cr,uid,[('login', '=', bug.assignee.name)])
                                 if assing_id:

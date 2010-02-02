@@ -45,7 +45,7 @@
             string="Process Customers file"
             model="dm.campaign.proposition.segment"
             name="wizard.process.customer.file"
-			multi="True"/>
+			/>
             
 <!--        <wizard
             string="After-Sale Action"

@@ -218,7 +218,6 @@ class crm_case(osv.osv):
             
 
     def _find_project_bug(self, cr, uid,lp_server=None,context={}):
-
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
         categ_fix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Fixed')])[0]
@@ -300,7 +299,7 @@ class crm_case(osv.osv):
                             if not b_id:
                                 bug_id=self.create(cr, uid, val,context=context)
                                 self._check_state(cr, uid,[bug_id],val)     
-                             #   self._store_bug_history(cr, uid , bug_id,bug,val['bug_owner_id'])                               
+                                self._store_bug_history(cr, uid , bug_id,bug,val['bug_owner_id'])                               
                             if b_id:
                                 crm_case = self.browse(cr,uid, b_id[0])
                                 lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
@@ -314,7 +313,7 @@ class crm_case(osv.osv):
                                     local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,"%Y-%m-%dT%H:%M:%S")) + time.timezone
                                     local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%dT%H:%M:%S'))
 
-                                args = (cr, uid, context, [sec_id], crm_case, bug, val)
+                                args = (cr, uid, context,crm_case, bug, val)
                                 if lp_last_up_timestamp >= local_last_up_timestamp:
                                     self._update_local_record(*args)
                                 elif lp_last_up_timestamp < local_last_up_timestamp:
@@ -361,7 +360,7 @@ class crm_case(osv.osv):
                     cr.commit()
         return True
 
-    def _update_local_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
+    def _update_local_record(self, cr, uid, context, crm_bug, lp_bug, val):
         pool=pooler.get_pool(cr.dbname)
         case= pool.get('crm.project.bug')
         b=case.write(cr,uid,crm_bug.id,val,context=context)
@@ -369,7 +368,7 @@ class crm_case(osv.osv):
             case._check_state(cr, uid,[crm_bug.id],val)
         return True
 
-    def _update_lp_record(self, cr, uid, context, sec_id, crm_bug, lp_bug, val):
+    def _update_lp_record(self, cr, uid, context,crm_bug, lp_bug, val):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
 
@@ -407,38 +406,45 @@ class crm_case(osv.osv):
     
     def _store_bug_history(self, cr, uid,bug_id,bug,user_id,context={}):
         model_obj = self.pool.get('ir.model')        
-        model_ids = model_obj.search(cr, uid, [('model','=','crm.project.bug')])          
+        model_ids = model_obj.search(cr, uid, [('model','=',self._name)])          
         obj = self.pool.get('crm.case.history')
+        
         for key in bug.bug.messages.entries:        
             if key['self_link'].rsplit('/',1)[1]!=0:
+                attach_id=False
                 if bug.bug.attachments:
                     attachment = bug.bug.attachments[0]  
                     attachment_data = attachment.data
                     attachment_fd = attachment_data.open() 
-                    attach_id=self.pool.get('ir.attachment').create(cr, uid, {
-                                        'name': attachment_fd.filename.split('.')[0],
-                                        'datas': base64.encodestring(attachment_fd.read()),
-                                        'datas_fname':attachment_fd.filename,
-                                        'res_model': 'crm.project.bug',
-                                        'res_id': bug_id,
-                                        }, context=context  )     
-                                  
-                    data = {
-                    'name': bug.status,
-                    'user_id': uid,
-                    'model_ids': model_ids and model_ids[0] or False,
-                    'description':key['content'],
-                    'bug_owner_id':user_id,
-                    'filename':attach_id}        
+                    ids = self.pool.get('ir.attachment').search(cr, uid, [('name','=',attachment_fd.filename.split('.')[0]),('res_model','=','crm.project.bug'),])
+                    if not ids:
+                        attach_id=self.pool.get('ir.attachment').create(cr, uid, {
+                                            'name': attachment_fd.filename.split('.')[0],
+                                            'datas': base64.encodestring(attachment_fd.read()),
+                                            'datas_fname':attachment_fd.filename,
+                                            'res_model': self._name,
+                                            'res_id': bug_id,
+                                            }, context=context  )
                 else:
-                    data = {
-                    'name': bug.status,
+                    if attach_id:
+                        data = {
+                        'name': bug.status,
+                        'user_id': uid,
+                        'model_id': model_ids[0] or False,
+                        'res_id':bug_id,
+                        'description':key['content'],
+                        'filename':attach_id,
+                        'bug_owner_id':user_id}              
+                    else:
+                        data={'name': bug.status,
                     'user_id': uid,
-                     'model_ids': model_ids and model_ids[0] or False,
+                    'model_id': model_ids[0] or False,
+                    'res_id':bug_id,
                     'description':key['content'],
-                    'bug_owner_id':user_id}                    
-            obj.create(cr, uid, data, context)
-            cr.commit()
+                    'bug_owner_id':user_id}                     
+#                    
+                    obj.create(cr, uid, data, context)
+        cr.commit()
         return True      
 crm_case()
 
@@ -455,4 +461,5 @@ class crm_case_history(osv.osv):
         'filename':fields.many2one('ir.attachment','File'),        
     }
 crm_case_history()    
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

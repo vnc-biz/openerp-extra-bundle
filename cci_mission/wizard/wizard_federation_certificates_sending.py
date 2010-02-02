@@ -109,14 +109,14 @@ class wizard_cert_fed_send(wizard.interface):
         # Let's build a list of certificates objects
         certificates_ids = [x[0] for x in res_file]
         obj_certificate = pool.get('cci_missions.certificate')
-        certificates = obj_certificate.browse(cr,uid,certificates_ids)
 
         # create of list of value, then concatenate them with _field_separator for each certificate
         sequence_num = 0
         total_value = 0
-        for certificate in certificates:
+        for cert in certificates_ids:
             fields = []
             sequence_num += 1
+            certificate = obj_certificate.browse(cr,uid,cert)
             fields.append( str(sequence_num).rjust(6,'0') )
             fields.append( certificate.digital_number and str(int(certificate.digital_number)) or (certificate.type_id.id_letter + certificate.name.rpartition('/')[2].rjust(6,'0')) )  # extract the right part of the number of the certificate (CO/2008/25 -> '25' the left justify with '0' -> '000025' )
             fields.append( certificate.dossier_id.asker_name or '')
@@ -148,7 +148,7 @@ class wizard_cert_fed_send(wizard.interface):
 
     def write_txt(self,name,lines):
         file=open(name, 'w')
-        file.write(self._record_separator.join(lines))
+        file.write(self._record_separator.join(lines).encode('utf-8'))
         file.write(self._record_separator)
         file.close()
 
@@ -175,9 +175,10 @@ class wizard_cert_fed_send(wizard.interface):
 
         #determine the type of certificates to send
         certificate_type = data['form']['cert_type']
-
+        cancel_clause = not(data['form']['canceled']) and " and b.state not in ('cancel_customer','cancel_cci')" or ''
+        query = 'select a.id from cci_missions_certificate as a, cci_missions_dossier as b where ( a.dossier_id = b.id ) and ( a.sending_spf is null ) and ( b.type_id = %s ) and ( b.date between %s )' + cancel_clause
         #Extraction of corresponding certificates
-        cr.execute('select a.id from cci_missions_certificate as a, cci_missions_dossier as b where ( a.dossier_id = b.id ) and ( a.sending_spf is null ) and ( b.type_id = %s ) and ( b.date between %s )'%(certificate_type,period))
+        cr.execute(query % (certificate_type,period))
         res_file1=cr.fetchall()
 
         #If no records, cancel of the flow
@@ -199,6 +200,10 @@ class wizard_cert_fed_send(wizard.interface):
         dest = [data['form']['email_to']]
         body = "Hello,\nHere are the certificates files for Federation.\nThink Big Use Tiny."
         tools.email_send(src,dest,"Federation Sending Files From TinyERP",body,attach=files_attached)
+        pool = pooler.get_pool(cr.dbname)
+        certificates_ids = [x[0] for x in res_file1]
+        obj_certificate = pool.get('cci_missions.certificate')
+        obj_certificate.write(cr, uid, certificates_ids,{'sending_spf':time.strftime('%Y-%m-%d')})
         return {}
 
     states = {

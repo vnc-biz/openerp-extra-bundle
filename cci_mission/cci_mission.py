@@ -1220,7 +1220,7 @@ class Product(osv.osv):
                         res[product.id] = res[product.id] + 5.45
 
             #change the price only for warranty own risk on ATA carnet
-            if product.name.find('ATA - Own Risk Warranty') != -1:
+            if product.name.find('ATA - Garantie Risque Propre') != -1:
                 if context and ('value_goods' in context):
                     if context['value_goods'] > 15000:
                         res[product.id] = round(context['value_goods']*0.03)

@@ -77,7 +77,6 @@ class dm_media_content(osv.osv): # {{{
         ctx['bin_size'] = False
         for i in self.browse(cr, uid, ids, context=ctx):
             result[i.id] = False
-            print i.preview_fname
             for format in ('png','jpg','jpeg','gif','bmp'):
                 if (i.preview_fname and i.preview_fname.lower() or '').endswith(format):
                     result[i.id]= i.preview_image
@@ -263,18 +262,15 @@ def set_image_email(node,msg): # {{{
             if state == 'image_content_error' :
                 return state
  # }}}
-
-def create_email_queue(cr, uid, obj, context): # {{{
+def generate_report(cr, uid, obj_id, file_type, report_type, context):
     pool = pooler.get_pool(cr.dbname)
-    email_queue_obj = pool.get('email.smtpclient.queue')
-
+    obj = pool.get('dm.campaign.document').browse(cr, uid, obj_id)
     message = []
-
     if obj.mail_service_id.store_document:
         ir_att_obj = pool.get('ir.attachment')
         ir_att_ids = ir_att_obj.search(cr, uid, [('res_model', '=', 'dm.campaign.document'),
                                                  ('res_id', '=', obj.id),
-                                                 ('file_type', '=', 'html')])
+                                                 ('file_type', '=', file_type)])
         for attach in ir_att_obj.browse(cr,uid,ir_att_ids):
             if re.search('!!!Missing-Plugin-in DTP document!!!',attach.datas,re.IGNORECASE) :
                 return {'code':'plugin_missing','ids':[obj.id]}
@@ -284,13 +280,21 @@ def create_email_queue(cr, uid, obj, context): # {{{
     else :
         document_data = pool.get('dm.offer.document').browse(cr,uid,obj.document_id.id)
         if obj.document_id.editor ==  'internal' :
-            report_data = generate_internal_reports(cr, uid, 'html2html', document_data.id, False, context)
+            report_data = generate_internal_reports(cr, uid, report_type, document_data.id, False, context)
         else :
-            report_data = generate_openoffice_reports(cr, uid, 'html2html', document_data.id, False, context)
-        if report_data in ('plugin_error','plugin_missing') :
+            report_data = generate_openoffice_reports(cr, uid, report_type, document_data.id, False, context)
+        if report_data in ('plugin_error','plugin_missing','wrong_report_type') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
- 
+    print len(message)
+    return message
+    
+def create_email_queue(cr, uid, obj, context): # {{{
+    pool = pooler.get_pool(cr.dbname)
+    email_queue_obj = pool.get('email.smtpclient.queue')
+    message = generate_report(cr, uid, obj.id, 'html', 'html2html', context)
+    if type(message) == type({}):
+        return message
     for msg  in message:
         root = etree.HTML(msg)
         body = root.find('body')
@@ -306,11 +310,11 @@ def create_email_queue(cr, uid, obj, context): # {{{
         msg = MIMEMultipart('alternative')
         msgRoot.attach(msg)
 
-        state = set_image_email(body,msgRoot)
+#        state = set_image_email(body,msgRoot)
         msgText = MIMEText(etree.tostring(body), 'html')
         msg.attach(msgText)
-        if state == 'image_content_error' :
-            return {'code':'image_content_error','ids':obj.id}
+#        if state == 'image_content_error' :
+#            return {'code':'image_content_error','ids':obj.id}
         vals = {
             'to': str(obj.address_id.email),
             'server_id': obj.mail_service_id.smtp_server_id.id,
@@ -437,6 +441,7 @@ class dm_offer_document(osv.osv): # {{{
         'editor': lambda *a: 'internal',
         'content': lambda *a: '<p>Test Content</p>'
     }
+    
     def state_validate_set(self, cr, uid, ids, context={}):
         group_obj = self.pool.get('ir.actions.report.xml')
         doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
@@ -445,6 +450,8 @@ class dm_offer_document(osv.osv): # {{{
             field_val = field[0]['editor']
             if field_val =='internal' or doc_rep_id:
                 self.write(cr, uid, ids, {'state': 'validate'})
+            else:
+                raise osv.except_osv("Error", 'Cannot validate, there is no report defined for this document')
             return True
   
 dm_offer_document() # }}}
@@ -469,17 +476,35 @@ class dm_campaign_document(osv.osv): # {{{
         'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service',
                                                         ondelete='cascade',),
         'state': fields.selection([('pending', 'Pending'),('done', 'Done'),
-                                   ('error', 'Error'), ], 'State'),
+                                   ('error', 'Error'), ('resent','Resent') ], 'State'),
         'error_msg': fields.text('System Message'),
         'document_id': fields.many2one('dm.offer.document', 'Document', 
                                                             ondelete="cascade"),
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem', readonly=True,
+                                                        ondelete='cascade'), 
         }
+    
     _defaults = {
         'state': lambda *a : 'pending',
        }
+    
+    def state_resent(self, cr, uid, ids, context={}):
+        camp_doc_obj = self.browse(cr, uid, ids)
+        for camp_doc in camp_doc_obj:
+            if camp_doc.workitem_id:
+                self.pool.get('dm.workitem').write(cr, uid, 
+                                            [camp_doc.workitem_id.id],
+                                            {'state': 'pending',
+                                             'is_preview': False,
+                                             'is_realtime': False })
+                self.write(cr, uid, ids, {'state': 'resent'})
+            else:
+                raise osv.except_osv("Error", 'Cannot resend, there is no workitem for this campaign document')
+            return True
+
 dm_campaign_document() # }}}
 
 class dm_plugins_value(osv.osv): # {{{

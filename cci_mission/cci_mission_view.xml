@@ -211,7 +211,7 @@
                                 <field name="tax_rate"/>
                             </tree>
                             <form string="Embassy Foder Lines">
-                                <field name="type" on_change="onchange_line_type(type)" />
+                                <field name="type" on_change="onchange_line_type(type,parent.site_id)" />
                                 <newline/>
                                 <field name="name" />
                                 <newline/>
@@ -463,6 +463,7 @@
                 <tree string="Legalization">
                     <field name="name"/>
                     <field name="order_partner_id"/>
+                    <field name="date"/>
                     <field name="destination_id"/>
                     <field name="invoice_id" />
                 </tree>
@@ -566,6 +567,7 @@
                 <tree string="Certificate">
                     <field name="name" />
                     <field name="order_partner_id"/>
+                    <field name="date"/>
                     <field name="destination_id" />
                     <field name="type_id" />
                     <field name="invoice_id" />

@@ -67,6 +67,6 @@ class cci_count_invoices(report_sxw.rml_parse):
         return result
 
 
-report_sxw.report_sxw('report.cci.count.invoice', 'res.partner', 'addons/cci_partner/report/report_count_invoices.rml', parser=cci_count_invoices,header=False)
+#report_sxw.report_sxw('report.cci.count.invoice', 'res.partner', 'addons/cci_partner/report/report_count_invoices.rml', parser=cci_count_invoices,header=False)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

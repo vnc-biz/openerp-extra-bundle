@@ -32,6 +32,20 @@
             model="res.partner.address"
             name="wizard_address_segments"
             id="wizard_address_segments"/>
+
+		<wizard
+			id="wizard_resend_campaign_documents"
+            string="Resend Documents"
+            model="dm.campaign.document"
+            name="wizard.resend.campaign.documents"
+			multi="True"/>
+
+		<wizard
+			id="wizard_process_customer_file"
+            string="Process Customers file"
+            model="dm.campaign.proposition.segment"
+            name="wizard.process.customer.file"
+			/>
             
 <!--        <wizard
             string="After-Sale Action"

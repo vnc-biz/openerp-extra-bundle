@@ -96,7 +96,7 @@ def _createInvoices(self, cr, uid, data, context):
                     'quantity': 1,
                     'discount': False,
                     'uos_id': False,
-                    'product_id':False,
+                    'product_id': line.product_id and line.product_id.id or False,
                     'invoice_line_tax_id': [(6,0,tax_ids)],
                     'note': note,
                     'cci_special_reference': cci_special_reference

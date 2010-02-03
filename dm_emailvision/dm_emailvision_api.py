@@ -29,6 +29,14 @@ import time
 from dm.dm_report_design import merge_message, generate_internal_reports, generate_openoffice_reports
 
 def send_email(cr, uid, obj, context):
+    print "XXXXX emv_api context :",context
+    """ Set context values """
+    
+    context['workitem_id'] = obj.workitem_id.id
+    context['address_id'] = obj.workitem_id.address_id.id
+    context['step_id'] = obj.workitem_id.step_id.id
+    context['document_id'] = obj.document_id.id
+    context['segment_id'] = obj.workitem_id.segment_id.id
 
     """ Get Emailmvision connection infos """
      
@@ -141,16 +149,19 @@ def send_email(cr, uid, obj, context):
         xml_msg += etree.tostring(msg, encoding="utf-8")
 
         ''' Sending to Emailvision NMSXML API '''
-        ev_api = httplib.HTTP( ev_host +":80")
-        ev_api.putrequest("POST", "/" + ev_service)
-        ev_api.putheader("Content-type", "text/xml; charset=\"UTF-8\"")
-        ev_api.putheader("Content-length", str(len(xml_msg)))
-        ev_api.endheaders()
-        ev_api.send(xml_msg)
-    
-        ''' Get Emailvision Reply '''
-        statuscode, statusmessage, header = ev_api.getreply()
-        res = ev_api.getfile().read()
+        try:
+            ev_api = httplib.HTTP( ev_host +":80")
+            ev_api.putrequest("POST", "/" + ev_service)
+            ev_api.putheader("Content-type", "text/xml; charset=\"UTF-8\"")
+            ev_api.putheader("Content-length", str(len(xml_msg)))
+            ev_api.endheaders()
+            ev_api.send(xml_msg)
+        
+            ''' Get Emailvision Reply '''
+            statuscode, statusmessage, header = ev_api.getreply()
+            res = ev_api.getfile().read()
+        except:
+            return {'code':'emv_no_connect'}
     
         if statuscode != 200:
             error_msg = ["This document cannot be sent to Emailvision NMS API "

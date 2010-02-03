@@ -26,7 +26,6 @@ import netsvc
 import traceback
 import sys
 import datetime
-from dm.dm_report_design import get_so
 
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"

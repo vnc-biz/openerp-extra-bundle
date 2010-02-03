@@ -774,7 +774,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
         <record model="dm.sysmsg" id="dm_sysmsg_document">
             <field name="name">No production document for an offer step</field>
             <field name="code">no_document_for_step</field>
-            <field name="message">There is no document for this offer step</field>
+            <field name="message">There is no validated document for this offer step</field>
         </record>
         <record model="dm.sysmsg" id="dm_sysmsg_step_wi">
             <field name="name">No address for a workitem</field>
@@ -821,6 +821,11 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field name="code">no_report_for_document</field>
             <field name="message">There is no report defined for this document</field>
         </record>
+        <record model="dm.sysmsg" id="dm_sysmsg_mail_service_no_title_for_customer">
+            <field name="name">No title for customer</field>
+            <field name="code">no_title_for_customer</field>
+            <field name="message">There is no title(gender) defined for the customer</field>
+        </record>        
         <record model="dm.sysmsg" id="dm_sysmsg_mail_service_unsubscription">
             <field name="name">Unsubscribe</field>
             <field name="code">unsubscribe</field>
@@ -842,7 +847,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
         <record model="dm.sysmsg" id="dm_sysmsg_plugin_missing">
             <field name="name">Plugin Missing</field>
             <field name="code">plugin_missing</field>
-            <field name="message">Some plugins are missing in document which are used in report</field>
+            <field name="message">Some plugins which are used in document, are missing</field>
         </record>
 		<record id="dm_sysmsg_image_content_error" model="dm.sysmsg">
 			<field eval="&quot;&quot;&quot;image_content_error&quot;&quot;&quot;" name="code"/>

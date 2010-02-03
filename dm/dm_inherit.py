@@ -37,7 +37,7 @@ class res_country(osv.osv):#{{{
     }
 res_country()#}}}
 
-class res_partner_address(osv.osv) : #{{
+class res_partner_address(osv.osv) : #{{{
     _inherit = 'res.partner.address'
     _columns = {
         'decoy_address' : fields.boolean('Decoy Address', help='A decoy address is an address used to identify unleagal uses of a customers file'),
@@ -45,7 +45,7 @@ class res_partner_address(osv.osv) : #{{
         'decoy_external_ref' : fields.char('External Reference', size=64, help='The reference of the decoy address for the owner'),
         'decoy_media_ids': fields.many2many('dm.media','dm_decoy_media_rel','decoy_media_id','customer_id','decoy address for Media'),
     }
-res_partner_address() #}
+res_partner_address() #}}}
 
 class res_partner(osv.osv):#{{{
     _name = "res.partner"

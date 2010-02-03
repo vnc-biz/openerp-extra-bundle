@@ -445,7 +445,6 @@
     </record>
 
     <menuitem id="menu_action_dm_campaign_document_type" parent="menu_dm_config_lowlevel_campaign_doc" action="action_dm_campaign_document_type" sequence="0" />
-
     <!--
     =======================================================
     CAMPAIGN DOCUMENT
@@ -458,6 +457,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Campaign Document">
+              <group colspan="4">
                 <separator string="Campaign Document" colspan="4"/>
                 <field name="name" select="1"/>
                 <field name="type_id" select="2"/>
@@ -465,10 +465,14 @@
                 <field name="delivery_time" select="1"/>
                 <field name="address_id"/>
                 <field name="mail_service_id" select="2"/>
+                 <field name="workitem_id" />
                 <field name="origin" select="1"/>
-                <field name="state" select="2"/>
-                <separator string="Error Message" colspan="4"/>
+             </group>
+                <separator string="System Message" colspan="4"/>
                 <field name="error_msg" colspan="4" nolabel="1"/>
+                <separator string="Status" colspan="4"/>
+                <field name="state" select="2" nolabel="1"/>
+                <button name="state_resent" string="Resend" states="error,done,resent" type="object"/>
             </form>
         </field>
     </record>
@@ -568,7 +572,6 @@
             <tree string="Document Fonts">
                 <field name="name"/>
                 <field name="code"/>
-                <field name="file" />
                 <field name="file_name"/>
             </tree>
         </field>

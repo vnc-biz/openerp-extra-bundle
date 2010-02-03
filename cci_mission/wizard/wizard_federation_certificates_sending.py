@@ -75,7 +75,7 @@ fields = {
 msg_form = """<?xml version="1.0"?>
 <form string="Notification">
     <label string="E-mail with certificates has been sent successfully!" />
-    <label string="You'll receive an acknowledge/error in a few minutes on the given mailbox.">
+    <label string="You'll receive an acknowledge/error in a few minutes on the given mailbox."/>
 </form>"""
 
 msg_fields = {}
@@ -102,29 +102,29 @@ class wizard_cert_fed_send(wizard.interface):
         # for the sending of the reception of this file by the federation mail robot
         
         # we obtain the id key of the CCI in the federation
-        res_company = self.pool.get('res.company')
+        pool = pooler.get_pool(cr.dbname)
+        res_company = pool.get('res.company').browse(cr, uid, 1)
         lines.append( res_company.federation_key + self._field_separator + str(len(res_file)).rjust(6,'0') + self._field_separator + str(data['form']['email_rcp']).strip() + self._field_separator )
         
         # Let's build a list of certificates objects
         certificates_ids = [x[0] for x in res_file]
-        obj_certificate = pooler.get_pool(cr.dbname).get('cci_missions.certificate')
-        certificates = obj_certificate.browse(cr,uid,certificates_ids)
+        obj_certificate = pool.get('cci_missions.certificate')
 
         # create of list of value, then concatenate them with _field_separator for each certificate
         sequence_num = 0
         total_value = 0
-        for certificate in certificates:
+        for cert in certificates_ids:
             fields = []
             sequence_num += 1
-
+            certificate = obj_certificate.browse(cr,uid,cert)
             fields.append( str(sequence_num).rjust(6,'0') )
-            fields.append( certificate.type_id.id_letter + certificate.name.rpartition('/')[2].rjust(6,'0') )  # extract the right part of the number of the certificate (CO/2008/25 -> '25' the left justify with '0' -> '000025' )
-            fields.append( certificate.dossier_id.asker_name )
-            fields.append( certificate.asker_address )
-            fields.append( certificate.asker_zip_id.name )
-            fields.append( certificate.asker_zip_id.city )
-            fields.append( certificate.dossier_id.sender_name )
-            fields.append( certificate.dossier_id.destination_id.code )
+            fields.append( certificate.digital_number and str(int(certificate.digital_number)) or (certificate.type_id.id_letter + certificate.name.rpartition('/')[2].rjust(6,'0')) )  # extract the right part of the number of the certificate (CO/2008/25 -> '25' the left justify with '0' -> '000025' )
+            fields.append( certificate.dossier_id.asker_name or '')
+            fields.append( certificate.asker_address or '')
+            fields.append( certificate.asker_zip_id.name or '')
+            fields.append( certificate.asker_zip_id.city or '')
+            fields.append( certificate.dossier_id.sender_name or '')
+            fields.append( certificate.dossier_id.destination_id.code or '')
             fields.append( str( int( certificate.dossier_id.goods_value * 100 )) ) # to have the value in cents, without , or .
             total_value += int( certificate.dossier_id.goods_value * 100 ) # I do this now, because, if I do this just before lines.append, i've got a bug !! If someone has an explanatio, I'm ready
             fields.append( certificate.dossier_id.date.replace('-','') )  # to correct '2008-05-28' to '20080528'
@@ -137,7 +137,6 @@ class wizard_cert_fed_send(wizard.interface):
             for country_code in certificate.origin_ids:
                 origins_string += country_code.name + self._field_separator
             fields.append( origins_string ) # YES, there will be TWO fields separators at the end of this list, to mark the end of the list, exactly
-
             lines.append( self._field_separator.join(fields) + self._field_separator )
         
         # Trailer : the sum of all the values in cents of the included certificates
@@ -149,7 +148,7 @@ class wizard_cert_fed_send(wizard.interface):
 
     def write_txt(self,name,lines):
         file=open(name, 'w')
-        file.write(self._record_separator.join(lines))
+        file.write(self._record_separator.join(lines).encode('utf-8'))
         file.write(self._record_separator)
         file.close()
 
@@ -176,9 +175,10 @@ class wizard_cert_fed_send(wizard.interface):
 
         #determine the type of certificates to send
         certificate_type = data['form']['cert_type']
-
+        cancel_clause = not(data['form']['canceled']) and " and b.state not in ('cancel_customer','cancel_cci')" or ''
+        query = 'select a.id from cci_missions_certificate as a, cci_missions_dossier as b where ( a.dossier_id = b.id ) and ( a.sending_spf is null ) and ( b.type_id = %s ) and ( b.date between %s )' + cancel_clause
         #Extraction of corresponding certificates
-        cr.execute('select a.id from cci_missions_certificate as a, cci_missions_dossier as b where ( a.dossier_id = b.id ) and ( a.sending_spf is null ) and ( b.type_id = %s ) and ( b.date between %s )'%(certificate_type,period))
+        cr.execute(query % (certificate_type,period))
         res_file1=cr.fetchall()
 
         #If no records, cancel of the flow
@@ -199,7 +199,11 @@ class wizard_cert_fed_send(wizard.interface):
         src = tools.config.options['smtp_user']  # parametre quand on lance le server ou dans bin\tools\config.py
         dest = [data['form']['email_to']]
         body = "Hello,\nHere are the certificates files for Federation.\nThink Big Use Tiny."
-        tools.email_send_attach(src,dest,"Federation Sending Files From TinyERP",body,attach=files_attached)
+        tools.email_send(src,dest,"Federation Sending Files From TinyERP",body,attach=files_attached)
+        pool = pooler.get_pool(cr.dbname)
+        certificates_ids = [x[0] for x in res_file1]
+        obj_certificate = pool.get('cci_missions.certificate')
+        obj_certificate.write(cr, uid, certificates_ids,{'sending_spf':time.strftime('%Y-%m-%d')})
         return {}
 
     states = {

@@ -32,7 +32,7 @@
                 <field name="media_id" select="1"/>
                 <field name="default_for_media" on_change="_check_unique_mail_service(media_id,default_for_media)"/>
                 <field name="type_id" on_change="on_change_service_type(type_id)" widget="selection"/>
-                <field name="store_document" select="1"/>
+                <field name="store_document"/>
                 <group colspan="4" attrs="{'invisible':[('service_type','!=','smtp')]}">
 					<separator string="SMTP Server Configuration" colspan="4" />
 					<field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
@@ -700,12 +700,12 @@
                     <separator string="Segment Description" colspan="4"/>
                     <field name="name" string="Name" select="1"/>
                     <field name="code" string="Code" select="1"/>
-                    <group colspan="2">
-                        <field name="type_src"/>
-                    </group>
                     <group colspan="2" col="2">
                         <field name="customers_list_id" select="1" on_change="onchange_list(customers_list_id,start_census,end_census)"/>
                         <field name="customers_file_id" select="1"/>
+                    </group>
+                    <group colspan="2">
+                        <field name="type_src"/>
                     </group>
                 </group>
                 <notebook colspan="4">
@@ -713,9 +713,9 @@
                         <separator string="Segment Origin" colspan="4"/>
                         <field name="campaign_id" select="1" />
                         <field name="proposition_id" select="1"/>
-                        <field name="active" />
                         <field name="split_id" />
                         <field name="reuse_id" />
+                        <field name="active" />
                         <group colspan="4" groups="base.group_extended">
                         <separator string="Segmentation" colspan="4"/>
                         <group colspan="4" col="6">
@@ -727,9 +727,7 @@
                         </group>
                         <separator string="Segmentation Criteria" colspan="4"/>
                         <field name="segmentation_criteria" colspan="4" nolabel="1"/>
-                        <separator string="Notes" colspan="4"/>
-                        <field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
-                    </page>
+                         </page>
                     <page string="Quantities">
                         <separator string="Addresses Quantities" colspan="4"/>
                         <newline/>
@@ -754,6 +752,9 @@
                         <newline/>
                         <field name="quantity_usable" string="= Usable Quantity" select="2"/>
                         <field name="quantity_real" select="2"/>
+                    </page>
+                     <page string="Notes">
+                       	<field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
                     </page>
                 </notebook>
             </form>

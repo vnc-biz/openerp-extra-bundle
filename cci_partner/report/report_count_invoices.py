@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,10 +15,11 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
+
 from report import report_sxw
 import pooler
 
@@ -63,10 +64,8 @@ class cci_count_invoices(report_sxw.rml_parse):
                     res[state] +=len(find_ids)
             res['proforma'] +=res['proforma2']
             result.append(res)
-        print "result:::",result
         return result
 
+report_sxw.report_sxw('report.cci.count.invoice', 'res.partner', 'addons/cci_partner/report/report_count_invoices.rml', parser=cci_count_invoices,header=False)
 
-#report_sxw.report_sxw('report.cci.count.invoice', 'res.partner', 'addons/cci_partner/report/report_count_invoices.rml', parser=cci_count_invoices,header=False)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

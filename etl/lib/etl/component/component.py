@@ -25,9 +25,8 @@
  Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
  GNU General Public License.
 """
-import datetime
+import datetime,pprint,pickle,time
 from etl import signal
-import pickle
 
 class component(signal):
     """
@@ -152,6 +151,17 @@ class component(signal):
 
                     data = self.data[trans].pop(0)
                     self.signal('send_output', {'trans':trans,'data':data, 'date': datetime.datetime.today()})
+                    if trans.debug:
+                        if trans.debug=="p":
+                            debug_dump=repr(data)
+                        elif trans.debug=="pp":
+                            debug_dump="\n"+pprint.pformat(data)
+                        else:
+                            debug_dump="(%s rows)"%len(data)
+                        debug_ts= time.strftime("%Y-%m-%d %H:%M:%S ")
+                        debug_t=(debug_ts,trans.source.name, trans.channel_source, trans.destination.name, trans.channel_destination, trans.debug_message, debug_dump)
+                        s="%s '%s:%s' -> '%s:%s' %s %s"%debug_t
+                        print s
                     yield data
                     continue
                 elif self.data[trans] is None:
@@ -208,4 +218,5 @@ class component(signal):
             else:
                 data = trans.source.channel_get(trans)
             result[channel].append(data)
+        #print "%s input_get %r "%(self.name,result)
         return result

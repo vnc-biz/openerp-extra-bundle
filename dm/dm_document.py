@@ -441,6 +441,7 @@ class dm_offer_document(osv.osv): # {{{
         'editor': lambda *a: 'internal',
         'content': lambda *a: '<p>Test Content</p>'
     }
+    
     def state_validate_set(self, cr, uid, ids, context={}):
         group_obj = self.pool.get('ir.actions.report.xml')
         doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
@@ -482,7 +483,8 @@ class dm_campaign_document(osv.osv): # {{{
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
-        'workitem_id': fields.many2one('dm.workitem', 'Workitem', ondelete='cascade'), 
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem', readonly=True,
+                                                        ondelete='cascade'), 
         }
     
     _defaults = {

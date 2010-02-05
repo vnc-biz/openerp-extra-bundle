@@ -43,6 +43,16 @@ class account_invoice_with_message(report_sxw.rml_parse):
         })
         self.context = context
 
+    def get_bank_account(self, invoice_id):
+        item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
+        s = ' '.join(map(lambda i : i , item.partner_bank.name))
+        return s
+
+    def get_bic(self, invoice_id):
+        item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
+        s = ' '.join(map(lambda i : i , item.partner_bank.bic))
+        return s
+
     def find_vcs(self,invoice_id):
         item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
         return item.name
@@ -73,7 +83,7 @@ class account_invoice_with_message(report_sxw.rml_parse):
         if form['message']:
             account_msg_data = pooler.get_pool(self.cr.dbname).get('notify.message').browse(self.cr, self.uid, form['message'])
             msg = account_msg_data.msg
-        else: 
+        else:
             msg = ""
         return msg
     def invoice_lines(self,invoice):

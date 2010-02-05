@@ -20,7 +20,7 @@
 {
     "name" : "Analytic Planning - Basic Planning Module Improvements",
     "version" : "1.0",
-    "depends" : ["report_analytic_planning"],
+    "depends" : ["project_planning"],
     "author" : "Tiny",
     "description": """
 This modules is an improvement of the basic planning module and offers additional functionalities for long term planning, such as:

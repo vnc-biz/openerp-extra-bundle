@@ -38,7 +38,8 @@ class account_invoice_with_message(report_sxw.rml_parse):
             'en_convert': self.en_convert,
             'get_value':self._get_value,
             'get_decimal_value':self._get_decimal_value,
-
+            'get_bic': self._get_bic,
+            'get_bank_account': self._bank_account,
         })
         self.context = context
 

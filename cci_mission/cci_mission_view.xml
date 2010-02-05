@@ -189,7 +189,7 @@
                         <field name="section_id"  readonly="1" />
                         <newline/>
                         <group colspan="2">
-                            <field name="date" string=" Creation Date" select="1" readonly="1"/>
+                            <field name="date" string="Creation Date" select="1" required="1"/>
                             <field name="invoice_date" />
                         </group>
                         <field name="priority" select="1"/>

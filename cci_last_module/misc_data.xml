@@ -68,6 +68,8 @@
 			                                	<!--<field name="function_id"/>-->
                                                                 <field name="function_label"/>
 								<field name="function_code_label"/>
+                                                                <field name="magazine_subscription"/>
+                                                                <field name="magazine_subscription_source"/>
 			                            	</group>
 			                            	<group string="Communication" colspan="2" col="2">
 			                                	<field name="phone" on_change="_on_change_phone_num(phone)"/>

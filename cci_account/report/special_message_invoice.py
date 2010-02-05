@@ -39,18 +39,24 @@ class account_invoice_with_message(report_sxw.rml_parse):
             'get_value':self._get_value,
             'get_decimal_value':self._get_decimal_value,
             'get_bic': self._get_bic,
-            'get_bank_account': self._bank_account,
+            'get_bank_account': self._get_bank_account,
         })
         self.context = context
 
-    def get_bank_account(self, invoice_id):
+    def _get_bank_account(self, invoice_id):
         item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
-        s = ' '.join(map(lambda i : i , item.partner_bank.name))
+        s = ''
+        if item.partner_bank:
+            bank_account = item.partner_bank.iban 
+            s = ' '.join(map(lambda i : i , bank_account))
         return s
 
-    def get_bic(self, invoice_id):
+    def _get_bic(self, invoice_id):
         item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
-        s = ' '.join(map(lambda i : i , item.partner_bank.bic))
+        s = ''
+        if item.partner_bank:
+            if item.partner_bank.bank:
+                s = ' '.join(map(lambda i : i , item.partner_bank.bank.bic))
         return s
 
     def find_vcs(self,invoice_id):

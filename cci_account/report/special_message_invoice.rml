@@ -4,23 +4,11 @@
 <pageTemplate id="first">
 <pageGraphics>
 
-<place x="0.8cm" y="-2.05cm"  width="100.0cm" height="5cm">
-<para style="P24">[[ (o.domiciled and '**********') or (o.name) or '' ]] </para>
-</place>
-<place x="0.8cm" y="3.65cm"  width="100.0cm" height="5cm">
-<para style="P25d1">[[ (o.domiciled and '**') or fr_convert(o.residual).upper()[:28] ]]</para>
-</place>
-<place x="0.8cm" y="2.85cm"  width="100.0cm" height="5cm">
-<para style="P25d1">[[ (o.domiciled and '**') or fr_convert(o.residual).upper()[28:] ]]</para>
-</place>
-<place x="4.1cm" y="2.1cm"  width="100.0cm" height="5cm">
-<para style="P24c1">[[ (o.domiciled and '***') or o.residual ]]</para>
-</place>
-<place x="7.12cm" y="-2.1cm"  width="100.0cm" height="5cm">
+<place x="4.5cm" y="-4.1cm"  width="100.0cm" height="5cm">
 <para style="P24bis"> [[ '    '.join(map(lambda i : i , (o.domiciled and '***********') or str(o.name or ''))) ]] </para>
 </place>
 
-<place x="10" y="0.5cm"  width="541.0" height="8.35cm">
+<place x="-2.5cm" y="-1.5cm"  width="541.0" height="8.35cm">
 <blockTable colWidths="150.0,391.0" style="Tableau10">
 <tr>
 <td>
@@ -130,7 +118,7 @@
 <tr>
 <td><para style="P24"></para></td>
 <td>
-<blockTable colWidths="160.0,20.0" rowHeights="3" style="Tableau10">
+<blockTable colWidths="255.0,20.0" rowHeights="1" style="Tableau10">
 									<tr>
 										<td><para style="P24"></para></td>
 										<td><para style="P24"></para></td>
@@ -180,26 +168,26 @@
 					<td>
 						<blockTable colWidths="194.0,196.0" style="Tableau10">
 						<tr>
+                                                        <td>
+                                                                <para style="P25d" leftIndent="30">[[ get_bank_account(o.id) ]]</para>
+                                                        </td>
+                                                        <td>
+                                                                <para style="P24"></para>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                                <para style="P25d" leftIndent="30">[[ get_bic(o.id) ]]</para>
+                                                        </td>
+                                                        <td>
+                                                                <para style="P24"></para>
+                                                        </td>
+                                                </tr>
+                                                <tr>
 							<td>
-								<para style="P25d" leftIndent="30">[[ (o.domiciled and 'Ne pas payer' or o.partner_id.title) or '' ]] [[ not(o.domiciled) and (o.partner_id.name+' ') ]][[ (not(o.domiciled) and o.address_invoice_id.title) or '' ]] [[ (not(o.domiciled) and o.address_invoice_id.name) or '' ]] </para>
-							</td>
-							<td>
-								<para style="P24"></para>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<para style="P24"></para>
-								<para style="P25d" leftIndent="30"> [[ (o.domiciled and 'Paiement demande a votre organisme bancaire') or o.address_invoice_id.street ]] [[ not(o.domiciled) and o.address_invoice_id.street2 or '' ]]</para>
-							</td>
-							<td>
-								<para style="P24"></para>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<para style="P24"></para>
-								<para style="P25d" leftIndent="30"> [[ not(o.domiciled) and o.address_invoice_id.zip or '' ]] [[ not(o.domiciled) and o.address_invoice_id.city or '' ]]</para>
+								<para style="P25e" leftIndent="30">[[ (o.domiciled and 'Ne pas payer' or o.partner_id.title) or '' ]] [[ not(o.domiciled) and (o.partner_id.name+' ') ]][[ (not(o.domiciled) and o.address_invoice_id.title) or '' ]] [[ (not(o.domiciled) and o.address_invoice_id.name) or '' ]] 
+[[ (o.domiciled and 'Paiement demande a votre organisme bancaire') or o.address_invoice_id.street ]] [[ not(o.domiciled) and o.address_invoice_id.street2 or '' ]]
+[[ not(o.domiciled) and o.address_invoice_id.zip or '' ]] [[ not(o.domiciled) and o.address_invoice_id.city or '' ]]</para>
 							</td>
 							<td>
 								<para style="P24"></para>
@@ -344,7 +332,9 @@
 <paraStyle name="P24a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P25" fontName="Helvetica" leading="10" alignment="RIGHT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P25c" fontName="Helvetica" alignment="RIGHT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="7.0"/>
-<paraStyle name="P25d" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
+<paraStyle name="P25d" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="2.0" leading="11"/>
+<paraStyle name="P25e" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="2.0" leading="8"/>
+
 <paraStyle name="P24dvcs" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
 <paraStyle name="P25d2" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="16"/>
 <paraStyle name="P25d1" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="13"/>
@@ -367,7 +357,7 @@
 <story>
 <para style="P1">[[ repeatIn(objects,'o') ]]</para>
 <para style="P1">[[ setLang(o.partner_id.lang) ]]</para>
-<blockTable colWidths="295.0,232.0" style="Tableau2">
+<blockTable colWi6dths="295.0,232.0" style="Tableau2">
 	<tr>
 		<td><para style="P2"><font color="white"> </font></para></td>
 		<td>

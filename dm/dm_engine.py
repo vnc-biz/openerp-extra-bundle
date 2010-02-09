@@ -23,7 +23,6 @@ import time
 
 from osv import fields
 from osv import osv
-import time
 import sys
 import datetime
 import netsvc
@@ -46,7 +45,7 @@ class dm_perf_monitor(osv.osv): # {{{
     }
 
     _defaults = {
-        'date' : lambda *a: time.strftime('%y-%m-%d %H:%M:%S'),
+        'date' : lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
     }
 dm_perf_monitor() # }}}
 

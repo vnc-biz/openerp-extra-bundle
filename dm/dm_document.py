@@ -170,6 +170,10 @@ class dm_dtp_plugin(osv.osv): # {{{
 
     def create(self, cr, uid, vals, context={}):
         id = super(dm_dtp_plugin, self).create(cr, uid, vals, context)
+        if vals.has_key('code'):
+            if vals['code'].find('-') != -1: 
+                raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
+        
         if vals['type'] == 'url':
             plugin_argument = self.pool.get('dm.plugin.argument')
             plugin_argument.create(cr, uid, {'name': 'text_display',
@@ -179,6 +183,12 @@ class dm_dtp_plugin(osv.osv): # {{{
            'note':'Value of the field must be of type string or plugin may be crashed',
            'plugin_id': id, 'value': ' '} )
         return id
+
+    def write(self, cr, uid, ids, vals, context={}):
+        if vals.has_key('code'):
+            if vals['code'].find('-') != -1: 
+                raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
+        return super(dm_dtp_plugin, self).write(cr, uid, ids, vals, context)
 
     _columns = {
         'name': fields.char('DTP Plugin Name', size=64),

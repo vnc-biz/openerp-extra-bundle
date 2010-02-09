@@ -51,8 +51,8 @@ class sale_forecast_salesman(report_sxw.rml_parse):
                         "FROM  res_users as rs, sale_forecast as sf " \
                         "inner join sale_forecast_line as sfl on sf.id=sfl.forecast_id " \
                         "WHERE sf.name >= %s and sf.name <= %s  " \
-                            " AND sfl.user_id= %d " \
-                            " AND rs.id= %d " \
+                            " AND sfl.user_id= %s " \
+                            " AND rs.id= %s " \
                             ,(form['date_start'],form['date_end'],form['user_id'],form['user_id']))
 
         data=self.cr.dictfetchall()

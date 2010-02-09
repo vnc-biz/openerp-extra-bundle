@@ -23,12 +23,50 @@ import time
 
 from osv import fields
 from osv import osv
-import time
 import sys
 import datetime
 import netsvc
 import traceback
 import tools
+import pooler
+
+# Enable/Disable performance monitoring
+enable_monitor = False
+
+class dm_perf_monitor(osv.osv): # {{{
+    _name = "dm.perf_monitor"
+    _descitption = "DM Performance Monitor"
+
+    _columns = {
+        'name' : fields.char('Function Name', size=64, required=True),
+        'model' : fields.char('Model Name', size=64, required=True),
+        'duration' : fields.float('Duration'),
+        'date' : fields.datetime('Date'),
+    }
+
+    _defaults = {
+        'date' : lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+    }
+dm_perf_monitor() # }}}
+
+def monitor(func): # {{{
+    if enable_monitor:
+        def callf(*args, **kwargs):
+            time_start = time.time()                
+            r = func(*args, **kwargs)
+            time_stop = time.time()
+            duration = time_stop - time_start
+            print "%s took %s seconds to process" % (func.__name__, duration)
+            vals = {
+                'name' : func.__name__,
+                'duration' : duration,
+                'model' : args[0],
+            }
+            pooler.get_pool(args[1].dbname).get('dm.perf_monitor').create(args[1], args[2], vals)
+            return r
+        return callf
+    else:
+        return func # }}}
 
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"
@@ -55,6 +93,7 @@ class dm_workitem(osv.osv): # {{{
             res[wi.id] = wi.address_id and wi.address_id.email or ''
         return res
 
+
     _columns = {
         'step_id': fields.many2one('dm.offer.step', 'Offer Step',
                                     ondelete="cascade", select="1"),
@@ -65,12 +104,13 @@ class dm_workitem(osv.osv): # {{{
                                       'Customer Address',
                                        select="1",
                                        ondelete="cascade"),
-        'customer_id': fields.function(_customer_id, method=True, type='char', string='Customer Id'),
-        'customer_email': fields.function(_customer_email, method=True, type='char', string='Customer Email'),
+        'customer_id': fields.function(_customer_id, method=True, type='char',
+                                        string='Customer Id'),
+        'customer_email': fields.function(_customer_email, method=True,
+                                        type='char', string='Customer Email'),
         'action_time': fields.datetime('Action Time', select="1"),
         'source': fields.selection(_SOURCES, 'Source', required=True),
         'error_msg': fields.text('System Message'),
-#        'is_global': fields.boolean('Global Workitem'),
         'is_preview': fields.boolean('Document Preview Workitem'),
         'tr_from_id': fields.many2one('dm.offer.step.transition', 
                                       'Source Transition',
@@ -82,7 +122,6 @@ class dm_workitem(osv.osv): # {{{
     _defaults = {
         'source': lambda *a: 'address_id',
         'state': lambda *a: 'pending',
-#        'is_global': lambda *a: False,
         'is_preview': lambda *a: False,
         'is_realtime': lambda *a: True,
         'action_time': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -95,7 +134,8 @@ class dm_workitem(osv.osv): # {{{
             wi_res = self.run(cr, uid, obj, context=context)
         return id
 
-    @tools.cache()
+#    @tools.cache()
+    @monitor
     def _check_sysmsg(self, cr, uid, code, context=None):
         """ Check action message code and set workitem log """
         sysmsg_id  = self.pool.get('dm.sysmsg').search(cr, uid, 
@@ -111,7 +151,7 @@ class dm_workitem(osv.osv): # {{{
                     'msg': "An unknown error has occured : %s" % code,
                     'result': False}
 
-
+    @monitor
     def run(self, cr, uid, wi, context={}):
         logger = netsvc.Logger()
         context['active_id'] = wi.id
@@ -149,17 +189,17 @@ class dm_workitem(osv.osv): # {{{
                     break
 
             if tr_res:
-                """ Execute server action """
+                "Execute server action"
                 wi_res = server_obj.run(cr, uid, [wi.step_id.action_id.id], context)
                 """ Check returned code and set wi status """
                 wi_status = self._check_sysmsg(cr, uid, wi_res['code'],
                                                 context.copy())
 
-                """ Set workitem state and message """
+                "Set workitem state and message"
                 wr = self.write(cr, uid, [wi.id], {'state': wi_status['state'],
                                                 'error_msg':wi_status['msg']})
                 done = wi_status['result']
-                """ If workitem done then execute mail service action """
+                "If workitem done then execute mail service action"
                 if done:
                     doc_context = {}
                     doc_obj = self.pool.get(wi_res['model'])
@@ -180,7 +220,7 @@ class dm_workitem(osv.osv): # {{{
                                                 'error_msg':ms_status['msg']})
 
             else:
-                """ Dont Execute Action if workitem is not to be processed """
+                "Dont Execute Action if workitem is not to be processed"
                 self.write(cr, uid, [wi.id], {'state': 'cancel',
                                     'error_msg': 'Cancelled by : %s'% act_step})
 
@@ -294,6 +334,7 @@ class dm_event(osv.osv_memory): # {{{
         'source': lambda *a: 'address_id',
     }
 
+    @monitor
     def create(self, cr, uid, vals, context={}):
         id = super(dm_event,self).create(cr, uid, vals, context)
         obj = self.browse(cr, uid, id)
@@ -302,9 +343,14 @@ class dm_event(osv.osv_memory): # {{{
                                [('step_from_id', '=', obj.step_id.id),
                                 ('condition_id', '=', obj.trigger_type_id.id)])
         if not tr_ids:
-            netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, "There is no transition %s at this step : %s"% (obj.trigger_type_id.name, obj.step_id.code))
-            raise osv.except_osv('Warning', "There is no outgoing transition %s at this step : %s"% (obj.trigger_type_id.name, obj.step_id.code))
+            netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING,
+                "There is no transition %s at this step : %s"% (obj.trigger_type_id.name,
+                    obj.step_id.code))
+            raise osv.except_osv('Warning',
+                "There is no outgoing transition %s at this step : %s"% (obj.trigger_type_id.name,
+                    obj.step_id.code))
             return False
+
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid,
                                                                    tr_ids):
             if obj.action_time:

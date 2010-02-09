@@ -6,6 +6,51 @@
     
     <!--
     =======================================================
+    MONITOR VIEWS
+    =======================================================
+    -->
+
+    <record model="ir.ui.view" id="view_dm_perf_monitor_form">
+        <field name="name">dm_perf_monitor.form</field>
+        <field name="model">dm.perf_monitor</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Performance Monitor">
+                <field name="name" />
+                <field name="model"/>
+                <field name="duration"/>
+                <field name="date" />
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_dm_perf_monitor_tree">
+        <field name="name">dm_perf_monitor.tree</field>
+        <field name="model">dm.perf_monitor</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Performance Monitor">
+                 <field name="name"/>
+                <field name="model"/>
+                <field name="duration"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_perf_monitor_form">
+        <field name="name">All Performance Monitors</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.perf_monitor</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_perf_monitor_tree"/>
+    </record>
+
+    <menuitem id="menu_action_view_dm_perf_monitor_form" parent="dm.menu_dm_config_lowlevel" action="action_dm_perf_monitor_form"/>
+    
+    <!--
+    =======================================================
     WORKITEM VIEWS
     =======================================================
     -->

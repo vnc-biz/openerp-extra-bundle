@@ -64,7 +64,7 @@
                  "crm",
                  "crm_configuration",
                  "report_account",
-                 "report_analytic_planning",
+                 "project_planning",
                  "report_sale",
                  "report_crm",
                  "report_task",

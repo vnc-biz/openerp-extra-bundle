@@ -22,7 +22,7 @@
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
-    "depends" : ["report_analytic_planning"],
+    "depends" : ["project_planning"],
     "category" : "Generic Modules/Human Resources",
     "description": "Planning on analytic accounts, delegation in the hierarchy.",
     "init_xml" : [],

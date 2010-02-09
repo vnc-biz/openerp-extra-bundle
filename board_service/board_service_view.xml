@@ -101,7 +101,7 @@
             			<action colspan="4" name="%(action_view_forecast)d" string="Draft Sales Forecast Lines" width="500"/>
             			<action colspan="4" name="%(act_hr_timesheet_sheet_my_dept)d" string="My Departments' Timesheets to Validate" width="300"/>
             			<action colspan="4" name="%(report_crm.action_report_crm_case_section_tree)d" string="Cases By Section"/>
-            			<action colspan="4" name="%(report_analytic_planning.action_account_analytic_planning_stat_my_manager_form)d" string="My Planning Statistics" />
+            			<action colspan="4" name="%(project_planning.action_account_analytic_planning_stat_my_manager_form)d" string="My Planning Statistics" />
             		</child1>
             		<child2>
             			<action colspan="4" name="%(report_sale.action_turnover_month_tree)d" string="Turnover Per Month"/>

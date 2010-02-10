@@ -19,20 +19,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-import paramiko, socket, threading
 from Server import Server
-import SFTPServerInterface
-import SFTPServer
-from document import ftpserver 
+from document_ftp import ftpserver 
 from tools import config
+import SFTPServer
+import SFTPServerInterface
+import netsvc 
 import os
+import paramiko, socket, threading
 
 privateKey = config['root_path'] + '/server.pkey'
 PORT = int(config.get('sftp_server_port', 8022))
 HOST = ''
 
 class sftp_server(ftpserver.ftp_server):  
-    def log(self, level, message):        
+    def log(self, level, message):
         logger = netsvc.Logger()
         logger.notifyChannel('SFTP', level, message)
 
@@ -40,23 +41,18 @@ class sftp_server(ftpserver.ftp_server):
         #paramiko.util.log_to_file('paramiko.log')
         # get host private key
         host_key = paramiko.RSAKey(filename=privateKey)
-
         # bind the socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind(('', PORT))
-
         # listen for a connection
         sock.listen(50)
-
         # accept connections
         while True:
             client, addr = sock.accept()
-
             try:
                 # set up server
                 t = paramiko.Transport(client)
-                
                 t.load_server_moduli()
                 t.add_server_key(host_key)
 
@@ -64,10 +60,8 @@ class sftp_server(ftpserver.ftp_server):
                 t.set_subsystem_handler('sftp', SFTPServer.SFTPServer, SFTPServerInterface.SFTPServer)
                 server = Server()
                 event = threading.Event()
-
                 # start ssh server session
                 t.start_server(event, server)
-
             except Exception, e:
                 try:
                     t.close()
@@ -78,13 +72,4 @@ class sftp_server(ftpserver.ftp_server):
 ds = sftp_server()
 ds.start()
 
-
-
-
-
-
-
-
-
-
-
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

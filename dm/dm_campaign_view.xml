@@ -834,7 +834,24 @@
     </record>
 
     <menuitem id="menu_action_campaign_type_form" parent="dm.menu_dm_config_campaign" action="action_campaign_type_form"/>
-
+	
+	<!--
+    =======================================================
+    Partners Category
+    =======================================================
+    -->
+	
+	<record model="ir.ui.view" id="view_partner_inherit_form">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+	  		<field name="category_id" position = "replace">
+	  				<field name="category_id" domain="[('name','=',context['category'])]"/>
+        	</field>
+        </field>
+    </record>
 
     <record model="ir.actions.act_window" id="action_campaign_dealer_form">
         <field name="name">All Dealers</field>

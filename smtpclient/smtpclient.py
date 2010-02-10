@@ -481,11 +481,6 @@ class SmtpClient(osv.osv):
                 open_server.append(email.server_id.id)
                 self.open_connection(cr, uid, ids, email.server_id.id)
             try:
-                #msg= self._set_error(cr, uid, email.server_id.id, context)
-                #if msg in error_msg.keys():
-                #    queue.write(cr, uid, [email.id], {'error':error_msg[msg], 'state':'error'})
-                #    continue
-                #else:
                 self.smtpServer[email.server_id.id].sendmail(str(email.server_id.email), email.to, tools.ustr(email.serialized_message))
             except Exception, e:
                 queue.write(cr, uid, [email.id], {'error':e, 'state':'error'})
@@ -510,7 +505,7 @@ class SmtpClient(osv.osv):
         queue = self.pool.get('email.smtpclient.queue')
         sids = []
         if not ids:
-            sids = queue.search(cr, uid, [('state','not in',['send','sending'])], order="priority", limit=30)
+            sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('server_id','=',False)], order="priority", limit=30)
         else:
             sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('server_id','in',ids)], order="priority", limit=30)
 
@@ -594,6 +589,7 @@ HistoryLine()
 class MessageQueue(osv.osv):
     _name = 'email.smtpclient.queue'
     _description = 'Email Queue'
+    _order = '"to"'
     _columns = {
         'to' : fields.char('Mail to', size=1024, readonly=True, states={'draft':[('readonly',False)], 'error':[('readonly',False)]}),
         'server_id':fields.many2one('email.smtpclient', 'SMTP Server', readonly=True, states={'draft':[('readonly',False)]}),

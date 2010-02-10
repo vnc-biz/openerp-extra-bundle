@@ -67,6 +67,30 @@ def monitor(func): # {{{
         return callf
     else:
         return func # }}}
+    
+class report_dm_performance_monitor(osv.osv):
+    _name = "report.dm.performance.monitor"
+    _description = "Performance monitor"
+    _auto = False
+    _columns = {
+        'name' : fields.char('Function Name', size=64, required=True),
+        'duration' : fields.float('Duration'),
+    }
+    
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'report_dm_performance_monitor')
+        cr.execute("""
+            create or replace view report_dm_performance_monitor as (
+                select
+                    min(p.id) as id,
+                    p.name as name,
+                    avg(p.duration) as duration
+                from
+                    dm_perf_monitor p
+                group by p.name
+            )""")
+    
+report_dm_performance_monitor()
 
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"

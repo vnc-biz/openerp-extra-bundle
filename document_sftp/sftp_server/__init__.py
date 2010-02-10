@@ -27,10 +27,13 @@ import SFTPServerInterface
 import netsvc 
 import os
 import paramiko, socket, threading
+from tools import config
+from tools.misc import detect_ip_addr
 
-privateKey = config['root_path'] + '/server.pkey'
-PORT = int(config.get('sftp_server_port', 8022))
+
 HOST = ''
+PORT = 8022
+privateKey = config['root_path'] + '/server.pkey'
 
 class sftp_server(ftpserver.ftp_server):  
     def log(self, level, message):
@@ -40,11 +43,13 @@ class sftp_server(ftpserver.ftp_server):
     def run(self):        
         #paramiko.util.log_to_file('paramiko.log')
         # get host private key
+        HOST = config.get('ftp_server_address', detect_ip_addr())
+        PORT = int(config.get('ftp_server_port', '8022'))        
         host_key = paramiko.RSAKey(filename=privateKey)
         # bind the socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(('', PORT))
+        sock.bind((HOST, PORT))
         # listen for a connection
         sock.listen(50)
         # accept connections

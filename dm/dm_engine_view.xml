@@ -2,8 +2,10 @@
 <openerp>
     <data>
 
-	<menuitem name="Events" id="menu_dm_config_lowlevel_events" parent="dm.menu_dm_config_lowlevel"/>
-    
+	<menuitem name="Events" id="menu_dm_config_lowlevel_events" parent="dm.menu_dm_config_lowlevel" sequence="2"/>
+
+	<menuitem name="Monitoring" id="menu_dm_config_lowlevel_monitoring" parent="dm.menu_dm_config_lowlevel" sequence="3"/>
+   
     <!--
     =======================================================
     MONITOR VIEWS
@@ -47,7 +49,64 @@
         <field name="view_id" ref="view_dm_perf_monitor_tree"/>
     </record>
 
-    <menuitem id="menu_action_view_dm_perf_monitor_form" parent="dm.menu_dm_config_lowlevel" action="action_dm_perf_monitor_form"/>
+    <menuitem id="menu_action_view_dm_perf_monitor_form" parent="menu_dm_config_lowlevel_monitoring" action="action_dm_perf_monitor_form" sequence="1"/>
+
+	<!--
+    =======================================================
+    Graph views for performance monitor
+    =======================================================
+    -->
+ 	
+	<record model="ir.ui.view" id="view_report_dm_performance_monitor_graph">
+        <field name="name">report.dm.performance.monitor.graph</field>
+        <field name="model">report.dm.performance.monitor</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Performance" type="pie">
+                <field name="name" />
+                <field name="duration" operator="+"/>
+            </graph>
+        </field>
+    </record>
+
+	<record model="ir.actions.act_window" id="action_report_dm_performance_monitor_graph">
+        <field name="name">Performances - Pie chart</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.dm.performance.monitor</field>
+        <field name="view_type">form</field>
+		<field name="view_mode">graph</field>
+        <field name="view_id" ref="view_report_dm_performance_monitor_graph"/>
+    </record>
+
+    <menuitem id="menu_report_dm_performance_monitor_graph" parent="menu_dm_config_lowlevel_monitoring" action="action_report_dm_performance_monitor_graph"/>
+
+
+	<record model="ir.ui.view" id="view_dm_pref_monitor_graph">
+        <field name="name">dm.perf_monitor.graph</field>
+        <field name="model">dm.perf_monitor</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Performance" type="bar">
+                <field name="date"/>
+                <field name="duration" operator="+"/>
+				<field group="True" name="name"/>
+            </graph>
+        </field>
+    </record>
+
+	<wizard
+		id="wizard_dm_performance_monitor"
+        string="Performance Monitor"
+        model="dm.perf_monitor"
+        name="wizard.performance.monitor"
+		multi="True" />
+
+	<menuitem
+		action="wizard_dm_performance_monitor"
+		id = "menu_wizard_dm_performance_monitor"
+		type="wizard"
+		parent="menu_dm_config_lowlevel_monitoring"
+		icon="terp-graph"/>
     
     <!--
     =======================================================

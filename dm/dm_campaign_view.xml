@@ -848,7 +848,7 @@
 		<field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
 	  		<field name="category_id" position = "replace">
-	  				<field name="category_id" domain="[('name','=',context['category'])]"/>
+	  			<field name="category_id" domain="[('name','=',context['category'])]" nolabel="1" select="2"/>
         	</field>
         </field>
     </record>

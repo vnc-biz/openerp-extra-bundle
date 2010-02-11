@@ -92,7 +92,7 @@ class wizard_proposition_products(wizard.interface):
                             'offer_step_id':step.id,
                             'qty_planned':item.virtual_available,
                             'qty_real':item.qty_available,
-                            'price':item.list_price,
+                            'price':item.list_price + price,
                             'notes':item.description,
                             'forecasted_yield' : step.forecasted_yield,
                             'qty_default': item.qty_default,

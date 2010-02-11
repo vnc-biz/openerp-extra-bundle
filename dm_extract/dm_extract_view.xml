@@ -115,7 +115,7 @@
 	   <field name="arch" type="xml">
    			<notebook colspan="4" position="inside">
      			<page string="Extraction">
-	  				<field name="segmentations_id" colspan="4" string="Segmentation"/>             
+	  				<field name="segmentation_id" colspan="4" string="Segmentation"/>             
  				</page>
      		</notebook>
    		</field>
@@ -128,7 +128,7 @@
 	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 		    <field name="start_census" position="replace">
-		    	<field name="start_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
+		    	<field name="start_census" attrs="{'readonly':[('segmentation_id','!=',False)]}"/>             
 		    </field>
 	    </field>
     </record>
@@ -140,7 +140,7 @@
 	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 	    	<field name="end_census" position="replace">
-				<field name="end_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
+				<field name="end_census" attrs="{'readonly':[('segmentation_id','!=',False)]}"/>             
 	        </field>
     	</field>
     </record>
@@ -152,7 +152,7 @@
 	    <field name="type">form</field>
 	    <field name="arch" type="xml">
 	    	<field name="type_census" position="replace">
-				<field name="type_census" attrs="{'readonly':[('segmentations_id','!=',False)]}"/>             
+				<field name="type_census" attrs="{'readonly':[('segmentation_id','!=',False)]}"/>             
 	        </field>
     	</field>
     </record>

@@ -98,7 +98,7 @@
         <field name="type">calendar</field>
         <field eval="2" name="priority"/>
         <field name="arch" type="xml">
-            <calendar color="responsible_id" date_start="camp_date_start" string="Campaigns">
+            <calendar color="responsible_id" date_start="date_start" string="Campaigns">
                 <field name="name" string="Name"/>
                 <field name="country_id" />
             </calendar>
@@ -115,7 +115,7 @@
                 <field name="name" string="Name"/>
                 <field name="code" string="Code"/>
                 <field name="campaign_type_id"/>
-                <field name="camp_date_start"/>
+                <field name="date_start"/>
                 <field name="responsible_id" />
                 <field name="country_id" />
                 <field name="state"/>
@@ -155,8 +155,8 @@
                         </group>
                         <group colspan="4">
                         <separator string="Dates" colspan="4"/>
-                        <field name="camp_date_start" select="2" string="Drop Date"/>
-                        <field name="camp_date_end" string="End Date"/>
+                        <field name="date_start" select="2" string="Drop Date"/>
+                        <field name="date" string="End Date"/>
                         </group>
                         <separator string="Campaign Status" colspan="4"/>
                         <group col="10" colspan="4">
@@ -532,7 +532,7 @@
                     <group colspan="2" attrs="{'invisible':[('proposition_type','!=','relaunching')]}">
                         <field name="initial_proposition_id" select="1"/>
                     </group>
-                      <field name="camp_pro_date_start" select="2"/>
+                      <field name="date_start" select="2"/>
                     <field name="sale_rate"/>
                     <field name="forwarding_charge" select="2"/>
                     </group>
@@ -640,7 +640,7 @@
                 <field name="camp_id"/>
                 <field name="name" string="Name"/>
                 <field name="code" string="Code"/>
-                <field name="camp_pro_date_start" colspan="4"/>
+                <field name="date_start" colspan="4"/>
                 <field name="sale_rate"/>
                 <field name="quantity_real" select="2"/>
                 <field name="proposition_type"/>
@@ -654,7 +654,7 @@
         <field name="type">calendar</field>
         <field eval="2" name="priority"/>
         <field name="arch" type="xml">
-            <calendar color="camp_id" date_start="camp_pro_date_start" string="Propositions">
+            <calendar color="camp_id" date_start="date_start" string="Propositions">
                 <field name="name"/>
                 <field name="proposition_type"/>
             </calendar>
@@ -770,9 +770,10 @@
                 <field name="name" string="Name"/>
                 <field name="code" string="Code"/>
                 <field name="type_src"/>
-                <field name="quantity_planned" select="2"/>
-                <field name="quantity_wanted" select="2"/>
-                <field name="quantity_delivered" select="2"/>
+                <field name="campaign_id"/>
+                <field name="quantity_planned"/>
+                <field name="quantity_wanted"/>
+                <field name="quantity_delivered"/>
                 <field name="quantity_real"/>
                 <field name="note"/>
             </tree>

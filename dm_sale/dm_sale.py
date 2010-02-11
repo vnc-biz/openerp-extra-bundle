@@ -82,12 +82,16 @@ class dm_event_sale(osv.osv_memory): # {{{
         id = super(dm_event_sale, self).create(cr, uid, vals, context)
         obj = self.browse(cr, uid, id)
 
-        tr_ids = self.pool.get('dm.offer.step.transition').search(cr, uid, [('step_from_id', '=', obj.step_id.id),
+        tr_ids = self.pool.get('dm.offer.step.transition').search(cr, uid,
+                                [('step_from_id', '=', obj.step_id.id),
                                 ('condition_id', '=', obj.trigger_type_id.id)])
         if not tr_ids:
             netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING,
-                                "There is no outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
-            raise osv.except_osv('Warning', "There is no outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
+               "There is no outgoing transition %s at this step: %s" % (obj.trigger_type_id.name,
+                    obj.step_id.code))
+            raise osv.except_osv('Warning',
+                "There is no outgoing transition %s at this step: %s" % (obj.trigger_type_id.name,
+                    obj.step_id.code))
 
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):
             if obj.action_time:
@@ -101,7 +105,8 @@ class dm_event_sale(osv.osv_memory): # {{{
                     action_time = wi_action_time + datetime.timedelta(**kwargs)
 
                     if tr.action_hour:
-                        hour_str = str(tr.action_hour).split('.')[0] + ':' + str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
+                        hour_str = str(tr.action_hour).split('.')[0] + \
+                        ':' + str(int(int(str(tr.action_hour).split('.')[1]) * 0.6))
                         act_hour = datetime.datetime.strptime(hour_str, '%H:%M')
                         action_time = action_time.replace(hour=act_hour.hour)
                         action_time = action_time.replace(minute=act_hour.minute)

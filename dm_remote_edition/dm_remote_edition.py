@@ -37,7 +37,6 @@ class dm_campaign_document_job(osv.osv): # {{{
     _columns = {
          'user_id': fields.many2one('res.users', 'Printer User'),
         }
-  
 dm_campaign_document_job() # }}}
 
 

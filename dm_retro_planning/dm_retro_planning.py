@@ -203,7 +203,7 @@ class dm_campaign(osv.osv):#{{{
         for camp in self.browse(cr, uid, ids):   
             if camp.project_id :
                 self.pool.get('project.project').write(cr, uid, [camp.project_id.id], 
-                                                {'date_end': camp.date_start)
+                                                {'date_end': camp.date_start})
         return value
 dm_campaign()
 

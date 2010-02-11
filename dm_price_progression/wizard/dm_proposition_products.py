@@ -78,24 +78,23 @@ class wizard_proposition_products(wizard.interface):
             for item in step.item_ids:
                 if item:
                     if prop_obj.force_sm_price:
-                        pu = prop_obj.sm_price
+                        price = prop_obj.sm_price * (1 + (stp * pprog_obj.percent_prog)) + (stp * pprog_obj.fixed_prog)
                     else :
                         if not prop_obj.customer_pricelist_id:
                             raise wizard.except_wizard('Error !', 'Select a product pricelist !')
-                        pu = pool.get('product.pricelist').price_get(cr, uid,
+                        price = pool.get('product.pricelist').price_get(cr, uid,
                             [prop_obj.customer_pricelist_id.id], item.id, 1.0,
                             context=context)[prop_obj.customer_pricelist_id.id]
 
-                    price = pu * (1 + (stp * pprog_obj.percent_prog)) + (stp * pprog_obj.fixed_prog)
-                    vals = {'product_id':item.id,
-                            'proposition_id':data['ids'][0],
-                            'offer_step_id':step.id,
-                            'qty_planned':item.virtual_available,
-                            'qty_real':item.qty_available,
-                            'price':item.list_price + price,
-                            'notes':item.description,
+                    vals = {'product_id' : item.id,
+                            'proposition_id' : data['ids'][0],
+                            'offer_step_id' : step.id,
+                            'qty_planned' : item.virtual_available,
+                            'qty_real' : item.qty_available,
+                            'price': price,
+                            'notes': item.description,
                             'forecasted_yield' : step.forecasted_yield,
-                            'qty_default': item.qty_default,
+                            'qty_default' : item.qty_default,
                             }
                     new_id=pool.get('dm.campaign.proposition.item').create(cr, uid, vals)
             stp=stp+1

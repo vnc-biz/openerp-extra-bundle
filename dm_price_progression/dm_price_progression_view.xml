@@ -17,12 +17,10 @@
             <field name="arch" type="xml">
             	<button name="_get_step_products" string="Get Products" type="object" position="replace">
             		<button string="Get Products" name="%(dm_price_progression.wizard_proposition_products)d" type="action" colspan="3"/>
-<!--                    <group col="6" colspan="4" groups="base.group_extended">-->
 					<newline/>
                     <field name="force_sm_price" colspan="1"/>
                     <field name="sm_price" attrs="{'readonly':[('force_sm_price','=',0)]}" colspan="1"/>
                     <field name="price_prog_use" attrs="{'readonly':[('force_sm_price','=',0)]}" colspan="1"/>
-<!--                    </group>-->
             	</button>
             </field>
         </record>

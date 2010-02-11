@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-01-27 04:51+0000\n"
+"X-Launchpad-Export-Date: 2010-02-11 05:09+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: network_extension
@@ -34,8 +34,6 @@ msgstr "Cifrar"
 msgid "Public URL"
 msgstr "URL pública"
 
-#. module: network_extension
-#: model:ir.model,name:network_extension.model_network_encrypt_password
 msgid "network.encrypt.password"
 msgstr "network.encrypt.password"
 
@@ -158,6 +156,7 @@ msgstr "IP pública"
 #: model:ir.model,name:network_extension.model_network_protocol
 #: model:ir.ui.menu,name:network_extension.menu_action_protocol_tree
 #: view:network.protocol:0
+#: field:network.protocol,protocol:0
 #: field:network.service,protocol_id:0
 msgid "Protocol"
 msgstr "Protocolo"
@@ -221,6 +220,7 @@ msgid "Logins/Passwords"
 msgstr "Usuarios/Contraseñas"
 
 #. module: network_extension
+#: field:network.protocol,port:0
 #: field:network.service,port:0
 msgid "Port"
 msgstr "Puerto"
@@ -234,3 +234,6 @@ msgstr "Puerto"
 #~ msgstr ""
 #~ "\n"
 #~ "    Organiza las configuraciones del software"
+
+#~ msgid "Public service"
+#~ msgstr "IP pública"

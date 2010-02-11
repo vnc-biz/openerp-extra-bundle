@@ -73,7 +73,7 @@ def _create_duplicate(self, cr, uid, data, context):
                         {'state': 'open', 'date_deadline': campaign.date_start})
     project_obj.write(cr, uid, [duplicate_project_id], 
                       {'name': project_obj.browse(cr, uid, duplicate_project_id, context).name + " for " + campaign.name, 
-                      'date_end': campaign.date_start.split(' ')[0]})
+                      'date_end': campaign.date_start})
     campaign_obj.write(cr, uid, [data['id']], 
                         {'project_id': duplicate_project_id})
     return {}

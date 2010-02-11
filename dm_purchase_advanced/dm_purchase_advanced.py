@@ -384,7 +384,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                         note.append("---------------------------------------------------------------------------")
                         note.append('Campaign Name: %s' % (obj.name,))
                         note.append('Campaign Code: %s' % (obj.code,))
-                        note.append('Drop Date: %s' % (obj.camp_date_start,))
+                        note.append('Drop Date: %s' % (obj.date_start,))
                         note.append("---------------------------------------------------------------------------")
                         note.append('Trademark: %s' % (obj.trademark_id.name,))
                         note.append('planned Quantity: %s' % (obj.quantity_planned_total,))

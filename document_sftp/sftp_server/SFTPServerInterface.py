@@ -18,15 +18,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
+from document.nodes import node_res_dir, node_res_obj
+from paramiko.sftp_handle import SFTPHandle
+import StringIO
+import base64
+import netsvc
 import os
 import paramiko,os
 import pooler
-import netsvc
 import time
-import StringIO
-import base64
-from document.nodes import node_res_dir, node_res_obj
-from paramiko.sftp_handle import SFTPHandle
 
 def _to_unicode(s):
     try:
@@ -204,7 +205,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 object2 = node and pool.get(node.context.context['res_model']).browse(cr, uid, node.context.context['res_id']) or False            
             
             cid = False
-            object = node.context._dirobj.browse(cr, uid, node.dir_id)
+            object = node.context._dirobj.browse(cr, uid, node.context.context['dir_id'])
 
             where=[('name','=',objname)]
             if object and (object.type in ('directory')) or object2:
@@ -257,16 +258,25 @@ class SFTPServer (paramiko.SFTPServerInterface):
         return False
 
     def remove(self, node):
-        """ Remove a file """
+        """ Remove  """
+        assert node
+        if node.type == 'collection':
+            return self.rmdir(node)
+        elif node.type == 'file':
+            return self.rmfile(node)
+        raise OSError(1, 'Operation not permited.')
+
+    def rmfile(self, node):
+        """Remove the specified file."""
         try:
-            cr = node.cr
-            uid = node.uid
-            pool = pooler.get_pool(cr.dbname)
-            object2=node and node.object2 or False
-            object=node and node.object or False
+            cr = pooler.get_db(node.context.dbname).cursor()
+            uid = node.context.uid
+            pool = pooler.get_pool(node.context.dbname)
+            
+            object = pool.get('ir.attachment').browse(cr, uid, node.file_id)
             if not object:
                 raise OSError(2, 'Not such file or directory.')
-            if object._table_name=='ir.attachment':
+            if object._table_name == 'ir.attachment':
                 res = pool.get('ir.attachment').unlink(cr, uid, [object.id])
             else:
                 raise OSError(1, 'Operation not permited.')
@@ -274,7 +284,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
             return paramiko.SFTP_OK
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
-
+        
     def db_list(self):
         #return pooler.pool_dic.keys()
         s = netsvc.ExportService.getService('db')
@@ -326,7 +336,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
 
-    def rename(self, src, dst_basedir,dst_basename):
+    def rename(self, src, dst_basedir, dst_basename):
         """
             Renaming operation, the effect depends on the src:
             * A file: read, create and remove
@@ -338,11 +348,10 @@ class SFTPServer (paramiko.SFTPServerInterface):
             cr = pooler.get_db(src.context.dbname).cursor()
             uid = src.context.uid
             pool = pooler.get_pool(cr.dbname)
+            object2 = False
             obj2 = False
             dst_obj2 = False
             if src.type=='collection':
-                if isinstance(src, node_res_obj):
-                    object2 = src and pool.get(src.context.context['res_model']).browse(cr, uid, src.context.context['res_id']) or False
                 obj = src.context._dirobj.browse(cr, uid, src.dir_id)
                 if obj._table_name <> 'document.directory':
                     raise OSError(1, 'Operation not permited.')
@@ -356,31 +365,30 @@ class SFTPServer (paramiko.SFTPServerInterface):
                     node = child_ids.pop(0)
                     child_ids += node.children(cr)
                     if node.type =='collection':
-                        object2 = False
                         if isinstance(node, node_res_obj):
                             object2 = node and pool.get(node.context.context['res_model']).browse(cr, uid, node.context.context['res_id']) or False
-                        obj = node.context._dirobj.browse(cr, uid, node.dir_id)
-                        result['directory'].append(obj.id)
-                        if (not obj.ressource_id) and object2:
+                        obj1 = node.context._dirobj.browse(cr, uid, node.context.context['dir_id'])
+                        
+                        result['directory'].append(obj1.id)
+                        if (not obj1.ressource_id) and object2:
                             raise OSError(1, 'Operation not permited.')
                     elif node.type =='file':
-                        result['attachment'].append(obj.id)
+                        result['attachment'].append(obj1.id)
 
                 if object2 and not obj.ressource_id:
                     raise OSError(1, 'Operation not permited.')
                 val = {
-                    'name':dst_basename,
+                    'name': dst_basename,
                 }
                 if isinstance(dst_basedir, node_res_obj):
                     dst_obj2 = dst_basedir and pool.get(dst_basedir.context.context['res_model']).browse(cr, uid, dst_basedir.context.context['res_id']) or False
                 dst_obj = dst_basedir.context._dirobj.browse(cr, uid, dst_basedir.dir_id)
-
+                
                 if (dst_obj and (dst_obj.type in ('directory'))) or not dst_obj2:
                     val['parent_id'] = dst_obj and dst_obj.id or False
                 else:
                     val['parent_id'] = False
                 res = pool.get('document.directory').write(cr, uid, [obj.id],val)
-
                 if dst_obj2:
                     ressource_type_id = pool.get('ir.model').search(cr,uid,[('model','=', dst_obj2._name)])[0]
                     ressource_id = dst_obj2.id
@@ -469,22 +477,23 @@ class SFTPServer (paramiko.SFTPServerInterface):
             """Create the specified directory."""
             if not node:
                 raise OSError(1, 'Operation not permited.')
-
+            uid = node.context.uid
+            pool = pooler.get_pool(node.context.dbname)
+            cr = pooler.get_db(node.context.dbname).cursor()
             basename=_to_unicode(basename)
-            object2=node and node.object2 or False
-            object=node and node.object or False
-            cr = node.cr
-            uid = node.uid
-            pool = pooler.get_pool(cr.dbname)
-            if node.object and (node.object.type=='ressource') and not node.object2:
+            object2 = False
+            if isinstance(node, node_res_obj):
+                object2 = node and pool.get(node.context.context['res_model']).browse(cr, uid, node.context.context['res_id']) or False
+            obj = node.context._dirobj.browse(cr, uid, node.context.context['dir_id'])
+            if obj and (obj.type=='ressource') and not node.object2:
                 raise OSError(1, 'Operation not permited.')
             val = {
                 'name': basename,
-                'ressource_parent_type_id': object and object.ressource_type_id.id or False,
+                'ressource_parent_type_id': object and obj.ressource_type_id.id or False,
                 'ressource_id': object2 and object2.id or False
             }
-            if (object and (object.type in ('directory'))) or not object2:
-                val['parent_id'] =  object and object.id or False
+            if (obj and (obj.type in ('directory'))) or not object2:
+                val['parent_id'] =  obj and obj.id or False
             # Check if it alreayd exists !
             pool.get('document.directory').create(cr, uid, val)
             cr.commit()
@@ -495,15 +504,18 @@ class SFTPServer (paramiko.SFTPServerInterface):
 
     def rmdir(self, node):
         try:
-            cr = node.cr
-            uid = node.uid
-            pool = pooler.get_pool(cr.dbname)
-            object2=node and node.object2 or False
-            object=node and node.object or False
-            if object._table_name=='document.directory':
+            cr = pooler.get_db(node.context.dbname).cursor()
+            uid = node.context.uid
+            pool = pooler.get_pool(node.context.dbname)
+            
+            if isinstance(node, node_res_obj):
+                object2 = node and pool.get(node.context.context['res_model']).browse(cr, uid, node.context.context['res_id']) or False
+            obj = node.context._dirobj.browse(cr, uid, node.context.context['dir_id'])
+
+            if obj._table_name=='document.directory':
                 if node.children(cr):
                     raise OSError(39, 'Directory not empty.')
-                res = pool.get('document.directory').unlink(cr, uid, [object.id])
+                res = pool.get('document.directory').unlink(cr, uid, [obj.id])
             else:
                 raise OSError(39, 'Directory not empty.')
 
@@ -564,14 +576,17 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 r[0] = 16877
             r[6] = self.getsize(node)
             r[7] = self.getmtime(node)
-            r[8] =  self.getmtime(node)
-            r[9] =  self.getmtime(node)
+            r[8] = self.getmtime(node)
+            r[9] = self.getmtime(node)
+            if node and node.path:
+                if isinstance(node.path, list):
+                    node.path = '/'.join(node.path)
             path =  node and (node.path and node.path.split('/')[-1]) or '.'
             path =  _to_decode(path)
-            st = paramiko.SFTPAttributes.from_stat(os.stat_result(r), path)
-            return st
+            return paramiko.SFTPAttributes.from_stat(os.stat_result(r), path)
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
+
     lstat=stat
 
     def chattr(self, path, attr):

@@ -524,27 +524,9 @@ class dm_plugins_value(osv.osv): # {{{
         'plugin_id' : fields.many2one('dm.dtp.plugin', 'Plugin', required=True),
         'value' : fields.text('Value', required=True),
     }
-    
+
 dm_plugins_value() # }}}
 
-class dm_offer(osv.osv): # {{{
-    _inherit = "dm.offer"
-    
-    def copy(self, cr, uid, id, default=None, context=None):
-        if default is None:
-            default = {}
-        default = default.copy()
-        offer_id = super(dm_offer, self).copy(cr, uid, id, default, context)
-        offer_step_obj = self.pool.get('dm.offer.step')
-        offer_doc_obj = self.pool.get('dm.offer.document')
-        offer_step_ids = offer_step_obj.search(cr, uid, [('offer_id', '=', id)])
-        for offer_step_id in offer_step_ids:
-            doc_id = offer_doc_obj.search(cr, uid, [('step_id', '=', offer_step_id)])
-            if doc_id:
-                self.pool.get('dm.offer.document').copy(cr, uid, doc_id[0], default, context)
-        return offer_id
-    
-dm_offer()
 
 class dm_document_font(osv.osv):
     _name = "dm.document.font"
@@ -554,7 +536,7 @@ class dm_document_font(osv.osv):
         'file': fields.binary('File', required=True),
         'file_name': fields.char('File Name', size=64)
     }
-    
+
 dm_document_font()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,9 +25,9 @@ class wizard_proposition_products(wizard.interface):
 
     new_prices_prog = '''<?xml version="1.0"?>
     <form string="Select Prices Progression">
-        <field name="prices_prog_name"/>
-        <field name="fixed_prog"/>
-        <field name="percent_prog"/>
+        <field name="prices_prog_name" colspan="4"/>
+        <field name="type"/>
+        <field name="value"/>
     </form>'''
 
     prices_prog_form = '''<?xml version="1.0"?>
@@ -49,10 +49,14 @@ class wizard_proposition_products(wizard.interface):
     new_prices_prog_fields = {
         'prices_prog_name': {'string': 'Name', 'type': 'char',
                               'size': 64, 'required': True },
-        'fixed_prog': {'string': 'Fixed Progression', 
-                       'type': 'float', 'digits': (16, 2)},
-        'percent_prog': {'string': 'Percent Progression Name',
-                          'type': 'float', 'digits': (16, 2)},
+         'type': {'string': 'Progression Type', 'type': 'selection',
+            'selection': [
+                ('fixed','Fixed Progression'),
+                ('percent','Percent Progression (%)'),
+            ],
+            'size':64, 'required': True},
+         'value': {'string': 'Value', 
+            'type': 'float', 'digits': (16, 2), 'required': True},
         }
     
     def _select_prices_prog(self, cr, uid, data, context):
@@ -78,7 +82,11 @@ class wizard_proposition_products(wizard.interface):
             for item in step.item_ids:
                 if item:
                     if prop_obj.force_sm_price:
-                        price = prop_obj.sm_price * (1 + (stp * pprog_obj.percent_prog)) + (stp * pprog_obj.fixed_prog)
+#                        price = prop_obj.sm_price * (1 + (stp * pprog_obj.percent_prog)) + (stp * pprog_obj.fixed_prog)
+                        if pprog_obj.type == 'fixed':
+                            price = prop_obj.sm_price + (stp * pprog_obj.value)
+                        elif pprog_obj.type == 'percent':
+                            price = prop_obj.sm_price + (prop_obj.sm_price * ((stp * pprog_obj.value) / 100))
                     else :
                         if not prop_obj.customer_pricelist_id:
                             raise wizard.except_wizard('Error !', 'Select a product pricelist !')
@@ -110,7 +118,11 @@ class wizard_proposition_products(wizard.interface):
 
     def _new_prices_prog(self, cr, uid, data, context):
         pool=pooler.get_pool(cr.dbname)
-        prices_prog_id = pool.get('dm.campaign.proposition.prices_progression').create(cr, uid, {'name': data['form']['prices_prog_name'], 'fixed_prog': data['form']['fixed_prog'], 'percent_prog': data['form']['percent_prog']})
+#        prices_prog_id = pool.get('dm.campaign.proposition.prices_progression').create(cr, uid, {'name': data['form']['prices_prog_name'], 'fixed_prog': data['form']['fixed_prog'], 'percent_prog': data['form']['percent_prog']})
+        prices_prog_id = pool.get('dm.campaign.proposition.prices_progression').create(cr,
+            uid, {'name': data['form']['prices_prog_name'],
+                    'type': data['form']['type'],
+                    'value': data['form']['value']})
         context['prices_prog_id'] = prices_prog_id
         self._select_prices_prog(cr, uid, data, context)
         return {}

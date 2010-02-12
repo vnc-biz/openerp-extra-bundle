@@ -35,8 +35,8 @@ class dm_campaign_proposition_prices_progression(osv.osv):#{{{
     _name = 'dm.campaign.proposition.prices_progression'
     _columns = {
         'name' : fields.char('Name', size=64, required=True),
-        'fixed_prog' : fields.float('Fixed Prices Progression', digits=(16,2)),
-        'percent_prog' : fields.float('Percentage Prices Progression', digits=(16,2)),
+        'type': fields.selection([('fixed','Fixed Progression'),('percent','Percentage Progression (%)')], 'Progression Type'),
+        'value': fields.float('Value', digits=(16,2)),
     }
 dm_campaign_proposition_prices_progression()#}}}
 

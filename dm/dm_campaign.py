@@ -312,7 +312,7 @@ class dm_campaign(osv.osv): #{{{
             raise osv.except_osv("Error", "You cannot use this offer in this country")
 
         # In campaign, if no forwarding_charge is given,
-        # it gets the 'forwarding_charge' from offer
+        # it gets the 'forwarding_charge' from country
 #        if not camp.forwarding_charge:
 #            if camp.country_id.forwarding_charge:
 #                vals['forwarding_charge'] = camp.country_id.forwarding_charge
@@ -331,7 +331,8 @@ class dm_campaign(osv.osv): #{{{
             # Set dates for propositions and segments of the campaign
             for propo in camp.proposition_ids:
                 self.pool.get('dm.campaign.proposition').write(cr, uid, [propo.id],
-                        {'date_start':vals['date_start'], 'date':vals['date']})  
+                        {'date_start':vals['date_start'], 'date':vals['date'],
+                            'forwarding_charge':vals['forwarding_charge']})  
                 for seg in propo.segment_ids:
                     self.pool.get('dm.campaign.proposition.segment').write(cr,
                             uid, [seg.id], {'date_start':vals['date_start'],
@@ -511,7 +512,9 @@ class dm_campaign_proposition(osv.osv): #{{{
             if id.date_start:
                 vals['date_start'] = id.date_start
         if 'forwarding_charge' not in vals:
-            if id.country_id.forwarding_charge:
+            if id.forwarding_charge:
+                vals['forwarding_charge'] = id.forwarding_charge
+            elif id.country_id.forwarding_charge:
                 vals['forwarding_charge'] = id.country_id.forwarding_charge
         if id.journal_id:
             journal_id = id.journal_id.id

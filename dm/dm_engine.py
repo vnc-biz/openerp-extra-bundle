@@ -56,7 +56,6 @@ def monitor(func): # {{{
             r = func(*args, **kwargs)
             time_stop = time.time()
             duration = time_stop - time_start
-            print "%s took %s seconds to process" % (func.__name__, duration)
             vals = {
                 'name' : func.__name__,
                 'duration' : duration,
@@ -321,8 +320,7 @@ class dm_workitem(osv.osv): # {{{
 
                 """ Get workitems to process and run action """
                 ids = self.search(cr, uid, [('state', '=', 'pending'),
-                                            ('action_time',
-                                '<=', time.strftime('%Y-%m-%d %H:%M:%S')),
+                    ('action_time','<=', time.strftime('%Y-%m-%d %H:%M:%S')),
                     ('is_realtime', '=', False)])
                 for wi in self.browse(cr, uid, ids[:MAX_SIZE], context=context):
                     wi_res = self.run(cr, uid, wi, context=context)

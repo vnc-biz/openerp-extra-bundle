@@ -341,8 +341,7 @@ class dm_offer(osv.osv): # {{{
     def fields_get(self, cr, uid, fields=None, context=None):
         res = super(dm_offer, self).fields_get(cr, uid, fields, context)
         if context and not 'type' in context and 'type' in res:
-            print "in if"
-            res['type']['selection'] = [('new', 'New'),
+            res['type']['selection'] = [('new', 'New'), 
                                         ('standart', 'Standart'),
                                         ('rewrite', 'Rewrite'),
                                         ('as', 'After-Sale')]

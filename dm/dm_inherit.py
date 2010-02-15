@@ -114,13 +114,17 @@ class res_partner(osv.osv):#{{{
             cat_id = id_get(cr, 'res.partner.category', context['category_xml_id'], 'dm')
 
             if cat_id is not None:
-                old_args = args
-                args = []
-                for arg in old_args:
-                    if arg[0] == 'category_id':
-                        arg = ['category_id', 'in', [cat_id]]
-                    args.append(arg)
+                if args:
+                    old_args = args
+                    args = []
+                    for arg in old_args:
+                        if arg[0] == 'category_id':
+                            arg = ['category_id', 'in', [cat_id]]
+                        args.append(arg)
+                else:
+                    args = [('category_id', 'in', [cat_id])]
 
+        print args
         res = super(res_partner, self).search(cr, uid, args, offset=offset, limit=limit, order=order, context=context, count=count)
         return res
 

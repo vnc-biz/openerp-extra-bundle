@@ -739,7 +739,9 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         'supplier_ids': fields.many2many('res.partner',
                                         'dm_purchase_line_supplier_rel',
                                         'purchase_line_id', 'supplier_id',
-                                        'Suppliers'),
+                                        'Suppliers',
+                                        context={'category_xml_id': 'cat_mailing_supplier'}
+                                        ),
         'state' : fields.function(_state_get, method=True, 
                                   type='selection', selection=[
             ('pending','Pending'),

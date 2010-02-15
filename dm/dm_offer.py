@@ -382,6 +382,7 @@ class dm_offer(osv.osv): # {{{
         offer_step_obj = self.pool.get('dm.offer.step')
         document_obj = self.pool.get('dm.offer.document')
         transition_obj = self.pool.get('dm.offer.step.transition')
+        plugin_obj = self.pool.get('dm.dtp.plugin')
 
         offer = self.browse(cr, uid, id)
 
@@ -397,9 +398,9 @@ class dm_offer(osv.osv): # {{{
 
         # offer step are copied:
         new_steps = []
-        for step in offer_steps:
+        for ostep in offer_steps:
             # offer step is copied:
-            nid = offer_step_obj.copy(cr, uid, step.id, {
+            nid = offer_step_obj.copy(cr, uid, ostep.id, {
                 'offer_id': offer_id,
                 'document_ids': [],
                 'outgoing_transition_ids': [],
@@ -408,27 +409,37 @@ class dm_offer(osv.osv): # {{{
 
             # documents are copied:
             new_docs = []
-            for doc in step.document_ids:
+            for doc in ostep.document_ids:
                 doc_id = document_obj.copy(cr, uid, doc.id, {
                     'step_id': nid,
+                    'document_template_plugin_ids': [],
                 })
+                plugins = []
+                for plugin in doc.document_template_plugin_ids:
+                    sql = "insert into dm_doc_template_plugin_rel (document_id, document_template_plugin_id) values (%s, %s)"
+                    cr.execute(sql, [doc_id, plugin.id])
 
             new_steps.append({
-                'old_id': step.id,
+                'old_id': ostep.id,
                 'new_id': nid,
-                'o_trans_id': step.outgoing_transition_ids,
+                'o_trans_id': ostep.outgoing_transition_ids,
             })
 
         # transitions are copied:
-        for step in new_steps:
-            if step['o_trans_id']:
-                for trans in step['o_trans_id']:
-                    step_to = [nid['new_id'] for nid in new_steps
-                               if nid['old_id'] == trans.step_to_id.id][0]
-                    transition_obj.copy(cr, uid, trans.id, {
-                        'step_to_id': step_to,
-                        'step_from_id': step['new_id'],
-                    })
+        for ostep in new_steps:
+            if ostep['o_trans_id']:
+                for trans in ostep['o_trans_id']:
+                    steps_to = [nid['new_id'] for nid in new_steps if nid['old_id'] == trans.step_to_id.id]
+                    if steps_to:
+                        step_to = steps_to[0]
+                        transition_obj.copy(cr, uid, trans.id, {
+                            'step_to_id': step_to,
+                            'step_from_id': ostep['new_id'],
+                        })
+                    else:
+                        print "WARNING"
+                        print new_steps
+                        print trans
 
         return offer_id
 

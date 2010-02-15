@@ -171,7 +171,7 @@ class dm_dtp_plugin(osv.osv): # {{{
     def create(self, cr, uid, vals, context={}):
         id = super(dm_dtp_plugin, self).create(cr, uid, vals, context)
         if vals.has_key('code'):
-            if vals['code'].find('-') != -1: 
+            if vals['code'].find('-') != -1:
                 raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
         
         if vals['type'] == 'url':

@@ -412,7 +412,7 @@ class dm_campaign(osv.osv): #{{{
             d = time.strptime(data_cam.date_start, "%Y-%m-%d")
             d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
-            vals['date'] = date_end.strftime('%Y-%m-%d')
+            write_vals['date'] = date_end.strftime('%Y-%m-%d')
 
         # Set trademark to offer's trademark only if trademark is null
         if vals['campaign_type_id'] != type_id:
@@ -534,7 +534,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         default_name = ' %s (Copy)' % data.name
         super(dm_campaign_proposition, self).write(cr, uid, proposition_id,
                                                     {'name': default_name,
-                                                     'date_start': False,
+#                                                     'date_start': False,
                                                 'initial_proposition_id': id})
 
         if data.keep_segments == False:

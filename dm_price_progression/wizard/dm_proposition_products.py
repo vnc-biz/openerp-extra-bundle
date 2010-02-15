@@ -82,11 +82,13 @@ class wizard_proposition_products(wizard.interface):
             for item in step.item_ids:
                 if item:
                     if prop_obj.force_sm_price:
-#                        price = prop_obj.sm_price * (1 + (stp * pprog_obj.percent_prog)) + (stp * pprog_obj.fixed_prog)
-                        if pprog_obj.type == 'fixed':
-                            price = prop_obj.sm_price + (stp * pprog_obj.value)
-                        elif pprog_obj.type == 'percent':
-                            price = prop_obj.sm_price + (prop_obj.sm_price * ((stp * pprog_obj.value) / 100))
+                        if prop_obj.price_prog_use:
+                            if pprog_obj.type == 'fixed':
+                                price = prop_obj.sm_price + (stp * pprog_obj.value)
+                            elif pprog_obj.type == 'percent':
+                                price = prop_obj.sm_price + (prop_obj.sm_price * ((stp * pprog_obj.value) / 100))
+                        else:
+                            price = prop_obj.sm_price
                     else :
                         if not prop_obj.customer_pricelist_id:
                             raise wizard.except_wizard('Error !', 'Select a product pricelist !')

@@ -736,6 +736,10 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                                'Campaign Purchase Line'),
         'notes': fields.text('Notes'),
         'desc_from_offer' : fields.boolean('Insert Description from Offer'),
+        'supplier_ids': fields.many2many('res.partner',
+                                        'dm_purchase_line_supplier_rel',
+                                        'purchase_line_id', 'supplier_id',
+                                        'Suppliers'),
         'state' : fields.function(_state_get, method=True, 
                                   type='selection', selection=[
             ('pending','Pending'),

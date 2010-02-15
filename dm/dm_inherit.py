@@ -158,6 +158,7 @@ class sale_order(osv.osv):#{{{
 sale_order()#}}}
 """
 
+
 class product_product(osv.osv): # {{{
     _name = "product.product"
     _inherit = "product.product"

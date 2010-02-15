@@ -39,6 +39,8 @@
                                     <field name="date_planned"/>
                                     <field name="date_delivery"/>
                                 </group>
+                                <separator string="Suppliers" colspan="4"/>
+                                <field name="supplier_ids" colspan="4" nolabel="1" />
                                 <separator string="Notes" colspan="4"/>
                                 <field name="notes" colspan="4" nolabel="1" widget="text_wiki"/>
                                 <field name="state" nolabel="1"/>
@@ -193,6 +195,8 @@
                     <field name="date_planned"/>
                     <field name="date_delivery"/>
                 </group>
+                <separator string="Suppliers" colspan="4"/>
+                <field name="supplier_ids" colspan="4" nolabel="1" />
                 <separator string="Description" colspan="4"/>
                 <field name="notes" colspan="4" nolabel="1" widget="text_wiki"/>
                 <field name="state" nolabel="1"/>

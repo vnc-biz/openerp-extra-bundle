@@ -401,6 +401,7 @@ class dm_offer(osv.osv): # {{{
         for ostep in offer_steps:
             # offer step is copied:
             nid = offer_step_obj.copy(cr, uid, ostep.id, {
+                'name': 'New offer step from offer step %s' % ostep.name,
                 'offer_id': offer_id,
                 'document_ids': [],
                 'outgoing_transition_ids': [],
@@ -411,6 +412,7 @@ class dm_offer(osv.osv): # {{{
             new_docs = []
             for doc in ostep.document_ids:
                 doc_id = document_obj.copy(cr, uid, doc.id, {
+                    'name': 'New document from document %s' % doc.name,
                     'step_id': nid,
                     'document_template_plugin_ids': [],
                 })

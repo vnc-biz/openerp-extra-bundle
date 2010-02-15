@@ -117,9 +117,6 @@ class report_graph_instance(object):
 
         graph_get(cr, uid, graph, offer_id)
 
-        from olilib.openerp import terp
-        import pydb; pydb.debugger(['set listsize 40'])
-        print
         ps_string = graph.create_ps(prog='dot')
         if os.name == "nt":
             prog = 'ps2pdf.bat'

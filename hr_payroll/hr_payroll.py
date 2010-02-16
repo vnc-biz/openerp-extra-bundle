@@ -521,7 +521,7 @@ class payment_category(osv.osv):
             method=True,
             view_load=True,
             help="Contribution register based on company",
-            required=True
+            required=False
         ),
         'note': fields.text('Description'),	
 		'user_id':fields.char('User', size=64, required=False, readonly=False),
@@ -540,7 +540,7 @@ class payment_category(osv.osv):
             method=True,
             view_load=True,
             help="Expanse account where company expanse will be encoded",
-            required=True
+            required=False
         ),
     }
     _defaults = {
@@ -1763,13 +1763,15 @@ class hr_payslip_line(osv.osv):
     def execute_function(self, cr, uid, id, value, context):
         line_pool = self.pool.get('hr.payslip.line.line')
         res = 0
-        ids = line_pool.search(cr, uid, [('slipline_id','=',id), ('to','>=',value),('from','<=',value)])
+        ids = line_pool.search(cr, uid, [('slipline_id','=',id), ('from_val','<=',value), ('to_val','>=',value)])
+        
         if not ids:
-            ids = line_pool.search(cr, uid, [('slipline_id','=',id), ('from','<=',value)])
+            ids = line_pool.search(cr, uid, [('slipline_id','=',id), ('from_val','<=',value)])
+        
         if not ids:
-            res = 0
-        else:
-            res = line_pool.browse(cr, uid, ids)[0].value
+            return 0
+        
+        res = line_pool.browse(cr, uid, ids)[-1].value
         return res
         
 hr_payslip_line()
@@ -1786,8 +1788,8 @@ class hr_payslip_line_line(osv.osv):
         'slipline_id':fields.many2one('hr.payslip.line', 'Slip Line', required=False),
         'name':fields.char('Name', size=64, required=False, readonly=False),
         'umo_id':fields.many2one('product.uom', 'Unite', required=False),
-        'from': fields.float('From', digits=(16, int(config['price_accuracy']))),
-        'to': fields.float('To', digits=(16, int(config['price_accuracy']))),
+        'from_val': fields.float('From', digits=(16, int(config['price_accuracy']))),
+        'to_val': fields.float('To', digits=(16, int(config['price_accuracy']))),
         'amount_type':fields.selection([
             ('fix','Fixed Amount'),
         ],'Amount Type', select=True),

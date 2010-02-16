@@ -215,8 +215,8 @@
                                 <tree string="Function Arguments" editable="bottom">
                                     <field name="name"/>
                                     <field name="sequence"/>
-                                    <field name="from"/>
-                                    <field name="to"/>
+                                    <field name="from_val"/>
+                                    <field name="to_val"/>
                                     <field name="amount_type"/>
                                     <field name="value"/>
                                 </tree>
@@ -414,8 +414,8 @@
                             <field name="amount_type" attrs="{'required': [('contribute','=',True)]}"/>
                             <field name="contribute_per" attrs="{'required': [('contribute','=',True)], 'readonly':[(('amount_type','=','func'))]}"/>
                             <field name="register_id" attrs="{'required': [('contribute','=',True)]}"/>
-                            <field name="include_in_salary"/>
-                            <field name="account_id" attrs="{'required': [('contribute','=',True)]}"/>
+                            <field name="include_in_salary" />
+                            <field name="account_id" attrs="{'required': [('contribute','=',True), ('include_in_salary','=',True)]}"/>
                         </group>
                     </group>
                     <notebook colspan="4">

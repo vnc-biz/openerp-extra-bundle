@@ -171,12 +171,14 @@
         <field name="type">form</field>
 		<field name="inherit_id" ref="dm.view_dm_campaign_document_form"/>
         <field name="arch" type="xml">
-			<field name="state" position="after">
-				<field name="printer_id"/>
-				<field name="printer_tray_id"/>
-				<field name="campaign_document_job"/>
-				<field name="campaign_document_job_position"/>
-				<field name="verso"/>
+			<field name="origin" position="after">
+				<group colspan="4">
+					<field name="printer_id"/>
+					<field name="printer_tray_id"/>
+					<field name="campaign_document_job"/>
+					<field name="campaign_document_job_position"/>
+					<field name="verso"/>
+				</group>
 			</field>
         </field>
     </record>

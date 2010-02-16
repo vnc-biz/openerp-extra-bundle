@@ -12,7 +12,7 @@
             <field name="name">dm.purchase.inherit</field>
             <field name="model">dm.campaign</field>
             <field name="type">form</field>
-			<field eval="25" name="priority"/>             
+            <field eval="25" name="priority"/>
             <field name="inherit_id" ref="dm.view_campaign_form"/>
             <field name="arch" type="xml">
                 <page string="General" position="after">

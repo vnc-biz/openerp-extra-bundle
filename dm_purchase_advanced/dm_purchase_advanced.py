@@ -634,7 +634,6 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         for pline in self.browse(cr, uid, ids):
             delivered=False
             ordered=False
-            print 'pline po ids : ',pline.purchase_order_ids
             if pline.purchase_order_ids:
                 for po in pline.purchase_order_ids:
                     if delivered:

@@ -372,8 +372,7 @@ class dm_campaign(osv.osv): #{{{
         if not self.check_forbidden_country(cr, uid, data_cam.offer_id.id,
                                             data_cam.country_id.id):
             raise osv.except_osv("Error", "You cannot use this offer in this country")
-        ''' create campaign mail service '''
-
+        # create campaign mail service:
 #        mail_service_id = for each step in the offer the system should:
 #            - check the media of the step,
 #            - find the default mail service for that media

@@ -20,7 +20,10 @@
 ##############################################################################
 from osv import fields
 from osv import osv
+from osv.orm import except_orm
 import netsvc
+from tools.translate import _
+
 
 class ir_attachment(osv.osv):
     _inherit = 'ir.attachment'

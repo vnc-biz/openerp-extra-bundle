@@ -166,7 +166,6 @@ class account_voucher(osv.osv):
                 if line.invoice_id.id:
                     invoice = self.pool.get('account.invoice').browse(cr, uid, line.invoice_id.id)
                     src_account_id = invoice.account_id.id
-#                cr.execute('select id from account_move_line where move_id in ('+str(move_id)+','+str(invoice.move_id.id)+')')
                     cr.execute('select id from account_move_line where move_id in ('+str(invoice.move_id.id)+')')
                     temp_ids = map(lambda x: x[0], cr.fetchall())
                     temp_ids.append(ml_id)

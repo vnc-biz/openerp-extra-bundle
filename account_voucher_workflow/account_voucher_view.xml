@@ -19,5 +19,17 @@
 				</group>
 			</field>
 		</record>
+		
+		<record id="view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="max_amount" search="1"/>
+                </field>
+            </field>
+        </record>
 	</data>
 </openerp>

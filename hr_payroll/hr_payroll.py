@@ -647,11 +647,9 @@ class hr_payslip(osv.osv):
                 cd = line.category_id.code.lower()
                 obj[cd] = amount
                 
-#                #FIXME: need to fix this condition this is written for the PF calculation, 
-#                #This condition should be come from PF configuration
-                contrib = line.company_contrib
-#                if contrib > amount:
-#                    contrib = amount
+                contrib = 0.0
+                if line.category_id.include_in_salary:
+                    contrib = line.company_contrib
                 
                 self.pool.get('hr.payslip.line').write(cr, uid, [line.id], {'total':amount})
                 

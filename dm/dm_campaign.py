@@ -304,7 +304,6 @@ class dm_campaign(osv.osv): #{{{
 
     def write(self, cr, uid, ids, vals, context=None):
         camp = self.pool.get('dm.campaign').browse(cr, uid, ids)[0]
-
         offer_id = 'offer_id' in vals and vals['offer_id'] or camp.offer_id.id
         country_id = 'country_id' in vals and vals['country_id'] or camp.country_id.id
 
@@ -322,16 +321,16 @@ class dm_campaign(osv.osv): #{{{
             vals['journal_id'] = journal_id
 
         #Set campaign end date at one year after start date if end date does not exist
+       
         if 'date_start' in vals and vals['date_start']:
             d = time.strptime(vals['date_start'], "%Y-%m-%d")
             d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
             vals['date'] = date_end.strftime('%Y-%m-%d')
-    
             # Set dates for propositions and segments of the campaign
             for propo in camp.proposition_ids:
                 self.pool.get('dm.campaign.proposition').write(cr, uid, [propo.id],
-                        {'date_start':vals['date_start'], 'date':vals['date'],
+                        {'date_start': vals['date_start'], 'date':vals['date'],
                             'forwarding_charge':vals['forwarding_charge']})  
                 for seg in propo.segment_ids:
                     self.pool.get('dm.campaign.proposition.segment').write(cr,
@@ -735,6 +734,18 @@ dm_customers_list_type()#}}}
 class dm_customers_list(osv.osv): #{{{
     _name = "dm.customers_list"
     _description = "A list of addresses proposed by an adresses broker"
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
+                                                        context=None, count=False):
+        
+        if context and 'campaign_id' in context:
+            campaign_country=self.pool.get('dm.campaign').read(cr,uid,context['campaign_id'],['country_id'])
+            if campaign_country.has_key('country_id'):
+                cr.execute('select cust_list_id from dm_cust_list_country_rel where country_id=%s' %(campaign_country['country_id'][0]))
+                res=cr.fetchall()
+                args.append(('id','in',res))
+        return super(dm_customers_list, self).search(cr, uid, args, offset, limit, order, context, count)
+    
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
@@ -744,7 +755,10 @@ class dm_customers_list(osv.osv): #{{{
         'broker_id': fields.many2one('res.partner', 'Broker',
                                     domain=[('category_id', 'ilike', 'Broker')],
                                      context={'category_xml_id': 'cat_broker'}),
-        'country_id': fields.many2one('res.country', 'Country'),
+        'country_id': fields.many2many('res.country',
+                                        'dm_cust_list_country_rel',
+                                        'cust_list_id', 'country_id',
+                                        'Country'),
         'currency_id': fields.many2one('res.currency', 'Currency'),
         'product_id': fields.many2one('product.product', 'Product',
                             domain=[('categ_id', 'ilike', 'Customers List')],
@@ -1057,9 +1071,11 @@ class dm_mail_service(osv.osv): # {{{
         'action_date': fields.datetime('Date'),
         'action_interval': fields.integer('Interval'),
         'unit_interval': fields.selection([('minutes', 'Minutes'),
-            ('hours', 'Hours'),
-            ('days', 'Days'),
-            ('weeks', 'Weeks'), ('months', 'Months')], 'Interval Unit'),
+                                            ('hours', 'Hours'),
+                                            ('days', 'Days'),
+                                            ('weeks', 'Weeks'),
+                                             ('months', 'Months')], 
+                                             'Interval Unit'),
         'default_for_media': fields.boolean('Default Mail Service for Media'),
         'action_id': fields.many2one('ir.actions.server', 'Server Action'),
         'type_id': fields.many2one('dm.mail_service.type', 'Type',

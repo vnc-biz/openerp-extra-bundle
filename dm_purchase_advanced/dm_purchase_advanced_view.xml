@@ -217,7 +217,7 @@
         <field name="view_id" ref="view_campaign_purchase_line_tree"/>
     </record>
 
-    <menuitem id="menu_action_campaign_purchase_line_form" parent="dm.menu_dm_config_campaign" action="action_campaign_purchase_line_form"/>
+    <menuitem id="menu_action_campaign_purchase_line_form" parent="dm.menu_dm_config_campaign" action="action_campaign_purchase_line_form" sequence = "14"/>
 
     <!--
     =======================================================

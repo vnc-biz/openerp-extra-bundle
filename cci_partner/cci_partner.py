@@ -146,6 +146,8 @@ class res_partner(osv.osv):
     _description = "res.partner"
 
     def create(self, cr, uid, vals, *args, **kwargs):
+        if vals.has_key('vat') and vals['vat']:
+            vals.update({'vat':vals['vat'].upper()})
         new_id = super(osv.osv,self).create(cr, uid, vals, *args, **kwargs)
         #complete the user_id (salesman) automatically according to the zip code of the main address. Use res.partner.zip to select salesman according to zip code
         if vals.has_key('address') and vals['address']:
@@ -158,6 +160,8 @@ class res_partner(osv.osv):
 
     def write(self, cr, uid, ids,vals, context=None):
         list=[]
+        if vals.has_key('vat') and vals['vat']:
+            vals.update({'vat':vals['vat'].upper()})
         for partner in self.browse(cr, uid, ids):
             if not partner.user_id:
         #if not self.pool.get('res.partner').browse(cr, uid, ids)[0].user_id.id:

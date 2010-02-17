@@ -11,7 +11,6 @@
 	    <record id="ir_actions_server_none0" model="ir.actions.server">
 	    	<field eval="&quot;&quot;&quot;# You can use the following variables
 	#    - object
-	#    - object2
 	#    - time
 	#    - cr
 	#    - uid

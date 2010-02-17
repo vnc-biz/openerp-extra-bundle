@@ -404,7 +404,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field eval="&quot;&quot;&quot;ir.actions.server&quot;&quot;&quot;" name="type"/>
             <field name="model_id" ref="dm.model_dm_workitem"/>
             <field eval="[(6,0,[])]" name="child_ids"/>
-            <field eval="&quot;&quot;&quot;from dm import dm_report_design \naction = dm_report_design.document_process(cr,uid,obj,'pdf',context)&quot;&quot;&quot;" name="code"/>
+            <field eval="&quot;&quot;&quot;from dm import dm_report_design \naction = dm_report_design.document_process(cr,uid,object,'pdf',context)&quot;&quot;&quot;" name="code"/>
             <field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
             <field eval="&quot;&quot;&quot;Generate PDF Document&quot;&quot;&quot;" name="name"/>
         </record>
@@ -415,7 +415,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field eval="&quot;&quot;&quot;ir.actions.server&quot;&quot;&quot;" name="type"/>
             <field name="model_id" ref="dm.model_dm_workitem"/>
             <field eval="[(6,0,[])]" name="child_ids"/>
-            <field eval="&quot;&quot;&quot;wi_ids = self.search(cr, uid, [('state','=','pending'),('address_id','=',obj.address_id.id),('segment_id','=',obj.segment_id.id)])\nif wi_ids:\n    self.write(cr, uid, wi_ids, {'state':'cancel','error_msg':'Cancelled by unsubscrition'})\naction = {'code':'unsubscribe'}&quot;&quot;&quot;" name="code"/>
+            <field eval="&quot;&quot;&quot;wi_ids = self.search(cr, uid, [('state','=','pending'),('address_id','=',object.address_id.id),('segment_id','=',object.segment_id.id)])\nif wi_ids:\n    self.write(cr, uid, wi_ids, {'state':'cancel','error_msg':'Cancelled by unsubscrition'})\naction = {'code':'unsubscribe'}&quot;&quot;&quot;" name="code"/>
             <field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
             <field eval="&quot;&quot;&quot;Unsubscribe&quot;&quot;&quot;" name="name"/>
         </record>
@@ -427,7 +427,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field name="model_id" ref="dm.model_dm_workitem"/>
             <field eval="[(6,0,[])]" name="child_ids"/>
             <field eval="1" name="dm_action"/>
-            <field eval="&quot;&quot;&quot;from dm import dm_report_design \naction = dm_report_design.document_process(cr,uid,obj,'html2html',context)&quot;&quot;&quot;" name="code"/>
+            <field eval="&quot;&quot;&quot;from dm import dm_report_design \naction = dm_report_design.document_process(cr,uid,object,'html2html',context)&quot;&quot;&quot;" name="code"/>
             <field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
             <field eval="&quot;&quot;&quot;Generate HTML Document&quot;&quot;&quot;" name="name"/>
         </record>
@@ -438,7 +438,7 @@ In a multimedia context, the term mailing could be a paper mail, an e-mail, an s
             <field eval="&quot;&quot;&quot;ir.actions.server&quot;&quot;&quot;" name="type"/>
             <field name="model_id" ref="dm.model_dm_campaign_document"/>
             <field eval="[(6,0,[])]" name="child_ids"/>
-            <field eval="&quot;&quot;&quot;from dm import dm_document\naction = dm_document.create_email_queue(cr,uid,obj,context)&quot;&quot;&quot;" name="code"/>
+            <field eval="&quot;&quot;&quot;from dm import dm_document\naction = dm_document.create_email_queue(cr,uid,object,context)&quot;&quot;&quot;" name="code"/>
             <field eval="&quot;&quot;&quot;True&quot;&quot;&quot;" name="condition"/>
             <field eval="&quot;&quot;&quot;Generate Email Queue&quot;&quot;&quot;" name="name"/>
         </record>

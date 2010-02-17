@@ -275,6 +275,14 @@ def set_image_email(node,msg): # {{{
 def generate_report(cr, uid, obj_id, file_type, report_type, context):
     pool = pooler.get_pool(cr.dbname)
     obj = pool.get('dm.campaign.document').browse(cr, uid, obj_id)
+    
+    """ Set context values """
+    context['workitem_id'] = obj.workitem_id.id
+    context['address_id'] = obj.workitem_id.address_id.id
+    context['step_id'] = obj.workitem_id.step_id.id
+    context['document_id'] = obj.document_id.id
+    context['segment_id'] = obj.workitem_id.segment_id.id    
+
     message = []
     if obj.mail_service_id.store_document:
         ir_att_obj = pool.get('ir.attachment')
@@ -293,7 +301,7 @@ def generate_report(cr, uid, obj_id, file_type, report_type, context):
             report_data = generate_internal_reports(cr, uid, report_type, document_data.id, False, context)
         else :
             report_data = generate_openoffice_reports(cr, uid, report_type, document_data.id, False, context)
-        if report_data in ('plugin_error','plugin_missing','wrong_report_type') :
+        if report_data in ('plugin_error','plugin_missing','wrong_report_type','no_report_for_document') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
     print len(message)

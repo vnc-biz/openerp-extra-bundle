@@ -1022,7 +1022,7 @@
                     <field name="media_id" select="1"/>
                     <field name="owner_id" select="1"/>
                     <field name="broker_id" select="1"/>
-                    <field name="country_id" select="1"  />
+                    <field name="country_ids" select="1"  />
                     <field name="currency_id" select="2"/>
                     <separator string="" colspan="2"/>
                     <field name="list_type_id" select="2"/>
@@ -1057,7 +1057,7 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="broker_id"/>
-                <field name="country_id"/>
+                <field name="country_ids"/>
             </tree>
         </field>
     </record>

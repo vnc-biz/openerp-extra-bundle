@@ -1053,7 +1053,7 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;Open ERP Customers&quot;&quot;&quot;" name="name"/>
             <field eval="15.0" name="per_thousand_price"/>
             <field eval="&quot;&quot;&quot;The list of all Open ERP Customers&quot;&quot;&quot;" name="notes"/>
-            <field name="country_id" ref="base.us"/>
+            <field eval="[(6,0,[ref('base.us')])]" name="country_ids"/>
             <field eval="&quot;&quot;&quot;net&quot;&quot;&quot;" name="invoice_base"/>
         </record>
         <record id="dm_customers_list_bookstore_nale_us0" model="dm.customers_list">
@@ -1068,7 +1068,7 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;NALE US Bookstores List&quot;&quot;&quot;" name="name"/>
             <field eval="15.0" name="per_thousand_price"/>
             <field eval="&quot;&quot;&quot;NALE Addresses List of Bookstores in the US&quot;&quot;&quot;" name="notes"/>
-            <field name="country_id" ref="base.us"/>
+            <field eval="[(6,0,[ref('base.us')])]" name="country_ids"/>
             <field eval="&quot;&quot;&quot;net&quot;&quot;&quot;" name="invoice_base"/>
         </record>
         <record id="dm_customers_list_assoc_bosslist_us0" model="dm.customers_list">
@@ -1083,7 +1083,7 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;BossList US Associations List&quot;&quot;&quot;" name="name"/>
             <field eval="13.0" name="per_thousand_price"/>
             <field eval="&quot;&quot;&quot;BossList Addresses List of Associations in the US&quot;&quot;&quot;" name="notes"/>
-            <field name="country_id" ref="base.us"/>
+            <field eval="[(6,0,[ref('base.us')])]" name="country_ids"/>
             <field eval="&quot;&quot;&quot;net&quot;&quot;&quot;" name="invoice_base"/>
         </record>
 

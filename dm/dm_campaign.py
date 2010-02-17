@@ -755,7 +755,7 @@ class dm_customers_list(osv.osv): #{{{
         'broker_id': fields.many2one('res.partner', 'Broker',
                                     domain=[('category_id', 'ilike', 'Broker')],
                                      context={'category_xml_id': 'cat_broker'}),
-        'country_id': fields.many2many('res.country',
+        'country_ids': fields.many2many('res.country',
                                         'dm_cust_list_country_rel',
                                         'cust_list_id', 'country_id',
                                         'Country'),

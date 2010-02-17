@@ -77,6 +77,10 @@ def _invoice_membership(self, cr, uid, data, context):
             }
         )
         line_value['invoice_id'] = invoice_id
+        membership_amount =  partner_obj.read(cr, uid, partner_id, ['membership_amount'])['membership_amount']
+        if membership_amount:
+            line_value['price_unit'] = membership_amount
+
         invoice_line_id = invoice_line_obj.create(cr, uid, line_value, context)
         invoice_obj.write(cr, uid, invoice_id, {'invoice_line':[(6,0,[invoice_line_id])]})
         invoice_list.append(invoice_id)

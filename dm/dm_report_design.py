@@ -120,7 +120,7 @@ def generate_openoffice_reports(cr, uid, report_type,
     document_data = pool.get('dm.offer.document').browse(cr,uid,document_data)    
     report_xml = pool.get('ir.actions.report.xml')
     report_ids = report_xml.search(cr, uid, 
-                    [('document_id', '=', document_data.id),'|', 
+                    [('document_id', '=', document_data.id), 
                     ('report_type', '=', report_type),])
     if not report_ids:
         return "no_report_for_document"
@@ -221,7 +221,7 @@ def process_report(cr, uid, obj, report_type, mail_service, document_data, addre
     if not document_data.content and document_data.editor == 'internal':
         return {'code': "no_report_for_document"}
     report_ids = report_xml.search(cr, uid, 
-                                   [('document_id', '=', document_data.id),'|', 
+                                   [('document_id', '=', document_data.id), 
                                     ('report_type', '=', report_type),])
     if not report_ids and document_data.editor == 'oord':
         return {'code': "no_report_for_document"}

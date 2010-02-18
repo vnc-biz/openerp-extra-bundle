@@ -247,7 +247,7 @@ class dm_offer(osv.osv): # {{{
                                                 'offer_id', 'state_id',
                                                 'Forbidden States'),
         'keywords': fields.text('Keywords'),
-        'version': fields.float('Version'),
+        'version': fields.char('Version', size=64),
         'child_ids': fields.one2many('dm.offer', 'offer_origin_id',
                                                            'Childs Category'),
     }

@@ -63,7 +63,7 @@
 			                            <form string="Contacts">
 			                            	<group string="Partner" colspan="2" col="2">
 			                                	<field name="sequence_partner"/>
-		                               			<field name="name"/>
+		                               			<!--<field name="name"/>-->
 			                                	<field name="contact_id"/>
 			                                	<!--<field name="function_id"/>-->
                                                                 <field name="function_label"/>
@@ -132,7 +132,7 @@
                          	</group>
 	                        <group colspan="2" col="2">
 	                              <separator string="calls to premium" colspan="2"/>
-	                              <field name="membership_amount" select="2"/>
+	                              <field name="membership_amount" select="2" string="Cotisation Demandée (HTVA)"/>
 	                              <field name="membership_vcs"/>
 	                         </group>
 	                        <group colspan="2" col="2">
@@ -253,6 +253,7 @@
                             <field name="state" select="2"/>
                             <newline/>
                             <field name="acc_number" select="1"/>
+                            <field name="iban"/>
                             <newline/>
                             <field name="bank"/>
                             <newline/>
@@ -272,6 +273,7 @@
                             <field name="state"/>
                             <field name="owner_name"/>
                             <field name="acc_number"/>
+                            <field name="iban"/>
                         </tree>
                     </field>
 			</page>

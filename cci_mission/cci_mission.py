@@ -172,7 +172,7 @@ class cci_missions_embassy_folder(osv.osv):
         'site_id': fields.many2one('cci_missions.site','Site', required=True),
         'invoice_date' : fields.datetime('Invoice Date', readonly=True) ,
         "invoice_id":fields.many2one("account.invoice","Invoice"),
-        'date' : fields.related('crm_case_id', 'date', type='date', string="Date", store=True)
+        'embassy_date' : fields.related('crm_case_id', 'date', type='date', string="Date", store=True)
     }
 
     _defaults = {
@@ -180,9 +180,9 @@ class cci_missions_embassy_folder(osv.osv):
         'invoice_date': lambda *a: False,
         'name': lambda *args: '/',
         'state' :  lambda *a : 'draft',
-        "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
+       # "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
     }
-    _order = "cci_missions_embassy_folder.date desc"
+    _order = "cci_missions_embassy_folder.embassy_date desc"
 
     _constraints = [(check_folder_line, _('Error: Only One Embassy Folder line allowed for each type!'), ['embassy_folder_line_ids'])]
 

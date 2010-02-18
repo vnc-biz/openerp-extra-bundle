@@ -208,6 +208,8 @@
                         <field name="analytic_account_id"/>
                         <separator colspan="4" string="Reambusement Informations"/>
                         <field name="expanse_id"/>
+                        <separator colspan="4" string="Company contribution"/>
+                        <field name="company_contrib"/>
                     </group>
                     <notebook colspan="4">
                         <page string="Function">

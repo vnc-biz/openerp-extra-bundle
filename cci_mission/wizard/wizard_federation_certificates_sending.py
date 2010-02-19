@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -64,10 +64,10 @@ param_form = """<?xml version="1.0"?>
 </form>"""
 
 fields = {
-    'cert_type': {'string' : 'Certificate Type', 'type' : 'many2one', 'required' : True, 'relation':'cci_missions.dossier_type' ,'required':True,'domain' :[('section', '=', 'certificate')] }, 
+    'cert_type': {'string' : 'Certificate Type', 'type' : 'many2one', 'required' : True, 'relation':'cci_missions.dossier_type' ,'required':True,'domain' :[('section', '=', 'certificate')] },
     'month':     {'string' : 'Month', 'type':'selection','selection': MONTHS ,'required': True,'default' : past_month()},
     'year':      {'string' : 'Year', 'type':'integer','size' : 4,'required': True,'default': year_past_month()},
-    'canceled':  {'string' : 'include canceled certificates', 'type' : 'boolean', 'default' : lambda *a: True }, 
+    'canceled':  {'string' : 'include canceled certificates', 'type' : 'boolean', 'default' : lambda *a: True },
     'email_to':  {'string': 'Sending email', 'type':'char', 'required': True,'size':128 ,'help':'The e-mail address where to send the file', 'default': lambda *a: 'co.woa@taktik.be'},
     'email_rcp': {'string': 'Reception email', 'type':'char', 'required': True,'size':128 ,'help':'The e-mail address where receive the proof of receipt (usually yours)'},
    }
@@ -93,19 +93,19 @@ class wizard_cert_fed_send(wizard.interface):
 
     def make_lines(self,cr,uid,res_file, data):
         lines=[]
-        
+
         # first header line : _field_separator + _record_separator + _field_separator
         # so the receiver can detect which separators we use
         lines.append( self._field_separator + self._record_separator + self._field_separator)
-        
+
         # second header line : give the id code of the CCI, the number of details lines and the email address
         # for the sending of the reception of this file by the federation mail robot
-        
+
         # we obtain the id key of the CCI in the federation
         pool = pooler.get_pool(cr.dbname)
         res_company = pool.get('res.company').browse(cr, uid, 1)
         lines.append( res_company.federation_key + self._field_separator + str(len(res_file)).rjust(6,'0') + self._field_separator + str(data['form']['email_rcp']).strip() + self._field_separator )
-        
+
         # Let's build a list of certificates objects
         certificates_ids = [x[0] for x in res_file]
         obj_certificate = pool.get('cci_missions.certificate')
@@ -118,7 +118,7 @@ class wizard_cert_fed_send(wizard.interface):
             sequence_num += 1
             certificate = obj_certificate.browse(cr,uid,cert)
             fields.append( str(sequence_num).rjust(6,'0') )
-            fields.append( certificate.digital_number and str(int(certificate.digital_number)) or (certificate.type_id.id_letter + certificate.name.rpartition('/')[2].rjust(6,'0')) )  # extract the right part of the number of the certificate (CO/2008/25 -> '25' the left justify with '0' -> '000025' )
+            fields.append( certificate.digital_number or (certificate.type_id.id_letter + certificate.name.rpartition('/')[2].rjust(6,'0')) )  # extract the right part of the number of the certificate (CO/2008/25 -> '25' the left justify with '0' -> '000025' )
             fields.append( certificate.dossier_id.asker_name or '')
             fields.append( certificate.asker_address or '')
             fields.append( certificate.asker_zip_id.name or '')
@@ -138,11 +138,11 @@ class wizard_cert_fed_send(wizard.interface):
                 origins_string += country_code.name + self._field_separator
             fields.append( origins_string ) # YES, there will be TWO fields separators at the end of this list, to mark the end of the list, exactly
             lines.append( self._field_separator.join(fields) + self._field_separator )
-        
+
         # Trailer : the sum of all the values in cents of the included certificates
         lines.append( '999999' + self._field_separator + str( total_value ) + self._field_separator )
 
-        # Since we send this file to the federation, we indicate this date in the field  
+        # Since we send this file to the federation, we indicate this date in the field
         # obj_certificate.write(cr, uid,certificates_ids, {'sending_spf' : time.strftime('%Y-%m-%d')})
         return lines
 

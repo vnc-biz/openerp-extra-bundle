@@ -486,6 +486,12 @@ class cci_missions_certificate(osv.osv):
                 vals.update({'name': seq})
         return super(osv.osv,self).create(cr, uid, vals, *args, **kwargs)
 
+    def check_digital_no(self,cr, uid, ids):
+        for data in self.browse(cr, uid, ids):
+            if not data.digital_number.isdigit():
+                return False
+        return True
+
     _columns = {
         'dossier_id' : fields.many2one('cci_missions.dossier','Dossier'),
         'total':fields.function(_amount_total, method=True, string='Total', store=True),# sum of the price for copies, originals and extra_products
@@ -497,14 +503,14 @@ class cci_missions_certificate(osv.osv):
         'sending_spf': fields.date('SPF Sending Date',help='Date of the sending of this record to the external database'),
         'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
         'date_certificate' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True),
-        'digital_number': fields.float('Digital Number', digits=(11,0)),
+        'digital_number': fields.char('Digital Number', size=11, help='Please Enter only digits for Digital Number'),
     }
     _order = "cci_missions_certificate.date_certificate desc"
 
     _defaults = {
         'special_reason': lambda *a: 'none',
     }
-
+    _constraints = [(check_digital_no, 'Only Digits allowed', ['digital_number'])]
 cci_missions_certificate()
 
 class cci_missions_legalization(osv.osv):

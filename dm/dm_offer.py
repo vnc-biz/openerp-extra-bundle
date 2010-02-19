@@ -383,6 +383,7 @@ class dm_offer(osv.osv): # {{{
         document_obj = self.pool.get('dm.offer.document')
         transition_obj = self.pool.get('dm.offer.step.transition')
         plugin_obj = self.pool.get('dm.dtp.plugin')
+        ir_report_xml_obj = self.pool.get('ir.actions.report.xml')
 
         offer = self.browse(cr, uid, id)
 
@@ -416,6 +417,13 @@ class dm_offer(osv.osv): # {{{
                     'step_id': nid,
                     'document_template_plugin_ids': [],
                 })
+                # copy xml reports:
+                report_ids = ir_report_xml_obj.search(cr, uid, [('document_id', '=', doc.id)])
+                for report_id in report_ids:
+                    new_report_id = ir_report_xml_obj.copy(cr, uid, report_id, {
+                        'document_id': doc_id,
+                    })
+
                 plugins = []
                 for plugin in doc.document_template_plugin_ids:
                     sql = "insert into dm_doc_template_plugin_rel (document_id, document_template_plugin_id) values (%s, %s)"

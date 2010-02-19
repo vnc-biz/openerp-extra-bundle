@@ -21,10 +21,17 @@
 
 {
     "name" : "Poland - Chart of Accounts",
-    "version" : "1.0",
-    "author" : "Tiny",
+    "version" : "1.1",
+    "author" : "Tiny and Grzegorz Grzelak (Cirrus)",
     "category" : "Localisation/Account Charts",
-    "description": "This is the module to manage the accounting chart for Poland in Open ERP.",
+    "description": """
+     This is the module to manage the accounting chart and taxes for Poland in Open ERP.
+     Module is based on original Tiny l10n_chart_pl module version 1.0.
+
+     To jest moduł do tworzenia wzorcowego planu kont i podstawowych ustawień do podatków
+     VAT 0%, 7% i 22%. Moduł ustawia też konta do kupna i sprzedaży towarów zakładając,
+     że wszystkie towary są w obrocie hurtowym.
+    """,
     "depends" : ["account", "base_iban", "base_vat", "account_chart"],
     "demo_xml" : [],
     "update_xml" : ['account_tax_code.xml',"account_chart.xml",

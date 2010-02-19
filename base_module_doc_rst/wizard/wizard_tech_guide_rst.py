@@ -304,7 +304,7 @@ class RstDoc(object):
         else:
             sl.extend(["", "None", ""])
 
-        return '\n'.join(sl)
+        return u'\n'.join([a.decode('utf8') for a in sl])
 
     def _write_relationship_graph(self, module_name=False):
         sl = ["",

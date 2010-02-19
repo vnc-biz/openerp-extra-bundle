@@ -44,8 +44,9 @@ class module(osv.osv):
             for field in (f for f in model_data.field_id if f.ttype in ('many2many', 'many2one', 'one2many')):
                 relation.append((model_data.model, field.name, field.ttype, field.relation, field.field_description))
                 new_model_ids = self.pool.get('ir.model').search(cr, uid, [('model', '=', field.relation)])
-                model = self.pool.get('ir.model').read(cr, uid, new_model_ids, ['id', 'name'])[0]
-                relation.extend(self._get_graphical_representation(cr, uid, model['id'], level - 1))
+                if new_model_ids:
+                    model = self.pool.get('ir.model').read(cr, uid, new_model_ids, ['id', 'name'])[0]
+                    relation.extend(self._get_graphical_representation(cr, uid, model['id'], level - 1))
         return tuple(relation)
 
     def _get_structure(self, relations, main_element):

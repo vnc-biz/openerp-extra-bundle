@@ -81,7 +81,7 @@ class account_invoice_with_message(report_sxw.rml_parse):
     def _get_decimal_value(self,amount):
         x = str(amount)
         x=x.split('.')
-        t = str(x[1])
+        t = len(x) == 2 and str(x[1]) or '00'
         cir= '   '.join(map(lambda i : i , t))
         return cir
 

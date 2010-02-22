@@ -488,7 +488,7 @@ class cci_missions_certificate(osv.osv):
 
     def check_digital_no(self,cr, uid, ids):
         for data in self.browse(cr, uid, ids):
-            if not data.digital_number.isdigit():
+            if data.digital_number and not data.digital_number.isdigit():
                 return False
         return True
 

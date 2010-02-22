@@ -619,7 +619,6 @@
                         <field name="quantity_delivered" />
 <!--                     <field name="quantity_usable" />-->
                         <field name="quantity_real"/>
-                        <field name="deduplication_level"/>
                         <field name="note" />
                    </tree>
                 </field>

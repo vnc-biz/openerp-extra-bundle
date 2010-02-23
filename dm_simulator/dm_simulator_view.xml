@@ -38,24 +38,28 @@
                 <notebook colspan="4">
                 <page string="General">
                 <group colspan="2" col="3">
-                    <separator string="Duration"/>
+                    <separator string="Duration" colspan="2"/>
+					<newline/>
                     <field name="duration" select="2" />
                     <field name="duration_unit" nolabel="1" />
                 </group>
                 <group colspan="2" col="2">
-                    <separator string="Options"/>
+                    <separator string="Options" colspan="2"/>
+					<newline/>
                     <field name="so_gen" select="2" />
                     <field name="invoice_gen" select="2" attrs="{'readonly':[('so_gen','!=',True)]}"/>
                 <!--    <field name="invoice_pay" select="2" attrs="{'readonly':[('invoice_gen','!=',True)]}"/>-->
                 </group>
                 <separator string="Simulation Informations" colspan="4"/>
                 <group colspan="2" col="2">
-                <separator string="Dates" />
+                	<separator string="Dates" colspan="2"/>
+					<newline/>
                     <field name="date_start" select="1" />
                     <field name="date_stop" select="1" />
                 </group>
                 <group colspan="2" col="2">
-                    <separator string="Quantities" />
+                    <separator string="Quantities" colspan="2"/>
+					<newline/>
                     <field name="cust_qty" />
                     <field name="action_qty" />
                     <field name="section_qty" />

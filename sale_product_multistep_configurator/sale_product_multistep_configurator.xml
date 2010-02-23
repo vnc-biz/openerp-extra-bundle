@@ -30,7 +30,7 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 	
-		<menuitem id="product_configurator_steps" parent="product.menu_config_product" name="Configurator Steps" action="product_multistep_configurator_step_list"/>
+		<menuitem id="product_configurator_steps" parent="product.prod_config_main" name="Configurator Steps" action="product_multistep_configurator_step_list"/>
 		 	
 		<record model="ir.ui.view" id="product_multistep_configurator_step_list_view_form">
 			<field name="name">product_multistep_configurator_step_list_view_form</field>

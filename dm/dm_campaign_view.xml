@@ -612,9 +612,8 @@
                    </form>
                    <tree string="Segments">
                         <field name="name" string="Name" />
-                        <field name="deduplication_level" />
                         <field name="code" string="Code" />
-                        <field name="quantity_planned" />
+<!--                        <field name="quantity_planned" />-->
                         <field name="quantity_wanted" />
                         <field name="quantity_delivered" />
 <!--                     <field name="quantity_usable" />-->
@@ -770,7 +769,7 @@
                 <field name="code" string="Code"/>
                 <field name="type_src"/>
                 <field name="campaign_id"/>
-                <field name="quantity_planned"/>
+<!--                <field name="quantity_planned"/>-->
                 <field name="quantity_wanted"/>
                 <field name="quantity_delivered"/>
                 <field name="quantity_real"/>
@@ -1021,7 +1020,8 @@
                     <field name="media_id" select="1"/>
                     <field name="owner_id" select="1"/>
                     <field name="broker_id" select="1"/>
-                    <field name="country_ids" select="1"  />
+                    <separator string="Application Countries" colspan="4"/>
+                    <field name="country_ids" colspan="4" nolabel="1" select="1"/>
                     <field name="currency_id" select="2"/>
                     <separator string="" colspan="2"/>
                     <field name="list_type_id" select="2"/>

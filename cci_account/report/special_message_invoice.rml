@@ -399,8 +399,8 @@
 <section>
 
 </section>
-<para style="message_footer">[[ o.domiciled and 'NE PAS PAYER, LE MONTANT EST RECLAME A VOTRE ORGANISME FINANCIER' or ('Merci de verser le montant sur le compte : '+ get_bank_account(o.id).upper() +' (BIC : '+get_bic(o.id)+')') ]] </para>
-<para style="message_footer">[[ o.domiciled and removeParentNode('para') or (u'Mention à rappeller sur le virement : ***'+ o.name +'***')  ]]</para>
+<para style="message_footer">[[ o.type == 'out_invoice' and (o.domiciled and 'NE PAS PAYER, LE MONTANT EST RECLAME A VOTRE ORGANISME FINANCIER' or ('Merci de verser le montant sur le compte : '+ get_bank_account(o.id).upper() +' (BIC : '+get_bic(o.id)+')')) or removeParentNode('para') ]] </para>
+<para style="message_footer">[[ o.type == 'out_invoice' and (o.domiciled and removeParentNode('para') or (u'Mention à rappeller sur le virement : ***'+ o.name +'***')) or removeParentNode('para')  ]]</para>
 <para style="P19">[[ format(o.comment) or removeParentNode('para') ]]</para>
 <para style="P19">[[ format(o.payment_term and o.payment_term.note) or removeParentNode('para') ]]</para>
 

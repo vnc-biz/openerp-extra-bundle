@@ -34,10 +34,10 @@ class account_invoice_with_message(report_sxw.rml_parse):
             'spcl_msg': self.spcl_msg,
             'invoice_lines': self.invoice_lines,
             'find_vcs' : self.find_vcs,
-            'fr_convert': self.fr_convert,
-            'en_convert': self.en_convert,
-            'get_value':self._get_value,
-            'get_decimal_value':self._get_decimal_value,
+            #'fr_convert': self.fr_convert,
+            #'en_convert': self.en_convert,
+            #'get_value':self._get_value,
+            #'get_decimal_value':self._get_decimal_value,
             'get_bic': self._get_bic,
             'get_bank_account': self._get_bank_account,
         })
@@ -47,8 +47,9 @@ class account_invoice_with_message(report_sxw.rml_parse):
         item = pooler.get_pool(self.cr.dbname).get('account.invoice').browse(self.cr,self.uid,invoice_id)
         s = ''
         if item.partner_bank:
-            bank_account = item.partner_bank.iban 
-            s = ' '.join(map(lambda i : i , bank_account))
+            bank_account = item.partner_bank.state == 'iban' and item.partner_bank.iban or item.partner_bank.acc_number
+            #s = ' '.join(map(lambda i : i , bank_account))
+            s = bank_account
         return s
 
     def _get_bic(self, invoice_id):
@@ -56,7 +57,8 @@ class account_invoice_with_message(report_sxw.rml_parse):
         s = ''
         if item.partner_bank:
             if item.partner_bank.bank:
-                s = ' '.join(map(lambda i : i , item.partner_bank.bank.bic))
+                #s = ' '.join(map(lambda i : i , item.partner_bank.bank.bic))
+                s =  item.partner_bank.bank.bic
         return s
 
     def find_vcs(self,invoice_id):

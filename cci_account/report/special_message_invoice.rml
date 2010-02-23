@@ -3,232 +3,7 @@
 <template pageSize="(595.0,842.0)" title="impression_facture" author="CCI Connect" allowSplitting="20">
 <pageTemplate id="first">
 <pageGraphics>
-
-<place x="3.5cm" y="-3.9cm"  width="100.0cm" height="5cm">
-<para style="P24bis"> [[(o.type == 'out_invoice') and '    '.join(map(lambda i : i , (o.domiciled and '***********') or str(o.name or ''))) or '' ]] </para>
-</place>
-
-
-<place x="13.6cm" y="7.2cm"  width="100.0cm" height="1cm">
-<blockTable colWidths="150.0,391.0" style="Tableau10">
-
-                                                                        <tr>
-                                                                                <td><para style="P25c"></para><xpre style="P25c">[[ (o.type == 'out_invoice') and '     '.join(map(lambda i : i , (o.domiciled and '***') or str(get_value(o.residual)))) or '']]</xpre></td>
-                                                                                <td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10"><!--[[(o.type == 'out_invoice') and ((o.domiciled and '**') or get_decimal_value(o.residual)) or '' ]]--></xpre></td>
-</tr>
-</blockTable>
-</place>
-
-<place x="-3.5cm" y="-0.7cm"  width="541.0" height="8.35cm">
-<blockTable colWidths="150.0,391.0" style="Tableau10">
-<tr>
-<td>
-<blockTable colWidths="165.0" style="Tableau10">
-<tr>
-<td></td>
-</tr>
-<tr>
-<td><para style="P25d3" leftIndent="6.0"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<!--tr>
-<td><para style="P24"></para></td>
-</tr-->
-<tr>
-<td>
-<blockTable colWidths="85.0,75.0" style="Tableau10">
-<tr>
-<td><para style="P24"></para></td>
-<td><para style="P24c1"></para></td>
-<!--	<td><para style="P24c1">[[ o.amount_total ]]</para></td-->
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-<td><para style="P24"></para></td>
-</tr>
-</blockTable>
-</td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"> </para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-</blockTable>
-</td>
-<td>
-<blockTable colWidths="391.0" style="Tableau10">
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td><para style="P24"></para></td>
-</tr>
-<tr>
-<td>
-<blockTable colWidths="175.0,46.0" style="Tableau10">
-<tr>
-<td><para style="P24"></para></td>
-<td>
-<blockTable colWidths="255.0,20.0" rowHeights="1" style="Tableau10">
-									<tr>
-										<td><para style="P24"></para></td>
-										<td><para style="P24"></para></td>
-									</tr>
-									<tr>
-										<td><para style="P24"></para></td>
-										<td><para style="P24"></para></td>
-									</tr>
-									<tr><!--
-										<td><para style="P25c"></para><xpre style="P25c">[[ '     '.join(map(lambda i : i , (o.domiciled and '***') or str(get_value(o.residual)))) ]]</xpre></td>
-										<td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10">[[ (o.domiciled and '**') or get_decimal_value(o.residual) ]]</xpre></td>-->
-									</tr>
-								</blockTable>
-							</td>
-						</tr>
-					</blockTable>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<para style="P24"></para>
-						<para style="P24z" leftIndent="40"></para>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<para style="P24"></para>
-						<para style="P24z" leftIndent="40"></para>
-					</td>
-				</tr>
-			<tr>
-					<td>
-						<para style="P24"></para>
-					</td>
-				</tr>
-			<tr>
-					<td>
-						<para style="P24"></para>
-					</td>
-				</tr>
-			<tr>
-					<td>
-						<para style="P24"></para>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<blockTable colWidths="350.0,40.0" style="Tableau10">
-						<tr>
-                                                        <td>
-                                                                <para style="P25d" leftIndent="30">[[ get_bank_account(o.id) ]]</para>
-                                                        </td>
-                                                        <td>
-                                                                <para style="P24"></para>
-                                                        </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>
-                                                                <para style="P25d" leftIndent="30">[[ get_bic(o.id) ]]</para>
-                                                        </td>
-                                                        <td>
-                                                                <para style="P24"></para>
-                                                        </td>
-                                                </tr>
-                                                <tr>
-							<td>
-								<!--<para style="P25e" leftIndent="30">[[ (o.domiciled and 'Ne pas payer' or o.company_id.partner_id.title) or '' ]] [[ not(o.domiciled) and (o.company_id.partner_id.name+' ') ]][[ (not(o.domiciled) and o.address_invoice_id.title) or '' ]] [[ (not(o.domiciled) and o.address_invoice_id.name) or '' ]] 
-[[ (o.domiciled and 'Paiement demande a votre organisme bancaire') or o.address_invoice_id.street ]] [[ not(o.domiciled) and o.address_invoice_id.street2 or '' ]]
-[[ not(o.domiciled) and o.address_invoice_id.zip or '' ]] [[ not(o.domiciled) and o.address_invoice_id.city or '' ]]</para>-->
-                                                                <para style="P25e" leftIndent="30">C C I   C o n n e c t   a s b l
-C H A U S S E E     D E     M A R C H E     9 3 5 A
-5 1 0 0     N A M U R</para>
-							</td>
-							<td>
-								<para style="P24"></para>
-							</td>
-						</tr>
-						</blockTable>
-					</td>
-				</tr>
-				<tr>
-					<td><para style="P24"></para></td>
-				</tr>
-				<tr>
-					<td><para style="P24"></para></td>
-				</tr>
-				<tr>
-					<para style="P24"></para>
-       					<td><para style="P24" leftIndent="20"> </para></td>
-				</tr>
-				<tr>
-					<td><para style="P24"></para></td>
-				</tr>
-			</blockTable>
-		</td>
-	</tr>
-</blockTable>
-</place>
-<image x="1.3cm" y="27.6cm" height="40.0" >[[company.logo]]</image>
+<image x="1.3cm" y="27.6cm" height="40.0" >[[company.logo or removeParentNode('image') ]]</image>
             <setFont name="Helvetica" size="8"/>
             <fill color="black"/>
             <stroke color="black"/>
@@ -374,6 +149,7 @@ C H A U S S E E     D E     M A R C H E     9 3 5 A
 <paraStyle name="P25a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="0.0"/>
 <paraStyle name="P26a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P24b" fontName="Helvetica" alignment="LEFT" fontSize="8.0"  spaceBefore="0.0" spaceAfter="6.0"/>
+<paraStyle name="message_footer" fontName="Helvetica-Bold" fontSize="12.0" alignment="LEFT" spaceAfter='6.0'/>
 
 <paraStyle name="Standard" fontName="Helvetica"/>
 <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
@@ -439,17 +215,17 @@ C H A U S S E E     D E     M A R C H E     9 3 5 A
 	<tr>
 		<td><para style="P2"><font color="white"> </font></para></td>
 		<td>
-		<para style="Standard">[[ o.partner_id.title or '' ]] [[ o.partner_id.name ]]</para>
-		<para style="Standard">[[ o.address_invoice_id.title or '' ]] [[ o.address_invoice_id.name ]]</para>
-		<para style="Standard">[[ o.address_invoice_id.street ]]</para>
-		<para style="Standard">[[ o.address_invoice_id.street2 or '' ]]</para>
-		<para style="Standard">[[ o.address_invoice_id.zip or '' ]] [[ o.address_invoice_id.city or '' ]]</para>
-		<para style="Standard">[[ o.address_invoice_id.state_id and o.address_invoice_id.state_id.name or '' ]]</para>
-		<para style="Standard">[[ o.address_invoice_id.country_id and o.address_invoice_id.country_id.name or '' ]]</para>
+		<para style="Standard">[[ o.partner_id.title and o.partner_id.title.upper() or '' ]] [[ o.partner_id.name.upper() ]]</para>
+		<para style="Standard">[[ o.partner_id.title and o.address_invoice_id.title.upper() or '' ]] [[ o.address_invoice_id.name.upper() ]]</para>
+		<para style="Standard">[[ o.address_invoice_id.street and o.address_invoice_id.street.upper() or '']]</para>
+		<para style="Standard">[[ o.address_invoice_id.street2 and o.address_invoice_id.street2.upper() or '' ]]</para>
+		<para style="Standard">[[ o.address_invoice_id.zip or '' ]] [[o.address_invoice_id.city and  o.address_invoice_id.city.upper() or '' ]]</para>
+		<para style="Standard">[[ o.address_invoice_id.state_id and o.address_invoice_id.state_id.name.upper() or '' ]]</para>
+		<para style="Standard">[[ o.address_invoice_id.country_id and o.address_invoice_id.country_id.name.upper() or '' ]]</para>
 		<para style="Standard">
 		<font color="white"> </font>
 		</para>
-		<para style="Standard">TVA&#xA0;: [[ o.partner_id.vat or removeParentNode('para') ]]</para>
+		<para style="Standard">TVA&#xA0;: [[ o.partner_id.vat and (o.partner_id.vat_subjected and o.partner_id.vat or 'Non Assujetti') or u'A nous communiquer svp' ]]</para>
 		</td>
 	</tr>
 </blockTable>
@@ -623,11 +399,15 @@ C H A U S S E E     D E     M A R C H E     9 3 5 A
 <section>
 
 </section>
+<para style="message_footer">[[ o.domiciled and 'NE PAS PAYER, LE MONTANT EST RECLAME A VOTRE ORGANISME FINANCIER' or ('Merci de verser le montant sur le compte : '+ get_bank_account(o.id).upper() +' (BIC : '+get_bic(o.id)+')') ]] </para>
+<para style="message_footer">[[ o.domiciled and removeParentNode('para') or (u'Mention à rappeller sur le virement : ***'+ o.name +'***')  ]]</para>
 <para style="P19">[[ format(o.comment) or removeParentNode('para') ]]</para>
 <para style="P19">[[ format(o.payment_term and o.payment_term.note) or removeParentNode('para') ]]</para>
+
 <section>
 <para style="P19">[[ repeatIn((spcl_msg(data['form']) and spcl_msg(data['form']).splitlines()) or [], 'note') ]]</para>
 <para style="P19">[[ note or removeParentNode('para') ]]</para>
+
 
 </section>
 

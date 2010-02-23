@@ -103,7 +103,8 @@ class ir_actions_act_window(osv.osv):
     _inherit = 'ir.actions.act_window'
 
     def read(self, cr, uid, ids, fields=None, context={}, load='_classic_read'):
-
+        if not ids:
+            return {}
         if isinstance(ids, (int, long)):
             read_ids = [ids]
         else:

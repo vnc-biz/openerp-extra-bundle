@@ -216,7 +216,7 @@
 		<td><para style="P2"><font color="white"> </font></para></td>
 		<td>
 		<para style="Standard">[[ o.partner_id.title and o.partner_id.title.upper() or '' ]] [[ o.partner_id.name.upper() ]]</para>
-		<para style="Standard">[[ o.partner_id.title and o.address_invoice_id.title.upper() or '' ]] [[ o.address_invoice_id.name.upper() ]]</para>
+		<para style="Standard">[[ o.address_invoice_id.title and o.address_invoice_id.title.upper() or '' ]] [[ o.address_invoice_id.name and o.address_invoice_id.name.upper() or '']]</para>
 		<para style="Standard">[[ o.address_invoice_id.street and o.address_invoice_id.street.upper() or '']]</para>
 		<para style="Standard">[[ o.address_invoice_id.street2 and o.address_invoice_id.street2.upper() or '' ]]</para>
 		<para style="Standard">[[ o.address_invoice_id.zip or '' ]] [[o.address_invoice_id.city and  o.address_invoice_id.city.upper() or '' ]]</para>

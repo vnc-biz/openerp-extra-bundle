@@ -298,7 +298,7 @@
 			<field name="res_model">report_account_analytic.planning</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form,gantt</field>
-			<field name="view_id" ref="report_analytic_planning.account_analytic_planning_view_tree"/>
+			<field name="view_id" ref="project_planning.account_analytic_planning_view_tree"/>
 			<field name="context">{'portal_gantt':'planning'}</field>
 		</record>
 

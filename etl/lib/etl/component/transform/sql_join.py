@@ -89,8 +89,12 @@ class sql_join(component):
             for iterator in trans:
                 for d in iterator:
                     query = self.sqlquery % (d[self.joinkey])
+                    print 'query', query
                     cursor.execute(query)
                     rows = cursor.fetchone()
+                    print 'rows', rows
+                    if not rows:
+                        raise 'Result of the Query is False. Query: ' + str(query)
                     d.update({self.outputkey: rows[0]}) 
                     yield d, 'main'
 

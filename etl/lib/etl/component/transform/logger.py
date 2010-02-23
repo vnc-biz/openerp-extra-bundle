@@ -25,9 +25,9 @@
  Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
  GNU General Public License.
 """
+import pprint, sys, time
 
 from etl.component import component
-import sys
 class logger(component):
     """
         This is an ETL Component that use to display log detail in streamline.
@@ -60,6 +60,8 @@ class logger(component):
         for channel,trans in self.input_get().items():
             for iterator in trans:
                 for d in iterator:
-                    self.output.write('Log ' + self.name + ' ' + str(d) + '\n')
+                    #self.output.write('%s %s\n%s\n'%(time.strftime("%Y-%m-%d %H:%M:%S "),self.name,pprint.pformat(d)))
+                    #self.output.flush()
+                    self.output.write('%s %s (%s rows)\n'%(time.strftime("%Y-%m-%d %H:%M:%S "),self.name,len(d)))
                     yield d, 'main'
 

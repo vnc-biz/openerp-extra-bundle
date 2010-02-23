@@ -119,6 +119,7 @@ class openobject_connector(connector):
         if not self.uid:
             raise Exception('Not login')
         if self.con_type == 'xmlrpc':
+            #print "xmlrpc db uid passwd,",args
             result = getattr(connector, method)(self.db, self.uid, self.passwd, *args)
             return self.__convert(result)
         elif self.con_type == 'socket':

@@ -170,6 +170,10 @@ class dm_dtp_plugin(osv.osv): # {{{
 
     def create(self, cr, uid, vals, context={}):
         id = super(dm_dtp_plugin, self).create(cr, uid, vals, context)
+        if vals.has_key('code'):
+            if vals['code'].find('-') != -1:
+                raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
+        
         if vals['type'] == 'url':
             plugin_argument = self.pool.get('dm.plugin.argument')
             plugin_argument.create(cr, uid, {'name': 'text_display',
@@ -179,6 +183,12 @@ class dm_dtp_plugin(osv.osv): # {{{
            'note':'Value of the field must be of type string or plugin may be crashed',
            'plugin_id': id, 'value': ' '} )
         return id
+
+    def write(self, cr, uid, ids, vals, context={}):
+        if vals.has_key('code'):
+            if vals['code'].find('-') != -1: 
+                raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
+        return super(dm_dtp_plugin, self).write(cr, uid, ids, vals, context)
 
     _columns = {
         'name': fields.char('DTP Plugin Name', size=64),
@@ -265,6 +275,14 @@ def set_image_email(node,msg): # {{{
 def generate_report(cr, uid, obj_id, file_type, report_type, context):
     pool = pooler.get_pool(cr.dbname)
     obj = pool.get('dm.campaign.document').browse(cr, uid, obj_id)
+    
+    """ Set context values """
+    context['workitem_id'] = obj.workitem_id.id
+    context['address_id'] = obj.workitem_id.address_id.id
+    context['step_id'] = obj.workitem_id.step_id.id
+    context['document_id'] = obj.document_id.id
+    context['segment_id'] = obj.workitem_id.segment_id.id    
+
     message = []
     if obj.mail_service_id.store_document:
         ir_att_obj = pool.get('ir.attachment')
@@ -283,7 +301,7 @@ def generate_report(cr, uid, obj_id, file_type, report_type, context):
             report_data = generate_internal_reports(cr, uid, report_type, document_data.id, False, context)
         else :
             report_data = generate_openoffice_reports(cr, uid, report_type, document_data.id, False, context)
-        if report_data in ('plugin_error','plugin_missing','wrong_report_type') :
+        if report_data in ('plugin_error','plugin_missing','wrong_report_type','no_report_for_document') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
     print len(message)
@@ -441,6 +459,7 @@ class dm_offer_document(osv.osv): # {{{
         'editor': lambda *a: 'internal',
         'content': lambda *a: '<p>Test Content</p>'
     }
+    
     def state_validate_set(self, cr, uid, ids, context={}):
         group_obj = self.pool.get('ir.actions.report.xml')
         doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
@@ -482,7 +501,8 @@ class dm_campaign_document(osv.osv): # {{{
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
-        'workitem_id': fields.many2one('dm.workitem', 'Workitem', ondelete='cascade'), 
+        'workitem_id': fields.many2one('dm.workitem', 'Workitem', readonly=True,
+                                                        ondelete='cascade'), 
         }
     
     _defaults = {
@@ -512,27 +532,9 @@ class dm_plugins_value(osv.osv): # {{{
         'plugin_id' : fields.many2one('dm.dtp.plugin', 'Plugin', required=True),
         'value' : fields.text('Value', required=True),
     }
-    
+
 dm_plugins_value() # }}}
 
-class dm_offer(osv.osv): # {{{
-    _inherit = "dm.offer"
-    
-    def copy(self, cr, uid, id, default=None, context=None):
-        if default is None:
-            default = {}
-        default = default.copy()
-        offer_id = super(dm_offer, self).copy(cr, uid, id, default, context)
-        offer_step_obj = self.pool.get('dm.offer.step')
-        offer_doc_obj = self.pool.get('dm.offer.document')
-        offer_step_ids = offer_step_obj.search(cr, uid, [('offer_id', '=', id)])
-        for offer_step_id in offer_step_ids:
-            doc_id = offer_doc_obj.search(cr, uid, [('step_id', '=', offer_step_id)])
-            if doc_id:
-                self.pool.get('dm.offer.document').copy(cr, uid, doc_id[0], default, context)
-        return offer_id
-    
-dm_offer()
 
 class dm_document_font(osv.osv):
     _name = "dm.document.font"
@@ -542,7 +544,7 @@ class dm_document_font(osv.osv):
         'file': fields.binary('File', required=True),
         'file_name': fields.char('File Name', size=64)
     }
-    
+
 dm_document_font()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

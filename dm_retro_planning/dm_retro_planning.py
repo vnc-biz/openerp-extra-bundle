@@ -200,10 +200,10 @@ class dm_campaign(osv.osv):#{{{
 
     def write(self, cr, uid, ids, vals, context=None):
         value = super(dm_campaign, self).write(cr, uid, ids, vals, context)
-        for camp in self.browse(cr, uid, ids):    
+        for camp in self.browse(cr, uid, ids):   
             if camp.project_id :
                 self.pool.get('project.project').write(cr, uid, [camp.project_id.id], 
-                                                {'date_end': camp.camp_date_start.split(' ')[0]})
+                                                {'date_end': camp.date_start})
         return value
 dm_campaign()
 

@@ -32,7 +32,7 @@ class transition(signal):
     """
     Base class of ETL transition.
     """
-    def __init__(self, source, destination, channel_source='main', channel_destination='main', type='data', trigger=None):
+    def __init__(self, source, destination, channel_source='main', channel_destination='main', type='data', trigger=None, debug=0, debug_message=""):
         super(transition, self).__init__()
         self.type = type
         self.trigger = trigger
@@ -43,6 +43,8 @@ class transition(signal):
         self.destination.trans_in.append((channel_destination, self))
         self.source.trans_out.append((channel_source, self))
         self.status = 'open' # open,close # open : active, close : inactive
+        self.debug = debug # can be False: quite, True print numer of row, "p" print repr, "pp" pretty print
+        self.debug_message = debug_message # can be "pp" or True or False
 
     def __str__(self):
         return "<Transition source='%s' destination='%s' channel_source='%s' channel_destination='%s' type='%s' trigger='%s' status='%s'>" \

@@ -1,26 +1,25 @@
 <?xml version="1.0"?>
-<document filename="test.pdf">
-<template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+<document filename="facture.pdf">
+<template pageSize="(595.0,842.0)" title="impression_facture" author="CCI Connect" allowSplitting="20">
 <pageTemplate id="first">
 <pageGraphics>
 
-<place x="0.8cm" y="-2.05cm"  width="100.0cm" height="5cm">
-<para style="P24">[[ (o.domiciled and '**********') or (o.name) or '' ]] </para>
-</place>
-<place x="0.8cm" y="3.65cm"  width="100.0cm" height="5cm">
-<para style="P25d1">[[ (o.domiciled and '**') or fr_convert(o.residual).upper()[:28] ]]</para>
-</place>
-<place x="0.8cm" y="2.85cm"  width="100.0cm" height="5cm">
-<para style="P25d1">[[ (o.domiciled and '**') or fr_convert(o.residual).upper()[28:] ]]</para>
-</place>
-<place x="4.1cm" y="2.1cm"  width="100.0cm" height="5cm">
-<para style="P24c1">[[ (o.domiciled and '***') or o.residual ]]</para>
-</place>
-<place x="7.12cm" y="-2.1cm"  width="100.0cm" height="5cm">
-<para style="P24bis"> [[ '    '.join(map(lambda i : i , (o.domiciled and '***********') or str(o.name or ''))) ]] </para>
+<place x="3.5cm" y="-3.9cm"  width="100.0cm" height="5cm">
+<para style="P24bis"> [[(o.type == 'out_invoice') and '    '.join(map(lambda i : i , (o.domiciled and '***********') or str(o.name or ''))) or '' ]] </para>
 </place>
 
-<place x="10" y="0.5cm"  width="541.0" height="8.35cm">
+
+<place x="13.6cm" y="7.2cm"  width="100.0cm" height="1cm">
+<blockTable colWidths="150.0,391.0" style="Tableau10">
+
+                                                                        <tr>
+                                                                                <td><para style="P25c"></para><xpre style="P25c">[[ (o.type == 'out_invoice') and '     '.join(map(lambda i : i , (o.domiciled and '***') or str(get_value(o.residual)))) or '']]</xpre></td>
+                                                                                <td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10"><!--[[(o.type == 'out_invoice') and ((o.domiciled and '**') or get_decimal_value(o.residual)) or '' ]]--></xpre></td>
+</tr>
+</blockTable>
+</place>
+
+<place x="-3.5cm" y="-0.7cm"  width="541.0" height="8.35cm">
 <blockTable colWidths="150.0,391.0" style="Tableau10">
 <tr>
 <td>
@@ -130,7 +129,7 @@
 <tr>
 <td><para style="P24"></para></td>
 <td>
-<blockTable colWidths="160.0,20.0" rowHeights="3" style="Tableau10">
+<blockTable colWidths="255.0,20.0" rowHeights="1" style="Tableau10">
 									<tr>
 										<td><para style="P24"></para></td>
 										<td><para style="P24"></para></td>
@@ -139,9 +138,9 @@
 										<td><para style="P24"></para></td>
 										<td><para style="P24"></para></td>
 									</tr>
-									<tr>
+									<tr><!--
 										<td><para style="P25c"></para><xpre style="P25c">[[ '     '.join(map(lambda i : i , (o.domiciled and '***') or str(get_value(o.residual)))) ]]</xpre></td>
-										<td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10">[[ (o.domiciled and '**') or get_decimal_value(o.residual) ]]</xpre></td>
+										<td><para style="P25c" leftIndent="10"></para><xpre style="P24c" leftIndent="10">[[ (o.domiciled and '**') or get_decimal_value(o.residual) ]]</xpre></td>-->
 									</tr>
 								</blockTable>
 							</td>
@@ -178,28 +177,31 @@
 				</tr>
 				<tr>
 					<td>
-						<blockTable colWidths="194.0,196.0" style="Tableau10">
+						<blockTable colWidths="350.0,40.0" style="Tableau10">
 						<tr>
+                                                        <td>
+                                                                <para style="P25d" leftIndent="30">[[ get_bank_account(o.id) ]]</para>
+                                                        </td>
+                                                        <td>
+                                                                <para style="P24"></para>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                                <para style="P25d" leftIndent="30">[[ get_bic(o.id) ]]</para>
+                                                        </td>
+                                                        <td>
+                                                                <para style="P24"></para>
+                                                        </td>
+                                                </tr>
+                                                <tr>
 							<td>
-								<para style="P25d" leftIndent="30">[[ (o.domiciled and 'Ne pas payer' or o.partner_id.title) or '' ]] [[ not(o.domiciled) and (o.partner_id.name+' ') ]][[ (not(o.domiciled) and o.address_invoice_id.title) or '' ]] [[ (not(o.domiciled) and o.address_invoice_id.name) or '' ]] </para>
-							</td>
-							<td>
-								<para style="P24"></para>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<para style="P24"></para>
-								<para style="P25d" leftIndent="30"> [[ (o.domiciled and 'Paiement demande a votre organisme bancaire') or o.address_invoice_id.street ]] [[ not(o.domiciled) and o.address_invoice_id.street2 or '' ]]</para>
-							</td>
-							<td>
-								<para style="P24"></para>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<para style="P24"></para>
-								<para style="P25d" leftIndent="30"> [[ not(o.domiciled) and o.address_invoice_id.zip or '' ]] [[ not(o.domiciled) and o.address_invoice_id.city or '' ]]</para>
+								<!--<para style="P25e" leftIndent="30">[[ (o.domiciled and 'Ne pas payer' or o.company_id.partner_id.title) or '' ]] [[ not(o.domiciled) and (o.company_id.partner_id.name+' ') ]][[ (not(o.domiciled) and o.address_invoice_id.title) or '' ]] [[ (not(o.domiciled) and o.address_invoice_id.name) or '' ]] 
+[[ (o.domiciled and 'Paiement demande a votre organisme bancaire') or o.address_invoice_id.street ]] [[ not(o.domiciled) and o.address_invoice_id.street2 or '' ]]
+[[ not(o.domiciled) and o.address_invoice_id.zip or '' ]] [[ not(o.domiciled) and o.address_invoice_id.city or '' ]]</para>-->
+                                                                <para style="P25e" leftIndent="30">C C I   C o n n e c t   a s b l
+C H A U S S E E     D E     M A R C H E     9 3 5 A
+5 1 0 0     N A M U R</para>
 							</td>
 							<td>
 								<para style="P24"></para>
@@ -226,8 +228,26 @@
 	</tr>
 </blockTable>
 </place>
+<image x="1.3cm" y="27.6cm" height="40.0" >[[company.logo]]</image>
+            <setFont name="Helvetica" size="8"/>
+            <fill color="black"/>
+            <stroke color="black"/>
+            <lines>1.3cm 27.7cm 20cm 27.7cm</lines>
+
+            <drawRightString x="20cm" y="27.8cm">[[ company.rml_header1 ]]</drawRightString>
+
+
+            <drawString x="1.3cm" y="27.2cm">[[ company.partner_id.name ]]</drawString>
+            <drawString x="1.3cm" y="26.8cm">[[ company.partner_id.address and company.partner_id.address[0].street or  '' ]]</drawString>
+            <drawString x="1.3cm" y="26.4cm">[[ company.partner_id.address and company.partner_id.address[0].zip or '' ]] [[ company.partner_id.address and company.partner_id.address[0].city or '' ]] - [[ company.partner_id.address and company.partner_id.address[0].country_id and company.partner_id.address[0].country_id.name  or '']]</drawString>
+            <drawString x="1.3cm" y="26.0cm">Tel:</drawString>
+            <drawRightString x="7cm" y="26.0cm">+32 (0)4/341.91.70</drawRightString>
+            <drawString x="1.3cm" y="25.6cm">Fax:</drawString>
+            <drawRightString x="7cm" y="25.6cm">+32 (0)4/343.92.67</drawRightString>
+            <lines>1.3cm 25.5cm 7cm 25.5cm</lines>
 </pageGraphics>
 <frame id="first" x1="20.0" y1="28.0" width="527" height="786"/>
+
 </pageTemplate>
 </template>
 <stylesheet>
@@ -344,7 +364,9 @@
 <paraStyle name="P24a" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P25" fontName="Helvetica" leading="10" alignment="RIGHT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0"/>
 <paraStyle name="P25c" fontName="Helvetica" alignment="RIGHT" fontSize="10.0" spaceBefore="0.0" spaceAfter="6.0" leading="7.0"/>
-<paraStyle name="P25d" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
+<paraStyle name="P25d" fontName="Courier" alignment="LEFT" fontSize="12.0" spaceBefore="0.0" spaceAfter="3.0" leading="16"/>
+<paraStyle name="P25e" fontName="Courier" alignment="LEFT" fontSize="12.0" spaceBefore="1.0" spaceAfter="2.0" leading="8"/>
+
 <paraStyle name="P24dvcs" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="11"/>
 <paraStyle name="P25d2" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="16"/>
 <paraStyle name="P25d1" fontName="Helvetica" alignment="LEFT" fontSize="8.0" spaceBefore="0.0" spaceAfter="6.0" leading="13"/>
@@ -367,7 +389,53 @@
 <story>
 <para style="P1">[[ repeatIn(objects,'o') ]]</para>
 <para style="P1">[[ setLang(o.partner_id.lang) ]]</para>
-<blockTable colWidths="295.0,232.0" style="Tableau2">
+<blockTable colWi6dths="295.0,232.0" style="Tableau2">
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+        <tr>
+          <td><para style="P4"></para></td>
+          <td><para style="P4"></para></td>
+        </tr>
+
+
 	<tr>
 		<td><para style="P2"><font color="white"> </font></para></td>
 		<td>
@@ -381,9 +449,7 @@
 		<para style="Standard">
 		<font color="white"> </font>
 		</para>
-		<para style="Standard">Tel.&#xA0;: [[ o.address_invoice_id.phone or removeParentNode('para') ]]</para>
-		<para style="Standard">Fax&#xA0;: [[ o.address_invoice_id.fax or removeParentNode('para') ]]</para>
-		<para style="Standard">VAT&#xA0;: [[ o.partner_id.vat or removeParentNode('para') ]]</para>
+		<para style="Standard">TVA&#xA0;: [[ o.partner_id.vat or removeParentNode('para') ]]</para>
 		</td>
 	</tr>
 </blockTable>
@@ -391,28 +457,28 @@
 <font color="white"> </font>
 </para>
 
-<para style="P23">Invoice [[ ((o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')) or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
+<para style="P23">Facture [[ ((o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')) or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
 <para style="P23">PRO-FORMA [[ ((o.type == 'out_invoice' and o.state == 'proforma') or removeParentNode('para')) and '' ]]</para>
-<para style="P23">Draft Invoice [[ ((o.type == 'out_invoice' and o.state == 'draft') or removeParentNode('para')) and '' ]]</para>
-<para style="P23">Canceled Invoice [[ ((o.type == 'out_invoice' and o.state == 'cancel') or removeParentNode('para')) and '' ]]</para>
-<para style="P23">Refund [[ (o.type=='out_refund' or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
-<para style="P23">Supplier Refund [[ (o.type=='in_refund' or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
-<para style="P16"><font>Supplier Invoice [[ (o.type=='in_invoice' or removeParentNode('para')) and '' ]]</font><font>[[ o.number ]]</font></para>
+<para style="P23">Facture brouillon [[ ((o.type == 'out_invoice' and o.state == 'draft') or removeParentNode('para')) and '' ]]</para>
+<para style="P23">Facture annulée[[ ((o.type == 'out_invoice' and o.state == 'cancel') or removeParentNode('para')) and '' ]]</para>
+<para style="P23">Note de Crédit [[ (o.type=='out_refund' or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
+<para style="P23">Note de Crédit Fournisseur [[ (o.type=='in_refund' or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
+<para style="P16"><font>Facture Fournisseur [[ (o.type=='in_invoice' or removeParentNode('para')) and '' ]]</font><font>[[ o.number ]]</font></para>
 <para style="P8b">
 <font color="white"> </font>
 </para>
 <para style="P17"><font>Document:</font><font>[[o.name]]</font></para>
 <para style="P8b"><font color="white"> </font></para>
-<para style="P17"><font>Invoice Date: </font><font>[[ formatLang(o.date_invoice,date=True) ]]</font></para>
-<para style="P18"><font>Customer Ref:</font> [[ o.address_invoice_id.partner_id.ref or '/' ]]</para>
+<para style="P17"><font>Date de Facturation: </font><font>[[ formatLang(o.date_invoice,date=True) ]]</font></para>
+<para style="P18"><font>Ref. Client:</font> [[ o.address_invoice_id.partner_id.ref or '/' ]]</para>
 <para style="P8b"><font color="white"> </font></para>
 <blockTable colWidths="274.0,62.0,70.0,67.0,68.0" style="Tableau6">
 <tr>
 <td><para style="P3">Description / Taxes</para></td>
-<td><para style="P3">Quantity</para></td>
-<td><para style="P4">Unit Price</para></td>
+<td><para style="P3">Quantité</para></td>
+<td><para style="P4">Prix Unitaire</para></td>
 <td><para style="P4">Disc. (%)</para></td>
-<td><para style="P3">Price</para></td>
+<td><para style="P3">Prix</para></td>
 </tr>
 </blockTable>
 <section>
@@ -424,9 +490,9 @@
 			<td><para style="P8a">[[ (a['type']=='title' or a['type']=='subtotal') and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['name'] ]] / ( [[ a['tax_types'] ]] )</para></td>
 			<td><para style="P7a">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['quantity'] ]]</para></td>
 			<td><para style="P5">[[ a['uos'] ]]</para></td>
-			<td><para style="P7">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['price_unit'] ]]</para></td>
+			<td><para style="P7">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ o.type in ('out_refund','in_refund') and '-' or '']][[ a['price_unit'] ]]</para></td>
 			<td><para style="P7">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['discount'] ]]</para></td>
-			<td><para style="P7">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]]<font>[[ a['price_subtotal'] ]]</font><font> [[ a['currency'] ]]</font></para></td>
+			<td><para style="P7">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]]<font>[[ o.type in ('out_refund','in_refund') and '-' or '']][[ a['price_subtotal'] ]]</font><font> [[ a['currency'] ]]</font></para></td>
 		</tr>
 		<tr>
 			<td><para style="P8"><font color="white"></font></para></td>
@@ -448,10 +514,10 @@
 	<blockTable colWidths="274.0,62.0,70.0,67.0,68.0" style="Tableau6">
 		<tr>
 			<td><para style="P3">Description/Taxes [[ a['type']!='break' and removeParentNode('blockTable')]]</para></td>
-			<td><para style="P4">Quantity</para></td>
-			<td><para style="P4">Unit Price</para></td>
+			<td><para style="P4">Quantité</para></td>
+			<td><para style="P4">Prix Unitaire</para></td>
 			<td><para style="P4">Disc. (%)</para></td>
-			<td><para style="P3">Price</para></td>
+			<td><para style="P3">Prix</para></td>
 		</tr>
 	</blockTable>
 </section>
@@ -490,12 +556,12 @@
 	<blockTable colWidths="110.0,90.0" style="Tableau5">
 
 		<tr>
-		<td><para style="P13">Total (Excl. taxes):</para></td>
-		<td><para style="P12"><u>[[ '%.2f' % o.amount_untaxed ]] [[o.currency_id.code ]]</u></para></td>
+		<td><para style="P13">Total (Hors Taxes):</para></td>
+		<td><para style="P12"><u>[[ o.type in ('out_refund','in_refund') and '-' or '']][[ '%.2f' % o.amount_untaxed ]] [[o.currency_id.code ]]</u></para></td>
 		</tr>
 		<tr>
 		<td><para style="P13">Taxes:</para></td>
-		<td><para style="P11a">[[ '%.2f' % o.amount_tax ]] [[o.currency_id.code ]]</para></td>
+		<td><para style="P11a">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ '%.2f' % o.amount_tax ]] [[o.currency_id.code ]]</para></td>
 		</tr>
 		<tr>
 		<td><para style="P11"><font color="white"></font></para></td>
@@ -507,8 +573,8 @@
 
 		<blockTable colWidths="110.0,90.0" style="Tableau_line">
 		<tr>
-		<td><para style="P13">Residual Amount: <font></font></para></td>
-		<td><para style="P12"><u>[[ '%.2f' % o.residual ]] [[o.currency_id.code ]]</u></para></td>
+		<td><para style="P13">[[ o.type in ('out_refund','in_refund') and 'Total:' or 'Reste à payer:' ]]<font></font></para></td>
+		<td><para style="P12"><u>[[ o.type in ('out_refund','in_refund') and '-' or '']][[ '%.2f' % o.residual ]] [[o.currency_id.code ]]</u></para></td>
 		</tr>
 	</blockTable>
 
@@ -522,14 +588,14 @@
 <td>
 <blockTable colWidths="81.0,73.0,65.0" style="Tableau4">
 	<tr>
-	<td><para style="P10">Tax</para></td>
+	<td><para style="P10">Taxe</para></td>
 	<td><para style="P8">Base</para></td>
-	<td><para style="P8">Amount</para></td>
+	<td><para style="P8">Montant</para></td>
 	</tr>
 	<tr>
 	<td><para style="P11a"><font>[[ repeatIn(o.tax_line,'t') ]]</font><font>[[ t.name ]]</font></para></td>
-	<td><para style="P11">[[ '%.2f' % t.base ]]</para></td>
-	<td><para style="P11">[[ '%.2f' % t.amount]]</para></td>
+	<td><para style="P11">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ '%.2f' % t.base ]]</para></td>
+	<td><para style="P11">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ '%.2f' % t.amount]]</para></td>
 	</tr>
 </blockTable>
 

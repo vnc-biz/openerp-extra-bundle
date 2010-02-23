@@ -1079,6 +1079,15 @@ TODO: revoir la vue tree aussi
             view_mode='form'
             id="act_res_partner"/>
 
+	<!-- Act window defining a shorcut on partner address to open all his jobs -->
+    <act_window
+        id="act_res_partner_jobs" name="Open Jobs"
+        domain="[('address_id', '=', active_id)]"
+        res_model="res.partner.job"
+        src_model="res.partner.address"
+        />
+
+
 	</data>
 </openerp>
 

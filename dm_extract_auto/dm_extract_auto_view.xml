@@ -14,7 +14,7 @@
 	   <field name="inherit_id" ref="dm_extract.view_dm_campaign_proposition_segments"/>
 	   <field name="type">form</field>
 	   <field name="arch" type="xml">
-	 	   <field name="segmentations_id" position="after">
+	 	   <field name="segmentation_id" position="after">
 		 	   <group colspan="4" col="4">
                     <group colspan="2" col="2">
 		                <separator string="Automatic Extraction"/>

@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
-
     <menuitem name="Direct Marketing" icon="terp-crm" id="menu_dm"/>
     <menuitem name="Configuration" id="menu_dm_config" parent="menu_dm" groups="res_groups_offeradmin,res_groups_offermanager,res_groups_campaignadmin,res_groups_campaignmanager,res_groups_dtpmanager" sequence="0"/>
 	<menuitem name="Low Level" id="menu_dm_config_lowlevel" parent="dm.menu_dm_config" groups="res_groups_dmadmin" sequence="0"/>
@@ -32,7 +31,7 @@
                 <field name="media_id" select="1"/>
                 <field name="default_for_media" on_change="_check_unique_mail_service(media_id,default_for_media)"/>
                 <field name="type_id" on_change="on_change_service_type(type_id)" widget="selection"/>
-                <field name="store_document" select="1"/>
+                <field name="store_document"/>
                 <group colspan="4" attrs="{'invisible':[('service_type','!=','smtp')]}">
 					<separator string="SMTP Server Configuration" colspan="4" />
 					<field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
@@ -98,7 +97,7 @@
         <field name="type">calendar</field>
         <field eval="2" name="priority"/>
         <field name="arch" type="xml">
-            <calendar color="responsible_id" date_start="camp_date_start" string="Campaigns">
+            <calendar color="responsible_id" date_start="date_start" string="Campaigns">
                 <field name="name" string="Name"/>
                 <field name="country_id" />
             </calendar>
@@ -115,7 +114,7 @@
                 <field name="name" string="Name"/>
                 <field name="code" string="Code"/>
                 <field name="campaign_type_id"/>
-                <field name="camp_date_start"/>
+                <field name="date_start"/>
                 <field name="responsible_id" />
                 <field name="country_id" />
                 <field name="state"/>
@@ -155,8 +154,8 @@
                         </group>
                         <group colspan="4">
                         <separator string="Dates" colspan="4"/>
-                        <field name="camp_date_start" select="2" string="Drop Date"/>
-                        <field name="camp_date_end" string="End Date"/>
+                        <field name="date_start" select="2" string="Drop Date"/>
+                        <field name="date" string="End Date"/>
                         </group>
                         <separator string="Campaign Status" colspan="4"/>
                         <group col="10" colspan="4">
@@ -497,7 +496,7 @@
 
     <record model="ir.actions.act_window.view" id="action_campaign_model_form_view">
         <field name="view_mode">form</field>
-        <field name="sequence">10</field>
+        <field name="sequence">11</field>
         <field name="view_id" ref="view_campaign_model_form"/>
         <field name="act_window_id" ref="action_campaign_model_form"/>
     </record>
@@ -530,9 +529,9 @@
                     <field name="camp_id" on_change="onchange_campaign(camp_id)"/>
                     <field name="proposition_type" select="1"/>
                     <group colspan="2" attrs="{'invisible':[('proposition_type','!=','relaunching')]}">
-                        <field name="initial_proposition_id" select="1"/>
+                        <field name="initial_proposition_id" domain="[('camp_id','=',camp_id)]" select="1"/>
                     </group>
-                      <field name="camp_pro_date_start" select="2"/>
+                      <field name="date_start" select="2"/>
                     <field name="sale_rate"/>
                     <field name="forwarding_charge" select="2"/>
                     </group>
@@ -640,7 +639,7 @@
                 <field name="camp_id"/>
                 <field name="name" string="Name"/>
                 <field name="code" string="Code"/>
-                <field name="camp_pro_date_start" colspan="4"/>
+                <field name="date_start" colspan="4"/>
                 <field name="sale_rate"/>
                 <field name="quantity_real" select="2"/>
                 <field name="proposition_type"/>
@@ -654,7 +653,7 @@
         <field name="type">calendar</field>
         <field eval="2" name="priority"/>
         <field name="arch" type="xml">
-            <calendar color="camp_id" date_start="camp_pro_date_start" string="Propositions">
+            <calendar color="camp_id" date_start="date_start" string="Propositions">
                 <field name="name"/>
                 <field name="proposition_type"/>
             </calendar>
@@ -700,12 +699,12 @@
                     <separator string="Segment Description" colspan="4"/>
                     <field name="name" string="Name" select="1"/>
                     <field name="code" string="Code" select="1"/>
+                    <group colspan="2" col="2">
+                        <field name="customers_list_id" select="1" on_change="onchange_list(customers_list_id,start_census,end_census)" context="{'campaign_id':campaign_id}" />
+                        <field name="customers_file_id" select="1"/>
+                    </group>
                     <group colspan="2">
                         <field name="type_src"/>
-                    </group>
-                    <group colspan="2" col="2">
-                        <field name="customers_list_id" select="1" on_change="onchange_list(customers_list_id,start_census,end_census)"/>
-                        <field name="customers_file_id" select="1"/>
                     </group>
                 </group>
                 <notebook colspan="4">
@@ -713,9 +712,9 @@
                         <separator string="Segment Origin" colspan="4"/>
                         <field name="campaign_id" select="1" />
                         <field name="proposition_id" select="1"/>
-                        <field name="active" />
                         <field name="split_id" />
                         <field name="reuse_id" />
+                        <field name="active" />
                         <group colspan="4" groups="base.group_extended">
                         <separator string="Segmentation" colspan="4"/>
                         <group colspan="4" col="6">
@@ -727,9 +726,7 @@
                         </group>
                         <separator string="Segmentation Criteria" colspan="4"/>
                         <field name="segmentation_criteria" colspan="4" nolabel="1"/>
-                        <separator string="Notes" colspan="4"/>
-                        <field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
-                    </page>
+                         </page>
                     <page string="Quantities">
                         <separator string="Addresses Quantities" colspan="4"/>
                         <newline/>
@@ -755,6 +752,9 @@
                         <field name="quantity_usable" string="= Usable Quantity" select="2"/>
                         <field name="quantity_real" select="2"/>
                     </page>
+                     <page string="Notes">
+                       	<field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
+                    </page>
                 </notebook>
             </form>
         </field>
@@ -769,10 +769,12 @@
                 <field name="name" string="Name"/>
                 <field name="code" string="Code"/>
                 <field name="type_src"/>
-                <field name="quantity_planned" select="2"/>
-                <field name="quantity_wanted" select="2"/>
-                <field name="quantity_delivered" select="2"/>
+                <field name="campaign_id"/>
+                <field name="quantity_planned"/>
+                <field name="quantity_wanted"/>
+                <field name="quantity_delivered"/>
                 <field name="quantity_real"/>
+                <field name="deduplication_level"/>
                 <field name="note"/>
             </tree>
         </field>
@@ -832,9 +834,27 @@
         <field name="view_id" ref="view_campaign_type_tree"/>
     </record>
 
-    <menuitem id="menu_action_campaign_type_form" parent="dm.menu_dm_config_campaign" action="action_campaign_type_form"/>
-
-
+    <menuitem id="menu_action_campaign_type_form" parent="dm.menu_dm_config_campaign" action="action_campaign_type_form" sequence = '12'/>
+	
+	<!--
+    =======================================================
+    Partners Category
+    =======================================================
+    -->
+	
+	<record model="ir.ui.view" id="view_partner_inherit_form">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+	  		<field name="category_id" position = "replace">
+	  			<field name="category_id" domain="[('name','=',context['category'])]" nolabel="1" select="2"/>
+        	</field>
+        </field>
+    </record>
+    
+    <!-- Dealers -->
     <record model="ir.actions.act_window" id="action_campaign_dealer_form">
         <field name="name">All Dealers</field>
         <field name="type">ir.actions.act_window</field>
@@ -846,10 +866,11 @@
         <field name="context">{'category':'Dealer'}</field>
     </record> 
 
-    <menuitem id="menu_action_campaign_dealer_form" parent="dm.menu_dm_config_campaign" action="action_campaign_dealer_form"/>
+    <menuitem id="menu_action_campaign_dealer_form" parent="dm.menu_dm_config_campaign" action="action_campaign_dealer_form" sequence="3"/>
 
-    <record model="ir.actions.act_window" id="action_campaign_broker_form">
-        <field name="name">All Customers Lists Brokers</field>
+	<!-- Brokers -->
+   <record model="ir.actions.act_window" id="action_campaign_broker_form">
+        <field name="name">All Brokers</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_type">form</field>
@@ -858,9 +879,10 @@
         <field name="domain">[('category_id','like','Broker')]</field>
         <field name="context">{'category':'Broker'}</field>
     </record>
+   
+    <menuitem id="menu_action_campaign_broker_form" parent="dm.menu_dm_config_campaign" action="action_campaign_broker_form" sequence="0"/>
 
-    <menuitem id="menu_action_campaign_broker_form" parent="dm.menu_dm_config_custlist_list" action="action_campaign_broker_form" sequence="1"/>
-
+	<!-- Deduplicators -->
     <record model="ir.actions.act_window" id="action_campaign_duplicator_form">
         <field name="name">All Deduplicators</field>
         <field name="type">ir.actions.act_window</field>
@@ -871,7 +893,112 @@
         <field name="domain">[('category_id','like','Deduplicator')]</field>
         <field name="context">{'category':'Deduplicator'}</field>
     </record>
-    <menuitem id="menu_action_campaign_duplicator_form" parent="dm.menu_dm_config_custlist_list" action="action_campaign_duplicator_form" sequence="4"/>
+    <menuitem id="menu_action_campaign_duplicator_form" parent="dm.menu_dm_config_campaign" action="action_campaign_duplicator_form" sequence="4"/>
+
+	<!-- Cleaners -->
+ 	<record model="ir.actions.act_window" id="action_campaign_cleaner_form">
+        <field name="name">All Cleaners</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Cleaner')]</field>
+        <field name="context">{'category':'Cleaner'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_cleaner_form" parent="dm.menu_dm_config_campaign" action="action_campaign_cleaner_form" sequence="1"/>
+
+
+	<!-- Copywriters -->
+	<record model="ir.actions.act_window" id="action_campaign_copywriter_form">
+        <field name="name">All Copywriters</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Copywriter')]</field>
+        <field name="context">{'category':'Copywriter'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_copywriter_form" parent="dm.menu_dm_config_campaign" action="action_campaign_copywriter_form" sequence="2"/>
+
+	<!-- DTP Suppliers -->
+	<record model="ir.actions.act_window" id="action_campaign_dtp_supplier_form">
+        <field name="name">All DTP Suppliers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','DTP Supplier')]</field>
+        <field name="context">{'category':'DTP Supplier'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_dtp_supplier_form" parent="dm.menu_dm_config_campaign" action="action_campaign_dtp_supplier_form" sequence="5"/>
+
+	<!-- Items Suppliers -->
+	<record model="ir.actions.act_window" id="action_campaign_item_supplier_form">
+        <field name="name">All Item Suppliers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Item Supplier')]</field>
+        <field name="context">{'category':'Item Supplier'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_item_supplier_form" parent="dm.menu_dm_config_campaign" action="action_campaign_item_supplier_form" sequence="6"/>
+
+	<!-- Mailing Suppliers -->
+	<record model="ir.actions.act_window" id="action_campaign_mail_supplier_form">
+        <field name="name">All Mailing Suppliers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Mailing Supplier')]</field>
+        <field name="context">{'category':'Mailing Supplier'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_mail_supplier_form" parent="dm.menu_dm_config_campaign" action="action_campaign_mail_supplier_form" sequence="7"/>
+
+	<!-- Mail Services -->
+	<record model="ir.actions.act_window" id="action_campaign_mail_service_form">
+        <field name="name">All Mail Services</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Mail Service')]</field>
+        <field name="context">{'category':'Mail Service'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_mail_service_form" parent="dm.menu_dm_config_campaign" action="action_campaign_mail_service_form" sequence="8"/>
+
+	<!-- Owners -->
+	<record model="ir.actions.act_window" id="action_campaign_owner_form">
+        <field name="name">All Owners</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Owner')]</field>
+        <field name="context">{'category':'Owner'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_owner_form" parent="dm.menu_dm_config_campaign" action="action_campaign_owner_form" sequence="9"/>
+
+	<!-- Routers -->
+	<record model="ir.actions.act_window" id="action_campaign_router_form">
+        <field name="name">All Routers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="domain">[('category_id','like','Router')]</field>
+        <field name="context">{'category':'Router'}</field>
+    </record>
+    <menuitem id="menu_action_campaign_router_form" parent="dm.menu_dm_config_campaign" action="action_campaign_router_form" sequence="10"/>
 
     <!--
     =======================================================
@@ -894,7 +1021,7 @@
                     <field name="media_id" select="1"/>
                     <field name="owner_id" select="1"/>
                     <field name="broker_id" select="1"/>
-                    <field name="country_id" select="1"/>
+                    <field name="country_ids" select="1"  />
                     <field name="currency_id" select="2"/>
                     <separator string="" colspan="2"/>
                     <field name="list_type_id" select="2"/>
@@ -929,7 +1056,7 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="broker_id"/>
-                <field name="country_id"/>
+                <field name="country_ids"/>
             </tree>
         </field>
     </record>

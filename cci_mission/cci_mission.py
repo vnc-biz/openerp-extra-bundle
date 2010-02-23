@@ -25,6 +25,7 @@ import datetime
 import pooler
 import netsvc
 from product._common import rounding
+from tools.translate import _
 
 STATE = [
     ('none', 'Non Member'),
@@ -80,7 +81,7 @@ class cci_missions_embassy_folder(osv.osv):
     def _cci_mission_got_back(self,cr,uid,ids,*args):
         self.write(cr, uid, ids, {'state':'open',})
         cases = self.browse(cr, uid, ids)
-        self._history(cr, uid, cases, 'Got Back', history=True)
+        self._history(cr, uid, cases, _('Got Back'), history=True)
         for id in self.browse(cr, uid, ids):
             data = {}
             obj_folder_line = self.pool.get('cci_missions.embassy_folder_line')
@@ -104,7 +105,7 @@ class cci_missions_embassy_folder(osv.osv):
     def _cci_mission_done_folder(self,cr,uid,ids,*args):
         self.write(cr, uid, ids, {'state':'done','invoice_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         cases = self.browse(cr, uid, ids)
-        self._history(cr, uid, cases, 'Invoiced', history=True)
+        self._history(cr, uid, cases, _('Invoiced'), history=True)
         return True
 
     def _history(self, cr, uid,ids,keyword, history=False, email=False, context={}):
@@ -128,7 +129,7 @@ class cci_missions_embassy_folder(osv.osv):
             if seq:
                 vals.update({'name': seq})
         temp = super(osv.osv,self).create(cr, uid, vals, *args, **kwargs)
-        self._history(cr, uid,self.browse(cr, uid, [temp]), 'Created', history=True)
+        self._history(cr, uid,self.browse(cr, uid, [temp]), _('Created'), history=True)
         return temp
 
     def onchange_partner_id(self, cr, uid, ids, part):
@@ -139,8 +140,8 @@ class cci_missions_embassy_folder(osv.osv):
         data_partner = part_obj.browse(cr,uid,part)
         if data_partner.alert_legalisations:
                 warning = {
-                    'title': "Warning:",
-                    'message': data_partner.alert_explanation or 'Partner is not valid'
+                    'title': _("Warning:"),
+                    'message': data_partner.alert_explanation or _('Partner is not valid')
                         }
         addr = part_obj.address_get(cr, uid, [part], ['contact'])
         data = {'partner_address_id':addr['contact']}
@@ -171,7 +172,7 @@ class cci_missions_embassy_folder(osv.osv):
         'site_id': fields.many2one('cci_missions.site','Site', required=True),
         'invoice_date' : fields.datetime('Invoice Date', readonly=True) ,
         "invoice_id":fields.many2one("account.invoice","Invoice"),
-        'date' : fields.related('crm_case_id', 'date', type='date', string="Date", store=True)
+        'embassy_date' : fields.related('crm_case_id', 'date', type='date', string="Date", store=True)
     }
 
     _defaults = {
@@ -179,11 +180,11 @@ class cci_missions_embassy_folder(osv.osv):
         'invoice_date': lambda *a: False,
         'name': lambda *args: '/',
         'state' :  lambda *a : 'draft',
-        "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
+       # "date": lambda *a: time.strftime("%Y-%m-%d %H:%M:%S")
     }
-    _order = "cci_missions_embassy_folder.date desc"
+    _order = "cci_missions_embassy_folder.embassy_date desc"
 
-    _constraints = [(check_folder_line, 'Error: Only One Embassy Folder line allowed for each type!', ['embassy_folder_line_ids'])]
+    _constraints = [(check_folder_line, _('Error: Only One Embassy Folder line allowed for each type!'), ['embassy_folder_line_ids'])]
 
 cci_missions_embassy_folder()
 
@@ -295,7 +296,7 @@ class cci_missions_dossier(osv.osv):
 
     def create(self, cr, uid, vals, *args, **kwargs):
         #overwrite the create: if the text_on_invoice field is empty then fill it with name + destination_id.name + (quantity_original)
-        if not vals['text_on_invoice']: #fix me => text_on_invoice (required=False)
+        if not vals.has_key('text_on_invoice') or not vals['text_on_invoice']:
             invoice_text = vals['name']
             if vals['destination_id']:
                 destination_data = self.pool.get('cci.country').browse(cr,uid,vals['destination_id'])
@@ -408,7 +409,7 @@ class cci_missions_certificate(osv.osv):
                 qty_copy = data.quantity_copies
                 subtotal =  data.sub_total
                 if qty_org < 0 or qty_copy < 0:
-                    raise osv.except_osv('Input Error!','No. of Copies and Quantity of Originals should be positive.')
+                    raise osv.except_osv(_('Input Error!'),_('No. of Copies and Quantity of Originals should be positive.'))
                 total = ((cost_org * qty_org ) + (cost_copy * qty_copy) + subtotal)
                 res[data.id] = total
             else :
@@ -438,8 +439,8 @@ class cci_missions_certificate(osv.osv):
             partner_info = self.pool.get('res.partner').browse(cr, uid,order_partner_id)
             if partner_info.alert_legalisations:
                 warning = {
-                    'title': "Warning:",
-                    'message': partner_info.alert_explanation or 'Partner is not valid'
+                    'title': _("Warning:"),
+                    'message': partner_info.alert_explanation or _('Partner is not valid')
                         }
             if not partner_info.asker_name:
                 asker_name=partner_info.name
@@ -485,6 +486,12 @@ class cci_missions_certificate(osv.osv):
                 vals.update({'name': seq})
         return super(osv.osv,self).create(cr, uid, vals, *args, **kwargs)
 
+    def check_digital_no(self,cr, uid, ids):
+        for data in self.browse(cr, uid, ids):
+            if data.digital_number and not data.digital_number.isdigit():
+                return False
+        return True
+
     _columns = {
         'dossier_id' : fields.many2one('cci_missions.dossier','Dossier'),
         'total':fields.function(_amount_total, method=True, string='Total', store=True),# sum of the price for copies, originals and extra_products
@@ -496,14 +503,14 @@ class cci_missions_certificate(osv.osv):
         'sending_spf': fields.date('SPF Sending Date',help='Date of the sending of this record to the external database'),
         'origin_ids' : fields.many2many('cci.country','certificate_country_rel','certificate_id','country_id','Origin Countries',domain=[('valid4certificate','=',True)]),
         'date_certificate' : fields.related('dossier_id', 'date', type='date', string="Creation Date", store=True),
-        'digital_number': fields.float('Digital Number', digits=(11,0)),
+        'digital_number': fields.char('Digital Number', size=11, help='Please Enter only digits for Digital Number'),
     }
     _order = "cci_missions_certificate.date_certificate desc"
 
     _defaults = {
         'special_reason': lambda *a: 'none',
     }
-
+    _constraints = [(check_digital_no, 'Only Digits allowed', ['digital_number'])]
 cci_missions_certificate()
 
 class cci_missions_legalization(osv.osv):
@@ -539,7 +546,7 @@ class cci_missions_legalization(osv.osv):
                 subtotal =  data.sub_total
 
                 if qty_org < 0 or qty_copy < 0:
-                    raise osv.except_osv('Input Error!','No. of Copies and Quantity of Originals should be positive.')
+                    raise osv.except_osv(_('Input Error!'),_('No. of Copies and Quantity of Originals should be positive.'))
                 total = ((cost_org * qty_org ) + (cost_copy * qty_copy) + subtotal)
                 res[data.id] = total
             else :
@@ -567,10 +574,10 @@ class cci_missions_legalization(osv.osv):
             partner_info = self.pool.get('res.partner').browse(cr, uid,order_partner_id)
             if partner_info.alert_legalisations:
                 warning = {
-                    'title': "Warning:",
-                    'message': partner_info.alert_explanation or 'Partner is not valid'
+                    'title': _("Warning:"),
+                    'message': partner_info.alert_explanation or _('Partner is not valid')
                         }
-            if partner_info.membership_state == 'none': #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
+            if partner_info.membership_state in ('none','canceled'): #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
                 member_state = False
             else:
                 member_state = True
@@ -889,10 +896,10 @@ class cci_missions_ata_carnet(osv.osv):
             partner_info = self.pool.get('res.partner').browse(cr, uid,partner_id)
             if partner_info.alert_legalisations:
                 warning = {
-                    'title': "Warning:",
-                    'message': partner_info.alert_explanation or 'Partner is not valid'
+                    'title': _("Warning:"),
+                    'message': partner_info.alert_explanation or _('Partner is not valid')
                         }
-            if partner_info.membership_state == 'none':
+            if partner_info.membership_state in ('none','canceled'):
                 member_state = False
             else:
                 member_state = True
@@ -954,7 +961,7 @@ class cci_missions_ata_carnet(osv.osv):
     }
 
     _order = "creation_date desc"
-    _constraints = [(check_ata_carnet, 'Error: Please Select (Own Risk) OR ("Insurer Agreement" and "Parnters Insure id" should be greater than Zero)', ['own_risk','insurer_agreement','partner_insurer_id'])]
+    _constraints = [(check_ata_carnet, _('Error: Please Select (Own Risk) OR ("Insurer Agreement" and "Parnters Insure id" should be greater than Zero)'), ['own_risk','insurer_agreement','partner_insurer_id'])]
 
 cci_missions_ata_carnet()
 
@@ -1005,7 +1012,7 @@ class product_lines(osv.osv):
     def _product_subtotal(self, cr, uid, ids, name, args, context=None):
         res = {}
         for line in self.browse(cr, uid, ids):
-            res[line.id] = round(line.price_unit * line.quantity)
+            res[line.id] = line.price_unit * line.quantity
         return res
 
     def product_id_change(self, cr, uid, ids,product_id,):

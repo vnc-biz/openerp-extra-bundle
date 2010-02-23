@@ -17,12 +17,10 @@
             <field name="arch" type="xml">
             	<button name="_get_step_products" string="Get Products" type="object" position="replace">
             		<button string="Get Products" name="%(dm_price_progression.wizard_proposition_products)d" type="action" colspan="3"/>
-<!--                    <group col="6" colspan="4" groups="base.group_extended">-->
 					<newline/>
                     <field name="force_sm_price" colspan="1"/>
                     <field name="sm_price" attrs="{'readonly':[('force_sm_price','=',0)]}" colspan="1"/>
                     <field name="price_prog_use" attrs="{'readonly':[('force_sm_price','=',0)]}" colspan="1"/>
-<!--                    </group>-->
             	</button>
             </field>
         </record>
@@ -42,8 +40,8 @@
                 <separator string="Price Progression Description" colspan="4"/>
                 <field name="name" select="1"/>
                 <separator string="Progression" colspan="4"/>
-                <field name="fixed_prog" select="1"/>
-                <field name="percent_prog" select="1"/>
+                <field name="type" select="1"/>
+                <field name="value" select="1"/>
             </form>
         </field>
     </record>
@@ -55,8 +53,8 @@
         <field name="arch" type="xml">
             <tree string="Campaign Prices Progression">
                 <field name="name"/>
-                <field name="fixed_prog"/>
-                <field name="percent_prog"/>
+                <field name="type"/>
+                <field name="value"/>
             </tree>
         </field>
     </record>
@@ -70,7 +68,7 @@
         <field name="view_id" ref="view_dm_campaign_proposition_prices_progression_tree"/>
     </record>
 
-    <menuitem id="menu_action_dm_campaign_proposition_prices_progression_form" parent="dm.menu_dm_config_campaign" action="action_dm_campaign_proposition_prices_progression_form"/>
+    <menuitem id="menu_action_dm_campaign_proposition_prices_progression_form" parent="dm.menu_dm_config_campaign" action="action_dm_campaign_proposition_prices_progression_form" sequence="13"/>
 
 	<record model="ir.ui.view" id="view_campaign_proposition_price_form">
         <field name="name">dm.campaign.proposition.price.form.inherit</field>

@@ -65,22 +65,29 @@ def _create_legalization(self, cr, uid, data, context):
         newname = obj_pool.get('ir.sequence').get(cr, uid,type_rec.sequence_id.code)        
 
         map(lambda x: prod_lines.append(x.id), data.product_ids)
+        if data.order_partner_id.membership_state in ('none','canceled'): #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
+            is_member = False
+        else:
+            is_member = True
+
         leg_id =obj_pool.get('cci_missions.legalization').create(cr, uid, {
             'name': newname,
             'type_id': type_id,
             'date': data.date,
             'order_partner_id': data.order_partner_id.id,
             'quantity_original': data.quantity_original,
-            'text_on_invoice': data.text_on_invoice,
+            #'text_on_invoice': data.text_on_invoice,
             'asker_name': data.asker_name,
             'sender_name': data.sender_name,
             'state': data.state,
             'goods': data.goods,
             'goods_value': data.goods_value,
 #            'destination_id': data.destination_id.id, => valid4certificate
-            'quantity_copies': data.quantity_copies,
-            'quantity_original': data.quantity_original,
+            'quantity_copies': 0,
+            'quantity_original': 0,
             'to_bill': data.to_bill,
+            'member_price': is_member,
+            'destination_id': data.destination_id and data.destination_id.id or False,
 #            'product_ids': [(6, 0, prod_lines)] => no need
             })
         cr.execute('select dossier_id from cci_missions_legalization where id='"'%s'"''%(leg_id))

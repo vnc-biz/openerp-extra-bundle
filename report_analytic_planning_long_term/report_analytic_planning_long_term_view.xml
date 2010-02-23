@@ -5,7 +5,7 @@
 		<record model="ir.ui.view" id="account_analytic_planning_view_form_1">
 			<field name="name">report.account.analytic.planning.form.inherit_longterm_1</field>
 			<field name="model">report_account_analytic.planning</field>
-			<field name="inherit_id" ref="report_analytic_planning.account_analytic_planning_view_form"/>
+			<field name="inherit_id" ref="project_planning.account_analytic_planning_view_form"/>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page/field[@name='line_ids']/tree/field[@name='user_id']" position="after">

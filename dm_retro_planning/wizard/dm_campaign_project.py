@@ -36,7 +36,7 @@ parameter_fields = {
 
 def _check_date(self, cr, uid, data, context):
     camp_obj = pooler.get_pool(cr.dbname).get(data['model']).browse(cr, uid, data['id'])
-    if not camp_obj.camp_date_start:
+    if not camp_obj.date_start:
         raise wizard.except_wizard(_('UserError'),_('Drop Date should not be empty !!!'))
     return {}
     
@@ -70,10 +70,10 @@ def _create_duplicate(self, cr, uid, data, context):
                 tasks_obj.write(cr, uid, task.id, {'state': 'open'})
         else:
             tasks_obj.write(cr, uid, task.id, 
-                        {'state': 'open', 'date_deadline': campaign.camp_date_start})
+                        {'state': 'open', 'date_deadline': campaign.date_start})
     project_obj.write(cr, uid, [duplicate_project_id], 
                       {'name': project_obj.browse(cr, uid, duplicate_project_id, context).name + " for " + campaign.name, 
-                      'date_end': campaign.camp_date_start.split(' ')[0]})
+                      'date_end': campaign.date_start})
     campaign_obj.write(cr, uid, [data['id']], 
                         {'project_id': duplicate_project_id})
     return {}

@@ -26,6 +26,21 @@ import pydot
 import tools
 import report
 
+
+# a small monkey patch to patch a bug in pydot:
+def needs_quotes(s):
+    """If the string is one of the reserved keywords it will need quotes too."""
+    # If any of these regexes match, then the string does not need quoting
+    if (pydot.id_re_alpha_nums.match(s) or pydot.id_re_num.match(s) or
+            pydot.id_re_dbl_quoted.match(s) or pydot.id_re_html.match(s) or
+            pydot.id_re_with_port.match(s)):
+        return False
+
+    return True
+
+pydot.needs_quotes = needs_quotes
+
+
 def translate_accent(text):
     text = text.encode('utf-8')
     text = text.replace('é','e').replace('è','e').replace('ë','e').replace('ê','e')

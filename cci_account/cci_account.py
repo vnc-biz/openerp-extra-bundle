@@ -153,25 +153,23 @@ class account_invoice(osv.osv):
         for inv in self.browse(cr, uid, ids):
             vcs =''
             if inv.number and not inv.name:
-                vcs3=str(inv.number).split('/')[1]
-                vcs1='0'+ str(inv.date_invoice[2:4])
-                if len(str(vcs3))>=5:
-                    vcs2=str(inv.number[3]) + str(vcs3[0:5])
-                elif len(str(vcs3))==4:
-                    vcs2=str(inv.number[3]) + '0' +str(vcs3)
+                vcs3 = inv.number.split('/')[2]
+                vcs1 = '0'+ str(inv.date_invoice[2:4])
+                if len(vcs3) >= 6:
+                    vcs2= vcs3[0:6]
                 else:
-                    vcs2=str(inv.number[3]) + '00' +str(vcs3)
+                    vcs2 = vcs3.rjust(6,'0')
 
                 vcs4= vcs1 + vcs2 + '0'
 
-                vcs5=int(vcs4)
-                check_digit=vcs5%97
+                vcs5 = int(vcs4)
+                check_digit = vcs5 % 97
 
-                if check_digit==0:
-                    check_digit='97'
-                if check_digit<=9:
-                    check_digit='0'+str(check_digit)
-                vcs=vcs1+'/'+vcs2+'/'+ '0' +str(check_digit)
+                if check_digit == 0:
+                    check_digit = '97'
+                if check_digit <= 9:
+                    check_digit = '0' + str(check_digit)
+                vcs = vcs1 + '/' + vcs2[0:4] + '/' + vcs2[4:6] + '0' + str(check_digit)
 
                 self.write(cr, uid, [inv.id], {'name':vcs})
                 ids = self.pool.get('account.move.line').search(cr, uid, [('move_id','=',inv.move_id.id)])

@@ -63,11 +63,13 @@
 			                            <form string="Contacts">
 			                            	<group string="Partner" colspan="2" col="2">
 			                                	<field name="sequence_partner"/>
-		                               			<field name="name"/>
+		                               			<!--<field name="name"/>-->
 			                                	<field name="contact_id"/>
 			                                	<!--<field name="function_id"/>-->
                                                                 <field name="function_label"/>
 								<field name="function_code_label"/>
+                                                                <field name="magazine_subscription"/>
+                                                                <field name="magazine_subscription_source"/>
 			                            	</group>
 			                            	<group string="Communication" colspan="2" col="2">
 			                                	<field name="phone" on_change="_on_change_phone_num(phone)"/>
@@ -130,7 +132,7 @@
                          	</group>
 	                        <group colspan="2" col="2">
 	                              <separator string="calls to premium" colspan="2"/>
-	                              <field name="membership_amount" select="2"/>
+	                              <field name="membership_amount" select="2" string="Cotisation Demandée (HTVA)"/>
 	                              <field name="membership_vcs"/>
 	                         </group>
 	                        <group colspan="2" col="2">
@@ -251,6 +253,7 @@
                             <field name="state" select="2"/>
                             <newline/>
                             <field name="acc_number" select="1"/>
+                            <field name="iban"/>
                             <newline/>
                             <field name="bank"/>
                             <newline/>
@@ -270,6 +273,7 @@
                             <field name="state"/>
                             <field name="owner_name"/>
                             <field name="acc_number"/>
+                            <field name="iban"/>
                         </tree>
                     </field>
 			</page>
@@ -557,19 +561,20 @@
                     <group col="6" colspan="4">
                         <field domain="[('type', '=', 'purchase')]" name="journal_id" select="2"/>
                         <field name="type" readonly="1" select="2"/>
-                        <field name="date_invoice"/>
+                        <field name="number" select="2"/>
                         <field name="partner_id" domain="[('supplier','=', 1)]" on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term)" select="1" context="{'default_customer': 0}"/>
                         <field domain="[('partner_id','=',partner_id)]" name="address_invoice_id"/>
 			<field name="create_uid" />
                     </group>
                     <notebook colspan="4">
                         <page string="Invoice">
+                            <field name="date_invoice"/>
                             <field name="date_due" select="1"/>
-                            <field name="invoice_special" select="2"/>
                             <field domain="[('partner_id', '=', partner_id)]" name="partner_bank" on_change="onchange_partner_bank(partner_bank)" select="2"/>
                             <field name="reference_type" nolabel="1" select="2" size="0"/>
                             <field name="reference" nolabel="1" select="1"/>
                             <field name="check_total" required="2"/>
+                            <field name="invoice_special" select="2"/>
                             <field name="name" colspan="4"/>
                             <field colspan="4" default_get="{'check_total': check_total, 'invoice_line': invoice_line, 'address_invoice_id': address_invoice_id, 'partner_id': partner_id, 'price_type': 'price_type' in dir() and price_type or False}" name="invoice_line" nolabel="1">
                             	<form string="Invoice Line">
@@ -600,7 +605,7 @@
 			                        </page>
 			                    </notebook>
 			                </form>
-                                <tree string="Invoice lines" editable="top">
+                                <tree string="Invoice lines">
                                     <field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.address_invoice_id)"/>
                                     <field domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]" name="account_id" on_change="onchange_account_id(parent.fiscal_position,account_id)"/>
                                     <field name="invoice_line_tax_id" view_mode="2" context="{'type':parent.type}" domain="[('parent_id','=',False)]"/>
@@ -649,9 +654,8 @@
                             <field name="fiscal_position" groups="base.group_extended"/>
                             <field name="payment_term"/>
                             <newline/>
-                            <field name="number" select="2"/>
                             <field name="origin" select="2"/>
-                            <field colspan="4" domain="[('partner_id','=',partner_id)]" name="address_contact_id"/>
+                            <field domain="[('partner_id','=',partner_id)]" name="address_contact_id"/>
                             <field name="move_id"/>
                         <field domain="[('type','&lt;&gt;','view'), ('company_id', '=', company_id),('journal_id','=',journal_id)]" name="account_id"/>
                         <field name="domiciled_send_date"/>

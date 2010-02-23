@@ -49,14 +49,14 @@
             <field name="act_from" ref="act_proforma"/>
             <field name="act_to" ref="act_done"/>
             <field name="signal">proforma_voucher</field>
-            <field name="condition">amount &lt; 500</field>
+            <field name="condition">amount &lt;= journal_id.max_amount</field>
         </record>
         
         <record id="t3" model="workflow.transition">
             <field name="act_from" ref="act_proforma"/>
             <field name="act_to" ref="act_recheck"/>
             <field name="signal">proforma_voucher</field>
-            <field name="condition">amount &gt;= 500</field>
+            <field name="condition">amount &gt; journal_id.max_amount</field>
         </record>
         
         <record id="t4" model="workflow.transition">

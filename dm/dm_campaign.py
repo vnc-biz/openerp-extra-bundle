@@ -216,8 +216,6 @@ class dm_campaign(osv.osv): #{{{
         'journal_id': fields.many2one('account.journal', 'Payment Methods', domain="[('type','=','cash')]"),
         'mail_service_ids': fields.one2many('dm.campaign.mail_service',
                                             'campaign_id', 'Mailing Service'),
-        'camp_date_start': fields.date('Campaign Start Date'),
-        'camp_date_end': fields.date('Campaign End Date')
     }
 
     _defaults = {
@@ -232,7 +230,7 @@ class dm_campaign(osv.osv): #{{{
 
     def state_close_set(self, cr, uid, ids, *args):
         for camp in self.browse(cr, uid, ids):
-            if (camp.camp_date_end > time.strftime('%Y-%m-%d %H:%M:%S')):
+            if (camp.date > time.strftime('%Y-%m-%d')):
                 raise osv.except_osv("Error", "Campaign cannot be closed before end date")
         self.write(cr, uid, ids, {'state': 'close'})
         return True
@@ -254,14 +252,14 @@ class dm_campaign(osv.osv): #{{{
 
     def state_open_set(self, cr, uid, ids, *args):
         camp = self.browse(cr, uid, ids)[0]
-        if not camp.camp_date_start or not \
+        if not camp.date_start or not \
                 camp.dealer_id or not \
                 camp.trademark_id or not \
                 camp.lang_id or not \
                 camp.currency_id:
             raise osv.except_osv("Error", "Informations are missing.Check Drop Date, Dealer, Trademark, Language and Currency")
 
-        if (camp.camp_date_start > time.strftime('%Y-%m-%d %H:%M:%S')):
+        if (camp.date_start > time.strftime('%Y-%m-%d')):
             raise osv.except_osv("Error!!", "Campaign cannot be opened before drop date")
 
         # Create Flow Start Workitems
@@ -295,7 +293,7 @@ class dm_campaign(osv.osv): #{{{
 
         history_vals = {
               'offer_id': camp.offer_id.id,
-              'date': camp.camp_date_start.split(' ')[0],
+              'date': camp.date_start,
               'campaign_id': camp.id,
               'code': camp.code,
               'responsible_id': camp.responsible_id.id,
@@ -306,7 +304,6 @@ class dm_campaign(osv.osv): #{{{
 
     def write(self, cr, uid, ids, vals, context=None):
         camp = self.pool.get('dm.campaign').browse(cr, uid, ids)[0]
-
         offer_id = 'offer_id' in vals and vals['offer_id'] or camp.offer_id.id
         country_id = 'country_id' in vals and vals['country_id'] or camp.country_id.id
 
@@ -314,7 +311,7 @@ class dm_campaign(osv.osv): #{{{
             raise osv.except_osv("Error", "You cannot use this offer in this country")
 
         # In campaign, if no forwarding_charge is given,
-        # it gets the 'forwarding_charge' from offer
+        # it gets the 'forwarding_charge' from country
 #        if not camp.forwarding_charge:
 #            if camp.country_id.forwarding_charge:
 #                vals['forwarding_charge'] = camp.country_id.forwarding_charge
@@ -324,18 +321,27 @@ class dm_campaign(osv.osv): #{{{
             vals['journal_id'] = journal_id
 
         #Set campaign end date at one year after start date if end date does not exist
-        if 'camp_date_end' not in vals and not camp.camp_date_end and 'camp_date_start' in vals and vals['camp_date_start']:
-            d = time.strptime(vals['camp_date_start'], "%Y-%m-%d")
+       
+        if 'date_start' in vals and vals['date_start']:
+            d = time.strptime(vals['date_start'], "%Y-%m-%d")
             d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
-            vals['camp_date_end'] = date_end
-            self.pool.get('account.analytic.account').write(cr, uid, [camp.analytic_account_id.id], {'date_start': vals['camp_date_start'].split(' ')[0],
-                                                                                                 'date': vals['camp_date_end'].date()})
+            vals['date'] = date_end.strftime('%Y-%m-%d')
+            # Set dates for propositions and segments of the campaign
+            for propo in camp.proposition_ids:
+                self.pool.get('dm.campaign.proposition').write(cr, uid, [propo.id],
+                        {'date_start': vals['date_start'], 'date':vals['date'],
+                            'forwarding_charge':vals['forwarding_charge']})  
+                for seg in propo.segment_ids:
+                    self.pool.get('dm.campaign.proposition.segment').write(cr,
+                            uid, [seg.id], {'date_start':vals['date_start'],
+                            'date':vals['date']})
+
             #  moved in dm_retro_planning as project_id moved in retro_planning
             #if 'project_id' in vals and vals['project_id']:
                 #self.pool.get('project.project').write(cr, uid,
                  #                               [vals['project_id']],
-                 #                           {'date_end': vals['camp_date_start']})
+                 #                           {'date_end': vals['date_start']})
 
         # In campaign, if no trademark is given, it gets the 'recommended trademark' from offer
         if (not camp.trademark_id) and camp.offer_id.recommended_trademark_id:
@@ -365,8 +371,7 @@ class dm_campaign(osv.osv): #{{{
         if not self.check_forbidden_country(cr, uid, data_cam.offer_id.id,
                                             data_cam.country_id.id):
             raise osv.except_osv("Error", "You cannot use this offer in this country")
-        ''' create campaign mail service '''
-
+        # create campaign mail service:
 #        mail_service_id = for each step in the offer the system should:
 #            - check the media of the step,
 #            - find the default mail service for that media
@@ -401,13 +406,11 @@ class dm_campaign(osv.osv): #{{{
 
         # Set campaign end date at one year after start date if end date does
         #                                                            not exist
-        if (data_cam.camp_date_start) and (not data_cam.camp_date_end):
-            d = time.strptime(data_cam.camp_date_start, "%Y-%m-%d")
+        if (data_cam.date_start) and (not data_cam.date):
+            d = time.strptime(data_cam.date_start, "%Y-%m-%d")
             d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
-            write_vals['camp_date_end'] = date_end
-            self.pool.get('account.analytic.account').write(cr, uid, [data_cam.analytic_account_id.id], {'date_start': data_cam.camp_date_start.split(' ')[0],
-                                                                                                         'date': write_vals['camp_date_end'].date()})
+            write_vals['date'] = date_end.strftime('%Y-%m-%d')
 
         # Set trademark to offer's trademark only if trademark is null
         if vals['campaign_type_id'] != type_id:
@@ -420,8 +423,10 @@ class dm_campaign(osv.osv): #{{{
 
         return id_camp
 
-    def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False,): # submenu=False): for trunk client
-        result = super(dm_campaign, self).fields_view_get(cr, user, view_id, view_type, context, toolbar,) # submenu=submenu) for trunk client
+    def fields_view_get(self, cr, user, view_id=None, view_type='form',
+                context=None, toolbar=False,): # submenu=False): for trunk client
+        result = super(dm_campaign, self).fields_view_get(cr, user,
+            view_id, view_type, context, toolbar,) # submenu=submenu) for trunk client
         if 'campaign_type' in context:
             if context['campaign_type'] == 'model':
                 if 'toolbar' in result:
@@ -432,28 +437,35 @@ class dm_campaign(osv.osv): #{{{
         camp = self.browse(cr, uid, ids)[0]
         default = {}
         default['name'] = 'New campaign from model %s' % camp.name
-        default['campaign_type_id'] = self.pool.get('dm.campaign.type').search(cr, uid, [('code', '=', 'recruiting')])[0]
+        default['campaign_type_id'] = self.pool.get('dm.campaign.type').search(cr,
+                                        uid, [('code', '=', 'recruiting')])[0]
         default['responsible_id'] = uid
         self.copy(cr, uid, ids[0], default)
         return True
 
     def copy(self, cr, uid, id, default=None, context={}):
-        if not default: default = {}
+        if not default: 
+            default = {}
         campaign_id = self.browse(cr, uid, id)
         if not default.get('name', False):
             default['name'] = campaign_id.name + ' (Copy)'
             # project_id should nt b her moved in rp
-        default.update({'camp_date_start': False, 'camp_date_end': False, 'proposition_ids': []})
+#        default.update({'date_start': False, 'date': False})
+        default.update({'date_start': False, 'date': False, 'proposition_ids': []})
+        print "XXX default :", default
+        print "XXX context :", context
         camp_copy_id = super(dm_campaign, self).copy(cr, uid, id, default, context)
-        prop_ids = [x.id for x in campaign_id.proposition_ids]
-        for proposition in campaign_id.proposition_ids:
-            default = {'camp_id': camp_copy_id}
-            prop_copy = self.pool.get('dm.campaign.proposition').copy(cr, uid, proposition.id, default, context)
+#        prop_ids = [x.id for x in campaign_id.proposition_ids]
+#        for proposition in campaign_id.proposition_ids:
+#            default = {'camp_id': camp_copy_id}
+#            prop_copy = self.pool.get('dm.campaign.proposition').copy(cr,
+#                   uid, proposition.id, default, context)
         return camp_copy_id
 
     def unlink(self, cr, uid, ids, context={}):
         for campaign in self.browse(cr, uid, ids, context):
-            history_id = self.pool.get('dm.offer.history').search(cr, uid, [('campaign_id', '=', campaign.id)])
+            history_id = self.pool.get('dm.offer.history').search(cr,
+                            uid, [('campaign_id', '=', campaign.id)])
             self.pool.get('dm.offer.history').unlink(cr, uid, history_id,
                                                                      context)
         return super(dm_campaign, self).unlink(cr, uid, ids, context)
@@ -478,27 +490,29 @@ class dm_campaign_proposition(osv.osv): #{{{
         value = super(dm_campaign_proposition, self).default_get(cr, uid, fields, context)
         if 'camp_id' in context and context['camp_id']:
             campaign = self.pool.get('dm.campaign').browse(cr, uid, context['camp_id'])
-            value['camp_pro_date_start'] = campaign.camp_date_start
+            value['date_start'] = campaign.date_start
         return value
 
     def write(self, cr, uid, ids, vals, context=None):
         if 'camp_id' in vals and vals['camp_id']:
             campaign = self.pool.get('dm.campaign').browse(cr, uid, vals['camp_id'])
             vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', campaign.analytic_account_id.id)])[0]
-            if campaign.camp_date_start:
-                vals['camp_pro_date_start'] = campaign.camp_date_start
+            if campaign.date_start:
+                vals['date_start'] = campaign.date_start
             else:
-                vals['camp_pro_date_start'] = 0
+                vals['date_start'] = 0
         return super(dm_campaign_proposition, self).write(cr, uid, ids, vals, context)
 
     def create(self, cr, uid, vals, context={}):
         id = self.pool.get('dm.campaign').browse(cr, uid, vals['camp_id'])
         vals['parent_id'] = self.pool.get('account.analytic.account').search(cr, uid, [('id', '=', id.analytic_account_id.id)])[0]
-        if 'camp_pro_date_start' in vals and not vals['camp_pro_date_start']:
-            if id.camp_date_start:
-                vals['camp_pro_date_start'] = id.camp_date_start
+        if 'date_start' in vals and not vals['date_start']:
+            if id.date_start:
+                vals['date_start'] = id.date_start
         if 'forwarding_charge' not in vals:
-            if id.country_id.forwarding_charge:
+            if id.forwarding_charge:
+                vals['forwarding_charge'] = id.forwarding_charge
+            elif id.country_id.forwarding_charge:
                 vals['forwarding_charge'] = id.country_id.forwarding_charge
         if id.journal_id:
             journal_id = id.journal_id.id
@@ -518,7 +532,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         default_name = ' %s (Copy)' % data.name
         super(dm_campaign_proposition, self).write(cr, uid, proposition_id,
                                                     {'name': default_name,
-                                                     'camp_pro_date_start': False,
+#                                                     'date_start': False,
                                                 'initial_proposition_id': id})
 
         if data.keep_segments == False:
@@ -663,8 +677,6 @@ class dm_campaign_proposition(osv.osv): #{{{
         'keep_prices': fields.boolean('Keep Prices At Duplication'),
         'manufacturing_costs': fields.float('Manufacturing Costs', digits=(16, 2)),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
-        'camp_pro_date_start': fields.date('Campaign Proposition Start Date'),
-        'camp_pro_date_end': fields.date('Campaign Proposition End Date')
     }
 
     _defaults = {
@@ -684,7 +696,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         '''
         Function called by the scheduler to create workitem from the segments of propositions.
         '''
-        ids = self.search(cr, uid, [('camp_pro_date_start', '=', time.strftime('%Y-%m-%d %H:%M:%S'))])
+        ids = self.search(cr, uid, [('date_start', '=', time.strftime('%Y-%m-%d'))])
         for id in ids:
             res = self.browse(cr, uid, [id])[0]
             offer_step_id = self.pool.get('dm.offer.step').search(cr, uid, [('offer_id', '=', res.camp_id.offer_id.id), ('flow_start', '=', True)])
@@ -722,6 +734,18 @@ dm_customers_list_type()#}}}
 class dm_customers_list(osv.osv): #{{{
     _name = "dm.customers_list"
     _description = "A list of addresses proposed by an adresses broker"
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
+                                                        context=None, count=False):
+        
+        if context and 'campaign_id' in context:
+            campaign_country=self.pool.get('dm.campaign').read(cr,uid,context['campaign_id'],['country_id'])
+            if campaign_country.has_key('country_id'):
+                cr.execute('select cust_list_id from dm_cust_list_country_rel where country_id=%s' %(campaign_country['country_id'][0]))
+                res=cr.fetchall()
+                args.append(('id','in',res))
+        return super(dm_customers_list, self).search(cr, uid, args, offset, limit, order, context, count)
+    
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),
@@ -731,7 +755,10 @@ class dm_customers_list(osv.osv): #{{{
         'broker_id': fields.many2one('res.partner', 'Broker',
                                     domain=[('category_id', 'ilike', 'Broker')],
                                      context={'category_xml_id': 'cat_broker'}),
-        'country_id': fields.many2one('res.country', 'Country'),
+        'country_ids': fields.many2many('res.country',
+                                        'dm_cust_list_country_rel',
+                                        'cust_list_id', 'country_id',
+                                        'Country'),
         'currency_id': fields.many2one('res.currency', 'Currency'),
         'product_id': fields.many2one('product.product', 'Product',
                             domain=[('categ_id', 'ilike', 'Customers List')],
@@ -1044,9 +1071,11 @@ class dm_mail_service(osv.osv): # {{{
         'action_date': fields.datetime('Date'),
         'action_interval': fields.integer('Interval'),
         'unit_interval': fields.selection([('minutes', 'Minutes'),
-            ('hours', 'Hours'),
-            ('days', 'Days'),
-            ('weeks', 'Weeks'), ('months', 'Months')], 'Interval Unit'),
+                                            ('hours', 'Hours'),
+                                            ('days', 'Days'),
+                                            ('weeks', 'Weeks'),
+                                             ('months', 'Months')], 
+                                             'Interval Unit'),
         'default_for_media': fields.boolean('Default Mail Service for Media'),
         'action_id': fields.many2one('ir.actions.server', 'Server Action'),
         'type_id': fields.many2one('dm.mail_service.type', 'Type',

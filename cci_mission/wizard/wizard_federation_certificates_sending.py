@@ -89,7 +89,7 @@ def lengthmonth(year, month):
 class wizard_cert_fed_send(wizard.interface):
 
     _field_separator  = chr(124)
-    _record_separator = '\n\b'
+    _record_separator = '\n\r'
 
     def make_lines(self,cr,uid,res_file, data):
         lines=[]
@@ -118,24 +118,25 @@ class wizard_cert_fed_send(wizard.interface):
             sequence_num += 1
             certificate = obj_certificate.browse(cr,uid,cert)
             fields.append( str(sequence_num).rjust(6,'0') )
-            fields.append( certificate.digital_number and str(int(certificate.digital_number)) or (certificate.type_id.id_letter + certificate.name.rpartition('/')[2].rjust(6,'0')) )  # extract the right part of the number of the certificate (CO/2008/25 -> '25' the left justify with '0' -> '000025' )
+            fields.append( certificate.digital_number and str(int(certificate.digital_number)) or (certificate.type_id.id_letter + certificate.name.rpartition('/')[0].rpartition('/')[2] + certificate.name.rpartition('/')[2].rjust(6,'0')) )  # extract the right part of the number of the certificate (CO/2008/25 -> '2008' + '25' the left justify with '0' -> '2008000025' )
             fields.append( certificate.dossier_id.asker_name or '')
             fields.append( certificate.asker_address or '')
             fields.append( certificate.asker_zip_id.name or '')
             fields.append( certificate.asker_zip_id.city or '')
+            fields.append( '000000000' )
             fields.append( certificate.dossier_id.sender_name or '')
             fields.append( certificate.dossier_id.destination_id.code or '')
             fields.append( str( int( certificate.dossier_id.goods_value * 100 )) ) # to have the value in cents, without , or .
             total_value += int( certificate.dossier_id.goods_value * 100 ) # I do this now, because, if I do this just before lines.append, i've got a bug !! If someone has an explanatio, I'm ready
             fields.append( certificate.dossier_id.date.replace('-','') )  # to correct '2008-05-28' to '20080528'
-            fields.append( 'N' )
+            fields.append( 'Y' )
             custom_codes_string = ''
             for custom_code in certificate.customs_ids:
                 custom_codes_string += custom_code.name + self._field_separator
             fields.append( custom_codes_string ) # YES, there will be TWO fields separators at the end of this list, to mark the end of the list, exactly
             origins_string = ''
             for country_code in certificate.origin_ids:
-                origins_string += country_code.name + self._field_separator
+                origins_string += country_code.code + self._field_separator  # country code and not country name
             fields.append( origins_string ) # YES, there will be TWO fields separators at the end of this list, to mark the end of the list, exactly
             lines.append( self._field_separator.join(fields) + self._field_separator )
         

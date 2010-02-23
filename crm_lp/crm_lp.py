@@ -168,23 +168,27 @@ class crm_case(osv.osv):
         result = super(osv.osv, self).write(cr, uid, ids, vals, context)
         return result
 
-    def _check_bug(self, cr, uid, ids=False, context={}):
+    def _check_bug(self, cr, uid, ids=False,date_from=False,date_to=False, context={}):
         '''
         Function called by the scheduler to process cases for date actions
         Only works on not done and cancelled cases
         '''
-        val={}
         pool=pooler.get_pool(cr.dbname)
         lp_server = lpServer()
-        #self._create_bug(cr, uid, lp_server, context)
-        self._find_project_bug(cr,uid,lp_server)
+        val={}
+        if date_from and date_to:
+              self._find_project_bug(cr,uid,lp_server,date_from,date_to)
+        else:
+              self._create_bug(cr, uid, lp_server, context)
+             # self._find_project_bug(cr,uid,lp_server)
+      
         return True
 
     def _create_bug(self, cr, uid, lp_server=None,context={}):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
         
-        crm_case_obj = pool.get('crm.case')
+        crm_case_obj = pool.get('crm.project.bug')
         for sec_id in section_id:
             crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('project_id','!=',False)])
             launchpad = lp_server.launchpad
@@ -217,13 +221,14 @@ class crm_case(osv.osv):
             return True
             
 
-    def _find_project_bug(self, cr, uid,lp_server=None,context={}):
+    def _find_project_bug(self, cr, uid,lp_server=None,date_from=False,date_to=False,context={}):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
-        categ_fix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Fixed')])[0]
-        categ_inv_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Invalid')])[0]
-        categ_future_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'), ('name','=','Future')])[0]
-        categ_wfix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=',"Won't fix")])[0]
+        categ_id=self.pool.get('crm.case.categ').search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Bugs')])
+        categ_fix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Fixed')])
+        categ_inv_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Invalid')])
+        categ_future_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'), ('name','=','Future')])
+        categ_wfix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=',"Won't fix")])
         val={}
         res={}
         series_ids=[]
@@ -237,88 +242,94 @@ class crm_case(osv.osv):
                 self._get_project_series( cr, uid,lp_project,prj_id.id,lp_server)
                 for key, bugs in prjs.items():
                         for bug in bugs:
-                            b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
-                            val['project_id']=prj_id.id
-                            val['description']=bug.bug.description                                
-                            val['bug_id']=bug.bug.id
-                            val['name']=bug.bug.title
-                            owner = bug.owner
-                            parnter_rec=self.pool.get('res.partner')
-                            user_rec=self.pool.get('res.users')                                  
-                            partner_id = parnter_rec.search(cr,uid,[('name', '=',owner.display_name)])
-                            user_id = user_rec.search(cr,uid,[('login', '=',owner.name)])
-                            if not partner_id and not user_id :
-                                res={} 
-                                res['name']=owner.display_name
-                                res['login']=owner.name
-                                res['password']=owner.name
-                                res['lp_login']=owner.name                                    
-                                user_id = user_rec.create(cr,uid,res,context=context)                                    
-                                partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name,'user_id':user_id})
-                            else:
-                                partner_id=partner_id and partner_id[0] or False
-                                user_id=user_id and user_id[0] or False
-                            if bug.assignee:
-                                assing_id = user_rec.search(cr,uid,[('login', '=', bug.assignee.name)])
-                                if assing_id:
-                                     val['user_id']=assing_id[0]
-                                else: 
-                                    res={}
-                                    res['name']=bug.assignee.name
-                                    res['login']=bug.assignee.name
-                                    res['password']=bug.assignee.name
-                                    res['lp_login']=bug.assignee.name                                                             
-                                    assing_id = user_rec.create(cr,uid,res,context=context)
-                                    val['user_id']=assing_id                                          
-                            val['partner_id'] =partner_id                                           
-                            val['bug_owner_id']= user_id  
-                            if bug.importance == 'Wishlist':
-                                val['stage_id']=categ_future_id
-                                val['priority']='5'
-                            elif bug.importance == 'Critical':
-                                val['priority']='1'
-                                val['state']='open'                                    
-                            elif bug.importance=='High':
-                                val['priority']='2'
-                                val['state']='open'                                    
-                            elif bug.importance=='Medium':
-                                val['priority']='3'
-                                val['state']='open'                                    
-                            if bug.status =='Fix Released':
-                                val['stage_id']=categ_fix_id
-                                val['state']='done'
-                            if bug.status =='invaild':
-                                val['stage_id']= val['stage_id']=categ_inv_id
-                                val['state']='cancel'     
-                            if bug.status=='Confirmed':
-                                val['state']='open'   
-                            if bug.milestone_link:
-                                val['milestone_url']=bug.milestone_link
-                                ml = bug.milestone_link.rsplit('/',1)[0]
-                                ml_ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',prj_id.id),('name','=', ml)])                          
-                            if not b_id:
-                                bug_id=self.create(cr, uid, val,context=context)
-                                self._check_state(cr, uid,[bug_id],val)     
-                                self._store_bug_history(cr, uid , bug_id,bug,val['bug_owner_id'])                               
-                            if b_id:
-                                crm_case = self.browse(cr,uid, b_id[0])
-                                lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
-                                lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,"%Y-%m-%dT%H:%M:%S"))+ time.timezone
-                                if not crm_case.date_action_last:
-                                    local_last_up_time=0
-                                    local_last_up_timestamp = 0
-                                    local_last_up_timestamp1=0
+                            lp_date=mx.DateTime.strptime(str(bug.date_created).split('T')[0],"%Y-%m-%d").strftime("%Y-%m-%d")
+                            start_date=mx.DateTime.strptime(date_from,"%Y-%m-%d").strftime("%Y-%m-%d")
+                            end_date=mx.DateTime.strptime(date_to,"%Y-%m-%d").strftime("%Y-%m-%d")
+                            
+                            if lp_date >=start_date and end_date<=end_date:
+                                b_id = self.search(cr,uid,[('bug_id','=',bug.bug.id)])
+                                val['project_id']=prj_id.id
+                                val['categ_id']=categ_id and categ_id[0] or False
+                                val['description']=bug.bug.description                                
+                                val['bug_id']=bug.bug.id
+                                val['name']=bug.bug.title
+                                owner = bug.owner
+                                parnter_rec=self.pool.get('res.partner')
+                                user_rec=self.pool.get('res.users')                                  
+                                partner_id = parnter_rec.search(cr,uid,[('name', '=',owner.display_name)])
+                                user_id = user_rec.search(cr,uid,[('login', '=',owner.name)])
+                                if not partner_id and not user_id :
+                                    res={} 
+                                    res['name']=owner.display_name
+                                    res['login']=owner.name
+                                    res['password']=owner.name
+                                    res['lp_login']=owner.name                                    
+                                    user_id = user_rec.create(cr,uid,res,context=context)                                    
+                                    partner_id = parnter_rec.create(cr, uid, {'name': owner.display_name,'user_id':user_id})
                                 else:
-                                    local_last_up_time = str(crm_case.date_action_last).split('.')[0]
-                                    local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,"%Y-%m-%dT%H:%M:%S")) + time.timezone
-                                    local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%dT%H:%M:%S'))
-
-                                args = (cr, uid, context,crm_case, bug, val)
-                                if lp_last_up_timestamp >= local_last_up_timestamp:
-                                    self._update_local_record(*args)
-                                elif lp_last_up_timestamp < local_last_up_timestamp:
-                                    self._update_lp_record(*args)
-                            cr.commit()
+                                    partner_id= partner_id and partner_id[0] or False
+                                    user_id=user_id and user_id[0] or False
+                                if bug.assignee:
+                                    assing_id = user_rec.search(cr,uid,[('login', '=', bug.assignee.name)])
+                                    if assing_id:
+                                         val['user_id']=assing_id[0]
+                                    else: 
+                                        res={}
+                                        res['name']=bug.assignee.name
+                                        res['login']=bug.assignee.name
+                                        res['password']=bug.assignee.name
+                                        res['lp_login']=bug.assignee.name                                                             
+                                        assing_id = user_rec.create(cr,uid,res,context=context)
+                                        val['user_id']=assing_id                                          
+                                val['partner_id'] =partner_id                                           
+                                val['bug_owner_id']= user_id  
+                                if bug.importance == 'Wishlist':
+                                    val['stage_id']=categ_future_id and categ_future_id[0] or False
+                                    val['priority']='5'
+                                elif bug.importance == 'Critical':
+                                    val['priority']='1'
+                                    val['state']='open'                                    
+                                elif bug.importance=='High':
+                                    val['priority']='2'
+                                    val['state']='open'                                    
+                                elif bug.importance=='Medium':
+                                    val['priority']='3'
+                                    val['state']='open'                                    
+                                if bug.status =='Fix Released':
+                                    val['stage_id']=categ_fix_id[0] or False
+                                    val['state']='done'
+                                if bug.status =='invaild':
+                                    val['stage_id']= val['stage_id']=categ_inv_id[0] or False
+                                    val['state']='cancel'     
+                                if bug.status=='Confirmed':
+                                    val['state']='open'   
+                                if bug.milestone_link:
+                                    val['milestone_url']=bug.milestone_link
+                                    ml = bug.milestone_link.rsplit('/',1)[0]
+                                    ml_ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',prj_id.id),('name','=', ml)])                          
+                                if not b_id:
+                                    bug_id=self.create(cr, uid, val,context=context)
+                                    self._check_state(cr, uid,[bug_id],val)     
+                                    self._store_bug_history(cr, uid , bug_id,bug,val['bug_owner_id'])                               
+                                if b_id:
+                                    crm_case = self.browse(cr,uid, b_id[0])
+                                    lp_last_up_time = str(bug.bug.date_last_updated).split('.')[0]
+                                    lp_last_up_timestamp = time.mktime(time.strptime(lp_last_up_time,"%Y-%m-%dT%H:%M:%S"))+ time.timezone
+                                    if not crm_case.date_action_last:
+                                        local_last_up_time=0
+                                        local_last_up_timestamp = 0
+                                        local_last_up_timestamp1=0
+                                    else:
+                                        local_last_up_time = str(crm_case.date_action_last).split('.')[0]
+                                        local_last_up_timestamp = time.mktime(time.strptime(local_last_up_time,"%Y-%m-%dT%H:%M:%S")) + time.timezone
+                                        local_last_up_timestamp1 = time.mktime(time.strptime(local_last_up_time,'%Y-%m-%dT%H:%M:%S'))
+    
+                                    args = (cr, uid, context,crm_case, bug, val)
+                                    if lp_last_up_timestamp >= local_last_up_timestamp:
+                                        self._update_local_record(*args)
+                                    elif lp_last_up_timestamp < local_last_up_timestamp:
+                                        self._update_lp_record(*args)
+                                        cr.commit()
         return True
 
     def _get_project_series(self, cr, uid,lp_project,lp_project_id,lp_server=None,context={}):
@@ -425,8 +436,6 @@ class crm_case(osv.osv):
                                             'res_model': self._name,
                                             'res_id': bug_id,
                                             }, context=context  )
-                else:
-                    if attach_id:
                         data = {
                         'name': bug.status,
                         'user_id': uid,
@@ -434,9 +443,10 @@ class crm_case(osv.osv):
                         'res_id':bug_id,
                         'description':key['content'],
                         'filename':attach_id,
-                        'bug_owner_id':user_id}              
-                    else:
-                        data={'name': bug.status,
+                        'bug_owner_id':user_id}   
+                        obj.create(cr, uid, data, context)                                   
+                else:
+                    data={'name': bug.status,
                     'user_id': uid,
                     'model_id': model_ids[0] or False,
                     'res_id':bug_id,
@@ -461,5 +471,4 @@ class crm_case_history(osv.osv):
         'filename':fields.many2one('ir.attachment','File'),        
     }
 crm_case_history()    
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

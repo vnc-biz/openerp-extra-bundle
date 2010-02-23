@@ -108,7 +108,7 @@ class res_partner(osv.osv): # {{{
     _columns = {
         'reject_ids': fields.one2many('dm.as.reject.incident', 'partner_id', 'Rejects')      
         }
-    
+    """
     def write(self, cr, uid, ids, vals, context):
         result = super(res_partner, self).write(cr, uid, ids, vals, context)
         rej_inc_ids = self.browse(cr, uid, ids)[0].reject_ids
@@ -121,7 +121,7 @@ class res_partner(osv.osv): # {{{
                     for add_id in address_ids:
                         self.pool.get('res.partner.address').write(cr, uid, [add_id], {'active': False}, context)
         return result
-    
+    """
 res_partner() # }}}
 
 class res_partner_address(osv.osv): # {{{
@@ -130,7 +130,7 @@ class res_partner_address(osv.osv): # {{{
     _columns = {
         'reject_ids': fields.one2many('dm.as.reject.incident', 'partner_address_id', 'Rejects')      
         }
-    
+    """    
     def write(self, cr, uid, ids, vals, context):
         for r_id in ids :
             if 'reject_ids' in vals :
@@ -143,7 +143,7 @@ class res_partner_address(osv.osv): # {{{
                     vals['active']=False
         result = super(res_partner_address, self).write(cr, uid, ids, vals, context)
         return result
-    
+    """
 res_partner_address() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

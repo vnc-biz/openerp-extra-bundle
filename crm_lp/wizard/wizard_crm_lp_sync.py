@@ -26,16 +26,24 @@ import sys
 
 form = '''<?xml version="1.0"?>
 <form string="Launchpad Bugs Synchronization">
-    <label string="Click OK to continue synchronization with launchpad"/>
+    <separator align="0.0" string="Select Period" colspan="4"/> 
+    <field name="date_from"/>
+    <field name="date_to"/>
 </form>'''
 
 fields = {
+    'date_from': {'string':"Start date",'type':'date','required':True ,'default': lambda *a: time.strftime('%Y-01-01')},
+    'date_to': {'string':"End date",'type':'date','required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
+
 }
 
 class makeSync(wizard.interface):
 
     def make_sync(self, cr, uid, data, context):
-        state = pooler.get_pool(cr.dbname).get('crm.case')._check_bug(cr, uid)
+        date_from=data['form']['date_from']
+        date_to=data['form']['date_to']
+        ids=False
+        state = pooler.get_pool(cr.dbname).get('crm.project.bug')._check_bug(cr, uid,ids,date_from,date_to)
         if not state:
             raise osv.except_osv(_('Error'), _('Some problem occurred while making synchronization'))
         return {}

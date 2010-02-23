@@ -20,8 +20,16 @@
 ##############################################################################
 from osv import osv
 from osv import fields
+from tools import config
 
-class AccountVoucher(osv.osv):
+class account_journal(osv.osv):
+    _inherit = "account.journal"
+    _columns = {
+        'max_amount': fields.float('Verify Transection Above', digits=(16, int(config['price_accuracy']))),
+    }
+account_journal()
+
+class account_voucher(osv.osv):
     _inherit = 'account.voucher'
     _columns = {
         'state':fields.selection(
@@ -32,5 +40,5 @@ class AccountVoucher(osv.osv):
              ('cancel','Cancel'),
              ('audit','Audit Complete')
             ], 'State', readonly=True, size=32),
-    }
-AccountVoucher()
+    }        
+account_voucher()

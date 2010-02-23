@@ -29,7 +29,6 @@ import time
 from dm.dm_report_design import merge_message, generate_internal_reports, generate_openoffice_reports
 
 def send_email(cr, uid, obj, context):
-    print "XXXXX emv_api context :",context
     """ Set context values """
     
     context['workitem_id'] = obj.workitem_id.id

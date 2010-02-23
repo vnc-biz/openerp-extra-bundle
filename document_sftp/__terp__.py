@@ -29,7 +29,7 @@
 """,
     'author': 'Tiny',
     'website': 'http://www.openerp.com',
-    'depends': ['base', 'document'],
+    'depends': ['base', 'document_ftp'],
     'init_xml': [],
     'update_xml': ['document_view.xml','security/ir.model.access.csv'],
     'demo_xml': [],

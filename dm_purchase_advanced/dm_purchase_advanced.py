@@ -384,7 +384,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                         note.append("---------------------------------------------------------------------------")
                         note.append('Campaign Name: %s' % (obj.name,))
                         note.append('Campaign Code: %s' % (obj.code,))
-                        note.append('Drop Date: %s' % (obj.camp_date_start,))
+                        note.append('Drop Date: %s' % (obj.date_start,))
                         note.append("---------------------------------------------------------------------------")
                         note.append('Trademark: %s' % (obj.trademark_id.name,))
                         note.append('planned Quantity: %s' % (obj.quantity_planned_total,))
@@ -634,7 +634,6 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         for pline in self.browse(cr, uid, ids):
             delivered=False
             ordered=False
-            print 'pline po ids : ',pline.purchase_order_ids
             if pline.purchase_order_ids:
                 for po in pline.purchase_order_ids:
                     if delivered:
@@ -736,6 +735,12 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                                'Campaign Purchase Line'),
         'notes': fields.text('Notes'),
         'desc_from_offer' : fields.boolean('Insert Description from Offer'),
+        'supplier_ids': fields.many2many('res.partner',
+                                        'dm_purchase_line_supplier_rel',
+                                        'purchase_line_id', 'supplier_id',
+                                        'Suppliers',
+                                        context={'category_xml_id': 'cat_mailing_supplier'}
+                                        ),
         'state' : fields.function(_state_get, method=True, 
                                   type='selection', selection=[
             ('pending','Pending'),

@@ -32,9 +32,10 @@ import time
 import base64
 import os
 import sys
+import tools
 
 # To Fix: use no style css, no static values, en-IN ??
-internal_html_report = '''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+internal_html_report = u'''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
 <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
@@ -87,7 +88,7 @@ def generate_internal_reports(cr, uid, report_type,
         "Check if to use the internal editor report"
         if not document_data.content:
                 return "no_report_for_document"
-        report_data = internal_html_report + str(document_data.content)+"</BODY></HTML>"
+        report_data = internal_html_report + tools.ustr(document_data.content )+ u"</BODY></HTML>"
         context['doc_type'] = 'email_doc'
         report_data = merge_message(cr, uid, report_data, context)
         if re.search('!!!Missing-Plugin-in DTP document!!!',report_data,re.IGNORECASE) :
@@ -119,13 +120,12 @@ def generate_openoffice_reports(cr, uid, report_type,
     document_data = pool.get('dm.offer.document').browse(cr,uid,document_data)    
     report_xml = pool.get('ir.actions.report.xml')
     report_ids = report_xml.search(cr, uid, 
-                    [('document_id', '=', document_data.id),
-                    ('report_type', '=', report_type)])
+                    [('document_id', '=', document_data.id), 
+                    ('report_type', '=', report_type),])
     if not report_ids:
         return "no_report_for_document"
     for report in pool.get('ir.actions.report.xml').browse(cr, uid, report_ids):
         srv = netsvc.LocalService('report.' + report.report_name)
-        print "XXXXX generate_openoffice_reports :",context
         report_data, report_type = srv.create(cr, uid, [], {}, context)
         if re.search('!!!Missing-Plugin-in DTP document!!!', report_data, re.IGNORECASE):
             return 'plugin_missing' 
@@ -221,18 +221,16 @@ def process_report(cr, uid, obj, report_type, mail_service, document_data, addre
     if not document_data.content and document_data.editor == 'internal':
         return {'code': "no_report_for_document"}
     report_ids = report_xml.search(cr, uid, 
-                                   [('document_id', '=', document_data.id),
-                                    ('report_type', '=', report_type)])
+                                   [('document_id', '=', document_data.id), 
+                                    ('report_type', '=', report_type),])
     if not report_ids and document_data.editor == 'oord':
         return {'code': "no_report_for_document"}
-
     r_type = report_type
     if report_type == 'html2html':
         r_type = 'html'
 
     type_id = pool.get('dm.campaign.document.type').search(cr, uid, [('code', '=', r_type)])
     res = 'doc_done'
-
     """ Create campaign document """
     vals={
         'workitem_id': obj.id,
@@ -304,11 +302,10 @@ def _generate_value(cr, uid, plugin_obj, **args): # {{{
                                             [('plugin_id', '=', plugin_obj.id)])
         for arg in pool.get('dm.plugin.argument').browse(cr, uid, arg_ids):
             if not arg.stored_plugin:
-                plugin_args[str(arg.name)] = arg.value
+                plugin_args[str(arg.name)] = tools.ustr(arg.value)
             else:
-                plugin_args[str(arg.name)] = _generate_value(cr, uid, 
-                                    arg.custome_plugin_id, **args)
-
+                plugin_args[str(arg.name)] = tools.ustr(_generate_value(cr, uid, 
+                                    arg.custome_plugin_id, **args))
         if plugin_obj.type == 'dynamic' and plugin_obj.python_code:
             localcontext.update(plugin_args)
             localcontext['pool'] = pool

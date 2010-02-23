@@ -207,7 +207,7 @@ def _do_export(self, cr, uid, data, context):
                 	#print "webproduct['name:fr_FR']: %s" % webproduct['name:fr_FR']
 
                 en_product = self.pool.get('product.product').browse(cr, uid, product.id, context={'lang': 'en_US'})
-		if em_product:
+		if en_product:
 	                webproduct['description:en_US'] = str((en_product.description_sale or '') + (len(taxes_name) and ("\n(" + (', '.join(taxes_name)) + ')') or ''))
         	        webproduct['short_description:en_US'] = str(en_product.description_sale or '')
                 	#webproduct['name:en_US'] = str(en_product.name or '')
@@ -215,13 +215,13 @@ def _do_export(self, cr, uid, data, context):
                 	webproduct['name:en_US'] = en_product.name or ''
 	                #print "webproduct['name:en_US']: %s" % webproduct['name:en_US']
 
-                if product.contrib != 0.0:
-                    webproduct['description'] = webproduct['description'] + " Recycling cost included."
-                    webproduct['short_description'] = webproduct['short_description'] + " Recycling cost included."
-                    webproduct['description:fr_FR'] = webproduct['description:fr_FR'] + " Contribution recyclage incluse."
-                    webproduct['short_description:fr_FR'] = webproduct['short_description:fr_FR'] + " Contribution recyclage incluse."
-                    webproduct['description:en_US'] = webproduct['description:en_US'] + " Recycling cost included."
-                    webproduct['short_description:en_US'] = webproduct['short_description:en_US'] + " Recycling cost included."
+#                if product.contrib != 0.0:
+#                    webproduct['description'] = webproduct['description'] + " Recycling cost included."
+#                    webproduct['short_description'] = webproduct['short_description'] + " Recycling cost included."
+#                    webproduct['description:fr_FR'] = webproduct['description:fr_FR'] + " Contribution recyclage incluse."
+#                    webproduct['short_description:fr_FR'] = webproduct['short_description:fr_FR'] + " Contribution recyclage incluse."
+#                    webproduct['description:en_US'] = webproduct['description:en_US'] + " Recycling cost included."
+#                    webproduct['short_description:en_US'] = webproduct['short_description:en_US'] + " Recycling cost included."
 
                 try:
                     osc_id = webserver.set_product(webproduct)

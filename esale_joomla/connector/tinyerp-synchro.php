@@ -367,7 +367,7 @@ function set_product($tiny_product){
     "product_weight=".$tiny_product['weight'].",".
     "product_sku='".mysql_escape_string($tiny_product['model'])."',".
     "product_name='".mysql_escape_string( ($tiny_product['name']))."',".
-    "vendor_id='".$prod['vendor_id']."',".
+    "vendor_id=".$prod['vendor_id'].",".
     "product_desc='".mysql_escape_string( ($tiny_product['description']))."', ".
     "product_unit='".mysql_escape_string( ($tiny_product['product_unit']))."', ".
     "product_publish='Y',".

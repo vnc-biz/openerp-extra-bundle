@@ -191,7 +191,7 @@
 		<field name="parent_id" ref="chart003000000"/>
 		<field name="type">view</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_view"/>
-		<field name="name">W jednostkach powiązanych</field>
+		<field name="name">Długoterminowe aktywa finansowe w jednostkach powiązanych</field>
 	</record>
 
 	<record id="chart003010100" model="account.account.template">
@@ -200,7 +200,7 @@
 		<field name="parent_id" ref="chart003010000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Udziały lub akcje</field>
+		<field name="name">Udziały lub akcje w jednostkach powiązanych</field>
 	</record>
 
 	<record id="chart003010200" model="account.account.template">
@@ -209,7 +209,7 @@
 		<field name="parent_id" ref="chart003010000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Inne papiery wartościowe</field>
+		<field name="name">Inne papiery wartościowe w jednostkach powiązanych</field>
 	</record>
 
 	<record id="chart003010300" model="account.account.template">
@@ -218,7 +218,7 @@
 		<field name="parent_id" ref="chart003010000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Udzielone pożyczki</field>
+		<field name="name">Udzielone pożyczki w jednostkach powiązanych</field>
 	</record>
 
 	<record id="chart003010400" model="account.account.template">
@@ -227,7 +227,7 @@
 		<field name="parent_id" ref="chart003010000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Inne długoterminowe aktywa finansowe</field>
+		<field name="name">Inne długoterminowe aktywa finansowe w jednostkach powiązanych</field>
 	</record>
 
 	<record id="chart003020000" model="account.account.template">
@@ -236,7 +236,7 @@
 		<field name="parent_id" ref="chart003000000"/>
 		<field name="type">view</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_view"/>
-		<field name="name">W pozostałych jednostkach</field>
+		<field name="name">Inne długoterminowe aktywa finansowe w pozostałych jednostkach</field>
 	</record>
 
 	<record id="chart003020100" model="account.account.template">
@@ -245,7 +245,7 @@
 		<field name="parent_id" ref="chart003020000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Udziały lub akcje</field>
+		<field name="name">Udziały lub akcje w pozostałych jednostkach</field>
 	</record>
 
 	<record id="chart003020200" model="account.account.template">
@@ -254,7 +254,7 @@
 		<field name="parent_id" ref="chart003020000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Inne papiery wartościowe</field>
+		<field name="name">Inne papiery wartościowe w pozostałych jednostkach</field>
 	</record>
 
 	<record id="chart003020300" model="account.account.template">
@@ -263,7 +263,7 @@
 		<field name="parent_id" ref="chart003020000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Udzielone pożyczki</field>
+		<field name="name">Udzielone pożyczki w pozostałych jednostkach</field>
 	</record>
 
 	<record id="chart003020400" model="account.account.template">
@@ -272,7 +272,7 @@
 		<field name="parent_id" ref="chart003020000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Inne długoterminowe aktywa finansowe</field>
+		<field name="name">Inne długoterminowe aktywa finansowe w pozostałych jednostkach</field>
 	</record>
 	<record id="chart003050000" model="account.account.template">
 		<field name="code">003050000</field>
@@ -406,7 +406,7 @@
 		<field name="parent_id" ref="chart006000000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Od jednostek powiązanych</field>
+		<field name="name">Należności długoterminowe od jednostek powiązanych</field>
 	</record>
 
 	<record id="chart006020000" model="account.account.template">
@@ -415,7 +415,7 @@
 		<field name="parent_id" ref="chart006000000"/>
 		<field name="type">other</field>
 		<field name="user_type" ref="l10n_chart_pl.account_type_asset"/>
-		<field name="name">Od pozostałych jednostek</field>
+		<field name="name">Należności długoterminowe od pozostałych jednostek</field>
 	</record>
 
 	<record id="chart007000000" model="account.account.template">

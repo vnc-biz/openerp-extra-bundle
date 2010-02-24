@@ -1717,7 +1717,7 @@ msgstr "Critères de sélection numérique pour clients"
 #. module: dm
 #: rml:dm.campaign.report:0
 msgid "Sent Quantity"
-msgstr "Qunatité envoyée"
+msgstr "Quantité envoyée"
 
 #. module: dm
 #: view:dm.offer.step:0
@@ -1921,7 +1921,7 @@ msgstr "Nom du client"
 #: field:dm.campaign.proposition,quantity_planned:0
 #: field:dm.campaign.proposition.item,qty_planned:0
 msgid "Planned Quantity"
-msgstr "Qunatité plannifiée"
+msgstr "Quantité planifiée"
 
 #. module: dm
 #: model:ir.actions.act_window,name:dm.action_campaign_form_my

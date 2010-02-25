@@ -92,7 +92,7 @@ def _createInvoices(self, cr, uid, data, context):
             cci_special_reference = "translation.folder*" + str(transfolder.id)
 
         inv_id =pool_obj.get('account.invoice.line').create(cr, uid, {
-            'name': val['value']['name'],
+            'name': transfolder.name,
             'account_id': val['value']['account_id'],
             'price_unit': transfolder.base_amount,
             'quantity': 1,
@@ -104,7 +104,7 @@ def _createInvoices(self, cr, uid, data, context):
             'cci_special_reference': cci_special_reference
         })
         inv = {
-            'name': transfolder.name,
+            #'name': transfolder.name,
             'origin': transfolder.name,
             'type': 'out_invoice',
             'reference': False,

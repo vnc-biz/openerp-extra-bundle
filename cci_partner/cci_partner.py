@@ -530,6 +530,7 @@ res_partner_activity()
 class res_partner_activity_relation(osv.osv):
     _name = "res.partner.activity.relation"
     _description = 'res.partner.activity.relation'
+    _rec_name = 'activity_id'
     _columns = {
         'importance': fields.selection([('main','Main'),('primary','Primary'),('secondary','Secondary')],'Importance',required=True),
         'activity_id':fields.many2one('res.partner.activity','Activity', ondelete="cascade"),

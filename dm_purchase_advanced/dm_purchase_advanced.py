@@ -705,8 +705,12 @@ class dm_campaign_purchase_line(osv.osv):#{{{
 
     def get_campaign_purchase_line_ids(self , cr, uid, ids, context):
         result = {}
+
+        dm_campaign_purchase_line_obj = self.pool.get('dm.campaign.purchase_line')
         for po in self.browse(cr, uid, ids, context):
-            result[po.dm_campaign_purchase_line.id] =True
+            for line_id in dm_campaign_purchase_line_obj.search(cr, uid, [('campaign_id', '=', po.campaign_id.id)]):
+                result[line_id] = True
+        print result.keys()
         return result.keys()
 
     _columns = {
@@ -751,7 +755,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
             ], string='State', 
             store = {
                 'purchase.order': (get_campaign_purchase_line_ids, ['state'], 10),
-                },
+            },
             readonly=True),
     }
 
@@ -767,6 +771,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
     }
 dm_campaign_purchase_line()#}}}
 
+
 class purchase_order(osv.osv):#{{{
     _name = 'purchase.order'
     _inherit = 'purchase.order'
@@ -775,6 +780,7 @@ class purchase_order(osv.osv):#{{{
     }
 
 purchase_order()#}}}
+
 
 class dm_offer(osv.osv):
     _name = "dm.offer"

@@ -23,14 +23,15 @@ import pooler
 
 def _campaign_pos(self, cr, uid, data, context):
     campaign_id = data['id']
-    cr.execute('''SELECT id FROM dm_campaign_purchase_line WHERE campaign_id = %d '''% (campaign_id, ))
+    cr.execute('''SELECT id FROM dm_campaign_purchase_line WHERE campaign_id = %s ''', [campaign_id])
     res = cr.fetchall()
     pline_ids = []
     for r in res:
         pline_ids.append(r[0])
     res2 = []
     for pline_id in pline_ids:
-        cr.execute('''SELECT id FROM purchase_order WHERE dm_campaign_purchase_line = %d '''% (pline_id, ))
+        #cr.execute('''SELECT id FROM purchase_order WHERE dm_campaign_purchase_line = %d '''% (pline_id, ))
+        cr.execute('''SELECT id FROM purchase_order WHERE campaign_id = %s ''', [campaign_id])
         result = cr.fetchall()
         for r in result:
             res2.append(r)

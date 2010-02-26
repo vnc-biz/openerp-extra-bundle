@@ -741,6 +741,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                         'Suppliers',
                                         context={'category_xml_id': 'cat_mailing_supplier'}
                                         ),
+        'broker_id': fields.many2one('res.partner', 'Broker'), # for customer files
         'state' : fields.function(_state_get, method=True, 
                                   type='selection', selection=[
             ('pending','Pending'),

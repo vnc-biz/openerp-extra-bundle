@@ -114,6 +114,17 @@
                                 <field name="notes" colspan="4" nolabel="1" widget="text_wiki"/>
                                 <field name="state" nolabel="1"/>
                             </form>
+                            <tree string="Purchase Lines">
+                              <field name="product_category"/>
+                              <field name="product_id"/>
+                              <field name="broker_id" string="Broker" />
+                              <field name="type_quantity"/>
+                              <field name="type_document"/>
+                              <field name="date_planned"/>
+                              <field name="date_delivery"/>
+                              <field name="state"/>
+                              <!--<button name="pline_doc_generate" string="Generate Documents" states="pending" type="object"/>-->
+                          </tree>
                         </field>
                     </page>
                     <page string="Items Procurement">

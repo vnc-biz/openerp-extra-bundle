@@ -31,6 +31,7 @@ class purchase_order(osv.osv):#{{{
         'invoice_create_do': fields.boolean('Auto create invoice'),
         'invoice_validate_do': fields.boolean('Auto validate invoice'),
         'invoice_pay_do': fields.boolean('Auto pay invoice'),
+        'dm_po_type': fields.selection([('manufacturing', 'Mailing Manufacturing'), ('cust_list', 'Customers List'), ('dtp', 'DTP'),('item', 'Items')], 'Purchase Type')
     }
 purchase_order()#}}}
 

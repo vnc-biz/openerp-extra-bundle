@@ -17,7 +17,8 @@
             <notebook colspan="4" position="inside">
                 <page string="Direct Marketing">
                 	<separator colspan="4"/>
-                	<field name="campaign_id" colspan="4"/>
+                	<field name="campaign_id"/>
+					<field name="dm_po_type"/>
                     <group colspan="2" col="2">
                         <separator string="Automatic actions"/>
                         <field name="po_confirm_do" />

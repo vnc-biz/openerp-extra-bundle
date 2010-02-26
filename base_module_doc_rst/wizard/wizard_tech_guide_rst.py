@@ -109,6 +109,11 @@ class RstDoc(object):
                 status_good = False
             return status_good
 
+        if self.module == 'hotel_reservation':
+            from olilib.openerp import terp
+            import pydb; pydb.debugger(['set listsize 40'])
+            print
+
         versions = ('4.2', '5.0', 'trunk')
         download_links = []
         for ver in versions:
@@ -309,8 +314,9 @@ class RstDoc(object):
     def _write_relationship_graph(self, module_name=False):
         sl = ["",
               "Relationship Graph",
-              "------------",
-              ".. figure:: %s_module.png" %module_name ,
+              "------------------",
+              "",
+              ".. figure:: %s_module.png" % (module_name, ),
               "  :scale: 50",
               "  :align: center",
               ""]

@@ -481,7 +481,6 @@ class dm_campaign_purchase_line(osv.osv):#{{{
 
                         """Create 1 PO / Customets List"""
                         for list in cust_lists:
-                            print "--- Enter List: ", list.name
                             if list.broker_id:
                                 partner = list.broker_id
                             else:
@@ -710,7 +709,6 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         for po in self.browse(cr, uid, ids, context):
             for line_id in dm_campaign_purchase_line_obj.search(cr, uid, [('campaign_id', '=', po.campaign_id.id)]):
                 result[line_id] = True
-        print result.keys()
         return result.keys()
 
     _columns = {

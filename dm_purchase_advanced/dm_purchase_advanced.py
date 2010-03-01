@@ -708,9 +708,13 @@ class dm_campaign_purchase_line(osv.osv):#{{{
 
         dm_campaign_purchase_line_obj = self.pool.get('dm.campaign.purchase_line')
         for po in self.browse(cr, uid, ids, context):
-            for line_id in dm_campaign_purchase_line_obj.search(cr, uid, [('campaign_id', '=', po.campaign_id.id)]):
-                result[line_id] = True
-        print "get_campaign_purchase_line_ids: ", result.keys()
+            for line in po.dm_campaign_purchase_line_ids:
+                result[line.id] = True
+            #for line_id in dm_campaign_purchase_line_obj.search(cr, uid, [('purchase_order_ids', 'in', po.dm_campaign_purchase_line_id.id)]):
+            #    result[line_id] = True
+            pass
+        print "get_campaign_purchase_line_ids: po ids: ", ids
+        print "get_campaign_purchase_line_ids: result: ", result.keys()
         return result.keys()
 
     _columns = {
@@ -787,7 +791,10 @@ class purchase_order(osv.osv):#{{{
     _name = 'purchase.order'
     _inherit = 'purchase.order'
     _columns = {
-        'dm_campaign_purchase_line': fields.many2one('dm.campaign.purchase_line', 'DM Campaign Purchase Line'),
+#        'dm_campaign_purchase_line': fields.many2one('dm.campaign.purchase_line', 'DM Campaign Purchase Line'),
+        'dm_campaign_purchase_line_ids': fields.many2many('dm.campaign.purchase_line', 'dm_campaign_purchase_line_purchase_order_rel',
+                                               'purchase_order_id', 'dm_campaign_purchase_line_id',
+                                               'Purchase Line')
     }
 
 purchase_order()#}}}

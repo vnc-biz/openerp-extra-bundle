@@ -54,6 +54,7 @@ Remarks:
 - Periods are not assigned to companies (when you use multicompany feature at all). Module suppose that you use the same periods across companies. If you wish to use different periods for different companies define them as you wish (they can overlap). Later on in this text will be indications how to use such periods.
 - When periods are created automatically their start and finish dates are with with start hour 00:00:00 and end hour 23:59:00. Fe. when you create daily periods they will have start date 31.01.2010 00:00:00 and end date 31.01.2010 23:59:00. It works only in automatic creation of periods. When you create periods manually you have to take care about hours because you can have incorrect values form sales or stock. 
 - If you use overlapping periods for the same product, warehouse and company results can be unpredictable.
+- If current date doesn't belong to any period or you have holes between periods results can be unpredictable.
 
 Sales Forecasts
 ===============

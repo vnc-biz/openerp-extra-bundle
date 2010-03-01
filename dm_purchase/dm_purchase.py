@@ -31,11 +31,13 @@ class purchase_order(osv.osv):#{{{
         'invoice_create_do': fields.boolean('Auto create invoice'),
         'invoice_validate_do': fields.boolean('Auto validate invoice'),
         'invoice_pay_do': fields.boolean('Auto pay invoice'),
-        'dm_po_type': fields.selection([('manufacturing', 'Mailing Manufacturing'), ('cust_list', 'Customers List'), ('dtp', 'DTP'),('item', 'Items')], 'Purchase Type')
+        'dm_po_type': fields.selection([('manufacturing', 'Mailing Manufacturing'),
+                ('customer_file', 'Customers List'), ('dtp', 'DTP'),('items', 'Items'),
+                ('translation','Translation')], 'Purchase Type')
     }
 purchase_order()#}}}
 
-class dm_offer_step(osv.osv):
+class dm_offer_step(osv.osv): #{{{
     _name = "dm.offer.step"
     _inherit = "dm.offer.step"
     
@@ -46,6 +48,6 @@ class dm_offer_step(osv.osv):
                 domain=[('categ_id', 'ilike', 'Mailing Manufacturing')],
                 states={'closed': [('readonly',True)]}),
         }
-dm_offer_step()
+dm_offer_step()#}}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -658,6 +658,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                         result[pline.id]='requested'
             else:
                 result[pline.id] = 'pending'
+        print "_state_get: ", result
         return result
 
     def _delivery_date_get(self, cr, uid, ids, name, args, context={}):
@@ -709,6 +710,7 @@ class dm_campaign_purchase_line(osv.osv):#{{{
         for po in self.browse(cr, uid, ids, context):
             for line_id in dm_campaign_purchase_line_obj.search(cr, uid, [('campaign_id', '=', po.campaign_id.id)]):
                 result[line_id] = True
+        print "get_campaign_purchase_line_ids: ", result.keys()
         return result.keys()
 
     _columns = {
@@ -732,9 +734,13 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                           readonly=True),
         'trigger' : fields.selection(PURCHASE_LINE_TRIGGERS, 'Trigger'),
         'type' : fields.selection(PURCHASE_LINE_TYPES, 'Type'),
-        'purchase_order_ids' : fields.one2many('purchase.order',
-                                               'dm_campaign_purchase_line',
-                                               'Campaign Purchase Line'),
+##         'purchase_order_ids' : fields.one2many('purchase.order',
+##                                                'dm_campaign_purchase_line',
+##                                                'Campaign Purchase Line'),
+        'purchase_order_ids': fields.many2many('purchase.order', 'dm_campaign_purchase_line_purchase_order_rel',
+                                               'dm_campaign_purchase_line_id', 'purchase_order_id',
+                                               'Campaign Purchase Line',
+                                               context={'category_xml_id': 'cat_mailing_supplier'}),
         'notes': fields.text('Notes'),
         'desc_from_offer' : fields.boolean('Insert Description from Offer'),
         'supplier_ids': fields.many2many('res.partner',
@@ -744,24 +750,24 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                         context={'category_xml_id': 'cat_mailing_supplier'}
                                         ),
         'broker_id': fields.many2one('res.partner', 'Broker'), # for customer files
-        'state' : fields.selection(method=True, selection=[
-            ('pending','Pending'),
-            ('requested','Quotations Requested'),
-            ('ordered','Ordered'),
-            ('delivered','Delivered'),
-            ], string='State',
-            readonly=True),
-##         'state' : fields.function(_state_get, method=True, 
-##                                   type='selection', selection=[
+##         'state' : fields.selection(method=True, selection=[
 ##             ('pending','Pending'),
 ##             ('requested','Quotations Requested'),
 ##             ('ordered','Ordered'),
 ##             ('delivered','Delivered'),
-##             ], string='State', 
-##             store = {
-##                 'purchase.order': (get_campaign_purchase_line_ids, ['state'], 10),
-##             },
+##             ], string='State',
 ##             readonly=True),
+        'state' : fields.function(_state_get, method=True, 
+                                  type='selection', selection=[
+            ('pending','Pending'),
+            ('requested','Quotations Requested'),
+            ('ordered','Ordered'),
+            ('delivered','Delivered'),
+            ], string='State', 
+            store = {
+                'purchase.order': (get_campaign_purchase_line_ids, ['state'], 10),
+            },
+            readonly=True),
     }
 
     _defaults = {

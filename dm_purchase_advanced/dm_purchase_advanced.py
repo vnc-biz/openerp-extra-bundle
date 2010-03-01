@@ -746,17 +746,24 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                                         context={'category_xml_id': 'cat_mailing_supplier'}
                                         ),
         'broker_id': fields.many2one('res.partner', 'Broker'), # for customer files
-        'state' : fields.function(_state_get, method=True, 
-                                  type='selection', selection=[
+        'state' : fields.selection(method=True, selection=[
             ('pending','Pending'),
             ('requested','Quotations Requested'),
             ('ordered','Ordered'),
             ('delivered','Delivered'),
-            ], string='State', 
-            store = {
-                'purchase.order': (get_campaign_purchase_line_ids, ['state'], 10),
-            },
+            ], string='State',
             readonly=True),
+##         'state' : fields.function(_state_get, method=True, 
+##                                   type='selection', selection=[
+##             ('pending','Pending'),
+##             ('requested','Quotations Requested'),
+##             ('ordered','Ordered'),
+##             ('delivered','Delivered'),
+##             ], string='State', 
+##             store = {
+##                 'purchase.order': (get_campaign_purchase_line_ids, ['state'], 10),
+##             },
+##             readonly=True),
     }
 
     _defaults = {

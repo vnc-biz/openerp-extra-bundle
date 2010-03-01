@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-11-26 06:35+0000\n"
-"PO-Revision-Date: 2010-01-19 05:21+0000\n"
-"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"PO-Revision-Date: 2010-02-28 11:00+0000\n"
+"Last-Translator: Ferdinand @ ChriCar <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-25 05:00+0000\n"
+"X-Launchpad-Export-Date: 2010-03-01 05:07+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: chricar_partner_parent_companies
@@ -25,12 +25,12 @@ msgstr "Beteiligungen"
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,valid_fiscal_from:0
 msgid "Fiscal Valid From"
-msgstr ""
+msgstr "Stuerelich gültig ab"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,state:0
 msgid "State"
-msgstr ""
+msgstr "Status"
 
 #. module: chricar_partner_parent_companies
 #: view:res.partner:0
@@ -42,18 +42,20 @@ msgstr "Eigentümer"
 #. module: chricar_partner_parent_companies
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Ungültiger Modellname in der Aktionsdefinition."
 
 #. module: chricar_partner_parent_companies
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"Der Objekt Name muss mit einem x_ starten und darf keine Sonderzeichen "
+"beinhalten"
 
 #. module: chricar_partner_parent_companies
 #: constraint:res.partner:0
 msgid "Error: Invalid Bar Code Number"
-msgstr ""
+msgstr "Fehler: Ungültiger Strichcode"
 
 #. module: chricar_partner_parent_companies
 #: model:ir.module.module,description:chricar_partner_parent_companies.module_meta_information
@@ -75,37 +77,37 @@ msgstr ""
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,contract_number:0
 msgid "Contract Number"
-msgstr ""
+msgstr "Vetragsnummer"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,name:0
 msgid "Share"
-msgstr ""
+msgstr "Anteil"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,partner_parent_id:0
 msgid "Parent"
-msgstr ""
+msgstr "Vorgänger"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,consolidation:0
 msgid "Consolidation"
-msgstr ""
+msgstr "Konsolidierung"
 
 #. module: chricar_partner_parent_companies
 #: model:ir.model,name:chricar_partner_parent_companies.model_res_partner_parent_company
 msgid "res.partner.parent_company"
-msgstr ""
+msgstr "res.partner.parent_company"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,active:0
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,contract_date:0
 msgid "Contract Date"
-msgstr ""
+msgstr "Vertragsdatum"
 
 #. module: chricar_partner_parent_companies
 #: constraint:ir.ui.view:0
@@ -122,27 +124,27 @@ msgstr "Notizen"
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,percentage:0
 msgid "Percentage"
-msgstr ""
+msgstr "Prozent"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,valid_fiscal_until:0
 msgid "Fiscal Valid Until"
-msgstr ""
+msgstr "steuerlich gültig bis"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,valid_until:0
 msgid "Valid Until"
-msgstr ""
+msgstr "Gültig bis"
 
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,valid_from:0
 msgid "Valid From"
-msgstr ""
+msgstr "Gültig ab"
 
 #. module: chricar_partner_parent_companies
 #: model:ir.actions.act_window,name:chricar_partner_parent_companies.action_partner_parent_companies_form
 msgid "Partner ID Numbers"
-msgstr ""
+msgstr "Partner ID Nummer"
 
 #. module: chricar_partner_parent_companies
 #: model:ir.module.module,shortdesc:chricar_partner_parent_companies.module_meta_information
@@ -152,7 +154,7 @@ msgstr "Eigentümer"
 #. module: chricar_partner_parent_companies
 #: field:res.partner.parent_company,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #~ msgid "The VAT doesn't seem to be correct."
 #~ msgstr "Die USt. scheint falsch zu sein."

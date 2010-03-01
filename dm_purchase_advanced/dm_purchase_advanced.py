@@ -640,14 +640,14 @@ class dm_campaign_purchase_line(osv.osv):#{{{
                     if po.shipped:
                         result[pline.id]='delivered'
                         delivered=True
-                        if pline.type == 'translation':
-                            trans_id = self.pool.get('dm.offer.translation').create(cr, uid,
-                                {'offer_id': pline.campaign_id.offer_id.id,
-                                 'date': pline.date_delivery,
-                                 'language_id': pline.campaign_id.lang_id.id,
-                                 'translator_id':  po.partner_id.id,
-                                 'notes': pline.notes,
-                                 })
+##                         if pline.type == 'translation':
+##                             trans_id = self.pool.get('dm.offer.translation').create(cr, uid,
+##                                 {'offer_id': pline.campaign_id.offer_id.id,
+##                                  'date': pline.date_delivery,
+##                                  'language_id': pline.campaign_id.lang_id.id,
+##                                  'translator_id':  po.partner_id.id,
+##                                  'notes': pline.notes,
+##                                  })
                         continue
                     if ordered:
                         continue

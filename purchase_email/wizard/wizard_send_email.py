@@ -27,7 +27,7 @@ import base64
 from osv import osv
 
 email_send_form = '''<?xml version="1.0" encoding="utf-8"?>
-	<form string="Send sale order/s by Email">
+	<form string="Send purchase order by Email">
 		<field name="partner_address_id"/>	
 		<field name="smtp_server_id"/>
 		<newline/>
@@ -62,13 +62,13 @@ email_send_fields = {
 
 
 email_done_form = '''<?xml version="1.0" encoding="utf-8"?>
-<form string="Send sale order/s by Email">
- <label string="Sent"/>
+<form string="Send purchase order by Email" >
+	<field name="email_sent" nolabel="1" colspan="4" width = '400'/>
 </form>'''
 
 
 email_done_fields = {
-    'email_sent': {'string':'Quantity of Emails sent', 'type':'integer', 'readonly': True},
+    'email_sent': {'string':'Emails sent', 'type':'char', 'size':256, 'readonly': True},
 }
 
 def _get_defaults(self, cr, uid, data, context):
@@ -92,19 +92,31 @@ def _send_mails(self, cr, uid, data, context):
 											[('res_model', '=', 'purchase.order'),
 											('res_id', '=', po_id)])
 	attachments = []
+	attach_name = []
 	for attach in pool.get('ir.attachment').browse(cr, uid, attachment_ids):
-		f_name = tempfile.gettempdir() +'/'+ attach.datas_fname
+		f_name = tempfile.gettempdir() +'/'+ attach.name 
 		open(f_name,'wb').write(base64.decodestring(attach.datas))
 		attachments.append(f_name)
+		attach_name.append(attach.name)
 		
 	po_state = pool.get('purchase.order').browse(cr, uid, po_id).state
 	if po_state == 'cancel' :
 		raise osv.except_osv(_('Error sending email'), _('You can not send email when order is cancelled'))
+	
 	report_name = {'draft' : 'purchase.quotation',
 					'confirmed' : 'purchase.order',
 					'approved' : 'purchase.order',}
+#	report_id = pool.get('ir.actions.report.xml').search(cr, uid, 
+#								[('model', '=', 'purchase.order'),
+#								 ('internal_name' ,'=', report_name[po_state])])
+								 
+#	report_obj = pool.get('ir.actions.report.xml').browse(cr, uid, report_id)
+#	if report_obj : 
+#		if report_obj.attachment_use and attachment:
+#			name = 
+		
 	service = netsvc.LocalService("report."+report_name[po_state]);
-	(result, format) = service.create(cr, uid, [], {}, context)
+	(result, format) = service.create(cr, uid, [po_id], {}, context)
 	
 	f_name = tempfile.gettempdir() +'/purchase_order.' + format
 	open(f_name,'wb').write(result)	
@@ -119,8 +131,8 @@ def _send_mails(self, cr, uid, data, context):
 	if not state:
 		msg_string = 'Please check the Server Configuration!'
 	else :
-		msg_string = 'Email is send at % successsfully'%email_to[0]
-	return {}
+		msg_string = 'Email is send at %s successfully'%email_to[0]
+	return {'email_sent':msg_string}
 
 class po_send_email(wizard.interface):
 
@@ -131,7 +143,7 @@ class po_send_email(wizard.interface):
         },
         'send': {
             'actions': [_send_mails],
-            'result': {'type': 'form', 'arch': email_done_form, 'fields': email_done_fields, 'state': [('end','Cancel'),]  }
+            'result': {'type': 'form', 'arch': email_done_form, 'fields': email_done_fields, 'state': [('end','Ok'),]  }
         }
     }
 po_send_email('purchase.order.email_send')

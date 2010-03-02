@@ -26,7 +26,7 @@ class wizard_campaign_group(wizard.interface):
 
     new_group = '''<?xml version="1.0"?>
     <form string="Select Group">
-        <field name="group" colspan="4"/>
+        <field name="new_group" colspan="4"/>
     </form>'''
     
     group_form = '''<?xml version="1.0"?>
@@ -71,7 +71,7 @@ class wizard_campaign_group(wizard.interface):
     def _new_group(self, cr, uid, data, context):
         pool = pooler.get_pool(cr.dbname)
         group_id = pool.get('dm.campaign.group').create(cr, uid, 
-                                                {'name': data['form']['group']})
+                                                {'name': data['form']['new_group']})
         context['group_id'] = group_id
         self._add_group(cr, uid, data, context)
         return {}
@@ -98,7 +98,7 @@ class wizard_campaign_group(wizard.interface):
         }
     
     new_group_fields = {
-        'group': {'string': 'Group Name', 'type': 'char', 
+        'new_group': {'string': 'Group Name', 'type': 'char', 
                   'size':64, 'required':True }
         }    
     

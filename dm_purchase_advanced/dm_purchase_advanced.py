@@ -789,22 +789,6 @@ class dm_campaign_purchase_line(osv.osv):#{{{
 dm_campaign_purchase_line()#}}}
 
 
-class purchase_order(osv.osv):#{{{
-    _name = 'purchase.order'
-    _inherit = 'purchase.order'
-    _columns = {
-#        'dm_campaign_purchase_line': fields.many2one('dm.campaign.purchase_line', 'DM Campaign Purchase Line'),
-        'dm_campaign_purchase_line_ids': fields.many2many('dm.campaign.purchase_line', 'dm_campaign_purchase_line_purchase_order_rel',
-                                               'purchase_order_id', 'dm_campaign_purchase_line_id',
-                                               'Purchase Line'),
-        'dm_campaign_group_purchase_line_ids': fields.many2many('dm.campaign.group.purchase_line', 'dm_campaign_group_purchase_line_purchase_order_rel',
-                                               'purchase_order_id', 'dm_campaign_group_purchase_line_id',
-                                               'Purchase Line (for Campaign Group)')
-    }
-
-purchase_order()#}}}
-
-
 class dm_offer(osv.osv):
     _name = "dm.offer"
     _inherit = "dm.offer"

@@ -88,9 +88,9 @@
                         </group>
                         <group colspan="2" col="2">
                             <separator string="Intermediaries" colspan="2"/>
-                            <field name="cleaner_id"/>
-                            <field name="deduplicator_id"/>
-                            <field name="router_id"/>
+                            <field name="cleaner_id" context="{'category':'Cleaner'}"/>
+                            <field name="deduplicator_id" context="{'category':'Deduplicator'}"/>
+                            <field name="router_id" context="{'category':'Router'}"/>
                         </group>
                         <field name="cust_file_purchase_line_ids" nolabel="1" colspan="4" widget="one2many_list" default_get="{'product_category':'Customers List'}">
                             <form string="Customers Files Purchase Line">

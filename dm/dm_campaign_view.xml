@@ -37,7 +37,7 @@
 					<field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
 					<field name="smtp_server_id"/>
 				</group>
-                <field name="hosted_image_use"/>
+                <!--field name="hosted_image_use"/-->
                 <separator string="Mailing Action" colspan="4"/>
                 <group colspan="4" col="4">
                 <field name="action_id" select="1"/>
@@ -848,7 +848,7 @@
 		<field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
 	  		<field name="category_id" position = "replace">
-	  			<field name="category_id" domain="[('name','=',context['category'])]" nolabel="1" select="2"/>
+	  			<field name="category_id" domain="'category' in context and [('name','=',context['category'])]" nolabel="1" select="2"/>
         	</field>
         </field>
     </record>

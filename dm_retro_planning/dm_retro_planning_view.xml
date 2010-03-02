@@ -70,7 +70,7 @@
                     <group colspan="4">
 	                    <field name="manufacturing_state" nolabel="1"/>
 	                    <button name="manufacturing_state_inprogress_set" string="In Progress" attrs="{'invisible':[('manufacturing_state','!=','pending')]}" type="object"/>
-	                    <button name="manufacturing_state_done_set" string="Done" attrs="{'invisible':[('manufacturing_state','!=','inprogress')]}" type="object"/>
+	                    <button name="manufacturing_state_done_set" string="Done" attrs="{'invisible':[('manufacturing_state','!=','inprogress')]}" type="object" groups="dm.res_groups_campaignadmin,dm.res_groups_campaignmanager"/>
 	                    <button name="manufacturing_state_inprogress_set" string="Set to In Progress" attrs="{'invisible':[('manufacturing_state','!=','done')]}" type="object"/>
                     </group>
                 </page>
@@ -98,7 +98,7 @@
                     <group colspan="4">
                         <field name="dtp_state" nolabel="1"/>
                         <button name="dtp_state_inprogress_set" string="In Progress" attrs="{'invisible':[('dtp_state','!=','pending')]}" type="object"/>
-                        <button name="dtp_state_done_set" string="Done" attrs="{'invisible':[('dtp_state','!=','inprogress')]}" type="object"/>
+                        <button name="dtp_state_done_set" string="Done" attrs="{'invisible':[('dtp_state','!=','inprogress')]}" type="object" groups="dm.res_groups_campaignadmin,dm.res_groups_campaignmanager"/>
                         <button name="dtp_state_inprogress_set" string="Set to In Progress" attrs="{'invisible':[('dtp_state','!=','done')]}" type="object"/>
                     </group>
                 </page>
@@ -126,7 +126,7 @@
                     <group colspan="4">
                         <field name="customer_file_state" nolabel="1"/>
                         <button name="customer_file_state_inprogress_set" string="In Progress" attrs="{'invisible':[('customer_file_state','!=','pending')]}" type="object"/>
-                        <button name="customer_file_state_done_set" string="Done" attrs="{'invisible':[('customer_file_state','!=','inprogress')]}" type="object"/>
+                        <button name="customer_file_state_done_set" string="Done" attrs="{'invisible':[('customer_file_state','!=','inprogress')]}" type="object" groups="dm.res_groups_campaignadmin,dm.res_groups_campaignmanager"/>
                         <button name="customer_file_state_inprogress_set" string="Set to In Progress" attrs="{'invisible':[('customer_file_state','!=','done')]}" type="object"/>
                     </group>
                 </page>
@@ -154,7 +154,7 @@
                     <group colspan="4">
                         <field name="items_state" nolabel="1"/>
                         <button name="items_state_inprogress_set" string="In Progress" attrs="{'invisible':[('items_state','!=','pending')]}" type="object"/>
-                        <button name="items_state_done_set" string="Done" attrs="{'invisible':[('items_state','!=','inprogress')]}" type="object"/>
+                        <button name="items_state_done_set" string="Done" attrs="{'invisible':[('items_state','!=','inprogress')]}" type="object" groups="dm.res_groups_campaignadmin,dm.res_groups_campaignmanager"/>
                         <button name="items_state_inprogress_set" string="Set to In Progress" attrs="{'invisible':[('items_state','!=','done')]}" type="object"/>
                     </group>
                 </page>

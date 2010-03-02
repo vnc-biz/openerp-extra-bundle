@@ -24,6 +24,8 @@ import netsvc
 from osv import fields
 from osv import osv
 from tools.translate import _
+import random
+
 
 AVAILABLE_STATES = [ # {{{
     ('draft', 'Draft'),
@@ -385,6 +387,11 @@ class dm_offer(osv.osv): # {{{
         plugin_obj = self.pool.get('dm.dtp.plugin')
         ir_report_xml_obj = self.pool.get('ir.actions.report.xml')
 
+        import string
+        choices = string.ascii_letters + string.digits
+        existing_report_ids = ir_report_xml_obj.search(cr, uid, [])
+        existing_report_names = [item['report_name'] for item in ir_report_xml_obj.read(cr, uid, existing_report_ids, ['report_name'])]
+
         offer = self.browse(cr, uid, id)
 
         default = default.copy()
@@ -407,22 +414,29 @@ class dm_offer(osv.osv): # {{{
                 'document_ids': [],
                 'outgoing_transition_ids': [],
                 'incoming_transition_ids': [],
-            })
+            }, context={'copied_from': 'dm.offer'})
 
             # documents are copied:
-            new_docs = []
             for doc in ostep.document_ids:
                 doc_id = document_obj.copy(cr, uid, doc.id, {
                     'name': 'New document from document %s' % doc.name,
                     'step_id': nid,
                     'document_template_plugin_ids': [],
-                })
+                }, context={'copied_from': 'dm.offer'})
                 # copy xml reports:
                 report_ids = ir_report_xml_obj.search(cr, uid, [('document_id', '=', doc.id)])
                 for report_id in report_ids:
+                    while True:
+                        new_report_name = 'dm.offer.document.rnd' + ''.join([random.choice(choices) for i in range(5)])
+                        if new_report_name not in existing_report_names:
+                            existing_report_names.append(new_report_name)
+                            break
+
                     new_report_id = ir_report_xml_obj.copy(cr, uid, report_id, {
                         'document_id': doc_id,
-                    })
+                        'report_name': new_report_name,
+                    }, context={'copied_from': 'dm.offer'})
+                    # XXX netsvc.SERVICES['report.%s' % new_report_name] = a report instance # XXX
 
                 plugins = []
                 for plugin in doc.document_template_plugin_ids:

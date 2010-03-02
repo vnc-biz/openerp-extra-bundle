@@ -120,4 +120,4 @@ class report_xml(osv.osv):
         return list_image_id
 
 report_xml()
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:               
+

@@ -119,7 +119,6 @@ class dm_offer_step(osv.osv): # {{{
                                             string='Action', required=True),
         'graph_hide': fields.boolean('Hide in Offer Graph'),
         'partner_event_create': fields.boolean('Create Partner Event'),
-        
     }
 
     _defaults = {
@@ -143,6 +142,11 @@ class dm_offer_step(osv.osv): # {{{
                 vals['seq'] = len(type_seq) and len(type_seq)+1 or 1
         return super(dm_offer_step, self).write(cr, uid, ids, vals, context)
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        print self, context
+        new_id = super(dm_offer_step, self).copy(cr, uid, id, default, context)
+        return new_id
+
     def state_close_set(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'closed'})
         return True
@@ -164,7 +168,7 @@ class dm_offer_step(osv.osv): # {{{
     def state_draft_set(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'draft'})
         return True
-    
+
     def search(self, cr, uid, args, offset=0, limit=None, 
                         order=None, context=None, count=False):
         if context and 'dm_camp_id' in context:
@@ -173,9 +177,8 @@ class dm_offer_step(osv.osv): # {{{
             res  = self.pool.get('dm.campaign').browse(cr, uid, context['dm_camp_id'])
             step_ids = map(lambda x: x.id, res.offer_id.step_ids)
             return step_ids
-        return super(dm_offer_step, self).search(cr, uid, args, offset, 
+        return super(dm_offer_step, self).search(cr, uid, args, offset,
                                                  limit, order, context, count)
-
 
 dm_offer_step() # }}}
 

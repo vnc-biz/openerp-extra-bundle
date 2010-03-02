@@ -99,13 +99,15 @@ dm_media_content() # }}}
 class dm_dtp_plugin(osv.osv): # {{{
     _name = "dm.dtp.plugin"
 
-    def copy(self, cr, uid, id, default=None, context={}):
+    def copy(self, cr, uid, id, default=None, context=None):
+        print self, context
+
         if not default:
             default = {}
+
         data = self.browse(cr, uid, id, context)
         default['code'] = (data['code'] or '') + '(copy)'
-        return super(dm_dtp_plugin, self).copy(cr, uid, id, default, 
-                                               context=context)
+        return super(dm_dtp_plugin, self).copy(cr, uid, id, default, context=context)
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
                                                      context=None, count=False):
@@ -459,7 +461,12 @@ class dm_offer_document(osv.osv): # {{{
         'editor': lambda *a: 'internal',
         'content': lambda *a: '<p>Test Content</p>'
     }
-    
+
+    def copy(self, cr, uid, id, default=None, context=None):
+        print self, context
+        new_id = super(dm_offer_document, self).copy(cr, uid, id, default, context)
+        return new_id
+
     def state_validate_set(self, cr, uid, ids, context={}):
         group_obj = self.pool.get('ir.actions.report.xml')
         doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
@@ -471,8 +478,9 @@ class dm_offer_document(osv.osv): # {{{
             else:
                 raise osv.except_osv("Error", 'Cannot validate, there is no report defined for this document')
             return True
-  
+
 dm_offer_document() # }}}
+
 
 class dm_campaign_document_type(osv.osv): # {{{
     _name = 'dm.campaign.document.type'
@@ -480,7 +488,9 @@ class dm_campaign_document_type(osv.osv): # {{{
             'name': fields.char('Name', size=64, required=True),
             'code': fields.char('Code', size=64, required=True),
             }
+
 dm_campaign_document_type() # }}}
+
 
 class dm_campaign_document(osv.osv): # {{{
     _name = 'dm.campaign.document'

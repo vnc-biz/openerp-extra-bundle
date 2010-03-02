@@ -153,7 +153,7 @@ class proforma_followup_scheduler(osv.osv):
 
         history = self.pool.get('proforma.followup.history')
         now = time.strftime('%Y-%m-%d')
-        ids = self.search(cr, uid, [('date', '>=', now)], context=context) 
+        ids = self.search(cr, uid, [('date', '<=', now)], context=context)
         for this in self.browse(cr, uid, ids, context=context):
             ctx = context.copy()
 

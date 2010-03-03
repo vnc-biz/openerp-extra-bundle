@@ -139,6 +139,23 @@ class dm_campaign(osv.osv): #{{{
                 result[campaign.id] = str(quantity)
         return result
 
+    def _quantity_real_total(self, cr, uid, ids, name, args, context={}):
+        result = {}
+        campaigns = self.browse(cr, uid, ids)
+        for campaign in campaigns:
+            quantity = 0
+            numeric = True
+            for propo in campaign.proposition_ids:
+                if propo.quantity_real.isdigit():
+                    quantity += int(propo.quantity_real)
+                else:
+                    result[campaign.id] = 'Check Segments'
+                    numeric = False
+                    break
+            if numeric:
+                result[campaign.id] = str(quantity)
+        return result
+
     _columns = {
         'offer_id': fields.many2one('dm.offer', 'Offer',
                                     domain=[('state', 'in', ['ready', 'open']),
@@ -210,6 +227,10 @@ class dm_campaign(osv.osv): #{{{
                                             readonly=True),
         'quantity_usable_total': fields.function(_quantity_usable_total,
                                              string='Total Usable Quantity',
+                                             type="char", size=64, method=True,
+                                             readonly=True),
+        'quantity_real_total': fields.function(_quantity_real_total,
+                                             string='Total Real Quantity',
                                              type="char", size=64, method=True,
                                              readonly=True),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
@@ -327,6 +348,10 @@ class dm_campaign(osv.osv): #{{{
             d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
             vals['date'] = date_end.strftime('%Y-%m-%d')
+   
+            if not 'forwarding_charge' in vals:
+                vals['forwarding_charge'] = 0.0 
+
             # Set dates for propositions and segments of the campaign
             for propo in camp.proposition_ids:
                 self.pool.get('dm.campaign.proposition').write(cr, uid, [propo.id],
@@ -344,8 +369,10 @@ class dm_campaign(osv.osv): #{{{
                  #                           {'date_end': vals['date_start']})
 
         # In campaign, if no trademark is given, it gets the 'recommended trademark' from offer
+        """
         if (not camp.trademark_id) and camp.offer_id.recommended_trademark_id:
             vals['trademark_id'] = camp.offer_id.recommended_trademark_id.id
+        """
 
         if 'trademark_id' in vals and vals['trademark_id']:
             trademark_id = vals['trademark_id']
@@ -413,11 +440,13 @@ class dm_campaign(osv.osv): #{{{
             write_vals['date'] = date_end.strftime('%Y-%m-%d')
 
         # Set trademark to offer's trademark only if trademark is null
+        """
         if vals['campaign_type_id'] != type_id:
             if vals['offer_id'] and (not vals['trademark_id']):
                 offer_id = self.pool.get('dm.offer').browse(cr, uid,
                                                             vals['offer_id'])
                 write_vals['trademark_id'] = offer_id.recommended_trademark_id.id
+        """
         if write_vals:
             super(dm_campaign, self).write(cr, uid, id_camp, write_vals)
 

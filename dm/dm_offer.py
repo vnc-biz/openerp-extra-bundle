@@ -23,6 +23,8 @@ import netsvc
 
 from osv import fields
 from osv import osv
+from dm.report.dm_ir_action_report import offer_document
+from report.dm_ir_action_report import report_sxw
 from tools.translate import _
 import random
 
@@ -436,7 +438,8 @@ class dm_offer(osv.osv): # {{{
                         'document_id': doc_id,
                         'report_name': new_report_name,
                     }, context={'copied_from': 'dm.offer'})
-                    # XXX netsvc.SERVICES['report.%s' % new_report_name] = a report instance # XXX
+                    inst=report_sxw('report.'+new_report_name, 'dm.offer.document', '', parser=offer_document)
+                    netsvc.SERVICES['report.%s' % new_report_name] = inst
 
                 plugins = []
                 for plugin in doc.document_template_plugin_ids:

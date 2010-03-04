@@ -153,7 +153,7 @@ class account_invoice(osv.osv):
         for inv in self.browse(cr, uid, ids):
             vcs =''
             if inv.number and not inv.name:
-                vcs3 = inv.number.split('/')[2]
+                vcs3 = inv.number.split('/')[1]
                 vcs1 = '0'+ str(inv.date_invoice[2:4])
                 if len(vcs3) >= 6:
                     vcs2= vcs3[0:6]

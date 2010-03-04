@@ -30,18 +30,18 @@ from event.wizard import make_invoice
 from osv import fields, osv
 
 form = """<?xml version="1.0"?>
-<form string="Inovoice Grouped">
+<form string="Invoice Grouped">
+    <field name="invoice_title" colspan="4"/><newline/>
     <field name="date_invoice"/>
-    <newline/>
-    <field name="period_id"/>
-    <newline/>
+    <field name="period_id"/><newline/>
     <field name="registration"/>
 </form>
 """
 fields = {
       'registration': {'string':'Include Events Registrations', 'type':'boolean' ,'default': lambda *a: False },
-      'date_invoice': {'string':'Date Invoiced', 'type':'date' ,'default': lambda *a: time.strftime('%Y-%m-%d')},
-      'period_id': {'string':'Force Period (keep empty to use current period)','type':'many2one','relation':'account.period'},
+      'date_invoice': {'string':'Date Invoiced', 'type':'date' ,'default': lambda *a: time.strftime('%Y-%m-%d'), 'help':'You can set here the value to put in the field "date invoiced" of the invoice'},
+      'period_id': {'string':'Force Invoice Period (keep empty to use current period)','type':'many2one','relation':'account.period'},
+      'invoice_title': {'string': 'Invoices Title', 'type':'char', 'size': 64, 'help': 'You can specify here a title for the created invoice, that will fill the origin field'},
 }
 form_msg = """<?xml version="1.0"?>
 <form string="Inovoice Grouped">
@@ -51,11 +51,12 @@ form_msg = """<?xml version="1.0"?>
 </form>
 """
 fields_msg = {
-      'message': {'string':'','type':'text', 'readonly':True, 'size':'500'},
+      'message': {'string':'','type':'text', 'readonly':True},
 }
 
 def _group_invoice(self, cr, uid, data, context):
     date_inv = data['form']['date_invoice']
+    data_invoice_title = data['form']['invoice_title']
     force_period = data['form']['period_id']
     today_date = time.strftime('%Y-%m-%d')
     pool_obj=pooler.get_pool(cr.dbname)
@@ -96,7 +97,7 @@ def _group_invoice(self, cr, uid, data, context):
                 if 'creation_date' in element:
                     part_info['date']=element['creation_date']
 
-                if part_info:
+                if part_info and part_info.has_key('partner_id'):
                     dict_info.append(part_info)
 
     if not dict_info:
@@ -106,7 +107,6 @@ def _group_invoice(self, cr, uid, data, context):
         else:
             data['form']['message']="No invoices grouped  because no invoices for ATA Carnet, Legalizations, Certifications and Embassy Folders are in 'Draft' state."
         return data['form']
-
     partner_ids = list(set([x['partner_id'] for x in dict_info]))
     partner_ids.sort()
     disp_msg=''
@@ -224,9 +224,21 @@ def _group_invoice(self, cr, uid, data, context):
                         name = invoice.name +' '+ line.name
                     else:
                         name = line.name
-                    #pool_obj.get('account.invoice.line').write(cr,uid,line.id,{'name':name,'sequence':count})
-#                    inv_line = line_obj.create(cr, uid, {'name': name,'account_id':line.account_id.id,'price_unit': line.price_unit,'quantity': line.quantity,'discount': False,'uos_id': line.uos_id.id,'product_id':line.product_id.id,'invoice_line_tax_id': [(6,0,line.invoice_line_tax_id)],'note':line.note,'sequence' : count})
-                    inv_line = line_obj.create(cr, uid, {'name': name,'account_id':line.account_id.id,'price_unit': line.price_unit,'quantity': line.quantity,'discount': False,'uos_id': line.uos_id.id,'product_id':line.product_id.id,'invoice_line_tax_id': [(6,0,line.invoice_line_tax_id)],'note':line.note,'sequence' : count,'cci_special_reference': line.cci_special_reference})
+                    taxe_ids = map(lambda x: x.id, line.invoice_line_tax_id)
+                    args =  {
+                         'name': name,
+                         'account_id':line.account_id.id,
+                         'price_unit': line.price_unit,
+                         'quantity': line.quantity,
+                         'discount': False,
+                         'uos_id': line.uos_id.id,
+                         'product_id':line.product_id.id,
+                         'invoice_line_tax_id': [(6, 0, taxe_ids)],
+                         'note':line.note,
+                         'sequence' : count,
+                         'cci_special_reference': line.cci_special_reference
+                    }
+                    inv_line = line_obj.create(cr, uid, args)
                     count=count+1
                     list_inv_lines.append(inv_line)
     #            If we want to cancel ==> obj_inv.write(cr,uid,invoice.id,{'state':'cancel'}) here
@@ -244,8 +256,7 @@ def _group_invoice(self, cr, uid, data, context):
             list_inv_lines.append(id_stotal)
         #end-marked
         inv = {
-                'name': 'Grouped Invoice - ' + partner.name,
-                'origin': 'Grouped Invoice',
+                'origin': data_invoice_title,
                 'type': 'out_invoice',
                 'reference': False,
                 'account_id': invoice.account_id.id,

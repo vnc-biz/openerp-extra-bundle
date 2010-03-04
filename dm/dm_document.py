@@ -520,7 +520,7 @@ class dm_campaign_document(osv.osv): # {{{
             if camp_doc.workitem_id:
                 write_ids[camp_doc.workitem_id.id] = camp_doc.id
             else:
-                missing_wi.append(camp_doc.workitem_id.id)
+                missing_wi.append(camp_doc.id)
         if write_ids :
             self.pool.get('dm.workitem').write(cr, uid,write_ids.keys(),
                                         {'state': 'pending',

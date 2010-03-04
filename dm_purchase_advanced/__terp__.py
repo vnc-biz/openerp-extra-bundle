@@ -33,7 +33,6 @@
     "demo_xml" : ["dm_purchase_advanced_demo.xml"],
     "update_xml" : [
                     "security/ir.model.access.csv",
-                    "dm_purchase_advanced_wizard.xml",
                     "dm_purchase_advanced_view.xml",
                     ],
     "active": False,

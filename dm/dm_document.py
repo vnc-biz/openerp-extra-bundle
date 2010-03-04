@@ -527,9 +527,9 @@ class dm_campaign_document(osv.osv): # {{{
                                         'is_preview': False,
                                         'is_realtime': False })
             self.write(cr, uid, write_ids.values(), {'state': 'resent'})
-        # set error message properly 
         if missing_wi:
-            raise osv.except_osv("Error", 'Cannot resend, there is no workitem for one of campaign document campaign document')
+            self.write(cr, uid, missing_wi,{'state':'error',
+                                            'error_msg' :'Cannot resend, there is no workitem '})
         return True
 
 dm_campaign_document() # }}}

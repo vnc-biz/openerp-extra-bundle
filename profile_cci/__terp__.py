@@ -51,7 +51,7 @@
         "cci_translation",
         "cci_crm",
         "cci_timesheet",
-        "cci_audittrail",
+#        "cci_audittrail",
         "l10n_be_postal_subscriber",
 #        "cci_security"
 

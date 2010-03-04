@@ -114,12 +114,11 @@ def _createInvoices(self, cr, uid, data, context={}):
                     force_member=True
                 else:
                     force_non_member=True
-            context.update({'partner_id':data.order_partner_id})
+            context.update({'partner_id':data.order_partner_id.id})
             context.update({'force_member':force_member})
             context.update({'force_non_member':force_non_member})
             context.update({'value_goods':data.goods_value})
             context.update({'date':data.date})
-
             price=pool_obj.get('product.product')._product_price(cr, uid, [prod_id], False, False, context)
             val['value'].update({'price_unit':price[prod_id]})
 
@@ -150,7 +149,6 @@ def _createInvoices(self, cr, uid, data, context={}):
                     raise osv.except_osv('Input Error!','No Product Chosen')
                 create_ids.append(inv_id)
         inv = {
-            'name': data.name,
             'origin': data.name,
             'type': 'out_invoice',
             'reference': False,

@@ -44,12 +44,15 @@ class dm_campaign_group(osv.osv):#{{{
                 result[group.id] = str(quantity)
         return result
 
-    def _quantity_wanted_total(self, cr, uid, ids, name, args, context={}):
-        result = {}
-        numeric = True
-        quantity = 0
-        groups = self.browse(cr, uid, ids)
+    def _quantity_wanted_total(self, cr, uid, ids, name, args, context=None):
+        if context is None:
+            context = {}
+
+        result = dict.fromkeys(ids, '0')
+        groups = self.browse(cr, uid, ids, context=context)
         for group in groups:
+            quantity = 0
+            numeric = True
             for campaign in group.campaign_ids:
                 quantity = 0
                 numeric = True
@@ -67,12 +70,15 @@ class dm_campaign_group(osv.osv):#{{{
                 result[group.id] = str(quantity)
         return result
 
-    def _quantity_delivered_total(self, cr, uid, ids, name, args, context={}):
-        result = {}
-        numeric = True
-        quantity = 0
-        groups = self.browse(cr, uid, ids)
+    def _quantity_delivered_total(self, cr, uid, ids, name, args, context=None):
+        if context is None:
+            context = {}
+
+        result = dict.fromkeys(ids, '0')
+        groups = self.browse(cr, uid, ids, context=context)
         for group in groups:
+            numeric = True
+            quantity = 0
             for campaign in group.campaign_ids:
                 quantity = 0
                 numeric = True
@@ -86,12 +92,15 @@ class dm_campaign_group(osv.osv):#{{{
                 result[group.id] = str(quantity)
         return result
 
-    def _quantity_usable_total(self, cr, uid, ids, name, args, context={}):
-        result = {}
-        quantity = 0
-        numeric = True
-        groups = self.browse(cr, uid, ids)
+    def _quantity_usable_total(self, cr, uid, ids, name, args, context=None):
+        if context is None:
+            context = {}
+
+        result = dict.fromkeys(ids, '0')
+        groups = self.browse(cr, uid, ids, context=context)
         for group in groups:
+            quantity = 0
+            numeric = True
             for campaign in group.campaign_ids:
                 quantity = 0
                 numeric = True
@@ -105,12 +114,14 @@ class dm_campaign_group(osv.osv):#{{{
                 result[group.id] = str(quantity)
         return result
 
-    def _camp_group_code(self, cr, uid, ids, name, args, context={}):
-        result = {}
+    def _camp_group_code(self, cr, uid, ids, name, args, context=None):
+        if context is None:
+            context = {}
+
+        result = dict.fromkeys(ids, '')
         offer_code = ''
         offer_name = ''
         for id in ids:
-
             dt = time.strftime('%Y-%m-%d')
             date = dt.split('-')
             year = month = ''

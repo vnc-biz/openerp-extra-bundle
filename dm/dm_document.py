@@ -100,7 +100,6 @@ class dm_dtp_plugin(osv.osv): # {{{
     _name = "dm.dtp.plugin"
 
     def copy(self, cr, uid, id, default=None, context=None):
-        print self, context
 
         if not default:
             default = {}
@@ -306,7 +305,6 @@ def generate_report(cr, uid, obj_id, file_type, report_type, context):
         if report_data in ('plugin_error','plugin_missing','wrong_report_type','no_report_for_document') :
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
-    print len(message)
     return message
     
 def create_email_queue(cr, uid, obj, context): # {{{
@@ -462,11 +460,6 @@ class dm_offer_document(osv.osv): # {{{
         'content': lambda *a: '<p>Test Content</p>'
     }
 
-    def copy(self, cr, uid, id, default=None, context=None):
-        print self, context
-        new_id = super(dm_offer_document, self).copy(cr, uid, id, default, context)
-        return new_id
-
     def state_validate_set(self, cr, uid, ids, context={}):
         group_obj = self.pool.get('ir.actions.report.xml')
         doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
@@ -521,17 +514,23 @@ class dm_campaign_document(osv.osv): # {{{
     
     def state_resent(self, cr, uid, ids, context={}):
         camp_doc_obj = self.browse(cr, uid, ids)
+        write_ids = {} #wi_id : camp_doc_id
+        missing_wi = []
         for camp_doc in camp_doc_obj:
             if camp_doc.workitem_id:
-                self.pool.get('dm.workitem').write(cr, uid, 
-                                            [camp_doc.workitem_id.id],
-                                            {'state': 'pending',
-                                             'is_preview': False,
-                                             'is_realtime': False })
-                self.write(cr, uid, ids, {'state': 'resent'})
+                write_ids[camp_doc.workitem_id.id] = camp_doc.id
             else:
-                raise osv.except_osv("Error", 'Cannot resend, there is no workitem for this campaign document')
-            return True
+                missing_wi.append(camp_doc.workitem_id.id)
+        if write_ids :
+            self.pool.get('dm.workitem').write(cr, uid,write_ids.keys(),
+                                        {'state': 'pending',
+                                        'is_preview': False,
+                                        'is_realtime': False })
+            self.write(cr, uid, write_ids.values(), {'state': 'resent'})
+        # set error message properly 
+        if missing_wi:
+            raise osv.except_osv("Error", 'Cannot resend, there is no workitem for one of campaign document campaign document')
+        return True
 
 dm_campaign_document() # }}}
 

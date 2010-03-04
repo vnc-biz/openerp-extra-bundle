@@ -455,6 +455,7 @@
         <field name="name">dm.campaign.model.form</field>
         <field name="model">dm.campaign</field>
         <field name="type">form</field>
+        <field name="priority" eval="30" />
         <field name="arch" type="xml">
             <form string="Campaigns Model">
                 <notebook colspan="4">

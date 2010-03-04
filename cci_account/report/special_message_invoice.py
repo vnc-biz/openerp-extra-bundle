@@ -190,8 +190,8 @@ class account_invoice_with_message(report_sxw.rml_parse):
                     res['price_unit']='______________________'
                     res['discount']='____________________________________'
                     res['tax_types']='_____________________'
-                    res['uos']='_____'
-                    res['name']='______________________________________'
+                    res['uos']='_______'
+                    res['name']='____________________________________________'
                     res['price_subtotal']='___________'
                     res['currency']='_'
                 elif entry.state=='break':

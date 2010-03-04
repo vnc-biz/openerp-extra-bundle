@@ -98,8 +98,15 @@ class dm_workitem(osv.osv): # {{{
     SELECTION_LIST = [('pending', 'Pending'), ('error', 'Error'), 
                       ('cancel', 'Cancelled'), ('freeze', 'Frozen'),
                       ('done', 'Done')]
-    _rec_name = 'step_id'
 
+    def _get_id(self, cr, uid, ids, name, arg, context=None):
+        if context is None:
+            context = {}
+        res = {}
+        for wi in self.browse(cr, uid, ids, context):
+            res[wi.id] = str(wi.id) or ''
+        return res
+        
     def _customer_id(self, cr, uid, ids, name, arg, context=None):
         if context is None:
             context = {}
@@ -118,6 +125,8 @@ class dm_workitem(osv.osv): # {{{
 
 
     _columns = {
+        'name': fields.function(_get_id, method=True, type='char',
+                                string='ID'),
         'step_id': fields.many2one('dm.offer.step', 'Offer Step',
                                     ondelete="cascade", select="1"),
         'segment_id': fields.many2one('dm.campaign.proposition.segment', 
@@ -227,7 +236,6 @@ class dm_workitem(osv.osv): # {{{
                     doc_context = {}
                     doc_obj = self.pool.get(wi_res['model'])
                     for doc in doc_obj.browse(cr, uid, wi_res['ids']):
-                        "Set context value for plugin computation"
                         doc_context['active_id'] = doc.id
                         ms_res = server_obj.run(cr, uid,
                                         [doc.mail_service_id.action_id.id],
@@ -235,12 +243,15 @@ class dm_workitem(osv.osv): # {{{
                         ms_status = self._check_sysmsg(cr, uid, ms_res['code'], context)
                         doc_obj.write(cr, uid, [doc.id],
                             {'state': ms_status['state'],
-                            'error_msg': 'err_msg' in ms_res and ms_res['err_msg'] or  ms_status['msg'], 
-                        'delivery_time': time.strftime('%Y-%m-%d  %H:%M:%S')})
+                            'error_msg': 'err_msg' in ms_res and ms_res['err_msg'] or ms_status['msg'], 
+                            'delivery_time': time.strftime('%Y-%m-%d  %H:%M:%S')})
                         " If doc in error, change workitem status "
                         if not ms_status['result']:
+                            # Attention : if 1 doc crashes => wi in error but other docs processed
+                            # TODO : Add doc in error ref in wi error_msg
                             wr = self.write(cr, uid, [wi.id], {'state': ms_status['state'],
                                                 'error_msg':ms_status['msg']})
+                            done = False
 
             else:
                 "Dont Execute Action if workitem is not to be processed"
@@ -291,7 +302,7 @@ class dm_workitem(osv.osv): # {{{
                         aw_id = self.copy(cr, uid, wi.id, 
                                             {'step_id': tr.step_to_id.id,
                                            'tr_from_id': tr.id, 'error_msg': '',
-                            'is_realtime': False, 
+                                            'is_realtime': False, 
                 'action_time': next_action_time.strftime('%Y-%m-%d  %H:%M:%S')})
 
             except Exception, exception:

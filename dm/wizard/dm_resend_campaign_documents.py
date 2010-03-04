@@ -26,22 +26,16 @@ from tools.translate import _
 
 camp_doc_form = '''<?xml version="1.0"?>
     <form string="Resend Campaign Documents">
-        <field name="resend_document" nolabel="1"/>
-        <field name="state" attrs="{'readonly':[('resend_document','=',True)]}"/>
+        <field name="state"/>
     </form>'''
     
 camp_doc_fields = { # {{{
-    'resend_document': {
-                        'string': 'Resend Selected Documents', 
-                        'type': 'boolean',
-                        'help': 'Check this field to resend all the documents in a choosen state, else the selected documents will be send.',
-                        'default': lambda *a: True,
-                        },
     'state': {
-              'string': 'Resend all documents in state', 
+              'string': 'Resend all documents in ', 
               'type': 'selection',
-              'selection': [('error', 'Error'), ('done', 'Done'), ('resent', 'Resent')],
-              'default': lambda *a: 'error'
+              'selection': [('selection','Selection'),('error', 'Error State'),
+                ('done', 'Done State'), ('resent', 'Resent State')],
+              'default': lambda *a: 'selection'
              },
     } # }}}
 
@@ -49,11 +43,12 @@ def _resend_document(self, cr, uid, data, context):
     pool = pooler.get_pool(cr.dbname)
     camp_doc_obj = pool.get('dm.campaign.document')
     wi_obj = pool.get('dm.workitem')
-    if data['form']['resend_document']:
-        camp_doc_obj.state_resent(cr, uid, data['ids'], context)
-    else:
-        camp_doc_ids = camp_doc_obj.search(cr, uid, [('state', '=', data['form']['state'])])
-        camp_doc_obj.state_resent(cr, uid, camp_doc_ids, context)
+    if data['form']['state']:
+        if data['form']['state'] == 'selection':
+            camp_doc_obj.state_resent(cr, uid, data['ids'], context)
+        else:
+            camp_doc_ids = camp_doc_obj.search(cr, uid, [('state', '=', data['form']['state'])])
+            camp_doc_obj.state_resent(cr, uid, camp_doc_ids, context)
     return {}
 
 class wizard_resend_campaign_document(wizard.interface):

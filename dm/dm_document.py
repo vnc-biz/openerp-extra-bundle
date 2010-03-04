@@ -497,7 +497,7 @@ class dm_campaign_document(osv.osv): # {{{
         'mail_service_id': fields.many2one('dm.mail_service', 'Mail Service',
                                                         ondelete='cascade',),
         'state': fields.selection([('pending', 'Pending'),('done', 'Done'),
-                                   ('error', 'Error'), ('resent','Resent') ], 'State'),
+                            ('error', 'Error'), ('resent','Resent') ], 'State'),
         'error_msg': fields.text('System Message'),
         'document_id': fields.many2one('dm.offer.document', 'Document', 
                                                             ondelete="cascade"),
@@ -526,10 +526,11 @@ class dm_campaign_document(osv.osv): # {{{
                                         {'state': 'pending',
                                         'is_preview': False,
                                         'is_realtime': False })
-            self.write(cr, uid, write_ids.values(), {'state': 'resent'})
+            self.write(cr, uid, write_ids.values(), {'state': 'resent',
+             'error_msg':'Resent on %s' % (time.strftime('%Y-%m-%d %H:%M:%S'))})
         if missing_wi:
             self.write(cr, uid, missing_wi,{'state':'error',
-                                            'error_msg' :'Cannot resend, there is no workitem '})
+                           'error_msg' :'Cannot resend, there is no workitem '})
         return True
 
 dm_campaign_document() # }}}

@@ -121,6 +121,8 @@
         <field name="arch" type="xml">
             <form string="Workitem">
             <group colspan="4">
+                <field name="name" select="1"/>
+                <newline/>
                 <field name="address_id" select="1"/>
                 <field name="step_id" select="1"/>
                 <field name="segment_id" select="1"/>
@@ -156,6 +158,7 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Workitems">
+                <field name="name"/>
                 <field name="address_id" />
                 <field name="customer_id" />
                 <field name="customer_email" />

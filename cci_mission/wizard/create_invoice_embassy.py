@@ -90,7 +90,7 @@ def _createInvoices(self, cr, uid, data, context):
                 cci_special_reference = "cci_missions.embassy_folder_line*" + str(line.id)
 
             inv_id =pool_obj.get('account.invoice.line').create(cr, uid, {
-                    'name': line.name,
+                    'name': embassy.name + ": " + line.name,
                     'account_id':line.account_id.id,
                     'price_unit': line.customer_amount,
                     'quantity': 1,
@@ -103,7 +103,6 @@ def _createInvoices(self, cr, uid, data, context):
             })
             create_ids.append(inv_id)
         inv = {
-                'name': embassy.name,
                 'origin': embassy.name,
                 'type': 'out_invoice',
                 'reference': embassy.customer_reference,

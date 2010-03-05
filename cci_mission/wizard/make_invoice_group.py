@@ -39,7 +39,7 @@ form = """<?xml version="1.0"?>
 """
 fields = {
       'registration': {'string':'Include Events Registrations', 'type':'boolean' ,'default': lambda *a: False },
-      'date_invoice': {'string':'Date Invoiced', 'type':'date' ,'default': lambda *a: time.strftime('%Y-%m-%d'), 'help':'You can set here the value to put in the field "date invoiced" of the invoice'},
+      'date_invoice': {'string':'Date Invoiced', 'type':'date' ,'default': lambda *a: time.strftime('%Y-%m-%d'), 'help':'You can set here the value to put in the field "date invoiced" of the invoice. Moreover, this date will be an additional criterion for the objects to invoice search.'},
       'period_id': {'string':'Force Invoice Period (keep empty to use current period)','type':'many2one','relation':'account.period'},
       'invoice_title': {'string': 'Invoices Title', 'type':'char', 'size': 64, 'help': 'You can specify here a title for the created invoice, that will fill the origin field'},
 }
@@ -67,10 +67,18 @@ def _group_invoice(self, cr, uid, data, context):
         models.append('event.registration')
 
     for model in models:
-        if model=='cci_missions.embassy_folder' or model=='event.registration':
-            model_ids=pool_obj.get(model).search(cr,uid,[('state','=','open')])
+        if model == 'cci_missions.embassy_folder' or model == 'event.registration':
+            state_to_check = 'open'
         else:
-            model_ids=pool_obj.get(model).search(cr,uid,[('state','=','draft')])
+            state_to_check = 'draft'
+        if model == 'event.registration':
+            date_to_check = 'event_id.date_begin'
+        elif model == 'cci_missions.ata_carnet':
+            date_to_check = 'creation_date'
+        else:
+            date_to_check = 'date'
+      
+        model_ids=pool_obj.get(model).search(cr,uid,[('state','=', state_to_check), (date_to_check, '<', data['form']['date_invoice'])])
 
         if model_ids:
             read_ids=pool_obj.get(model).read(cr,uid,model_ids,['partner_id','order_partner_id','date','creation_date','partner_invoice_id'])

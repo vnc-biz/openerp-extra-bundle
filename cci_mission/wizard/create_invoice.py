@@ -134,7 +134,7 @@ def _createInvoices(self, cr, uid, data, context={}):
                 if val['value']['product_id'] != False:
                     tax_on_line = pool_obj.get('product.product').browse(cr,uid,val['value']['product_id']).taxes_id
                     inv_id =pool_obj.get('account.invoice.line').create(cr, uid, {
-                        'name': val['value']['name'],
+                        'name': data.text_on_invoice + ': ' + val['value']['name'],
                         'account_id':val['value']['account_id'],
                         'price_unit': val['value']['price_unit'],
                         'quantity': val['value']['quantity'],
@@ -142,7 +142,7 @@ def _createInvoices(self, cr, uid, data, context={}):
                         'uos_id': val['value']['uos_id'],
                         'product_id':val['value']['product_id'],
                         'invoice_line_tax_id': [(6,0,tax_on_line)],
-                        'note':data.text_on_invoice,
+                       # 'note':data.text_on_invoice,
                         'invoice_line_tax_id': val['value'].has_key('taxes_id') and [(6, 0, val['value']['taxes_id'])] or False
                     })
                 else:
@@ -158,7 +158,6 @@ def _createInvoices(self, cr, uid, data, context={}):
             'address_contact_id':address_contact,
             'invoice_line': [(6,0,create_ids)],
             'currency_id' :data.order_partner_id.property_product_pricelist.currency_id.id,# 1,
-            'comment': data.text_on_invoice,
             'payment_term':data.order_partner_id.property_payment_term.id,
             'fiscal_position': data.order_partner_id.property_account_position.id
             }

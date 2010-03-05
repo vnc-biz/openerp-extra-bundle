@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <document filename="Facture.pdf">
   <template pageSize="(595.0,842.0)" title="Facture" author="CCi Connect" allowSplitting="20">
+
     <pageTemplate id="first">
-      <frame id="first" x1="34.0" y1="28.0" width="530" height="700"/>
+      <frame id="first" x1="34.0" y1="98.0" width="530" height="630"/>
+<!-- put back the header: remove comments below and set the height of above tag to 700 + y1 to 28 -->
+<!-- remove the header: put back comments for the whole pageGraphics tag and set the value of above parameters tag to y1 = 78, height = 650 -->
         <pageGraphics>
-            <image x="1.3cm" y="27.6cm" height="40.0" >[[company.logo or removeParentNode('image') ]]</image>
+          <image x="1.3cm" y="27.6cm" height="40.0" >[[company.logo or removeParentNode('image') ]]</image>
             <setFont name="Helvetica" size="8"/>
             <fill color="black"/>
             <stroke color="black"/>
@@ -21,6 +24,19 @@
             <drawString x="1.3cm" y="25.6cm">Fax:</drawString>
             <drawRightString x="7cm" y="25.6cm">+32 (0)4/343.92.67</drawRightString>
             <lines>1.3cm 25.5cm 7cm 25.5cm</lines>
+
+            <!--footer-->
+            <place x="1.5cm" y="-1.50cm"  width="100.0cm" height="5cm">
+              <para style="Standard">Voir conditions de paiement au verso - Pour tout renseignement: 04/341.91.70</para>
+              <para style="Standard"></para>
+              <para style="Standard">CCI Connect ASBL</para>
+              <para style="Standard">Siège de Liège: Esplanade de l'Europe 2. B-4020 Liège. Tél. +32 (0)4 341 91 91. Fax +32 (0)4 343 92 67</para>
+              <para style="Standard">Siège de Verviers: Rue Renkin 35. B-4800 Verviers. Tél. +32 (0)87 29 36 36. Fax +32 (0)87 26 87 80</para>
+              <para style="Standard">Siège de Namur: Chaussée de Marche 935A. B-5100 Namur. Tél. +32 (0)81 32 05 50. Fax +32 (0)81 32 05 59</para>
+              <para style="Standard">e-mail: info@cciconnect.be - site web: www.ccilv.be - www.ccinamur.be - www.cciconnect.be</para>
+              <para style="Standard">TVA BE 0810 570 206 - ING 363-0500057-62 - FORTIS 001-5778220-06 - CBC 732-0200867-31</para>
+            </place>
+
         </pageGraphics>
 
     </pageTemplate>
@@ -326,7 +342,6 @@
     <para style="P17"><font>Document:</font><font>[[o.name]]</font></para>
     <para style="P8b"><font color="white"> </font></para>
     <para style="P17"><font>Date de Facturation: </font><font>[[ formatLang(o.date_invoice,date=True) ]]</font></para>
-    <para style="P17"><font>Ref. Client:</font> [[ o.address_invoice_id.partner_id.ref or '/' ]]</para>
     <para style="P8b"><font color="white"> </font></para>
   <blockTable colWidths="284.0,64.0,64.0,52.0,75.0" style="Tableau6">
       <tr>

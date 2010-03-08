@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,16 +15,16 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
 from osv import fields
 from osv import osv
 
-class dm_campaign_group(osv.osv):#{{{
+class dm_campaign_group(osv.osv): #{{{
     _name = "dm.campaign.group"
-    
+
     def _quantity_planned_total(self, cr, uid, ids, name, args, context={}):
         result = {}
         numeric = True
@@ -128,7 +128,7 @@ class dm_campaign_group(osv.osv):#{{{
             if len(date) == 3:
                 year = date[0][2:]
                 month = date[1]
-            final_date = year+ month
+            final_date = year + month
             grp = self.browse(cr, uid, id)
             for c in grp.campaign_ids:
                 if c.offer_id:
@@ -142,30 +142,31 @@ class dm_campaign_group(osv.osv):#{{{
     _columns = {
         'name': fields.char('Campaign group name', size=64, required=True),
         'code': fields.function(_camp_group_code, string='Code', type='char',
-                                            method=True,readonly=True),
-        'campaign_ids': fields.one2many('dm.campaign', 'campaign_group_id', 
-                        'Campaigns', domain=[('campaign_group_id', '=', False)], 
+                                            method=True, readonly=True),
+        'campaign_ids': fields.one2many('dm.campaign', 'campaign_group_id',
+                        'Campaigns', domain=[('campaign_group_id', '=', False)],
                         readonly=True),
-#        'quantity_planned_total': fields.function(_quantity_planned_total, 
+#        'quantity_planned_total': fields.function(_quantity_planned_total,
 #                        string='Total planned Quantity', type="char",
 #                        size="64", method=True, readonly=True),
-        'quantity_wanted_total': fields.function(_quantity_wanted_total, 
+        'quantity_wanted_total': fields.function(_quantity_wanted_total,
                         string='Total Wanted Quantity', type="char", size=64,
                         method=True, readonly=True),
-        'quantity_delivered_total': fields.function(_quantity_delivered_total, 
+        'quantity_delivered_total': fields.function(_quantity_delivered_total,
                         string='Total Delivered Quantity', type="char", size=64,
                         method=True, readonly=True),
-        'quantity_usable_total': fields.function(_quantity_usable_total, 
+        'quantity_usable_total': fields.function(_quantity_usable_total,
                         string='Total Usable Quantity', type="char", size=64,
                         method=True, readonly=True),
     }
 dm_campaign_group()#}}}
 
-class dm_campaign(osv.osv):#{{{
+
+class dm_campaign(osv.osv): #{{{
     _inherit = "dm.campaign"
     _columns = {
         'campaign_group_id': fields.many2one('dm.campaign.group', 'Campaign group'),
     }
+
 dm_campaign()
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

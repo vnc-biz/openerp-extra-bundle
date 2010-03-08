@@ -480,7 +480,10 @@ class dm_campaign(osv.osv): #{{{
             default['name'] = campaign_id.name + ' (Copy)'
             # project_id should nt b her moved in rp
 #        default.update({'date_start': False, 'date': False})
-        default.update({'date_start': False, 'date': False, 'proposition_ids': []})
+        default.update({
+#                        'date_start': False, 
+#                        'date': False, 
+                        'proposition_ids': []})
         print "XXX default :", default
         print "XXX context :", context
         camp_copy_id = super(dm_campaign, self).copy(cr, uid, id, default, context)

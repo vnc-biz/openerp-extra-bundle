@@ -84,9 +84,10 @@ def _createInvoices(self, cr, uid, data, context={}):
 
         context.update({'date':data.date})
         inv_create = inv_create + 1
+        fpos = data.order_partner_id.property_account_position and data.order_partner_id.property_account_position.id or False
+
         for lines in data.product_ids :
-            val = {}
-            val['value']={}
+            val = obj_lines.product_id_change(cr, uid, [], lines.product_id.id,uom =False, partner_id=data.order_partner_id.id, fposition_id=fpos)
             val['value'].update({'name':lines.name})
             val['value'].update({'account_id':lines.account_id.id})
             val['value'].update({'product_id' : lines.product_id.id })
@@ -103,7 +104,6 @@ def _createInvoices(self, cr, uid, data, context={}):
         dict['original'] = data.type_id.original_product_id.id
         list.append(data.type_id.copy_product_id.id)
         dict['copy'] = data.type_id.copy_product_id.id
-        fpos = data.order_partner_id.property_account_position and data.order_partner_id.property_account_position.id or False
         for prod_id in list:
             val = obj_lines.product_id_change(cr, uid, [], prod_id,uom =False, partner_id=data.order_partner_id.id, fposition_id=fpos)
             val['value'].update({'product_id' : prod_id })
@@ -132,19 +132,8 @@ def _createInvoices(self, cr, uid, data, context={}):
             if val['value']['quantity']>0.00:
                 tax_on_line = []
                 if val['value']['product_id'] != False:
-                    tax_on_line = pool_obj.get('product.product').browse(cr,uid,val['value']['product_id']).taxes_id
-                    inv_id =pool_obj.get('account.invoice.line').create(cr, uid, {
-                        'name': data.text_on_invoice + ': ' + val['value']['name'],
-                        'account_id':val['value']['account_id'],
-                        'price_unit': val['value']['price_unit'],
-                        'quantity': val['value']['quantity'],
-                        'discount': False,
-                        'uos_id': val['value']['uos_id'],
-                        'product_id':val['value']['product_id'],
-                        'invoice_line_tax_id': [(6,0,tax_on_line)],
-                       # 'note':data.text_on_invoice,
-                        'invoice_line_tax_id': val['value'].has_key('taxes_id') and [(6, 0, val['value']['taxes_id'])] or False
-                    })
+                    val['value']['name'] = data.text_on_invoice + ': ' + val['value']['name']
+                    inv_id =pool_obj.get('account.invoice.line').create(cr, uid, val['value'])
                 else:
                     raise osv.except_osv('Input Error!','No Product Chosen')
                 create_ids.append(inv_id)

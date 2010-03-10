@@ -123,18 +123,8 @@ def _createInvoices(self, cr, uid, data, context):
             value.append(val)
         for val in value:
             if val['value']['quantity']>0.00:
-                inv_id = pool_obj.get('account.invoice.line').create(cr, uid, {
-                        'name': carnet.name + ": " + val['value']['name'], #carnet.name
-                        'account_id':val['value']['account_id'],
-                        'price_unit': val['value']['price_unit'],
-                        'quantity': val['value']['quantity'],
-                        'discount': False,
-                        'uos_id': val['value']['uos_id'],
-                        'product_id':val['value']['product_id'],
-                        'invoice_line_tax_id': [(6,0,val['value']['invoice_line_tax_id'])],
-                        'note':'',
-                        'invoice_line_tax_id': val['value'].has_key('taxes_id') and [(6, 0, val['value']['taxes_id'])] or False
-                })
+                val['value']['name'] = carnet.name + ": " + val['value']['name']
+                inv_id = pool_obj.get('account.invoice.line').create(cr, uid, val['value'])
                 create_ids.append(inv_id)
         inv = {
                 'origin': carnet.name,

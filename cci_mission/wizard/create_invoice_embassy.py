@@ -84,11 +84,16 @@ def _createInvoices(self, cr, uid, data, context):
                 tax_ids.append(line.tax_rate.id)
             cci_special_reference = False
             note = ''
-
+            analytics_id = False
             if line.awex_eligible and line.awex_amount > 0:
                 note = 'AWEX intervention for a total of ' + str(line.awex_amount)
                 cci_special_reference = "cci_missions.embassy_folder_line*" + str(line.id)
-
+            
+            if line.product_id:
+                tmp = pool_obj.get('account.analytic.default').search(cr, uid, [('product_id','=',line.product_id.id)])
+                analytic_default_id = tmp and tmp[0] or False
+                if analytic_default_id:
+                    analytics_id = pool_obj.get('account.analytic.default').browse(cr, uid, analytic_default_id).analytics_id.id
             inv_id =pool_obj.get('account.invoice.line').create(cr, uid, {
                     'name': embassy.name + ": " + line.name,
                     'account_id':line.account_id.id,
@@ -99,7 +104,8 @@ def _createInvoices(self, cr, uid, data, context):
                     'product_id': line.product_id and line.product_id.id or False,
                     'invoice_line_tax_id': [(6,0,tax_ids)],
                     'note': note,
-                    'cci_special_reference': cci_special_reference
+                    'cci_special_reference': cci_special_reference,
+                    'analytics_id': analytics_id
             })
             create_ids.append(inv_id)
         inv = {

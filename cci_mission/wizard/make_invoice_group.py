@@ -244,7 +244,8 @@ def _group_invoice(self, cr, uid, data, context):
                          'invoice_line_tax_id': [(6, 0, taxe_ids)],
                          'note':line.note,
                          'sequence' : count,
-                         'cci_special_reference': line.cci_special_reference
+                         'cci_special_reference': line.cci_special_reference,
+                         'analytics_id': line.analytics_id and line.analytics_id.id,
                     }
                     inv_line = line_obj.create(cr, uid, args)
                     count=count+1

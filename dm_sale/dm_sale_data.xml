@@ -8,9 +8,18 @@
                 <field eval="0" name="store_value"/>
                 <field name="model_id" ref="dm.model_dm_workitem"/>
                 <field eval="&quot;&quot;&quot;Sale Order - Id&quot;&quot;&quot;" name="note"/>
-                <field name="field_id" ref="field_dm_workitem_sale_order_id"/>
+                <field name="field_id" ref="dm_sale.field_dm_workitem_sale_order_id"/>
                 <field eval="&quot;&quot;&quot;fields&quot;&quot;&quot;" name="type"/>
             </record>
         -->
+        
+            <record id="dm_dtp_plugin_wi_so_note" model="dm.dtp.plugin">
+                <field eval="&quot;&quot;&quot;sale_note&quot;&quot;&quot;" name="code"/>
+                <field eval="&quot;&quot;&quot;Note from Sale Order&quot;&quot;&quot;" name="name"/>
+                <field name="model_id" ref="sale.model_sale_order"/>
+                <field eval="&quot;&quot;&quot;Sale Order - Note&quot;&quot;&quot;" name="note"/>
+                <field name="field_id" ref="sale.field_sale_order_note"/>
+                <field eval="&quot;&quot;&quot;fields&quot;&quot;&quot;" name="type"/>
+            </record>
         </data>
     </openerp>

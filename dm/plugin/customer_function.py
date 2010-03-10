@@ -54,6 +54,13 @@ def customer_function(cr, uid, **args):
         if not document_id.step_id: return False
         res = pool.get(model_name).read(cr, uid, document_id.step_id.id,
                                          [args['field_name']])
+    elif model_name == 'sale.order' and 'workitem_id' in args:
+        so_id = pool.get('dm.workitem').read(cr, uid, args['workitem_id'],
+                    ['sale_order_id'])['sale_order_id']
+        if so_id :
+            res = pool.get(model_name).read(cr, uid, so_id[0], [args['field_name']])
+        else :
+            return False
     else:
         res = pool.get('res.partner.address').read(cr, uid, args['address_id'])
         if model_name == 'res.partner':

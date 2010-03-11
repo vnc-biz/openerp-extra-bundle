@@ -183,5 +183,18 @@
         </field>
 	</record>
     
+    <record id="view_dm_campaign_proposition_rejects" model="ir.ui.view">
+	   <field name="name">dm.campaign.proposition.inherit</field>
+	   <field name="model">dm.campaign.proposition</field>
+	   <field name="inherit_id" ref="dm.view_campaign_proposition_form"/>
+	   <field name="type">form</field>
+	   <field name="arch" type="xml">
+	   		<field name="segment_ids" position="after">
+	    		<separator string="Reject Criteria" colspan="4"/>
+            	<field name="reject_criteria" colspan="4" nolabel="1"/>
+ 			</field>
+   		</field>
+  </record>
+  
 </data>
 </openerp>

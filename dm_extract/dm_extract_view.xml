@@ -157,6 +157,62 @@
     	</field>
     </record>
 
+	<record id="view_dm_campaign_proposition_segments_criteria_inherit" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segments_criteria.inherit</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+			<field name="deduplication_level" position="replace">
+				<separator string="" colspan="4" />
+				<field name="deduplication_level"/>
+				<field name="list_criteria_id"/>
+				<field name="trademark_id"/>
+				<field name="buyer"/>
+			</field>
+		</field>
+	</record>
+
+	<!--
+		Segment List Criteria
+	 -->
+
+	<record model="ir.ui.view" id="view_dm_campaign_proposition_segment_list_criteria_tree">
+        <field name="name">dm.campaign.proposition.segment.list_criteria.tree</field>
+        <field name="model">dm.campaign.proposition.segment.list_criteria</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Segment Criteria">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+	<record model="ir.ui.view" id="view_dm_campaign_proposition_segment_list_criteria_form">
+        <field name="name">dm.campaign.proposition.segment.list_criteria.form</field>
+        <field name="model">dm.campaign.proposition.segment.list_criteria</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Segment Criteria">
+                <field name="name" select="1"/>
+                <field name="code" select="1"/>
+            </form>
+        </field>
+    </record>
+	
+	<record model="ir.actions.act_window" id="action_dm_campaign_proposition_segment_list_criteria_form">
+        <field name="name">All Customers List Criteria</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.campaign.proposition.segment.list_criteria</field>
+        <field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_campaign_proposition_segment_list_criteria_tree"/>
+    </record>
+	
+    <menuitem id="menu_dm_campaign_proposition_segment_list_criteria_form" parent="dm.menu_dm_config_custlist_list" action="action_dm_campaign_proposition_segment_list_criteria_form" sequence="4" />
+   
+
     </data>
 </openerp>
     

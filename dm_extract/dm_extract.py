@@ -78,14 +78,30 @@ class dm_address_segmentation(osv.osv): # {{{
 
 dm_address_segmentation() # }}}
 
-class dm_campaign_proposition_segment(osv.osv):
+class dm_campaign_proposition_segment_list_criteria(osv.osv): # {{{
+    _name = "dm.campaign.proposition.segment.list_criteria"
+    _description = "Segment List Criteria"
+    
+    _columns = {
+                'name':fields.char('Name', size=64, required=True),
+                'code':fields.char('Code', size=64, required=True),
+                }
+    
+dm_campaign_proposition_segment_list_criteria() # }}}
+
+class dm_campaign_proposition_segment(osv.osv): # {{{
     _inherit = "dm.campaign.proposition.segment"
+    
     _columns = {
                 'segmentation_id':fields.many2one('dm.address.segmentation',
                                                   'Segmentation'),
+                'list_criteria_id':fields.many2one('dm.campaign.proposition.segment.list_criteria',
+                                                  'Customers List Criteria'),
+                'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
+                'buyer': fields.selection([('buyer', 'Buyer'), ('not_buyer', 'Not Buyer')], 'Buyer')
                 }
     
-dm_campaign_proposition_segment()
+dm_campaign_proposition_segment() # }}}
 
 TEXT_OPERATORS = [ # {{{
     ('like','like'),

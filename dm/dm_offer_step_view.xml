@@ -245,6 +245,10 @@
                         <separator string="Purchase Advices" colspan="4"/>
                         <field name="purchase_note" nolabel="1" colspan="4" widget="text_wiki"/>
                     </page>
+                   	<page string="Advanced" groups="base.group_extended">
+                   		<separator string="Delivery Steps" colspan="4"/>
+                   		<field name="delivery_step_ids" colspan="4" height="350" nolabel="1"/>
+                   </page>          
                 </notebook>
             </form>
         </field>
@@ -264,7 +268,7 @@
         =======================================================
         OFFER STEP TRANSITION TRIGGER VIEWS
         =======================================================
-        -->
+      -->
 
         <record model="ir.ui.view" id="view_offer_step_transition_trigger_form">
                 <field name="name">dm.offer.step.transition.trigger.form</field>

@@ -119,6 +119,10 @@ class dm_offer_step(osv.osv): # {{{
                                             string='Action', required=True),
         'graph_hide': fields.boolean('Hide in Offer Graph'),
         'partner_event_create': fields.boolean('Create Partner Event'),
+        'delivery_step_ids': fields.many2many('dm.offer.step', 
+                                        'dm_offer_step_delivery', 'delivery_id',
+                                        'offer_step_delivery_id', 'Delivery Steps'),
+    
     }
 
     _defaults = {
@@ -146,7 +150,6 @@ class dm_offer_step(osv.osv): # {{{
         print self, context
         new_id = super(dm_offer_step, self).copy(cr, uid, id, default, context)
         return new_id
-
     def state_close_set(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'closed'})
         return True
@@ -239,4 +242,3 @@ class dm_offer_step_transition(osv.osv): # {{{
 dm_offer_step_transition() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

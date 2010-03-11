@@ -47,7 +47,6 @@ class offer_document(report_sxw.rml_parse):
             rml = report_xml.report_rml_content
             raw_plugin_list = _regexp1.findall(rml)
             plugin_list = map(lambda x : x[2:-2] , raw_plugin_list)
-            print plugin_list
 #            for i in raw_plugin_list :
 #                plugin = _regexp2.findall(i)[0].replace("'", '')
 #                plugin_list.append(plugin)

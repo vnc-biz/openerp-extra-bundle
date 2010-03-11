@@ -177,9 +177,11 @@
                     <separator string="Description" colspan="4"/>
                     <field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
                     <separator string="Status" colspan="4"/>
-                    <group col="2" colspan="4">
+                    <group  colspan="4">
                         <field name="state" nolabel="1"/>
-                        <button name="state_validate_set" string="Validate" states="draft" type="object"/>
+                        <button name="state_validate_set" string="Validate" states="draft,inreview" />
+                        <button name="state_inreview_set" string="In review" states="validate" />
+                        <button name="set_cancel" string="Cancel" states="draft,validate,inreview" />
                     </group>
                 </page>
                 <page string="Dynamic Fields">

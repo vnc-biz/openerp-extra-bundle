@@ -19,7 +19,7 @@
 ##############################################################################
 
 import datetime
-from osv import fields,osv
+from osv import fields, osv
 import pooler
 
 class stock_production_lot(osv.osv):
@@ -27,17 +27,19 @@ class stock_production_lot(osv.osv):
     _inherit = 'stock.production.lot'
 
     def _get_date(dtype):
-        def calc_date(self, cr, uid, context={}):
-            if context.get('product_id', False):
-                product = pooler.get_pool(cr.dbname).get('product.product').browse(cr, uid, [context['product_id']])[0]
-                duration = getattr(product, dtype)
-                # Return False when no expiry time was specified on the product
-                if not duration:
-                    return False
-                date = datetime.datetime.today() + datetime.timedelta(days=duration)
-                return date.strftime('%Y-%m-%d %H:%M:%S')
+        """Return a function to compute the limit date for this type"""
+        def calc_date(self, cr, uid, context=None):
+            """Compute the limit date for a given date"""
+            if context is None or product_id not in context:
+                date = False
             else:
-                return False
+                product = pooler.get_pool(cr.dbname).get('product.product').browse(
+                    cr, uid, context['product_id'])
+                duration = getattr(product, dtype)
+                # set date to False when no expiry time specified on the product
+                date = duration and (datetime.datetime.today()
+                    + datetime.timedelta(days=duration))
+            return date and date.strftime('%Y-%m-%d %H:%M:%S')
         return calc_date
 
     _columns = {

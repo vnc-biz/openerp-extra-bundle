@@ -766,18 +766,16 @@ dm_customers_list_type()#}}}
 class dm_customers_list(osv.osv): #{{{
     _name = "dm.customers_list"
     _description = "A list of addresses proposed by an adresses broker"
-    
-    def search(self, cr, uid, args, offset=0, limit=None, order=None,
-                                                        context=None, count=False):
-        
-        if context and 'campaign_id' in context:
-            campaign_country=self.pool.get('dm.campaign').read(cr,uid,context['campaign_id'],['country_id'])
+
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        if context and 'campaign_id' in context and context['campaign_id']:
+            campaign_country = self.pool.get('dm.campaign').read(cr,uid,context['campaign_id'],['country_id'])
             if campaign_country.has_key('country_id'):
                 cr.execute('select cust_list_id from dm_cust_list_country_rel where country_id=%s' %(campaign_country['country_id'][0]))
                 res=cr.fetchall()
                 args.append(('id','in',res))
         return super(dm_customers_list, self).search(cr, uid, args, offset, limit, order, context, count)
-    
+
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=16, required=True),

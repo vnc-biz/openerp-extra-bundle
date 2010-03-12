@@ -177,11 +177,13 @@ class account_invoice(osv.osv):
         return res
 
     #raise an error if the partner has the warning 'alert_others' when we choose him in the account_invoice form
-    def onchange_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False, partner_bank_id=False):
+    def onchange_partner_id(self, cr, uid, ids, type, partner_id,date_invoice=False, payment_term=False):
         warning = False
         inv_special=False
+        domiciled = False
         if partner_id:
             data_partner = self.pool.get('res.partner').browse(cr,uid,partner_id)
+            domiciled = bool(data_partner.domiciliation)
             inv_special=data_partner.invoice_special
             if data_partner.alert_others:
                 warning = {
@@ -189,6 +191,7 @@ class account_invoice(osv.osv):
                     'message': data_partner.alert_explanation or 'Partner is not valid'
                         }
         data=super(account_invoice,self).onchange_partner_id( cr, uid, ids, type, partner_id,date_invoice, payment_term)
+        data['value']['domiciled'] = domiciled
         data['value']['invoice_special']=inv_special
         if warning:
             data['warning'] = warning

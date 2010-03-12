@@ -29,7 +29,7 @@
         Adds Domiciled and Domiciled send date fields on invoice.
         Domiciliation and Domiciliation Number fields on partner.
     """,
-    "depends" : ["base","account"],
+    "depends" : ["base","account","l10n_be"],
     "init_xml" : [],
     "demo_xml" : [],
 

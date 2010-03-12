@@ -278,7 +278,8 @@ def _group_invoice(self, cr, uid, data, context):
                 'payment_term':invoice.payment_term.id,
                 'date_invoice':date_inv or today_date,
                 'period_id':force_period or False,
-                'fiscal_position': invoice.partner_id.property_account_position.id
+                'fiscal_position': invoice.partner_id.property_account_position.id,
+                'domiciled': bool(invoice.partner_id.domiciliation),
             }
         inv_id = obj_inv.create(cr, uid, inv)
         obj_inv.button_reset_taxes(cr, uid, [inv_id], context)

@@ -75,7 +75,7 @@ def _createInvoices(self, cr, uid, data, context):
             sale_taxes = []
             if product_line.taxes_id:
                 map(lambda x:sale_taxes.append(x.id),product_line.taxes_id)
-            val['value'].update({'taxes_id': sale_taxes})
+            val['value'].update({'invoice_line_tax_id': [(6,0,sale_taxes)]})
             value.append(val)
 
         for add in carnet.partner_id.address:
@@ -98,6 +98,7 @@ def _createInvoices(self, cr, uid, data, context):
             count += 1
             val = obj_lines.product_id_change(cr, uid, [], prod_id,uom =False, partner_id=carnet.partner_id.id, fposition_id=fpos)
             val['value'].update({'product_id': prod_id })
+            val['value'].update({'invoice_line_tax_id': [(6, 0, val['value']['invoice_line_tax_id'])]})
             if count==2:
                 qty_copy=carnet.initial_pages
                 if qty_copy<0:

@@ -97,7 +97,7 @@ def _createInvoices(self, cr, uid, data, context={}):
             sale_taxes = []
             if lines.taxes_id:
                 map(lambda x:sale_taxes.append(x.id),lines.taxes_id)
-            val['value'].update({'taxes_id': sale_taxes})
+            val['value'].update({'invoice_line_tax_id': [(6, 0, sale_taxes)]})
             value.append(val)
 
         list.append(data.type_id.original_product_id.id)
@@ -107,6 +107,7 @@ def _createInvoices(self, cr, uid, data, context={}):
         for prod_id in list:
             val = obj_lines.product_id_change(cr, uid, [], prod_id,uom =False, partner_id=data.order_partner_id.id, fposition_id=fpos)
             val['value'].update({'product_id' : prod_id })
+            val['value'].update({'invoice_line_tax_id': [(6, 0, val['value']['invoice_line_tax_id'])]})
 
             force_member=force_non_member=False
             if current_model=='cci_missions.legalization':
@@ -130,7 +131,6 @@ def _createInvoices(self, cr, uid, data, context={}):
 
         for val in value:
             if val['value']['quantity']>0.00:
-                tax_on_line = []
                 if val['value']['product_id'] != False:
                     val['value']['name'] = data.text_on_invoice + ': ' + val['value']['name']
                     inv_id =pool_obj.get('account.invoice.line').create(cr, uid, val['value'])

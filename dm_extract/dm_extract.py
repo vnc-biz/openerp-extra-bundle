@@ -97,8 +97,6 @@ class dm_campaign_proposition_segment(osv.osv): # {{{
                                                   'Segmentation'),
                 'list_criteria_id':fields.many2one('dm.campaign.proposition.segment.list_criteria',
                                                   'Customers List Criteria'),
-                'trademark_id': fields.many2one('dm.trademark', 'Trademark'),
-                'buyer': fields.selection([('buyer', 'Buyer'), ('not_buyer', 'Not Buyer')], 'Buyer')
                 }
     
 dm_campaign_proposition_segment() # }}}

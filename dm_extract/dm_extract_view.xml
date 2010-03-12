@@ -167,8 +167,6 @@
 				<separator string="" colspan="4" />
 				<field name="deduplication_level"/>
 				<field name="list_criteria_id"/>
-				<field name="trademark_id"/>
-				<field name="buyer"/>
 			</field>
 		</field>
 	</record>

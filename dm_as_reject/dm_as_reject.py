@@ -147,19 +147,19 @@ class res_partner_address(osv.osv): # {{{
 res_partner_address() # }}}
 
 REJECT_CRITERIAS = [ # {{{
-                    
-    ('buyer','Product Buyer'),
-    ('moved','Moved'),
-    ('pay_incident','Payment Incident'),
-    ('carrier','Carrier Reject')
-    ] # }}}
+            ('buyer','Product Buyer'),
+            ('moved','Moved'),
+            ('pay_incident','Payment Incident'),
+            ('carrier','Carrier Reject')
+            ] # }}}
 
-class dm_campaign_proposition(osv.osv):
-    _inherit = "dm.campaign.proposition"
+class dm_campaign_proposition_segment(osv.osv):
+    _inherit = "dm.campaign.proposition.segment"
+    
     _columns = {
         'reject_criteria' : fields.selection(REJECT_CRITERIAS, 'Reject Criteria'),
                 }
     
-dm_campaign_proposition()
+dm_campaign_proposition_segment()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -148,7 +148,8 @@ def _createInvoices(self, cr, uid, data, context={}):
             'invoice_line': [(6,0,create_ids)],
             'currency_id' :data.order_partner_id.property_product_pricelist.currency_id.id,# 1,
             'payment_term':data.order_partner_id.property_payment_term.id,
-            'fiscal_position': data.order_partner_id.property_account_position.id
+            'fiscal_position': data.order_partner_id.property_account_position.id,
+            'domiciled': bool(data.order_partner_id.domiciliation),
             }
         price = data.total
         inv_obj = pool_obj.get('account.invoice')

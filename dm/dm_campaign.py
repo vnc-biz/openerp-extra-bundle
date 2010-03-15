@@ -630,9 +630,7 @@ class dm_campaign_proposition(osv.osv): #{{{
                 continue
             qty = 0
             for segment in propo.segment_ids:
-                print "sssssss",segment
                 if segment.quantity_delivered == 0:
-                    print "iin iffffffffffff"
                     result[propo.id] = 'Delivered Quantity missing in a Segment'
                     continue
                 elif segment.segment_state == 'validated':
@@ -972,9 +970,6 @@ class dm_campaign_proposition_segment(osv.osv): #{{{
                                                          id, default, context)
         return seg_copy_id
 
-    def state_quantity_validate(self, cr, uid, ids, context={}):
-        return True
-    
     _columns = {
         'campaign_id': fields.related('proposition_id', 'camp_id',
                                       type='many2one', relation='dm.campaign',

@@ -6,7 +6,24 @@
             model="dm.offer"
             name="wizard_offer_documents"
             id="wizard_offer_documents"/>
-
+            
+        <wizard
+            string="View Offers"
+            model="product.product"
+            name="wizard_product_offers"
+            id="wizard_product_offers"/>
+            
+        <wizard
+            string="View Campaigns"
+            model="product.product"
+            name="wizard_products_campaign"
+            id="wizard_products_campaign"/>
+	
+		<wizard
+            string="View Campaigns"
+            model="res.partner"
+            name="wizard_campaign_partners"
+            id="wizard_campaign_partners"/>
         <wizard
             string="Document Report"
             model="dm.offer.document"

@@ -601,7 +601,8 @@ class dm_campaign_proposition(osv.osv): #{{{
                     result[propo.id] = 'Wanted Quantity missing in a Segment'
                     numeric = False
                     continue
-                qty += segment.quantity_wanted
+                elif segment.segment_state == 'validated':
+                    qty += segment.quantity_wanted
             if numeric:
                 result[propo.id] = str(qty)
         return result
@@ -629,10 +630,13 @@ class dm_campaign_proposition(osv.osv): #{{{
                 continue
             qty = 0
             for segment in propo.segment_ids:
+                print "sssssss",segment
                 if segment.quantity_delivered == 0:
+                    print "iin iffffffffffff"
                     result[propo.id] = 'Delivered Quantity missing in a Segment'
                     continue
-                qty += segment.quantity_delivered
+                elif segment.segment_state == 'validated':
+                    qty += segment.quantity_delivered
             result[propo.id] = str(qty)
         return result
 
@@ -647,7 +651,8 @@ class dm_campaign_proposition(osv.osv): #{{{
                 if segment.quantity_usable == 0:
                     result[propo.id] = 'Usable Quantity missing in a Segment'
                     continue
-                qty += segment.quantity_usable
+                elif segment.segment_state == 'validated':
+                    qty += segment.quantity_usable
             result[propo.id] = str(qty)
         return result
 
@@ -662,7 +667,8 @@ class dm_campaign_proposition(osv.osv): #{{{
                 if segment.quantity_real == 0:
                     result[propo.id] = 'Real Quantity missing in a Segment'
                     continue
-                qty += segment.quantity_real
+                elif segment.segment_state == 'validated':
+                    qty += segment.quantity_real
             result[propo.id] = str(qty)
         return result
 
@@ -709,13 +715,14 @@ class dm_campaign_proposition(osv.osv): #{{{
         'keep_prices': fields.boolean('Keep Prices At Duplication'),
         'manufacturing_costs': fields.float('Manufacturing Costs', digits=(16, 2)),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
+        
     }
 
     _defaults = {
         'proposition_type': lambda *a: 'init',
 #        'date_start': _default_camp_date,
         'keep_segments': lambda *a: True,
-        'keep_prices': lambda *a: True
+        'keep_prices': lambda *a: True,
     }
 
     def onchange_campaign(self, cr, uid, ids, camp_id):
@@ -965,6 +972,9 @@ class dm_campaign_proposition_segment(osv.osv): #{{{
                                                          id, default, context)
         return seg_copy_id
 
+    def state_quantity_validate(self, cr, uid, ids, context={}):
+        return True
+    
     _columns = {
         'campaign_id': fields.related('proposition_id', 'camp_id',
                                       type='many2one', relation='dm.campaign',
@@ -1026,12 +1036,17 @@ class dm_campaign_proposition_segment(osv.osv): #{{{
                                          ('day', 'Days'),
                                          ('month', 'Months')],
                                          'Census Type'),
+        'segment_state': fields.selection([('validated','Validated'),
+                                           ('rejected','Rejected'),
+                                           ('canceled','Canceled')],
+                                           'Status'),
     }
     _order = 'deduplication_level'
     _defaults = {
         'all_add_avail': lambda *a: True,
         'type_census': lambda *a: 'day',
         'type_src': lambda *a: 'internal',
+        'segment_state': lambda *a: 'validated',
     }
 
 dm_campaign_proposition_segment()#}}}

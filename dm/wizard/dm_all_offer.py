@@ -23,19 +23,13 @@ import wizard
 import pooler
 
 def product_offers(self, cr, uid, data, context):
-    product_id = data['id']
-    offer_id=[]
-    pool = pooler.get_pool(cr.dbname)
-    camp_pro_item_ids = pool.get('dm.campaign.proposition.item').search(cr, uid, 
-                                               [('product_id', '=', product_id)])
-    
-    for item_id in camp_pro_item_ids:
-        item = pool.get('dm.campaign.proposition.item').browse(cr, uid, item_id)
-        if item.offer_step_id and item.offer_step_id.offer_id:
-            offer_id.append(item.offer_step_id.offer_id.id)
-    
+    cr.execute("""select distinct offer_id from dm_offer_step 
+                where id in (select distinct offer_step_id 
+                  from dm_campaign_proposition_item 
+                    where product_id =%s and offer_step_id is not null)""",
+                    (str(data['id']),) )
     value = {
-    'domain': [('id', '=', offer_id)],
+    'domain': [('id', 'in', cr.fetchall() )],
     'name': 'Offers',
     'view_type': 'form',
     'view_mode': 'tree,form',

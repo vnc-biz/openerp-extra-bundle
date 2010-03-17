@@ -30,7 +30,9 @@ class stock_production_lot(osv.osv):
         """Return a function to compute the limit date for this type"""
         def calc_date(self, cr, uid, context=None):
             """Compute the limit date for a given date"""
-            if context is None or product_id not in context:
+            if context is None:
+                context = {}
+            if not context.get('product_id', False):
                 date = False
             else:
                 product = pooler.get_pool(cr.dbname).get('product.product').browse(

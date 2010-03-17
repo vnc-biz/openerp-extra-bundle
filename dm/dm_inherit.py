@@ -124,7 +124,6 @@ class res_partner(osv.osv):#{{{
                 else:
                     args = [('category_id', 'in', [cat_id])]
 
-        print args
         res = super(res_partner, self).search(cr, uid, args, offset=offset, limit=limit, order=order, context=context, count=count)
         return res
 

@@ -147,7 +147,6 @@ class dm_offer_step(osv.osv): # {{{
         return super(dm_offer_step, self).write(cr, uid, ids, vals, context)
 
     def copy(self, cr, uid, id, default=None, context=None):
-        print self, context
         new_id = super(dm_offer_step, self).copy(cr, uid, id, default, context)
         return new_id
     def state_close_set(self, cr, uid, ids, context=None):

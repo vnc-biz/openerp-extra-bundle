@@ -725,8 +725,10 @@ class dm_campaign_proposition(osv.osv): #{{{
 
     def onchange_campaign(self, cr, uid, ids, camp_id):
         if camp_id:
-            forwarding_charge = self.pool.get('dm.campaign').read(cr, uid, camp_id, ['forwarding_charge'])['forwarding_charge'] or 0.0
-            return {'value': {'forwarding_charge': forwarding_charge}}
+            campaign = self.pool.get('dm.campaign').browse(cr, uid, camp_id)
+            forwarding_charge = campaign.forwarding_charge or 0.0
+            date_start = campaign.date_start or False
+            return {'value': {'forwarding_charge': forwarding_charge, 'date_start': date_start}}
         return False
 
     def _check(self, cr, uid, ids=False, context={}):

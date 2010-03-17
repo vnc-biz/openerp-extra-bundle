@@ -77,8 +77,8 @@ def _group_invoice(self, cr, uid, data, context):
             date_to_check = 'creation_date'
         else:
             date_to_check = 'date'
-      
-        model_ids=pool_obj.get(model).search(cr,uid,[('state','=', state_to_check), (date_to_check, '<', data['form']['date_invoice'])])
+
+        model_ids=pool_obj.get(model).search(cr,uid,[('state','=', state_to_check), (date_to_check, '<=', data['form']['date_invoice'])])
 
         if model_ids:
             read_ids=pool_obj.get(model).read(cr,uid,model_ids,['partner_id','order_partner_id','date','creation_date','partner_invoice_id'])

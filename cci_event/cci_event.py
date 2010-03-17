@@ -171,6 +171,11 @@ event_group()
 
 class event_registration(osv.osv):
 
+    def cci_event_reg_draft(self, cr, uid, ids, *args):
+        self.write(cr, uid, ids, {'state':'draft',})
+        self.pool.get('event.registration')._history(cr, uid, ids, 'Draft', history=True)
+        return True
+
     def cci_event_reg_open(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state':'open',})
         self.pool.get('event.registration').mail_user(cr,uid,ids)

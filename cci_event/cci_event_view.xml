@@ -617,6 +617,7 @@
 			<field name="state" select="1" position="replace">
 				 <field name="state" select="1"/>
                     <group col="4" colspan="2">
+	                    <button name="cci_event_reg_draft" states="done,cancel" string="Reset to Draft" type="object"/>
                         <button name="cci_event_reg_done" string="Close" states="open" type="object"/>
                         <button name="cci_event_reg_open" string="Open" states="draft" type="object"/>
                         <button name="cci_event_reg_cancel" string="Cancel" states="draft,open" type="object"/>

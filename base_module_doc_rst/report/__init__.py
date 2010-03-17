@@ -20,6 +20,7 @@
 ##############################################################################
 
 import ir_module_reference_print_graph
+import report_proximity_graph
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

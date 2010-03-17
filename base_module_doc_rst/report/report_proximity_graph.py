@@ -31,12 +31,15 @@ class report_graph(report.interface.report_int):
     def get_proximity_graph(self, cr, uid, module_id, context=None):
         pool_obj = pooler.get_pool(cr.dbname)
         module_obj = pool_obj.get('ir.module.module')
-        nodes = ['base']
+        nodes = [('base','offical')]
         edges = []
         def get_dpend_module(module_id):
             module_record = module_obj.browse(cr, uid, module_id, context=context)
             if module_record.name not in nodes:
-                nodes.append(module_record.name)
+                if module_record.module_type:
+                    nodes.append((module_record.name, module_record.module_type))
+                else:
+                    nodes.append((module_record.name, "unknown"))
             if module_record.dependencies_id:
                 for depen in module_record.dependencies_id:
                     if (module_record.name,depen.name) not in edges:
@@ -47,11 +50,17 @@ class report_graph(report.interface.report_int):
                     if id:
                         get_dpend_module(id[0].id)
         get_dpend_module(module_id)
-        graph = pydot.Dot(graph_type='digraph',fontsize='16', label="Proximity Graph",
-                                      size='7.3, 10.1', center='1', ratio='auto', rotate='0', rankdir='TB')
-
+        graph = pydot.Dot(graph_type='digraph',fontsize='10', label="\\nProximity Graph. \\n\\nGray Color:Official Modules, Red  Color:Extra Addons Modules, Blue Color:Community Modules, Purple Color:Unknow Modules"
+                                     , center='1')
         for node in nodes:
-            graph.add_node(pydot.Node(node,style="filled"))
+            if node[1] == "official":
+                graph.add_node(pydot.Node(node[0], style="filled", fillcolor="lightgray"))
+            elif node[1] == "extra_addons":
+                graph.add_node(pydot.Node(node[0], style="filled", fillcolor="red"))
+            elif node[1] == "community":
+                graph.add_node(pydot.Node(node[0], style="filled", fillcolor="#000FFF"))
+            elif node[1] == "unknown":
+                graph.add_node(pydot.Node(node[0], style="filled", fillcolor="purple"))
         for edge in edges:
             graph.add_edge(pydot.Edge(edge[0], edge[1]))
 
@@ -60,6 +69,7 @@ class report_graph(report.interface.report_int):
             prog = 'ps2pdf.bat'
         else:
             prog = 'ps2pdf'
+        
         args = (prog, '-', '-')
         input, output = tools.exec_command_pipe(*args)
         input.write(ps_string)

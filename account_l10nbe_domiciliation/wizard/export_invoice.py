@@ -230,13 +230,13 @@ def _create_file(self, cr, uid, data, context):
     id_creditor = obj_cmpny.partner_id.vat
     if not id_creditor:
         return {'note': _('Please Provide VAT number for the creditor.'), 'invoice_file': False, 'state':'failed' }
-    v1['id_creditor']= id_creditor[-10:]
+    v1['id_creditor']= '0' + id_creditor[-10:]
 
     sender_rec = data['form']['sender'] and partner_obj.browse(cr, uid, data['form']['sender']) or obj_cmpny.partner_id
     id_sender = sender_rec.vat
     if not id_sender:
         return {'note': _('Please Provide VAT number for the Sender.'), 'invoice_file': False, 'state':'failed' }
-    v1['id_sender']= id_sender[-10:] # 27-37
+    v1['id_sender']= '0' + id_sender[-10:] # 27-37
 
     #Taken bank account num of main company
     partner_bank = bank_obj.browse(cr, uid, data['form']['account_bank_number']).acc_number

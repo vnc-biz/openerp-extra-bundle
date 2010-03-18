@@ -33,24 +33,24 @@
                 <field name="type_id" on_change="on_change_service_type(type_id)" widget="selection"/>
                 <field name="store_document"/>
                 <group colspan="4" attrs="{'invisible':[('service_type','!=','smtp')]}">
-					<separator string="SMTP Server Configuration" colspan="4" />
-					<field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
-					<field name="smtp_server_id"/>
-				</group>
+			<separator string="SMTP Server Configuration" colspan="4" />
+			<field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
+			<field name="smtp_server_id"/>
+		</group>
                 <!--field name="hosted_image_use"/-->
                 <separator string="Mailing Action" colspan="4"/>
                 <group colspan="4" col="4">
-                <field name="action_id" select="1"/>
-                <field name="time_mode"/>
-                <field name="action_hour" widget="float_time" attrs="{'invisible':[('time_mode','!=','hour')]}"/>
-                <field name="action_date" attrs="{'invisible':[('time_mode','!=','date')]}"/>
-                <group colspan="4" attrs="{'invisible':[('time_mode','!=','interval')]}">
-                <field name="action_interval" />
-                <field name="unit_interval" />
-                </group>
-<!--                <field name="condition" />
-                <field name="state" />
-                <field name="model_id" />-->
+                	<field name="action_id" select="1"/>
+                	<field name="time_mode"/>
+                	<field name="action_hour" widget="float_time" attrs="{'invisible':[('time_mode','!=','hour')]}"/>
+                	<field name="action_date" attrs="{'invisible':[('time_mode','!=','date')]}"/>
+                	<group colspan="4" attrs="{'invisible':[('time_mode','!=','interval')]}">
+                		<field name="action_interval" />
+                		<field name="unit_interval" />
+               	 	</group>
+<!--            	<field name="condition" />
+                	<field name="state" />
+                	<field name="model_id" />-->
                 </group>
             </form>
         </field>
@@ -67,7 +67,7 @@
                 <field name="media_id" />
                 <field name="action_id" />
                 <field name="default_for_media"/>
-<!--                <field name="condition" />
+<!--            <field name="condition" />
                 <field name="state" />
                 <field name="model_id" />-->
             </tree>
@@ -137,25 +137,25 @@
                 <notebook colspan="4">
                     <page string="General">
                         <group colspan="2" col="2">
-                        <separator string="Global Information" colspan="2"/>
-                        <field name="offer_id" select="1"/>
-                        <field name="campaign_type_id" widget="selection" select="2"/>
-                        <!--field name="campaign_type_id" select="2"/-->
-                        <field name="dealer_id" groups="base.group_extended"/>
-                        <field name="trademark_id"/>
-                        <field name="responsible_id" />
+                        	<separator string="Global Information" colspan="2"/>
+                        	<field name="offer_id" select="1"/>
+                        	<field name="campaign_type_id" widget="selection" select="2"/>
+                        	<!--field name="campaign_type_id" select="2"/-->
+                        	<field name="dealer_id" groups="base.group_extended"/>
+                        	<field name="trademark_id"/>
+                        	<field name="responsible_id" />
                         </group>
                         <group colspan="2" col="2">
-                        <separator string="Geographical" colspan="2"/>
-                        <field name="country_id" select="1" on_change="onchange_lang_currency(country_id)"/>
-                        <field name="lang_id" select="2"/>
-                        <field name="currency_id" select="2"/>
-                        <field name="forwarding_charge" select="2"/>
+                        	<separator string="Geographical" colspan="2"/>
+                        	<field name="country_id" select="1" on_change="onchange_lang_currency(country_id)"/>
+                        	<field name="lang_id" select="2"/>
+                        	<field name="currency_id" select="2"/>
+                        	<field name="forwarding_charge" select="2"/>
                         </group>
                         <group colspan="4">
-                        <separator string="Dates" colspan="4"/>
-                        <field name="date_start" select="2" string="Drop Date"/>
-                        <field name="date" string="End Date"/>
+                        	<separator string="Dates" colspan="4"/>
+                        	<field name="date_start" select="2" string="Drop Date"/>
+                        	<field name="date" string="End Date"/>
                         </group>
                         <separator string="Campaign Status" colspan="4"/>
                         <group col="10" colspan="4">
@@ -518,31 +518,31 @@
         <field eval="10" name="priority"/>
         <field name="arch" type="xml">
             <form string="Propositions">
-            <group colspan="3" col="4">
-            <separator string="Commercial Proposition Description" colspan="5"/>
-            <field name="name" string="Name" select="1" />
-            <field name="code" string="Code" select="2" />
-            </group>
+            	<group colspan="3" col="4">
+            		<separator string="Commercial Proposition Description" colspan="5"/>
+            		<field name="name" string="Name" select="1" />
+            		<field name="code" string="Code" select="2" />
+            	</group>
             <notebook colspan="4">
                 <page string="General">
                     <group colspan="2" col="2">
-                    <separator string="Global Information" colspan="2"/>
-                    <field name="camp_id" on_change="onchange_campaign(camp_id)"/>
-                    <field name="proposition_type" select="1"/>
-                    <group colspan="2" attrs="{'invisible':[('proposition_type','!=','relaunching')]}">
-                        <field name="initial_proposition_id" domain="[('camp_id','=',camp_id)]" select="1"/>
-                    </group>
-                      <field name="date_start" select="2"/>
-                    <field name="sale_rate"/>
-                    <field name="forwarding_charge" select="2"/>
+                    	<separator string="Global Information" colspan="2"/>
+                    	<field name="camp_id" on_change="onchange_campaign(camp_id)"/>
+                    	<field name="proposition_type" select="1"/>
+                    	<group colspan="2" attrs="{'invisible':[('proposition_type','!=','relaunching')]}">
+                        	<field name="initial_proposition_id" domain="[('camp_id','=',camp_id)]" select="1"/>
+                    	</group>
+                      	<field name="date_start" select="2"/>
+                    	<field name="sale_rate"/>
+                    	<field name="forwarding_charge" select="2"/>
                     </group>
                     <group colspan="2" col="2">
-                    <separator string="Quantities" colspan="2"/>
-                    <field name="quantity_planned" select="2"/>
-                    <field name="quantity_wanted"/>
-                    <field name="quantity_delivered"/>
-                    <field name="quantity_usable"/>
-                    <field name="quantity_real"/>
+                    	<separator string="Quantities" colspan="2"/>
+                    	<field name="quantity_planned" select="2"/>
+                    	<field name="quantity_wanted"/>
+                    	<field name="quantity_delivered"/>
+                    	<field name="quantity_usable"/>
+                    	<field name="quantity_real"/>
                     </group>
                     <separator string="Notes" colspan="4"/>
                     <field name="notes" colspan="4" nolabel="1" widget="text_wiki"/>
@@ -556,84 +556,84 @@
                             <field name="name" string="Name" select="1"/>
 <!--                            <field name="code" string="Code" select="1"/>-->
                             <field name="code" string="Code" select="1"/>
-							<group colspan="2">
-								<field name="type_src"/>
-							</group>
-							<group colspan="2" col="2">
-                                <field name="customers_list_id" select="1" on_change="onchange_list(customers_list_id,start_census,end_census)"/>
-                                <field name="customers_file_id" select="1"/>
-							</group>
+						<group colspan="2">
+							<field name="type_src"/>
+						</group>
+						<group colspan="2" col="2">
+                    		<field name="customers_list_id" select="1" on_change="onchange_list(customers_list_id,start_census,end_census)"/>
+                    		<field name="customers_file_id" select="1"/>
+						</group>
+                	</group>
+                <notebook colspan="4">
+                    <page string="General">
+                        <separator string="Segment Origin" colspan="4"/>
+                        <field name="split_id" />
+                        <field name="reuse_id" />
+                        <field name="active" />
+                        <group colspan="4" groups="base.group_extended">
+                        	<separator string="Segmentation" colspan="4"/>
+                        	<group colspan="4" col="6">
+		                		<field name="start_census"/>
+		                		<field name="end_census"/>
+		            	       	<field name="type_census"/>
+                    		</group>
+                       		<field name="deduplication_level"/>
                         </group>
-                        <notebook colspan="4">
-                            <page string="General">
-                                <separator string="Segment Origin" colspan="4"/>
-                                <field name="split_id" />
-                                <field name="reuse_id" />
-                                <field name="active" />
-                                <group colspan="4" groups="base.group_extended">
-                                    <separator string="Segmentation" colspan="4"/>
-                                    <group colspan="4" col="6">
-                                    <field name="start_census"/>
-                                    <field name="end_census"/>
-                                    <field name="type_census"/>
-                                    </group>
-                                <field name="deduplication_level"/>
-                                </group>
-                                <separator string="Segmentation Criteria" colspan="4"/>
-                                <field name="segmentation_criteria" colspan="4" nolabel="1"/>
-                             	<group groups="base.group_extended" colspan="4">
-                   					<separator string="Status" colspan="4"/>
-                   					<field name="segment_state" colspan="4"  nolabel="1"/>
-               					</group>
-                            </page>
-                            <page string="Quantities">
-                                <separator string="Addresses Quantities" colspan="4"/>
-                                <newline/>
-                                <field name="quantity_wanted" select="2" attrs="{'readonly':[('all_add_avail','=',1)]}"/>
-                                <field name="all_add_avail" select="2"/>
-                                <field name="quantity_delivered" select="2"/>
-                                <newline/>
-                                <separator string="Removed by Deduplicator" colspan="2"/>
-                                <newline/>
-                                <field name="quantity_dedup_dedup" string="- Deduplication"/>
-                                <newline/>
-                                <field name="quantity_cleaned_dedup" string="- Cleaning" groups="base.group_extended"/>
-                                <newline/>
-                                <separator string="Removed by Cleaner" colspan="2"/>
-                                <newline/>
-                                <field name="quantity_dedup_cleaner" string="- Deduplication" groups="base.group_extended"/>
-                                <newline/>
-                                <field name="quantity_cleaned_cleaner" string="- Cleaning"/>
-                                <field name="quantity_purged" select="2"/>
-                                <newline/>
-                                <separator string="" colspan="2"/>
-                                <newline/>
-                                <field name="quantity_usable" string="= Usable Quantity" select="2"/>
-                                <field name="quantity_real" select="2"/>
-                            </page>
-                            <page string="Notes">
-                                <field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
-                            </page>
-                        </notebook>
-                   </form>
-                   <tree string="Segments">
-                        <field name="name" string="Name" />
-                        <field name="code" string="Code" />
-<!--                        <field name="quantity_planned" />-->
-                        <field name="quantity_wanted" />
-                        <field name="quantity_delivered" />
-<!--                     <field name="quantity_usable" />-->
-                        <field name="quantity_real"/>
-                        <field name="note" />
-                   </tree>
-                </field>
-                <separator string="" colspan="4"/>
-                <field name="keep_segments" string="Keep Segments at Duplication"/>
-                </page>
-            </notebook>
-            </form>
-        </field>
-    </record>
+                        <separator string="Segmentation Criteria" colspan="4"/>
+                        <field name="segmentation_criteria" colspan="4" nolabel="1"/>
+                     	<group groups="base.group_extended" colspan="4">
+           					<separator string="Status" colspan="4"/>
+           					<field name="segment_state" colspan="4"  nolabel="1"/>
+       					</group>
+                      </page>
+                    <page string="Quantities">
+                        <separator string="Addresses Quantities" colspan="4"/>
+                        <newline/>
+                        <field name="quantity_wanted" select="2" attrs="{'readonly':[('all_add_avail','=',1)]}"/>
+                        <field name="all_add_avail" select="2"/>
+                        <field name="quantity_delivered" select="2"/>
+                        <newline/>
+                        <separator string="Removed by Deduplicator" colspan="2"/>
+                        <newline/>
+                        <field name="quantity_dedup_dedup" string="- Deduplication"/>
+                        <newline/>
+                        <field name="quantity_cleaned_dedup" string="- Cleaning" groups="base.group_extended"/>
+                        <newline/>
+                        <separator string="Removed by Cleaner" colspan="2"/>
+                        <newline/>
+                        <field name="quantity_dedup_cleaner" string="- Deduplication" groups="base.group_extended"/>
+                        <newline/>
+                        <field name="quantity_cleaned_cleaner" string="- Cleaning"/>
+                        <field name="quantity_purged" select="2"/>
+                        <newline/>
+                        <separator string="" colspan="2"/>
+                        <newline/>
+                        <field name="quantity_usable" string="= Usable Quantity" select="2"/>
+                        <field name="quantity_real" select="2"/>
+                    </page>
+                    <page string="Notes">
+                        <field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
+                    </page>
+                </notebook>
+           </form>
+	   			<tree string="Segments">
+		    		<field name="name" string="Name" />
+		    		<field name="code" string="Code" />
+	<!--                        <field name="quantity_planned" />-->
+		    		<field name="quantity_wanted" />
+		            <field name="quantity_delivered" />
+	<!--                     <field name="quantity_usable" />-->
+		            <field name="quantity_real"/>
+		            <field name="note" />
+		       </tree>
+		    </field>
+       	 		<separator string="" colspan="4"/>
+       	 		<field name="keep_segments" string="Keep Segments at Duplication"/>
+       	 		</page>
+    		</notebook>
+    	</form>
+   	 </field>
+   </record>
 
     <record model="ir.ui.view" id="view_campaign_proposition_tree">
         <field name="name">dm.campaign.proposition.tree</field>
@@ -723,19 +723,19 @@
                         <group colspan="4" groups="base.group_extended">
 	                        <separator string="Segmentation" colspan="4"/>
 	                        <group colspan="4" col="6">
-		                        <field name="start_census"/>
-		                        <field name="end_census"/>
-		                        <field name="type_census"/>
-		                    </group>
+				            	<field name="start_census"/>
+			                    <field name="end_census"/>
+			                    <field name="type_census"/>
+		                	</group>
 	                        <field name="deduplication_level"/>
                         </group>
                         <separator string="Segmentation Criteria" colspan="4"/>
                         <field name="segmentation_criteria" colspan="4" nolabel="1"/>
-                         <group groups="base.group_extended" colspan="4">
-                   			<separator string="Status" colspan="4"/>
-                   			<field name="segment_state" colspan="4"  nolabel="1"/>
-               			</group>
-                         </page>
+                    	<group groups="base.group_extended" colspan="4">
+		           			<separator string="Status" colspan="4"/>
+		           			<field name="segment_state" colspan="4"  nolabel="1"/>
+           				</group>
+                    </page>
                     <page string="Quantities">
                         <separator string="Addresses Quantities" colspan="4"/>
                         <newline/>
@@ -855,10 +855,10 @@
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="type">form</field>
-		<field name="inherit_id" ref="base.view_partner_form"/>
+	<field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-	  		<field name="category_id" position = "replace">
-	  			<field name="category_id" domain="'category' in context and [('name','=',context['category'])]" nolabel="1" select="2"/>
+		<field name="category_id" position = "replace">
+			<field name="category_id" domain="'category' in context and [('name','=',context['category'])]" nolabel="1" select="2"/>
         	</field>
         </field>
     </record>

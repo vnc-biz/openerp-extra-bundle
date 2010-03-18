@@ -146,7 +146,7 @@ msgstr "Critère de segmentation binaire pour les commandes client"
 #. module: dm
 #: view:dm.campaign:0
 msgid "Mailing Manufacturing Purchase Line"
-msgstr "Commane de Fabrication"
+msgstr "Commande de Fabrication"
 
 #. module: dm
 #: field:dm.campaign.manufacturing_cost,amount:0

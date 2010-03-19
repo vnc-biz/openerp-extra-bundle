@@ -22,12 +22,12 @@
 from osv import fields
 from osv import osv
 
-class res_partner(osv.osv):
-    _inherit = 'res.partner'
+class res_partner_address(osv.osv):
+    _inherit = 'res.partner.address'
     _columns = {
         'cust_email_content': fields.text('Customer Email Content'),
         'supp_email_content': fields.text('Supplier Email Content'),
     }
-res_partner()
+res_partner_address()
 
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

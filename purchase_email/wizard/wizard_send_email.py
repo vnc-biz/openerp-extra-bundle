@@ -81,7 +81,7 @@ def _get_defaults(self, cr, uid, data, context):
     
     return {'smtp_server_id': smtp_server_id,
     		'subject':po_obj.name,
-    		'content':po_obj.partner_id.supp_email_content or '',
+    		'content':po_obj.partner_address_id.supp_email_content or '',
     		'partner_address_id' : po_obj.partner_address_id.id
     		}
 

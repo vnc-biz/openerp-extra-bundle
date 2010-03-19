@@ -8,20 +8,22 @@
     =======================================================
     -->
    
-	<record id="view_partner_form_cust" model="ir.ui.view">
-        <field name="name">res.partner.form.inherit.cust</field>
-        <field name="model">res.partner</field>
+	<record id="view_partner_address_form_cust" model="ir.ui.view">
+        <field name="name">res.partner.address.form.inherit.cust</field>
+        <field name="model">res.partner.address</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_address_form1"/>
         <field name="arch" type="xml">
-  			<notebook position ="inside">
-   				<page string="Email">
-  					<separator string="Customer Email Content" colspan = "4"/>
-					<field name="cust_email_content"  nolabel="1" attrs="{'readonly':[('customer','!=',True)]}"/>
-          			<separator string="Supplier Email Content" colspan = "4"/>
-          			<field name="supp_email_content" nolabel="1" attrs="{'readonly':[('supplier','!=',True)]}"/>
-				</page>
-			</notebook>
+  			<form position ="inside">
+  			    <notebook colspan="4">
+       				<page string="Email">
+      					<separator string="Customer Email Content" colspan = "4"/>
+					    <field name="cust_email_content"  nolabel="1" attrs="{'readonly':[('partner_id.customer','!=',True)]}"/>
+              			<separator string="Supplier Email Content" colspan = "4"/>
+              			<field name="supp_email_content" nolabel="1" attrs="{'readonly':[('partner_id.supplier','!=',True)]}"/>
+				    </page>
+			    </notebook>
+			</form>
         </field>
     </record>
 

@@ -22,28 +22,50 @@ from osv import fields
 from osv import osv
 from tools.translate import _
 
+class dm_campaign(osv.osv): # {{{
+    _inherit = "dm.campaign"
+
+    _columns = {
+        'as_mail_service_id': fields.many2one('dm.mail_service', 'After-Sale Mail Service')      
+        }
+        
+dm_campaign() # }}}
+
 class dm_campaign_proposition_segment(osv.osv):
     _inherit = "dm.campaign.proposition.segment"
 
     def search(self, cr, uid, args, offset=0, limit=None, 
                         order=None, context=None, count=False):
-        criteria = []
-        if context and 'address_id' in context:
+        
+        if not context:
+            context = {}
+        if 'address_id' in context:
             if not context['address_id']:
                 return []
-            criteria.append(('address_id', '=', context['address_id']))
+            segments = []
+        # This was to search segment id from workitem which have address_id 
+        #as active
+        #    criteria.append(('address_id', '=', context['address_id']))
+        # criteria will b searched in wi as in sale_order_id
+            partner_id = self.pool.get('res.partner.address').browse(cr, uid, context['address_id']).partner_id.id
+            cr.execute("select distinct id from dm_campaign_proposition_segment \
+                where customers_file_id in \
+                (SELECT distinct cust_file_id from dm_cust_file_address_rel \
+                where address_id in \
+                (SELECT id from res_partner_address where partner_id =  %s))"
+                ,(str(partner_id),))
+            return map(lambda x :x[0],cr.fetchall() )
         if context and 'sale_order_id' in context:
             if not context['sale_order_id']:
                 return []
-            criteria.append(('sale_order_id', '=', context['sale_order_id']))
-        if criteria:
             wi_obj = self.pool.get('dm.workitem')
-            workitems = wi_obj.search(cr, uid, criteria)
+            workitems = wi_obj.search(cr, uid, 
+                                [('sale_order_id', '=', context['sale_order_id']),])
             ids = [wi.segment_id.id for wi in wi_obj.browse(cr, uid, workitems)]
             return ids
         return super(dm_campaign_proposition_segment, self).search(cr, uid, 
                             args, offset, limit, order, context, count)
-        
+
 dm_campaign_proposition_segment()
 
 class dm_after_sale_action(osv.osv_memory):
@@ -62,14 +84,29 @@ class dm_after_sale_action(osv.osv_memory):
         'clear_data': fields.boolean('Clear'),
     }
 
+    def onchange_mail_service(self, cr, uid, ids, segment_id):
+        value = {}
+        if segment_id:
+            segment = self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, segment_id)
+            mail_service_id = segment.campaign_id.as_mail_service_id
+            value['mail_service_id'] = mail_service_id.id
+        else:
+            value['mail_service_id'] = 0
+        return {'value': value}
+
     def default_get(self, cr, uid, fields, context=None):
+        if not context :
+            context = {}
+        res = super(dm_after_sale_action, self).default_get(cr,
+                                                        uid, fields, context)
         if context.has_key('sale_order_id'):
+            segment_id = self.pool.get('sale.order').browse(cr, uid, context['sale_order_id']).segment_id.id
             workitem = self.pool.get('dm.workitem').search(cr, uid, 
                             [('sale_order_id','=',context['sale_order_id'])])
+            res.update({'segment_id': segment_id})
             if not workitem:
                  raise osv.except_osv(_('Cannot perform After-Sale Action'),_('This sale order doesnt seem to originate from a Direct Marketing campaign'))
-        return super(dm_after_sale_action, self).default_get(cr,
-                                                        uid, fields, context)
+        return res
         
         def set_cancel(self, cr, uid, ids, *args):
             return True

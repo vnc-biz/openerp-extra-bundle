@@ -86,7 +86,7 @@ class DocumentConverter:
 		if context :
 			self.desktop = context.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", context)
             
-	def convertByStream(self, stdinBytes, outputExt):
+	def convertByStream(self, stdinBytes, outputExt='pdf'):
 		inputStream = self.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self.localContext)
 		inputStream.initialize((uno.ByteSequence(stdinBytes),))
 		
@@ -115,7 +115,7 @@ class DocumentConverter:
 		outputStream.close()
 		return data
 	
-	def storeByPath(self, stdinBytes, outputExt):
+	def storeByPath(self, stdinBytes, outputExt='pdf'):
 		inputStream = self.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self.localContext)
 		inputStream.initialize((uno.ByteSequence(stdinBytes),))
 
@@ -141,7 +141,7 @@ class DocumentConverter:
 		return data
 
 
-	def convertByPath(self, inputFile, outputFile, outputExt):
+	def convertByPath(self, inputFile, outputFile, outputExt='pdf'):
 		inputUrl = self._toFileUrl(inputFile)
 		outputUrl = self._toFileUrl(outputFile)
 		document = self.desktop.loadComponentFromURL(inputUrl, "_blank", 0, self._toProperties(Hidden=True))

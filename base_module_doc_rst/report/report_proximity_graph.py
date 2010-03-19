@@ -31,15 +31,16 @@ class report_graph(report.interface.report_int):
     def get_proximity_graph(self, cr, uid, module_id, context=None):
         pool_obj = pooler.get_pool(cr.dbname)
         module_obj = pool_obj.get('ir.module.module')
-        nodes = [('base','offical')]
+        nodes = [('base','unknown')]
         edges = []
         def get_dpend_module(module_id):
             module_record = module_obj.browse(cr, uid, module_id, context=context)
             if module_record.name not in nodes:
-                if module_record.module_type:
-                    nodes.append((module_record.name, module_record.module_type))
-                else:
-                    nodes.append((module_record.name, "unknown"))
+                # Add new field ir.module.module object in server side. field name = module_type/
+#                if module_record.module_type:
+#                    nodes.append((module_record.name, module_record.module_type))
+#                else:
+                nodes.append((module_record.name, "unknown"))
             if module_record.dependencies_id:
                 for depen in module_record.dependencies_id:
                     if (module_record.name,depen.name) not in edges:

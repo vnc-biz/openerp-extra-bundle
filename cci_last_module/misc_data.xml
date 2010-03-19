@@ -100,6 +100,7 @@
 		                    <field name="debit" select="2"/>
 		                    <field name="user_id_readonly" select="2"/>
 		                    <field name="website" widget="url"/>
+                                    <field name="active" select="2"/>
 							<separator string="Miscelleanous" colspan="4"/>
 							<field name="name_official"/>
 							<field name="name_old"/>

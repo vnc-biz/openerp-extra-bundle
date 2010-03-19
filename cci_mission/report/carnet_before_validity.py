@@ -34,10 +34,11 @@ class carnet_before_validity(report_sxw.rml_parse):
         import mx.DateTime as dt
         res = {}
         res_list = []
-        before_date = dt.now() + dt.RelativeDateTime(months=-1)
+        today = dt.now()
+        before_date = dt.now() + dt.RelativeDateTime(months=1)
         before_date  = before_date.strftime("%Y-%m-%d")
         carnet_obj = self.pool.get('cci_missions.ata_carnet')
-        carnet_ids = carnet_obj.search(self.cr, self.uid, [('validity_date', '>=', before_date), ('state', '>=', 'created')])
+        carnet_ids = carnet_obj.search(self.cr, self.uid, [('validity_date', '<=', before_date),('validity_date','>=',today), ('state', '>=', 'created')])
         carnet_data = carnet_obj.browse(self.cr, self.uid, carnet_ids)
         for carnet in carnet_data:
             flag = False

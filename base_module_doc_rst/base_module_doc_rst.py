@@ -99,11 +99,9 @@ class module(osv.osv):
 
     def get_relation_graph(self, cr, uid, module_name, context=None):
         object_ids = self._get_module_objects(cr, uid, module_name, context=context)
-#        if not object_ids:
-#            raise orm.except_orm(_('Warning'),
-#                 _('No object available on this module or Module is not installed'))
         if not object_ids:
-            return {'module_file': False}
+            raise orm.except_orm(_('Warning'),
+                 _('No object available on this module or Module is not installed'))
         context.update({'level': 1})
         dots = self.get_graphical_representation(cr, uid, object_ids, context=context)
         # todo: use os.realpath

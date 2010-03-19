@@ -469,10 +469,13 @@ class dm_campaign(osv.osv): #{{{
         default['campaign_type_id'] = self.pool.get('dm.campaign.type').search(cr,
                                         uid, [('code', '=', 'recruiting')])[0]
         default['responsible_id'] = uid
-        self.copy(cr, uid, ids[0], default)
+        context = {'camp_from_model':True}
+        self.copy(cr, uid, ids[0], default, context)
         return True
 
-    def copy(self, cr, uid, id, default=None, context={}):
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not context:
+            context = {}
         if not default: 
             default = {}
         campaign_id = self.browse(cr, uid, id)

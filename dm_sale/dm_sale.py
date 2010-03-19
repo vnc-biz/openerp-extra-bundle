@@ -44,7 +44,8 @@ class dm_workitem(osv.osv): # {{{
                         'name': wi.step_id.name,
                         'partner_type': 'customer',
                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                        'document': wi.sale_order_id and ('sale.order' +','+ wi.sale_order_id.name) or ''})
+                        'partner_id':wi.address_id.partner_id.id,
+                        'document': wi.sale_order_id and ('sale.order' +','+ wi.sale_order_id.id) or ''})
         return result
 
     def copy(self, cr, uid, id, default=None, context=None):

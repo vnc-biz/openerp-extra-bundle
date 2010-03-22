@@ -30,22 +30,22 @@ from tools.translate import _
 class module(osv.osv):
     _inherit = 'ir.module.module'
     _description = 'Module With Relationship Graph'
-
-    _columns={
+    _columns = {
         'file_graph': fields.binary('Relationship Graph'),
             }
 
-    def _get_graphical_representation(self, cr, uid, model_ids, level=1, context=None):
+    def _get_graphical_representation(self, cr, uid, model_ids, level=1, context={}):
+        obj_model = self.pool.get('ir.model')
         if level == 0:
             return tuple()
         relation = []
         for id in model_ids:
-            model_data = self.pool.get('ir.model').browse(cr, uid, id)
+            model_data = obj_model.browse(cr, uid, id, context=context)
             for field in (f for f in model_data.field_id if f.ttype in ('many2many', 'many2one', 'one2many')):
                 relation.append((model_data.model, field.name, field.ttype, field.relation, field.field_description))
-                new_model_ids = self.pool.get('ir.model').search(cr, uid, [('model', '=', field.relation)])
+                new_model_ids = obj_model.search(cr, uid, [('model', '=', field.relation)], context=context)
                 if new_model_ids:
-                    model = self.pool.get('ir.model').read(cr, uid, new_model_ids, ['id', 'name'])[0]
+                    model = obj_model.read(cr, uid, new_model_ids, ['id', 'name'], context=context)[0]
                     relation.extend(self._get_graphical_representation(cr, uid, model['id'], level - 1))
         return tuple(relation)
 
@@ -72,11 +72,12 @@ class module(osv.osv):
         }[field_type]
 
     def get_graphical_representation(self, cr, uid, model_ids, context=None):
+        obj_model = self.pool.get('ir.model')
         if context is None:
             context = {}
         res = {}
         models = []
-        for obj in self.pool.get('ir.model').browse(cr, uid, model_ids, context=context):
+        for obj in obj_model.browse(cr, uid, model_ids, context=context):
             models.append(obj.model)
         relations = set(self._get_graphical_representation(cr, uid, model_ids, context.get('level', 1)))
         res[obj.model] = "digraph G {\nnode [style=rounded, shape=record];\n%s\n%s }" % (
@@ -100,8 +101,9 @@ class module(osv.osv):
     def get_relation_graph(self, cr, uid, module_name, context=None):
         object_ids = self._get_module_objects(cr, uid, module_name, context=context)
         if not object_ids:
-            raise orm.except_orm(_('Warning'),
-                 _('No object available on this module or Module is not installed'))
+            return {'module_file': False}
+#            raise orm.except_orm(_('Warning'),
+#                 _('No object available on this module or Module is not installed'))
         context.update({'level': 1})
         dots = self.get_graphical_representation(cr, uid, object_ids, context=context)
         # todo: use os.realpath

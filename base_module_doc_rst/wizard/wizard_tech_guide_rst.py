@@ -19,6 +19,10 @@
 #
 ##############################################################################
 from os.path import join
+import base64
+import tempfile
+import tarfile
+import httplib
 
 import netsvc
 import wizard
@@ -26,10 +30,6 @@ import pooler
 import os
 import tools
 
-import base64
-import tempfile
-import tarfile
-import httplib
 import base_module_doc_rst
 
 
@@ -46,7 +46,6 @@ choose_file_fields = {
     'rst_file': {'string': 'file', 'type': 'binary', 'required': True, 'readonly': True},
     'name': {'string': 'filename', 'type': 'char', 'required': True, 'readonly': True},
 }
-
 
 class RstDoc(object):
     def __init__(self, module, objects):

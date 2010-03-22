@@ -28,8 +28,6 @@ form_rep = '''<?xml version="1.0"?>
     <label colspan="2" string="(Relationship Graphs generated)" align="0.0"/>
 </form>'''
 
-fields_rep = {}
-
 def _get_graph(self, cr, uid, datas, context={}):
     mod_obj = pooler.get_pool(cr.dbname).get('ir.module.module')
     modules = mod_obj.browse(cr, uid, datas['ids'], context=context)
@@ -43,7 +41,7 @@ class create_graph(wizard.interface):
     states = {
         'init': {
             'actions': [_get_graph],
-            'result': {'type': 'form', 'arch': form_rep, 'fields':fields_rep, 'state': [('end','Ok')]}
+            'result': {'type': 'form', 'arch': form_rep, 'fields': {}, 'state': [('end','Ok')]}
         },
     }
 create_graph('create.relation.graph')

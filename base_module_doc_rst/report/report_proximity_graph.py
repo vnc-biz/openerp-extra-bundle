@@ -18,9 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 import time, os
 import pydot
+
 import report,pooler,tools
 
 class report_graph(report.interface.report_int):
@@ -70,7 +70,7 @@ class report_graph(report.interface.report_int):
             prog = 'ps2pdf.bat'
         else:
             prog = 'ps2pdf'
-        
+
         args = (prog, '-', '-')
         input, output = tools.exec_command_pipe(*args)
         input.write(ps_string)

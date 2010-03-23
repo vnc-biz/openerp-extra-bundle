@@ -580,7 +580,7 @@
                        		<field name="deduplication_level"/>
                         </group>
                         <separator string="Segmentation Criteria" colspan="4"/>
-                        <field name="segmentation_criteria" colspan="4" nolabel="1"/>
+                        <field name="segmentation_criteria" colspan="4" nolabel="1" height="10"/>
                      	<group groups="base.group_extended" colspan="4">
            					<separator string="Status" colspan="4"/>
            					<field name="segment_state" colspan="4"  nolabel="1"/>

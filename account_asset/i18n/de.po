@@ -64,7 +64,7 @@ msgstr ""
 
 #. module: account_asset
 #: field:account.asset.asset,child_ids:0
-msgid "Childs asset"
+msgid "Child assets"
 msgstr ""
 
 #. module: account_asset

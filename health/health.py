@@ -844,7 +844,7 @@ class health_regime(osv.osv):
             'name': fields.char('Regime de sécurité sociale',size=128),
             'code': fields.char('Code Regime',size=12),
             'parent_id': fields.many2one('health.regime','parent'),
-            'child_ids': fields.one2many('health.regime', 'parent_id', 'Childs Category'),
+            'child_ids': fields.one2many('health.regime', 'parent_id', 'Child Categories'),
             }
 health_regime()
 

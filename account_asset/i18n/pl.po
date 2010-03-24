@@ -64,7 +64,7 @@ msgstr "Zmień czas amortyzacji"
 
 #. module: account_asset
 #: field:account.asset.asset,child_ids:0
-msgid "Childs asset"
+msgid "Child assets"
 msgstr "Środki podrzędne"
 
 #. module: account_asset

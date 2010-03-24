@@ -116,7 +116,7 @@ msgstr "XML non valide pour l'architecture de la vue"
 
 #. module: c2c_project_activities
 #: field:project.activity_al,child_ids:0
-msgid "Childs Activity"
+msgid "Child Activities"
 msgstr "Activités enfants"
 
 #. module: c2c_project_activities

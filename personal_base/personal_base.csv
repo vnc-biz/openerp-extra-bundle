@@ -27,7 +27,7 @@ field,"personal.base.account,note",0,Note,Pastabos
 field,"personal.base.account,user_id",0,User,Vartotojas
 field,"personal.base.account,name",0,Name,Vardas
 field,"personal.base.account,type_id",0,Account Type,Sąskaitos tipas
-field,"personal.base.account,child_ids",0,Childs Codes,Vaikinės sąskaitos
+field,"personal.base.account,child_ids",0,Child Codes,Vaikinės sąskaitos
 field,"personal.base.account,currency_id",0,Currency,Valiuta
 field,"personal.base.account,parent_id",0,Parent Code,Tėvinė sąskaita
 field,"personal.base.account,balance",0,Balance,Balansas

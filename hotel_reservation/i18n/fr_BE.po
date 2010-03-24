@@ -275,7 +275,7 @@ msgstr ""
 
 #. module: hotel_reservation
 #: field:hotel.reservation,childs:0
-msgid "Childs"
+msgid "Children"
 msgstr ""
 
 #. module: hotel_reservation

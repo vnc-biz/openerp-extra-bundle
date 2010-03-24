@@ -76,7 +76,7 @@ class network_material(osv.osv):
         'parent_id': fields.many2one('network.material',
                                      'Parent Material'),
         'child_id': fields.one2many('network.material', 'parent_id', 
-                                    'Childs Materials'),
+                                    'Child Materials'),
         'software_id': fields.one2many('network.software',
                                        'material_id', 
                                        'Installed Software'),

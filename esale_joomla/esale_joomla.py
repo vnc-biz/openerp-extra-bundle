@@ -155,7 +155,7 @@ class esale_joomla_category(osv.osv):
         'esale_joomla_id': fields.integer('Web ID', readonly=True, required=True),
         'web_id': fields.many2one('esale_joomla.web', 'Website'),
         'category_id': fields.many2one('product.category', 'Category'),
-        'include_childs': fields.boolean('Include Childs', help="If checked, Tiny ERP will also export products from categories that are childs of this one."),
+        'include_childs': fields.boolean('Include Children', help="If checked, Tiny ERP will also export products from categories that are childs of this one."),
     }
 
 esale_joomla_category()

@@ -56,7 +56,7 @@ msgstr "Información general"
 
 #. module: network
 #: field:network.material,child_id:0
-msgid "Childs Materials"
+msgid "Child Materials"
 msgstr "Hardware hijos"
 
 #. module: network

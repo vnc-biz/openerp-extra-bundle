@@ -78,7 +78,7 @@ class account_asset_asset(osv.osv):
         'localisation': fields.char('Localisation', size=32, select=2),
         'sequence': fields.integer('Sequence'),
         'parent_id': fields.many2one('account.asset.asset', 'Parent asset'),
-        'child_ids': fields.one2many('account.asset.asset', 'parent_id', 'Childs asset'),
+        'child_ids': fields.one2many('account.asset.asset', 'parent_id', 'Child assets'),
         'date': fields.date('Date', required=True),
         'period_id': fields.many2one('account.period', 'Period', required=True, readonly=True, states={'draft':[('readonly',False)]}),
         'state': fields.selection([('view','View'),('draft','Draft'),('normal','Normal'),('close','Close')], 'Global state', required=True),

@@ -43,7 +43,7 @@ class account_journal(osv.osv):
     _inherit = "account.journal"
     _columns = {
         'state': fields.selection(_state_simul_get, 'Status', required=True),
-        'parent_ids': fields.many2many('account.journal', 'account_journal_simulation_rel', 'journal_src_id', 'journal_dest_id', 'Childs journal'),
+        'parent_ids': fields.many2many('account.journal', 'account_journal_simulation_rel', 'journal_src_id', 'journal_dest_id', 'Child journals'),
         'child_ids': fields.many2many('account.journal', 'account_journal_simulation_rel', 'journal_dest_id', 'journal_src_id', 'Parent journal'),
     }
     _defaults = {

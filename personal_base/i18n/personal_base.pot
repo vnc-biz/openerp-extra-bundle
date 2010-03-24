@@ -181,7 +181,7 @@ msgstr ""
 
 #. module: personal_base
 #: field:personal.base.account,child_ids:0
-msgid "Childs Codes"
+msgid "Child Codes"
 msgstr ""
 
 #. module: personal_base

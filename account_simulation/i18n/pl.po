@@ -83,7 +83,7 @@ msgstr "Nieprawidłowa nazwa modelu w definicji akcji."
 
 #. module: account_simulation
 #: field:account.journal,parent_ids:0
-msgid "Childs journal"
+msgid "Child journals"
 msgstr "Dzienniki podrzędne"
 
 #. module: account_simulation

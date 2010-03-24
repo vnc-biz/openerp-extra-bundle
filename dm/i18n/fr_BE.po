@@ -493,7 +493,7 @@ msgstr "Propriétaire"
 #. module: dm
 #: field:dm.offer,child_ids:0
 #: field:dm.offer.category,child_ids:0
-msgid "Childs Category"
+msgid "Child Categories"
 msgstr "Catégorie enfant"
 
 #. module: dm

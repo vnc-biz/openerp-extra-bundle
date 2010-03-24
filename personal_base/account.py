@@ -107,7 +107,7 @@ class personal_account(osv.osv):
         'currency_id': fields.many2one('res.currency', 'Currency', required=True),
         'type_id': fields.many2one('personal.base.account.type', 'Account Type', required=True),
         'parent_id': fields.many2one('personal.base.account', 'Parent Code', select=True),
-        'child_ids': fields.one2many('personal.base.account', 'parent_id', 'Childs Codes'),
+        'child_ids': fields.one2many('personal.base.account', 'parent_id', 'Child Codes'),
         'note': fields.text('Note'),
         'balance': fields.function(_get_balance_fnc, method=True, type="float", digits=(10,2), string='Balance'),
         

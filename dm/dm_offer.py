@@ -128,7 +128,7 @@ class dm_offer_category(osv.osv): # {{{
         'parent_id': fields.many2one('dm.offer.category', 'Parent'),
         'name': fields.char('Name', size=64, required=True),
         'child_ids': fields.one2many('dm.offer.category', 'parent_id',
-                                                            'Childs Category'),
+                                                            'Child Categories'),
     }
 
     _constraints = [
@@ -253,7 +253,7 @@ class dm_offer(osv.osv): # {{{
         'keywords': fields.text('Keywords'),
         'version': fields.char('Version', size=64),
         'child_ids': fields.one2many('dm.offer', 'offer_origin_id',
-                                                           'Childs Category'),
+                                                           'Child Categories'),
     }
 
     _defaults = {

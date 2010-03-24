@@ -45,7 +45,7 @@ class hotel_reservation(osv.osv):
                 'checkin': fields.datetime('Expected-Date-Arrival',required=True,readonly=True, states={'draft':[('readonly',False)]}),
                 'checkout': fields.datetime('Expected-Date-Departure',required=True, readonly=True, states={'draft':[('readonly',False)]}),
                 'adults':fields.integer('Adults',size=64,readonly=True, states={'draft':[('readonly',False)]}),
-                'childs':fields.integer('Childs',size=64,readonly=True, states={'draft':[('readonly',False)]}),             
+                'childs':fields.integer('Children',size=64,readonly=True, states={'draft':[('readonly',False)]}),             
                 'reservation_line':fields.one2many('hotel_reservation.line','line_id','Reservation Line'),
                 'state': fields.selection([('draft', 'Draft'),('confirm','Confirm'),('cancle','Cancle'),('done','Done')], 'State',readonly=True),
                 'folio_id': fields.many2many('hotel.folio', 'hotel_folio_reservation_rel', 'order_id', 'invoice_id', 'Folio'),

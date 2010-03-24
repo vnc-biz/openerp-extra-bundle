@@ -564,7 +564,7 @@ msgstr ""
 
 #. module: esale_joomla
 #: field:esale_joomla.category,include_childs:0
-msgid "Include Childs"
+msgid "Include Children"
 msgstr ""
 
 #. module: esale_joomla

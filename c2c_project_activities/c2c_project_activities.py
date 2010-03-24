@@ -164,7 +164,7 @@ class project_activity_al(osv.osv):
         'child_ids': fields.one2many(
                                         'project.activity_al', 
                                         'parent_id', 
-                                        'Childs Activity'
+                                        'Child Activities'
                                     ),
     }
     

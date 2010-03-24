@@ -78,7 +78,7 @@ msgstr ""
 
 #. module: account_simulation
 #: field:account.journal,parent_ids:0
-msgid "Childs journal"
+msgid "Child journals"
 msgstr ""
 
 #. module: account_simulation

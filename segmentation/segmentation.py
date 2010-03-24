@@ -158,7 +158,7 @@ class profile(osv.osv):
         "answer_yes": fields.many2many("segmentation.answer","profile_question_yes_rel","profile","answer","Inclued Answers"),
         "answer_no": fields.many2many("segmentation.answer","profile_question_no_rel","profile","answer","Excluded Answers"),
         'parent_id': fields.many2one('segmentation.profile', 'Parent Profile'),
-        'child_ids': fields.one2many('segmentation.profile', 'parent_id', 'Childs Profile'),
+        'child_ids': fields.one2many('segmentation.profile', 'parent_id', 'Children Profile'),
         }
     _constraints = [
         (orm.orm.check_recursion, 'Error ! You can not create recursive profiles.', ['parent_id'])

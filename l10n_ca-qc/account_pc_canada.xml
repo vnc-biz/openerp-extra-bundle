@@ -2234,7 +2234,7 @@
 #
 #  domain                =  Domaine / Domain
 #  parent_id             =  Compte de taxe parent / Parent Tax Account
-#  child_ids             =  Compte de taxe enfant / Childs Tax Account
+#  child_ids             =  Compte de taxe enfant / Child Tax Accounts
 #  child_depend          =  Taxe dépend des taxes enfants / Tax depends on its children
 #  python_compute        =  Code Python / Python Code
 #  active                =  Actif / Active

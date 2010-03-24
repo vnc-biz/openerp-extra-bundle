@@ -193,7 +193,7 @@ class document_directory(osv.osv):
 		'user_id': fields.many2one('res.users', 'Owner'),
 		'group_ids': fields.many2many('res.groups', 'document_directory_group_rel', 'item_id', 'group_id', 'Groups'),
 		'parent_id': fields.many2one('document.directory', 'Parent Item'),
-		'child_ids': fields.one2many('document.directory', 'parent_id', 'Childs'),
+		'child_ids': fields.one2many('document.directory', 'parent_id', 'Children'),
 		'file_ids': fields.one2many('ir.attachment', 'parent_id', 'Files'),
 		'content_ids': fields.one2many('document.directory.content', 'directory_id', 'Virtual Files'),
 		'type': fields.selection([('directory','Static Directory'),('ressource','Other Ressources')], 'Type', required=True),

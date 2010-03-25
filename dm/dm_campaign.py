@@ -342,21 +342,21 @@ class dm_campaign(osv.osv): #{{{
             vals['journal_id'] = journal_id
 
         #Set campaign end date at one year after start date if end date does not exist
-       
+
         if 'date_start' in vals and vals['date_start']:
             d = time.strptime(vals['date_start'], "%Y-%m-%d")
             d = datetime.datetime(d[0], d[1], d[2])
             date_end = d + datetime.timedelta(days=365)
             vals['date'] = date_end.strftime('%Y-%m-%d')
-   
+
             if not 'forwarding_charge' in vals:
-                vals['forwarding_charge'] = 0.0 
+                vals['forwarding_charge'] = 0.0
 
             # Set dates for propositions and segments of the campaign
             for propo in camp.proposition_ids:
                 self.pool.get('dm.campaign.proposition').write(cr, uid, [propo.id],
                         {'date_start': vals['date_start'], 'date':vals['date'],
-                            'forwarding_charge':vals['forwarding_charge']})  
+                            'forwarding_charge':vals['forwarding_charge']})
                 for seg in propo.segment_ids:
                     self.pool.get('dm.campaign.proposition.segment').write(cr,
                             uid, [seg.id], {'date_start':vals['date_start'],
@@ -476,7 +476,7 @@ class dm_campaign(osv.osv): #{{{
     def copy(self, cr, uid, id, default=None, context=None):
         if not context:
             context = {}
-        if not default: 
+        if not default:
             default = {}
         campaign_id = self.browse(cr, uid, id)
         if not default.get('name', False):
@@ -484,8 +484,8 @@ class dm_campaign(osv.osv): #{{{
             # project_id should nt b her moved in rp
 #        default.update({'date_start': False, 'date': False})
         default.update({
-#                        'date_start': False, 
-#                        'date': False, 
+#                        'date_start': False,
+#                        'date': False,
                         'proposition_ids': []})
         print "XXX default :", default
         print "XXX context :", context
@@ -716,7 +716,7 @@ class dm_campaign_proposition(osv.osv): #{{{
         'keep_prices': fields.boolean('Keep Prices At Duplication'),
         'manufacturing_costs': fields.float('Manufacturing Costs', digits=(16, 2)),
         'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
-        
+
     }
 
     _defaults = {
@@ -1119,7 +1119,7 @@ class dm_mail_service(osv.osv): # {{{
                                             ('hours', 'Hours'),
                                             ('days', 'Days'),
                                             ('weeks', 'Weeks'),
-                                             ('months', 'Months')], 
+                                             ('months', 'Months')],
                                              'Interval Unit'),
         'default_for_media': fields.boolean('Default Mail Service for Media'),
         'action_id': fields.many2one('ir.actions.server', 'Server Action'),
@@ -1132,7 +1132,7 @@ class dm_mail_service(osv.osv): # {{{
         'store_document': fields.boolean('Store Document'),
     }
 
-    def _check_unique_mail_service(self, cr, uid, ids, media_id,
+    def check_unique_mail_service(self, cr, uid, ids, media_id,
                                     default_for_media):
         if default_for_media:
             res = self.search(cr, uid, [('media_id', '=', media_id),

@@ -4,7 +4,7 @@
 	<menuitem  id="hotel_restaurant_menu" name="Hotel Management/Restaurant" sequence="3"/>
 		<!-- ==============================
 			Table Master
-		============================== -->		  
+		============================== -->
 		<record model="ir.ui.view" id="view_hotel_restaurant_tables_form">
 			<field name="name">hotel_restaurant_tables.form</field>
 			<field name="model">hotel.restaurant.tables</field>
@@ -14,7 +14,7 @@
 					<field name="name" colspan="1" select="1"/>
 					<newline/>
 					<field name="capacity"/>
-										
+
 				</form>
 			</field>
 		</record>
@@ -34,17 +34,17 @@
 			<field name="res_model">hotel.restaurant.tables</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-		</record> 
+		</record>
 		<menuitem name="Tables"
-		          id="menu_open_view_hotel_restaurant_tables_form_tree" 
+		          id="menu_open_view_hotel_restaurant_tables_form_tree"
 				  action="open_view_hotel_restaurant_tables_form_tree"
 				  parent="hotel.hotel_configuration_menu"/>
-				  
-		<!-- 
+
+		<!--
 		==============================
 			Table Reservation
 		==============================
-		 -->		  
+		 -->
 		<record model="ir.ui.view" id="view_hotel_restaurant_reservation_form">
 			<field name="name">hotel_restaurant_reservation.form</field>
 			<field name="model">hotel.restaurant.reservation</field>
@@ -66,9 +66,9 @@
 					<button string="Done" name="done" states="confirm" type="workflow"/>
 					<button string="Cancel" name="cancel" states="confirm" type="workflow" />
 					<button string="Set to Draft" name="action_set_to_draft" states="cancel" type="object"/>
-					<button string="Create Order" name="_create_order" type="object" states="done"/>
+					<button string="Create Order" name="create_order" type="object" states="done"/>
 					</group>
-					
+
 				</form>
 			</field>
 		</record>
@@ -85,7 +85,7 @@
 					<field name="cname"/>
 					<field name="partner_address_id"/>
 					<field name="tableno"/>
-										
+
 				</tree>
 			</field>
 		</record>
@@ -94,18 +94,18 @@
 			<field name="res_model">hotel.restaurant.reservation</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-		</record> 
+		</record>
 		<menuitem name="Table Booking"
-		          id="menu_open_view_hotel_restaurant_reservation_form_tree" 
+		          id="menu_open_view_hotel_restaurant_reservation_form_tree"
 				  action="open_view_hotel_restaurant_reservation_form_tree"
 				  parent="hotel_restaurant_menu"/>
-	
-		<!-- 
+
+		<!--
 		======================
 		Orders for Reservation
 		======================
 		 -->
-		 
+
 		<record model="ir.ui.view" id="view_hotel_reservation_order_form">
 			<field name="name">hotel_reservation_order.form</field>
 			<field name="model">hotel.reservation.order</field>
@@ -124,7 +124,7 @@
 							<field name="name" on_change="on_change_item_name(name)"/>
 							<field name="item_qty"/>
 							<field name="item_rate"/>
-			
+
 						</form>
 						<tree string="Order List">
 							<field name="name" />
@@ -138,7 +138,7 @@
 						<field name="amount_subtotal"/>
 						<field name="tax"/>
 						<field name="amount_total"/>
-						<button string="Generate KOT" name="_reservation_generate_kot" type="object"/>
+						<button string="Generate KOT" name="reservation_generate_kot" type="object"/>
 					</group>
 				</form>
 			</field>
@@ -155,7 +155,7 @@
 					<field name="waitername"/>
 					<field name="table_no"/>
 					<field name="order_list" />
-					
+
 				</tree>
 			</field>
 		</record>
@@ -164,19 +164,19 @@
 			<field name="res_model">hotel.reservation.order</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-			
-		</record> 
+
+		</record>
 		<menuitem name="Orders"
-		          id="menu_open_view_hotel_reservation_order_form_tree" 
+		          id="menu_open_view_hotel_reservation_order_form_tree"
 				  action="open_view_hotel_reservation_order_form_tree"
 				  parent="hotel_restaurant_menu"/>
-	
-		<!-- 
+
+		<!--
 		==============================
 			Table Order
 		==============================
 		 -->
-		 		  
+
 		<record model="ir.ui.view" id="view_hotel_restaurant_order_form">
 			<field name="name">hotel_restaurant_order.form</field>
 			<field name="model">hotel.restaurant.order</field>
@@ -195,14 +195,14 @@
 							<field name="name" on_change="on_change_item_name(name)"/>
 							<field name="item_qty"/>
 							<field name="item_rate"/>
-			
+
 						</form>
 						<tree string="Order List">
 							<field name="name" />
 							<field name="item_qty"/>
 							<field name="item_rate"/>
 							<field name="price_subtotal"/>
-					
+
 						</tree>
 					</field>
 					<newline/>
@@ -227,7 +227,7 @@
 					<field name="room_no"/>
 					<field name="waiter_name"/>
 					<field name="order_list" />
-					
+
 				</tree>
 			</field>
 		</record>
@@ -236,18 +236,18 @@
 			<field name="res_model">hotel.restaurant.order</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-			
-		</record> 
+
+		</record>
 		<menuitem name="Table Order"
-		          id="menu_open_view_hotel_restaurant_order_form_tree" 
+		          id="menu_open_view_hotel_restaurant_order_form_tree"
 				  action="open_view_hotel_restaurant_order_form_tree"
 				  sequence="11"
 				  parent="hotel_restaurant_menu"/>
-				  
+
 	<!-- ==============================
 			Kitchen Order List
 		==============================  -->
-		 		  
+
 		<record model="ir.ui.view" id="view_hotel_restaurant_kitchen_order_tickets_form">
 			<field name="name">hotel_restaurant_kitchen_order_tickets.form</field>
 			<field name="model">hotel.restaurant.kitchen.order.tickets</field>
@@ -267,20 +267,20 @@
 							<field name="name" on_change="on_change_item_name(name)"/>
 							<field name="item_qty"/>
 							<field name="item_rate"/>
-			
+
 						</form>
 						<tree string="Order List">
 							<field name="name" />
 							<field name="item_qty"/>
-							
+
 						</tree>
 					</field>
-					
+
 				</form>
 			</field>
 		</record>
-		
-		
+
+
 		<record model="ir.ui.view" id="view_hotel_restaurant_kitchen_order_tickets_tree">
 			<field name="name">hotel_restaurant_kitchen_order_tickets.tree</field>
 			<field name="model">hotel.restaurant.kitchen.order.tickets</field>
@@ -302,16 +302,16 @@
 			<field name="res_model">hotel.restaurant.kitchen.order.tickets</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-		</record> 
+		</record>
 		<menuitem name="KOT"
-		          id="menu_open_view_hotel_restaurant_kitchen_order_tickets_form_tree" 
+		          id="menu_open_view_hotel_restaurant_kitchen_order_tickets_form_tree"
 				  action="open_view_hotel_restaurant_kitchen_order_tickets_form_tree"
 				  sequence="12"
 				  parent="hotel_restaurant_menu"/>
-				  
+
 		<!-- Menucard Category -->
-		
-		
+
+
 		<record model="ir.ui.view" id="view_hotel_menucard_type_form">
 			<field name="name">hotel_menucard_type_form</field>
 			<field name="model">hotel.menucard.type</field>
@@ -330,7 +330,7 @@
 			<field name="arch" type="xml">
 				<tree string="Hotel Food Items Type">
 					<field name="complete_name"/>
-					
+
 				</tree>
 			</field>
 		</record>
@@ -343,8 +343,8 @@
 		<menuitem name="FoodItem Types"
 				  id="menu_action_hotel_menucard_type_view_form"
 				  action="action_hotel_menucard_type_view_form"
-				  parent="hotel.hotel_configuration_menu"/> 
-		
+				  parent="hotel.hotel_configuration_menu"/>
+
 		<record model="ir.ui.view" id="view_hotel_menucard_form">
 			<field name="name">hotel.menucard.form</field>
 			<field name="model">hotel.menucard</field>
@@ -354,7 +354,7 @@
 				<notebook>
 						<page string="Information">
 							<field name="name" select="1"/>
-							
+
 							<newline/>
 							<field name="categ_id" select="1" domain="[('ismenutype','=',True)]"/>
 							<field name="type" select="2"/>
@@ -378,15 +378,15 @@
 							<field name="cost_method"/>
 							<field name="rental" select="2"/>
 							<newline/>
-							 
+
 							<field name="price_margin"/>
 							<field name="price_extra"/>
-							
+
 							<field name="uos_id" />
 							<field name="uos_coeff" />
 							<newline />
 							<field name="seller_ids" colspan="4" nolabel="1" widget="one2many_list"/>
-							
+
 						</page>
 						<page string="Descriptions">
 							<separator string="Description" />
@@ -396,7 +396,7 @@
 							<separator string="Purchase Description"/>
 							<field name="description_purchase" colspan="4" nolabel="1"/>
 						</page>
-						
+
 				</notebook>
 				</form>
 			</field>
@@ -419,12 +419,12 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
-		 
+
 		<menuitem name="Food Items"
-					 id="menu_open_hotel_menucard_form" 
+					 id="menu_open_hotel_menucard_form"
 					 action="action_hotel_menucard_form"
 					 parent="menu_action_hotel_menucard_type_view_form"/>
-					 
-					  
+
+
 	</data>
 </openerp>

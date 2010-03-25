@@ -9,7 +9,7 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<xpath expr="/form/notebook/page/field[@name='name']" position="before">
-					<field name="layout_type" select="1" on_change="_onchange_sale_order_line_view(layout_type)" />
+					<field name="layout_type" select="1" on_change="onchange_sale_order_line_view(layout_type)" />
 					<field name="sequence"/>
 				</xpath>
 			</field>
@@ -65,7 +65,7 @@
 					                        domain="[('product_id','=',product_id)]"
 					                        groups="base.group_extended"/>
 					                    <separator colspan="4" string="Manual Description" />
-					                    <field name="layout_type" on_change="_onchange_sale_order_line_view(layout_type)"/>
+					                    <field name="layout_type" on_change="onchange_sale_order_line_view(layout_type)"/>
 					                    <field name="sequence" string="Seq."/>
 					                    <field colspan="4" name="name" select="2" attrs="{'readonly':[('layout_type','in',('line','break'))] }"/>
 					                    <field name="price_unit" select="2" attrs="{'readonly':[('layout_type','!=','article')],'required':[('layout_type','not in',['title','text','subtotal','line','break'])]}"/>

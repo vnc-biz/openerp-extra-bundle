@@ -11,7 +11,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone"  on_change="_on_change_phone_num(phone)"/>
+                <field name="phone"  on_change="on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
@@ -24,7 +24,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone"  on_change="_on_change_phone_num(phone)"/>
+                <field name="phone"  on_change="on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
@@ -37,7 +37,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone"  on_change="_on_change_phone_num(phone)"/>
+                <field name="phone"  on_change="on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
@@ -50,7 +50,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone"  on_change="_on_change_phone_num(phone)"/>
+                <field name="phone"  on_change="on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
@@ -62,7 +62,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone"  on_change="_on_change_phone_num(phone)"/>
+                <field name="phone"  on_change="on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>
@@ -75,7 +75,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='mobile']" position="replace">
-                <field name="mobile"  on_change="_on_change_phone_num(mobile)"/>
+                <field name="mobile"  on_change="on_change_phone_num(mobile)"/>
             </xpath>
         </field>
     </record>
@@ -87,7 +87,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone"  on_change="_on_change_phone_num(phone)"/>
+                <field name="phone"  on_change="on_change_phone_num(phone)"/>
             </xpath>
         </field>
     </record>

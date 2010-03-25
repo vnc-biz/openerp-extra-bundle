@@ -655,7 +655,7 @@ TODO: revoir la vue tree aussi
 						<field name="function_code_label" />
 						<field name="name"/>
 						<field name="address_id"/>
-						<field name="phone" on_change="_on_change_phone_num(phone)"/>
+						<field name="phone" on_change="on_change_phone_num(phone)"/>
 						<field name="email"/>
 						<field name="canal_id"/>
 						<field name="department"/>
@@ -765,7 +765,7 @@ TODO: revoir la vue tree aussi
 						<field name="contact_id"/>
 						<field name="function_label" />
 						<field name="function_code_label" />
-						<field name="phone"  on_change="_on_change_phone_num(phone)"/>
+						<field name="phone"  on_change="on_change_phone_num(phone)"/>
 						<field name="email"/>
 						<field name="canal_id"/>
 						<field name="department"/>
@@ -1052,7 +1052,7 @@ TODO: revoir la vue tree aussi
 						<field name="contact_id"/>
 						<field name="function_label" />
 						<field name="function_code_label" />
-						<field name="phone"  on_change="_on_change_phone_num(phone)"/>
+						<field name="phone"  on_change="on_change_phone_num(phone)"/>
 						<field name="email"/>
 						<field name="canal_id"/>
 						<field name="department"/>

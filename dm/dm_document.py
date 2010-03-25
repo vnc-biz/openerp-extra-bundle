@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -60,7 +60,7 @@ class dm_media_content_type(osv.osv): # {{{
     _columns = {
         'name' : fields.char('Name', size=64,required=True),
         'code' : fields.char('Name', size=32,required=True),
-        }        
+        }
 dm_media_content_type() # }}}
 
 
@@ -73,7 +73,7 @@ class dm_media_content(osv.osv): # {{{
         result = {}
         if context is None:
             context = {}
-        ctx = context.copy()    
+        ctx = context.copy()
         ctx['bin_size'] = False
         for i in self.browse(cr, uid, ids, context=ctx):
             result[i.id] = False
@@ -82,7 +82,7 @@ class dm_media_content(osv.osv): # {{{
                     result[i.id]= i.preview_image
                     break
         return result
-    
+
     _columns = {
         'media_url' : fields.char('Media URL', size=256),
         'res_url' : fields.char('Resource URL', size=256),
@@ -93,7 +93,7 @@ class dm_media_content(osv.osv): # {{{
         'type_id': fields.many2one('dm.media.content.type', 'Type'),
         'language_id': fields.many2one('res.lang', 'Language'),
     }
-    
+
 dm_media_content() # }}}
 
 class dm_dtp_plugin(osv.osv): # {{{
@@ -117,7 +117,7 @@ class dm_dtp_plugin(osv.osv): # {{{
                                                  context['dm_template_id'])
             plugin_ids = map(lambda x: x.id, res.plugin_ids)
             return plugin_ids
-        return super(dm_dtp_plugin, self).search(cr, uid, args, offset, limit, 
+        return super(dm_dtp_plugin, self).search(cr, uid, args, offset, limit,
                                                   order, context, count)
 
     def _data_get(self, cr, uid, ids, name, arg, context):
@@ -137,7 +137,7 @@ class dm_dtp_plugin(osv.osv): # {{{
         if not value:
             return True
         sql = "select file_fname from dm_dtp_plugin where id = %d" %id
-        cr.execute(sql) 
+        cr.execute(sql)
         res = cr.fetchone()
 
         path = os.path.join(os.getcwd(), "addons/dm/dm_dtp_plugins", cr.dbname)
@@ -174,7 +174,7 @@ class dm_dtp_plugin(osv.osv): # {{{
         if vals.has_key('code'):
             if vals['code'].find('-') != -1:
                 raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
-        
+
         if vals['type'] == 'url':
             plugin_argument = self.pool.get('dm.plugin.argument')
             plugin_argument.create(cr, uid, {'name': 'text_display',
@@ -187,7 +187,7 @@ class dm_dtp_plugin(osv.osv): # {{{
 
     def write(self, cr, uid, ids, vals, context={}):
         if vals.has_key('code'):
-            if vals['code'].find('-') != -1: 
+            if vals['code'].find('-') != -1:
                 raise osv.except_osv("Error", "Use '_' in code instead of '-' ")
         return super(dm_dtp_plugin, self).write(cr, uid, ids, vals, context)
 
@@ -204,7 +204,7 @@ class dm_dtp_plugin(osv.osv): # {{{
         'type': fields.selection([('fields', 'Customer'),('dynamic', 'Dynamic'),
                                 ('url', 'URL'),('dynamic_text', 'Dynamic Text'),
                                 ('image', 'Trademark Image'),
-                                ('special_url', 'Special URL')], 
+                                ('special_url', 'Special URL')],
                                 'Type', required=True),
         'model_id': fields.many2one('ir.model', 'Object'),
         'field_id': fields.many2one('ir.model.fields', 'Customers Field'),
@@ -231,7 +231,7 @@ class dm_plugin_argument(osv.osv): # {{{
         'plugin_id': fields.many2one('dm.dtp.plugin', 'Plugin'),
         'note': fields.text('Description', readonly=True),
         'stored_plugin': fields.boolean('Value from plugin'),
-        'custome_plugin_id': fields.many2one('dm.dtp.plugin', 
+        'custome_plugin_id': fields.many2one('dm.dtp.plugin',
                                             'Plugin For Value'),
         }
 dm_plugin_argument() # }}}
@@ -245,7 +245,7 @@ class dm_document_template(osv.osv): # {{{
                                 'Plugin'),
         'note': fields.text('Description')
         }
-    
+
 dm_document_template() # }}}
 def set_image_email(node,msg): # {{{
     if not node.getchildren():
@@ -254,7 +254,7 @@ def set_image_email(node,msg): # {{{
             try :
                 if node.get('name') and node.get('name').find('http') >=0:
                     content=urllib2.urlopen(node.get('name')).read()
-                    node.set('src', node.get('name'))                
+                    node.set('src', node.get('name'))
                 elif node.get('src'):
                     if node.get('src').find('data:image/gif;base64,') >= 0:
                         content = base64.decodestring(node.get('src').replace('data:image/gif;base64,', ''))
@@ -276,13 +276,13 @@ def set_image_email(node,msg): # {{{
 def generate_report(cr, uid, obj_id, file_type, report_type, context):
     pool = pooler.get_pool(cr.dbname)
     obj = pool.get('dm.campaign.document').browse(cr, uid, obj_id)
-    
+
     """ Set context values """
     context['workitem_id'] = obj.workitem_id.id
     context['address_id'] = obj.workitem_id.address_id.id
     context['step_id'] = obj.workitem_id.step_id.id
     context['document_id'] = obj.document_id.id
-    context['segment_id'] = obj.workitem_id.segment_id.id    
+    context['segment_id'] = obj.workitem_id.segment_id.id
 
     message = []
     if obj.mail_service_id.store_document:
@@ -306,7 +306,7 @@ def generate_report(cr, uid, obj_id, file_type, report_type, context):
             return {'code':report_data,'ids':[obj.id]}
         message.extend(report_data)
     return message
-    
+
 def create_email_queue(cr, uid, obj, context): # {{{
     pool = pooler.get_pool(cr.dbname)
     email_queue_obj = pool.get('email.smtpclient.queue')
@@ -324,7 +324,7 @@ def create_email_queue(cr, uid, obj, context): # {{{
         msgRoot['From'] = str(obj.mail_service_id.smtp_server_id.email)
         msgRoot['To'] = str(obj.address_id.email)
         msgRoot.preamble = 'This is a multi-part message in MIME format.'
-    
+
         msg = MIMEMultipart('alternative')
         msgRoot.attach(msg)
 
@@ -368,7 +368,7 @@ class dm_offer_document_category(osv.osv): # {{{
 
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'complete_name': fields.function(_name_get_fnc, method=True, 
+        'complete_name': fields.function(_name_get_fnc, method=True,
                                           type='char', string='Category'),
         'parent_id': fields.many2one('dm.offer.document.category', 'Parent'),
     }
@@ -379,7 +379,7 @@ class dm_offer_document(osv.osv): # {{{
     _name = "dm.offer.document"
     _rec_name = 'name'
 
-    def _check_unique_category(self, cr, uid, ids, step_id, category_id):
+    def check_unique_category(self, cr, uid, ids, step_id, category_id):
         if not (step_id and category_id):
             return {}
         browse_step_id = self.pool.get('dm.offer.step').browse(cr, uid, step_id)
@@ -410,7 +410,7 @@ class dm_offer_document(osv.osv): # {{{
                                   ('res_id', '=', id)])
             if attachment_id:
                 res[id] = True
-            else:  
+            else:
                 res[id] = False
         return res
 
@@ -426,15 +426,15 @@ class dm_offer_document(osv.osv): # {{{
         'name': fields.char('Name', size=64, required=True),
         'code': fields.char('Code', size=64, required=True),
         'lang_id': fields.many2one('res.lang', 'Language', required=True),
-        'copywriter_id': fields.many2one('res.partner', 'Copywriter', 
+        'copywriter_id': fields.many2one('res.partner', 'Copywriter',
                          domain=[('category_id', 'ilike', 'Copywriter')],
                          context={'category': 'Copywriter'}),
-        'category_id': fields.many2one('dm.offer.document.category', 
+        'category_id': fields.many2one('dm.offer.document.category',
                                        'Category', required=True),
         'step_id': fields.many2one('dm.offer.step', 'Offer Step'),
         'has_attachment': fields.function(_has_attchment_fnc, method=True,
                                          type='char', string='Has Attachment'),
-        'document_template_id': fields.many2one('dm.document.template', 
+        'document_template_id': fields.many2one('dm.document.template',
                                                 'Document Template',),
         'document_template_plugin_ids': fields.many2many('dm.dtp.plugin',
                                      'dm_doc_template_plugin_rel','document_id',
@@ -444,7 +444,7 @@ class dm_offer_document(osv.osv): # {{{
                                   'Status', readonly = True),
         'note': fields.text('Description'),
 #        'gender_id': fields.many2one('res.partner.title', 'Gender' ,domain=[('domain','=','contact')]),
-        'gender_id': fields.many2one('partner.gender', 'Gender', 
+        'gender_id': fields.many2one('partner.gender', 'Gender',
                                       ondelete = "cascade"),
         'subject': fields.char('Object', size=128),
         'editor': fields.selection([('internal', 'Internal'),
@@ -489,7 +489,7 @@ class dm_campaign_document(osv.osv): # {{{
     _name = 'dm.campaign.document'
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'type_id': fields.many2one('dm.campaign.document.type', 'Format', 
+        'type_id': fields.many2one('dm.campaign.document.type', 'Format',
                                                             required = True),
         'segment_id': fields.many2one('dm.campaign.proposition.segment',
                                                                 'Segment'),
@@ -499,19 +499,19 @@ class dm_campaign_document(osv.osv): # {{{
         'state': fields.selection([('pending', 'Pending'),('done', 'Done'),
                             ('error', 'Error'), ('resent','Resent') ], 'State'),
         'error_msg': fields.text('System Message'),
-        'document_id': fields.many2one('dm.offer.document', 'Document', 
+        'document_id': fields.many2one('dm.offer.document', 'Document',
                                                             ondelete="cascade"),
         'address_id': fields.many2one('res.partner.address', 'Customer Address',
                                        select="1", ondelete = "cascade"),
         'origin': fields.char('Origin', size=64),
         'workitem_id': fields.many2one('dm.workitem', 'Workitem', readonly=True,
-                                                        ondelete='cascade'), 
+                                                        ondelete='cascade'),
         }
-    
+
     _defaults = {
         'state': lambda *a : 'pending',
        }
-    
+
     def state_resent(self, cr, uid, ids, context={}):
         camp_doc_obj = self.browse(cr, uid, ids)
         write_ids = {} #wi_id : camp_doc_id

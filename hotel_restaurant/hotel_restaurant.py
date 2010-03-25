@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -85,7 +85,7 @@ hotel_restaurant_tables()
 
 class hotel_restaurant_reservation(osv.osv):
 
-    def _create_order(self,cr,uid,ids,context=None):
+    def create_order(self,cr,uid,ids,context=None):
          k=[]
          for i in self.browse(cr,uid,ids):
              table_ids = [x.id for x in i.tableno]
@@ -266,7 +266,7 @@ class hotel_reservation_order(osv.osv):
            res[line.id] = line.amount_subtotal + (line.amount_subtotal * line.tax)/100
        return res
 
-    def _reservation_generate_kot(self,cr,uid,ids,part):
+    def reservation_generate_kot(self,cr,uid,ids,part):
 
         for order in self.browse(cr,uid,ids):
             table_ids = [x.id for x in order.table_no]
@@ -277,7 +277,7 @@ class hotel_reservation_order(osv.osv):
                                                                             'w_name':order.waitername.name,
                                                                             'tableno':[(6,0,table_ids)],
                                                                              })
-            
+
             for order_line in order.order_list:
 
                 o_line={

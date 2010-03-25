@@ -391,7 +391,7 @@ class res_partner_job(osv.osv):
         return super(res_partner_job,self).write(cr, uid, ids,vals, *args, **kwargs)
 
 
-    def _on_change_phone_num(self, cr, uid, id, phone):
+    def on_change_phone_num(self, cr, uid, id, phone):
         return check_phone_num(self, cr, uid, id, phone)
 
     _inherit = 'res.partner.job'
@@ -445,7 +445,7 @@ class res_partner_address(osv.osv):
       #            res[add.id] = add.department
        # return res
 
-    def _on_change_phone_num(self, cr, uid, id, phone):
+    def on_change_phone_num(self, cr, uid, id, phone):
         return check_phone_num(self, cr, uid, id, phone)
 
     _columns = {
@@ -592,7 +592,7 @@ res_partner_country_relation()
 
 class res_partner_contact(osv.osv):
 
-    def _on_change_phone_num(self, cr, uid, id, phone):
+    def on_change_phone_num(self, cr, uid, id, phone):
         return check_phone_num(self, cr, uid, id, phone)
 
     _inherit='res.partner.contact'

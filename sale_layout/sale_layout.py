@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -38,7 +38,7 @@ class sale_order_line(osv.osv):
             seq += 1
         return invoice_line_ids
 
-    def _onchange_sale_order_line_view(self, cr, uid, id, type, context={}, *args):
+    def onchange_sale_order_line_view(self, cr, uid, id, type, context={}, *args):
             temp ={}
             temp['value']= {}
             if (not type):
@@ -72,7 +72,7 @@ class sale_order_line(osv.osv):
             if vals['layout_type'] == 'break':
                 vals['name'] = ' '
             if vals['layout_type'] != 'article':
-                vals['product_uom_qty']= 0                
+                vals['product_uom_qty']= 0
         return super(sale_order_line, self).create(cr, user, vals, context)
 
     def write(self, cr, user, ids, vals, context=None):
@@ -88,7 +88,7 @@ class sale_order_line(osv.osv):
             default = {}
         default['layout_type'] = self.browse(cr, uid, id).layout_type
         return super(sale_order_line, self).copy(cr, uid, id, default, context)
-    
+
 
     _name = "sale.order.line"
     _order = "order_id, sequence asc"
@@ -103,11 +103,11 @@ class sale_order_line(osv.osv):
                 ('line','Separator Line'),
                 ('break','Page Break'),]
             ,'Layout Type', select=True, required=True),
-        'sequence': fields.integer('Sequence Number'), 
+        'sequence': fields.integer('Sequence Number'),
         'price_unit': fields.float('Unit Price', digits=(16, int(config['price_accuracy']))),
         'product_uom_qty': fields.float('Quantity (UoM)', digits=(16,2)),
-        'product_uom': fields.many2one('product.uom', 'Product UoM'),       
-    }   
+        'product_uom': fields.many2one('product.uom', 'Product UoM'),
+    }
 
     _defaults = {
         'layout_type': lambda *a: 'article',

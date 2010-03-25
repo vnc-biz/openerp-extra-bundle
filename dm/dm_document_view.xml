@@ -3,7 +3,7 @@
 <data>
 
 	<menuitem name="Customers" id="menu_dm_config_customer" parent="dm.menu_dm_config" sequence="7"/>
-	<menuitem name="Multimedia" id="menu_dm_config_multimedia" parent="dm.menu_dm_config" sequence="7"/>	
+	<menuitem name="Multimedia" id="menu_dm_config_multimedia" parent="dm.menu_dm_config" sequence="7"/>
     <menuitem name="Documents" id="menu_action_offer_doc" parent="dm.menu_dm_config" sequence="7" />
 	<menuitem name="DTP Plugins" id="menu_dm_config_doc_plugins" parent="menu_action_offer_doc" sequence="2"/>
     <menuitem name="Campaign Documents" id="menu_dm_config_lowlevel_campaign_doc" parent="dm.menu_dm_config_lowlevel" groups="res_groups_dmadmin" sequence="1"/>
@@ -27,7 +27,7 @@
 				<field name="code"/>
             </form>
         </field>
-    </record>    
+    </record>
 
 	<record model="ir.ui.view" id="view_dm_media_content_type_tree">
         <field name="name">dm.media.content.type.tree</field>
@@ -47,7 +47,7 @@
         <field name="res_model">dm.media.content.type</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_dm_media_content_type_tree"/>
-        
+
     </record>
 
     <menuitem id="menu_action_dm_media_content_type" parent="dm.menu_dm_config_multimedia" action="action_dm_media_content_type" sequence="0" />
@@ -77,16 +77,16 @@
 				<field name="type_id" widget="selection"/>
 				<field name="language_id"/>
 				<separator string="Preview" colspan="4"/>
-	            <field  name="preview" 
+	            <field  name="preview"
  	            	    widget="picture"
                         readonly="1"
 						nolabel="1"
 						colspan="4"
 						img_height="300"
-						img_width="600"/>	            
+						img_width="600"/>
             </form>
         </field>
-    </record>    
+    </record>
 
 	<record model="ir.ui.view" id="view_dm_media_content_tree">
         <field name="name">dm.media.content.tree</field>
@@ -173,7 +173,7 @@
                     <field name="copywriter_id" select="1"/>
                     <field name="step_id" select="1"/>
                     <field name="gender_id" select="1"/>
-                    <field name="category_id" colspan="4" on_change="_check_unique_category(step_id,category_id)"/>
+                    <field name="category_id" colspan="4" on_change="check_unique_category(step_id,category_id)"/>
                     <separator string="Description" colspan="4"/>
                     <field name="note" colspan="4" nolabel="1" widget="text_wiki"/>
                     <separator string="Status" colspan="4"/>
@@ -277,7 +277,7 @@
     </record>
 
     <menuitem id="menu_action_dm_template" parent="menu_dm_config_doc_plugins" action="action_dm_template" sequence="0" />
-    
+
     <!--
     =======================================================
     Plugin
@@ -292,7 +292,7 @@
             <form string="DTP Plugin">
                 <group  colspan="4">
                     <field name="name" select="1" />
-            	    <field name="code" select="1" />                    
+            	    <field name="code" select="1" />
             	    <field name="type" select="1" />
             	    <field name="store_value" />
 		    		<field name="preview_value" attrs="{'required':[('type','!=','image')]}"/>
@@ -314,7 +314,7 @@
                     </page>
                     <page string="Argument List" attrs="{'invisible':[('type','not in',['dynamic','special_url','dynamic_text'])]}">
 	                    <field name="media_content_id"/>
-	                </page>    
+	                </page>
                     <page string="Argument List" attrs="{'invisible':[('type','not in',['dynamic','url','dynamic_text'])]}">
                         <group  colspan="4"  attrs="{'invisible':[('type','!=','url')]}">
                             <field name="encode"/>
@@ -329,7 +329,7 @@
 	                            <group  colspan="4"  attrs="{'invisible':[('stored_plugin','=',False)]}">
 	                                <field name="custome_plugin_id"/>
 	                            </group>
-	                            <separator  colspan="4"/> 
+	                            <separator  colspan="4"/>
 	                            <field name="note" nolabel="1" colspan="4" widget="text_wiki"/>
 	                        </form>
 	                        <tree string="Argument List">
@@ -552,7 +552,7 @@
     </record>
 
     <menuitem id="menu_action_dm_dynamic_text" parent="menu_dm_config_doc_plugins" action="action_dm_dynamic_text" sequence="2" />
-   
+
     <record model="ir.ui.view" id="view_dm_document_font_form">
         <field name="name">dm.document.font.form</field>
         <field name="model">dm.document.font</field>
@@ -588,15 +588,15 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_dm_document_font_tree"/>
     </record>
-	
+
     <menuitem id="menu_dm_document_font_form" parent="menu_dm_document_font" action="action_dm_document_font_form" sequence="7" />
-    
+
     <!--
     =======================================================
         RELATES
     =======================================================
     -->
-    
+
     <act_window name="Back To Offer Step"
         res_model="dm.offer.step"
         src_model="dm.offer.document"
@@ -604,6 +604,6 @@
         view_mode="tree,form"
         id="act_back_to_offer_step_open"
         domain = "[('document_ids','in',[active_id])]"/>
-        
+
 </data>
-</openerp>    
+</openerp>

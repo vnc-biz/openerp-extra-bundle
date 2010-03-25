@@ -6,10 +6,10 @@
 	<menuitem name="Low Level" id="menu_dm_config_lowlevel" parent="dm.menu_dm_config" groups="res_groups_dmadmin" sequence="0"/>
 	<menuitem name="Customers Lists and Files" id="menu_dm_config_custlist" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="1"/>
     <menuitem name="Campaigns" id="menu_dm_config_campaign" parent="dm.menu_dm_config" groups="res_groups_offeradmin,res_groups_campaignadmin" sequence="5"/>
-    
+
 	<menuitem name="Customers Lists" id="menu_dm_config_custlist_list" parent="dm.menu_dm_config_custlist" groups="res_groups_offeradmin,res_groups_campaignadmin"/>
 	<menuitem name="Customers Files" id="menu_dm_config_custlist_file" parent="dm.menu_dm_config_custlist" groups="res_groups_offeradmin,res_groups_campaignadmin"/>
-    <menuitem name="Campaigns" id="menu_dm_campaign" parent="menu_dm" 
+    <menuitem name="Campaigns" id="menu_dm_campaign" parent="menu_dm"
     groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_dmadmin,res_groups_campaignmanager,res_groups_offermanager"
     sequence="4"/>
     <menuitem name="Mail Service" id="menu_dm_config_mail_service" parent="dm.menu_dm_config" sequence="7"/>
@@ -29,7 +29,7 @@
                 <field name="name" select="1"/>
                 <field name="partner_id" select="1"/>
                 <field name="media_id" select="1"/>
-                <field name="default_for_media" on_change="_check_unique_mail_service(media_id,default_for_media)"/>
+                <field name="default_for_media" on_change="check_unique_mail_service(media_id,default_for_media)"/>
                 <field name="type_id" on_change="on_change_service_type(type_id)" widget="selection"/>
                 <field name="store_document"/>
                 <group colspan="4" attrs="{'invisible':[('service_type','!=','smtp')]}">
@@ -547,7 +547,7 @@
                     <separator string="Notes" colspan="4"/>
                     <field name="notes" colspan="4" nolabel="1" widget="text_wiki"/>
                 </page>
-                
+
                 <page string="Segments">
                     <field name="segment_ids" colspan="4" nolabel="1">
                     <form string="Segment">
@@ -844,13 +844,13 @@
     </record>
 
     <menuitem id="menu_action_campaign_type_form" parent="dm.menu_dm_config_campaign" action="action_campaign_type_form" sequence = '12'/>
-	
+
 	<!--
     =======================================================
     Partners Category
     =======================================================
     -->
-	
+
 	<record model="ir.ui.view" id="view_partner_inherit_form">
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
@@ -862,7 +862,7 @@
         	</field>
         </field>
     </record>
-    
+
     <!-- Dealers -->
     <record model="ir.actions.act_window" id="action_campaign_dealer_form">
         <field name="name">All Dealers</field>
@@ -873,7 +873,7 @@
         <field name="view_id" ref="base.view_partner_tree"/>
         <field name="domain">[('category_id','like','Dealer')]</field>
         <field name="context">{'category':'Dealer'}</field>
-    </record> 
+    </record>
 
     <menuitem id="menu_action_campaign_dealer_form" parent="dm.menu_dm_config_campaign" action="action_campaign_dealer_form" sequence="3"/>
 
@@ -888,7 +888,7 @@
         <field name="domain">[('category_id','like','Broker')]</field>
         <field name="context">{'category':'Broker'}</field>
     </record>
-   
+
     <menuitem id="menu_action_campaign_broker_form" parent="dm.menu_dm_config_campaign" action="action_campaign_broker_form" sequence="0"/>
 
 	<!-- Deduplicators -->
@@ -1181,7 +1181,7 @@
             </form>
         </field>
     </record>
-    
+
     <record model="ir.ui.view" id="view_dm_customers_file_source_tree">
         <field name="name">dm.customers_file.source.tree</field>
         <field name="model">dm.customers_file.source</field>
@@ -1193,7 +1193,7 @@
             </tree>
         </field>
     </record>
-    
+
     <record model="ir.actions.act_window" id="action_dm_customers_file_source_form">
         <field name="name">All Customer File Sources</field>
         <field name="type">ir.actions.act_window</field>
@@ -1318,6 +1318,6 @@
         id="act_campaing_proposition_segment_opened"
         domain="[('campaign_id','=',active_id)]"
     />
-    
+
 </data>
 </openerp>

@@ -226,7 +226,7 @@ dm_offer_step() # }}}
 class dm_campaign_proposition(osv.osv): #{{{
     _inherit = "dm.campaign.proposition"
 
-    def _get_step_products(self, cr, uid, ids, *args):
+    def get_step_products(self, cr, uid, ids, *args):
         prop_obj = self.browse(cr, uid, ids)[0]
         offer_id = prop_obj.camp_id.offer_id.id
         step_ids = self.pool.get('dm.offer.step').search(cr,

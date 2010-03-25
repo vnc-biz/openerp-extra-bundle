@@ -42,7 +42,7 @@
 			                        </group>
 		                        	<group string="Communication" colspan="2" col="2">
      						   <field name='name' string="Nom de l'adresse"/>
-			                           <field name="phone" on_change="_on_change_phone_num(phone)"/>
+			                           <field name="phone" on_change="on_change_phone_num(phone)"/>
 			                           <field name="fax"/>
 			                           <field name="email" widget="email"/>
                                                    <field name="magazine_subscription"/>
@@ -54,7 +54,7 @@
 			                                <field name="contact_id"/>
 			                                <!--<field name="function_id"/>-->
 			                                <field name="function_code_label"/>
-			                                <field name="phone" on_change="_on_change_phone_num(phone)"/>
+			                                <field name="phone" on_change="on_change_phone_num(phone)"/>
 			                                <field name="fax"/>
 		                               	    <field name="extension"/>
 			                                <field name="other"/>
@@ -72,7 +72,7 @@
                                                                 <field name="magazine_subscription_source"/>
 			                            	</group>
 			                            	<group string="Communication" colspan="2" col="2">
-			                                	<field name="phone" on_change="_on_change_phone_num(phone)"/>
+			                                	<field name="phone" on_change="on_change_phone_num(phone)"/>
 			                                	<field name="fax"/>
 		                                		<field name="extension"/>
 				                                <field name="other"/>
@@ -88,7 +88,7 @@
 			                        <field name="zip"/>
 			                        <field name="city"/>
 		                        <field name="country_id"/>
-			                        <field name="phone" on_change="_on_change_phone_num(phone)"/>
+			                        <field name="phone" on_change="on_change_phone_num(phone)"/>
 			                        <field name="job_ids"/>
 			                    </tree>
 			                </field>
@@ -586,7 +586,7 @@
 			                            <field name="quantity" select="1"/>
 			                            <field name="price_unit" select="1"/>
 			                            <field name="discount"/>
-			                            <field name="state" select="1" on_change="_onchange_invoice_line_view(state)"/>
+			                            <field name="state" select="1" on_change="onchange_invoice_line_view(state)"/>
 										<field name="sequence"/>
 			                            <field colspan="4" name="name" select="1"/>
 			                            <field colspan="4" name="origin" select="1"/>

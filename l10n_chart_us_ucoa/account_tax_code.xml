@@ -1,15 +1,14 @@
 <?xml version="1.0"?>
 <openerp>
-<data noupdate="True">
+	<data noupdate="True">
 
 #
 # Tax Code Definitions
 #
-
 	<record model="account.tax.code.template" id="us_ucoa_vat_code_tax">
 		<field name="name">Tax</field>
 	</record>
-	
+
 	<record model="account.tax.code.template" id="vat_code_balance_net">
 		<field name="name">Tax Balance to Pay</field>
 		<field name="parent_id" ref="us_ucoa_vat_code_tax"/>
@@ -35,11 +34,10 @@
 		<field name="parent_id" ref="vat_code_base_net"/>
 	</record>
 
-
 	<record model="account.tax.code.template" id="vat_code_receivable_net">
 		<field name="name">Base of Taxed Purchases</field>
 		<field name="parent_id" ref="vat_code_base_net"/>
 	</record>
 
-</data>
+	</data>
 </openerp>

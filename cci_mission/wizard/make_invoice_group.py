@@ -44,7 +44,7 @@ fields = {
       'invoice_title': {'string': 'Invoices Title', 'type':'char', 'size': 64, 'help': 'You can specify here a title for the created invoice, that will fill the origin field'},
 }
 form_msg = """<?xml version="1.0"?>
-<form string="Inovoice Grouped">
+<form string="Invoice Grouped">
     <separator string="Invoices Grouped for Following Partners." colspan="4" />
     <newline/>
     <field name="message" nolabel="1" colspan="5"/>

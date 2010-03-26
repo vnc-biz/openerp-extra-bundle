@@ -188,13 +188,13 @@ def _coda_parsing(self, cr, uid, data, context):
         elif line[0]=='3':
             if line[1] == '1':
                 st_line_name = line[2:6]
-                bank_statement_lines[st_line_name]['extra_note'] += line[40:113]
+                bank_statement_lines[st_line_name]['extra_note'] += '\n' + line[40:113]
             elif line[1] == '2':
                 st_line_name = line[2:6]
-                bank_statement_lines[st_line_name]['extra_note'] += line[10:115]
+                bank_statement_lines[st_line_name]['extra_note'] += '\n' + line[10:115]
             elif line[1] == '3':
                 st_line_name = line[2:6]
-                bank_statement_lines[st_line_name]['extra_note'] += line[10:100]
+                bank_statement_lines[st_line_name]['extra_note'] += '\n' + line[10:100]
         elif line[0]=='8':
             # new balance record
             bal_end = list2float(line[42:57])
@@ -228,9 +228,6 @@ def _coda_parsing(self, cr, uid, data, context):
                         'line_ids': [(6, 0, rec_id)]
                         }, context=context)
                 str_not1 = ''
-                if line['partner_id'] == 0:
-                    nb_err+=1
-                    err_log += '\nThe bank account %s is not defined for the partner %s.'%(cntry_number,contry_name)
                 if line.has_key('contry_name') and line.has_key('cntry_number'):
                     str_not1="Partner name:%s \n Partner Account Number:%s \n Communication:%s \n Value Date:%s \n Entry Date:%s \n"%(line["contry_name"],line["cntry_number"],line["free_comm"]+line['extra_note'],line["val_date"][0],line["entry_date"][0])
                 id=pool.get('account.bank.statement.line').create(cr,uid,{
@@ -247,29 +244,29 @@ def _coda_parsing(self, cr, uid, data, context):
             cr.commit()
 
             str_not= "\n \n Account Number: %s \n Account Holder Name: %s " %(statement["acc_number"],statement["acc_holder"])
-            std_log = std_log + "\nDate  : %s, Starting Balance :  %.2f , Ending Balance : %.2f \n"\
+            std_log += "\nDate  : %s, Starting Balance :  %.2f , Ending Balance : %.2f \n"\
                       %(statement['date'], float(statement["balance_start"]), float(statement["balance_end_real"]))
             bkst_list.append(bk_st_id)
 
         except osv.except_osv, e:
             cr.rollback()
             nb_err+=1
-            err_log= err_log +'\n Application Error : ' + str(e)
+            err_log += '\n Application Error : ' + str(e)
             raise # REMOVEME
 
         except Exception, e:
             cr.rollback()
             nb_err+=1
-            err_log= err_log +'\n System Error : '+str(e)
+            err_log += '\n System Error : '+str(e)
             raise # REMOVEME
         except :
             cr.rollback()
             nb_err+=1
-            err_log= err_log +'\n Unknown Error'
+            err_log += '\n Unknown Error'
             raise
 
-    err_log= err_log + '\n\nNumber of statements : '+ str(len([bkst_list]))
-    err_log= err_log + '\nNumber of error :'+ str(nb_err) +'\n'
+    err_log += '\n\nNumber of statements : '+ str(len([bkst_list]))
+    err_log += '\nNumber of error :'+ str(nb_err) +'\n'
 
     pool.get('account.coda').create(cr, uid,{
         'name':codafile,

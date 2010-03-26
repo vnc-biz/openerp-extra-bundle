@@ -313,8 +313,8 @@ def create_email_queue(cr, uid, obj, context): # {{{
     message = generate_report(cr, uid, obj.id, 'html', 'html2html', context)
     if type(message) == type({}):
         return message
-    for msg  in message:
-        root = etree.HTML(msg)
+    for email_content  in message:
+        root = etree.HTML(email_content)
         body = root.find('body')
         msgRoot = MIMEMultipart('related')
 
@@ -327,12 +327,11 @@ def create_email_queue(cr, uid, obj, context): # {{{
 
         msg = MIMEMultipart('alternative')
         msgRoot.attach(msg)
-
-#        state = set_image_email(body,msgRoot)
+        state = set_image_email(body,msgRoot)
         msgText = MIMEText(etree.tostring(body), 'html')
         msg.attach(msgText)
-#        if state == 'image_content_error' :
-#            return {'code':'image_content_error','ids':obj.id}
+        if state == 'image_content_error' :
+            return {'code':'image_content_error','ids':obj.id}
         vals = {
             'to': str(obj.address_id.email),
             'server_id': obj.mail_service_id.smtp_server_id.id,

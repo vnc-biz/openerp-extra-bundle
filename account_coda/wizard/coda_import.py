@@ -133,7 +133,10 @@ def _coda_parsing(self, cr, uid, data, context):
             # movement data record 2
             if line[1]=='1':
                 # movement data record 2.1
+                if bank_statement_lines.has_key(line[2:6]):
+                    continue
                 st_line = {}
+                st_line['extra_note'] = ''
                 st_line['statement_id']=0
                 st_line['ref'] = line[2:10]
                 st_line['date'] = time.strftime('%Y-%m-%d',time.strptime(str2date(line[115:121]),"%y/%m/%d")),
@@ -154,15 +157,15 @@ def _coda_parsing(self, cr, uid, data, context):
                 else:
                     st_line['account_id'] = def_rec_acc
                 st_line['amount'] = st_line_amt
-                bank_statement_lines[line[2:6] + st_line['name']]=st_line
+                bank_statement_lines[line[2:6]]=st_line
                 bank_statement["bank_statement_line"]=bank_statement_lines
             elif line[1] == '2':
-                st_line_name = line[2:6] + st_line['name']
+                st_line_name = line[2:6]
                 bank_statement_lines[st_line_name].update({'account_id': data['form']['awaiting_account']})
 
             elif line[1] == '3':
                 # movement data record 3.1
-                st_line_name = line[2:6] + st_line['name']
+                st_line_name = line[2:6]
                 st_line_partner_acc = str(line[10:47]).strip()
                 cntry_number=line[10:47].strip()
                 contry_name=line[47:125].strip()
@@ -183,7 +186,15 @@ def _coda_parsing(self, cr, uid, data, context):
 
                 bank_statement["bank_statement_line"]=bank_statement_lines
         elif line[0]=='3':
-            pass
+            if line[1] == '1':
+                st_line_name = line[2:6]
+                bank_statement_lines[st_line_name]['extra_note'] += line[40:113]
+            elif line[1] == '2':
+                st_line_name = line[2:6]
+                bank_statement_lines[st_line_name]['extra_note'] += line[10:115]
+            elif line[1] == '3':
+                st_line_name = line[2:6]
+                bank_statement_lines[st_line_name]['extra_note'] += line[10:100]
         elif line[0]=='8':
             # new balance record
             bal_end = list2float(line[42:57])
@@ -221,7 +232,7 @@ def _coda_parsing(self, cr, uid, data, context):
                     nb_err+=1
                     err_log += '\nThe bank account %s is not defined for the partner %s.'%(cntry_number,contry_name)
                 if line.has_key('contry_name') and line.has_key('cntry_number'):
-                    str_not1="Partner name:%s \n Partner Account Number:%s \n Communication:%s \n Value Date:%s \n Entry Date:%s \n"%(line["contry_name"],line["cntry_number"],line["free_comm"],line["val_date"][0],line["entry_date"][0])
+                    str_not1="Partner name:%s \n Partner Account Number:%s \n Communication:%s \n Value Date:%s \n Entry Date:%s \n"%(line["contry_name"],line["cntry_number"],line["free_comm"]+line['extra_note'],line["val_date"][0],line["entry_date"][0])
                 id=pool.get('account.bank.statement.line').create(cr,uid,{
                            'name':line['name'],
                            'date': line['date'],

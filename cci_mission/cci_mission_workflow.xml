@@ -184,6 +184,17 @@
 		<field name="signal">cancel_cci</field>
 	</record>
 
+        <record model="workflow.transition" id="t4_dos">
+                <field name="act_from" ref="act_certificate_draft" />
+                <field name="act_to" ref="act_certificate_cancel_cust" />
+                <field name="signal">cancel_customer</field>
+        </record>
+
+        <record model="workflow.transition" id="t5_dos">
+                <field name="act_from" ref="act_certificate_draft" />
+                <field name="act_to" ref="act_certificate_cancel_cci" />
+                <field name="signal">cancel_cci</field>
+        </record>
 
 	<!--
 	| Legalizations |
@@ -243,6 +254,18 @@
 		<field name="act_to" ref="act_legalization_cancel_cci" />
 		<field name="signal">cancel_cci</field>
 	</record>
+
+        <record model="workflow.transition" id="t4_leg">
+                <field name="act_from" ref="act_legalization_draft" />
+                <field name="act_to" ref="act_legalization_cancel_cust" />
+                <field name="signal">cancel_customer</field>
+        </record>
+
+        <record model="workflow.transition" id="t5_leg">
+                <field name="act_from" ref="act_legalization_draft" />
+                <field name="act_to" ref="act_legalization_cancel_cci" />
+                <field name="signal">cancel_cci</field>
+        </record>
 
 
 <!--

@@ -143,8 +143,10 @@ def _coda_parsing(self, cr, uid, data, context):
                 st_line_amt = list2float(line[32:47])
 
                 if line[61]=='1':
+                    st_line['toreconcile'] = True
                     st_line['name']=line[65:77]
                 else:
+                    st_line['toreconcile'] = False
                     st_line['name']=line[62:115]
 
                 st_line['free_comm'] = st_line['name']
@@ -222,11 +224,12 @@ def _coda_parsing(self, cr, uid, data, context):
             for value in lines:
                 line=lines[value]
                 reconcile_id = False
-                rec_id = pool.get('account.move.line').search(cr, uid, [('name','=',line['name']),('account_id.reconcile','=',True)])
-                if rec_id:
-                    reconcile_id = pool.get('account.bank.statement.reconcile').create(cr, uid, {
-                        'line_ids': [(6, 0, rec_id)]
-                        }, context=context)
+                if line['toreconcile']:
+                    rec_id = pool.get('account.move.line').search(cr, uid, [('name','=',line['name']),('reconcile_id','=',False),('account_id.reconcile','=',True)])
+                    if rec_id:
+                        reconcile_id = pool.get('account.bank.statement.reconcile').create(cr, uid, {
+                            'line_ids': [(6, 0, rec_id)]
+                            }, context=context)
                 str_not1 = ''
                 if line.has_key('contry_name') and line.has_key('cntry_number'):
                     str_not1="Partner name:%s \n Partner Account Number:%s \n Communication:%s \n Value Date:%s \n Entry Date:%s \n"%(line["contry_name"],line["cntry_number"],line["free_comm"]+line['extra_note'],line["val_date"][0],line["entry_date"][0])

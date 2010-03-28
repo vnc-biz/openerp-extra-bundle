@@ -7,19 +7,19 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-08-07 13:39+0000\n"
-"PO-Revision-Date: 2010-01-26 11:39+0000\n"
-"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"PO-Revision-Date: 2010-03-27 09:28+0000\n"
+"Last-Translator: giantkiar <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-25 05:01+0000\n"
+"X-Launchpad-Export-Date: 2010-03-28 03:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: portal
 #: wizard_view:portal.create_user,init:0
 msgid "User creation "
-msgstr ""
+msgstr "Lavoro dell'utente "
 
 #. module: portal
 #: field:ir.actions.act_window,portal_visible:0
@@ -27,7 +27,7 @@ msgstr ""
 #: field:ir.actions.report.xml,portal_visible:0
 #: field:ir.actions.wizard,portal_visible:0
 msgid "Visible in Portal"
-msgstr ""
+msgstr "Visibile in Portal"
 
 #. module: portal
 #: field:portal.config.install_modules_wizard,portal_account:0
@@ -52,7 +52,7 @@ msgstr ""
 #. module: portal
 #: model:ir.actions.wizard,name:portal.wizard_portal_create_menu
 msgid "Create menu"
-msgstr ""
+msgstr "Crea menu"
 
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
@@ -67,7 +67,7 @@ msgstr ""
 #. module: portal
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Modello di nome non valido nella definzione dell'azione"
 
 #. module: portal
 #: wizard_view:portal.create_menu,init:0
@@ -106,12 +106,12 @@ msgstr ""
 #. module: portal
 #: wizard_field:portal.create_user,init,send_mail:0
 msgid "Send mail for new user"
-msgstr ""
+msgstr "Invia una mail per un nuovo utente"
 
 #. module: portal
 #: wizard_view:portal.create_user,create:0
 msgid "User creation"
-msgstr ""
+msgstr "Creazioni dell'utente"
 
 #. module: portal
 #: field:portal.model,view_ids:0
@@ -121,7 +121,7 @@ msgstr ""
 #. module: portal
 #: field:portal.portal,name:0
 msgid "Portal Name"
-msgstr ""
+msgstr "Nome Portal"
 
 #. module: portal
 #: field:portal.portal,company_id:0
@@ -140,18 +140,18 @@ msgstr ""
 #: wizard_field:portal.create_menu,init,portal_id:0
 #: wizard_field:portal.create_user,init,portal_id:0
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,send_mail_existing:0
 msgid "Send reminder for existing user"
-msgstr ""
+msgstr "Invia promemoria per gli utenti esistenti"
 
 #. module: portal
 #: model:ir.actions.act_window,name:portal.action_portal_model_form
 #: model:ir.model,name:portal.model_portal_model
 msgid "Portal Model"
-msgstr ""
+msgstr "Modello Portal"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_configuration
@@ -161,13 +161,15 @@ msgstr "Configurazione"
 #. module: portal
 #: wizard_view:portal.create_menu,init:0
 msgid "The new menu will be available for the portal :"
-msgstr ""
+msgstr "Il nuovo menu sarà disponibile per il portale:"
 
 #. module: portal
 #: help:portal.portal,home_action_id:0
 msgid ""
 "Complete this field to provide a Home menu different from the Main menu."
 msgstr ""
+"Completare questi campi per disporre di un menu Home diverso dal menu "
+"Principale."
 
 #. module: portal
 #: help:portal.portal,menu_action_id:0
@@ -189,7 +191,7 @@ msgstr ""
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_configuration_models
 msgid "Available Models"
-msgstr ""
+msgstr "Modelli disponibili"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,parent_menu_id:0
@@ -199,7 +201,7 @@ msgstr ""
 #. module: portal
 #: wizard_view:portal.create_user,init:0
 msgid "Create user on portal :"
-msgstr ""
+msgstr "Creare un utente su portal :"
 
 #. module: portal
 #: field:portal.portal,menu_action_id:0
@@ -209,7 +211,7 @@ msgstr ""
 #. module: portal
 #: view:portal.config.install_modules_wizard:0
 msgid "Portal : Install Extra Module"
-msgstr ""
+msgstr "Portal: Installare Moduli Aggiuntivi"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,view_type:0
@@ -224,7 +226,7 @@ msgstr ""
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_configuration_portals
 msgid "Portals"
-msgstr ""
+msgstr "Portali"
 
 #. module: portal
 #: field:portal.portal,menu_id:0
@@ -239,17 +241,17 @@ msgstr ""
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
 msgid "The new menu is located under:"
-msgstr ""
+msgstr "Il nuovo menu è posizionato sotto:"
 
 #. module: portal
 #: view:portal.config.install_modules_wizard:0
 msgid "Install"
-msgstr ""
+msgstr "Installare"
 
 #. module: portal
 #: model:ir.model,name:portal.model_portal_config_install_modules_wizard
 msgid "portal.config.install_modules_wizard"
-msgstr ""
+msgstr "portal.config.install_modules_wizard"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,action_id:0
@@ -259,7 +261,7 @@ msgstr ""
 #. module: portal
 #: model:ir.actions.todo,note:portal.config_install_module
 msgid "A few modules are proposed according to portal you selected."
-msgstr ""
+msgstr "Pochi moduli sono proposti in riferimento al portale selezionato."
 
 #. module: portal
 #: wizard_field:portal.create_menu,init,model_id:0
@@ -270,12 +272,12 @@ msgstr ""
 #. module: portal
 #: model:ir.actions.wizard,name:portal.wizard_portal_create_user
 msgid "Create User"
-msgstr ""
+msgstr "Creazione Utente"
 
 #. module: portal
 #: field:portal.model,rule_group_id:0
 msgid "Rule group"
-msgstr ""
+msgstr "Regole del gruppo"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,view_id_form:0
@@ -286,12 +288,12 @@ msgstr ""
 #: model:ir.module.module,shortdesc:portal.module_meta_information
 #: view:portal.config.install_modules_wizard:0
 msgid "Portal Management"
-msgstr ""
+msgstr "Gestione di Portal"
 
 #. module: portal
 #: view:portal.portal:0
 msgid "Defaults actions for the users of this portal"
-msgstr ""
+msgstr "Azioni predefinite per gli utenti di questo portale"
 
 #. module: portal
 #: model:ir.actions.act_window,name:portal.portal_customer_action_menu
@@ -301,7 +303,7 @@ msgstr ""
 #. module: portal
 #: wizard_view:portal.create_user,create:0
 msgid "Results :"
-msgstr ""
+msgstr "Risultati :"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.wiz_portal_configuration_menu
@@ -316,7 +318,7 @@ msgstr ""
 #. module: portal
 #: wizard_view:portal.create_menu,init:0
 msgid "The new menu will open this model :"
-msgstr ""
+msgstr "Il nuovo menu aprirà questo modello :"
 
 #. module: portal
 #: wizard_view:portal.create_menu,second:0

@@ -153,7 +153,7 @@
                         <field name="desc" nolabel="1" colspan="4" widget="text_wiki"/>
                         <field name="graph_hide" />
                         <field name="partner_event_create" />
-                <separator string="Action Condition and Time" colspan="4"/>
+                        <separator string="Action Condition and Time" colspan="4"/>
                         <separator string="Status" colspan="4"/>
                         <group col="8" colspan="4">
                             <field name="state" select="1" nolabel="1"/>
@@ -247,7 +247,7 @@
                     </page>
                    	<page string="Advanced" groups="base.group_extended">
                    		<separator string="Delivery Steps" colspan="4"/>
-                   		<field name="delivery_step_ids" colspan="4" height="350" nolabel="1"/>
+                   		<field name="delivery_step_ids" colspan="4" height="350" nolabel="1" domain = "[('offer_id','=',active_id)]"/>
                    </page>          
                 </notebook>
             </form>
@@ -275,16 +275,16 @@
                 <field name="model">dm.offer.step.transition.trigger</field>
                 <field name="type">form</field>
                 <field name="arch" type="xml">
-                        <form string="Transition Trigger">
-                                <field name="name" select="1"/>
-                                <field name="code" select="2"/>
-                                <field name="gen_next_wi"/>
-                                <field name="type" select="1"/>
-                                <separator string="Action Condition" colspan="4"/>
-                                <field name="in_act_cond" nolabel="1" colspan="4"/>
-<!--                                <separator string="Outgoing Action Condition" colspan="4"/>
-                                <field name="out_act_cond" nolabel="1" colspan="4"/>-->
-                        </form>
+                    <form string="Transition Trigger">
+                        <field name="name" select="1"/>
+                        <field name="code" select="2"/>
+                        <field name="gen_next_wi"/>
+                        <field name="type" select="1"/>
+                        <separator string="Action Condition" colspan="4"/>
+                        <field name="in_act_cond" nolabel="1" colspan="4"/>
+<!--                    <separator string="Outgoing Action Condition" colspan="4"/>
+                        <field name="out_act_cond" nolabel="1" colspan="4"/>-->
+                    </form>
                 </field>
         </record>
 
@@ -293,10 +293,10 @@
                 <field name="model">dm.offer.step.transition.trigger</field>
                 <field name="type">tree</field>
                 <field name="arch" type="xml">
-                        <tree string="Transition Trigger">
-                                <field name="name"/>
-                                <field name="code"/>
-                        </tree>
+                    <tree string="Transition Trigger">
+                        <field name="name"/>
+                        <field name="code"/>
+                    </tree>
                 </field>
         </record>
         <record model="ir.actions.act_window" id="action_offer_step_transition_trigger">

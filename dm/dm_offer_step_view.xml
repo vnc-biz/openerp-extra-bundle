@@ -247,7 +247,7 @@
                     </page>
                    	<page string="Advanced" groups="base.group_extended">
                    		<separator string="Delivery Steps" colspan="4"/>
-                   		<field name="delivery_step_ids" colspan="4" height="350" nolabel="1" domain = "[('offer_id','=',active_id)]"/>
+                   		<field name="delivery_step_ids" colspan="4" height="350" nolabel="1" domain = "[('offer_id','=',offer_id)]"/>
                    </page>          
                 </notebook>
             </form>

@@ -184,8 +184,9 @@
 		        <group colspan="4" col="6">
 		            <field name="deduplication_level"  />
                 </group>
-                <separator string="Customers List Criteria" colspan="4"/>
-                <field name="list_criteria_id" nolabel="1"/>
+				<group colspan="2">
+                	<field name="list_criteria_id"/>
+				</group>
 		    </field>	    
 		</field>
 	</record>

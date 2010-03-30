@@ -44,6 +44,13 @@ class res_partner(osv.osv):
             res[id] = '***' + pure_string[0:3] + '/' + pure_string[3:7] + '/' + pure_string[7:] + '***'
         return res
 
+    def _membership_state(self, cr, uid, ids, name, args, context=None):
+        res = super(res_partner, self)._membership_state(cr, uid, ids, name, args, context)
+        for partner in self.browse(cr, uid, ids, context):
+            if partner.refuse_membership:
+                res[partner.id] = 'canceled'
+        return res
+
     _columns = {
         'membership_vcs': fields.function( _membership_vcs, method=True,string='VCS number for membership offer', type='char', size=20),
         'refuse_membership': fields.boolean('Refuse to Become a Member'),

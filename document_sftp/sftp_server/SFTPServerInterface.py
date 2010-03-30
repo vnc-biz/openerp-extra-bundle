@@ -469,6 +469,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 dst_file.close()
                 src_file.close()
                 cr.commit()
+                cr.close()
             else:
                 raise OSError(1, 'Operation not permited.')
             return paramiko.SFTP_OK
@@ -515,19 +516,20 @@ class SFTPServer (paramiko.SFTPServerInterface):
             if isinstance(node, node_res_obj):
                 object2 = node and pool.get(node.context.context['res_model']).browse(cr, uid, node.context.context['res_id']) or False
             obj = node.context._dirobj.browse(cr, uid, node.context.context['dir_id'])
-
+            
             if obj._table_name=='document.directory':
                 if node.children(cr):
                     raise OSError(39, 'Directory not empty.')
                 res = pool.get('document.directory').unlink(cr, uid, [obj.id])
             else:
                 raise OSError(39, 'Directory not empty.')
-
-            cr.commit()
-            cr.close()
+            
             return paramiko.SFTP_OK
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
+        finally:
+            cr.commit()
+            cr.close()
 
     def _realpath(self, path):
         """ Enforce the chroot jail """

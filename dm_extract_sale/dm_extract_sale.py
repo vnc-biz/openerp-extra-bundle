@@ -34,7 +34,15 @@ class dm_address_segmentation(osv.osv): # {{{
         browse_id = self.browse(cr, uid, ids)[0]
         if browse_id.order_text_criteria_ids:
             for i in browse_id.order_text_criteria_ids:
-                criteria.append("so.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
+                if i.field_id.ttype == 'many2one':
+                    relation_obj = self.pool.get(i.field_id.relation)
+                    rec_name = relation_obj._rec_name
+                    criteria.append("so.%s in (select id from %s where %s %s '%s' )"%(
+                                i.field_id.name, relation_obj._table, 
+                                rec_name, i.operator,
+                                 "%"+i.value+"%"))
+                else :
+                    criteria.append("so.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
         if browse_id.order_numeric_criteria_ids:
             for i in browse_id.order_numeric_criteria_ids:
                 criteria.append("so.%s %s %f"%(i.field_id.name, i.operator, i.value))
@@ -89,7 +97,7 @@ class dm_extract_sale_text_criteria(osv.osv): # {{{
         'segmentation_id' : fields.many2one('dm.address.segmentation', 'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Customers Field',
                domain=[('model_id.model','=','sale.order'),
-               ('ttype','like','char')],
+               ('ttype','in',['char','many2one'])],
                context={'model':'sale.order'}, required = True),
         'operator' : fields.selection(TEXT_OPERATORS, 'Operator', size=32, required = True),
         'value' : fields.char('Value', size=128, required = True),

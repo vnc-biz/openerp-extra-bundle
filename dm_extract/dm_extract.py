@@ -44,7 +44,15 @@ class dm_address_segmentation(osv.osv): # {{{
         browse_id = self.browse(cr, uid, ids)[0]
         if browse_id.address_text_criteria_ids:
             for i in browse_id.address_text_criteria_ids:
-                criteria.append("pa.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
+                if i.field_id.ttype == 'many2one':
+                    relation_obj = self.pool.get(i.field_id.relation)
+                    rec_name = relation_obj._rec_name
+                    criteria.append("pa.%s in (select id from %s where %s %s '%s' )"%(
+                                i.field_id.name, relation_obj._table, 
+                                rec_name, i.operator,
+                                 "%"+i.value+"%"))
+                else :
+                    criteria.append("pa.%s %s '%s'"%(i.field_id.name, i.operator, "%"+i.value+"%"))
         if browse_id.address_numeric_criteria_ids:
             for i in browse_id.address_numeric_criteria_ids:
                 criteria.append("pa.%s %s %f"%(i.field_id.name, i.operator, i.value))
@@ -128,26 +136,25 @@ class dm_address_text_criteria(osv.osv): # {{{
     _description = "Address Segmentation Textual Criteria"
     _rec_name = "segmentation_id"
 
-    def _get_field_type(self, cr, uid, context={}):
-        ttype_filter = ['many2many', 'many2one']
-        cr.execute("select distinct ttype from ir_model_fields where ttype \
-                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
-                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
-        field_type = map(lambda x: x[0], cr.fetchall())
-        res = []
-        for type in field_type:
-            if type == 'selection':
-                res.append(('char', type))
-            else :
-                res.append((type, type))
-        return res
-
+##    def _get_field_type(self, cr, uid, context={}):
+##        ttype_filter = ['many2many', 'many2one']
+##        cr.execute("select distinct ttype from ir_model_fields where ttype \
+##                     in (select distinct ttype from ir_model_fields where model = 'res.partner.address' \
+##                     and ttype not in ("+ ','.join(map(lambda x:"'"+x+"'", ttype_filter)) + "))")
+##        field_type = map(lambda x: x[0], cr.fetchall())
+##        res = []
+##        for type in field_type:
+##            if type == 'selection':
+##                res.append(('char', type))
+##            else :
+##                res.append((type, type))
+##        return res
     _columns = {
         'segmentation_id':fields.many2one('dm.address.segmentation',
                                           'Segmentation'),
         'field_id' : fields.many2one('ir.model.fields','Address Field',
                domain=[('model_id.model','=','res.partner.address'),
-               ('ttype','like','char')],
+               ('ttype','in',['char','many2one'])],
                context={'model':'res.partner.address'},required=True),
         'operator' : fields.selection(TEXT_OPERATORS, 'Operator', size=32 ,required=True),
         'value' : fields.char('Value', size=128,required=True),

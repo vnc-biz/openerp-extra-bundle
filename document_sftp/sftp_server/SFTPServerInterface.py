@@ -179,6 +179,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
         sobj.filename = node.path
         sobj.readfile = f
         sobj.writefile = None
+        cr.close()
         return sobj
 
     def create(self, node, objname, flags):
@@ -242,7 +243,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
                     })
                 cid = fobj.create(cr, uid, val, context={})
             cr.commit()
-
+            cr.close()
             f = file_wrapper('', cid, cr.dbname, uid, )
 
         except Exception,e:
@@ -281,6 +282,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
             else:
                 raise OSError(1, 'Operation not permited.')
             cr.commit()
+            cr.close()
             return paramiko.SFTP_OK
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
@@ -332,7 +334,9 @@ class SFTPServer (paramiko.SFTPServerInterface):
                         result.append(false_node(db))
                 return result
             cr = pooler.get_db(node.context.dbname).cursor()
-            return node.children(cr)
+            res = node.children(cr)
+            cr.close()
+            return res
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
 
@@ -497,7 +501,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
             # Check if it alreayd exists !
             pool.get('document.directory').create(cr, uid, val)
             cr.commit()
-
+            cr.close()
             return paramiko.SFTP_OK
         except Exception,err:
             return paramiko.SFTPServer.convert_errno(e.errno)
@@ -520,6 +524,7 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 raise OSError(39, 'Directory not empty.')
 
             cr.commit()
+            cr.close()
             return paramiko.SFTP_OK
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)

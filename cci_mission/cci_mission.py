@@ -892,6 +892,8 @@ class cci_missions_ata_carnet(osv.osv):
         #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
         member_state = False
         warning = False
+        res = {}
+        res['value'] = {}
         if partner_id:
             partner_info = self.pool.get('res.partner').browse(cr, uid,partner_id)
             if partner_info.alert_legalisations:
@@ -903,9 +905,12 @@ class cci_missions_ata_carnet(osv.osv):
                 member_state = False
             else:
                 member_state = True
+            res['value']['partner_member_state'] = partner_info.membership_state
+            res['value']['partner_insurer_id'] = partner_info.insurer_id
+            res['value']['member_price'] = member_state
         if warning:
-            return {'value':{'member_price' : member_state}, 'warning': warning}
-        return {'value':{'member_price' : member_state}}
+            res['warning'] = warning
+        return res
 
     def onchange_warranty_product_id(self,cr,uid,ids,prod_id):
         warranty_price= False

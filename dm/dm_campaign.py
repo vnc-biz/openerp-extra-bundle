@@ -21,6 +21,7 @@
 
 import time
 import datetime
+import re
 
 from osv import fields
 from osv import osv
@@ -828,21 +829,47 @@ class dm_customers_list(osv.osv): #{{{
         'notes': fields.text('Description'),
         'media_id': fields.many2one('dm.media', 'Media'),
     }
+
     _defaults = {
         'invoice_base': lambda *a: 'net',
     }
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        raw_code = self.browse(cr, uid, id).code
+        this_code = re.sub(r' \(Copy\d*?\)', '', raw_code)
+
+        cr.execute("select code from dm_customers_list where code like '%s%%'" % (this_code, ))
+        existing_codes = [item[0] for item in cr.fetchall()]
+
+        num = 0
+        while True:
+            num += 1
+            new_code = this_code + ' (Copy%s)' % (num, )
+            if new_code not in existing_codes:
+                break
+
+        default['code'] = new_code
+        return super(dm_customers_list, self).copy(cr, uid, id, default=default, context=context)
+
+    def check_code_unicity(self, cr, uid, ids):
+        cust_list_ids = self.search(cr, uid, [('id', 'not in', tuple(ids))])
+        cust_list_codes = [cust_list['code'] for cust_list in self.read(cr, uid, cust_list_ids)]
+        this_codes = dict([(item['id'], item['code']) for item in self.read(cr, uid, ids, ['code'])])
+
+        for id in ids:
+            code = this_codes[id]
+            if code and code in cust_list_codes:
+                print code
+                return False
+
+        return True
+
+    _constraints = [
+        (check_code_unicity, 'Error: the code must be unique !', ['code']),
+    ]
+
 dm_customers_list()#}}}
 
-#class dm_customers_file_source(osv.osv):#{{{
-#    _name = "dm.customers_file.source"
-#    _description = "Customer File Source"
-#    _columns = {
-#            'name': fields.char('Name', size=64, required=True),
-#            'code': fields.char('code', size=64, required=True),
-#            'desc': fields.text('Description'),
-#            }
-#dm_customers_file_source()#}}}
 
 class dm_customers_file(osv.osv): #{{{
     _name = "dm.customers_file"

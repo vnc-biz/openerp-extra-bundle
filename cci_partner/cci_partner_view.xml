@@ -790,6 +790,29 @@ TODO: revoir la vue tree aussi
                 </field>
         </record>
 
+        <record model="ir.ui.view" id="view_partner_address_form_inherited_zip1">
+                <field name="name">Partner addresses inherited zip</field>
+                <field name="model">res.partner.address</field>
+                <field name="inherit_id" ref="base.view_partner_address_form1"/>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                        <field name="zip" position="replace">
+                                <field name="zip_id" colspan='4'/>
+                        </field>
+                </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_address_form_inherited_zip2">
+                <field name="name">Partner addresses inherited zip2</field>
+                <field name="model">res.partner.address</field>
+                <field name="inherit_id" ref="base.view_partner_address_form1"/>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                        <field name="city" position="replace">
+                        </field>
+                </field>
+        </record>
+
 <!--
 	<record model="ir.ui.view" id="view_partner_contact_form_inherit_4">
 		<field name="name">res.partner.contact.form</field>

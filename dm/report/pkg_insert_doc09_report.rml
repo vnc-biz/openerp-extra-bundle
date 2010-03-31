@@ -19,13 +19,13 @@
     <paraStyle name="List" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Caption" fontName="Times-Roman" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
     <paraStyle name="Index" fontName="Times-Roman"/>
+    <images/>
   </stylesheet>
-  <images/>
   <story>
     <para style="Standard">[[ repeatIn(document(),'document') ]]</para>
     <para style="Standard">
       <font color="white"> </font>
     </para>
-    <para style="Standard">Name: [[ document['1'] ]]</para>
+    <para style="Standard">Name : [[ document['partner_name'] ]]</para>
   </story>
 </document>

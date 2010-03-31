@@ -178,7 +178,9 @@ class event_registration(osv.osv):
 
     def cci_event_reg_open(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state':'open',})
-        self.pool.get('event.registration').mail_user(cr,uid,ids)
+        for registration in self.browse(cr, uid, ids, {}):
+            if registration.event_id.mail_auto_confirm:
+                self.pool.get('event.registration').mail_user(cr,uid,ids)
         self.pool.get('event.registration')._history(cr, uid, ids, 'Open', history=True)
         return True
 

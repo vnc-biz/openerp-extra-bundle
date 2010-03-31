@@ -37,8 +37,7 @@ def _show_segments(self, cr, uid, data, context):
     pool = pooler.get_pool(cr.dbname)
     wi_obj = pool.get('dm.workitem')
     workitems = wi_obj.search(cr, uid, [('address_id', '=', data['id'])])
-    data['form']['segment_ids'] = [wi.segment_id.id for wi in 
-                                            wi_obj.browse(cr, uid, workitems)]
+    data['form']['segment_ids'] = list(set([wi.segment_id.id for wi in wi_obj.browse(cr, uid, workitems) if wi.segment_id.id]))
     return data['form']
 
 class wizard_address_segments(wizard.interface):

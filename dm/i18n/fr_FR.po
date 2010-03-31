@@ -1310,7 +1310,7 @@ msgid "Item Type"
 msgstr "Type d'article"
 
 #. module: dm
-#: field:dm.offer.step,floating date:0
+#: field:dm.offer.step,floating_date:0
 msgid "Floating date"
 msgstr "Date flotante"
 

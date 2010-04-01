@@ -785,7 +785,8 @@ TODO: revoir la vue tree aussi
                 <field name="type">form</field>
                 <field name="arch" type="xml">
                         <field name="email" position="replace">
-                                <field name="email" colspan='4'/>
+                        	<field name="email"/>
+                        	<field name="active" select="2" />
                         </field>
                 </field>
         </record>

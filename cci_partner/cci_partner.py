@@ -452,13 +452,13 @@ class res_partner_address(osv.osv):
         #'name': fields.function(_get_name, method=True, string='Contact Name',type='char',size=64),#override parent field
         'state': fields.selection([('correct','Correct'),('to check','To check')],'Code'),
         'zip_id':fields.many2one('res.partner.zip','Zip'),
-
+        'active': fields.boolean('Active'),
         'sequence_partner':fields.integer('Sequence (Partner)',help='order of importance of this address in the list of addresses of the linked partner'),
-
 
     }
     _defaults = {
-                 'state' : lambda *a: 'correct',
+         'state' : lambda *a: 'correct',
+         'active' : lambda *a: 1,
     }
 
     def onchange_user_id(self, cr, uid, ids,zip_id):

@@ -50,6 +50,48 @@
 
     <menuitem id="menu_action_step_type_form" parent="dm.menu_dm_config_offer_offer_steps" action="action_step_type_form" groups="res_groups_offeradmin,res_groups_campaignadmin,res_groups_campaignmanager,res_groups_offermanager"/>
 
+
+ 	<!--
+    =======================================================
+    OFFER STEP INCIDENT VIEWS
+    =======================================================
+    -->
+
+    <record model="ir.ui.view" id="view_offer_step_incident_form">
+        <field name="name">dm.offer.step.incident.form</field>
+        <field name="model">dm.offer.step.incident</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Offer Step Incident">
+                <separator string="Offer Step Incident" colspan="4"/>
+                <field name="name" select="1"/>
+                <field name="date"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_offer_step_incident_tree">
+        <field name="name">dm.offer.step.incident.tree</field>
+        <field name="model">dm.offer.step.incident</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Offer Step Incident">
+                <field name="name" select="1"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_step_incident_form">
+        <field name="name">All Offer Steps Incidents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.offer.step.incident</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_offer_step_incident_tree"/>
+    </record>
+
+    <menuitem id="menu_action_step_incident_form" parent="dm.menu_dm_config_offer_offer_steps" action="action_step_incident_form"/>
+
     <!--
     =======================================================
     OFFER STEP TRANSITION
@@ -247,7 +289,9 @@
                     </page>
                    	<page string="Advanced" groups="base.group_extended">
                    		<separator string="Delivery Steps" colspan="4"/>
-                   		<field name="delivery_step_ids" colspan="4" height="350" nolabel="1" domain = "[('offer_id','=',offer_id)]"/>
+                   		<field name="delivery_step_ids" colspan="4" nolabel="1" domain = "[('offer_id','=',offer_id)]"/>
+                   		<separator string="" colspan="4"/>
+                   		<field name="offer_step_incident_ids" colspan="4"  nolabel="1" />
                    </page>          
                 </notebook>
             </form>

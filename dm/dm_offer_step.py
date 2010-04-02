@@ -123,6 +123,8 @@ class dm_offer_step(osv.osv): # {{{
                                         'dm_offer_step_delivery', 'delivery_id',
                                         'offer_step_delivery_id', 'Delivery Steps'),
     
+        'offer_step_incident_ids': fields.one2many('dm.offer.step.incident', 
+                                            'offer_step_id', 'Offer Step Incidents'),
     }
 
     _defaults = {
@@ -183,6 +185,17 @@ class dm_offer_step(osv.osv): # {{{
                                                  limit, order, context, count)
 
 dm_offer_step() # }}}
+
+
+class dm_offer_step_incident(osv.osv): # {{{
+    _name = "dm.offer.step.incident"
+    _columns = {
+        'name': fields.char('Description', size=32, required=True),
+        'date': fields.date('Date'),
+        'offer_step_id': fields.many2one('dm.offer.step', 'Offer'),
+   
+    }
+dm_offer_step_incident() # }}}
 
 class dm_offer_step_transition_trigger(osv.osv): # {{{
     _name = "dm.offer.step.transition.trigger"

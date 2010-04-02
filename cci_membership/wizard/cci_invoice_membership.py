@@ -57,7 +57,7 @@ def _invoice_membership(self, cr, uid, data, context):
 
     for partner_id in partner_ids:
         account_id = partner_obj.read(cr, uid, partner_id, ['property_account_receivable'])['property_account_receivable'][0]
-        read_fpos = partner_obj.read(cr, uid, partner_id, ['property_account_position', 'membership_vcs'])
+        read_fpos = partner_obj.read(cr, uid, partner_id, ['property_account_position'])
         fpos_id = read_fpos['property_account_position'] and read_fpos['property_account_position'][0]
         line_value =  {
             'product_id' : product_id,
@@ -69,7 +69,7 @@ def _invoice_membership(self, cr, uid, data, context):
             tax_tab = [(6, 0, line_value['invoice_line_tax_id'])]
             line_value['invoice_line_tax_id'] = tax_tab
         invoice_id = invoice_obj.create(cr, uid, {
-            'name': read_fpos['membership_vcs'] or '',
+            'name': '',
             'partner_id' : partner_id,
             'address_invoice_id': partner_address_ids[partner_id]['id'],
             'account_id': account_id,

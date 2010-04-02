@@ -571,9 +571,10 @@
                         <page string="Invoice">
                             <field name="date_invoice"/>
                             <field name="date_due" select="1"/>
+                            <field name="period_id"/>
+                            <label align="0.0" colspan="2" string="(keep empty to use the current period)"/>
                             <field domain="[('partner_id', '=', partner_id)]" name="partner_bank" on_change="onchange_partner_bank(partner_bank)" select="2"/>
-                            <field name="reference_type" nolabel="1" select="2" size="0"/>
-                            <field name="reference" nolabel="1" select="1"/>
+
                             <field name="check_total" required="2"/>
                             <field name="invoice_special" select="2"/>
                             <field name="name" colspan="4"/>
@@ -664,8 +665,6 @@
             	            <field name="domiciled"/>
             	            <field name="amount_to_pay"/>
                     		<newline/>
-                            <field name="period_id"/>
-                            <label align="0.0" colspan="2" string="(keep empty to use the current period)"/>
                             <separator colspan="4" string="Additional Information"/>
                             <field colspan="4" name="comment" nolabel="1"/>
                             <separator string="Internal Note" colspan="4"/>

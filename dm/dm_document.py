@@ -439,8 +439,9 @@ class dm_offer_document(osv.osv): # {{{
                                      'dm_doc_template_plugin_rel','document_id',
                                      'document_template_plugin_id',
                                      'Dynamic Plugins',),
-        'state': fields.selection([('draft', 'Draft'),('validate', 'Validated')],
-                                  'Status', readonly = True),
+        'state': fields.selection([('draft', 'Draft'),('validate', 'Validated'),
+                                ('inreview', 'In review'),('cancel', 'Cancel')],
+                                'Status', readonly = True),
         'note': fields.text('Description'),
 #        'gender_id': fields.many2one('res.partner.title', 'Gender' ,domain=[('domain','=','contact')]),
         'gender_id': fields.many2one('partner.gender', 'Gender',
@@ -458,18 +459,30 @@ class dm_offer_document(osv.osv): # {{{
         'editor': lambda *a: 'internal',
         'content': lambda *a: '<p>Test Content</p>'
     }
+    
+    def state_inreview_set(self, cr, uid, ids, context={}):
+        step_id = self.browse(cr, uid , ids[0]).step_id.id
+        wi_ids = self.pool.get('dm.workitem').search(cr, uid, [('step_id','=',step_id),('state', '=', 'pending')])
+        self.pool.get('dm.workitem').write(cr, uid, wi_ids, {'state': 'freeze'})
+        self.write(cr, uid, ids, {'state': 'inreview'})
+        return True
 
     def state_validate_set(self, cr, uid, ids, context={}):
-        group_obj = self.pool.get('ir.actions.report.xml')
-        doc_rep_id = group_obj.search(cr, uid, [('document_id', '=', ids[0])])
-        field = self.read(cr,uid,ids,['editor'])
-        if field:
-            field_val = field[0]['editor']
-            if field_val =='internal' or doc_rep_id:
-                self.write(cr, uid, ids, {'state': 'validate'})
-            else:
+        doc_obj = self.browse(cr, uid, ids[0])
+        if not doc_obj.editor :
+            raise osv.except_osv("Error", 'Cannot validate, editor is not defined for the document')
+        if doc_obj.editor == 'internal' and not doc_obj.content :
+            raise osv.except_osv("Error", 'Cannot validate, there is no report defined for this document')
+        if doc_obj.editor == 'oord' :
+            report_obj = self.pool.get('ir.actions.report.xml')
+            doc_rep_id = report_obj.search(cr, uid, [('document_id', '=', ids[0])])
+            if not doc_rep_id :    
                 raise osv.except_osv("Error", 'Cannot validate, there is no report defined for this document')
-            return True
+        wi_ids = self.pool.get('dm.workitem').search(cr, uid, [('step_id','=',doc_obj.step_id.id),('state', '=', 'freeze')])
+        if wi_ids :
+            self.pool.get('dm.workitem').write(cr, uid, wi_ids, {'state': 'pending','action_time':time.strftime('%Y-%m-%d %H:%M:%S')})
+        self.write(cr, uid, ids, {'state': 'validate'})                
+        return True
 
 dm_offer_document() # }}}
 
@@ -522,9 +535,9 @@ class dm_campaign_document(osv.osv): # {{{
                 missing_wi.append(camp_doc.id)
         if write_ids :
             self.pool.get('dm.workitem').write(cr, uid,write_ids.keys(),
-                                        {'state': 'pending',
-                                        'is_preview': False,
-                                        'is_realtime': False })
+                                                {'state': 'pending',
+                                                'is_preview': False,
+                                                'is_realtime': False })
             self.write(cr, uid, write_ids.values(), {'state': 'resent',
              'error_msg':'Resent on %s' % (time.strftime('%Y-%m-%d %H:%M:%S'))})
         if missing_wi:

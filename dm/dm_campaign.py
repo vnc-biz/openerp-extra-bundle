@@ -789,7 +789,7 @@ class dm_customers_list(osv.osv): #{{{
 
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'code': fields.char('Code', size=16, required=True),
+        'code': fields.char('Code', size=32, required=True),
         'owner_id': fields.many2one('res.partner', 'Owner',
                                     domain=[('category_id', 'ilike', 'Owner')],
                                     context={'category_xml_id': 'cat_owner'}),

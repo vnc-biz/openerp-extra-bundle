@@ -279,4 +279,18 @@ class dm_campaign(osv.osv): # {{{
 
 dm_campaign() # }}}
 
+class product_pricelist(osv.osv): # {{{
+    _inherit =  "product.pricelist"
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False): # {{{
+        if not context :
+            context = {}
+        if 'camp_id' in context and context['camp_id']:
+            camp_obj = self.pool.get('dm.campaign').browse(cr, uid, context['camp_id']) 
+            args.append(('currency_id','=',camp_obj.currency_id.id))
+        result = super(product_pricelist, self).search(cr, uid, args, offset, limit, order, context, count)
+        return result # }}}
+        
+product_pricelist() # }}}
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

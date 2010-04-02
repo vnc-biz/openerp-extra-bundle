@@ -159,7 +159,7 @@
                 <page string="Products and Prices">
                     <separator string="Prices policy" colspan="4"/>
                     <group colspan="4" col="6">
-                        <field name="customer_pricelist_id"/>
+                        <field name="customer_pricelist_id" context="{'camp_id':camp_id}"/>
                         <button name="get_step_products" string="Get Products" type="object"/>
                     </group>
 <!--                    <field name="forwarding_charges"/>-->

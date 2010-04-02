@@ -82,6 +82,8 @@
 	                    <field name="offer_step_id"/>
 	                    <field name="product_id" string="Product"/>
 	                    <field name="price"/>
+	                    <field name="forwarding_charge"/>
+	                    <field name="forecasted_yield"/>
 	                    <field name="qty_default"/>
 	                    <field name="qty_real"/>
 	                    <field name="qty_planned"/>
@@ -92,6 +94,7 @@
 	                    <field name="offer_step_id"/>
 	                    <field name="product_id" string="Product"/>
 	                    <field name="price"/>
+	                    <field name="forwarding_charge"/>
 	                    <field name="forecasted_yield"/>
 	                    <field name="qty_default"/>
 	                    <field name="notes"/>

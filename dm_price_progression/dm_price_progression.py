@@ -53,7 +53,8 @@ class dm_campaign_proposition_item(osv.osv):#{{{
     _inherit = "dm.campaign.proposition.item"
 
     _columns = {
-        'qty_default': fields.float('Default Quantity')
+        'qty_default': fields.float('Default Quantity'),
+        'forwarding_charge': fields.float('Forwarding Charge', digits=(16, 2)),
     }
 dm_campaign_proposition_item()#}}}
 

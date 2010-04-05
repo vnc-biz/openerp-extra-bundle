@@ -59,7 +59,7 @@ class dm_media_content_type(osv.osv): # {{{
     _description = "Dm Media Content Type"
     _columns = {
         'name' : fields.char('Name', size=64,required=True),
-        'code' : fields.char('Name', size=32,required=True),
+        'code' : fields.char('Code', size=32,required=True),
         }
 dm_media_content_type() # }}}
 

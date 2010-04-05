@@ -78,7 +78,7 @@
 				<field name="language_id"/>
 				<separator string="Preview" colspan="4"/>
 	            <field  name="preview"
- 	            	    widget="picture"
+ 	            	    widget="image"
                         readonly="1"
 						nolabel="1"
 						colspan="4"

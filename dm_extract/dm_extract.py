@@ -65,7 +65,7 @@ class dm_address_segmentation(osv.osv): # {{{
         if criteria:
             sql_query = ("""select distinct pa.id \nfrom res_partner_address pa \nwhere %s\n""" % (' and '.join(criteria))).replace('isnot','is not')
         else:
-            sql_query = """select distinct pa.id \nfrom res_partner_address pa """
+            sql_query = """select distinct pa.id \nfrom res_partner_address pa where pa.active = True """
         return sql_query
 
     def create(self, cr, uid, vals, context={}):

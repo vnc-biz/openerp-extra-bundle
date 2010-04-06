@@ -54,7 +54,7 @@ class res_company(osv.osv):
     _description = 'res.company'
 
     def _get_default_ad(self, addresses):
-        city = post_code = address = False
+        city = post_code = address = country_code = ''
         for ads in addresses:
             if ads.type == 'default':
                 if ads.zip_id:
@@ -64,7 +64,9 @@ class res_company(osv.osv):
                     address = ads.street
                 if ads.street2:
                     address += ads.street2
-        return city, post_code, address
+                if ads.country_id:
+                    country_code = ads.country_id.code
+        return city, post_code, address, country_code
 
     _columns = {
         'federation_key' : fields.char('ID for the Federation',size=50,help="ID key for the sending of data to the belgian CCI's Federation"),

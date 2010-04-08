@@ -14,6 +14,7 @@
         <field name="arch" type="xml">
             <form string="Order Session">
                 <field name="user_id"/>
+                 <newline/>
                 <field name="date_start"/>
                 <field name="date_stop"/>
                 <newline/>

@@ -48,6 +48,7 @@ class dm_order_session(osv.osv): # {{{
     _defaults = {
         'user_id': lambda obj, cr, uid, context: uid,
         'date_start': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        
         'state': lambda *a: 'pending',
     }
     
@@ -56,7 +57,8 @@ class dm_order_session(osv.osv): # {{{
         return True
     
     def stop_session(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'state': 'done'})
+        self.write(cr, uid, ids, {'state': 'done',
+                                  'date_stop': time.strftime('%Y-%m-%d %H:%M:%S')})
         return True
     
 dm_order_session() # }}}

@@ -33,10 +33,10 @@
                 <field name="type_id" on_change="on_change_service_type(type_id)" widget="selection"/>
                 <field name="store_document"/>
                 <group colspan="4" attrs="{'invisible':[('service_type','!=','smtp')]}">
-			<separator string="SMTP Server Configuration" colspan="4" />
-			<field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
-			<field name="smtp_server_id"/>
-		</group>
+			        <separator string="SMTP Server Configuration" colspan="4" />
+			        <field name="service_type" on_change="on_change_service_type(type_id)" invisible="1"/>
+			        <field name="smtp_server_id"/>
+		        </group>
                 <!--field name="hosted_image_use"/-->
                 <separator string="Mailing Action" colspan="4"/>
                 <group colspan="4" col="4">
@@ -855,10 +855,10 @@
         <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="type">form</field>
-	<field name="inherit_id" ref="base.view_partner_form"/>
+	    <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-		<field name="category_id" position = "replace">
-			<field name="category_id" domain="'category' in context and [('name','=',context['category'])]" nolabel="1" select="2"/>
+		    <field name="category_id" position = "replace">
+			    <field name="category_id" domain="'category' in context and [('name','=',context['category'])]" nolabel="1" select="2"/>
         	</field>
         </field>
     </record>
@@ -1235,28 +1235,7 @@
                             <field name="address_ids" colspan="4" nolabel="1"/>
                         </group>
                     </page>
-                    <page string="Segments">
-                        <field name="segment_ids" colspan="4" nolabel="1">
-                        <form>
-                            <field name="name" string="Name" select="1"/>
-                            <field name="code" string="Code"/>
-                            <field name="proposition_id" />
-                            <field name="active" />
-                            <newline/>
-                            <field name="split_id" />
-                            <field name="reuse_id" />
-                            <field name="start_census"/>
-                            <field name="end_census"/>
-                            <field name="deduplication_level"/>
-                            <field name="note" colspan="4" widget="text_wiki"/>
-                        </form>
-                        <tree string="Segments">
-                            <field name="name" string="Name"/>
-                            <field name="code" string="Code"/>
-                        </tree>
-                        </field>
-                    </page>
-                </notebook>
+                  </notebook>
             </form>
         </field>
     </record>

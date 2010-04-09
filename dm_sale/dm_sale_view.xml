@@ -168,6 +168,7 @@
                             <field name="offer_step_id"/>
                             <field name="product_id" string="Product"/>
                             <field name="price"/>
+                            <field name="forecasted_yield"/>
                             <field name="item_type"/>
                             <field name="qty_real"/>
                             <field name="qty_planned"/>
@@ -177,8 +178,8 @@
                         <tree string="Catalogue" editable="bottom">
                             <field name="offer_step_id"/>
                             <field name="product_id" string="Product"/>
-                            <field name="price"/>
-                            <field name="forecasted_yield"/>
+                            <field name="price" string= "Sale Price "/>
+                            <field name="forecasted_yield" string= "Forecasted Yield "/>
                             <field name="item_type"/>
                             <field name="notes"/>
                         </tree>

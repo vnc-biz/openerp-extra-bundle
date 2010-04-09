@@ -27,10 +27,10 @@ class dm_offer_step_tht_yield(osv.osv):
 	_description = 'Therotical yield offer steps'
 	
 	_columns = {
-		'step_id':fields.many2one('dm.offer.step', 'Offer Step'),
-		'country_id':fields.many2one('res.country', 'Country'),
+		'step_id':fields.many2one('dm.offer.step', 'Offer Step', ondelete='cascade'),
+		'country_id':fields.many2one('res.country', 'Country', ondelete='cascade'),
 		'rate': fields.float('Theoretical Rate'),
-		'offer_id':fields.many2one('dm.offer', 'Offer'),
+		'offer_id':fields.many2one('dm.offer', 'Offer', ondelete='cascade'),
 	}
 	
 dm_offer_step_tht_yield()
@@ -42,6 +42,26 @@ class dm_offer(osv.osv):
 	    'tht_yield_country_ids':fields.many2many('res.country', 'dm_yield_country_rel', 'tht_yield_id', 'country_id', 'Application Countries'),
 	    'tht_step_yield_ids':fields.one2many('dm.offer.step.tht_yield', 'offer_id', 'Theoretical Yields Array'),
 	}
+	
+	def button_refresh(self, cr, uid, ids, *args):
+		offer_obj = self.browse(cr, uid, ids)[0]
+		step_ids = offer_obj.step_ids
+		country_ids = offer_obj.tht_yield_country_ids
+		yield_ids = []
+		tht_yield_obj = self.pool.get('dm.offer.step.tht_yield')
+		for country in country_ids:
+			for step in step_ids:
+				yield_id = tht_yield_obj.search(cr, uid, [
+												  ('step_id', '=', step.id), 
+												  ('country_id', '=', country.id),
+												  ('offer_id','=',ids[0])])
+				yield_id = yield_id and yield_id[0] or tht_yield_obj.create(cr, 
+													 uid, {'step_id': step.id,
+													'country_id': country.id		 
+													 })
+				yield_ids.append(yield_id)
+		self.write(cr, uid, ids, {'tht_step_yield_ids': [(6, 0, yield_ids)]})
+		return True
 	
 dm_offer()
 

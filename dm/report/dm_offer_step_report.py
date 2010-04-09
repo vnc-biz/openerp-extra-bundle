@@ -19,11 +19,19 @@
 #
 ##############################################################################
 
-import dm_offer_report
-import dm_campaign_report
-import dm_print_offer_graph
-import dm_document_report
-import dm_ir_action_report
-import dm_offer_step_report
+import time
+from report import report_sxw
+
+class dm_offer_step(report_sxw.rml_parse):
+    def __init__(self, cr, uid, name, context):
+        super(dm_offer_step, self).__init__(cr, uid, name, context)
+        self.localcontext.update({
+            'time': time,
+        })
+        self.context = context
+ 
+report_sxw.report_sxw('report.dm.offer.step', 'dm.offer.step', 
+                        'addons/dm/report/dm_offer_step.rml', parser=dm_offer_step)
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -24,9 +24,7 @@
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
-    "description": """
-            
-            """,
+    "description": """ This module adds multi prices to campaign proposition.""",
     "depends" : ["dm_sale"],
     "init_xml" : [],
     "demo_xml" : [],

@@ -142,7 +142,6 @@ class product_product(osv.osv):
         'tome': fields.char('Tome', size=8),
         'nbpage': fields.integer('Number of pages', size=8),
         'rack': fields.many2one('library.rack', 'Rack', size=16),
-        'online': fields.boolean('Visible on website'),
         'state': fields.selection([('draft', 'Not yet published'), ('sellable', 'Available'), ('end', 'Sold Out'), ('obsolete', 'Printing w/o Date')], 'State'),
         'link_ids': many2manysym('product.product', 'book_book_rel', 'product_id1', 'product_id2', 'Related Books'),
         'back': fields.selection([('hard', 'Hardback'), ('paper', 'Paperback')], 'Reliure'),

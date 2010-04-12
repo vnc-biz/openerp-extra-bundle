@@ -134,7 +134,6 @@
 
                      <field name="categ_id" select="2"/> 
                     <field name="editor" select="1"/>
-                    <field name="online" select="2"/>
                     <field name="collection" select="2"/>
                     <field name="num_pocket"/>
                     <newline/>

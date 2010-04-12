@@ -217,4 +217,14 @@ class dm_address_date_criteria(osv.osv): # {{{
     }
 dm_address_date_criteria() # }}}
 
+
+class dm_customers_file(osv.osv): #{{{
+    _inherit = "dm.customers_file"
+ 
+    _columns = {
+            'segmentation_id':fields.many2one('dm.address.segmentation',
+                                            'Segmentation'),
+                }
+dm_customers_file()#}}}
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

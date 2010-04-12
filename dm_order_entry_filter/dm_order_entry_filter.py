@@ -22,8 +22,6 @@
 from osv import fields
 from osv import osv
 
-from tools.translate import _
-
 class dm_order_session(osv.osv): # {{{
     _inherit = "dm.order.session"
     
@@ -40,7 +38,13 @@ dm_order_session() # }}}
 class dm_order(osv.osv): # {{{
     _inherit= "dm.order"
     
+    _columns = {
+            'state': fields.selection([('draft', 'Draft'),('done', 'Done'),('error', 'Error')], 'Status', readonly=True),
+            'state_msg': fields.text('State Message', readonly=True)
+        }
+    
     def create(self, cr, uid, vals, context={}):
+        message = ''
         if vals.has_key('order_session_id') and vals['order_session_id']:
             session_id = self.pool.get('dm.order.session').browse(cr, uid, vals['order_session_id'])
             if session_id.country_id and session_id.currency_id and session_id.dealer_id \
@@ -56,10 +60,14 @@ class dm_order(osv.osv): # {{{
                 filter_currency_name = session_id.currency_id.name
                 filter_dealer_name = session_id.dealer_id.name
                 filter_payment_method_name = session_id.payment_method_id.name
-                if (not country_name == filter_country_name) and (not trademark_name == filter_trademark_name) \
-                    and (not currency_name == filter_currency_name) and (not dealer_name == filter_dealer_name) \
-                    and (not payment_method_name == filter_payment_method_name):
-                    raise osv.except_osv(_('Error!'),_("That order does not fit the filter criteria"))
+                simple_list = [country_name, trademark_name, currency_name, dealer_name, payment_method_name]
+                filter_list = [filter_country_name, filter_trademark_name, filter_currency_name, filter_dealer_name, filter_payment_method_name]
+                field_list = ['country', 'trademark', 'currency', 'dealer', 'payment method']
+                for j in range(0, len(field_list)):
+                    if simple_list[j] != filter_list[j]:
+                        msg = "%s order does not match \n" % (field_list[j])
+                        message = message + msg
+                vals.update({'state': 'error', 'state_msg': message})
         return super(dm_order, self).create(cr, uid, vals, context)
     
 dm_order() # }}}

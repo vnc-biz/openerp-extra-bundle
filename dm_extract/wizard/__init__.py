@@ -20,5 +20,6 @@
 ##############################################################################
 
 import wizard_extract_customer
+import wizard_force_extraction
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

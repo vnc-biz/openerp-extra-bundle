@@ -58,12 +58,13 @@ class offer_report(report_sxw.rml_parse):
 #        res = self.pool.get('dm.offer.step').browse(self.cr, self.uid, 
 #                                                            offer_step_ids)
 #        return res
-report_sxw.report_sxw('report.offer.report', 'dm.offer', 
-                        'addons/dm/report/dm_offer.rml', parser=offer_report)
+
 report_sxw.report_sxw('report.offer.model.report', 'dm.offer', 
                     'addons/dm/report/dm_offer_model.rml', parser=offer_report)
 report_sxw.report_sxw('report.preoffer.report', 'dm.offer', 
                       'addons/dm/report/dm_preoffer.rml', parser=offer_report)
+report_sxw.report_sxw('report.dm.offer', 'dm.offer', 
+                    'addons/dm/report/dm_offer_new.rml', parser=offer_report)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -56,7 +56,7 @@ class dm_order(osv.osv): # {{{
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-        raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX"
+#        raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX"
         value = raw_datas.split(';')
         key = ['datamatrix_type', 'segment_id', 'customer_code', 'title', 
                'customer_lastname', 'customer_firstname', 'customer_add1',
@@ -71,13 +71,14 @@ class dm_order(osv.osv): # {{{
             field = field_check[m][0]
             if value.has_key(field) and value[field]:
                 f_id = self.pool.get(m).search(cr,uid,[('code','=',value[field])])
-                if f_id:
-                    value[field]= f_id
-                raise osv.except_osv(_('Error !'),
-                    _('No %s found for the code '%field_check[m][1]))
+                if not f_id:
+                    raise osv.except_osv(_('Error !'),
+                        _('No %s found for the code '%field_check[m][1]))
+                value[field]= f_id[0]
             else:
                 raise osv.except_osv(_('Error !'),
                     _('There is no code defined for %s'%field_check[m][1]))
+        del(value['datamatrix_type'])
         return {'value': value}
 
 dm_order() # }}}

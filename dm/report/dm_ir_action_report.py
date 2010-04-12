@@ -68,6 +68,7 @@ def dm_register_all(db,report=False):
             interface.report_rml('report.'+r['report_name'], r['model'],
                     opj('addons', r['report_xml']),
                     r['report_xsl'] and opj('addons', r['report_xsl']))
+    
 interface.register_all =  dm_register_all
 
 class report_xml(osv.osv):
@@ -162,7 +163,6 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
     rml_parser.tag = sxw_tag
     objs = self.getObjects(cr, uid, ids, context)
     rml_parser.set_context(objs, data, ids,mime_type)
- 
     rml_dom_meta = node = etree.XML(meta)
     elements = node.findall(rml_parser.localcontext['name_space']["meta"]+"user-defined")
     for pe in elements:
@@ -192,7 +192,7 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
                 for cnd in de:
                     if cnd.text or cnd.tail:
                         if pe.text:
-                            pe.text =  cnd.text or cnd.tail
+                            pe.text +=  cnd.text or cnd.tail
                         else:
                             pe.text =  cnd.text or cnd.tail
                         pp.remove(de)
@@ -207,7 +207,7 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
                     text = cnd.get("{http://openoffice.org/2000/text}value",False)
                     if text:
                         if pe.text and text.startswith('[['):
-                            pe.text =  text
+                            pe.text +=  text
                         elif text.startswith('[['):
                             pe.text =  text
                         if de.getparent():
@@ -250,10 +250,9 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
             print "error: ODT converter not available"
             final_op = None
         else :
-            print "Stattttttttttt"
             start_time = time.time()
             final_op = converter.storeByPath(final_op, report_type)
-            print time.time() - start_time
+            print "Time taken to convert",time.time() - start_time
     sxw_io.close()        
     return (final_op, report_type)
 

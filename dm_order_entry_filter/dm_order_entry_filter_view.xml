@@ -23,5 +23,22 @@
         </field>
     </record>
 
+	<!-- 
+		Order Entry
+	-->
+	
+	<record model="ir.ui.view" id="view_dm_order_form_inherit">
+        <field name="name">dm.order.form.inherit</field>
+        <field name="model">dm.order</field>
+        <field name="type">form</field>
+		<field name="inherit_id" ref="dm_order_entry.view_dm_order_form"/>
+        <field name="arch" type="xml">
+            <separator string="Status" colspan="4" position="before">
+				<separator string="Status Message" colspan="4"/>
+				<field name="state_msg" nolabel="1" colspan="4"/>
+			</separator>
+        </field>
+    </record>
+
 	</data>
 </openerp>

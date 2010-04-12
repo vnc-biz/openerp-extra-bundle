@@ -76,6 +76,7 @@ class wizard_document_report(wizard.interface):
         pool = pooler.get_pool(cr.dbname)
         seg_obj = pool.get('dm.campaign.proposition.segment')
         document = pool.get('dm.offer.document').browse(cr,uid,document_id)
+        res = []
         if document.step_id:
             offer=document.step_id.offer_id.id
             if offer:

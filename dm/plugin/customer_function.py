@@ -34,6 +34,8 @@ def customer_function(cr, uid, **args):
         res = pool.get(model_name).read(cr, uid, args['workitem_id'],
                                             [args['field_name']])
     elif model_name in ['dm.campaign', 'dm.trademark'] and 'segment_id' in args:
+        if not args['segment_id']:
+            return False
         segment_id = pool.get('dm.campaign.proposition.segment').browse(cr,uid,
                                                             args['segment_id'])
         if not segment_id.proposition_id or not segment_id.proposition_id.camp_id:
@@ -49,12 +51,16 @@ def customer_function(cr, uid, **args):
                   segment_id.proposition_id.camp_id.trademark_id.id,
                   [args['field_name']])
     elif model_name in ['dm.offer.step'] and 'document_id' in args:
+        if not args['document_id']: 
+            return False
         document_id = pool.get('dm.offer.document').browse(cr, uid, 
                                                     args['document_id'])
         if not document_id.step_id: return False
         res = pool.get(model_name).read(cr, uid, document_id.step_id.id,
                                          [args['field_name']])
     elif model_name == 'sale.order' and 'workitem_id' in args:
+        if not args['workitem_id']:
+            return False    
         so_id = pool.get('dm.workitem').read(cr, uid, args['workitem_id'],
                     ['sale_order_id'])['sale_order_id']
         if so_id :
@@ -62,6 +68,8 @@ def customer_function(cr, uid, **args):
         else :
             return False
     else:
+        if not args['address_id']:
+            return False
         res = pool.get('res.partner.address').read(cr, uid, args['address_id'])
         if model_name == 'res.partner':
             if res['partner_id']:

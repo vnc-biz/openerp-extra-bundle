@@ -26,7 +26,7 @@ import netsvc
 import traceback
 import sys
 import datetime
-
+from tools.translate import _
 class dm_workitem(osv.osv): # {{{
     _name = "dm.workitem"
     _inherit = "dm.workitem"
@@ -219,7 +219,10 @@ class dm_offer_step(osv.osv): # {{{
         'has_product_constraints': fields.boolean('Article Constraints', help="Tells if the choice of a product in this offer step has some constraints (weight, language, visuals, size, ...)"),
         'item_ids': fields.many2many('product.product',
                     'dm_offer_step_product_rel', 'product_id', 'offer_step_id',
-                    'Items', states={'closed': [('readonly', True)]}),
+                    'Items', states={'closed': [('readonly', True)]}, 
+                    #domain = [('product_tmpl_id.categ_id.name','=','Items' )],
+                    context = {'dm_product_categ' : 'Direct Marketing / Items'},
+                    ),
         }
 dm_offer_step() # }}}
 
@@ -251,8 +254,9 @@ dm_campaign_proposition()#}}}
 class product_product(osv.osv): # {{{
     _inherit = "product.product"
 
-    def search(self, cr, uid, args, offset=0, limit=None, order=None, context={}, count=False):
-        result = super(product_product, self).search(cr, uid, args, offset, limit, order, context, count)
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        if not context:
+            context = {}
         if 'offer_id' in context and context['offer_id']:
             result = []
             offer_browse_id = self.pool.get('dm.offer').browse(cr, uid,
@@ -260,7 +264,16 @@ class product_product(osv.osv): # {{{
             for step in offer_browse_id.step_ids:
                 for item in step.item_ids:
                     result.append(item.id)
-        return result
+            return result
+        if 'dm_product_categ' in context and context['dm_product_categ']:
+            parent_categ, categ_name = context['dm_product_categ'].split('/')
+            parent_id = self.pool.get('product.category').search(cr, uid,
+                                        [('name', '=', parent_categ.strip())] )
+            categ_id = self.pool.get('product.category').search(cr, uid,
+                                        [('name', '=', categ_name.strip()),
+                                         ('parent_id', '=', parent_id)]) 
+            args.append(('categ_id','child_of',categ_id))
+        return super(product_product, self).search(cr, uid, args, offset, limit, order, context, count)
 
 product_product() # }}}
 

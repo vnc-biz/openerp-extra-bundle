@@ -430,7 +430,7 @@ class dm_offer_document(osv.osv): # {{{
                          context={'category': 'Copywriter'}),
         'category_id': fields.many2one('dm.offer.document.category',
                                        'Category', required=True),
-        'step_id': fields.many2one('dm.offer.step', 'Offer Step'),
+        'step_id': fields.many2one('dm.offer.step', 'Offer Step', ondelete='cascade'),
         'has_attachment': fields.function(_has_attchment_fnc, method=True,
                                          type='char', string='Has Attachment'),
         'document_template_id': fields.many2one('dm.document.template',

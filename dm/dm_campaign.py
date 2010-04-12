@@ -855,13 +855,11 @@ class dm_customers_list(osv.osv): #{{{
         cust_list_ids = self.search(cr, uid, [('id', 'not in', tuple(ids))])
         cust_list_codes = [cust_list['code'] for cust_list in self.read(cr, uid, cust_list_ids)]
         this_codes = dict([(item['id'], item['code']) for item in self.read(cr, uid, ids, ['code'])])
-
         for id in ids:
             code = this_codes[id]
             if code and code in cust_list_codes:
                 print code
                 return False
-
         return True
 
     _constraints = [
@@ -1149,7 +1147,8 @@ class dm_mail_service(osv.osv): # {{{
                                              ('months', 'Months')],
                                              'Interval Unit'),
         'default_for_media': fields.boolean('Default Mail Service for Media'),
-        'action_id': fields.many2one('ir.actions.server', 'Server Action'),
+        'action_id': fields.many2one('ir.actions.server', 'Server Action',
+                                     domain=[('model_id.model','=', 'dm.campaign.document')],),
         'type_id': fields.many2one('dm.mail_service.type', 'Type',
                                                     ondelete="cascade"),
         'hosted_image_use': fields.boolean('Hosted Image'),

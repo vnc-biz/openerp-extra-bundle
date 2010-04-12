@@ -50,7 +50,8 @@ def action_extract_customer(self, cr, uid, data, context):
     pa_ids = map(lambda x: x[0] ,cr.fetchall())
     pool.get('dm.customers_file').create(cr,uid,{'name':data['form']['name'],
                                             'code':data['form']['code'],
-                                            'address_ids': [[6, 0, pa_ids]],})
+                                            'address_ids': [[6, 0, pa_ids]],
+                                             'segmentation_id':data['id']})
     data['form']['number_pa'] = len(pa_ids)
     return data['form']
     

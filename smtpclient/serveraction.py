@@ -23,13 +23,21 @@ from osv import fields
 import netsvc
 import time
 
-class ServerAction(osv.osv):
+class email_headers(osv.osv):
+    _inherit = 'email.headers'
+    _columns = {
+        'action_id':fields.many2one('ir.actions.server', 'Server Action'),
+    }
+email_headers()
+
+class server_action(osv.osv):
     _inherit = 'ir.actions.server'
     _description = 'Email Client'
     _columns = {
         'email_server':fields.many2one('email.smtpclient', 'Email Server'),
         'report_id':fields.many2one('ir.actions.report.xml', 'Report', required=False),
         'file_ids':fields.many2many('ir.attachment', 'serveraction_attachment_rel', 'action_id', 'file_id', 'Attachments'),
+        'header_ids':fields.one2many('email.headers', 'action_id', 'Default Headers'),
     }
     
     def run(self, cr, uid, ids, context={}):
@@ -75,18 +83,25 @@ class ServerAction(osv.osv):
                 if action.file_ids:
                     for ir_file in action.file_ids:
                         ir_attach_ids.append(ir_file.id)
-                    
-                if smtp_pool.send_email(cr, uid, action.email_server.id, address, subject, body, [], reports=reports, ir_attach=ir_attach_ids) == True:
-                    logger.notifyChannel('email', netsvc.LOG_INFO, 'Email successfully send to : %s' % (address))
+                
+                headers = { }
+                for key in action.header_ids:
+                    val = eval(key.value, cxt)
+                    headers[key.key] = val
+                
+                context['headers'] = headers
+                
+                if smtp_pool.send_email(cr, uid, action.email_server.id, address, subject, body, [], reports=reports, ir_attach=ir_attach_ids, context=context) == True:
+                    logger.notifyChannel('SMTP', netsvc.LOG_INFO, 'Email successfully send to : %s' % (address))
                 else:
-                    logger.notifyChannel('email', netsvc.LOG_ERROR, 'Failed to send email to : %s' % (address))
+                    logger.notifyChannel('SMTP', netsvc.LOG_ERROR, 'Failed to send email to : %s' % (address))
 
             else:
                 act_ids.append(action.id)
         
         if act_ids:
-            return super(ServerAction,self).run(cr, uid, act_ids, context)
+            return super(server_action,self).run(cr, uid, act_ids, context)
         else:
             return False
 
-ServerAction()
+server_action()

@@ -18,39 +18,51 @@
 #
 ##############################################################################
 
-from osv import fields, osv
-import pooler
-import binascii
-import base64
 import os
-import time
-import smtplib
-import mimetypes
-from optparse import OptionParser
-from email import Encoders
-from email.Message import Message
-from email.MIMEBase import MIMEBase
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-from email.Utils import COMMASPACE, formatdate
-import netsvc
-import random
 import sys
-import tools
+import bz2
+
+import time
 from datetime import datetime
 from datetime import timedelta
-import bz2
+
 import release
 import socket
+
+import base64
+import binascii
+
+import random
+import smtplib
+import mimetypes
+
+from email import Encoders
+from optparse import OptionParser
+from email.Message import Message
+from email.MIMEBase import MIMEBase
+from email.MIMEText import MIMEText
+from email.MIMEMultipart import MIMEMultipart
+from email.Utils import COMMASPACE, formatdate
+
+import netsvc
+import pooler
+import tools
+
+from osv import fields
+from osv import osv
 from tools.translate import _
 
 error_msg = {'not_active' : "Please activate Email Server, without activating you can not send Email(s).",
              'server_stop' : 'Please start Email Server, without starting  you can not send Email(s).',
              'server_not_confirm' : 'Please Verify Email Server, without verifying you can not send Email(s).'}
+
+logger = netsvc.Logger()
              
-class SmtpClient(osv.osv):
+class smtpclient(osv.osv):
+
     _name = 'email.smtpclient'
     _description = 'Email Client'
+    
     _columns = {
         'name' : fields.char('Server Name', size=256, required=True),
         'from_email' : fields.char('Email From', size=256),
@@ -118,7 +130,7 @@ class SmtpClient(osv.osv):
         if vals.get('password', False) != False:
             vals['password'] = base64.b64encode(vals.get('password'))
             
-        res_id = super(SmtpClient, self).create(cr, user, vals, context)
+        res_id = super(smtpclient, self).create(cr, user, vals, context)
         return res_id
     
     def write(self, cr, user, ids, vals, context=None):
@@ -134,7 +146,7 @@ class SmtpClient(osv.osv):
             else:
                 del vals['password']    
             
-        res = super(SmtpClient, self).write(cr, user, ids, vals, context)
+        res = super(smtpclient, self).write(cr, user, ids, vals, context)
         return res
     
     def read(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
@@ -145,7 +157,7 @@ class SmtpClient(osv.osv):
                         o[0][field] = '********'
             return o
 
-        result = super(SmtpClient, self).read(cr, uid, ids, fields, context, load)
+        result = super(smtpclient, self).read(cr, uid, ids, fields, context, load)
         result = override_password(result)
         return result
         
@@ -243,20 +255,21 @@ class SmtpClient(osv.osv):
             
         queue = pooler.get_pool(cr.dbname).get('email.smtpclient.queue')
         queue.create(cr, uid, {
-                'to':toemail,
-                'server_id':serverid,
-                'name':msg['Subject'],
-                'body':body,
-                'serialized_message':message,
-                'priority':1
-            })
+            'to':toemail,
+            'server_id':serverid,
+            'name':msg['Subject'],
+            'body':body,
+            'serialized_message':message,
+            'priority':1,
+            'type':'system'
+        })
         
         if self.server[serverid]['state'] != 'confirm':
             self.write(cr, uid, ids, {'state':'waiting', 'code':key})
             
         return True
          
-    def getpassword(self,cr,uid,ids):
+    def getpassword(self, cr, uid, ids):
         data = {}
         cr.execute("select * from email_smtpclient where id = %s" , (str(ids[0]),))
         data = cr.dictfetchall()
@@ -271,11 +284,11 @@ class SmtpClient(osv.osv):
         if permission:
             if not self.check_permissions(cr, uid, [serverid]):
                 raise osv.except_osv(_('Permission Error!'), _('You have no permission to access SMTP Server : %s ') % (self.server[serverid]['name'],) )
-
+        
         if self.server[serverid]:
             try:
                 self.smtpServer[serverid] = smtplib.SMTP()
-                self.smtpServer[serverid].debuglevel = 5
+                self.smtpServer[serverid].debuglevel = 0
                 self.smtpServer[serverid].connect(str(self.server[serverid]['server']),str(self.server[serverid]['port']))
                 
                 if self.server[serverid]['ssl']:
@@ -289,7 +302,7 @@ class SmtpClient(osv.osv):
                     self.smtpServer[serverid].login(str(self.server[serverid]['user']), password)
 
             except Exception, e:
-                raise osv.except_osv(_('SMTP Server Error!'), e)
+                logger.notifyChannel('imap', netsvc.LOG_WARNING, e)
             
         return True
     
@@ -395,13 +408,17 @@ class SmtpClient(osv.osv):
 
             for hk in smtp_server.header_ids:
                 msg[hk.key] = hk.value
+              
+            context_headers = context.get('headers', [])
+            for hk in context_headers:
+                msg[hk] = context_headers[hk]
             
             # Add OpenERP Server information
             msg['X-Generated-By'] = 'OpenERP (http://www.openerp.com)'
             msg['X-OpenERP-Server-Host'] = socket.gethostname()
             msg['X-OpenERP-Server-Version'] = release.version
             msg['Message-Id'] = "<%s-openerp-@%s>" % (time.time(), socket.gethostname())
-            
+          
             #attach files from disc
             for file in attachments:
                 part = MIMEBase('application', "octet-stream")
@@ -462,36 +479,43 @@ class SmtpClient(osv.osv):
                 queue.unlink(cr, uid, qids)
                 
         return result
-        
+    
     def _send_emails(self, cr, uid, ids, context={}):
         fp = os.popen('ping www.google.com -c 1 -w 5',"r")
         if not fp.read():
             return False
-            
+        
         queue = self.pool.get('email.smtpclient.queue')
         history = self.pool.get('email.smtpclient.history')
         queue.write(cr, uid, ids, {'state':'sending'})
+        
         error = []
         sent = []
         remove = []
         open_server = []
-        for email in queue.browse(cr, uid, ids):
         
+        for email in queue.browse(cr, uid, ids):
+            
             if not email.server_id.id in open_server:
                 open_server.append(email.server_id.id)
                 self.open_connection(cr, uid, ids, email.server_id.id)
+                
             try:
-                self.smtpServer[email.server_id.id].sendmail(str(email.server_id.email), email.to, tools.ustr(email.serialized_message))
+                self.smtpServer[email.server_id.id].sendmail(email.server_id.email, email.to, tools.ustr(email.serialized_message))
+                message = "message sent successfully to %s from %s server" % (email.to, email.server_id.name)
+                logger.notifyChannel('smtp', netsvc.LOG_INFO, message)
             except Exception, e:
                 queue.write(cr, uid, [email.id], {'error':e, 'state':'error'})
+                message = "failuer sending message to %s from %s server" % (email.to, email.server_id.name)
+                logger.notifyChannel('smtp', netsvc.LOG_ERROR, message)
                 continue
             
             history.create(cr, uid, {
-                        'name':email.body,
-                        'user_id':uid,
-                        'server_id': email.server_id.id,
-                        'email':email.to
-                    })
+                'name':email.body,
+                'user_id':uid,
+                'server_id': email.server_id.id,
+                'email':email.to
+            })
             if email.server_id.delete_queue == 'after_send':
                 remove.append(email.id)
             else:
@@ -500,16 +524,23 @@ class SmtpClient(osv.osv):
         queue.unlink(cr, uid, remove)
         queue.write(cr, uid, sent, {'state':'send'})
         return True
-        
-    def _check_queue(self, cr, uid, ids=False, context={}):
+    
+    def _check_queue(self, cr, uid, ids=False):
         queue = self.pool.get('email.smtpclient.queue')
         sids = []
         if not ids:
-            sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('server_id','=',False)], order="priority", limit=30)
+            sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('type','=','system')], order="priority", limit=30)
+            ids =[]
         else:
             sids = queue.search(cr, uid, [('state','not in',['send','sending']), ('server_id','in',ids)], order="priority", limit=30)
-
-        result = self. _send_emails(cr, uid, sids, context)
+        
+        message = ""
+        if len(ids) > 0:
+            message = "sending %s emails from message queuq !" % (len(ids))
+            
+        logger.notifyChannel('smtp', netsvc.LOG_INFO, message)
+        
+        result = self. _send_emails(cr, uid, sids, {})
         return result
         
     def set_to_draft(self, cr, uid, ids, context={}):
@@ -523,8 +554,7 @@ class SmtpClient(osv.osv):
                 'name':'Process : ' + svr.name,
                 'model':'email.smtpclient',
                 'args': repr([ids]), 
-                'function':'_check_queue', 
-#                'nextcall':svr.date_create,
+                'function':'_check_queue',
                 'priority':5,
                 'interval_number':1,
                 'interval_type':'minutes',
@@ -551,7 +581,7 @@ class SmtpClient(osv.osv):
         self.write(cr, uid, ids, {'pstate':'stop'})
         return True
 
-SmtpClient()
+smtpclient()
 
 class email_headers(osv.osv):
     _name = 'email.headers'
@@ -563,7 +593,7 @@ class email_headers(osv.osv):
     }
 email_headers()
 
-class HistoryLine(osv.osv):
+class email_history(osv.osv):
     _name = 'email.smtpclient.history'
     _description = 'Email Client History'
     _columns = {
@@ -582,11 +612,11 @@ class HistoryLine(osv.osv):
     }
     
     def create(self, cr, uid, vals, context=None):
-        super(HistoryLine,self).create(cr, uid, vals, context)
+        super(email_history,self).create(cr, uid, vals, context)
         cr.commit()
-HistoryLine()
+email_history()
 
-class MessageQueue(osv.osv):
+class message_queue(osv.osv):
     _name = 'email.smtpclient.queue'
     _description = 'Email Queue'
     _order = '"to"'
@@ -604,6 +634,10 @@ class MessageQueue(osv.osv):
             ('send','Sent'),
             ('error','Error'),
         ],'Message Status', select=True, readonly=True),
+        'type':fields.selection([
+            ('default','Default Message'),
+            ('system','System Message'),
+        ],'Message Type', select=True, readonly=True),
         'error':fields.text('Last Error', size=256, readonly=True, states={'draft':[('readonly',False)]}),
         'date_create': fields.datetime('Date', readonly=True),
         'priority':fields.integer('Message Priority', readonly=True),
@@ -612,8 +646,9 @@ class MessageQueue(osv.osv):
         'date_create': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'state': lambda *a: 'draft',
         'priority': lambda *a: '10',
+        'type': lambda *a: 'default',
     }
-MessageQueue()
+message_queue()
 
 class report_smtp_server(osv.osv):
     _name = "report.smtp.server"

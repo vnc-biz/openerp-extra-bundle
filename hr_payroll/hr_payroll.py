@@ -295,7 +295,6 @@ class payroll_register(osv.osv):
                 }
                 id = advice_line_pool.create(cr, uid, pline)
         
-        
         #, 'advice_ids':[(6, 0, [pid])]
         self.write(cr, uid, ids, {'state':'confirm'})
         return True
@@ -553,6 +552,12 @@ class payment_category(osv.osv):
     }
     
     def execute_function(self, cr, uid, id, value, context):
+        """
+            self: pointer to self object
+            cr: cursor to database
+            uid: user id of current executer
+        """
+        
         line_pool = self.pool.get('hr.allounce.deduction.categoty.line')
         res = 0
         ids = line_pool.search(cr, uid, [('category_id','=',id), ('to_val','>=',value),('from_val','<=',value)])

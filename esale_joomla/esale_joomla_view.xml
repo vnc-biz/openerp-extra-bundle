@@ -84,11 +84,48 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Web Shops" parent="menu_esale_definition" id="menu_action_esale_joomla_web" action="action_esale_joomla_web_form" groups="base.group_system"/>
+    <menuitem name="Web Shops" parent="menu_esale_definition" id="menu_action_esale_joomla_web" action="action_esale_joomla_web_form" groups="base.group_system"
+              sequence="10" />
 
-    <!-- Tax -->
-    <!-- Copy menu entry from addons/account.tax -->
-    <menuitem name="Taxes" parent="menu_esale_definition" id="menu_action_esale_joomla_tax" action="account.action_tax_form"/>
+    <!-- Joomla Web Taxes  -->
+    <record model="ir.ui.view" id="view_esale_joomla_web_tax_form">
+        <field name="name">esale_joomla.web.tax.form</field>
+        <field name="model">esale_joomla.web.tax</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="eSale Web Tax">
+                <field name="web_tax_id" />
+                <field name="web_id" />
+                <field name="web_country_id" />
+                <field name="web_rate" />
+                <newline/>
+                <field name="status" />
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_esale_joomla_web_tax_tree">
+        <field name="name">esale_joomla.web.tax.tree</field>
+        <field name="model">esale_joomla.web.tax</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="eSale Web Taxes" colors="red:status==deleted">
+                <field name="web_tax_id" />
+                <field name="web_id" />
+                <field name="web_country_id" />
+                <field name="web_rate" />
+                <field name="status" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_esale_joomla_web_tax_form">
+        <field name="name">esale_joomla.web.tax</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">esale_joomla.web.tax</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Web Taxes" parent="menu_esale_definition" id="menu_action_esale_joomla_web_tax" action="action_esale_joomla_web_tax_form"
+               sequence="60" groups="base.group_system"/>
 
     <!-- Tax Mapping -->
     <record model="ir.ui.view" id="view_esale_joomla_tax_map_form">
@@ -129,6 +166,13 @@
         </field>
     </record>
 
+    <!-- Link to Taxes -->
+    <act_window
+        id="act_relate_account_tax"
+        name="Taxes"
+        src_model="esale_joomla.tax_map"
+        res_model="account.tax"/>
+
     <record model="ir.actions.act_window" id="action_esale_joomla_tax_map_form">
         <field name="name">esale_joomla.tax_map</field>
         <field name="type">ir.actions.act_window</field>
@@ -136,7 +180,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Taxes Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_tax_map" action="action_esale_joomla_tax_map_form" groups="base.group_system"/>
+    <menuitem name="Taxes Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_tax_map" action="action_esale_joomla_tax_map_form"
+              sequence="70" groups="base.group_system"/>
 
     <!-- Web Category -->
     <record model="ir.ui.view" id="view_esale_joomla_category_form">
@@ -167,7 +212,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Web Categories" parent="menu_esale_definition" id="menu_action_esale_joomla_category" action="action_esale_joomla_category_form"/>
+    <menuitem name="Web Categories" parent="menu_esale_definition" id="menu_action_esale_joomla_category" action="action_esale_joomla_category_form"
+              sequence="20" />
 
     <!-- Web Category Mapping -->
     <record model="ir.ui.view" id="view_esale_joomla_category_map_form">
@@ -213,7 +259,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Web Categories Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_category_map" action="action_esale_joomla_category_map_form" groups="base.group_system"/>
+    <menuitem name="Web Categories Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_category_map" action="action_esale_joomla_category_map_form"
+              sequence="30" groups="base.group_system"/>
 
     <!-- Product Type Mapping -->
     <record model="ir.ui.view" id="view_esale_joomla_producttype_map_form">
@@ -265,7 +312,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Product Types Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_producttype_map" action="action_esale_joomla_producttype_map_form" groups="base.group_system"/>
+    <menuitem name="Product Types Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_producttype_map" action="action_esale_joomla_producttype_map_form"
+              sequence="40" groups="base.group_system"/>
 
     <!-- Product Mapping -->
     <record model="ir.ui.view" id="view_esale_joomla_product_map_tree">
@@ -289,11 +337,8 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree</field>
     </record>
-    <menuitem name="Products Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_product_map" action="action_esale_joomla_product_map_form" groups="base.group_system"/>
-
-
-
-
+    <menuitem name="Products Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_product_map" action="action_esale_joomla_product_map_form"
+              sequence="50" groups="base.group_system"/>
 
     <record model="ir.ui.view" id="view_order_tree">
         <field name="name">esale_joomla.order.tree</field>

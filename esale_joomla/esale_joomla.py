@@ -59,7 +59,7 @@ def _decode(name):
 
 
 def _xmlrpc(website):
-    return xmlrpclib.ServerProxy("%s/xmlrpc/index.php"%website.url)
+    return xmlrpclib.ServerProxy("%s/xmlrpc/index.php" % website.url)
 
 
 STATES = [
@@ -129,6 +129,35 @@ class esale_joomla_synclog(osv.osv):
 
 esale_joomla_synclog()
 
+class esale_joomla_web_tax(osv.osv):
+    _name = "esale_joomla.web.tax"
+    _description = "Joomla Tax"
+
+    def _status(self, cr, uid, ids, field_name, arg, context):
+        res = {}
+        for e in self.browse(cr, uid, ids, context=context):
+            if e.state in ('new', 'modified', 'deleted'):
+                res[e.id] = e.state
+            elif not e.tax_id and e.esale_joomla_id:
+                res[e.id] = 'imported'
+            elif e.tax_id and e.esale_joomla_id:
+                res[e.id] = 'sync'
+                if e.tax_id.amount != e.esale_joomla_rate:
+                    res[e.id] = 'modified'
+            else:
+                res[e.id] = e.state
+        return res
+
+    _columns = {
+        'web_tax_id': fields.integer('Web Tax ID'),
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True),
+        'web_country_id': fields.char('Web Country', size=64),
+        'web_rate': fields.float('Web Rate', readonly=True),
+        'status': fields.function(_status, method=True, type='selection', selection=STATES, string='Status', store=False),
+    }
+
+esale_joomla_web_tax()
+
 
 class esale_joomla_tax_map(osv.osv):
     _name = "esale_joomla.tax_map"
@@ -152,7 +181,7 @@ class esale_joomla_tax_map(osv.osv):
     _columns = {
         'tax_id': fields.many2one('account.tax', 'Tax'),
         'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True),
-        'esale_joomla_id': fields.integer('Web ID', readonly=True),
+        'esale_joomla_id': fields.many2one('esale_joomla.web.tax', 'Web ID'),
         'esale_joomla_country_id': fields.many2one('res.country', 'Web Country', required=True),
         'esale_joomla_state_id': fields.many2one('res.country.state', 'Web State'),
         'esale_joomla_rate': fields.float('Web Rate', readonly=True),
@@ -247,11 +276,11 @@ class esale_joomla_tax_map(osv.osv):
                 countries = {}
                 states = {'-': 0}
                 if len(countryL):
-                    cr.execute("select id, code from res_country where code in (%s);"%', '.join(map(repr, countryL)))
+                    cr.execute("select id, code from res_country where code in (%s);" % ', '.join(map(repr, countryL)))
                     for x in cr.fetchall():
                         countries[x[1]] = x[0]
                 if len(stateL):
-                    cr.execute("select id, code from res_country_state where code in (%s);"%', '.join(map(repr, stateL)))
+                    cr.execute("select id, code from res_country_state where code in (%s);" % ', '.join(map(repr, stateL)))
                     for x in cr.fetchall():
                         states[x[1]] = x[0]
                 for tax in taxes:
@@ -296,15 +325,20 @@ class esale_joomla_tax_map(osv.osv):
                 else:
                     self.unlink_permanent(cr, uid, el.id, context=context)
                     cdelete += 1
-            elif not el.tax_id:
-                pass
-            else:
+            elif el.tax_id:
                 try:
-                    eid = server.openerp2vm.set_tax(website.login, website.password, {'id': el.esale_joomla_id or 0,
-                                    'country': el.esale_joomla_country_id.code,
-                                    'state': el.esale_joomla_state_id and el.esale_joomla_state_id.code.upper() or '-',
-                                    'rate': el.tax_id.amount, #FIX
-                                   })
+                    if el.tax_id.child_depend and el.tax_id.child_ids:
+                        tax_amount = sum([tax.amount for tax in el.tax_id.child_ids])
+                    else:
+                        tax_amount = el.tax_id.amount
+
+                    tax_dict = {
+                        'id': el.esale_joomla_id or 0,
+                        'country': el.esale_joomla_country_id.code,
+                        'state': el.esale_joomla_state_id and el.esale_joomla_state_id.code.upper() or '-',
+                        'rate': tax_amount,
+                    }
+                    eid = server.openerp2vm.set_tax(website.login, website.password, tax_dict)
                     if not eid:
                         raise Exception('Failed')
                 except Exception, e:
@@ -585,7 +619,7 @@ class esale_joomla_category_map(osv.osv):
                         print >> sys.stderr, "Error while searching for parent"
                         data.append({'child': eid, 'parent': 0})
                     #elif category.esale_joomla_parent_id.web_id.id!=web_id:
-                    #    print >> sys.stderr, "Error in constraint: parent id %s of rowid %s is not of the same webid"%(parent.id, category.id)
+                    #    print >> sys.stderr, "Error in constraint: parent id %s of rowid %s is not of the same webid" % (parent.id, category.id)
                     else:
                         data.append({'child': eid, 'parent': category.esale_joomla_parent_id.esale_joomla_id})
                 else:
@@ -772,6 +806,10 @@ class esale_joomla_product_map(osv.osv):
                                 cerror += 1
                         continue
                     #
+                    from olilib.openerp import terp
+                    import pydb; pydb.debugger(['set listsize 40'])
+                    print
+
                     d = {
                       #vm_product
                         'id': eid,
@@ -806,21 +844,26 @@ class esale_joomla_product_map(osv.osv):
                         'params': {},
                     }
                     #price, tax_id
-                    #FIXME:price is already tax included
-                    d['price'] = product_pricelist_obj.price_get(cr, uid, [pricelist], product.id, 1, 'list')[pricelist]
-                    add_taxes = []
+
+                    # FIXME: price is already tax included
+
+##                     d['price'] = product_pricelist_obj.price_get(cr, uid, [pricelist], product.id, 1, 'list')[pricelist]
+##                     add_taxes = []
                     for tax in product.taxes_id:
-                        print 'tax'
-                        print 'tax.name=%s' % tax.name
-                        print 'tax.id=%s' % tax.id
+##                         print 'tax'
+##                         print 'tax.name=%s' % tax.name
+##                         print 'tax.id=%s' % tax.id
                         if tax.id in webtaxes and not d['tax_id']:
                             d['tax_id'] = webtaxes[tax.id]
-                        else:
-                            add_taxes.append(tax)
-                    price = d['price']
-                    for c in account_tax_obj.compute(cr, uid, add_taxes, price, 1, product=product):
-                        print 'add amount : %s' % c['amount']
-                        d['price'] += c['amount']
+##                         else:
+##                             add_taxes.append(tax)
+##                     price = d['price']
+##                     for c in account_tax_obj.compute(cr, uid, add_taxes, price, 1, product=product):
+##                         print 'add amount : %s' % c['amount']
+##                         d['price'] += c['amount'
+
+                    # FIXME: END
+
                     #packaging
                     for packaging in product.packaging:
                         res = packaging.qty

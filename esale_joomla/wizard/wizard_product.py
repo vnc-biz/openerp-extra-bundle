@@ -1,22 +1,29 @@
-# -*- encoding: utf-8 -*-
+#!/usr/bin/python
+# -*- coding: utf-8
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+# Copyright (c) 2006 TINY SPRL. (http://tiny.be) All Rights Reserved.
 #
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
+# WARNING: This program as such is intended to be used by professional
+# programmers who take the whole responsability of assessing all potential
+# consequences resulting from its eventual inadequacies and bugs
+# End users who are looking for a ready-to-use solution with commercial
+# garantees and support are strongly adviced to contract a Free Software
+# Service Company
 #
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
+# This program is Free Software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
 #
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
 
@@ -32,6 +39,10 @@ _export_select_form = '''<?xml version="1.0"?>
 <field name="web_shop"/>
 <newline />
 <field name="target"/>
+<newline />
+<label string="" />
+<newline />
+<label string="To add a Product for exporting, just add a Web Category to it." colspan="4" />
 </form>'''
 
 _export_select_fields = {
@@ -53,7 +64,11 @@ _export_select_fields = {
 _export_done_form = '''<?xml version="1.0"?>
 <form string="Products Export">
     <separator string="Result" colspan="4" />
+    <field name="new"/>
+    <newline/>
     <field name="update"/>
+    <newline/>
+    <field name="delete"/>
     <newline/>
     <field name="error"/>
     <separator string="Error Log" colspan="4" />
@@ -61,7 +76,9 @@ _export_done_form = '''<?xml version="1.0"?>
 </form>'''
 
 _export_done_fields = {
+    'new': {'string': 'New Products', 'type': 'integer', 'readonly': True},
     'update': {'string': 'Updated Products', 'type': 'integer', 'readonly': True},
+    'delete': {'string': 'Deleted Products', 'type': 'integer', 'readonly': True},
     'error': {'string': 'Errors', 'type': 'integer', 'readonly': True},
     'log': {'string': 'Log', 'type': 'text', 'readonly': True},
 }
@@ -80,7 +97,7 @@ def _export_setup(self, cr, uid, data, context):
     }
 
 
-def _export_to_shop(self, cr, uid, data, context):
+def _export_from_shop(self, cr, uid, data, context):
     stderr = sys.stderr
     sys.stderr = StringIO.StringIO()
     rnew = rupdate = rdelete = rerror = 0
@@ -90,8 +107,10 @@ def _export_to_shop(self, cr, uid, data, context):
         esale_joomla_product_map_obj = pool.get('esale_joomla.product_map')
         esale_joomla_category_map_obj = pool.get('esale_joomla.category_map')
 
+        print "_export_from_shop data = %s" % data
         web_id = data['form']['web_shop']
-        catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)])
+        print 'web_id=%s' % web_id
+        catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)]) #get categories for selected shop
         if not catmap_ids:
             print >> sys.stderr, 'No categories for this web shop'
         else:
@@ -110,20 +129,23 @@ def _export_to_shop(self, cr, uid, data, context):
                 sql += "    and m.export_date is NULL or m.state='error' or (p.create_date > m.export_date or p.write_date > m.export_date);"
             cr.execute(sql)
             prod_ids = map(lambda x: x[0], cr.fetchall())
-            (rupdate, rerror) = esale_joomla_product_map_obj.webexport_stock(cr, uid, web_id, prod_ids, webcategories, context)
+            print 'prod_ids=%r' % prod_ids
+            (rnew, rupdate, rdelete, rerror) = esale_joomla_product_map_obj.webexport_product(cr, uid, web_id, prod_ids, webcategories, context)
 
     finally:
         log = sys.stderr.getvalue()
         sys.stderr.close()
         sys.stderr = stderr
     return {
+        'new': rnew,
         'update': rupdate,
+        'delete': rdelete,
         'error': rerror,
         'log': log,
     }
 
 
-class wiz_esale_joomla_stocks(wizard.interface):
+class wiz_export(wizard.interface):
     states = {
         'init': {
             'actions': [_export_setup],
@@ -135,7 +157,7 @@ class wiz_esale_joomla_stocks(wizard.interface):
             },
         },
         'export': {
-            'actions': [_export_to_shop],
+            'actions': [_export_from_shop],
             'result': {
                 'type': 'form',
                 'arch': _export_done_form,
@@ -145,38 +167,6 @@ class wiz_esale_joomla_stocks(wizard.interface):
         },
     }
 
-wiz_esale_joomla_stocks('esale_joomla.stocks')
+wiz_export('esale_joomla.web.wizard.export.products')
 
-## _export_form = '''<?xml version="1.0"?>
-## <form string="Initial import" />
-## '''
-## 
-## _export_fields = {}
-## 
-## _export_done_form = '''<?xml version="1.0"?>
-## <form string="Initial import">
-## <separator string="Stock succesfully updated" colspan="4" />
-## </form>'''
-## 
-## _export_done_fields = {}
-## 
-## 
-## def _do_export(self, cr, uid, data, context):
-##     pool = pooler.get_pool(cr.dbname)
-##     esale_joomla_web_obj = pool.get('esale_joomla.web')
-##     product_obj = pool.get('product.product')
-## 
-##     web_ids = esale_joomla_web_obj.search(cr, uid, [('active', '=', 'True')])
-##     for website in esale_joomla_web_obj.browse(cr, uid, web_ids):
-##         server = xmlrpclib.ServerProxy("%s/tinyerp-synchro.php" % website.url)
-## 
-##         for osc_product in website.product_ids:
-##             if osc_product.esale_joomla_id:
-##                 webproduct = {
-##                     'esale_joomla_id': osc_product.esale_joomla_id,
-##                     'quantity': product_obj._product_virtual_available(cr, uid, [osc_product.product_id.id], '', False, {'shop': website.shop_id.id})[osc_product.product_id.id],
-##                 }
-##             osc_id = server.set_product_stock(webproduct)
-## 
-##     return {}
-
+# vim:et:

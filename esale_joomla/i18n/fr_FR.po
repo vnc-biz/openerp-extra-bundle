@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.9\n"
+"Project-Id-Version: OpenERP Server 5.0.5-bzr\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-04-13 06:18:34+0000\n"
 "PO-Revision-Date: 2010-04-13 06:18:34+0000\n"
@@ -83,7 +83,7 @@ msgstr ""
 #. module: esale_joomla
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom de modèle invalide pour la définition de l'action"
 
 #. module: esale_joomla
 #: field:esale_joomla.order,name:0
@@ -250,7 +250,7 @@ msgstr ""
 #: field:esale_joomla.web,tax_ids:0
 #: model:ir.ui.menu,name:esale_joomla.menu_action_esale_joomla_tax
 msgid "Taxes"
-msgstr ""
+msgstr "Taxes"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.esale_joomla_category_action
@@ -287,7 +287,7 @@ msgstr ""
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_esale_definition
 msgid "Configuration"
-msgstr ""
+msgstr "Configuration"
 
 #. module: esale_joomla
 #: selection:esale_joomla.synclog,object:0
@@ -461,7 +461,7 @@ msgstr ""
 #. module: esale_joomla
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML non valide pour l'architecture de la vue"
 
 #. module: esale_joomla
 #: view:esale_joomla.web.exportlog:0
@@ -910,7 +910,7 @@ msgstr ""
 #. module: esale_joomla
 #: constraint:ir.model:0
 msgid "The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Le nom de l'objet doit commencer avec x_ et ne pas contenir de charactères spéciaux !"
 
 #. module: esale_joomla
 #: selection:esale_joomla.category_map,state:0

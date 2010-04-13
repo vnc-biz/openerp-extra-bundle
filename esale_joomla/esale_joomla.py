@@ -1,38 +1,76 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8
 ##############################################################################
-#    
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
+# Copyright (c) 2010 BCIM sprl. (http://www.bcim.be) All Rights Reserved.
 #
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
+# $Id:  $
 #
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+# WARNING: This program as such is intended to be used by professional
+# programmers who take the whole responsability of assessing all potential
+# consequences resulting from its eventual inadequacies and bugs
+# End users who are looking for a ready-to-use solution with commercial
+# garantees and support are strongly adviced to contract a Free Software
+# Service Company
+#
+# This program is Free Software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
+
 from osv import fields, osv
 
-import time
-import xmlrpclib
+import sys, time, xmlrpclib
 from tools import config
+from wizard import except_wizard
 
 import urllib2
 
-class product_product(osv.osv):
-    _inherit = "product.product"
-    _columns = {
-        'exportable' : fields.boolean('Exportable')
-    }
-    
-product_product()
+
+def _decode(name):
+    name = name.replace('+', '%20')
+    name = urllib2.unquote(name)
+    #DB is corrupted with utf8 and latin1 chars.
+    decoded_name = name
+    if isinstance(name, unicode):
+        try:
+            decoded_name = name.encode('utf8')
+        except:
+            decoded_name = name
+    else:
+        try:
+            decoded_name = unicode(name, 'utf8')
+        except:
+            try:
+                decoded_name = unicode(name, 'latin1').encode('utf8')
+            except:
+                decoded_name = name
+    return decoded_name
+
+
+def _xmlrpc(website):
+    return xmlrpclib.ServerProxy("%s/xmlrpc/index.php"%website.url)
+
+
+STATES = [
+    ('new', 'new'),
+    ('modified', 'modified'),
+    ('deleted', 'deleted'),
+    ('sync', 'synchronized'),
+    ('imported', 'imported'),
+    ('error', 'error')
+]
+
 
 class esale_joomla_web(osv.osv):
     _name = "esale_joomla.web"
@@ -41,159 +79,918 @@ class esale_joomla_web(osv.osv):
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'url': fields.char('URL', size=64, required=True),
+        'login': fields.char('Login', size=64, required=True),
+        'password': fields.char('Password', size=64, required=True),
         'shop_id': fields.many2one('sale.shop', 'Sale Shop', required=True),
         'active': fields.boolean('Active'),
-        'product_ids': fields.one2many('esale_joomla.product', 'web_id', string='Products'),
-        'tax_ids': fields.one2many('esale_joomla.tax', 'web_id', string='Taxes'),
-        'taxes_included_ids': fields.many2many('account.tax', 'esale_joomla_web_taxes_included_rel', 'esale_joomla_web_id', 'tax_id',
-                                               'Taxes included', domain=[('parent_id', '=', False)]),
-        'category_ids': fields.one2many('esale_joomla.category', 'web_id', string='Categories'),
+        'product_ids': fields.one2many('esale_joomla.product_map', 'web_id', string='Products'),
+        'tax_ids': fields.one2many('esale_joomla.tax_map', 'web_id', string='Taxes'),
+        'category_ids': fields.one2many('esale_joomla.category_map', 'web_id', string='Categories'),
         'language_id': fields.many2one('res.lang', 'Language'),
+        'producttypes_ids': fields.one2many('esale_joomla.producttype_map', 'web_id', string='Product Types'),
     }
 
     _defaults = {
         'active': lambda *a: 1
     }
 
-    def tax_import(self, cr, uid, ids, *args):
-        for website in self.browse(cr, uid, ids):
-            server = xmlrpclib.ServerProxy("%s/tinyerp-synchro.php" % website.url)
-            taxes = server.get_taxes()
-            for tax in taxes:
-                value = {
-                    'web_id': website.id,
-                    'esale_joomla_id': tax[0],
-                    'name': tax[1]
-                }
-                self.pool.get('esale_joomla.tax').create(cr, uid, value)
-        return True
-
-    def lang_import(self, cr, uid, ids, *args):
-        for website in self.browse(cr, uid, ids):
-            server = xmlrpclib.ServerProxy("%s/tinyerp-synchro.php" % website.url)
-            languages = server.get_languages()
-            for language in languages:
-                value = {
-                    'web_id': website.id,
-                    'esale_joomla_id': language[0],
-                    'name': language[1]
-                }
-                self.pool.get('esale_joomla.lang').create(cr, uid, value)
-        return True
-
-    def category_import(self, cr, uid, ids, *args):
-        def _decode(name, idn):
-            """DB is corrupted with utf8 and latin1 chars."""
-            decoded_name = name
-            if isinstance(name, unicode):
-                try:
-                    decoded_name = name.encode('utf8')
-                except:
-                    decoded_name = name
-            else:
-                try:
-                    decoded_name = unicode(name, 'utf8')
-                except:
-                    try:
-                        decoded_name = unicode(name, 'latin1').encode('utf8')
-                    except:
-                        decoded_name = name
-
-            return decoded_name
-
-        for website in self.browse(cr, uid, ids):
-            server = xmlrpclib.ServerProxy("%s/tinyerp-synchro.php" % website.url)
-            categories = server.get_categories()
-            category_pool = self.pool.get('esale_joomla.category')
-
-            encoding_errors = []
-
-            for category in categories:
-                category_name = urllib2.unquote(category[1].replace('+', '%20'))
-                category_name = _decode(category_name, category[0])
-
-                value = {
-                    'web_id': website.id,
-                    'esale_joomla_id': category[0],
-                    u'name': len(category_name) > 64 and category_name[0:61] + '...' or category_name
-                }
-                existing = category_pool.search(cr, uid, [('web_id', '=', website.id), ('esale_joomla_id', '=', category[0])])
-                if len(existing) > 0:
-                    try:
-                        category_pool.write(cr, uid, existing, value)
-                    except Exception:
-                        encoding_errors.append(str(value['esale_joomla_id']))
-                else:
-                    category_pool.create(cr, uid, value)
-
-            if encoding_errors:
-                print "These records contains wrong encoding:\n" + ", ".join(encoding_errors)
-
-        return True
-
 esale_joomla_web()
 
 
-class esale_joomla_tax(osv.osv):
-    _name = "esale_joomla.tax"
-    _description = "eSale Tax"
+class esale_joomla_synclog(osv.osv):
+    _name = 'esale_joomla.synclog'
+    _description = "eSale Import/Export log"
+    _order = "date desc"
+
+    OBJECT_TYPES = [('product', 'Product'), ('producttype', 'Product Type'), ('category', 'Category'), ('tax', 'Tax')]
+    DIRECTIONS = [('import', 'Import'), ('export', 'Export')]
+
     _columns = {
-        'name': fields.char('Tax name', size=32, required=True),
-        'esale_joomla_id': fields.integer('eSale id'),
-        'tax_id': fields.many2one('account.tax', 'Tax'),
-        'web_id': fields.many2one('esale_joomla.web', 'Website')
+        'date': fields.datetime('Log date', required=True, select=1),
+        'user_id': fields.many2one('res.users', 'Exported By', required=True, readonly=True, select=1),
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', select=1),
+        'object': fields.selection(OBJECT_TYPES, 'Object type', required=True, readonly=True),
+        'type': fields.selection(DIRECTIONS, 'Synchronization direction', required=True, readonly=True, select=1),
+        'errors': fields.integer('Number of errors', required=True, readonly=True),
+        'junk': fields.function(lambda self, cr, uid, ids, name, attr, context: dict([(idn, '') for idn in ids]),
+                method=True, string=" ", type="text"),
     }
 
-esale_joomla_tax()
+    _defaults = {
+        'date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+        'user_id': lambda obj, cr, uid, context: uid,
+    }
+
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for r in self.read(cr, uid, ids):
+            res.append((r['id'], r['id']))
+        return res
+
+esale_joomla_synclog()
+
+
+class esale_joomla_tax_map(osv.osv):
+    _name = "esale_joomla.tax_map"
+    _description = "eSale Taxes Mapping"
+
+    def _status(self, cr, uid, ids, field_name, arg, context):
+        res = {}
+        for e in self.browse(cr, uid, ids, context=context):
+            if e.state in ('new', 'modified', 'deleted'):
+                res[e.id] = e.state
+            elif not e.tax_id and e.esale_joomla_id:
+                res[e.id] = 'imported'
+            elif e.tax_id and e.esale_joomla_id:
+                res[e.id] = 'sync'
+                if e.tax_id.amount != e.esale_joomla_rate:
+                    res[e.id] = 'modified'
+            else:
+                res[e.id] = e.state
+        return res
+
+    _columns = {
+        'tax_id': fields.many2one('account.tax', 'Tax'),
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True),
+        'esale_joomla_id': fields.integer('Web ID', readonly=True),
+        'esale_joomla_country_id': fields.many2one('res.country', 'Web Country', required=True),
+        'esale_joomla_state_id': fields.many2one('res.country.state', 'Web State'),
+        'esale_joomla_rate': fields.float('Web Rate', readonly=True),
+        'state': fields.selection(STATES, 'state', readonly=True, required=True),
+        'status': fields.function(_status, method=True, type='selection', selection=STATES, string='Status', store=False),
+    }
+    _defaults = {
+        'state': lambda *a: 'new'
+    }
+
+    def write(self, cr, uid, ids, values, context=None):
+        if 'state' in values:
+            return super(esale_joomla_tax_map, self).write(cr, uid, ids, values, context=context)
+        if not isinstance(ids, (list, tuple)):
+            ids = [ids]
+        k_ids = []
+        m_ids = []
+        s_ids = []
+        for e in self.read(cr, uid, ids):
+            if e['state'] in ('new'):
+                k_ids.append(e['id'])
+            elif e['state'] in ('imported', 'sync'):
+                for k, v in values.iteritems():
+                    if k not in ('tax_id'):
+                        if not k.endswith('_id'):
+                            if e[k] != v:
+                                m_ids.append(e['id'])
+                                break
+                        elif e[k]:
+                            if e[k][0] != v:
+                                m_ids.append(e['id'])
+                                break
+                        elif v:
+                            m_ids.append(e['id'])
+                            break
+                else:
+                    s_ids.append(e['id'])
+            else:
+                m_ids.append(e['id'])
+        res = True
+        if len(k_ids):
+            res &= super(esale_joomla_tax_map, self).write(cr, uid, k_ids, values, context=context)
+        if len(m_ids):
+            values['state'] = 'modified'
+            res &= super(esale_joomla_tax_map, self).write(cr, uid, m_ids, values, context=context)
+        if len(s_ids):
+            values['state'] = 'sync'
+            res &= super(esale_joomla_tax_map, self).write(cr, uid, s_ids, values, context=context)
+        return res
+
+    def unlink(self, cr, uid, ids, context=None):
+        d_ids = []
+        k_ids = []
+        for e in self.browse(cr, uid, ids, context=context):
+            if e.state in ('new'):
+                d_ids.append(e.id)
+            else:
+                k_ids.append(e.id)
+        res = True
+        if len(d_ids):
+            res &= super(esale_joomla_tax_map, self).unlink(cr, uid, d_ids, context=context)
+        if len(k_ids):
+            res &= self.write(cr, uid, k_ids, {'state': 'deleted'}, context=context)
+        return res
+
+    def unlink_permanent(self, cr, uid, ids, context=None):
+        return super(esale_joomla_tax_map, self).unlink(cr, uid, ids, context=context)
+
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for r in self.read(cr, uid, ids):
+            res.append((r['id'], r['id']))
+        return res
+
+    def webimport(self, cr, uid, web_ids, context={}):
+        cnew = cupdate = cerror = 0
+        for website in self.pool.get('esale_joomla.web').browse(cr, uid, web_ids):
+            server = _xmlrpc(website)
+            try:
+                taxes = server.openerp2vm.get_taxes(website.login, website.password) #id, country, state, rate
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+                cerror += 1
+            else:
+                countryL = set()
+                stateL = set()
+                for tax in taxes:
+                    (cid, ccountry, cstate, crate) = tax
+                    countryL.add(str(ccountry))
+                    if cstate != '-':
+                        stateL.add(str(cstate))
+                countries = {}
+                states = {'-': 0}
+                if len(countryL):
+                    cr.execute("select id, code from res_country where code in (%s);"%', '.join(map(repr, countryL)))
+                    for x in cr.fetchall():
+                        countries[x[1]] = x[0]
+                if len(stateL):
+                    cr.execute("select id, code from res_country_state where code in (%s);"%', '.join(map(repr, stateL)))
+                    for x in cr.fetchall():
+                        states[x[1]] = x[0]
+                for tax in taxes:
+                    (cid, ccountry, cstate, crate) = tax
+                    if not cid:
+                        cerror += 1
+                        continue
+                    value = {
+                        'web_id': website.id,
+                        'esale_joomla_id': cid,
+                        'esale_joomla_country_id': countries[ccountry],
+                        'esale_joomla_state_id': states[cstate],
+                        'esale_joomla_rate': crate,
+                        'state': 'imported',
+                    }
+                    id = self.search(cr, uid, [('web_id', '=', website.id), ('esale_joomla_id', '=', cid)])
+                    if not len(id):
+                        self.create(cr, uid, value)
+                        cnew += 1
+                    else:
+                        self.write(cr, uid, id, value)
+                        cupdate += 1
+            self.pool.get('esale_joomla.synclog').create(cr, uid, {
+                'web_id': website.id,
+                'object': 'tax',
+                'type': 'import',
+                'errors': cerror,
+            })
+
+        return (cnew, cupdate, cerror)
+
+    def webexport(self, cr, uid, web_id, tax_ids, context=None):
+        cnew = cupdate = cdelete = cerror = 0
+        website = self.pool.get('esale_joomla.web').browse(cr, uid, web_id)
+        server = _xmlrpc(website)
+        for el in self.browse(cr, uid, tax_ids, context=context):
+            if el.state == 'deleted':
+                try:
+                    server.openerp2vm.delete_tax(website.login, website.password, el.esale_joomla_id)
+                except Exception, e:
+                    print >> sys.stderr, "XMLRPC Error : %r" % e
+                else:
+                    self.unlink_permanent(cr, uid, el.id, context=context)
+                    cdelete += 1
+            elif not el.tax_id:
+                pass
+            else:
+                try:
+                    eid = server.openerp2vm.set_tax(website.login, website.password, {'id': el.esale_joomla_id or 0,
+                                    'country': el.esale_joomla_country_id.code,
+                                    'state': el.esale_joomla_state_id and el.esale_joomla_state_id.code.upper() or '-',
+                                    'rate': el.tax_id.amount, #FIX
+                                   })
+                    if not eid:
+                        raise Exception('Failed')
+                except Exception, e:
+                    cerror += 1
+                    print >> sys.stderr, "XMLRPC Error : %r" % e
+                    self.write(cr, uid, el.id, {'state': 'error'}, context=context)
+                else:
+                    if not el.esale_joomla_id:
+                        cnew += 1
+                    else:
+                        cupdate += 1
+                    self.write(cr, uid, el.id, {'esale_joomla_id': eid, 'esale_joomla_rate': el.tax_id.amount, 'state': 'sync'}, context=context)
+        self.pool.get('esale_joomla.synclog').create(cr, uid, {
+            'web_id': web_id,
+            'object': 'tax',
+            'type': 'export',
+            'errors': cerror,
+        })
+        return (cnew, cupdate, cdelete, cerror)
+
+esale_joomla_tax_map()
 
 
 class esale_joomla_category(osv.osv):
     _name = "esale_joomla.category"
-    _description = "eSale Category"
+    _description = "eSale Web Category"
     _columns = {
-        'name': fields.char('Name', size=64, required=True),
-        'esale_joomla_id': fields.integer('Web ID', readonly=True, required=True),
-        'web_id': fields.many2one('esale_joomla.web', 'Website'),
-        'category_id': fields.many2one('product.category', 'Category'),
-        'include_childs': fields.boolean('Include Children', help="If checked, Tiny ERP will also export products from categories that are childs of this one."),
+        'name': fields.char('Name', size=128, required=True),
     }
 
 esale_joomla_category()
 
 
-class esale_joomla_product(osv.osv):
-    _name = "esale_joomla.product"
-    _description = "eSale Product"
+class product_product(osv.osv):
+    _inherit = "product.product"
     _columns = {
-        'web_id': fields.many2one('esale_joomla.web', 'Web Ref'),
-        'name': fields.char('Name', size=64, required=True),
-        'product_id': fields.many2one('product.product', 'Product', required=True),
-        'esale_joomla_id': fields.integer('eSale product id'),
-        'esale_joomla_tax_id': fields.many2one('esale_joomla.tax', 'eSale tax'),
+        'esale_category_ids': fields.many2many('esale_joomla.category', 'esale_category_product_rel', 'product_id', 'category_id', 'eSale Categories'),
+        'image': fields.char('Image Name', size=64),
+        'online': fields.boolean('Visible on website', help="This will set the 'Publish' state in Joomla for this product"),
     }
 
-    def onchange_product_id(self, cr, uid, ids, product_id, web_id=False):
-        value = {}
-        if product_id:
-            product = self.pool.get('product.product').browse(cr, uid, product_id)
-            value['name'] = product.name
-        return {'value': value}
-
-esale_joomla_product()
+product_product()
 
 
-class esale_joomla_language(osv.osv):
-    _name = "esale_joomla.lang"
-    _description = "eSale Language"
+class esale_joomla_category_map(osv.osv):
+    _name = "esale_joomla.category_map"
+    _description = "eSale Web Categories Mapping"
+
+    def _status(self, cr, uid, ids, field_name, arg, context):
+        res = {}
+        for e in self.browse(cr, uid, ids, context=context):
+            if e.state in ('new', 'modified', 'deleted'):
+                res[e.id] = e.state
+            elif not e.category_id and e.esale_joomla_id:
+                res[e.id] = 'imported'
+            elif e.category_id and e.esale_joomla_id:
+                res[e.id] = 'sync'
+            else:
+                res[e.id] = e.state
+        return res
+
     _columns = {
-        'name': fields.char('Name', size=32, required=True),
-        'esale_joomla_id': fields.integer('Web ID', required=True),
-        'language_id': fields.many2one('res.lang', 'Language'),
-        'web_id': fields.many2one('esale_joomla.web', 'Website')
+        'category_id': fields.many2one('esale_joomla.category', 'Web Category'),
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True),
+        'esale_joomla_id': fields.integer('Web ID', readonly=True),
+        'esale_joomla_name': fields.char('Web Name', size=64, translate=True, required=True),
+        'esale_joomla_parent_id': fields.many2one('esale_joomla.category_map', 'Parent'),
+        'state': fields.selection(STATES, 'state', readonly=True, required=True),
+        'status': fields.function(_status, method=True, type='selection', selection=STATES, string='Status', store=False),
+    }
+    _defaults = {
+        'state': lambda *a: 'new'
     }
 
-esale_joomla_language()
+    def write(self, cr, uid, ids, values, context=None):
+        if 'state' in values:
+            return super(esale_joomla_category_map, self).write(cr, uid, ids, values, context=context)
+        if not isinstance(ids, (list, tuple)):
+            ids = [ids]
+        k_ids = []
+        m_ids = []
+        s_ids = []
+        for e in self.read(cr, uid, ids):
+            if e['state'] in ('new'):
+                k_ids.append(e['id'])
+            elif e['state'] in ('imported', 'sync'):
+                for k, v in values.iteritems():
+                    if k not in ('category_id'):
+                        if not k.endswith('_id'):
+                            if e[k] != v:
+                                m_ids.append(e['id'])
+                                break
+                        elif e[k]:
+                            if e[k][0] != v:
+                                m_ids.append(e['id'])
+                                break
+                        elif v:
+                            m_ids.append(e['id'])
+                            break
+                else:
+                    s_ids.append(e['id'])
+            else:
+                m_ids.append(e['id'])
+        res = True
+        if len(k_ids):
+            res &= super(esale_joomla_category_map, self).write(cr, uid, k_ids, values, context=context)
+        if len(m_ids):
+            values['state'] = 'modified'
+            res &= super(esale_joomla_category_map, self).write(cr, uid, m_ids, values, context=context)
+        if len(s_ids):
+            values['state'] = 'sync'
+            res &= super(esale_joomla_category_map, self).write(cr, uid, s_ids, values, context=context)
+        return res
 
+    def unlink(self, cr, uid, ids, context=None):
+        d_ids = []
+        k_ids = []
+        for e in self.browse(cr, uid, ids, context=context):
+            if e.state in ('new'):
+                d_ids.append(e.id)
+            else:
+                k_ids.append(e.id)
+        res = True
+        pids = self.search(cr, uid, [('esale_joomla_parent_id', 'in', ids)])
+        res &= self.write(cr, uid, pids, {'esale_joomla_parent_id': None}, context=context)
+        if len(d_ids):
+            res &= super(esale_joomla_category_map, self).unlink(cr, uid, d_ids, context=context)
+        if len(k_ids):
+            res &= self.write(cr, uid, k_ids, {'state': 'deleted'}, context=context)
+        return res
+
+    def unlink_permanent(self, cr, uid, ids, context=None):
+        return super(esale_joomla_category_map, self).unlink(cr, uid, ids, context=context)
+
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for r in self.read(cr, uid, ids, ['esale_joomla_name']):
+            res.append((r['id'], r['esale_joomla_name']))
+        return res
+
+    def webimport(self, cr, uid, web_ids, context={}):
+        cnew = cupdate = cerror = 0
+        for website in self.pool.get('esale_joomla.web').browse(cr, uid, web_ids):
+            server = _xmlrpc(website)
+            try:
+                #get languages
+                languages = server.openerp2vm.get_languages(website.login, website.password)
+                if website.language_id.code not in languages:
+                    print >> sys.stderr, 'Cannot match shop language'
+                    cerror += 1
+                    continue
+                del languages[website.language_id.code]
+                context['lang'] = website.language_id.code
+                #get categories
+                categories = server.openerp2vm.get_categories(website.login, website.password) #id, country, state, rate
+                for i in range(len(categories)):
+                    categories[i][1] = _decode(categories[i][1])
+                    categories[i][1] = len(categories[i][1]) > 64 and categories[i][1][0:61] + '...' or categories[i][1]
+                cats = []
+                for e in categories:
+                    (cid, cname, cparent) = e
+                    if not cid:
+                        cerror += 1
+                        continue
+                    value = {
+                        'web_id': website.id,
+                        'esale_joomla_id': cid,
+                        u'esale_joomla_name': cname,
+                        'state': 'imported',
+                    }
+                    id = self.search(cr, uid, [('web_id', '=', website.id), ('esale_joomla_id', '=', cid)])
+                    if not len(id):
+                        id = self.create(cr, uid, value, context=context)
+                        cnew += 1
+                    else:
+                        id = id[0]
+                    for (lang_name, lang_id) in languages.iteritems():
+                        try:
+                            tr = server.openerp2vm.get_translation(website.login, website.password, lang_id, 'vm_category', 'category_name', cid)
+                        except Exception, e:
+                            print >> sys.stderr, "XMLRPC Error: %s" % e
+                        else:
+                            if tr[0]:
+                                self.write(cr, uid, id, {u'esale_joomla_name': tr[1], 'state': 'imported'}, {'lang': lang_name})
+                    cats.append([e, id])
+                for (category, id) in cats:
+                    (cid, cname, cparent) = category
+                    value = {
+                        u'esale_joomla_name': cname,
+                        u'esale_joomla_parent_id': None,
+                        'state': 'imported',
+                    }
+                    if cparent:
+                        parent_id = self.search(cr, uid, [('web_id', '=', website.id), ('esale_joomla_id', '=', cparent)])
+                        if not len(parent_id):
+                            print >> sys.stderr, "Error while searching for parent"
+                        else:
+                            print "category %s/%s has parent %s/%s" % (id, cid, parent_id[0], cparent)
+                            value['esale_joomla_parent_id'] = parent_id[0]
+                    self.write(cr, uid, id, value, context=context)
+                cupdate += len(cats)
+            except (xmlrpclib.ProtocolError, xmlrpclib.ResponseError, xmlrpclib.Fault) as e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+                cerror += 1
+        cupdate += 0 - cnew - cerror
+        self.pool.get('esale_joomla.synclog').create(cr, uid, {
+            'web_id': website.id,
+            'object': 'category',
+            'type': 'export',
+            'errors': cerror,
+        })
+
+        return (cnew, cupdate, cerror)
+
+    def webexport(self, cr, uid, web_id, category_ids, context={}):
+        cnew = cupdate = cdelete = cerror = 0
+        website = self.pool.get('esale_joomla.web').browse(cr, uid, web_id)
+        server = _xmlrpc(website)
+        try:
+            #get languages
+            languages = server.openerp2vm.get_languages(website.login, website.password)
+            if website.language_id.code not in languages:
+                raise Exception('Cannot match shop language')
+        except Exception, e:
+            print >> sys.stderr, "XMLRPC Error: %s" % e
+            cerror += 1
+        else:
+            del languages[website.language_id.code]
+            context['lang'] = website.language_id.code
+            #step1 : export categories and get esale_joomla_id
+            categories = []
+            for el in self.browse(cr, uid, category_ids, context=context):
+                if el.state == 'deleted':
+                    try:
+                        server.openerp2vm.delete_category(website.login, website.password, el.esale_joomla_id)
+                    except Exception, e:
+                        print >> sys.stderr, "XMLRPC Error : %r" % e
+                        cerror += 1
+                    else:
+                        self.unlink_permanent(cr, uid, el.id, context=context)
+                        cdelete += 1
+                elif not el.category_id:
+                    pass
+                else:
+                    try:
+                        eid = server.openerp2vm.set_category(website.login, website.password, {'id': el.esale_joomla_id or 0, 'name': el.esale_joomla_name, })
+                        if not eid:
+                            raise Exception('Failed')
+                    except Exception, e:
+                        cerror += 1
+                        print >> sys.stderr, "XMLRPC Error : %r" % e
+                        self.write(cr, uid, el.id, {'state': 'error'}, context=context)
+                    else:
+                        err = 0
+                        for (lang_name, lang_id) in languages.iteritems():
+                            tr = self.browse(cr, uid, el.id, context={'lang': lang_name})
+                            try:
+                                err &= server.openerp2vm.set_translation(website.login, website.password, lang_id, 'vm_category', 'category_name', eid, tr.esale_joomla_name)
+                            except Exception, e:
+                                print >> sys.stderr, "XMLRPC Error: %s" % e
+                        if err:
+                            cerror += 1
+                        elif not el.esale_joomla_id:
+                            cnew += 1
+                        else:
+                            cupdate += 1
+                        self.write(cr, uid, el.id, {'esale_joomla_id': eid, 'state': 'sync'}, context=context)
+                        categories.append([el, eid])
+            #step2 : export parent ids
+            data = []
+            print 'export parents'
+            for (category, eid) in categories:
+                print 'eid=%s' % eid
+                print 'category.esale_joomla_id=%s' % category.esale_joomla_id
+                if category.esale_joomla_parent_id:
+                    print "category %s/%s has parent %s/%s" % (category.id, eid, category.esale_joomla_parent_id.id, category.esale_joomla_parent_id.esale_joomla_id)
+                    if not category.esale_joomla_parent_id.esale_joomla_id:
+                        print >> sys.stderr, "Error while searching for parent"
+                        data.append({'child': eid, 'parent': 0})
+                    #elif category.esale_joomla_parent_id.web_id.id!=web_id:
+                    #    print >> sys.stderr, "Error in constraint: parent id %s of rowid %s is not of the same webid"%(parent.id, category.id)
+                    else:
+                        data.append({'child': eid, 'parent': category.esale_joomla_parent_id.esale_joomla_id})
+                else:
+                    print "category %s/%s has no parent /0" % (category.id, eid)
+                    data.append({'child': eid, 'parent': 0})
+            try:
+                server.openerp2vm.set_categories_parents(website.login, website.password, data)
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error : %r" % e
+        self.pool.get('esale_joomla.synclog').create(cr, uid, {
+            'web_id': web_id,
+            'object': 'category',
+            'type': 'import',
+            'errors': cerror,
+        })
+
+        return (cnew, cupdate, cdelete, cerror)
+
+esale_joomla_category_map()
+
+
+class esale_joomla_product_map(osv.osv):
+    _name = "esale_joomla.product_map"
+    _description = "eSale Products Mapping"
+
+    def _status(self, cr, uid, ids, field_name, arg, context):
+        res = {}
+        sql = "select m.id, m.state,(p.create_date > m.export_date or p.write_date > m.export_date)"
+        sql += " from esale_joomla_product_map m"
+        sql += " left outer join product_product p on m.product_id=p.id"
+        sql += " where m.id in (%s);" % ', '.join(map(str, ids))
+        cr.execute(sql)
+        for (id, state, mod) in cr.fetchall():
+            if mod is None:
+                res[id] = 'deleted'
+            elif mod is True:
+                res[id] = 'modified'
+            else:
+                res[id] = state
+        return res
+
+    _columns = {
+        'product_id': fields.many2one('product.product', 'Product', readonly=True), #not required otherwise corresponding product cannot be deleted
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True, readonly=True),
+        'esale_joomla_id': fields.integer('Web ID', required=True, readonly=True),
+        'state': fields.selection(STATES+[('exported', 'exported')], 'state', readonly=True),
+        'status': fields.function(_status, method=True, type='selection', selection=STATES+[('exported', 'exported')], string='Status', store=False),
+        'export_date': fields.datetime('Export date', readonly=True),
+    }
+    _defaults = {
+        'export_date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
+    }
+
+    def name_get(self, cr, uid, ids, context=None):
+        return map(lambda x: (x, x), ids)
+
+    def unlink(self, cr, uid, ids, context=None):
+        #manual unlink not allowed
+        return False
+
+    def unlink_permanent(self, cr, uid, ids, context=None):
+        return super(esale_joomla_product_map, self).unlink(cr, uid, ids, context=context)
+
+    def webexport_stock(self, cr, uid, web_id, prod_ids, webcategories, context=None):
+        cupdate = cerror = 0
+        website = self.pool.get('esale_joomla.web').browse(cr, uid, web_id)
+        product_obj = self.pool.get('product.product')
+        server = _xmlrpc(website)
+
+
+        #check products to export
+        if not len(prod_ids):
+            print >> sys.stderr, 'No products found.'
+        else:
+            for product in product_obj.browse(cr, uid, prod_ids, context=context):
+                #id, eid
+                id = self.search(cr, uid, [('web_id', '=', web_id), ('product_id', '=', product.id)])
+                if len(id):
+                    eid = self.browse(cr, uid, id[0]).esale_joomla_id
+
+                    d = {
+                      #vm_product
+                        'id': eid,
+                        'in_stock': product_obj.browse(cr, uid, product.id).qty_available,
+                    }
+
+                    try:
+                        eid = server.openerp2vm.set_stock(website.login, website.password, d)
+                        cupdate += 1
+                        if not eid:
+                            raise Exception('Failed')
+                    except Exception, e:
+                        print >> sys.stderr, "XMLRPC Error : %r" % e
+                        cerror += 1
+                        if id:
+                            self.write(cr, uid, id, {'state': 'error', 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+                        else:
+                            self.create(cr, uid, {
+                                'product_id': product.id,
+                                'web_id': web_id,
+                                'esale_joomla_id': 0,
+                                'state': 'error',
+                            }, context=context)
+##                         #create/update entry in mapping table
+##                         if not id:
+##                             cnew += 1
+##                             self.create(cr, uid, {'product_id': product.id, 'web_id': web_id, 'esale_joomla_id': eid, 'state': 'exported'}, context=context)
+##                         else:
+##                             cupdate += 1
+##                             self.write(cr, uid, id, {'esale_joomla_id': eid, 'state': 'exported', 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+        self.pool.get('esale_joomla.synclog').create(cr, uid, {
+            'web_id': web_id,
+            'object': 'product',
+            'type': 'export',
+            'errors': cerror,
+        })
+
+        return (cupdate, cerror)
+
+    def webexport_product(self, cr, uid, web_id, prod_ids, webcategories, context=None):
+        cnew = cupdate = cdelete = cerror = 0
+        website = self.pool.get('esale_joomla.web').browse(cr, uid, web_id)
+
+        product_obj = self.pool.get('product.product')
+        esale_joomla_tax_map_obj = self.pool.get('esale_joomla.tax_map')
+        esale_joomla_producttype_map_obj = self.pool.get('esale_joomla.producttype_map')
+        product_pricelist_obj = self.pool.get('product.pricelist')
+        account_tax_obj = self.pool.get('account.tax')
+
+        server = _xmlrpc(website)
+        #delete, look missing ref in product_map table
+        sql = "select m.id, m.esale_joomla_id from esale_joomla_product_map m where product_id is NULL;"
+        cr.execute(sql)
+        for (id, eid) in cr.fetchall():
+            print 'delete %s/%s' % (id, eid)
+            try:
+                if server.openerp2vm.delete_product(website.login, website.password, eid):
+                    cdelete += 1
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+            else:
+                self.unlink_permanent(cr, uid, id)
+        #check products to export
+        if not len(prod_ids):
+            print >> sys.stderr, 'No product to export'
+        else:
+            #get languages
+            try:
+                languages = server.openerp2vm.get_languages(website.login, website.password)
+                if website.language_id.code not in languages:
+                    raise Exception('Cannot match shop language')
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+                cerror += 1
+            else:
+                del languages[website.language_id.code]
+                context['lang'] = website.language_id.code
+                #pricelist
+                pricelist = website.shop_id.pricelist_id.id
+                if not pricelist:
+                    raise except_wizard('UserError', 'You must define a pricelist in your shop !')
+                #webtaxes
+                webtaxes = {}
+                tax_ids = esale_joomla_tax_map_obj.search(cr, uid, [('web_id', '=', web_id), ('tax_id', '!=', False), ('esale_joomla_id', '!=', 0)], context=context)
+                print "tax_ids=%s" % tax_ids
+                for x in esale_joomla_tax_map_obj.read(cr, uid, tax_ids, ['tax_id', 'esale_joomla_id'], context=context):
+                    webtaxes[x['tax_id'][0]] = x['esale_joomla_id']
+                print 'webtaxes=%r' % webtaxes
+                #
+                for product in product_obj.browse(cr, uid, prod_ids, context=context):
+                    #id, eid
+                    id = self.search(cr, uid, [('web_id', '=', web_id), ('product_id', '=', product.id)])
+                    if len(id):
+                        eid = self.browse(cr, uid, id[0]).esale_joomla_id
+                    else:
+                        eid = 0
+                    if not product.active or not product.sale_ok:
+                        if eid:
+                            try:
+                                if server.openerp2vm.delete_product(website.login, website.password, eid):
+                                    self.unlink_permanent(cr, uid, id)
+                            except Exception, e:
+                                print >> sys.stderr, "XMLRPC Error: %s" % e
+                                cerror += 1
+                        continue
+                    #
+                    d = {
+                      #vm_product
+                        'id': eid,
+                        'sku': product.code or '',
+                        's_desc': str(product.description_sale or ''),
+                        'desc': str(product.description_sale or ''),
+                        'image': product.image,
+                        'publish': product.online and 'Y' or 'N',
+                        'weight': float(0.0),
+                        #'weight_uom': '', #product.uom_id.name,
+                        'length': float(0.0),
+                        'width': float(0.0),
+                        'height': float(0.0),
+                        #'lwh_uom': '',
+                        'url': '',
+                        'in_stock': product_obj.browse(cr, uid, product.id).qty_available,
+                        #'available_date': ,
+                        #'availability': ,
+                        'special': 'N',
+                        #'discount_id': ,
+                        'name': product.name or '',
+                        #'sales': ,
+                        'tax_id': 0,
+                        #'unit', ,
+                        'packaging': 0,
+                      #vm_product_category_xref
+                        'category_id': sorted([webcategories[cat.id] for cat in product.esale_category_ids]),
+                      #vm_product_price
+                        'price': 0,
+                        'currency': 'EUR',
+                      #
+                        'params': {},
+                    }
+                    #price, tax_id
+                    #FIXME:price is already tax included
+                    d['price'] = product_pricelist_obj.price_get(cr, uid, [pricelist], product.id, 1, 'list')[pricelist]
+                    add_taxes = []
+                    for tax in product.taxes_id:
+                        print 'tax'
+                        print 'tax.name=%s' % tax.name
+                        print 'tax.id=%s' % tax.id
+                        if tax.id in webtaxes and not d['tax_id']:
+                            d['tax_id'] = webtaxes[tax.id]
+                        else:
+                            add_taxes.append(tax)
+                    price = d['price']
+                    for c in account_tax_obj.compute(cr, uid, add_taxes, price, 1, product=product):
+                        print 'add amount : %s' % c['amount']
+                        d['price'] += c['amount']
+                    #packaging
+                    for packaging in product.packaging:
+                        res = packaging.qty
+                        if packaging.name in ('U.V.', 'Unité de Vente') and res != 0:
+                            d['packaging'] = res
+                    #parameters
+                    for ptm_id in esale_joomla_producttype_map_obj.search(cr, uid, [('web_id', '=', web_id), ('category_id', '=', product.categ_id.id)], context=context):
+                        ptm = esale_joomla_producttype_map_obj.browse(cr, uid, ptm_id, context=context)
+                        d['params'][str(ptm.esale_joomla_id)] = {}
+                        for ptpm in ptm.producttypeparam_map_ids:
+                            if ptpm.attribute:
+                                try:
+                                    val = eval(ptpm.attribute)
+                                    if val is not False:
+                                        d['params'][str(ptm.esale_joomla_id)][ptpm.esale_joomla_id] = val
+                                except Exception, e:
+                                    print >> sys.stderr, 'Cannot evaluate parameter %s: %s' % (ptpm.esale_joomla_id, e)
+                    print 'params=%r' % d['params']
+                    #
+                    try:
+                        print 'set_product(%r)' % d
+                        eid = server.openerp2vm.set_product(website.login, website.password, d)
+                        if not eid:
+                            raise Exception('Failed')
+                    except Exception, e:
+                        print >> sys.stderr, "XMLRPC Error : %r" % e
+                        cerror += 1
+                        if id:
+                            self.write(cr, uid, id, {'state': 'error', 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+                        else:
+                            self.create(cr, uid, {'product_id': product.id, 'web_id': web_id, 'esale_joomla_id': 0, 'state': 'error'}, context=context)
+                    else:
+                        #export translations
+                        err = 0
+                        for (lang_name, lang_id) in languages.iteritems():
+                            tr = product_obj.browse(cr, uid, product.id, context={'lang': lang_name})
+                            try:
+                                err &= server.openerp2vm.set_translation(website.login, website.password, lang_id, 'vm_product', 'product_s_desc', eid, str(product.description_sale or ''))
+                                err &= server.openerp2vm.set_translation(website.login, website.password, lang_id, 'vm_product', 'product_desc', eid, str(product.description_sale or ''))
+                            except Exception, e:
+                                print >> sys.stderr, "XMLRPC Error: %s" % e
+                        if err:
+                            cerror += 1
+                        #create/update entry in mapping table
+                        if not id:
+                            cnew += 1
+                            self.create(cr, uid, {'product_id': product.id, 'web_id': web_id, 'esale_joomla_id': eid, 'state': 'exported'}, context=context)
+                        else:
+                            cupdate += 1
+                            self.write(cr, uid, id, {'esale_joomla_id': eid, 'state': 'exported', 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+        self.pool.get('esale_joomla.synclog').create(cr, uid, {
+            'web_id': web_id,
+            'object': 'product',
+            'type': 'export',
+            'errors': cerror,
+        })
+
+        return (cnew, cupdate, cdelete, cerror)
+
+esale_joomla_product_map()
+
+
+class esale_joomla_producttype_map(osv.osv):
+    _name = "esale_joomla.producttype_map"
+    _description = "eSale Product Types Mapping"
+
+    _columns = {
+        'category_id': fields.many2one('product.category', 'Category'),
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True),
+        'esale_joomla_id': fields.integer('Web ID', readonly=True),
+        'esale_joomla_name': fields.char('Web Product Type Name', size=64, readonly=True),
+        'producttypeparam_map_ids': fields.one2many('esale_joomla.producttypeparam_map', 'producttype_map_id', 'Product Type Parameters'),
+        'state': fields.selection(STATES, 'state', readonly=True, required=True),
+    }
+    _defaults = {
+        'state': lambda *a: 'new'
+    }
+
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for r in self.read(cr, uid, ids):
+            res.append((r['id'], r['id']))
+        return res
+
+    def webimport(self, cr, uid, web_ids, *args):
+        cnew = cupdate = cerror = 0
+        for website in self.pool.get('esale_joomla.web').browse(cr, uid, web_ids):
+            server = _xmlrpc(website)
+            try:
+                types = server.openerp2vm.get_producttypes(website.login, website.password) #id, name
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+                cerror += 1
+                continue
+            for type in types:
+                (cid, cname, cparams) = type
+                cname = _decode(cname)
+                cname = len(cname) > 64 and cname[0:61] + '...' or cname
+                if not cid:
+                    cerror += 1
+                    continue
+                value = {
+                    'web_id': website.id,
+                    'esale_joomla_id': cid,
+                    'esale_joomla_name': cname,
+                    'state': 'imported',
+                }
+                id = self.search(cr, uid, [('web_id', '=', website.id), ('esale_joomla_id', '=', cid)])
+                if not len(id):
+                    id = self.create(cr, uid, value)
+                    cnew += 1
+                else:
+                    self.write(cr, uid, id, value)
+                    id = id[0]
+                    cupdate += 1
+                for param in cparams:
+                    (cid, cname) = param
+                    cid = _decode(cid)
+                    if len(cid) > 64:
+                        continue #we cannot import this key
+                    cname = _decode(cname)
+                    cname = len(cname) > 64 and cname[0:61] + '...' or cname
+                    value = {
+                        'producttype_map_id': id,
+                        'esale_joomla_id': cid,
+                        'esale_joomla_name': cname,
+                        'state': 'imported',
+                    }
+                    pid = self.pool.get('esale_joomla.producttypeparam_map').search(cr, uid, [('producttype_map_id', '=', id), ('esale_joomla_id', '=', cid)])
+                    if not len(pid):
+                        self.pool.get('esale_joomla.producttypeparam_map').create(cr, uid, value)
+                    else:
+                        self.pool.get('esale_joomla.producttypeparam_map').write(cr, uid, pid, value)
+            self.pool.get('esale_joomla.synclog').create(cr, uid, {
+                'web_id': website.id,
+                'object': 'producttype',
+                'type': 'import',
+                'errors': cerror,
+            })
+
+        return (cnew, cupdate, cerror)
+
+esale_joomla_producttype_map()
+
+
+class esale_joomla_producttypeparam_map(osv.osv):
+    _name = "esale_joomla.producttypeparam_map"
+    _description = "eSale Product Type Parameters Mapping"
+
+    _columns = {
+        'attribute': fields.char('Product Attribute', size=128),
+        'producttype_map_id': fields.many2one('esale_joomla.producttype_map', 'Product Type'),
+        'esale_joomla_id': fields.char('Web Parameter Name', size=64, readonly=True, required=True),
+        'esale_joomla_name': fields.char('Web Parameter Label', size=64, readonly=True),
+        'state': fields.selection(STATES, 'state', readonly=True, required=True),
+    }
+    _defaults = {
+        'state': lambda *a: 'new'
+    }
+
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        for r in self.read(cr, uid, ids):
+            res.append((r['id'], r['esale_joomla_id']))
+        return res
+
+esale_joomla_producttypeparam_map()
+
+#----------------------------------------------------------------------------
+#TINY part
 
 class esale_joomla_partner(osv.osv):
     _name = 'esale_joomla.partner'
@@ -352,22 +1149,4 @@ class esale_joomla_order_line(osv.osv):
     }
 
 esale_joomla_order_line()
-
-
-class esale_joomla_web_exportlog(osv.osv):
-    _name = 'esale_joomla.web.exportlog'
-    _description = "eSale webshop Synchronisation log"
-    _columns = {
-        'name': fields.char('Synchronisation Log', size=64, required=True),
-        'web_id': fields.many2one('esale_joomla.web', 'Web Ref'),
-        'log_date': fields.datetime('Log date', required=True),
-        'log_type': fields.selection([('product', 'Product'), ('category', 'Category'), ('lang', 'Language'), ('tax', 'Tax')], 'Export type', readonly=True),
-        'user_id': fields.many2one('res.users', 'Exported By', required=True),
-    }
-    _defaults = {
-        'log_date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
-        'user_id': lambda obj, cr, uid, context: uid,
-    }
-
-esale_joomla_web_exportlog()
 

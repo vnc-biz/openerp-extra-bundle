@@ -257,12 +257,13 @@ class plgXMLRPCOpenERP2VmServices {
         }
         $db =& JFactory::getDBO();
         $taxes=array();
-        query($db,"select t.tax_rate_id, c.country_2_code, t.tax_state, t.tax_rate from #__vm_tax_rate t, #__vm_country c where t.tax_country=c.country_3_code;",0);
+        query($db,"select t.tax_rate_id, c.country_2_code, t.tax_rate from #__vm_tax_rate t, #__vm_country c where t.tax_country=c.country_3_code;",0);
         foreach($db->loadRowList() as $row) {
-            $taxes[]=new xmlrpcval(array(new xmlrpcval($row[0], $xmlrpcInt), new xmlrpcval($row[1], $xmlrpcString), new xmlrpcval($row[2], $xmlrpcString), new xmlrpcval($row[3], $xmlrpcString)), $xmlrpcArray);
+            $taxes[]=new xmlrpcval(array(new xmlrpcval($row[0], $xmlrpcInt), new xmlrpcval($row[1], $xmlrpcString), new xmlrpcval($row[2], $xmlrpcString)), $xmlrpcArray);
         }
         return new xmlrpcresp( new xmlrpcval($taxes, $xmlrpcArray));
     }
+
     function set_tax($username,$password,$tax){
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -275,17 +276,18 @@ class plgXMLRPCOpenERP2VmServices {
         if($id) {
             query($db,"select tax_rate_id from #__vm_tax_rate where tax_rate_id=".$id.";");
             if($db->getNumRows()) {
-                query($db,"update #__vm_tax_rate set tax_country=(select country_3_code from #__vm_country where country_2_code='".$tax['country']."'), tax_state='".$tax['state']."', tax_rate='".$tax['rate']."' where tax_rate_id=".$id.";");
+                query($db,"update #__vm_tax_rate set tax_country=(select country_3_code from #__vm_country where country_2_code='".$tax['country']."'), tax_rate='".$tax['rate']."' where tax_rate_id=".$id.";");
                 $insert=0;
             }
         }
         if($insert) {
-            query($db,"insert into #__vm_tax_rate (tax_country,tax_state,tax_rate,vendor_id) select country_3_code,'".$tax['state']."','".$tax['rate']."','1' from #__vm_country where country_2_code='".$tax['country']."';");
+            query($db,"insert into #__vm_tax_rate (tax_country,tax_rate,vendor_id) select country_3_code,'".$tax['rate']."','1' from #__vm_country where country_2_code='".$tax['country']."';");
             $id=$db->insertid();
             debug('  new id='.$id);
         }
         return new xmlrpcresp(new xmlrpcval($id, $xmlrpcInt));
     }
+
     function delete_tax($username,$password,$id) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {

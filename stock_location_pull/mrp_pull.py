@@ -25,18 +25,16 @@ import pooler
 import netsvc
 from mx import DateTime
 import time
-
+from tools.translate import _
 
 class mrp_procurement(osv.osv):
     _inherit = 'mrp.procurement'
     def check_buy(self, cr, uid, ids, context=None):
-        print 'Check_buy'
         for procurement in self.browse(cr, uid, ids):
             for line in procurement.product_id.flow_pull_ids:
                 print line.location_src_id.name, line.location_id.name, line.type_proc
                 if line.location_id==procurement.location_id:
                     return line.type_proc=='buy'
-        print 'Check_buy parent'
         return super(mrp_procurement, self).check_buy(cr, uid, ids)
 
     def check_produce(self, cr, uid, ids, context=None):
@@ -47,14 +45,12 @@ class mrp_procurement(osv.osv):
         return super(mrp_procurement, self).check_produce(cr, uid, ids)
 
     def check_move(self, cr, uid, ids, context=None):
-        print 'Check move'
         for procurement in self.browse(cr, uid, ids):
             for line in procurement.product_id.flow_pull_ids:
                 if line.location_id==procurement.location_id:
                     if not line.location_src_id:
                         self.write(cr, uid, procurement.id, {'message': _('No source location defined to generate the picking !')})
                     return (line.type_proc=='move') and (line.location_src_id)
-        print 'Check move parent'
         return False
 
     def action_move_create(self, cr, uid, ids,context=None):

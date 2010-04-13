@@ -137,22 +137,30 @@ class print_invoice_list(rml_parse.rml_parse):
         if not list :
             return 
         tmp = {}
-        #We sort the invoice by currency in a tmp dict
-        #{'currency':[browse, records]}
+        #
+        # Sort by invoice number
+        #
+        list.sort(key=lambda inv: inv.number)
+
+        #
+        # Group by currency
+        #
         for inv in list:
             currency = inv.currency_id.name
             if tmp.has_key(currency) :
                 tmp[currency].append(inv)
             else :
                 tmp[currency] = [inv]
-        #We compute the total by currency 
+        #
+        # Compute the total for each currency group
+        #
         for curr in tmp:
             untaxed = tax = total = 0
             for tmpinv in tmp[curr]:
                 untaxed += tmpinv.amount_untaxed
                 tax += tmpinv.amount_tax
                 total += tmpinv.amount_total
-            #We append the tuple to the property
+            # Append the tuple to the property
             dest.append((curr, tmp[curr], untaxed, tax, total))
         del tmp
 

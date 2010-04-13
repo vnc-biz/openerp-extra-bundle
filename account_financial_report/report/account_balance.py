@@ -50,7 +50,6 @@ class account_balance(report_sxw.rml_parse):
         self.date_lst = []
         self.date_lst_string = ''
         self.ctx = {}      # Context for given date or period
-        self.ctxfy = {}    # Context from the date start or first period of the fiscal year
         self.localcontext.update({
             'time': time,
             'lines': self.lines,
@@ -121,50 +120,6 @@ class account_balance(report_sxw.rml_parse):
             ctx['periods'] = []
         self.ctx = ctx
 
-        # ctxfy: Context from the date start / first period of the fiscal year
-        ctxfy = ctx.copy()
-        ctxfy['periods'] = ctx['periods'][:]
-
-        if form['state'] in ['byperiod', 'all'] and len(ctx['periods']):
-            self.cr.execute("""SELECT id, date_start, fiscalyear_id
-                FROM account_period
-                WHERE date_start = (SELECT min(date_start) FROM account_period WHERE id in (%s))"""
-                % (','.join([str(x) for x in ctx['periods']])))
-            res = self.cr.dictfetchone()
-            self.cr.execute("""SELECT id
-                FROM account_period
-                WHERE fiscalyear_id in (%s) AND special=FALSE AND date_start < '%s'"""
-                % (res['fiscalyear_id'], res['date_start']))
-            ids = filter(None, map(lambda x:x[0], self.cr.fetchall()))
-            ctxfy['periods'].extend(ids)
-
-        if form['state'] in ['bydate', 'all']:
-            self.cr.execute("""SELECT date_start
-                FROM account_fiscalyear
-                WHERE '%s' BETWEEN date_start AND date_stop""" % (ctx['date_from']))
-            res = self.cr.dictfetchone()
-            ctxfy['date_from'] = res['date_start']
-
-        if form['state'] == 'none' or (form['state'] == 'byperiod' and not len(ctx['periods'])):
-            if 'fiscalyear' in form and form['fiscalyear']:
-                sql = """SELECT id, date_start
-                    FROM account_period
-                    WHERE fiscalyear_id in (%s) AND special=FALSE
-                    ORDER BY date_start""" % (ctx['fiscalyear'])
-            else:
-                sql = """SELECT id, date_start
-                    FROM account_period
-                    WHERE fiscalyear_id in (SELECT id FROM account_fiscalyear WHERE state='draft') AND special=FALSE
-                    ORDER BY date_start"""
-            self.cr.execute(sql)
-            res = self.cr.dictfetchall()
-            ids = filter(None, map(lambda x:x['id'], res))
-            ctxfy['periods'] = ids
-        self.ctxfy = ctxfy
-#        print "ctx=", self.ctx
-#        print "ctxfy=", self.ctxfy
-
-
 
     def lines(self, form, ids={}, done=None, level=1):
         if not ids:
@@ -198,10 +153,6 @@ class account_balance(report_sxw.rml_parse):
             ids = child_ids
         # Amounts in period or date
         accounts = account_obj.read(self.cr, self.uid, ids, ['type','code','name','debit','credit','balance','parent_id'], self.ctx)
-        # Amounts from the date start / first period of the fiscal year
-        balance_fy = {}
-        for acc in account_obj.read(self.cr, self.uid, ids, ['balance'], self.ctxfy):
-            balance_fy[acc['id']] = acc['balance']
         # Amounts in all fiscal year
         balance_allfy = {}
         for acc in account_obj.read(self.cr, self.uid, ids, ['balance'], ctx_allfy):
@@ -209,10 +160,11 @@ class account_balance(report_sxw.rml_parse):
         # Amounts in all fiscal year without special periods
         debit_allfy_nos = {}
         credit_allfy_nos = {}
-        for acc in account_obj.read(self.cr, self.uid, ids, ['debit','credit'], ctx_allfy_nospecial):
+        balance_allfy_nos = {}
+        for acc in account_obj.read(self.cr, self.uid, ids, ['debit','credit','balance'], ctx_allfy_nospecial):
             debit_allfy_nos[acc['id']] = acc['debit']
             credit_allfy_nos[acc['id']] = acc['credit']
-
+            balance_allfy_nos[acc['id']] = acc['balance']
         for account in accounts:
             account_id = account['id']
             if account_id in done:
@@ -226,23 +178,27 @@ class account_balance(report_sxw.rml_parse):
                     'level': level,
                     'debit': account['debit'],
                     'credit': account['credit'],
-                    'balance': balance_fy[account_id],
-                    'balanceinit': round(balance_fy[account_id]-account['debit']+account['credit'], int(config['price_accuracy'])),
+                    'balance': account['balance'],
+                    'balanceinit': round(account['balance']-account['debit']+account['credit'], int(config['price_accuracy'])),
                     'debit_fy': debit_allfy_nos[account_id],
                     'credit_fy': credit_allfy_nos[account_id],
-                    'balance_fy': balance_allfy[account_id],
-                    'balanceinit_fy': round(balance_allfy[account_id]-debit_allfy_nos[account_id]+credit_allfy_nos[account_id], int(config['price_accuracy'])),
+                    'balance_fy': balance_allfy_nos[account_id],
+                    'balanceinit_fy': round(balance_allfy_nos[account_id]-debit_allfy_nos[account_id]+credit_allfy_nos[account_id], int(config['price_accuracy'])),
                    # 'leef': not bool(account['child_id']),
                     'parent_id':account['parent_id'],
                     'bal_type':'',
                 }
+            if abs(res['balance']) < 10**-int(config['price_accuracy']):
+                res['balance'] = 0.0
+            if abs(res['balance_fy']) < 10**-int(config['price_accuracy']):
+                res['balance_fy'] = 0.0
             if abs(res['balanceinit']) < 10**-int(config['price_accuracy']):
-                res['balanceinit'] = 0
+                res['balanceinit'] = 0.0
             if abs(res['balanceinit_fy']) < 10**-int(config['price_accuracy']):
-                res['balanceinit_fy'] = 0
+                res['balanceinit_fy'] = 0.0
             self.sum_debit += account['debit']
             self.sum_credit += account['credit']
-            self.sum_balance += balance_fy[account_id]
+            self.sum_balance += account['balance']
             self.sum_debit_fy += debit_allfy_nos[account_id]
             self.sum_credit_fy += credit_allfy_nos[account_id]
             self.sum_balance_fy += balance_allfy[account_id]
@@ -262,10 +218,10 @@ class account_balance(report_sxw.rml_parse):
                     if r['id'] == account['parent_id'][0]:
                         res['level'] = r['level'] + 1
                         break
-            if form['display_account'] == 'bal_mouvement':
+            if form['display_account'] == 'bal_mouvement' and account['parent_id']:
                 if res['credit'] > 0 or res['debit'] > 0 or res['balance'] > 0 :
                     result_acc.append(res)
-            elif form['display_account'] == 'bal_solde':
+            elif form['display_account'] == 'bal_solde' and account['parent_id']:
                 if  res['balance'] != 0:
                     result_acc.append(res)
             else:

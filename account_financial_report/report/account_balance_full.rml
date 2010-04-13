@@ -11,7 +11,7 @@
 				<drawString x="23.5cm" y="19.6cm">Account Balance - [[ company.currency_id.name ]]</drawString>
 
 				<!--COL 2-->
-				<setFont name="Helvetica" size="9"/>
+				<setFont name="Helvetica" size="8"/>
 				<drawString x="1.0cm" y="1cm"> [[ formatLang(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),date_time = True) ]]</drawString>
 				<drawString x="27.7cm" y="1cm">Page <pageNumber/></drawString>
 

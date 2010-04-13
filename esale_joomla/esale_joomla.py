@@ -132,29 +132,102 @@ esale_joomla_synclog()
 class esale_joomla_web_tax(osv.osv):
     _name = "esale_joomla.web.tax"
     _description = "Joomla Tax"
+    _rec_name = 'web_tax_id'
+    _order = "web_rate desc"
 
     def _status(self, cr, uid, ids, field_name, arg, context):
         res = {}
         for e in self.browse(cr, uid, ids, context=context):
-            if e.state in ('new', 'modified', 'deleted'):
-                res[e.id] = e.state
-            elif not e.tax_id and e.esale_joomla_id:
-                res[e.id] = 'imported'
-            elif e.tax_id and e.esale_joomla_id:
-                res[e.id] = 'sync'
-                if e.tax_id.amount != e.esale_joomla_rate:
-                    res[e.id] = 'modified'
+            print "id: %s, web_tax_id: %s, web_rate: %s" % (e.id, e.web_tax_id, e.web_rate)
+
+            if not e.web_tax_id:
+                res[e.id] = 'new'
             else:
-                res[e.id] = e.state
+                res[e.id] = 'sync'
+
+##             elif e.status in ('modified', 'deleted'):
+##                 res[e.id] = e.status
+##             if e.status in ('new', 'modified', 'deleted'):
+##                 res[e.id] = e.status
+##             elif not e.tax_id and e.esale_joomla_id:
+##                 res[e.id] = 'imported'
+##             elif e.tax_id and e.esale_joomla_id:
+##                 res[e.id] = 'sync'
+##                 if e.tax_id.amount != e.esale_joomla_rate:
+##                     res[e.id] = 'modified'
+##             else:
+##                 res[e.id] = e.status
         return res
 
     _columns = {
-        'web_tax_id': fields.integer('Web Tax ID'),
-        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True),
-        'web_country_id': fields.char('Web Country', size=64),
-        'web_rate': fields.float('Web Rate', readonly=True),
+        'web_tax_id': fields.integer('Web Tax ID', readonly=True),
+        'web_id': fields.many2one('esale_joomla.web', 'Web Shop', required=True, readonly=True),
+        'web_country_id': fields.many2one('res.country', 'Web Country', size=64, readonly=True),
+        'web_rate': fields.float('Web Rate', digits=(16, 4), readonly=True),
+        'tax_ids': fields.one2many('esale_joomla.tax_map', 'esale_joomla_id', 'Web Rate', readonly=True),
         'status': fields.function(_status, method=True, type='selection', selection=STATES, string='Status', store=False),
     }
+
+    def webimport(self, cr, uid, web_ids, context=None):
+        if context is None:
+            context = {}
+
+        cnew = cupdate = cerror = 0
+        for website in self.pool.get('esale_joomla.web').browse(cr, uid, web_ids):
+            server = _xmlrpc(website)
+            try:
+                taxes = server.openerp2vm.get_taxes(website.login, website.password) #id, country, state, rate
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+                cerror += 1
+            else:
+                countryL = set()
+                stateL = set()
+                for tax in taxes:
+                    (cid, ccountry, cstate, crate) = tax
+                    countryL.add(str(ccountry))
+                    if cstate != '-':
+                        stateL.add(str(cstate))
+                countries = {}
+                states = {'-': 0}
+
+                if len(countryL):
+                    cr.execute("select id, code from res_country where code in (%s);" % ', '.join(map(repr, countryL)))
+                    for x in cr.fetchall():
+                        countries[x[1]] = x[0]
+                if len(stateL):
+                    cr.execute("select id, code from res_country_state where code in (%s);" % ', '.join(map(repr, stateL)))
+                    for x in cr.fetchall():
+                        states[x[1]] = x[0]
+                for tax in taxes:
+                    (cid, ccountry, cstate, crate) = tax
+                    if not cid:
+                        cerror += 1
+                        continue
+
+                    value = {
+                        'web_id': website.id,
+                        'web_tax_id': cid,
+                        'web_country_id': countries[ccountry],
+                        'web_rate': crate,
+                        'status': 'imported',
+                    }
+                    id = self.search(cr, uid, [('web_id', '=', website.id), ('web_tax_id', '=', cid)])
+                    if not len(id):
+                        self.create(cr, uid, value)
+                        cnew += 1
+                    else:
+                        self.write(cr, uid, id, value)
+                        cupdate += 1
+
+            self.pool.get('esale_joomla.synclog').create(cr, uid, {
+                'web_id': website.id,
+                'object': 'tax',
+                'type': 'import',
+                'errors': cerror,
+            })
+
+        return (cnew, cupdate, cerror)
 
 esale_joomla_web_tax()
 
@@ -162,6 +235,8 @@ esale_joomla_web_tax()
 class esale_joomla_tax_map(osv.osv):
     _name = "esale_joomla.tax_map"
     _description = "eSale Taxes Mapping"
+    _rec_name = 'tax_id'
+    _order = "esale_joomla_rate desc"
 
     def _status(self, cr, uid, ids, field_name, arg, context):
         res = {}
@@ -177,6 +252,24 @@ class esale_joomla_tax_map(osv.osv):
             else:
                 res[e.id] = e.state
         return res
+
+    def _get_tax_amount(cr, uid, tax_id):
+        from olilib.openerp import terp
+        import pydb; pydb.debugger(['set listsize 40'])
+        print
+
+        if isinstance(tax_id , 'browse_record'):
+            tax = tax_id
+        else:
+            account_tax_obj = self.pool.get('account.tax')
+            tax = account_tax_obj.browse(cr, uid, tax_id)
+
+        if tax.child_depend and tax.child_ids:
+            tax_amount = sum([t.amount for t in tax.child_ids])
+        else:
+            tax_amount = tax.amount
+
+        return tax_amount
 
     _columns = {
         'tax_id': fields.many2one('account.tax', 'Tax'),
@@ -327,10 +420,7 @@ class esale_joomla_tax_map(osv.osv):
                     cdelete += 1
             elif el.tax_id:
                 try:
-                    if el.tax_id.child_depend and el.tax_id.child_ids:
-                        tax_amount = sum([tax.amount for tax in el.tax_id.child_ids])
-                    else:
-                        tax_amount = el.tax_id.amount
+                    tax_amount = self._get_tax_amount(el.tax_id)
 
                     tax_dict = {
                         'id': el.esale_joomla_id or 0,
@@ -806,10 +896,6 @@ class esale_joomla_product_map(osv.osv):
                                 cerror += 1
                         continue
                     #
-                    from olilib.openerp import terp
-                    import pydb; pydb.debugger(['set listsize 40'])
-                    print
-
                     d = {
                       #vm_product
                         'id': eid,

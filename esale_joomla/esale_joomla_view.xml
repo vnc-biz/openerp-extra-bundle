@@ -94,12 +94,18 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="eSale Web Tax">
-                <field name="web_tax_id" />
-                <field name="web_id" />
-                <field name="web_country_id" />
-                <field name="web_rate" />
-                <newline/>
-                <field name="status" />
+                <group col="8">
+                    <group col="2" colspan="4">
+                        <field name="web_tax_id"/>
+                        <field name="web_id"/>
+                        <field name="web_country_id"/>
+                        <field name="web_rate"/>
+                        <field name="status"/>
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="tax_ids" nolabel="1" height="300" />
+                    </group>
+                </group>
             </form>
         </field>
     </record>

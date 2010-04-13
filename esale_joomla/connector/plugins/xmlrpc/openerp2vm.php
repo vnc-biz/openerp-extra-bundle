@@ -131,7 +131,6 @@ class plgXMLRPCOpenERP2Vm extends JPlugin {
 
 class plgXMLRPCOpenERP2VmServices {
     function get_languages($username,$password) {
-        debugfn('get_languages');
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             debug('login failed ('.$username.')');
@@ -150,7 +149,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('get_translation');
         $db =& JFactory::getDBO();
         query($db,"select value from #__jf_content where language_id=".$lang_id." and reference_table='".$rtable."' and reference_field='".$rfield."' and reference_id=".$rid.";",0);
         if($row=$db->loadObject()) {
@@ -166,7 +164,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('set_translation');
         $db =& JFactory::getDBO();
         query($db,"select id from #__jf_content where language_id=".$lang_id." and reference_table='".$rtable."' and reference_field='".$rfield."' and reference_id=".$rid.";");
         if($db->getNumRows()) {
@@ -192,7 +189,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('get_categories');
         $db =& JFactory::getDBO();
         $categories=array();
         query($db,"select category_id, category_name from #__vm_category;",0);
@@ -208,7 +204,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('set_category');
         $db =& JFactory::getDBO();
         $insert=1;
         $id=$cat['id'];
@@ -232,7 +227,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('set_categories_parent');
         $db =& JFactory::getDBO();
         foreach($categories as $cat) {
             debug('id='.$cat['child']);
@@ -250,7 +244,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('delete_category');
         $db =& JFactory::getDBO();
         query($db,"delete from #__vm_category where category_id=".$id.";");
         query($db,"delete from #__vm_category_xref where category_child_id=".$id.";");
@@ -262,7 +255,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('get_taxes');
         $db =& JFactory::getDBO();
         $taxes=array();
         query($db,"select t.tax_rate_id, c.country_2_code, t.tax_state, t.tax_rate from #__vm_tax_rate t, #__vm_country c where t.tax_country=c.country_3_code;",0);
@@ -276,7 +268,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('set_tax');
         $db =& JFactory::getDBO();
         $insert=1;
         $id=$tax['id'];
@@ -300,7 +291,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('delete_category');
         $db =& JFactory::getDBO();
         query($db,"delete from #__vm_tax_rate where tax_rate_id=".$id.";");
         return new xmlrpcresp(new xmlrpcval(1, $xmlrpcInt));
@@ -311,7 +301,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('get_taxes');
         $db =& JFactory::getDBO();
         $types=array();
         query($db,"select product_type_id, product_type_name from #__vm_product_type;",0);
@@ -331,7 +320,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('set_product');
         $db =& JFactory::getDBO();
         $values=array();
         $values[]=array("product_sku",mysql_escape_string($product['sku']));
@@ -427,7 +415,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('delete_product');
         $db =& JFactory::getDBO();
         query($db,"delete from #__vm_product where product_id=".$id.";");
         query($db,"delete from #__vm_product_attribute where product_id=".$id.";");
@@ -448,7 +435,6 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
-        debugfn('set_stock');
         $db =& JFactory::getDBO();
         $values=array();
         $values[]=array("product_in_stock",$product['in_stock']);

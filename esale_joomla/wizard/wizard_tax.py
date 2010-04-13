@@ -34,8 +34,6 @@ _export_select_form = '''<?xml version="1.0"?>
 <form string="Taxes Export">
 <separator string="Select the Web Shop and the rows to export" colspan="4" />
 <field name="web_shop"/>
-<newline />
-<field name="target"/>
 </form>'''
 
 _export_select_fields = {
@@ -155,7 +153,7 @@ def _export_setup(self, cr, uid, data, context):
     if data['model'] == 'esale_joomla.web':
         web_shop = data['id']
     else:
-        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', '1')])
+        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', True)])
         if len(ids):
             web_shop = ids[0]
     return {'web_shop': web_shop}
@@ -217,12 +215,12 @@ def _import_setup(self, cr, uid, data, context):
     web_shop = 0
     if data['model'] == 'esale_joomla.web':
         web_shop = data['id']
-    elif data['model'] == 'esale_joomla.tax_map':
-        taxes = pooler.get_pool(cr.dbname).get('esale_joomla.tax_map').browse(cr, uid, data['ids'])
+    elif data['model'] == 'esale_joomla.web.tax':
+        taxes = pooler.get_pool(cr.dbname).get('esale_joomla.web.tax').browse(cr, uid, data['ids'])
         if len(taxes):
             web_shop = taxes[0].web_id.id
     else:
-        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', '1')])
+        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', True)])
         if len(ids):
             web_shop = ids[0]
     return {'web_shop': web_shop}
@@ -235,7 +233,7 @@ def _import_from_shop(self, cr, uid, data, context):
     try:
         self.pool = pooler.get_pool(cr.dbname)
         web_id = data['form']['web_shop']
-        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.tax_map').webimport(cr, uid, [web_id])
+        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.web.tax').webimport(cr, uid, [web_id])
     finally:
         log = sys.stderr.getvalue()
         sys.stderr.close()

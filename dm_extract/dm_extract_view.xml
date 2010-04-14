@@ -123,12 +123,56 @@
 	   <field name="arch" type="xml">
    			<notebook colspan="4" position="inside">
      			<page string="Extraction">
-	  				<field name="segmentation_id" colspan="4" string="Segmentation"/>             
+	  				<field name="segmentation_id" colspan="4" string="Segmentation"/>
  				</page>
      		</notebook>
    		</field>
-  </record>
-   
+  	</record>
+
+	<!--  Mode      --> 
+
+	<record id="view_dm_campaign_proposition_segments_mode_inherit" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segments.mode.inherit</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="view_dm_campaign_proposition_segments"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+   			<field name="segmentation_id" colspan="4" position="replace" >
+				<field name="segmentation_id" />
+				<field name="mode" />
+				<field name="use_census"/>
+			</field>
+   		</field>
+  	</record>
+
+	<!--  Segmentation Criteria      --> 	
+
+	<record id="view_dm_campaign_proposition_segmentation_criteria_inherit" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segmentation.criteria.inherit</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="view_dm_campaign_proposition_segments_mode_inherit"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+   			<field name="segmentation_criteria" colspan="4" nolabel="1" position="replace" >
+	  			<field name="segmentation_criteria" colspan="4" nolabel="1" attrs="{'readonly':[('mode','!=','manual')]}"/>
+			</field>
+   		</field>
+  	</record>
+
+	<!--  Split      --> 	
+
+	<record id="view_dm_campaign_proposition_segment_split_inherit" model="ir.ui.view">
+	    <field name="name">dm_campaign_proposition_segment.split.inherit</field>
+	    <field name="model">dm.campaign.proposition.segment</field>
+	    <field name="inherit_id" ref="dm.view_campaign_proposition_segment_form"/>
+	    <field name="type">form</field>
+	    <field name="arch" type="xml">
+   			<field name="split_id" position="replace" >
+	  			<field name="split_id" on_change="onchange_split(split_id)"/>
+			</field>
+   		</field>
+  	</record>
+
    <!--  start census -readonly for segmentation    --> 
    
     <record id="view_dm_campaign_proposition_segments_start_census" model="ir.ui.view">
@@ -172,7 +216,7 @@
     </record>
 
    
-   <!--  end census -readonly for segmentation      --> 
+   <!--  Criteria List      --> 
 
 	<record id="view_dm_campaign_proposition_segments_criteria_inherit" model="ir.ui.view">
 	    <field name="name">dm_campaign_proposition_segments_criteria.inherit</field>

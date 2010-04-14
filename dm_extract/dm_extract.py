@@ -105,7 +105,20 @@ class dm_campaign_proposition_segment(osv.osv): # {{{
                                                   'Segmentation'),
                 'list_criteria_id':fields.many2one('dm.campaign.proposition.segment.list_criteria',
                                                   'Customers List Criteria'),
+                'mode': fields.selection([('automatic', 'Automatic'), ('manual', 'Manual')], 'Mode'),
+                'use_census': fields.boolean('Use Census')
                 }
+    
+    _defaults = {
+            'mode': lambda *a: 'manual',
+        }
+    
+    def onchange_split(self, cr, uid, ids, split_id):
+        if split_id:
+            return {'value': {'mode': 'manual'}}
+        else:
+            return {'value': {'mode': 'automatic'}}
+        
     
 dm_campaign_proposition_segment() # }}}
 

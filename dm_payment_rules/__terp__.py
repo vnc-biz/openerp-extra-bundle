@@ -25,13 +25,14 @@
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Direct Marketing",
     "description": """
-            
+
             """,
     "depends" : ["dm_payment_method"],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [
                     "dm_payment_rules_view.xml",
+                    "security/ir.model.access.csv",
                     ],
     "active": False,
     "installable": True,

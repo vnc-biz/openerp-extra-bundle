@@ -554,3 +554,4 @@
 "access_dm_campaign_mail_service_dmacampaignadmin","dm.campaign.mail_service","model_dm_campaign_mail_service","dm.res_groups_campaignadmin",1,1,1,1
 "access_dm_campaign_mail_service_offeradmin","dm.campaign.mail_service","model_dm_campaign_mail_service","dm.res_groups_offeradmin",1,0,0,0
 "access_dm_campaign_mail_service_offermanager","dm.campaign.mail_service","model_dm_campaign_mail_service","dm.res_groups_offermanager",1,0,0,0
+"access_dm_offer_step_incident_all","dm.offer.step.incident","model_dm_offer_step_incident",,1,0,0,0

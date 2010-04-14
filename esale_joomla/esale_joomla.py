@@ -813,18 +813,17 @@ class esale_joomla_product_map(osv.osv):
                         'params': {},
                     }
 
-                    #FIXME:price is already tax included
-
                     d['price'] = product_pricelist_obj.price_get(cr, uid, [pricelist], product.id, 1, 'list')[pricelist]
 
-                    tax_amount = 0.0
-                    inv_price = d['price']
-                    for tax in product.taxes_id:
-                        if tax.id in webtaxes and not d['tax_id']:
-                            d['tax_id'] = webtaxes[tax.id]
-                            inv_price = self.pool.get('account.tax').compute_inv(cr, uid, [tax], d['price'], 1)[0]['price_unit']
+                    if self.pool.get('sale.order')._columns.get('price_type'):
+                        # price is tax included:
+                        inv_price = d['price']
+                        for tax in product.taxes_id:
+                            if tax.id in webtaxes and not d['tax_id']:
+                                d['tax_id'] = webtaxes[tax.id]
+                                inv_price = self.pool.get('account.tax').compute_inv(cr, uid, [tax], d['price'], 1)[0]['price_unit']
 
-                    d['price'] = inv_price
+                        d['price'] = inv_price
 
                     #packaging
                     for packaging in product.packaging:

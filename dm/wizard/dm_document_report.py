@@ -70,23 +70,26 @@ class wizard_document_report(wizard.interface):
                                             group_obj.browse(cr, uid, ids)]
         res.sort(lambda x, y: cmp(x[1], y[1]))
         return res # }}}
-        
-    def get_campaings(self,cr,uid,context):
+
+    def get_campaings(self, cr, uid, context):
         document_id = self.dm_wiz_data['id']
         pool = pooler.get_pool(cr.dbname)
         seg_obj = pool.get('dm.campaign.proposition.segment')
-        document = pool.get('dm.offer.document').browse(cr,uid,document_id)
-        res = []
-        if document.step_id:
-            offer=document.step_id.offer_id.id
-            if offer:
-                camp_ids=pool.get('dm.campaign').search(cr,uid,[('offer_id','=',offer)])
-                if camp_ids:
-                    segment_ids=seg_obj.search(cr,uid,[('campaign_id','in',camp_ids)])
-                    res = [(seg.id, seg.name) for seg in 
-                                            seg_obj.browse(cr, uid, segment_ids)]
-                    res.sort(lambda x, y: cmp(x[1], y[1]))
-        return res        
+        seg_ids = seg_obj.search(cr, uid, [])
+        seg_codes = seg_obj.read(cr, uid, seg_ids, ['code'])
+        return [(item['id'], item['code']) for item in seg_codes]
+##         document = pool.get('dm.offer.document').browse(cr,uid,document_id)
+##         res = []
+##         if document.step_id:
+##             offer=document.step_id.offer_id.id
+##             if offer:
+##                 camp_ids=pool.get('dm.campaign').search(cr,uid,[('offer_id','=',offer)])
+##                 if camp_ids:
+##                     segment_ids=seg_obj.search(cr,uid,[('campaign_id','in',camp_ids)])
+##                     res = [(seg.id, seg.code) for seg in 
+##                                             seg_obj.browse(cr, uid, segment_ids)]
+##                     res.sort(lambda x, y: cmp(x[1], y[1]))
+##         return res
 
     report_list_fields = { # {{{
         'report': {'string': 'Select Report', 'type': 'selection', 

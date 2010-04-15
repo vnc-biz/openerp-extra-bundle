@@ -101,9 +101,6 @@ class dm_document_template(osv.osv): # {{{
     _name = "dm.document.template"
     _columns = {
         'name': fields.char('Template Name', size=128),
-        'plugin_ids':fields.many2many('dm.dtp.plugin', 'dm_template_plugin_rel',
-                                'dm_dtp_plugin_id', 'dm_document_template_id',
-                                'Plugins'),
         'note': fields.text('Description')
         }
 
@@ -238,6 +235,20 @@ class dm_dtp_plugin(osv.osv): # {{{
     ]
 
 dm_dtp_plugin() # }}}
+
+
+class dm_document_template(osv.osv): # {{{
+    _name = "dm.document.template"
+    _inherit = "dm.document.template"
+
+    _columns = {
+        'plugin_ids':fields.many2many('dm.dtp.plugin', 'dm_template_plugin_rel',
+                                'dm_dtp_plugin_id', 'dm_document_template_id',
+                                'Plugins'),
+        }
+
+dm_document_template() # }}}
+
 
 class dm_plugin_argument(osv.osv): # {{{
     _name = "dm.plugin.argument"

@@ -292,15 +292,18 @@
             <form string="DTP Plugin">
                 <group  colspan="4">
                     <field name="name" select="1" />
-            	    <field name="code" select="1" />
-            	    <field name="type" select="1" />
-            	    <field name="store_value" />
-		    		<field name="preview_value" attrs="{'required':[('type','!=','image')]}"/>
-                	<field name="err_notify" />
+                    <field name="code" select="1" />
+                    <field name="type" select="1" />
+                    <field name="store_value" />
+                    <field name="preview_value" attrs="{'required':[('type','!=','image')]}"/>
+                    <field name="err_notify" />
                 </group>
                 <newline/>
-        		<separator string="Description" colspan="4"/>
-        		<field name="note" nolabel="1" colspan="4"/>
+                <separator string="Description" colspan="4"/>
+                <field name="note" nolabel="1" colspan="4"/>
+                <newline/>
+                <separator string="Templates" colspan="4"/>
+                <field name="template_ids" select="1" nolabel="1"/>
                 <notebook colspan="4">
                     <page string="Customer Plugin" attrs="{'invisible':[('type','not in',['fields','image'])]}">
                         <field name="model_id" colspan="4" attrs="{'required':[('type','=','fields')]}" domain="[('model', 'in', ['dm.workitem', 'dm.campaign', 'dm.trademark', 'dm.campaign.proposition.segment', 'dm.offer.step',  'dm.offer.document', 'res.partner.address', 'res.partner', 'res.partner.contact', 'res.partner.job', 'res.lang', 'res.country', 'dm.offer.step.transition'])]" />
@@ -313,32 +316,32 @@
                         <field name="python_code" />
                     </page>
                     <page string="Argument List" attrs="{'invisible':[('type','not in',['dynamic','special_url','dynamic_text'])]}">
-	                    <field name="media_content_id"/>
-	                </page>
+                        <field name="media_content_id"/>
+                    </page>
                     <page string="Argument List" attrs="{'invisible':[('type','not in',['dynamic','url','dynamic_text'])]}">
                         <group  colspan="4"  attrs="{'invisible':[('type','!=','url')]}">
                             <field name="encode"/>
                         </group>
-	                <field name="argument_ids" nolabel="1" colspan="4">
-	                    	<form string="Argument List">
-	                            <field name="name" select="1"/>
-	                            <field name="stored_plugin"/>
-	                            <group  colspan="4"  attrs="{'invisible':[('stored_plugin','=',True)]}">
-	                                <field name="value" />
-	                            </group>
-	                            <group  colspan="4"  attrs="{'invisible':[('stored_plugin','=',False)]}">
-	                                <field name="custome_plugin_id"/>
-	                            </group>
-	                            <separator  colspan="4"/>
-	                            <field name="note" nolabel="1" colspan="4" widget="text_wiki"/>
-	                        </form>
-	                        <tree string="Argument List">
-	                            <field name="name" select="1"/>
-	                            <field name="value"/>
-	                        </tree>
-	                    </field>
+                    <field name="argument_ids" nolabel="1" colspan="4">
+                            <form string="Argument List">
+                                <field name="name" select="1"/>
+                                <field name="stored_plugin"/>
+                                <group  colspan="4"  attrs="{'invisible':[('stored_plugin','=',True)]}">
+                                    <field name="value" />
+                                </group>
+                                <group  colspan="4"  attrs="{'invisible':[('stored_plugin','=',False)]}">
+                                    <field name="custome_plugin_id"/>
+                                </group>
+                                <separator  colspan="4"/>
+                                <field name="note" nolabel="1" colspan="4" widget="text_wiki"/>
+                            </form>
+                            <tree string="Argument List">
+                                <field name="name" select="1"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
                     </page>
-       		 </notebook>
+                </notebook>
             </form>
         </field>
     </record>

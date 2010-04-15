@@ -92,9 +92,9 @@ class server_action(osv.osv):
                 context['headers'] = headers
                 
                 if smtp_pool.send_email(cr, uid, action.email_server.id, address, subject, body, [], reports=reports, ir_attach=ir_attach_ids, context=context) == True:
-                    logger.notifyChannel('SMTP', netsvc.LOG_INFO, 'Email successfully send to : %s' % (address))
+                    logger.notifyChannel('smtp', netsvc.LOG_INFO, 'Email successfully send to : %s' % (address))
                 else:
-                    logger.notifyChannel('SMTP', netsvc.LOG_ERROR, 'Failed to send email to : %s' % (address))
+                    logger.notifyChannel('smtp', netsvc.LOG_ERROR, 'Failed to send email to : %s' % (address))
 
             else:
                 act_ids.append(action.id)

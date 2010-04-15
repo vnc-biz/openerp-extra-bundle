@@ -212,7 +212,6 @@ class smtpclient(osv.osv):
             return 'server_not_confirm'
         return True
 
-        
     def test_verify_email(self, cr, uid, ids, toemail, test=False, code=False):
         
         serverid = ids[0]
@@ -506,8 +505,6 @@ class smtpclient(osv.osv):
                 logger.notifyChannel('smtp', netsvc.LOG_INFO, message)
             except Exception, e:
                 queue.write(cr, uid, [email.id], {'error':e, 'state':'error'})
-                message = "failuer sending message to %s from %s server" % (email.to, email.server_id.name)
-                logger.notifyChannel('smtp', netsvc.LOG_ERROR, message)
                 continue
             
             history.create(cr, uid, {
@@ -537,8 +534,7 @@ class smtpclient(osv.osv):
         message = ""
         if len(ids) > 0:
             message = "sending %s emails from message queuq !" % (len(ids))
-            
-        logger.notifyChannel('smtp', netsvc.LOG_INFO, message)
+            logger.notifyChannel('smtp', netsvc.LOG_INFO, message)
         
         result = self. _send_emails(cr, uid, sids, {})
         return result
@@ -596,6 +592,8 @@ email_headers()
 class email_history(osv.osv):
     _name = 'email.smtpclient.history'
     _description = 'Email Client History'
+    _order = 'id desc'
+
     _columns = {
         'name' : fields.text('Description',required=True, readonly=True),
         'date_create': fields.datetime('Date',readonly=True),

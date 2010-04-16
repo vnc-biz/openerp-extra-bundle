@@ -59,7 +59,7 @@ def _decode(name):
 
 
 def _xmlrpc(website):
-    return xmlrpclib.ServerProxy("%s/xmlrpc/index.php"%website.url)
+    return xmlrpclib.ServerProxy("%s/xmlrpc/index.php" % website.url)
 
 
 STATES = [

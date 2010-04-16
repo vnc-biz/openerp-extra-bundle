@@ -25,9 +25,9 @@ import wizard_tax
 import wizard_product
 import wizard_producttype
 import wizard_product_stock
+import wizard_esale_import
 
 from wizard import except_wizard
 
-#import wizard_esale_import
 #import wizard_taxes_export
 

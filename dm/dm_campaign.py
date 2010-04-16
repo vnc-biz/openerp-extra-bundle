@@ -78,7 +78,6 @@ class dm_campaign(osv.osv): #{{{
         campaigns = self.browse(cr, uid, ids)
         for campaign in campaigns:
             quantity = 0
-            numeric = True
             for propo in campaign.proposition_ids:
                 if propo.quantity_planned:
                     quantity += propo.quantity_planned
@@ -1057,9 +1056,9 @@ class dm_campaign_proposition_segment(osv.osv): #{{{
         'note': fields.text('Notes'),
         'segmentation_criteria': fields.text('Segmentation Criteria'),
         'type_census': fields.selection([('minutes', 'Minutes'),
-                                         ('hour', 'Hours'),
-                                         ('day', 'Days'),
-                                         ('month', 'Months')],
+                                         ('hours', 'Hours'),
+                                         ('days', 'Days'),
+                                         ('months', 'Months')],
                                          'Census Type'),
         'segment_state': fields.selection([('validated','Validated'),
                                            ('rejected','Rejected'),
@@ -1069,7 +1068,7 @@ class dm_campaign_proposition_segment(osv.osv): #{{{
     _order = 'deduplication_level'
     _defaults = {
         'all_add_avail': lambda *a: True,
-        'type_census': lambda *a: 'day',
+        'type_census': lambda *a: 'days',
         'type_src': lambda *a: 'internal',
         'segment_state': lambda *a: 'validated',
     }

@@ -432,11 +432,11 @@
               sequence="100"
               action="action_esale_joomla_synclog_tree" />
 
-    <!-- Extend extra/library -->
+    <!-- Extend product -->
     <record model="ir.ui.view" id="view_product_book_form">
         <field name="name">product.book.form.view.inherit</field>
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="library.view_product_book_form"/>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Web Categories">
@@ -455,8 +455,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="view_product_book_form"/>
         <field name="arch" type="xml">
-            <field name="editor" position="replace">
-                <field name="editor" />
+            <field name="rental" position="after">
                 <field name="online" />
             </field>
         </field>

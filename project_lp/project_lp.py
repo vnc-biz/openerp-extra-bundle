@@ -151,8 +151,8 @@ class project_milestone(osv.osv):
 
 project_milestone()
 
-class crm_case(osv.osv):
-    _inherit = "crm.project.bug"
+class project_issue(osv.osv):
+    _inherit = "project.issue"
 
     _columns = {
                 'bug_id': fields.integer('Bug ID',readonly=True),
@@ -188,7 +188,7 @@ class crm_case(osv.osv):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
         
-        crm_case_obj = pool.get('crm.project.bug')
+        crm_case_obj = pool.get('project.issue')
         for sec_id in section_id:
             crm_ids=crm_case_obj.search(cr,uid,[('bug_id','=',False),('project_id','!=',False)])
             launchpad = lp_server.launchpad
@@ -224,18 +224,21 @@ class crm_case(osv.osv):
     def _find_project_bug(self, cr, uid,lp_server=None,date_from=False,date_to=False,context={}):
         pool=pooler.get_pool(cr.dbname)
         case_stage= pool.get('crm.case.stage')
-        categ_id=self.pool.get('crm.case.categ').search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Bugs')])
-        categ_fix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Fixed')])
-        categ_inv_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=','Invalid')])
-        categ_future_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'), ('name','=','Future')])
-        categ_wfix_id=case_stage.search(cr, uid, [('object_id.model','=','crm.project.bug'),('name','=',"Won't fix")])
+        categ_id=self.pool.get('crm.case.categ').search(cr, uid, [('object_id.model','=','project.issue'),('name','=','Bugs')])
+        categ_fix_id=case_stage.search(cr, uid, [('object_id.model','=','project.issue'),('name','=','Fixed')])
+        categ_inv_id=case_stage.search(cr, uid, [('object_id.model','=','project.issue'),('name','=','Invalid')])
+        categ_future_id=case_stage.search(cr, uid, [('object_id.model','=','project.issue'), ('name','=','Future')])
+        categ_wfix_id=case_stage.search(cr, uid, [('object_id.model','=','project.issue'),('name','=',"Won't fix")])
         val={}
         res={}
         series_ids=[]
         prj = self.pool.get('project.project')
+        
         project_id=prj.search(cr,uid,[])
         for prj_id in prj.browse(cr,uid, project_id):
+            
             project_name=str(prj_id.name)
+            
             lp_project = lp_server.getProject(project_name)
             if lp_project and prj_id.flag:
                 prjs=lp_server.get_lp_bugs(project_name)
@@ -308,6 +311,7 @@ class crm_case(osv.osv):
                                     ml = bug.milestone_link.rsplit('/',1)[0]
                                     ml_ids = self.pool.get('project.milestone').search(cr, uid, [('project_id','=',prj_id.id),('name','=', ml)])                          
                                 if not b_id:
+                                    val['analytic_account_id']=prj_id.category_id.id
                                     bug_id=self.create(cr, uid, val,context=context)
                                     self._check_state(cr, uid,[bug_id],val)     
                                     self._store_bug_history(cr, uid , bug_id,bug,val['bug_owner_id'])                               
@@ -373,7 +377,7 @@ class crm_case(osv.osv):
 
     def _update_local_record(self, cr, uid, context, crm_bug, lp_bug, val):
         pool=pooler.get_pool(cr.dbname)
-        case= pool.get('crm.project.bug')
+        case= pool.get('project.issue')
         b=case.write(cr,uid,crm_bug.id,val,context=context)
         if b:
             case._check_state(cr, uid,[crm_bug.id],val)
@@ -427,7 +431,7 @@ class crm_case(osv.osv):
                     attachment = bug.bug.attachments[0]  
                     attachment_data = attachment.data
                     attachment_fd = attachment_data.open() 
-                    ids = self.pool.get('ir.attachment').search(cr, uid, [('name','=',attachment_fd.filename.split('.')[0]),('res_model','=','crm.project.bug'),])
+                    ids = self.pool.get('ir.attachment').search(cr, uid, [('name','=',attachment_fd.filename.split('.')[0]),('res_model','=','project.issue'),])
                     if not ids:
                         attach_id=self.pool.get('ir.attachment').create(cr, uid, {
                                             'name': attachment_fd.filename.split('.')[0],
@@ -456,7 +460,7 @@ class crm_case(osv.osv):
                     obj.create(cr, uid, data, context)
         cr.commit()
         return True      
-crm_case()
+project_issue()
 
 class res_users(osv.osv):
     _inherit = 'res.users'

@@ -19,8 +19,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import crm_lp
-import wizard
 
 
+{
+    'name': 'Customer Relationship Management',
+    'version': '1.0',
+    'category': 'Generic Modules/CRM & SRM',
+    'description': """
+        This module provide  synchronize  between lp bugs with openobject cases
+    """,
+    'author': 'Tiny',
+    'website': 'http://www.openerp.com',
+    'depends': [ 'crm','project_issue'],
+    'init_xml': [
+        #'crm_lp_data.xml',
+    ],
+    'update_xml': [
+        'project_lp_wizard.xml',
+        'project_lp.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+    'certificate': '',
+}
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

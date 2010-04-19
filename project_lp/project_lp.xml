@@ -90,9 +90,9 @@
     </record>
 
     <record model="ir.ui.view" id="view_crm_lp_form">
-        <field name="name">crm.project.bug</field>
-        <field name="model">crm.project.bug</field>
-        <field name="inherit_id" ref="crm_project.crm_case_form_view"/>
+        <field name="name">project.issue</field>
+        <field name="model">project.issue</field>
+        <field name="inherit_id" ref="project_issue.project_issue_form_view"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
             <field name="id" position="after">
@@ -128,8 +128,8 @@
        </field>
     </record>
 
-<menuitem name="Project Series" id="menu_lp_series"  parent="base.menu_pm_planning" action="action_lp_series" sequence="2"/>  
-<menuitem name="Project Milestones" id="menu_lp_milestones"  parent="base.menu_pm_planning" action="action_lp_milestone" sequence="3"/>  
+<menuitem name="Project Series" id="menu_lp_series"  parent="project.menu_project_management" action="action_lp_series" sequence="2"/>  
+<menuitem name="Project Milestones" id="menu_lp_milestones"  parent="project.menu_project_management" action="action_lp_milestone" sequence="3"/>  
 </data>
 
 </openerp>

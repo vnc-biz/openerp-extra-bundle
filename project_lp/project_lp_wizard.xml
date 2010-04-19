@@ -3,7 +3,7 @@
 	<data>
 			<wizard
 				string="LP Synchronization"
-				model="crm.case"
+				model="project.project"
 				name="lp_sync"
 				id="wizard_lp_sync"/>        
 	</data>

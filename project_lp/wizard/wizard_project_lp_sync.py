@@ -43,7 +43,7 @@ class makeSync(wizard.interface):
         date_from=data['form']['date_from']
         date_to=data['form']['date_to']
         ids=False
-        state = pooler.get_pool(cr.dbname).get('crm.project.bug')._check_bug(cr, uid,ids,date_from,date_to)
+        state = pooler.get_pool(cr.dbname).get('project.issue')._check_bug(cr, uid,ids,date_from,date_to)
         if not state:
             raise osv.except_osv(_('Error'), _('Some problem occurred while making synchronization'))
         return {}

@@ -105,7 +105,7 @@ def _import_from_shop(self, cr, uid, data, context):
     try:
         self.pool = pooler.get_pool(cr.dbname)
         web_id = data['form']['web_shop']
-        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.category_map').webimport(cr, uid, [web_id])
+        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.order').webimport(cr, uid, [web_id])
     finally:
         log = sys.stderr.getvalue()
         sys.stderr.close()

@@ -1071,6 +1071,64 @@ class esale_joomla_order(osv.osv):
         'state': lambda *a: 'draft',
     }
 
+    def webimport(self, cr, uid, web_ids, *args):
+        cnew = cupdate = cerror = 0
+        for website in self.pool.get('esale_joomla.web').browse(cr, uid, web_ids):
+            server = _xmlrpc(website)
+            try:
+                orders = server.openerp2vm.get_orders(website.login, website.password) #id, name
+            except Exception, e:
+                print >> sys.stderr, "XMLRPC Error: %s" % e
+                cerror += 1
+                continue
+            for order in orders:
+                (cid, cname, cparams) = order
+                cname = _decode(cname)
+                cname = len(cname) > 64 and cname[0:61] + '...' or cname
+                if not cid:
+                    cerror += 1
+                    continue
+                value = {
+                    'web_id': website.id,
+                    'esale_joomla_id': cid,
+                    'esale_joomla_name': cname,
+                    'state': 'imported',
+                }
+                id = self.search(cr, uid, [('web_id', '=', website.id), ('esale_joomla_id', '=', cid)])
+                if not len(id):
+                    id = self.create(cr, uid, value)
+                    cnew += 1
+                else:
+                    self.write(cr, uid, id, value)
+                    id = id[0]
+                    cupdate += 1
+                for param in cparams:
+                    (cid, cname) = param
+                    cid = _decode(cid)
+                    if len(cid) > 64:
+                        continue #we cannot import this key
+                    cname = _decode(cname)
+                    cname = len(cname) > 64 and cname[0:61] + '...' or cname
+                    value = {
+                        'producttype_map_id': id,
+                        'esale_joomla_id': cid,
+                        'esale_joomla_name': cname,
+                        'state': 'imported',
+                    }
+                    pid = self.pool.get('esale_joomla.producttypeparam_map').search(cr, uid, [('producttype_map_id', '=', id), ('esale_joomla_id', '=', cid)])
+                    if not len(pid):
+                        self.pool.get('esale_joomla.producttypeparam_map').create(cr, uid, value)
+                    else:
+                        self.pool.get('esale_joomla.producttypeparam_map').write(cr, uid, pid, value)
+            self.pool.get('esale_joomla.synclog').create(cr, uid, {
+                'web_id': website.id,
+                'object': 'producttype',
+                'type': 'import',
+                'errors': cerror,
+            })
+
+        return (cnew, cupdate, cerror)
+
     def order_create(self, cr, uid, ids, context={}):
         for order in self.browse(cr, uid, ids, context):
             if not (order.partner_id and order.partner_invoice_id and order.partner_shipping_id):

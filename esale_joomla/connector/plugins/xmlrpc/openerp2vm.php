@@ -125,6 +125,11 @@ class plgXMLRPCOpenERP2Vm extends JPlugin {
                 "signature" => array(array($xmlrpcInt,$xmlrpcString,$xmlrpcString,$xmlrpcStruct))
                 ),
 
+            "openerp2vm.get_orders" => array(
+                "function" => "plgXMLRPCOpenERP2VmServices::get_orders",
+                "docstring" => JText::_('Export the sale orders.'),
+                "signature" => array(array($xmlrpcArray,$xmlrpcString,$xmlrpcString))
+                ),
         );
     }
 }
@@ -457,6 +462,32 @@ class plgXMLRPCOpenERP2VmServices {
             }
         }
         return new xmlrpcresp(new xmlrpcval($id, $xmlrpcInt));
+    }
+
+    function get_orders($username,$password) {
+        global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
+        if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
+            return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
+        }
+        $db =& JFactory::getDBO();
+        $orders=array();
+        query($db,"select product_type_id, product_type_name from #__vm_product_type;",0);
+        foreach($db->loadRowList() as $row) {
+            query($db,"select parameter_name, parameter_label from #__vm_product_type_parameter where product_type_id='".$row[0]."';",0);
+            $params=array();
+            foreach($db->loadRowList() as $row2) {
+                $params[]=new xmlrpcval(array(new xmlrpcval($row2[0], $xmlrpcString), new xmlrpcval($row2[1], $xmlrpcString)), $xmlrpcArray);
+            }
+            $orders[]=new xmlrpcval(array(new xmlrpcval($row[0], $xmlrpcInt), new xmlrpcval($row[1], $xmlrpcString), new xmlrpcval($params, $xmlrpcArray)), $xmlrpcArray);
+        }
+        return new xmlrpcresp( new xmlrpcval($orders, $xmlrpcArray));
+
+
+
+#order_id , user_id , vendor_id , order_number                     , user_info_id                     , order_total , order_subtotal , order_tax , order_tax_details         , order_shipping , order_shipping_tax , coupon_discount , coupon_code , order_discount , order_currency , order_status , cdate      , mdate      , ship_method_id    , customer_note , ip_address
+#1        , 62      , 1         , 62_c7ed68c6bfc1d6e98f1dae42c23df , 1a62ae63f858475284e39149ae1d8e06 , 41.93000    , 14.15000       , 0.00      , a:2:{i:0;d:0;s:0:"";d:0;} , 25.78          , 0.00               , 0.00            ,             , -2.00          , EUR            , P            , 1271227673 , 1271227673 , standard_shipping , DHL           , Europe > 4kg , 25.78 , 9 ,  , ::ffff:127.0.0. , 
+
+
     }
 
 }

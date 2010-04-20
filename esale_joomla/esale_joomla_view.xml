@@ -1,18 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
-<!--
-    <record model="ir.ui.view" id="product_normal_form_view">
-        <field name="name">product.normal.form</field>
-        <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
-        <field name="arch" type="xml">
-            <field name="warranty" position="after">
-                <field name="exportable" />
-            </field>
-        </field>
-    </record>
--->
 
     <!-- eSale Module -->
     <menuitem name="eSale" parent="sale.menu_sale_root" id="menu_esale"/>
@@ -434,7 +422,7 @@
 
     <!-- Extend product -->
     <record model="ir.ui.view" id="view_product_book_form">
-        <field name="name">product.book.form.view.inherit</field>
+        <field name="name">product.normal.form.view.inherit</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
@@ -451,7 +439,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_product_book_form2">
-        <field name="name">product.book.form.view.inherit2</field>
+        <field name="name">product.normal.form.view.inherit2</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="view_product_book_form"/>
         <field name="arch" type="xml">

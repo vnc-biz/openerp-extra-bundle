@@ -172,7 +172,7 @@ class training_subscription_line(osv.osv):
     _inherit = 'training.subscription.line'
     _columns = {
         'with_exam' : fields.boolean('With Exam'),
-        'exam_id' : fields.one2many('training.planned_exam', 'Planned Exam'),
+        'exam_id' : fields.one2many('training.planned_exam', 'subscription_line_id', 'Planned Exam'),
     }
     _defaults = {
         'with_exam' : lambda *a: 0,

@@ -235,6 +235,9 @@ class dm_campaign_proposition(osv.osv): #{{{
         step_ids = self.pool.get('dm.offer.step').search(cr,
                                             uid, [('offer_id', '=', offer_id)])
         step_obj = self.pool.get('dm.offer.step').browse(cr, uid, step_ids)
+        if prop_obj.item_ids:
+            for p in prop_obj.item_ids:
+                self.pool.get('dm.campaign.proposition.item').unlink(cr, uid, p.id)
         for step in step_obj:
             for item in step.item_ids:
                 vals = {'product_id': item.id,

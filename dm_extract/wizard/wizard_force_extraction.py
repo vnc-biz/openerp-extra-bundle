@@ -54,7 +54,6 @@ def action_force_extraction(self, cr, uid, data, context):
         address_ids = []
     use_census = seg_obj.use_census
     cur_time = time.strftime('%Y-%m-%d')
-    add_ids = []
     if use_census:
         start_census = seg_obj.start_census
         end_census = seg_obj.end_census
@@ -69,13 +68,11 @@ def action_force_extraction(self, cr, uid, data, context):
             start_date = (d - datetime.timedelta(**kwargs)).date()
         end_date = cur_time
         sale_ids = pool.get('sale.order').search(cr, uid, [('partner_invoice_id', 'in', address_ids), ('date_order', '<', end_date), ('date_order', '>', start_date)])
-        for sale in pool.get('sale.order').browse(cr, uid, sale_ids):
-            address = sale.partner_invoice_id.id
-            add_ids.append(address)
-        pool.get('dm.customers_file').create(cr, uid, {'name': data['form']['name'],
+    address_ids = [sale.partner_invoice_id.id for sale in pool.get('sale.order').browse(cr, uid, sale_ids)]
+    pool.get('dm.customers_file').create(cr, uid, {'name': data['form']['name'],
                                             'code': data['form']['code'],
                                             'segmentation_id': seg_obj.segmentation_id.id,
-                                            'address_ids': [[6, 0, add_ids]],})
+                                            'address_ids': [[6, 0, set(address_ids)]],})
     return {}
 
 class wizard_force_extraction(wizard.interface):

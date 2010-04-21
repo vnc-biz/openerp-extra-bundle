@@ -1212,7 +1212,6 @@ The Starting Mailing proposes to the prospect to subscribe for a 1 month free tr
             <field eval="&quot;&quot;&quot;default&quot;&quot;&quot;" name="type"/>
             <field eval="&quot;&quot;&quot;bl@maxmailing.com&quot;&quot;&quot;" name="email"/>
 			<field eval="0" name="decoy_address"/>
-			<field eval="[(6,0,[ref('dm.dtp_preview_customers'),ref('dm.res_partner_category_directmarketing0')])]" name="category_id"/>
         </record>
 
 		<record id="dm_customer_2" model="res.partner">

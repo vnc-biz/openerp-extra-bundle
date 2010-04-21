@@ -315,7 +315,7 @@
                     <page string="Dnynamic Text Plugin" attrs="{'invisible':[('type','!=','dynamic')]}">
                         <field name="python_code" />
                     </page>
-                    <page string="Argument List" attrs="{'invisible':[('type','not in',['dynamic','special_url','dynamic_text'])]}">
+                    <page string="Argument List" attrs="{'invisible':[('type','not in',['special_url',])]}">
                         <field name="media_content_id"/>
                     </page>
                     <page string="Argument List" attrs="{'invisible':[('type','not in',['dynamic','url','dynamic_text'])]}">

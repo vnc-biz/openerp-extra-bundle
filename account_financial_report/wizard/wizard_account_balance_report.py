@@ -30,10 +30,12 @@ from tools.translate import _
 period_form = '''<?xml version="1.0"?>
 <form string="Select period">
     <field name="company_id"/>
-    <field name="display_account" required = "True"/>
     <newline/>
     <field name="fiscalyear"/>
     <label colspan="2" string="(Keep empty for all open fiscal years)" align="0.0"/>
+    <newline/>
+    <field name="display_account" required="True"/>
+    <field name="display_account_level" required="True" />
     <newline/>
     <separator string="Filters" colspan="4"/>
     <field name="state" required="True"/>
@@ -67,17 +69,18 @@ period_fields = {
     },
     'periods': {'string': 'Periods', 'type': 'many2many', 'relation': 'account.period', 'help': 'All periods if empty'},
     'display_account':{'string':"Display accounts ", 'type':'selection', 'selection':[('bal_mouvement','With movements'),('bal_all','All'),('bal_solde', 'With balance is not equal to 0')]},
+    'display_account_level':{'string':"Display up to level", 'type':'integer', 'default': lambda *a: 0, 'help': 'Display accounts up to this level (0 to show all)'},
     'date_from': {'string':"Start date", 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-01-01')},
     'date_to': {'string':"End date", 'type':'date', 'required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
 }
 
 account_form = '''<?xml version="1.0"?>
 <form string="Select parent account">
-    <field name="Account_list" colspan="4"/>
+    <field name="account_list" colspan="4"/>
 </form>'''
 
 account_fields = {
-    'Account_list': {'string':'Account', 'type':'many2many', 'relation':'account.account', 'required':True ,'domain':[]},
+    'account_list': {'string':'Account', 'type':'many2many', 'relation':'account.account', 'required':True ,'domain':[]},
 }
 
 
@@ -91,10 +94,6 @@ class wizard_report(wizard.interface):
         data['form']['company_id'] = company_id
         fiscalyear_obj = pooler.get_pool(cr.dbname).get('account.fiscalyear')
         data['form']['fiscalyear'] = fiscalyear_obj.find(cr, uid)
-        # Better allow users to set theirs defaults
-        #periods_obj=pooler.get_pool(cr.dbname).get('account.period')
-        #data['form']['periods'] = periods_obj.search(cr, uid, [('fiscalyear_id','=',data['form']['fiscalyear'])])
-        #data['form']['display_account'] = 'bal_all'
         data['form']['context'] = context
         return data['form']
 

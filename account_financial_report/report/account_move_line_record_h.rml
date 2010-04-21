@@ -6,7 +6,7 @@
 
       <pageGraphics>
           <!--
-          Pié de página
+          Footer
           -->
           <setFont name="Helvetica" size="8"/>
           <!--<drawString x="1cm" y="0.9cm">[[formatLang(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), date_time=True)]]</drawString>-->
@@ -16,7 +16,7 @@
   </template>
 
   <!--
-  Hoja de Estilos del Reporte
+  Report stylesheet
   -->
   <stylesheet>
     <blockTableStyle id="Standard_Outline">
@@ -25,7 +25,7 @@
     </blockTableStyle>
 
     <!--
-    Estilo que se aplica a la tabla
+    Table style
     -->
     <blockTableStyle id="Tabla">
       <blockAlignment value="LEFT"/>
@@ -33,7 +33,7 @@
       <lineStyle kind="LINEBELOW" colorName="#000000" start="0,0" stop="10,0"/>
     </blockTableStyle>
     <!--
-    Estilo que se aplica a la subtabla
+    Subtable style
     -->
     <blockTableStyle id="SubTabla">
       <blockAlignment value="LEFT"/>
@@ -49,7 +49,7 @@
 
 
     <!--
-    Estilos Propios
+    Own style
     -->
     <paraStyle name="Standard" fontName="Helvetica" fontSize="8"/>
     <paraStyle name="TitleText" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER"/>
@@ -65,13 +65,13 @@
   <images/>
 
   <!--
-  Contenido a mostrar
+  Main content
   -->
   <story>
     <para style="Standard">[[setLang(user.context_lang)]]</para>
 
     <!--
-    Título del Informe
+    Report title
     -->
     <para style="TitleText">Journal Ledger  -  [[company.name]]</para>
     <para style="TitleText">
@@ -81,7 +81,7 @@
 
     <blockTable colWidths="1.8cm,1.8cm,2cm,2.5cm,6.7cm,6.5cm,2cm,2cm,1.2cm,1.5cm" repeatRows="1" style="Tabla">
         <!--
-        Descripción de los datos
+        Table header
         -->
       <tr>
         <td>
@@ -120,7 +120,7 @@
       </tr>
       </blockTable>
       <!--
-      Detalle de datos
+      Table content
       -->
 
     <section>

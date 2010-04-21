@@ -30,11 +30,11 @@ from tools.translate import _
 
 account_form = '''<?xml version="1.0"?>
 <form string="Select parent account">
-    <field name="Account_list" colspan="4"/>
+    <field name="account_list" colspan="4"/>
 </form>'''
 
 account_fields = {
-    'Account_list': {'string':'Account', 'type':'many2many', 'relation':'account.account', 'required':True ,'domain':[]},
+    'account_list': {'string':'Account', 'type':'many2many', 'relation':'account.account', 'required':True ,'domain':[]},
 }
 
 period_form = '''<?xml version="1.0"?>
@@ -78,7 +78,7 @@ period_fields = {
     'fiscalyear': {'string': 'Fiscal year', 'type': 'many2one', 'relation': 'account.fiscalyear',
         'help': 'Keep empty for all open fiscal year'},
     'periods': {'string': 'Periods', 'type': 'many2many', 'relation': 'account.period', 'help': 'All periods if empty'},
-    'sortbydate':{'string':"Sort by:", 'type':'selection', 'selection':[('sort_date','Date'),('sort_mvt','Movement')]},
+    'sortbydate':{'string':"Sort by", 'type':'selection', 'selection':[('sort_date','Date'),('sort_mvt','Movement')]},
     'display_account':{'string':"Display accounts ", 'type':'selection', 'selection':[('bal_mouvement','With movements'),('bal_all','All'),('bal_solde','With balance is not equal to 0')]},
     'landscape':{'string':"Landscape Mode", 'type':'boolean'},
     'initial_balance':{'string':"Show initial balances", 'type':'boolean'},

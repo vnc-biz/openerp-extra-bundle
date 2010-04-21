@@ -6,7 +6,7 @@
 
       <pageGraphics>
           <!--
-          Pié de página
+          Footer
           -->
           <setFont name="Helvetica" size="8"/>
           <!--<drawString x="1cm" y="0.9cm">[[formatLang(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), date_time=True)]]</drawString>-->
@@ -16,7 +16,7 @@
   </template>
 
   <!--
-  Hoja de Estilos del Reporte
+  Report stylesheet
   -->
   <stylesheet>
     <blockTableStyle id="Standard_Outline">
@@ -25,7 +25,7 @@
     </blockTableStyle>
 
     <!--
-    Estilos que se aplica a la tabla
+    Table styles
     -->
     <blockTableStyle id="Tabla">
       <blockAlignment value="LEFT"/>
@@ -61,7 +61,7 @@
     </initialize>
 
     <!--
-    Estilos Propios
+    Own styles
     -->
     <paraStyle name="Standard" fontName="Helvetica" fontSize="8"/>
     <paraStyle name="TitleText" fontName="Helvetica-Bold" fontSize="20.0" leading="25" alignment="CENTER"/>
@@ -82,13 +82,13 @@
 
 
   <!--
-  Contenido a mostrar
+  Main content
   -->
   <story>
     <para style="Standard">[[setLang(user.context_lang)]]</para>
 
     <!--
-    Título del Informe
+    Report title
     -->
     <para style="TitleText">Entry Lines  -  [[company.name]]</para>
     <para style="TitleText">
@@ -96,13 +96,13 @@
     </para>
 
     <!--
-    Tabla de datos
+    Data table
     -->
     <blockTable colWidths="1.5cm,1.5cm,7cm,2cm,2cm,5cm" style="Tabla">
         <!--
-        Descripción de los datos
+        Table header
         -->
-      <!-- Primera Línea -->
+      <!-- First line -->
       <tr>
         <td>
           <para style="FieldDescription">Entry</para>
@@ -126,7 +126,7 @@
     </blockTable>
 
     <blockTable colWidths="1.5cm,1.5cm,5.5cm,5.5cm,5cm" style="TablaS">
-      <!-- Segunda Línea -->
+      <!-- Second line -->
       <tr>
         <td>
           <para style="FieldDescriptionCenterItalic">Ref.</para>
@@ -145,7 +145,7 @@
     </blockTable>
 
     <!--
-    Detalle de datos
+    Table content
     -->
     <section>
         [[repeatIn(objects,'o')]]

@@ -28,36 +28,45 @@ import time
 from tools.translate import _
 
 period_form = '''<?xml version="1.0"?>
-<form string="Select period">
+<form string="Invoice List">
     <field name="company_id"/>
     <newline/>
-    <separator string="Filter by type" colspan="4"/>
-    <field name="out_invoice"/>
-    <field name="out_refund"/>
-    <field name="in_invoice"/>
-    <field name="in_refund"/>
-    <separator string="Filter by state" colspan="4"/>
-    <field name="draft"/>
-    <field name="proforma"/>
-    <field name="open"/>
-    <field name="paid"/>
-    <field name="cancel"/>
-    <separator string="Filter by date" colspan="4"/>
-    <field name="state" required="True"/>
-    <newline/>
-    <group attrs="{'invisible':[('state','=','none')]}" colspan="4">
-        <group attrs="{'invisible':[('state','=','byperiod')]}" colspan="4">
-            <separator string="Date Filter" colspan="4"/>
-            <field name="date_from"/>
-            <field name="date_to"/>
-        </group>
-        <group attrs="{'invisible':[('state','=','bydate')]}" colspan="4">
-            <separator string="Filter on Periods" colspan="4"/>
-            <field name="periods" colspan="4" nolabel="1"/>
+    <group colspan="4">
+        <separator string="Filter by type" colspan="4"/>
+        <field name="out_invoice"/>
+        <field name="out_refund"/>
+        <field name="in_invoice"/>
+        <field name="in_refund"/>
+    </group>
+    <group colspan="4">
+        <separator string="Filter by state" colspan="4"/>
+        <field name="draft"/>
+        <field name="proforma"/>
+        <field name="open"/>
+        <field name="paid"/>
+        <field name="cancel"/>
+    </group>
+    <group colspan="4">
+        <separator string="Filter by date" colspan="4"/>
+        <field name="state" required="True"/>
+        <newline/>
+        <group attrs="{'invisible':[('state','=','none')]}" colspan="4">
+            <group attrs="{'invisible':[('state','=','byperiod')]}" colspan="4">
+                <separator string="Date Filter" colspan="4"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+            </group>
+            <group attrs="{'invisible':[('state','=','bydate')]}" colspan="4">
+                <separator string="Filter on Periods" colspan="4"/>
+                <field name="periods" colspan="4" nolabel="1"/>
+            </group>
         </group>
     </group>
-    <separator string="Options" colspan="4"/>
-    <field name="detailed_taxes" required="False"/>
+    <group colspan="4">
+        <separator string="Options" colspan="4"/>
+        <field name="detailed_taxes" required="False"/>
+        <field name="order_by" required="True"/>
+    </group>
 </form>'''
 
 period_fields = {
@@ -81,6 +90,7 @@ period_fields = {
     'periods': {'string': 'Periods', 'type': 'many2many', 'relation': 'account.period', 'help': 'All periods if empty'},
     'date_from': {'string':"Start date",'type':'date','required':True ,'default': lambda *a: time.strftime('%Y-01-01')},
     'date_to': {'string':"End date",'type':'date','required':True, 'default': lambda *a: time.strftime('%Y-%m-%d')},
+    'order_by': {'string': 'Order by', 'type': 'selection', 'selection': [('number','Number'),('date','Date'),('partner','Partner')], 'default': lambda *a: 'number'},
 }
 
 

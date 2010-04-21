@@ -21,10 +21,25 @@ msgid "Supplier invoices"
 msgstr "Facturas proveedor"
 
 #. module: account_financial_report
+#: wizard_field:account.invoice.list.report,init,order_by:0
+msgid "Order by"
+msgstr "Ordenar por"
+
+#. module: account_financial_report
 #: wizard_field:account.balance.full.report,checktype,display_account:0
 #: wizard_field:account.general.ledger.cumulative.report,checktype,display_account:0
 msgid "Display accounts "
 msgstr "Imprimir cuentas"
+
+#. module: account_financial_report
+#: wizard_field:account.balance.full.report,checktype,display_account_level:0
+msgid "Display up to level"
+msgstr "Mostrar hasta el nivel"
+
+#. module: account_financial_report
+#: help:account.balance.full.report,checktype,display_account_level:0
+msgid "Display accounts up to this level (0 to show all)"
+msgstr "Mostrar cuentas hasta este nivel (0 para mostrar todas)"
 
 #. module: account_financial_report
 #: rml:account.account.chart.report:0
@@ -96,8 +111,8 @@ msgstr "Cuenta analítica"
 #. module: account_financial_report
 #: wizard_field:account.account.chart.report,init,account:0
 #: rml:account.balance.full:0
-#: wizard_field:account.balance.full.report,account_selection,Account_list:0
-#: wizard_field:account.general.ledger.cumulative.report,account_selection,Account_list:0
+#: wizard_field:account.balance.full.report,account_selection,account_list:0
+#: wizard_field:account.general.ledger.cumulative.report,account_selection,account_list:0
 #: rml:account.move.line.report:0
 #: rml:account.move.report:0
 #: rml:account.move.report.h:0
@@ -229,6 +244,7 @@ msgstr "Verif."
 #: rml:account.move.report.h:0
 #: rml:account.print.journal.entries:0
 #: rml:account.print.journal.entriesh:0
+#: selection:account.invoice.list.report,init,order_by:0
 msgid "Partner"
 msgstr "Empresa"
 
@@ -338,8 +354,8 @@ msgstr "Con saldo distinto a 0"
 
 #. module: account_financial_report
 #: wizard_field:account.general.ledger.cumulative.report,checktype,sortbydate:0
-msgid "Sort by:"
-msgstr "Ordenar por:"
+msgid "Sort by"
+msgstr "Ordenar por"
 
 #. module: account_financial_report
 #: rml:account.balance.full:0
@@ -490,6 +506,7 @@ msgstr "Saldo inicial"
 #: rml:account.move.report.h:0
 #: rml:account.print.journal.entries:0
 #: rml:account.print.journal.entriesh:0
+#: selection:account.invoice.list.report,init,order_by:0
 msgid "Date"
 msgstr "Fecha"
 
@@ -570,6 +587,7 @@ msgstr "Filtrar por fecha/período"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
+#: selection:account.invoice.list.report,init,order_by:0
 msgid "Number"
 msgstr "Número"
 
@@ -667,6 +685,7 @@ msgstr "Diario"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
+#: wizard_view:account.invoice.list.report,init:0
 msgid "Invoice List"
 msgstr "Listado de Facturas"
 

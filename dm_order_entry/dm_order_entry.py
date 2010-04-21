@@ -60,7 +60,7 @@ class dm_order(osv.osv): # {{{
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-        raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX;PI;"
+        #raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX;PI;"
         value = raw_datas.split(';')
         key = ['datamatrix_type','segment_id',  'customer_code', 'title', 
                'customer_lastname', 'customer_firstname', 'customer_add1',
@@ -83,10 +83,9 @@ class dm_order(osv.osv): # {{{
                 raise osv.except_osv(_('Error !'),
                     _('There is no code defined for %s'%field_check[m][1]))
                 
-        step_id = self.pool.get('dm.offer.step').browse(cr, uid, value['offer_step_id']).id
         segment_obj =  self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, value['segment_id'])
         pro_items = self.pool.get('dm.campaign.proposition.item').search(cr, uid,
-                                                            [('offer_step_id', '=', step_id),
+                                                            [('offer_step_id', '=', value['offer_step_id']),
                                                              ('proposition_id', '=', segment_obj.proposition_id.id)])
         value['dm_order_entry_item_ids'] = pro_items
         del(value['datamatrix_type'])

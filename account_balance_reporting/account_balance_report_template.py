@@ -91,6 +91,65 @@ class account_balance_report_template(osv.osv):
         'balance_mode': lambda *a: '0',
     }
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        """
+        Redefine the copy method to perform it correctly as the line
+        structure is a graph.
+        """
+        line_facade = self.pool.get('account.balance.report.template.line')
+
+        # Read the current item data:
+        template = self.browse(cr, uid, id)
+
+        # Create the template
+        new_id = self.create(cr, uid, {
+                    'name': '%s*' % template.name, # We change the name to identify the copy
+                    'type': 'user', # Copies are always user templates
+                    'report_xml_id': template.report_xml_id.id,
+                    'description': template.description, 
+                    'balance_mode': template.balance_mode,
+                    'line_ids': None,
+                }, context)
+
+        #
+        # Now create the lines (without parents)
+        #
+        for line in template.line_ids:
+            line_facade.create(cr, uid, {
+                    'report_id': new_id,
+                    'sequence': line.sequence,
+                    'css_class': line.css_class,
+                    'code': line.code,
+                    'name': line.name,
+                    'current_value': line.current_value,
+                    'previous_value': line.previous_value,
+                    'negate': line.negate,
+                    'parent_id': None,
+                    'child_ids': None,
+                }, context)
+        
+        #
+        # Now set the (lines) parents
+        #
+        for line in template.line_ids:
+            if line.parent_id:
+                # Search for the copied line
+                new_line_id = line_facade.search(cr, uid, [
+                        ('report_id', '=', new_id),
+                        ('code', '=', line.code),
+                    ])[0]
+                # Search for the copied parent line
+                new_parent_id = line_facade.search(cr, uid, [
+                        ('report_id', '=', new_id),
+                        ('code', '=', line.parent_id.code),
+                    ])[0]
+                # Set the parent
+                line_facade.write(cr, uid, new_line_id, {
+                        'parent_id': new_parent_id,
+                    })
+
+        return new_id
+
 account_balance_report_template()
 
 

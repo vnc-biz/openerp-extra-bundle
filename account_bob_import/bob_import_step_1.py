@@ -126,7 +126,7 @@ config_bob_import()
 
 def _folders_get(self, cr, uid, context={}):
     acc_type_obj = self.pool.get('config.bob.import')
-    ids = acc_type_obj.search(cr, uid, ['path'],context)
+    ids = acc_type_obj.search(cr, uid, [('path', '!=', False)], context)
     path=[]
     res=[]
     seq=0

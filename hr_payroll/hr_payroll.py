@@ -449,11 +449,11 @@ class contrib_register(osv.osv):
         'account_id': fields.many2one('account.account', 'Account', required=True),
         'analytic_account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
         'name':fields.char('Name', size=256, required=True, readonly=False),
-		'register_line_ids':fields.one2many('hr.contibution.register.line', 'register_id', 'Register Line', readonly=True),
+        'register_line_ids':fields.one2many('hr.contibution.register.line', 'register_id', 'Register Line', readonly=True),
         'yearly_total_by_emp': fields.function(_total_contrib, method=True, multi='dc', store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
         'yearly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),
         'monthly_total_by_emp': fields.function(_total_contrib, method=True, multi='dc', store=True, string='Total By Employee', digits=(16, int(config['price_accuracy']))),
-        'monthly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),		
+        'monthly_total_by_comp': fields.function(_total_contrib, method=True, multi='dc', store=True,  string='Total By Company', digits=(16, int(config['price_accuracy']))),        
         'note': fields.text('Description'),
     }
     _defaults = {
@@ -471,20 +471,20 @@ class contrib_register_line(osv.osv):
     _description = 'Contribution Register Line'
   
     def _total(self, cr, uid, ids, field_names, arg, context):
-	    res={}
-	    for line in self.browse(cr, uid, ids, context):
-		    res[line.id] = line.emp_deduction + line.comp_deduction
-		    return res
-	
+        res={}
+        for line in self.browse(cr, uid, ids, context):
+            res[line.id] = line.emp_deduction + line.comp_deduction
+            return res
+    
     _columns = {
-		'name':fields.char('Name', size=256, required=True, readonly=False),
+        'name':fields.char('Name', size=256, required=True, readonly=False),
         'register_id':fields.many2one('hr.contibution.register', 'Register', required=False),
         'code':fields.char('Code', size=64, required=False, readonly=False),
-		'employee_id':fields.many2one('hr.employee', 'Employee', required=True),
-		'period_id': fields.many2one('account.period', 'Period'),
-		'emp_deduction': fields.float('Employee Deduction', digits=(16, int(config['price_accuracy']))),
-		'comp_deduction': fields.float('Company Deduction', digits=(16, int(config['price_accuracy']))),
-        'total': fields.function(_total, method=True, store=True,  string='Total', digits=(16, int(config['price_accuracy']))),	
+        'employee_id':fields.many2one('hr.employee', 'Employee', required=True),
+        'period_id': fields.many2one('account.period', 'Period'),
+        'emp_deduction': fields.float('Employee Deduction', digits=(16, int(config['price_accuracy']))),
+        'comp_deduction': fields.float('Company Deduction', digits=(16, int(config['price_accuracy']))),
+        'total': fields.function(_total, method=True, store=True,  string='Total', digits=(16, int(config['price_accuracy']))),    
     }
 contrib_register_line()
 
@@ -521,9 +521,9 @@ class payment_category(osv.osv):
             help="Contribution register based on company",
             required=False
         ),
-        'note': fields.text('Description'),	
-		'user_id':fields.char('User', size=64, required=False, readonly=False),
-		'state':fields.char('Label', size=64, required=False, readonly=False),
+        'note': fields.text('Description'),    
+        'user_id':fields.char('User', size=64, required=False, readonly=False),
+        'state':fields.char('Label', size=64, required=False, readonly=False),
         'company_id':fields.many2one('res.company', 'Company', required=False),
         'amount_type':fields.selection([
 #            ('per','Percentage (%)'),
@@ -545,7 +545,7 @@ class payment_category(osv.osv):
         'condition': lambda *a: 'True',
         'base': lambda *a:'basic',
         'sequence': lambda *a:5,
-        'amount_type': lambda *a:'per',
+        'amount_type': lambda *a:'fix',
         'company_id': lambda self, cr, uid, context: \
                 self.pool.get('res.users').browse(cr, uid, uid,
                     context=context).company_id.id,

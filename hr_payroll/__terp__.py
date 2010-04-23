@@ -53,7 +53,6 @@
         'hr_payroll_wizard.xml'
     ],
     'demo_xml': [
-        'hr_payroll_analytic.xml'
     ],
     'installable': True,
     'active': False,

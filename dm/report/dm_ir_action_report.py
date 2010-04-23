@@ -179,49 +179,39 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
     elements = []
     key1 = rml_parser.localcontext['name_space']["text"]+"p"
     key2 = rml_parser.localcontext['name_space']["text"]+"drop-down"
+    key3 = rml_parser.localcontext['name_space']["text"]+"span"
     for n in rml_dom.iterdescendants():
         if n.tag == key1:
             elements.append(n)
-    if mime_type == 'odt':
-        for pe in elements:
-            e = pe.findall(key2)
-            for de in e:
-                pp=de.getparent()
-                if de.text or de.tail:
-                    pe.text = de.text or de.tail
-                for cnd in de:
-                    if cnd.text or cnd.tail:
-                        if pe.text:
-                            pe.text +=  cnd.text or cnd.tail
-                        else:
-                            pe.text =  cnd.text or cnd.tail
-                        pp.remove(de)
-    else:
-        for pe in elements:
-            e = pe.findall(key2)
-            for de in e:
-                pp = de.getparent()
-                if de.text or de.tail:
-                    pe.text = de.text or de.tail
-                for cnd in de:
-                    text = cnd.get("{http://openoffice.org/2000/text}value",False)
-                    if text:
-                        if pe.text and text.startswith('[['):
-                            pe.text +=  text
-                        elif text.startswith('[['):
-                            pe.text =  text
-                        if de.getparent():
-                            pp.remove(de)
+    for pe in elements:
+        e = pe.iterfind(key2)
+        for de in e:
+            new_text = de.text or ''
+            for cnd in de:
+                text = cnd.get(rml_parser.localcontext['name_space']["text"]+"value",False)
+                new_text += text.startswith('[[') and text or ''
+            new_text += de.tail or ''
+            if new_text :
+                new_node = de.getparent().makeelement(rml_parser.localcontext['name_space']["text"]+"span")
+                new_node.text =  new_text
+                de.getparent().replace(de,new_node)
+    for pe in elements:
+        e = pe.findall(key3)
+        for span in e:
+            new_text = span.text or ''
+            for de in span.getchildren():
+                new_text += de.text or ''
+                for cnd in de.getchildren():
+                    text = cnd.get(rml_parser.localcontext['name_space']["text"]+"value",False)
+                    new_text += text.startswith('[[') and text or ''
+                new_text += de.tail or ''
+                span.remove(de)
+            span.text = new_text
     import time
-    print "______________pre processing time"
-    start_time = time.time()
     rml_dom = self.preprocess_rml(rml_dom,mime_type)
-    print time.time() - start_time
-    print "______________generate time"
     start_time = time.time()
     create_doc = self.generators[mime_type]
     odt = etree.tostring(create_doc(rml_dom, rml_parser.localcontext),encoding='utf-8', xml_declaration=True)
-    print time.time() - start_time 
     sxw_z = ZipFile(sxw_io, mode='a')
     sxw_z.writestr('content.xml', odt)
     sxw_z.writestr('meta.xml', meta)

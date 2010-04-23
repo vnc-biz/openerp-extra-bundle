@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-01-28 18:20+0000\n"
-"PO-Revision-Date: 2010-04-15 11:03+0000\n"
+"PO-Revision-Date: 2010-04-22 07:34+0000\n"
 "Last-Translator: Borja López Soilán (Pexego) <borjals@pexego.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-04-16 04:03+0000\n"
+"X-Launchpad-Export-Date: 2010-04-23 03:54+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_financial_report
@@ -30,7 +30,7 @@ msgstr "Ordenar por"
 #: wizard_field:account.balance.full.report,checktype,display_account:0
 #: wizard_field:account.general.ledger.cumulative.report,checktype,display_account:0
 msgid "Display accounts "
-msgstr "Imprimir cuentas"
+msgstr "Imprimir cuentas "
 
 #. module: account_financial_report
 #: wizard_field:account.balance.full.report,checktype,display_account_level:0
@@ -41,12 +41,6 @@ msgstr "Mostrar hasta el nivel"
 #: help:account.balance.full.report,checktype,display_account_level:0
 msgid "Display accounts up to this level (0 to show all)"
 msgstr "Mostrar cuentas hasta este nivel (0 para mostrar todas)"
-
-#. module: account_financial_report
-#: wizard_field:account.balance.full.report,checktype,display_account:0
-#: wizard_field:account.general.ledger.cumulative.report,checktype,display_account:0
-msgid "Display accounts "
-msgstr "Imprimir cuentas "
 
 #. module: account_financial_report
 #: rml:account.account.chart.report:0
@@ -118,8 +112,8 @@ msgstr "Cuenta analítica"
 #. module: account_financial_report
 #: wizard_field:account.account.chart.report,init,account:0
 #: rml:account.balance.full:0
-#: wizard_field:account.balance.full.report,account_selection,Account_list:0
-#: wizard_field:account.general.ledger.cumulative.report,account_selection,Account_list:0
+#: wizard_field:account.balance.full.report,account_selection,account_list:0
+#: wizard_field:account.general.ledger.cumulative.report,account_selection,account_list:0
 #: rml:account.move.line.report:0
 #: rml:account.move.report:0
 #: rml:account.move.report.h:0
@@ -701,6 +695,7 @@ msgstr "Diario"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
+#: wizard_view:account.invoice.list.report,init:0
 msgid "Invoice List"
 msgstr "Listado de Facturas"
 

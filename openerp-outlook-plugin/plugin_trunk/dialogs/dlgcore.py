@@ -1,10 +1,6 @@
 # A core, data-driven dialog.
 # Driven completely by "Control Processor" objects.
 
-# This module is part of the spambayes project, which is Copyright 2003
-# The Python Software Foundation and is covered by the Python Software
-# Foundation license.
-
 import win32gui, win32api, win32con
 import commctrl
 import struct, array
@@ -88,7 +84,6 @@ class Dialog:
 
     def GetMessageMap(self):
         ret = {
-            #win32con.WM_SIZE: self.OnSize,
             win32con.WM_COMMAND: self.OnCommand,
             win32con.WM_NOTIFY: self.OnNotify,
             win32con.WM_INITDIALOG: self.OnInitDialog,
@@ -174,7 +169,7 @@ class TooltipDialog(Dialog):
     def GetPopupHelpText(self, control_id):
         return None
 
-# A "Processor Dialog" works with Command Processors, to link SpamBayes
+# A "Processor Dialog" works with Command Processors, to link Outlook-Plugin
 # options with control IDS, giving a "data driven" dialog.
 class ProcessorDialog(TooltipDialog):
     def __init__(self, parent, manager, config, idd, option_handlers):
@@ -183,7 +178,7 @@ class ProcessorDialog(TooltipDialog):
         self.manager = manager
         self.config = config
         self.command_processors = {}
-        self.processor_message_map = {} # WM_MESSAGE : [processors_who_want_it]
+        self.processor_message_map = {}
         self.all_processors = []
         for data in option_handlers:
             klass = data[0]

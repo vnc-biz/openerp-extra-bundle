@@ -142,7 +142,8 @@ class XMLRpcConn(object):
     def GetPartners(self):
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         ids=[]
-        ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','search',[],0,100,'create_date')
+        ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','search',[],0,100)
+        ids.sort()
         obj_list=[]
         for id in ids:
             object = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','read',[id],['id','name'])[0]
@@ -171,14 +172,14 @@ class XMLRpcConn(object):
                     res.append((obj,rec['id'],name))
         return res
 
-    def CreateCase(self, section, mail, partner_ids):
+    def CreateCase(self, section, mail, partner_ids, with_attachments=True):
         res={}
         import win32ui
         section=str(section)
         partner_ids=eval(str(partner_ids))
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         res['name'] = ustr(mail.Subject)
-        res['note'] = ustr(mail.Body)
+        res['description'] = ustr(mail.Body)
         if partner_ids:
             for partner_id in partner_ids:
                 res['partner_id'] = partner_id
@@ -186,11 +187,13 @@ class XMLRpcConn(object):
                 res['partner_address_id'] = partner_addr['default']
                 id=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,section,'create',res)
                 recs=[(section,id,'')]
-                self.MakeAttachment(recs, mail)
+                if with_attachments:
+                    self.MakeAttachment(recs, mail)
         else:
             id=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,section,'create',res)
             recs=[(section,id,'')]
-            self.MakeAttachment(recs, mail)
+            if with_attachments:
+                self.MakeAttachment(recs, mail)
 
     def MakeAttachment(self, recs, mail):
         attachments = mail.Attachments
@@ -211,7 +214,7 @@ class XMLRpcConn(object):
                     fn = f[0][0:l] + '.' + f[-1]
                 att_path = os.path.join(att_folder_path,fn)
                 attachments[i].SaveAsFile(att_path)
-                f=open(att_path,"r")
+                f=open(att_path,"rb")
                 content = "".join(f.readlines()).encode('base64')
                 f.close()
                 res['name'] = ustr(attachments[i].DisplayName)

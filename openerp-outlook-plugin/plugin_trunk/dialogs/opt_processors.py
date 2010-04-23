@@ -1,10 +1,6 @@
 # Option Control Processors for our dialog.
 # These are extensions to basic Control Processors that are linked with
-# SpamBayes options.
-
-# This module is part of the spambayes project, which is Copyright 2003
-# The Python Software Foundation and is covered by the Python Software
-# Foundation license.
+# Outlook-Plugin options.
 
 import win32gui, win32api, win32con, win32ui
 import commctrl
@@ -96,6 +92,7 @@ class DBComboProcessor(ComboProcessor):
             for item in list:
                 win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, str(item))
             sel = win32gui.SendMessage(combo, win32con.CB_SELECTSTRING, 0, db)
+            dbb=win32gui.GetDlgItemText(self.window.hwnd, 2004)
             if sel == -1:
                 win32gui.SendMessage(combo, win32con.CB_SETCURSEL, 0, 0)
             self.active_control_id = self.control_id

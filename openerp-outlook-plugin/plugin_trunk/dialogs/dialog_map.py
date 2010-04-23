@@ -6,16 +6,13 @@ from opt_processors import *
 import sys
 import os
 import addin
-from dialogs import ShowDialog, MakePropertyPage#, ShowWizard
+from dialogs import ShowDialog, MakePropertyPage
 
 import win32ui
-import win32api
 import commctrl
 import win32con
 import win32gui
-import win32com
 import win32gui_struct
-import pywintypes
 import xmlrpclib
 from manager import ustr
 
@@ -196,10 +193,10 @@ def getConnAttributes(manager):
     return
 
 def getMessage(e):
+    import pywintypes
     print "Exception %s: %s"%(type(e),str(e))
     msg = str(e)
     if type(e) == pywintypes.com_error:
-        #msg="Access to the mail Denied"
         msg=str(e)
     elif type(e) == xmlrpclib.Fault:
         msg = str(e.faultCode) or e.faultString or e.message or str(e)
@@ -222,7 +219,7 @@ class OKButtonProcessor(ButtonProcessor):
         try:
             port = int(win32gui.GetDlgItemText(self.window.hwnd, self.other_ids[1]))
         except ValueError, e:
-            print "Exception %s: %s"%str(e)
+            print "Exception : %s"%str(e)
             win32ui.MessageBox("Port should be an integer", "Error", flag_excl)
             return
         except Exception,e:
@@ -230,7 +227,7 @@ class OKButtonProcessor(ButtonProcessor):
             win32ui.MessageBox(msg, "Error", flag_excl)
             return
         setConnAttribs(server, port, self.mngr)
-        if NewConn.getitem('_running') == False:
+        if str(NewConn.getitem('_running')) == 'False':
         	msg = "No server running on host '%s' at port '%d'. Press ignore to still continue with this configuration?"%(server,port)
          	r=win32ui.MessageBox(msg, "Server Connection", win32con.MB_ABORTRETRYIGNORE | win32con.MB_ICONQUESTION)
          	if r==3:
@@ -351,7 +348,7 @@ def ReloadAllControls(btnProcessor,*args):
     server = NewConn.getitem('_server')
     port = NewConn.getitem('_port')
     btnProcessor.window.LoadAllControls()
-    if not NewConn.getitem('_running'):
+    if str(NewConn.getitem('_running')) == 'False':
         win32ui.MessageBox("No server running on host "+ server+" at port "+str(port), "Server Connection", flag_excl)
     return
 
@@ -359,7 +356,7 @@ def TestConnection(btnProcessor,*args):
     server = NewConn.getitem('_server')
     port = NewConn.getitem('_port')
     NewConn.GetDBList()
-    if not NewConn.getitem('_running'):
+    if str(NewConn.getitem('_running')) == 'False':
         btnProcessor.window.LoadAllControls()
         win32ui.MessageBox("No server running on host "+ server+" at port "+str(port), "Server Connection", flag_excl)
         return
@@ -425,7 +422,7 @@ def BrowseCallbackProc(hwnd, msg, lp, data):
                 win32gui.SendMessage(hwnd, shellcon.BFFM_ENABLEOK, 0, 0)
             else:
                 ext = path.split('.')[-1]
-                if ext not in ['gif', 'bmp', 'jpg', 'tif', 'ico']:
+                if ext not in ['gif', 'bmp', 'jpg', 'tif', 'ico', 'png']:
                         win32gui.SendMessage(hwnd, shellcon.BFFM_ENABLEOK, 0, 0)
 
                 else:
@@ -624,7 +621,16 @@ def CreateCase(btnProcessor,*args):
 
             #Create new case
             try:
-                NewConn.CreateCase(str(section), mail, partner_ids)
+                with_attachments=True
+                if  mail.Attachments.Count > 0:
+                    msg="The mail contains attachments. Do you want to create case with attachments?"
+                    r=win32ui.MessageBox(msg, "Create Case", win32con.MB_YESNOCANCEL | win32con.MB_ICONQUESTION)
+                    if r == 2:
+                        return
+                    elif r == 7:
+                       with_attachments=False
+
+                NewConn.CreateCase(str(section), mail, partner_ids, with_attachments)
                 msg="New case created."
                 flag=flag_info
             except Exception,e:
@@ -781,6 +787,7 @@ def SetAllText(txtProcessor,*args):
     win32gui.SendMessage(tbox, win32con.WM_SETTEXT, 0, str(uname))
 
 def SetDefaultList(listProcessor,*args):
+    import win32api
     hwndList = listProcessor.GetControl()
 
     # set full row select style

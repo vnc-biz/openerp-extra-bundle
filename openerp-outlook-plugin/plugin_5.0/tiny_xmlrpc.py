@@ -178,7 +178,7 @@ class XMLRpcConn(object):
                     res.append((obj,rec['id'],name))
         return res
 
-    def CreateCase(self, section, mail, partner_ids):
+    def CreateCase(self, section, mail, partner_ids, with_attachments=True):
         res={}
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         res['name'] = ustr(mail.Subject)
@@ -192,11 +192,13 @@ class XMLRpcConn(object):
                 res['partner_address_id'] = partner_addr['default']
                 id=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'crm.case','create',res)
                 recs=[('crm.case',id,'')]
-                self.MakeAttachment(recs, mail)
+                if with_attachments:
+                    self.MakeAttachment(recs, mail)
         else:
             id=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'crm.case','create',res)
             recs=[('crm.case',id,'')]
-            self.MakeAttachment(recs, mail)
+            if with_attachments:
+                self.MakeAttachment(recs, mail)
 
     def MakeAttachment(self, recs, mail):
         attachments = mail.Attachments
@@ -217,7 +219,7 @@ class XMLRpcConn(object):
                     fn = f[0][0:l] + '.' + f[-1]
                 att_path = os.path.join(att_folder_path,fn)
                 attachments[i].SaveAsFile(att_path)
-                f=open(att_path,"r")
+                f=open(att_path,"rb")
                 content = "".join(f.readlines()).encode('base64')
                 f.close()
                 res['name'] = ustr(attachments[i].DisplayName)

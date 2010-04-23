@@ -1,5 +1,4 @@
 # This package defines dialog boxes used by the main
-# SpamBayes Outlook 2k integration code.
 import os, sys, stat
 
 def LoadDialogs(rc_name = "dialogs.rc"):
@@ -58,16 +57,6 @@ def ShowDialog(parent, manager, config, idd):
     import dlgcore
     dlg = dlgcore.ProcessorDialog(parent, manager, config, idd, commands)
     return dlg.DoModal()
-
-#def ShowWizard(parent, manager, idd = "IDD_WIZARD", use_existing_config = True):
-#    import config_wizard, win32con
-#    config = config_wizard.CreateWizardConfig(manager, use_existing_config)
-#    if ShowDialog(parent, manager, config, idd) == win32con.IDOK:
-#        print "Saving wizard changes"
-#        config_wizard.CommitWizardConfig(manager, config)
-#    else:
-#        print "Cancelling wizard"
-#        config_wizard.CancelWizardConfig(manager, config)
 
 def MakePropertyPage(parent, manager, config, idd, yoffset=24):
     """Creates a child dialog box to use as property page in a tab control"""

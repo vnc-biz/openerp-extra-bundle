@@ -2,7 +2,6 @@ import os
 import sys
 import win32api, win32con
 import win32com.client
-import win32com.client.gencache
 import pythoncom
 
 try:

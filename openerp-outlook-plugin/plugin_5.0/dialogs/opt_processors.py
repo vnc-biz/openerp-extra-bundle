@@ -1,10 +1,7 @@
 # Option Control Processors for our dialog.
 # These are extensions to basic Control Processors that are linked with
-# SpamBayes options.
+# Outlook-Plugin options.
 
-# This module is part of the spambayes project, which is Copyright 2003
-# The Python Software Foundation and is covered by the Python Software
-# Foundation license.
 
 import win32gui, win32api, win32con, win32ui
 import commctrl

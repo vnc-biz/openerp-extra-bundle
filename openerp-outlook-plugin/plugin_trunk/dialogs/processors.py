@@ -1,9 +1,5 @@
 # Control Processors for our dialog.
 
-# This module is part of the spambayes project, which is Copyright 2003
-# The Python Software Foundation and is covered by the Python Software
-# Foundation license.
-
 import win32gui, win32api, win32con
 import commctrl
 import struct, array

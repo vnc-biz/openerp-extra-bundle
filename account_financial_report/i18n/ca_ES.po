@@ -96,8 +96,8 @@ msgstr "Compte analític"
 #. module: account_financial_report
 #: wizard_field:account.account.chart.report,init,account:0
 #: rml:account.balance.full:0
-#: wizard_field:account.balance.full.report,account_selection,Account_list:0
-#: wizard_field:account.general.ledger.cumulative.report,account_selection,Account_list:0
+#: wizard_field:account.balance.full.report,account_selection,account_list:0
+#: wizard_field:account.general.ledger.cumulative.report,account_selection,account_list:0
 #: rml:account.move.line.report:0
 #: rml:account.move.report:0
 #: rml:account.move.report.h:0
@@ -338,8 +338,8 @@ msgstr "Amb saldo diferent a 0"
 
 #. module: account_financial_report
 #: wizard_field:account.general.ledger.cumulative.report,checktype,sortbydate:0
-msgid "Sort by:"
-msgstr "Ordena per:"
+msgid "Sort by"
+msgstr "Ordena per"
 
 #. module: account_financial_report
 #: rml:account.balance.full:0

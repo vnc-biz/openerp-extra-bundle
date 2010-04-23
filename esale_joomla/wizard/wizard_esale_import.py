@@ -1,157 +1,139 @@
-import time
-import xmlrpclib
-import pooler
+#!/usr/bin/python
+# -*- coding: utf-8
+##############################################################################
+#
+# Copyright (c) 2006 TINY SPRL. (http://tiny.be) All Rights Reserved.
+#
+# WARNING: This program as such is intended to be used by professional
+# programmers who take the whole responsability of assessing all potential
+# consequences resulting from its eventual inadequacies and bugs
+# End users who are looking for a ready-to-use solution with commercial
+# garantees and support are strongly adviced to contract a Free Software
+# Service Company
+#
+# This program is Free Software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+##############################################################################
 
 import wizard
+import pooler
+import sys, StringIO
 
-from urllib import unquote_plus
-from re import search as research
 
+_import_select_form = '''<?xml version="1.0"?>
+<form string="Sale Orders Import">
+<separator string="Select the Web Shop to import" colspan="4" />
+<field name="web_shop"/>
+</form>'''
 
-_import_done_fields = {
-    'num': {'string': 'New Sales Orders', 'readonly': True, 'type': 'integer'}
+_import_select_fields = {
+    'web_shop': {
+        'string': 'Web Shop',
+        'type': 'many2one',
+        'relation': 'esale_joomla.web',
+        'required': True,
+    },
 }
 
 _import_done_form = '''<?xml version="1.0"?>
-<form string="Saleorders import">
-    <separator string="eSale Orders imported" colspan="4" />
-    <field name="num"/>
+<form string="Web Categories Import">
+    <separator string="Result" colspan="4" />
+    <field name="new"/>
+    <newline/>
+    <field name="update"/>
+    <newline/>
+    <field name="error"/>
+    <separator string="Error Log" colspan="4" />
+    <field name="log" nolabel="1" colspan="4"/>
 </form>'''
 
-##         def _decode(name, idn):
-##             """DB is corrupted with utf8 and latin1 chars."""
-##             decoded_name = name
-##             if isinstance(name, unicode):
-##                 try:
-##                     decoded_name = name.encode('utf8')
-##                 except:
-##                     decoded_name = name
-##             else:
-##                 try:
-##                     decoded_name = unicode(name, 'utf8')
-##                 except:
-##                     try:
-##                         decoded_name = unicode(name, 'latin1').encode('utf8')
-##                     except:
-##                         decoded_name = name
-## 
-##             return decoded_name
-
-def _do_import(self, cr, uid, data, context):
-    def _decode(name):
-        """DB is corrupted with utf8 and latin1 chars (sometimes urlencoded)."""
-        orig_val = unquote_plus(name)
-
-        try:
-            decoded_val = u"%s" % (orig_val.encode('latin1').decode('utf8'))
-        except UnicodeDecodeError, e:
-            decoded_val = orig_val
-
-        return decoded_val
-
-    self.pool = pooler.get_pool(cr.dbname)
-    ids = self.pool.get('esale_joomla.web').search(cr, uid, [])
-    total = 0
-    for website in self.pool.get('esale_joomla.web').browse(cr, uid, ids):
-        server = xmlrpclib.ServerProxy("%s/tinyerp-synchro.php" % website.url)
-
-        cr.execute("select max(web_ref) from esale_joomla_order where web_id=%d", (website.id,))
-        max_web_id = cr.fetchone()[0]
-
-        saleorders = server.get_saleorders(max_web_id or 0)
-
-        for so in saleorders:
-            total += 1
-            pids = self.pool.get('esale_joomla.partner').search(cr, uid, [('esale_id', '=', so['delivery']['esale_id'])])
-
-            for addr_obj in ('delivery', 'billing'):
-                for key in so[addr_obj].keys():
-                    val = _decode(so[addr_obj][key])
-                    so[addr_obj][key] = val
-
-            if pids:
-                adr_ship = pids[0]
-                self.pool.get('esale_joomla.partner').write(cr, uid, pids, so['delivery'])
-            else:
-                adr_ship = self.pool.get('esale_joomla.partner').create(cr, uid, so['delivery'])
-
-            pids = self.pool.get('esale_joomla.partner').search(cr, uid, [('esale_id', '=', so['billing']['esale_id'])])
-            if pids:
-                adr_bill = pids[0]
-                self.pool.get('esale_joomla.partner').write(cr, uid, pids, so['billing'])
-            else:
-                adr_bill = self.pool.get('esale_joomla.partner').create(cr, uid, so['billing'])
-
-            order_id = self.pool.get('esale_joomla.order').create(cr, uid, {
-                'web_id': website.id,
-                'web_ref': so['id'],
-                'name': so['id'],
-                'date_order': so['date'] or time.strftime('%Y-%m-%d'),
-                'note': so['note'] or '',
-                'epartner_shipping_id': adr_ship,
-                'epartner_invoice_id': adr_bill,
-            })
-
-            for orderline in so['lines']:
-                ids = None
-                if 'product_id' in orderline:
-                    ids = self.pool.get('esale_joomla.product').search(cr, uid, [('esale_joomla_id', '=', orderline['product_id']), ('web_id', '=', website.id)])
-
-                if ids:
-                    osc_product_id = ids[0]
-                    osc_product = self.pool.get('esale_joomla.product').browse(cr, uid, osc_product_id)
-                    price = orderline['price']
-                    price = float(price) - osc_product.product_id.contrib
-                    taxes_included = []
-                    for taxe in osc_product.product_id.taxes_id:
-                        for t in website.taxes_included_ids:
-                            if t.id == taxe.id:
-                                taxes_included.append(taxe)
-                    for c in self.pool.get('account.tax').compute_inv(cr, uid, taxes_included, price, 1, product=osc_product.product_id):
-                        price -= c['amount']
-
-                    self.pool.get('esale_joomla.order.line').create(cr, uid, {
-                        'product_id': osc_product.product_id.id,
-                        'product_qty': orderline['product_qty'],
-                        'name': osc_product.name,
-                        'order_id': order_id,
-                        'product_uom_id': osc_product.product_id.uom_id.id,
-                        'price_unit': price,
-                    })
-
-                if 'product_name' in orderline:
-                    # special products (like 'Shipping fees'):
-
-                    if "product_is_shipping" in orderline:
-                        shipping_product_ids = self.pool.get('product.product').search(cr, uid, [('default_code', '=', '6324')])
-
-                        if shipping_product_ids:
-                            shipping_product = self.pool.get('product.product').browse(cr, uid, shipping_product_ids[0])
-                            self.pool.get('esale_joomla.order.line').create(cr, uid, {
-                                'product_id': shipping_product.id,
-                                'product_qty': 1,
-                                'name': shipping_product.name,
-                                'order_id': order_id,
-                                'product_uom_id': shipping_product.uom_id.id,
-                                'price_unit': orderline['price']
-                            })
-
-        cr.commit()
-    return {'num': total}
+_import_done_fields = {
+    'new': {
+        'string': 'New Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'update': {
+        'string': 'Updated Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'error': {
+        'string': 'Errors',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'log': {
+        'string': 'Log',
+        'type': 'text',
+        'readonly': True,
+    },
+}
 
 
-class wiz_esale_joomla_import_sos(wizard.interface):
+def _import_setup(self, cr, uid, data, context):
+    web_shop = 0
+    if data['model'] == 'esale_joomla.web':
+        web_shop = data['id']
+    elif data['model'] == 'esale_joomla.category_map':
+        cats = pooler.get_pool(cr.dbname).get('esale_joomla.category_map').browse(cr, uid, data['ids'])
+        if len(cats):
+            web_shop = cats[0].web_id.id
+    else:
+        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', True)])
+        if len(ids):
+            web_shop = ids[0]
+    return {'web_shop': web_shop}
+
+
+def _import_from_shop(self, cr, uid, data, context):
+    stderr = sys.stderr
+    sys.stderr = StringIO.StringIO()
+    rnew = rupdate = rerror = 0
+    try:
+        self.pool = pooler.get_pool(cr.dbname)
+        web_id = data['form']['web_shop']
+        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.order').webimport(cr, uid, [web_id])
+    finally:
+        log = sys.stderr.getvalue()
+        sys.stderr.close()
+        sys.stderr = stderr
+    return {'new': rnew, 'update': rupdate, 'error': rerror, 'log': log}
+
+
+class wiz_esale_joomla_import_sale_orders(wizard.interface):
     states = {
         'init': {
-            'actions': [_do_import],
+            'actions': [_import_setup],
+            'result': {
+                'type': 'form',
+                'arch': _import_select_form,
+                'fields': _import_select_fields,
+                'state': [('import', 'Import', 'gtk-execute'), ('end', 'Cancel', 'gtk-cancel')],
+            },
+        },
+        'import': {
+            'actions': [_import_from_shop],
             'result': {
                 'type': 'form',
                 'arch': _import_done_form,
                 'fields': _import_done_fields,
-                'state': [('end', 'End')]
-            }
-        }
+                'state': [('end', 'End')],
+            },
+        },
     }
 
-wiz_esale_joomla_import_sos('esale_joomla.saleorders')
+wiz_esale_joomla_import_sale_orders('esale_joomla.saleorders')
 

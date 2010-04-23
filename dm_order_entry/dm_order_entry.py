@@ -45,6 +45,10 @@ class dm_order(osv.osv): # {{{
         'offer_step_id': fields.many2one('dm.offer.step','Offer Step Code'),
         'state': fields.selection([('draft', 'Draft'),('done', 'Done')],
                                    'Status', readonly=True),
+        'dm_order_entry_item_ids':  fields.many2many('dm.campaign.proposition.item',
+                                        'dm_order_entry_campaign_proposition_item',
+                                        'order_entry_id', 'camp_pro_id',
+                                        'Items'),                      
     }
     _defaults = {
         'state': lambda *a: 'draft',
@@ -56,17 +60,17 @@ class dm_order(osv.osv): # {{{
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-#        raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX"
+        #raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX;PI;"
         value = raw_datas.split(';')
-        key = ['datamatrix_type', 'segment_id', 'customer_code', 'title', 
+        key = ['datamatrix_type','segment_id',  'customer_code', 'title', 
                'customer_lastname', 'customer_firstname', 'customer_add1',
                'customer_add2', 'customer_add3', 'customer_add4', 'country_id', 
-               'zip_summary', 'zip', 'distribution_office']
+               'zip_summary', 'zip', 'distribution_office','offer_step_id']
         value = dict(zip(key, value))
         field_check = {'res.country':('country_id','Country'),
-                       'dm.campaign.proposition.segment' : ('segment_id','Segment')
-                      # 'dm.offer_step' : ('offer_step_id','Offer Step')
-                      }
+                       'dm.campaign.proposition.segment' : ('segment_id','Segment'),
+                       'dm.offer.step' : ('offer_step_id','Offer Step'),
+            }
         for m in field_check:
             field = field_check[m][0]
             if value.has_key(field) and value[field]:
@@ -78,6 +82,12 @@ class dm_order(osv.osv): # {{{
             else:
                 raise osv.except_osv(_('Error !'),
                     _('There is no code defined for %s'%field_check[m][1]))
+                
+        segment_obj =  self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, value['segment_id'])
+        pro_items = self.pool.get('dm.campaign.proposition.item').search(cr, uid,
+                                                            [('offer_step_id', '=', value['offer_step_id']),
+                                                             ('proposition_id', '=', segment_obj.proposition_id.id)])
+        value['dm_order_entry_item_ids'] = pro_items
         del(value['datamatrix_type'])
         return {'value': value}
 

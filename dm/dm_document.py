@@ -96,6 +96,17 @@ class dm_media_content(osv.osv): # {{{
 
 dm_media_content() # }}}
 
+
+class dm_document_template(osv.osv): # {{{
+    _name = "dm.document.template"
+    _columns = {
+        'name': fields.char('Template Name', size=128),
+        'note': fields.text('Description')
+        }
+
+dm_document_template() # }}}
+
+
 class dm_dtp_plugin(osv.osv): # {{{
     _name = "dm.dtp.plugin"
 
@@ -207,6 +218,9 @@ class dm_dtp_plugin(osv.osv): # {{{
                                 ('special_url', 'Special URL')],
                                 'Type', required=True),
         'model_id': fields.many2one('ir.model', 'Object'),
+        'template_ids':fields.many2many('dm.document.template', 'dm_template_plugin_rel',
+                                'dm_document_template_id', 'dm_dtp_plugin_id',
+                                'Templates'),
         'field_id': fields.many2one('ir.model.fields', 'Customers Field'),
         'encode': fields.boolean('Encode Url Parameters'),
         'python_code':fields.text('Python Code', help="Python code to be executed"),
@@ -222,6 +236,20 @@ class dm_dtp_plugin(osv.osv): # {{{
 
 dm_dtp_plugin() # }}}
 
+
+class dm_document_template(osv.osv): # {{{
+    _name = "dm.document.template"
+    _inherit = "dm.document.template"
+
+    _columns = {
+        'plugin_ids':fields.many2many('dm.dtp.plugin', 'dm_template_plugin_rel',
+                                'dm_dtp_plugin_id', 'dm_document_template_id',
+                                'Plugins'),
+        }
+
+dm_document_template() # }}}
+
+
 class dm_plugin_argument(osv.osv): # {{{
     _name = "dm.plugin.argument"
     _description = "Argument List"
@@ -236,17 +264,7 @@ class dm_plugin_argument(osv.osv): # {{{
         }
 dm_plugin_argument() # }}}
 
-class dm_document_template(osv.osv): # {{{
-    _name = "dm.document.template"
-    _columns = {
-        'name': fields.char('Template Name', size=128),
-        'plugin_ids':fields.many2many('dm.dtp.plugin', 'dm_template_plugin_rel',
-                                'dm_dtp_plugin_id', 'dm_document_template_id',
-                                'Plugin'),
-        'note': fields.text('Description')
-        }
 
-dm_document_template() # }}}
 def set_image_email(node,msg): # {{{
     if not node.getchildren():
         if  node.tag=='img' :
@@ -273,6 +291,8 @@ def set_image_email(node,msg): # {{{
             if state == 'image_content_error' :
                 return state
  # }}}
+
+
 def generate_report(cr, uid, obj_id, file_type, report_type, context):
     pool = pooler.get_pool(cr.dbname)
     obj = pool.get('dm.campaign.document').browse(cr, uid, obj_id)

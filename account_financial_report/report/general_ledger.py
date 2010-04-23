@@ -44,7 +44,7 @@ class general_ledger(rml_parse.rml_parse):
         if (data['model'] == 'account.account'):
             new_ids = ids
         else:
-            new_ids = data['form']['Account_list'][0][2]
+            new_ids = data['form']['account_list'][0][2]
             objects = self.pool.get('account.account').browse(self.cr, self.uid, new_ids)
         super(general_ledger, self).set_context(objects, data, new_ids, report_type)
 

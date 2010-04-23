@@ -38,9 +38,20 @@ _export_select_form = '''<?xml version="1.0"?>
 <field name="target"/>
 </form>'''
 
-_export_select_fields = { 
-    'web_shop' : { 'string':'Web Shop', 'type':'many2one', 'relation':'esale_joomla.web', 'required':True },
-    'target' : { 'string':'Which Rows', 'type':'selection', 'selection':[('last','new, modified and deleted since last export'),('all','all rows')], 'default': lambda *a:'last', 'required':True },
+_export_select_fields = {
+    'web_shop': {
+        'string': 'Web Shop',
+        'type': 'many2one',
+        'relation': 'esale_joomla.web',
+        'required': True,
+    },
+    'target': {
+        'string': 'Which Rows',
+        'type': 'selection',
+        'selection': [('last', 'new, modified and deleted since last export'), ('all', 'all rows')],
+        'default': lambda *a: 'last',
+        'required': True,
+    },
 }
 
 _export_done_form = '''<?xml version="1.0"?>
@@ -58,11 +69,31 @@ _export_done_form = '''<?xml version="1.0"?>
 </form>'''
 
 _export_done_fields = {
-    'new': {'string': 'New Web Categories', 'type': 'integer', 'readonly': True},
-    'update': {'string': 'Updated Web Categories', 'type': 'integer', 'readonly': True},
-    'delete': {'string': 'Deleted Web Categories', 'type': 'integer', 'readonly': True},
-    'error': {'string': 'Errors', 'type': 'integer', 'readonly': True},
-    'log': {'string': 'Log', 'type': 'text', 'readonly': True},
+    'new': {
+        'string': 'New Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'update': {
+        'string': 'Updated Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'delete': {
+        'string': 'Deleted Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'error': {
+        'string': 'Errors',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'log': {
+        'string': 'Log',
+        'type': 'text',
+        'readonly': True,
+    },
 }
 
 _import_select_form = '''<?xml version="1.0"?>
@@ -71,8 +102,13 @@ _import_select_form = '''<?xml version="1.0"?>
 <field name="web_shop"/>
 </form>'''
 
-_import_select_fields = { 
-    'web_shop' : { 'string':'Web Shop', 'type':'many2one', 'relation':'esale_joomla.web', 'required':True },
+_import_select_fields = {
+    'web_shop': {
+        'string': 'Web Shop',
+        'type': 'many2one',
+        'relation': 'esale_joomla.web',
+        'required': True,
+    },
 }
 
 _import_done_form = '''<?xml version="1.0"?>
@@ -88,94 +124,119 @@ _import_done_form = '''<?xml version="1.0"?>
 </form>'''
 
 _import_done_fields = {
-    'new': {'string': 'New Web Categories', 'type': 'integer', 'readonly': True},
-    'update': {'string': 'Updated Web Categories', 'type': 'integer', 'readonly': True},
-    'error': {'string': 'Errors', 'type': 'integer', 'readonly': True},
-    'log': {'string': 'Log', 'type': 'text', 'readonly': True},
+    'new': {
+        'string': 'New Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'update': {
+        'string': 'Updated Web Categories',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'error': {
+        'string': 'Errors',
+        'type': 'integer',
+        'readonly': True,
+    },
+    'log': {
+        'string': 'Log',
+        'type': 'text',
+        'readonly': True,
+    },
 }
 
+
 def _export_setup(self, cr, uid, data, context):
-    web_shop=0
-    if data['model']=='esale_joomla.web':
-        web_shop=data['id']
+    web_shop = 0
+    if data['model'] == 'esale_joomla.web':
+        web_shop = data['id']
     else:
-        ids=pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active','=','1')])
+        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', True)])
         if len(ids):
-            web_shop=ids[0]
-    return { 'web_shop': web_shop }
+            web_shop = ids[0]
+    return {'web_shop': web_shop}
+
+
 def _export_from_categories(self, cr, uid, data, context):
-    stderr=sys.stderr
-    sys.stderr=StringIO.StringIO()
+    stderr = sys.stderr
+    sys.stderr = StringIO.StringIO()
     rnew = rupdate = rdelete = rerror = 0
     try:
-        print "_export_from_categories data = %s"%data
-        if data['model']!='esale_joomla.category_map':
-            print >>sys.stderr, "Function called not allowed from this model %s"%data['model']
+        print "_export_from_categories data = %s" % data
+        if data['model'] != 'esale_joomla.category_map':
+            print >> sys.stderr, "Function called not allowed from this model %s" % data['model']
         else:
             self.pool = pooler.get_pool(cr.dbname)
             #data['ids']=list of categories to export. Classify by web_id
-            catweb={}
+            catweb = {}
             for cat in self.pool.get('esale_joomla.category_map').browse(cr, uid, data['ids']):
-                web_id=cat.web_id.id
+                web_id = cat.web_id.id
                 if web_id not in catweb:
-                    catweb[web_id]=[cat.id]
+                    catweb[web_id] = [cat.id]
                 else:
                     catweb[web_id].append(cat.id)
-            for (web_id,cat_ids) in catweb.iteritems():
-                (cnew,cupdate,cdelete,cerror)=self.pool.get('esale_joomla.category_map').webexport(cr, uid, web_id, cat_ids, context)
+            for (web_id, cat_ids) in catweb.iteritems():
+                (cnew, cupdate, cdelete, cerror) = self.pool.get('esale_joomla.category_map').webexport(cr, uid, web_id, cat_ids, context)
                 rnew += cnew
                 rupdate += cupdate
                 rdelete += cdelete
                 rerror += cerror
     finally:
-        log=sys.stderr.getvalue()
+        log = sys.stderr.getvalue()
         sys.stderr.close()
-        sys.stderr=stderr
+        sys.stderr = stderr
     return {'new': rnew, 'update': rupdate, 'delete': rdelete, 'error': rerror, 'log': log}
+
+
 def _export_from_shop(self, cr, uid, data, context):
-    stderr=sys.stderr
-    sys.stderr=StringIO.StringIO()
+    stderr = sys.stderr
+    sys.stderr = StringIO.StringIO()
     rnew = rupdate = rdelete = rerror = 0
     try:
         self.pool = pooler.get_pool(cr.dbname)
-        print "_export_from_shop data = %s"%data
-        web_id=data['form']['web_shop']
-        pool=self.pool.get('esale_joomla.category_map')
-        cond=[('web_id', '=', web_id)]
-        if data['form']['target']=='last':
+        print "_export_from_shop data = %s" % data
+        web_id = data['form']['web_shop']
+        pool = self.pool.get('esale_joomla.category_map')
+        cond = [('web_id', '=', web_id)]
+        if data['form']['target'] == 'last':
             cond.append(('status', 'in', 'new,modified,deleted'))
-        cat_ids=pool.search(cr, uid, cond, context=context)
-        (rnew,rupdate,rdelete,rerror)=pool.webexport(cr, uid, web_id, cat_ids, context)
+        cat_ids = pool.search(cr, uid, cond, context=context)
+        (rnew, rupdate, rdelete, rerror) = pool.webexport(cr, uid, web_id, cat_ids, context)
     finally:
-        log=sys.stderr.getvalue()
+        log = sys.stderr.getvalue()
         sys.stderr.close()
-        sys.stderr=stderr
+        sys.stderr = stderr
     return {'new': rnew, 'update': rupdate, 'delete': rdelete, 'error': rerror, 'log': log}
+
+
 def _import_setup(self, cr, uid, data, context):
-    web_shop=0
-    if data['model']=='esale_joomla.web':
-        web_shop=data['id']
-    elif data['model']=='esale_joomla.category_map':
-        cats=pooler.get_pool(cr.dbname).get('esale_joomla.category_map').browse(cr, uid, data['ids'])
+    web_shop = 0
+    if data['model'] == 'esale_joomla.web':
+        web_shop = data['id']
+    elif data['model'] == 'esale_joomla.category_map':
+        cats = pooler.get_pool(cr.dbname).get('esale_joomla.category_map').browse(cr, uid, data['ids'])
         if len(cats):
-            web_shop=cats[0].web_id.id
+            web_shop = cats[0].web_id.id
     else:
-        ids=pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active','=','1')])
+        ids = pooler.get_pool(cr.dbname).get('esale_joomla.web').search(cr, uid, [('active', '=', True)])
         if len(ids):
-            web_shop=ids[0]
-    return { 'web_shop': web_shop }
+            web_shop = ids[0]
+    return {'web_shop': web_shop}
+
+
 def _import_from_shop(self, cr, uid, data, context):
-    stderr=sys.stderr
-    sys.stderr=StringIO.StringIO()
+    stderr = sys.stderr
+    sys.stderr = StringIO.StringIO()
     rnew = rupdate = rerror = 0
     try:
         self.pool = pooler.get_pool(cr.dbname)
-        web_id=data['form']['web_shop']
-        (rnew,rupdate,rerror)=self.pool.get('esale_joomla.category_map').webimport(cr, uid, [web_id])
+        web_id = data['form']['web_shop']
+        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.category_map').webimport(cr, uid, [web_id])
     finally:
-        log=sys.stderr.getvalue()
+        log = sys.stderr.getvalue()
         sys.stderr.close()
-        sys.stderr=stderr
+        sys.stderr = stderr
     return {'new': rnew, 'update': rupdate, 'error': rerror, 'log': log}
 
 
@@ -183,57 +244,89 @@ class wiz_export(wizard.interface):
     states = {
         'init': {
             'actions': [_export_setup],
-            'result': { 'type': 'form',
-                        'arch': _export_select_form,
-                        'fields': _export_select_fields,
-                        'state': [('export','Export','gtk-execute'),('end','Cancel','gtk-cancel')],
-                      },
+            'result': {
+                'type': 'form',
+                'arch': _export_select_form,
+                'fields': _export_select_fields,
+                'state': [('export', 'Export', 'gtk-execute'), ('end', 'Cancel', 'gtk-cancel')],
+            },
         },
         'export': {
             'actions': [_export_from_shop],
-            'result': {'type': 'form', 'arch': _export_done_form, 'fields': _export_done_fields, 'state': [('end', 'End')]},
+            'result': {
+                'type': 'form',
+                'arch': _export_done_form,
+                'fields': _export_done_fields,
+                'state': [('end', 'End')],
+            },
         },
     }
+
 wiz_export('esale_joomla.web.wizard.export.categories')
+
+
 class wiz_export_from_categories(wizard.interface):
     states = {
         'init': {
             'actions': [_export_from_categories],
-            'result': {'type': 'form', 'arch': _export_done_form, 'fields': _export_done_fields, 'state': [('end', 'End')]},
+            'result': {
+                'type': 'form',
+                'arch': _export_done_form,
+                'fields': _export_done_fields,
+                'state': [('end', 'End')],
+            },
         },
     }
+
 wiz_export_from_categories('esale_joomla.category_map.wizard.export')
+
+
 class wiz_import(wizard.interface):
     states = {
         'init': {
             'actions': [_import_setup],
-            'result': { 'type': 'form',
-                        'arch': _import_select_form,
-                        'fields': _import_select_fields,
-                        'state': [('import','Import','gtk-execute'),('end','Cancel','gtk-cancel')],
-                      },
+            'result': {
+                'type': 'form',
+                'arch': _import_select_form,
+                'fields': _import_select_fields,
+                'state': [('import', 'Import', 'gtk-execute'), ('end', 'Cancel', 'gtk-cancel')],
+            },
         },
         'import': {
             'actions': [_import_from_shop],
-            'result': {'type': 'form', 'arch': _import_done_form, 'fields': _import_done_fields, 'state': [('end', 'End')]},
+            'result': {
+                'type': 'form',
+                'arch': _import_done_form,
+                'fields': _import_done_fields,
+                'state': [('end', 'End')],
+            },
         },
     }
+
 wiz_import('esale_joomla.web.wizard.import.categories')
+
+
 class wiz_import_from_categories(wizard.interface):
     states = {
         'init': {
             'actions': [_import_setup],
-            'result': { 'type': 'form',
-                        'arch': _import_select_form,
-                        'fields': _import_select_fields,
-                        'state': [('import','Import','gtk-execute'),('end','Cancel','gtk-cancel')],
-                      },
+            'result': {
+                'type': 'form',
+                'arch': _import_select_form,
+                'fields': _import_select_fields,
+                'state': [('import', 'Import', 'gtk-execute'), ('end', 'Cancel', 'gtk-cancel')],
+            },
         },
         'import': {
             'actions': [_import_from_shop],
-            'result': {'type': 'form', 'arch': _import_done_form, 'fields': _import_done_fields, 'state': [('end', 'End')]},
+            'result': {
+                'type': 'form',
+                'arch': _import_done_form,
+                'fields': _import_done_fields,
+                'state': [('end', 'End')],
+            },
         },
     }
+
 wiz_import_from_categories('esale_joomla.category_map.wizard.import')
 
-# vim:et:

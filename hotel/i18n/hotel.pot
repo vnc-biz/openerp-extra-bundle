@@ -349,7 +349,7 @@ msgid "Other data"
 msgstr ""
 
 #. module: hotel
-#: field:hotel.room,maxChild:0
+#: field:hotel.room,max_child:0
 msgid "Max Child"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgid "CheckIn"
 msgstr ""
 
 #. module: hotel
-#: field:hotel.room,maxAdult:0
+#: field:hotel.room,max_adult:0
 msgid "Max Adult"
 msgstr ""
 

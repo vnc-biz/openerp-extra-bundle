@@ -111,8 +111,8 @@ class hotel_room(osv.osv):
 
         'product_id': fields.many2one('product.product','Product_id'),
         'floor_id':fields.many2one('hotel.floor','Floor No'),
-        'maxAdult':fields.integer('Max Adult'),
-        'maxChild':fields.integer('Max Child'),
+        'max_adult':fields.integer('Max Adult'),
+        'max_child':fields.integer('Max Child'),
         'avail_status':fields.selection([('assigned','Assigned'),(' unassigned','Unassigned')],'Room Status'),
         'room_amenities':fields.many2many('hotel.room_amenities','temp_tab','room_amenities','rcateg_id','Room Amenities'),
         }

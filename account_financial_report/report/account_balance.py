@@ -32,8 +32,7 @@ from tools import config
 
 
 class account_balance(report_sxw.rml_parse):
-    _name = 'report.account.account.balance'
-
+    _name = 'report.account.balance.full'
 
     def __init__(self, cr, uid, name, context):
         super(account_balance, self).__init__(cr, uid, name, context)
@@ -48,49 +47,50 @@ class account_balance(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'lines': self.lines,
-            'get_fiscalyear':self.get_fiscalyear,
-            'get_periods':self.get_periods,
+            'get_fiscalyear_text': self.get_fiscalyear_text,
+            'get_periods_and_date_text': self.get_periods_and_date_text,
         })
         self.context = context
 
 
-    def get_fiscalyear(self, form):
-        res=[]
-        if form.has_key('fiscalyear'):
-            fisc_id = form['fiscalyear']
-            if not (fisc_id):
-                return ''
-            self.cr.execute("SELECT name FROM account_fiscalyear WHERE id = %s" , (int(fisc_id),))
-            res=self.cr.fetchone()
-        return res and res[0] or ''
-
-
-    def get_periods(self, form):
-        result=''
-        if form.has_key('periods') and form['periods'][0][2]:
-            period_ids = ",".join([str(x) for x in form['periods'][0][2] if x])
-            self.cr.execute("SELECT name FROM account_period WHERE id in (%s)" % (period_ids))
-            res = self.cr.fetchall()
-            len_res = len(res) 
-            for r in res:
-                if (r == res[len_res-1]):
-                    result+=r[0]+". "
-                else:
-                    result+=r[0]+", "
-        elif form.has_key('date_from') and form.has_key('date_to'):
-            result = self.formatLang(form['date_from'], date=True) + ' - ' + self.formatLang(form['date_to'], date=True) + ' '
+    def get_fiscalyear_text(self, form):
+        """
+        Returns the fiscal year text used on the report.
+        """
+        fiscalyear_obj = self.pool.get('account.fiscalyear')
+        fiscalyear = None
+        if form.get('fiscalyear'):
+            fiscalyear = fiscalyear_obj.browse(self.cr, self.uid, form['fiscalyear'])
+            return fiscalyear.name or fiscalyear.code
         else:
-            fy_obj = self.pool.get('account.fiscalyear').browse(self.cr,self.uid,form['fiscalyear'])
-            res = fy_obj.period_ids
-            len_res = len(res)
-            for r in res:
-                if r == res[len_res-1]:
-                    result+=r.name+". "
-                else:
-                    result+=r.name+", "
-            
-        return str(result and result[:-1]) or ''
+            fiscalyear = fiscalyear_obj.browse(self.cr, self.uid, fiscalyear_obj.find(self.cr, self.uid))
+            return "%s*" % (fiscalyear.name or fiscalyear.code)
 
+
+    def get_periods_and_date_text(self, form):
+        """
+        Returns the text with the periods/dates used on the report.
+        """
+        period_obj = self.pool.get('account.period')
+        periods_str = None
+        fiscalyear_id = form['fiscalyear'] or fiscalyear_obj.find(self.cr, self.uid)
+        period_ids = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',fiscalyear_id),('special','=',False)])
+        if form['state'] in ['byperiod', 'all']:
+            period_ids = form['periods'][0][2]
+        periods_str = ', '.join([period.name or period.code for period in period_obj.browse(self.cr, self.uid, period_ids)])
+
+        dates_str = None
+        if form['state'] in ['bydate', 'all']:
+            dates_str = self.formatLang(form['date_from'], date=True) + ' - ' + self.formatLang(form['date_to'], date=True) + ' '
+
+        if periods_str and dates_str:
+            return "%s / %s" % (periods_str, dates_str)
+        elif periods_str:
+            return "%s" % periods_str
+        elif dates_str:
+            return "%s" % dates_str
+        else:
+            return ''
 
 
     def lines(self, form, ids={}, done=None, level=0):
@@ -113,53 +113,97 @@ class account_balance(report_sxw.rml_parse):
         accounts_levels = {}
         account_obj = self.pool.get('account.account')
         period_obj = self.pool.get('account.period')
+        fiscalyear_obj = self.pool.get('account.fiscalyear')
 
+        # Get the fiscal year
+        fiscalyear = None
+        if form.get('fiscalyear'):
+            fiscalyear = fiscalyear_obj.browse(self.cr, self.uid, form['fiscalyear'])
+        else:
+            fiscalyear = fiscalyear_obj.browse(self.cr, self.uid, fiscalyear_obj.find(self.cr, self.uid))
+
+        #
+        # Get the accounts
+        #
         child_ids = account_obj._get_children_and_consol(self.cr, self.uid, account_ids, self.context)
         if child_ids:
             account_ids = child_ids
-        
-        #
-        # Amounts in all fiscal year (end of year balance)
-        #
-        ctx_allfy = self.context.copy()
-        ctx_allfy['fiscalyear'] = form['fiscalyear']
-        ctx_allfy['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',form['fiscalyear'])])
 
-        balance_allfy = {}
-        for acc in account_obj.read(self.cr, self.uid, account_ids, ['balance'], ctx_allfy):
-            balance_allfy[acc['id']] = acc['balance']
         #
-        # Amounts in all fiscal year without special periods 
-        # (fiscal year debit/credit)
+        # Calculate the FY Balance.
+        # (from full fiscal year without closing periods)
         #
-        ctx_allfy_nospecial = self.context.copy()
-        ctx_allfy_nospecial['fiscalyear'] = form['fiscalyear']
-        ctx_allfy_nospecial['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',form['fiscalyear']),('special','=',False)])
+        ctx = self.context.copy()
+        if form.get('fiscalyear'):
+            # Use only the current fiscal year
+            ctx['fiscalyear'] = fiscalyear.id
+            ctx['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',fiscalyear.id),'|',('special','=',False),('date_stop','<',fiscalyear.date_stop)])
+        else:
+            # Use all the open fiscal years
+            open_fiscalyear_ids = fiscalyear_obj.search(self.cr, self.uid, [('state','=','draft')])
+            ctx['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','in',open_fiscalyear_ids),'|',('special','=',False),('date_stop','<',fiscalyear.date_stop)])
 
-        debit_allfy_nos = {}
-        credit_allfy_nos = {}
-        balance_allfy_nos = {}
-        for acc in account_obj.read(self.cr, self.uid, account_ids, ['debit','credit','balance'], ctx_allfy_nospecial):
-            debit_allfy_nos[acc['id']] = acc['debit']
-            credit_allfy_nos[acc['id']] = acc['credit']
-            balance_allfy_nos[acc['id']] = acc['balance']
+        fy_balance = {}
+        for acc in account_obj.read(self.cr, self.uid, account_ids, ['balance'], ctx):
+            fy_balance[acc['id']] = acc['balance']
+
         #
-        # Amounts in selected period / dates
+        # Calculate the FY Debit/Credit
+        # (from full fiscal year without opening or closing periods)
         #
-        ctx_selected = self.context.copy()
-        ctx_selected['state'] = form['context'].get('state','all')
-        if 'fiscalyear' in form and form['fiscalyear']:
-            ctx_selected['fiscalyear'] = form['fiscalyear']
+        ctx = self.context.copy()
+        ctx['fiscalyear'] = fiscalyear.id
+        ctx['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',fiscalyear.id),('special','=',False)])
+
+        fy_debit = {}
+        fy_credit = {}
+        for acc in account_obj.read(self.cr, self.uid, account_ids, ['debit','credit','balance'], ctx):
+            fy_debit[acc['id']] = acc['debit']
+            fy_credit[acc['id']] = acc['credit']
+
+        #
+        # Calculate the period Debit/Credit
+        # (from the selected period or all the non special periods in the fy)
+        #
+        ctx = self.context.copy()
+        ctx['state'] = form['context'].get('state','all')
+        ctx['fiscalyear'] = fiscalyear.id
+        ctx['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',fiscalyear.id),('special','=',False)])
         if form['state'] in ['byperiod', 'all']:
-            ctx_selected['periods'] = form['periods'][0][2]
+            ctx['periods'] = form['periods'][0][2]
         if form['state'] in ['bydate', 'all']:
-            ctx_selected['date_from'] = form['date_from']
-            ctx_selected['date_to'] = form['date_to']
-        if 'periods' not in ctx_selected:
-            ctx_selected['periods'] = []
+            ctx['date_from'] = form['date_from']
+            ctx['date_to'] = form['date_to']
 
-        for account in account_obj.read(self.cr, self.uid, account_ids, ['type','code','name','debit','credit','balance','parent_id'], ctx_selected):
+        accounts = account_obj.read(self.cr, self.uid, account_ids, ['type','code','name','debit','credit','balance','parent_id'], ctx)
+
+        #
+        # Calculate the period initial Balance
+        # (fy balance minus the balance from the start of the selected period
+        #  to the end of the year)
+        #
+        ctx = self.context.copy()
+        ctx['state'] = form['context'].get('state','all')
+        ctx['fiscalyear'] = fiscalyear.id
+        ctx['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',fiscalyear.id),('special','=',False)])
+        if form['state'] in ['byperiod', 'all']:
+            ctx['periods'] = form['periods'][0][2]
+            date_start = min([period.date_start for period in period_obj.browse(self.cr, self.uid, ctx['periods'])])
+            ctx['periods'] = period_obj.search(self.cr, self.uid, [('fiscalyear_id','=',fiscalyear.id),('date_start','>=',date_start),('special','=',False)])
+        if form['state'] in ['bydate', 'all']:
+            ctx['date_from'] = form['date_from']
+            ctx['date_to'] = fiscalyear.date_stop
+
+        period_balanceinit = {}
+        for acc in account_obj.read(self.cr, self.uid, account_ids, ['balance'], ctx):
+            period_balanceinit[acc['id']] = fy_balance[acc['id']] - acc['balance']
+
+        #
+        # Generate the report lines (checking each account)
+        #
+        for account in accounts:
             account_id = account['id']
+
             if account_id in done:
                 continue
 
@@ -190,14 +234,14 @@ class account_balance(report_sxw.rml_parse):
                         'code': account['code'],
                         'name': account['name'],
                         'level': account_level,
+                        'balanceinit': period_balanceinit[account_id],
                         'debit': account['debit'],
                         'credit': account['credit'],
-                        'balance': account['balance'],
-                        'balanceinit': account['balance']-account['debit']+account['credit'],
-                        'debit_fy': debit_allfy_nos[account_id],
-                        'credit_fy': credit_allfy_nos[account_id],
-                        'balance_fy': balance_allfy_nos[account_id],
-                        'balanceinit_fy': balance_allfy_nos[account_id]-debit_allfy_nos[account_id]+credit_allfy_nos[account_id],
+                        'balance': period_balanceinit[account_id]+account['balance'],
+                        'balanceinit_fy': fy_balance[account_id]-fy_debit[account_id]+fy_credit[account_id],
+                        'debit_fy': fy_debit[account_id],
+                        'credit_fy': fy_credit[account_id],
+                        'balance_fy': fy_balance[account_id],
                         'parent_id': account['parent_id'],
                         'bal_type': '',
                     }

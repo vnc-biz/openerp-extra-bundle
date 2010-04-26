@@ -18,10 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-#
-# Order Point Method:
-#    - Order if the virtual stock of today is bellow the min of the defined order point
-#
 
 import wizard
 import pooler

@@ -371,9 +371,9 @@
           <td><para style="terp_default_9">[[ (a['type']=='title' or a['type']=='subtotal') and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['name'] ]] [[ (a['type']=='article' and a['tax_types']) and ('/ (' + a['tax_types'] +')' ) ]]</para></td>
           <td><para style="terp_default_Right_9">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['quantity'] ]]</para></td>
           <td><para style="terp_default_Right_9">[[ a['uos'] ]]</para></td>
-          <td><para style="terp_default_Right_9">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['price_unit'] ]]</para></td>
+          <td><para style="terp_default_Right_9">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ o.type in ('out_refund','in_refund') and '-' or '']][[ a['price_unit'] ]]</para></td>
           <td><para style="terp_default_Centre_9">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ a['discount'] ]]</para></td>
-          <td><para style="terp_default_Right_9">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]] [[ a['price_subtotal'] ]]</para></td>
+          <td><para style="terp_default_Right_9">[[ a['type']=='subtotal' and ( setTag('para','para',{'fontName':'Helvetica-bold'})) ]][[ o.type in ('out_refund','in_refund') and '-' or '']] [[ a['price_subtotal'] ]]</para></td>
           <td><para style="terp_default_Right_9">[[ a['currency'] ]]</para></td>
         </tr>
       <tr>
@@ -504,21 +504,21 @@
           <blockTable colWidths="62.0,59.0,25.0" style="Table_eclu_Taxes_Total">
             <tr>
               <td><para style="terp_default_Bold_9">Net Total:</para></td>
-              <td><para style="terp_default_Right_9">[[ formatLang(o.amount_untaxed) ]]</para></td>
+              <td><para style="terp_default_Right_9">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(o.amount_untaxed) ]]</para></td>
               <td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
             </tr>
           </blockTable>
           <blockTable colWidths="63.0,58.0,26.0" style="Table_Taxes_Total">
             <tr>
               <td><para style="terp_default_Bold_9">Taxes:</para></td>
-              <td><para style="terp_default_Right_9">[[ formatLang(o.amount_tax) ]]</para></td>
+              <td><para style="terp_default_Right_9">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(o.amount_tax) ]]</para></td>
               <td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
             </tr>
           </blockTable>
           <blockTable colWidths="63.0,58.0,26.0" style="Table_Total_Include_Taxes">
             <tr>
               <td><para style="terp_default_Bold_9">Total:</para></td>
-              <td><para style="terp_default_Right_9">[[ formatLang(o.amount_total) ]]</para></td>
+              <td><para style="terp_default_Right_9">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(o.amount_total) ]]</para></td>
               <td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
             </tr>
           </blockTable>
@@ -543,8 +543,8 @@
           <blockTable colWidths="53.0,80.0,65.0" style="Table_Tax_Content">
             <tr>
               <td><para style="terp_default_Centre_8">[[ t.name ]] </para></td>
-              <td><para style="terp_default_Right_8">[[ formatLang(t.base) ]]</para></td>
-              <td><para style="terp_default_Right_8">[[ (t.tax_code_id and t.tax_code_id.notprintable) and removeParentNode('blockTable') or '' ]][[ formatLang(t.amount) ]]</para></td>
+              <td><para style="terp_default_Right_8">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(t.base) ]]</para></td>
+              <td><para style="terp_default_Right_8">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ (t.tax_code_id and t.tax_code_id.notprintable) and removeParentNode('blockTable') or '' ]][[ formatLang(t.amount) ]]</para></td>
             </tr>
           </blockTable>
         </td>

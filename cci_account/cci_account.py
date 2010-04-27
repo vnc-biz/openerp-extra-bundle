@@ -78,7 +78,6 @@ class account_invoice(osv.osv):
                     membership_flag = True
         if data_invoice.partner_id.alert_membership and membership_flag:
             raise osv.except_osv('Error!',data_invoice.partner_id.alert_explanation or 'Partner is not valid')
-
         #create other move lines if the invoice_line is related to a check payment or an AWEX credence
         for inv in self.browse(cr, uid, ids):
             for item in self.pool.get('account.invoice.line').search(cr, uid, [('invoice_id','=',inv.id)]):
@@ -93,18 +92,21 @@ class account_invoice(osv.osv):
                     obj = temp[0]
                     obj_id = int(temp[1])
                     obj_ref = self.pool.get(obj).browse(cr, uid, [obj_id])[0]
+                    linename = False
                     if obj == "event.registration":
                         #acc_id = self.pool.get('account.account').search(cr, uid, [('name','=','Creances AWEX - Cheques Formations et Cheques Langues')])[0]
                         journal_id = self.pool.get('account.journal').search(cr, uid, [('name','=','CFL Journal')])[0]
                         amount = obj_ref.check_amount
+                        linename = obj_ref.invoice_label
                     else:
                         journal_id = self.pool.get('account.journal').search(cr, uid, [('name','=','AWEX Journal')])[0]
                         #acc_id = self.pool.get('account.account').search(cr, uid, [('name','=','Creances AWEX - Cheques Formations et Cheques Langues')])[0]
                         amount = obj_ref.awex_amount
+                        linename = obj_ref.order_desc
                     acc_id = self.pool.get('account.journal').browse(cr, uid, [journal_id])[0].default_debit_account_id.id
                     iml.append({
                         'type': 'dest',
-                        'name': inv['name'] or '/',
+                        'name': linename or '/',
                         'price': amount,
                         'account_id': acc_id,
                         'date_maturity': inv.date_due or False,
@@ -114,7 +116,7 @@ class account_invoice(osv.osv):
                     })
                     iml.append({
                         'type': 'dest',
-                        'name': inv['name'] or '/',
+                        'name': linename or '/',
                         'price': -(amount),
                         'account_id': inv.account_id.id,
                         'date_maturity': inv.date_due or False,
@@ -136,8 +138,8 @@ class account_invoice(osv.osv):
                     move = {'name': name, 'line_id': new_lines, 'journal_id': journal_id}
                     if inv.period_id:
                         move['period_id'] = inv.period_id.id
-                        for i in line:
-                            i[2]['period_id'] = inv.period_id.id
+                        #for i in line:
+                        #    i[2]['period_id'] = inv.period_id.id
                     move_id = move_obj.create(cr, uid, move)
                     move_obj.post(cr, uid, [move_id])
 

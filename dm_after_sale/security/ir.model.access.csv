@@ -41,3 +41,5 @@
 "access_stock_picking_as_manager","stock.picking","stock.model_stock_picking","res_groups_as_manager",1,1,1,0
 "access_stock_move_as_admin","stock.move","stock.model_stock_move","res_groups_as_admin",1,0,0,0
 "access_stock_move_as_manager","stock.move","stock.model_stock_move","res_groups_as_manager",1,0,0,0
+"access_dm_offer_step_type_as_admin","dm.offer.step.type","dm.model_dm_offer_step_type","res_groups_as_manager",1,0,0,0
+"access_dm_offer_step_type_as_manager","dm.offer.step.type","dm.model_dm_offer_step_type","res_groups_as_manager",1,0,0,0

@@ -193,6 +193,7 @@
       <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,-1" stop="0,-1"/>
       <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,-1" stop="1,-1"/>
       <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="3,-1" stop="3,-1"/>
     </blockTableStyle>
     <blockTableStyle id="Table_Table_Border_White">
       <blockAlignment value="LEFT"/>
@@ -547,11 +548,12 @@
       <tr>
         <td>
           <para style="terp_default_8">[[ repeatIn(o.tax_line,'t') ]]</para>
-          <blockTable colWidths="53.0,80.0,65.0" style="Table_Tax_Content">
+          <blockTable colWidths="53.0,80.0,5.0,60.0" style="Table_Tax_Content">
             <tr>
               <td><para style="terp_default_Centre_8">[[ t.name ]] </para></td>
               <td><para style="terp_default_Right_8">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(t.base) ]]</para></td>
-              <td><para style="terp_default_Right_8">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ (t.tax_code_id and t.tax_code_id.notprintable) and removeParentNode('blockTable') or '' ]][[ formatLang(t.amount) ]]</para></td>
+              <td><para style="terp_default_Right_8">[[ o.type in ('out_refund','in_refund') and '-' or '']] </para></td>
+              <td><para style="terp_default_Right_8">[[ (t.tax_code_id and t.tax_code_id.notprintable) and removeParentNode('blockTable') or '' ]][[ formatLang(t.amount) ]]</para></td>
             </tr>
           </blockTable>
         </td>

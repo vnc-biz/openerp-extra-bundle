@@ -19,11 +19,12 @@
             		<separator string="FTP Configuration" colspan="5"/>
             		<field name="ftp_address" />
             		<field name="ftp_port" />
-					<field name="ftp_dir"/>
 					<field name="ftp_user"/>
 					<field name="ftp_password"/>
-					<field name="ssh_use"/>
+					<field name="ftp_dir"/>
+                	<newline/>
 					<field name="ssh_key"/>
+					<field name="ssh_use"/>
         		</group>
         	</field>
         </field>

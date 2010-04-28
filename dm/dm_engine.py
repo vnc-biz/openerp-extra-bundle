@@ -122,11 +122,18 @@ class dm_workitem(osv.osv): # {{{
         for wi in self.browse(cr, uid, ids, context):
             res[wi.id] = wi.address_id and wi.address_id.email or ''
         return res
-
+    
+    def id_search(self, cr, uid, obj, name, args, context={}):
+        if not len(args):
+            return []
+        wi_id= args[0][2]
+        if not wi_id:
+            return []
+        return [('id','in',[wi_id])]
 
     _columns = {
         'name': fields.function(_get_id, method=True, type='char',
-                                string='ID'),
+                                string='ID',fnct_search=id_search),
         'step_id': fields.many2one('dm.offer.step', 'Offer Step',
                                     ondelete="cascade", select="1"),
         'segment_id': fields.many2one('dm.campaign.proposition.segment', 

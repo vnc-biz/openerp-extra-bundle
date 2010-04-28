@@ -71,7 +71,7 @@
         <field name="inherit_id" ref="dm.view_offer_step_document_form"/>
         <field name="arch" type="xml">
         	<notebook position="inside">
-                <page string="Emailvision">
+                <page string="Emailvision" attrs="{'invisible':[('media_id','!=','Email')]}">
         			<field name="ev_template" colspan="4"/>
         		</page>
         		</notebook>

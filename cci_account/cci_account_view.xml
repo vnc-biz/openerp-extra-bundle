@@ -160,7 +160,7 @@
 			<field name="name">account.bank.statement.form.button.payments</field>
 			<field name="type">form</field>
 			<field name="model">account.bank.statement</field>
-			<field name="inherit_id" ref="account_payment.view_bank_statement_form"/>
+			<field name="inherit_id" ref="account.view_bank_statement_form"/>
 			<field name="arch" type="xml">
 				<button position="replace" name="%(account_payment.wizard_populate_statement)d" string="Import payment lines" type="action"/>
 			</field>

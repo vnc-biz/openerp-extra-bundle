@@ -3,10 +3,12 @@
   <template pageSize="(595.0,842.0)" title="Facture" author="CCi Connect" allowSplitting="20">
 
     <pageTemplate id="first">
-      <frame id="first" x1="34.0" y1="98.0" width="530" height="630"/>
-<!-- put back the header: remove comments below and set the height of above tag to 700 + y1 to 28 -->
+      <frame id="first" x1="34.0" y1="120.0" width="530" height="610"/>
+<!-- put back the header: remove comments below and set the height of above tag to 630, y1 to 98.0 -->
 <!-- remove the header: put back comments for the whole pageGraphics tag and set the value of above parameters tag to y1 = 78, height = 650 -->
         <pageGraphics>
+          <!--header-->
+         <!--
           <image x="1.3cm" y="27.6cm" height="40.0" >[[company.logo or removeParentNode('image') ]]</image>
             <setFont name="Helvetica" size="8"/>
             <fill color="black"/>
@@ -24,21 +26,20 @@
             <drawString x="1.3cm" y="25.6cm">Fax:</drawString>
             <drawRightString x="7cm" y="25.6cm">+32 (0)4/343.92.67</drawRightString>
             <lines>1.3cm 25.5cm 7cm 25.5cm</lines>
-
+-->
             <!--footer-->
-            <place x="1.5cm" y="-1.50cm"  width="100.0cm" height="5cm">
+            <place x="1.5cm" y="-0.75cm"  width="100.0cm" height="5cm">
               <para style="Standard">Voir conditions de paiement au verso - Pour tout renseignement: 04/341.91.70</para>
               <para style="Standard"></para>
-              <para style="Standard">CCI Connect ASBL</para>
+              <!--<para style="Standard">CCI Connect ASBL</para>
               <para style="Standard">Siège de Liège: Esplanade de l'Europe 2. B-4020 Liège. Tél. +32 (0)4 341 91 91. Fax +32 (0)4 343 92 67</para>
               <para style="Standard">Siège de Verviers: Rue Renkin 35. B-4800 Verviers. Tél. +32 (0)87 29 36 36. Fax +32 (0)87 26 87 80</para>
               <para style="Standard">Siège de Namur: Chaussée de Marche 935A. B-5100 Namur. Tél. +32 (0)81 32 05 50. Fax +32 (0)81 32 05 59</para>
               <para style="Standard">e-mail: info@cciconnect.be - site web: www.ccilv.be - www.ccinamur.be - www.cciconnect.be</para>
-              <para style="Standard">TVA BE 0810 570 206 - ING 363-0500057-62 - FORTIS 001-5778220-06 - CBC 732-0200867-31</para>
+              <para style="Standard">TVA BE 0810 570 206 - ING 363-0500057-62 - FORTIS 001-5778220-06 - CBC 732-0200867-31</para>-->
             </place>
 
         </pageGraphics>
-
     </pageTemplate>
   </template>
   <stylesheet>
@@ -117,37 +118,9 @@
     <blockTableStyle id="Table_Format_2">
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
-      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,0" stop="0,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="0,0" stop="0,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="1,0" stop="1,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="1,0" stop="1,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="2,0" stop="2,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="2,0" stop="2,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="2,-1" stop="2,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="3,0" stop="3,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="3,0" stop="3,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="3,0" stop="3,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="3,-1" stop="3,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="4,0" stop="4,0"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="5,0" stop="5,0"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="6,0" stop="6,0"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="10,0" stop="10,0"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="11,0" stop="11,0"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="12,0" stop="12,0"/>
-      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,1" stop="0,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="0,1" stop="0,1"/>
-      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#ffffff" start="1,1" stop="1,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="1,1" stop="1,1"/>
-      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,2" stop="0,2"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,2" stop="1,2"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,2" stop="2,2"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,4" stop="0,4"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,4" stop="1,4"/>
-      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,4" stop="2,4"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,0" stop="-1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,1" stop="-1,1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,-1" stop="-1,-1"/>
     </blockTableStyle>
     <blockTableStyle id="Table_format_Table_Line_total">
       <blockAlignment value="LEFT"/>
@@ -328,7 +301,7 @@
     <para style="P8b">
     <font color="white"> </font>
     </para>
-    
+
     <para style="P23">Facture [[ ((o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')) or removeParentNode('para')) and '' ]] [[ o.number ]]</para>
     <para style="P23">PRO-FORMA [[ ((o.type == 'out_invoice' and o.state == 'proforma') or removeParentNode('para')) and '' ]]</para>
     <para style="P23">Facture brouillon [[ ((o.type == 'out_invoice' and o.state == 'draft') or removeParentNode('para')) and '' ]]</para>
@@ -490,7 +463,41 @@
         </tr>
       </blockTable>
     </section>-->
-    <blockTable colWidths="371.0,153.0" style="Table_Format_2">
+
+    <blockTable colWidths="354.0,33.0,66.0,59.0,25.0" style="Table_Format_2">
+      <tr>
+    	<td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="terp_default_Bold_9">Net Total:</para>	</td>
+    	<td><para style="terp_default_Right_9">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(o.amount_untaxed) ]]</para></td>
+    	<td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
+      </tr>
+      <tr>
+    	<td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="terp_default_Bold_9">Taxes:</para></td>
+    	<td><para style="terp_default_Right_9">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(o.amount_tax) ]]</para></td>
+    	<td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
+      </tr>
+      <tr>
+     	<para>[[ repeatIn(o.payment_ids,'obj_pay') ]]</para>
+    	<td><para style="terp_default_Right_9">[[ obj_pay.name or removeParentNode('tr') ]]</para></td>
+    	<td><para style="P8"><font color="white"></font></para></td>
+        <td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="terp_default_Right_9"> - [[ '%.2f' % obj_pay.credit !=0 and obj_pay.credit or obj_pay.debit !=0 and obj_pay.debit or removeParentNode('tr') ]]</para></td>
+    	<td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
+       </tr>
+       <tr>
+    	<td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="P8"><font color="white"></font></para></td>
+    	<td><para style="terp_default_Bold_9">Total:</para></td>
+    	<td><para style="terp_default_Right_9">[[ o.type in ('out_refund','in_refund') and '-' or '']][[ formatLang(o.residual) ]]</para></td>
+    	<td><para style="terp_default_Right_9">[[ o.currency_id.code ]]</para></td>
+       </tr>
+    </blockTable>
+
+
+    <!--blockTable colWidths="371.0,153.0" style="Table_Format_2">
       <tr>
         <td>
           <blockTable colWidths="176.0,258.0" style="Table_format_Table_Line_total">
@@ -524,7 +531,7 @@
           </blockTable>
         </td>
       </tr>
-    </blockTable>
+    </blockTable-->
     <blockTable colWidths="530.0" style="Table_Main_Table">
       <tr>
         <td>
@@ -587,6 +594,6 @@
      <para style="terp_default_2">
        <font color="white"> </font>
      </para>
-    
+
   </story>
 </document>

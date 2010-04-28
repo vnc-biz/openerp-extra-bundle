@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
@@ -27,7 +27,7 @@
     "description": """
         specific module for cci project which will use account module (Reports).
     """,
-    "depends" : ["account_invoice_layout","sale","account_analytic_plans","base_vat","cci_partner","membership","account_l10nbe_domiciliation"],
+    "depends" : ["account_invoice_layout","sale","account_analytic_plans","base_vat","cci_partner","membership","account_l10nbe_domiciliation", "account_payment"],
     "init_xml" : [
         #"cci_account_data.xml"
     ],

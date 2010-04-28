@@ -113,7 +113,7 @@ class dm_simulator(osv.osv):
                     {'date_stop':date_stop.strftime('%Y-%m-%d  %H:%M:%S')})
 
         """ compute duration per section """
-        sect_dur = duration // sim.section_qty
+        sect_dur = sim.section_qty and sim.section_qty !=0 and duration // sim.section_qty or duration
         print "DM SIM - sect_dur:", sect_dur
 
         if sim.type == "purchase":

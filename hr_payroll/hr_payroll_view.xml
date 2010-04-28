@@ -134,16 +134,19 @@
             <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <field name="active" position="after">
-                    <field name="head_id"/>
-                    <field name="code"/>
-                    <field name="analytic_account_id"/>
-                    <field name="account_id"/>
-                    <field name="company_id" select="2"/>
-                    <newline/>
-                    <label align="0.0" colspan="2" string="(Based on type Payroll will calculate basic salary)"/>
-                    <field name="type"/>
-                    <separator colspan="4" string="Payroll Configurtion"/>
+                <field name="color_name" position="after">
+                    <group col="2" colspan="2">
+                        <separator colspan="4" string="Payroll Accounting"/>
+                        <field name="company_id" select="2"/>
+                        <field name="code"/>
+                        <field name="analytic_account_id"/>
+                        <field name="account_id"/>
+                    </group>
+                    <group col="2" colspan="2">
+                        <separator colspan="4" string="Payroll Configurtion"/>
+                        <field name="type"/>
+                        <field name="head_id"/>
+                    </group>
                 </field>
             </field>
         </record>

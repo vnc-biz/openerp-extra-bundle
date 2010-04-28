@@ -605,7 +605,7 @@ class hr_holidays_status(osv.osv):
             ], string='Payment'),
         'account_id': fields.many2one('account.account', 'Account', required=True),
         'analytic_account_id':fields.many2one('account.analytic.account', 'Analytic Account', required=False),
-        'head_id': fields.many2one('hr.allounce.deduction.categoty', 'Payroll Head', domain=[('type','=','other')]),
+        'head_id': fields.many2one('hr.allounce.deduction.categoty', 'Payroll Head', domain=[('type','=','deduct')]),
         'code':fields.char('Code', size=64, required=True, readonly=False),
     }
     _defaults = {

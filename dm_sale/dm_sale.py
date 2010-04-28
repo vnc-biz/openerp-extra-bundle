@@ -45,7 +45,7 @@ class dm_workitem(osv.osv): # {{{
                         'partner_type': 'customer',
                         'date': time.strftime('%Y-%m-%d %H:%M:%S'),
                         'partner_id':wi.address_id.partner_id.id,
-                        'document': wi.sale_order_id and ('sale.order' +','+ wi.sale_order_id.id) or ''})
+                        'document': wi.sale_order_id and ('sale.order' +',' +'%d' %wi.sale_order_id.id) or ''})
         return result
 
     def copy(self, cr, uid, id, default=None, context=None):
@@ -203,7 +203,8 @@ class sale_order(osv.osv): #{{{
         except Exception, exception:
             tb = sys.exc_info()
             tb_s = "".join(traceback.format_exception(*tb))
-            self.write(cr, uid, [wi.id], {'state': 'error',
+            wi_id = self.pool.get('dm.workitem').search(cr, uid, [('sale_order_id', '=', sale_order_id)])
+            self.write(cr, uid, wi_id, {'state': 'error',
                                           'error_msg': 'Exception: %s\n%s' % (str(exception), tb_s)})
             netsvc.Logger().notifyChannel('dm action - so process',
                                           netsvc.LOG_ERROR, 'Exception: %s\n%s' % (str(exception), tb_s))

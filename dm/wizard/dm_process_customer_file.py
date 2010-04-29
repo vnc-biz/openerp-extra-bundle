@@ -28,7 +28,7 @@ from tools.translate import _
 seg_form = '''<?xml version="1.0"?>
     <form string="Process Customers file">
         <field name="action_date" />
-        <field name="step_id" domain="[('flow_start','=',True)]"/>
+        <field name="step_id" domain="[('type_id.flow_start','=',True)]"/>
     </form>'''
     
 seg_fields = { # {{{

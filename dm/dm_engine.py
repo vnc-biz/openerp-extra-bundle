@@ -230,36 +230,41 @@ class dm_workitem(osv.osv): # {{{
             if tr_res:
                 "Execute server action"
                 wi_res = server_obj.run(cr, uid, [wi.step_id.action_id.id], context)
-                """ Check returned code and set wi status """
-                wi_status = self._check_sysmsg(cr, uid, wi_res['code'],
-                                                context.copy())
+                if not wi_res and wi.step_id.action_id.state == 'object_create': 
+                    # create object returns false ,asuming object is created
+                    # state is set to done 
+                    self.write(cr, uid, [wi.id], {'state': 'done',
+                                    'error_msg': 'Case is created'})
+                else :
+                    """ Check returned code and set wi status """
+                    wi_status = self._check_sysmsg(cr, uid, wi_res['code'],
+                                                    context.copy())
 
-                "Set workitem state and message"
-                wr = self.write(cr, uid, [wi.id], {'state': wi_status['state'],
-                                                'error_msg':wi_status['msg']})
-                done = wi_status['result']
-                "If workitem done then execute mail service action"
-                if done:
-                    doc_context = {}
-                    doc_obj = self.pool.get(wi_res['model'])
-                    for doc in doc_obj.browse(cr, uid, wi_res['ids']):
-                        doc_context['active_id'] = doc.id
-                        ms_res = server_obj.run(cr, uid,
-                                        [doc.mail_service_id.action_id.id],
-                                        doc_context)
-                        ms_status = self._check_sysmsg(cr, uid, ms_res['code'], context)
-                        doc_obj.write(cr, uid, [doc.id],
-                            {'state': ms_status['state'],
-                            'error_msg': 'err_msg' in ms_res and ms_res['err_msg'] or ms_status['msg'], 
-                            'delivery_time': time.strftime('%Y-%m-%d  %H:%M:%S')})
-                        " If doc in error, change workitem status "
-                        if not ms_status['result']:
-                            # Attention : if 1 doc crashes => wi in error but other docs processed
-                            # TODO : Add doc in error ref in wi error_msg
-                            wr = self.write(cr, uid, [wi.id], {'state': ms_status['state'],
-                                                'error_msg':ms_status['msg']})
-                            done = False
-
+                    "Set workitem state and message"
+                    wr = self.write(cr, uid, [wi.id], {'state': wi_status['state'],
+                                                    'error_msg':wi_status['msg']})
+                    done = wi_status['result']
+                    "If workitem done then execute mail service action"
+                    if done:
+                        doc_context = {}
+                        doc_obj = self.pool.get(wi_res['model'])
+                        for doc in doc_obj.browse(cr, uid, wi_res['ids']):
+                            doc_context['active_id'] = doc.id
+                            ms_res = server_obj.run(cr, uid,
+                                            [doc.mail_service_id.action_id.id],
+                                            doc_context)
+                            ms_status = self._check_sysmsg(cr, uid, ms_res['code'], context)
+                            doc_obj.write(cr, uid, [doc.id],
+                                {'state': ms_status['state'],
+                                'error_msg': 'err_msg' in ms_res and ms_res['err_msg'] or ms_status['msg'], 
+                                'delivery_time': time.strftime('%Y-%m-%d  %H:%M:%S')})
+                            " If doc in error, change workitem status "
+                            if not ms_status['result']:
+                                # Attention : if 1 doc crashes => wi in error but other docs processed
+                                # TODO : Add doc in error ref in wi error_msg
+                                wr = self.write(cr, uid, [wi.id], {'state': ms_status['state'],
+                                                    'error_msg':ms_status['msg']})
+                                done = False
             else:
                 "Dont Execute Action if workitem is not to be processed"
                 self.write(cr, uid, [wi.id], {'state': 'cancel',

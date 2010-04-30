@@ -126,14 +126,15 @@ class print_invoice_list(rml_parse.rml_parse):
             if inv.type == ('out_refund'):
                 outref.append(inv)
         # we process the invoice and attribute them to the property
-        self.filter_invoices(ininv, self.in_invoices, data['form'].get('order_by'))
-        self.filter_invoices(outinv, self.out_invoices, data['form'].get('order_by'))
-        self.filter_invoices(inref, self.in_refunds, data['form'].get('order_by'))
-        self.filter_invoices(outref, self.out_refunds, data['form'].get('order_by'))
+        order_by = data.get('form') and data.get('form').get('order_by') or None
+        self.filter_invoices(ininv, self.in_invoices, order_by)
+        self.filter_invoices(outinv, self.out_invoices, order_by)
+        self.filter_invoices(inref, self.in_refunds, order_by)
+        self.filter_invoices(outref, self.out_refunds, order_by)
         super(print_invoice_list, self).set_context(objects, data, ids, report_type)
 
 
-    def filter_invoices(self, list, dest, order_by='number'):
+    def filter_invoices(self, list, dest, order_by=None):
         if not list :
             return 
         tmp = {}
@@ -144,7 +145,7 @@ class print_invoice_list(rml_parse.rml_parse):
             list.sort(key=lambda inv: "%s_%s" % (inv.date_invoice, inv.number))
         elif order_by=='partner':
             list.sort(key=lambda inv: "%s_%s" % (inv.partner_id and inv.partner_id.name, inv.reference))
-        else:
+        elif order_by=='number':
             list.sort(key=lambda inv: inv.number)
 
         #

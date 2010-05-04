@@ -27,7 +27,7 @@
 		Order Entry
 	-->
 	
-	<record model="ir.ui.view" id="view_dm_order_form_inherit">
+	<!--record model="ir.ui.view" id="view_dm_order_form_inherit">
         <field name="name">dm.order.form.inherit</field>
         <field name="model">dm.order</field>
         <field name="type">form</field>
@@ -38,7 +38,7 @@
 				<field name="state_msg" nolabel="1" colspan="4"/>
 			</separator>
         </field>
-    </record>
+    </record-->
 
 	</data>
 </openerp>

@@ -73,9 +73,7 @@ class dm_order(osv.osv): # {{{
     def create(self, cr, uid, vals, context={}):
         if vals.has_key('order_session_id') and vals['order_session_id']:
             session_obj = self.pool.get('dm.order.session').browse(cr, uid, vals['order_session_id'])
-            if session_obj.state == 'running':
-                return super(dm_order, self).create(cr, uid, vals, context)
-            else:
+            if not session_obj.state == 'running':
                 raise osv.except_osv(_('Error!'),_("There is no running session for this order entry"))
         return super(dm_order, self).create(cr, uid, vals, context)
     

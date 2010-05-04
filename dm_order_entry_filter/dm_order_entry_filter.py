@@ -38,11 +38,6 @@ dm_order_session() # }}}
 class dm_order(osv.osv): # {{{
     _inherit= "dm.order"
     
-    _columns = {
-            'state': fields.selection([('draft', 'Draft'),('done', 'Done'),('error', 'Error')], 'Status', readonly=True),
-            'state_msg': fields.text('State Message', readonly=True)
-        }
-    
     def create(self, cr, uid, vals, context={}):
         message = ''
         if vals.has_key('order_session_id') and vals['order_session_id']:

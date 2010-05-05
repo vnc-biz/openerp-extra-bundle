@@ -120,7 +120,7 @@ class account_voucher(osv.osv):
             #create the first line our self
             move_line = {
                 'name': inv.name,
-                'voucher_invoice' : iml[0]['invoice'].id,
+                'voucher_invoice' : iml and iml[0]['invoice'] and iml[0]['invoice'].id or False,
                 'debit': False,
                 'credit':False,
                 'account_id': inv.account_id.id or False,
@@ -141,7 +141,7 @@ class account_voucher(osv.osv):
             for line in inv.voucher_line_ids:
                 move_line = {
                     'name':line.name,
-                    'voucher_invoice' : iml[0]['invoice'].id,
+                    'voucher_invoice' : iml and iml[0]['invoice'] and iml[0]['invoice'].id or False,
                     'debit':False,
                     'credit':False,
                     'move_id':move_id,                    

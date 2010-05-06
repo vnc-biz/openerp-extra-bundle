@@ -19,13 +19,18 @@
 #
 ##############################################################################
 from osv import fields, osv
+import datetime
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
     _description = 'Partner'
 
     def _membership_state_job(self, cr, uid, ids=False, context={}):
-        partner_ids = self.pool.get('res.partner').search(cr, uid, [], context=context)
+        today = datetime.date.today()
+        yesterday = today - datetime.timedelta(days=1)
+        membership_line_ids = self.pool.get('membership.membership_line').search(cr, uid, ['|', ('date_to','=', yesterday), ('date_from','=', today)], context=context)
+        partner_tmp_ids = self.pool.get('membership.membership_line').read(cr, uid, membership_line_ids, ['partner'], context=context)
+        partner_ids = partner_tmp_ids and map(lambda x:x['partner'][0],partner_tmp_ids) or False
         self._membership_state(cr, uid, partner_ids, 'membership_state', None, context=context)
         self._membership_start(cr, uid, partner_ids, 'membership_start', None, context=context)
         self._membership_stop(cr, uid, partner_ids, 'membership_stop', None, context=context)

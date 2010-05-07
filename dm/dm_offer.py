@@ -26,7 +26,6 @@ from osv import osv
 from dm.report.dm_ir_action_report import offer_document
 from report.dm_ir_action_report import report_sxw
 from tools.translate import _
-import random
 
 
 AVAILABLE_STATES = [ # {{{
@@ -390,7 +389,10 @@ class dm_offer(osv.osv): # {{{
         ir_report_xml_obj = self.pool.get('ir.actions.report.xml')
 
         import string
+        import random
+        random.seed()
         choices = string.ascii_letters + string.digits
+        del string
         existing_report_ids = ir_report_xml_obj.search(cr, uid, [])
         existing_report_names = [item['report_name'] for item in ir_report_xml_obj.read(cr, uid, existing_report_ids, ['report_name'])]
 
@@ -427,6 +429,7 @@ class dm_offer(osv.osv): # {{{
                 }, context={'copied_from': 'dm.offer'})
                 # copy xml reports:
                 report_ids = ir_report_xml_obj.search(cr, uid, [('document_id', '=', doc.id)])
+
                 for report_id in report_ids:
                     while True:
                         new_report_name = 'dm.offer.document.rnd' + ''.join([random.choice(choices) for i in range(5)])
@@ -438,8 +441,12 @@ class dm_offer(osv.osv): # {{{
                         'document_id': doc_id,
                         'report_name': new_report_name,
                     }, context={'copied_from': 'dm.offer'})
-                    inst=report_sxw('report.'+new_report_name, 'dm.offer.document', '', parser=offer_document)
-                    netsvc.SERVICES['report.%s' % new_report_name] = inst
+
+                    try:
+                        inst=report_sxw('report.'+new_report_name, 'dm.offer.document', '', parser=offer_document)
+                        netsvc.SERVICES['report.%s' % new_report_name] = inst
+                    except (AssertionError, ), e:
+                        print e
 
                 plugins = []
                 for plugin in doc.document_template_plugin_ids:

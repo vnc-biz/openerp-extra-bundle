@@ -353,6 +353,9 @@
                             <form string="Invoice Line">
                     			<notebook>
 			                        <page string="Line">
+                                                    <field name="state" select="1" on_change="_onchange_invoice_line_view(state)"/>
+						    <field name="sequence"/>
+						    <newline/>
 			                            <field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit)" select="1"/>
 			                            <field name="uos_id"/>
 			                            <field name="quantity" select="1"/>
@@ -533,7 +536,7 @@
             <field name="name">account.invoice.tree.spl</field>
             <field name="model">account.invoice</field>
             <field name="type">tree</field>
-            <field name="priority">50</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
                 <tree colors="blue:state=='draft'" string="Invoice">
                     <field name="reference"/>

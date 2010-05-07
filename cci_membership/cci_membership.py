@@ -31,10 +31,8 @@ class res_partner(osv.osv):
         membership_line_ids = self.pool.get('membership.membership_line').search(cr, uid, ['|', ('date_to','=', yesterday), ('date_from','=', today)], context=context)
         partner_tmp_ids = self.pool.get('membership.membership_line').read(cr, uid, membership_line_ids, ['partner'], context=context)
         partner_ids = partner_tmp_ids and map(lambda x:x['partner'][0],partner_tmp_ids) or False
-        self._membership_state(cr, uid, partner_ids, 'membership_state', None, context=context)
-        self._membership_start(cr, uid, partner_ids, 'membership_start', None, context=context)
-        self._membership_stop(cr, uid, partner_ids, 'membership_stop', None, context=context)
-        self._membership_cancel(cr, uid, partner_ids, 'membership_cancel', None, context=context)
+        if partner_ids:
+            self.write(cr, uid, partner_ids, {}, context)
         return True
 
     def _membership_vcs(self, cr, uid, ids, field_name=None, arg=None, context={}):

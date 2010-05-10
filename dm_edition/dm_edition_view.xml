@@ -298,7 +298,6 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="printer_model_id"/>
-                <field name="mail_service_id"/>
                 <separator string = "Notes" colspan = "4"/>
                 <field name="note" colspan = "4" nolabel="1"/>
              </form>
@@ -314,7 +313,6 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="printer_model_id"/>
-                <field name="mail_service_id"/>
                 <field name="note"/>
             </tree>
         </field>

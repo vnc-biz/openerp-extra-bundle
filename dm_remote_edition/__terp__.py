@@ -36,6 +36,7 @@
     "update_xml" : [
                 'dm_remote_edition_view.xml',
                 'dm_remote_edition_data.xml',
+                'security/ir.model.access.csv',
             ],
     "active": False,
     "installable": True,

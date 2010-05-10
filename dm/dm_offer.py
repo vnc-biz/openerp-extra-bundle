@@ -484,6 +484,7 @@ class dm_offer(osv.osv): # {{{
         campaign_offer_by_id_dict = dict([(item['id'], item['offer_id'][0]) for item in campaign_offer_ids])
 
         # check that this offer is not associated with a campaign:
+        all_step_ids = []
         for offer in self.browse(cr, uid, ids, context=context):
             if offer.id in campaign_offer_by_id_dict.values():
                 campaign_ids = [item[0] for item in campaign_offer_by_id_dict.items() if item[1] == offer.id]
@@ -494,15 +495,14 @@ class dm_offer(osv.osv): # {{{
                 raise osv.except_osv(_("Error"), msg)
 
             # check that no workitem are associated with this offer:
-            offer_step_ids = [step.id for step in offer.step_ids]
             dm_wi_obj = self.pool.get('dm.workitem')
-            wii = dm_wi_obj.search(cr, uid, [('step_id', 'in', tuple([step.id for step in offer.step_ids]))], limit=10)
+            step_ids = tuple([step.id for step in offer.step_ids])
+            wii = dm_wi_obj.search(cr, uid, [('step_id', 'in',step_ids)], limit=10)
             if len(wii):
                 msg = _("This offer cannot be deleted. Some work items have already been generated for it.")
                 raise osv.except_osv(_("Error"), msg)
-
-            workitem_ids = dm_wi_obj.search(cr, uid, [])
-
+            all_step_ids.extend(step_ids)
+        self.pool.get('dm.offer.step').unlink(cr, uid, all_step_ids, context)
         res = super(dm_offer, self).unlink(cr, uid, ids, context=context)
         return res
 

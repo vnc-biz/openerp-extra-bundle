@@ -13,16 +13,19 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Order Session">
+				<separator string="Session Description" colspan="4"/>
                 <field name="user_id"/>
                  <newline/>
                 <field name="date_start"/>
                 <field name="date_stop"/>
-                <newline/>
-                <field name="order_ids" colspan="4" nolabel="1"/>
+				<newline/>
+                <field name="order_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','running')]}"/>
                 <separator string="Status" colspan="4"/>
-                <field name="state"/>
-                <button string="Start Session" name="start_session" type ="object" states="pending"/>
-               <button string="Stop Session" name="stop_session" type ="object" states="running"/>
+				<group col="4" colspan="4">
+                	<field name="state" readonly="True"/>
+                	<button string="Start Session" name="start_session" type ="object" states="pending"/>
+               		<button string="Stop Session" name="stop_session" type ="object" states="running"/>
+				</group>
             </form>
         </field>
     </record>

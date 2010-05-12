@@ -23,6 +23,7 @@
 from osv import fields
 from osv import osv
 from tools.translate import _
+import time
 
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
@@ -54,14 +55,117 @@ class dm_order(osv.osv): # {{{
     _defaults = {
         'state': lambda *a: 'draft',
     }
+    
+    def _create_sale_order(self, cr, uid, ids): 
+        order = self.pool.get('dm.order').browse(cr, uid, ids[0])
+        partner_address_search = []
+        address_title = self.pool.get('res.partner.title').search(cr, uid, 
+                                    [('name', '=', order.title),
+                                    ('domain', '=', 'contact')])
+        if address_title : 
+            title = self.pool.get('res.partner.title').browse(cr, uid, 
+                                                    address_title[0]).shortcut
+            partner_address_search.append(('title','=',title))
 
+        criteria = [('First Name','customer_firstname','firstname'),
+                    ('Last Name','customer_lastname','name'),
+                    ('Address1','customer_add1', 'street'),
+                    ('Address2','customer_add2', 'street2'),
+                    ('Address3','customer_add3', 'street3'),
+                    ('Address4','customer_add4','street4'),
+                    ('Zip Code','zip','zip'),
+                    ('Customer Code','customer_code','partner_id.ref'),]
+        for order_c_des,order_c,pa_c in criteria:
+            if getattr(order,order_c):
+                partner_address_search.append((pa_c,'=',getattr(order,order_c)))
+#            else :
+#                 raise osv.except_osv(_('Error !'),
+#                    _('There is no value for %s for this order'%order_c_des))
+        if order.country_id:
+            partner_address_search.append(('country_id','=',order.country_id.id))
+        partner_address_id = self.pool.get('res.partner.address').search(cr, uid
+                                                ,partner_address_search)
+                                                
+        if partner_address_id :
+            partner_id = self.pool.get('res.partner.address').browse(cr, uid,
+                                            partner_address_id[0]).partner_id
+        else :
+            raise osv.except_osv(_('Error !'),
+                 _('There is no partner found for this order'))
+        address = self.pool.get('res.partner').address_get(cr, uid, [partner_id.id],
+                                             ['delivery', 'invoice', 'contact'])
+        pricelist_id = order.segment_id and \
+                     order.segment_id.proposition_id.customer_pricelist_id and \
+                     order.segment_id.proposition_id.customer_pricelist_id.id or \
+                     False
+        fiscal_position = partner_id.property_account_position and \
+                                partner_id.property_account_position.id or False                      
+        sale_order_vals = {
+            'origin': order.segment_id.code,
+            'date_order': time.strftime('%Y-%m-%d'),'partner_id': 3,
+            'pricelist_id': pricelist_id,
+            'offer_step_id': order.offer_step_id and order.offer_step_id.id or False,
+            'partner_id': partner_id.id,
+            'partner_order_id': address['contact'],
+            'partner_invoice_id': address['invoice'], 
+            'partner_shipping_id': address['delivery'], 
+            'name': '%s_%s'%(order.segment_id and order.segment_id.code or '',
+                                order.customer_code or ''),
+            'segment_id': order.segment_id and order.segment_id.id or False,
+            'payment_term':partner_id.property_payment_term and \
+                                partner_id.property_payment_term.id or False,
+            'fiscal_position': fiscal_position,
+            'payment_journal_id' : order.segment_id and \
+                                order.segment_id.proposition_id and \
+                                order.segment_id.proposition_id.journal_id and \
+                                order.segment_id.proposition_id.journal_id.id \
+                                or False,
+#            'project_id' : order.segment_id and \
+#                            order.segment_id.analytic_account_id.id or \
+#                            False,
+            'user_id': partner_id.user_id and partner_id.user_id.id or uid,
+        }
+        shop_id = self.pool.get('sale.shop').search(cr, uid, [])
+        if shop_id: 
+            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id[0])
+            sale_order_vals['shop_id'] = shop.id
+            sale_order_vals['project_id'] = shop.project_id.id
+        else :
+            raise osv.except_osv(_('Error !'),
+                 _('There is no shop defined..Please create one shop before confirming order'))
+                
+        order_lines = []
+        for item in order.dm_order_entry_item_ids:
+            result = self.pool.get('sale.order.line').product_id_change(cr, uid,
+                            ids, pricelist_id, item.product_id.id, qty=1,
+                            partner_id=partner_id.id,
+                            date_order=time.strftime('%Y-%m-%d'),
+                            fiscal_position=fiscal_position)
+            result['value']['product_id'] = item.product_id.id
+            result['value']['product_id'] = item.product_id.id
+            order_lines.append([0, 0, result['value']])
+        sale_order_vals['order_line'] = order_lines
+        print "222222222", sale_order_vals
+        return self.pool.get('sale.order').create(cr, uid, sale_order_vals)
+
+    def _create_workitem(self, cr, uid, so_id):
+        so = self.pool.get('sale.order').browse(cr, uid, so_id)
+        workitem_vals = {'action_time': time.strftime('%Y-%m-%d'),
+                         'address_id': so.partner_invoice_id.id,
+                         'segment_id': so.segment_id.id, 
+                         'step_id': so.offer_step_id.id, 
+                         'sale_order_id': so_id}
+        self.pool.get('dm.workitem').create(cr, uid, workitem_vals)
+         
     def set_confirm(self, cr, uid, ids, *args):
+        so_id = self._create_sale_order(cr, uid, ids)
+        self._create_workitem(cr, uid, so_id)                        
         return True
 
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
             return {}
-        #raw_datas = "2;US-OERP-0000;162220;MR;Shah;Harshit;W Sussex;;25 Oxford Road;;BE;BN;BN11 1XQ;WORTHING.LU.SX;PI;"
+        #raw_datas = "2;US-OERP-0000;JD;Sir;Doe;John;Nowhere Street;;;;US;BN;01652;WORTHING.LU.SX;PI"
         value = raw_datas.split(';')
         key = ['datamatrix_type','segment_id',  'customer_code', 'title', 
                'customer_lastname', 'customer_firstname', 'customer_add1',

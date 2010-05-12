@@ -23,6 +23,30 @@
         </field>
     </record>
 
+    <!--
+    ======================
+    PAYMENT METHODS
+    ======================
+    -->
+
+    <record model="ir.ui.view" id="view_dm_payment_method_form_inherit_so_automation">
+        <field name="name">dm.payment_method.form.inherit.so.automation</field>
+        <field name="model">dm.payment_method</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="dm_payment_method.view_dm_payment_method_form"/>        
+        <field name="arch" type="xml">
+            <field name="logo" position="after">
+                <group colspan="4" >            
+                    <separator string="Sale Order Automatic actions" colspan="4"/>
+                    <field name="so_confirm_do" />
+                    <field name="invoice_create_do" />
+                    <field name="invoice_validate_do" />
+                    <field name="invoice_pay_do" />
+                </group>
+            </field>
+        </field>
+    </record>        
+
 	<!-- 
 		Order Entry
 	-->

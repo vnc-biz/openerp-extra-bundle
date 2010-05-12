@@ -64,7 +64,35 @@ class dm_order(osv.osv): # {{{
                         message = message + msg
                 vals.update({'state': 'error', 'state_msg': message})
         return super(dm_order, self).create(cr, uid, vals, context)
+        
+    def set_confirm(self, cr, uid, ids, *args):
+        print "IN new confirm"
+        so_id = self._create_sale_order(cr, uid, ids)
+        order = self.browse(cr, uid, ids[0])
+        field_list = ['so_confirm_do','invoice_create_do','invoice_validate_do',
+                    'invoice_pay_do']
+        if order.order_session_id and order.order_session_id.payment_method_id:
+            print "23444444444",order.order_session_id.payment_method_id
+            so_vals = {}
+            for field in field_list: 
+                if getattr(order.order_session_id.payment_method_id,field):
+                    so_vals[field]  = getattr(order.order_session_id.payment_method_id,field)
+            print "=====================",so_vals
+            if so_vals:
+                self.pool.get('sale.order').write(cr, uid, so_id, so_vals)  
+        self._create_workitem(cr, uid, so_id)                       
+        return True        
     
 dm_order() # }}}
+
+class dm_payment_method(osv.osv): # {{{
+    _inherit = 'dm.payment_method'
+    _columns = {
+        'so_confirm_do': fields.boolean('Auto confirm sale order'),
+        'invoice_create_do': fields.boolean('Auto create invoice'),
+        'invoice_validate_do': fields.boolean('Auto validate invoice'),
+        'invoice_pay_do': fields.boolean('Auto pay invoice'),
+    }
+dm_payment_method() # }}}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -46,7 +46,7 @@
                 </page>
                 <page string="Items">
                 	<separator string="" colspan="4"/>
-                	 <field name="dm_order_entry_item_ids" context="{'order_id':active_id}" nolabel="1" colspan="4" mode="tree">
+                	 <field name="dm_order_entry_item_ids" context="{'segment_id':segment_id , 'offer_step_id':offer_step_id}" nolabel="1" colspan="4" mode="tree">
                         <tree string="Items" editable="bottom" >
                             <field name="product_id" />
                             <field name="price"/>

@@ -92,6 +92,24 @@ class dm_order(osv.osv): # {{{
         del(value['datamatrix_type'])
         return {'value': value}
 
+
+   
 dm_order() # }}}
+
+class dm_campaign_proposition_item(osv.osv): #{{{
+    _inherit = "dm.campaign.proposition.item"
+
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        if context == None:
+            context = {}
+        if 'segment_id' in context and 'offer_step_id' in context and context['segment_id'] and context['offer_step_id']:
+            segment_obj =  self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, context['segment_id'])
+            pro_items = self.pool.get('dm.campaign.proposition.item').search(cr, uid,
+                                                                [('offer_step_id', '=', context['offer_step_id']),
+                                                                 ('proposition_id', '=', segment_obj.proposition_id.id)])    
+            return pro_items
+        return super(dm_campaign_proposition_item, self).search(cr, uid, args, offset, limit, order, context, count)
+
+dm_campaign_proposition_item()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

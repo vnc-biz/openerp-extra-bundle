@@ -241,6 +241,8 @@ class dm_campaign_proposition(osv.osv): #{{{
                 self.pool.get('dm.campaign.proposition.item').unlink(cr, uid, p.id)
         if not prop_obj.customer_pricelist_id:
             raise osv.except_osv('Error !', 'Select a product pricelist !')
+        if not prop_obj.camp_id.state == 'draft':
+            raise osv.except_osv("Error", "Campaign Should be in draft state")
         for step in step_obj:
             for item in step.item_ids:
                 price = self.pool.get('product.pricelist').price_get(cr, uid,

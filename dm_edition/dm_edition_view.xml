@@ -29,7 +29,7 @@
             <form string="Job Batches">
                 <field name="name"/>
 				<field name="campaign_document_job_ids" colspan ="4" mode="tree,form" nolabel="1"/>
-				<field name="state"/>
+				<field name="state" colspan="4" readonly="1"/>
             </form>
         </field>
     </record>
@@ -72,9 +72,8 @@
            		<!--field name="sorting_name" /-->         	
            		<field name="use_front_recap" />
            		<field name="use_bottom_recap" />
-				<newline/>
 				<field name="campaign_document_ids" colspan="4" mode="tree,form" nolabel="1"/>
-				<field name="state"/>
+				<field name="state" colspan="4" readonly="1"/>
             </form>
         </field>
     </record>

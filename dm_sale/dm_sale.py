@@ -204,7 +204,7 @@ class sale_order(osv.osv): #{{{
             tb = sys.exc_info()
             tb_s = "".join(traceback.format_exception(*tb))
             wi_id = self.pool.get('dm.workitem').search(cr, uid, [('sale_order_id', '=', sale_order_id)])
-            self.write(cr, uid, wi_id, {'state': 'error',
+            self.pool.get('dm.workitem').write(cr, uid, wi_id, {'state': 'error',
                                           'error_msg': 'Exception: %s\n%s' % (str(exception), tb_s)})
             netsvc.Logger().notifyChannel('dm action - so process',
                                           netsvc.LOG_ERROR, 'Exception: %s\n%s' % (str(exception), tb_s))

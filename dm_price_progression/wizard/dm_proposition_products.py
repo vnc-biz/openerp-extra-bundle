@@ -21,6 +21,8 @@
 import wizard
 import pooler
 
+from tools.translate import _
+
 class wizard_proposition_products(wizard.interface):
 
     new_prices_prog = '''<?xml version="1.0"?>
@@ -78,6 +80,8 @@ class wizard_proposition_products(wizard.interface):
         stp=0
 
         """Creates proposition items"""
+        if not prop_obj.camp_id.state == 'draft':
+            raise wizard.except_wizard(_('UserError'),_('Campaign should be in draft state'))
         for step in step_obj:
             for item in step.item_ids:
                 if item:

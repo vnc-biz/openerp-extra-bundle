@@ -14,11 +14,11 @@
         <field name="arch" type="xml">
             <field name="order_ids" position="after">
 				<separator string="Filter Criteria" colspan="4"/>
-				<field name="country_id" attrs="{'readonly':[('state','==','running')]}"/>
-				<field name="currency_id" attrs="{'readonly':[('state','==','running')]}"/>
-				<field name="dealer_id" attrs="{'readonly':[('state','==','running')]}"/>
-				<field name="trademark_id" attrs="{'readonly':[('state','==','running')]}"/>
-				<field name="payment_method_id" attrs="{'readonly':[('state','==','running')]}"/>
+				<field name="country_id" attrs="{'readonly':[('state','!=','pending')]}"/>
+				<field name="currency_id" attrs="{'readonly':[('state','!=','pending')]}"/>
+				<field name="dealer_id" attrs="{'readonly':[('state','!=','pending')]}"/>
+				<field name="trademark_id" attrs="{'readonly':[('state','!=','pending')]}"/>
+				<field name="payment_method_id" attrs="{'readonly':[('state','!=','pending')]}"/>
 			</field>
         </field>
     </record>

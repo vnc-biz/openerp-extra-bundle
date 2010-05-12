@@ -145,7 +145,6 @@ class dm_order(osv.osv): # {{{
             result['value']['product_id'] = item.product_id.id
             order_lines.append([0, 0, result['value']])
         sale_order_vals['order_line'] = order_lines
-        print "222222222", sale_order_vals
         return self.pool.get('sale.order').create(cr, uid, sale_order_vals)
 
     def _create_workitem(self, cr, uid, so_id):

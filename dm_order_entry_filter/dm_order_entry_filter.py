@@ -66,18 +66,15 @@ class dm_order(osv.osv): # {{{
         return super(dm_order, self).create(cr, uid, vals, context)
         
     def set_confirm(self, cr, uid, ids, *args):
-        print "IN new confirm"
         so_id = self._create_sale_order(cr, uid, ids)
         order = self.browse(cr, uid, ids[0])
         field_list = ['so_confirm_do','invoice_create_do','invoice_validate_do',
                     'invoice_pay_do']
         if order.order_session_id and order.order_session_id.payment_method_id:
-            print "23444444444",order.order_session_id.payment_method_id
             so_vals = {}
             for field in field_list: 
                 if getattr(order.order_session_id.payment_method_id,field):
                     so_vals[field]  = getattr(order.order_session_id.payment_method_id,field)
-            print "=====================",so_vals
             if so_vals:
                 self.pool.get('sale.order').write(cr, uid, so_id, so_vals)  
         self._create_workitem(cr, uid, so_id)                       

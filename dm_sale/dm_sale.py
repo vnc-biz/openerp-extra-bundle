@@ -239,14 +239,18 @@ class dm_campaign_proposition(osv.osv): #{{{
         if prop_obj.item_ids:
             for p in prop_obj.item_ids:
                 self.pool.get('dm.campaign.proposition.item').unlink(cr, uid, p.id)
+        if not prop_obj.customer_pricelist_id:
+            raise osv.except_osv('Error !', 'Select a product pricelist !')
         for step in step_obj:
             for item in step.item_ids:
+                price = self.pool.get('product.pricelist').price_get(cr, uid,
+                            [prop_obj.customer_pricelist_id.id], item.id, 1.0,)[prop_obj.customer_pricelist_id.id]
                 vals = {'product_id': item.id,
                         'proposition_id': ids[0],
                         'offer_step_id': step.id,
                         'qty_planned': item.virtual_available,
                         'qty_real': item.qty_available,
-                        'price': item.list_price,
+                        'price': price,
                         'notes': item.description,
                         'forecasted_yield': step.forecasted_yield,
                 }

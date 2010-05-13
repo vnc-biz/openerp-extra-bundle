@@ -362,7 +362,7 @@ class wizard_tech_guide_rst(wizard.interface):
                 module_name = False
                 if module.file_graph:
                     graph_mod = base64.decodestring(module.file_graph)
-                else:
+                elif module.state == 'installed':
                     module_data = module_model.get_relation_graph(cr, uid, module.name, context=context)
                     if module_data['module_file']:
                         graph_mod = base64.decodestring(module_data['module_file'])

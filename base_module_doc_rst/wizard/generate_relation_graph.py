@@ -23,15 +23,17 @@ from osv import osv
 import pooler
 from tools.translate import _
 
-form_rep = '''<?xml version="1.0"?>
-<form string="Relationship Graph">
-    <label colspan="2" string="(Relationship Graphs generated)" align="0.0"/>
+form_graph = '''<?xml version="1.0"?>
+<form string="Generate Relationship Graph">
+    <label colspan="2" string="Created Relationship Graph" align="0.0"/>
 </form>'''
 
-def _get_graph(self, cr, uid, datas, context={}):
+def _get_graph(self, cr, uid, datas, context=None):
     mod_obj = pooler.get_pool(cr.dbname).get('ir.module.module')
     modules = mod_obj.browse(cr, uid, datas['ids'], context=context)
     for module in modules:
+        if module.state == 'uninstalled':
+            raise wizard.except_wizard('Error !',"To Generate Relationship Graph module should be installed in your system")
         module_data = mod_obj.get_relation_graph(cr, uid, module.name, context=context)
         if module_data['module_file']:
             mod_obj.write(cr, uid, [module.id], {'file_graph': module_data['module_file']}, context=context)
@@ -41,9 +43,9 @@ class create_graph(wizard.interface):
     states = {
         'init': {
             'actions': [_get_graph],
-            'result': {'type': 'form', 'arch': form_rep, 'fields': {}, 'state': [('end','Ok')]}
-        },
-    }
+            'result': {'type': 'form', 'arch': form_graph, 'fields': {}, 'state': [('end','Ok')]}
+                },
+            }
 create_graph('create.relation.graph')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

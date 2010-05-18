@@ -549,7 +549,7 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
         <field name="name" position="replace">
-            <field name="name" domain="[('category_id','=','Fournisseur')]" />
+            <field name="name" domain="[('supplier','=',True)]" />
         </field>
         </field>
     </record>

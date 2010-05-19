@@ -249,13 +249,13 @@ class account_balance(report_sxw.rml_parse):
                 #
                 # Round the values to zero if needed (-0.000001 ~= 0)
                 #
-                if abs(res['balance']) < 10**-int(config['price_accuracy']):
+                if abs(res['balance']) < 0.5 * 10**-int(config['price_accuracy']):
                     res['balance'] = 0.0
-                if abs(res['balance_fy']) < 10**-int(config['price_accuracy']):
+                if abs(res['balance_fy']) < 0.5 * 10**-int(config['price_accuracy']):
                     res['balance_fy'] = 0.0
-                if abs(res['balanceinit']) < 10**-int(config['price_accuracy']):
+                if abs(res['balanceinit']) < 0.5 * 10**-int(config['price_accuracy']):
                     res['balanceinit'] = 0.0
-                if abs(res['balanceinit_fy']) < 10**-int(config['price_accuracy']):
+                if abs(res['balanceinit_fy']) < 0.5 * 10**-int(config['price_accuracy']):
                     res['balanceinit_fy'] = 0.0
 
                 #
@@ -263,11 +263,13 @@ class account_balance(report_sxw.rml_parse):
                 #
                 if form['display_account'] == 'bal_mouvement' and account['parent_id']:
                     # Include accounts with movements
-                    if res['credit'] > 0 or res['debit'] > 0 or res['balance'] > 0 :
+                    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']) \
+                            or abs(res['credit']) >= 0.5 * 10**-int(config['price_accuracy']) \
+                            or abs(res['debit']) >= 0.5 * 10**-int(config['price_accuracy']):
                         result_acc.append(res)
                 elif form['display_account'] == 'bal_solde' and account['parent_id']:
                     # Include accounts with balance
-                    if  res['balance'] != 0:
+                    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']):
                         result_acc.append(res)
                 else:
                     # Include all accounts

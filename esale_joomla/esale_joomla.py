@@ -241,7 +241,7 @@ class esale_joomla_tax_map(osv.osv):
                 countryL = set()
                 stateL = set()
                 for tax in taxes:
-                    (cid, ccountry, crate) = tax
+                    (cid, ccountry, csign, crate) = tax
                     countryL.add(str(ccountry))
                 countries = {}
                 if len(countryL):
@@ -249,7 +249,7 @@ class esale_joomla_tax_map(osv.osv):
                     for x in cr.fetchall():
                         countries[x[1]] = x[0]
                 for tax in taxes:
-                    (cid, ccountry, crate) = tax
+                    (cid, ccountry, csign, crate) = tax
                     if not cid:
                         cerror += 1
                         continue

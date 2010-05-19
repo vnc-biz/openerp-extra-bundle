@@ -216,7 +216,7 @@ def _import_setup(self, cr, uid, data, context):
     if data['model'] == 'esale_joomla.web':
         web_shop = data['id']
     elif data['model'] == 'esale_joomla.web.tax':
-        taxes = pooler.get_pool(cr.dbname).get('esale_joomla.web.tax').browse(cr, uid, data['ids'])
+        taxes = pooler.get_pool(cr.dbname).get('esale_joomla.tax_map').browse(cr, uid, data['ids'])
         if len(taxes):
             web_shop = taxes[0].web_id.id
     else:
@@ -233,7 +233,7 @@ def _import_from_shop(self, cr, uid, data, context):
     try:
         self.pool = pooler.get_pool(cr.dbname)
         web_id = data['form']['web_shop']
-        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.web.tax').webimport(cr, uid, [web_id])
+        (rnew, rupdate, rerror) = self.pool.get('esale_joomla.tax_map').webimport(cr, uid, [web_id])
     finally:
         log = sys.stderr.getvalue()
         sys.stderr.close()

@@ -17,41 +17,44 @@
         <field name="arch" type="xml">
             <form string="Order">
              <notebook colspan="4">
-                 <page string="General">
-                <separator string="Scanned Data" colspan="4"/>
-                <field name="raw_datas" colspan="4" on_change="onchange_rawdatas(raw_datas)" nolabel="1"/>
-                <separator string="Customer Infos" colspan="4"/>
-                <field name="customer_code" select="1"/>
-                <field name="title" select="1"/>
-                <field name="customer_firstname" select="1"/>
-                <field name="customer_lastname" select="1"/>
-                <newline/>
-                <separator string="Address" colspan="4"/>
-                <field name="customer_add1" select="2"/>
-                <field name="customer_add2" select="2"/>
-                <field name="customer_add3" select="2"/>
-                <field name="customer_add4" select="2"/>
-                <field name="zip" select="2"/>
-                <field name="zip_summary" select="2"/>
-                <field name="country_id" select="1"/>
-                <field name="distribution_office" select="2"/>
-                <separator string="Campaign Infos" colspan="4"/>
-                <field name="segment_id" select="1"/>
-                <field name="offer_step_id" select="1"/>
-                <separator string="Status" colspan="4"/>
-                <field name="state"/>
+                <page string="General">
+	                <separator string="Scanned Data" colspan="4"/>
+	                <field name="raw_datas" colspan="4" on_change="onchange_rawdatas(raw_datas)" nolabel="1"/>
+	                <separator string="Customer Infos" colspan="4"/>
+	                <field name="customer_code" select="1"/>
+	                <field name="title" select="1"/>
+	                <field name="customer_firstname" select="1"/>
+	                <field name="customer_lastname" select="1"/>
+	                <newline/>
+	                <separator string="Address" colspan="4"/>
+	                <field name="customer_add1" select="2"/>
+	                <field name="customer_add2" select="2"/>
+	                <field name="customer_add3" select="2"/>
+	                <field name="customer_add4" select="2"/>
+	                <field name="zip" select="2"/>
+	                <field name="zip_summary" select="2"/>
+	                <field name="country_id" select="1"/>
+	                <field name="distribution_office" select="2"/>
+	                <separator string="Campaign Infos" colspan="4"/>
+	                <field name="segment_id" select="1"/>
+	                <field name="offer_step_id" select="1"/>
+					<separator string="Status" colspan="4"/>
+					<field name="state_msg" colspan="4" nolabel="1"/>
+					<newline/>
+	                <field name="state" colspan="2" nolabel="1"/>
+					<button string="Confirm" name="set_confirm" type="object" states="draft" colspan="2"/>
                 </page>
-                    <page string="Items">
-                    	<separator string="" colspan="4"/>
-                    	 <field name="dm_order_entry_item_ids" context="{'order_id':active_id}" nolabel="1" colspan="4" mode="tree">
-                            <tree string="Items" editable="bottom" >
-                                <field name="product_id" />
-                                <field name="price"/>
-                            </tree>
-                        </field>
-                    </page>
+                <page string="Items">
+                	<separator string="" colspan="4"/>
+                	 <field name="dm_order_entry_item_ids" context="{'segment_id':segment_id , 'offer_step_id':offer_step_id}" nolabel="1" colspan="4" mode="tree">
+                        <tree string="Items" editable="bottom" >
+                            <field name="product_id" />
+                            <field name="price"/>
+                        </tree>
+                    </field>
+                </page>
               </notebook>
-                <button string="Confirm" name="set_confirm" type="object" states="draft" colspan="2"/>
+                
             </form>
         </field>
     </record>

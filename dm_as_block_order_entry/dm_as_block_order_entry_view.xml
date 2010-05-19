@@ -8,9 +8,8 @@
         <field name="type">form</field>
 		<field name="inherit_id" ref="dm_as_reject.view_dm_reject_form"/>
         <field name="arch" type="xml">
-           <field name= "type_od" position="after">
-				<newline/>
-						<field name="block_order_entry"/>
+           <field name= "to_disable" position="before">
+				<field name="block_order_entry"/>
 			</field>
         </field>
     </record>

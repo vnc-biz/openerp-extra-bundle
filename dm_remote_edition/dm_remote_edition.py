@@ -23,14 +23,6 @@
 from osv import fields
 from osv import osv
 
-class dm_mail_service(osv.osv): # {{{
-    _inherit = "dm.mail_service"
-    
-    _columns = {
-          'user_id': fields.many2one('res.users', 'Printer User'),
-        }
-dm_mail_service() # }}}
-
 class dm_campaign_document_job(osv.osv): # {{{
     _inherit = "dm.campaign.document.job"
     

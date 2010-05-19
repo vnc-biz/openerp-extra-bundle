@@ -152,6 +152,21 @@ class dm_offer_step(osv.osv): # {{{
     def copy(self, cr, uid, id, default=None, context=None):
         new_id = super(dm_offer_step, self).copy(cr, uid, id, default, context)
         return new_id
+        
+    def unlink(self, cr, uid, ids, context=None):        
+        dm_doc_obj = self.pool.get('dm.offer.document')
+        doc_id = dm_doc_obj.search(cr, uid, [('step_id', 'in', ids)])
+        ir_act_report = self.pool.get('ir.actions.report.xml')
+        report_ids = ir_act_report.search(cr, uid, [('document_id', 'in', doc_id)])
+        report_obj = ir_act_report.browse(cr, uid, report_ids)
+        for report in report_obj:
+            if 'report.%s' % report.report_name in netsvc.SERVICES:
+                del(netsvc.SERVICES['report.%s' % report.report_name])
+        ir_act_report.unlink(cr, uid, report_ids)
+            
+        return super(dm_offer_step, self).unlink(cr, uid, ids, context=context)
+    
+    
     def state_close_set(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'closed'})
         return True

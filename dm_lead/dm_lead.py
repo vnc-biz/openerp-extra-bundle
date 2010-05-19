@@ -91,7 +91,7 @@ class dm_event_case(osv.osv_memory):
         'source': lambda *a: 'case_id',
     'campaign_id': lambda *a : False,
     }
-
+    
     def create(self, cr, uid, vals, context={}):
         id = super(dm_event_case, self).create(cr, uid, vals, context)
         obj = self.browse(cr, uid, id)
@@ -102,8 +102,7 @@ class dm_event_case(osv.osv_memory):
             netsvc.Logger().notifyChannel('dm event case', netsvc.LOG_WARNING, 
             "There is no Outgoing transition %s at this step : %s"% 
                 (obj.trigger_type_id.name, obj.step_id.code))
-            osv.except_osv('Warning', "There is no Outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
-            return False
+            raise osv.except_osv('Warning', "There is no Outgoing transition %s at this step: %s" % (obj.trigger_type_id.name, obj.step_id.code))
 
         for tr in self.pool.get('dm.offer.step.transition').browse(cr, uid, tr_ids):
             if obj.action_time:

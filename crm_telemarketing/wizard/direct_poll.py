@@ -99,7 +99,7 @@ class direct_poll(wizard.interface):
         x_form, x_fields = self.build_form(cr, uid, next_id['next'], context)
         _POLL_FORM.__init__(x_form)
         _POLL_FIELDS.__init__(x_fields)
-        return {'answer':None}
+        return {}
 
     def build_selection(self, cr, uid, question, context):
         res = []

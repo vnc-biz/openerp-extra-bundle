@@ -26,7 +26,7 @@ class wizard_manage_job_batch(wizard.interface):
 
     new_batch = '''<?xml version="1.0"?>
     <form string="Create Jobs Batch">
-        <field name="name" colspan="4"/>
+        <field name="name" colspan="4" width="150"/>
     </form>'''
     
     add_batch = '''<?xml version="1.0"?>
@@ -36,7 +36,7 @@ class wizard_manage_job_batch(wizard.interface):
     
     message_form = '''<?xml version="1.0"?>
     <form string="Manage Jobs Batch">
-        <field name="message" nolabel="1" colspan="4"/>
+        <field name="message" nolabel="1" colspan="4" width="300"/>
     </form>'''
         
     def _new_batch(self, cr, uid, data, context):

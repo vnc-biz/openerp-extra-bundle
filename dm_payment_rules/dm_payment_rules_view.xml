@@ -99,9 +99,9 @@
         <field name="type">form</field>
 		<field name="inherit_id" ref="dm.view_campaign_form"/>
         <field name="arch" type="xml">
-                <page string="Accounting" position="inside">
-					<field name="payment_rule_ids" colspan = "4" nolabel="1"/>
-				</page>
+            <page string="Accounting" position="inside">
+				<field name="payment_rule_ids" colspan = "4" nolabel="1"/>
+			</page>
         </field>
     </record>
 

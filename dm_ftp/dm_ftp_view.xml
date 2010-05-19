@@ -9,7 +9,7 @@
     -->
     
     <record model="ir.ui.view" id="view_dm_ftp_mail_service_form">
-        <field name="name">dm.mail_service.form.inherit</field>
+        <field name="name">dm.mail_service.form.ftp.inherit</field>
         <field name="model">dm.mail_service</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="dm.view_dm_mail_service_form"/>
@@ -20,7 +20,7 @@
             		<field name="ftp_address" />
             		<field name="ftp_port" />
 					<field name="ftp_user"/>
-					<field name="ftp_password"/>
+					<field name="ftp_password"  password="True"/>
 					<field name="ftp_dir"/>
                 	<newline/>
 					<field name="ssh_key"/>

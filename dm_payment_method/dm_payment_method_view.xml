@@ -59,7 +59,7 @@
         <field name="type">form</field>
 		<field name="inherit_id" ref="dm.view_campaign_form"/>
         <field name="arch" type="xml">
-        	<field name= "journal_id" position="replace">
+        	<field name="journal_id" position="replace">
 				<field name="journal_id"/>
 			</field>	
         </field>

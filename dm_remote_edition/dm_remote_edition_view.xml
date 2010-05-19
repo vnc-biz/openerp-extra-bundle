@@ -1,25 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
-
-    <!--
-    =======================================================
-    DM MAIL SERVICE VIEWS
-    =======================================================
-    -->
-   
-    <record model="ir.ui.view" id="view_dm_remote_edition_mail_service_form">
-        <field name="name">dm.mail_service.form.inherit_user</field>
-        <field name="model">dm.mail_service</field>
-        <field name="type">form</field>
-        <field name="inherit_id" ref="dm_edition.view_dm_edition_mail_service_form"/>
-        <field name="arch" type="xml">
-         	<field name="front_job_recap" position="after">
-				<field name="user_id"/>
-        	</field>
-        </field>
-    </record>
-
     
      <!--
     =======================================================

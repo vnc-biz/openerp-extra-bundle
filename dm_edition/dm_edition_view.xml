@@ -29,7 +29,7 @@
             <form string="Job Batches">
                 <field name="name"/>
 				<field name="campaign_document_job_ids" colspan ="4" mode="tree,form" nolabel="1"/>
-				<field name="state"/>
+				<field name="state" colspan="4" readonly="1"/>
             </form>
         </field>
     </record>
@@ -69,12 +69,11 @@
                 <field name="name"/>
 				<field name="process_date"/>
 				<field name="sorting_rule_id"/>
-           		<field name="sorting_name" />         	
+           		<!--field name="sorting_name" /-->         	
            		<field name="use_front_recap" />
            		<field name="use_bottom_recap" />
-				<newline/>
 				<field name="campaign_document_ids" colspan="4" mode="tree,form" nolabel="1"/>
-				<field name="state"/>
+				<field name="state" colspan="4" readonly="1"/>
             </form>
         </field>
     </record>
@@ -154,8 +153,8 @@
             <notebook position="inside">
                 <page string="Edition">
 					<field name="printer_tray_model_id"/>
-					<field name="verso"/>
 					<field name="sequence"/>
+					<field name="verso"/>
 				</page>
 			</notebook>
         </field>
@@ -171,7 +170,8 @@
         <field name="type">form</field>
 		<field name="inherit_id" ref="dm.view_dm_campaign_document_form"/>
         <field name="arch" type="xml">
-			<field name="origin" position="after">
+			<separator string="System Message" position="before">
+			    <separator string="Document Job" colspan="4"/>
 				<group colspan="4">
 					<field name="printer_id"/>
 					<field name="printer_tray_id"/>
@@ -179,7 +179,7 @@
 					<field name="campaign_document_job_position"/>
 					<field name="verso"/>
 				</group>
-			</field>
+			</separator>
         </field>
     </record>
     
@@ -201,6 +201,7 @@
             		<field name="default_printer_id" />
             		<field name="default_printer_tray_id" attrs="{'readonly':[('default_printer_id','=',False)]}" />
 					<field name="sorting_rule_id"/>
+					<field name="user_id"/>
 					<field name="front_job_recap"/>
 					<field name="bottom_job_recap"/>
         		</group>
@@ -298,7 +299,6 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="printer_model_id"/>
-                <field name="mail_service_id"/>
                 <separator string = "Notes" colspan = "4"/>
                 <field name="note" colspan = "4" nolabel="1"/>
              </form>
@@ -314,7 +314,6 @@
                 <field name="name"/>
                 <field name="code"/>
                 <field name="printer_model_id"/>
-                <field name="mail_service_id"/>
                 <field name="note"/>
             </tree>
         </field>

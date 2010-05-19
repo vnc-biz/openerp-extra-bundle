@@ -146,7 +146,7 @@
                 <separator string="System Message" colspan="4"/>
                 <field name="error_msg" select="2" colspan="4" nolabel="1"/>
                 <separator string="Status" colspan="4"/>
-	                <field name="state" select="1" nolabel="1"/>
+	                <field name="state" select="1" nolabel="1" readonly="1"/>
 <!--               <field name="is_global" select="2"/>-->
             </form>
         </field>

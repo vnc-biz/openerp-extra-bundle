@@ -56,10 +56,12 @@ perform_fields = { # {{{
                 'string': 'Method', 
                 'type': 'selection',
                 'selection': _get_methods,
+                'required': True
                 },
     'date': {
                 'string': 'Date',
                 'type': 'date',
+                'required': True
              },
     } # }}}
 

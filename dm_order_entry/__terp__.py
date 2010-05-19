@@ -29,7 +29,9 @@
     "description": """
            This module is for all customer order entries.
             """,
-    "depends": ["dm_sale"],
+    "depends": ["dm_sale",
+                'dm_partner_address'
+                ],
     "init_xml": [],
     "demo_xml": [],
     "update_xml": ["dm_order_entry_view.xml",

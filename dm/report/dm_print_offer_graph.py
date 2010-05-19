@@ -25,6 +25,7 @@ import pooler
 import pydot
 import tools
 import report
+import unicodedata
 
 
 # a small monkey patch to patch a bug in pydot:
@@ -42,45 +43,35 @@ pydot.needs_quotes = needs_quotes
 
 
 def translate_accent(text):
-    text = text.encode('utf-8')
-    text = text.replace('é','e').replace('è','e').replace('ë','e').replace('ê','e')
-    text = text.replace('â','a').replace('à','a')
-    text = text.replace('ù','u').replace('û','u')
-    text = text.replace('î','i').replace('ï','i')
-    text = text.replace('ô','o').replace('ö','o')
-    text = text.replace('Â','A').replace('Ä','A')
-    text = text.replace('É','E').replace('È','E').replace('Ë','E').replace('Ê','E')
-    text = text.replace('Î','I').replace('Ï','I')
-    text = text.replace('Ö','O').replace('Ô','O')
-    text = text.replace('Ü','U').replace('Û','U').replace('Ù','U')
-    return text
+    return unicodedata.normalize('NFKD', text).encode('latin-1', 'ignore')
 
 
 def graph_get(cr, uid, graph, offer_id):
-    
-    offer_obj = pooler.get_pool(cr.dbname).get('dm.offer')
-    offer = offer_obj.browse(cr, uid, offer_id)[0]
+    pool = pooler.get_pool(cr.dbname)
+    # Get user language:
+    user_lang = get_user_lang(cr, uid)
+    context = {'lang': user_lang}
+
+    trans_obj =  pool.get('ir.translation')
+    offer_obj = pool.get('dm.offer')
+    step_type = pool.get('dm.offer.step.type')
+
+    offer = offer_obj.browse(cr, uid, offer_id, context=context)[0]
     nodes = {}
-    step_type = pooler.get_pool(cr.dbname).get('dm.offer.step.type')
     type_ids = step_type.search(cr, uid, [])
     for step in offer.step_ids:
         if not step.graph_hide:
             args = {}
 
-            """ Get user language """
-            usr_obj = pooler.get_pool(cr.dbname).get('res.users')
-            user = usr_obj.browse(cr, uid, [uid])[0]
-            user_lang = user.context_lang
-
-            """ Get Code Translation """
-            trans_obj =  pooler.get_pool(cr.dbname).get('ir.translation')
-            type_trans = trans_obj._get_ids(cr, uid, 'dm.offer.step,code', 
-                                    'model', user_lang or 'en_US', [step.id])
+            # Get Code Translation:
+            type_trans = trans_obj._get_ids(cr, uid, 'dm.offer.step,code', 'model', user_lang, [step.id])
             type_code = type_trans[step.id] or step.code
-            args['label'] = translate_accent(
-                                        type_code +'\\n' + step.media_id.code)
+            args['label'] = translate_accent(type_code +'\\n' + step.media_id.code)
 
             graph.add_node(pydot.Node(step.id, **args))
+
+    tr_ids = trans_obj.search(cr, uid, [('name', '=', 'dm.offer.step.transition.trigger,name')])
+    trs = trans_obj.browse(cr, uid, tr_ids, context=context)
 
     for step in offer.step_ids:
         for transition in step.outgoing_transition_ids:
@@ -93,6 +84,11 @@ def graph_get(cr, uid, graph, offer_id):
                         str(transition.step_to_id.id), fontsize="10", **trargs))
     return True
 
+
+def get_user_lang(cr, uid):
+    usr_obj = pooler.get_pool(cr.dbname).get('res.users')
+    user = usr_obj.browse(cr, uid, [uid])[0]
+    return user.context_lang or 'en_US'
 
 
 class report_graph_instance(object):

@@ -160,7 +160,30 @@ class OpenERPRenderer(ObjRenderer) :
             cname = clas.replace('.', '_')
             header += rows % (cname, clas, cname) + '\n'
         return header
-        
+
+
+    def get_label(self, attrs):
+        label = None
+        if attrs[0] == 'many2many':
+            for att in attrs[2].split(','):
+                if 'string' in att:
+                    label = att[8:]
+            if not label:
+                label = attrs[2].split(',')[4]
+        if attrs[0] == 'one2many':
+            for att in attrs[2].split(','):
+                if 'string' in att:
+                    label = att[8:]
+            if not label:
+                label = attrs[2].split(',')[2]
+        if attrs[0] == 'text':
+            for att in attrs[2].split(','):
+                if 'string' in att:
+                    label = att[8:]
+            if not label:
+                label = attrs[2].split(',')[0]
+        return label
+
     def view_class_get(self, cn, cd):
         data = self.data_get()
         i = 1
@@ -171,7 +194,8 @@ class OpenERPRenderer(ObjRenderer) :
             attrs = ''
             if attr[0] in ('one2many', 'many2many', 'text'):
                 attrs='colspan="4" nolabel="1" '
-                fields_form += ("                <separator string=\"%s\" colspan=\"4\"/>\n") % (sa)
+                field_label = self.get_label(attr)
+                fields_form += ("                <separator string=\"%s\" colspan=\"4\"/>\n") % (field_label or 'Unknown')
             fields_form += ("                <field name=\"%s\" "+attrs+"select=\"%d\"/>\n") % (sa,i)
             if attr[0] not in ('one2many', 'many2many'):
                 fields_tree += "                <field name=\"%s\"/>\n" % (sa,)

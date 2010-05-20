@@ -42,10 +42,11 @@ class dm_order(osv.osv): # {{{
         'zip': fields.char('Zip Code', size=12),
         'zip_summary': fields.char('Zip Summary', size=64),
         'distribution_office': fields.char('Distribution Office', size=64),
-        'segment_id': fields.many2one('dm.campaign.proposition.segment','Segment Code'),
+        'segment_id': fields.many2one('dm.campaign.proposition.segment',
+                                                            'Segment Code'),
         'offer_step_id': fields.many2one('dm.offer.step','Offer Step Code'),
-        'state': fields.selection([('draft', 'Draft'),('done', 'Done'),('error', 'Error')],
-                                   'Status', readonly=True),
+        'state': fields.selection([('draft', 'Draft'),('done', 'Done'),
+                                    ('error', 'Error')], 'Status', readonly=True),
         'state_msg': fields.text('State Message', readonly=True),
         'dm_order_entry_item_ids':  fields.many2many('dm.campaign.proposition.item',
                                         'dm_order_entry_campaign_proposition_item',
@@ -59,13 +60,14 @@ class dm_order(osv.osv): # {{{
     def _create_sale_order(self, cr, uid, ids): 
         order = self.pool.get('dm.order').browse(cr, uid, ids[0])
         partner_address_search = []
-        address_title = self.pool.get('res.partner.title').search(cr, uid, 
-                                    [('name', '=', order.title),
-                                    ('domain', '=', 'contact')])
-        if address_title : 
-            title = self.pool.get('res.partner.title').browse(cr, uid, 
-                                                    address_title[0]).shortcut
-            partner_address_search.append(('title','=',title))
+        if order.title :
+            address_title = self.pool.get('res.partner.title').search(cr, uid, 
+                                        [('name', '=', order.title ),
+                                        ('domain', '=', 'contact')])
+            if address_title : 
+                title = self.pool.get('res.partner.title').browse(cr, uid, 
+                                                        address_title[0]).shortcut
+                partner_address_search.append(('title','=',title))
 
         criteria = [('First Name','customer_firstname','firstname'),
                     ('Last Name','customer_lastname','name'),

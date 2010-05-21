@@ -24,9 +24,9 @@ import time
 from report import report_sxw
 from tools import amount_to_text_en
 
-class report_voucher(report_sxw.rml_parse):
+class report_voucher_move(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
-        super(report_voucher, self).__init__(cr, uid, name, context)
+        super(report_voucher_move, self).__init__(cr, uid, name, context)
         self.localcontext.update({
             'time': time,
             'convert':self.convert,
@@ -35,9 +35,10 @@ class report_voucher(report_sxw.rml_parse):
             #'get_ref' : self._get_ref
         })
  	self.user=uid
+     
     def convert(self,amount):
-	user_id = self.pool.get('res.users').browse(self.cr, self.user,[self.user])[0]
-	cur = user_id.company_id.currency_id.name
+    	user_id = self.pool.get('res.users').browse(self.cr, self.user,[self.user])[0]
+    	cur = user_id.company_id.currency_id.name
         amt_en = amount_to_text_en.amount_to_text(amount,'en',cur);
         return amt_en
     
@@ -57,5 +58,5 @@ report_sxw.report_sxw(
     'report.account.move.voucher',
     'account.move',
     'addons/account_voucher_report/report/report_voucher_move.rml',
-    parser=report_voucher,header=False
+    parser=report_voucher_move,header=False
 )

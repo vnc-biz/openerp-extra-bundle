@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-04-24 04:03+0000\n"
+"X-Launchpad-Export-Date: 2010-05-21 03:47+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_financial_report
@@ -57,7 +57,7 @@ msgstr "Posición fiscal"
 #: code:addons/account_financial_report/wizard/wizard_general_ledger_report.py:0
 #, python-format
 msgid "Date to must be set between %s and %s"
-msgstr "Fecha desde debe estar entre %s y %s"
+msgstr "La fecha desde debe estar entre %s y %s"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -197,7 +197,7 @@ msgstr "Estilos de tabla"
 #: code:addons/account_financial_report/wizard/wizard_general_ledger_report.py:0
 #, python-format
 msgid "UserError"
-msgstr "ErrorUsuario"
+msgstr "Error del usuario"
 
 #. module: account_financial_report
 #: model:ir.module.module,description:account_financial_report.module_meta_information
@@ -267,7 +267,7 @@ msgstr "Referencia"
 #: code:addons/account_financial_report/wizard/wizard_general_ledger_report.py:0
 #, python-format
 msgid "Date not in a defined fiscal year"
-msgstr "Fecha no comprendida en un ejercicio fiscal definido"
+msgstr "La fecha no está comprendida en un ejercicio fiscal definido"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -358,7 +358,7 @@ msgstr "Seleccionar cuenta padre"
 #: code:addons/account_financial_report/report/general_ledger_landscape.py:0
 #, python-format
 msgid "Initial balance"
-msgstr "Balance inicial"
+msgstr "Saldo inicial"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -436,7 +436,7 @@ msgstr "Filtrado por períodos"
 #. module: account_financial_report
 #: wizard_view:account.balance.full.report,init:0
 msgid "Full Account Balance"
-msgstr "Balance Sumas y Saldos"
+msgstr "Balance de sumas y saldos"
 
 #. module: account_financial_report
 #: rml:account.move.line.report:0
@@ -568,7 +568,7 @@ msgstr "Fecha vencimiento"
 #. module: account_financial_report
 #: help:account.balance.full.report,init,periods:0
 msgid "All periods in the fiscal year if empty"
-msgstr "Todos los periodos en el ejercicio fiscal si está vacío"
+msgstr "Todos los periodos en el ejercicio fiscal si está vacío."
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -607,7 +607,7 @@ msgstr "Código empresa"
 #. module: account_financial_report
 #: wizard_view:account.general.ledger.cumulative.report,checktype:0
 msgid "(Keep empty for all open fiscal years)"
-msgstr "(dejarlo vacío para todos los ejercicios abiertos)"
+msgstr "(dejarlo vacío para todos los ejercicios fiscales abiertos)"
 
 #. module: account_financial_report
 #: rml:account.move.line.report:0
@@ -616,7 +616,7 @@ msgstr "(dejarlo vacío para todos los ejercicios abiertos)"
 #: rml:account.print.journal.entries:0
 #: rml:account.print.journal.entriesh:0
 msgid "Report title"
-msgstr "Título del reporte"
+msgstr "Título del informe"
 
 #. module: account_financial_report
 #: wizard_view:account.balance.full.report,init:0
@@ -693,7 +693,7 @@ msgstr "Pagada"
 #: help:account.general.ledger.cumulative.report,checktype,periods:0
 #: help:account.invoice.list.report,init,periods:0
 msgid "All periods if empty"
-msgstr "Todos los períodos si vacío"
+msgstr "Todos los períodos si está vacío."
 
 #. module: account_financial_report
 #: rml:account.general.ledger.cumulative:0
@@ -716,7 +716,7 @@ msgstr "1.3cm 24.9cm 38.3cm 24.9cm"
 #. module: account_financial_report
 #: help:account.balance.full.report,init,display_account_level:0
 msgid "Display accounts up to this level (0 to show all)"
-msgstr "Mostrar cuentas hasta este nivel (0 para mostrar todas)"
+msgstr "Mostrar cuentas hasta este nivel (0 para mostrar todas)."
 
 #. module: account_financial_report
 #: selection:account.balance.full.report,init,display_account:0
@@ -741,7 +741,7 @@ msgstr "Pié"
 #. module: account_financial_report
 #: help:account.general.ledger.cumulative.report,checktype,fiscalyear:0
 msgid "Keep empty for all open fiscal year"
-msgstr "Dejarlo vacío para todos los ejercicios abiertos"
+msgstr "Dejarlo vacío para todos los ejercicios fiscales abiertos."
 
 #. module: account_financial_report
 #: rml:account.balance.full:0
@@ -1135,8 +1135,8 @@ msgstr "Facturas rectificativas de Cliente (Abonos)"
 #: help:account.balance.full.report,init,fiscalyear:0
 msgid "Keep empty to use all open fiscal years to compute the balance"
 msgstr ""
-"Dejar vacío para usar todos los ejercicios fiscales abiertos para calcular "
-"el saldo"
+"Dejarlo vacío para usar todos los ejercicios fiscales abiertos para calcular "
+"el saldo."
 
 #. module: account_financial_report
 #: rml:account.general.ledger.cumulative:0
@@ -1151,3 +1151,24 @@ msgstr "Total"
 #, python-format
 msgid "SR: "
 msgstr "FRP: "
+
+#~ msgid "Select period"
+#~ msgstr "Seleccionar período"
+
+#~ msgid "Sort by:"
+#~ msgstr "Ordenar por:"
+
+#~ msgid "Crebit"
+#~ msgstr "Haber"
+
+#~ msgid "Select Chart"
+#~ msgstr "Seleccionar cuentas"
+
+#~ msgid "Chart of Accounts"
+#~ msgstr "Plan contable"
+
+#~ msgid ":"
+#~ msgstr ":"
+
+#~ msgid "Invoice description"
+#~ msgstr "Descripción factura"

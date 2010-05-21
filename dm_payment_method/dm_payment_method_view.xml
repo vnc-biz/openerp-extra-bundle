@@ -14,10 +14,13 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Payment Methods">
-                <field name="name"/>
-                <field name="code"/>
-                <field name="journal_id"/>
-                <field name="logo"/>
+               <group colspan= "4">
+                	<field name="name"/>
+                	<field name="code"/>
+                	<field name="journal_id"/>
+                	<field name="logo"/>
+            	</group>
+            	<field name="threshold"/>
              </form>
         </field>
     </record>
@@ -29,10 +32,11 @@
         <field name="arch" type="xml">
             <tree string="Payment Methods">
                <field name="name"/>
-                <field name="code"/>
-                <field name="journal_id"/>
-                <field name="logo"/>
-            </tree>
+               <field name="code"/>
+               <field name="journal_id"/>
+               <field name="logo"/>
+               <field name="threshold"/>
+           </tree>
         </field>
     </record>
 

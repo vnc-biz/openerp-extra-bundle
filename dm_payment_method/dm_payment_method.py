@@ -28,6 +28,7 @@ class dm_payment_method(osv.osv): # {{{
         'code': fields.char('Code', size=16, required=True),
         'journal_id': fields.many2one('account.journal', 'Journal', domain="[('type','=','cash')]"),
         'logo': fields.binary('Logo'),
+        'threshold': fields.float('Amount Threshold (%)', digits=(16, 2)),
         
     }
 dm_payment_method() # }}}

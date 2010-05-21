@@ -94,7 +94,7 @@ result_fields = {
 def _coda_parsing(self, cr, uid, data, context):
     pool = pooler.get_pool(cr.dbname)
     codafile = data['form']['coda']
-    jur_id = data['form']['journal_id']
+    journal_code = pool.get('account.journal').browse(cr, uid, data['form']['journal_id'], context).code
     def_pay_acc = data['form']['def_payable']
     def_rec_acc = data['form']['def_receivable']
 
@@ -106,15 +106,15 @@ def _coda_parsing(self, cr, uid, data, context):
     str_not=''
     str_not1=''
 
-    bank_statement={}
-    bank_statement_lines={}
     bank_statements=[]
-    recordlist = base64.decodestring(codafile).split('\n')#remove \r by dhaval
+    recordlist = base64.decodestring(codafile).split('\n')
     recordlist.pop()
     for line in recordlist:
         if line[0] == '0':
             # header data
+            bank_statement = {}
             bank_statement["bank_statement_line"]={}
+            bank_statement_lines = {}
             bank_statement['date'] = str2date(line[5:11])
             bank_statement['journal_id']=data['form']['journal_id']
             period_id = pool.get('account.period').search(cr,uid,[('date_start','<=',time.strftime('%Y-%m-%d',time.strptime(bank_statement['date'],"%y/%m/%d"))),('date_stop','>=',time.strftime('%Y-%m-%d',time.strptime(bank_statement['date'],"%y/%m/%d")))])
@@ -128,6 +128,7 @@ def _coda_parsing(self, cr, uid, data, context):
             bank_statement["balance_start"]= bal_start
             bank_statement["acc_number"]=line[5:17]
             bank_statement["acc_holder"]=line[64:90]
+            bank_statement['name'] = journal_code + ' ' + str(line[2:5])
 
         elif line[0]=='2':
             # movement data record 2
@@ -209,7 +210,6 @@ def _coda_parsing(self, cr, uid, data, context):
             bank_statements.append(bank_statement)
     #end for
     bkst_list=[]
-
     for statement in bank_statements:
         try:
             bk_st_id = pool.get('account.bank.statement').create(cr,uid,{
@@ -218,7 +218,8 @@ def _coda_parsing(self, cr, uid, data, context):
                 'period_id':statement['period_id'],
                 'balance_start': statement["balance_start"],
                 'balance_end_real': statement["balance_end_real"],
-                'state':'draft',
+                'state': 'draft',
+                'name': statement['name'],
             })
             lines=statement["bank_statement_line"]
             for value in lines:
@@ -244,13 +245,12 @@ def _coda_parsing(self, cr, uid, data, context):
                            'note':str_not1,
                            'ref':line['ref'],
                            })
-            cr.commit()
 
             str_not= "\n \n Account Number: %s \n Account Holder Name: %s " %(statement["acc_number"],statement["acc_holder"])
-            std_log += "\nDate  : %s, Starting Balance :  %.2f , Ending Balance : %.2f \n"\
-                      %(statement['date'], float(statement["balance_start"]), float(statement["balance_end_real"]))
+            std_log += "\nStatement : %s , Date  : %s, Starting Balance :  %.2f , Ending Balance : %.2f \n"\
+                      %(statement['name'], statement['date'], float(statement["balance_start"]), float(statement["balance_end_real"]))
             bkst_list.append(bk_st_id)
-
+        
         except osv.except_osv, e:
             cr.rollback()
             nb_err+=1
@@ -267,8 +267,7 @@ def _coda_parsing(self, cr, uid, data, context):
             nb_err+=1
             err_log += '\n Unknown Error'
             raise
-
-    err_log += '\n\nNumber of statements : '+ str(len([bkst_list]))
+    err_log += '\n\nNumber of statements : '+ str(len(bkst_list))
     err_log += '\nNumber of error :'+ str(nb_err) +'\n'
 
     pool.get('account.coda').create(cr, uid,{
@@ -280,11 +279,11 @@ def _coda_parsing(self, cr, uid, data, context):
         'user_id':uid,
         })
 
-    return {'note':str_log1 + std_log + err_log ,'journal_id': data['form']['journal_id'], 'coda': data['form']['coda'],'statment_id':bk_st_id}
+    return {'note':str_log1 + std_log + err_log ,'journal_id': data['form']['journal_id'], 'coda': data['form']['coda'],'statment_ids':bkst_list}
 
 
 def str2date(date_str):
-            return time.strftime("%y/%m/%d",time.strptime(date_str,"%d%m%y"))
+    return time.strftime("%y/%m/%d",time.strptime(date_str,"%d%m%y"))
 
 def str2float(str):
     try:
@@ -292,33 +291,23 @@ def str2float(str):
     except:
         return 0.0
 
-def list2str(lst):
-            return str(lst).strip('[]').replace(',','').replace('\'','')
-
 def list2float(lst):
-            try:
-                return str2float((lambda s : s[:-3] + '.' + s[-3:])(lst))
-            except:
-                return 0.0
-def _import_data(self, cr, uid, data, context):
-    data['form']['journal_id'] = 3
-    data['form']['def_payable']=5
-    data['form']['def_receivable']=10
-    return data['form']
-    domain = "[('user_id', '=', uid)]"
+    try:
+        return str2float((lambda s : s[:-3] + '.' + s[-3:])(lst))
+    except:
+        return 0.0
 
 class coda_import(wizard.interface):
     def _action_open_window(self, cr, uid, data, context):
         form=data['form']
         return {
-            'domain':"[('id','=',%d)]"%(form['statment_id']),
+            'domain':"[('id','in',%s)]"%(form['statment_ids']),
             'name': 'Statement',
             'view_type': 'form',
-            'view_mode': 'form,tree',
+            'view_mode': 'tree,form',
             'res_model': 'account.bank.statement',
             'view_id': False,
             'type': 'ir.actions.act_window',
-            'res_id':form['statment_id'],
         }
     states = {
         'init' : {

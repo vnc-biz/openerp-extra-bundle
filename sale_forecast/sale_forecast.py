@@ -92,7 +92,7 @@ class sale_forecast_line(osv.osv):
                 where.append(('date_invoice','<=',line.forecast_id.date_to))
                 self.pool.get('account.invoice.line').search(cr,uid,[('product_id','in',product_id)])
             elif line.computation_type == 'cases' :
-                obj = 'crm.case'
+                obj = 'crm.lead'
                 where.append(('create_date','>=',line.forecast_id.date_from))
                 where.append(('date_closed','<=',line.forecast_id.date_to))
                 if line.crm_case_section:

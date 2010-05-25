@@ -57,9 +57,8 @@ class dm_order(osv.osv): # {{{
     _defaults = {
         'state': lambda *a: 'draft',
     }
-    
-    def _create_sale_order(self, cr, uid, ids): 
-        order = self.pool.get('dm.order').browse(cr, uid, ids[0])
+    def _search_partner_address(self, cr, uid, order_id): 
+        order = self.pool.get('dm.order').browse(cr, uid, order_id)
         partner_address_search = []
         if order.title :
             address_title = self.pool.get('res.partner.title').search(cr, uid, 
@@ -70,25 +69,25 @@ class dm_order(osv.osv): # {{{
                                                         address_title[0]).shortcut
                 partner_address_search.append(('title','=',title))
 
-        criteria = [('First Name','customer_firstname','firstname'),
-                    ('Last Name','customer_lastname','name'),
-                    ('Address1','customer_add1', 'street'),
-                    ('Address2','customer_add2', 'street2'),
-                    ('Address3','customer_add3', 'street3'),
-                    ('Address4','customer_add4','street4'),
-                    ('Zip Code','zip','zip'),
-                    ('Customer Code','customer_code','partner_id.ref'),]
-        for order_c_des,order_c,pa_c in criteria:
+        criteria = [('customer_firstname','firstname'),
+                    ('customer_lastname','name'),
+                    ('customer_add1', 'street'),
+                    ('customer_add2', 'street2'),
+                    ('customer_add3', 'street3'),
+                    ('customer_add4','street4'),
+                    ('zip','zip'),
+                    ('customer_code','partner_id.ref'),]
+        for order_c,pa_c in criteria:
             if getattr(order,order_c):
                 partner_address_search.append((pa_c,'=',getattr(order,order_c)))
-#            else :
-#                 raise osv.except_osv(_('Error !'),
-#                    _('There is no value for %s for this order'%order_c_des))
         if order.country_id:
             partner_address_search.append(('country_id','=',order.country_id.id))
-        partner_address_id = self.pool.get('res.partner.address').search(cr, uid
+        return self.pool.get('res.partner.address').search(cr, uid
                                                 ,partner_address_search)
-                                                
+                
+    def _create_sale_order(self, cr, uid, ids): 
+        order = self.pool.get('dm.order').browse(cr, uid, ids[0])
+        partner_address_id =  self._search_partner_address(cr, uid, order.id)
         if partner_address_id :
             partner_id = self.pool.get('res.partner.address').browse(cr, uid,
                                             partner_address_id[0]).partner_id

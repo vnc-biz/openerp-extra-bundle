@@ -28,9 +28,6 @@ class partner(osv.osv):
     _columns = {
         'last_reconciliation_date': fields.datetime('Last Reconcilation Date', help='Date on which partner account entries reconciled last time')
                 }
-    _defaults = {
-         'last_reconciliation_date': time.strftime('%Y-%m-%d %H:%M:%S'),
-                 }
 
 partner()
 
@@ -52,9 +49,11 @@ class account_move_line(osv.osv):
         if context and context.get('next_partner_only', False):
             cr.execute(
                     "SELECT l.partner_id " \
-                    "FROM account_move_line as l join res_partner p on p.id=l.partner_id " \
+                    "FROM account_move_line as l " \
+                    "JOIN res_partner p on p.id=l.partner_id " \
                     "WHERE l.reconcile_id IS NULL " \
-                    "AND l.date_created >  p.last_reconciliation_date " \
+                    "AND ( l.date_created >  p.last_reconciliation_date " \
+                    "OR  p.last_reconciliation_date IS NULL ) " \
                     "AND l.state <> 'draft' " \
                     "GROUP BY l.partner_id, p.last_reconciliation_date " \
                     "ORDER BY p.last_reconciliation_date"

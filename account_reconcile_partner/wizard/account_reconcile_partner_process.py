@@ -32,7 +32,8 @@ class account_partner_reconcile_process(osv.osv_memory):
                 "SELECT l.partner_id " \
                 "FROM account_move_line as l join res_partner p on p.id=l.partner_id " \
                 "WHERE l.reconcile_id IS NULL " \
-                "AND %s >  to_char(p.last_reconciliation_date, 'YYYY-MM-DD') " \
+                "AND (%s >  to_char(p.last_reconciliation_date, 'YYYY-MM-DD') " \
+                "OR  p.last_reconciliation_date IS NULL ) " \
                 "AND l.state <> 'draft' " \
                 "GROUP BY l.partner_id, p.last_reconciliation_date " \
                 "ORDER BY p.last_reconciliation_date",(time.strftime('%Y-%m-%d'),)
@@ -56,7 +57,8 @@ class account_partner_reconcile_process(osv.osv_memory):
                 "SELECT l.partner_id " \
                 "FROM account_move_line as l join res_partner p on p.id=l.partner_id " \
                 "WHERE l.reconcile_id IS NULL " \
-                "AND l.date_created >  p.last_reconciliation_date " \
+                "AND (l.date_created >  p.last_reconciliation_date " \
+                "OR p.last_reconciliation_date IS NULL )" \
                 "AND l.state <> 'draft' " \
                 "GROUP BY l.partner_id, p.last_reconciliation_date " \
                 "ORDER BY p.last_reconciliation_date"
@@ -109,10 +111,10 @@ class account_partner_reconcile_process(osv.osv_memory):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'account.partner.reconcile.process',
-            'views': [(resource_id,'form')],
+            'views': [(resource_id, 'form')],
             'type': 'ir.actions.act_window',
             'target': 'new',
-            'nodestroy':True
+            'nodestroy': True
         }
 
     _columns = {
@@ -120,7 +122,6 @@ class account_partner_reconcile_process(osv.osv_memory):
         'today_reconciled': fields.float('Partners Reconciled Today', readonly=True),
         'progress': fields.float('Progress', readonly=True),
         'partner_id': fields.many2one('res.partner', 'Partner to Reconcile'),
-
         #write off fields
         'journal_id': fields.many2one('account.journal','Write-Off Journal', required=True),
         'writeoff_acc_id': fields.many2one('account.account','Write-Off account', required=True),
@@ -132,6 +133,7 @@ class account_partner_reconcile_process(osv.osv_memory):
          'to_reconcile': _get_to_reconcile,
          'today_reconciled': _get_today_reconciled,
          'partner_id': _get_partner,
+         'comment': 'Write Off'
                  }
 
 account_partner_reconcile_process()

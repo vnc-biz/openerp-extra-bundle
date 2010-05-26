@@ -40,7 +40,8 @@ class account_move_line(osv.osv):
         lines = self.browse(cr, uid, ids, context=context)
         if lines and lines[0]:
             partner_id = lines[0].partner_id.id
-            self.pool.get('res.partner').write(cr, uid, [partner_id], {'last_reconciliation_date': time.strftime('%Y-%m-%d %H:%M:%S')})
+            if context and context.get('stop_reconcile',False):
+                self.pool.get('res.partner').write(cr, uid, [partner_id], {'last_reconciliation_date': time.strftime('%Y-%m-%d %H:%M:%S')})
         return res
 
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
@@ -48,21 +49,28 @@ class account_move_line(osv.osv):
             context = {}
         if context and context.get('next_partner_only', False):
             cr.execute(
-                    "SELECT l.partner_id " \
-                    "FROM account_move_line as l " \
-                    "JOIN res_partner p on p.id=l.partner_id " \
-                    "WHERE l.reconcile_id IS NULL " \
-                    "AND ( l.date_created >  p.last_reconciliation_date " \
-                    "OR  p.last_reconciliation_date IS NULL ) " \
-                    "AND l.state <> 'draft' " \
-                    "GROUP BY l.partner_id, p.last_reconciliation_date " \
-                    "ORDER BY p.last_reconciliation_date"
+                    """
+SELECT p.id 
+FROM res_partner p
+RIGHT JOIN (
+         SELECT l.partner_id as partner_id, SUM(l.debit) as debit, SUM(l.credit) as credit
+         FROM account_move_line l 
+          LEFT JOIN account_account a ON (a.id = l.account_id) 
+          LEFT JOIN res_partner p ON (l.partner_id = p.id)
+         WHERE a.reconcile IS TRUE 
+          AND l.reconcile_id IS NULL 
+          AND (p.last_reconciliation_date IS NULL OR l.date > p.last_reconciliation_date)
+          AND l.state <> 'draft'
+         GROUP BY l.partner_id
+) AS s ON (p.id = s.partner_id)
+WHERE s.debit <> 0
+AND s.credit <> 0 
+ORDER BY p.last_reconciliation_date LIMIT 1"""
                      )
             partner = cr.fetchone()
             if not partner:
                 return []
             args.append(('partner_id', '=', partner[0]))
-            args.append(('reconcile_id', '=', False))
         return super(account_move_line, self).search(cr, user, args, offset, limit, order, context, count)
 
 account_move_line()

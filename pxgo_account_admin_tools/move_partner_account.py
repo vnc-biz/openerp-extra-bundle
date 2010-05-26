@@ -32,23 +32,25 @@ import re
 from osv import fields,osv
 from tools.translate import _
 
-class pxgo_move_partner_account_wizard(osv.osv_memory):
+class pxgo_move_partner_account(osv.osv_memory):
     """
     Move Partner Account Wizard
 
     Checks that the account moves use the partner account instead of a
     generic account.
     """
-    _name = "pxgo_move_partner_account_wizard"
+    _name = "pxgo_account_admin_tools.pxgo_move_partner_account"
     _description = "Move Partner Account Wizard"
 
     _columns = {
+        'state': fields.selection([('new','New'), ('done','Done')], 'Status', readonly=True),
+
         #
         # Account move parameters
         #
         'company_id': fields.many2one('res.company', 'Company', required=True, readonly=True),
 
-        'period_ids': fields.many2many('account.period', 'pxgo_move_partner_account_wizard_period_rel', 'wizard_id', 'period_id', "Periods"),
+        'period_ids': fields.many2many('account.period', 'pxgo_move_partner_account_period_rel', 'wizard_id', 'period_id', "Periods"),
 
         'account_payable_id': fields.many2one('account.account', 'Account Payable', required=True),
         'account_receivable_id': fields.many2one('account.account', 'Account Receivable', required=True),
@@ -137,10 +139,33 @@ class pxgo_move_partner_account_wizard(osv.osv_memory):
                     cr.execute(query_acc % (partner.property_account_payable.id, partner.id, wiz.account_payable_id.id))
                     cr.execute(query_inv % (partner.property_account_payable.id, partner.id, wiz.account_payable_id.id))
 
-        return {}
+            # Update the wizard status
+            self.write(cr, uid, [wiz.id], { 'state': 'done' })
+
+        #
+        # Return the next view: Show 'done' view
+        #
+        model_data_ids = self.pool.get('ir.model.data').search(cr, uid, [
+                    ('model','=','ir.ui.view'),
+                    ('module','=','pxgo_account_admin_tools'),
+                    ('name','=','view_pxgo_move_partner_account_done_form')
+                ])
+        resource_id = self.pool.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'], context=context)[0]['res_id']
+
+        return {
+            'name': _("Set Partner Accounts in Moves"),
+            'type': 'ir.actions.act_window',
+            'res_model': 'pxgo_account_admin_tools.pxgo_move_partner_account',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'views': [(resource_id, 'form')],
+            'domain': "[('id', 'in', %s)]" % ids,
+            'context': context,
+            'target': 'new',
+        }
 
 
 
-pxgo_move_partner_account_wizard()
+pxgo_move_partner_account()
 
 

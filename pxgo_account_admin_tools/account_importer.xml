@@ -4,13 +4,13 @@
 
         <record id="view_pxgo_account_importer_wizard_form" model="ir.ui.view">
             <field name="name">pxgo_account_importer_wizard.form</field>
-            <field name="model">pxgo_account_importer_wizard</field>
+            <field name="model">pxgo_account_admin_tools.pxgo_account_importer_wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Account importer">
                     <label string="This wizard will import accounts from a CSV file." colspan="4"/>
                     <label string="Only the account code and name are needed, the rest of the required account data will be filled based on its brother accounts (same code begining)." colspan="4"/>
-                    <label string=""/>
+                    <label string="" colspan="4"/>
                     <newline/>
                     <group string="Account parameters" colspan="4">
                         <label string="Select the parameters for the account"/>
@@ -48,13 +48,14 @@
 
         <record id="action_pxgo_account_importer_wizard" model="ir.actions.act_window">
             <field name="name">Import Accounts from CSV</field>
-            <field name="res_model">pxgo_account_importer_wizard</field>
+            <field name="res_model">pxgo_account_admin_tools.pxgo_account_importer_wizard</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
+            <field name="view_id" ref="view_pxgo_account_importer_form"/>
             <field name="target">new</field>
         </record>
         <menuitem id="menu_action_pxgo_account_importer_wizard"
-            parent="menu_action_pxgo_account_admin_tools"
+            parent="menu_action_pxgo_account_admin_tools_import"
             action="action_pxgo_account_importer_wizard"
             sequence="10"/>
 

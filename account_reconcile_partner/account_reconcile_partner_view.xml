@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <record id="view_res_partner_reconcile" model="ir.ui.view">
+            <field name="name">res.partner.form.reconcile</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="credit_limit" position="after">
+                    <field name="last_reconciliation_date"/>
+                </field>
+            </field>
+        </record>
+
+       <record id="view_account_move_line_filter_partner" model="ir.ui.view">
+            <field name="name">account.move.line.form.reconcile</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" select='1' position="replace">
+                    <field name="partner_id" >
+                    	<filter help="Next Partner Entries to reconcile" name="next_partner" string="Next Partner to reconcile" context="{'next_partner_only': 1}" icon="terp-partner" domain="[('account_id.reconcile','=',True),('reconcile_id','=',False)]"/>
+                    </field>
+                </field>
+            </field>
+        </record>
+
+		<act_window
+			context="{'search_default_next_partner':1}"
+            id="action_account_manual_reconcile" name="Entry Lines"
+            res_model="account.move.line"
+            />
+
+ 	   <menuitem
+ 	   		name="Manual reconciliation" icon="STOCK_EXECUTE"
+ 	   		action="action_account_manual_reconcile"
+ 			id="menu_manual_reconcile"
+ 			parent="account.next_id_20"/>
+
+	</data>
+</openerp>

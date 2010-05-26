@@ -112,12 +112,13 @@
     <para style="P7">
       <font color="white"> </font>
     </para>
+
+    <para style="P9">Steps :</para>
     <blockTable colWidths="482.0" style="Table2">
       <tr>
         <td>
-          <para style="P9">Steps :</para>
+          <para style="P6">[[ repeatIn(offer.step_ids,'step_ids') ]]</para>
           <section>
-            <para style="P6">[[ repeatIn(offer.step_ids,'step_ids') ]]</para>
             <para style="P6">
               <font color="white"> </font>
             </para>

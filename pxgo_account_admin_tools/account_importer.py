@@ -34,7 +34,7 @@ import re
 from osv import fields,osv
 from tools.translate import _
 
-class pxgo_account_importer_wizard(osv.osv_memory):
+class pxgo_account_importer(osv.osv_memory):
     """
     Account Importer
 
@@ -50,7 +50,7 @@ class pxgo_account_importer_wizard(osv.osv_memory):
     The CSV file lines are tested to be valid account lines using the regular
     expresion options of the wizard.
     """
-    _name = "pxgo_account_importer_wizard"
+    _name = "pxgo_account_admin_tools.pxgo_account_importer"
     _description = "Account importation wizard"
 
     _columns = {
@@ -233,7 +233,7 @@ class pxgo_account_importer_wizard(osv.osv_memory):
                     ('module','=','account'),
                     ('name','=','view_account_form')
                 ])
-        resource_id = self.pool.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'])[0]['res_id']
+        resource_id = self.pool.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'], context=context)[0]['res_id']
 
         return {
             'name': _("Imported accounts"),
@@ -243,11 +243,12 @@ class pxgo_account_importer_wizard(osv.osv_memory):
             'view_mode': 'tree,form',
             'views': [(False,'tree'), (resource_id,'form')],
             'domain': "[('id', 'in', %s)]" % imported_account_ids,
+            'context': context,
         }
 
 
 
 
-pxgo_account_importer_wizard()
+pxgo_account_importer()
 
 

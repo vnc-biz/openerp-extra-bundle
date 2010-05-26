@@ -98,7 +98,7 @@
         <menuitem
             name="Sales Forecasts"
             id="menu_sale_forecast"
-            parent="sale.menu_sale_root"/>
+            parent="base.menu_sales"/>
 
         <menuitem id="menu_sale_forecast_new" parent="menu_sale_forecast" action="action_sale_forecast_view_form"/>
 

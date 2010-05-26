@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,34 +15,24 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
-    "name" : "Invoice Payment/Receipt by Vouchers.",
+    "name" : "Entries Reconcilation by Partner",
     "version" : "1.0",
-    "author" : 'Tiny & Axelor',
-    "description": """This module includes :
-    * It reconcile the invoice (supplier, customer) while paying through 
-    Accounting Vouchers
+    "depends" : ["account"],
+    "author" : 'Tiny',
+    "description": """ Module improve the reconciliation process in order to make something more useable.
+    now entry lines should be able to work on reconciliation and process one partner after another
     """,
-    "category" : "Generic Modules/Indian Accounting",
-    "website" : "http://tinyerpindia.com",
-    "depends" : [
-        "base", 
-        "account",
-        "account_voucher",
-    ],
-    "init_xml" : [
-    ],
-    
+    "website" : "http://openerp.com",
+    "category" : "Generic Modules/Accounting",
+    "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : [
-        "account_voucher_payment_view.xml",
-        "account_voucher_payment_wizard.xml"
-    ],
+    "update_xml" : ["account_reconcile_partner_view.xml", "wizard/account_reconcile_partner_process_view.xml"],
     "active": False,
-    "installable": True,
+    "installable": True
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

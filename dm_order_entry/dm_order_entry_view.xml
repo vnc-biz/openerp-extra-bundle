@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+
 <openerp>
 <data>
 
@@ -51,7 +51,7 @@
 				</group>
 				<newline/>
 	            <field name="state" colspan="2" nolabel="1"/>
-				<button string="Confirm" name="set_confirm" type="object" states="draft" colspan="2"/>                </page>
+				<button string="Confirm" name="set_confirm" type="object" states="draft" colspan="2"/>
             </form>
         </field>
     </record>

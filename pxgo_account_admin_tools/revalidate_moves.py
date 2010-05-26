@@ -29,7 +29,7 @@ import re
 from osv import fields,osv
 from tools.translate import _
 
-class pxgo_revalidate_moves_wizard(osv.osv_memory):
+class pxgo_revalidate_moves(osv.osv_memory):
     """
     Revalidate Account Moves Wizard
 
@@ -37,13 +37,13 @@ class pxgo_revalidate_moves_wizard(osv.osv_memory):
     are recomputed (to fix the data after problems like this:
     https://bugs.launchpad.net/openobject-addons/+bug/582988).
     """
-    _name = "pxgo_revalidate_moves_wizard"
+    _name = "pxgo_account_admin_tools.pxgo_revalidate_moves"
     _description = "Revalidate Account Moves Wizard"
 
     _columns = {
         'company_id': fields.many2one('res.company', 'Company', required=True, readonly=True),
-        'period_ids': fields.many2many('account.period', 'pxgo_revalidate_moves_wizard_period_rel', 'wizard_id', 'period_id', "Periods"),
-        'move_ids': fields.many2many('account.move', 'pxgo_revalidate_moves_wizard_moves_rel', 'wizard_id', 'move_id', 'Moves'),
+        'period_ids': fields.many2many('account.period', 'pxgo_revalidate_moves_period_rel', 'wizard_id', 'period_id', "Periods"),
+        'move_ids': fields.many2many('account.move', 'pxgo_revalidate_moves_moves_rel', 'wizard_id', 'move_id', 'Moves'),
         'state': fields.selection([('new','New'), ('ready', 'Ready'), ('done','Done')], 'Status', readonly=True),
     }
 
@@ -96,6 +96,6 @@ class pxgo_revalidate_moves_wizard(osv.osv_memory):
             self.write(cr, uid, [wiz.id], { 'state': 'done' })
         return True
 
-pxgo_revalidate_moves_wizard()
+pxgo_revalidate_moves()
 
 

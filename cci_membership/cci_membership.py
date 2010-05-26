@@ -48,10 +48,65 @@ class res_partner(osv.osv):
         return res
 
     def _membership_state(self, cr, uid, ids, name, args, context=None):
-        res = super(res_partner, self)._membership_state(cr, uid, ids, name, args, context)
-        for partner in self.browse(cr, uid, ids, context):
+        #the call to super is deactivated because of unresolved conflicts with the 5.0 version 
+        #of the membership module in state priorities. It is replaced by the ugly copy/paste below
+        #res = super(res_partner, self)._membership_state(cr, uid, ids, name, args, context)
+        res = {}
+        for id in ids:
+            res[id] = 'none'
+        today = time.strftime('%Y-%m-%d')
+        for id in ids:
+            partner_data = self.browse(cr,uid,id)
+            if partner_data.membership_cancel and today > partner_data.membership_cancel:
+                res[id] = 'canceled'
+                continue
             if partner.refuse_membership:
-                res[partner.id] = 'canceled'
+                res[id] = 'canceled'
+                continue
+            if partner_data.free_member:
+                res[id] = 'free'
+                continue
+
+            s = 4
+            if partner_data.member_lines:
+                for mline in partner_data.member_lines:
+                    if mline.date_from <= today and mline.date_to >= today:
+                        if mline.account_invoice_line and mline.account_invoice_line.invoice_id:
+                            mstate = mline.account_invoice_line.invoice_id.state
+                            if mstate == 'paid':
+                                s = 0
+                                break
+                            elif mstate == 'open' and s!=0:
+                                s = 1
+                            elif mstate == 'cancel' and s!=0 and s!=1:
+                                s = 2
+                            elif  (mstate == 'draft' or mstate == 'proforma') and s!=0 and s!=1:
+                                s = 3
+                if s==4:
+                    for mline in partner_data.member_lines:
+                        if mline.date_from < today and mline.date_to < today and mline.date_from<=mline.date_to and (mline.account_invoice_line and mline.account_invoice_line.invoice_id.state) == 'paid':
+                            s = 5
+                        else:
+                            s = 6
+                if s==0:
+                    res[id] = 'paid'
+                elif s==1:
+                    res[id] = 'invoiced'
+                elif s==2:
+                    res[id] = 'canceled'
+                elif s==3:
+                    res[id] = 'waiting'
+                elif s==5:
+                    res[id] = 'old'
+                elif s==6:
+                    res[id] = 'none'
+            if partner_data.membership_stop and today > partner_data.membership_stop:
+                res[id] = 'old'
+                continue
+            if partner_data.associate_member:
+                res_state = self._membership_state(cr, uid, [partner_data.associate_member.id], name, args, context)
+                res[id] = res_state[partner_data.associate_member.id]
+
         return res
 
     _columns = {

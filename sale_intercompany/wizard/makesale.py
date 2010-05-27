@@ -30,7 +30,7 @@ import pooler
 class make_sale(wizard.interface):
 
     def _selectPartner(self, cr, uid, data, context):
-        case_obj = pooler.get_pool(cr.dbname).get('crm.case')
+        case_obj = pooler.get_pool(cr.dbname).get('crm.lead')
         case = case_obj.read(cr, uid, data['ids'], ['partner_id'])
         return {'partner_id': case[0]['partner_id']}
 
@@ -79,7 +79,7 @@ class make_sale(wizard.interface):
                         line.product_id.id, qty=line.product_qty, partner_id=partner_id, fiscal_position=fpos)['value']
                 value['price_unit'] = line.price_unit
                 value['product_id'] = line.product_id.id
-                value['product_uos'] = value.get('product_uos', [False,False])[0]
+                value['product_uos'] = value.get('product_uos') and  value.get('product_uos')[0] or False
                 value['product_uom_qty'] = line.product_qty
                 value['order_id'] = new_id
                 sale_line_obj.create(cr, uid, value)

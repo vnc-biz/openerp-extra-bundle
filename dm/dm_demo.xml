@@ -63,7 +63,7 @@
             <field eval="&quot;&quot;&quot;Corp.&quot;&quot;&quot;" name="title"/>
             <field model="account.account" name="property_account_payable" search="[('name','=','Effets à payer')]"/>
             <field name="property_stock_supplier" ref="stock.stock_location_suppliers"/>
-            <field eval="&quot;&quot;&quot;BOSSLIST&quot;&quot;&quot;" name="ref"/>
+            <field eval="&quot;&quot;&quot;BOSS&quot;&quot;&quot;" name="ref"/>
             <field eval="0" name="customer"/>
             <field eval="1" name="supplier"/>
             <field name="property_stock_customer" ref="stock.stock_location_customers"/>
@@ -96,7 +96,7 @@
             <field eval="&quot;&quot;&quot;Corp.&quot;&quot;&quot;" name="title"/>
             <field model="account.account" name="property_account_payable" search="[('name','=','Effets à payer')]"/>
             <field name="property_stock_supplier" ref="stock.stock_location_suppliers"/>
-            <field eval="&quot;&quot;&quot;PAPERCUT&quot;&quot;&quot;" name="ref"/>
+            <field eval="&quot;&quot;&quot;PCUT&quot;&quot;&quot;" name="ref"/>
             <field eval="0" name="customer"/>
             <field eval="1" name="supplier"/>
             <field name="property_stock_customer" ref="stock.stock_location_customers"/>
@@ -129,7 +129,7 @@
             <field eval="&quot;&quot;&quot;Corp.&quot;&quot;&quot;" name="title"/>
             <field model="account.account" name="property_account_payable" search="[('name','=','Effets à payer')]"/>
             <field name="property_stock_supplier" ref="stock.stock_location_suppliers"/>
-            <field eval="&quot;&quot;&quot;Max Mailing&quot;&quot;&quot;" name="ref"/>
+            <field eval="&quot;&quot;&quot;MAXM&quot;&quot;&quot;" name="ref"/>
             <field eval="0" name="customer"/>
             <field eval="1" name="supplier"/>
             <field name="property_stock_customer" ref="stock.stock_location_customers"/>

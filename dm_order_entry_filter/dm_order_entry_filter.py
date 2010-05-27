@@ -39,47 +39,45 @@ class dm_order(osv.osv): # {{{
     _inherit= "dm.order"
     
     def create(self, cr, uid, vals, context={}):
-        message = ''
-        if vals.has_key('order_session_id') and vals['order_session_id']:
+        so_vals = {}
+        if 'order_session_id' in vals and vals['order_session_id']:
             session_id = self.pool.get('dm.order.session').browse(cr, uid, vals['order_session_id'])
-            if session_id.country_id and session_id.currency_id and session_id.dealer_id \
-                and session_id.trademark_id and session_id.payment_method_id and vals['segment_id'] and vals['country_id']:
-                country_name = self.pool.get('res.country').browse(cr, uid, vals['country_id']).name
-                segment_id = self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, vals['segment_id'])
-                trademark_name = segment_id.campaign_id and segment_id.campaign_id.trademark_id.name
-                currency_name = segment_id.campaign_id and segment_id.campaign_id.currency_id.name
-                dealer_name = segment_id.campaign_id and segment_id.campaign_id.dealer_id.name
-                payment_method_name = segment_id.campaign_id and segment_id.campaign_id.journal_id.name
-                filter_country_name = session_id.country_id.name
-                filter_trademark_name = session_id.trademark_id.name
-                filter_currency_name = session_id.currency_id.name
-                filter_dealer_name = session_id.dealer_id.name
-                filter_payment_method_name = session_id.payment_method_id.name
-                simple_list = [country_name, trademark_name, currency_name, dealer_name, payment_method_name]
-                filter_list = [filter_country_name, filter_trademark_name, filter_currency_name, filter_dealer_name, filter_payment_method_name]
-                field_list = ['country', 'trademark', 'currency', 'dealer', 'payment method']
-                for j in range(0, len(field_list)):
-                    if simple_list[j] != filter_list[j]:
-                        msg = "%s order does not match \n" % (field_list[j])
-                        message = message + msg
+            segment_id = self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, vals['segment_id'])
+            
+            field_list = ['trademark_id', 'currency_id', 'dealer_id', 'journal_id']
+            order_fields = dict(map(lambda x : (x,getattr(segment_id.campaign_id,x).name),field_list))
+            order_fields['country_id'] = 'country_id' in vals and vals['country_id'] and \
+                                    self.pool.get('res.country').browse(cr, uid, 
+                                                vals['country_id']).name or \
+                                    False
+            field_list.pop()                
+            field_list.extend(['country_id','payment_method_id'])
+
+            filter_fields = dict(map(lambda x : (x,getattr(session_id,x) and \
+                                getattr(session_id,x).name or False),field_list))
+            message = ''            
+            for field in field_list:
+                if filter_fields[field] and order_fields[field] != filter_fields[field]:
+                    msg = "%s does not match with filter value \n" % (field.replace('_id',' name'))
+                    message = message + msg
+            if message :
                 vals.update({'state': 'error', 'state_msg': message})
-        return super(dm_order, self).create(cr, uid, vals, context)
+                return super(dm_order, self).create(cr, uid, vals, context)
+            else :
+                field_list = ['so_confirm_do','invoice_create_do','invoice_pay_do',
+                                                    'invoice_validate_do',]
+                if session_id.payment_method_id:
+                    so_vals = dict(map(lambda field : (field, \
+                                getattr(session_id.payment_method_id,field) and \
+                            getattr(session_id.payment_method_id,field) or \
+                            False),field_list))
+                    print so_vals
+        order_id = super(dm_order, self).create(cr, uid, vals, context)
+        order = self.browse(cr, uid, order_id, context)
+        if order.sale_order_id and so_vals:
+            self.pool.get('sale.order').write(cr, uid, order.sale_order_id.id, so_vals)
+        return order_id
         
-    def set_confirm(self, cr, uid, ids, *args):
-        so_id = self._create_sale_order(cr, uid, ids)
-        order = self.browse(cr, uid, ids[0])
-        field_list = ['so_confirm_do','invoice_create_do','invoice_validate_do',
-                    'invoice_pay_do']
-        if order.order_session_id and order.order_session_id.payment_method_id:
-            so_vals = {}
-            for field in field_list: 
-                if getattr(order.order_session_id.payment_method_id,field):
-                    so_vals[field]  = getattr(order.order_session_id.payment_method_id,field)
-            if so_vals:
-                self.pool.get('sale.order').write(cr, uid, so_id, so_vals)  
-        self._create_workitem(cr, uid, so_id)                       
-        return True        
-    
 dm_order() # }}}
 
 class dm_payment_method(osv.osv): # {{{

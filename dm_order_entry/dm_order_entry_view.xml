@@ -24,6 +24,8 @@
 	            <field name="customer_firstname" select="1" required="1"/>
 	            <field name="customer_lastname" select="1" required="1"/>
 	            <newline/>
+	            <field name="partner_id" />
+	            <field name="address_id" />
 	            <separator string="Address" colspan="4"/>
 	            <field name="customer_add1" select="2"/>
 	            <field name="customer_add2" select="2"/>
@@ -51,7 +53,6 @@
 				</group>
 				<newline/>
 	            <field name="state" colspan="2" nolabel="1"/>
-				<button string="Confirm" name="set_confirm" type="object" states="draft" colspan="2"/>
             </form>
         </field>
     </record>

@@ -25,6 +25,12 @@ from osv import osv
 from tools.translate import _
 import time
 
+partner_address_fields = ('title','firstname','name','street','street2','street3',
+                                'street4', 'zip','partner_id.ref','country_id')
+order_field = ('title','customer_firstname', 'customer_lastname', 'customer_add1',
+                        'customer_add2', 'customer_add3', 'customer_add4', 'zip',
+                                                'customer_code', 'country_id')                                
+
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
     _rec_name = 'customer_code'
@@ -53,45 +59,45 @@ class dm_order(osv.osv): # {{{
                                         'order_entry_id', 'camp_pro_id',
                                         'Items'), 
         'amount': fields.float('Amount', digits=(16, 2)),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
+        'address_id': fields.many2one('res.partner.address', 'Address'),   
+        'sale_order_id' : fields.many2one('sale.order','Sale Order'),     
     }
     _defaults = {
         'state': lambda *a: 'draft',
     }
-    def _search_partner_address(self, cr, uid, order_id): 
-        order = self.pool.get('dm.order').browse(cr, uid, order_id)
+    def _search_partner_address(self, cr, uid, criteria): 
         partner_address_search = []
-        if order.title :
+        if criteria['title'] :
             address_title = self.pool.get('res.partner.title').search(cr, uid, 
-                                        [('name', '=', order.title ),
+                                        [('name', '=', criteria['title'] ),
                                         ('domain', '=', 'contact')])
             if address_title : 
                 title = self.pool.get('res.partner.title').browse(cr, uid, 
                                                         address_title[0]).shortcut
                 partner_address_search.append(('title','=',title))
-
-        criteria = [('customer_firstname','firstname'),
-                    ('customer_lastname','name'),
-                    ('customer_add1', 'street'),
-                    ('customer_add2', 'street2'),
-                    ('customer_add3', 'street3'),
-                    ('customer_add4','street4'),
-                    ('zip','zip'),
-                    ('customer_code','partner_id.ref'),]
-        for order_c,pa_c in criteria:
-            if getattr(order,order_c):
-                partner_address_search.append((pa_c,'=',getattr(order,order_c)))
-        if order.country_id:
-            partner_address_search.append(('country_id','=',order.country_id.id))
+        del(criteria['title'])
+        for key,value in criteria.items():
+            if value:
+                partner_address_search.append((key,'=',value))
         return self.pool.get('res.partner.address').search(cr, uid
-                                                ,partner_address_search)
-                
-    def _create_sale_order(self, cr, uid, ids): 
-        order = self.pool.get('dm.order').browse(cr, uid, ids[0])
-        partner_address_id =  self._search_partner_address(cr, uid, order.id)
-        if partner_address_id :
-            partner_id = self.pool.get('res.partner.address').browse(cr, uid,
-                                            partner_address_id[0]).partner_id
-        else :
+                                                ,partner_address_search)                
+    def _create_sale_order(self, cr, uid, order_id): 
+        order = self.pool.get('dm.order').browse(cr, uid, order_id)
+        partner_id =''
+        if not order.partner_id and not order.address_id :
+            order_field_value = dict(map(lambda o,pa : (pa,getattr(order,o) and \
+                    getattr(order,o) or False), order_field,partner_address_fields))
+            order_field_value['country_id'] = order_field_value['country_id'].id
+            partner_address_id =  self._search_partner_address(cr, uid, order_field_value)
+            if partner_address_id :
+                partner_id = self.pool.get('res.partner.address').browse(cr, uid,
+                                                partner_address_id[0]).partner_id
+        elif order.address_id :
+            partner_id = order.address_id.partner_id
+        elif order.partner_id :
+            partner_id = order.partner_id
+        if not partner_id :
             raise osv.except_osv(_('Error !'),
                  _('There is no partner found for this order'))
         address = self.pool.get('res.partner').address_get(cr, uid, [partner_id.id],
@@ -104,7 +110,7 @@ class dm_order(osv.osv): # {{{
                                 partner_id.property_account_position.id or False                      
         sale_order_vals = {
             'origin': order.segment_id.code,
-            'date_order': time.strftime('%Y-%m-%d'),'partner_id': 3,
+            'date_order': time.strftime('%Y-%m-%d'),
             'pricelist_id': pricelist_id,
             'offer_step_id': order.offer_step_id and order.offer_step_id.id or False,
             'partner_id': partner_id.id,
@@ -122,9 +128,6 @@ class dm_order(osv.osv): # {{{
                                 order.segment_id.proposition_id.journal_id and \
                                 order.segment_id.proposition_id.journal_id.id \
                                 or False,
-#            'project_id' : order.segment_id and \
-#                            order.segment_id.analytic_account_id.id or \
-#                            False,
             'user_id': partner_id.user_id and partner_id.user_id.id or uid,
         }
         shop_id = self.pool.get('sale.shop').search(cr, uid, [])
@@ -137,6 +140,7 @@ class dm_order(osv.osv): # {{{
                  _('There is no shop defined..Please create one shop before confirming order'))
                 
         order_lines = []
+
         for item in order.dm_order_entry_item_ids:
             result = self.pool.get('sale.order.line').product_id_change(cr, uid,
                             ids, pricelist_id, item.product_id.id, qty=1,
@@ -149,19 +153,22 @@ class dm_order(osv.osv): # {{{
         sale_order_vals['order_line'] = order_lines
         return self.pool.get('sale.order').create(cr, uid, sale_order_vals)
 
-    def _create_workitem(self, cr, uid, so_id):
+    def _create_event(self, cr, uid, so_id):
         so = self.pool.get('sale.order').browse(cr, uid, so_id)
-        workitem_vals = {'action_time': time.strftime('%Y-%m-%d'),
+        event_vals = {'action_time': time.strftime('%Y-%m-%d'),
                          'address_id': so.partner_invoice_id.id,
                          'segment_id': so.segment_id.id, 
                          'step_id': so.offer_step_id.id, 
-                         'sale_order_id': so_id}
-        self.pool.get('dm.workitem').create(cr, uid, workitem_vals)
+                         'sale_order_id': so_id,
+                         'trigger_type_id': 1,}
+        self.pool.get('dm.event.sale').create(cr, uid, event_vals)
          
-    def set_confirm(self, cr, uid, ids, *args):
-        so_id = self._create_sale_order(cr, uid, ids)
-        self._create_workitem(cr, uid, so_id)                        
-        return True
+    def create(self, cr, uid, vals, context={}):
+        order_id = super(dm_order, self).create(cr, uid, vals, context)
+        so_id = self._create_sale_order(cr, uid, order_id)
+        self.write(cr, uid, order_id, {'sale_order_id' : so_id})
+        self._create_event(cr, uid, so_id)                        
+        return order_id
 
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):
         if not raw_datas:
@@ -194,10 +201,16 @@ class dm_order(osv.osv): # {{{
                                                             [('offer_step_id', '=', value['offer_step_id']),
                                                              ('proposition_id', '=', segment_obj.proposition_id.id)])
         value['dm_order_entry_item_ids'] = pro_items
+        order_field_value = dict(map(lambda o,pa : (pa,o in value and value[o] \
+                                or False), order_field,partner_address_fields))
+        partner_address_id = self._search_partner_address(cr, uid, order_field_value)
+        if partner_address_id :
+            partner_address = self.pool.get('res.partner.address').browse(cr, uid, 
+                                                        partner_address_id[0]) 
+            value['partner_id'] = partner_address.partner_id.id
+            value['address_id'] = partner_address.id
         del(value['datamatrix_type'])
         return {'value': value}
-
-
    
 dm_order() # }}}
 

@@ -422,7 +422,7 @@ class project_issue(osv.osv):
     def _store_bug_history(self, cr, uid,bug_id,bug,user_id,context={}):
         model_obj = self.pool.get('ir.model')        
         model_ids = model_obj.search(cr, uid, [('model','=',self._name)])          
-        obj = self.pool.get('crm.case.history')
+        obj = self.pool.get('mailgate.message')
         
         for key in bug.bug.messages.entries:        
             if key['self_link'].rsplit('/',1)[1]!=0:
@@ -468,11 +468,13 @@ class res_users(osv.osv):
         'lp_login': fields.char('Launchpad Login', size=100),
         }
 res_users()
-class crm_case_history(osv.osv):
-    _inherit = 'crm.case.history'
+
+
+class mailgate_message(osv.osv):
+    _inherit = 'mailgate.message'
     _columns = {    
         'bug_owner_id': fields.many2one('res.users', 'Bug Owner'),
         'filename':fields.many2one('ir.attachment','File'),        
     }
-crm_case_history()    
+mailgate_message()    
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

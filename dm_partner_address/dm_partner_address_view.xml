@@ -139,5 +139,68 @@
             </form>
         </field>
 	</record>
+
+    <!--
+    =======================================================
+    MATCHCODE VIEWS
+    =======================================================
+    -->
+
+    <record id="view_dm_matchcode_tree" model="ir.ui.view">
+        <field name="name">dm.matchcode.tree</field>
+        <field name="model">dm.matchcode</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="All Matchcodes">
+                <field name="name"/>
+                <field name="matchexp"/>
+                <field name="country_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_dm_matchcode_form" model="ir.ui.view">
+        <field name="name">dm.matchcode.form</field>
+        <field name="model">dm.matchcode</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Matchcode">
+                <field name="name" select="1"/>
+                <field name="matchexp" select="1"/>
+                <field name="country_id" select="1"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_dm_matchcode_form">
+        <field name="name">All Matchcodes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dm.matchcode</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dm_matchcode_tree"/>
+    </record>
+    
+    <menuitem name="Deduplication" parent="dm.menu_dm_config_customer" id="menu_dm_customers_deduplication"/>
+    <menuitem parent="menu_dm_customers_deduplication" id="menu_dm_matchcode" action="action_dm_matchcode_form"/>
+
+    <!--
+    =======================================================
+    PARTNER ADDRESS EXTENSIONS
+    =======================================================
+    -->    
+
+    <record id="view_partner_address_matchcode_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.address.matchcode.form.inherit</field>
+        <field name="model">res.partner.address</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="view_partner_address_form_inherit5"/>
+        <field name="arch" type="xml">
+            <field name="id" position="after">
+                <field name="matchcode_id"/>
+            </field>
+        </field>
+    </record>
+
 </data>
 </openerp>

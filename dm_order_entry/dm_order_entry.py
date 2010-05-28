@@ -34,6 +34,16 @@ order_field = ('title','customer_firstname', 'customer_lastname', 'customer_add1
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
     _rec_name = 'customer_code'
+   
+    def calc_prod_amt(self, cr, uid, ids, name, arg, context={}):
+        result = {}
+        price = 0
+        for order in  self.browse(cr, uid, ids):
+            for item in order.dm_order_entry_item_ids:
+                price += item.price
+            result[order.id]=price
+        return result
+    
     _columns = {
         'raw_datas': fields.char('Raw Datas', size=128),
         'customer_code': fields.char('Customer Code', size=64),
@@ -59,6 +69,9 @@ class dm_order(osv.osv): # {{{
                                         'order_entry_id', 'camp_pro_id',
                                         'Items'), 
         'amount': fields.float('Amount', digits=(16, 2)),
+        'prod_amt_total': fields.function(calc_prod_amt,
+                                            method=True, type='float',
+                                             string='Product Amount Total'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'address_id': fields.many2one('res.partner.address', 'Address'),   
         'sale_order_id' : fields.many2one('sale.order','Sale Order'),     

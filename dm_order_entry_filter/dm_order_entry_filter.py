@@ -62,6 +62,7 @@ class dm_order(osv.osv): # {{{
         return message
         
     def create(self, cr, uid, vals, context={}):
+        so_vals = {}
         if 'order_session_id' in vals and vals['order_session_id'] and \
                  ('state' in vals and vals['state']!= 'error' or True):
             country_id = 'country_id' in vals and vals['country_id'] or False
@@ -76,14 +77,13 @@ class dm_order(osv.osv): # {{{
                 session_id = self.pool.get('dm.order.session').browse(cr, uid, 
                                                         vals['order_session_id'])
                 if session_id.payment_method_id:
-                    so_vals = {}
                     so_vals = dict(map(lambda field : (field, \
                                 getattr(session_id.payment_method_id,field) and \
                             getattr(session_id.payment_method_id,field) or \
                             False),field_list))
         order_id = super(dm_order, self).create(cr, uid, vals, context)
         order = self.browse(cr, uid, order_id, context)
-        if order.sale_order_id and order.state !='error':
+        if order.sale_order_id and order.state !='error' and so_vals:
             self.pool.get('sale.order').write(cr, uid, order.sale_order_id.id, so_vals)
         return order_id
         

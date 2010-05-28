@@ -141,7 +141,7 @@ class dm_order(osv.osv): # {{{
 
         for item in order.dm_order_entry_item_ids:
             result = self.pool.get('sale.order.line').product_id_change(cr, uid,
-                            ids, pricelist_id, item.product_id.id, qty=1,
+                            [], pricelist_id, item.product_id.id, qty=1,
                             partner_id=partner_id.id,
                             date_order=time.strftime('%Y-%m-%d'),
                             fiscal_position=fiscal_position)

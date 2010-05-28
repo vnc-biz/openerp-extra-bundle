@@ -86,5 +86,33 @@ class dm_campaign_proposition(osv.osv): # {{{
     }  
       
 dm_campaign_proposition() # }}}
+class dm_order(osv.osv): # {{{
+    _inherit= "dm.order"
+    
+    def create(self, cr, uid, vals, context={}):
+        if 'order_session_id' in vals and vals['order_session_id']:
+            country_id = 'country_id' in vals and vals['country_id'] or False
+            message = self._check_filter(cr, uid, vals['order_session_id'],
+                                            vals['segment_id'],country_id)
+            if message :
+               vals['state'] = 'error'
+               return super(dm_order, self).create(cr, uid, vals, context)
+            session_id = self.pool.get('dm.order.session').browse(cr, uid, vals['order_session_id'])
+            field_list = ['trademark_id', 'currency_id', 'dealer_id', 
+                                                'country_id','payment_method_id']
+            payment_rule_search = []                                                
+            for field in field_list :
+                if getattr(session_id,field) :
+                    payment_rule_search.append((field, '=', getattr(session_id,field).id))
+            payment_rule_obj = self.pool.get('dm.payment_rule')
+            payment_rule_id =  payment_rule_obj.search(cr, uid, payment_rule_search)         
+            if payment_rule_id :
+                payment_rule = payment_rule_obj.browse(cr, uid, payment_rule_id[0])
+                vals['payment_journal_id'] = payment_rule.journal_id.id
+            else :
+                vals['state'] = 'error'
+                vals['state_msg'] = 'There is no Payment Rule defined that matches that session,Thus can not create the sale order'
+        return super(dm_order, self).create(cr, uid, vals, context)
+dm_order() # }}}               
 
 #vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

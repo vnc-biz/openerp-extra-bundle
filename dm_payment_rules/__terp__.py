@@ -27,7 +27,10 @@
     "description": """
 
             """,
-    "depends" : ["dm_payment_method"],
+    "depends" : [
+                "dm_payment_method",
+                "dm_order_entry_filter",
+                ],
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [

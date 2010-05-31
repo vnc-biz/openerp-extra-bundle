@@ -23,26 +23,28 @@
 
 {
     "name" : "UK-Chart of Accounts",
-    "version" : "0.1",
-    "depends" : ["account", "base",],
-    "author" : "Sharoon Thomas, Net-Insight",
+    "version" : "0.2",
+    "depends" : [
+                 "account", 
+                 "base",
+        ],
+    "author" : "Net-Insight, Open Labs",
     "description": """
     Chart of Accounts for United Kingdom
     """,
     'website': 'http://www.net-insight.co.uk/',
     'init_xml': [
-        
-                 ],
+        ],
     'update_xml': [
         'data/account.account.type.csv',
         'data/account.account.template.csv',
         'data/account.tax.code.template.csv',
         'account_chart.xml',
         'data/account.tax.template.csv',
-        'l10n_uk_wizard.xml'
-    ],
+        'l10n_uk_wizard.xml',
+        ],
     'demo_xml': [
-    ],
+        ],
     'installable': True,
     'active': False,
 }

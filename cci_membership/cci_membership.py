@@ -18,8 +18,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
+import time
 import datetime
+
+from osv import fields, osv
+
+class membership_line(osv.osv):
+    _inherit = 'membership.membership_line'
+    _columns = {
+        'subtotal': fields.related('account_invoice_line', 'price_subtotal', type='float', string='Subtotal', readonly=True),
+        'invoice_id': fields.related('account_invoice_line', 'invoice_id', type='many2one', string='Account', relation='account.invoice', readonly=True),
+        'number': fields.related('invoice_id', 'number', type='char', string='Invoice Number', relation='account.invoice', readonly=True),
+        'date_invoice': fields.related('invoice_id', 'date_invoice', type='date', string="Date Invoiced", readonly=True),
+                }
+
+membership_line()
 
 class res_partner(osv.osv):
     _inherit = 'res.partner'
@@ -48,7 +61,7 @@ class res_partner(osv.osv):
         return res
 
     def _membership_state(self, cr, uid, ids, name, args, context=None):
-        #the call to super is deactivated because of unresolved conflicts with the 5.0 version 
+        #the call to super is deactivated because of unresolved conflicts with the 5.0 version
         #of the membership module in state priorities. It is replaced by the ugly copy/paste below
         #res = super(res_partner, self)._membership_state(cr, uid, ids, name, args, context)
         res = {}
@@ -60,7 +73,7 @@ class res_partner(osv.osv):
             if partner_data.membership_cancel and today > partner_data.membership_cancel:
                 res[id] = 'canceled'
                 continue
-            if partner.refuse_membership:
+            if partner_data.refuse_membership:
                 res[id] = 'canceled'
                 continue
             if partner_data.free_member:

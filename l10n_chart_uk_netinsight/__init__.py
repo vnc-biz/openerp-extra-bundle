@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    Copyright (C) 2009 Net Insight
+#    Copyright (C) 2010 Open Labs Business Solutions 
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,5 +20,4 @@
 #
 ##############################################################################
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
+import base_changes

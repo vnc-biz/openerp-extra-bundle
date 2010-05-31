@@ -21,6 +21,25 @@
 from osv import fields
 from osv import osv
 
+class dm_payment_nature(osv.osv):
+    _name = 'dm.payment.nature'
+    _columns = {
+        'name': fields.char('Name', size=64, required=True),
+        'code': fields.char('Code', size=64, required=True),
+        }
+    
+dm_payment_nature()
+
+class dm_payment_mode(osv.osv):
+    _name = 'dm.payment.mode'
+    _columns = {
+        'name': fields.char('Name', size=64, required=True),
+        'code': fields.char('Code', size=64, required=True),
+        'nature_id':fields.many2one('dm.payment.nature', 'Payment Nature'),
+        }
+    
+dm_payment_mode()
+
 class dm_payment_method(osv.osv): # {{{
     _name = 'dm.payment_method'
     _columns = {
@@ -29,8 +48,10 @@ class dm_payment_method(osv.osv): # {{{
         'journal_id': fields.many2one('account.journal', 'Journal', domain="[('type','=','cash')]"),
         'logo': fields.binary('Logo'),
         'threshold': fields.float('Amount Threshold (%)', digits=(16, 2)),
-        
+        'mode_id': fields.many2one('dm.payment.mode', 'Payment Mode'),
+
     }
+    
 dm_payment_method() # }}}
 
 class dm_campaign(osv.osv): #{{{
@@ -38,6 +59,8 @@ class dm_campaign(osv.osv): #{{{
     _columns = {
          'journal_id': fields.many2one('dm.payment_method', 'Journal'),
     }
+    
 dm_campaign() #}}}
 
-#vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

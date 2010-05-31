@@ -21,6 +21,22 @@
 from osv import fields
 from osv import osv
 
+class dm_matchcode(osv.osv):
+    _name = 'dm.matchcode'
+    _description = 'Matchcodes for DM'
+    
+    _columns = {
+            'name': fields.char('Name', size=64, required=True),
+            'matchexp': fields.char('Match Expression', size=128, help="""This string defines \
+                     the matchcode expression used to compute the matchcode of a \
+                     customer (partner address). The expression must be a pair of \
+                     key:value separated by a coma. Example : firstname:7, lastname:1, \
+                     street1:-3, city:4, zip:3. A minus sign means that x last characters of the string"""),
+            'country_id': fields.many2one('res.country', 'Country')
+        }
+        
+dm_matchcode()
+
 class res_partner_address(osv.osv):
     _inherit = 'res.partner.address'
     _columns = {
@@ -37,6 +53,7 @@ class res_partner_address(osv.osv):
         'origin_campaign_id': fields.many2one('dm.campaign', 'Origin Campaign'),
         'origin_country_id': fields.many2one('res.country', 'Origin Country'),
         'date_birth': fields.datetime('Date of Birth'),
+        'matchcode_id': fields.many2one('dm.matchcode', 'Matchcode')
     }
 res_partner_address()
 

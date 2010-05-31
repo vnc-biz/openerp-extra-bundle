@@ -38,43 +38,52 @@ dm_order_session() # }}}
 class dm_order(osv.osv): # {{{
     _inherit= "dm.order"
     
+    def _check_filter(self, cr, uid, order_session_id, segment_id, country_id):
+        message = ''        
+        session_id = self.pool.get('dm.order.session').browse(cr, uid, order_session_id)
+        segment_id = self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, segment_id)
+        
+        field_list = ['trademark_id', 'currency_id', 'dealer_id']
+        order_fields = dict(map(lambda x : (x,getattr(segment_id.campaign_id,x).id),field_list))
+        order_fields['payment_method_id'] =  segment_id.campaign_id.journal_id.id
+        if country_id :
+            order_fields['country_id'] = self.pool.get('res.country').browse(cr, uid, country_id).id
+        else : 
+            order_fields['country_id'] = False
+        field_list.extend(['country_id','payment_method_id'])
+
+        filter_fields = dict(map(lambda x : (x,getattr(session_id,x) and \
+                            getattr(session_id,x).id or False),field_list))
+        message = ''            
+        for field in field_list:
+            if filter_fields[field] and order_fields[field] != filter_fields[field]:
+                msg = "%s does not match with filter value \n" % (field.replace('_id',' name'))
+                message = message + msg
+        return message
+        
     def create(self, cr, uid, vals, context={}):
         so_vals = {}
-        if 'order_session_id' in vals and vals['order_session_id']:
-            session_id = self.pool.get('dm.order.session').browse(cr, uid, vals['order_session_id'])
-            segment_id = self.pool.get('dm.campaign.proposition.segment').browse(cr, uid, vals['segment_id'])
-            
-            field_list = ['trademark_id', 'currency_id', 'dealer_id', 'journal_id']
-            order_fields = dict(map(lambda x : (x,getattr(segment_id.campaign_id,x).name),field_list))
-            order_fields['country_id'] = 'country_id' in vals and vals['country_id'] and \
-                                    self.pool.get('res.country').browse(cr, uid, 
-                                                vals['country_id']).name or \
-                                    False
-            field_list.pop()                
-            field_list.extend(['country_id','payment_method_id'])
-
-            filter_fields = dict(map(lambda x : (x,getattr(session_id,x) and \
-                                getattr(session_id,x).name or False),field_list))
-            message = ''            
-            for field in field_list:
-                if filter_fields[field] and order_fields[field] != filter_fields[field]:
-                    msg = "%s does not match with filter value \n" % (field.replace('_id',' name'))
-                    message = message + msg
+        if 'order_session_id' in vals and vals['order_session_id'] and \
+                 ('state' in vals and vals['state']!= 'error' or True):
+            country_id = 'country_id' in vals and vals['country_id'] or False
+            message = self._check_filter(cr, uid, vals['order_session_id'],
+                                            vals['segment_id'],country_id)
             if message :
                 vals.update({'state': 'error', 'state_msg': message})
                 return super(dm_order, self).create(cr, uid, vals, context)
             else :
                 field_list = ['so_confirm_do','invoice_create_do','invoice_pay_do',
                                                     'invoice_validate_do',]
+                session_id = self.pool.get('dm.order.session').browse(cr, uid, 
+                                                        vals['order_session_id'])
                 if session_id.payment_method_id:
                     so_vals = dict(map(lambda field : (field, \
                                 getattr(session_id.payment_method_id,field) and \
                             getattr(session_id.payment_method_id,field) or \
                             False),field_list))
-                    print so_vals
         order_id = super(dm_order, self).create(cr, uid, vals, context)
         order = self.browse(cr, uid, order_id, context)
-        if order.sale_order_id and so_vals:
+        if order.sale_order_id and order.state !='error' and so_vals:
             self.pool.get('sale.order').write(cr, uid, order.sale_order_id.id, so_vals)
         return order_id
         

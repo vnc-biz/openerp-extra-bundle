@@ -42,6 +42,7 @@
 				</group>
 				<separator string="Order Infos" colspan="4"/>
 				<field name="amount"/>
+				<field name="prod_amt_total"/>
 				<group colspan="4">
 		 			<field name="dm_order_entry_item_ids" context="{'segment_id':segment_id , 'offer_step_id':offer_step_id}" nolabel="1" colspan="4" mode="tree">
 	                    <tree string="Items" editable="bottom" >

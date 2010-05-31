@@ -34,6 +34,16 @@ order_field = ('title','customer_firstname', 'customer_lastname', 'customer_add1
 class dm_order(osv.osv): # {{{
     _name = "dm.order"
     _rec_name = 'customer_code'
+   
+    def calc_prod_amt(self, cr, uid, ids, name, arg, context={}):
+        result = {}
+        price = 0
+        for order in  self.browse(cr, uid, ids):
+            for item in order.dm_order_entry_item_ids:
+                price += item.price
+            result[order.id]=price
+        return result
+    
     _columns = {
         'raw_datas': fields.char('Raw Datas', size=128),
         'customer_code': fields.char('Customer Code', size=64),
@@ -59,9 +69,13 @@ class dm_order(osv.osv): # {{{
                                         'order_entry_id', 'camp_pro_id',
                                         'Items'), 
         'amount': fields.float('Amount', digits=(16, 2)),
+        'prod_amt_total': fields.function(calc_prod_amt,
+                                            method=True, type='float',
+                                             string='Product Amount Total'),
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'address_id': fields.many2one('res.partner.address', 'Address'),   
         'sale_order_id' : fields.many2one('sale.order','Sale Order'),     
+        'payment_journal_id' : fields.many2one('account.journal','Payment Method'),
     }
     _defaults = {
         'state': lambda *a: 'draft',
@@ -123,11 +137,8 @@ class dm_order(osv.osv): # {{{
             'payment_term':partner_id.property_payment_term and \
                                 partner_id.property_payment_term.id or False,
             'fiscal_position': fiscal_position,
-            'payment_journal_id' : order.segment_id and \
-                                order.segment_id.proposition_id and \
-                                order.segment_id.proposition_id.journal_id and \
-                                order.segment_id.proposition_id.journal_id.id \
-                                or False,
+            'payment_journal_id' : order.payment_journal_id and \
+                                order.payment_journal_id.id or False,
             'user_id': partner_id.user_id and partner_id.user_id.id or uid,
         }
         shop_id = self.pool.get('sale.shop').search(cr, uid, [])
@@ -143,7 +154,7 @@ class dm_order(osv.osv): # {{{
 
         for item in order.dm_order_entry_item_ids:
             result = self.pool.get('sale.order.line').product_id_change(cr, uid,
-                            ids, pricelist_id, item.product_id.id, qty=1,
+                            [], pricelist_id, item.product_id.id, qty=1,
                             partner_id=partner_id.id,
                             date_order=time.strftime('%Y-%m-%d'),
                             fiscal_position=fiscal_position)
@@ -155,7 +166,7 @@ class dm_order(osv.osv): # {{{
 
     def _create_event(self, cr, uid, so_id):
         so = self.pool.get('sale.order').browse(cr, uid, so_id)
-        event_vals = {'action_time': time.strftime('%Y-%m-%d'),
+        event_vals = {'action_time': time.strftime('%Y-%m-%d   %H:%M:%S'),
                          'address_id': so.partner_invoice_id.id,
                          'segment_id': so.segment_id.id, 
                          'step_id': so.offer_step_id.id, 
@@ -165,9 +176,10 @@ class dm_order(osv.osv): # {{{
          
     def create(self, cr, uid, vals, context={}):
         order_id = super(dm_order, self).create(cr, uid, vals, context)
-        so_id = self._create_sale_order(cr, uid, order_id)
-        self.write(cr, uid, order_id, {'sale_order_id' : so_id})
-        self._create_event(cr, uid, so_id)                        
+        if 'state' in vals and vals['state']!= 'error' :
+            so_id = self._create_sale_order(cr, uid, order_id)
+            self.write(cr, uid, order_id, {'sale_order_id' : so_id})
+            self._create_event(cr, uid, so_id)                        
         return order_id
 
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):

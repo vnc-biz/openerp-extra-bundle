@@ -41,6 +41,7 @@
         'data/account.tax.code.template.csv',
         'account_chart.xml',
         'data/account.tax.template.csv',
+        'data/res.country.state.csv',
         'l10n_uk_wizard.xml',
         ],
     'demo_xml': [

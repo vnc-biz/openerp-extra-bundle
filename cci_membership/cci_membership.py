@@ -23,6 +23,17 @@ import datetime
 
 from osv import fields, osv
 
+class membership_line(osv.osv):
+    _inherit = 'membership.membership_line'
+    _columns = {
+        'subtotal': fields.related('account_invoice_line', 'price_subtotal', type='float', string='Subtotal', readonly=True),
+        'invoice_id': fields.related('account_invoice_line', 'invoice_id', type='many2one', string='Account', relation='account.invoice', readonly=True),
+        'number': fields.related('invoice_id', 'number', type='char', string='Invoice Number', relation='account.invoice', readonly=True),
+        'date_invoice': fields.related('invoice_id', 'date_invoice', type='date', string="Date Invoiced", readonly=True),
+                }
+
+membership_line()
+
 class res_partner(osv.osv):
     _inherit = 'res.partner'
     _description = 'Partner'

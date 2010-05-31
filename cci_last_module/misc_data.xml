@@ -153,15 +153,17 @@
 	                            <tree string="Membership">
         	                        <field name="date_from"/>
                 	                <field name="date_to"/>
-                                        <field name="date_cancel"/>
+                                    <field name="date_cancel"/>
                         	        <field name="state"/>
 	                            </tree>
         	                    <form string="Membership">
                 	                <field name="date_from"/>
                         	        <field name="date_to"/>
-					<field name="date_cancel"/>
+									<field name="date_cancel"/>
+									<field name="date_invoice"/>
                                 	<field name="account_invoice_line"/>
-        	                        <field name="state"/>
+                                	<field name="number"/>
+                                	<field name="subtotal"/>
                 	            </form>
 				</field>
                     </page>

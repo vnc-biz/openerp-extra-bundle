@@ -15,5 +15,22 @@
 			</field>
 		</record>
 
+<!-- end-->
+
+         <record id="view_membership_line_invoice" model="ir.ui.view">
+            <field name="name">res.partner.form.invoice.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="account_invoice_line" position="after">
+                   	<field name="date_invoice"/>
+                	<field name="number"/>
+                	<field name="subtotal"/>
+                </field>
+            </field>
+        </record>
+
+
 	</data>
 </openerp>

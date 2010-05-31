@@ -39,8 +39,7 @@
         'hr','account',
         'hr_contract', 
         'hr_holidays',
-        'hr_expense',
-        'account_voucher_report'
+        'hr_expense'
     ],
     'init_xml': [
     ],

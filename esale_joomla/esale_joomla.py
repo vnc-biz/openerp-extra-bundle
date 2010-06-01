@@ -647,7 +647,6 @@ class esale_joomla_product_map(osv.osv):
         product_obj = self.pool.get('product.product')
         server = _xmlrpc(website)
 
-
         #check products to export
         if not len(prod_ids):
             print >> sys.stderr, 'No products found.'
@@ -1211,4 +1210,41 @@ class esale_joomla_order_line(osv.osv):
     }
 
 esale_joomla_order_line()
+
+
+class product_product(osv.osv):
+    """Stock export is based on product write_date. So we need to write the product when a stock move is created"""
+    _inherit = 'product.product'
+
+    _columns = {
+        'stock_has_moved': fields.boolean("Stock Moved"),
+    }
+
+product_product()
+
+
+class stock_move(osv.osv):
+    """Stock export is based on product write_date. So we need to write the product when a stock move is created"""
+    _inherit = 'stock.move'
+
+    def create(self, cr, user, vals, context=None):
+        super(stock_move, self).create(cr, user, vals, context=context)
+        product_id = vals.get('product_id')
+        if product_id:
+            self.pool.get('product.product').write(cr, user, [product_id], {
+                'stock_has_moved': True,
+            })
+
+    def write(self, cr, user, ids, vals, context=None):
+        super(stock_move, self).write(cr, user, ids, vals, context=context)
+
+        moves = self.browse(cr, user, ids, context=context)
+        for move in moves:
+            if move.product_id:
+                self.pool.get('product.product').write(cr, user, [move.product_id.id], {
+                    'stock_has_moved': True,
+                })
+
+stock_move()
+
 

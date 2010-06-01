@@ -98,7 +98,6 @@ def _export_to_shop(self, cr, uid, data, context):
             webcategories = {}
             for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):
                 webcategories[x['category_id'][0]] = x['esale_joomla_id']
-            print 'webcategories=%r' % webcategories
             if data['form']['target'] != 'last':
                 sql = "select distinct r.product_id from esale_category_product_rel r"
                 sql += "  where r.category_id in (%s);" % ','.join(map(str, webcategories.keys()))

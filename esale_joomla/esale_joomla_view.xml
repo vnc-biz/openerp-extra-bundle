@@ -444,7 +444,7 @@
         <field name="inherit_id" ref="view_product_book_form"/>
         <field name="arch" type="xml">
             <field name="rental" position="after">
-                <field name="online" />
+                <field name="online" select="2"/>
             </field>
         </field>
     </record>

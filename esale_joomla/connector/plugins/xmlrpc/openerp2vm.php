@@ -349,6 +349,9 @@ class plgXMLRPCOpenERP2VmServices {
         $values[]=array("product_unit","");
         $values[]=array("product_packaging",$product['packaging']);
         $values[]=array("vendor_id",1);
+        $values[]=array("product_available_date",$product['available_date']);
+        $values[]=array("product_availability",$product['availability']);
+
         $insert=1;
         $id=$product['id'];
         if($id) {
@@ -457,7 +460,6 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.=join(",",$f);
                 $q.=" where product_id='".$product['id']."';";
 
-                olidebug($q);
                 query($db,$q);
             }
         }
@@ -492,7 +494,7 @@ class plgXMLRPCOpenERP2VmServices {
 
 }
 
-function olidebug($s) {
+function debugtotmp($s) {
   $fp = fopen("/tmp/debug.xmlrpc.txt","a");
   fwrite($fp, $s."\n");
   fclose($fp);

@@ -35,6 +35,8 @@ from tools import config
 from wizard import except_wizard
 
 import urllib2
+import datetime
+import time
 
 
 def _decode(name):
@@ -328,17 +330,6 @@ class esale_joomla_category(osv.osv):
     }
 
 esale_joomla_category()
-
-
-class product_product(osv.osv):
-    _inherit = "product.product"
-    _columns = {
-        'esale_category_ids': fields.many2many('esale_joomla.category', 'esale_category_product_rel', 'product_id', 'category_id', 'eSale Categories'),
-        'image': fields.char('Image Name', size=64),
-        'online': fields.boolean('Visible on website', help="This will set the 'Publish' state in Joomla for this product"),
-    }
-
-product_product()
 
 
 class esale_joomla_category_map(osv.osv):
@@ -793,7 +784,6 @@ class esale_joomla_product_map(osv.osv):
                         'height': float(0.0),
                         #'lwh_uom': '',
                         'url': '',
-                        'in_stock': product_obj.browse(cr, uid, product.id).qty_available,
                         #'available_date': ,
                         #'availability': ,
                         'special': 'N',
@@ -812,7 +802,31 @@ class esale_joomla_product_map(osv.osv):
                         'params': {},
                     }
 
+                    # price:
                     d['price'] = product_pricelist_obj.price_get(cr, uid, [pricelist], product.id, 1, 'list')[pricelist]
+
+                    # availability:
+                    # if stock == 0:
+                    #   available_date = today + product.delay or product.supplier[0].delay
+                    #   available_msg = "bla bla bla"
+                    # else:
+                    #   available_date = None
+                    #   available_msg = ""
+
+                    in_stock = product_obj.browse(cr, uid, product.id).qty_available
+                    d['in_stock'] = in_stock
+
+                    if in_stock:
+                        d['available_date'] = ''
+                        d['availability'] = ''
+                    else:
+                        delay = product.sale_delay # or get supplier delay ... XXX
+                        dt = datetime.datetime.now()
+                        delta = datetime.timedelta(days=+delay)
+                        dt = dt+delta
+                        seconds = time.mktime(dt.timetuple())
+                        d['available_date'] = seconds # 1275609600 # datetime.datetime.now()
+                        d['availability'] = 'This book wll be available on %s' % dt.strftime("%Y-%m-%d")
 
                     if self.pool.get('sale.order')._columns.get('price_type'):
                         # price is tax included:
@@ -858,11 +872,13 @@ class esale_joomla_product_map(osv.osv):
                     else:
                         #export translations
                         err = 0
+                        php_set_trans_func = server.openerp2vm.set_translation
+                        server.openerp2vm.set_translation
                         for (lang_name, lang_id) in languages.iteritems():
                             tr = product_obj.browse(cr, uid, product.id, context={'lang': lang_name})
                             try:
-                                err &= server.openerp2vm.set_translation(website.login, website.password, lang_id, 'vm_product', 'product_s_desc', eid, str(product.description_sale or ''))
-                                err &= server.openerp2vm.set_translation(website.login, website.password, lang_id, 'vm_product', 'product_desc', eid, str(product.description_sale or ''))
+                                err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_s_desc', eid, tr.description_sale or '')
+                                err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_desc', eid, tr.description_sale or '')
                             except Exception, e:
                                 print >> sys.stderr, "XMLRPC Error: %s" % e
                         if err:
@@ -874,6 +890,7 @@ class esale_joomla_product_map(osv.osv):
                         else:
                             cupdate += 1
                             self.write(cr, uid, id, {'esale_joomla_id': eid, 'state': 'exported', 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
+
         self.pool.get('esale_joomla.synclog').create(cr, uid, {
             'web_id': web_id,
             'object': 'product',
@@ -1212,17 +1229,6 @@ class esale_joomla_order_line(osv.osv):
 esale_joomla_order_line()
 
 
-class product_product(osv.osv):
-    """Stock export is based on product write_date. So we need to write the product when a stock move is created"""
-    _inherit = 'product.product'
-
-    _columns = {
-        'stock_has_moved': fields.boolean("Stock Moved"),
-    }
-
-product_product()
-
-
 class stock_move(osv.osv):
     """Stock export is based on product write_date. So we need to write the product when a stock move is created"""
     _inherit = 'stock.move'
@@ -1247,4 +1253,16 @@ class stock_move(osv.osv):
 
 stock_move()
 
+
+class product_product(osv.osv):
+    _inherit = "product.product"
+    _columns = {
+        'esale_category_ids': fields.many2many('esale_joomla.category', 'esale_category_product_rel', 'product_id', 'category_id', 'eSale Categories'),
+        'image': fields.char('Image Name', size=64),
+        'online': fields.boolean('Visible on website', help="This will set the 'Publish' state in Joomla for this product"),
+        # Stock export is based on product write_date. So we need to write the product when a stock move is created:
+        'stock_has_moved': fields.boolean("Stock Moved"),
+    }
+
+product_product()
 

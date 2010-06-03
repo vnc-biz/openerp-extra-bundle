@@ -807,8 +807,8 @@ class esale_joomla_product_map(osv.osv):
 
                     # availability:
                     # if stock == 0:
-                    #   available_date = today + product.delay or product.supplier[0].delay
-                    #   available_msg = "bla bla bla"
+                    #   available_date = today + product.supplier[0].delay or product.delay
+                    #   available_msg = "This book wll be available on %s"
                     # else:
                     #   available_date = None
                     #   available_msg = ""
@@ -820,12 +820,18 @@ class esale_joomla_product_map(osv.osv):
                         d['available_date'] = ''
                         d['availability'] = ''
                     else:
-                        delay = product.sale_delay # or get supplier delay ... XXX
+                        delays_by_supplier_seq = [(sup.sequence, sup.delay) for sup in product.seller_ids]
+                        delays_by_supplier_seq.sort(key=lambda x: x[0])
+                        if delays_by_supplier_seq:
+                            delay = delays_by_supplier_seq[0][1]
+                        else:
+                            delay = product.sale_delay
+
                         dt = datetime.datetime.now()
                         delta = datetime.timedelta(days=+delay)
                         dt = dt+delta
-                        seconds = time.mktime(dt.timetuple())
-                        d['available_date'] = seconds # 1275609600 # datetime.datetime.now()
+                        seconds = time.mktime(dt.timetuple()) # Joomla does not understand date objects, it needs seconds since Epoch
+                        d['available_date'] = seconds
                         d['availability'] = 'This book wll be available on %s' % dt.strftime("%Y-%m-%d")
 
                     if self.pool.get('sale.order')._columns.get('price_type'):

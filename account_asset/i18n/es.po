@@ -1,0 +1,516 @@
+# Spanish translation for openobject-addons
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the openobject-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openobject-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-11-24 12:54+0000\n"
+"PO-Revision-Date: 2010-06-04 09:41+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-06-05 03:43+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_list_normal
+msgid "Open Assets"
+msgstr "Activos abiertos"
+
+#. module: account_asset
+#: field:account.asset.property,method_end:0
+#: field:account.asset.property.history,method_end:0
+msgid "Ending date"
+msgstr ""
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Depreciation board"
+msgstr ""
+
+#. module: account_asset
+#: view:account.asset.asset:0
+#: field:account.asset.asset,name:0
+#: field:account.asset.history,asset_id:0
+#: field:account.asset.method,asset_id:0
+#: model:ir.model,name:account_asset.model_account_asset_asset
+msgid "Asset"
+msgstr "Activo"
+
+#. module: account_asset
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Nombre de modelo inválido en la definición de la acción."
+
+msgid "Linear"
+msgstr "Lineal"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Change duration"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,child_ids:0
+msgid "Child assets"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.board,value_asset:0
+msgid "Asset Value"
+msgstr ""
+
+msgid "Reason"
+msgstr "Razón"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+#: wizard_field:account.asset.compute,asset_compute,move_ids:0
+#: field:account.asset.method,entry_ids:0
+msgid "Entries"
+msgstr "Asientos"
+
+#. module: account_asset
+#: wizard_view:account.asset.compute,asset_compute:0
+msgid "Generated entries"
+msgstr "Asientos generados"
+
+#. module: account_asset
+#: wizard_field:account.asset.modify,init,method_delay:0
+#: field:account.asset.property,method_delay:0
+#: field:account.asset.property.history,method_delay:0
+msgid "Number of interval"
+msgstr ""
+
+#. module: account_asset
+#: wizard_button:account.asset.compute,asset_compute,asset_open:0
+msgid "Open entries"
+msgstr "Abrir asientos"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_form
+#: model:ir.ui.menu,name:account_asset.menu_finance_Assets
+#: model:ir.ui.menu,name:account_asset.menu_finance_config_Assets
+msgid "Assets"
+msgstr "Activos"
+
+#. module: account_asset
+#: selection:account.asset.method,method:0
+#: selection:account.asset.method.defaults,method:0
+msgid "Progressive"
+msgstr "Progresivo"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_draft
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_list_draft
+msgid "Draft Assets"
+msgstr "Activos en estado borrador"
+
+#. module: account_asset
+#: wizard_view:account.asset.abandon,init:0
+#: wizard_field:account.asset.abandon,init,note:0
+#: wizard_view:account.asset.close,init:0
+#: wizard_field:account.asset.close,init,note:0
+#: view:account.asset.history:0
+#: wizard_view:account.asset.initial,init:0
+#: wizard_field:account.asset.initial,init,note:0
+#: wizard_view:account.asset.localisation,init:0
+#: wizard_field:account.asset.localisation,init,note:0
+#: wizard_view:account.asset.modify,init:0
+#: wizard_field:account.asset.modify,init,note:0
+#: wizard_view:account.asset.resume,init:0
+#: wizard_field:account.asset.resume,init,note:0
+#: wizard_view:account.asset.reval,init:0
+#: wizard_field:account.asset.reval,init,note:0
+msgid "Notes"
+msgstr "Notas"
+
+msgid "Change history"
+msgstr "Cambio histórico"
+
+msgid "Depreciation entries"
+msgstr "Asiento de dotación a la amortización"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Methods"
+msgstr ""
+
+#. module: account_asset
+#: wizard_view:account.asset.modify,init:0
+msgid "Asset properties to modify"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,partner_id:0
+#: field:account.asset.history,partner_id:0
+msgid "Partner"
+msgstr "Empresa"
+
+msgid "Period per interval"
+msgstr "Período por intervalo"
+
+msgid "Depreciation duration"
+msgstr "Plazo de amortización"
+
+#. module: account_asset
+#: field:account.asset.property,account_analytic_id:0
+msgid "Analytic account"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.property,state:0
+msgid "State"
+msgstr ""
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Depreciation methods"
+msgstr ""
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Other information"
+msgstr ""
+
+msgid "Cumul. value"
+msgstr "Valor acumulado"
+
+#. module: account_asset
+#: view:account.asset.property:0
+msgid "Assets methods"
+msgstr ""
+
+#. module: account_asset
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "¡XML inválido para la definición de la vista!"
+
+msgid "Asset property"
+msgstr "Propiedad del activo"
+
+#. module: account_asset
+#: wizard_button:account.asset.compute,init,asset_compute:0
+#: model:ir.actions.wizard,name:account_asset.wizard_asset_compute
+#: model:ir.ui.menu,name:account_asset.menu_wizard_asset_compute
+msgid "Compute assets"
+msgstr "Calcular activos"
+
+#. module: account_asset
+#: model:ir.actions.wizard,name:account_asset.wizard_asset_modify
+msgid "Modify asset"
+msgstr "Modificar activo"
+
+msgid "Confirm asset"
+msgstr "Confirmar activo"
+
+#. module: account_asset
+#: view:account.asset.history:0
+#: model:ir.model,name:account_asset.model_account_asset_history
+msgid "Asset history"
+msgstr "Histórico del activo"
+
+#. module: account_asset
+#: field:account.asset.property,date:0
+msgid "Date created"
+msgstr ""
+
+#. module: account_asset
+#: model:ir.module.module,description:account_asset.module_meta_information
+msgid ""
+"Financial and accounting asset management.\n"
+"    Allows to define\n"
+"    * Asset category. \n"
+"    * Assets.\n"
+"    *Asset usage period and property.\n"
+"    "
+msgstr ""
+"Gestión financiera y contable de activos.\n"
+"  Permite definir\n"
+"  * Categorías de activo. \n"
+"  * Activos.\n"
+"  * Período y propiedades del activo usado.\n"
+"    "
+
+#. module: account_asset
+#: field:account.asset.board,value_gross:0
+#: field:account.asset.property,value_total:0
+msgid "Gross value"
+msgstr ""
+
+msgid "Ending period"
+msgstr "Período final"
+
+#. module: account_asset
+#: field:account.asset.board,name:0
+msgid "Asset name"
+msgstr ""
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Accounts information"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,note:0
+#: field:account.asset.category,note:0
+#: field:account.asset.history,note:0
+#: field:account.asset.method.type,note:0
+msgid "Note"
+msgstr "Nota"
+
+#. module: account_asset
+#: selection:account.asset.asset,state:0
+#: selection:account.asset.method,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "Depr. method type"
+msgstr "Tipo de método de amortización"
+
+#. module: account_asset
+#: field:account.asset.property,account_asset_id:0
+msgid "Asset account"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.history,asset_method_id:0
+#: field:account.asset.method.usage,asset_method_id:0
+msgid "Method"
+msgstr "Método"
+
+#. module: account_asset
+#: selection:account.asset.asset,state:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: account_asset
+#: field:account.asset.property,method_progress_factor:0
+msgid "Progressif factor"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,localisation:0
+msgid "Localisation"
+msgstr "Localización"
+
+#. module: account_asset
+#: field:account.asset.property,method:0
+msgid "Computation method"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.property,method_time:0
+msgid "Time method"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,active:0
+msgid "Active"
+msgstr "Activo"
+
+#. module: account_asset
+#: field:account.asset.history,user_id:0
+msgid "User"
+msgstr "Usuario"
+
+#. module: account_asset
+#: field:account.asset.asset,property_ids:0
+msgid "Asset method name"
+msgstr ""
+
+#. module: account_asset
+#: wizard_field:account.asset.abandon,init,date:0
+#: field:account.asset.asset,date:0
+#: wizard_field:account.asset.compute,init,date:0
+#: field:account.asset.history,date:0
+#: wizard_field:account.asset.initial,init,date:0
+#: wizard_field:account.asset.reval,init,date:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: account_asset
+#: field:account.asset.board,value_net:0
+msgid "Net value"
+msgstr ""
+
+#. module: account_asset
+#: model:ir.actions.wizard,name:account_asset.wizard_asset_close
+msgid "Close asset"
+msgstr "Activo cerrado"
+
+#. module: account_asset
+#: field:account.asset.asset,history_ids:0
+msgid "History"
+msgstr "Historia"
+
+#. module: account_asset
+#: field:account.asset.property,account_actif_id:0
+msgid "Depreciation account"
+msgstr ""
+
+#. module: account_asset
+#: wizard_field:account.asset.abandon,init,period_id:0
+#: wizard_field:account.asset.compute,init,period_id:0
+#: wizard_field:account.asset.initial,init,period_id:0
+#: field:account.asset.method,period_id:0
+#: field:account.asset.method.usage,period_id:0
+#: wizard_field:account.asset.reval,init,period_id:0
+msgid "Period"
+msgstr "Período"
+
+#. module: account_asset
+#: field:account.asset.asset,category_id:0
+#: view:account.asset.category:0
+#: field:account.asset.category,name:0
+#: wizard_field:account.asset.compute,init,category_id:0
+#: field:account.asset.method.defaults,asset_category:0
+msgid "Asset Category"
+msgstr "Categoría de activo"
+
+#. module: account_asset
+#: wizard_button:account.asset.abandon,init,end:0
+#: wizard_button:account.asset.close,init,end:0
+#: wizard_button:account.asset.compute,init,end:0
+#: wizard_button:account.asset.initial,init,end:0
+#: wizard_button:account.asset.localisation,init,end:0
+#: wizard_button:account.asset.modify,init,end:0
+#: wizard_button:account.asset.resume,init,end:0
+#: wizard_button:account.asset.reval,init,end:0
+#: wizard_button:account.asset.usage.createlines,init,end:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_asset
+#: wizard_button:account.asset.compute,asset_compute,end:0
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: account_asset
+#: selection:account.asset.method,state:0
+msgid "Open"
+msgstr "Abrir"
+
+#. module: account_asset
+#: constraint:ir.model:0
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"¡El nombre del objeto debe empezar con x_ y no contener ningún carácter "
+"especial!"
+
+#. module: account_asset
+#: model:ir.module.module,shortdesc:account_asset.module_meta_information
+msgid "Asset management"
+msgstr "Gestión del activo"
+
+msgid "Asset board"
+msgstr "Tablero de activos"
+
+msgid "Global state"
+msgstr "Estado global"
+
+msgid "Delay"
+msgstr "Retrasar"
+
+#. module: account_asset
+#: wizard_view:account.asset.close,init:0
+#: wizard_view:account.asset.resume,init:0
+msgid "General information"
+msgstr "Información general"
+
+#. module: account_asset
+#: field:account.asset.property,journal_analytic_id:0
+msgid "Analytic journal"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.method,name:0
+msgid "Method name"
+msgstr "Nombre del método"
+
+#. module: account_asset
+#: field:account.asset.method,journal_id:0
+#: field:account.asset.method.defaults,journal_id:0
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_asset
+#: field:account.asset.history,name:0
+msgid "History name"
+msgstr "Nombre histórico"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Close method"
+msgstr ""
+
+msgid "Asset Entries"
+msgstr "Asientos de activo"
+
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_asset_category
+msgid "Asset category"
+msgstr "Categoría de activo"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "Depreciation"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,code:0
+#: field:account.asset.category,code:0
+msgid "Asset code"
+msgstr ""
+
+#. module: account_asset
+#: field:account.asset.asset,value_total:0
+msgid "Total value"
+msgstr ""
+
+#. module: account_asset
+#: selection:account.asset.asset,state:0
+msgid "View"
+msgstr "Vista"
+
+#. module: account_asset
+#: view:account.asset.asset:0
+msgid "General info"
+msgstr "Información general"
+
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: account_asset
+#: field:account.asset.property,value_residual:0
+msgid "Residual value"
+msgstr ""
+
+msgid "End of asset"
+msgstr "Final de activo"
+
+msgid "Direct"
+msgstr "Directo"
+
+msgid "Indirect"
+msgstr "Indirecto"
+
+#. module: account_asset
+#: field:account.asset.asset,parent_id:0
+msgid "Parent asset"
+msgstr ""
+
+msgid "Asset Hierarchy"
+msgstr "Jerarquía de activos"
+
+#~ msgid "Childs asset"
+#~ msgstr "Activos hijos"

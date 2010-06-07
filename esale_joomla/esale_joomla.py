@@ -467,8 +467,8 @@ class esale_joomla_category_map(osv.osv):
                     for (lang_name, lang_id) in languages.iteritems():
                         try:
                             tr = server.openerp2vm.get_translation(website.login, website.password, lang_id, 'vm_category', 'category_name', cid)
-                        except Exception, e:
-                            print >> sys.stderr, "XMLRPC Error: %s" % e
+                        except Exception, err:
+                            print >> sys.stderr, "XMLRPC Error: %s" % err
                         else:
                             if tr[0]:
                                 self.write(cr, uid, id, {u'esale_joomla_name': tr[1], 'state': 'imported'}, {'lang': lang_name})

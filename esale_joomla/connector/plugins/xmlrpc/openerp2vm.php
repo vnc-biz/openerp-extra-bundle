@@ -157,7 +157,7 @@ class plgXMLRPCOpenERP2VmServices {
         $db =& JFactory::getDBO();
         query($db,"select value from #__jf_content where language_id=".$lang_id." and reference_table='".$rtable."' and reference_field='".$rfield."' and reference_id=".$rid.";",0);
         if($row=$db->loadObject()) {
-            $value=$row->value;
+            $value=urlencode($row->value);
             $r=array(new xmlrpcval(1, $xmlrpcBoolean),new xmlrpcval($value, $xmlrpcString));
         } else {
             $r=array(new xmlrpcval(0, $xmlrpcBoolean),new xmlrpcval('', $xmlrpcString));

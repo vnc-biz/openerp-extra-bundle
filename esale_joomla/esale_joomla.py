@@ -1262,8 +1262,16 @@ stock_move()
 
 class product_product(osv.osv):
     _inherit = "product.product"
+
+    def _get_category_names(self, cr, uid, ids, field_name, arg, context):
+        res = {}
+        for prod in self.browse(cr, uid, ids, context=context):
+            res[prod.id] = ', '.join(sorted([cat.name for cat in prod.esale_category_ids]))
+        return res
+
     _columns = {
         'esale_category_ids': fields.many2many('esale_joomla.category', 'esale_category_product_rel', 'product_id', 'category_id', 'eSale Categories'),
+        'esale_category_names': fields.function(_get_category_names, method=True, type='text', string='Web Category Names', store=False),
         'image': fields.char('Image Name', size=64),
         'online': fields.boolean('Visible on website', help="This will set the 'Publish' state in Joomla for this product"),
         # Stock export is based on product write_date. So we need to write the product when a stock move is created:

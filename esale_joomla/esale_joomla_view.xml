@@ -478,6 +478,29 @@
     </record>
     <menuitem action="esale_joomla_category_action_form" id="menu_product_category_action_form" parent="product.menu_config_product" sequence="1"/>
 
+    <!-- Web Products -->
+
+    <record model="ir.ui.view" id="view_web_product_tree">
+        <field name="name">esale_joomla.web.product.tree</field>
+        <field name="model">product.product</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Web Products">
+                <field name="name"/>
+                <field name="esale_category_names"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="esale_joomla_web_product_action" model="ir.actions.act_window">
+        <field name="name">Web Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_web_product_tree" />
+        <field name="domain">[('esale_category_ids', '!=', '1')]</field>
+    </record>
+    <menuitem action="esale_joomla_web_product_action" id="menu_web_product_action" parent="menu_esale_definition" sequence="100"/>
 
 </data>
 </openerp>

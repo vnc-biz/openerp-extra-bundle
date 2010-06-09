@@ -81,6 +81,19 @@ class dm_order(osv.osv): # {{{
                                 getattr(session_id.payment_method_id,field) and \
                             getattr(session_id.payment_method_id,field) or \
                             False),field_list))
+                if session_id.payment_method_id.threshold and 'amount' in vals \
+                                    and 'dm_order_entry_item_ids' in vals and \
+                                    vals['dm_order_entry_item_ids'] :
+                    item_ids = vals['dm_order_entry_item_ids'][0][-1]
+                    items = self.pool.get('dm.campaign.proposition.item').browse(
+                                                    cr, uid, item_ids, context) 
+                    total_price = 0.0
+                    for item in items:
+                        total_price += item.price
+                    expected_amount = total_price * (session_id.payment_method_id.threshold / 100)
+                    if vals['amount'] < expected_amount :
+                        vals.update({'state':'error',
+                        'state_msg':'The amount is lower then defined threshold'})
         order_id = super(dm_order, self).create(cr, uid, vals, context)
         order = self.browse(cr, uid, order_id, context)
         if order.sale_order_id and order.state !='error' and so_vals:

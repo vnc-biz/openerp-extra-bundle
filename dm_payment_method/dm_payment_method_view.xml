@@ -2,6 +2,8 @@
 <openerp>
 <data>
 
+	<menuitem name="Financial" id="menu_dm_config_financial" parent="dm.menu_dm_config" sequence="7"/>	
+	
     <!--
     ======================
     PAYMENT NATURE
@@ -110,7 +112,7 @@
         <field name="view_id" ref="view_dm_payment_method_tree"/>
     </record>
 	
-	<menuitem name="Financial" id="menu_dm_config_financial" parent="dm.menu_dm_config" sequence="7"/>	
+
     <menuitem id="menu_dm_payment_method_form" parent="menu_dm_config_financial" action="action_dm_payment_method_form" sequence="1" />
 	<!--
     ======================

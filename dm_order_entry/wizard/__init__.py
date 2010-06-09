@@ -20,27 +20,4 @@
 #
 ##############################################################################
 
-{
-    "name" : "DM Order Entry",
-    "version" : "1.0",
-    "author" : "Tiny",
-    "website" : "http://www.openerp.com",
-    "category" : "Generic Modules/Direct Marketing",
-    "description": """
-           This module is for all customer order entries.
-            """,
-    "depends": ["dm_sale",
-                'dm_partner_address'
-                ],
-    "init_xml": [],
-    "demo_xml": [],
-    "update_xml": [
-                   "wizard/dm_customer_partner_view.xml",
-                   "dm_order_entry_view.xml",
-                   "security/ir.model.access.csv",
-                   ],
-    "active": False,
-    "installable": True,
-}
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+import dm_customer_partner

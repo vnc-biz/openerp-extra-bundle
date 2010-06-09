@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -14,26 +15,11 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Products date of expiry",
-    "version" : "1.0",
-    "author" : "Tiny",
-    "category" : "Enterprise Specific Modules/Food Industries",
-    "depends" : ["base", "account", "product", "stock"],
-    "init_xml" : [],
-    "demo_xml" : ["product_expiry_demo.xml"],
-    "description": '''Track different dates on products and production lots:
- - end of life
- - best before date
- - removal date
- - alert date
-Used, for example, in food industries.''',
-    "update_xml" : ["product_expiry_view.xml", "report/report_stock_view.xml"],
-    "active": False,
-    "installable": True
-}
+
+import report_stock
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

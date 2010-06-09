@@ -41,24 +41,24 @@ class stock_production_lot(osv.osv):
                 # set date to False when no expiry time specified on the product
                 date = duration and (datetime.datetime.today()
                     + datetime.timedelta(days=duration))
-            return date and date.strftime('%Y-%m-%d %H:%M:%S')
+            return date and date.strftime('%Y-%m-%d')
         return calc_date
 
     _columns = {
-        'life_date': fields.datetime('End of Life Date',
+        'life_date': fields.date('End of Life Date',
             help='The date the lot may become dangerous and should not be consumed.'),
-        'use_date': fields.datetime('Best before Date',
+        'use_date': fields.date('Best before Date',
             help='The date the lot starts deteriorating without becoming dangerous.'),
-        'removal_date': fields.datetime('Removal Date',
+        'removal_date': fields.date('Removal Date',
             help='The date the lot should be removed.'),
-        'alert_date': fields.datetime('Alert Date'),
+        'alert_date': fields.date('Alert Date'),
     }
 
     _defaults = {
-        'life_date': _get_date('life_time'),
-        'use_date': _get_date('use_time'),
-        'removal_date': _get_date('removal_time'),
-        'alert_date': _get_date('alert_time'),
+   #     'life_date': _get_date('life_time'),
+   #     'use_date': _get_date('use_time'),
+   #     'removal_date': _get_date('removal_time'),
+   #     'alert_date': _get_date('alert_time'),
     }
 stock_production_lot()
 

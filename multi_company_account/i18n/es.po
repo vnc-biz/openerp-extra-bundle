@@ -7,19 +7,19 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-08-07 13:39+0000\n"
-"PO-Revision-Date: 2010-01-26 11:29+0000\n"
-"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"PO-Revision-Date: 2010-06-09 21:35+0000\n"
+"Last-Translator: Jonay <jonay.santana@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-05-21 03:46+0000\n"
+"X-Launchpad-Export-Date: 2010-06-10 03:43+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: multi_company_account
 #: model:ir.module.module,description:multi_company_account.module_meta_information
 msgid "Module to handle multi company accounting."
-msgstr ""
+msgstr "Módulo para manejar el control de cuentas multi-compañía."
 
 #. module: multi_company_account
 #: constraint:ir.ui.view:0
@@ -37,7 +37,7 @@ msgstr ""
 #. module: multi_company_account
 #: model:ir.actions.todo,note:multi_company_account.config_wizard_company_header_footer_setup_form
 msgid "Define Company Header/Footer Detail"
-msgstr ""
+msgstr "Definir el detalle de la cabecera o el pie de la compañía"
 
 #. module: multi_company_account
 #: field:account.analytic.journal,company_id:0
@@ -48,12 +48,12 @@ msgstr ""
 #: field:account.period,company_id:0
 #: view:wizard.company.header.footer.setup:0
 msgid "Company"
-msgstr ""
+msgstr "Compañía"
 
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,company_id:0
 msgid "Companies"
-msgstr ""
+msgstr "Compañías"
 
 #. module: multi_company_account
 #: model:ir.module.module,shortdesc:multi_company_account.module_meta_information
@@ -74,7 +74,7 @@ msgstr ""
 #. module: multi_company_account
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nombre de modelo inválido en la definición de la acción."
 
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,rml_header2:0
@@ -89,9 +89,9 @@ msgstr ""
 #. module: multi_company_account
 #: view:wizard.company.header.footer.setup:0
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #. module: multi_company_account
 #: view:wizard.company.header.footer.setup:0
 msgid "Header/Footer"
-msgstr ""
+msgstr "Encabezado / Pie de página"

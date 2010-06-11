@@ -87,7 +87,7 @@ class event(osv.osv):
         tmp=self.pool.get('event.type').browse(cr, uid, type)
         return {'value':{'check_type' : tmp.check_type.id}}
 
-    def _group_names(self, cr, uid, ids):
+    def _group_names(self, cr, uid, context=None):
         cr.execute('''
         SELECT distinct name
         FROM event_group

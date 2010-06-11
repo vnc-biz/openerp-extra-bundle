@@ -112,6 +112,7 @@ class dm_order(osv.osv): # {{{
         elif order.partner_id :
             partner_id = order.partner_id
         if not partner_id :
+            return False
             raise osv.except_osv(_('Error !'),
                  _('There is no partner found for this order'))
         address = self.pool.get('res.partner').address_get(cr, uid, [partner_id.id],
@@ -178,8 +179,9 @@ class dm_order(osv.osv): # {{{
         order_id = super(dm_order, self).create(cr, uid, vals, context)
         if 'state' in vals and vals['state']!= 'error' :
             so_id = self._create_sale_order(cr, uid, order_id)
-            self.write(cr, uid, order_id, {'sale_order_id' : so_id})
-            self._create_event(cr, uid, so_id)                        
+            if so_id :
+                self.write(cr, uid, order_id, {'sale_order_id' : so_id})
+                self._create_event(cr, uid, so_id)                        
         return order_id
 
     def onchange_rawdatas(self, cr, uid, ids, raw_datas):

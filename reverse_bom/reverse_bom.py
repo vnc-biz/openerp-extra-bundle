@@ -24,15 +24,15 @@ from osv import osv
 import tools
  
  
-class mrp_bom(osv.osv):
-    _name = 'mrp.bom'
-    _description = 'Bill of Material'
-    _inherit='mrp.bom'
-    def init(self, cr):
-        try:
-            cr.execute("alter table mrp_bom drop constraint mrp_bom_bom_qty_zero")
-        except Exception, e:
-            pass
-    
-mrp_bom()
+#class mrp_bom(osv.osv):
+#    _name = 'mrp.bom'
+#    _description = 'Bill of Material'
+#    _inherit='mrp.bom'
+#    def init(self, cr):
+#        try:
+#            cr.execute("alter table mrp_bom drop constraint mrp_bom_bom_qty_zero")
+#        except Exception, e:
+#            pass
+#    
+#mrp_bom()
 

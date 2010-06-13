@@ -46,7 +46,7 @@ class mrp_reversed_bom(osv.osv_memory):
         for bom_id in bom_ids:
             production_id = mrp_prod_obj.create(cr, uid, {
                 'origin': 'BOM '+ bom_id.name,
-                'product_qty': -bom_id.product_qty,
+                'product_qty': bom_id.product_qty,
                 'product_id': bom_id.product_id.id or False,
                 'product_uom': bom_id.product_uom.id or False,
                 'product_uos_qty': bom_id.product_uos_qty,
@@ -59,11 +59,11 @@ class mrp_reversed_bom(osv.osv_memory):
             for line in bom_id.bom_lines:
                 production_line_id = mrp_prodline_obj.create(cr, uid, {'product_id': line.product_id.id, 
                                                             'name' : line.name,
-                                                            'product_qty' : line.product_qty,
+                                                            'product_qty' : -line.product_qty,
                                                             'product_uom' : line.product_uom.id or False,
                                                             'location_src_id': bom_id.routing_id.location_id.id or bom_id.routing_id.location_id.id or False,
                                                             'location_id': (line.routing_id and line.routing_id.location_id and  line.routing_id.location_id.id) or (bom_id.routing_id and bom_id.routing_id.location_id and bom_id.routing_id.location_id.id) or False,
-                                                            'product_uos_qty': line.product_uos_qty,
+                                                            'product_uos_qty': -line.product_uos_qty,
                                                             'product_uos': line.product_uos.id or False,
                                                             'production_id': production_id
                 })

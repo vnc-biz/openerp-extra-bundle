@@ -48,7 +48,7 @@ _import_select_fields = {
 }
 
 _import_done_form = '''<?xml version="1.0"?>
-<form string="Web Categories Import">
+<form string="Web Sale Orders Import">
     <separator string="Result" colspan="4" />
     <field name="new"/>
     <newline/>
@@ -61,12 +61,12 @@ _import_done_form = '''<?xml version="1.0"?>
 
 _import_done_fields = {
     'new': {
-        'string': 'New Web Categories',
+        'string': 'New Web Sale Orders',
         'type': 'integer',
         'readonly': True,
     },
     'update': {
-        'string': 'Updated Web Categories',
+        'string': 'Updated Web Sale Orders',
         'type': 'integer',
         'readonly': True,
     },
@@ -87,8 +87,8 @@ def _import_setup(self, cr, uid, data, context):
     web_shop = 0
     if data['model'] == 'esale_joomla.web':
         web_shop = data['id']
-    elif data['model'] == 'esale_joomla.category_map':
-        cats = pooler.get_pool(cr.dbname).get('esale_joomla.category_map').browse(cr, uid, data['ids'])
+    elif data['model'] == 'esale_joomla.order':
+        cats = pooler.get_pool(cr.dbname).get('esale_joomla.order').browse(cr, uid, data['ids'])
         if len(cats):
             web_shop = cats[0].web_id.id
     else:

@@ -11,6 +11,10 @@ jimport( 'joomla.plugin.plugin' );
 require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_virtuemart'.DS.'virtuemart.cfg.php');
 
 
+$GLOBALS['SHOW_SQL_ERRORS'] = 1;
+$GLOBALS['DEBUG_ALL_SQL'] = 1;
+
+
 function trace($s) {
   $plugin =& JPluginHelper::getPlugin('xmlrpc','openerp2vm');
   $params = new JParameter( $plugin->params );
@@ -28,13 +32,37 @@ function debug($s) {
 function debugfn($s) {
   trace("-- Call to function '".$s."' -----------------------------------------------");
 }
-function query($db,$s,$run=1) {
+
+#function query($db,$s,$run=1) {
+#  $db->setQuery($s);
+#  if($run) {
+#    $db->query();
+#  }
+#  debug("query: ".$db->_sql);
+#}
+
+function query($db, $s, $run=1) {
+  global $SHOW_SQL_ERRORS, $DEBUG_ALL_SQL;
+
   $db->setQuery($s);
   if($run) {
-    $db->query();
+      $res = $db->query();
+      if (!$res) {
+          if ($SHOW_SQL_ERRORS) {
+              $msg = $db->stderr();
+          } else {
+              debug("Error in query: ".$db->_sql);
+              $msg = "Error in sql query. Read logfile for information";
+          }
+          throw new Exception($msg);
+      }
   }
-  debug("query: ".$db->_sql);
+  if ($DEBUG_ALL_SQL) {
+      debug("query: ".$db->_sql);
+  }
+  return 1;
 }
+
 
 class plgXMLRPCOpenERP2Vm extends JPlugin {
     function plgXMLRPCOpenERP2Vm(&$subject, $config) {
@@ -135,6 +163,7 @@ class plgXMLRPCOpenERP2Vm extends JPlugin {
 }
 
 class plgXMLRPCOpenERP2VmServices {
+
     function get_languages($username,$password) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -149,6 +178,7 @@ class plgXMLRPCOpenERP2VmServices {
         }
         return new xmlrpcresp( new xmlrpcval($languages, $xmlrpcStruct));
     }
+
     function get_translation($username,$password,$lang_id,$rtable,$rfield,$rid) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -164,6 +194,7 @@ class plgXMLRPCOpenERP2VmServices {
         }
         return new xmlrpcresp( new xmlrpcval($r, $xmlrpcArray));
     }
+
     function set_translation($username,$password,$lang_id,$rtable,$rfield,$rid,$value) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -189,6 +220,7 @@ class plgXMLRPCOpenERP2VmServices {
         }
         return $parent;
     }
+
     function get_categories($username,$password) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -204,6 +236,7 @@ class plgXMLRPCOpenERP2VmServices {
         }
         return new xmlrpcresp( new xmlrpcval($categories, $xmlrpcArray));
     }
+
     function set_category($username,$password,$cat){
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -227,6 +260,7 @@ class plgXMLRPCOpenERP2VmServices {
         }
         return new xmlrpcresp(new xmlrpcval($id, $xmlrpcInt));
     }
+
     function set_categories_parents($username,$password,$categories){
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -244,6 +278,7 @@ class plgXMLRPCOpenERP2VmServices {
         }
         return new xmlrpcresp(new xmlrpcval(1,$xmlrpcInt));
     }
+
     function delete_category($username,$password,$id) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
@@ -327,6 +362,7 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
+
         $db =& JFactory::getDBO();
         $values=array();
         $values[]=array("product_sku",mysql_escape_string($product['sku']));
@@ -376,46 +412,104 @@ class plgXMLRPCOpenERP2VmServices {
             }
         }
         if($insert) {
-            $q="insert into #__vm_product ";
-            $f1=array();
-            $f2=array();
+            $q = "insert into #__vm_product ";
+            $f1 = array();
+            $f2 = array();
             foreach($values as $v) {
-                $f1[]=$v[0];
-                $f2[]="'".$v[1]."'";
+                $f1[] = $v[0];
+                $f2[] = "'".$v[1]."'";
             }
             $q.="(".join(",",$f1).") values (".join(",",$f2).");";
-            query($db,$q);
-            $id=$db->insertid();
+            try {
+                query($db,$q);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
+            $id = $db->insertid();
             debug('  new id='.$id);
-            query($db,"delete from #__vm_product_price where product_id='".$id."';");
-            $q="insert into #__vm_product_price ";
+
+            try {
+                query($db,"delete from #__vm_product_price where product_id='".$id."';");
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
+            $q = "insert into #__vm_product_price ";
             $q.="(product_id,product_price,product_currency,product_price_vdate,product_price_edate,shopper_group_id) ";
             $q.="select '".$id."','".$product['price']."','".mysql_escape_string($product['currency'])."','0','0',shopper_group_id from #__vm_shopper_group shopper where shopper.vendor_id='1' and shopper.default='1';";
-            query($db,$q);
-            query($db,"delete from #__vm_product_mf_xref where product_id='".$product['id']."';");
+            try {
+                query($db, $q);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
+            try {
+                query($db, "delete from #__vm_product_mf_xref where product_id='".$product['id']."';");
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
             $q="insert into #__vm_product_mf_xref ";
             $q.="(product_id,manufacturer_id) values ('".$id."','1');";
-            query($db,$q);
+            try {
+                query($db, $s);
+                query($db, $q);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
         }
+
         query($db,"delete from #__vm_product_category_xref where product_id='".$id."';");
         foreach($product['category_id'] as $cat) {
             $q="insert into #__vm_product_category_xref ";
             $q.="(product_id,category_id) values ('".$id."','".$cat."');";
-            query($db,$q);
+            try {
+                query($db, $q);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
         }
+
         foreach($product['params'] as $pt_id => $pt_attrs) {
-            query($db,"delete from #__vm_product_type_xref where product_id=".$id.";");
-            query($db,"insert into #__vm_product_type_xref (product_type_id,product_id) values ('".$pt_id."','".$id."');");
-            query($db,"delete from #__vm_product_type_".$pt_id." where product_id='".$id."';");
+            try {
+                $s = "delete from #__vm_product_product_type_xref where product_id = ".$id.";";
+                query($db, $s);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
+            try {
+                $s = "insert into #__vm_product_product_type_xref (product_type_id, product_id) values ('".$pt_id."','".$id."');";
+                query($db, $s);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
+            try {
+                $s = "delete from #__vm_product_type_".$pt_id." where product_id='".$id."';";
+                query($db, $s);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
             $q="insert into #__vm_product_type_".$pt_id." ";
             $f1=array('product_id');
             $f2=array("'".$id."'");
             foreach($pt_attrs as $k => $v) {
-                $f1[]=$k;
-                $f2[]="'".$v."'";
+                $f1[] = $k;
+                $f2[] = "'".$v."'";
             }
             $q.="(".join(",",$f1).") values (".join(",",$f2).");";
-            query($db,$q);
+
+            try {
+                query($db, $q);
+            } catch(Exception $e) {
+                return new xmlrpcresp(0, 1, $e->getMessage());
+            }
+
         }
         return new xmlrpcresp(new xmlrpcval($id, $xmlrpcInt));
     }
@@ -471,27 +565,129 @@ class plgXMLRPCOpenERP2VmServices {
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
         }
+        $end = " ";
         $db =& JFactory::getDBO();
-        $orders=array();
-        query($db,"select product_type_id, product_type_name from #__vm_product_type;",0);
-        foreach($db->loadRowList() as $row) {
-            query($db,"select parameter_name, parameter_label from #__vm_product_type_parameter where product_type_id='".$row[0]."';",0);
-            $params=array();
-            foreach($db->loadRowList() as $row2) {
-                $params[]=new xmlrpcval(array(new xmlrpcval($row2[0], $xmlrpcString), new xmlrpcval($row2[1], $xmlrpcString)), $xmlrpcArray);
+
+        $q = "SELECT o.order_id, o.user_id,".$end;
+        $q.= "       o.cdate, o.customer_note,".$end;
+        $q.= "       o.order_total, o.order_subtotal, o.order_tax, o.order_tax_details, o.coupon_discount,".$end;
+        $q.= "       o.coupon_code, o.order_discount, o.order_shipping, o.order_shipping_tax, o.ship_method_id".$end;
+        $q.= "FROM jos_vm_orders as o".$end;
+        $q.= ";";
+        query($db, $q);
+        $order_result = $db->loadRowList();
+
+        $orders = array();
+        foreach($order_result as $row) {
+            $order_id = $row[0];
+            $customer_user_id = $row[1];
+
+            # get billing address info:
+            $address_type = "BT";
+            $q = "SELECT".$end;
+            $q.= "  u.address_type, u.first_name, u.last_name, u.phone_1, u.address_1, u.address_2,".$end;
+            $q.= "  u.city, u.zip, u.state, u.country, u.user_email, u.title".$end;
+            $q.= "FROM jos_vm_order_user_info u".$end;
+            $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
+            $q.= ";";
+
+            query($db, $q);
+            $address_result = $db->loadRowList();
+            $address_bt = array();
+            foreach($address_result as $row2) {
+              $address_bt[] = new xmlrpcval(array(
+                "first_name" => new xmlrpcval($row2[1],  $xmlrpcString),
+                "last_name" => new xmlrpcval($row2[2],  $xmlrpcString),
+                "phone_1" => new xmlrpcval($row2[3],  $xmlrpcString),
+                "address_1" => new xmlrpcval($row2[4],  $xmlrpcString),
+                "address_2" => new xmlrpcval($row2[5],  $xmlrpcString),
+                "city" => new xmlrpcval($row2[6],  $xmlrpcString),
+                "zip" => new xmlrpcval($row2[7],  $xmlrpcString),
+                "state" => new xmlrpcval($row2[8],  $xmlrpcString),
+                "country" => new xmlrpcval($row2[9],  $xmlrpcString),
+                "user_email" => new xmlrpcval($row2[10],  $xmlrpcString),
+                "title" => new xmlrpcval($row2[11],  $xmlrpcString)
+              ), $xmlrpcStruct);
             }
-            $orders[]=new xmlrpcval(array(new xmlrpcval($row[0], $xmlrpcInt), new xmlrpcval($row[1], $xmlrpcString), new xmlrpcval($params, $xmlrpcArray)), $xmlrpcArray);
+
+            # get shipping address info:
+            $address_type = "ST";
+            $q = "SELECT".$end;
+            $q.= "  u.address_type, u.first_name, u.last_name, u.phone_1, u.address_1, u.address_2,".$end;
+            $q.= "  u.city, u.zip, u.state, u.country, u.user_email, u.title".$end;
+            $q.= "FROM jos_vm_order_user_info u".$end;
+            $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
+            $q.= ";";
+
+            query($db, $q);
+            $address_result = $db->loadRowList();
+            $address_st = array();
+            foreach($address_result as $row2) {
+              $address_st[] = new xmlrpcval(array(
+                "first_name" => new xmlrpcval($row2[1],  $xmlrpcString),
+                "last_name" => new xmlrpcval($row2[2],  $xmlrpcString),
+                "phone_1" => new xmlrpcval($row2[3],  $xmlrpcString),
+                "address_1" => new xmlrpcval($row2[4],  $xmlrpcString),
+                "address_2" => new xmlrpcval($row2[5],  $xmlrpcString),
+                "city" => new xmlrpcval($row2[6],  $xmlrpcString),
+                "zip" => new xmlrpcval($row2[7],  $xmlrpcString),
+                "state" => new xmlrpcval($row2[8],  $xmlrpcString),
+                "country" => new xmlrpcval($row2[9],  $xmlrpcString),
+                "user_email" => new xmlrpcval($row2[10],  $xmlrpcString),
+                "title" => new xmlrpcval($row2[11],  $xmlrpcString)
+              ), $xmlrpcStruct);
+            }
+
+            # get order lines:
+            $q = "SELECT".$end;
+            $q.= "  l.order_item_id, l.product_id, l.product_quantity, l.product_item_price,".$end;
+            $q.= "  l.product_final_price, l.order_item_currency, l.cdate".$end;
+            $q.= "FROM jos_vm_order_item l".$end;
+            $q.= "WHERE order_id = ".$order_id."".$end;
+            $q.= ";";
+
+            query($db, $q);
+            $order_line_result = $db->loadRowList();
+            $order_lines = array();
+            foreach($order_line_result as $row3) {
+              $order_lines[] = new xmlrpcval(array(
+                "order_item_id" => new xmlrpcval($row3[0],  $xmlrpcInt),
+                "product_id" => new xmlrpcval($row3[1],  $xmlrpcInt),
+                "order_item_id" => new xmlrpcval($row3[2],  $xmlrpcInt),
+                "product_id" => new xmlrpcval($row3[3],  $xmlrpcInt),
+                "product_quantity" => new xmlrpcval($row3[4],  $xmlrpcInt),
+                "product_item_price" => new xmlrpcval($row3[5],  $xmlrpcInt),
+                "product_final_price" => new xmlrpcval($row3[6],  $xmlrpcInt),
+                "product_item_currency" => new xmlrpcval($row3[7],  $xmlrpcInt),
+                "creating_date" => new xmlrpcval($row3[8],  $xmlrpcInt),
+              ), $xmlrpcStruct);
+            }
+
+            $orders[] = new xmlrpcval(array(
+              "order_id" => new xmlrpcval($order_id,  $xmlrpcInt),
+              "customer_user_id" => new xmlrpcval($customer_user_id, $xmlrpcInt),
+              "order_lines" => new xmlrpcval($order_lines, $xmlrpcArray),
+              "customer_addresses" => new xmlrpcval(array(
+                "address_billing" => new xmlrpcval($address_bt, $xmlrpcStruct),
+                "address_shipping" => new xmlrpcval($address_st, $xmlrpcStruct)
+              ), $xmlrpcStruct),
+              "order_creation_date" => new xmlrpcval($row[2], $xmlrpcInt),
+              "order_customer_note" => new xmlrpcval($row[3], $xmlrpcString),
+              "order_total" => new xmlrpcval($row[4], $xmlrpcDouble),
+              "order_sub_total" => new xmlrpcval($row[5], $xmlrpcDouble),
+              "order_tax" => new xmlrpcval($row[6], $xmlrpcDouble),
+              "order_tax_detail" => new xmlrpcval($row[7], $xmlrpcString),
+              "order_coupon_discount" => new xmlrpcval($row[8], $xmlrpcDouble),
+              "order_coupon_code" => new xmlrpcval($row[9], $xmlrpcString),
+              "order_discount" => new xmlrpcval($row[10], $xmlrpcDouble),
+              "order_shipping" => new xmlrpcval($row[11], $xmlrpcDouble),
+              "order_shipping_tax" => new xmlrpcval($row[12], $xmlrpcDouble),
+              "order_ship_method_id" => new xmlrpcval($row[13], $xmlrpcString)),
+            $xmlrpcStruct);
         }
+
         return new xmlrpcresp( new xmlrpcval($orders, $xmlrpcArray));
-
-
-
-#order_id , user_id , vendor_id , order_number                     , user_info_id                     , order_total , order_subtotal , order_tax , order_tax_details         , order_shipping , order_shipping_tax , coupon_discount , coupon_code , order_discount , order_currency , order_status , cdate      , mdate      , ship_method_id    , customer_note , ip_address
-#1        , 62      , 1         , 62_c7ed68c6bfc1d6e98f1dae42c23df , 1a62ae63f858475284e39149ae1d8e06 , 41.93000    , 14.15000       , 0.00      , a:2:{i:0;d:0;s:0:"";d:0;} , 25.78          , 0.00               , 0.00            ,             , -2.00          , EUR            , P            , 1271227673 , 1271227673 , standard_shipping , DHL           , Europe > 4kg , 25.78 , 9 ,  , ::ffff:127.0.0. , 
-
-
     }
-
 }
 
 function debugtotmp($s) {
@@ -534,3 +730,4 @@ class plgXMLRPCOpenERP2VmHelper {
 }
 
 /* vim: set expandtab tabstop=4 : */
+

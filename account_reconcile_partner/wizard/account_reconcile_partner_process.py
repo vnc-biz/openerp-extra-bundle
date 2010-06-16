@@ -53,16 +53,33 @@ class account_partner_reconcile_process(osv.osv_memory):
         return len(map(lambda x: x[0], cr.fetchall()))
 
     def _get_partner(self, cr, uid, context=None):
+#        cr.execute(
+#                "SELECT l.partner_id " \
+#                "FROM account_move_line as l join res_partner p on p.id=l.partner_id " \
+#                "WHERE l.reconcile_id IS NULL " \
+#                "AND (l.date_created >  p.last_reconciliation_date " \
+#                "OR p.last_reconciliation_date IS NULL )" \
+#                "AND l.state <> 'draft' " \
+#                "GROUP BY l.partner_id, p.last_reconciliation_date " \
+#                "ORDER BY p.last_reconciliation_date LIMIT 1"
+#                 )
         cr.execute(
-                "SELECT l.partner_id " \
-                "FROM account_move_line as l join res_partner p on p.id=l.partner_id " \
-                "WHERE l.reconcile_id IS NULL " \
-                "AND (l.date_created >  p.last_reconciliation_date " \
-                "OR p.last_reconciliation_date IS NULL )" \
-                "AND l.state <> 'draft' " \
-                "GROUP BY l.partner_id, p.last_reconciliation_date " \
-                "ORDER BY p.last_reconciliation_date"
-                 )
+            """
+            SELECT p.id
+            FROM res_partner p
+            RIGHT JOIN (
+                     SELECT l.partner_id as partner_id, SUM(l.debit) as debit, SUM(l.credit) as credit
+                     FROM account_move_line l
+                      LEFT JOIN account_account a ON (a.id = l.account_id)
+                      LEFT JOIN res_partner p ON (l.partner_id = p.id)
+                     WHERE a.reconcile IS TRUE
+                      AND l.reconcile_id IS NULL
+                      AND (p.last_reconciliation_date IS NULL OR l.date > p.last_reconciliation_date)
+                      AND l.state <> 'draft'
+                     GROUP BY l.partner_id
+            ) AS s ON (p.id = s.partner_id)
+            ORDER BY p.last_reconciliation_date LIMIT 1"""
+                     )
         partner = cr.fetchone()
         if not partner:
             return False
@@ -78,10 +95,21 @@ class account_partner_reconcile_process(osv.osv_memory):
             res.update(data)
         return res
 
-    def do_reconcile(self, cr, uid, ids, context):
-        if self.read(cr, uid, ids, ['stop_reconcile'], context=context)[0]['stop_reconcile']:
-            context.update({'stop_reconcile': True})
-        return self.pool.get('account.move.line.reconcile').partial_check(cr, uid, ids, context)
+    def next_partner(self, cr, uid, ids, context=None):
+        for data in self.read(cr, uid, ids, ['partner_id'], context=context):
+            self.pool.get('res.partner').write(cr, uid, data['partner_id'], {'last_reconciliation_date': time.strftime('%Y-%m-%d %H:%M:%S')})
+            self.write(cr, uid, [data['id']], {'partner_id': self._get_partner(cr, uid, context=context)}, context=context)
+        return True
+
+    def do_reconcile(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        context.update({'stop_reconcile': True})
+        context.update({'next_partner_only': True})
+        next_partner_line_ids = self.pool.get('account.move.line').search(cr, uid, [], context=context)
+#        if self.read(cr, uid, ids, ['stop_reconcile'], context=context)[0]['stop_reconcile']:
+#            context.update({'stop_reconcile': True})
+        return self.pool.get('account.move.line.reconcile').partial_check(cr, uid, ids, context=context)
 #        move_line_obj = self.pool.get('account.move.line')
 #        data_old = self.read(cr, uid, ids, ['partner_id', 'to_reconcile', 'today_reconciled'], context=context)
 #        data = self.read(cr, uid, ids, ['journal_id', 'writeoff_acc_id', 'analytic_id', 'comment', 'date_p'], context=context)
@@ -124,9 +152,9 @@ class account_partner_reconcile_process(osv.osv_memory):
         'to_reconcile': fields.float('Remaining Partners to Reconcile', readonly=True),
         'today_reconciled': fields.float('Partners Reconciled Today', readonly=True),
         'progress': fields.float('Progress', readonly=True),
-        'partner_id': fields.many2one('res.partner', 'Next Partner to Reconcile', readonly=True),
+        'partner_id': fields.many2one('res.partner', 'Next Partner to Reconcile', readonly=False),
         #write off fields
-        'stop_reconcile': fields.boolean('Go to next partner'),
+#        'stop_reconcile': fields.boolean('Go to next partner'),
                 }
     _defaults = {
          'to_reconcile': _get_to_reconcile,

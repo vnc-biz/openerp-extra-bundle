@@ -30,7 +30,7 @@
  		</record>
 
         <record id="action_account_partner_reconcile" model="ir.actions.act_window">
-             <field name="name">Account partner Reconcile</field>
+             <field name="name">Reconcilication process: next partner</field>
              <field name="res_model">account.partner.reconcile.process</field>
              <field name="type">ir.actions.act_window</field>
              <field name="view_type">form</field>

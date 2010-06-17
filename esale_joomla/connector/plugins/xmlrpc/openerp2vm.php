@@ -453,7 +453,6 @@ class plgXMLRPCOpenERP2VmServices {
             $q="insert into #__vm_product_mf_xref ";
             $q.="(product_id,manufacturer_id) values ('".$id."','1');";
             try {
-                query($db, $s);
                 query($db, $q);
             } catch(Exception $e) {
                 return new xmlrpcresp(0, 1, $e->getMessage());
@@ -641,7 +640,7 @@ class plgXMLRPCOpenERP2VmServices {
             # get order lines:
             $q = "SELECT".$end;
             $q.= "  l.order_item_id, l.product_id, l.product_quantity, l.product_item_price,".$end;
-            $q.= "  l.product_final_price, l.order_item_currency, l.cdate".$end;
+            $q.= "  l.product_final_price, l.order_item_currency, l.cdate, l.mdate, l.order_item_name".$end;
             $q.= "FROM jos_vm_order_item l".$end;
             $q.= "WHERE order_id = ".$order_id."".$end;
             $q.= ";";
@@ -653,13 +652,13 @@ class plgXMLRPCOpenERP2VmServices {
               $order_lines[] = new xmlrpcval(array(
                 "order_item_id" => new xmlrpcval($row3[0],  $xmlrpcInt),
                 "product_id" => new xmlrpcval($row3[1],  $xmlrpcInt),
-                "order_item_id" => new xmlrpcval($row3[2],  $xmlrpcInt),
-                "product_id" => new xmlrpcval($row3[3],  $xmlrpcInt),
-                "product_quantity" => new xmlrpcval($row3[4],  $xmlrpcInt),
-                "product_item_price" => new xmlrpcval($row3[5],  $xmlrpcInt),
-                "product_final_price" => new xmlrpcval($row3[6],  $xmlrpcInt),
-                "product_item_currency" => new xmlrpcval($row3[7],  $xmlrpcInt),
-                "creating_date" => new xmlrpcval($row3[8],  $xmlrpcInt),
+                "product_quantity" => new xmlrpcval($row3[2],  $xmlrpcFloat),
+                "product_item_price" => new xmlrpcval($row3[3],  $xmlrpcFloat),
+                "product_final_price" => new xmlrpcval($row3[4],  $xmlrpcFloat),
+                "product_item_currency" => new xmlrpcval($row3[5],  $xmlrpcString),
+                "creation_date" => new xmlrpcval($row3[6],  $xmlrpcInt),
+                "modification_date" => new xmlrpcval($row3[7],  $xmlrpcInt),
+                "order_item_name" => new xmlrpcval($row3[8],  $xmlrpcString),
               ), $xmlrpcStruct);
             }
 
@@ -728,6 +727,4 @@ class plgXMLRPCOpenERP2VmHelper {
          }
     }
 }
-
-/* vim: set expandtab tabstop=4 : */
 

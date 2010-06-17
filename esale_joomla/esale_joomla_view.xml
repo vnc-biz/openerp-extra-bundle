@@ -181,12 +181,12 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="eSale Web Categories Mapping" colors="red:status==deleted">
-                <field name="category_id"/>
-                <field name="web_id" select="1"/>
-                <field name="esale_joomla_name"/>
-                <field name="esale_joomla_id"/>
-                <field name="esale_joomla_parent_id"/>
-                <field name="status" select="1"/>
+                <field name="category_id" select="1" />
+                <field name="web_id" select="2" />
+                <field name="esale_joomla_name" select="1"/>
+                <field name="esale_joomla_id" />
+                <field name="esale_joomla_parent_id" select="1" />
+                <field name="status" select="2" />
             </tree>
         </field>
     </record>
@@ -198,7 +198,11 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem name="Web Categories Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_category_map" action="action_esale_joomla_category_map_form" groups="base.group_system"/>
+    <menuitem name="Web Categories Mappings"
+              parent="menu_esale_definition"
+              id="menu_action_esale_joomla_category_map"
+              action="action_esale_joomla_category_map_form"
+              groups="base.group_system"/>
 
     <!-- Product Type Mapping -->
     <record model="ir.ui.view" id="view_esale_joomla_producttype_map_form">
@@ -274,11 +278,11 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree</field>
     </record>
-    <menuitem name="Products Mappings" parent="menu_esale_definition" id="menu_action_esale_joomla_product_map" action="action_esale_joomla_product_map_form" groups="base.group_system"/>
-
-
-
-
+    <menuitem name="Products Mappings"
+              parent="menu_esale_definition"
+              id="menu_action_esale_joomla_product_map"
+              action="action_esale_joomla_product_map_form"
+              groups="base.group_system"/>
 
     <record model="ir.ui.view" id="view_order_tree">
         <field name="name">esale_joomla.order.tree</field>
@@ -289,7 +293,7 @@
                 <field name="name"/>
                 <field name="date_order"/>
                 <field name="epartner_id"/>
-                <field name="partner_id"/>
+                <field name="web_id"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -302,23 +306,57 @@
         <field name="arch" type="xml">
             <form string="eSale Order">
                 <notebook>
-                    <page string="Order Line">
+                    <page string="eSale Order">
                         <field name="name" select="1"/>
+                        <field name="web_id" select="1"/>
+                        <field name="web_ref" select="1"/>
                         <field name="date_order" select="1"/>
                         <field name="epartner_id" select="1"/>
-                        <field name="partner_id" select="1"/>
-                        <button string="Create Addresses" colspan="2" type="object"  name="address_set"/>
-                        <field name="web_ref" select="1"/>
-                        <field name="web_id" select="1"/>
-                        <field name="order_lines" widget="one2many_list" colspan="4" nolabel="1"/>
-                        <separator string="States" colspan="4"/>
-                        <field name="state"/>
-                        <button type="object" name="order_create" states="draft" string="Create Order"/>
-                        <button type="object" name="order_cancel" states="draft" string="Cancel Order"/>
+                        <field name="order_id" readonly="1"/>
+                        <newline/>
+
+                        <field name="order_lines" colspan="4">
+                            <tree>
+                                <field name="name"/>
+                                <field name="web_product_item_price" />
+                                <field name="web_product_final_price" />
+                                <field name="web_product_item_currency" />
+                                <field name="product_qty" />
+                            </tree>
+                        </field>
+
+                        <group col="12" colspan="4">
+                          <group col="6" colspan="4">
+                            <field name="state" readonly="1" select="1" />
+                            <button name="order_create" states="draft" string="Create Order" type="object" />
+                            <button name="order_cancel" states="draft" string="Cancel Order" type="object" />
+                          </group>
+                          <group col="6" colspan="8">
+                          </group>
+                        </group>
                     </page>
-                    <page string="Others data">
-                        <field name="order_id" colspan="3"/>
-                        <field name="note" colspan="3"/>
+                    <page string="Details">
+                        <field name="total"/>
+                        <field name="subtotal"/>
+                        <field name="coupon_discount"/>
+                        <field name="coupon_code"/>
+                        <field name="order_discount"/>
+                        <field name="shipping"/>
+                        <field name="shipping_tax"/>
+
+                        <field name="tax" />
+
+                        <newline />
+                        <separator string="Shipping Method Description" colspan="4" />
+                        <field name="shipping_method_description" nolabel="1" colspan="4" />
+
+                        <newline />
+                        <separator string="Tax Details" colspan="4" />
+                        <field name="tax_detail"  nolabel="1"  colspan="4" />
+
+                        <newline />
+                        <separator string="Notes" colspan="4" />
+                        <field name="note" nolabel="1"  colspan="4" />
                     </page>
                 </notebook>
             </form>
@@ -350,11 +388,16 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="eSales Order Line">
-                <field name="name" colspan="3"/>
-                <field name="product_id" colspan="3"/>
-                <field name="product_qty"/>
-                <field name="product_uom_id"/>
-                <field name="price_unit"/>
+                <field name="name"/>
+                <field name="order_id" />
+                <field name="order_item_id" />
+                <field name="web_product_id" />
+                <field name="web_creation_date" />
+                <field name="web_modification_date" />
+                <field name="web_product_item_price" />
+                <field name="web_product_final_price" />
+                <field name="web_product_item_currency" />
+                <field name="product_qty" />
             </form>
         </field>
     </record>
@@ -366,10 +409,15 @@
         <field name="arch" type="xml">
             <tree string="eSales Order Line">
                 <field name="name"/>
-                <field name="product_id"/>
-                <field name="product_qty"/>
-                <field name="product_uom_id"/>
-                <field name="price_unit"/>
+                <field name="order_id" />
+                <field name="order_item_id" />
+                <field name="web_product_id" />
+                <field name="web_creation_date" />
+                <field name="web_modification_date" />
+                <field name="web_product_item_price" />
+                <field name="web_product_final_price" />
+                <field name="web_product_item_currency" />
+                <field name="product_qty" />
             </tree>
         </field>
     </record>
@@ -498,6 +546,58 @@
         <field name="domain">[('esale_category_ids', '!=', '1')]</field>
     </record>
     <menuitem action="esale_joomla_web_product_action" id="menu_web_product_action" parent="menu_esale_definition" sequence="100"/>
+
+    <record id="esale_joomla_partner_form_view" model="ir.ui.view">
+        <field name="name">esale_joomla.partner.form</field>
+        <field name="model">esale_joomla.partner</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="eSale Partner">
+                <notebook>
+                    <page string="Web Customer">
+                        <group col="6" colspan="4">
+                            <field name="name"/>
+                            <field name="webuser_id"/>
+                            <field name="web_id"/>
+                        </group>
+                        <separator colspan="2" string="Billing Address" />
+                        <separator colspan="2" string="Shipping Address" />
+                        <field name="name_billing"/>
+                        <field name="name_shipping"/>
+                        <field name="first_name_billing"/>
+                        <field name="first_name_shipping"/>
+                        <field name="last_name_billing"/>
+                        <field name="last_name_shipping"/>
+                        <field name="address_1_billing" />
+                        <field name="address_1_shipping" />
+                        <field name="address_2_billing" />
+                        <field name="address_2_shipping" />
+                        <field name="city_billing" />
+                        <field name="city_shipping" />
+                        <field name="zip_billing" />
+                        <field name="zip_shipping" />
+                        <field name="country_billing" />
+                        <field name="country_shipping" />
+                        <field name="email_billing" />
+                        <field name="email_shipping" />
+                        <field name="state_billing" />
+                        <field name="state_shipping" />
+                        <field name="address_id_billing" />
+                        <field name="address_id_shipping" />
+                        <field name="phone_billing" />
+                        <field name="phone_shipping" />
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+    <record id="esale_joomla_web_user_action" model="ir.actions.act_window">
+        <field name="name">Web Users</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">esale_joomla.partner</field>
+        <field name="view_type">form</field>
+    </record>
+    <menuitem action="esale_joomla_web_user_action" id="menu_web_user_action" parent="menu_action_order_form" sequence="200"/>
 
 </data>
 </openerp>

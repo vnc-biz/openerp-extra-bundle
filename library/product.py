@@ -50,6 +50,16 @@ class product_template(osv.osv):
 product_template()
 
 
+class product_lang(osv.osv):
+    """Book language"""
+    _name = "product.lang"
+
+    _columns = {
+        'name': fields.char('Name', size=128, required=True, select=True),
+    }
+product_lang()
+
+
 class product_product(osv.osv):
     """Book variant of product"""
     _name = "product.product"
@@ -132,7 +142,7 @@ class product_product(osv.osv):
         'catalog_num': fields.char('Catalog number', size=64),
         #'number': fields.char('Number', size=64, readonly=True), # ancien numero interne
         'author_om_ids': fields.one2many('author.book.rel', 'product_id', 'Authors'),
-        'lang': fields.many2many('res.lang', 'lang_book_rel', 'product_id', 'lang_id', 'Language'),
+        'lang': fields.many2many('product.lang', 'lang_book_rel', 'product_id', 'lang_id', 'Language'),
         'editor': fields.many2one('res.partner', 'Editor', change_default=True),
         'code': fields.function(_product_code, method=True, type='char', string='Acronym'),
         'catalog_num': fields.char('Catalog number', size=64),

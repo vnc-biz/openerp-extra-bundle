@@ -585,7 +585,8 @@ class plgXMLRPCOpenERP2VmServices {
             $address_type = "BT";
             $q = "SELECT".$end;
             $q.= "  u.address_type, u.first_name, u.last_name, u.phone_1, u.address_1, u.address_2,".$end;
-            $q.= "  u.city, u.zip, u.state, u.country, u.user_email, u.title".$end;
+            $q.= "  u.city, u.zip, u.state, u.user_email, u.company, u.phone_2, u.fax, u.country,".$end;
+            $q.= "  (select c.country_2_code from jos_vm_country c where c.country_3_code = u.country) as country_2".$end;
             $q.= "FROM jos_vm_order_user_info u".$end;
             $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
             $q.= ";";
@@ -603,9 +604,12 @@ class plgXMLRPCOpenERP2VmServices {
                 "city" => new xmlrpcval($row2[6],  $xmlrpcString),
                 "zip" => new xmlrpcval($row2[7],  $xmlrpcString),
                 "state" => new xmlrpcval($row2[8],  $xmlrpcString),
-                "country" => new xmlrpcval($row2[9],  $xmlrpcString),
-                "user_email" => new xmlrpcval($row2[10],  $xmlrpcString),
-                "title" => new xmlrpcval($row2[11],  $xmlrpcString)
+                "user_email" => new xmlrpcval($row2[9],  $xmlrpcString),
+                "company" => new xmlrpcval($row2[10],  $xmlrpcString),
+                "phone_2" => new xmlrpcval($row2[11],  $xmlrpcString),
+                "fax" => new xmlrpcval($row2[12],  $xmlrpcString),
+                "country" => new xmlrpcval($row2[13],  $xmlrpcString),
+                "country_2" => new xmlrpcval($row2[14],  $xmlrpcString),
               ), $xmlrpcStruct);
             }
 
@@ -613,7 +617,8 @@ class plgXMLRPCOpenERP2VmServices {
             $address_type = "ST";
             $q = "SELECT".$end;
             $q.= "  u.address_type, u.first_name, u.last_name, u.phone_1, u.address_1, u.address_2,".$end;
-            $q.= "  u.city, u.zip, u.state, u.country, u.user_email, u.title".$end;
+            $q.= "  u.city, u.zip, u.state, u.user_email, u.company, u.phone_2, u.fax, u.country,".$end;
+            $q.= "  (select c.country_2_code from jos_vm_country c where c.country_3_code = u.country) as country_2".$end;
             $q.= "FROM jos_vm_order_user_info u".$end;
             $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
             $q.= ";";
@@ -631,9 +636,12 @@ class plgXMLRPCOpenERP2VmServices {
                 "city" => new xmlrpcval($row2[6],  $xmlrpcString),
                 "zip" => new xmlrpcval($row2[7],  $xmlrpcString),
                 "state" => new xmlrpcval($row2[8],  $xmlrpcString),
-                "country" => new xmlrpcval($row2[9],  $xmlrpcString),
-                "user_email" => new xmlrpcval($row2[10],  $xmlrpcString),
-                "title" => new xmlrpcval($row2[11],  $xmlrpcString)
+                "user_email" => new xmlrpcval($row2[9],  $xmlrpcString),
+                "company" => new xmlrpcval($row2[10],  $xmlrpcString),
+                "phone_2" => new xmlrpcval($row2[11],  $xmlrpcString),
+                "fax" => new xmlrpcval($row2[12],  $xmlrpcString),
+                "country" => new xmlrpcval($row2[13],  $xmlrpcString),
+                "country_2" => new xmlrpcval($row2[14],  $xmlrpcString),
               ), $xmlrpcStruct);
             }
 

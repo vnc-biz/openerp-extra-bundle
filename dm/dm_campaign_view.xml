@@ -144,6 +144,7 @@
                         	<field name="dealer_id" groups="base.group_extended"/>
                         	<field name="trademark_id"/>
                         	<field name="responsible_id" />
+                        	<field name="quantity_planned_total" />
                         </group>
                         <group colspan="2" col="2">
                         	<separator string="Geographical" colspan="2"/>

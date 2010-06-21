@@ -28,7 +28,7 @@ class wizard_document_report(wizard.interface):
     <form string="Select Report">
         <field name="report" colspan="4"/>
         <field name="address_id" colspan="4"/>
-        <field name="segment_id" colspan="4"/>
+        <field name="segment_id" colspan="4" />
     </form>'''
 
 #    report_send_form = '''<?xml version="1.0"?>
@@ -71,13 +71,7 @@ class wizard_document_report(wizard.interface):
         res.sort(lambda x, y: cmp(x[1], y[1]))
         return res # }}}
 
-    def get_campaings(self, cr, uid, context):
-        document_id = self.dm_wiz_data['id']
-        pool = pooler.get_pool(cr.dbname)
-        seg_obj = pool.get('dm.campaign.proposition.segment')
-        seg_ids = seg_obj.search(cr, uid, [])
-        seg_codes = seg_obj.read(cr, uid, seg_ids, ['code'])
-        return [(item['id'], item['code']) for item in seg_codes]
+#### to extract segment of campaign id same as offer_step and offer
 ##         document = pool.get('dm.offer.document').browse(cr,uid,document_id)
 ##         res = []
 ##         if document.step_id:
@@ -97,8 +91,8 @@ class wizard_document_report(wizard.interface):
         'address_id': {'string': 'Select Customer Address', 'type': 'many2one',
                 'relation': 'res.partner.address', 
                 'domain': [('partner_id.category_id', '=', 'DTP Preview Customers')] },
-        'segment_id': {'string': 'Select Segment', 'type': 'selection',
-                      'selection': get_campaings,}
+        'segment_id': {'string': 'Select Segment', 'type': 'many2one',
+                'relation': 'dm.campaign.proposition.segment',}
         } # }}}
 
     report_send_fields = { # {{{

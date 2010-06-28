@@ -23,6 +23,7 @@
 import wizard
 import pooler
 from tools import UpdateableStr, UpdateableDict
+from tools.translate import _
 
 _MERGE_FORM = UpdateableStr()
 _MERGE_FIELDS = UpdateableDict()

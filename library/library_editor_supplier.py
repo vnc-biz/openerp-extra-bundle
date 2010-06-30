@@ -32,6 +32,7 @@ class library_editor_supplier(osv.osv):
         'name': fields.many2one('res.partner', 'Editor'),
         'supplier_id': fields.many2one('res.partner', 'Supplier'),
         'sequence': fields.integer('Sequence'),
+        'delay': fields.integer('Customer Lead Time'),
         'junk': fields.function(lambda self, cr, uid, ids, name, attr, context: dict([(idn, '') for idn in ids]),
                 method=True, string=" ", type="text"),
     }
@@ -44,19 +45,23 @@ class library_editor_supplier(osv.osv):
                     case when min(ps.id) is null then - min(pp.id) else min(ps.id) end as id,
                     case when pp.editor is null then 0 else pp.editor end as name,
                     case when ps.name is null then 0 else ps.name end as supplier_id,
-                    case when ps.sequence is null then 0 else ps.sequence end as sequence
+                    case when ps.sequence is null then 0 else ps.sequence end as sequence,
+                    ps.delay as delay
                 from
                     product_supplierinfo ps full outer join product_product pp on (ps.product_id = pp.product_tmpl_id)
                 where
                     ((pp.editor is not null) or (ps.name is not null))
-                group by pp.editor, ps.name, ps.sequence
+                group by pp.editor, ps.name, ps.sequence, ps.delay
             )""")
 
     def create(self, cr, user, vals, context={}):
         if not (vals['name'] and vals['supplier_id']):
             raise osv.except_osv("Error", "Please provide ..")
         # search for books of these editor not already linked with this supplier :
-        select = 'select product_tmpl_id from product_product where editor = %s and id not in (select product_id from product_supplierinfo where name = %s)' % (vals['name'], vals['supplier_id'])
+        select = """select product_tmpl_id\n"""\
+                 """from product_product\n"""\
+                 """where editor = %s\n"""\
+                 """  and id not in (select product_id from product_supplierinfo where name = %s)""" % (vals['name'], vals['supplier_id'])
         cr.execute(select)
         if not cr.rowcount:
             raise osv.except_osv("Error", "No book to apply this relation")
@@ -64,7 +69,12 @@ class library_editor_supplier(osv.osv):
         sup_info = self.pool.get('product.supplierinfo')
         last_id = 0
         for book_id in cr.fetchall():
-            params = {'name': vals['supplier_id'], 'product_id': book_id[0], 'sequence': vals['sequence']}
+            params = {
+                'name': vals['supplier_id'],
+                'product_id': book_id[0],
+                'sequence': vals['sequence'],
+                'delay': vals['delay'],
+            }
             tmp_id = sup_info.create(cr, user, params, context)
             last_id = last_id < tmp_id and last_id or tmp_id
         return last_id
@@ -75,14 +85,20 @@ class library_editor_supplier(osv.osv):
             if not (rel.name and rel.supplier_id):
                 continue
             # search for the equivalent ids in product_supplierinfo (unpack the group)
-            cr.execute("select si.id from product_supplierinfo si join product_product pp on (si.product_id = pp.product_tmpl_id ) where pp.editor = %s and si.name = %s" %(rel.name.id, rel.supplier_id.id))
+            cr.execute("""select si.id\n"""\
+                       """from product_supplierinfo si\n"""\
+                       """join product_product pp\n"""\
+                       """  on (si.product_id = pp.product_tmpl_id )\n"""\
+                       """where pp.editor = %s and si.name = %s""" % (rel.name.id, rel.supplier_id.id))
+
             ids = [x[0] for x in cr.fetchall()]
             self.pool.get('product.supplierinfo').unlink(cr, uid, ids, context)
         return True
 
     def write(self, cr, user, ids, vals, context={}):
         res = {}
-        update = "update product_supplierinfo set sequence = %s where name = %s"
+        update_sequence = "update product_supplierinfo set sequence = %s where name = %s"
+        update_delay = "update product_supplierinfo set delay = %s where name = %s"
         relations = self.browse(cr, user, ids)
         for rel, idn in zip(relations, ids):
             #   cannot change supplier here. Must create a new relation:
@@ -95,8 +111,13 @@ class library_editor_supplier(osv.osv):
             if supplier_change:
                 raise osv.except_osv(_("Warning"), _("Cannot set supplier in this form. Please create a new relation."))
             else:
-                params = (vals.get('sequence', 0), original_supplier_id)
-                cr.execute(update, params)
+                if 'sequence' in vals:
+                    params = [vals.get('sequence', 0), original_supplier_id]
+                    cr.execute(update_sequence, params)
+                if 'delay' in vals:
+                    params = [vals.get('delay', 0), original_supplier_id]
+                    cr.execute(update_delay, params)
+
                 res[str(idn)] = {}
         return res
 

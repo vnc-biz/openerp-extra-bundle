@@ -103,6 +103,7 @@ class sale_order(osv.osv):
                     move_id = self.pool.get('stock.move').create(cr, uid, {
                         'name': 'SO:' + order.name,
                         'picking_id': picking_id,
+                        'origin_ref':order.name,
                         'product_id': line.product_id.id,
                         'date_planned': date_planned,
                         'product_qty': line.product_uom_qty,
@@ -116,6 +117,7 @@ class sale_order(osv.osv):
                         'sale_line_id': line.id,
                         'tracking_id': False,
                         'state': 'waiting',
+                        #'state': 'draft',
                         'note': line.notes,
                         'prodlot_id': line.production_lot_id.id,
                         'customer_ref': line.customer_ref,

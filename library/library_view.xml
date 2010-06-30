@@ -2,14 +2,48 @@
 <openerp>
 <data>
 
+    <record model="ir.ui.view" id="product_state_tree_view">
+        <field name="name">product.state.tree</field>
+        <field name="model">product.state</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Products States">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_state_form_view">
+        <field name="name">product.state.form</field>
+        <field name="model">product.state</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Products States">
+                <field name="name"/>
+                <field name="active"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_state">
+        <field name="name">Configure State</field>
+        <field name="res_model">product.state</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Books/Configuration/Books States" id="menu_state" action="action_state"/>
+
     <record model="ir.ui.view" id="product_product_tree_view">
         <field name="name">product.product.tree</field>
         <field name="model">product.product</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Products" colors="red:state in ['draft', 'end', 'obsolete']">
+            <tree string="Products">
                 <field name="qty_available"/>
                 <field name="virtual_available"/>
+                <field name="qty_available"/>
                 <field name="name"/>
                 <field name="ean13"/>
                 <field name="state" />
@@ -111,6 +145,7 @@
             <field name="list_price" />
             <field name="qty_available"/>
             <field name="virtual_available"/>
+            <field name="qty_available"/>
             <field name="date_retour" />
        </tree>
        </field>
@@ -133,7 +168,7 @@
                     <field name="rack" select="2"/>
 
                      <field name="categ_id" select="2"/> 
-                    <field name="editor" select="1"/>
+                    <field name="editor" select="1" colspan="4"/>
                     <field name="collection" select="2"/>
                     <field name="num_pocket"/>
                     <newline/>
@@ -143,13 +178,13 @@
                         </tree>
                      </field>
                     <group colspan="2" col="2">
-                    <field name="list_price" select="2"/>
-                     <field name="qty_available"/>
-                     <field name="virtual_available"/>
+                        <field name="list_price" select="2"/>
+                        <field name="virtual_available"/>
+                        <field name="qty_available"/>
                     </group>
                 </page>
                 <page string="Details">
-                    <field name="state"/>
+                    <field name="state" widget="selection"/>
                     <field name="nbpage"/>
                     <field name="date_parution" select="2"/>
                     <field name="creation_date" select="2"/>
@@ -159,7 +194,7 @@
                     <field name="weight"/>
                     <field name="back"/>
                     <field name="num_edition"/>
-                      <field name="intrastat_id"/>
+                    <field name="intrastat_id"/>
                     <field name="price_cat" select="2"/>
                     <newline/>
                     <field name="lang"/>
@@ -186,15 +221,11 @@
                     <field name="purchase_ok" />
                     <field name="warranty"/>
                     <field name="rental" />
-                    <!-- 
-                    <field name="price_margin"/>
-                    <field name="price_extra"/>
-                    -->
                     <field name="uos_id" />
                     <field name="uos_coeff" />
                     <field name="cost_method"/>
-                    <field name="procure_method" />
                     <field name="standard_price"/>
+                    <field name="procure_method" />
                     <newline />
                     <field name="seller_ids" colspan="4" select="2" nolabel="1"  widget="one2many_list"/>
                 </page>
@@ -382,8 +413,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-
-
     <record model="ir.ui.view" id="library_editor_supplier_form">
         <field name="name">library.editor.supplier</field>
         <field name="model">library.editor.supplier</field>
@@ -395,6 +424,8 @@
                 <field name="supplier_id" select="1"/>
                 <newline/>
                 <field name="sequence" />
+                <newline/>
+                <field name="delay" />
             </form>
         </field>
     </record>
@@ -408,6 +439,7 @@
           <field name="name"/>
           <field name="supplier_id"/>
           <field name="sequence"/>
+          <field name="delay"/>
           <field name="junk"/>
         </tree>
       </field>
@@ -475,6 +507,7 @@
         <field name="arch" type="xml">
             <tree string="Moves" editable="bottom" color="grey:state=='cancel'">
                 <field name="product_id" />
+                <field name="origin_ref" />
                 <field name="product_qty"  on_change="onchange_qty(product_qty)"/>
                 <field name="product_uos_qty" invisible="True" on_change="onchange_qty(product_uos_qty)"/>
                 <field name="prodlot_id" />
@@ -488,6 +521,17 @@
     </record>
 
 
+    <record model="ir.ui.view" id="purchase_order_line_tree">
+        <field name="name">purchase.order.line.tree</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <field name="origin_ref" />
+            </field>
+        </field>
+    </record>
     <record model="ir.ui.view" id="purchase_order_line_form">
         <field name="name">purchase.order.line.form</field>
         <field name="model">purchase.order.line</field>
@@ -496,6 +540,7 @@
         <field name="arch" type="xml">
             <field name="product_id" position="after">
                 <field name="customer_ref" />
+                <field name="origin_ref" />
                 <field name="production_lot_id" />
             </field>
         </field>
@@ -596,6 +641,164 @@
     <menuitem name="Books/Configuration/Price Categories" id="menu_price_category" action="action_price_category"/>
     -->
     <menuitem name="Books/Configuration/Price Categories" id="menu_price_category" action="action_price_category"/>
+
+        <record id="stock.view_picking_in_form" model="ir.ui.view">
+            <field name="name">stock.picking.in.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Input Packing List">
+                    <group colspan="4" col="6">
+                        <field name="address_id" on_change="onchange_partner_in(address_id)" select="2" context="{'contact_display':'partner'}"/>
+                        <field name="origin" select="2"/>
+                        <field name="invoice_state" select="2" string="Invoice Control"/>
+                        <field name="name" readonly="1" select="1"/>
+                        <field name="min_date" select="2" readonly="1"/>
+                        <field name="backorder_id" select="2" readonly="1"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General Information">
+                            <field colspan="4" name="move_lines" nolabel="1" widget="one2many_list" default_get="{'move_line':move_lines, 'address_in_id': address_id}">
+                                <tree string="Stock Moves">
+                                    <field name="product_id"/>
+                                    <field name="origin_ref"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="location_dest_id"/>
+                                    <field name="prodlot_id"/>
+                                    <field name="state"/>
+                                </tree>
+                                <form string="Stock Moves">
+                                    <separator colspan="4" string="Move Information"/>
+                                    <field name="location_id" select="1" domain="[('usage','&lt;&gt;','view')]"/>
+                                    <field domain="[('usage','=','internal')]" name="location_dest_id" select="1"/>
+                                    <field colspan="4" context="location=location_id" name="product_id" on_change="onchange_product_id(product_id, location_id, location_dest_id)" select="1"/>
+                                    <field name="product_qty" select="1"/>
+                                    <field name="product_uom" select="1"/>
+                                    <field name="origin_ref" select="1"/>
+                                    <field groups="product.group_uos" name="product_uos"/>
+                                    <field groups="product.group_uos" name="product_uos_qty"/>
+                                    <field colspan="4" invisible="1" name="name" select="1"/>
+                                    <field groups="base.group_extended" name="date_planned"/>
+                                    <newline/>
+                                    <newline/>
+                                    <field groups="base.group_extended" name="product_packaging"/>
+                                    <newline/>                                    
+                                    <field name="prodlot_id" select="1"
+                                        context="{'location_id':location_id, 'product_id':product_id}"
+                                        domain="[('product_id','=',product_id)]"
+                                        on_change="onchange_lot_id(prodlot_id,product_qty, location_id)"/>
+                                    <field groups="base.group_extended" name="tracking_id" select="1"/>
+                                    <newline/>
+                                    <label/>
+                                    <button groups="base.group_extended" name="%(stock.track_line)d" string="Split in production lots" type="action"/>
+                                    <separator colspan="4" string="Move State"/>
+                                    <field name="state" select="1"/>
+                                    <group>
+                                        <button name="force_assign" states="confirmed" string="Force Availability" type="object"/>
+                                        <button name="cancel_assign" states="assigned" string="Cancel Availability" type="object"/>
+                                        <button name="action_cancel" states="assigned" string="Cancel" type="object"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <group col="7" colspan="4">
+                                <label colspan="5"/>
+                                <button name="%(stock.act_stock_picking_move_wizard)d" string="Unreceived Products" type="action" states="draft,confirmed,assigned"/>
+                            </group>
+                            <group col="10" colspan="4">
+                                <field name="state" readonly="1"/>
+                                <button name="draft_force_assign" states="draft" string="Process Later" type="object"/>
+                                <button name="draft_validate" states="draft" string="Process Now" type="object"/>
+                                <button name="action_assign" states="confirmed" string="Check Availability" type="object"/>
+                                <button name="force_assign" states="confirmed" string="Force Availability" type="object" groups="base.group_extended"/>
+                                <button name="%(stock.partial_picking)d" states="assigned" string="Products Received" type="action"/>
+                                <button name="button_cancel" states="assigned,confirmed,draft" string="Cancel"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field colspan="4" name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="stock.view_picking_out_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Packing list">
+                    <group col="6" colspan="4">
+                        <field name="address_id" select="2"/>
+                        <field name="min_date" select="2"/>
+                        <field name="name" select="1" readonly="1"/>
+                        <field name="invoice_state"/>
+                        <field name="backorder_id" select="2" readonly="1"/>
+                        <field name="origin" select="2" readonly="1"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General Information">
+                            <field colspan="4" name="move_lines" nolabel="1" widget="one2many_list" default_get="{'move_line':move_lines, 'address_out_id': address_id}">
+                                <form string="Stock Moves">
+                                    <separator colspan="4" string="Move Information"/>
+                                    <field name="location_id" select="1" domain="[('usage','=','internal')]"/>
+                                    <field name="location_dest_id" select="1" domain="[('usage','&lt;&gt;','view')]"/>
+                                    <field colspan="4" context="location=location_id" name="product_id" on_change="onchange_product_id(product_id, location_id, location_dest_id)" select="1"/>
+                                    <field name="product_qty" select="1"/>
+                                    <field name="product_uom" select="1"/>
+                                    <field name="origin_ref" select="1"/>
+                                    <field groups="product.group_uos" name="product_uos"/>
+                                    <field groups="product.group_uos" name="product_uos_qty"/>
+                                    <field colspan="4" invisible="1" name="name" select="1"/>
+                                    <field invisible="1" name="date"/>
+                                    <field name="date_planned"/>
+                                    <field groups="base.group_extended" name="product_packaging"/>
+                                    <field name="prodlot_id" select="1"
+                                        context="{'location_id':location_id, 'product_id':product_id}"
+                                        domain="[('product_id','=',product_id)]"
+                                        on_change="onchange_lot_id(prodlot_id,product_qty, location_id)"/>
+                                    <field groups="base.group_extended" name="tracking_id" select="1"/>
+                                    <label/>
+                                    <button name="%(stock.track_line)d" string="Split in production lots" type="action"/>
+                                    <separator colspan="4" string="Move State"/>
+                                    <field name="state" select="1"/>
+                                    <group>
+                                        <button name="force_assign" states="confirmed" string="Force Availability" type="object"/>
+                                        <button name="cancel_assign" states="assigned" string="Cancel Availability" type="object"/>
+                                        <button name="action_cancel" states="assigned" string="Cancel" type="object"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <group col="7" colspan="4">
+                                <label colspan="6"/>
+                                <button name="%(stock.move_split)d" string="Split in Two" type="action"/>
+                            </group>
+                            <group col="10" colspan="4">
+                                <field name="state" readonly="1"/>
+                                <button name="draft_force_assign" states="draft" string="Process Later" type="object"/>
+                                <button name="draft_validate" states="draft" string="Process Now" type="object"/>
+                                <button name="action_assign" states="confirmed" string="Check Availability" type="object" groups="base.group_extended"/>
+                                <button name="force_assign" states="confirmed" string="Force Availability" type="object"/>
+                                <button name="%(stock.partial_picking)d" states="assigned" string="Packing Done" type="action"/>
+                                <button name="button_cancel" states="assigned,confirmed,draft" string="Cancel"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field colspan="4" name="note" nolabel="1"/>
+                        </page>
+                        <page string="Others info" groups="base.group_extended">
+                            <field name="active" select="2"/>
+                            <field name="auto_picking"/>
+                            <newline/>
+                            <field name="date" select="2"/>
+                            <field name="date_done" select="2"/>
+                            <field name="move_type"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
 
 </data>
 </openerp>

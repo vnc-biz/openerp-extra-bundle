@@ -22,6 +22,15 @@
 from osv import osv, fields
 import time
 
+class product_state(osv.osv):
+    _name = "product.state"
+    _description = "States of Books"
+    _columns={
+        'name': fields.char('State', size=64, select=1, required=True),
+        'active': fields.boolean('Active', select=2),
+    }
+product_state()
+
 
 class many2manysym(fields.many2many):
 
@@ -49,6 +58,9 @@ class product_template(osv.osv):
 
 product_template()
 
+def _state_get(self, cr, uid,context):
+    cr.execute('select name, name from product_state order by name')
+    return cr.fetchall()
 
 class product_lang(osv.osv):
     """Book language"""
@@ -74,11 +86,12 @@ class product_product(osv.osv):
             #code = self._product_code(cr, user, [d['id']], '', '', context)[d['id']]
             name = d.get('name', '')
             ean = d.get('ean13', False)
-            if ean:
-                name = '[%s] %s' % (ean, name)
+            price = d.get('list_price', 0.0)
+            if ean or price:
+                name = '[%s] [%s] %s' % (ean or '', price, name)
             return (d['id'], name)
 
-        return map(_name_get, self.read(cr, user, ids, ['name', 'ean13'], context))
+        return map(_name_get, self.read(cr, user, ids, ['name', 'ean13', 'list_price'], context))
 
     def name_search(self, cr, user, name, args=[], operator='ilike', context={}, limit=80):
         ids = self.search(cr, user, [('default_code', '=', name)]+ args, limit=limit)
@@ -152,7 +165,9 @@ class product_product(osv.osv):
         'tome': fields.char('Tome', size=8),
         'nbpage': fields.integer('Number of pages', size=8),
         'rack': fields.many2one('library.rack', 'Rack', size=16),
-        'state': fields.selection([('draft', 'Not yet published'), ('sellable', 'Available'), ('end', 'Sold Out'), ('obsolete', 'Printing w/o Date')], 'State'),
+        #'state': fields.selection([('draft', 'Not yet published'), ('sellable', 'Available'), ('end', 'Sold Out'), ('obsolete', 'Printing w/o Date')], 'State'),
+        #'state': fields.selection(_state_get, 'State', size=128),
+        'state': fields.many2one('product.state', 'State'),
         'link_ids': many2manysym('product.product', 'book_book_rel', 'product_id1', 'product_id2', 'Related Books'),
         'back': fields.selection([('hard', 'Hardback'), ('paper', 'Paperback')], 'Reliure'),
         'collection': fields.many2one('library.collection', 'Collection'),
@@ -166,7 +181,6 @@ class product_product(osv.osv):
 
     _defaults = {
         'creation_date': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
-        'state': lambda *a: 'sellable',
         'back': lambda *a: 'paper',
         'procure_method': lambda *a: 'make_to_order',
         'date_retour': lambda *a: str(int(time.strftime("%Y"))+1) + time.strftime("-%m-%d"),

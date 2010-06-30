@@ -27,6 +27,7 @@ class stock_move(osv.osv):
     _inherit = 'stock.move'
     _columns = {
         'customer_ref': fields.char('Customer reference', size=64),
+        'origin_ref': fields.char('Origin', size=64),
         'procurement_ids': fields.one2many('mrp.procurement','move_id', 'Procurements')
     }
 

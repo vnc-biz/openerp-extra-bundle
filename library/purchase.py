@@ -29,6 +29,7 @@ class purchase_order_line(osv.osv):
         'origin': fields.char('Origin', size=1024),
         'production_lot_id': fields.many2one('stock.production.lot', 'Production Lot'),
         'customer_ref': fields.char('Customer reference', size=64),
+        'origin_ref': fields.char('Origin', size=64),
     }
 
 purchase_order_line()
@@ -60,6 +61,7 @@ class purchase_order(osv.osv):
                     self.pool.get('stock.move').create(cr, uid, {
                         'name': 'PO:' + order_line.name[:50],
                         'product_id': order_line.product_id.id,
+                        'origin_ref': order.name,
                         'product_qty': order_line.product_qty,
                         'product_uos_qty': order_line.product_qty,
                         'product_uom': order_line.product_uom.id,

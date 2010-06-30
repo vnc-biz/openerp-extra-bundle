@@ -99,7 +99,6 @@ Buy it on Amazon.&quot;" name="description"/>
 			<field eval="0.3" name="weight"/>
 			<field eval="&quot;hard&quot;" name="back"/>
 			<field name="collection" ref="library_collection_al0"/>
-			<field eval="&quot;sellable&quot;" name="state"/>
 			<field name="editor" ref="res_partner_eyrolles0"/>
 			<field name="rack" ref="library_rack_erpbooks0"/>
 			<field eval="&quot;Open ERP - A modern approach to Enterprise Management&quot;" name="name"/>

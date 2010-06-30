@@ -30,7 +30,7 @@
 
 from osv import fields, osv
 
-import sys, time, xmlrpclib
+import sys, time, traceback, xmlrpclib
 from tools import config
 from wizard import except_wizard
 
@@ -821,7 +821,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                 if server.openerp2vm.delete_product(website.login, website.password, eid):
                     cdelete += 1
             except Exception, e:
-                print >> sys.stderr, "XMLRPC Error: %s" % e
+                print >> sys.stderr, "XMLRPC Error (product id %s): %s"%(id,e)
             else:
                 self.unlink_permanent(cr, uid, id)
         #check products to export
@@ -834,7 +834,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                 if website.language_id.code not in languages:
                     raise Exception('Cannot match shop language')
             except Exception, e:
-                print >> sys.stderr, "XMLRPC Error: %s" % e
+                print >> sys.stderr, "XMLRPC Error - openerp2vm.get_languages: %s"%(e)
                 cerror += 1
             else:
                 del languages[website.language_id.code]
@@ -852,6 +852,8 @@ class esale_joomla_product_map(osv.osv): # {{{
                 print 'webtaxes=%r' % webtaxes
                 #
                 for product in product_obj.browse(cr, uid, prod_ids, context=context):
+                    #pid
+                    pid=product.id
                     #id, eid
                     id = self.search(cr, uid, [('web_id', '=', web_id), ('product_id', '=', product.id)])
                     if len(id):
@@ -864,19 +866,19 @@ class esale_joomla_product_map(osv.osv): # {{{
                                 if server.openerp2vm.delete_product(website.login, website.password, eid):
                                     self.unlink_permanent(cr, uid, id)
                             except Exception, e:
-                                print >> sys.stderr, "XMLRPC Error: %s" % e
+                                print >> sys.stderr, "XMLRPC Error (product id %s) - openerp2vm.delete_product: %s"%(pid,e)
                                 cerror += 1
                         continue
                     #
                     d = {
                       #vm_product
                         'id': eid,
-                        'sku': product.code or '',
+                        'sku': product.ean13 or '', #product.code or '',
                         's_desc': '',
-                        'desc': product.description_sale and product.description_sale.replace('\n','<br/>').encode('utf-8') or '',
-                        'image': product.image,
+                        'desc': product.description_sale and product.description_sale.replace('\n','<br/>') or '',
+                        'image': '%s.jpg'%product.ean13, #product.image,
                         'publish': product.online and 'Y' or 'N',
-                        'weight': 0.0,
+                        'weight': product.weight,
                         #'weight_uom': '', #product.uom_id.name,
                         'length': 0.0,
                         'width': 0.0,
@@ -912,26 +914,27 @@ class esale_joomla_product_map(osv.osv): # {{{
                     #   available_date = None
                     #   available_msg = ""
 
-                    in_stock = product_obj.browse(cr, uid, product.id).qty_available
+                    #in_stock = product_obj.browse(cr, uid, product.id).qty_available
+                    in_stock = product.qty_available - product.outgoing_qty
                     d['in_stock'] = in_stock
 
-                    if in_stock:
-                        d['available_date'] = ''
-                        d['availability'] = ''
+                    print 'State=%s'%product.availability_id
+                    delays_by_supplier_seq = [(sup.sequence, sup.delay) for sup in product.seller_ids]
+                    delays_by_supplier_seq.sort(key=lambda x: x[0])
+                    if delays_by_supplier_seq:
+                        delay = delays_by_supplier_seq[0][1]
                     else:
-                        delays_by_supplier_seq = [(sup.sequence, sup.delay) for sup in product.seller_ids]
-                        delays_by_supplier_seq.sort(key=lambda x: x[0])
-                        if delays_by_supplier_seq:
-                            delay = delays_by_supplier_seq[0][1]
-                        else:
-                            delay = product.sale_delay
-
+                        delay = product.sale_delay
+                    if not product.availability_id : #available
+                        d['availability'] = 'available-%s'%delay
+                        d['available_date'] = ''
+                    else:
+                        d['availability'] = product.availability_id.name
                         dt = datetime.datetime.now()
                         delta = datetime.timedelta(days=+delay)
                         dt = dt+delta
                         seconds = from_datetime_to_seconds(dt) # Joomla does not understand date objects, it needs seconds since Epoch
                         d['available_date'] = seconds
-                        d['availability'] = 'This book wll be available on %s' % dt.strftime("%Y-%m-%d")
 
                     if self.pool.get('sale.order')._columns.get('price_type'):
                         # price is tax included:
@@ -959,7 +962,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                                     if val is not False:
                                         d['params'][str(ptm.esale_joomla_id)][ptpm.esale_joomla_id] = val
                                 except Exception, e:
-                                    print >> sys.stderr, 'Cannot evaluate parameter %s: %s' % (ptpm.esale_joomla_id, e)
+                                    print >> sys.stderr, 'Cannot evaluate parameter %s (product id %s): %s' % (ptpm.esale_joomla_id, pid, traceback.format_exc().splitlines()[-1])
                     print 'params=%r' % d['params']
 
                     try:
@@ -968,7 +971,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                         if not eid:
                             raise Exception('Failed')
                     except Exception, e:
-                        print >> sys.stderr, "XMLRPC Error : %r" % e
+                        print >> sys.stderr, "XMLRPC Error (product id %s) - openerp2vm.set_product : %r"%(pid,e)
                         cerror += 1
                         if id:
                             self.write(cr, uid, id, {'state': 'error', 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')}, context=context)
@@ -980,12 +983,13 @@ class esale_joomla_product_map(osv.osv): # {{{
                         php_set_trans_func = server.openerp2vm.set_translation
                         server.openerp2vm.set_translation
                         for (lang_name, lang_id) in languages.iteritems():
-                            tr = product_obj.browse(cr, uid, product.id, context={'lang': lang_name})
+                            product = product_obj.browse(cr, uid, pid, context={'lang': lang_name})
                             try:
-                                err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_s_desc', eid, tr.description_sale or '')
-                                err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_desc', eid, tr.description_sale or '')
+                                #err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_s_desc', eid, tr.description_sale or '')
+                                desc=product.description_sale and product.description_sale.replace('\n','<br/>') or ''
+                                err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_desc', eid, desc)
                             except Exception, e:
-                                print >> sys.stderr, "XMLRPC Error: %s" % e
+                                print >> sys.stderr, "XMLRPC Error (product id %s) - openerp2vm.set_translation : %s"%(pid,e)
                         if err:
                             cerror += 1
                         #create/update entry in mapping table
@@ -1096,7 +1100,7 @@ class esale_joomla_producttypeparam_map(osv.osv): # {{{
     _description = "eSale Product Type Parameters Mapping"
 
     _columns = {
-        'attribute': fields.char('Product Attribute', size=128),
+        'attribute': fields.text('Product Attribute'),
         'producttype_map_id': fields.many2one('esale_joomla.producttype_map', 'Product Type'),
         'esale_joomla_id': fields.char('Web Parameter Name', size=64, readonly=True, required=True),
         'esale_joomla_name': fields.char('Web Parameter Label', size=64, readonly=True),

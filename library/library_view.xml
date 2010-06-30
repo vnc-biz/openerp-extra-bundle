@@ -43,7 +43,6 @@
             <tree string="Products">
                 <field name="qty_available"/>
                 <field name="virtual_available"/>
-                <field name="qty_available"/>
                 <field name="name"/>
                 <field name="ean13"/>
                 <field name="state" />
@@ -145,7 +144,6 @@
             <field name="list_price" />
             <field name="qty_available"/>
             <field name="virtual_available"/>
-            <field name="qty_available"/>
             <field name="date_retour" />
        </tree>
        </field>
@@ -184,7 +182,7 @@
                     </group>
                 </page>
                 <page string="Details">
-                    <field name="state" widget="selection"/>
+                    <field name="availability_id" widget="selection"/>
                     <field name="nbpage"/>
                     <field name="date_parution" select="2"/>
                     <field name="creation_date" select="2"/>

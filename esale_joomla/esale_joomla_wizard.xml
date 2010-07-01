@@ -69,10 +69,15 @@
       id="menu_esale_joomla_web_import_tax"/>
 
     <wizard
+      string="Export to website"
+      model="product.product"
+      name="esale_joomla.product_map.wizard.export"
+      id="wizard_esale_joomla_product_map_export"/>
+    <wizard
       string="Export Products"
       model="esale_joomla.web"
       name="esale_joomla.web.wizard.export.products"
-      id="wizard_esale_joomla_product_map_export"/>
+      id="wizard_esale_joomla_web_export_products"/>
     <menuitem
       name="Export Products" parent="menu_esale_synch"
       action="wizard_esale_joomla_product_map_export"

@@ -61,6 +61,21 @@ _export_select_fields = {
     },
 }
 
+_export_select_form_product = '''<?xml version="1.0"?>
+<form string="Products Export">
+<separator string="Select the Web Shop and the rows to export" colspan="4" />
+<field name="web_shop"/>
+</form>'''
+
+_export_select_fields_product = {
+    'web_shop': {
+        'string': 'Web Shop',
+        'type': 'many2one',
+        'relation': 'esale_joomla.web',
+        'required': True,
+    },
+}
+
 _export_done_form = '''<?xml version="1.0"?>
 <form string="Products Export">
     <separator string="Result" colspan="4" />
@@ -96,6 +111,33 @@ def _export_setup(self, cr, uid, data, context):
         'web_shop': web_shop
     }
 
+def _export_from_product(self, cr, uid, data, context):
+    stderr = sys.stderr
+    sys.stderr = StringIO.StringIO()
+    rnew = rupdate = rdelete = rerror = 0
+    try:
+        print "_export_from_product data = %s" % data
+        if data['model'] != 'product.product':
+            print >> sys.stderr, "Function called not allowed from this model %s" % data['model']
+        else:
+            pool = pooler.get_pool(cr.dbname)
+            esale_joomla_product_map_obj = pool.get('esale_joomla.product_map')
+            esale_joomla_category_map_obj = pool.get('esale_joomla.category_map')
+            web_id = data['form']['web_shop']
+            prod_ids = data['ids']
+            catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)]) #get categories for selected shop
+            if not catmap_ids:
+                print >> sys.stderr, 'No categories for this web shop'
+            else:
+                webcategories = {}
+                for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):
+                    webcategories[x['category_id'][0]] = x['esale_joomla_id']
+                (rnew, rupdate, rdelete, rerror) = esale_joomla_product_map_obj.webexport_product(cr, uid, web_id, prod_ids, webcategories, context)
+    finally:
+        log = sys.stderr.getvalue()
+        sys.stderr.close()
+        sys.stderr = stderr
+    return {'new': rnew, 'update': rupdate, 'delete': rdelete, 'error': rerror, 'log': log}
 
 def _export_from_shop(self, cr, uid, data, context):
     stderr = sys.stderr
@@ -168,5 +210,29 @@ class wiz_export(wizard.interface):
     }
 
 wiz_export('esale_joomla.web.wizard.export.products')
+
+class wiz_export_from_product(wizard.interface):
+    states = {
+        'init': {
+            'actions': [_export_setup],
+            'result': {
+                'type': 'form',
+                'arch': _export_select_form_product,
+                'fields': _export_select_fields_product,
+                'state': [('export', 'Export', 'gtk-execute'), ('end', 'Cancel', 'gtk-cancel')],
+            },
+        },
+        'export': {
+            'actions': [_export_from_product],
+            'result': {
+                'type': 'form',
+                'arch': _export_done_form,
+                'fields': _export_done_fields,
+                'state': [('end', 'End')],
+            },
+        },
+    }
+
+wiz_export_from_product('esale_joomla.product_map.wizard.export')
 
 # vim:et:

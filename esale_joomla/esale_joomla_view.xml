@@ -29,7 +29,7 @@
                     </page>
                     <page string="Taxes Mapping">
                         <field colspan="4" name="tax_ids" nolabel="1">
-                            <tree editable="bottom" colors="red:status==deleted">
+                            <tree editable="bottom" colors="red:status=='deleted'">
                                 <field name="tax_id"/>
                                 <field name="esale_joomla_country_id"/>
                                 <field name="esale_joomla_id"/>
@@ -40,7 +40,7 @@
                     </page>
                     <page string="Categories Mapping">
                         <field colspan="4" name="category_ids" nolabel="1">
-                            <tree editable="bottom" colors="red:status==deleted">
+                            <tree editable="bottom" colors="red:status=='deleted'">
                                 <field name="category_id"/>
                                 <field name="esale_joomla_name"/>
                                 <field name="esale_joomla_id"/>
@@ -103,7 +103,7 @@
         <field name="model">esale_joomla.tax_map</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="eSale Taxes Mapping" colors="red:status==deleted">
+            <tree string="eSale Taxes Mapping" colors="red:status=='deleted'">
                 <field name="tax_id"/>
                 <field name="web_id" select="1"/>
                 <field name="esale_joomla_country_id"/>
@@ -139,7 +139,7 @@
         <field name="model">esale_joomla.category</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="eSale Web Category" colors="red:deleted">
+            <tree string="eSale Web Category">
                 <field name="name"/>
             </tree>
         </field>
@@ -180,7 +180,7 @@
         <field name="model">esale_joomla.category_map</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="eSale Web Categories Mapping" colors="red:status==deleted">
+            <tree string="eSale Web Categories Mapping" colors="red:status=='deleted'">
                 <field name="category_id" select="1" />
                 <field name="web_id" select="2" />
                 <field name="esale_joomla_name" select="1"/>

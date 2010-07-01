@@ -2,6 +2,38 @@
 <openerp>
 <data>
 
+    <record model="ir.ui.view" id="product_lang_tree_view">
+        <field name="name">product.lang.tree</field>
+        <field name="model">product.lang</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Products langs">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_lang_form_view">
+        <field name="name">product.lang.form</field>
+        <field name="model">product.lang</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Products langs">
+                <field name="name"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_lang">
+        <field name="name">Configure Languages</field>
+        <field name="res_model">product.lang</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Books/Configuration/Books Languages" id="menu_lang" action="action_lang"/>
+
+
     <record model="ir.ui.view" id="product_state_tree_view">
         <field name="name">product.state.tree</field>
         <field name="model">product.state</field>

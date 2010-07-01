@@ -68,7 +68,7 @@ class product_lang(osv.osv):
     _name = "product.lang"
 
     _columns = {
-        'name': fields.char('Name', size=128, required=True, select=True),
+        'name': fields.char('Name', size=128, required=True, select=True, translate=True),
     }
 product_lang()
 

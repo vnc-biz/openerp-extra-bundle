@@ -27,6 +27,7 @@ class product_state(osv.osv):
     _description = "States of Books"
     _columns={
         'name': fields.char('State', size=64, select=1, required=True),
+        'code': fields.char('Code', size=64, required=True),
         'active': fields.boolean('Active', select=2),
     }
 product_state()

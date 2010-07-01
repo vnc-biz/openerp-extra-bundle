@@ -929,7 +929,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                         d['availability'] = 'available-%s'%delay
                         d['available_date'] = ''
                     else:
-                        d['availability'] = product.availability_id.name
+                        d['availability'] = product.availability_id.code
                         dt = datetime.datetime.now()
                         delta = datetime.timedelta(days=+delay)
                         dt = dt+delta

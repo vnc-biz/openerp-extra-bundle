@@ -200,7 +200,7 @@ def _export_from_shop(self, cr, uid, data, context):
         pool = self.pool.get('esale_joomla.category_map')
         cond = [('web_id', '=', web_id)]
         if data['form']['target'] == 'last':
-            cond.append(('status', 'in', 'new,modified,deleted'))
+            cond.append(('status', 'in', ["new","modified","deleted"]))
         cat_ids = pool.search(cr, uid, cond, context=context)
         (rnew, rupdate, rdelete, rerror) = pool.webexport(cr, uid, web_id, cat_ids, context)
     finally:

@@ -449,7 +449,7 @@ class esale_joomla_category_map(osv.osv): # {{{
         'esale_joomla_id': fields.integer('Web ID', readonly=True),
         'esale_joomla_parent_id': fields.many2one('esale_joomla.category_map', 'Parent'),
         'state': fields.selection(STATES, 'state', readonly=True, required=True),
-        'status': fields.function(_status, method=True, type='selection', selection=STATES, string='Status', store=False),
+        'status': fields.function(_status, method=True, type='selection', selection=STATES, string='Status', store=True), #store=True for the condition in the wizard
     }
     _defaults = {
         'state': lambda *a: 'new'

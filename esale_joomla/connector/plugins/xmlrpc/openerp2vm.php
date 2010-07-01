@@ -514,7 +514,7 @@ class plgXMLRPCOpenERP2VmServices {
                 $f2=array("'".$id."'");
                 foreach($pt_attrs as $k => $v) {
                     $f1[] = $k;
-                    $f2[] = "'".$v."'";
+                    $f2[] = "'".mysql_real_escape_string($v)."'";
                 }
                 $q.="(".join(",",$f1).") values (".join(",",$f2).");";
 

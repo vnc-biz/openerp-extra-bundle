@@ -80,7 +80,7 @@
       id="wizard_esale_joomla_web_export_products"/>
     <menuitem
       name="Export Products" parent="menu_esale_synch"
-      action="wizard_esale_joomla_product_map_export"
+      action="wizard_esale_joomla_web_export_products"
       type="wizard"
       sequence="40"
       id="menu_esale_joomla_products"/>

@@ -165,10 +165,6 @@ class Debug:
                   ):
 
         if type(active_flags) not in [type([]), type(())]:
-            print  '***' 
-            print  '*** Invalid or oldformat debug param given: %s' % active_flags
-            print  '*** please correct your param, should be of [] type!'
-            print  '*** Due to this, full debuging is enabled'
             active_flags=[DBG_ALWAYS]
 
         if welcome == -1:
@@ -183,7 +179,6 @@ class Debug:
                 try:
                     self._fh = open(log_file,'w')
                 except:
-                    print 'ERROR: can open %s for writing'
                     sys.exit(0)
             else: ## assume its a stream type object
                 self._fh = log_file
@@ -269,7 +264,6 @@ class Debug:
                 output = '%s%s%s' % ( output, flag, self.flag_show )
             else:
                 # this call uses the global default,
-                # dont print "None", just show the separator
                 output = '%s %s' % ( output, self.flag_show )
 
         if type(msg)==type(u'') and self.encoding:
@@ -326,7 +320,7 @@ class Debug:
             flags = self._as_one_list( active_flags )
             for t in flags:
                 if t not in debug_flags:
-                    print 'Invalid debugflag given', t
+                    logger.notifyChannel('Invalid debugflag given', t)
                 else:
                     ok_flags.append( t )
                 

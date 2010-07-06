@@ -95,7 +95,6 @@ class wizard_download_file_for_contrib(wizard.interface):
             tools.trans_load(cr.dbname, filename, self.lang)
                             
         except Exception,e:
-            print e
             raise wizard.except_wizard('Error !',"server is not properly configuraed")
         return {}
 

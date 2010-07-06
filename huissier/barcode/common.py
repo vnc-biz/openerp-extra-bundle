@@ -46,9 +46,7 @@ class Barcode(Flowable):
             
         self.validate()
         self.encode()
-        #print self.encoded
         self.decompose()
-        #print self.decomposed
         self.computeSize()
 
     def validate(self):

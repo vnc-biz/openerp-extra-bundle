@@ -333,7 +333,6 @@ class indicator_account_detail(report_int):
                     AND lin.account_analytic_id in (%s)
                     ORDER BY inv.date_invoice DESC 
                 """ % (",".join(map(str,self.downpayments_ids)), ",".join(map(str,project_children)))
-        print query
         try :
             self.cr.execute(query)
         except Exception, e:

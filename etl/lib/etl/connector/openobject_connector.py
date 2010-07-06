@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+pr# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -119,7 +119,6 @@ class openobject_connector(connector):
         if not self.uid:
             raise Exception('Not login')
         if self.con_type == 'xmlrpc':
-            #print "xmlrpc db uid passwd,",args
             result = getattr(connector, method)(self.db, self.uid, self.passwd, *args)
             return self.__convert(result)
         elif self.con_type == 'socket':
@@ -153,7 +152,6 @@ def test():
                  fields=['partner_id','title', 'name', 'street', 'street2' , 'phone' , 'city' ,  'zip' ,'state_id' , 'country_id' , 'mobile', 'birthdate'],
 ))
     res=test.output()
-    print res
     #TODO
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+p# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2009 Camptocamp SA
@@ -128,7 +128,6 @@ class Currency_rate_update(osv.osv):
                                         netsvc.LOG_INFO, 
                                         'warning cron not found one will be created'
                                      )
-            print 'warning cron not found one will be created'
             pass # ignore if the cron is missing cause we are going to create it in db
         
         #the cron does not exists

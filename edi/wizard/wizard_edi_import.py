@@ -66,7 +66,6 @@ def _child_of_partner(cr, uid, child, parent):
     if child==parent:
         return True
     direct_parent_list=pooler.get_pool(cr.dbname).get('res.partner').read(cr, uid, [child], ['parent_id'])
-    #print str(direct_parent_list)
     if len(direct_parent_list)!=1:
         return False
     if not direct_parent_list[0]['parent_id']:
@@ -85,11 +84,9 @@ def _prepare_import(self, cr, uid, data, context):
             if not os.path.isdir(edi_path):
                 os.makedirs(edi_path)
             for file in os.listdir(edi_path):
-                #print file[:9]
                 if file[:9]=="COMMANDE.":
                     files.append((file, os.path.join(data['form']['ediimportdir'], dir, file)))
     for (filename, file) in files:
-        #print "Importing %s" % filename
         FirstInt=True
         FirstOrd=True
         sr = {'sender':None, 'receiver':None}
@@ -137,7 +134,6 @@ def _prepare_import(self, cr, uid, data, context):
                                 })
 
         if status.error_count==0:
-            print "Integrating %s" % filename
             logline.create(cr, uid, {   'log_id': log_id,
                                         'logdesc': "Importing %s" % filename,
                                     })
@@ -428,13 +424,10 @@ class sale_order_line:
         else:
             self.pack_id=packs[0]
 
-        #print "PriceList: %s, product: %s, quantity: %s " % (self.pricelist_id, self.product, self.quantity)
-        try:
             dico=pooler.get_pool(cr.dbname).get('sale.order.line').product_id_change(self.cr, self.uid, [], self.pricelist_id, self.product, int(float(self.quantity)))
             self.insertdict.update({'product_uos_qty': dico['value']['product_uos_qty'], 'product_uos': dico['value']['product_uos'][0], 'price_unit': dico['value']['price_unit']})
         except:
             status.add_error('No price defined for product %s, line ommited !' % (self.product_ean,), self.sale_order.ordernum, self.sale_order.timestamp_edi, self.sale_order.sr['sender'])
-        #print str(dico)
         # Checking the unit used for the price computation
 #       product_infos = pooler.get_pool(cr.dbname).get('product.product').read(self.cr, self.uid, [self.product])[0]
 #       if product_infos['uos_id'][1] != self.price_unit:

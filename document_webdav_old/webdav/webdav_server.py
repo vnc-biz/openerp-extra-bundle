@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -29,6 +29,8 @@ from dav_fs import tinyerp_handler
 
 import threading
 import pooler
+import netsvc
+logger = netsvc.Logger()
 
 db_name = ''
 host=''
@@ -52,12 +54,10 @@ class dav_server(threading.Thread):
 			runner = server( (self.host, self.port), handler )
 			runner.serve_forever()
 		except Exception, e:
-			print e,self.host,self.port
+			 logger.notifyChannel(e,self.host,self.port)
 
 try:
-	print 'Starting Server', host, port
 	ds = dav_server(host, port)
 	ds.start()
 except Exception , e:
-	print e
-
+	logger.notifyChannel(e)

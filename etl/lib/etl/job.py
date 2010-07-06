@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+pr# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -224,7 +224,6 @@ class job(signal):
         path_profile = os.path.realpath('test_cprofile')
         cProfile.runctx('self.start()', globals(), locals(), path_profile)
         stats = pstats.Stats(path_profile)
-        #to print statstics use: stats.print_stats(10)
         self.end()
 
     def get_statitic_info(self):

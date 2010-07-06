@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -87,7 +87,6 @@ class csv_out(component):
                 for d in iterator:
                     if not self.fp:
                         self.fp = self.connector.open()
-                        print self.fp
                         fieldnames = d.keys()
                         writer = csv.DictWriter(self.fp, fieldnames)
                         writer.writerow(dict(map(lambda x: (x, x), fieldnames)))
@@ -102,7 +101,6 @@ def test():
     test.check_input({'main': [{'tel': '+32.81.81.37.00', 'id': '11', 'name': 'Fabien11'}]})
     test.check_output([{'tel': '+32.81.81.37.00', 'id': '11', 'name': 'Fabien11'}], 'main')
     res = test.output()
-    print res
 
 if __name__ == '__main__':
     test()

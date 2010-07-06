@@ -26,7 +26,7 @@ from osv import osv
 from dm.report.dm_ir_action_report import offer_document
 from report.dm_ir_action_report import report_sxw
 from tools.translate import _
-
+logger = netsvc.Logger()
 
 AVAILABLE_STATES = [ # {{{
     ('draft', 'Draft'),
@@ -446,8 +446,7 @@ class dm_offer(osv.osv): # {{{
                         inst=report_sxw('report.'+new_report_name, 'dm.offer.document', '', parser=offer_document)
                         netsvc.SERVICES['report.%s' % new_report_name] = inst
                     except (AssertionError, ), e:
-                        print e
-
+                       logger.notifyChannel(e)
                 plugins = []
                 for plugin in doc.document_template_plugin_ids:
                     sql = "insert into dm_doc_template_plugin_rel (document_id, document_template_plugin_id) values (%s, %s)"
@@ -471,9 +470,7 @@ class dm_offer(osv.osv): # {{{
                             'step_from_id': ostep['new_id'],
                         })
                     else:
-                        print "WARNING"
-                        print new_steps
-                        print trans
+                         logger.notifyChannel("WARNING")
 
         return offer_id
 

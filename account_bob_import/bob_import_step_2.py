@@ -23,6 +23,9 @@ import csv
 import datetime
 import time
 from datetime import date, timedelta
+import netsvc
+logger = netsvc.Logger()
+
 if __name__ != '__main__':
     from tools import config
 else:
@@ -732,7 +735,7 @@ def import_moves_and_lines(reader_move, writer_move, writer, move_map, map, dict
     for row in reader_move:
         count += 1
         if (count%1000) == 0:
-            print count
+             logger.notifyChannel(count)
 
         if row['HCURRENCY,A,3'] not in currencies:
             currencies.append(row['HCURRENCY,A,3'])
@@ -832,35 +835,29 @@ langs = []
 currencies = []
 
 def run():
-    print 'importing chart of accounts'
     reader_account = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/accoun.csv','rb')) 
     writer_account = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.account.csv', 'wb'), account_map.keys())
     import_account(reader_account, writer_account, account_map)
 
-    print 'importing financial journals'
     reader_journal = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/dbk.csv','rb'))
     writer_journal = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.journal.csv', 'wb'), journals_map.keys())
     import_journal(reader_journal, writer_journal, journals_map)
 
-    print 'importing partners'
     reader_partner = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/compan.csv','rb')) 
     writer_partner = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.csv', 'wb'), partners_map.keys())
     writer_address = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.address.csv','wb'), partner_add_map.keys())
     writer_bank = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.bank.csv','wb'), partner_bank_map.keys())
     import_partner(reader_partner, writer_partner, partners_map, writer_address, partner_add_map, writer_bank, partner_bank_map)
 
-    print 'importing contacts'
     reader_contact = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/contacts.csv','rb')) 
     writer_contact = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.contact.csv','wb'),contacts_map.keys())
     writer_job = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.job.csv','wb'),job_map.keys())
     import_contact(reader_contact, writer_contact, contacts_map, writer_job, job_map)
 
-    print 'importing fiscal years'
     reader_fyear = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/period.csv','rb')) 
     writer_fyear = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.fiscalyear.csv', 'wb'), fyear_map.keys())
     import_fyear(reader_fyear, writer_fyear, fyear_map)
 
-    print 'importing periods'
     reader_period = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/period.csv','rb'))
     writer_period = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.period.csv', 'wb'), periods_map.keys())
     import_period(reader_period, writer_period, periods_map)
@@ -871,7 +868,6 @@ def run():
     reader_vat = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/vat.csv','rb'))
     vat_dict = construct_vat_dict(reader_vat_code, reader_vat, {})
 
-    print 'importing account.move.reconcile'
     reader_ahisto = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/ahisto_matchings.csv','rb'))
     writer_reconcile = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.move.reconcile-1.csv', 'wb'), arecon_map.keys())
     dict_ahisto = import_areconcile(reader_ahisto, writer_reconcile, arecon_map)
@@ -881,15 +877,11 @@ def run():
     dict_chisto = import_creconcile(reader_chisto, writer_reconcile2, crecon_map)
 
 
-    print "importing account.move.line"
     reader_move = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/ahisto.csv','rb'))
     writer_move = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.move.csv', 'wb'), move_map.keys())
     writer_move_line = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.move.line.csv', 'wb'), move_line_map.keys())
     import_moves_and_lines(reader_move, writer_move, writer_move_line, move_map, move_line_map, dict_ahisto, dict_chisto, vat_dict)
 
-    print "Make sure that you installed the following languages:",langs
-    print "\n"
-    print "Make sure that you installed the following currencies:",currencies
 
 if __name__ == '__main__':
     run()

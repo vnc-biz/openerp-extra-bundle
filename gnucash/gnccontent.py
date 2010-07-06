@@ -25,6 +25,8 @@
 import xml.sax as sax
 #import os.path, locale
 import time
+import netsvc
+logger = netsvc.Logger()
 
 class GCDbgHandler (object):
 	"""This class implements a dummy output of the parsed data to
@@ -51,7 +53,6 @@ class GCDbgHandler (object):
 			self.printed[key] = 0
 	def dprint(self,*args):
 		st=map(lambda a: str(a),args)
-		print(' '.join(st))
 		
 	def print_item(self,name,item):
 		if not self.printed.has_key(name):
@@ -116,7 +117,7 @@ class gnc_elem(object):
 	def getchars(self,oh,chars):
 		pass
 	def get_slots(self,slots):
-		print( 'Got slots in %s'% self.name,slots)
+		 logger.notifyChannel('Got slots in %s'% self.name,slots)
 	
 gnc_unk_instances = {}
 class gnc_unk_elem(gnc_elem):
@@ -384,7 +385,7 @@ class gnc_trns_elem(gnc_elem_dict):
 				'trans-read-only', 'trans-date-due']:
 				self.dic[slot[0]]=slot[1]
 			else:
-				print 'Got unknown slot %s in %s'%(slot[0],self.name)
+				 logger.notifyChannel('Got unknown slot %s in %s'%(slot[0],self.name))
 
 	def get_commodity(self,oh,com):
 		self.commodity=com.dic

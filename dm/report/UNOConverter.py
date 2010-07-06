@@ -81,7 +81,6 @@ class DocumentConverter:
 					context = resolver.resolve("uno:%s" % connection)
 					break
 				except Exception, e:
-					print "eeee",e
 					continue
 		if context :
 			self.desktop = context.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", context)

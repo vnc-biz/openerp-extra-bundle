@@ -113,7 +113,6 @@ class account_asset_asset(osv.osv):
             total += move.debit-move.credit
         for move in property.entry_asset_ids:
             if move.account_id == property.account_asset_ids:
-                print 'XXXXXXXXXXXXXXX : ', move.debit
                 total += move.debit
                 total += -move.credit
         periods = (len(property.entry_asset_ids)/2) - property.method_delay

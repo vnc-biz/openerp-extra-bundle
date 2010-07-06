@@ -139,7 +139,6 @@ try:
     from UNOConverter import DocumentConverter
     converter = DocumentConverter()
 except Exception,e:
-    print "ERROR: failed to create document converter:",e
     converter=None
 # over rider report_sxw class
 def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
@@ -237,12 +236,10 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
     report_type = report_xml.report_type[3:]
     if report_type != mime_type:
         if not converter:
-            print "error: ODT converter not available"
             final_op = None
         else :
             start_time = time.time()
             final_op = converter.storeByPath(final_op, report_type)
-            print "Time taken to convert",time.time() - start_time
     sxw_io.close()        
     return (final_op, report_type)
 

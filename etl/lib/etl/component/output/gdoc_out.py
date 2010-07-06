@@ -103,7 +103,6 @@ def test():
     test = etl_test.etl_component_test(out_doc)
 #    test.check_output([{'phone_numbers': [''], 'postal_addresses': [''], 'emails': [''], 'title': ''}], 'main')
     res = test.output()
-    print res
 
 if __name__ == '__main__':
     test()

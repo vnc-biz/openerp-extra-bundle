@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -74,5 +74,3 @@ dictn={'a': 'aaa', 'school': {'id': '1', 'name': ' high-school '}}
 
 if __name__ == '__main__':
     res=  dictToXml(dictn)
-    print res
-

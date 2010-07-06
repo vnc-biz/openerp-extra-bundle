@@ -217,9 +217,6 @@ class general_ledger_landscape(rml_parse.rml_parse):
                 self.min_date = date_min
             else:
                 self.min_date = period_min
-#        print "ctx=", self.ctx
-#        print "ctxfy=", self.ctxfy
-#        print "query=", self.query
 
 
     def get_children_accounts(self, account, form):

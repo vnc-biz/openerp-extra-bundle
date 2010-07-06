@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+pr# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -103,7 +103,6 @@ def test():
     import etl
     cal_conn=gcalendar_connector('username','password')
     cal_service = cal_conn.open()
-    print cal_service
 
 if __name__ == '__main__':
     test()

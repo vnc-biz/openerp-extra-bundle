@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -26,6 +26,8 @@ Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 GNU General Public License
 """
 from etl.connector import connector
+import netsvc
+logger = netsvc.Logger()
 
 class gdoc_connector(connector):
     """
@@ -98,8 +100,7 @@ def test():
     documents_feed = gdoc_service.GetDocumentListFeed()
     for document_entry in documents_feed.entry:
         # Display the title of the document on the command line.
-        print document_entry.title.text
-    print gdoc_service
+        logger.notifyChannel(gdoc_service)
 
 if __name__ == '__main__':
     test()

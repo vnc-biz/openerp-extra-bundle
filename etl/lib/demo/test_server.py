@@ -1,4 +1,4 @@
-#!/usr/bin/python
+p#!/usr/bin/python
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #    
@@ -24,7 +24,8 @@ import sys
 sys.path.append('..')
 
 import etl
-
+import netsvc
+logger = netsvc.Logger()
 
 fileconnector_partner=etl.connector.localfile('input/partner.csv')
 
@@ -88,13 +89,12 @@ class etl_server(threading.Thread):
             fp = open(self.path,'a+')
             value = pickle.load(fp)
         except Exception,e:
-            print e
+             logger.notifyChannel(e)
         return value
 
     def run(self):
         try:
             obj = self.read()
-            print "obj",obj
             if obj:
                 if self.job.job_id == obj.job_id:
                     if obj.status == 'end':
@@ -102,16 +102,13 @@ class etl_server(threading.Thread):
                         #self.write()
                         pass
                     elif obj.status == 'pause':
-                        print "!!!!!!!!!!!"
                         self.job = False
                         self.job = obj
                         try:
-                            print "=============="
                             self.job.run()
-                            print "<<<<<<<<<<<<<<<<<<<"
                             self.write()
                         except Exception,e:
-                            print e
+                             logger.notifyChannel(e)
                     else:
                         pass
                 else:

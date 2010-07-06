@@ -62,6 +62,4 @@ oo_out_event= etl.component.output.openobject_out(
 tran=etl.transition(gcalendar_in_events, map)
 tran=etl.transition(map, oo_out_event)
 job1=etl.job([gcalendar_in_events,oo_out_event])
-print job1
 job1.run()
-#print job1.get_statitic_info()

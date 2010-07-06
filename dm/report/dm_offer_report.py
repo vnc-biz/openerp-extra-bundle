@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -38,10 +38,8 @@ class offer_report(report_sxw.rml_parse):
         attachment_ids = self.pool.get('ir.attachment').search(self.cr, 
                                         self.uid, [('res_id', '=', offer_id), 
                                         ('res_model', '=', 'dm.offer')])
-#        print attachment_ids
         attachment = self.pool.get('ir.attachment').read(self.cr, self.uid, 
                                                     attachment_ids, ['name'])
-#        print attachment
         return ','.join(map(lambda x: x['name'], attachment))
     
     def offer_step_docs(self, offer_step_id):
@@ -50,7 +48,6 @@ class offer_report(report_sxw.rml_parse):
                                     ('res_model', '=', 'dm.offer.step')])
         attachment = self.pool.get('ir.attachment').read(self.cr, self.uid, 
                                                     attachment_ids, ['name'])
-#        print attachment
         return ','.join(map(lambda x: x['name'], attachment)) 
 #    def offer_steps(self, offer_id):
 #        offer_step_ids = self.pool.get('dm.offer.step').search(self.cr,

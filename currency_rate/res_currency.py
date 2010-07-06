@@ -24,6 +24,8 @@ import urllib,urllib2
 import time
 from xml.dom import minidom
 import pooler
+import netsvc
+logger = netsvc.Logger()
 
 class res_currency(osv.osv):
     _inherit = "res.currency"
@@ -48,7 +50,7 @@ class res_currency(osv.osv):
                 try:
                     response = urllib2.urlopen(req)
                 except Exception, e:
-                    print 'Error : ', e
+                    logger.notifyChannel('Error : ', e)
                 
                 data = response.read()
                 xmldoc = minidom.parseString(data)

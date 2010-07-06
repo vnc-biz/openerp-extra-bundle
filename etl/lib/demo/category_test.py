@@ -1,4 +1,4 @@
-#!/usr/bin/python
+p#!/usr/bin/python
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #    
@@ -74,6 +74,4 @@ tran=etl.transition(map, oo_out_partner)
 #tran=etl.transition(map1, oo_out_event1)
 #tran=etl.transition(oo_out_address,log1)
 job1=etl.job([map,log1,oo_out_cat,oo_out_partner])
-print job1
 job1.run()
-#print job1.get_statitic_info()

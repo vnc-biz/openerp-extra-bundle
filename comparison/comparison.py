@@ -321,7 +321,6 @@ class comparison_factor_result(osv.osv):
 #    def _compute_score(self, cr, uid, ids, name, args, context):
 #        if not ids: return {}
 #        result = {}
-#        print "iiiiiiiiids",ids
 #        for obj_factor_result in self.browse(cr, uid, ids):
 ##            consider maximum vote factor = 5.0
 #            pond_div = 5.00

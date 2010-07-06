@@ -113,7 +113,6 @@ def test():
     sqlconnector_partner=sql_connector('localhost',5432, 'test', 'postgres', 'postgres')
     test = etl_test.etl_component_test(etl.component.input.sql_in(sqlconnector_partner,'select * from res_partner where id<=10 order by id'))
     res=test.output()
-    print res
 
     pass
 

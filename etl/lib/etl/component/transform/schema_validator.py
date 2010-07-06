@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -139,7 +139,6 @@ def test():
 	}
     test = etl_test.etl_component_test(schema_validator(schema))
     test.check_input({'main': input_part})
-    print test.output()
 
 if __name__ == '__main__':
     test()

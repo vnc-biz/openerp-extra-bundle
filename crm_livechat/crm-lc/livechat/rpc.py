@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+pr# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution	
@@ -376,9 +376,7 @@ class RPCSession(object):
 
         try:
 
-#            print "TERP-CALLING:", obj, method, args
             result = self.gateway.execute(obj, method, *args)
-#            print "TERP-RESULT:", result
             return self.__convert(result)
 
         except socket.error, (e1, e2):
@@ -448,16 +446,9 @@ if __name__=="__main__":
     session = RPCSession(host, port, protocol, storage=dict())
 
     res = session.listdb()
-    print res
-
     res = session.login('test421', 'admin', 'admin')
-    print res
-
     res = RPCProxy('res.users').read([session.uid], ['name'])
-    print res
-
     res = RPCProxy('ir.values').get('action', 'tree_but_open', [('ir.ui.menu', 73)], False, {})
-    print res
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

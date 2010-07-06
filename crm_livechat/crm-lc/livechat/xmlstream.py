@@ -322,7 +322,6 @@ class Stream(NodeBuilder):
                 try:
                     self._logFH = open(log,'w')
                 except:
-                    print "ERROR: can open %s for writing" % log
                     sys.exit(0)
             else: ## assume its a stream type object
                 self._logFH = log
@@ -342,16 +341,13 @@ class Stream(NodeBuilder):
 
     def read(self):
         """Reads incoming data. Blocks until done. Calls self.disconnected(self) if appropriate."""
-        print "In read..."
         try: 
             received = self._read(BLOCK_SIZE)
         except: 
             received = ''
-        print "In read...2",received
         while select([self._reader],[],[],0)[0]:
         
             add = self._read(BLOCK_SIZE)
-            print add,"while"    
             received +=add
             if not add: break
 
@@ -382,14 +378,10 @@ class Stream(NodeBuilder):
     def process(self, timeout=0):
         """Receives incoming data (if any) and processes it.
            Waits for data no more than timeout seconds."""
-        print "Processing1"
         if select([self._reader],[],[],timeout)[0]:
             data = self.read()
-            print "data:::",data
             self._parser.Parse(data)
-        print "Processing2"
         return len(data)
-        print "ProcessingReturn"
         return '0'     # Zero means that nothing received but link is alive.
 
     def disconnect(self):
@@ -401,7 +393,6 @@ class Stream(NodeBuilder):
 
     def disconnected(self,conn):
         """Called when a Network Error or disconnection occurs."""
-        print "Disconnected."
         try: self.disconnectHandler(conn)
         except TypeError: self.disconnectHandler()
 
@@ -565,16 +556,12 @@ class Server:
 
     def serve(self):
 
-        print 'select-server loop starting'
-
         while 1:
-            print "LOOPING"
             readables, writeables, exceptions = select(self.readsocks,
                                                        self.writesocks, [])
             for sockobj in readables:
                 if sockobj in self. mainsocks:   # for ready input sockets
                     newsock, address = sockobj.accept() # accept not block
-                    print 'Connect:', address, id(newsock)
                     self.readsocks.append(newsock)
                     self._makeNewStream(newsock)
                     # add to select list, wait
@@ -582,7 +569,6 @@ class Server:
                     # client socket: read next line
                     data = sockobj.recv(1024)
                     # recv should not block
-                    print '\tgot', data, 'on', id(sockobj)
                     if not data:        # if closed by the clients
                         sockobj.close() # close here and remv from
                         self.readsocks.remove(sockobj)

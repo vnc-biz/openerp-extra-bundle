@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+pr# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -75,7 +75,6 @@ class tinyerp_handler(dav_interface):
 
 	@memoize(4)
 	def db_list(self):
-		print '*'*90
 		s = netsvc.LocalService('db')
 		result = s.list()
 		self.db_name_list=[]
@@ -151,7 +150,6 @@ class tinyerp_handler(dav_interface):
 	@memoize(CACHE_SIZE)
 	def _get_dav_resourcetype(self,uri):
 		""" return type of object """
-		print 'RT', uri
 		if uri[-1]=='/':uri=uri[:-1]
 		if self.is_db(uri):
 			return COLLECTION
@@ -168,7 +166,6 @@ class tinyerp_handler(dav_interface):
 	@memoize(CACHE_SIZE)
 	def _get_dav_getcontentlength(self,uri):
 		""" return the content length of an object """
-		print 'Get DAV CL', uri
 		if uri[-1]=='/':uri=uri[:-1]
 		if self.is_db(uri):
 			return '0'
@@ -183,7 +180,6 @@ class tinyerp_handler(dav_interface):
 	@memoize(CACHE_SIZE)
 	def get_lastmodified(self,uri):
 		""" return the last modified date of the object """
-		print 'Get DAV Mod', uri
 		if uri[-1]=='/':uri=uri[:-1]
 		today = time.time()
 		#return today
@@ -202,7 +198,6 @@ class tinyerp_handler(dav_interface):
 	@memoize(CACHE_SIZE)
 	def get_creationdate(self,uri):
 		""" return the last modified date of the object """
-		print 'Get DAV Cre', uri
 
 		if self.is_db(uri):
 			raise DAV_Error, 409
@@ -218,7 +213,6 @@ class tinyerp_handler(dav_interface):
 
 	@memoize(CACHE_SIZE)
 	def _get_dav_getcontenttype(self,uri):
-		print 'Get DAV CT', uri
 		if uri[-1]=='/':uri=uri[:-1]
 		if self.is_db(uri):
 			return 'httpd/unix-directory'
@@ -233,7 +227,6 @@ class tinyerp_handler(dav_interface):
 
 	def mkcol(self,uri):
 		""" create a new collection """
-		print 'MKCOL', uri
 		if uri[-1]=='/':uri=uri[:-1]
 		if self.is_db(uri):
 			raise DAV_Error, 409
@@ -271,22 +264,18 @@ class tinyerp_handler(dav_interface):
 
 	def put(self,uri,data,content_type=None):
 		""" put the object into the filesystem """
-		print 'Putting', uri, len(data), content_type
 		if self.is_db(uri):
 			raise DAV_Forbidden
 		parent='/'.join(uri.split('/')[:-1])
 		cr, uid, pool, uri2 = self.get_cr(uri)
-		print 'Looking Node'
 		try:
 			node = self.uri2object(cr,uid,pool, uri2[:])
 		except:
 			node = False
-		print 'NODE FOUND', node
 		fobj = pool.get('ir.attachment')
 		objname = uri2[-1]
 		ext = objname.find('.') >0 and objname.split('.')[1] or False
 		if node and node.type=='file':
-			print '*** FILE', node.object
 			val = {
 				'file_size': len(data),
 				'datas': base64.encodestring(data),
@@ -294,7 +283,6 @@ class tinyerp_handler(dav_interface):
 			cid = fobj.write(cr, uid, [node.object.id], val)
 			cr.commit()
 		elif not node:
-			print '*** CREATE', 'not node'
 			node = self.uri2object(cr,uid,pool, uri2[:-1])
 			object2=node and node.object2 or False
 			object=node and node.object or False
@@ -326,7 +314,6 @@ class tinyerp_handler(dav_interface):
 			cr.close()
 			return 201
 		else:
-			print '*** FORB'
 			raise DAV_Forbidden
 
 	def rmcol(self,uri):
@@ -363,7 +350,6 @@ class tinyerp_handler(dav_interface):
 		if not object:
 			raise DAV_NotFound, 404
 
-		print ' rm',object._table_name,uri
 		if object._table_name=='ir.attachment':
 			res = pool.get('ir.attachment').unlink(cr, uid, [object.id])
 		else:
@@ -515,7 +501,6 @@ class tinyerp_handler(dav_interface):
 		advanced systems we might also have to copy properties from
 		the source to the destination.
 		"""
-		print " copy a collection."
 		return self.mkcol(dst)
 
 
@@ -532,7 +517,6 @@ class tinyerp_handler(dav_interface):
 		except:
 			pass
 		cr.close()
-		print 'Get Exists', uri, result
 		return result
 
 	@memoize(CACHE_SIZE)

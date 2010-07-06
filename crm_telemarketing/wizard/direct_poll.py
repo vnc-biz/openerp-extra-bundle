@@ -107,12 +107,9 @@ class direct_poll(wizard.interface):
         answer_obj = pooler.get_pool(cr.dbname).get('crm_profiling.answer')
         answer_args = [('question_id','=', question)]
         answer_ids = answer_obj.search(cr, uid, answer_args)
-        #print 'ANSWER_IDS: %s' % str(answer_ids)
         for id in answer_ids:
             answer = answer_obj.read(cr, uid, [id], ['name'], context=context)[0]
-            #print 'ANSWER: %s:%s' % (str(id), str(answer))
             select_form.append((id, answer['name']))
-        #print 'SELECT_FORM: % s' % str(select_form)
         return select_form
 
     def build_form(self, cr, uid, question, context):

@@ -60,10 +60,8 @@ def get_language(cr,uid,context,user=None,model=None,lang=None):
             sql = "select distinct lang from ir_translation_contribution where state='propose'"
         else:
             sql = "select distinct lang from ir_translation"
-        print sql
         cr.execute(sql)
         list = map(lambda x: x[0],cr.fetchall())
-        print list
     else :
         sql = "select distinct lang from ir_translation_contribution where state='accept'"
         cr.execute(sql)

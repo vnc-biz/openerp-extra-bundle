@@ -187,7 +187,6 @@ class STPortraitTotalPage(STPortrait):
         """ receive messages on each step of the template processing"""
         if what=='STARTED':
             self._lastnumPages = self.numPages          
-        #print what, arg
 
     def _allSatisfied(self):
         """ multibuild ask this method to know if a additionnal pass is requiered. If return 0, a new pass is run"""

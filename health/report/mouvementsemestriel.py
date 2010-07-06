@@ -89,14 +89,12 @@ class mouvementsemestriel(report_sxw.rml_parse):
                     abs_ids = absences_obj.search(self.cr,self.uid,[('partner_id','=',a['id']),('du','>=',self.semestre['date_start']),('du','<=',self.semestre['date_stop'])])+absences_obj.search(self.cr,self.uid,[('partner_id','=',a['id']),('au','>=',self.semestre['date_start']),('au','<=',self.semestre['date_stop'])])
                     if abs_ids :
                         for abs in  absences_obj.read(self.cr,self.uid,abs_ids):
-                            print abs['categorie']
                             if abs['categorie']=='1':
                                 raison = "Hospitalisation"
                             elif abs['categorie']=='2':
                                 raison = "Convenance Personnelle"
                             else:
                                 raison = "Autres raisons"
-			    print  abs	
                             if abs["du"] and abs["au"]:
 				    absences = "du " + time.strftime('%d/%m/%Y', time.strptime(abs["du"], '%Y-%m-%d'))+" au "+time.strftime('%d/%m/%Y', time.strptime(abs["au"], '%Y-%m-%d'))+" pour " +raison+"\n"
                     else:

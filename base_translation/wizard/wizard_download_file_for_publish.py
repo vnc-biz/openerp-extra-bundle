@@ -111,7 +111,6 @@ class wizard_download_file_for_publish(wizard.interface):
             if e.__dict__.has_key('name'):
                 raise wizard.except_wizard('Error !',e.value)
             else:
-                print e
                 raise wizard.except_wizard('Error !',"server is not properly configuraed")
         return {}
     

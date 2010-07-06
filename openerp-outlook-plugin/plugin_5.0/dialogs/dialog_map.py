@@ -1,4 +1,4 @@
- #!/usr/bin/python
+p #!/usr/bin/python
  #-*- encoding: utf-8 -*-
 
 from processors import *
@@ -196,7 +196,6 @@ def getConnAttributes(manager):
     return
 
 def getMessage(e):
-    print "Exception %s: %s"%(type(e),str(e))
     msg = str(e)
     if type(e) == pywintypes.com_error:
         msg=str(e)
@@ -221,7 +220,6 @@ class OKButtonProcessor(ButtonProcessor):
         try:
             port = int(win32gui.GetDlgItemText(self.window.hwnd, self.other_ids[1]))
         except ValueError, e:
-            print "Exception : %s"%str(e)
             win32ui.MessageBox("Port should be an integer", "Error", flag_excl)
             return
         except Exception,e:
@@ -368,7 +366,6 @@ def TestConnection(btnProcessor,*args):
             win32ui.MessageBox("Please enter database name", "", flag_excl)
             return
     except Exception,e:
-        print "Exception %s: %s"%(type(e),str(e))
     dbname = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
     if not dbname:
         win32ui.MessageBox("No database found on host "+ server+" at port "+str(port), "Database Connection", flag_excl)

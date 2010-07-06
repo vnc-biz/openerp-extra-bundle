@@ -63,6 +63,8 @@ import cgi          # for HTML escaping of variables
 import urllib       # for URL escaping of variables
 import cPickle      # for template compilation
 import gettext
+import netsvc
+logger = netsvc.Logger()
 
 INCLUDE_DIR = "inc"
 
@@ -222,8 +224,6 @@ class TemplateManager:
                 try:
                     precompiled = self.load_precompiled(file)
                 except PrecompiledError, template:
-                    print >> sys.stderr, "Htmltmpl: bad precompiled "\
-                                         "template '%s' removed" % template
                     compiled = self.compile(file)
                     self.save_precompiled(compiled)
                 else:
@@ -277,7 +277,8 @@ class TemplateManager:
         """ Print debugging message to stderr if debugging is enabled. 
             @hidden
         """
-        if self._debug: print >> sys.stderr, str
+       if self._debug:
+            logger.notifyChannel('>> sys.stderr', str)
 
     def lock_file(self, file, lock):
         """ Provide platform independent file locking.
@@ -793,7 +794,8 @@ class TemplateProcessor:
         """ Print debugging message to stderr if debugging is enabled.
             @hidden
         """
-        if self._debug: print >> sys.stderr, str
+         if self._debug:
+            logger.notifyChannel('>> sys.stderr', str)
 
     def find_value(self, var, loop_name, loop_pass, loop_total,
                    global_override=None):
@@ -1039,8 +1041,8 @@ class TemplateCompiler:
         """ Print debugging message to stderr if debugging is enabled.
             @hidden
         """
-        if self._debug: print >> sys.stderr, str
-    
+         if self._debug:
+            logger.notifyChannel('>> sys.stderr', str)
     def read(self, filename):
         """ Read content of file and return it. Raise an error if a problem
             occurs.
@@ -1454,8 +1456,8 @@ class Template:
         """ Print debugging message to stderr.
             @hidden
         """
-        if self._debug: print >> sys.stderr, str
-
+       if self._debug:
+            logger.notifyChannel('>> sys.stderr', str)
 
 ##############################################
 #                EXCEPTIONS                  #

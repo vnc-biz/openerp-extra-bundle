@@ -11,6 +11,8 @@ import sys
 import os
 from win32com.client import Dispatch
 import win32con
+import netsvc
+logger = netsvc.Logger()
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))    #outlook
 sys.path.append(os.path.abspath(__file__))                     #outlook/addin
@@ -100,13 +102,12 @@ class OutlookAddin:
         mngr = manager.GetManager()
         mngr.config['login'] = False
         mngr.SaveConfig()
-        print "OnDisconnection"
     def OnAddInsUpdate(self, custom):
-        print "OnAddInsUpdate", custom
+         logger.notifyChannel("OnAddInsUpdate", custom)
     def OnStartupComplete(self, custom):
-        print "OnStartupComplete", custom
+         logger.notifyChannel("OnStartupComplete", custom)
     def OnBeginShutdown(self, custom):
-        print "OnBeginShutdown", custom
+         logger.notifyChannel("OnBeginShutdown", custom)
     def GetAppDataPath(self):
         mngr = manager.GetManager()
         return mngr.data_directory

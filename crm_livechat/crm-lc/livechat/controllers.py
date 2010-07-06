@@ -48,8 +48,6 @@ class Root(controllers.RootController):
         if not(cherrypy.session.has_key(cherrypy.request.remoteAddr)):
             cherrypy.session[cherrypy.request.remoteAddr] = cherrypy.request.remoteAddr
 
-        print "cherrypy.session[cherrypy.request.remoteAddr]::",cherrypy.session[cherrypy.request.remoteAddr],"::::",cherrypy.request.remoteAddr
-        print "Redirecting to ChatFunc"
         raise redirect('chatfunc/index')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

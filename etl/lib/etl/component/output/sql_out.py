@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+p# -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    ETL system- Extract Transfer Load system
@@ -98,7 +98,6 @@ def test():
     test.check_input({'main': [{'name': 'tinyerp belgium'}]})
     test.check_output([{'name': 'tinyerp belgium'}], 'main')
     res = test.output()
-    print res
 
 if __name__ == '__main__':
     test()

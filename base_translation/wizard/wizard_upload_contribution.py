@@ -85,7 +85,6 @@ class wizard_upload_contrib(wizard.interface):
         try :
             s.publish_contrib(lang,version,profile,filename,content)
         except Exception,e:
-            print e
             raise wizard.except_wizard('Error !',"server is not properly configuraed")
         if len(ids)>1:
             ids = str(tuple(ids))

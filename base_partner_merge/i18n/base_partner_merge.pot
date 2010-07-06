@@ -109,17 +109,6 @@ msgid "Merge Two Partner Address"
 msgstr ""
 
 #. module: base_partner_merge
-#: model:ir.module.module,description:base_partner_merge.module_meta_information
-msgid "\n"
-"\n"
-"    This Module creates two wizard on:\n"
-"    1. partners\configuration\merge partners => It merge two partners and create new third partner, and deactivate old two partners\n"
-"    2. partners\configuration\merge addresses => It merge two partner addresses and create new third address, and deactivate old two addresses\n"
-"\n"
-"    "
-msgstr ""
-
-#. module: base_partner_merge
 #: model:ir.actions.wizard,name:base_partner_merge.wizard_base_partner_address_merge
 #: model:ir.ui.menu,name:base_partner_merge.menu_wizard_base_partner_address_merge
 msgid "Merge Addresses"

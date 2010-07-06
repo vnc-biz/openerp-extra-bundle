@@ -242,10 +242,7 @@ msgstr ""
 
 #. module: l10n_be_postal_subscriber
 #: model:ir.module.module,description:l10n_be_postal_subscriber.module_meta_information
-msgid "\n"
-"        Module to permit the manual synchronisation of subscriber between the partners DB of Tiny and\n"
-"        the belgian Post software named SUMO that manage subscriber with preferentials tarifications\n"
-"    "
+msgid "Module to permit the manual synchronisation of subscriber between the partners DB of Tiny and the belgian Post software named SUMO that manage subscriber with preferentials tarifications"
 msgstr ""
 
 #. module: l10n_be_postal_subscriber

@@ -1587,15 +1587,16 @@ class stock_move(osv.osv): # {{{
     _inherit = 'stock.move'
 
     def create(self, cr, user, vals, context=None):
-        super(stock_move, self).create(cr, user, vals, context=context)
+        move_id = super(stock_move, self).create(cr, user, vals, context=context)
         product_id = vals.get('product_id')
         if product_id:
             self.pool.get('product.product').write(cr, user, [product_id], {
                 'stock_has_moved': True,
             })
+        return move_id
 
     def write(self, cr, user, ids, vals, context=None):
-        super(stock_move, self).write(cr, user, ids, vals, context=context)
+        res = super(stock_move, self).write(cr, user, ids, vals, context=context)
 
         if isinstance(ids, (int, long)):
             ids = [ids]
@@ -1606,6 +1607,7 @@ class stock_move(osv.osv): # {{{
                 self.pool.get('product.product').write(cr, user, [move.product_id.id], {
                     'stock_has_moved': True,
                 })
+        return res
 
 stock_move() # }}}
 

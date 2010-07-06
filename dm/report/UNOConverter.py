@@ -81,16 +81,17 @@ class DocumentConverter:
 					context = resolver.resolve("uno:%s" % connection)
 					break
 				except Exception, e:
+					print "eeee",e
 					continue
 		if context :
 			self.desktop = context.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", context)
-
+            
 	def convertByStream(self, stdinBytes, outputExt='pdf'):
 		inputStream = self.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self.localContext)
 		inputStream.initialize((uno.ByteSequence(stdinBytes),))
-
-		document = self.desktop.loadComponentFromURL('private:stream' , "_blank", 0,  self._toProperties(Hidden=True,InputStream=inputStream) )
-
+		
+		document = self.desktop.loadComponentFromURL('private:stream' , "_blank", 0,  self._toProperties(Hidden=True,InputStream=inputStream) )	
+			
 		if not document:
 			raise Exception, "Error making document"
 		try:
@@ -113,13 +114,13 @@ class DocumentConverter:
 		data= outputStream.data.getvalue()
 		outputStream.close()
 		return data
-
+	
 	def storeByPath(self, stdinBytes, outputExt='pdf'):
 		inputStream = self.ServiceManager.createInstanceWithContext("com.sun.star.io.SequenceInputStream", self.localContext)
 		inputStream.initialize((uno.ByteSequence(stdinBytes),))
 
-		document = self.desktop.loadComponentFromURL('private:stream' , "_blank", 0,  self._toProperties(Hidden=True,InputStream=inputStream) )
-
+		document = self.desktop.loadComponentFromURL('private:stream' , "_blank", 0,  self._toProperties(Hidden=True,InputStream=inputStream) )	
+			
 		if not document:
 			raise Exception, "Error making document"
 		try:

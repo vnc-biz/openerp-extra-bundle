@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 import wizard
@@ -39,13 +39,13 @@ view_form_end = """<?xml version="1.0"?>
     <label align="0.5" string="For more information about translation process ,you can consult : http://openerp.com/wiki/index.php/Translation_Process" colspan="4"/>
 </form>"""
 
-warning_message ="""<?xml version="1.0"?>
-    <form string="!!! Warning">
-        <image name="gtk-dialog-info" colspan="2"/>
-        <group colspan="2" col="4">
-            <separator string="%s" colspan="4"/>
-            <label align="0.0" string="%s" colspan="4"/>
-        </group>
+warning_message ="""<?xml version="1.0"?> 
+    <form string="!!! Warning"> 
+        <image name="gtk-dialog-info" colspan="2"/> 
+        <group colspan="2" col="4"> 
+            <separator string="%s" colspan="4"/> 
+            <label align="0.0" string="%s" colspan="4"/> 
+        </group> 
     <label align="0.5" string="For more information about translation process ,you can consult : http://openerp.com/wiki/index.php/Translation_Process" colspan="4"/>
     </form>"""
 
@@ -56,7 +56,7 @@ view_form = """<?xml version="1.0"?>
     <separator string="Language List" colspan="4"/>
         <label align="0.0" string="Choose a Version and Profile for language :" colspan="4"/>
         <field name="lang" colspan="4"/>
-        <field name="version" colspan="4" />
+        <field name="version" colspan="4" /> 
         <field name="profile" colspan="4"/>
     </group>
     <label align="0.5" string="For more information about translation process ,you can consult : http://openerp.com/wiki/index.php/Translation_Process" colspan="4"/>
@@ -72,7 +72,7 @@ view_form_version = """<?xml version="1.0"?>
         <label align="0.0" string="Note that this operation may take a few minutes." colspan="4"/>
     </group>
     <label align="0.5" string="For more information about translation process ,you can consult : http://openerp.com/wiki/index.php/Translation_Process" colspan="4"/>
-
+    
 </form>"""
 
 class wizard_download_file_for_contrib(wizard.interface):
@@ -81,7 +81,7 @@ class wizard_download_file_for_contrib(wizard.interface):
         try :
             text = s.get_release(self.lang,self.version,self.profile,revision)
             filename = tools.config["root_path"] + "/i18n/" + self.lang + ".csv"
-
+            
             h_row = {'type': 'type', 'res_id': 'res_id', 'name': 'name', 'value': 'value', 'src': 'src'}
             f = open(filename,'wb')
             fieldnames=tuple(text[0].keys())
@@ -91,22 +91,23 @@ class wizard_download_file_for_contrib(wizard.interface):
                 t['value'] = t['value'].encode('utf8')
                 t['src']=t['src'].encode('utf8')
             outwriter.writerows(text)
-
+            
             tools.trans_load(cr.dbname, filename, self.lang)
-
+                            
         except Exception,e:
+            print e
             raise wizard.except_wizard('Error !',"server is not properly configuraed")
         return {}
 
     def _get_language(self, cr,uid,context):
         return base_translation.translation.get_language(cr,uid,context,user='contributor')
-
+    
     def _get_version(self, cr, uid,context):
         return base_translation.translation.get_version(cr,uid,context)
-
+    
     def _get_profile(self,cr,uid,context):
         return base_translation.translation.get_profile(cr,uid,context)
-
+    
     def lang_checking(self,cr,uid,data,context):
         self.lang = data['form']['lang']
         self.version = data['form']['version']
@@ -117,29 +118,29 @@ class wizard_download_file_for_contrib(wizard.interface):
             return 'same_lang_loaded'
         else:
             return 'version_check'
-
+        
     def _checking(self,cr,uid,data,context):
         self.revision = s.get_publish_revision(self.lang,self.version,self.profile)
         if self.revision:
              return 'version'
-        return 'version_not_found'
-
+        return 'version_not_found' 
+    
     fields_form = {
         'lang': {'string':'Language', 'type':'selection', 'selection':_get_language,'required':True},  #',on_change':'_get_version','required':True},
-        'version': {'string':'Version', 'type':'selection', 'selection':_get_version,'required':True}, #,'on_change':'_get_profile','required':True},
-        'profile': {'string':'Profile', 'type':'selection', 'selection':_get_profile,'required':True},
+        'version': {'string':'Version', 'type':'selection', 'selection':_get_version,'required':True}, #,'on_change':'_get_profile','required':True},        
+        'profile': {'string':'Profile', 'type':'selection', 'selection':_get_profile,'required':True},         
     }
-
+    
     def _get_revision(self,cr,uid,context):
         return self.revision
-
+            
     fields_form_version = {
         'revision': {'string':'Revision', 'type':'selection', 'selection':_get_revision,'required':True},
     }
 
     states = {
         'init': {
-            'actions': [],
+            'actions': [], 
             'result': {'type': 'form', 'arch': view_form, 'fields': fields_form,
                 'state': [
                           ('end', 'Cancel', 'gtk-cancel'),
@@ -150,17 +151,17 @@ class wizard_download_file_for_contrib(wizard.interface):
         'language_check': {
             'actions': [],
             'result' : {'type': 'choice', 'next_state': lang_checking }
-            } ,
-
+            } , 
+                
         'version_check': {
             'actions': [],
             'result' : {'type': 'choice', 'next_state': _checking }
-            } ,
+            } , 
 
         'same_lang_loaded' : {
             'actions':[],
             'result' :{'type':'form',
-                       'arch': warning_message %
+                       'arch': warning_message % 
                                   ('One Version is loaded',
                                    "One version of this language is already loaded ,If you will load other than that it may create problem."),
                     'fields':{},
@@ -173,7 +174,7 @@ class wizard_download_file_for_contrib(wizard.interface):
         'version_not_found' : {
             'actions':[],
             'result' :{'type':'form',
-                       'arch': warning_message %
+                       'arch': warning_message % 
                            ('Revision Not Found',
                             "Revision for the selected language is not found either in version or in profile ")
                         ,'fields':{},
@@ -182,9 +183,9 @@ class wizard_download_file_for_contrib(wizard.interface):
                              ('init','Select Again', 'gtk-ok', True)
                              ]
                     }
-            },
+            },            
         'version': {
-            'actions': [],
+            'actions': [], 
             'result': {'type': 'form', 'arch': view_form_version, 'fields': fields_form_version,
                 'state': [
                           ('end', 'Cancel', 'gtk-cancel'),

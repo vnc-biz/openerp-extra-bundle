@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    OpenERP, Open Source Management Solution    
 #    Copyright (C) 2009 Smile.fr. All Rights Reserved
 #    authors: Raphaël Valyi, Xavier Fernandez
 #
@@ -23,7 +23,6 @@ from osv import fields, osv
 
 import time
 import netsvc
-logger = netsvc.Logger()
 from mx import DateTime
 
 #TODO link this definition to the true one in original mrp/mrp.py
@@ -35,12 +34,12 @@ def rounding(f, r):
 class mrp_bom(osv.osv):
     _name = 'mrp.bom'
     _inherit = 'mrp.bom'
-
-    _columns = {
+    
+    _columns = { 
         'mrp_bom_customization_keys': fields.many2many('mrp_bom_customization.mrp_bom_customization_keys', 'mrp_bom_mrp_bom_customizations_keys_rel', 'bom_id', 'mrp_bom_customization_key_id', 'BoM Customizations'),
     }
-
-
+    
+    
     #FIXME do a cleaner overloading with use of super if possible
     def _bom_explode(self, cr, uid, bom, factor, properties, addthis=False, level=0):
         factor = factor / (bom.product_efficiency or 1.0)
@@ -89,30 +88,30 @@ class mrp_bom(osv.osv):
                 result = result + res[0]
                 result2 = result2 + res[1]
         return result, result2
-
+    
 mrp_bom()
 
 class mrp_production(osv.osv):
     _inherit = "mrp.production"
     _name = "mrp.production"
-
-    _columns = {
+    
+    _columns = { 
         'sale_order_line_id': fields.many2one('sale.order.line', 'Related Sale Order Line', readonly=True),
         'dimension_customizations':fields.one2many('sale.order.line.dimension_custom_values', 'mrp_production_id', string="Dimension Custom Values"),
 
     }
-
+    
     def action_confirm(self, cr, uid, ids):
         picking_id = super(mrp_production, self).action_confirm(cr, uid, ids)
         for production in self.browse(cr, uid, ids):
             for move_line, product_line in zip(production.move_lines, production.product_lines):
                 if move_line.product_id.id != product_line.product_id.id:
-                    logger.notifyChannel("product_id mismatch !")
+                    print "product_id mismatch !"
                 else:
                     self.pool.get('stock.move').write(cr, uid, move_line.id, {'bom_id': product_line.bom_id.id})
         return picking_id
 
-
+        
 mrp_production()
 
 class mrp_production_product_line(osv.osv):
@@ -127,7 +126,7 @@ mrp_production_product_line()
 class mrp_procurement(osv.osv):
     _inherit = 'mrp.procurement'
     _name = 'mrp.procurement'
-
+    
     def action_produce_assign_product(self, cr, uid, ids, context={}):
         produce_id = False
         company = self.pool.get('res.users').browse(cr, uid, uid, context).company_id
@@ -136,11 +135,11 @@ class mrp_procurement(osv.osv):
             loc_id = procurement.location_id.id
             newdate = DateTime.strptime(procurement.date_planned, '%Y-%m-%d %H:%M:%S') - DateTime.RelativeDateTime(days=procurement.product_id.product_tmpl_id.produce_delay or 0.0)
             newdate = newdate - DateTime.RelativeDateTime(days=company.manufacturing_lead)
-
+            
             ## Smile's changes
             ## FIXME sale order line could be copied natively to the production order
             sale_order_line_id = self.pool.get('sale.order.line').search(cr, uid, [('procurement_id', '=', procurement.id)])
-
+            
             if sale_order_line_id:
                  sale_order_line_id = sale_order_line_id[0]
             else:
@@ -168,5 +167,5 @@ class mrp_procurement(osv.osv):
             wf_service = netsvc.LocalService("workflow")
             wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
         return produce_id
-
+    
 mrp_procurement()

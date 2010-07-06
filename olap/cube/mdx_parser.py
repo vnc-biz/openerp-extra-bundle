@@ -21,10 +21,6 @@ from pyparsing import *
 import cube, axis, measure, level, query, slicer, cross
 import mdx_operator
 
-import netsvc
-logger = netsvc.Logger()
-
-
 
 #
 # Predicate: the construction of the object's query does not depend
@@ -63,11 +59,11 @@ class mdx_parser(object):
 
     def mdx_axis(self):
         """
-            Return a parser that parse the axis part of the MDX query and
+            Return a parser that parse the axis part of the MDX query and 
             return an axis object
             Examples:
                 {[prod].[all prod].children, [a]}
-                OR
+                OR 
                 crossjoin({[Order Date].[all]},{[prod].[all prod].children, [a]})
                 This is to be made recursive for the cross join
                 crossjoin(crossjoin({[City].[all],[City].children},{[User].[all]}),{[User].[Administrator]})
@@ -82,7 +78,7 @@ class mdx_parser(object):
         axis_parser.setParseAction(lambda s,a,toks:axis.axis(mdx_operator.mdx_set(toks)))
 
         mdx = leftCurlBr + axis_parser + rightCurlBr
-
+        
         return mdx
 
     def cross_axis(self):
@@ -93,22 +89,22 @@ class mdx_parser(object):
 
         cross_parse = leftCurlBr + cross_parser + rightCurlBr
 
-        return cross_parse
-
+        return cross_parse 
+        
     def mdx_cross_axis(self):
         leftRoundBr = Literal("(").suppress()
         rightRoundBr = Literal(")").suppress()
         comma = Literal(",").suppress()
-        crossjoinToken = Keyword("crossjoin", caseless=True).suppress()
-
-        crossx = Forward()
-        cross_mdx = crossx | self.mdx_axis()
+        crossjoinToken = Keyword("crossjoin", caseless=True).suppress() 
+        
+        crossx = Forward() 
+        cross_mdx = crossx | self.mdx_axis() 
         crossx << (crossjoinToken + leftRoundBr +  cross_mdx + comma + self.cross_axis()  + rightRoundBr)
 #        crossx.setParseAction(lambda s,a,toks:axis.axis(toks)
         simple_mdx = self.mdx_axis()
 
         mdx = simple_mdx | crossx
-        return mdx
+        return mdx  
 
     def mdx_axis_list(self):
         #
@@ -135,7 +131,7 @@ class mdx_parser(object):
         axis_lst = delimitedList(axis_parser, ",")
         axis_lst.setParseAction(lambda s,a,toks: [toks])
         return axis_lst
-
+    
     def mdx_slice(self):
         """ Return a MDX parser of the where clause of a MDX query """
         leftBr = Literal("(").suppress()
@@ -145,13 +141,13 @@ class mdx_parser(object):
         slicer_lst = delimitedList(leftBr + levels + rightBr, ",", combine=False)
         slicer_lst.setParseAction(lambda s,a,toks:slicer.slicer(list(toks)))
         return slicer_lst
-
+    
     def mdx_cube(self):
         """ Return a MDX parser of the from clause of a MDX query """
         mdx = Word(alphas+'_')
         mdx.setParseAction(lambda s,a,toks: cube.cube(toks[0]))
         return mdx
-
+    
     def mdx_query(self):
         """ Return a MDX parser of the from clause of a MDX query """
         selectToken = Keyword("select", caseless=True).suppress()
@@ -161,7 +157,7 @@ class mdx_parser(object):
         mdx = selectToken + self.mdx_axis_list() + fromToken + self.mdx_cube() + Optional(whereToken + self.mdx_slice()) + Optional(semicolon)
         mdx.setParseAction(lambda s,a,toks: query.query(*toks))
         return mdx
-
+    
     def parse(self, query):
         """ Parse a string and get a MDX object """
         return self.mdx_query().parseString(query)[0]
@@ -170,32 +166,36 @@ if __name__ == "__main__":
     mdx = mdx_parser()
     level_parse = mdx.mdx_level()
     for test in ['[sales].children','[prod].[all prod]']:
-        logger.notifyChannel(level_parse.parseString(test))
+        print 'Testing level', test
+        print level_parse.parseString(test)
     print
     axis_parser = mdx.mdx_axis()
     for test in ['{[a]}','{[prod].[all prod],[time].[Q3].[Sep]}']:
-        logger.notifyChannel('Testing axis', test)
-        logger.notifyChannel(axis_parser.parseString(test))
+        print 'Testing axis', test
+        print axis_parser.parseString(test)
 
     axis_parser = mdx.mdx_axis_list()
     for test in ['{[a]} on rows, {[prod].[all prod],[time].[Q3].[Sep]} on columns',
         '{[region].[all region].children} on rows, {[prod].[all prod].children} on columns'
     ]:
-        logger.notifyChannel(axis_parser.parseString(test))
+        print 'Testing axis', test
+        print axis_parser.parseString(test)
 
     cube_parser = mdx.mdx_cube()
     for test in ['sales']:
-        logger.notifyChannel(cube_parser.parseString(test))
+        print 'Testing axis', test
+        print cube_parser.parseString(test)
 
     for query_parser in [
 "Select {[region].[all region].children} on rows, {[product]} on columns from cubulus where ([time].[all time].[time_2005])",
 "Select {[region].[all region].children} on rows, {[prod].[all prod].children} on columns from cubulus where ([time].[all time].[time_2005])",
 #"Select {[time].[all time].children} on rows, crossjoin([region].[all region].children, [region].[all region].children) on columns from cubulus"
     ]:
-        logger.notifyChannel(mdx.parse(query_parser))
+        print 'Testing ', query_parser
+        print mdx.parse(query_parser)
 
-        logger.notifyChannel(mdx.parse('''select
-            {[date].[2007].[Q2].children} on rows,
-            {[country_id].children,[country_id].[1].children} on columns
-        from res_partner where ([measure].[credit_limit])'''))
+    print mdx.parse('''select
+            {[date].[2007].[Q2].children} on rows, 
+            {[country_id].children,[country_id].[1].children} on columns 
+        from res_partner where ([measure].[credit_limit])''')
 # vim: ts=4 sts=4 sw=4 si et

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -16,7 +16,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 import threading
@@ -25,10 +25,10 @@ sys.path.append('..')
 
 import etl
 
-#this demo file shows how to design jobs when you want
+#this demo file shows how to design jobs when you want 
 #to load data of many2many tables into OpenERP.
 
-#Note that the csv files are the same as if you wished
+#Note that the csv files are the same as if you wished 
 #to import them in a module.
 
 
@@ -81,4 +81,6 @@ tran4=etl.transition(sql_in1, log1)
 
 
 job1=etl.job([oo_out_groups,oo_out_users,log1])
+#print job1
 job1.run()
+#print job1.get_statitic_info()

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -16,7 +16,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 import sys
@@ -56,4 +56,6 @@ etl.transition(diff1, csv_out1, channel_source="add")
 etl.transition(diff1, log4, channel_source="update")
 
 job = etl.job([in1,in2,log_1,log_2,diff1,log1,log2,log3,log4,csv_out1])
+print job
 job.run()
+print job.get_statitic_info()

@@ -67,7 +67,7 @@ _fields_cont = {
     }
 
 
-
+    
 def _convert_attach_xsl_dog(self,cr,uid,data,context=None):
     data['form']['empdog']=True
     return _convert_attach_xsl(self,cr,uid,data,context)
@@ -128,11 +128,13 @@ def _convert_attach_xsl(self,cr,uid,data,context=None):
         # UPDATE SAMPLES WITH RESULTS
         # RECEPTION DATE
         if res and res[0]:
+            print "res",res[0]
             sample_obj.write(cr,uid,[res[0]],{'date_reception':_makeDate(dict_s.values()[i][8]) or None,
                                         'res_filiation':(dict_s.values()[i][7]) or None
         })
 #        fill fields puppy
         puppy_id=res and res[1]
+        print "res1",res[1],dict_s.values()[i][3]
         if puppy_id and puppy_id!=None:
             dog_obj.write(cr,uid,[puppy_id],{'tatoo':(dict_s.values()[i][4]) or None,
                                         'ship':(dict_s.values()[i][5]) or None,
@@ -181,7 +183,7 @@ def _convert_attach_xsl(self,cr,uid,data,context=None):
                 rek_id=res_k
             sample_obj.write(cr,uid,[int(it_id)],{'sample_id':rek_id})
     return{}
-
+    
 
 class import_attach_res(wizard.interface):
     states = {

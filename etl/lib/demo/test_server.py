@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -16,7 +16,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 import threading
@@ -88,11 +88,13 @@ class etl_server(threading.Thread):
             fp = open(self.path,'a+')
             value = pickle.load(fp)
         except Exception,e:
-            return value
+            print e
+        return value
 
     def run(self):
         try:
             obj = self.read()
+            print "obj",obj
             if obj:
                 if self.job.job_id == obj.job_id:
                     if obj.status == 'end':
@@ -100,13 +102,16 @@ class etl_server(threading.Thread):
                         #self.write()
                         pass
                     elif obj.status == 'pause':
+                        print "!!!!!!!!!!!"
                         self.job = False
                         self.job = obj
                         try:
+                            print "=============="
                             self.job.run()
+                            print "<<<<<<<<<<<<<<<<<<<"
                             self.write()
                         except Exception,e:
-                            return (False, str(e))
+                            print e
                     else:
                         pass
                 else:

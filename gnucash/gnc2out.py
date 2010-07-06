@@ -6,6 +6,7 @@ import gnccontent
 from xml import sax
 import gzip
 
+print "Starting import.."
 
 parser = OptionParser()
 parser.add_option("-q", "--quiet",
@@ -23,6 +24,7 @@ if not len(args):
 	sys.stderr.write ("Must have at least one argument, a GNC file\n")
 	exit(1)
 
+print "Parsing %s"%args[0]
 
 gcfile = args[0]
 if options.gunzip:

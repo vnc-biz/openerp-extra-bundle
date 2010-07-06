@@ -20,9 +20,6 @@ from win32com.client import CastTo
 import win32ui
 from tiny_xmlrpc import *
 
-import netsvc
-logger = netsvc.Logger()
-
 import locale
 locale.setlocale(locale.LC_NUMERIC, "C")
 
@@ -103,12 +100,13 @@ class OutlookAddin:
         mngr = manager.GetManager()
         mngr.config['login'] = False
         mngr.SaveConfig()
+        print "OnDisconnection"
     def OnAddInsUpdate(self, custom):
-         logger.notifyChannel("OnAddInsUpdate", custom)
+        print "OnAddInsUpdate", custom
     def OnStartupComplete(self, custom):
-         logger.notifyChannel("OnStartupComplete", custom)
+        print "OnStartupComplete", custom
     def OnBeginShutdown(self, custom):
-         logger.notifyChannel("OnBeginShutdown", custom)
+        print "OnBeginShutdown", custom
     def GetAppDataPath(self):
         mngr = manager.GetManager()
         return mngr.data_directory

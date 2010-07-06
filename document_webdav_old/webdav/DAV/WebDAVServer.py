@@ -146,7 +146,10 @@ class DAVRequestHandler(AuthServer.BufferedAuthRequestHandler):
 
         uri=urlparse.urljoin(dc.baseuri,self.path)
         uri=urllib.unquote(uri)
+        print 'PROPFIND', uri, dc, d
         pf=PROPFIND(uri,dc,d)
+        print 'PROPFIND', pf
+
         if body:
             pf.read_propfind(body)
 
@@ -156,6 +159,7 @@ class DAVRequestHandler(AuthServer.BufferedAuthRequestHandler):
         except DAV_Error, (ec,dd):
             return self.send_status(ec)
 
+        #print DATA
         self.send_body_chunks(DATA,"207","Multi-Status","Multiple responses")
 
     def do_GET(self):

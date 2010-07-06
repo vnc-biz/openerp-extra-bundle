@@ -89,11 +89,13 @@ class sql_join(component):
             for iterator in trans:
                 for d in iterator:
                     query = self.sqlquery % (d[self.joinkey])
+                    print 'query', query
                     cursor.execute(query)
                     rows = cursor.fetchone()
+                    print 'rows', rows
                     if not rows:
                         raise 'Result of the Query is False. Query: ' + str(query)
-                    d.update({self.outputkey: rows[0]})
+                    d.update({self.outputkey: rows[0]}) 
                     yield d, 'main'
 
 def test():
@@ -104,6 +106,7 @@ def test():
     test = etl_test.etl_component_test(sql_join(sql_conn, query))
     test.check_output([{'id': 1, 'name': 'a'}, {'id': 2, 'name': 'b'}])# output according to the executed query should be written over here.
     res = test.output()
+    print res
 
 if __name__ == '__main__':
     test()

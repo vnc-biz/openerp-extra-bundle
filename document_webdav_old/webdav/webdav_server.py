@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 import BaseHTTPServer
@@ -29,8 +29,6 @@ from dav_fs import tinyerp_handler
 
 import threading
 import pooler
-import netsvc
-logger = netsvc.Logger()
 
 db_name = ''
 host=''
@@ -54,11 +52,12 @@ class dav_server(threading.Thread):
 			runner = server( (self.host, self.port), handler )
 			runner.serve_forever()
 		except Exception, e:
-			 logger.notifyChannel(e,self.host,self.port)
+			print e,self.host,self.port
 
 try:
+	print 'Starting Server', host, port
 	ds = dav_server(host, port)
 	ds.start()
 except Exception , e:
-	 logger.notifyChannel(e)
+	print e
 

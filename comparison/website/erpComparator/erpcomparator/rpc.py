@@ -14,7 +14,7 @@ import common
 from tools.translate import _
 
 class RPCException(Exception):
-
+           
     def __init__(self, code, backtrace):
 
         self.code = code
@@ -203,7 +203,7 @@ class NETRPCGateway(RPCGateway):
 
         except xmlrpclib.Fault, err:
             raise RPCException(err.faultCode, err.faultString)
-
+        
         except tiny_socket.Myexception, err:
             raise RPCException(err.faultCode, err.faultString)
 
@@ -248,7 +248,7 @@ class RPCSession(object):
 
         if protocol == 'http':
             self.gateway = XMLRPCGateway(host, port, 'http')
-
+        
         elif protocol == 'https':
             self.gateway = XMLRPCGateway(host, port, 'https')
 
@@ -335,14 +335,14 @@ class RPCSession(object):
         # self.uid
         context = self.execute('object', 'execute', 'res.users', 'context_get')
         self.context.update(context or {})
-
+        
         if self.context.get('tz', False):
             self.timezone = self.execute('common', 'timezone_get')
             try:
                 import pytz
             except:
                 raise common.warning(_('You select a timezone but OpenERP could not find pytz library!\nThe timezone functionality will be disable.'))
-
+                
         # set locale in session
         self.locale = self.context.get('lang')
 
@@ -377,8 +377,10 @@ class RPCSession(object):
             raise common.warning(_('Not logged...'), _('Authorization Error!'))
 
         try:
-
+            
+            #print "TERP-CALLING:", obj, method, args
             result = self.gateway.execute(obj, method, *args)
+            #print "TERP-RESULT:", result
             return self.__convert(result)
 
         except socket.error, (e1, e2):
@@ -390,7 +392,7 @@ class RPCSession(object):
                 raise common.warning(err.data)
             else:
                 raise common.error(_('Application Error!'), err.backtrace)
-
+            
         except Exception, e:
             raise common.error(_('Application Error!'), str(e))
 
@@ -451,12 +453,16 @@ if __name__=="__main__":
     session = RPCSession(host, port, protocol, storage=dict())
 
     res = session.listdb()
+    print res
 
     res = session.login('test421', 'admin', 'admin')
+    print res
 
     res = RPCProxy('res.users').read([session.uid], ['name'])
+    print res
 
     res = RPCProxy('ir.values').get('action', 'tree_but_open', [('ir.ui.menu', 73)], False, {})
+    print res
 
 # vim: ts=4 sts=4 sw=4 si et
 

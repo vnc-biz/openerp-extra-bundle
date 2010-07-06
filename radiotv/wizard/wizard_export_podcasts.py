@@ -66,6 +66,7 @@ def _export(self, cr, uid, data, context):
         if d_to:
             filter.append(('pub_date', '<=', d_to + ' 23:59:59'))
             filterphp += " AND pub_date <= '" + d_to + " 23:59:59'"
+        #print filterphp
         (podcast_new, podcast_update, podcast_delete) = export_table.export_table(self, cr, uid, data, context, server, 'podcast',
             ['id', 'name', 'file_name', 'description', 'broadcast_id', 'author', 'category', 'duration', 'keywords', 'subtitle', 'block', 'explicit', 'pub_date'], filter, filterphp)
     else:

@@ -91,8 +91,10 @@ class labo_amorces(osv.osv):
 #
 #
 #		obj_amorces = self.browse(cr, uid, ids)
+#		print obj_amorces
 #		c=[]
 #		for a in obj_amorces:
+#			print a.concentration
 #			c.append(a.concentration)
 #
 #		for i in c:
@@ -192,6 +194,7 @@ class labo_article(osv.osv):
 			if article.tva:
 				taxes.append(article.tva.id)
 				#							article.supplier.property_product_price.version_id[0].items_id.product_id.id,
+		#	print "ARTICLE", article.supplier.property_product_price #.version_id[0].items_id.product_id.id, 1.0, article.supplier)[article.discount.id]
 			price = article.price_cat
 #			price = self.pool.get('product.pricelist').price_get(cr, uid, [article.discount.id],
 #											article.id,
@@ -399,14 +402,17 @@ labo_mix()
 #			    }
 #	def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False):
 #		res = super(product_pricelist_item,self).fields_view_get(cr, user, view_id, view_type, context, toolbar)
+#		print "Context :",context
 #		arch = res['arch']
 #		arch_dom = minidom.parseString(arch)
 #		remove_list = [x for x in arch_dom.firstChild.childNodes if x.nodeType == x.ELEMENT_NODE and x.getAttribute('name') in ['product_id','product_tmpl_id','categ_id']]
 #		new_node = remove_list[1].cloneNode(0)
 #		new_node.setAttribute('name','article_id')
+#		print "new Node:",new_node
 #		arch_dom.firstChild.insertBefore(new_node,remove_list[0])
 #		for rm_node in remove_list:
 #			arch_dom.firstChild.removeChild(rm_node)
+#		print "arch_dom :",arch_dom.toxml()
 #		res['arch'] = arch_dom.toxml()
 #		res['fields'].update({'article_id':{'string':'Article','type':'many2one','relation':'labo.article'}})
 #		return res

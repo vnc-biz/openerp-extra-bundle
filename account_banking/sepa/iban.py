@@ -80,7 +80,7 @@ class BBANFormat(object):
         Specify the structure of the SEPA account in relation to the local
         account. The XXZZ prefix that all SEPA accounts have is not part of
         the structure in BBANFormat.
-
+        
         ibanfmt: string of identifiers from position 5 (start = 1):
             A = Account position
             N = Account digit
@@ -95,7 +95,7 @@ class BBANFormat(object):
             leading-zero-stripped account numbers.
 
             Example: (NL) 'CCCCAAAAAAAAAA'
-                      will convert 'INGB0001234567' into
+                      will convert 'INGB0001234567' into 
                       bankcode 'INGB' and account '0001234567'
 
         bbanfmt: string of placeholders for the local bank account
@@ -119,7 +119,7 @@ class BBANFormat(object):
         self._iban = ibanfmt
         self._bban = bbanfmt
         self._nolz = nolz
-
+    
     def __extract__(self, spec, value):
         '''Extract the value based on the spec'''
         i = self._iban.find(spec)
@@ -147,7 +147,7 @@ class BBANFormat(object):
         else:
             prefix = ''
         return prefix + self.__extract__('A', iban)
-
+    
     def BBAN(self, iban):
         '''
         Format the BBAN part of the IBAN in iban following the local
@@ -387,7 +387,7 @@ class IBAN(str):
         The bank code seems to be world wide unique. Knowing this,
         one can use the country + bankcode info from BIC to narrow a
         search for the bank itself.
-
+        
         Note that some countries use one single localization code for
         all bank transactions in that country, while others do not. This
         makes it impossible to use an algorithmic approach for generating
@@ -426,3 +426,11 @@ if __name__ == '__main__':
     import sys
     for arg in sys.argv[1:]:
         iban = IBAN(arg)
+        print 'IBAN:', iban
+        print 'country code:', iban.countrycode
+        print 'bank code:', iban.bankcode
+        print 'branch code:', iban.branchcode
+        print 'BBAN:', iban.BBAN
+        print 'localized BBAN:', iban.localized_BBAN
+        print 'check digits:', iban.checkdigits
+        print 'checksum:', iban.checksum

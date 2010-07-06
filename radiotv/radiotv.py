@@ -35,10 +35,12 @@ def day_week(self, last=0, nweek=0):
     if not last:
         offset = datetime.timedelta(days = -wd + nweek*7)
         day = day + offset
+        print "%04i-%02i-%02i 00:00:00" % (day.year, day.month, day.day)
         return "%04i-%02i-%02i 00:00:00" % (day.year, day.month, day.day)
     else:
         offset = datetime.timedelta(days = -wd + nweek*7 + 6)
         day = day + offset
+        print "%04i-%02i-%02i 23:59:59" % (day.year, day.month, day.day)
         return "%04i-%02i-%02i 23:59:59" % (day.year, day.month, day.day)
 
 
@@ -52,7 +54,7 @@ def get_server(self, cr, uid):
     else:
         server = False
     return server
-
+    
 
 class radiotv_program(osv.osv):
     _name = 'radiotv.program'
@@ -84,6 +86,7 @@ class radiotv_channel(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if not context:
             context={}
+        #print "write:", ids, vals
         result = super(radiotv_channel, self).write(cr, uid, ids, vals, context=context)
 
         # Synchronize to website
@@ -96,6 +99,7 @@ class radiotv_channel(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if not context:
             context={}
+        #print "create:", vals
         id = super(radiotv_channel, self).create(cr, uid, vals, context=context)
 
         # Synchronize to website
@@ -106,6 +110,7 @@ class radiotv_channel(osv.osv):
 
 
     def unlink(self, cr, uid, ids):
+        #print "ulink:", ids
         result = super(radiotv_channel, self).unlink(cr, uid, ids)
 
         # Synchronize to website
@@ -152,6 +157,7 @@ class radiotv_program(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if not context:
             context={}
+        #print "write:", ids, vals
         result = super(radiotv_program, self).write(cr, uid, ids, vals, context=context)
 
         # Synchronize to website
@@ -164,6 +170,7 @@ class radiotv_program(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if not context:
             context={}
+        #print "create:", vals
         id = super(radiotv_program, self).create(cr, uid, vals, context=context)
 
         # Synchronize to website
@@ -174,6 +181,7 @@ class radiotv_program(osv.osv):
 
 
     def unlink(self, cr, uid, ids):
+        #print "ulink:", ids
         result = super(radiotv_program, self).unlink(cr, uid, ids)
 
         # Synchronize to website
@@ -197,6 +205,7 @@ class radiotv_category(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if not context:
             context={}
+        #print "write:", ids, vals
         result = super(radiotv_category, self).write(cr, uid, ids, vals, context=context)
 
         # Synchronize to website
@@ -209,6 +218,7 @@ class radiotv_category(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if not context:
             context={}
+        #print "create:", vals
         id = super(radiotv_category, self).create(cr, uid, vals, context=context)
 
         # Synchronize to website
@@ -219,6 +229,7 @@ class radiotv_category(osv.osv):
 
 
     def unlink(self, cr, uid, ids):
+        #print "ulink:", ids
         result = super(radiotv_category, self).unlink(cr, uid, ids)
 
         # Synchronize to website
@@ -265,9 +276,11 @@ class radiotv_broadcast(osv.osv):
         if name:
             p = self.pool.get('radiotv.program')
             p_ids = p.search(cr, uid, [('name',operator,name)]+ args, context=context )
+            #print "program ids:", p_ids
             ids = self.search(cr, uid, [('program_id','in',p_ids)]+ args, limit=limit, context=context)
         else:
             ids = self.search(cr, uid, args, context=context, limit=limit)
+        #print "broadcasts ids:", ids
         return self.name_get(cr, uid, ids, context=context)
 
 
@@ -290,7 +303,7 @@ class radiotv_broadcast(osv.osv):
                     vals['dt_end'] = res[0]
                 else:
                     vals['dt_end'] = dt_start
-
+            
             # Change the dt_end field of the previous record
             if 'dt_start' in vals:
                 cr.execute("SELECT max(dt_start) FROM radiotv_broadcast WHERE channel_id='"+ str(bc.channel_id.id) +"' AND dt_start < '"+ dt_start +"' AND id!='"+ str(id) +"'")
@@ -303,6 +316,7 @@ class radiotv_broadcast(osv.osv):
                     vals2['previous'] = 1
                     self.write(cr, uid, id_prev, vals2, context)
 
+        #print "write:", ids, vals
         result = super(radiotv_broadcast, self).write(cr, uid, ids, vals, context=context)
 
         # Synchronize to website
@@ -337,6 +351,7 @@ class radiotv_broadcast(osv.osv):
             vals2['previous'] = 1
             self.write(cr, uid, id_prev, vals2, context)
 
+        #print "create:", vals
         id = super(radiotv_broadcast, self).create(cr, uid, vals, context=context)
 
         # Synchronize to website
@@ -360,6 +375,7 @@ class radiotv_broadcast(osv.osv):
                 vals2['previous'] = 1
                 self.write(cr, uid, id_prev, vals2)
 
+        #print "ulink:", ids
         result = super(radiotv_broadcast, self).unlink(cr, uid, ids)
 
         # Synchronize to website
@@ -374,10 +390,11 @@ class radiotv_broadcast(osv.osv):
         Function called by the scheduler to copy broadcasts from the last day wich contain broadcasts to [data] days after
         '''
         import datetime
+        #print data
         b = self.pool.get('radiotv.broadcast')
         cr.execute('SELECT max(dt_start) FROM radiotv_broadcast')
         res = cr.fetchall()[0][0]
-        day = res[:10]
+        day = res[:10]    
         day_max = datetime.date(int(day[:4]), int(day[5:7]), int(day[8:]))
         today_wd = datetime.date.today().weekday()
         offset = today_wd - day_max.weekday()
@@ -390,11 +407,12 @@ class radiotv_broadcast(osv.osv):
         day_to = day_from + day_interval    # day_to is [data] days after than day_from (tipically 7)
         d_from = "%04i-%02i-%02i" % (day_from.year, day_from.month, day_from.day)
         d_to   = "%04i-%02i-%02i" % (day_to.year, day_to.month, day_to.day)
-
+        #print d_from, d_to
+        
         # deletes previous broadcasts
         broadcast_ids = b.search(cr, uid, [('dt_start','>=','%s 00:00:00' % d_to),('dt_start','<=','%s 23:59:59' % d_to)])
         b.unlink(cr, uid, broadcast_ids)
-
+        
         # copies new broadcasts
         broadcast_ids = b.search(cr, uid, [('dt_start','>=','%s 00:00:00' % d_from),('dt_start','<=','%s 23:59:59' % d_from)])
         for broadcast in b.browse(cr, uid, broadcast_ids, context):
@@ -453,6 +471,7 @@ class radiotv_podcast(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if not context:
             context={}
+        #print "write:", ids, vals
         result = super(radiotv_podcast, self).write(cr, uid, ids, vals, context=context)
 
         # Synchronize to website
@@ -465,6 +484,7 @@ class radiotv_podcast(osv.osv):
     def create(self, cr, uid, vals, context=None):
         if not context:
             context={}
+        #print "create:", vals
         id = super(radiotv_podcast, self).create(cr, uid, vals, context=context)
 
         # Synchronize to website
@@ -475,6 +495,7 @@ class radiotv_podcast(osv.osv):
 
 
     def unlink(self, cr, uid, ids):
+        #print "ulink:", ids
         result = super(radiotv_podcast, self).unlink(cr, uid, ids)
 
         # Synchronize to website

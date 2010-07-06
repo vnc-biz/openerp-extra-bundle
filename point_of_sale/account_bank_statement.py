@@ -94,6 +94,7 @@ class account_bank_statement(osv.osv):
 
     def _default_journal_id(self, cr, uid, context={}):
         company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
+        print [('type','=','cash'),('auto_cash','=',False), ('company_id', '=', company_id)]
         journal = self.pool.get('account.journal').search(cr, uid, [('type', '=', 'cash'), ('auto_cash','=',False), ('company_id', '=', company_id)])
         if journal:
             return journal[0]

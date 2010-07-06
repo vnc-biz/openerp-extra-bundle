@@ -63,6 +63,7 @@ class esale_oscom_product_inherit(osv.osv):
             category_id = self.browse(cr, uid, ret_create).categ_id.id
             category_maping_ids = esale_category_obj.search(cr, uid, [('category_id','=',category_id)])
             if len(category_maping_ids):
+                #print "Product CREATED. New category is mapped to OScommerce => update OScommerce products"
                 self.oscom_export(cr, uid, product_ids=[ret_create], context=context)
         return ret_create
 
@@ -81,10 +82,13 @@ class esale_oscom_product_inherit(osv.osv):
             if category_id: # Updated product category field
                 category_maping_ids = esale_category_obj.search(cr, uid, [('category_id','=',category_id)])
                 if len(category_maping_ids):
+                    #print "New category is mapped to OScommerce => update OScommerce products"
                     self.oscom_export(cr, uid, product_ids=product_ids, context=context)
                 else:
+                    #print "New category is not mapped to OScommerce => delete OScommerce products"
                     esale_product_obj.unlink(cr, uid, esale_product_ids, context)
             else:
+                #print "No updated product category field (same category => update OScommerce products)"
                 self.oscom_export(cr, uid, product_ids=product_ids, context=context)
 
         # OpenERP products not mapped to OScommerce
@@ -93,6 +97,7 @@ class esale_oscom_product_inherit(osv.osv):
             if category_id: # Updated product category field
                 category_maping_ids = esale_category_obj.search(cr, uid, [('category_id','=',category_id)])
                 if len(category_maping_ids):
+                    #print "Previously NOT MAPPED. New category is mapped to OScommerce => update OScommerce products"
                     self.oscom_export(cr, uid, product_ids=product_no_ids, context=context)
         return ret_write
 
@@ -195,7 +200,9 @@ class esale_oscom_product_inherit(osv.osv):
 
         # Main loop for the web shops
         websites_objs = esale_web_obj.browse(cr, uid, websites.keys())
+        #print websites_objs
         for website in websites_objs:
+            # print "%s/openerp-synchro.php" % website.url
             server = xmlrpclib.ServerProxy("%s/openerp-synchro.php" % website.url)
             website_url = website.url.split("/")
 
@@ -215,6 +222,7 @@ class esale_oscom_product_inherit(osv.osv):
             esale_products_ids = []
             web_product_ids = websites.get(website.id, False)
             products = product_obj.browse(cr, uid, web_product_ids)
+            #print website.id, web_product_ids
             for product in products:
                 exist_esale_products_ids = esale_product_obj.search(cr, uid, [('web_id','=',website.id), ('product_id','=',product.id)])
                 if not len(exist_esale_products_ids):
@@ -266,8 +274,10 @@ class esale_oscom_product_inherit(osv.osv):
                 # Get price
                 if website.price_type == '0':
                     webproduct['price'] = pricelist_obj.price_get(cr, uid, [pricelist], esale_product.product_id.id, 1, 'list')[pricelist].__str__()
+                    #print "LIST PRICE:::::::::::::::::::",webproduct['price']
                 else:
                     tax_ids = esale_product.product_id.taxes_id
+                    #print "\TAX_IDS:::::::::::::::::",tax_ids
                     if tax_ids:
                         tax_amount = tax_obj.browse(cr, uid, tax_ids[0]).amount
                     else:
@@ -275,6 +285,7 @@ class esale_oscom_product_inherit(osv.osv):
                     #print"\TAX BROWSE:::::::::::::::::::",tax_amount
                     t_price = (pricelist_obj.price_get(cr, uid, [pricelist], esale_product.product_id.id, 1, 'list')[pricelist]) / (1 + tax_amount)
                     webproduct['price'] = round(t_price,5).__str__()
+                    #print "FROM TAX PRICE:::::::::::::", webproduct['price']
 
                 # Get multi language attributes
                 langs = {}
@@ -288,6 +299,8 @@ class esale_oscom_product_inherit(osv.osv):
                             'url': product.product_url or '',
                         }
                         langs[str(lang.esale_oscom_id)].update(self.product_trans_fields(product)) # Adds additional fields
+                        #print "==========trans========="
+                        #print lang.esale_oscom_id, langs[str(lang.esale_oscom_id)]
                         if esale_product.product_id.manufacturer_id:
                             manufacturer = manufacturer_obj.browse(cr, uid, esale_product.product_id.manufacturer_id.id, {'lang': lang.language_id.code})
                             manufacturer_langs[str(lang.esale_oscom_id)] = {
@@ -303,6 +316,8 @@ class esale_oscom_product_inherit(osv.osv):
                     webproduct['manufacturers_name'] = esale_product.product_id.manufacturer_id.name
                     webproduct['manufacturers_url'] = esale_product.product_id.manufacturer_id.manufacturer_url or ''
                     webproduct['manufacturer_langs'] = manufacturer_langs
+                #print "====================webproduct==================="
+                #print webproduct
 
                 # Sends product to web shop
                 prod_id = webproduct['product_id']
@@ -334,6 +349,7 @@ class esale_oscom_product_inherit(osv.osv):
                 #####################PRODUCT URL IN OSCOMMERCE###################
                 esale_prod_ids = esale_product_obj.search(cr, uid, [('esale_oscom_id','=',oscom_id)])
                 esale_prod = esale_product_obj.browse(cr, uid, esale_prod_ids[0])
+                #print "ESALE PROD DATA (id, web, product, category):",esale_prod.id, esale_prod.web_id.id, esale_prod.product_id.id, esale_prod.product_id.categ_id.id
                 prod_url = website_url[0] + "//" + website_url[2] + "/" +"product_info.php?cPath=" + str(category_id) + "&products_id=" + str(oscom_id)
                 super(esale_oscom_product_inherit, self).write(cr, uid, esale_prod.product_id.id, {'oscom_url': prod_url})
 

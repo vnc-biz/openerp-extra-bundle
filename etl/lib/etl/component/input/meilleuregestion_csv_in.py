@@ -55,7 +55,7 @@ class meilleuregestion_csv_in(csv_in):
         self._type = 'component.input.meilleuregestion_csv_in'
         self.csv_params = csv_params
         self.csv_params['delimiter'] =';'
-
+        
 
 
     def process(self):
@@ -88,6 +88,7 @@ def test():
     test = etl_test.etl_component_test(csv_in(file_conn, name='csv test'))
     test.check_output([{'tel': '+32.81.81.37.00', 'id': '11', 'name': 'Fabien'}])
     res = test.output()
+    print res
 
 if __name__ == '__main__':
     test()

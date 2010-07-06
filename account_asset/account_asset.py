@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -63,7 +63,7 @@ class account_asset_asset(osv.osv):
 
     def _amount_total(self, cr, uid, ids, name, args, context={}):
         id_set=",".join(map(str,ids))
-        cr.execute("""SELECT l.asset_id,abs(SUM(l.debit-l.credit)) AS amount FROM
+        cr.execute("""SELECT l.asset_id,abs(SUM(l.debit-l.credit)) AS amount FROM 
                 account_move_line l
             WHERE l.asset_id IN ("""+id_set+") GROUP BY l.asset_id ")
         res=dict(cr.fetchall())
@@ -113,6 +113,7 @@ class account_asset_asset(osv.osv):
             total += move.debit-move.credit
         for move in property.entry_asset_ids:
             if move.account_id == property.account_asset_ids:
+                print 'XXXXXXXXXXXXXXX : ', move.debit
                 total += move.debit
                 total += -move.credit
         periods = (len(property.entry_asset_ids)/2) - property.method_delay
@@ -177,7 +178,7 @@ account_asset_asset()
 class account_asset_property(osv.osv):
     def _amount_total(self, cr, uid, ids, name, args, context={}):
         id_set=",".join(map(str,ids))
-        cr.execute("""SELECT l.asset_id,abs(SUM(l.debit-l.credit)) AS amount FROM
+        cr.execute("""SELECT l.asset_id,abs(SUM(l.debit-l.credit)) AS amount FROM 
                 account_asset_property p
             left join
                 account_move_line l on (p.asset_id=l.asset_id)
@@ -189,7 +190,7 @@ class account_asset_property(osv.osv):
 
     def _amount_residual(self, cr, uid, ids, name, args, context={}):
         id_set=",".join(map(str,ids))
-        cr.execute("""SELECT
+        cr.execute("""SELECT 
                 r.asset_property_id,SUM(abs(l.debit-l.credit)) AS amount
             FROM
                 account_move_asset_entry_rel r

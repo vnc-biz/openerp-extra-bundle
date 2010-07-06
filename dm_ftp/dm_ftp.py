@@ -65,6 +65,7 @@ def send_ftp_document(cr, uid, obj_id, context):
         return message
     for i in range(len(message)):
         try :
+            print '_'.join([obj.name,str(obj.address_id.id),str(obj.segment_id.id)])
             ftp.storbinary('STOR '+'_'.join([obj.name,str(obj.address_id.id),str(obj.segment_id.id),str(i+1)]),StringIO(message[i]))
         except Exception,e:
             return {'code':'ftp_error','ids':[obj.id], 'err_msg':e}

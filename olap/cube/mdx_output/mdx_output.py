@@ -38,15 +38,19 @@ def sort_axis(data):
             sort_apply(cube, axis_pos2)
 
 def mdx_output(data):
+    print 'DATA',  data
 #    decimal_to_float(data[1])
-#    sort_axis(data)
+#    sort_axis(data) 
     return data
 
 if __name__=='__main__':
+	print 'Testing Code'
 	data = ([[(['user'], 'All user')], [(['measures', 'credit_limit'], 'credit_limit'), (['measures', 'count'], 'count')]], [[[66700.0], [22L]]])
 	data = ([[([u'Products'], u'All Products'), ([u'Order Date'], u'All Order Date')]], [[False], [False]])
 	data = ([[([u'Order Date'], u'All Order Date'), ([u'Order Date', 2007.0], 2007.0), ([u'Order Date', 2008.0], 2008.0), ([u'Order Date', 2007.0, 'Q1'], 'Q1'), ([u'Order Date', 2007.0, 'Q2'], 'Q2'), ([u'Order Date', 2007.0, 'Q3'], 'Q3'), ([u'Order Date', 2007.0, 'Q4'], 'Q4'), ([u'Users'], u'All Users'), ([u'Users', 'Administrator'], 'Administrator'), ([u'Users', 'Demo User'], 'Demo User'), ([u'Users', 'Root'], 'Root'), ([u'Partner Country'], u'All Partner Country'), ([u'Partner Country', 'Belgium'], 'Belgium'), ([u'Partner Country', 'China'], 'China'), ([u'Partner Country', 'France'], 'France'), ([u'Partner Country', 'Taiwan'], 'Taiwan')]], [[False], [False], [False], [False], [False], [False], [False], [False], [False], [False], [False], [False], [False], [False], [False], [False]])
 	data = ([[([u'Order Date'], u'All Order Date'), ([u'Order Date', 2007.0], 2007.0), ([u'Order Date', 2008.0], 2008.0), ([u'Order Date', 2007.0, 'Q1'], 'Q1'), ([u'Order Date', 2007.0, 'Q2'], 'Q2'), ([u'Order Date', 2007.0, 'Q3'], 'Q3'), ([u'Order Date', 2007.0, 'Q4'], 'Q4'), ([u'Users'], u'All Users'), ([u'Users', 'Administrator'], 'Administrator'), ([u'Users', 'Demo User'], 'Demo User'), ([u'Users', 'Root'], 'Root'), ([u'Partner Country'], u'All Partner Country'), ([u'Partner Country', 'Belgium'], 'Belgium'), ([u'Partner Country', 'China'], 'China'), ([u'Partner Country', 'France'], 'France'), ([u'Partner Country', 'Taiwan'], 'Taiwan')], [(['measures', u'Items Sold'], u'Items Sold')]], [[[Decimal("258.00")]], [[Decimal("34.00")]], [[Decimal("224.00")]], [[Decimal("12.00")]], [[Decimal("9.00")]], [[Decimal("6.00")]], [[Decimal("7.00")]], [[Decimal("258.00")]], [[Decimal("204.00")]], [[Decimal("16.00")]], [[Decimal("38.00")]], [[Decimal("258.00")]], [[Decimal("17.00")]], [[Decimal("78.00")]], [[Decimal("139.00")]], [[Decimal("2.00")]]])
+	print 'Old', data
 	sort_axis(data)
+	print 'New', data
 
 # vim: ts=4 sts=4 sw=4 si et

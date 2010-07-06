@@ -223,6 +223,9 @@ class labo_analysis_type(osv.osv):
 #                </tree>'''% type_id
 #
 #        view_mode = 'form,tree'
+#        print "XML3",xml_tree
+#        print "curr",xml_curr
+#        print "xml",xml
 #        mod_obj = pooler.get_pool(cr.dbname).get('ir.model.data')
 #        model_data_id = mod_obj._get_id(cr, uid, 'labo_analysis','menu_progenus')
 #        model = mod_obj.browse(cr, uid, model_data_id)
@@ -293,6 +296,9 @@ class labo_analysis_type(osv.osv):
 #        })
 #
 ####end create view
+#        print "vals",vals['code']
+#        print "XMLLL",xml_tree
+#        print "FIN XML"
 #####BEGIN SAMPLES
 #        model_data_id_samples = mod_obj._get_id(cr, uid, 'labo_analysis','menu_progenus_samples')
 #        model_samples = mod_obj.browse(cr, uid, model_data_id_samples)
@@ -338,6 +344,7 @@ class labo_analysis_type(osv.osv):
 #            'domain':str([('sample_id.type_id','=', type_id)]),
 #            'context':{'is_view':vals['code']},
 #        })
+#        print "action_s",action_id_x
 #
 #        self.pool.get('ir.values').create(cr, uid, {
 #            'name': 'Open1 samples',
@@ -1113,6 +1120,7 @@ class labo_sample(osv.osv):
 #    def write(self, cr, uid, ids, vals, context=None, check=True, update_check=True):
 #        if not context:
 #            context={}
+#        print vals
 #        if 'sample_ids' not in vals:
 #            print"::::::::::::"
 #            vals.update({'sample_ids':[]})
@@ -1155,6 +1163,7 @@ class labo_sample(osv.osv):
 #        return samp_id
 
     def running_ko_samples(self, cr, uid, *args):
+        print "DANS RUNNING"
         ref_case = pooler.get_pool(cr.dbname).get('crm.case')
         txt_mail="La date limite des echantillons est echue. Les echantillons concernes sont les suivants:"
         cr.execute("select r.name from labo_sample s, labo_analysis_request r where s.sample_id=r.id and s.date_limit = current_date group by r.name ")
@@ -1163,6 +1172,7 @@ class labo_sample(osv.osv):
             current_samples=([x[0] for x in cr.fetchall() if x])
 
             section_id=pooler.get_pool(cr.dbname).get('crm.case.section').search(cr, uid,[('code', '=', 'samples'),])
+            print "CURRENT",current_samples
             if current_samples:
                 new_id=ref_case.create(cr,uid,{
                 'name': "Samples to review",

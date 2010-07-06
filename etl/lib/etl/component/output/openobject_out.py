@@ -87,6 +87,7 @@ class openobject_out(component):
                         self.fields_keys = self.fields.keys()
                     op_oc = self.connector.open()
                     l=(op_oc, 'execute', self.model, 'import_data', self.fields_keys, [map(lambda x: d[self.fields[x]], self.fields_keys)])
+                    #print "import_data %r"%(l,)
                     self.connector.execute(*l)
                     self.connector.close(op_oc)
                     yield d, 'main'

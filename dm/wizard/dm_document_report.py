@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -49,7 +49,7 @@ class wizard_document_report(wizard.interface):
     def _send_report(self, cr, uid, data , context): # {{{
 #        if not data['form']['mail_service_id']:
 #                raise osv.except_osv("Error", "You must choose a mail service for sending preview documents")
-        doc = pooler.get_pool(cr.dbname).get('dm.offer.document').browse(cr,
+        doc = pooler.get_pool(cr.dbname).get('dm.offer.document').browse(cr, 
                                                     uid, self.dm_wiz_data['id'])
         vals = {
             'address_id': data['form']['address_id'],
@@ -66,7 +66,7 @@ class wizard_document_report(wizard.interface):
         pool = pooler.get_pool(cr.dbname)
         group_obj = pool.get('ir.actions.report.xml')
         ids = group_obj.search(cr, uid, [('document_id', '=', document_id)])
-        res = [(group.id, group.name) for group in
+        res = [(group.id, group.name) for group in 
                                             group_obj.browse(cr, uid, ids)]
         res.sort(lambda x, y: cmp(x[1], y[1]))
         return res # }}}
@@ -80,16 +80,16 @@ class wizard_document_report(wizard.interface):
 ##                 camp_ids=pool.get('dm.campaign').search(cr,uid,[('offer_id','=',offer)])
 ##                 if camp_ids:
 ##                     segment_ids=seg_obj.search(cr,uid,[('campaign_id','in',camp_ids)])
-##                     res = [(seg.id, seg.code) for seg in
+##                     res = [(seg.id, seg.code) for seg in 
 ##                                             seg_obj.browse(cr, uid, segment_ids)]
 ##                     res.sort(lambda x, y: cmp(x[1], y[1]))
 ##         return res
 
     report_list_fields = { # {{{
-        'report': {'string': 'Select Report', 'type': 'selection',
+        'report': {'string': 'Select Report', 'type': 'selection', 
                    'selection': _get_reports, },
         'address_id': {'string': 'Select Customer Address', 'type': 'many2one',
-                'relation': 'res.partner.address',
+                'relation': 'res.partner.address', 
                 'domain': [('partner_id.category_id', '=', 'DTP Preview Customers')] },
         'segment_id': {'string': 'Select Segment', 'type': 'many2one',
                 'relation': 'dm.campaign.proposition.segment',}
@@ -103,8 +103,10 @@ class wizard_document_report(wizard.interface):
     states = { # {{{
         'init': {
             'actions': [],
-            'result': {'type': 'form', 'arch': report_list_form,
+            'result': {'type': 'form', 'arch': report_list_form, 
                        'fields': report_list_fields,
+#                'state': [('end', 'Cancel'), ('print_report', 'Print Report'),
+#                                ('select_ms', 'Send Report'),]}
                 'state': [('end', 'Cancel'),('print_report', 'Print Report'),
                                 ('send_report', 'Send Report'),]}
             },
@@ -114,7 +116,7 @@ class wizard_document_report(wizard.interface):
             },
 #        'select_ms': {
 #            'actions': [],
-#            'result': {'type': 'form', 'arch': report_send_form,
+#            'result': {'type': 'form', 'arch': report_send_form, 
 #                        'fields': report_send_fields,
 #                        'state': [('send_report', 'Send Report')]}
 #            },

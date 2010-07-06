@@ -185,14 +185,19 @@ def _execute_mdx(self, cr, uid, data, context):
                     ok = True
             if not ok:
                    continue
+            #print ' '*COLSPAN,
             output =' '*COLSPAN
             log.add(output)
+           # print (('%-'+str(ROWSPAN)+'s ' ) * len(axis[1])) % tuple(map(lambda x: str(len(x[0])==i and x[1] or ''),axis[1]))
             output=(('%-'+str(ROWSPAN)+'s ' ) * len(axis[1])) % tuple(map(lambda x: str(len(x[0])==i and x[1] or ''),axis[1]))
             log.add(output)
 
         for col in data1:
             x=(' '*(len(axis[0][0][0])-1)*2)
+            print "--------------------------------------",x
             temp=(axis[0].pop(0)[1])
+            print "--------------------------------------",temp
+          #  print ('%-'+str(COLSPAN)+'s')% (' '*(len(axis[0][0][0])-1)*2 + (temp),),
             output =('%-'+str(COLSPAN)+'s')% (str(x)+str(temp))
             log.add("\n")
             log.add(output)
@@ -200,10 +205,12 @@ def _execute_mdx(self, cr, uid, data, context):
 
             for row in col:
                 if row==[False]:
+          #          print ('%-'+str(ROWSPAN)+'s')%('',),
                     output=('%-'+str(ROWSPAN)+'s')%('')
                     log.add(output)
 
                 else:
+         #            print ('%-'+str(ROWSPAN)+'s')%(row,),
                      output=('%-'+str(ROWSPAN)+'s')%(row)
                      log.add(output)
         #print

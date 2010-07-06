@@ -23,9 +23,6 @@ from tiny_xmlrpc import *
 import locale
 locale.setlocale(locale.LC_NUMERIC, "C")
 
-import netsvc
-logger = netsvc.Logger()
-
 # Support for COM objects we use.
 gencache.EnsureModule('{00062FFF-0000-0000-C000-000000000046}', 0, 9, 0, bForDemand=True) # Outlook 9
 gencache.EnsureModule('{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}', 0, 2, 1, bForDemand=True) # Office 9
@@ -103,12 +100,13 @@ class OutlookAddin:
         mngr = manager.GetManager()
         mngr.config['login'] = False
         mngr.SaveConfig()
+        print "OnDisconnection"
     def OnAddInsUpdate(self, custom):
-         logger.notifyChannel("OnAddInsUpdate", custom)
+        print "OnAddInsUpdate", custom
     def OnStartupComplete(self, custom):
-         logger.notifyChannel("OnStartupComplete", custom)
+        print "OnStartupComplete", custom
     def OnBeginShutdown(self, custom):
-         logger.notifyChannel("OnBeginShutdown", custom)
+        print "OnBeginShutdown", custom
     def GetAppDataPath(self):
         mngr = manager.GetManager()
         return mngr.data_directory

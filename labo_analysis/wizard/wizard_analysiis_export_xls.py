@@ -209,6 +209,7 @@ class wizard_export_samples(wizard.interface):
                     row.append(res_rd)
                     res_tat=i.tatooer_id and i.tatooer_id.name or ''
                     row.append(res_tat)
+                    print "row", row
                     if i.dog_mother:
                         obj_dog.write(cr,uid,[i.dog_mother.id],{'v_done2':True})
                         v_hist.create(cr,uid,{'dog_id1':i.dog_mother.id,
@@ -224,6 +225,7 @@ class wizard_export_samples(wizard.interface):
                                         'name':last_f1,
                                         })
                     row_lst.append(row)
+                    print "row lst", row_lst
                     writer.writerow(row)
 
 
@@ -331,10 +333,12 @@ class wizard_export_samples(wizard.interface):
                 row_lst.append(row)
                 writer.writerow(row)
         for row_num,row_values in enumerate(row_lst):
+                print row_num, row_values
                 row_num+=1 #start at row 1
                 row_values = [str(x).decode('utf8') for x in row_values]
                 for col,value in enumerate(row_values):
                     #normal row
+                #    print "ttt",col, value
                     mysheet.write(row_num,col,value)
         file=StringIO.StringIO()
         out=mydoc.save(file)

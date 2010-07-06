@@ -72,6 +72,7 @@ class broadcast_compact_report(report_sxw.rml_parse):
             res.insert(0, {'time': bc.dt_start[11:13]+':'+bc.dt_start[14:16], 'p_name': bc.program_id.name, 'p_introduction': bc.program_id.introduction, 'description': bc.description,})
         if not res:
             res.insert(0, {'time': '', 'p_name': '', 'p_introduction': '', 'description': '',})
+        #print res
         return res
 
 report_sxw.report_sxw('report.radiotv.broadcast.compact.report', 'radiotv.broadcast',

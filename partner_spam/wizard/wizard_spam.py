@@ -111,6 +111,7 @@ def attach_file(name, content):
         fp.write(content);
         fp.close();
     except Exception,e:
+        print 'Exception in create report:',e
         return False
     return name
 
@@ -148,11 +149,13 @@ def _mass_mail_send(cr, uid, data, context, adr):
     mail = mail % tuple(texts)
     mail = mail.replace('%%', '%')
     mail = mail.replace('\n', '</br>') # With 'text_tag' widget is not necessary
+    #print mail
 
     # The adr.email field can contain several email addresses separated by ,
     name = adr.name or adr.partner_id.name
     # Some emails smtp accounts has problems with non english characters in name
     to = ['%s <%s>' % (conv_ascii(name), email) for email in adr.email.split(',')]
+    #print to
 
     # List of attached files: List of tuples with (file_name, file_content)
     f_attach = []

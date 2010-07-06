@@ -1,5 +1,5 @@
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Sharoon Thomas.
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 from osv import osv,fields
@@ -43,7 +43,7 @@ class Connection_wrapper(object):
             self.sfdc = Connection.connect(self.username,self.password)
         except:
             self.sfdc = False
-
+    
     def connect_check(self):
         try:
             timestamp = self.sfdc.getServerTimestamp()
@@ -63,13 +63,14 @@ class Connection_wrapper(object):
         if arguments:
             qry += " where "
         for each_tuple in arguments:
-            qry += each_tuple[0] + " " + each_tuple[1] + " " + each_tuple[2]
+            qry += each_tuple[0] + " " + each_tuple[1] + " " + each_tuple[2] 
         if DEBUG:
             self.logger.notifyChannel('SalesForce', netsvc.LOG_INFO, 'New Query Generated : %s' % (qry,))
         if self.connect_check():
             result = self.sfdc.query(qry)
             if DEBUG:
                 self.logger.notifyChannel('SalesForce', netsvc.LOG_INFO, 'Data for Query fetched : %s' % (result,))
+        print type(result)
         return result
 Connection_wrapper()
 
@@ -78,7 +79,7 @@ class salesforce_osv(external_osv.external_osv):
     def external_connection(self, cr, uid,referential):
         conn_wrap = Connection_wrapper(referential.apiusername, referential.apipass)
         return conn_wrap or False
-
+    
     def sync_import(self,cr,uid,conn,external_referential_id,defaults={}, context={}):
         if not 'ids_or_filter' in context.keys():
             context['ids_or_filter'] = []

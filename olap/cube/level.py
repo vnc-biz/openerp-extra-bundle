@@ -85,7 +85,7 @@ class level(object):
         # Make these 2 commands working in all cases:
         # return self._run_transform(metadata)
         # return self._run_star(metadata)
-
+        
         if self.object.table_id<>self.object.dimension_id.cube_id.table_id: # Add a condition on the object
             result = self._run_transform(metadata)
         else:
@@ -136,7 +136,7 @@ class level(object):
         axis_select2.append_column(result_axis['column_name'][-1].label('axis_name'))
         query = axis_select2.execute()
         result = query.fetchall()
-
+          
         def _tuple_define(x):
             y=list(x)
             if y[-1] == None:
@@ -147,7 +147,7 @@ class level(object):
                 y[-1] = self._to_unicode(y[-1])
                 y[-1] = tools.ustr(y[-1])
             return ([self.level]+y[:-1]),y[-1]
-
+             
         axis = map(_tuple_define, result)
         # Gives the mapping
 
@@ -166,7 +166,7 @@ class level(object):
         else:
             # To find the primary key that suits best as per the given criteria
             raise 'Primary key table not made in the hierarchy'
-
+            
         maps = []
         position =0
         for mapping in result_axis['axis_mapping']:
@@ -186,6 +186,8 @@ class level(object):
 #           maps.append(mapinst)
 #           position += mapinst.position_get()
 #       result_axis['axis_mapping'] = maps
+#       print '*'*50
+#       print table, result, result_axis
         return table, axis, result ,result_axis
 
     def _run_star(self, metadata):
@@ -194,6 +196,7 @@ class level(object):
             to add this branch of the star for this subset. The mappers
             reassign to values.
         """
+        print '*** Start ***'
         table, result,result_mapping, result_axis = self._compute_axis(metadata, True)
         result_axis.setdefault('where_clause', [])
         #
@@ -236,7 +239,7 @@ class level(object):
             k = tuple(list(a)[0][1:])
             mapping_axis = filter(lambda m: tuple(list(m)[:-1])==k, mapping)
             primary_keys = map(lambda x:list(x)[-1], mapping_axis)
-            # To convert everything in to the string so that no conversion needed at later stage
+            # To convert everything in to the string so that no conversion needed at later stage 
             # This is for the elements to be displayed in the rows and columns
             for i in range(len(a[0])):
                 if a[0][i]:
@@ -256,7 +259,7 @@ class level(object):
             result.append( {
                 'value': [a],
                 'query': {
-
+                          
                     'whereclause': [col.in_(primary_keys)],#.extend(result_axis['where_clause']),
                     'column': [sqlalchemy.literal('transform')],
                 },

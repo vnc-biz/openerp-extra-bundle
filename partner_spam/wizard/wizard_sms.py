@@ -91,6 +91,8 @@ def _sms_send(cr, uid, data, context, adr):
         texts.append(text or '')
     sms = pattern.sub('%s', data['form']['text'])
     sms = sms % tuple(texts)
+    #print sms
+
     to = adr.mobile
     to = to.replace(' ','')
     if adr.country_id and adr.country_id.code in ('ES', 'CT') and to[:1] == '6': # Spain mobiles begin with 6
@@ -100,6 +102,7 @@ def _sms_send(cr, uid, data, context, adr):
     if data['form']['email_http']:
         # Connection by Email
         text = 'user:' + data['form']['user'] + '\npassword:' + data['form']['password'] + '\napi_id:' + data['form']['app_id'] + '\nto:' + to + '\ntext:' + sms_sent
+        #print text
         tools.email_send(data['form']['email'], ['sms@messaging.clickatell.com'], '', text)
     else:
         # Connection by http

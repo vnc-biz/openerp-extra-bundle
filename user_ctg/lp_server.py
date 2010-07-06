@@ -1,5 +1,5 @@
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -24,37 +24,38 @@ import os
 
 class LP_Server(object):
     cachedir = ".launchpad/cache/"
-    credential_file = ".launchpad/lp_credential.txt"
+    credential_file = ".launchpad/lp_credential.txt"    
     application = 'openobject'
     def get_lp(self):
-        if not os.path.isdir(self.cachedir):
+        if not os.path.isdir(self.cachedir):            
             os.makedirs(self.cachedir)
-
-        if not os.path.isfile(self.credential_file):
-            launchpad = Launchpad.get_token_and_login(self.application, STAGING_SERVICE_ROOT, self.cachedir)
+            
+        if not os.path.isfile(self.credential_file):        
+            launchpad = Launchpad.get_token_and_login(self.application, STAGING_SERVICE_ROOT, self.cachedir)        
             launchpad.credentials.save(file(self.credential_file, "w"))
-        else:
+        else:        
             credentials = Credentials()
             credentials.load(open(self.credential_file))
             launchpad = Launchpad(credentials, STAGING_SERVICE_ROOT, self.cachedir)
         return launchpad
 
-    def get_lp_people_info(self, launchpad, users):
+    def get_lp_people_info(self, launchpad, users):    
         res = {}
         if not isinstance(users,list):
             users = [users]
         for user in users:
-            result = {}
+            result = {}            
             for person in launchpad.people.find(text=user):
-                result['karma'] = person.karma
+                result['karma'] = person.karma                       
                 result['name'] = person.name
-            res[user] = result
+            res[user] = result    
         return res
 
 if __name__ == '__main__':
     lp_server = LP_Server()
     lp = lp_server.get_lp()
+    print lp_server.get_lp_people_info(lp, 'hmo-tinyerp')
+    
 
-
-
+        
 

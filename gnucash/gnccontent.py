@@ -25,9 +25,6 @@
 import xml.sax as sax
 #import os.path, locale
 import time
-import netsvc
-logger = netsvc.Logger()
-
 
 class GCDbgHandler (object):
 	"""This class implements a dummy output of the parsed data to
@@ -55,7 +52,7 @@ class GCDbgHandler (object):
 	def dprint(self,*args):
 		st=map(lambda a: str(a),args)
 		print(' '.join(st))
-
+		
 	def print_item(self,name,item):
 		if not self.printed.has_key(name):
 			self.dprint("I won't print %s" % name)
@@ -64,13 +61,13 @@ class GCDbgHandler (object):
 		if self.printed[name] > 0 :
 			self.dprint("Item %s:" % name, item.__dict__)
 			self.printed[name] -= 1
-
+	
 	def fill_idref(self,idv,obj):
 		pass
-
+	
 	def start_book(self,book):
 		self.debug("Start Gnucash book")
-
+		
 	def set_book(self,book):
 		self.debug("Set Gnucash book")
 
@@ -90,14 +87,14 @@ class GCDbgHandler (object):
 	def end_transaction(self,trn,par):
 		self.decCount('transaction')
 		self.print_item('trans',trn)
-
+		
 	def setCounter(self,ctype,count):
 		self.counters[ctype]=count
-
+	
 	def get_commodity(self,book,com):
 		self.decCount('commodity')
 		self.print_item('commodity',com)
-
+	
 	def end_vendor(self,act,par):
 		self.decCount('gnc:GncVendor')
 		self.print_item('vendor',act)
@@ -120,7 +117,7 @@ class gnc_elem(object):
 		pass
 	def get_slots(self,slots):
 		print( 'Got slots in %s'% self.name,slots)
-
+	
 gnc_unk_instances = {}
 class gnc_unk_elem(gnc_elem):
 	def __init__(self,name ='',pname=''):
@@ -209,7 +206,7 @@ class gnc_book_elem(gnc_elem):
 
 	def end(self,oh,parent):
 		oh.end_book(self)
-
+	
 	def setID(self,oh,val):
 		self.bookid=val
 		oh.set_book(self)
@@ -257,7 +254,7 @@ class gnc_elem_var(gnc_elem):
 	#	pass
 	def end(self,oh,parent):
 		parent.setDict(oh,self.name.split(':')[1],self.val)
-
+	
 	def getchars(self,oh,chars):
 		self.val+=chars
 
@@ -267,7 +264,7 @@ class gnc_elem_var_qty(gnc_elem_var):
 	def end(self,oh,parent):
 		self.getval(self.val)
 		parent.setDict(oh,self.name.split(':')[1],self.val)
-
+	
 	def getval(self,chars):
 		l_split = chars.strip().split('/')
 		if len(l_split) == 1:
@@ -295,7 +292,7 @@ class gnc_elem_var2(gnc_elem_var):
 			self.is_frame= (self.vtype =='frame')
 		if self.is_frame:
 			self.val = {}
-
+	
 	def create(self,oh,name):
 		if name == 'slot':
 			if not self.is_frame:
@@ -311,8 +308,8 @@ class gnc_elem_var2(gnc_elem_var):
 		if (self.is_frame):
 			self.val=dict(self.slots)
 		return super(gnc_elem_var2,self).end(oh,parent)
-
-
+	
+	
 class gnc_elem_commodity(gnc_elem_dict):
 	def create(self,oh,name):
 		if ':' in name:
@@ -378,7 +375,7 @@ class gnc_trns_elem(gnc_elem_dict):
 				elif key == 'slots':
 					return gnc_elem_slots(name)
 		return gnc_unk_elem(name,self.name)
-
+			
 	def end(self,oh,parent):
 		oh.end_transaction(self,parent)
 	def get_slots(self,slots):
@@ -387,7 +384,7 @@ class gnc_trns_elem(gnc_elem_dict):
 				'trans-read-only', 'trans-date-due']:
 				self.dic[slot[0]]=slot[1]
 			else:
-				 logger.notifyChannel('Got unknown slot %s in %s'%(slot[0],self.name))
+				print 'Got unknown slot %s in %s'%(slot[0],self.name)
 
 	def get_commodity(self,oh,com):
 		self.commodity=com.dic
@@ -525,7 +522,7 @@ class GCContent(sax.handler.ContentHandler):
 	ni.begin(self.outh,attrs)
 	if len(self.stack)>200:
 		raise Exception("Maximum stack exceeded")
-
+ 
     def endElement(self, name):
         #global last_input_endElement
         #last_input_endElement = str(name.encode(lcodec))
@@ -536,7 +533,7 @@ class GCContent(sax.handler.ContentHandler):
 		raise Exception("End element not in stack.")
 	elif self.stack[len(self.stack)-1].name !=name:
 		raise Exception("End of element mismatch!")
-
+	
 	el=self.stack.pop()
 	if len(self.stack):
 		el.end(self.outh,self.stack[len(self.stack)-1])
@@ -545,7 +542,7 @@ class GCContent(sax.handler.ContentHandler):
 			self.outh.debug('Ending %s without parent'%el.name)
 		el.end(self.outh,None)
 	return
-
+	
 	if name == 'trn:date-posted':
             self.trn['date_ym'] = self.date_posted[0:7]
             self.trn['date_d'] = self.date_posted[8:10]

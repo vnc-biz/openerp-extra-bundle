@@ -87,6 +87,7 @@ def test():
     import datetime
     test.check_output([{'CUSTOMER': '1', 'REF': '0021', 'NAME': 'ASUStek'}, {'CUSTOMER': '1', 'REF': '0022', 'NAME': 'Agrolait'}, {'CUSTOMER': '0', 'REF': '0023', 'NAME': 'Distrib PC'}])
     res = test.output()
+    print res
 
 if __name__ == '__main__':
     test()

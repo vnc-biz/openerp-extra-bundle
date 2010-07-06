@@ -113,6 +113,7 @@ class report_custom(report_rml):
         # Computing the xml
         xml='''<?xml version="1.0" encoding="UTF-8" ?>
 <addresses>%s%s</addresses>''' % (report_xml, info_xml)
+        #print xml
 
         return xml
 

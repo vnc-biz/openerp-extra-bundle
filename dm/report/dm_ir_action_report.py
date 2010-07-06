@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -68,7 +68,7 @@ def dm_register_all(db,report=False):
             interface.report_rml('report.'+r['report_name'], r['model'],
                     opj('addons', r['report_xml']),
                     r['report_xsl'] and opj('addons', r['report_xsl']))
-
+    
 interface.register_all =  dm_register_all
 
 class report_xml(osv.osv):
@@ -88,7 +88,7 @@ class report_xml(osv.osv):
             ("oo_html","OO - HTML"),
             ("oo_txt","OO - Text"),
             ], string='Type', required=True),
-
+            
         }
 
     def upload_report(self, cr, uid, report_id, file_sxw,file_type, context):
@@ -139,6 +139,7 @@ try:
     from UNOConverter import DocumentConverter
     converter = DocumentConverter()
 except Exception,e:
+    print "ERROR: failed to create document converter:",e
     converter=None
 # over rider report_sxw class
 def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
@@ -236,11 +237,13 @@ def create_oo_report(self, cr, uid, ids, data, report_xml, context=None):
     report_type = report_xml.report_type[3:]
     if report_type != mime_type:
         if not converter:
+            print "error: ODT converter not available"
             final_op = None
         else :
             start_time = time.time()
             final_op = converter.storeByPath(final_op, report_type)
-    sxw_io.close()
+            print "Time taken to convert",time.time() - start_time
+    sxw_io.close()        
     return (final_op, report_type)
 
 def create(self, cr, uid, ids, data, context=None):
@@ -273,6 +276,6 @@ def create(self, cr, uid, ids, data, context=None):
     if not fnct_ret:
         return (False,False)
     return fnct_ret
-report_sxw.create =  create
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+report_sxw.create =  create    
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:      
 

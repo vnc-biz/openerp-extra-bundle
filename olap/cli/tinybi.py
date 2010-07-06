@@ -36,8 +36,6 @@ import optparse
 
 import xmlrpclib
 import time
-import netsvc
-logger = netsvc.Logger()
 
 __version__ = '1.0'
 
@@ -59,7 +57,7 @@ parser.add_option_group(group)
 (opt, args) = parser.parse_args()
 
 sock = xmlrpclib.ServerProxy('http://'+opt.hostname+':'+str(opt.port)+'/xmlrpc/object')
-uid = 1
+uid = 1 
 
 axis,data = sock.execute(opt.database, uid, opt.password, 'olap.schema', 'request', opt.schema, opt.command)
 COLSPAN = 18
@@ -74,13 +72,15 @@ if len(axis)>1:
                 ok = True
         if not ok:
             continue
-        logger.notifyChannel(' '*COLSPAN,)
-        logger.notifyChannel((('%-'+str(ROWSPAN)+'s ' ) * len(axis[1])) % tuple(map(lambda x: str(len(x[0])==i and x[1] or ''),axis[1])))
+        print ' '*COLSPAN,
+        print (('%-'+str(ROWSPAN)+'s ' ) * len(axis[1])) % tuple(map(lambda x: str(len(x[0])==i and x[1] or ''),axis[1]))
 for col in data:
-    logger.notifyChannel(('%-'+str(COLSPAN)+'s')% (' '*(len(axis[0][0][0])-1)*2 + str(axis[0].pop(0)[1]),),)
+    print ('%-'+str(COLSPAN)+'s')% (' '*(len(axis[0][0][0])-1)*2 + str(axis[0].pop(0)[1]),),
     for row in col:
         if row==[False]:
-            logger.notifyChannel(('%-'+str(ROWSPAN)+'s')%('',))
+            print ('%-'+str(ROWSPAN)+'s')%('',),
         else:
-            logger.notifyChannel(('%-'+str(ROWSPAN)+'s')%(row,))
+            print ('%-'+str(ROWSPAN)+'s')%(row,),
+    print
+print
 

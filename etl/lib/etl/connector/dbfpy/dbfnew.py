@@ -28,8 +28,6 @@ from dbf import *
 from fields import *
 from header import *
 from record import *
-import netsvc
-logger = netsvc.Logger()
 
 class _FieldDefinition(object):
     """Field definition.
@@ -154,7 +152,9 @@ if (__name__=='__main__'):
     dbfn.add_field("date",'D',8)
     dbfn.write("tst.dbf")
     # test new dbf
+    print "*** created tst.dbf: ***"
     dbft = Dbf('tst.dbf', readOnly=0)
+    print repr(dbft)
     # add a record
     rec=DbfRecord(dbft)
     rec['name']='something'
@@ -169,10 +169,13 @@ if (__name__=='__main__'):
     rec.store()
 
     # show the records
+    print "*** inserted 2 records into tst.dbf: ***"
+    print repr(dbft)
     for i1 in range(len(dbft)):
         rec = dbft[i1]
         for fldName in dbft.fieldNames:
-             logger.notifyChannel('%s:\t %s'%(fldName, rec[fldName]))
+            print '%s:\t %s'%(fldName, rec[fldName])
+        print
     dbft.close()
 
 # vim: set et sts=4 sw=4 :

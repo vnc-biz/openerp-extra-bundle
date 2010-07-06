@@ -1,5 +1,5 @@
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -32,6 +32,7 @@ class mrp_procurement(osv.osv):
     def check_buy(self, cr, uid, ids, context=None):
         for procurement in self.browse(cr, uid, ids):
             for line in procurement.product_id.flow_pull_ids:
+                print line.location_src_id.name, line.location_id.name, line.type_proc
                 if line.location_id==procurement.location_id:
                     return line.type_proc=='buy'
         return super(mrp_procurement, self).check_buy(cr, uid, ids)

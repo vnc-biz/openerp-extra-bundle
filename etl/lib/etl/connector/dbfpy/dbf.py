@@ -65,8 +65,6 @@ __all__ = ["Dbf"]
 import header
 import record
 from utils import INVALID_VALUE
-import netsvc
-logger = netsvc.Logger()
 
 class Dbf(object):
     """DBF accessor.
@@ -258,7 +256,8 @@ class Dbf(object):
 def demoRead(filename):
     _dbf = Dbf(filename, True)
     for _rec in _dbf:
-         logger.notifyChannel(repr(_rec))
+        print
+        print repr(_rec)
     _dbf.close()
 
 def demoCreate(filename):
@@ -281,6 +280,7 @@ def demoCreate(filename):
         _rec["INITIALS"] = _i
         _rec["BIRTHDATE"] = _b
         _rec.store()
+    print repr(_dbf)
     _dbf.close()
 
 if (__name__=='__main__'):

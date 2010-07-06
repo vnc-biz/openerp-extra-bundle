@@ -88,6 +88,7 @@ def test():
     test = etl_test.etl_component_test(unique())
     test.check_input({'main': input_part})
     test.check_output(unique_part, 'main')
+    print test.output()
 
 if __name__ == '__main__':
     test()

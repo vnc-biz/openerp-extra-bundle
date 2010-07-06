@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -40,8 +40,9 @@ def _set_to_zero(self,cr,uid,data,context):
     res= cr.fetchall()
     cr.execute("update lunch_cashmove set active = 'f' where active= 't' and box in (%s)"%','.join(map(str,data['ids'])))
 ##    to_unactive= {}.fromkeys([r[0] for r in cr.fetchall]).keys()
-##    cashmove_ref.write(cr,uid,to_unactive,{'active':False})
-##
+##    print to_unactive
+##    cashmove_ref.write(cr,uid,to_unactive,{'active':False})            
+##    
     for (user_id,box_id,amount) in res:
         cashmove_ref.create(cr,uid,{'name': 'Summary for user'+ str(user_id),
                         'amount': amount,
@@ -55,21 +56,21 @@ def _set_to_zero(self,cr,uid,data,context):
 class cashbox_set_to_zero(wizard.interface):
 
     states = {
-
+            
         'init': {
                         'action':[],
                         'result':{'type' : 'form',
                           'arch' : set_to_zero_form,
               'fields' : confirm_setting_zero_fields,
                           'state' : [('end', 'Cancel'),('zero', 'Set to Zero') ]},
-
+    
         },
         'zero' : {
             'actions' : [_set_to_zero],
             'result' : {'type' : 'state', 'state' : 'end'}
         },
     }
-
+    
 cashbox_set_to_zero('lunch.cashbox.clean')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

@@ -28,8 +28,8 @@
 ##############################################################################
 
 import tools
-import time
-import datetime
+import time 
+import datetime 
 from osv import fields,osv
 
 import base64, os, string
@@ -57,7 +57,7 @@ class printjob_printer(osv.osv):
         'default':fields.boolean('Default Printer',required=True,readonly=True),
     }
     _order = "name"
-
+    
     _defaults = {
         'default': lambda *a: False,
     }
@@ -69,7 +69,7 @@ class printjob_printer(osv.osv):
         self.write(cr, uid, default_ids, {'default':False}, context)
         self.write(cr, uid, ids[0], {'default':True}, context)
         return True
-
+    
     def get_default(self,cr,uid,context):
         printer_ids = self.search(cr, uid,[('default','=',True)])
         if printer_ids:
@@ -102,7 +102,7 @@ class printjob_action(osv.osv):
     }
 printjob_action()
 
-#
+# 
 # Users
 #
 
@@ -120,7 +120,7 @@ class res_users(osv.osv):
 
 res_users()
 
-#
+# 
 #  Printjobs
 #
 import re
@@ -144,8 +144,8 @@ class printjob_job(osv.osv):
         'name' : fields.char('Name',size=64,required=True,select="1"),
         'format' : fields.char('Format',size=64,readonly=True),
         'state': fields.selection([('draft','In Progress'),
-                                ('ready','Processed'),
-                                ('error','Error'),
+                                ('ready','Processed'), 
+                                ('error','Error'), 
                                 ('done','Done')], 'State', required=True, select="1"),
         'report' : fields.char('Report',size=256,required=True,select="1"),
         'result': fields.text('Document',readonly=True),
@@ -161,7 +161,7 @@ class printjob_job(osv.osv):
         'create_uid': fields.many2one('res.users', 'Created By',readonly=True),
     }
     _order = "id desc"
-
+    
     _defaults = {
         'state': lambda *a: 'draft',
         'keep': lambda *a: False,
@@ -196,12 +196,13 @@ class printjob_job(osv.osv):
             cmd = "lpr -l -P %s %s" % (printer,file_name)
         else:
             cmd = "lpr -P %s %s" % (printer,file_name)
+        print "PRINTING: ", cmd
         logger.notifyChannel("report", netsvc.LOG_INFO,"Printing job : '%s'" % cmd)
         os.system(cmd)
 
 printjob_job()
 
-
+    
 
 class report_xml(osv.osv):
     _inherit = 'ir.actions.report.xml'
@@ -314,12 +315,13 @@ class report_spool(netsvc.Service):
 
         security.check(db, uid, passwd)
         logger.notifyChannel("report", netsvc.LOG_INFO,"request report '%s'" % str(object))
+        # Reprint a printed job
         if object == 'printjob.reprint':
             return ids[0]
 
         cr = pooler.get_db(db).cursor()
         pool = pooler.get_pool(cr.dbname)
-
+        
         # First of all load report defaults: name, action and printer
         report_obj = pool.get('ir.actions.report.xml')
         report = report_obj.search(cr,uid,[('report_name','=',object)])
@@ -365,7 +367,7 @@ class report_spool(netsvc.Service):
                 if printer_id:
                     printer = pool.get('printjob.printer').browse(cr,uid,printer_id,context).system_name
 
-        #
+        # 
         # Create new printjob.job
         #
         job_id = pool.get("printjob.job").create(cr,uid,{
@@ -379,7 +381,7 @@ class report_spool(netsvc.Service):
         }, context)
         cr.commit()
 #        cr.close()
-
+    
         def print_thread(id, uid, ids, datas, context, printer):
             logger.notifyChannel("report", netsvc.LOG_DEBUG,
                  "Printing thread started")
@@ -430,7 +432,7 @@ class report_spool(netsvc.Service):
         if report.create_uid.id != uid:
             cr.close()
             raise Exception, 'AccessDenied'
-
+      
         res = {'state': report.state in ('ready','done')}
         if res['state']:
             res['result'] = report.result

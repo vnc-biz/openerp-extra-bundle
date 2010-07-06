@@ -45,9 +45,12 @@ from report import report_sxw
 #	#	setup_ids1=pooler.get_pool(cr.dbname).get('analysis.setup').search(cr,uid,([('sample_id1','=',i.id),('well','>=',97)]))
 #		setup_ids1=pooler.get_pool(cr.dbname).get('analysis.setup').search(cr,uid,([('id','=',i.follow_sheet_id.id),('well','>=',97)]))
 #		lst1.append(setup_ids1)
+#		print "LIST1111111 FROM SEARCH FUNCTION",lst1
 #	if len( ",".join(([str(i) for i in lst1 if i])) )>0:
+#		print "IN THE SEARCH FN IF STATE"
 #		return 'valid2'
 #	else:
+#		print "IN THE SEARCH FN ELSE STATE"
 #		return  'end_print'
 #
 
@@ -55,13 +58,20 @@ from report import report_sxw
 #	sample_obj = pooler.get_pool(cr.dbname).get('labo.sample')
 #	sample_id=sample_obj.browse(cr,uid,datas['ids'])
 #	lst=[]
+#	print "SAMPLE_IDS:************",sample_id
 #	for i in sample_id:
+#		print "FOLLOWSHIT_ID",i.follow_sheet_id.id
 #		#	setup_ids=pooler.get_pool(cr.dbname).get('analysis.setup').search(cr,uid,([('sample_id1','=',i.id),('well','<',97)]))
+#		print "SAMPLE_IDS:************",id
+#		print "CURRENT ID",i
 #		setup_ids=pooler.get_pool(cr.dbname).get('analysis.setup').search(cr,uid,[('id','=',i.follow_sheet_id.id),('well','<',97)])
 #		lst.append(setup_ids)
+#		print "LISTTT",lst
 #	if not len(lst):
+#		print "IN THE GET VALUE IF STATE"
 #		return 'valid'
 #	else:
+#		 print "IN THE GET VALUE ELSE STATE"
 #		 return 'valid1'
 ##	if len(lst):
 ##		return 'valid1'

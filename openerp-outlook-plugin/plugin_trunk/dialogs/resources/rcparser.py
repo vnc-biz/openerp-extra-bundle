@@ -9,8 +9,6 @@ import sys, os, shlex
 import win32con
 #import win32gui
 import commctrl
-import netsvc
-logger = netsvc.Logger()
 
 _controlMap = {"DEFPUSHBUTTON":0x80,
                "PUSHBUTTON":0x80,
@@ -53,6 +51,7 @@ class DialogDef:
         self.styles = []
         self.stylesEx = []
         self.controls = []
+        #print "dialog def for ",self.name, self.id
     def createDialogTemplate(self):
         t = None
         self.template = [[self.caption, (self.x,self.y,self.w,self.h), self.style, self.styleEx, (self.fontSize, self.font)]]
@@ -88,6 +87,7 @@ class ControlDef:
         if ct in _controlMap:
             ct = _controlMap[ct]
         t = [ct, self.label, self.idNum, (self.x, self.y, self.w, self.h), self.style]
+        #print t
         return t
 
 
@@ -105,7 +105,7 @@ class RCParser:
 
     def debug(self, *args):
         if self.debugEnabled:
-            return
+            print args
 
     def getToken(self):
         self.token = self.lex.get_token()
@@ -131,7 +131,7 @@ class RCParser:
             self.parseH(h)
             h.close()
         except OSError:
-            logger.notifyChannel("No .h file. ignoring.")
+            print "No .h file. ignoring."
         f = open(rcFileName)
         self.open(f)
         self.getToken()
@@ -159,7 +159,7 @@ class RCParser:
                     if self.names.has_key(i):
                         # ignore AppStudio special ones.
                         if not n.startswith("_APS_"):
-                            logger.notifyChannel("Duplicate id",i,"for",n,"is", self.names[i])
+                            print "Duplicate id",i,"for",n,"is", self.names[i]
                     else:
                         self.names[i] = n
                     if self.next_id<=i:
@@ -179,6 +179,7 @@ class RCParser:
                     deep -= 1
         elif "IDD_" == self.token[:4]:
             possibleDlgName = self.token
+            #print "possible dialog:", possibleDlgName
             self.getToken()
             if "DIALOG" == self.token or "DIALOGEX" == self.token:
                 self.dialog(possibleDlgName)
@@ -192,6 +193,8 @@ class RCParser:
                     self.getToken() # bmpname
                 bmf = self.token[1:-1] # quotes
                 self.bitmaps[possibleBitmap] = bmf
+                print "BITMAP", possibleBitmap, bmf
+                #print win32gui.LoadImage(0, bmf, win32con.IMAGE_BITMAP,0,0,win32con.LR_DEFAULTCOLOR|win32con.LR_LOADFROMFILE)
 
     def addId(self, id_name):
         if id_name in self.ids:
@@ -306,6 +309,7 @@ class RCParser:
         while self.token!="END":
             control = ControlDef()
             control.controlType = self.token;
+            #print self.token
             self.getToken()
             if self.token[0:1]=='"':
                 control.label = self.token[1:-1]
@@ -345,6 +349,7 @@ class RCParser:
             if self.token==",":
                 self.getToken()
                 control.style, control.styles = self.styles([], defaultControlStyle)
+            #print control.toString()
             dlg.controls.append(control)
 def ParseDialogs(rc_file):
     rcp = RCParser()
@@ -353,9 +358,11 @@ def ParseDialogs(rc_file):
     except:
         lex = getattr(rcp, "lex", None)
         if lex:
-            logger.notifyChannel("ERROR parsing dialogs at line", lex.lineno)
+            print "ERROR parsing dialogs at line", lex.lineno
+            print "Next 10 tokens are:"
             for i in range(10):
-                logger.notifyChannel(lex.get_token(),)
+                print lex.get_token(),
+            print
         raise
 
     return rcp
@@ -365,4 +372,6 @@ if __name__=='__main__':
     d = ParseDialogs(rc_file)
     import pprint
     for id, ddef in d.dialogs.items():
+        print "Dialog %s (%d controls)" % (id, len(ddef))
         pprint.pprint(ddef)
+        print

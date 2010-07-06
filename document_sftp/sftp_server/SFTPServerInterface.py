@@ -174,13 +174,12 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 raise OSError(1, 'Operation not permited.')
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
-        finally:
-            cr.commit()
-            cr.close()
+
         sobj = SFTPHandle(flags)
         sobj.filename = node.path
         sobj.readfile = f
         sobj.writefile = None
+        cr.close()
         return sobj
 
     def create(self, node, objname, flags):
@@ -243,14 +242,14 @@ class SFTPServer (paramiko.SFTPServerInterface):
                         'res_id': object2.id
                     })
                 cid = fobj.create(cr, uid, val, context={})
+            cr.commit()
+            cr.close()
             f = file_wrapper('', cid, cr.dbname, uid, )
 
         except Exception,e:
             log(e)
             raise OSError(1, 'Operation not permited.')
-        finally:
-            cr.commit()
-            cr.close()
+        
         if f :
             fobj = SFTPHandle(flags)
             fobj.filename =  objname
@@ -282,13 +281,12 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 res = pool.get('ir.attachment').unlink(cr, uid, [object.id])
             else:
                 raise OSError(1, 'Operation not permited.')
+            cr.commit()
+            cr.close()
             return paramiko.SFTP_OK
         except OSError, e:
             return paramiko.SFTPServer.convert_errno(e.errno)
-        finally:
-            cr.commit()
-            cr.close()
-
+        
     def db_list(self):
         #return pooler.pool_dic.keys()
         s = netsvc.ExportService.getService('db')
@@ -470,16 +468,15 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 dst_file.write(src_file.getvalue())
                 dst_file.close()
                 src_file.close()
+                cr.commit()
+                cr.close()
             else:
                 raise OSError(1, 'Operation not permited.')
             return paramiko.SFTP_OK
         except Exception,err:
             log(err)
             return paramiko.SFTPServer.convert_errno(e.errno)
-        finally:
-            cr.commit()
-            cr.close()
-            
+
     def mkdir(self, node, basename, attr):
         try:
             """Create the specified directory."""
@@ -504,12 +501,11 @@ class SFTPServer (paramiko.SFTPServerInterface):
                 val['parent_id'] =  obj and obj.id or False
             # Check if it alreayd exists !
             pool.get('document.directory').create(cr, uid, val)
+            cr.commit()
+            cr.close()
             return paramiko.SFTP_OK
         except Exception,err:
             return paramiko.SFTPServer.convert_errno(e.errno)
-        finally:
-            cr.commit()
-            cr.close()
 
     def rmdir(self, node):
         try:

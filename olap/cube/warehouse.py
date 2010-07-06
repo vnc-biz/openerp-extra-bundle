@@ -42,7 +42,7 @@ class warehouse(object):
         measures.pop(measures.index('name'))
         engine = create_engine(connection, echo=False)
         metadata = MetaData()
-        tab = Table(str(table_name), metadata,
+        tab = Table(str(table_name), metadata, 
                       Column('name', String(100)),
                       Column('parent_id', String(100)),
                       Column('id', String(100))
@@ -50,11 +50,11 @@ class warehouse(object):
         for msr in measures:
             colmn = Column(msr, String(100))
             tab.append_column(colmn)
-
-        metadata.create_all(engine)
+            
+        metadata.create_all(engine) 
         result = engine.execute(tab.insert(), data)
         return {}
-
+    
     def log(self,cr,uid,cube,query,data,connection,context={}):
         if not context==False:
             log_ids = pooler.get_pool(cr.dbname).get('olap.query.logs').search( cr, uid, [('query','=', query), ('user_id','=', uid)])
@@ -68,9 +68,9 @@ class warehouse(object):
                         columns = data[0][1]
                         datas = data[1]
                         result = []
-
+                        
                         parent_list = [ rw[0] for rw in rows]
-
+                        
                         for element in range(len(rows)):
                             res = {}
                             check_element = rows[element][0][:rows[element][0].index(rows[element][1])]
@@ -89,6 +89,7 @@ class warehouse(object):
                         table_name = cube.name+'_'+str(count.id)+'_'+str(counter)
                         self.create_table(connection,table_name, result)
                     elif len(data[0]) == 3:
+                        print "Its for Pages:>>>>>>>>>"
                 pooler.get_pool(cr.dbname).get('olap.query.logs').write(cr, uid, log_ids, {'count':counter, 'table_name': table_name})
                 return True
             else:
@@ -103,7 +104,7 @@ class warehouse(object):
                 log_id = pooler.get_pool(cr.dbname).get('olap.query.logs').create(cr,uid,logentry)
                 return log_id
         return -1
-
+    
     def run(self, currency, qry_obj):
         schema = qry_obj.schema_id
         table_name = str(qry_obj.table_name)
@@ -128,20 +129,20 @@ class warehouse(object):
                 rows.append(([str(res[r][0])], str(res[r][0])))
             else:
                 rows.append(([str(res[int(res[r][1])][0]),str(res[r][0])], str(res[r][0])))
-
+        
         data = []
         for r in range(len(res)):
             data.append(res[r][3:])
-
+            
         datas = []
         for dd in range(len(data)):
             datas.append([])
             for d in range(len(data[dd])):
                 datas[dd].append([str(data[dd][d])])
-
+        
         final_result = ([rows, cols], datas)
         return  final_result
-
+    
     def match_table(self, cr, uid,request, context):
         qry_obj = pooler.get_pool(cr.dbname).get('olap.query.logs')
         result = self.parse_query(request)
@@ -177,7 +178,7 @@ class warehouse(object):
                 res_1.append(total_cols)
                 result = (res_1, data)
         return result
-
+    
     def parse_query(self, query):
         result = []
         lrbrack, rrbrack = map( Suppress, "()" )
@@ -239,13 +240,13 @@ class warehouse(object):
                     else:
                         axes[ax].append( '.'.join(map(lambda x: "[" + x +"]",i)))
             ax = ax + 1
-
+    
         result.append(axes)
         result.append(crossjoins)
         qry_list = [[], []]
         t_qry = []
         new_query = ''
-
+        
         for x in range(len(axes)):
             qry_select = 'select  {'
             if x == 0:
@@ -262,6 +263,8 @@ class warehouse(object):
 
         qry_list[0].append(t_qry)
         qry_list[1].append(new_query)
-
+        
     #        else:
+    #            print "pages"
         return qry_list
+        

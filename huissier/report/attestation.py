@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    OpenERP, Open Source Management Solution	
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -27,6 +27,7 @@ from report import report_sxw
 
 class huissier_attestation(report_sxw.rml_parse):
     def _get_obj(self, data):
+        print data
         return self.pool.get('huissier.lots').browse(self.cr, self.uid, data['form']['attest_ids'])
     def __init__(self, cr, uid, name, context):
         super(huissier_attestation, self).__init__(cr, uid, name, context)

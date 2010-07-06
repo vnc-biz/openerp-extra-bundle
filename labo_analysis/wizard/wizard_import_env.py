@@ -50,7 +50,7 @@ _form_cont = '''<?xml version="1.0"?>
 </form>''' % ('Import File', 'File to import')
 _fields_cont = {
     'attach':{'string':'Attachment', 'type':'binary'},
-    'file_name':{'string':'File Name', 'type':'char', 'size':'64'}
+    'file_name':{'string':'File Name', 'type':'char', 'size':'64'} 
 }
 
 
@@ -94,10 +94,11 @@ def _convert_file1(self, cr, uid, data, context):
         client_info=[]
        # client_info=re[0][1].split('\n')[0].split('\t')
         client_infos=re and re[0] and re[0].split('\t')
-        client_info=client_infos and client_infos[3]
+        client_info=client_infos and client_infos[3] 
         date_client=client_infos and client_infos[1] and client_infos[1].replace('/','-') or None
   #      list= re[0][1].split('\n')[1:]
         if client_infos and client_infos[3]:
+            print client_infos, client_infos[3]
             partner_id=pooler.get_pool(cr.dbname).get('res.partner').search(cr, uid, [('name', '=', client_infos[3] )])
         if partner_id:
             part_l=pooler.get_pool(cr.dbname).get('res.partner').browse(cr,uid,partner_id)[0]
@@ -107,7 +108,7 @@ def _convert_file1(self, cr, uid, data, context):
         pooler.get_pool(cr.dbname).get('labo.analysis.request').write(cr,uid,req['id'],{#'begining_date':_makeDate(client_infos[1]) or None,
                                         'date_awe':_makeDate(client_infos[1]) or None,
                                         'ref_client': partner_id and partner_id[0] or None,
-                                        'pricelist_id':v_part
+                                        'pricelist_id':v_part 
                                         })
         for item in list:
         #    seq=pooler.get_pool(cr.dbname).get('ir.sequence').get(cr, uid, 'labo.sample')

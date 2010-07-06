@@ -53,7 +53,7 @@ class health_semestre(osv.osv):
         'fiscalyear_id': fields.many2one('account.fiscalyear', 'Fiscal Year', required=True, states={'done':[('readonly',True)]}, select=True),
     }
     _order = "date_start"
-health_semestre()
+health_semestre()    
 class ir_action_window(osv.osv):
     """
     Surcharge ir_action_window
@@ -67,10 +67,10 @@ class ir_action_window(osv.osv):
         for r in res:
             mystring = 'id_resident()'
             if  mystring in (r.get('domain', '[]') or ''):
-                cat_id = self.pool.get('res.partner.category').search(cr,
+                cat_id = self.pool.get('res.partner.category').search(cr, 
                     uid,[('name','=','Résident')])
                 r['domain'] = r['domain'].replace(mystring, str(cat_id))
-            mystring = 'id_postulant()'
+            mystring = 'id_postulant()' 
             if mystring in (r.get('domain', '[]') or ''):
                 cat_id = self.pool.get('res.partner.category'). search(cr, uid,
                     [('name','=','Postulant')])
@@ -79,7 +79,7 @@ class ir_action_window(osv.osv):
 ir_action_window()
 
 class health_religion(osv.osv):
-    """
+    """ 
     religions
     """
     _name = 'health.religion'
@@ -133,7 +133,7 @@ class health_room(osv.osv):
     _description = "Chambres"
     _columns = {
         'name': fields.char("Numero de chambre",size=12),
-        'localisation':fields.many2one('health.room.localisation','Localisation'),
+        'localisation':fields.many2one('health.room.localisation','Localisation'), 
         'type':fields.selection([('1','Simple'),('2','Double')],'Type de chambre'),
         'bed': fields.integer("Nombre de lit"),
 
@@ -176,7 +176,7 @@ class health_drugfamilly(osv.osv):
         'name': fields.char('name', size=256)
     }
 health_drugfamilly()
-#
+# 
 # LE MODELE PATHOS
 #
 #reference http://www.fehap.fr/social/personnes_agees/DOC212a4.pdf
@@ -217,7 +217,7 @@ class health_pathosetatspatho(osv.osv):
             'name': fields.char('Etats Pathologique',size=2),
             'description': fields.char('Description',size=250),
             'definition':fields.text('Definition'),
-            'categorie': fields.many2one('health.pathoscategetats', 'Categorie'),
+            'categorie': fields.many2one('health.pathoscategetats', 'Categorie'),   
             'profils': fields.many2many('health.pathosprofils', 'health_profil_rel','name','profil','Profils')
         }
 health_pathosetatspatho()
@@ -258,7 +258,7 @@ class health_facturation(osv.osv):
             if donnee['aidesociale']:
                 comment=comment+"\nAllocataire de l'Aide Sociale"
             facture={'payment_term':payment_term,'account_id':acc_id,'address_invoice_id':invoice_addr_id,'name':p.name+" - "+donnee.period_id.name,'type':'out_invoice','state':'draft','date_invoice':date_facture,'date_due':date_facture,'partner_id':partner_id,'comment':comment,'period_id':donnee['period_id']['id']}
-            invoice_id=obj_facture.create(cr,uid,facture)
+            invoice_id=obj_facture.create(cr,uid,facture)   
             tm= obj_produit.browse(cr,uid,prd_tm)
             if donnee['hebergement']:
                 ligne_facture={'price_unit':donnee['hebergement'],'name':'Hébergement','invoice_id':invoice_id,'product_id':prd_heb,'account_id':obj_produit.browse(cr,uid,prd_heb).product_tmpl_id.property_account_income.id,'quantity':nbjour}
@@ -279,7 +279,7 @@ class health_facturation(osv.osv):
         return 0
 
 
-
+        
 
 
     def on_change_resident(self, cr, uid, ids, partner_id):
@@ -289,16 +289,16 @@ class health_facturation(osv.osv):
                 'chambre': res['room_id'],}
             }
             return result
-
+        
     def _get_period(self, cr, uid, context):
         periods = self.pool.get('account.period').find(cr, uid)
         if periods:
             return periods[0]
         else:
             return False
-
+            
     _columns = {
-            'name':fields.many2one('health.patient', 'Resident',  domain="[('category_id','=','Résident')]",required=True),
+            'name':fields.many2one('health.patient', 'Resident',  domain="[('category_id','=','Résident')]",required=True), 
             'period_id':fields.many2one('account.period','Période de facturation',required=True),
             'chambre': fields.many2one('health.room', 'Chambres'),
             'hebergement': fields.float('Tarif Hébergement'),
@@ -332,7 +332,7 @@ class health_aggir(osv.osv):
     _table = 'health_aggir'
     _columns = {
         'name': fields.many2one('res.partner', 'Resident',
-            domain="[('category_id','=','Résident')]"),
+            domain="[('category_id','=','Résident')]"), 
         'coherence':fields.selection([('A','a'),('B','b'),('C','c')],
             'Coherence', readonly=False), # Utiliser pour le calcul de gir
         'orientation':fields.selection([('A','a'),('B','b'),('C','c')],
@@ -358,18 +358,18 @@ class health_aggir(osv.osv):
         'cuisine':fields.selection([('A','a'),('B','b'),('C','c')]
             ,'Cuisine', readonly=False),
         'menage':fields.selection([('A','a'),('B','b'),('C','c')]
-            ,'Menage', readonly=False),
+            ,'Menage', readonly=False),            
         'transports':fields.selection([('A','a'),('B','b'),('C','c')]
-            ,'transports', readonly=False),
+            ,'transports', readonly=False),            
         'achats':fields.selection([('A','a'),('B','b'),('C','c')],'achats'
-            , readonly=False),
+            , readonly=False),            
         'traitement':fields.selection([('A','a'),('B','b'),('C','c')]
-            ,'suivi de traitement', readonly=False),
+            ,'suivi de traitement', readonly=False),   
         'activite':fields.selection([('A','a'),('B','b'),('C','c')]
             ,'Activites de temps libre', readonly=False),
         'resultat':fields.char('AG-GIR',size=250),
         'gir':fields.char('GIR',size=1),
-    }
+    }           
     def calcul_gir(self, cr, uid, ids, context={}):
         """ reference http://fbevernage.free.fr/geronto/Programe.htm"""
         girage = 0
@@ -497,7 +497,7 @@ class health_aggir(osv.osv):
                                 groupe = groupe+2000
                             if gir.moveint == "C":
                                 groupe = groupe+200
-
+                                
                             if gir.alimentation == "B":
                                 groupe = groupe+200
                             if gir.elimination == "B":
@@ -523,8 +523,8 @@ class health_aggir(osv.osv):
                                 if gir.transferts == "C":
                                     groupe = groupe+800
                                 if gir.moveint == "C":
-                                    groupe = groupe+200
-
+                                    groupe = groupe+200   
+                    
                                 if gir.toilette == "B":
                                     groupe = groupe+100
                                 if gir.habillage == "B":
@@ -554,7 +554,7 @@ class health_aggir(osv.osv):
                                     if gir.transferts == "C":
                                         groupe = groupe+500
                                     if gir.moveint == "C":
-                                        groupe = groupe+200
+                                        groupe = groupe+200                   
                                     if gir.coherence == "B":
                                         groupe = groupe + 100
                                     if gir.orientation == "B":
@@ -568,7 +568,7 @@ class health_aggir(osv.osv):
                                     if gir.elimination == "B":
                                         groupe = groupe+100
                                     if gir.transferts == "B":
-                                        groupe = groupe+100
+                                        groupe = groupe+100                   
                                     if groupe >= 800:
                                         rang = 9
                                     if rang == 0:
@@ -588,7 +588,7 @@ class health_aggir(osv.osv):
                                         if gir.transferts == "C":
                                             groupe = groupe+400
                                         if gir.moveint == "C":
-                                            groupe = groupe+200
+                                            groupe = groupe+200       
                                         if gir.toilette == "B":
                                             groupe = groupe+200
                                         if gir.habillage == "B":
@@ -633,9 +633,9 @@ class health_aggir(osv.osv):
                                                     rang = 11
                                                 if groupe >= 2000 and \
                                                         groupe <= 3999:
-                                                    rang = 12
+                                                    rang = 12 
                                                 if groupe < 2000:
-                                                    rang = 13
+                                                    rang = 13 
                 if rang == 1:
                     girage = 1
                 if rang > 1 and rang < 8:
@@ -746,14 +746,17 @@ health_evenement_type()
         #~ 'destinataire': fields.selection([('1','ehpad'),('2','résident')],'Destinataire'),
         #~ 'du': fields.date("du"),
         #~ 'au': fields.date("au"),
-
+       
     #~ }
     #~ def name_get(self, cr, uid, ids, context={}):
         #~ if not len(ids):
             #~ return []
         #~ res = []
-
+        #~ print context
+        #~ print ids
+        
         #~ for r in self.read(cr, uid, ids, ['name']):
+            #~ print r
             #~ if context.get('contact_display', 'contact')=='partner':
                 #~ res.append((r['id'], r['partner_id'][1]))
             #~ else:
@@ -783,7 +786,7 @@ class health_patient_evenement(osv.osv):
         'user_id': lambda obj,cr,uid,context: uid,
     }
 health_patient_evenement()
-
+            
 class health_prescription(osv.osv):
     """
         Prescription
@@ -800,7 +803,7 @@ class health_prescription(osv.osv):
         'nbrprise':fields.char('Nbre par prise',size=8),
         'user_id': fields.many2one('res.users', 'Saisie Par'),
         'partner_id': fields.many2one('res.partner', 'Patient'),
-
+        
     }
     _order = 'du desc'
     _defaults = {
@@ -808,8 +811,8 @@ class health_prescription(osv.osv):
         'du':lambda *a: time.strftime('%Y-%m-%d'),
         'heure': lambda *a: time.strftime('%H:%M'),
     }
-
-
+    
+        
 health_prescription()
 
 
@@ -880,7 +883,7 @@ class health_absences(osv.osv):
         'partner_id': fields.many2one('res.partner', 'Résident',  domain="[('category_id','=','Résident')]"),
         'nbrjour':fields.function(_compte_jour, method=True, string='Nombre de jours',type='float'),
         'facture':fields.boolean('Facturé'),
-
+        
 }
     _order = 'du desc'
     _defaults = {
@@ -893,23 +896,26 @@ class health_absences(osv.osv):
             patient=self.pool.get('health.patient').read(cr, uid, args[0]['partner_id'])
             patient=self.pool.get('health.patient').write(cr, uid, args[0]['partner_id'],{'hospitalisation':1})
         return super(health_absences, self).create(cr, uid, *args, **argv)
-#
+#    
 #    def write(self, cr, uid, ids, vals, context=None):
+#        print "Write ",vals,ids
 #        for id in ids:
 #            abs=self.pool.get('health.absences').read(cr, uid, id)
 #            if abs['categorie'] == '1' and vals['au']:
+#                print "hospit"
+#                print abs
 #                patient=self.pool.get('health.patient').read(cr, uid, abs['partner_id'][0])
 #                patient=self.pool.get('health.patient').write(cr, uid, abs['partner_id'][0],{'hospitalisation':0})
-#
+#        
 #        return super(health_absences,self).write( cr, uid, ids, vals, context)
-
+        
 
 health_absences()
 
 class health_patient(osv.osv):
     """
         residents
-
+        
     """
     _name = 'health.patient'
     _inherit = "res.partner"
@@ -931,7 +937,7 @@ class health_patient(osv.osv):
         'ncpaiement': fields.char('Numero de centre de paiement',size=256),
         'religion':fields.many2one('health.religion', 'Religion'),
         'situation':fields.many2one('health.situation', 'Situation de famille'),
-        'medecin':fields.many2one('res.partner', 'Medecin Traitant',domain="[('category_id','=','MEDECINS')]"),
+        'medecin':fields.many2one('res.partner', 'Medecin Traitant',domain="[('category_id','=','MEDECINS')]"), 
         'prescriptions':fields.one2many('health.prescription','partner_id', 'prescriptions'),
         'absences':fields.one2many('health.absences','partner_id','Absences'),
         'care':fields.many2many('health.care','health_care_rel','name','soins','Soins'),
@@ -959,7 +965,7 @@ class health_patient(osv.osv):
             domain="[('category_id','=','AMBULANCES')]"),
         'assure':fields.many2one('res.partner', 'Assuree'),
         'obseque':fields.char('Obseques',size=256),
-        'obsinformations':fields.char('Informations', size=256),
+        'obsinformations':fields.char('Informations', size=256),    
         'incineration':fields.boolean('Incineration'),
         'pacemaker':fields.boolean('Pace Maker / C.I.'),
         'doncorps':fields.boolean('Don du corps'),
@@ -1006,14 +1012,14 @@ class health_patient(osv.osv):
         'girage':fields.selection([('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6')],'GIR Facturation'),
         'room_id': fields.many2one('health.room', 'Chambres'),
         'congregation': fields.boolean('Congregation'),
-
+        
     }
     def write(self, cr, uid, ids, vals, context=None):
         if ids:
             if type(ids) == list:
                 ids=ids[0]
-
-
+            
+                
             patient=self.pool.get('health.patient').read(cr, uid, ids)
 
             if vals.has_key('nom') :
@@ -1022,7 +1028,7 @@ class health_patient(osv.osv):
                 nom=patient['nom']
             else:
                 nom=vals['nom']
-
+            
             if not vals.has_key('prenom') and patient['prenom']:
                 prenom=patient['prenom']
             else:
@@ -1042,7 +1048,7 @@ class health_patient(osv.osv):
                 name=nom.upper()+" "+prenom.capitalize()
             vals.update({'name':name})
             vals.update({'hospitalisation':0})
-            res=super(health_patient,self).write( cr, uid, ids, vals, context)
+            res=super(health_patient,self).write( cr, uid, ids, vals, context)            
             patient=super(health_patient,self).read( cr, uid, ids)
             partner=self.pool.get('res.partner').read( cr, uid, ids)
             obj_propriete = self.pool.get('ir.property')
@@ -1060,7 +1066,7 @@ class health_patient(osv.osv):
                     absenc=self.pool.get('health.absences').read(cr, uid, abs)
                     if absenc['categorie'] == '1' and not absenc['au']:
                         super(health_patient,self).write( cr, uid, ids,{'hospitalisation':1})
-        return res
+        return res 
 
 
     def create(self, cr, uid, *args, **argv):
@@ -1071,7 +1077,7 @@ class health_patient(osv.osv):
         else:
             prenom=None
         nom = args[0]['nom']
-
+        
         if args[0]['nomusage']:
             nomusage = args[0]['nomusage']
         else:
@@ -1083,7 +1089,7 @@ class health_patient(osv.osv):
             name=nomusage+"/"+nom
         else:
             name=nom
-
+        
         if nom:
             if prenom:
                 args[0].update({'name':name.upper()+" "+prenom.capitalize()})
@@ -1092,7 +1098,7 @@ class health_patient(osv.osv):
         super(health_patient,self).write( cr, uid, id,args[0])
         return id
 
-
+       
     def desactive(self, cr, uid, ids,name, context={}):
         result = {'value':{'active':False}}
         return result
@@ -1108,7 +1114,7 @@ class health_patient(osv.osv):
                                     'name': nom.capitalize(),}
                                                 }
         return result
-
+    
 
 health_patient()
 

@@ -90,7 +90,7 @@ class general_ledger_landscape(rml_parse.rml_parse):
             period_ids = ",".join([str(x) for x in form['periods'][0][2] if x])
             self.cr.execute("SELECT name FROM account_period WHERE id in (%s)" % (period_ids))
             res = self.cr.fetchall()
-            len_res = len(res)
+            len_res = len(res) 
             for r in res:
                 if (r == res[len_res-1]):
                     result+=r[0]+". "
@@ -107,7 +107,7 @@ class general_ledger_landscape(rml_parse.rml_parse):
                     result+=r.name+". "
                 else:
                     result+=r.name+", "
-
+            
         return str(result and result[:-1]) or ''
 
 
@@ -217,6 +217,9 @@ class general_ledger_landscape(rml_parse.rml_parse):
                 self.min_date = date_min
             else:
                 self.min_date = period_min
+#        print "ctx=", self.ctx
+#        print "ctxfy=", self.ctxfy
+#        print "query=", self.query
 
 
     def get_children_accounts(self, account, form):

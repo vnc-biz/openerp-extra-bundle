@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -32,14 +32,16 @@ class hotel_restaurant_report(report_sxw.rml_parse):
             'get_res_data':self.get_res_data,
         })
         self.context=context
-
+       
     def get_res_data(self,date_start,date_end):
         tids = self.pool.get('hotel.restaurant.reservation').search(self.cr,self.uid,[('start_date', '>=', date_start),('end_date', '<=', date_end)])
         res = self.pool.get('hotel.restaurant.reservation').browse(self.cr,self.uid,tids)
+        print res
         return res
 
-report_sxw.report_sxw('report.hotel.kot', 'hotel.restaurant.order', 'addons/hotel_restaurant/report/kot.rml',parser=hotel_restaurant_report)
+report_sxw.report_sxw('report.hotel.kot', 'hotel.restaurant.order', 'addons/hotel_restaurant/report/kot.rml',parser=hotel_restaurant_report)        
 report_sxw.report_sxw('report.hotel.bill', 'hotel.restaurant.order', 'addons/hotel_restaurant/report/bill.rml',parser=hotel_restaurant_report)
 report_sxw.report_sxw('report.hotel.table.res', 'hotel.restaurant.reservation', 'addons/hotel_restaurant/report/res_table.rml',parser=hotel_restaurant_report)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+     

@@ -87,6 +87,7 @@ class transformer(object):
 
 
     def action_error(self, e):
+        print e
         self.logger.notifyChannel("transformer", logger.LOG_ERROR,
                      str(self) + ' : ' + str(e))
         return None

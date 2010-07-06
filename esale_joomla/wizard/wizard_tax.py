@@ -29,8 +29,6 @@ import sys, StringIO
 import pooler
 
 import wizard
-import netsvc
-logger = netsvc.Logger()
 
 _export_select_form = '''<?xml version="1.0"?>
 <form string="Taxes Export">
@@ -166,8 +164,9 @@ def _export_from_taxes(self, cr, uid, data, context):
     sys.stderr = StringIO.StringIO()
     rnew = rupdate = rdelete = rerror = 0
     try:
+        print "_export_from_taxes data = %s" % data
         if data['model'] != 'esale_joomla.tax_map':
-            logger.notifyChannel("Function called not allowed from this model %s" % data['model'])
+            print >> sys.stderr, "Function called not allowed from this model %s" % data['model']
         else:
             self.pool = pooler.get_pool(cr.dbname)
             #data['ids']=list of taxes to export. Classify by web_id
@@ -197,6 +196,7 @@ def _export_from_shop(self, cr, uid, data, context):
     rnew = rupdate = rdelete = rerror = 0
     try:
         self.pool = pooler.get_pool(cr.dbname)
+        print "_export_from_shop data = %s" % data
         web_id = data['form']['web_shop']
         pool = self.pool.get('esale_joomla.tax_map')
         cond = [('web_id', '=', web_id)]

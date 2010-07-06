@@ -37,6 +37,8 @@ def _export(self, cr, uid, data, context):
     websites = pool.get('radiotv.web').browse(cr, uid, web_ids, context)
     if websites:
         server = xmlrpclib.ServerProxy(websites[0].url + "/tinyerp-synchro.php")
+#        print websites[0].url
+#        print server.get_table('radiotv_channel', {'id':'int', 'name':'string', 'description':'string'})
 
         # deletes all many2many relations between channels and programs
         server.reset_channel_program();

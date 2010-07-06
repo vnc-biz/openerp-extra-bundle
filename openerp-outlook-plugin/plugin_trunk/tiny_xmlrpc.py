@@ -18,8 +18,10 @@ def execute(connector, method, *args):
     except socket.error,e:
         if e.args[0] == 111:
             if wait_count > wait_limit:
+                print "Server is taking too long to start, it has exceeded the maximum limit of %d seconds."%(wait_limit)
                 clean()
                 sys.exit(1)
+            print 'Please wait %d sec to start server....'%(waittime)
             wait_count += 1
             time.sleep(waittime)
             res = execute(connector, method, *args)

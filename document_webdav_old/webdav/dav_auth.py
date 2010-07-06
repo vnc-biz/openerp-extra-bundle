@@ -80,6 +80,7 @@ class tinyerp_AuthRequestHandler(AuthRequestHandler):
 					if not self.get_userinfo(user,pw):
 						self.send_autherror(401,"Authorization Required"); return
 				except Exception ,e:
+					print e
 					self.send_autherror(401,"Authorization Required")
 					return
 
@@ -99,6 +100,8 @@ class tinyerp_AuthRequestHandler(AuthRequestHandler):
 class tinyerp_auth(DAVRequestHandler):
 	verbose = False
 	def get_userinfo(self,user,pw):
+		print '\tAuth', user, pw
+		print '-'*80
 		if not self.db_name or self.db_name=='':
 			self.db_name=self.path.split('/')[1]
 			user='root'
@@ -106,6 +109,7 @@ class tinyerp_auth(DAVRequestHandler):
 
 		db,pool = pooler.get_db_and_pool(self.db_name)
 		res = security.login(self.db_name, user, pw)
+		print '\tAuth', user, pw, res
 		if res:
 			auth['user']=user
 			auth['pwd']=pw

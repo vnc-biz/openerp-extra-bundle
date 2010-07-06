@@ -86,6 +86,7 @@ class DBComboProcessor(ComboProcessor):
                 txtbx = win32gui.GetDlgItem(self.window.hwnd, 7000)
                 win32gui.DestroyWindow(txtbx)
             except Exception,e:
+                print "Exception : %s"%str(e)
                 pass
             win32gui.ShowWindow(combo, True)
             win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);

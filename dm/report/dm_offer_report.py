@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
 
@@ -35,32 +35,35 @@ class offer_report(report_sxw.rml_parse):
         })
         self.context = context
     def offer_docs(self, offer_id):
-        attachment_ids = self.pool.get('ir.attachment').search(self.cr,
-                                        self.uid, [('res_id', '=', offer_id),
+        attachment_ids = self.pool.get('ir.attachment').search(self.cr, 
+                                        self.uid, [('res_id', '=', offer_id), 
                                         ('res_model', '=', 'dm.offer')])
-        attachment = self.pool.get('ir.attachment').read(self.cr, self.uid,
+#        print attachment_ids
+        attachment = self.pool.get('ir.attachment').read(self.cr, self.uid, 
                                                     attachment_ids, ['name'])
+#        print attachment
         return ','.join(map(lambda x: x['name'], attachment))
-
+    
     def offer_step_docs(self, offer_step_id):
-        attachment_ids = self.pool.get('ir.attachment').search(self.cr,
+        attachment_ids = self.pool.get('ir.attachment').search(self.cr, 
                                     self.uid, [('res_id', '=', offer_step_id),
                                     ('res_model', '=', 'dm.offer.step')])
-        attachment = self.pool.get('ir.attachment').read(self.cr, self.uid,
+        attachment = self.pool.get('ir.attachment').read(self.cr, self.uid, 
                                                     attachment_ids, ['name'])
-        return ','.join(map(lambda x: x['name'], attachment))
+#        print attachment
+        return ','.join(map(lambda x: x['name'], attachment)) 
 #    def offer_steps(self, offer_id):
 #        offer_step_ids = self.pool.get('dm.offer.step').search(self.cr,
 #                                       self.uid, [('offer_id', '=', offer_id)])
-#        res = self.pool.get('dm.offer.step').browse(self.cr, self.uid,
+#        res = self.pool.get('dm.offer.step').browse(self.cr, self.uid, 
 #                                                            offer_step_ids)
 #        return res
 
-report_sxw.report_sxw('report.offer.model.report', 'dm.offer',
+report_sxw.report_sxw('report.offer.model.report', 'dm.offer', 
                     'addons/dm/report/dm_offer_model.rml', parser=offer_report)
-report_sxw.report_sxw('report.preoffer.report', 'dm.offer',
+report_sxw.report_sxw('report.preoffer.report', 'dm.offer', 
                       'addons/dm/report/dm_preoffer.rml', parser=offer_report)
-report_sxw.report_sxw('report.dm.offer', 'dm.offer',
+report_sxw.report_sxw('report.dm.offer', 'dm.offer', 
                     'addons/dm/report/dm_offer_new.rml', parser=offer_report)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

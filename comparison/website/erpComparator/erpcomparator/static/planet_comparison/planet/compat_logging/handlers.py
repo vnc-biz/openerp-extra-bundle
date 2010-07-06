@@ -80,6 +80,7 @@ class RotatingFileHandler(logging.FileHandler):
                 sfn = "%s.%d" % (self.baseFilename, i)
                 dfn = "%s.%d" % (self.baseFilename, i + 1)
                 if os.path.exists(sfn):
+                    #print "%s -> %s" % (sfn, dfn)
                     if os.path.exists(dfn):
                         os.remove(dfn)
                     os.rename(sfn, dfn)
@@ -87,6 +88,7 @@ class RotatingFileHandler(logging.FileHandler):
             if os.path.exists(dfn):
                 os.remove(dfn)
             os.rename(self.baseFilename, dfn)
+            #print "%s -> %s" % (self.baseFilename, dfn)
         self.stream = open(self.baseFilename, "w")
 
     def emit(self, record):
@@ -514,6 +516,8 @@ class NTEventLogHandler(logging.Handler):
                 logging.CRITICAL: win32evtlog.EVENTLOG_ERROR_TYPE,
          }
         except ImportError:
+            print "The Python Win32 extensions for NT (service, event "\
+                        "logging) appear not to be available."
             self._welu = None
 
     def getMessageID(self, record):

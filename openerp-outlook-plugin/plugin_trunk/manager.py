@@ -152,6 +152,7 @@ def main(verbose_level = 1):
     return 0
 
 def usage():
+    print "Usage: manager [-v ...]"
     sys.exit(1)
 
 if __name__=='__main__':

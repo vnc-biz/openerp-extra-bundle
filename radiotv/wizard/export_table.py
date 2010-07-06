@@ -58,6 +58,7 @@ def export_table(self, cr, uid, data, context, server, table, fields, filter = [
             extension = s[-1].lower()
             s.pop()
             name = ".".join(s)
+            #print name + " " + extension
             if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
                 if extension in ['jpeg', 'jpe', 'jpg']:
                     extension='jpeg'
@@ -70,6 +71,7 @@ def export_table(self, cr, uid, data, context, server, table, fields, filter = [
                         continue
                 vals['fname'+str(cont)] = name + '.' + extension
                 cont = cont + 1
+        #print vals
 
         if server.set_table(tbl, vals):
             new += 1
@@ -102,6 +104,7 @@ def export_write(self, cr, uid, server, table, ids, vals, context):
             extension = s[-1].lower()
             s.pop()
             name = ".".join(s)
+            #print name + " " + extension
             if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
                 if extension in ['jpeg', 'jpe', 'jpg']:
                     extension='jpeg'
@@ -114,6 +117,7 @@ def export_write(self, cr, uid, server, table, ids, vals, context):
                         continue
                 vals['fname'+str(cont)] = name + '.' + extension
                 cont = cont + 1
+        #print vals
 
         if server.set_table(tbl, vals):
             new += 1

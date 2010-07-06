@@ -65,6 +65,8 @@ class account_account(osv.osv):
 			res[account_id] = round(sum,2)
 		for id in ids:
 			res[id] = round(res.get(id,0.0), 2)
+			#print res[id]
+
 		return res
 
 account_account()

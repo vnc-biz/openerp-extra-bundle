@@ -26,9 +26,7 @@ from osv import osv
 from dm.report.dm_ir_action_report import offer_document
 from report.dm_ir_action_report import report_sxw
 from tools.translate import _
-from osv import osv, fields
 
-logger = netsvc.Logger()
 
 AVAILABLE_STATES = [ # {{{
     ('draft', 'Draft'),
@@ -346,7 +344,7 @@ class dm_offer(osv.osv): # {{{
     def fields_get(self, cr, uid, fields=None, context=None):
         res = super(dm_offer, self).fields_get(cr, uid, fields, context)
         if context and not 'type' in context and 'type' in res:
-            res['type']['selection'] = [('new', 'New'),
+            res['type']['selection'] = [('new', 'New'), 
                                         ('standart', 'Standart'),
                                         ('rewrite', 'Rewrite'),
                                         ('as', 'After-Sale')]
@@ -448,7 +446,7 @@ class dm_offer(osv.osv): # {{{
                         inst=report_sxw('report.'+new_report_name, 'dm.offer.document', '', parser=offer_document)
                         netsvc.SERVICES['report.%s' % new_report_name] = inst
                     except (AssertionError, ), e:
-                         logger.notifyChannel(e)
+                        print e
 
                 plugins = []
                 for plugin in doc.document_template_plugin_ids:
@@ -473,7 +471,9 @@ class dm_offer(osv.osv): # {{{
                             'step_from_id': ostep['new_id'],
                         })
                     else:
-                         logger.notifyChannel("WARNING")
+                        print "WARNING"
+                        print new_steps
+                        print trans
 
         return offer_id
 

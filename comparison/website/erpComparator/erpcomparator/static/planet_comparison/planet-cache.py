@@ -16,26 +16,30 @@ import dbhash
 import ConfigParser
 
 import planet
-import netsvc
-logger = netsvc.Logger()
 
 
 def usage():
-    logger.notifyChannel("Usage: planet-cache [options] CACHEFILE [ITEMID]...")
-    logger.notifyChannel("Examine and modify information in the Planet cache.")
-    logger.notifyChannel("Channel Commands:")
-    logger.notifyChannel(" -C, --channel     Display known information on the channel")
-    logger.notifyChannel(" -L, --list        List items in the channel")
-    logger.notifyChannel(" -K, --keys        List all keys found in channel items")
-    logger.notifyChannel("Item Commands (need ITEMID):")
-    logger.notifyChannel(" -I, --item        Display known information about the item(s)")
-    logger.notifyChannel(" -H, --hide        Mark the item(s) as hidden")
-    logger.notifyChannel(" -U, --unhide      Mark the item(s) as not hidden")
-    logger.notifyChannel("Other Options:")
-    logger.notifyChannel(" -h, --help        Display this help message and exit")
+    print "Usage: planet-cache [options] CACHEFILE [ITEMID]..."
+    print
+    print "Examine and modify information in the Planet cache."
+    print
+    print "Channel Commands:"
+    print " -C, --channel     Display known information on the channel"
+    print " -L, --list        List items in the channel"
+    print " -K, --keys        List all keys found in channel items"
+    print
+    print "Item Commands (need ITEMID):"
+    print " -I, --item        Display known information about the item(s)"
+    print " -H, --hide        Mark the item(s) as hidden"
+    print " -U, --unhide      Mark the item(s) as not hidden"
+    print
+    print "Other Options:"
+    print " -h, --help        Display this help message and exit"
     sys.exit(0)
 
 def usage_error(msg, *args):
+    print >>sys.stderr, msg, " ".join(args)
+    print >>sys.stderr, "Perhaps you need --help ?"
     sys.exit(1)
 
 def print_keys(item, title):
@@ -43,11 +47,13 @@ def print_keys(item, title):
     keys.sort()
     key_len = max([ len(k) for k in keys ])
 
+    print title + ":"
     for key in keys:
         if item.key_type(key) == item.DATE:
             value = time.strftime(planet.TIMEFMT_ISO, item[key])
         else:
             value = str(item[key])
+        print "    %-*s  %s" % (key_len, key, fit_str(value, 74 - key_len))
 
 def fit_str(string, length):
     if len(string) <= length:
@@ -114,8 +120,10 @@ if __name__ == "__main__":
         url = db["url"]
         db.close()
     except dbhash.bsddb._db.DBError, e:
+        print >>sys.stderr, cache_file + ":", e.args[1]
         sys.exit(1)
     except KeyError:
+        print >>sys.stderr, cache_file + ": Probably not a cache file"
         sys.exit(1)
 
     # Now do it the right way :-)
@@ -125,6 +133,7 @@ if __name__ == "__main__":
 
     for item_id in ids:
         if not channel.has_item(item_id):
+            print >>sys.stderr, item_id + ": Not in channel"
             sys.exit(1)
 
     # Do the user's bidding
@@ -137,11 +146,14 @@ if __name__ == "__main__":
             print_keys(item, "Item Keys for %s" % item_id)
 
     elif command == "list":
+        print "Items in Channel:"
         for item in channel.items(hidden=1, sorted=1):
+            print "    " + item.id
+            print "         " + time.strftime(planet.TIMEFMT_ISO, item.date)
             if hasattr(item, "title"):
-                logger.notifyChannel("         " + fit_str(item.title, 70))
+                print "         " + fit_str(item.title, 70)
             if hasattr(item, "hidden"):
-                logger.notifyChannel("         (hidden)")
+                print "         (hidden)"
 
     elif command == "keys":
         keys = {}
@@ -152,18 +164,23 @@ if __name__ == "__main__":
         keys = keys.keys()
         keys.sort()
 
+        print "Keys used in Channel:"
         for key in keys:
-            logger.notifyChannel("    " + key)
+            print "    " + key
+        print
+
+        print "Use --item to output values of particular items."
 
     elif command == "hide":
         for item_id in ids:
             item = channel.get_item(item_id)
             if hasattr(item, "hidden"):
-                logger.notifyChannel(item_id + ": Already hidden.")
+                print item_id + ": Already hidden."
             else:
                 item.hidden = "yes"
 
         channel.cache_write()
+        print "Done."
 
     elif command == "unhide":
         for item_id in ids:
@@ -171,6 +188,7 @@ if __name__ == "__main__":
             if hasattr(item, "hidden"):
                 del(item.hidden)
             else:
-                logger.notifyChannel(item_id + ": Not hidden.")
+                print item_id + ": Not hidden."
 
         channel.cache_write()
+        print "Done."

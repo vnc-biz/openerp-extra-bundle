@@ -4637,7 +4637,7 @@ msgstr ""
 #. module: partner_nace
 #: model:res.partner.category,name:partner_nace.nace_id_8423Z
 msgid "[8423Z] - Justice and judicial activities"
-msgstr ""8423Z] - Justice"
+msgstr "[8423Z] - Justice"
 
 #. module: partner_nace
 #: model:res.partner.category,name:partner_nace.nace_id_6201Z

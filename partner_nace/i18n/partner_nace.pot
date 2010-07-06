@@ -4052,7 +4052,7 @@ msgstr ""
 #. module: partner_nace
 #: model:res.partner.category,name:partner_nace.nace_id_73
 msgid "[73] - Advertising and market research"
-msgstr ""73] - Publicité et études de marché"
+msgstr "[73] - Publicité et études de marché"
 
 #. module: partner_nace
 #: model:res.partner.category,name:partner_nace.nace_id_1042

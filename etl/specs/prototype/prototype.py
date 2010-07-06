@@ -40,7 +40,7 @@ class csv_in(component):
         super(csv_in, self).__init__(*args, **argv)
         self.filename = filename
 
-    def run(self,data=[]):        
+    def run(self,data=[]):
         fp = csv.DictReader(file(self.filename))
         data=[]
         for row in fp:
@@ -61,30 +61,28 @@ class csv_out(component):
         fieldnames = rows[0].keys()
         fp = csv.DictWriter(self.fp, fieldnames)
         fp.writerow(dict(map(lambda x: (x,x), fieldnames)))
-        fp.writerows(rows)        
+        fp.writerows(rows)
         return super(csv_out, self).input(rows)
 
 class sort(component):
     def __init__(self, fieldname, *args, **argv):
         self.fieldname = fieldname
-        super(sort, self).__init__(*args, **argv)    
+        super(sort, self).__init__(*args, **argv)
 
     def run(self,rows=[], transition=None):
         self.data=rows
         self.data.sort(lambda x,y: cmp(x[self.fieldname],y[self.fieldname]))
-        return super(sort, self).run(self.data)     
+        return super(sort, self).run(self.data)
 
-    
+
 
 class logger(component):
     def __init__(self, name, *args, **argv):
         self.name = name
-        super(logger, self).__init__(*args, **argv) 
-    def run(self,data=[]): 
-        res=[]    
-        print ' Logger : ',self.name
+        super(logger, self).__init__(*args, **argv)
+    def run(self,data=[]):
+        res=[]
         for row in data:
-            print row
             res.append(row)
         return super(logger, self).run(data)
 
@@ -108,23 +106,23 @@ class job(object):
 
     def run(self):
         data=None
-        start_component=self.start_component        
-        def _run(data,component):            
+        start_component=self.start_component
+        def _run(data,component):
             if not component:
-                return            
-            res=component.start()        
+                return
+            res=component.start()
             if not res:
                 raise Exception('not started component')
             try:
-                res_list=component.run(data)                
-                for out_data,out_component in res_list:                    
+                res_list=component.run(data)
+                for out_data,out_component in res_list:
                     _run(out_data,out_component)
             except Exception,e:
                 raise e
             finally:
-                component.stop() 
-        _run(data,start_component)    
-            
+                component.stop()
+        _run(data,start_component)
+
 
 
 csv_in1= csv_in('partner.csv')

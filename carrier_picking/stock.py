@@ -36,7 +36,6 @@ class stock_picking(osv.osv):
         v = {}
         if address_carrier_id:
             address_carrier = self.pool.get('res.partner.address').browse(cr,uid,address_carrier_id)
-            #print address_carrier.partner_id.name, address_carrier.name, address_carrier.plate
             v['carrier_name'] = address_carrier.partner_id.name + " / " + address_carrier.name + (address_carrier.plate and " / " + address_carrier.plate or "")
         return {'value':v}
 

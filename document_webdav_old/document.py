@@ -252,7 +252,6 @@ class document_directory(osv.osv):
 			return None
 		turi = tuple(uri)
 		if (turi in self._cache):
-			print '*'*50
 			(path, oo, oo2, content,type,root) = self._cache[turi]
 			if oo:
 				object = self.pool.get(oo[0]).browse(cr, uid, oo[1], context)
@@ -331,7 +330,6 @@ class ir_action_report_xml(osv.osv):
 	def _model_search(self, cr, uid, obj, name, args, context={}):
 		if not len(args):
 			return []
-		print '*'*10,args
 		model_id= args[0][2]
 		if not model_id:
 			return []

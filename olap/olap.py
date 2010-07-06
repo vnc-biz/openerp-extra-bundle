@@ -276,28 +276,23 @@ class olap_schema(osv.osv ):
         schema = self.browse(cr,uid,ids[0],context)
 #        warehouse = cube.warehouse()
 #        find_table = warehouse.match_table(cr, uid, request, context)
-        print 'Parsing MDX...'
-        print '\t',request
         mdx_parser = cube.mdx_parser()
         mdx = mdx_parser.parse(request)
 
-        print 'Validating MDX...'
         mdx.preprocess()
         validate,cubex = mdx.validate(schema)
 
-        print 'Running MDX...'
         res_comp = self.pool.get('res.company').search(cr,uid,([]))
         res_comp = self.pool.get('res.company').browse(cr,uid,res_comp)
         currency = res_comp[0].currency_id.name
-        print " Default Currency",currency
         data = mdx.run(currency)
 #        qry_obj = self.pool.get('olap.query.logs')
 #        qry_id = qry_obj.search(cr, uid, [('query','=', request)])
-#        
+#
 #        flag = True
 #        if qry_id:
 #            qry = qry_obj.browse(cr, uid, qry_id)[0]
-#            
+#
 #            if qry.count >=3 and qry.table_name!='':
 #                data = warehouse.run(currency, qry)
 #                flag = False
@@ -307,8 +302,6 @@ class olap_schema(osv.osv ):
 #                data = mdx.run(currency)
 #        else:
 #            data = mdx.run(currency)
-        print 'Running Done...'
-        print 'Formatting Output...'
 #        if cubex.query_log and flag:
         if cubex.query_log:
             log = context.get('log')
@@ -754,7 +747,7 @@ class olap_query_logs(osv.osv):
         'schema_id': fields.many2one('olap.schema','Schema',readonly = True),
 #        'table_name': fields.char('Table Name', size=164, readonly = True),
     }
-    
+
     _defaults = {
                  'count':lambda * args: 0
                  }
@@ -1036,38 +1029,36 @@ class bi_load_db_wizard(osv.osv_memory):
 #                    cr.execute('select column_db_name,id,table_id from olap_database_columns where table_id in (' + ','.join(tables_id) +')')
 #                else:
 #                    cr.execute('select column_db_name,id,table_id from olap_database_columns')
-#              
+#
 #                for data in cr.fetchall():
 #                    cols[str(data[1])]=(data[0],int(data[2]))
-#                # Format of storing the cols 
-#                # cols['id']=(col_db_name,table_id)    
-#                print 'Creating / Updating Tables...' 
+#                # Format of storing the cols
+#                # cols['id']=(col_db_name,table_id)
 #                cr_db.execute("select table_name, table_catalog from INFORMATION_SCHEMA.tables as a where a.table_schema = 'public'")
 #                for table in cr_db.fetchall():
 #                    val = {
 #                        'fact_database_id':id_db,
 #                        'table_db_name':table[0]
 #                    }
-#                   
+#
 #                    if table[0] in tables.keys():
 #                        table_id=tobj.write(cr,uid,[tables[table[0]]], val, context)
 #                    else:
 #                        val['name']=table[0]
-#                        tables[val['name']] = tobj.create(cr,uid,val, context)    
-#                print 'Creating / Updating Columns...' 
+#                        tables[val['name']] = tobj.create(cr,uid,val, context)
 #                cr_db.execute("""SELECT
 #                        table_name, column_name, udt_name
 #                    from
 #                        INFORMATION_SCHEMA.columns
 #                    WHERE table_schema = 'public'""")
-#                
+#
 #                for col in cr_db.fetchall():
 #                    val={
 #                        'table_id': tables[col[0]],
 #                        'column_db_name': col[1],
 #                        'type': col[2],
 #                    }
-#                    
+#
 #                    id_made=filter(lambda x:(int(cols[x][1])==int(tables[col[0]])),cols)
 #                    if col[1] in cols.keys() and col[0] in tables.keys()and id_made:
 #                        col_id=tcol.write(cr,uid,cols[tables[str(col[0])]], val, context)
@@ -1075,52 +1066,49 @@ class bi_load_db_wizard(osv.osv_memory):
 #                        val['name']=col[1]
 #                        id_made = tcol.create(cr,uid,val, context)
 #                        cols[str(id_made)] = (val['name'],int(val['table_id']))
-#                print 'Creating / Updating Constraints...' 
-#                cr_db.execute("""select 
-#                        table_name,column_name 
-#                    from 
+#                cr_db.execute("""select
+#                        table_name,column_name
+#                    from
 #                        INFORMATION_schema.key_column_usage
-#                    where 
+#                    where
 #                        constraint_name in (
 #                                    select constraint_name from INFORMATION_SCHEMA .table_constraints
-#                                    where 
+#                                    where
 #                                        constraint_type = 'PRIMARY KEY')""")
-#                print "Updating the Primary Key Constraint" 
 #                for constraint in cr_db.fetchall():
 #                    val={
 #                        'primary_key':True
 #                    }
-#                    
+#
 #                    id_to_write=filter(lambda x:(int(cols[x][1])==int(tables[constraint[0]])and(constraint[1]==cols[x][0])),cols)
-#                    col_id=tcol.write(cr,uid,int(id_to_write[0]),val,context) 
-#                print "Updating the Foreign key constraint" 
-#                cr_db.execute("""select 
-#                            constraint_name,table_name 
-#                    from 
-#                        INFORMATION_schema.constraint_column_usage 
+#                    col_id=tcol.write(cr,uid,int(id_to_write[0]),val,context)
+#                cr_db.execute("""select
+#                            constraint_name,table_name
+#                    from
+#                        INFORMATION_schema.constraint_column_usage
 #                    where
 #                        constraint_name in (
-#                                    select constraint_name from INFORMATION_SCHEMA.table_constraints 
-#                                    where 
+#                                    select constraint_name from INFORMATION_SCHEMA.table_constraints
+#                                    where
 #                                        constraint_type = 'FOREIGN KEY')""")
 #                for_key=dict(cr_db.fetchall())
-#                
-#                cr_db.execute("""select 
-#                             table_name,column_name,constraint_name 
-#                         from 
+#
+#                cr_db.execute("""select
+#                             table_name,column_name,constraint_name
+#                         from
 #                             INFORMATION_schema.key_column_usage
-#                         where 
+#                         where
 #                             constraint_name in (
-#                                         select constraint_name from INFORMATION_SCHEMA.table_constraints 
-#                                         where 
-#                                             constraint_type = 'FOREIGN KEY')""") 
+#                                         select constraint_name from INFORMATION_SCHEMA.table_constraints
+#                                         where
+#                                             constraint_type = 'FOREIGN KEY')""")
 
 #                for constraint in cr_db.fetchall():
 #                    val={
 #                        'related_to':tables[for_key[constraint[2]]]
 #                    }
 #                    id_to_write=filter(lambda x:(int(cols[x][1])==int(tables[constraint[0]])and (constraint[1]==cols[x][0])),cols)
-#                    col_id=tcol.write(cr,uid,int(id_to_write[0]),val,context) 
+#                    col_id=tcol.write(cr,uid,int(id_to_write[0]),val,context)
 
                 host = lines.database_id.db_host and "host=%s" % lines.database_id.db_host or ''
                 port = lines.database_id.db_port and "port=%s" % lines.database_id.db_port or ''
@@ -1134,9 +1122,8 @@ class bi_load_db_wizard(osv.osv_memory):
                 # Format for storing the tables
                 # tables['table_db_name']=id
                 tables_id = map(lambda x: str(tables[x]),tables)
-                # Format of storing the cols 
-                # cols['id']=(col_db_name,table_id)    
-                print 'Creating / Updating Tables...'
+                # Format of storing the cols
+                # cols['id']=(col_db_name,table_id)
                 cr_db.execute("select table_name, table_catalog from INFORMATION_SCHEMA.tables as a where a.table_schema = 'public'")
                 for table in cr_db.fetchall():
                     val = {
@@ -1149,7 +1136,6 @@ class bi_load_db_wizard(osv.osv_memory):
                         val['name'] = table[0]
                         tables[val['name']] = tobj.create(cr,uid,val,context)
 
-                print 'Creating / Updating Columns ....'
                 cols = {}
                 if tables_id:
                     cr.execute('select column_db_name,id,table_id from olap_database_columns where table_id in (' + ','.join(tables_id) + ')')
@@ -1188,18 +1174,16 @@ class bi_load_db_wizard(osv.osv_memory):
                         id_made = tcol.create(cr,uid,val,context)
                         cols[str(id_made)] = (val['name'],int(val['table_id']))
 
-                print 'Creating / Updating Constraints...'
-                cr_db.execute("""select 
-                        table_name,column_name 
-                    from 
+                cr_db.execute("""select
+                        table_name,column_name
+                    from
                         INFORMATION_schema.key_column_usage
-                    where 
+                    where
                         constraint_name in (
                                     select constraint_name from INFORMATION_SCHEMA .table_constraints
-                                    where 
+                                    where
                                         constraint_type = 'PRIMARY KEY')""")
 
-                print "Updating the Primary Key Constraint"
                 for constraint in cr_db.fetchall():
                     val = {
                         'primary_key':True
@@ -1208,26 +1192,25 @@ class bi_load_db_wizard(osv.osv_memory):
                     id_to_write = filter(lambda x:(int(cols[x][1]) == int(tables[constraint[0]])and(constraint[1] == cols[x][0])),cols)
                     col_id = tcol.write(cr,uid,int(id_to_write[0]),val,context)
 
-                print "Updating the Foreign key constraint"
-                cr_db.execute("""select 
-                            constraint_name,table_name 
-                    from 
-                        INFORMATION_schema.constraint_column_usage 
+                cr_db.execute("""select
+                            constraint_name,table_name
+                    from
+                        INFORMATION_schema.constraint_column_usage
                     where
                         constraint_name in (
-                                    select constraint_name from INFORMATION_SCHEMA.table_constraints 
-                                    where 
+                                    select constraint_name from INFORMATION_SCHEMA.table_constraints
+                                    where
                                         constraint_type = 'FOREIGN KEY')""")
                 for_key = dict(cr_db.fetchall())
 
-                cr_db.execute("""select 
-                             table_name,column_name,constraint_name 
-                         from 
+                cr_db.execute("""select
+                             table_name,column_name,constraint_name
+                         from
                              INFORMATION_schema.key_column_usage
-                         where 
+                         where
                              constraint_name in (
-                                         select constraint_name from INFORMATION_SCHEMA.table_constraints 
-                                         where 
+                                         select constraint_name from INFORMATION_SCHEMA.table_constraints
+                                         where
                                              constraint_type = 'FOREIGN KEY')""")
 
                 for constraint in cr_db.fetchall():
@@ -1300,14 +1283,14 @@ class bi_load_db_wizard(osv.osv_memory):
                         id_made = tcol.create(cr,uid,val,context)
                         cols[str(id_made)] = (val['name'],int(val['table_id']))
 
-                cr_db.execute("""select 
+                cr_db.execute("""select
                         REFERENCED_COLUMN_NAME,REFERENCED_TABLE_NAME,COLUMN_NAME,TABLE_NAME
-                    from 
+                    from
                         INFORMATION_schema.key_column_usage
-                    where table_schema= %s and 
+                    where table_schema= %s and
                         constraint_name in (
                                     select constraint_name from INFORMATION_SCHEMA .table_constraints
-                                    where 
+                                    where
                                         constraint_type in('PRIMARY KEY','FOREIGN KEY'))
                                     """,(db_name))
         #            lines=pool.get('olap.schema').browse(cr, uid, part['id'],context)
@@ -1369,7 +1352,7 @@ class bi_load_db_wizard(osv.osv_memory):
                 cr_db.execute("""SELECT
                         table_name, column_name, data_type
                     from
-                        all_tab_columns 
+                        all_tab_columns
                     WHERE owner = %s""",(user))
                 temp = cr_db.fetchall()
                 for col in temp:
@@ -1395,14 +1378,14 @@ class bi_load_db_wizard(osv.osv_memory):
                         id_made = tcol.create(cr,uid,val,context)
                         cols[str(id_made)] = (val['name'],int(val['table_id']))
 
-                cr_db.execute("""select 
+                cr_db.execute("""select
                         table_name,column_name,constraint_name
-                    from 
+                    from
                         all_cons_columns
                     where
                         constraint_name in (
                                     select constraint_name from all_constraints
-                                    where 
+                                    where
                                         constraint_type = 'P' and owner= %s)
                                     """,(user))
                 temp = cr_db.fetchall()
@@ -1416,23 +1399,23 @@ class bi_load_db_wizard(osv.osv_memory):
                     id_to_write = filter(lambda x : (int(cols[x][1]) == int(tables[constraint[0]])and(constraint[1] == cols[x][0])),cols)
                     col_id = tcol.write(cr,uid,int(id_to_write[0]),val,context)
 
-                cr_db.execute("""select 
+                cr_db.execute("""select
                                 constraint_name,r_constraint_name from all_constraints
-                                    where 
+                                    where
                                         constraint_type = 'R'  and owner = %s
                                     """,(user))
                 constraints_map = {}
                 for data in cr_db.fetchall():
                     constraints_map[data[0]] = data[1]
 
-                cr_db.execute("""select 
+                cr_db.execute("""select
                         table_name,column_name,constraint_name
-                    from 
+                    from
                         all_cons_columns
                     where
                         constraint_name in (
                                     select constraint_name from all_constraints
-                                    where 
+                                    where
                                         constraint_type = 'R' and owner = %s)
                                     """,(user))
 
@@ -1627,7 +1610,7 @@ bi_auto_configure_wizard()
 class olap_warehouse_wizard(osv.osv_memory):
     _name = "olap.warehouse.wizard"
     _description = "Olap Warehouse"
-    
+
     def _get_queries(self, cr, uid, context = {}):
         query_obj = self.pool.get('olap.query.logs')
         qry_ids = query_obj.search(cr, uid, [('user_id','=',uid),('count','>=',3)])
@@ -1643,7 +1626,7 @@ class olap_warehouse_wizard(osv.osv_memory):
             return ''
     def action_ok(self, cr, uid, ids, context = {}):
         return {'type':'ir.actions.act_window_close' }
-    
+
     _columns = {
                 'query': fields.text('Query', readonly=True),
                 }

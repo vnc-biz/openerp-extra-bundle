@@ -72,7 +72,6 @@ def get_directions(self, source, destination):
 #        raise osv.except_osv('Warning!','Please install Google direction package from http://pypi.python.org/pypi/google.directions/0.3 ')
     if res:
         if res.status != 200:
-            print "Address not found. Status was: %d" % res.status
             return
         if 'Directions' in res.result:
             endPoint = res.result['Directions']['Routes'][0]['End']['coordinates']

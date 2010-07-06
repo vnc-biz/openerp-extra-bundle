@@ -95,10 +95,8 @@ where tmpTable.check_date = current_date
 		return True
 
 	def running_expired_dates3(self, cr, uid, *args):
-		print "DANS RUNNING date d expiration"
 		ref_case = pooler.get_pool(cr.dbname).get('crm.case')
 		txt_mail="Please check your reagents:"
-		print "DS RUNNIN",("select distinct(t.name),l.check_in,l.planified_date,i.check_in,i.intervention_date,i.user_id,l.user_id from labo_intervention i,labo_log l, labo_tool t  where t.id=l.log_id and i.intervention_id = t.id ")
 		cr.execute("select distinct(t.name),l.check_in,l.planified_date,i.check_in,i.intervention_date,i.user_id,l.user_id from labo_intervention i,labo_log l, labo_tool t  where t.id=l.log_id and i.intervention_id = t.id ")
 #cr.execute("select distinct(t.name) from labo_intervention i,labo_log l, labo_tool t  where t.id=l.log_id and i.intervention_id = t.id and (l.max_date = current_date or i.next_date = current_date) ")
 		res=cr.fetchall()
@@ -156,7 +154,6 @@ where tmpTable.check_date = current_date
 				mail_admin='admin@progenus.com '
 				if r:
 					for i in user_list:
-						print "iii",i
 						partner_id= pooler.get_pool(cr.dbname).get('res.users').browse(cr, uid, [i])
 
 						new_id=ref_case.create(cr,uid,{
@@ -170,7 +167,6 @@ where tmpTable.check_date = current_date
 						})
 						cr.execute("select r.email from res_users l, res_partner_address r  where r.id=l.address_id and l.id=%d  "%( i))
 						res=cr.fetchone()[0] or ""
-						print res
 						address_mail=res
 
 						if address_mail:

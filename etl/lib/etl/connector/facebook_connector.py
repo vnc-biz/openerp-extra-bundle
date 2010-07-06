@@ -158,8 +158,6 @@ def test():
     facebook_conn=facebook_connector('http://facebook.com', 'modiinfo@gmail.com')
     test = etl_test.etl_component_test(etl.component.input.facebook_in(facebook_conn, 'get_user_events'))
     res=test.output()
-    print res
-
 
 if __name__ == '__main__':
     test()

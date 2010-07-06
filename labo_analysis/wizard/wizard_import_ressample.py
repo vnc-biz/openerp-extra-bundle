@@ -41,7 +41,7 @@ _form_cont = '''<?xml version="1.0"?>
 </form>''' % ('Import Setup File', 'File to import')
 _send_fields_1 = {
     'attach':{'string':'Attachment', 'type':'binary'},
-    'file_name':{'string':'File Name', 'type':'char', 'size':'64'} 
+    'file_name':{'string':'File Name', 'type':'char', 'size':'64'}
 }
 
 
@@ -59,7 +59,7 @@ def _convert_file(self, cr, uid, data, context):
     obj_setup=pooler.get_pool(cr.dbname).get('analysis.setup')
     obj_type=pooler.get_pool(cr.dbname).get('labo.analysis.type')
     v_hist = pooler.get_pool(cr.dbname).get('file.history')
-    
+
     file_name=data['form']['file_name']
 
     list= content.split('\n')[1:]
@@ -119,7 +119,7 @@ def _convert_file(self, cr, uid, data, context):
                        obj_setup.write(cr,uid,[ids_dogs.file_setup.id], {'run_setup': line['Run Name'] or ''})
                #     except:
                #         raise wizard.except_wizard('Error!', 'Please check the structure of your file. \n The column "Run Name" does not exist')
- 
+
                     # ===> EMPDOG
                     obj_allele.create(cr,uid, {'allele_dog1':line['Allele 1'].strip(),
                                                'allele_dog2':line['Allele 2'].strip(),
@@ -139,22 +139,21 @@ def _convert_file(self, cr, uid, data, context):
                         if flag==0 :
                            # ids=obj_sample.search(cr, uid,[('progenus_number','=',l[0])])
                             if int(line['Allele 2'].strip())>0 and int(line['Allele 1'].strip()>0) :
-                                state='ok' 
+                                state='ok'
                             else:
                                 state='zero'
                             obj_sample.write(cr, uid, res_id , {'marker':line['Marker'].strip(),
                                                                 'allele1': line['Allele 2'].strip(),
-                                                                'allele2':line['Allele 2'].strip(), 
+                                                                'allele2':line['Allele 2'].strip(),
                                                                 'state': state })
                             sample_name=line['Sample Name'].strip()
                             flag=1
                         else:
                             try:
                                 if int(line['Allele 2'].strip())>0 and int(line['Allele 1'].strip()>0) :
-                                    state='ok' 
+                                    state='ok'
                                 else:
                                     tate='zero'
-                                print "line['Alelle 1']",int(line['Allele 1'].strip())
                                 obj_sample.create(cr, uid, {'allele1': int(line['Allele 1'].strip()),
                                                         'allele2':int(line['Allele 2'].strip()),
                                                         'progenus_number':v_infos.progenus_number,
@@ -171,8 +170,8 @@ def _convert_file(self, cr, uid, data, context):
                                 raise wizard.except_wizard('Please check your file', ' "%s" contains incorrect values! ' %( file_name[0],))
         except Exception, e:
             raise wizard.except_wizard('Error', ' %s \n \n Please check this line! \n \n %s ' %( e,line.values(),))
-        
-                                        
+
+
     for r in dict_dogs:
         v_hist.create(cr,uid,{'name': data['form']['file_name'],
                            'date_f': time.strftime('%Y-%m-%d'),
@@ -197,7 +196,7 @@ def _convert_file(self, cr, uid, data, context):
 #                                                    'marker_dog':l[1].strip()})
 #                        flag=l[0]
 #
-    
+
     return {}
 
 class import_file_ressample(wizard.interface):

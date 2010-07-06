@@ -19,14 +19,14 @@ class component(object):
         return self.generator
 
     def channel_get(self, trans=None):
-        self.data.setdefault(trans, [])        
+        self.data.setdefault(trans, [])
         gen = self.generator_get(trans) or []
         while True:
             if self.data[trans]:
                 yield self.data[trans].pop(0)
                 continue
             elif self.data[trans] is None:
-                raise StopIteration            
+                raise StopIteration
             data, chan = gen.next()
             if data is None:
                 raise StopIteration
@@ -65,7 +65,7 @@ class csv_out(component):
         datas = []
         for channel,trans in self.input_get().items():
             for iterator in trans:
-                for d in iterator:                    
+                for d in iterator:
                     if not fp2:
                         fp2 = file(self.filename, 'wb+')
                         fieldnames = d.keys()
@@ -143,7 +143,7 @@ class logger(component):
     def process(self):
         for channel,trans in self.input_get().items():
             for iterator in trans:
-                for d in iterator:                    
+                for d in iterator:
                     self.output.write('\tLog '+self.name+str(d)+'\n')
                     yield d, 'main'
 
@@ -162,32 +162,32 @@ class diff(component):
             result.append(row[k])
         return tuple(result)
 
-    def process(self):  
-        self.row = {}      
-        for channel,transition in self.input_get().items():            
+    def process(self):
+        self.row = {}
+        for channel,transition in self.input_get().items():
             if channel not in self.row:
                 self.row[channel] = {}
-            other = None            
+            other = None
             for key in self.row.keys():
                 if key<>channel:
                     other = key
                     break
             for iterator in transition:
-                for r in iterator: 
+                for r in iterator:
                     key = self.key_get(r)
                     if other and (key in self.row[other]):
                         if self.row[other][key] == r:
-                            yield r, 'same'                            
+                            yield r, 'same'
                         else:
-                            yield r, 'update' 
+                            yield r, 'update'
                         del self.row[other][key]
                     else:
-                        self.row[channel][key] = r         
+                        self.row[channel][key] = r
         todo = ['add','remove']
-        for k in self.row:     
-            channel= todo.pop()                   
+        for k in self.row:
+            channel= todo.pop()
             for v in self.row[k].values():
-                yield v,channel               
+                yield v,channel
 
 
 
@@ -279,7 +279,6 @@ job.run()
 
 #class a(object):
 #    def test(self, hello):
-#        print hello
 #b=a()
 #
 #import pickle

@@ -126,7 +126,6 @@ class AuthRequestHandler:
                     if not self.get_userinfo(user,pw):
                         self.send_autherror(401,"Authorization Required"); return
                 except Exception ,e:
-                    print e
                     self.send_autherror(401,"Authorization Required")
                     return
 

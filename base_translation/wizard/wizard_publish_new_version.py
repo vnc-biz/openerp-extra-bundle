@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -24,7 +24,7 @@ import xmlrpclib
 import base64
 import pooler
 import tools
-import base_translation.translation 
+import base_translation.translation
 
 import config
 s = xmlrpclib.Server("http://"+config.SERVER+":"+str(config.PORT))
@@ -62,47 +62,46 @@ class wizard_publish_new_version(wizard.interface):
         if not s.verify_user(user,password,lang):
             raise wizard.except_wizard('Error !!', 'Bad User name or Passsword or you are not authorised for this language')
         version = data['form']['version']
-        profile = data['form']['profile']         
-        ir_translation_contrib = pooler.get_pool(cr.dbname).get('ir.translation.contribution')        
+        profile = data['form']['profile']
+        ir_translation_contrib = pooler.get_pool(cr.dbname).get('ir.translation.contribution')
         ids = ir_translation_contrib.search(cr,uid,[('lang','=',lang),('state','=','accept')])
         if not ids:
             raise wizard.except_wizard('Error !!', 'No contributions are find to upload in main revision')
         contrib = ir_translation_contrib.read(cr,uid,ids,['type','name','res_id','src','value'])
         new_contrib =map(lambda x:{'type':x['type'],'name':x['name'],'res_id':x['res_id'],'src':x['src'],'value':x['value']},contrib)
-                
+
         try :
             result = s.publish_release(user,password,lang,version,profile,new_contrib)
      #still working to show correct error message when server is not responding properly
-            
+
         except Exception,e:
             if e.__dict__.has_key('name'):
                 raise wizard.except_wizard('Error !',e.value)
             else:
-                print e
                 raise wizard.except_wizard('Error !',"server is not properly configuraed")
             ir_translation_contrib.write(cr,uid,ids,{'state':'done'})
         return {}
-    
+
 
     def _get_language(sel, cr, uid, context):
         return base_translation.translation.get_language(cr,uid,context,user='maintainer')
-    
+
     def _get_version(self, cr, uid,context):
         return base_translation.translation.get_version(cr,uid,context)
-    
+
     def _get_profile(self,cr,uid,context):
         return base_translation.translation.get_profile(cr,uid,context)
-    
+
     fields_form = {
         'lang': {'string':'Language', 'type':'selection', 'selection':_get_language,'required':True},
         'password': {'string':'Password', 'type':'char', 'size':32, 'required':True,'invisible':True},
-        'version': {'string':'Version', 'type':'selection', 'selection':_get_version,'required':True},        
-        'profile': {'string':'Profile', 'type':'selection', 'selection':_get_profile,'required':True},  
+        'version': {'string':'Version', 'type':'selection', 'selection':_get_version,'required':True},
+        'profile': {'string':'Profile', 'type':'selection', 'selection':_get_profile,'required':True},
     }
-    
+
     states = {
         'init': {
-            'actions': [], 
+            'actions': [],
             'result': {'type': 'form', 'arch': view_form, 'fields': fields_form,
                 'state': [
                     ('end', 'Cancel', 'gtk-cancel'),

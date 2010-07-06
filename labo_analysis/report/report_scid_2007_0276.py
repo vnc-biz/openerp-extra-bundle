@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -34,7 +34,6 @@ class report_scid(report_sxw.rml_parse):
 		  })
 
 	 def get_sample(self,request):
-		print "request obje",request.id
 		self.cr.execute('select count(id) from labo_sample where sample_id=%d'%(request.id,))
 		res = self.cr.fetchone()
 		return str(res[0] or 0)

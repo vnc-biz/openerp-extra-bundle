@@ -1,6 +1,8 @@
 import sqlalchemy
 from sqlalchemy import *
 import common
+import netsvc
+logger = netsvc.Logger()
 
 def measure_sql_exp_col(metadata,col):
     temp = col.split(".")
@@ -15,7 +17,7 @@ def measure_sql_exp_col(metadata,col):
                 if temp[1] == k.name:
                     return k
     else:
-        print "The table %s  do not exist or match to cube fact table"%(temp[0])
+         logger.notifyChannel("The table %s  do not exist or match to cube fact table"%(temp[0]))
 # To be Improved
 # I am sure it exist something better in SA
 def col_get(table, col_obj):
@@ -23,7 +25,7 @@ def col_get(table, col_obj):
 #   level = level object
 
     # Check for the columns
-    
+
     datatypes = {
         'timestamp': sqlalchemy.DateTime,
         'timestampz': sqlalchemy.DateTime,
@@ -32,7 +34,7 @@ def col_get(table, col_obj):
         'float8': sqlalchemy.Float,
         'varchar': sqlalchemy.String,
         'bool': sqlalchemy.Boolean,
-        'bytea':'Byte A', # Not Clear 
+        'bytea':'Byte A', # Not Clear
         'int2':sqlalchemy.SmallInteger,
         'int4':sqlalchemy.Integer,
         'int8':sqlalchemy.Integer,
@@ -67,21 +69,21 @@ def table_get(metadata, table):
             table1 = sqlalchemy.Table(table.line_ids[i].table_id.table_db_name,metadata)
             pk = get_primary_key(table.line_ids[i].table_id)
             if result:
-                
+
                 result = join(result,table1, onclause=col_get(table1,pk)==col_get(table2,table.line_ids[i-1].field_id))
             elif table2:
                 result = join(table1, table2, onclause=col_get(table1,pk)==col_get(table2,table.line_ids[i-1].field_id))
             else:
                 table2=table1
             temp=i
-            
+
         if not result:
             result = table1
         pk = get_primary_key(table.line_ids[temp].table_id)
         tab = sqlalchemy.Table(table.line_ids[temp].field_id.related_to.table_db_name,metadata)
         result = join(result, tab,onclause=col_get(tab,pk)
                  ==col_get(sqlalchemy.Table(table.line_ids[temp].table_id.table_db_name,metadata),table.line_ids[temp].field_id))
-                 
+
     else:
         if table.column_link_id.related_to:
             result = sqlalchemy.Table(table.column_link_id.related_to.table_db_name,metadata)

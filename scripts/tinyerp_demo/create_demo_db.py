@@ -1,6 +1,6 @@
 #!/usr/bin/python
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -25,10 +25,12 @@ import base64
 
 import sys
 
+import netsvc
+logger = netsvc.Logger()
+
 demo_profile = sys.argv[1]
 
 def wrong_profile():
-	print "Cannot find SaaS demo profile :",demo_profile
 	sys.exit()
 
 if demo_profile == 'service_fr':
@@ -113,16 +115,16 @@ def create_db():
     wiz_id = sock4.create(dbname, uid, 'admin', 'base_setup.base_setup')
     state = 'init'
     datas = {'form':{}}
-    while state!='config':        
+    while state!='config':
         res = sock4.execute(dbname, uid, 'admin', wiz_id, datas, state, {})
         if state=='init':
             datas['form'].update( res['datas'] )
         if res['type']=='form':
-            for field in res['fields'].keys():               
+            for field in res['fields'].keys():
                 datas['form'][field] = datas['form'].get(field,False)
             state = res['state'][-1][0]
             datas['form'].update({
-                'profile': idprof[0]                
+                'profile': idprof[0]
             })
         elif res['type']=='state':
             state = res['state']
@@ -150,11 +152,11 @@ def load_demo_module():
 
     res = sock.execute(dbname, uid, 'admin', 'ir.module.module', 'button_install', ids, {})
 
-    datas = {'model': 'ir.module.module', 
-             'form': {'module_download': '', 
-                      'module_info': 'demo_setup : to install'}, 
-                      'id': ids[0], 
-                      'report_type': 'pdf', 
+    datas = {'model': 'ir.module.module',
+             'form': {'module_download': '',
+                      'module_info': 'demo_setup : to install'},
+                      'id': ids[0],
+                      'report_type': 'pdf',
                       'ids': ids}
 
     wiz_id = sock4.create(dbname, uid, 'admin', 'module.upgrade')
@@ -165,37 +167,29 @@ def load_demo_module():
 
     return True
 
-print "Drop existing database '%s':" % (dbname),
 sys.stdout.flush()
 
 if drop_db():
-    print "OK"
+    logger.notifyChannel("OK")
 else:
-    print "FAIL"
+    logger.notifyChannel("FAIL")
 
 
-print "Creating new database '%s':" %(dbname),
 sys.stdout.flush()
 
 if create_db():
-    print "OK"
+    logger.notifyChannel("OK")
 else:
-    print "FAIL"
+    logger.notifyChannel("FAIL")
 
 
-#print "Loading demo module:",
 #sys.stdout.flush()
 
 #if load_demo_module():
-#    print "OK"
 #else:
-#    print "FAIL"
 
 
-#print "Loading additional languages:",
 #sys.stdout.flush()
 
 #if load_languages('fr_FR', 'en_US'):
-#    print "OK"
 #else:
-#    print "FAIL"

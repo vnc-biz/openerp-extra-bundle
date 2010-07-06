@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
-#    Copyright (C) 2008-2009 Syleam Info Services (<http://syleam.fr>). 
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2008-2009 Syleam Info Services (<http://syleam.fr>).
 #                  All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -107,12 +107,9 @@ class direct_poll(wizard.interface):
         answer_obj = pooler.get_pool(cr.dbname).get('crm_profiling.answer')
         answer_args = [('question_id','=', question)]
         answer_ids = answer_obj.search(cr, uid, answer_args)
-        #print 'ANSWER_IDS: %s' % str(answer_ids)
         for id in answer_ids:
             answer = answer_obj.read(cr, uid, [id], ['name'], context=context)[0]
-            #print 'ANSWER: %s:%s' % (str(id), str(answer))
             select_form.append((id, answer['name']))
-        #print 'SELECT_FORM: % s' % str(select_form)
         return select_form
 
     def build_form(self, cr, uid, question, context):
@@ -147,9 +144,9 @@ class direct_poll(wizard.interface):
         'init': {
             'actions': [],
             'result': {
-                'type': 'form', 
-                'arch': _questionnaire_choice_arch, 
-                'fields': _questionnaire_choice_fields, 
+                'type': 'form',
+                'arch': _questionnaire_choice_arch,
+                'fields': _questionnaire_choice_fields,
                 'state':[('end', 'Cancel', 'gtk-cancel'), ('first', 'Open Questionnaire', 'gtk-go-forward', True)]
             }
         },
@@ -181,9 +178,9 @@ class direct_poll(wizard.interface):
         'message': {
             'actions': [thanks],
             'result': {
-                'type': 'form', 
-                'arch': _mess_form, 
-                'fields': _mess_fields, 
+                'type': 'form',
+                'arch': _mess_form,
+                'fields': _mess_fields,
                 'state':[('end', 'End')]
             }
         },

@@ -94,7 +94,6 @@ class transition(signal):
 
     def start(self):
 #        if self.status == 'end':
-#            print "Transition::::::::;; already end::"
 #            pass
         self.status = 'start'
         self.signal('start', {'date': datetime.datetime.today()})
@@ -105,7 +104,6 @@ class transition(signal):
 
     def restart(self):
 #        if self.status == 'end':
-#            print "Transition::::::::;; already end::"
 #            pass
         self.status = 'start'
         self.signal('restart')

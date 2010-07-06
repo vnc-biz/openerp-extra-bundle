@@ -1,6 +1,8 @@
 
 import csv
 import etl
+import netsvc
+logger = netsvc.Logger()
 
 class etl_csv_input(etl.node):
     def __init__(self, filename, *args, **argv):
@@ -45,9 +47,8 @@ class etl_operator_sort(etl.node):
 
 class etl_operator_log(etl.node):
     def input(self, rows, transition=None):
-        print 'Data Logger:', self.name
         for row in rows:
-            print '\t', row
+            logger.notifyChannel('\t', row)
         super(etl_operator_log, self).input(rows, transition)
 
 class etl_operator_log_bloc(etl.node):
@@ -62,9 +63,9 @@ class etl_operator_log_bloc(etl.node):
     def stop(self, transition=None):
         ok = super(etl_operator_log_bloc, self).stop(transition)
         if ok:
-            print 'Data Bloc Logger:', self.name
+            logger.notifyChannel('Data Bloc Logger:', self.name)
             for row in self.data:
-                print '\t', row
+                logger.notifyChannel('\t', row)
         return ok
 
 class etl_operator_diff(etl.node):

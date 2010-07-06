@@ -221,7 +221,6 @@ class profile_game_phase_one(osv.osv):
         return False
 
     def pre_process_sale(self,cr,uid,step_id,object, method,type,*args):
-        print "object, method,type,*args",object, method,type,args
         if (type=='execute') and (method in ('create','unlink')):
             self.error(cr, uid, step_id)
         if (type=='execute') and (object not in ("sale.order",'sale.order.line')) and (method=='write'):
@@ -242,7 +241,6 @@ class profile_game_phase_one(osv.osv):
         return False
 
     def pre_process_print_rfq(self, cr,uid,step_id, object, method,type, *args):
-      #  print "object, method,type, *args",object, method,type, args
         if type == 'wizard':
             return False
         if (type=='execute') and ((object not in ("purchase.order", 'purchase.order.line')) and (method in ('create','write','unlink'))):

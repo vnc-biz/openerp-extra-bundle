@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -53,20 +53,19 @@ wait_form = '''<?xml version="1.0"?>
 
 class wizard_close_dossier(wizard.interface):
     def _get_value(self,cr, uid, datas,context):
-    
+
         dossier_obj = pooler.get_pool(cr.dbname).get('huissier.dossier')
         lots = dossier_obj.browse(cr, uid, datas['ids'])
 #       cr.execute("select sum(adj_price) from huissier_lots where dossier_id=%d", (datas['id'],))
         amount_adj_cal=0.0
 #       cr.execute("select sum(adj_price) from huissier_lots where id in ("+','.join(map(str,datas['ids']))+")")
-#       print "Dans adj>>>>>>>>"*10,cr.fetchone()
     #   sum=cr.fetchone()
 #       amount_adj_cal=sum and sum[0] or 0.0
         for lot in lots:
             amount_adj_cal+=lot.adj_price
-            costs=lot.amount_costs 
+            costs=lot.amount_costs
             total=lot.amount_total
-            room=lot.amount_room_costs 
+            room=lot.amount_room_costs
         return {'adj': amount_adj_cal , 'frais':costs, 'total':total, 'salle':room} or {}
 
     def _close_dossier(self,cr,uid,datas,context):
@@ -88,26 +87,26 @@ class wizard_close_dossier(wizard.interface):
     #       'type': 'ir.actions.act_window'
     #   }
         return {'refund_id':ref_id,'invoice_id':inv_id}
-        
+
     def _get_invoice_id(self, cr,uid, datas,context):
-        
+
         vignettes_obj = pooler.get_pool(cr.dbname).get('huissier.dossier')
         vign=vignettes_obj.browse(cr,uid,datas['ids'])[0]
         return {'ids':vign.invoice_id.id}
     def _check_invoice(self,cr, uid, datas,context):
         vignettes_obj = pooler.get_pool(cr.dbname).get('huissier.dossier')
         vign=vignettes_obj.browse(cr,uid,datas['ids'])[0]
-        return vign.invoice_id.id and 'wait_pv' or 'end' 
+        return vign.invoice_id.id and 'wait_pv' or 'end'
 
 #return datas['form']['invoice_id'] and 'wait_pv' or 'end'
-        
-    def _check_refund(self,cr, uid, datas,context): 
+
+    def _check_refund(self,cr, uid, datas,context):
         vignettes_obj = pooler.get_pool(cr.dbname).get('huissier.dossier')
         vign=vignettes_obj.browse(cr,uid,datas['ids'])[0]
         return vign.invoice_id and 'wait_invoice' or 'end'
 
     #   return datas['form']['refund_id'] and 'wait_invoice' or 'end'
-        
+
     def _get_refund_id(self,cr, uid, datas,context):
         vignettes_obj = pooler.get_pool(cr.dbname).get('huissier.dossier')
 #       r_id,i_id= vignettes_obj.close(cr,uid,data['ids'])
@@ -130,10 +129,10 @@ class wizard_close_dossier(wizard.interface):
         }
 
     #   return {'ids': datas['refund_id']}
-        
+
     states = {
         'init': {
-            'actions': [_get_value], 
+            'actions': [_get_value],
             'result': {'type':'form', 'arch':close_form, 'fields':close_fields, 'state':[('close_dossier','Cloturer le PV'), ('end','Annuler')]}
         },
         'close_dossier': {
@@ -161,15 +160,15 @@ class wizard_close_dossier_from_lot(wizard_close_dossier):
         dossiers = lots[0].dossier_id.id or False
         sum_adj1=0.0
 #       if not lots[0].dossier_id:
-#           raise wizard.except_wizard('Erreur !', 'Veuillez saisir une etude') 
+#           raise wizard.except_wizard('Erreur !', 'Veuillez saisir une etude')
         for lot in lots:
             sum_adj1+=lot.adj_price
-            costs=lot.dossier_id.amount_costs 
+            costs=lot.dossier_id.amount_costs
             total=lot.dossier_id.amount_total
-            room=lot.dossier_id.amount_room_costs 
+            room=lot.dossier_id.amount_room_costs
         return {'dossier_id':dossiers, 'adj':sum_adj1, 'frais':costs, 'total':total, 'salle':room} or {'dossier_id':dossier_id}
 
-    
+
     def _close_dossier(self, cr,uid, datas,context):
     #   service = netsvc.LocalService("object_proxy")
     #   res = service.execute(uid, 'huissier.dossier', 'close', [datas['form']['dossier_id']], datas['form']['voirie'], datas['form']['acquis'])
@@ -212,7 +211,7 @@ class wizard_close_dossier_from_lot(wizard_close_dossier):
         }
     states = {
         'init': {
-            'actions': [_get_value], 
+            'actions': [_get_value],
             'result': {'type':'form', 'arch':close_form, 'fields':close_fields, 'state':[('close_dossier','Cloturer le PV'), ('end','Annuler')]}
         },
         'close_dossier': {

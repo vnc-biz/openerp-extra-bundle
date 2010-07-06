@@ -206,8 +206,6 @@ class job_process(signal):
 #        a = self.cpickle.load(in_s)
 #
 ##        a = self.cpickle.loads(b_object)
-#        print type(a)
-#        print eval(a)
 ##        out_s.close()
 #
 #        self.shelf['end_date'] =current_time

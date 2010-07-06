@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -23,12 +23,14 @@ from osv import fields,osv
 from osv import orm
 import pooler
 import time
+import netsvc
+logger = netsvc.Logger()
 
 def getBoodyPresence(server,port,ssl,uid,password):
     jid=xmpp.protocol.JID(jid)
     cl=xmpp.Client(jid.getDomain(),debug=[])
     cl.connect(('jabber.tinyerp.com',5223))
-    
+
 
 class crm_livechat_jabber(osv.osv):
     _name="crm_livechat.jabber"
@@ -80,14 +82,10 @@ class crm_livechat_livechat(osv.osv):
 
 
     def get_configuration(self, cr, uid, ids, context={}):
-        print "In get config"
         result = {}
         main_res={}
-        print "Ids ",ids
         for lc in self.browse(cr, uid, [int(ids)], context):
-            print "In loop",lc
             for u in lc.user_ids:
-                print "Making user"
                 result[str(u.id)] = {
                             'name': u.name,
                             'server': u.jabber_id.server,
@@ -98,20 +96,16 @@ class crm_livechat_livechat(osv.osv):
                             'state': u.state
                 }
                 main_res['user']=result
-        print "This is result",main_res
         return main_res
 
     def get_user(self, cr, uid, id, context={}):
         activeusr=[]
         minu = (9999999,False)
         tmpres={}
-        print "This is id ",id
         livechat = self.browse(cr, uid, id, context)
-        print "This is livechat",livechat
 
         for user in livechat[0].user_ids:
-            print "users ",user
-            
+
             tmpres = {
                             'name': user.name,
                             'server': user.jabber_id.server,
@@ -122,30 +116,21 @@ class crm_livechat_livechat(osv.osv):
                             'state': user.state,
                             'id' : user.id
             }
-            print ">>>>>>>>>>>>>>",tmpres
-        
+
             if  user.state=='active':
                 activeusr.append(tmpres)
-                print "IN IF LOOp Plz go ........."
                 c = 0
-                
-                print "Session is Statrting >>>>>>>>>>>>>", self.sessions
+
                 for s in self.sessions:
-                    print "In session",s
-                    print "This is s[0]",s,user.user_id
                     if s==user.user_id.id:
                         c+=1
-                        
+
                 if c<minu[0]:
                     if c<livechat[0].max_per_user:
                         minu = (c, user.id)
-            
+
             else:
-                print "Not active"
                 continue
-        print ".....................", minu
-        print "MINUBHAI: ........ ", minu[1]
-        print "Active USer",activeusr
         lst= []
         for x in activeusr:
             lst.append(x['id'])
@@ -162,14 +147,10 @@ class crm_livechat_livechat(osv.osv):
             (session_id, user_jabber_id, partner_jabber_id) if available
     """
     def start_session(self, cr, uid, livechat_id, user_id=False, partner_ids=False, partner_ip='Unknown', lang=False, context={}):
-        print "In session srtart", livechat_id," User id ", user_id," ?Partner id ", partner_ids
         partner_ids=int(partner_ids)
         if not user_id:
-            print "In notvvvvvv user id",user_id
             user_id = self.get_user(cr, uid, livechat_id, context)
-            print "Return get",user_id
         if not user_id:
-            print "In not user id",user_id
             return False
         self.pool.get('crm_livechat.livechat.partner').write(cr, uid, [partner_ids], {
             'available': partner_ip,
@@ -177,7 +158,6 @@ class crm_livechat_livechat(osv.osv):
         })
         self.session_count+=1
         self.sessions[self.session_count] = (user_id, partner_ids, livechat_id)
-        print "self.session",self.sessions
         return self.session_count
     """
         IN:
@@ -187,31 +167,23 @@ class crm_livechat_livechat(osv.osv):
             True
     """
     def stop_session(self, cr, uid, id, session_id, log=True, chat_data='', context={}):
-        print "session_id"
-        print "session id ",session_id," data it have ",self.sessions
-#       print "first of this is .... > > > > > > > > > >", self.sessions[session_id]
-#       print "first of this is zeroooooooo.... > > > > > > > > > >", self.sessions[session_id][0]
-#       print "Writing record on this ..............", self.sessions[session_id][1]
-        
+
         self.pool.get('crm_livechat.livechat.partner').write(cr, uid, self.sessions, {
             'available': False,
         })
-        print "This is self session",self.sessions
         if session_id in self.sessions:
-            print "This is log ",session_id
-            print " Value of log ",log
-            print "Livechat id is as folows . . . . . . . . . . .  ", self.sessions[session_id][2][0]
+            logger.notifyChannel("This is log ",session_id)
+            logger.notifyChannel(" Value of log ",log)
+            logger.notifyChannel("Livechat id is as folows . . . . . . . . . . .  ", self.sessions[session_id][2][0])
             if log:
-                print "In logging"
                 self.pool.get('crm_livechat.log').create(cr, uid, {
                     'note': chat_data,
                     'user_id': self.sessions[session_id][0][1],
                     'livechat_id':self.sessions[session_id][2][0],
                 })
-                print "LOG COMPLTERD::::::::::::::"
             del self.sessions[session_id]
         return True
-    
+
 crm_livechat_livechat()
 
 #
@@ -235,9 +207,7 @@ class crm_livechat_livechat_partner(osv.osv):
     def get_live_parnter(self,cr,uid,context={}):
         res={}
         id=self.search(cr,uid,[('state','=','active'),('available','=',False)],context)
-        print "IDS :::::::",id
         for p in self.browse(cr, uid, id, context):
-            print "ooooooooooo:",p
             if p.available==False:
                         res['id']=p.id
                         res['name']=p.jabber_id.name

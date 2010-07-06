@@ -37,18 +37,16 @@ import string
 class Barcode(Flowable):
     """Abstract Base for barcodes. Includes implementations of
     some methods suitable for the more primitive barcode types"""
-    
+
     def __init__(self, value = ''):
         self.value = value
-        
+
         if not hasattr(self, 'gap'):
             self.gap = None
-            
+
         self.validate()
         self.encode()
-        #print self.encoded
         self.decompose()
-        #print self.decomposed
         self.computeSize()
 
     def validate(self):
@@ -67,9 +65,9 @@ class Barcode(Flowable):
 
         if self.gap == None:
             self.gap = xdim
-            
+
         w = 0.0
-        
+
         for c in self.decomposed:
             if c in 'sb':
                 w = w + xdim
@@ -77,7 +75,7 @@ class Barcode(Flowable):
                 w = w + wx
             else: # 'i'
                 w = w + self.gap
-    
+
         if self.height is None:
             self.height = w * 0.15
             self.height = max(0.25 * inch, self.height)
@@ -89,13 +87,13 @@ class Barcode(Flowable):
             self.xo = self.lquiet
         else:
             self.xo = 0.0
-            
+
         self.width = w
 
     def draw(self):
         xdim = self.xdim
         wx = xdim * self.ratio
-    
+
         left = self.xo
         b = self.bearers * xdim
         bb = b * 0.5
@@ -114,7 +112,7 @@ class Barcode(Flowable):
             elif c == 'B':
                 self.rect(left, bb, wx, tb)
                 left = left + wx
-                
+
         if self.bearers:
             self.rect(self.lquiet, 0.0, \
                 self.width - (self.lquiet + self.rquiet), b)
@@ -127,20 +125,20 @@ class Barcode(Flowable):
 
 class MultiWidthBarcode(Barcode):
     """Base for variable-bar-width codes like Code93 and Code128"""
-    
+
     def computeSize(self, *args):
         xdim = self.xdim
         oa, oA = ord('a') - 1, ord('A') - 1
 
         w = 0.0
-        
+
         for c in self.decomposed:
             oc = ord(c)
             if c in string.lowercase:
                 w = w + xdim * (oc - oa)
             elif c in string.uppercase:
                 w = w + xdim * (oc - oA)
-    
+
         if self.height is None:
             self.height = w * 0.15
             self.height = max(0.25 * inch, self.height)
@@ -150,7 +148,7 @@ class MultiWidthBarcode(Barcode):
             self.xo = self.lquiet
         else:
             self.xo = 0.0
-            
+
         self.width = w
 
     def draw(self):
@@ -177,19 +175,19 @@ class I2of5(Barcode):
 
         value (int, or numeric string. required.):
             The value to encode.
-   
+
         xdim (float, default .0075):
             X-Dimension, or width of the smallest element
             Minumum is .0075 inch (7.5 mils).
-            
+
         ratio (float, default 2.2):
             The ratio of wide elements to narrow elements.
             Must be between 2.0 and 3.0 (or 2.2 and 3.0 if the
             xdim is greater than 20 mils (.02 inch))
-            
+
         gap (float or None, default None):
             width of intercharacter gap. None means "use xdim".
-        
+
         height (float, see default below):
             Height of the symbol.  Default is the height of the two
             bearer bars (if they exist) plus the greater of .25 inch
@@ -197,24 +195,24 @@ class I2of5(Barcode):
 
         checksum (bool, default 1):
             Wether to compute and include the check digit
-            
+
         bearers (float, in units of xdim. default 3.0):
             Height of bearer bars (horizontal bars along the top and
             bottom of the barcode). Default is 3 x-dimensions.
             Set to zero for no bearer bars. (Bearer bars help detect
             misscans, so it is suggested to leave them on).
-            
+
         quiet (bool, default 1):
             Wether to include quiet zones in the symbol.
-            
+
         lquiet (float, see default below):
             Quiet zone size to left of code, if quiet is true.
             Default is the greater of .25 inch, or .15 times the symbol's
             length.
-            
+
         rquiet (float, defaults as above):
             Quiet zone size to right left of code, if quiet is true.
-            
+
     Sources of Information on Interleaved 2 of 5:
 
     http://www.semiconductor.agilent.com/barcode/sg/Misc/i_25.html
@@ -323,16 +321,16 @@ class MSI(Barcode):
 
         value (int, or numeric string. required.):
             The value to encode.
-   
+
         xdim (float, default .0075):
             X-Dimension, or width of the smallest element
-            
+
         ratio (float, default 2.2):
             The ratio of wide elements to narrow elements.
-            
+
         gap (float or None, default None):
             width of intercharacter gap. None means "use xdim".
-        
+
         height (float, see default below):
             Height of the symbol.  Default is the height of the two
             bearer bars (if they exist) plus the greater of .25 inch
@@ -340,18 +338,18 @@ class MSI(Barcode):
 
         checksum (bool, default 1):
             Wether to compute and include the check digit
-            
+
         bearers (float, in units of xdim. default 0):
             Height of bearer bars (horizontal bars along the top and
             bottom of the barcode). Default is 0 (no bearers).
-            
+
         lquiet (float, see default below):
             Quiet zone size to left of code, if quiet is true.
             Default is the greater of .25 inch, or 10 xdims.
-            
+
         rquiet (float, defaults as above):
             Quiet zone size to right left of code, if quiet is true.
-            
+
     Sources of Information on MSI Bar Code:
 
     http://www.semiconductor.agilent.com/barcode/sg/Misc/msi_code.html
@@ -442,17 +440,17 @@ class Codabar(Barcode):
 
         value (string. required.):
             The value to encode.
-   
+
         xdim (float, default .0065):
             X-Dimension, or width of the smallest element
             minimum is 6.5 mils (.0065 inch)
-            
+
         ratio (float, default 2.0):
             The ratio of wide elements to narrow elements.
-            
+
         gap (float or None, default None):
             width of intercharacter gap. None means "use xdim".
-        
+
         height (float, see default below):
             Height of the symbol.  Default is the height of the two
             bearer bars (if they exist) plus the greater of .25 inch
@@ -460,21 +458,21 @@ class Codabar(Barcode):
 
         checksum (bool, default 0):
             Wether to compute and include the check digit
-            
+
         bearers (float, in units of xdim. default 0):
             Height of bearer bars (horizontal bars along the top and
             bottom of the barcode). Default is 0 (no bearers).
-            
+
         quiet (bool, default 1):
             Wether to include quiet zones in the symbol.
-            
+
         lquiet (float, see default below):
             Quiet zone size to left of code, if quiet is true.
             Default is the greater of .25 inch, or 10 xdim
-            
+
         rquiet (float, defaults as above):
             Quiet zone size to right left of code, if quiet is true.
-            
+
     Sources of Information on Codabar
 
     http://www.semiconductor.agilent.com/barcode/sg/Misc/codabar.html
@@ -563,7 +561,7 @@ class Codabar(Barcode):
         dval = ""
         for c in self.encoded:
             dval = dval + self.patterns[c] + 'i'
-        self.decomposed = dval[:-1]            
+        self.decomposed = dval[:-1]
         return self.decomposed
 
 
@@ -572,19 +570,19 @@ class Code11(Barcode):
     """
     Code 11 is an almost-numeric barcode. It encodes the digits 0-9 plus
     dash ("-"). 11 characters total, hence the name.
-    
+
         value (int or string. required.):
             The value to encode.
-   
+
         xdim (float, default .0075):
             X-Dimension, or width of the smallest element
-            
+
         ratio (float, default 2.2):
             The ratio of wide elements to narrow elements.
-            
+
         gap (float or None, default None):
             width of intercharacter gap. None means "use xdim".
-        
+
         height (float, see default below):
             Height of the symbol.  Default is the height of the two
             bearer bars (if they exist) plus the greater of .25 inch
@@ -593,28 +591,28 @@ class Code11(Barcode):
         checksum (0 none, 1 1-digit, 2 2-digit, -1 auto, default -1):
             How many checksum digits to include. -1 ("auto") means
             1 if the number of digits is 10 or less, else 2.
-            
+
         bearers (float, in units of xdim. default 0):
             Height of bearer bars (horizontal bars along the top and
             bottom of the barcode). Default is 0 (no bearers).
-            
+
         quiet (bool, default 1):
             Wether to include quiet zones in the symbol.
-            
+
         lquiet (float, see default below):
             Quiet zone size to left of code, if quiet is true.
             Default is the greater of .25 inch, or 10 xdim
-            
+
         rquiet (float, defaults as above):
             Quiet zone size to right left of code, if quiet is true.
-            
+
     Sources of Information on Code 11:
 
     http://www.cwi.nl/people/dik/english/codes/barcodes.html
     """
-    
+
     chars = string.digits + '-'
-    
+
     patterns = {
         '0' : 'bsbsB',        '1' : 'BsbsB',        '2' : 'bSbsB',
         '3' : 'BSbsb',        '4' : 'bsBsB',        '5' : 'BsBsb',
@@ -632,7 +630,7 @@ class Code11(Barcode):
         self.height = None
         self.xdim = inch * 0.0075
         self.ratio = 2.2 # XXX ?
-        self.checksum = -1 # Auto 
+        self.checksum = -1 # Auto
         self.bearers = 0.0
         self.quiet = 1
         self.lquiet = self.rquiet = None
@@ -701,5 +699,5 @@ class Code11(Barcode):
         dval = ""
         for c in self.encoded:
             dval = dval + self.patterns[c] + 'i'
-        self.decomposed = dval[:-1]            
+        self.decomposed = dval[:-1]
         return self.decomposed

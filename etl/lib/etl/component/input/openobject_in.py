@@ -94,7 +94,6 @@ def test():
 #    test.check_input({'main':[{'name':'Elec Import'}]})
     test.check_output([{'name': 'Algeria', 'code': 'DZ', 'id': 61}], 'main') # to be update
     res = test.output()
-    print res
 if __name__ == '__main__':
     test()
 

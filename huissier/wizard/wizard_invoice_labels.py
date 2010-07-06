@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -31,8 +31,6 @@ def _invoice_labels(self,cr,uid,datas,context):
     vign_obj = pooler.get_pool(cr.dbname).get('huissier.vignettes')
     ids = vign_obj.invoice(cr, uid, datas['ids'],context)
     cr.commit()
-    print "Facturation finie"
-    print "ids",ids
     return{}
 
 def facture(self, cr, uid, data, context):

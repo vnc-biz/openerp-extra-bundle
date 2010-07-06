@@ -96,7 +96,6 @@ class print_invoice_list(rml_parse.rml_parse):
             if data['form']['state'] in ['bydate','all','none']:
                 where.append(('date_invoice','>=',data['form']['date_from']))
                 where.append(('date_invoice','<=',data['form']['date_to']))
-            #print where
             ids = invoice_obj.search(self.cr, self.uid, where)
             objects = invoice_obj.browse(self.cr, self.uid, ids)
 
@@ -106,7 +105,7 @@ class print_invoice_list(rml_parse.rml_parse):
 
         if not ids :
             return super(print_invoice_list, self).set_context(objects, data, ids, report_type)
-        
+
         if not isinstance(ids, list) :
             ids = [ids]
         # we create temp list that will be used for store invoices by type
@@ -136,7 +135,7 @@ class print_invoice_list(rml_parse.rml_parse):
 
     def filter_invoices(self, list, dest, order_by=None):
         if not list :
-            return 
+            return
         tmp = {}
         #
         # Sort by invoice "number", "date + number" or "partner + reference"

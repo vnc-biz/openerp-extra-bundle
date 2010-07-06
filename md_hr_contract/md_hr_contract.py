@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -32,29 +32,29 @@ class hr_department(osv.osv):
 hr_department()
 
 
-    
+
 class hr_contract(osv.osv):
     _inherit='hr.contract'
-    
+
     def _full_time_salary(self, cr, uid, ids,name, args, context):
         res={}
         if len(ids):
-            for contact_obj in self.browse(cr, uid, ids, context): 
+            for contact_obj in self.browse(cr, uid, ids, context):
                 res[contact_obj.id]=contact_obj.salary_level*contact_obj.wage+contact_obj.salary_grade
-            return res 
+            return res
         else:
             return {}
     def _fte_in_hours(self, cr, uid, ids,name, args, context):
         res={}
         if len(ids):
-            for contact_obj in self.browse(cr, uid, ids, context): 
+            for contact_obj in self.browse(cr, uid, ids, context):
                res[contact_obj.id]=int(contact_obj.fte*160)
-            return res 
+            return res
         else:
             return {}
-    
+
     _columns={
-            'code':fields.char('code',size=8),  
+            'code':fields.char('code',size=8),
             'date_start' : fields.date('Date of appointment', required=True),
             'date_end' : fields.date('Expire date'),
             'fulltime_salary':fields.function(_full_time_salary,method=True,store=True, string='Full-time Salary'),
@@ -75,22 +75,19 @@ class hr_contract(osv.osv):
                'form_of_employment':lambda *a:'temp'
                }
     def create(self, cr, uid, vals, context=None):
-            print "asdasdasd"
-            
+
 
             if vals['form_of_employment'] and vals['department_id']:
-                print "fornm dsf sdsdf",vals['form_of_employment']
-                print "vals['department_id']:",vals['department_id']
-                
+
                 cr.execute('select count(id) from hr_contract where form_of_employment=%s and department_id =%s',(vals['form_of_employment'],vals['department_id']))
                 rec=cr.fetchall()
                 dept_obj=self.pool.get('hr.department').browse(cr,uid,vals['department_id'])
                 if rec[0][0]+1>dept_obj.max_temp_contract:
                     raise osv.except_osv('Caution !','Maximum Number of temporary contracts has been reached!')
-                return super(hr_contract,self).create(cr, uid, vals, context=None)    
+                return super(hr_contract,self).create(cr, uid, vals, context=None)
             else:
                 return super(hr_contract,self).create(cr, uid, vals, context=None)
-          
+
 hr_contract()
 
 class md_hr_contract_availability(osv.osv):
@@ -116,7 +113,7 @@ class res_partner_function(osv.osv):
 res_partner_function()
 
 
-    
-    
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

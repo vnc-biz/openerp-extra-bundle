@@ -56,7 +56,6 @@ class res_company(osv.osv):
         try:
             currency_updater_obj.run_currency_update(cr, uid)
         except Exception, e:
-            print str(e)
             return False
         return True
 

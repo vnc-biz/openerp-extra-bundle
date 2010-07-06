@@ -56,7 +56,7 @@ class openobject_out_write(openobject_out):
         super(openobject_out_write, self).__init__(openobject_connector, model, fields=fields, name=name, transformer=transformer, row_limit=row_limit)
         self._type = 'component.output.openobject_out_write'
         self.key = key
-    
+
 
     def process(self):
         datas = []
@@ -64,7 +64,7 @@ class openobject_out_write(openobject_out):
         self.op_oc = False
         for channel, trans in self.input_get().items():
             for iterator in trans:
-                for d in iterator:    
+                for d in iterator:
                     if not self.fields:
                         self.fields = dict(map(lambda x: (x, x), d.keys()))
                     if type(self.fields) == type([]):
@@ -75,7 +75,6 @@ class openobject_out_write(openobject_out):
                     values = dict(map(lambda x: (x,d[self.fields[x]]), self.fields_keys))
                     op_oc = self.connector.open()
                     l = [op_oc, 'execute', self.model, 'write', [d[self.key]], values]
-                    #print "write",l
                     res = self.connector.execute(*l)
                     self.connector.close(op_oc)
                     yield d, 'main'

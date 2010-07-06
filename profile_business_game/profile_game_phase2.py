@@ -361,7 +361,6 @@ class profile_game_phase_two(osv.osv):
     }
 
     def pay_supplier_invoice(self, cr, uid, ids, context):
-        print "pay_supplier_invoice"
         od = self.get_date(cr, uid,context)
         acc_obj = self.pool.get('account.account')
         acc_type_obj = self.pool.get('account.account.type')
@@ -395,7 +394,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def _pay_and_reconcile(self, cr, uid, ids, invoice_id, journal_id, amount, od, context):
-        print "_pay_and_reconcile"
         p_ids = self.pool.get('account.period').find(cr, uid, od, context=context)
         period_id = False
         if len(p_ids):
@@ -419,7 +417,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def confirm_draft_po(self, cr, uid, ids, context):
-        print "confirm_draft_po"
         wf_service = netsvc.LocalService('workflow')
         po_obj = self.pool.get('purchase.order')
         po_ids = po_obj.search(cr,uid,[('state','=','draft')])
@@ -433,7 +430,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def process_pickings(self, cr, uid, ids, pick_br, context):
-        print "process_pickings"
         from stock.wizard import wizard_partial_picking
         for picking in pick_br:
             data = temp = {}
@@ -461,7 +457,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def receive_deliver_products(self, cr, uid, ids, context):
-        print "receive_deliver_products"
         picking_obj = self.pool.get('stock.picking')
         for type in ('in','out'):
             conf_pick = picking_obj.search(cr,uid,[('state','=','confirmed'),('type','=',type)])
@@ -473,7 +468,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def confirm_draft_invoices(self, cr, uid, ids, type, context):
-        print "confirm_draft_invoices"
         try:
             wf_service = netsvc.LocalService('workflow')
             inv_obj = self.pool.get('account.invoice')
@@ -489,7 +483,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def pay_all_customer_invoice(self, cr, uid, ids, context):
-        print "pay_all_customer_invoice"
         od = self.get_date(cr, uid,context)
         inv_obj = self.pool.get('account.invoice')
         journal = self.pool.get('account.journal').search(cr,uid,[('type','=','cash')])
@@ -503,7 +496,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def create_fiscalyear_and_period(self,cr, uid, ids, context={}, interval=1):
-        print "create_fiscalyear_and_period"
         fys = self.pool.get('account.fiscalyear').search(cr, uid, [])
         if len(fys):
             new_fy = int(self.pool.get('account.fiscalyear').browse(cr, uid, fys[len(fys)-1]).code) + 1
@@ -518,7 +510,6 @@ class profile_game_phase_two(osv.osv):
         return fiscal_id
 
     def close_fiscalyear(self, cr, uid, ids, close_fy, new_fy, context):
-        print "close_fiscalyear"
         data = data1 = {}
         data['form'] = {}
         data1['form'] = {}
@@ -538,7 +529,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def create_sale_periods(self, cr, uid, ids, context):
-        print "create_sale_periods"
         period = self.pool.get('stock.period').search(cr, uid, [])
         if period or False:
             self.pool.get('stock.period').write(cr, uid, period[len(period)-1],{'state':'close'})
@@ -556,7 +546,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def create_sale_forecast_stock_planning_data(self, cr, uid, ids, syear, context):
-        print "create_sale_forecast_stock_planning_data"
         user_id = self.pool.get('res.users').search(cr, uid, [('login','ilike','sale')])[0]
         period = self.pool.get('stock.period').search(cr, uid, [('name', '=', syear)])[0]
         prod_ids = self.pool.get('product.product').search(cr, uid, [])
@@ -573,7 +562,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def procure_incomming_left(self, cr, uid, ids, cnt, context):
-        print "procure_incomming_left"
         ids = self.pool.get('stock.planning').search(cr, uid, [])
         result = {}
         for obj in self.pool.get('stock.planning').browse(cr, uid, ids):
@@ -612,7 +600,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def update_messages(self, cr, uid, ids, msg, context):
-        print "update_messages"
         prev_msg = self.read(cr, uid, ids[0],['warn_error'])
         prev_msg['warn_error'] = prev_msg['warn_error'] or  ""
         prev_msg['warn_error']  += '\n' + '*' + msg
@@ -620,7 +607,6 @@ class profile_game_phase_two(osv.osv):
         return True
 
     def adjust_loan_account(self, cr, uid, ids, year, period, date, context):
-         print "adjust_loan_account"
          acc_obj = self.pool.get('account.account')
          loan_obj = self.pool.get('bank.loan')
          loan_ids = loan_obj.search(cr, uid, [('months_left','>',0)])
@@ -646,7 +632,6 @@ class profile_game_phase_two(osv.osv):
          return
 
     def get_traceback(self, cr, uid, ids, year, context):
-        print "get_traceback"
         start_date = year.date_start
         stop_date = year.date_stop
         sale_order = purchase_order = cust_inv = supp_inv = goods_in = goods_out = 0
@@ -721,7 +706,6 @@ class profile_game_phase_two(osv.osv):
         return
 
     def continue_next_year(self, cr, uid, ids, context):
-        print "continue_next_year"
         fiscal_year_id = self.pool.get('account.fiscalyear').search(cr, uid, [('state','=','draft')])
         fy = self.pool.get('account.fiscalyear').browse(cr, uid, fiscal_year_id)[0]
         cr.execute("select id from res_partner")
@@ -766,7 +750,6 @@ class profile_game_phase_two(osv.osv):
                     self.pool.get('sale.order.line').create(cr, uid, value)
                 wf_service.trg_validate(uid, 'sale.order', new_id, 'order_confirm', cr)
             cnt += 1
-            print "period:::::::",period.code
             self.procure_incomming_left(cr, uid, ids, cnt, context)
             self.confirm_draft_po(cr, uid, ids, context)
             self.confirm_draft_invoices(cr, uid, ids, 'in_invoice', context)

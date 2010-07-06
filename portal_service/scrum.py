@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -27,7 +27,6 @@ class scrum_product_backlog(osv.osv):
         return dict(cr.fetchall())
 
     def _search_partner(self, cr, uid, obj, name, args, context={}):
-        print args
         if not len(args):
             return []
 
@@ -37,7 +36,7 @@ class scrum_product_backlog(osv.osv):
         if not res:
             return [('id','=','0')]
         return [('id','in',bids)]
-    
+
     _columns = {
         'partner_id': fields.function(_get_partner, method=True, string='Customer', fnct_search=_search_partner),
         }

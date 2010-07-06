@@ -31,7 +31,8 @@ import sys, StringIO
 import pooler
 
 import wizard
-
+import netsvc
+logger = netsvc.Logger()
 
 _export_select_form = '''<?xml version="1.0"?>
 <form string="Products Export">
@@ -116,9 +117,8 @@ def _export_from_product(self, cr, uid, data, context):
     sys.stderr = StringIO.StringIO()
     rnew = rupdate = rdelete = rerror = 0
     try:
-        print "_export_from_product data = %s" % data
         if data['model'] != 'product.product':
-            print >> sys.stderr, "Function called not allowed from this model %s" % data['model']
+             logger.notifyChannel("Function called not allowed from this model %s" % data['model'])
         else:
             pool = pooler.get_pool(cr.dbname)
             esale_joomla_product_map_obj = pool.get('esale_joomla.product_map')
@@ -127,7 +127,7 @@ def _export_from_product(self, cr, uid, data, context):
             prod_ids = data['ids']
             catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)]) #get categories for selected shop
             if not catmap_ids:
-                print >> sys.stderr, 'No categories for this web shop'
+                logger.notifyChannel('No categories for this web shop',sys.stderr)
             else:
                 webcategories = {}
                 for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):
@@ -149,17 +149,14 @@ def _export_from_shop(self, cr, uid, data, context):
         esale_joomla_product_map_obj = pool.get('esale_joomla.product_map')
         esale_joomla_category_map_obj = pool.get('esale_joomla.category_map')
 
-        print "_export_from_shop data = %s" % data
         web_id = data['form']['web_shop']
-        print 'web_id=%s' % web_id
         catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)]) #get categories for selected shop
         if not catmap_ids:
-            print >> sys.stderr, 'No categories for this web shop'
+            logger.notifyChanne('No categories for this web shop',sys.stderr)
         else:
             webcategories = {}
             for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):
                 webcategories[x['category_id'][0]] = x['esale_joomla_id']
-            print 'webcategories=%r' % webcategories
             if data['form']['target'] != 'last':
                 sql = "select distinct r.product_id from esale_category_product_rel r"
                 sql += "  where r.category_id in (%s);" % ','.join(map(str, webcategories.keys()))
@@ -171,7 +168,6 @@ def _export_from_shop(self, cr, uid, data, context):
                 sql += "    and m.export_date is NULL or m.state='error' or (p.create_date > m.export_date or p.write_date > m.export_date);"
             cr.execute(sql)
             prod_ids = map(lambda x: x[0], cr.fetchall())
-            print 'prod_ids=%r' % prod_ids
             (rnew, rupdate, rdelete, rerror) = esale_joomla_product_map_obj.webexport_product(cr, uid, web_id, prod_ids, webcategories, context)
 
     finally:

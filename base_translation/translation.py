@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
@@ -23,26 +23,26 @@ import netsvc
 from osv import fields, osv
 import ir
 from mx import DateTime
-import tools 
+import tools
 import xmlrpclib
 import pooler
 
 from wizard import SERVER,PORT
 s = xmlrpclib.Server("http://"+SERVER+":"+str(PORT))
 
-warning_message ="""<?xml version="1.0"?> 
-    <form string="!!! Warning"> 
-        <image name="gtk-dialog-info" colspan="2"/> 
-        <group colspan="2" col="4"> 
-            <separator string="%s" colspan="4"/> 
-            <label align="0.0" string="%s" colspan="4"/> 
-        </group> 
+warning_message ="""<?xml version="1.0"?>
+    <form string="!!! Warning">
+        <image name="gtk-dialog-info" colspan="2"/>
+        <group colspan="2" col="4">
+            <separator string="%s" colspan="4"/>
+            <label align="0.0" string="%s" colspan="4"/>
+        </group>
     </form>"""
 
 def get_version(cr, uid,context):
     user = pooler.get_pool(cr.dbname).get('res.users').read(cr,uid,uid,['login'])['login']
     return s.version_list(user)
-    
+
 def get_profile(cr,uid,context):
     user = pooler.get_pool(cr.dbname).get('res.users').read(cr,uid,uid,['login'])['login']
     return s.profile_list(user)
@@ -60,14 +60,12 @@ def get_language(cr,uid,context,user=None,model=None,lang=None):
             sql = "select distinct lang from ir_translation_contribution where state='propose'"
         else:
             sql = "select distinct lang from ir_translation"
-        print sql
         cr.execute(sql)
         list = map(lambda x: x[0],cr.fetchall())
-        print list
     else :
         sql = "select distinct lang from ir_translation_contribution where state='accept'"
         cr.execute(sql)
-        list = map(lambda x: x[0],cr.fetchall())        
+        list = map(lambda x: x[0],cr.fetchall())
     lang_dict = tools.get_languages()
     return [(lang, lang_dict.get(lang, lang)) for lang in list]
 
@@ -76,19 +74,19 @@ class ir_translation_contribution(osv.osv):
     _inherit = 'ir.translation'
     _description = "Translation Contribution"
     _columns = {
-            'contributor_email'  : fields.char('Email Id of Contibutor',size=128),      
+            'contributor_email'  : fields.char('Email Id of Contibutor',size=128),
             'state': fields.selection(
                     [('draft','Draft'),
                      ('propose','Propose for Change'),
                      ('unchange',"Don't change"),
                      ('accept','Accept'),
-                     ('done','Done'),                     
+                     ('done','Done'),
                      ('deny','Deny'),
                      ],
                      'Translation State', readonly=True, select=True),
-            'upload':fields.boolean('upload') 
+            'upload':fields.boolean('upload')
                 }
-    _sql = ''    
+    _sql = ''
 
     def write(self, cr, uid, ids, vals, context=None):
         if self.read(cr,uid,ids,['upload']):

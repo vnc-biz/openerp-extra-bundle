@@ -97,7 +97,6 @@ def test():
     conn = xmlrpc_conn.start('import_data')
     test1 = etl_test.etl_component_test(xmlrpc_in(xmlrpc_conn))
     res = test1.output()
-    print res
 
 if __name__ == '__main__':
     test()

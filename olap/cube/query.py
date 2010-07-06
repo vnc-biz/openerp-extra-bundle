@@ -39,7 +39,6 @@ class query(object):
     def run(self,currency):
         db = sqlalchemy.create_engine(self.object.schema_id.database_id.connection_url,encoding='utf-8')
         metadata = sqlalchemy.MetaData(db)
-        print 'Connected to database...', self.object.schema_id.database_id.connection_url
         #
         # Compute axis
         #
@@ -53,7 +52,7 @@ class query(object):
                 cross = True
                 cross = ax.run(metadata)
                 cube_size[-1] = cube_size[-1] * len(cross)
-                temp = axis_result[0][:] 
+                temp = axis_result[0][:]
                 cross_all.append(cross)
                 final_axis = []
                 for cr in cross:
@@ -67,8 +66,8 @@ class query(object):
                 final_axis=[]
                 len_axis = len(axis[-1])
                 len_cross = len(cross)
-                delta_count = 0 
-                d=0  
+                delta_count = 0
+                d=0
                 for data in common.xcombine(axis[-1],cross):
                     flag = False
                     make_where = []
@@ -76,9 +75,9 @@ class query(object):
                     temp_column = []
                     if 'whereclause' in data[0]['query'].keys():
                         flag = True
-                        temp_where = data[0]['query']['whereclause'][0] 
+                        temp_where = data[0]['query']['whereclause'][0]
                         data[0]['query']['whereclause']=str(data[0]['query']['whereclause'][0])
-                        
+
                     if isinstance(type(data[0]['query']['column'][0]),type(sqlalchemy.sql.expression._BindParamClause)):
                         temp_column = data[0]['query']['column'][0]
                         data[0]['query']['column'][0] = str(data[0]['query']['column'][0])
@@ -90,7 +89,7 @@ class query(object):
                             make_where.append(data[1]['query']['whereclause'][0])
                     delta_count = delta_count + 1
                     if delta_count >= len_cross and len_cross!=1:
-                        delta_count = 0 
+                        delta_count = 0
                         data_temp['delta'] = d
                         d = d + 1
                     else:
@@ -120,7 +119,7 @@ class query(object):
                     axis_result2 += map(lambda x: (map(lambda y: y or False,x[0]),x[1] or False), r['value'])
                 axis_result.append(axis_result2)
                 axis.append(result)
-                cube_size.append(length)    
+                cube_size.append(length)
         cube_data = self._cube_create(cube_size)
         cr = []
         slice = self.slicer.run(metadata)
@@ -218,7 +217,7 @@ class query(object):
             if log_ids:
                 count = pooler.get_pool(cr.dbname).get('olap.query.logs').browse(cr, uid, log_ids, context)[0]
                 pooler.get_pool(cr.dbname).get('olap.query.logs').write(cr, uid, log_ids, {'count':count.count+1})
-                
+
             else:
                 logentry={}
                 logentry['user_id']=uid

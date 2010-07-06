@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -48,8 +48,6 @@ class Root(controllers.RootController):
         if not(cherrypy.session.has_key(cherrypy.request.remoteAddr)):
             cherrypy.session[cherrypy.request.remoteAddr] = cherrypy.request.remoteAddr
 
-        print "cherrypy.session[cherrypy.request.remoteAddr]::",cherrypy.session[cherrypy.request.remoteAddr],"::::",cherrypy.request.remoteAddr
-        print "Redirecting to ChatFunc"
         raise redirect('chatfunc/index')
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

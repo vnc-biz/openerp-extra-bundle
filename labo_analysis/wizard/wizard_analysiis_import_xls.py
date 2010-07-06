@@ -100,7 +100,6 @@ def _makeDate(sdate):
 #	else:
 #		raise Exception("Format de date non reconnu %s",sdate)
 #
-##	print y,m,d
 #	return y,m,d
 #
 def import_attachment(self, cr, uid, data, context):
@@ -135,7 +134,6 @@ def import_attachment(self, cr, uid, data, context):
 			sheet_items = []
 			for row in a:
 				if len([i for i in row.values() if i]):
-					print len(row),type(row)
 					sheet_items.append(row)
 			sheetnames.append(sheet_items)
 #	else:
@@ -157,9 +155,7 @@ def import_attachment(self, cr, uid, data, context):
 #	Its support multiple sheets also
 #	"""
 	for sheet in sheetnames:
-		print "******************************************* No of records for Importing *******************************************", len(sheet)
 		for line in sheet:
-			print "LINEEEE", line['LPSERV']
 			"""
 			Set the labo. sample fields first ...
 				'LPSERV':'lp_serv',

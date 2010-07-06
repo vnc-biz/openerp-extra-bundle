@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -87,7 +87,6 @@ class sandwich_order_line(osv.osv):
     }
 
     def onchange_user_id(self, cr, uid, id, user_id, product_type_id, context={}, *args):
-        # print id, user_id, product_type_id, context
         if (not user_id) or (not product_type_id):
             return {}
         cr.execute('SELECT product_id,name,quantity FROM sandwich_order_line WHERE user_id=%s AND product_type_id=%s ORDER BY date DESC LIMIT 1', (user_id, product_type_id))
@@ -96,7 +95,7 @@ class sandwich_order_line(osv.osv):
             return {'value': res}
         # else
         return {'value': {'product_id': False, 'name': '', 'quantity': 1}}
-    
+
     def onchange_product_type_id(self, cr, uid, id, user_id, product_type_id, context={}):
         if (not product_type_id) or (not user_id):
             return {}

@@ -53,7 +53,6 @@ class data_exist(component):
     def process(self):
         #process incoming data
         for channel, trans in self.input_get().items():
-            print "%s channel=%s trans=%s"%(self.name,channel,trans)
             for iterator in trans:
                 for d in iterator:
                     #check if record exists on openobject_injector

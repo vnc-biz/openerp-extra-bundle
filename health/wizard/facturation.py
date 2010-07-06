@@ -95,7 +95,7 @@ def _facturer(self, cr, uid, data, context):
             dep = pool.get('health.tarif.dependance').read(cr, uid,dep_id)['montant']
         else:
             dep=0.0
-       
+
         hospitalisation = 0
         duree_absences = 0
         absences = pool.get('health.absences').search(cr, uid, [('partner_id','=',resident_id)])
@@ -112,19 +112,14 @@ def _facturer(self, cr, uid, data, context):
                         duree_absences = duree_absences+abs["nbrjour"]
                         commentaire=commentaire+"Absence pour Convenance personnelle du "+str(abs['du']) + " au "+str(abs['au'])+" \n"
                     widget="image"
-                    print "Duree Absences ",duree_absences
                     if duree_absences <=3:
                         duree_absences=0
-                        print "Duree Absences <=3 ",duree_absences
                     else:
                         duree_absences=duree_absences-3
-                        print "Duree Absences >3 ",duree_absences
                     if hospitalisation <=3:
                         hospitalisation=0
-                        print "Duree Absences <=3 ",hospitalisation
                     else:
                         hospitalisation=hospitalisation-3
-                        print "Duree Absences >3 ",hospitalisation
                     pool.get('health.absences').write(cr, uid, absence,{'facture':1})
 
 
@@ -146,7 +141,7 @@ def _facturer(self, cr, uid, data, context):
         if resident['admission_date']:
             if _date(resident['admission_date'])> deb_per and _date(resident['admission_date'])<= fin_per:
                 deb_per =  _date(resident['admission_date'])
-       
+
         if resident['date_liberation']:
             if _date(resident['date_liberation'])>= deb_per and _date(resident['date_liberation'])< fin_per:
                 fin_per =  _date(resident['date_liberation'])
@@ -162,7 +157,7 @@ def _facturer(self, cr, uid, data, context):
         if  resident['aidelogement']:
             al=resident['aidelogementmontant']
         facturation_id=pool.get('health.facturation').create(cr, uid,{'hebergement':heb,'decomptes':nbrjour,'name':resident_id,'chambre':resident['room_id'][0],'period_id':data['form']['period_id'],'ticketmoderateur':tm,'dependance':dep,'aidesociale':aso,'allocation':al,'apa':apa,'absences':duree_absences,'hospitalisation':hospitalisation,'commentaire':commentaire})
-        
+
     return{}
 
 
@@ -175,7 +170,7 @@ class wizard_facturer(wizard.interface):
         'facturer': {
             'actions': [_facturer],
             'result': {'type' : 'state', 'state': 'end'}
-             
+
             }
     }
 wizard_facturer('facturer')

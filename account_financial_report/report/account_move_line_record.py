@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (c) 2009 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
 #                       Jordi Esteve <jesteve@zikzakmedia.com>
 #    $Id$
@@ -41,8 +41,6 @@ class journal_print(report_sxw.rml_parse):
             journal_ids = data['form']['journal_ids'][0][2]
             periods = ','.join([str(id) for id in period_ids])
             journals = ','.join([str(id) for id in journal_ids])
-            #print "periods=", periods
-            #print "journals=", journals
             self.cr.execute('select id from account_move where period_id in ('+ periods +') and journal_id in ('+ journals +') and state<>\'draft\' order by ('+ data['form']['sort_selection'] +'),id')
             move_ids = map(lambda x: x[0], self.cr.fetchall())
         else:

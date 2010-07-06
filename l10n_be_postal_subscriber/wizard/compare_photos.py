@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    Copyright (c) 2009 CCI  ASBL. (<http://www.ccilconnect.be>).
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -272,7 +272,6 @@ def _group_invoice(self, cr, uid, data, context):
 
 class wizard_compare_photos(wizard.interface):
 #    def _capture_ids(self, cr, uid, data, context):
-#        print data
 #        if len(data['ids']) == 2:
 #            # We sort the two IDs to identify the older and the new one and get their name
 #            cr.execute( """
@@ -287,7 +286,7 @@ class wizard_compare_photos(wizard.interface):
 #        else:
 #            data['form']['txtHeader'] = "You must choose exactly TWO photos to compare."
 #            ## TODO : comment rendre le bouton 'open' indisponible
-    
+
     def _compare_photos(self, cr, uid, data, context):
         cr.execute( """
                     SELECT partner_id, partner_contact_id, name, title, state_id, street, street2, zip, city
@@ -296,7 +295,7 @@ class wizard_compare_photos(wizard.interface):
                         ORDER BY partner_id, contact_id;
                     """, photos[0].id )
         old_subs = cr.fetchall()
-            
+
         cr.execute( """
                     SELECT partner_id, partner_contact_id, name, title, state_id, street, street2, zip, city
                         FROM l10n_be_postal_subscriber
@@ -304,7 +303,7 @@ class wizard_compare_photos(wizard.interface):
                         ORDER BY partner_id, contact_id;
                     """, photos[1].id )
         new_subs = cr.fetchall()
-        
+
     def _list_results(self, cr, uid, data, context):
         pool_obj = pooler.get_pool('l10n_be_postal_subscriber.photo_diff')
         model_data_ids = pool_obj.get('ir.model.data').search(cr,uid,[('model','=','ir.ui.view'),('name','=','invoice_form')])

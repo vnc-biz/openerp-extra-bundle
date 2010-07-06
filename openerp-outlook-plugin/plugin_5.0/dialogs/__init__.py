@@ -32,7 +32,6 @@ def LoadDialogs(rc_name = "dialogs.rc"):
             rc_mtime = rc_size = None
         if rc_mtime!=mtime or rc_size!=size:
             # Need to generate the dialog.
-            print "Generating %s from %s" % (py_name, rc_name)
             rc2py.convert(rc_name, py_name)
             if mod is not None:
                 reload(mod)

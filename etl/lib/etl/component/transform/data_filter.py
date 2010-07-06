@@ -96,7 +96,6 @@ def test():
 
     test1 = data_filter_component=etl_test.etl_component_test(etl.component.transform.data_filter(filter_criteria,transformer=transformer))
     res = test1.output()
-    print res
 if __name__ == '__main__':
     test()
 

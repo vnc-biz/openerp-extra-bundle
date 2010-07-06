@@ -66,7 +66,6 @@ def _export(self, cr, uid, data, context):
         if d_to:
             filter.append(('dt_start', '<=', d_to + ' 23:59:59'))
             filterphp += " AND dt_start <= '" + d_to + " 23:59:59'"
-        #print filterphp
         (broadcast_new, broadcast_update, broadcast_delete) = export_table.export_table(self, cr, uid, data, context, server, 'broadcast',
             ['id', 'dt_start', 'dt_end', 'channel_id', 'program_id', 'description', 'url'], filter, filterphp)
     else:

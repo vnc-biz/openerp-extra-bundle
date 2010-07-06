@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -168,10 +168,6 @@ class report_setup(report_sxw.rml_parse):
                                 "analysis_setup e where ls.id in ("+",".join(map(str,self.set_list))+") and e.set_up=ls.id and d.file_setup=e.id and e.well=%d  "\
                                 "and ls.id=%d and r.type_id=t.id and s.sample_id=r.id and (s.dog_mother=d.id or s.dog_father=d.id or s.dog_child=d.id) "\
                                 "order by s.create_date desc "%(i-1,o))
-#                print ("SELECT r.name, d.progenus_number from labo_analysis_type t, labo_analysis_request r,labo_dog d,labo_setup ls, labo_sample s, "\
-#                                "analysis_setup e where ls.id in ("+",".join(map(str,self.set_list))+") and e.set_up=ls.id and d.file_setup=e.id and e.well=%d  "\
-#                                "and ls.id=%d and r.type_id=t.id and s.sample_id=r.id and (s.dog_mother=d.id or s.dog_father=d.id or s.dog_child=d.id) "\
-#                                "order by s.create_date desc "%(i-1,o))
             else:
               # if followsheet to return
              #   self.cr.execute("SELECT f.name, s.progenus_number from analysis_setup e, labo_setup ls, labo_analysis_type t, labo_analysis_request r, "\

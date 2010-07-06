@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -51,11 +51,9 @@ def _get_value(self,cr, uid, datas,context):
 #   res = service.execute(uid, 'huissier.vignettes', 'read', datas['ids'], ['first', 'last', 'quantity', 'price', 'value'])
     if not res:
         return {}
-    print "GET VALUE",res.value or False
     return {'first':res.first, 'last':res.last, 'quantity':res.quantity,'price':res.price, 'value':res.value }
-    
+
 def _pay_labels(self,cr, uid, datas,context):
-    print "_pay_labels"
     vign_obj = pooler.get_pool(cr.dbname).get('huissier.vignettes')
     ids = vign_obj.pay(cr, uid, datas['id'], datas['form']['account_id'])
     cr.commit()
@@ -67,7 +65,7 @@ def _pay_labels(self,cr, uid, datas,context):
 class wizard_pay_labels(wizard.interface):
     states = {
         'init': {
-            'actions': [_get_value], 
+            'actions': [_get_value],
             'result': {'type': 'form', 'arch':pay_form, 'fields':pay_fields, 'state':[('pay','Payer les vignettes'), ('end','Annuler')]}
         },
         'pay': {

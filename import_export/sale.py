@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
@@ -24,7 +24,7 @@ from osv import fields, osv
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"
- 
+
     def invoice_line_create(self, cr, uid, ids, context={}):
         def _get_line_qty(line):
             if (line.order_id.invoice_quantity=='order') or not line.procurement_id:
@@ -44,7 +44,6 @@ class sale_order_line(osv.osv):
                                 a =  line.product_id.product_tmpl_id.property_account_income[0];
                             else:
                                 a =  line.product_id.product_tmpl_id.categ_id.property_account_income_categ[0];
-                                #print "TEST .........",line.product_id.product_tmpl_id.categ_id.property_account_income;
                             #end if
                         elif line.order_id.partner_id.partner_location == 'europe':
                             if line.product_id.product_tmpl_id.property_account_income_europe:

@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -25,7 +25,6 @@ import pooler
 
 class order(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
-        print "foo"
         super(order, self).__init__(cr, uid, name, context)
         self.localcontext.update({
             'time': time,
@@ -44,7 +43,7 @@ class order(report_sxw.rml_parse):
             tax_ids = res[0]
         res = [tax.name for tax in pooler.get_pool(cr.dbname).get('account.tax').browse(self.cr, self.uid, tax_ids)]
         return ",\n ".join(res)
-    
+
     def _get_tax(self, order_obj):
         self.cr.execute("SELECT DISTINCT tax_id FROM purchase_order_taxe, purchase_order_line, purchase_order \
             WHERE (purchase_order_line.order_id=purchase_order.id) AND (purchase_order.id=%d)" % (order_obj.id))

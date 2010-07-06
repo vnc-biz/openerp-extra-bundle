@@ -487,8 +487,6 @@ class dm_campaign(osv.osv): #{{{
 #                        'date_start': False,
 #                        'date': False,
                         'proposition_ids': []})
-        print "XXX default :", default
-        print "XXX context :", context
         camp_copy_id = super(dm_campaign, self).copy(cr, uid, id, default, context)
 #        prop_ids = [x.id for x in campaign_id.proposition_ids]
 #        for proposition in campaign_id.proposition_ids:
@@ -857,7 +855,6 @@ class dm_customers_list(osv.osv): #{{{
         for id in ids:
             code = this_codes[id]
             if code and code in cust_list_codes:
-                print code
                 return False
         return True
 

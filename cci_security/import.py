@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import csv
@@ -55,16 +55,13 @@ def import_csv(writer_security, map_sec, map_headers):
     d=[]
     record = {}
 #    for key, column_name in map_headers.items():
-#        print key
 #        record[key] = column_name
     #record1 = ['model_id', 'group_id', 'perm_read', 'perm_create', 'perm_unlink', 'perm_write']
-#    print record
     record = {'model_id': 'model_id', 'group_id': 'group_id',  'perm_read': 'perm_read', 'perm_unlink': 'perm_unlink', 'perm_write': 'perm_write', 'perm_create': 'perm_create','name':'name'}
     writer_security.writerow(record)
 
     for i in cr.fetchall():
 #        for j in range(len(i)):
- #           print j
         record = {}
         j=0
         for key,fnct in map_sec.items():

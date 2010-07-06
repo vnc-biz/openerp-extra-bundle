@@ -105,9 +105,7 @@ class component(signal):
         self.signal('end', {'date': datetime.datetime.today()})
 
     def start(self):
-#        print "component start status.............",self.status
 #        if self.status == 'end':
-#            print "No need to start component again"
 #            pass
         self.status = 'start'
         self.signal('start', {'date': datetime.datetime.today()})
@@ -161,7 +159,6 @@ class component(signal):
                         debug_ts= time.strftime("%Y-%m-%d %H:%M:%S ")
                         debug_t=(debug_ts,trans.source.name, trans.channel_source, trans.destination.name, trans.channel_destination, trans.debug_message, debug_dump)
                         s="%s '%s:%s' -> '%s:%s' %s %s"%debug_t
-                        print s
                     yield data
                     continue
                 elif self.data[trans] is None:
@@ -218,5 +215,4 @@ class component(signal):
             else:
                 data = trans.source.channel_get(trans)
             result[channel].append(data)
-        #print "%s input_get %r "%(self.name,result)
         return result

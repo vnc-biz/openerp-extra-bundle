@@ -24,7 +24,9 @@ import sys, StringIO
 import pooler
 
 import wizard
-
+import netsvc
+import netsvc
+logger = netsvc.Logger()
 
 _export_select_form = '''<?xml version="1.0"?>
 <form string="Products Export">
@@ -93,7 +95,8 @@ def _export_to_shop(self, cr, uid, data, context):
         web_id = data['form']['web_shop']
         catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)])
         if not catmap_ids:
-            print >> sys.stderr, 'No categories for this web shop'
+            logger.notifyChannel('No categories for this web shop',sys.stderr)
+
         else:
             webcategories = {}
             for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):
@@ -149,26 +152,26 @@ wiz_esale_joomla_stocks('esale_joomla.stocks')
 ## _export_form = '''<?xml version="1.0"?>
 ## <form string="Initial import" />
 ## '''
-## 
+##
 ## _export_fields = {}
-## 
+##
 ## _export_done_form = '''<?xml version="1.0"?>
 ## <form string="Initial import">
 ## <separator string="Stock succesfully updated" colspan="4" />
 ## </form>'''
-## 
+##
 ## _export_done_fields = {}
-## 
-## 
+##
+##
 ## def _do_export(self, cr, uid, data, context):
 ##     pool = pooler.get_pool(cr.dbname)
 ##     esale_joomla_web_obj = pool.get('esale_joomla.web')
 ##     product_obj = pool.get('product.product')
-## 
+##
 ##     web_ids = esale_joomla_web_obj.search(cr, uid, [('active', '=', 'True')])
 ##     for website in esale_joomla_web_obj.browse(cr, uid, web_ids):
 ##         server = xmlrpclib.ServerProxy("%s/tinyerp-synchro.php" % website.url)
-## 
+##
 ##         for osc_product in website.product_ids:
 ##             if osc_product.esale_joomla_id:
 ##                 webproduct = {
@@ -176,6 +179,6 @@ wiz_esale_joomla_stocks('esale_joomla.stocks')
 ##                     'quantity': product_obj._product_virtual_available(cr, uid, [osc_product.product_id.id], '', False, {'shop': website.shop_id.id})[osc_product.product_id.id],
 ##                 }
 ##             osc_id = server.set_product_stock(webproduct)
-## 
+##
 ##     return {}
 

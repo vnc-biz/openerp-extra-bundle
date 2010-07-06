@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
@@ -37,13 +37,10 @@ _moves_fields = {}
 
 #}
 def start (self,cr,uid,data,context):
-    print "ds start"*10 
     return {}
 
 def _payer(self,cr,uid,data,context):
-    print "Dans payer"
     lots_dossier=pooler.get_pool(cr.dbname).get('huissier.dossier').browse(cr,uid,data['ids'])[0]
-    print "DAS DOSSIER"*100,lots_dossier
     res={}
     _moves_arch_lst=['<?xml version=" 1.0"?>,<form string="Paiement des lots">']
     for m in lots_dossier.lot_id:
@@ -54,7 +51,6 @@ def _payer(self,cr,uid,data,context):
         _moves_fields['buyer_ref%s' % m.id] = {'string': 'Acheteur', 'type':'many2one','relation': 'res.partner'}
         _moves_fields['payer%s' % m.id] = {'string': 'Paye', 'type':'boolean'}
         _moves_fields['name%s' % m.id] = {'string': 'Description', 'type':'string','default': m.name}
-        print _moves_fields
         _moves_arch_lst.append('<newline/>')
         res.setdefault('moves', []).append(m.id)
     _moves_arch_lst.append('</form>')
@@ -65,7 +61,7 @@ def _payer(self,cr,uid,data,context):
 #   return {}
 #def def_payment(self, cr, uid, data, context):
 #   pool = pooler.get_pool(cr.dbname)
-#   code_client=data['form']['scan_code'] 
+#   code_client=data['form']['scan_code']
 #   find_id= pool.get('res.partner').browse(cr,uid,data['form']['scan_code'])
 #   pool.get('huissier.lots').write(cr,uid,data['ids'],{'state':'vendu','buyer_ref':find_id.id})
 #   return {}
@@ -89,7 +85,7 @@ def _payer(self,cr,uid,data,context):
 class wizard_payment(wizard.interface):
     states = {
         'init': {
-            'actions': [_payer], 
+            'actions': [_payer],
             'result': {'type':'form', 'arch':_moves_arch, 'fields':_moves_fields, 'state':[('payer','Payer'), ('end','Annuler')]}
         },
         'payer': {

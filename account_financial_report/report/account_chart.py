@@ -55,8 +55,8 @@ class account_chart(rml_parse.rml_parse):
         else:
             new_ids.append(data['form']['account'])
             objects = self.pool.get('account.account').browse(self.cr, self.uid, new_ids)
-            
-        super(account_chart, self).set_context(objects, data, new_ids, report_type)    
+
+        super(account_chart, self).set_context(objects, data, new_ids, report_type)
 
 
     def lines(self,ids={}, done=None, level=1):
@@ -94,17 +94,16 @@ class account_chart(rml_parse.rml_parse):
 #            if account_elem['level'] < 5:
 #                res_sort['type_dr'] = 2
 #                res_sort['name_dr'] = account_elem['name']
-#                
-#            print ind_type_dr
+#
             account_result.append(res_sort)
             ind_rup+=1
             ind_type+=1
             # si on a remplis une page on fait la rupture de la page
 #            if (ind_rup >= rupture):
 #                # On multiplie la rupture par 2 pour repositionner le tableau correctement
-#                ind_rup = 0 
+#                ind_rup = 0
 #                ind_type = ind_type + rupture
-            
+
         return account_result
 
 

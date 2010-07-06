@@ -52,4 +52,3 @@ class struct(dict):
         else:
             fmt = '%*.*s%%s: %%s' % (indent, indent, '')
         for item in self.iteritems():
-            print fmt % item

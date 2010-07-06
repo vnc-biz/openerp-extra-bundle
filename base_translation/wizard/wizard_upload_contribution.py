@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import wizard
@@ -48,9 +48,9 @@ view_form = """<?xml version="1.0"?>
         <label align="0.0" string="Choose a language to upload:" colspan="4"/>
         <field name="lang" colspan="4"/>
         <field name="email_id" colspan="4"/>
-        <field name="note" colspan="4"/>    
+        <field name="note" colspan="4"/>
         <field name="version" colspan="4"/>
-        <field name="profile" colspan="4"/>     
+        <field name="profile" colspan="4"/>
         <label align="0.0" string="Note that this operation may take a few minutes." colspan="4"/>
     </group>
     <label align="0.5" string="For more information about translation process ,you can consult : http://openerp.com/wiki/index.php/Translation_Process" colspan="4"/>
@@ -58,12 +58,12 @@ view_form = """<?xml version="1.0"?>
 
 
 class wizard_upload_contrib(wizard.interface):
-    
+
     def email_check(self,email):
         pattern = '^([a-zA-Z])[a-zA-Z0-9_\.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$'
         reg = re.compile(pattern)
         return reg.search(email)
-        
+
     def _upload_contrib(self, cr, uid, data, context):
         lang = data['form']['lang']
         email_id =data['form']['email_id']
@@ -85,7 +85,6 @@ class wizard_upload_contrib(wizard.interface):
         try :
             s.publish_contrib(lang,version,profile,filename,content)
         except Exception,e:
-            print e
             raise wizard.except_wizard('Error !',"server is not properly configuraed")
         if len(ids)>1:
             ids = str(tuple(ids))
@@ -99,10 +98,10 @@ class wizard_upload_contrib(wizard.interface):
 
     def _get_language(sel, cr, uid, context):
         return base_translation.translation.get_language(cr,uid,context,model='ir_translation_contribution')
-    
+
     def _get_version(self, cr, uid,context):
         return base_translation.translation.get_version(cr,uid,context)
-    
+
     def _get_profile(self,cr,uid,context):
         return base_translation.translation.get_profile(cr,uid,context)
 
@@ -111,25 +110,25 @@ class wizard_upload_contrib(wizard.interface):
         'note': {'string':'Note','type':'text'},
         'email_id':{'string':"Contributor's Email-ID",'type':'char','size':64,'required':True},
         'version':{'string':"Version",'type':'selection', 'selection':_get_version,'required':True},
-        'profile':{'string':"Profile",'type':'selection', 'selection':_get_profile,'required':True},        
+        'profile':{'string':"Profile",'type':'selection', 'selection':_get_profile,'required':True},
     }
-    
+
     fields_form_end = {
         'draft': {'type': 'integer', 'string': 'Number of Draft Translation', 'readonly': True},
         'total': {'type': 'integer', 'string': 'Number of Translation', 'readonly': True},
-        'propose': {'type': 'integer', 'string': 'Number of Translation Uploaded(Propose Translation)', 'readonly': True},        
-    }    
+        'propose': {'type': 'integer', 'string': 'Number of Translation Uploaded(Propose Translation)', 'readonly': True},
+    }
 
     states = {
         'init': {
-            'actions': [], 
+            'actions': [],
             'result': {'type': 'form', 'arch': view_form, 'fields': fields_form,
                 'state': [
                     ('end', 'Cancel', 'gtk-cancel'),
                     ('start', 'Upload Contribution', 'gtk-ok', True)
                 ]
             }
-        },        
+        },
         'start': {
             'actions': [_upload_contrib],
             'result': {'type': 'form', 'arch': view_form_end, 'fields': fields_form_end,

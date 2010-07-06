@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 import time
@@ -32,7 +32,7 @@ class event_certificate(rml_parse.rml_parse):
             'time': time,
             #'get_date':self.get_date,
         })
-        
+
 #    def get_date(self, st_date, end_date):
 #        date_res = ''
 #        date_time_format = ''
@@ -49,10 +49,9 @@ class event_certificate(rml_parse.rml_parse):
 #            new_d2 = d2.strftime('%d %B %Y %H:%M:%S')
 #            date_res = str(new_d1) +" "+ 'To' +" "+ str(new_d2)
 #        except Exception,e:
-#            print "Exception::::e",e
 #            pass
 #        return date_res
-            
-    
+
+
 report_sxw.report_sxw('report.event.certificate','event.registration','event_certificate/report/event_certificate.rml',parser=event_certificate)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

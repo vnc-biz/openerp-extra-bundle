@@ -101,7 +101,6 @@ def create_report(cr, uid, res_ids, report_name=False, file_name=False):
         fp.write(result);
         fp.close();
     except Exception,e:
-        print 'Exception in create report:',e
         return (False, str(e))
     return (True, ret_file_name)
 
@@ -127,7 +126,6 @@ def _send_mails(self, cr, uid, data, context):
 
     nbr = 0
     for email in data['form']['to'].split(','):
-        #print email, data['form']['subject'], data['ids'], data['model'], file_name, data['form']['text']
         state = p.get('email.smtpclient').send_email(cr, uid, smtpserver_id, email, data['form']['subject'], data['form']['text'], attachments)
         if not state:
             raise osv.except_osv(_('Error sending email'), _('Please check the Server Configuration!'))

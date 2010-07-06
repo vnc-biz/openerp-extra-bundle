@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 #!/usr/bin/python
@@ -48,9 +48,11 @@ import cgitb
 from xml.sax.xmlreader import AttributesNSImpl
 import datetime
 from urlparse import urlparse
-import os 
+import os
 import base64
 import string
+import netsvc
+logger = netsvc.Logger()
 
 cgitb.enable()
 sf = beatbox._tPartnerNS
@@ -66,7 +68,7 @@ def addRequiredFieldsToSoql(soql):
 	if not "systemmodstamp" in selectList: selectList.append("systemModStamp")
 	if not "createddate" in selectList: selectList.append("createdDate")
 	return string.join(selectList, ", ") + soql[findPos-1:]
-			
+
 def soql2atom(loginResult, soql, title):
 	soqlWithFields = addRequiredFieldsToSoql(soql)
 	userInfo = loginResult[beatbox._tPartnerNS.userInfo]
@@ -75,14 +77,12 @@ def soql2atom(loginResult, soql, title):
 	sfbaseUrl = scheme + "://" + host + "/"
 	thisUrl = "http://" + os.environ["HTTP_HOST"] + os.environ["REQUEST_URI"]
 	qr = svc.query(soqlWithFields)
-	
+
 	atom_ns = "http://www.w3.org/2005/Atom"
 	ent_ns = "urn:sobject.enterprise.soap.sforce.com"
 
-	print "content-type: application/atom+xml"
 	doGzip = os.environ.has_key("HTTP_ACCEPT_ENCODING") and "gzip" in string.lower(os.environ["HTTP_ACCEPT_ENCODING"]).split(',')
-	if (doGzip): print "content-encoding: gzip"
-	print ""
+	if (doGzip): logger.notifyChannel("content-encoding: gzip")
 	x = beatbox.XmlWriter(doGzip)
 	x.startPrefixMapping("a", atom_ns)
 	x.startPrefixMapping("s", ent_ns)
@@ -93,11 +93,11 @@ def soql2atom(loginResult, soql, title):
 	x.writeStringElement(atom_ns, "name", str(userInfo.userFullName))
 	x.endElement()
 	x.characters("\n")
-	rel = AttributesNSImpl( {(None, "rel"): "self", (None, "href") : thisUrl}, 
+	rel = AttributesNSImpl( {(None, "rel"): "self", (None, "href") : thisUrl},
 						    {(None, "rel"): "rel",  (None, "href"): "href"})
 	x.startElement(atom_ns, "link", rel)
 	x.endElement()
-	x.writeStringElement(atom_ns, "updated", datetime.datetime.utcnow().isoformat() +"Z") 
+	x.writeStringElement(atom_ns, "updated", datetime.datetime.utcnow().isoformat() +"Z")
 	x.writeStringElement(atom_ns, "id", thisUrl + "&userid=" + str(loginResult[beatbox._tPartnerNS.userId]))
 	x.characters("\n")
 	type = AttributesNSImpl({(None, u"type") : "html"}, {(None, u"type") : u"type" })
@@ -122,20 +122,19 @@ def soql2atom(loginResult, soql, title):
 		x.characters("\n")
 		x.endElement() # entry
 	x.endElement() # feed
-	print x.endDocument()
 
 def writeLink(x, namespace, localname, rel, type, href):
-	rel = AttributesNSImpl( {(None, "rel"): rel,   (None, "href"): href,   (None, "type"): type }, 
+	rel = AttributesNSImpl( {(None, "rel"): rel,   (None, "href"): href,   (None, "type"): type },
 						    {(None, "rel"): "rel", (None, "href"): "href", (None, "type"): "type"})
 	x.startElement(namespace, localname, rel)
 	x.endElement()
 
 def authenticationRequired(message="Unauthorized"):
-	print "status: 401 Unauthorized"
-	print "WWW-authenticate: Basic realm=""www.salesforce.com"""
-	print "content-type: text/plain"
-	print ""
-	print message
+
+    logger.notifyChannel("status: 401 Unauthorized")
+    logger.notifyChannel("WWW-authenticate: Basic realm=""www.salesforce.com""")
+    logger.notifyChannel("content-type: text/plain")
+    logger.notifyChannel(message)
 
 if not os.environ.has_key('X_HTTP_AUTHORIZATION') or os.environ['X_HTTP_AUTHORIZATION'] == '':
 	authenticationRequired()
@@ -149,11 +148,10 @@ else:
 	if form.has_key("title"):
 		title = form.getvalue("title")
 	try:
-		lr = svc.login(username, password)	
+		lr = svc.login(username, password)
 		soql2atom(lr, soql, title)
 	except beatbox.SoapFaultError, sfe:
 		if (sfe.faultCode == 'INVALID_LOGIN'):
 			authenticationRequired(sfe.faultString)
 		else:
 			raise
-			

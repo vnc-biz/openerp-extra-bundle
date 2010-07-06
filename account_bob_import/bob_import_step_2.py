@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -23,6 +23,9 @@ import csv
 import datetime
 import time
 from datetime import date, timedelta
+import netsvc
+logger = netsvc.Logger()
+
 if __name__ != '__main__':
     from tools import config
 else:
@@ -139,7 +142,7 @@ def _check_code_4_usertype(x):
 #        return 'account_type_expense'
 #    if x['AID,A,10'].startswith('7'):
 #        return 'income'
-    return 'account_type_root' 
+    return 'account_type_root'
 
 def _check_code_4_type(x):
     if x['AID,A,10'].startswith('40'):
@@ -150,11 +153,11 @@ def _check_code_4_type(x):
         return 'payable'
     if len(x['AID,A,10']) <= 4:
         return 'view'
-    return 'other' 
+    return 'other'
 
 
 account_map = {
-   'id': lambda x: 'account_'+x['AID,A,10'], 
+   'id': lambda x: 'account_'+x['AID,A,10'],
     'code': lambda x: x['AID,A,10'],
     'name': lambda x: x['HEADING1,A,40'],
     'note': lambda x: x['AMEMO,M,11'],
@@ -257,8 +260,8 @@ def import_journal(reader_journal, writer_journal, journals_map):
 
 
 # -= C. Partners Data =-
-#Beware: If 2 partners have the same name, we have to create only one partner with several adresses. 
-#We also have to record all their old names because they can be referenced in another files (e.g. the account_move_line one). 
+#Beware: If 2 partners have the same name, we have to create only one partner with several adresses.
+#We also have to record all their old names because they can be referenced in another files (e.g. the account_move_line one).
 #That's the reason why we keep a dictionary to match the IDS.
 
 def _get_cat(record):
@@ -732,7 +735,7 @@ def import_moves_and_lines(reader_move, writer_move, writer, move_map, map, dict
     for row in reader_move:
         count += 1
         if (count%1000) == 0:
-            print count
+            logger.notifyChannel(count)
 
         if row['HCURRENCY,A,3'] not in currencies:
             currencies.append(row['HCURRENCY,A,3'])
@@ -798,7 +801,7 @@ def import_moves_and_lines(reader_move, writer_move, writer, move_map, map, dict
                 vat_move_list = _create_vat_move(row, vat_dict, tvacount)
                 for vat_move in vat_move_list:
                     writer.writerow(convert2utf(vat_move))
-                
+
             writer.writerow(record)
 
 
@@ -832,46 +835,39 @@ langs = []
 currencies = []
 
 def run():
-    print 'importing chart of accounts'
-    reader_account = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/accoun.csv','rb')) 
+    reader_account = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/accoun.csv','rb'))
     writer_account = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.account.csv', 'wb'), account_map.keys())
     import_account(reader_account, writer_account, account_map)
 
-    print 'importing financial journals'
     reader_journal = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/dbk.csv','rb'))
     writer_journal = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.journal.csv', 'wb'), journals_map.keys())
     import_journal(reader_journal, writer_journal, journals_map)
 
-    print 'importing partners'
-    reader_partner = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/compan.csv','rb')) 
+    reader_partner = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/compan.csv','rb'))
     writer_partner = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.csv', 'wb'), partners_map.keys())
     writer_address = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.address.csv','wb'), partner_add_map.keys())
     writer_bank = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.bank.csv','wb'), partner_bank_map.keys())
     import_partner(reader_partner, writer_partner, partners_map, writer_address, partner_add_map, writer_bank, partner_bank_map)
 
-    print 'importing contacts'
-    reader_contact = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/contacts.csv','rb')) 
+    reader_contact = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/contacts.csv','rb'))
     writer_contact = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.contact.csv','wb'),contacts_map.keys())
     writer_job = csv.DictWriter(file(config['addons_path']+'/account_bob_import/res.partner.job.csv','wb'),job_map.keys())
     import_contact(reader_contact, writer_contact, contacts_map, writer_job, job_map)
 
-    print 'importing fiscal years'
-    reader_fyear = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/period.csv','rb')) 
+    reader_fyear = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/period.csv','rb'))
     writer_fyear = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.fiscalyear.csv', 'wb'), fyear_map.keys())
     import_fyear(reader_fyear, writer_fyear, fyear_map)
 
-    print 'importing periods'
     reader_period = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/period.csv','rb'))
     writer_period = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.period.csv', 'wb'), periods_map.keys())
     import_period(reader_period, writer_period, periods_map)
 
-    #import the account_tax from vat.csv 
+    #import the account_tax from vat.csv
     #   constructing table account_tax => account_tax_code (for move and move_line)
-    reader_vat_code = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/vatcas.csv','rb')) 
+    reader_vat_code = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/vatcas.csv','rb'))
     reader_vat = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/vat.csv','rb'))
     vat_dict = construct_vat_dict(reader_vat_code, reader_vat, {})
 
-    print 'importing account.move.reconcile'
     reader_ahisto = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/ahisto_matchings.csv','rb'))
     writer_reconcile = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.move.reconcile-1.csv', 'wb'), arecon_map.keys())
     dict_ahisto = import_areconcile(reader_ahisto, writer_reconcile, arecon_map)
@@ -881,15 +877,11 @@ def run():
     dict_chisto = import_creconcile(reader_chisto, writer_reconcile2, crecon_map)
 
 
-    print "importing account.move.line"
     reader_move = csv.DictReader(file(config['addons_path']+'/account_bob_import/original_csv/ahisto.csv','rb'))
     writer_move = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.move.csv', 'wb'), move_map.keys())
     writer_move_line = csv.DictWriter(file(config['addons_path']+'/account_bob_import/account.move.line.csv', 'wb'), move_line_map.keys())
     import_moves_and_lines(reader_move, writer_move, writer_move_line, move_map, move_line_map, dict_ahisto, dict_chisto, vat_dict)
 
-    print "Make sure that you installed the following languages:",langs
-    print "\n"
-    print "Make sure that you installed the following currencies:",currencies
 
 if __name__ == '__main__':
     run()

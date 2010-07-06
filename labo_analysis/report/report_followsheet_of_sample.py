@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -263,9 +263,6 @@ class report_followsheet_of_sample(report_sxw.rml_parse):
     def get_begining_date_c(self,i,e):
         c= ','.join(map(str,self.list_r))
         h_1=[]
-#        print ('select d.date_reception from labo_analysis_request r, labo_sample l, labo_followsheet f , labo_dog d '\
-#                        ' where d.follow_sheet_id=f.id and r.id=l.sample_id and f.id=%d and d.id = %d and (d.id=l.dog_child or d.id=l.dog_father '\
-#                        'or d.id=l.dog_mother ) and d.done_i is null and r.id =%d'%(i,e, int(c)))
         self.cr.execute('select d.date_reception from  labo_dog d where d.id = %d and d.done_i is null '%(e))
 #        self.cr.execute('select d.date_reception from labo_analysis_request r, labo_sample l, labo_followsheet f , labo_dog d '\
 #                        ' where d.follow_sheet_id=f.id and r.id=l.sample_id and f.id=%d and d.id = %d and (d.id=l.dog_child or d.id=l.dog_father '\
@@ -335,7 +332,7 @@ class report_followsheet_of_sample(report_sxw.rml_parse):
         return req_ids and req_ids[0] or None
 
     def get_request_name_c(self,p,o):
-#        self.cr.execute("select  distinct(fh.name), fh.create_date from file_history fh,  labo_dog d, labo_followsheet f where d.id =452 
+#        self.cr.execute("select  distinct(fh.name), fh.create_date from file_history fh,  labo_dog d, labo_followsheet f where d.id =452
 #and  f.id=d.follow_sheet_id and f.id=3 and d.done_i is null and fh.name like '%.txt' group by fh.name , fh.create_date  order by fh.create_date desc
         self.cr.execute("select f.name from file_history f, labo_dog d, labo_followsheet lf where  d.id = %d and lf.id=d.follow_sheet_id and "\
                         "f.dog_id1=d.id and d.done_i is null order by f.create_date"%(o))

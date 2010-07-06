@@ -95,7 +95,6 @@ def test():
     password = getpass.unix_getpass("Enter your password:")
     gblog_conn = gblog_connector(user, password)
     gblog_service = gblog_conn.open()
-    print gblog_service
 
 if __name__ == '__main__':
     test()

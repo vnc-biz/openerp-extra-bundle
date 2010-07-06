@@ -8,6 +8,8 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Create Access">
+                    <label string="Are you sure you want to create Default record rules!" colspan="4"/>
+                    <separator string="" colspan="4" />
                     <field name="acl_ids" mode="tree" nolabel="1" colspan="4">
                         <tree string="Create Access" editable="top">
                             <field name="name"/>
@@ -19,9 +21,11 @@
                             <field name="unlink"/>
                         </tree>
                     </field>
-                    <group col="2" colspan="2">
+                    <newline/>
+                    <label string="Click on Get ACL! to retrive the objects which does not have ACL" colspan="4"/>
+                    <group col="4" colspan="4">
                         <button icon='gtk-cancel' special="cancel" name="action_cancel" type='object' string='Skip'/>
-                        <button name="get_list" type='object' string='Get ACL'/>
+                        <button name="get_list" icon='gtk-ok' type='object' string='Get ACL'/>
                         <button name='action_create' icon='gtk-ok' type='object' string='Create ACL'/>
                     </group>
                 </form>

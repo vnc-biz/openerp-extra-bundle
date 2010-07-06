@@ -586,8 +586,9 @@ class smtpclient(osv.osv):
         return True
         
     def stop_process(self, cr, uid, ids, context={}):
-        pid = self.browse(cr, uid, ids[0], context).process_id.id
-        self.pool.get('ir.cron').write(cr, uid, [pid], {'active':False})
+        if self.browse(cr, uid, ids[0], context).process_id:
+            pid = self.browse(cr, uid, ids[0], context).process_id.id
+            self.pool.get('ir.cron').write(cr, uid, [pid], {'active':False})
         self.write(cr, uid, ids, {'pstate':'stop'})
         return True
 

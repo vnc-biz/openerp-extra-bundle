@@ -267,6 +267,8 @@ class res_partner(osv.osv):
         'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles'),
         'badge_partner':fields.char('Badge Partner',size=128),
         'user_id_readonly': fields.function(_get_salesman, method=True, string='Salesman', type='many2one', relation='res.users'),
+        'write_date' : fields.datetime('Last Modification'),
+        'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this address'),
         #Never,Always,Managed_by_Poste,Prospect
 
         #virement belge,virement iban
@@ -456,7 +458,8 @@ class res_partner_address(osv.osv):
         'zip_id':fields.many2one('res.partner.zip','Zip'),
         'active': fields.boolean('Active'),
         'sequence_partner':fields.integer('Sequence (Partner)',help='order of importance of this address in the list of addresses of the linked partner'),
-
+        'write_date' : fields.datetime('Last Modification'),
+        'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this address'),
     }
     _defaults = {
          'state' : lambda *a: 'correct',

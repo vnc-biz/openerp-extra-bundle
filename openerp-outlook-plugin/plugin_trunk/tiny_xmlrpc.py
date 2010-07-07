@@ -18,8 +18,10 @@ def execute(connector, method, *args):
     except socket.error,e:
         if e.args[0] == 111:
             if wait_count > wait_limit:
+                print "Server is taking too long to start, it has exceeded the maximum limit of %d seconds."%(wait_limit)
                 clean()
                 sys.exit(1)
+            print 'Please wait %d sec to start server....'%(waittime)
             wait_count += 1
             time.sleep(waittime)
             res = execute(connector, method, *args)
@@ -51,6 +53,7 @@ class XMLRpcConn(object):
         self._uid=False
         self._iscrm=True
         self.partner_id_list=None
+        self.protocol=None
     def getitem(self, attrib):
         v=self.__getattribute__(attrib)
         return str(v)
@@ -74,7 +77,7 @@ class XMLRpcConn(object):
         self._dbname = dbname
         self._uname = user
         self._pwd = pwd
-        conn = xmlrpclib.ServerProxy(self._uri + '/xmlrpc/common')
+        conn = xmlrpclib.ServerProxy(str(self._uri) + '/xmlrpc/common')
         uid = execute(conn,'login',dbname, ustr(user), ustr(pwd))
         return uid
 
@@ -109,6 +112,7 @@ class XMLRpcConn(object):
         eml_path=eml.generateEML(mail)
         att_name = ustr(eml_path.split('\\')[-1])
         cnt=1
+        flag=False
         for rec in recs: #[('res.partner', 3, 'Agrolait')]
             cnt+=1
             obj = rec[0]
@@ -131,10 +135,12 @@ class XMLRpcConn(object):
             res['datas'] = content
             res['res_id'] = obj_id
             execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.attachment','create',res)
+            flag=True
+        return flag
 
     def IsCRMInstalled(self):
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
-        id = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','search',[('model','=','crm.case')])
+        id = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','search',[('model','=','crm.lead')])
         return id
 
     def GetPartners(self):
@@ -143,6 +149,7 @@ class XMLRpcConn(object):
         ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','search',[],0,100)
         ids.sort()
         obj_list=[]
+        obj_list.append((-999, ustr('')))
         for id in ids:
             object = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','read',[id],['id','name'])[0]
             obj_list.append((object['id'], ustr(object['name']).encode('iso-8859-1')))
@@ -184,6 +191,8 @@ class XMLRpcConn(object):
                 partner_addr = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','address_get',[partner_id])
                 res['partner_address_id'] = partner_addr['default']
                 id=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,section,'create',res)
+                if section == "project.issue":
+                    execute(conn,'execute',self._dbname,int(self._uid),self._pwd,section,'convert_to_bug',[id])
                 recs=[(section,id,'')]
                 if with_attachments:
                     self.MakeAttachment(recs, mail)
@@ -223,8 +232,11 @@ class XMLRpcConn(object):
 
     def CreateContact(self, sel=None, res=None):
         res=eval(str(res))
-        self.partner_id_list=eval(self.partner_id_list)
-        res['partner_id'] = self.partner_id_list[sel]
+
+        import win32ui
+        self.partner_id_list=eval(str(self.partner_id_list))
+        if self.partner_id_list[sel] != -999:
+            res['partner_id'] = self.partner_id_list[sel]
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         id = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner.address','create',res)
         return id

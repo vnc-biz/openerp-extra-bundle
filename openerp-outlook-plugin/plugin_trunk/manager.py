@@ -82,8 +82,7 @@ class OpenERPManager:
         self.default_objects = [('Partners','res.partner',''),('Partner Address','res.partner.address',''), \
                                ('Account Invoices','account.invoice',''), ('Accounts','account.account',''), \
                                ('Projects', 'project.project',''),('Sale Orders','sale.order',''), \
-                               ('Project Tasks','project.task',''), ('Products', 'product.product', ''), \
-                               ('CRM Cases', 'crm.case', '')]
+                               ('Project Tasks','project.task',''), ('Products', 'product.product', '')]
         self.config=self.LoadConfig()
 
     def WorkerThreadStarting(self):
@@ -116,7 +115,7 @@ class OpenERPManager:
     def LoadConfig(self):
         import win32ui
         path = os.path.join(self.data_directory, 'tiny.ini')
-        data = {'server' : 'localhost', 'port' : '8069', 'database' : '', 'objects' : self.default_objects, 'uname':'admin', 'pwd':'a', 'login':False}
+        data = {'server' : 'localhost', 'port' : '8069', 'protocol' : 'http://', 'database' : '', 'objects' : self.default_objects, 'uname':'admin', 'pwd':'a', 'login':False}
         if os.path.exists(path):
             fp = open(path, 'r')
             data = fp.readlines()
@@ -152,6 +151,7 @@ def main(verbose_level = 1):
     return 0
 
 def usage():
+    print "Usage: manager [-v ...]"
     sys.exit(1)
 
 if __name__=='__main__':

@@ -72,6 +72,36 @@ class ButtonProcessor(ControlProcessor):
         if code == win32con.BN_CLICKED:
             self.OnClicked(id)
 
+class RadioButtonProcessor(ControlProcessor):
+    def __init__(self, window, control_ids, func='', args=''):
+        self.func = func
+        self.args = args
+        ControlProcessor.__init__(self, window, control_ids)
+
+    def OnCommand(self, wparam, lparam):
+        code = win32api.HIWORD(wparam)
+        id = win32api.LOWORD(wparam)
+        if code == win32con.BN_CLICKED:
+            text=win32gui.GetDlgItemText(self.window.hwnd, self.control_id)
+            conn = self.func()
+            conn.setitem('protocol', text)
+            p=conn.getitem('protocol')
+
+#    def OnCommand(self, wparam, lparam):
+#        win32ui.MessageBox("clicked===",'')
+#        code = win32api.HIWORD(wparam)
+#        id = win32api.LOWORD(wparam)
+#        win32ui.MessageBox("clicked===",'')
+#        if code == win32con.BN_CLICKED:
+#            win32ui.MessageBox("clicked===",'')
+#            import win32ui
+#            conn = self.func()
+#            win32ui.MessageBox("clicked===",'')
+#            text=win32gui.GetDlgItemText(self.window.hwnd, self.control_id)
+#            win32ui.MessageBox("clicked===",'')
+#            conn.setitem('protocol', text)
+#            win32ui.MessageBox("clicked==="+text,'')
+
 class CloseButtonProcessor(ButtonProcessor):
     def OnClicked(self, id):
         win32gui.EndDialog(self.window.hwnd, id)

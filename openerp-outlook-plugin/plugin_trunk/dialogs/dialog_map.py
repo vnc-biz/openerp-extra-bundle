@@ -160,6 +160,7 @@ def resetConnAttribs(window):
     config = window.manager.LoadConfig()
     NewConn.setitem('_server', config['server'])
     NewConn.setitem('_port', config['port'])
+    NewConn.setitem('protocol', config['protocol'])
     NewConn.setitem('_uri', "http://" + config['server'] + ":" + str(config['port']))
     NewConn.setitem('_obj_list', config['objects'])
     NewConn.setitem('_dbname', config['database'])
@@ -169,7 +170,12 @@ def resetConnAttribs(window):
     return
 
 def setConnAttribs(server, port, manager):
-    uri = 'http://' + server + ":" + str(port)
+    protocol = NewConn.getitem('protocol')
+    if protocol=='XML-RPCS':
+        protocol='https://'
+    else:
+        protocol='http://'
+    uri = protocol + server + ":" + str(port)
     NewConn.setitem('_server',server)
     NewConn.setitem('_port',port)
     NewConn.setitem('_uri',uri)
@@ -185,6 +191,7 @@ def setConnAttribs(server, port, manager):
 def getConnAttributes(manager):
     manager.config['server'] = NewConn.getitem('_server')
     manager.config['port'] = NewConn.getitem('_port')
+    manager.config['protocol'] = NewConn.getitem('protocol')
     manager.config['objects'] = eval(NewConn.getitem('_obj_list'))
     manager.config['database'] = NewConn.getitem('_dbname')
     manager.config['uname'] = NewConn.getitem('_uname')
@@ -194,6 +201,7 @@ def getConnAttributes(manager):
 
 def getMessage(e):
     import pywintypes
+    print "Exception %s: %s"%(type(e),str(e))
     msg = str(e)
     if type(e) == pywintypes.com_error:
         msg=str(e)
@@ -218,6 +226,7 @@ class OKButtonProcessor(ButtonProcessor):
         try:
             port = int(win32gui.GetDlgItemText(self.window.hwnd, self.other_ids[1]))
         except ValueError, e:
+            print "Exception : %s"%str(e)
             win32ui.MessageBox("Port should be an integer", "Error", flag_excl)
             return
         except Exception,e:
@@ -353,6 +362,7 @@ def ReloadAllControls(btnProcessor,*args):
 def TestConnection(btnProcessor,*args):
     server = NewConn.getitem('_server')
     port = NewConn.getitem('_port')
+    url = NewConn.getitem('_uri')
     NewConn.GetDBList()
     if str(NewConn.getitem('_running')) == 'False':
         btnProcessor.window.LoadAllControls()
@@ -364,6 +374,7 @@ def TestConnection(btnProcessor,*args):
             win32ui.MessageBox("Please enter database name", "", flag_excl)
             return
     except Exception,e:
+        print "Exception %s: %s"%(type(e),str(e))
     dbname = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
     if not dbname:
         win32ui.MessageBox("No database found on host "+ server+" at port "+str(port), "Database Connection", flag_excl)
@@ -580,13 +591,15 @@ def MakeAttachment(btnProcessor,*args):
         return
 
     try:
-        NewConn.ArchiveToOpenERP(r,mail)
-        msg="Mail archived to OpenERP."
-        flag = flag_info
+        flg = NewConn.ArchiveToOpenERP(r,mail)
+        if flg:
+            msg="Mail archived to OpenERP."
+            flag = flag_info
+            win32ui.MessageBox(msg, "Make Attachment", flag)
     except Exception,e:
         msg = "Attachment not created \n\n" + getMessage(e)
         flag = flag_error
-    win32ui.MessageBox(msg, "Make Attachment", flag)
+        win32ui.MessageBox(msg, "Make Attachment", flag)
     return
 
 
@@ -754,14 +767,16 @@ def CreateContact(btnProcessor,*args):
     email = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[1])
     office_no = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[2])
     mobile_no = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[3])
-
     if not name:
         win32ui.MessageBox("Please enter name.", "Create Contact", flag_stop)
         return
     res = {'name':ustr(name), 'email':ustr(email), 'phone':ustr(office_no), 'mobile':ustr(mobile_no)}
     try:
         id = NewConn.CreateContact(sel, str(res))
-        msg="New contact created for partner '%s'."%partner
+        if not partner:
+            msg="New contact created."
+        else:
+            msg="New contact created for partner '%s'."%partner
     except Exception,e:
         msg="Contact not created \n\n" + getMessage(e)
         win32ui.MessageBox(msg, "Create Contact", flag_error)
@@ -870,16 +885,18 @@ def setCheckList(groupProcessor,*args):
         child_style = win32con.BS_AUTOCHECKBOX | win32con.WS_TABSTOP
         hinst = win32gui.dllhandle
         objs = groupProcessor.window.manager.config['objects']
+        ins_objs = NewConn.GetAllObjects()
         left = 20
-        top = 50
+        top = 60
         cnt=0
         id=4001
         id1=6001
         load_bmp_flags=win32con.LR_LOADFROMFILE | win32con.LR_LOADTRANSPARENT
         if groupProcessor.init_done:
-            return
+           return
         else:
-            for obj in objs:
+           for obj in objs:
+             if obj[1] in ins_objs:
                 groupProcessor.init_done = True
                 #Add image
                 hwndImg = win32gui.CreateWindowEx(0, "STATIC","",
@@ -992,7 +1009,10 @@ dialog_map = {
 
             "IDD_SERVER_PORT_DIALOG" : (
                 (CloseButtonProcessor,    "IDCANCEL"),
-                (OKButtonProcessor,  "IDOK ID_SERVER ID_PORT"),
+                (OKButtonProcessor,  "IDOK ID_SERVER ID_PORT IDR_XML_PROTOCOL"),
+                (RadioButtonProcessor, "IDR_XML_PROTOCOL", GetConn, ()),
+                (RadioButtonProcessor, "IDR_XMLS_PROTOCOL", GetConn, ()),
+                (RadioButtonProcessor, "IDR_NETRPC_PROTOCOL", GetConn, ()),
             ),
 
             "IDD_SYNC" :               (

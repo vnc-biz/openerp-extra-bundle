@@ -2,7 +2,9 @@ import sys
 import chilkat
 import os
 from manager import ustr
-
+print "ttt--"
+email = chilkat.CkEmail()
+print "000"
 def generateEML(mail):
     sub = (mail.Subject).replace(' ','')
     body = mail.Body.encode("utf-8")
@@ -45,6 +47,7 @@ def generateEML(mail):
         attachments[i].SaveAsFile(att_file)
         contentType = email.addFileAttachment(att_file)
         if (contentType == None ):
+            print mail.lastErrorText()
             sys.exit()
 
     mails_folder_path = os.path.abspath(os.path.dirname(__file__)+"\\dialogs\\resources\\mails\\")
@@ -59,6 +62,8 @@ def generateEML(mail):
     eml_path = ustr(os.path.join(mails_folder_path,eml_name+".eml")).encode('iso-8859-1')
     success = email.SaveEml(eml_path)
     if (success == False):
+        print email.lastErrorText()
         sys.exit()
 
+    print "Saved EML!",eml_path
     return eml_path

@@ -11,8 +11,6 @@ import sys
 import os
 from win32com.client import Dispatch
 import win32con
-import netsvc
-logger = netsvc.Logger()
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))    #outlook
 sys.path.append(os.path.abspath(__file__))                     #outlook/addin
@@ -83,6 +81,7 @@ class OutlookAddin:
             menu_bar = bars.Item("Menu Bar")
             tools_menu = menu_bar.Controls(5)
             tools_menu = CastTo(tools_menu, "CommandBarPopup")
+
             item = tools_menu.Controls.Add(Type=constants.msoControlButton, Temporary=True)
             # Hook events for the item
             item = self.menu_bar_Button = DispatchWithEvents(item, ButtonEvent)
@@ -90,7 +89,15 @@ class OutlookAddin:
             item.TooltipText = "Click to configure OpenERP"
             item.Enabled = True
 
+            item = tools_menu.Controls.Add(Type=constants.msoControlButton, Temporary=True)
+            # Hook events for the item
+            item = self.menu_bar_arch_Button = DispatchWithEvents(item, ArchiveEvent)
+            item.Caption="Archive to OpenERP"
+            item.TooltipText = "Click to archive to OpenERP"
+            item.Enabled = True
+
             toolbar = bars.Item("Standard")
+
             item = toolbar.Controls.Add(Type=constants.msoControlButton, Temporary=True)
             # Hook events for the item
             item = self.toolbarButton = DispatchWithEvents(item, ArchiveEvent)
@@ -102,12 +109,13 @@ class OutlookAddin:
         mngr = manager.GetManager()
         mngr.config['login'] = False
         mngr.SaveConfig()
+        print "OnDisconnection"
     def OnAddInsUpdate(self, custom):
-         logger.notifyChannel("OnAddInsUpdate", custom)
+        print "OnAddInsUpdate", custom
     def OnStartupComplete(self, custom):
-         logger.notifyChannel("OnStartupComplete", custom)
+        print "OnStartupComplete", custom
     def OnBeginShutdown(self, custom):
-         logger.notifyChannel("OnBeginShutdown", custom)
+        print "OnBeginShutdown", custom
     def GetAppDataPath(self):
         mngr = manager.GetManager()
         return mngr.data_directory
@@ -156,3 +164,6 @@ if __name__ == '__main__':
     else:
         RegisterAddin(OutlookAddin)
         RegisterXMLConn(NewConn)
+
+#mngr = manager.GetManager()
+#mngr.ShowManager("IDD_SYNC")

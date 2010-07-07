@@ -136,6 +136,10 @@
 #define ID_PARTNER_NAME_TEXT			2036
 #define IDC_NAME_LIST1					2037
 #define IDC_RELOAD						2038
+#define ID_PROTOCOL_GRP				2040
+#define IDR_XML_PROTOCOL			2041
+#define IDR_XMLS_PROTOCOL			2042
+#define IDR_NETRPC_PROTOCOL			2043
 
 // Next default values for new objects
 //

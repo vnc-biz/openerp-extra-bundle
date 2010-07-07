@@ -85,6 +85,7 @@ class DBComboProcessor(ComboProcessor):
                 txtbx = win32gui.GetDlgItem(self.window.hwnd, 7000)
                 win32gui.DestroyWindow(txtbx)
             except Exception,e:
+                print "Exception : %s"%str(e)
                 pass
             win32gui.ShowWindow(combo, True)
             win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
@@ -110,17 +111,17 @@ class PartnersComboProcessor(ComboProcessor):
         conn = self.func()
         win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
         id_list = {}
-        list=[]
+        p_list=[]
         try:
-            list = conn.GetPartners()
+            p_list = list(conn.GetPartners())
             cnt=0
-            for item in list:
+            for item in p_list:
                 win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, ustr(item[1]).encode('iso-8859-1'))
                 id_list[cnt] = item[0]
                 cnt+=1
             conn.setitem('partner_id_list', str(id_list))
             cnt = win32gui.SendMessage(combo, win32con.CB_GETCOUNT, 0, 0)
-            win32gui.SendMessage(combo, win32con.CB_SETCURSEL, cnt-1, 0)
+            win32gui.SendMessage(combo, win32con.CB_SETCURSEL, -1, 0)
             return
         except xmlrpclib.Fault,e:
              msg = str(e.faultCode) or e.faultString or e.message or str(e)
@@ -143,7 +144,15 @@ class CSComboProcessor(ComboProcessor):
             win32gui.EnableWindow(combo, False)
             return
         try:
-            list=['CRM Claim', 'CRM Fundraising', 'CRM Helpdesk', 'CRM Lead', 'CRM Meeting', 'CRM Opportunity', 'CRM Phonecall']
+            list=['CRM Lead', 'CRM Phonecall', 'CRM Meeting']#, 'CRM Helpdesk', 'CRM Lead', 'CRM Meeting', 'CRM Opportunity', 'CRM Phonecall']
+            objlist = conn.GetAllObjects()
+            if 'crm.claim' in objlist:
+                list.append('CRM Claim')
+            if 'crm.helpdesk' in objlist:
+                list.append('CRM Helpdesk')
+            if 'crm.fundraising' in objlist:
+                list.append('CRM Fundraising')
+
             win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
             for item in list:
                 win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, str(item))
@@ -167,6 +176,22 @@ class TextProcessor(OptionControlProcessor):
         args = (self,)+(self.window,) + self.args
         self.func(*args)
 
+    def UpdateValue_FromControl(self):
+        pass
+
+class ListBoxProcessor(OptionControlProcessor):
+    def __init__(self, window, control_ids, func, args):
+        self.func = func
+        self.args = args
+        OptionControlProcessor.__init__(self, window, control_ids)
+
+    def Init(self):
+        args = (self,)+(self.window,) + self.args
+        if not self.init_done:
+            self.func(*args)
+
+    def UpdateControl_FromValue(self):
+        pass
     def UpdateValue_FromControl(self):
         pass
 

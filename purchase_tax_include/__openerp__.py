@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -19,7 +20,7 @@
 ##############################################################################
 {
     "name" : "Purchases with taxes included",
-    "version" : "1.0",
+    "version" : "2.0",
     "depends" : ["purchase","account_tax_include"],
     "author" : "Tiny",
     "website" : "http://www.openerp.com",

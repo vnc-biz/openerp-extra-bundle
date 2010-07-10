@@ -137,6 +137,7 @@ def test():
     test = etl_test.etl_component_test(diff(['id']))
     test.check_input({'main':input_part})
     test.check_output(modify, 'main')
+    print test.output()
 
 if __name__ == '__main__':
     test()

@@ -74,8 +74,10 @@ class sql_connector(connector):
         connector = False
         if self.con_type == 'postgres':
             import psycopg2
+            import psycopg2.extensions
             connector = psycopg2.connect("dbname=%s user=%s host=%s port=%s password=%s sslmode=%s" \
                                 % (self.db, self.uid, self.host, self.port, self.passwd, self.sslmode))
+            connector.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
         elif self.con_type == 'mysql':
             import MySQLdb
             connector = MySQLdb.Connection(db=self.db, host=self.host, port=self.port, user=self.uid, passwd=self.pwd)
@@ -113,6 +115,7 @@ def test():
     sqlconnector_partner=sql_connector('localhost',5432, 'test', 'postgres', 'postgres')
     test = etl_test.etl_component_test(etl.component.input.sql_in(sqlconnector_partner,'select * from res_partner where id<=10 order by id'))
     res=test.output()
+    print res
 
     pass
 

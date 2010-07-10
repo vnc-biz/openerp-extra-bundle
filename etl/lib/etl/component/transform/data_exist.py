@@ -53,13 +53,15 @@ class data_exist(component):
     def process(self):
         #process incoming data
         for channel, trans in self.input_get().items():
-            print "%s channel=%s trans=%s"%(self.name,channel,trans)
             for iterator in trans:
                 for d in iterator:
                     #check if record exists on openobject_injector
                     l=[(i,'=',d[i]) for i in self.keys]
                     ids = self.openobject_injector.connector.execute(self.conn, 'execute', self.openobject_injector.model, 'search',l, 0, self.openobject_injector.row_limit, False, self.openobject_injector.context, False)
                     if ids:
+                        d['duplicated_id']=ids[0]
+                        d['duplicated_ids']=ids
+                        print "%s channel=%s trans=%s dupe %s"%(self.name,channel,trans,d)
                         yield d, 'duplicated'
                     else :
                         yield d, 'main'

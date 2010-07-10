@@ -132,6 +132,7 @@ def test():
     sugarcrm_conn=sugarcrm_connector('admin','sugarpasswd',url='http://192.168.0.7/sugarcrm/soap.php')
     test = etl_test.etl_component_test(etl.component.input.sugarcrm_in(sugarcrm_conn, 'Contacts'))
     res=test.output()
+    print res
 
 
 if __name__ == '__main__':

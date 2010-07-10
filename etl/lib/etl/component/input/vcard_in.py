@@ -79,6 +79,7 @@ def test():
     test = etl_test.etl_component_test(vcard_in(file_conn, name='vcf test'))
     test.check_output([{u'tel': u'(111) 555-1212', u'title': u'Shrimp Man', u'rev': u'20080424T195243Z', u'version': u'3.0', u'org': [u'BubbaGumpShrimp'], u'label': u'100 Waters Edge\\nBaytown, LA 30314\\nUnited States of America', u'email': u'forrestgump@example.com', u'fn': u'ForrestGump'}], 'main')
     res = test.output()
+    print res
 
 if __name__ == '__main__':
     test()

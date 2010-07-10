@@ -75,6 +75,7 @@ class openobject_out_write(openobject_out):
                     values = dict(map(lambda x: (x,d[self.fields[x]]), self.fields_keys))
                     op_oc = self.connector.open()
                     l = [op_oc, 'execute', self.model, 'write', [d[self.key]], values]
+                    #print "write",l
                     res = self.connector.execute(*l)
                     self.connector.close(op_oc)
                     yield d, 'main'

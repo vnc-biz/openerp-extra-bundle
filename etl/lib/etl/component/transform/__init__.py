@@ -40,4 +40,5 @@ from unique import unique
 from subjob import subjob
 
 from sql_join import sql_join
+from sql_query import sql_query
 from data_exist import data_exist

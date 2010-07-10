@@ -41,22 +41,23 @@ class openobject_out(component):
     * main                : Returns all data.
     """
 
-    def __init__(self, openobject_connector, model, fields=None, name='component.output.openobject_out', transformer=None, row_limit=0):
+    def __init__(self, openobject_connector, model, fields=None, openobject_id=None, name='component.output.openobject_out', transformer=None, row_limit=0):
         """
         Parameters
         openobject_connector : Open object connector to connect with OpenERP server.
         model                : Open object model name.
 
         Extra Parameters
+        fields               : Fields of open object model.
+        openobject_id        : if an id is supplied fill this field with the openerp id.
         name                 : Name of Component.
         transformer          : Transformer object to transform string data into particular object.
-        fields               : Fields of open object model.
-        model                : Open object model name.
         """
         super(openobject_out, self).__init__(name=name, connector=openobject_connector, transformer=transformer, row_limit=row_limit)
         self._type = 'component.output.openobject_out'
-        self.fields = fields
         self.model = model
+        self.fields = fields
+        self.openobject_id = openobject_id
 
     def __copy__(self):
         res = openobject_out(self.connector, self.model, self.fields, self.name, self.transformer, self.row_limit)
@@ -86,9 +87,32 @@ class openobject_out(component):
                     if not self.fields_keys:
                         self.fields_keys = self.fields.keys()
                     op_oc = self.connector.open()
+
                     l=(op_oc, 'execute', self.model, 'import_data', self.fields_keys, [map(lambda x: d[self.fields[x]], self.fields_keys)])
-                    self.connector.execute(*l)
+                    print "executing ",l
+                    try:
+                        r=self.connector.execute(*l)
+                        print "got result",r
+                    except Exception,e:
+                        print "got exception",e
+                        raise e
+                    if r[0]==-1:
+                        raise Exception(str(r))
+                    if self.openobject_id and ('id' in self.fields):
+                        word=d[self.fields['id']]
+                        if '.' in word:
+                            module, xml_id = word.rsplit('.',1)
+                            s = [('module','=',module),('name','=',xml_id)]
+                        else:
+                            s = [('name','=',xml_id)]
+                        l=(op_oc, 'execute', 'ir.model.data', 'search', s )
+                        ids = self.connector.execute(*l)
+                        if ids:
+                            l=(op_oc, 'execute', 'ir.model.data', 'read',ids,['res_id'])
+                            r=self.connector.execute(*l)
+                            d[self.openobject_id]=r[0]['res_id']
                     self.connector.close(op_oc)
+                    #print "imported data",d
                     yield d, 'main'
 
 def test():

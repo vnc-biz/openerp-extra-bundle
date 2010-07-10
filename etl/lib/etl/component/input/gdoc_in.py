@@ -75,6 +75,7 @@ def test():
 #    test.check_output([{'phone_numbers': [''], 'postal_addresses': [''], 'emails': [''], 'title': ''}], 'main')
     # here add the details of the contact in your gmail in the above mentioned format
     res = test.output()
+    print res
 
 if __name__ == '__main__':
     test()

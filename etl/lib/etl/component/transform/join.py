@@ -92,6 +92,7 @@ def test():
     }
     test = etl_test.etl_component_test(join(map_keys, join_keys))
     test.check_input({'partner':input_part, 'countries': input_cty})
+    print test.output()
 
 if __name__ == '__main__':
     test()

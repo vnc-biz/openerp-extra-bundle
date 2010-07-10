@@ -74,6 +74,7 @@ def test():
     test.check_output([{'id': 'event2', 'name': 'mustufa'}], 'main')
     test.check_input({'main': [{'id': 'event2', 'name': 'mustufa'}]})
     res = test.output()
+    print res
 
 if __name__ == '__main__':
     test()

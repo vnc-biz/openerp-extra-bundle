@@ -37,7 +37,7 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="pxgo_cash_statement.view_cash_statement_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/field/tree/field[@name='account_id']" position="after">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="after">
                     <field name="analytic_account_id" invisible="1"/>
                 </xpath>
             </field>
@@ -49,7 +49,7 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="pxgo_cash_statement.view_cash_statement_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/field/form/field[@name='account_id']" position="after">
+                <xpath expr="//field[@name='line_ids']/form/field[@name='account_id']" position="after">
                     <field name="analytic_account_id"/>
                 </xpath>
             </field>
@@ -64,7 +64,7 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="pxgo_cash_statement.view_cash_statement_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/field/tree/field[@name='line_type_id']" position="replace">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='line_type_id']" position="replace">
                     <field name="line_type_id"
                                 widget="selection"
                                 on_change="cash_line_on_change_line_type_id(partner_id, type, line_type_id)"/>
@@ -78,7 +78,7 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="pxgo_cash_statement.view_cash_statement_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/field/form/field[@name='line_type_id']" position="replace">
+                <xpath expr="//field[@name='line_ids']/form/field[@name='line_type_id']" position="replace">
                     <field name="line_type_id"
                                 widget="selection"
                                 on_change="cash_line_on_change_line_type_id(partner_id, type, line_type_id)"/>

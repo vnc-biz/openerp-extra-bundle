@@ -692,7 +692,7 @@
 
 
 
-<!-- account.move.line view (inherit) -->
+<!-- account.move.line view (inherit) >
         <record model="ir.ui.view" id="view_account_move_line_form_inherit">
             <field name="name">account.move.line.form</field>
             <field name="model">account.move.line</field>
@@ -703,6 +703,6 @@
                     <field name="case_id"/>
                 </field>
             </field>
-        </record>
+        </record-->
     </data>
 </openerp>

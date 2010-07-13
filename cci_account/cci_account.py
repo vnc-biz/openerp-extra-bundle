@@ -20,6 +20,7 @@
 ##############################################################################
 from osv import fields, osv
 import time
+import pickle
 
 #class account_move_line(osv.osv):
 #
@@ -41,6 +42,7 @@ class account_invoice(osv.osv):
 
     _inherit = "account.invoice"
     _columns = {
+        'name': fields.char('Description', size=64, select=True),
         'dept':fields.many2one('hr.department','Department'),
         'invoice_special':fields.boolean('Special Invoice'),
         'internal_note': fields.text('Internal Note'),
@@ -52,6 +54,13 @@ class account_invoice(osv.osv):
         if vals.has_key('partner_id') and vals['partner_id']:
             partner = self.pool.get('res.partner').browse(cr, uid, vals['partner_id'], context=context)
             vals.update({'invoice_special':partner.invoice_special})
+            values_obj = self.pool.get('ir.values')
+            term_id = []
+            term_ids = values_obj.search(cr, uid, [('key','=','default'),('name','=','payment_term'),('model','=','account.invoice'),('key2','=',vals['partner_id'])])
+            if not term_ids:
+                term_ids = self.pool.get('ir.values').search(cr, uid, [('key','=','default'),('name','=','payment_term'),('model','=','account.invoice')])
+            if term_ids:
+                vals.update({'payment_term':pickle.loads(str(values_obj.browse(cr, uid, term_ids)[0].value))})
         return super(account_invoice, self).create(cr, uid, vals, context=context)
 
     def action_move_create(self, cr, uid, ids, context=None):
@@ -220,5 +229,19 @@ class account_invoice_line(osv.osv):
         'cci_special_reference': lambda *a : False,
     }
 account_invoice_line()
+
+class account_bank_statement(osv.osv):
+    _inherit = 'account.bank.statement'
+    def _check_st(self, cr, uid, ids):
+        st_ids = self.search(cr, uid, [('state','=','draft')])
+        if len(st_ids)>1:
+            return False
+        return True
+
+    _constraints = [(_check_st, u"Can not open more that one statement", ('name',))]
+
+account_bank_statement()
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

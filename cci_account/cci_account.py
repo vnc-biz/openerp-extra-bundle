@@ -57,6 +57,7 @@ class account_invoice(osv.osv):
     _inherit = "account.invoice"
     _columns = {
         'name': fields.char('Description', size=64, select=True),
+        'ref_move': fields.char('Ref Move', size=64, select=True),
         'dept':fields.many2one('hr.department','Department'),
         'invoice_special':fields.boolean('Special Invoice'),
         'internal_note': fields.text('Internal Note'),
@@ -90,7 +91,9 @@ class account_invoice(osv.osv):
         if flag:
             raise osv.except_osv('Error!','Invoice line should have Analytic Distribution to create Analytic Entries.')
         super(account_invoice, self).action_move_create(cr, uid, ids, context)
-
+        for invoice_rec in self.browse(cr, uid, ids): 
+            if invoice_rec.move_id and not invoice_rec.ref_move:
+                self.write(cr, uid, [invoice_rec.id], {'ref_move':invoice_rec.move_id.name})
         for lines in data_invoice.abstract_line_ids:
             if lines.product_id:
                 product_ids.append(lines.product_id.id)
@@ -155,10 +158,12 @@ class account_invoice(osv.osv):
                             id1 = item[2]['credit']
 
                     journal = self.pool.get('account.journal').browse(cr, uid, journal_id)
-                    if journal.sequence_id:
+                    if inv.move_id:
+                        name = inv.move_id.name
+                    elif journal.sequence_id:
                         name = self.pool.get('ir.sequence').get_id(cr, uid, journal.sequence_id.id)
-
                     move = {'name': name, 'line_id': new_lines, 'journal_id': journal_id}
+                    self.write(cr, uid, [inv.id], {'ref_move': inv.move_id.name})
                     if inv.period_id:
                         move['period_id'] = inv.period_id.id
                         #for i in line:
@@ -252,10 +257,39 @@ class account_bank_statement(osv.osv):
             return False
         return True
 
-#    _constraints = [(_check_st, u"Can not open more that one statement", ('name',))]
+  #  _constraints = [(_check_st, u"Can not open more that one statement", ('name',))]
 
 account_bank_statement()
 
+class account_move(osv.osv):
+    _inherit = "account.move"
+    def post(self, cr, uid, ids, context=None):
+        move_ref = ''
+        if context.get('invoice', None) and context['invoice']:
+            move_ref = context['invoice'].ref_move
+        if self.validate(cr, uid, ids, context) and len(ids):
+            for move in self.browse(cr, uid, ids):
+                if move.name =='/':
+                    new_name = False
+                    journal = move.journal_id
+                    if move_ref:
+                        new_name = move_ref
+                    elif journal.sequence_id:
+                        c = {'fiscalyear_id': move.period_id.fiscalyear_id.id}
+                        new_name = self.pool.get('ir.sequence').get_id(cr, uid, journal.sequence_id.id, context=c)
+                    else:
+                        raise osv.except_osv(_('Error'), _('No sequence defined in the journal !'))
+                    if new_name:
+                        self.write(cr, uid, [move.id], {'name':new_name})
+
+            cr.execute('UPDATE account_move '\
+                       'SET state=%s '\
+                       'WHERE id IN %s',
+                       ('posted', tuple(ids)))
+        else:
+            raise osv.except_osv(_('Integrity Error !'), _('You can not validate a non-balanced entry !\nMake sure you have configured Payment Term properly !\nIt should contain atleast one Payment Term Line with type "Balance" !'))
+        return True
+account_move()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

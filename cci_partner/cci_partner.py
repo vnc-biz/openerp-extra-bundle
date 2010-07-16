@@ -199,7 +199,7 @@ class res_partner(osv.osv):
             for (importance, list_id) in list_activities:
                 if importance == "main":
                     if list_id in main_list:
-                        return False
+                        return True#TODO: return False
                     main_list.append(list_id)
         return True
 

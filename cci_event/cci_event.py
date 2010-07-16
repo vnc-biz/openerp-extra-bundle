@@ -167,6 +167,17 @@ class event_group(osv.osv):
         'type': lambda *args: 'text',
     }
 
+    def name_get(self, cr, uid, ids, context={}):
+        if not len(ids):
+            return []
+        result = []
+        for line in self.browse(cr, uid, ids, context):
+            if line.bookmark_name:
+                result.append((line.id, (line.name + ' - ' + line.bookmark_name)))
+            else:
+                result.append((line.id, line.name))
+        return result
+
 event_group()
 
 class event_registration(osv.osv):

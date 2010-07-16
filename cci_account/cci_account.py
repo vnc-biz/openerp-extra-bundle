@@ -37,6 +37,20 @@ import pickle
 #
 #account_move_line()
 
+class account_move(osv.osv):
+    _inherit = "account.move"
+    _description = "Account Entry"
+
+    def write(self, cr, uid, ids, vals, context=None):
+        line_ids = []
+        if vals.get('period_id', False):
+            lines = self.browse(cr, uid, ids, context=context)[0].line_id
+            map(lambda x: line_ids.append(x.id),lines)
+            self.pool.get('account.move.line').write(cr, uid, line_ids, {'period_id': vals['period_id']}, context=context)
+        result = super(osv.osv, self).write(cr, uid, ids, vals, context)
+        return result
+
+account_move()
 
 class account_invoice(osv.osv):
 
@@ -238,7 +252,7 @@ class account_bank_statement(osv.osv):
             return False
         return True
 
-    _constraints = [(_check_st, u"Can not open more that one statement", ('name',))]
+#    _constraints = [(_check_st, u"Can not open more that one statement", ('name',))]
 
 account_bank_statement()
 

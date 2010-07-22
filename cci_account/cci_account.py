@@ -21,6 +21,7 @@
 from osv import fields, osv
 import time
 import pickle
+from tools.translate import _
 
 #class account_move_line(osv.osv):
 #

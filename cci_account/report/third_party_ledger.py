@@ -37,26 +37,6 @@ class third_party_ledger(report_sxw.rml_parse):
         })
 
     def set_context(self, objects, data, ids, report_type = None):
-        partner_category_obj = pooler.get_pool(self.cr.dbname).get('res.partner.category')
-        partner_obj = pooler.get_pool(self.cr.dbname).get('res.partner')
-        if data['form']['category'] == 'Customer' or data['form']['category'] == 'Supplier' :
-            cat_id=partner_category_obj.search(self.cr,self.uid,[('name','=',data['form']['category'])])
-            cat_id+=partner_category_obj.search(self.cr,self.uid,[('parent_id','child_of',cat_id)])
-        else:
-            cat_id = partner_category_obj.search(self.cr,self.uid,[('name','in',('Supplier','Customer'))])
-            cat_id+=partner_category_obj.search(self.cr,self.uid,[('parent_id','child_of',cat_id)])
-
-        self.cr.execute('SELECT partner_id from res_partner_category_rel where category_id in ('+','.join(map(str,cat_id))+')')
-        data_parner=self.cr.fetchall()
-        self.par_ids=[]
-        self.par_ids=list(set([x[0] for x in data_parner]))
-        
-        if data['form']['category'] in ('Customer','Supplier'):
-            self.par_ids += partner_obj.search(self.cr,self.uid,[(data['form']['category'].lower(),'=',True)])
-            self.par_ids=list(set(self.par_ids))
-        if data['form']['category'] in ('both'):
-            self.par_ids += partner_obj.search(self.cr,self.uid,['|',('supplier','=',True), ('customer','=',True)])
-            self.par_ids=list(set(self.par_ids))
 
         account_move_line_obj = pooler.get_pool(self.cr.dbname).get('account.move.line')
         line_query = account_move_line_obj._query_get(self.cr, self.uid, obj='line',
@@ -70,7 +50,6 @@ class third_party_ledger(report_sxw.rml_parse):
                     "AND " + line_query + " " \
                     "AND line.account_id = account.id " \
                     "AND account.company_id = %s " \
-                    "AND partner_id in (select id from res_partner)" \
                     "AND account.active",
                 (data['form']['date1'], data['form']['date2'],
                     data['form']['company_id']))

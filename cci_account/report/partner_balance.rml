@@ -181,44 +181,13 @@
           <para style="P2">[[ formatLang(sum_credit()) ]]</para>
         </td>
         <td>
-          <para style="terp_default_Right_9_Bold">[[ formatLang(sum_sdebit()) ]]</para>
-        </td>
-        <td>
-          <para style="terp_default_Right_9_Bold">[[ formatLang(sum_scredit()) ]]</para>
-        </td>
-        <td>
-          <para style="P2">[[ formatLang(sum_litige()) ]]</para>
-        </td>
-      </tr>
-    </blockTable>
-    <para style="terp_default_1">
-      <font color="white"> </font>
-    </para>
-    <blockTable colWidths="61.0,197.0,57.0,54.0,53.0,60.0" style="Table2">
-      <tr>
-        <td>
-          <para style="terp_tblheader_Details">Balance</para>
-        </td>
-        <td>
-          <para style="terp_tblheader_Details">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
-          <para style="P2">
-            <font color="white"> </font>
-          </para>
-        </td>
-        <td>
           <para style="P2">[[ formatLang(solde_debit()) ]]</para>
         </td>
         <td>
           <para style="P2">[[ formatLang(solde_credit()) ]]</para>
         </td>
         <td>
-          <para style="P2">
-            <font color="white"> </font>
-          </para>
+          <para style="P2">[[ formatLang(sum_litige()) ]]</para>
         </td>
       </tr>
     </blockTable>

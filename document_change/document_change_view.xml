@@ -340,7 +340,8 @@
                     <field name="parent_id" select="1"/>
                     <field name="create_uid" select="1"/>
                 </group>
-                <group expand="1" string="Group By..." col="20" colspan="4">
+                <newline/>
+                <group expand="0" string="Group By..." col="20" colspan="4">
                     <filter domain="[]" string="By Owner" icon="terp-hr" context="{'group_by':'create_uid'}" help="Documents by owner"/>
                     <filter domain="[]" string="By Directory" icon="terp-hr" context="{'group_by':'parent_id'}" help="Documents by directory"/>
                     <filter domain="[]" string="By Type" icon="terp-hr" context="{'group_by':'change_type_id'}" help="Documents by type"/>
@@ -464,7 +465,7 @@
                 <field name="phase_type_id" select="1"/>
                 <field name="date_control" select="1"/>
                 <newline/>
-                <group string="Group By..." expand="1" colspan="10">
+                <group string="Group By..." expand="0" colspan="10">
                     <filter domain="[]" string="By Process" icon="terp-hr" context="{'group_by':'process_id'}" help="Process Changes by owner"/>
                     <filter domain="[]" string="By Type" icon="terp-hr" context="{'group_by':'phase_type_id'}" help="Process Changes by owner"/>
                 </group>
@@ -666,7 +667,8 @@
                     <field name="structure_id" select="1"/>
                     <field name="user_id" string="Owner" select="1"/>
                 </group>
-                <group expand="1" string="Group By..." col="20" colspan="4">
+                <newline/>
+                <group expand="0" string="Group By..." col="20" colspan="4">
                     <filter domain="[]" string="By Owner" icon="terp-hr" context="{'group_by':'user_id'}" help="Process Changes by owner"/>
                     <filter domain="[]" string="By Directory" icon="terp-hr" context="{'group_by':'structure_id'}" help="Process Changes by directory"/>
                     <filter domain="[]" string="By State" icon="terp-hr" context="{'group_by':'state'}" help="Process Changes by directory"/>

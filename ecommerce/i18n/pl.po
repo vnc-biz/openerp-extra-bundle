@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-01-04 10:40+0000\n"
-"PO-Revision-Date: 2010-02-19 06:06+0000\n"
-"Last-Translator: OpenERP Administrators <Unknown>\n"
+"PO-Revision-Date: 2010-07-26 20:13+0000\n"
+"Last-Translator: Grzegorz Grzelak (Cirrus.pl) <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-05-21 03:45+0000\n"
+"X-Launchpad-Export-Date: 2010-07-27 04:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: ecommerce
@@ -41,7 +41,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.creditcard:0
 msgid "Credit Card Types"
-msgstr ""
+msgstr "Typy kart kredytowych"
 
 #. module: ecommerce
 #: field:ecommerce.category,web_id:0
@@ -49,14 +49,14 @@ msgstr ""
 #: model:ir.actions.act_window,name:ecommerce.action_shop_basic_form
 #: model:ir.ui.menu,name:ecommerce.menu_shop_basic_form
 msgid "Web Shop"
-msgstr ""
+msgstr "Sklep internetowy"
 
 #. module: ecommerce
 #: view:ecommerce.payment.method:0
 #: model:ir.actions.act_window,name:ecommerce.action_payment_method_form
 #: model:ir.ui.menu,name:ecommerce.menu_payment_method_form
 msgid "Payment method"
-msgstr ""
+msgstr "Metoda płatności"
 
 #. module: ecommerce
 #: constraint:ir.actions.act_window:0
@@ -68,7 +68,7 @@ msgstr "Nieprawidłowa nazwa modelu w definicji akcji."
 #: model:ir.actions.act_window,name:ecommerce.action_ecommerce_search_form
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_search_form
 msgid "Search Parameters"
-msgstr ""
+msgstr "Parametry wyszukiwania"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
@@ -146,22 +146,22 @@ msgstr ""
 #: view:ecommerce.shop:0
 #: field:ecommerce.shop,payment_method_ids:0
 msgid "Payment Methods"
-msgstr ""
+msgstr "Metody płatności"
 
 #. module: ecommerce
 #: field:ecommerce.partner,last_name:0
 msgid "Last Name"
-msgstr ""
+msgstr "Nazwisko"
 
 #. module: ecommerce
 #: field:ecommerce.partner,company_name:0
 msgid "Company Name"
-msgstr ""
+msgstr "Nazwa firmy"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Total (excl. taxes):"
-msgstr ""
+msgstr "Suma (bez podatków)"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_ram1_product_template
@@ -171,22 +171,22 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.partner.address,mobile:0
 msgid "Mobile"
-msgstr ""
+msgstr "Tel. komórkowy"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,note:0
 msgid "Notes"
-msgstr ""
+msgstr "Uwagi"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,order_id:0
 msgid "Sale Order"
-msgstr ""
+msgstr "Zamówienie sprzedaży"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Taxes"
-msgstr ""
+msgstr "Podatki"
 
 #. module: ecommerce
 #: view:ecommerce.shop:0
@@ -196,22 +196,22 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.product.reviews:0
 msgid "Reviews"
-msgstr ""
+msgstr "Przeglądy"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Amount"
-msgstr ""
+msgstr "Kwota"
 
 #. module: ecommerce
 #: field:ecommerce.payment,transaction_dtl_ids:0
 msgid "Transaction History"
-msgstr ""
+msgstr "Historia transakcji"
 
 #. module: ecommerce
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_products
 msgid "Products"
-msgstr ""
+msgstr "Produkty"
 
 #. module: ecommerce
 #: model:ir.model,name:ecommerce.model_ecommerce_category
@@ -226,22 +226,22 @@ msgstr ""
 #. module: ecommerce
 #: wizard_view:ecommerce.customer.sendmail,finished:0
 msgid "Operation Completed"
-msgstr ""
+msgstr "Operacja wykonana"
 
 #. module: ecommerce
 #: field:ecommerce.product.reviews,rating:0
 msgid "Rating"
-msgstr ""
+msgstr "Ocena"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,epartner_invoice_id:0
 msgid "Invoice Address"
-msgstr ""
+msgstr "Adres faktury"
 
 #. module: ecommerce
 #: field:ecommerce.shop,column_configuration:0
 msgid "No. of Columns"
-msgstr ""
+msgstr "Liczba kolumn"
 
 #. module: ecommerce
 #: wizard_button:ecommerce.customer.sendmail,finished,end:0
@@ -251,7 +251,7 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.payment,acc_number:0
 msgid "Account Number"
-msgstr ""
+msgstr "Numer Konta"
 
 #. module: ecommerce
 #: view:ecommerce.shop:0
@@ -266,23 +266,23 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "Add Currency"
-msgstr ""
+msgstr "Dodaj walutę"
 
 #. module: ecommerce
 #: constraint:product.category:0
 #: constraint:res.partner.category:0
 msgid "Error ! You can not create recursive categories."
-msgstr ""
+msgstr "Błąd ! Nie możesz tworzyć rekurencyjnych kategorii."
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Tax"
-msgstr ""
+msgstr "Podatek"
 
 #. module: ecommerce
 #: field:ecommerce.search,code:0
 msgid "Product fields"
-msgstr ""
+msgstr "Pola produktów"
 
 #. module: ecommerce
 #: model:ir.module.module,shortdesc:ecommerce.module_meta_information
@@ -297,7 +297,7 @@ msgstr ""
 #. module: ecommerce
 #: view:product.product:0
 msgid "Extra Info"
-msgstr ""
+msgstr "Dodatkowe informacje"
 
 #. module: ecommerce
 #: help:ecommerce.shop,search_ids:0
@@ -308,7 +308,7 @@ msgstr ""
 #: field:ecommerce.partner.address,partner_id:0
 #: field:ecommerce.payment.received,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: ecommerce
 #: field:ecommerce.payment.received,transaction_date:0
@@ -318,12 +318,12 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.payment.received,saleorder_id:0
 msgid "Sales Order"
-msgstr ""
+msgstr "Zamówienie sprzedaży"
 
 #. module: ecommerce
 #: view:ecommerce.saleorder:0
 msgid "Order Line"
-msgstr ""
+msgstr "Pozycja zamówienia"
 
 #. module: ecommerce
 #: help:ecommerce.category,name:0
@@ -333,7 +333,7 @@ msgstr ""
 #. module: ecommerce
 #: wizard_field:ecommerce.customer.sendmail,init,subject:0
 msgid "Subject"
-msgstr ""
+msgstr "Temat"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_peripherals
@@ -346,7 +346,7 @@ msgstr ""
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_partners
 #: model:ir.ui.menu,name:ecommerce.menu_partner_ecommerce_form
 msgid "Partners"
-msgstr ""
+msgstr "Partnerzy"
 
 #. module: ecommerce
 #: view:ecommerce.shop:0
@@ -367,28 +367,28 @@ msgstr ""
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Disc. (%)"
-msgstr ""
+msgstr "Up. (%)"
 
 #. module: ecommerce
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Niewłaściwy XML dla architektury widoku!"
 
 #. module: ecommerce
 #: field:ecommerce.category,child_ids:0
 msgid "Child Categories"
-msgstr ""
+msgstr "Kategorie podrzędne"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Supplier Invoice"
-msgstr ""
+msgstr "Faktura Dostawcy"
 
 #. module: ecommerce
 #: field:ecommerce.partner.address,state_id:0
 #: field:ecommerce.payment,state_id:0
 msgid "State"
-msgstr ""
+msgstr "Stan"
 
 #. module: ecommerce
 #: help:ecommerce.search,name:0
@@ -399,7 +399,7 @@ msgstr ""
 #: view:ecommerce.product.reviews:0
 #: model:ir.ui.menu,name:ecommerce.menu_action_ecommerce_reviews_view_form
 msgid "Product Reviews"
-msgstr ""
+msgstr "Przegląd produktów"
 
 #. module: ecommerce
 #: field:ecommerce.shop,image_height:0
@@ -409,12 +409,12 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.saleorder,orderline_ids:0
 msgid "Order Lines"
-msgstr ""
+msgstr "Pozycje zamówienia"
 
 #. module: ecommerce
 #: field:ecommerce.partner.address,type:0
 msgid "Address Type"
-msgstr ""
+msgstr "Typ adresu"
 
 #. module: ecommerce
 #: help:ecommerce.shop,column_configuration:0
@@ -435,23 +435,23 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.order.line,product_uom_id:0
 msgid "Product UOM"
-msgstr ""
+msgstr "JM produktu"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 #: field:ecommerce.order.line,product_qty:0
 msgid "Quantity"
-msgstr ""
+msgstr "Ilość"
 
 #. module: ecommerce
 #: field:ecommerce.payment.received,transaction_id:0
 msgid "Transaction Id"
-msgstr ""
+msgstr "ID transakcji"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,name:0
 msgid "Order Reference"
-msgstr ""
+msgstr "Odnośnik zamówienia"
 
 #. module: ecommerce
 #: help:ecommerce.shop,image_height:0
@@ -461,12 +461,12 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.saleorder,pricelist_id:0
 msgid "Pricelist"
-msgstr ""
+msgstr "Cennik"
 
 #. module: ecommerce
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_configuration
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguracja"
 
 #. module: ecommerce
 #: view:ecommerce.payment:0
@@ -479,7 +479,7 @@ msgstr ""
 #: view:ecommerce.shop:0
 #: field:ecommerce.shop,category_ids:0
 msgid "Categories"
-msgstr ""
+msgstr "Kategorie"
 
 #. module: ecommerce
 #: field:ecommerce.payment,bic:0
@@ -489,22 +489,22 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.shop,shop_id:0
 msgid "Sale Shop"
-msgstr ""
+msgstr "Sklep sprzedaży"
 
 #. module: ecommerce
 #: constraint:product.template:0
 msgid "Error: UOS must be in a different category than the UOM"
-msgstr ""
+msgstr "Błąd: JS musi być innej kategorii niż JM."
 
 #. module: ecommerce
 #: field:ecommerce.category,parent_category_id:0
 msgid "Parent Category"
-msgstr ""
+msgstr "Kategoria nadrzędna"
 
 #. module: ecommerce
 #: field:ecommerce.partner.address,username:0
 msgid "Contact Name"
-msgstr ""
+msgstr "Nazwa kontaktu"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_ram
@@ -519,7 +519,7 @@ msgstr ""
 #. module: ecommerce
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_payment
 msgid "Payment Configuration"
-msgstr ""
+msgstr "Konfiguracja płatności"
 
 #. module: ecommerce
 #: model:ir.ui.menu,name:ecommerce.menu_sale_order_form
@@ -529,7 +529,7 @@ msgstr ""
 #. module: ecommerce
 #: selection:ecommerce.partner.address,type:0
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_lap_acer1_product_template
@@ -539,14 +539,14 @@ msgstr ""
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Draft Invoice"
-msgstr ""
+msgstr "Projekt faktury"
 
 #. module: ecommerce
 #: view:ecommerce.partner.address:0
 #: model:ir.actions.act_window,name:ecommerce.action_partner_ecommerce_address_form
 #: model:ir.ui.menu,name:ecommerce.menu_action_partner_ecommerce_address_form
 msgid "Partner Contacts"
-msgstr ""
+msgstr "Kontakty do partnera"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
@@ -571,7 +571,7 @@ msgstr ""
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "(incl. taxes):"
-msgstr ""
+msgstr "(z podatkami):"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_hdd
@@ -581,7 +581,7 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.shop,currency_ids:0
 msgid "Currency"
-msgstr ""
+msgstr "Waluta"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
@@ -591,7 +591,7 @@ msgstr ""
 #. module: ecommerce
 #: model:ir.actions.act_window,name:ecommerce.action_ecommerce_creditcard_form
 msgid "Credit Card"
-msgstr ""
+msgstr "Karta kredytowa"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_acer
@@ -623,17 +623,17 @@ msgstr ""
 #: field:ecommerce.partner.address,street:0
 #: field:ecommerce.payment,street:0
 msgid "Street"
-msgstr ""
+msgstr "Ulica"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,epartner_add_id:0
 msgid "Contact Address"
-msgstr ""
+msgstr "Adres kontaktu"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Partner Code:"
-msgstr ""
+msgstr "Kod partnera:"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_compaq
@@ -643,12 +643,12 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.shop,search_ids:0
 msgid "Search On"
-msgstr ""
+msgstr "Szukaj w"
 
 #. module: ecommerce
 #: field:ecommerce.partner,address_ids:0
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakty"
 
 #. module: ecommerce
 #: wizard_field:ecommerce.customer.sendmail,finished,mailsent:0
@@ -658,19 +658,19 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.payment.received,paypal_acc_id:0
 msgid "Paypal Account"
-msgstr ""
+msgstr "Konto Paypal"
 
 #. module: ecommerce
 #: code:addons/ecommerce/partner/partner.py:0
 #, python-format
 msgid "No price avaible !"
-msgstr ""
+msgstr "Brak ceny !"
 
 #. module: ecommerce
 #: constraint:product.template:0
 msgid ""
 "Error: The default UOM and the purchase UOM must be in the same category."
-msgstr ""
+msgstr "Błąd: domyślna JM i zakupowa JM muszą być tej samej kategorii."
 
 #. module: ecommerce
 #: field:ecommerce.payment,cancel_url:0
@@ -680,7 +680,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "Add Languages"
-msgstr ""
+msgstr "Dodaj języki"
 
 #. module: ecommerce
 #: field:ecommerce.payment,return_url:0
@@ -690,7 +690,7 @@ msgstr ""
 #. module: ecommerce
 #: wizard_field:ecommerce.customer.sendmail,init,attachment:0
 msgid "Attachment"
-msgstr ""
+msgstr "Załącznik"
 
 #. module: ecommerce
 #: model:ir.model,name:ecommerce.model_ecommerce_partner_address
@@ -705,7 +705,7 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.partner.address,phone:0
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #. module: ecommerce
 #: help:ecommerce.shop,delivery_ids:0
@@ -715,40 +715,40 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.saleorder,epartner_shipping_id:0
 msgid "Shipping Address"
-msgstr ""
+msgstr "Adres wysyłki"
 
 #. module: ecommerce
 #: view:ecommerce.order.line:0
 #: view:ecommerce.saleorder:0
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_saleorder
 msgid "Sales Orders"
-msgstr ""
+msgstr "Zamówienia sprzedaży"
 
 #. module: ecommerce
 #: code:addons/ecommerce/sale_order/sale_order.py:0
 #, python-format
 msgid "Your journal must have a default credit and debit account."
-msgstr ""
+msgstr "Twój dziennik musi mieć domyślne konto Winien i Ma."
 
 #. module: ecommerce
 #: field:ecommerce.partner.address,email:0
 msgid "E-Mail"
-msgstr ""
+msgstr "E-mail"
 
 #. module: ecommerce
 #: field:ecommerce.payment,bank_name:0
 msgid "Bank Name"
-msgstr ""
+msgstr "Nazwa Banku"
 
 #. module: ecommerce
 #: view:ecommerce.category:0
 msgid "Product Categories"
-msgstr ""
+msgstr "Kategorie produktu"
 
 #. module: ecommerce
 #: field:ecommerce.partner,active:0
 msgid "Active"
-msgstr ""
+msgstr "Aktywne"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
@@ -773,7 +773,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "Search"
-msgstr ""
+msgstr "Szukaj"
 
 #. module: ecommerce
 #: model:ir.actions.wizard,name:ecommerce.ecommerce_product_view_id
@@ -784,23 +784,23 @@ msgstr ""
 #: field:ecommerce.partner,lang:0
 #: field:ecommerce.shop,language_ids:0
 msgid "Language"
-msgstr ""
+msgstr "Język"
 
 #. module: ecommerce
 #: selection:ecommerce.partner.address,type:0
 msgid "Default"
-msgstr ""
+msgstr "Domyślne"
 
 #. module: ecommerce
 #: help:ecommerce.payment,acc_number:0
 msgid "Bank account number"
-msgstr ""
+msgstr "Numer konta bankowego"
 
 #. module: ecommerce
 #: wizard_button:ecommerce.customer.sendmail,init,connect:0
 #: model:ir.actions.wizard,name:ecommerce.eshop_send_mail
 msgid "Send Mail"
-msgstr ""
+msgstr "Wyślij wiadomość"
 
 #. module: ecommerce
 #: help:ecommerce.partner,name:0
@@ -810,22 +810,22 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.payment.method,shortcut:0
 msgid "Shortcut"
-msgstr ""
+msgstr "Skrót"
 
 #. module: ecommerce
 #: field:ecommerce.shop,row_configuration:0
 msgid "No. of Rows"
-msgstr ""
+msgstr "Liczba wierszy"
 
 #. module: ecommerce
 #: view:ecommerce.payment:0
 msgid "History"
-msgstr ""
+msgstr "Historia"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Refund"
-msgstr ""
+msgstr "Korekta"
 
 #. module: ecommerce
 #: help:ecommerce.payment,biz_account:0
@@ -835,7 +835,7 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.creditcard,code:0
 msgid "Code"
-msgstr ""
+msgstr "Kod"
 
 #. module: ecommerce
 #: help:ecommerce.shop,name:0
@@ -845,7 +845,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "General Information"
-msgstr ""
+msgstr "Informacje ogólne"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_lap_ram2_product_template
@@ -855,7 +855,7 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.product.reviews,reviewdate:0
 msgid "Review Date"
-msgstr ""
+msgstr "Data przeglądu"
 
 #. module: ecommerce
 #: model:ir.module.module,description:ecommerce.module_meta_information
@@ -882,22 +882,22 @@ msgstr ""
 #: selection:ecommerce.partner.address,type:0
 #: field:ecommerce.payment.received,invoice_id:0
 msgid "Invoice"
-msgstr ""
+msgstr "Faktura"
 
 #. module: ecommerce
 #: field:ecommerce.shop,image_width:0
 msgid "Width in Pixel"
-msgstr ""
+msgstr "Szerokość w pikselach"
 
 #. module: ecommerce
 #: wizard_button:ecommerce.customer.sendmail,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #. module: ecommerce
 #: field:product.pricelist.version,offer_name:0
 msgid "Offer Name"
-msgstr ""
+msgstr "Nazwa oferty"
 
 #. module: ecommerce
 #: model:ir.model,name:ecommerce.model_ecommerce_partner
@@ -914,7 +914,7 @@ msgstr ""
 #: field:ecommerce.partner.address,city:0
 #: field:ecommerce.payment,city:0
 msgid "City"
-msgstr ""
+msgstr "Miasto"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_lap_acer3_product_template
@@ -926,6 +926,8 @@ msgstr ""
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"Nazwa obiektu musi zaczynać się od x_ oraz nie może zawierać znaków "
+"specjalnych !"
 
 #. module: ecommerce
 #: model:ir.model,name:ecommerce.model_ecommerce_product_reviews
@@ -940,7 +942,7 @@ msgstr ""
 #. module: ecommerce
 #: field:ecommerce.payment,chequepay_to:0
 msgid "Account Owner"
-msgstr ""
+msgstr "Właściciel konta"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_accesories
@@ -955,13 +957,13 @@ msgstr ""
 #. module: ecommerce
 #: selection:ecommerce.partner.address,type:0
 msgid "Other"
-msgstr ""
+msgstr "Inny"
 
 #. module: ecommerce
 #: model:ir.actions.act_window,name:ecommerce.action_webshop_form_new
 #: model:ir.ui.menu,name:ecommerce.menu_web_shop_form_new
 msgid "New Web Shop"
-msgstr ""
+msgstr "Nowy sklep internetowy"
 
 #. module: ecommerce
 #: field:ecommerce.order.line,order_id:0
@@ -972,12 +974,12 @@ msgstr ""
 #: rml:account.invoice.ecom:0
 #: field:ecommerce.order.line,price_unit:0
 msgid "Unit Price"
-msgstr ""
+msgstr "Cena jedn."
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Taxes:"
-msgstr ""
+msgstr "Podatki:"
 
 #. module: ecommerce
 #: model:ir.actions.report.xml,name:ecommerce.ecommerce_shipping_inv1
@@ -993,39 +995,39 @@ msgstr ""
 #: field:ecommerce.order.line,product_id:0
 #: field:ecommerce.product.reviews,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Produkt"
 
 #. module: ecommerce
 #: field:ecommerce.payment,name:0
 msgid "Payment Method"
-msgstr ""
+msgstr "Metoda Płatności"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 #: field:ecommerce.order.line,name:0
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #. module: ecommerce
 #: view:ecommerce.saleorder:0
 msgid "Other data"
-msgstr ""
+msgstr "Inne dane"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Price"
-msgstr ""
+msgstr "Cena"
 
 #. module: ecommerce
 #: field:ecommerce.partner.address,street2:0
 #: field:ecommerce.payment,street2:0
 msgid "Street2"
-msgstr ""
+msgstr "Ulica2"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Canceled Invoice"
-msgstr ""
+msgstr "Anulowana faktura"
 
 #. module: ecommerce
 #: model:product.category,name:ecommerce.product_category_laptop0
@@ -1037,7 +1039,7 @@ msgstr ""
 #: view:ecommerce.shop:0
 #: field:ecommerce.shop,delivery_ids:0
 msgid "Delivery"
-msgstr ""
+msgstr "Dostawa"
 
 #. module: ecommerce
 #: wizard_field:ecommerce.customer.sendmail,finished,mailnotsent:0
@@ -1057,7 +1059,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.payment:0
 msgid "Payment Address"
-msgstr ""
+msgstr "Adres płatności"
 
 #. module: ecommerce
 #: view:ecommerce.shop:0
@@ -1069,6 +1071,8 @@ msgstr ""
 #, python-format
 msgid "No line matched this order in the choosed delivery grids !"
 msgstr ""
+"Żadna pozycja nie jest zgodna z zamówieniem w wybranej tabeli opłat za "
+"dostawy !"
 
 #. module: ecommerce
 #: view:ecommerce.payment:0
@@ -1076,13 +1080,13 @@ msgstr ""
 #: model:ir.actions.act_window,name:ecommerce.action_payment_ecommerce_form
 #: model:ir.ui.menu,name:ecommerce.menu_payment_ecommerce_form
 msgid "Payment"
-msgstr ""
+msgstr "Płatność"
 
 #. module: ecommerce
 #: wizard_field:ecommerce.customer.sendmail,init,partner_id:0
 #: field:ecommerce.product.reviews,customer_id:0
 msgid "Customer"
-msgstr ""
+msgstr "Klient"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_ecom7_product_template
@@ -1092,7 +1096,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.category:0
 msgid "Products Categories"
-msgstr ""
+msgstr "Kategorie produktów"
 
 #. module: ecommerce
 #: field:ecommerce.partner,name:0
@@ -1100,7 +1104,7 @@ msgstr ""
 #: field:ecommerce.search,name:0
 #: field:ecommerce.shop,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nazwa"
 
 #. module: ecommerce
 #: help:ecommerce.payment,transaction_dtl_ids:0
@@ -1121,12 +1125,12 @@ msgstr ""
 #: field:ecommerce.partner.address,country_id:0
 #: field:ecommerce.payment,country_id:0
 msgid "Country"
-msgstr ""
+msgstr "Kraj"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,date_order:0
 msgid "Date Ordered"
-msgstr ""
+msgstr "Data zamówienia"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_ecom4_product_template
@@ -1136,17 +1140,17 @@ msgstr ""
 #. module: ecommerce
 #: help:ecommerce.payment.received,transaction_date:0
 msgid "Transaction finish date."
-msgstr ""
+msgstr "Data zakończenia transakcji"
 
 #. module: ecommerce
 #: model:ir.model,name:ecommerce.model_ecommerce_payment_method
 msgid "payment method"
-msgstr ""
+msgstr "metoda płatności"
 
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "Setting"
-msgstr ""
+msgstr "Ustawienie"
 
 #. module: ecommerce
 #: model:ir.model,name:ecommerce.model_ecommerce_shop
@@ -1162,7 +1166,7 @@ msgstr ""
 #: code:addons/ecommerce/sale_order/sale_order.py:0
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Błąd !"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_ecom6_product_template
@@ -1183,19 +1187,19 @@ msgstr ""
 #. module: ecommerce
 #: wizard_field:ecommerce.customer.sendmail,init,message:0
 msgid "Message"
-msgstr ""
+msgstr "Wiadomość"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Total"
-msgstr ""
+msgstr "Suma"
 
 #. module: ecommerce
 #: field:ecommerce.payment,creditcard_ids:0
 #: model:ir.model,name:ecommerce.model_ecommerce_creditcard
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_creditcard_form
 msgid "Credit Cards"
-msgstr ""
+msgstr "Karty kredytowe"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_ecom8_product_template
@@ -1205,7 +1209,7 @@ msgstr ""
 #. module: ecommerce
 #: view:ecommerce.payment:0
 msgid "Paypal Account Detail"
-msgstr ""
+msgstr "Szczegóły konta paypal"
 
 #. module: ecommerce
 #: field:ecommerce.category,name:0
@@ -1220,12 +1224,12 @@ msgstr ""
 #. module: ecommerce
 #: constraint:product.product:0
 msgid "Error: Invalid ean code"
-msgstr ""
+msgstr "Błąd: Niedozwolony kod EAN"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
 msgid "Supplier Refund"
-msgstr ""
+msgstr "Korekta od dostawcy"
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,epartner_id:0

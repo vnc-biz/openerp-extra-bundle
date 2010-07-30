@@ -143,7 +143,7 @@ def GetManager(outlook = None):
     return _mgr
 
 def ShowManager(mgr):
-    mgr.ShowManager()
+    mgr.c()
 
 def main(verbose_level = 1):
     mgr = GetManager()

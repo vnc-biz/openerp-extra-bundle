@@ -2,29 +2,41 @@ import sys
 import chilkat
 import os
 from manager import ustr
-print "ttt--"
+import win32ui
 email = chilkat.CkEmail()
-print "000"
+dt = chilkat.SYSTEMTIME()
 def generateEML(mail):
     sub = (mail.Subject).replace(' ','')
     body = mail.Body.encode("utf-8")
-    recipients=mail.Recipients
-    sender=mail.SenderEmailAddress
+    recipients = mail.Recipients
+    sender_email = mail.SenderEmailAddress
+    sender_name = mail.SenderName
     attachments=mail.Attachments
+#    to = mail.To
+#    cc = mail.CC
+#    rec_date = mail.ReceivedTime
 
     email = chilkat.CkEmail()
-    email.put_Subject(ustr(sub).encode('iso-8859-1'))
-    email.put_Body(ustr(body).encode('utf-8'))
-    email.put_From(ustr(sender).encode('iso-8859-1'))
+    email.put_Subject (ustr(sub).encode('iso-8859-1'))
+    email.put_Body (ustr(body).encode('utf-8'))
+    email.put_FromAddress (ustr(sender_email).encode('iso-8859-1'))
+    email.put_From (ustr(sender_name).encode('iso-8859-1'))
 
     for i in xrange(1, recipients.Count+1):
         name = ustr(recipients.Item(i).Name).encode('iso-8859-1')
         address = ustr(recipients.Item(i).Address).encode('iso-8859-1')
         email.AddTo(name,address)
 
-    eml_name= ustr(sub).encode('iso-8859-1')+'-'+str(mail.EntryID)[-9:]
-    ls = ['*', '/', '\\', '<', '>', ':', '?', '"', '|']
+#    email.AddMultipleTo(to)
+#    email.AddMultipleCC(cc)
+#    win32ui.MessageBox("cccc---"+str(dir(cc)),'')
+#    for i in xrange(1, cc.Count+1):
+#        name = ustr(recipients.Item(i).Name).encode('iso-8859-1')
+#        address = ustr(recipients.Item(i).Address).encode('iso-8859-1')
+#        email.AddCC(name,address)
 
+    eml_name= ustr(sub).encode('iso-8859-1')+'-'+str(mail.EntryID)[-9:]
+    ls = ['*', '/', '\\', '<', '>', ':', '?', '"', '|', '\t', '\n']
     attachments_folder_path = os.path.abspath(os.path.dirname(__file__)+"\\dialogs\\resources\\attachments\\")
     if not os.path.exists(attachments_folder_path):
         os.makedirs(attachments_folder_path)
@@ -67,3 +79,4 @@ def generateEML(mail):
 
     print "Saved EML!",eml_path
     return eml_path
+

@@ -105,8 +105,10 @@ class DBComboProcessor(ComboProcessor):
             conn.setitem('_login', 'False')
 
 class PartnersComboProcessor(ComboProcessor):
+
     def UpdateControl_FromValue(self):
         from manager import ustr
+        import win32ui
         combo = self.GetControl()
         conn = self.func()
         win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
@@ -136,6 +138,62 @@ class PartnersComboProcessor(ComboProcessor):
         sel = win32gui.SendMessage(combo, win32con.CB_GETCURSEL)
         conn.setitem('sel_id', sel)
 
+class StateComboProcessor(ComboProcessor):
+
+     def Init(self):
+        self.UpdateControl_FromValue()
+
+     def UpdateControl_FromValue(self):
+        from manager import ustr
+        import win32ui
+        combo = self.GetControl()
+        conn = self.func()
+        win32gui.SendMessage(combo, win32con.CB_RESETCONTENT, 0, 0);
+        id_list = {}
+        state_list=[]
+        try:
+            state_list = list(conn.GetAllState())
+            for item in state_list:
+                win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, ustr(item[1]).encode('iso-8859-1'))
+            win32gui.SendMessage(combo, win32con.CB_SETCURSEL, -1, 0)
+            cnt = win32gui.SendMessage(combo, win32con.CB_GETCOUNT, 0, 0)
+            return
+        except xmlrpclib.Fault,e:
+            msg = str(e.faultCode) or e.faultString or e.message or str(e)
+            win32ui.MessageBox(msg, "Open Partner")
+        except Exception,e:
+            win32ui.MessageBox(str(e), "Open Partner")
+     def UpdateValue_FromControl(self):
+        pass
+
+class CountryComboProcessor(ComboProcessor):
+
+     def Init(self):
+        self.UpdateControl_FromValue()
+
+     def UpdateControl_FromValue(self):
+        from manager import ustr
+        import win32ui
+        combo = self.GetControl()
+        conn = self.func()
+        win32gui.SendMessage(combo, win32con.CB_RESETCONTENT, 0, 0);
+        id_list = {}
+        state_list=[]
+        try:
+            country_list = list(conn.GetAllCountry())
+            for item in country_list:
+                win32gui.SendMessage(combo, win32con.CB_ADDSTRING, 0, ustr(item[1]).encode('iso-8859-1'))
+            win32gui.SendMessage(combo, win32con.CB_SETCURSEL, -1, 0)
+            cnt = win32gui.SendMessage(combo, win32con.CB_GETCOUNT, 0, 0)
+            return
+        except xmlrpclib.Fault,e:
+            msg = str(e.faultCode) or e.faultString or e.message or str(e)
+            win32ui.MessageBox(msg, "Open Partner")
+        except Exception,e:
+            win32ui.MessageBox(str(e), "Open Partner")
+     def UpdateValue_FromControl(self):
+        pass
+
 class CSComboProcessor(ComboProcessor):
     def UpdateControl_FromValue(self):
         combo = self.GetControl()
@@ -144,7 +202,7 @@ class CSComboProcessor(ComboProcessor):
             win32gui.EnableWindow(combo, False)
             return
         try:
-            list=['CRM Lead', 'CRM Phonecall', 'CRM Meeting']#, 'CRM Helpdesk', 'CRM Lead', 'CRM Meeting', 'CRM Opportunity', 'CRM Phonecall']
+            list=['CRM Lead']#, 'CRM Helpdesk', 'CRM Lead', 'CRM Meeting', 'CRM Opportunity', 'CRM Phonecall']
             objlist = conn.GetAllObjects()
             if 'crm.claim' in objlist:
                 list.append('CRM Claim')
@@ -152,6 +210,10 @@ class CSComboProcessor(ComboProcessor):
                 list.append('CRM Helpdesk')
             if 'crm.fundraising' in objlist:
                 list.append('CRM Fundraising')
+            if'hr.applicant' in objlist:
+                list.append('HR Applicant')
+            if'project.issue' in objlist:
+                list.append('Project Issue')
 
             win32gui.SendMessage(combo, win32con.CB_RESETCONTENT,0, 0);
             for item in list:

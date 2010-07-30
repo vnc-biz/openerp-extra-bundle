@@ -44,6 +44,25 @@ class ButtonEvent:
         mngr.ShowManager()
         return cancel
 #
+class ViewPartners:
+    def OnClick(self, button, cancel):
+        from win32com.client import Dispatch
+        import win32con
+        mngr = manager.GetManager()
+        data=mngr.LoadConfig()
+        outlook = Dispatch("Outlook.Application")
+        ex = outlook.ActiveExplorer()
+        if ex:
+            is_login = str(data['login'])
+            if is_login == 'False':
+                win32ui.MessageBox("Please login to the database first", "Database Connection", win32con.MB_ICONEXCLAMATION)
+            elif ex.Selection.Count == 1 or ex.Selection.Count == 0:
+                mngr = manager.GetManager()
+                mngr.ShowManager("IDD_VIEW_PARTNER_DIALOG")
+            elif ex.Selection.Count > 1:
+                win32ui.MessageBox("Multiple selection not allowed. Please select only one mail at a time.","",win32con.MB_ICONINFORMATION)
+        return cancel
+#
 class ArchiveEvent:
     def OnClick(self, button, cancel):
         from win32com.client import Dispatch
@@ -64,7 +83,7 @@ class ArchiveEvent:
             elif ex.Selection.Count > 1:
                 win32ui.MessageBox("Multiple selection not allowed. Please select only one mail at a time.","",win32con.MB_ICONINFORMATION)
         return cancel
-
+#
 class OutlookAddin:
     _com_interfaces_ = ['_IDTExtensibility2']
     _public_methods_ = ['OnConnection','GetAppDataPath']
@@ -103,6 +122,22 @@ class OutlookAddin:
             item = self.toolbarButton = DispatchWithEvents(item, ArchiveEvent)
             item.Caption="Archive to OpenERP"
             item.TooltipText = "Click to archive to OpenERP"
+            item.Enabled = True
+
+            # Adding Menu in Menu Bar to the Web Menu of the Outlook
+            toolbarweb = bars.Item("Web")
+            # Hook events for the item
+            item = toolbarweb.Controls.Add(Type = constants.msoControlButton, Temporary = True)
+            item = self.toolbarButtonPartner = DispatchWithEvents(item, ViewPartners)
+            item.Caption = "Open Partner"
+            item.TooltipText = "Click to Open OpenERP Partner Contact Information."
+            item.Enabled = True
+
+            item = tools_menu.Controls.Add(Type=constants.msoControlButton, Temporary=True)
+            # Hook events for the item
+            item = self.menu_bar_viewpartner_Button = DispatchWithEvents(item, ViewPartners)
+            item.Caption = "Open Partner"
+            item.TooltipText = "Click to Open Partner detail"
             item.Enabled = True
 
     def OnDisconnection(self, mode, custom):
@@ -166,4 +201,4 @@ if __name__ == '__main__':
         RegisterXMLConn(NewConn)
 
 #mngr = manager.GetManager()
-#mngr.ShowManager("IDD_SYNC")
+#mngr.ShowManager("IDD_MANAGER")

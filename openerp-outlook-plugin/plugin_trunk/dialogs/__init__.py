@@ -1,5 +1,6 @@
 # This package defines dialog boxes used by the main
 import os, sys, stat
+#import dialog_map
 
 def LoadDialogs(rc_name = "dialogs.rc"):
     base_name = os.path.splitext(rc_name)[0]
@@ -46,6 +47,7 @@ def ShowDialog(parent, manager, config, idd):
     if manager.dialog_parser is None:
         manager.dialog_parser = LoadDialogs()
     import dialog_map
+    print dir(dialog_map)
     commands = dialog_map.dialog_map[idd]
     if not parent:
         import win32gui

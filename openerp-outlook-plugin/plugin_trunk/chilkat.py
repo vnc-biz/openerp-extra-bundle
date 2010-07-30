@@ -12,6 +12,7 @@ if version_info >= (2,6,0):
         import imp
         try:
             fp, pathname, description = imp.find_module('_chilkat', [dirname(__file__)])
+            print "pp--",fp, pathname, description
             _mod = imp.load_module('_chilkat', fp, pathname, description)
         finally:
             if fp is not None: fp.close()

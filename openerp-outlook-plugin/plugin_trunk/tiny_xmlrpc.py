@@ -35,7 +35,8 @@ class XMLRpcConn(object):
     _com_interfaces_ = ['_IDTExtensibility2']
     _public_methods_ = ['GetDBList', 'login', 'GetAllObjects', 'GetObjList', 'InsertObj', 'DeleteObject', \
                         'ArchiveToOpenERP', 'IsCRMInstalled', 'GetPartners', 'GetObjectItems', \
-                        'CreateCase', 'MakeAttachment', 'CreateContact', 'CreatePartner', 'getitem', 'setitem']
+                        'CreateCase', 'MakeAttachment', 'CreateContact', 'CreatePartner', 'getitem', 'setitem', \
+                        'SearchPartnerDetail', 'WritePartnerValues', 'GetAllState', 'GetAllCountry' ]
     _reg_clsctx_ = pythoncom.CLSCTX_INPROC_SERVER
     _reg_clsid_ = "{C6399AFD-763A-400F-8191-7F9D0503CAE2}"
     _reg_progid_ = "Python.OpenERP.XMLRpcConn"
@@ -57,8 +58,10 @@ class XMLRpcConn(object):
     def getitem(self, attrib):
         v=self.__getattribute__(attrib)
         return str(v)
+
     def setitem(self, attrib, value):
         return self.__setattr__(attrib, value)
+
     def GetDBList(self):
         conn = xmlrpclib.ServerProxy(self._uri + '/xmlrpc/db')
         try:
@@ -109,6 +112,7 @@ class XMLRpcConn(object):
         import win32ui, win32con
         conn = xmlrpclib.ServerProxy(self._uri + '/xmlrpc/object')
         import eml
+        msg = "Mail archived to OpenERP.\nDetails : \n"
         eml_path=eml.generateEML(mail)
         att_name = ustr(eml_path.split('\\')[-1])
         cnt=1
@@ -135,7 +139,15 @@ class XMLRpcConn(object):
             res['datas'] = content
             res['res_id'] = obj_id
             execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.attachment','create',res)
+            object_ids = execute ( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','search',[('model','=',obj)])
+            object_name = execute( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','read',object_ids,['name'])[0]['name']
+
+            msg = msg + "File : "+sub+".eml"+" archived to : "+object_name+" : "+str(rec[2])+".\n"
             flag=True
+#
+        if flag:
+            win32ui.MessageBox(msg,"Make Attachment",win32con.MB_ICONINFORMATION)
+
         return flag
 
     def IsCRMInstalled(self):
@@ -185,13 +197,16 @@ class XMLRpcConn(object):
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         res['name'] = ustr(mail.Subject)
         res['description'] = ustr(mail.Body)
+        res['partner_name'] = ustr(mail.SenderName)
+        res['email_from'] = ustr(mail.SenderEmailAddress)
+
         if partner_ids:
             for partner_id in partner_ids:
                 res['partner_id'] = partner_id
                 partner_addr = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','address_get',[partner_id])
                 res['partner_address_id'] = partner_addr['default']
                 id=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,section,'create',res)
-                if section == "project.issue":
+                if section == 'project.issue':
                     execute(conn,'execute',self._dbname,int(self._uid),self._pwd,section,'convert_to_bug',[id])
                 recs=[(section,id,'')]
                 if with_attachments:
@@ -233,9 +248,8 @@ class XMLRpcConn(object):
     def CreateContact(self, sel=None, res=None):
         res=eval(str(res))
 
-        import win32ui
         self.partner_id_list=eval(str(self.partner_id_list))
-        if self.partner_id_list[sel] != -999:
+        if self.partner_id_list.get(sel,-999) != -999:
             res['partner_id'] = self.partner_id_list[sel]
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         id = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner.address','create',res)
@@ -249,3 +263,61 @@ class XMLRpcConn(object):
             return False
         id = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','create',res)
         return id
+
+    def SearchPartnerDetail(self, search_email_id):
+        import win32ui
+        res_vals = []
+        address = {}
+        conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
+        address_id = execute(conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address', 'search', [('email','ilike',ustr(search_email_id))])
+        if not address_id :
+            return
+        address = execute(conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address','read',address_id[0],['id','partner_id','name','street','street2','city','state_id','country_id','phone','mobile','email','fax','zip'])
+        for key, vals in address.items():
+            res_vals.append([key,vals])
+        return res_vals
+
+    def WritePartnerValues(self, new_vals):
+        import win32ui
+        new_dict = dict(new_vals)
+        email=new_dict['email']
+        conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
+        address_id = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address', 'search', [('email','=',ustr(email))])
+        address = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address','read',address_id[0],['id','partner_id','state_id','country_id'])
+        vals_res_address={ 'name' : new_dict['name'],
+                           'street':new_dict['street'],
+                           'street2' : new_dict['street2'],
+                           'city' : new_dict['city'],
+                           'phone' : new_dict['phone'],
+                           'mobile' : new_dict['mobile'],
+                           'fax' : new_dict['fax'],
+                           'zip' : new_dict['zip'],
+                         }
+        if new_dict['state_id'] != -1:
+            vals_res_address['state_id'] = new_dict['state_id']
+        if new_dict['country_id'] != -1:
+            vals_res_address['country_id'] = new_dict['country_id']
+        flag = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address', 'write', address_id, vals_res_address)
+        return flag
+
+    def GetAllState(self):
+        import win32ui
+        state_list = []
+        state_ids = []
+        conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
+        state_ids = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.country.state', 'search', [])
+        for state_id in state_ids:
+            obj = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.country.state', 'read', [state_id],['id','name'])[0]
+            state_list.append((obj['id'], ustr(obj['name']).encode('iso-8859-1')))
+        return state_list
+
+    def GetAllCountry(self):
+        import win32ui
+        country_list = []
+        country_ids = []
+        conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
+        country_ids = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.country', 'search', [])
+        for country_id in country_ids:
+            obj = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.country','read', [country_id], ['id','name'])[0]
+            country_list.append((obj['id'], ustr(obj['name']).encode('iso-8859-1')))
+        return country_list

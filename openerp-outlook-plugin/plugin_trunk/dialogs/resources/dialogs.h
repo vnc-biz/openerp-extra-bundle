@@ -9,6 +9,7 @@
 #define IDD_FOLDER_SELECTOR             105
 #define IDD_ABOUT                    	106
 #define IDD_GENERAL                     108
+
 //#define IDD_FILTER_SPAM                 110
 #define IDD_FILTER_UNSURE               111
 #define IDD_DIAGNOSTIC                  113
@@ -136,11 +137,33 @@
 #define ID_PARTNER_NAME_TEXT			2036
 #define IDC_NAME_LIST1					2037
 #define IDC_RELOAD						2038
-#define ID_PROTOCOL_GRP				2040
-#define IDR_XML_PROTOCOL			2041
-#define IDR_XMLS_PROTOCOL			2042
-#define IDR_NETRPC_PROTOCOL			2043
-
+#define ID_PROTOCOL_GRP					2040
+#define IDR_XML_PROTOCOL				2041
+#define IDR_XMLS_PROTOCOL				2042
+#define IDR_NETRPC_PROTOCOL				2043
+#define IDD_VIEW_PARTNER_DIALOG			2044
+#define IDET_PARTNER_NAME				2045
+#define IDET_PARTNER_CONTACT_NAME   	2046
+#define IDET_PARTNER_EMAIL				2047
+#define IDET_PARTNER_OFFICENO			2048
+#define	IDET_PARTNER_MOBILENO			2050
+#define IDET_SEARCH_PARTNER    			2051
+#define IDPB_SEARCH_PARTNER  			2052
+#define IDET_PARTNER_STREET				2053
+#define	IDET_PARTNER_STREET2			2054
+#define IDET_PARTNER_COUNTRY			2057
+#define IDET_PARTNER_FAX				2058
+#define IDPB_WRITE_CHANGES				2059
+#define ID_ALL_STATE_DROPDOWNLIST		2060
+#define ID_ALL_COUNTRY_DROPDOWNLIST		2061
+//
+#define ID_STREET_TEXT					2062
+#define ID_STREET2_TEXT					2063
+#define ID_FED_STATE_DROPLIST			2064
+#define ID_COUNTRY_DROPLIST				2065
+#define ID_FAX_TEXT						2066
+#define ID_PARTNER_CITY_TEXT			2067
+#define ID_ZIP_TEXT						2068
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED

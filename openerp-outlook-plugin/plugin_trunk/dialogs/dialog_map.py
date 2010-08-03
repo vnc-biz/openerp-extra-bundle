@@ -7,7 +7,6 @@ import sys
 import os
 import addin
 from dialogs import ShowDialog, MakePropertyPage
-
 import win32ui
 import commctrl
 import win32con
@@ -16,7 +15,6 @@ import win32gui_struct
 import xmlrpclib
 from manager import ustr
 import chilkat
-
 
 try:
     enumerate
@@ -254,12 +252,12 @@ class DoneButtonProcessor(ButtonProcessor):
 
 class MessageProcessor(ControlProcessor):
     def Init(self):
-        text = "This Outlook Plugin for OpenERP has been developed by TinyERP \n\n \
+        text = "This Outlook Plugin for OpenERP s.a. has been developed by TinyERP \n\n \
                 For more information, please visit our website \n \
                  http://www.openerp.com \n\n \
-                Contact Us \n \
-                sales@tinyerp.com \n\n \
-                2001-TODAY Tiny sprl. All rights reserved. \n"
+                Contact Us :\n \
+                sales@openerp.com \n\n \
+                2001-TODAY OpenERP s.a.. All rights reserved. \n"
         win32gui.SendMessage(self.GetControl(), win32con.WM_SETTEXT, 0, text)
 
     def GetPopupHelpText(self, cid):
@@ -366,28 +364,28 @@ def TestConnection(btnProcessor,*args):
     NewConn.GetDBList()
     if str(NewConn.getitem('_running')) == 'False':
         btnProcessor.window.LoadAllControls()
-        win32ui.MessageBox("No server running on host "+ server+" at port "+str(port), "Server Connection", flag_excl)
+        win32ui.MessageBox("No server running on host "+ server+" at port "+str(port), "OpenERP Connection", flag_excl)
         return
     try:
         dbname = win32gui.GetDlgItemText(btnProcessor.window.hwnd, 7000)
         if not dbname:
-            win32ui.MessageBox("Please enter database name", "", flag_excl)
+            win32ui.MessageBox("Authentication Error !\nBad Database Name !", "OpenERP Connection", flag_excl)
             return
     except Exception,e:
         print "Exception %s: %s"%(type(e),str(e))
     dbname = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
     if not dbname:
-        win32ui.MessageBox("No database found on host "+ server+" at port "+str(port), "Database Connection", flag_excl)
+        win32ui.MessageBox("No database found on host "+ server+" at port "+str(port), "OpenERP Connection", flag_excl)
         return
 
     uname = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[1])
     pwd = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[2])
 
     if not uname:
-        win32ui.MessageBox("Enter Username", "", flag_excl)
+        win32ui.MessageBox("Authentication Error !\nBad User Name !", "OpenERP Connection", flag_excl)
         return
     if not pwd:
-        win32ui.MessageBox("Enter Password", "", flag_excl)
+        win32ui.MessageBox("Authentication Error !\nBad Password !", "OpenERP Connection", flag_excl)
         return
 
     #Establish Connection
@@ -406,13 +404,13 @@ def TestConnection(btnProcessor,*args):
             else:
                 NewConn.setitem('_iscrm', 'True')
         else:
-            msg = "Connection Failed. Please check Username or Password"
+            msg = "Authentication Error !\nBad UserName or Password"
             flag = flag_stop
             NewConn.setitem('_login', 'False')
     except Exception,e:
-        msg = "Connection could not be made.\n\n" + getMessage(e)
+        msg = "Authentication Error !\n\n" + getMessage(e)
         flag = flag_error
-    win32ui.MessageBox(msg, "Database Connection", flag)
+    win32ui.MessageBox(msg, "OpenERP Connection", flag)
     return
 
 def BrowseCallbackProc(hwnd, msg, lp, data):
@@ -465,10 +463,10 @@ def AddNewObject(btnProcessor,*args):
     obj_title = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
     obj_name = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[1])
     if not obj_title:
-        win32ui.MessageBox("No Title specified", "", flag_excl)
+        win32ui.MessageBox("No Title specified", "Documents Setting", flag_excl)
         return
     if not obj_name:
-        win32ui.MessageBox("No Document specified", "", flag_excl)
+        win32ui.MessageBox("No Document specified", "Documents Setting", flag_excl)
         return
 
     #Check if object does not exist in the database or it already exist in the list
@@ -509,14 +507,16 @@ def AddNewObject(btnProcessor,*args):
 
         item = LVITEM(text=obj_title, iImage=cnt-2, iItem = num_items)
         new_index = win32gui.SendMessage(hwndList, commctrl.LVM_INSERTITEM, 0, item.toparam())
+
         win32gui.SendMessage(hwndList, commctrl.LVM_SETIMAGELIST, commctrl.LVSIL_SMALL, il)
+
         item = LVITEM(text=obj_name, iItem = new_index, iSubItem = 1)
         win32gui.SendMessage(hwndList, commctrl.LVM_SETITEM, 0, item.toparam())
 
         NewConn.InsertObj(obj_title,obj_name,image_path)
     except Exception, e:
         msg = "Document not added\n\n" + getMessage(e)
-        win32ui.MessageBox(msg,"",flag_excl)
+        win32ui.MessageBox(msg,"Documents Setting",flag_excl)
         return
 
     #Empty all the text controls
@@ -546,7 +546,7 @@ def DeleteSelectedObjects(btnProcessor,*args):
             NewConn.DeleteObject(sel_text)
         except Exception,e:
             msg = "Documents '%s' not deleted\n\n"%sel_text + getMessage(e)
-            win32ui.MessageBox(msg,"",flag_excl)
+            win32ui.MessageBox(msg,"Documents Setting",flag_excl)
 
 def GetMail(processor):
     ex = processor.window.manager.outlook.ActiveExplorer()
@@ -683,9 +683,13 @@ def SetNameColumn(listProcessor,*args):
                     commctrl.LVCF_TEXT | commctrl.LVCF_SUBITEM
                     )
     lvc.fmt = commctrl.LVCFMT_LEFT
+    lvc.iSubItem = 1
+    lvc.text = "Document Type"
+    lvc.cx = 100
+    win32gui.SendMessage(hwndList, commctrl.LVM_INSERTCOLUMN, 0, lvc.toparam())
     lvc.iSubItem = 0
     lvc.text = "Name"
-    lvc.cx = 340
+    lvc.cx = 240
     win32gui.SendMessage(hwndList, commctrl.LVM_INSERTCOLUMN, 0, lvc.toparam())
     listProcessor.init_done = True
 
@@ -695,7 +699,9 @@ def setList(list_hwnd):
     for obj in objects_with_match:
         num_items = win32gui.SendMessage(list_hwnd, commctrl.LVM_GETITEMCOUNT)
         item = LVITEM(text=obj[2],iItem = num_items)
-        win32gui.SendMessage(list_hwnd, commctrl.LVM_INSERTITEM, 0, item.toparam())
+        new = win32gui.SendMessage(list_hwnd, commctrl.LVM_INSERTITEM, 0, item.toparam())
+        item = LVITEM(text=obj[3],iItem = new,  iSubItem = 1)
+        win32gui.SendMessage(list_hwnd, commctrl.LVM_SETITEM, 0, item.toparam())
 
 def SearchObjectsForText(btnProcessor,*args):
     #Check if server running or user logged in
@@ -730,7 +736,7 @@ def SearchObjectsForText(btnProcessor,*args):
                      search_list.append(objname[0])
                 else:
                     win32ui.MessageBox("Module %s (%s) not installed. Please install it." \
-                                       %(title,objname[0]), "", flag_excl)
+                                       %(title,objname[0]), "Archive to OpenERP", flag_excl)
                     return
 
         #  Get the records by searching the objects in search_list for the search_keyword as objects_with_match
@@ -739,9 +745,9 @@ def SearchObjectsForText(btnProcessor,*args):
         if search_list:
             objects_with_match = NewConn.GetObjectItems(search_list, search_txt)
             if not objects_with_match:
-                win32ui.MessageBox("No matching records found in checked objects", "", flag_info)
+                win32ui.MessageBox("No matching records found in checked objects", "Archive to OpenERP", flag_info)
         else:
-            win32ui.MessageBox("No object selected", "", flag_info)
+            win32ui.MessageBox("No object selected", "Archive to OpenERP", flag_info)
             objects_with_match=[]
         # Display the objects_with_match records in list
         setList(list_hwnd)
@@ -813,7 +819,7 @@ def CreateContact(btnProcessor,*args):
             res ['country_id'] = c_id
         except Exception, e:
             msg = getMessage(e)
-            win32ui.MessageBox(msg, "Open Partner", flag_error)
+            win32ui.MessageBox(msg, "Open Contact", flag_error)
             pass
     try:
         id = NewConn.CreateContact(sel, str(res))
@@ -902,6 +908,7 @@ def SetDefaultList(listProcessor,*args):
         win32gui.SendMessage(hwndList, commctrl.LVM_SETITEM, 0, item.toparam())
 
 def SetDefaultContact(txtProcessor,*args):
+    # Acquiring the control of the text box
     txt_name = txtProcessor.GetControl()
     txt_email = txtProcessor.GetControl(txtProcessor.other_ids[0])
 
@@ -911,7 +918,7 @@ def SetDefaultContact(txtProcessor,*args):
         win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.control_id,name)
         win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.other_ids[0],email)
         return
-
+    #
     try:
         mail = GetMail(txtProcessor)
         name = ustr(mail.SenderName).encode('iso-8859-1')
@@ -926,7 +933,7 @@ def SetDefaultContact(txtProcessor,*args):
     win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.control_id,name)
     win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.other_ids[0],email)
     txtProcessor.init_done = True
-# Set objects from config
+
 def setCheckList(groupProcessor,*args):
     try:
         child_style = win32con.BS_AUTOCHECKBOX | win32con.WS_TABSTOP
@@ -965,7 +972,6 @@ def setCheckList(groupProcessor,*args):
                     win32ui.MessageBox(msg, "Load Image", flag_error)
 
                 win32gui.SendMessage(hwndImg, win32con.STM_SETIMAGE, win32con.IMAGE_BITMAP, hicon);
-
                 #Add Checkbox
                 left+= 17
                 hwndChk = win32gui.CreateWindowEx(
@@ -980,12 +986,12 @@ def setCheckList(groupProcessor,*args):
                 cnt=cnt+1
                 id+=1
                 id1+=1
-                top+=17
+                left+=17
                 win32gui.UpdateWindow(hwndImg)
-                left-=17
-                if cnt > 8:
-                    left+=150
-                    top = 50
+                left+=140
+                if cnt > 1:
+                    left = 20
+                    top+=18
                     cnt=0
     except Exception, e:
         win32ui.MessageBox(str(e), 'Document List')
@@ -1032,41 +1038,56 @@ def GetDefaultEmail(txtProcessor,*args):
     b = check()
     if not b:
         return
+    #Acquiring control of the text box
     search_partner_box = txtProcessor.GetControl()
     global search_partner_text
     if txtProcessor.init_done:
         win32gui.SendMessage(search_partner_box, win32con.WM_SETTEXT, 0,search_partner_text)
         return
+    #Reading Current Selected Email.
     ex = txtProcessor.window.manager.outlook.ActiveExplorer()
     assert ex.Selection.Count == 1
     mail = ex.Selection.Item(1)
+    #Fetching Sender MailID from Selected Mail
     try:
         search_partner_text = ustr(mail.SenderEmailAddress).encode('iso-8859-1')
     except Exception,e:
-        win32ui.MessageBox("Error In reading email ID from Email ","Open Partner", flag_error)
+        win32ui.MessageBox("Error In reading email ID from Email ","Open Contact", flag_error)
         pass
     win32gui.SendMessage(search_partner_box, win32con.WM_SETTEXT, 0, search_partner_text)
+
     fs_combo = win32gui.GetDlgItem(txtProcessor.window.hwnd, txtProcessor.other_ids[10])
     c_combo = win32gui.GetDlgItem(txtProcessor.window.hwnd, txtProcessor.other_ids[11])
+    partner_combo = win32gui.GetDlgItem(txtProcessor.window.hwnd, txtProcessor.other_ids[0])
     vals = []
+    #Searching the res.partner.address for contact based on Sender Mail ID.
     vals = NewConn.SearchPartnerDetail(search_partner_text)
+    #If no user Found.
     if vals == None:
-        for i in range(0,10):
+        for i in range(1,10):
             win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.other_ids[i], "")
         win32gui.SendMessage(fs_combo, win32con.CB_SETCURSEL, -1 )
         win32gui.SendMessage(c_combo, win32con.CB_SETCURSEL, -1 )
-        win32ui.MessageBox("No matching records found for  : "+str(search_partner)+".","Open Partner", flag_excl)
+        win32gui.SendMessage(partner_combo, win32con.CB_SETCURSEL, -1 )
+        win32ui.MessageBox("No matching records found for  : "+str(search_partner)+".","Open Contact", flag_excl)
         return
     else:
-        for i in range(0,10):
+        #If user Found than Setting the Value for the contact in fields.
+        for i in range(1,10):
             win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.other_ids[i], "")
         win32gui.SendMessage(fs_combo, win32con.CB_SETCURSEL, -1 )
         win32gui.SendMessage(c_combo, win32con.CB_SETCURSEL, -1 )
+        win32gui.SendMessage(partner_combo, win32con.CB_SETCURSEL, -1 )
+
         for val in vals:
 
             if val[0] == 'partner_id':
-                win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.other_ids[0], str(val[1][1]))
-
+                    temp = list (NewConn.GetPartners())
+                    i = -1
+                    for t in temp:
+                        i+=1
+                        if t[1] == val[1][1] :
+                            win32gui.SendMessage(partner_combo, win32con.CB_SETCURSEL, i )
             if val[0] == 'name' and val[1] != False :
                 win32gui.SetDlgItemText(txtProcessor.window.hwnd, txtProcessor.other_ids[1], str(val[1]))
 
@@ -1120,31 +1141,44 @@ def SearchPartner(btnProcessor,*args):
     b = check()
     if not b:
         return
+    #hwnd For the List box
     fs_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[11])
     c_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[12])
+    partner_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[1])
     try :
         search_partner = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
         if not search_partner:
-            win32ui.MessageBox("Please enter email id to search for.", "Open Partner", flag_excl)
+            win32ui.MessageBox("Please enter email id to search for.", "Open Contact", flag_excl)
             return
         vals = []
+        #Searching the contact.
         vals = NewConn.SearchPartnerDetail(search_partner)
+        #if contact not found resetting all field to blank
         if vals == None:
-            for i in range(1,11):
+            for i in range(2,11):
                 win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[i], "")
             win32gui.SendMessage(fs_combo, win32con.CB_SETCURSEL, -1 )
             win32gui.SendMessage(c_combo, win32con.CB_SETCURSEL, -1 )
-            win32ui.MessageBox("No matching records found for  : "+str(search_partner)+".","Open Partner", flag_excl)
+            win32gui.SendMessage(partner_combo, win32con.CB_SETCURSEL, -1 )
+            win32ui.MessageBox("No matching records found for  : "+str(search_partner)+".","Open Contact", flag_excl)
             win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0], "<enter new search>")
             return
+        #if contact found than setting the values for the contact.
         else:
-            for i in range(1,11):
+            for i in range(2,11):
                 win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[i], "")
             win32gui.SendMessage(fs_combo, win32con.CB_SETCURSEL, -1 )
             win32gui.SendMessage(c_combo, win32con.CB_SETCURSEL, -1 )
+            win32gui.SendMessage(partner_combo, win32con.CB_SETCURSEL, -1 )
             for val in vals:
                 if val[0] == 'partner_id':
-                    win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[1], str(val[1][1]))
+                    #Finding the partner index in list and setting it.
+                    temp = list (NewConn.GetPartners())
+                    i = -1
+                    for t in temp:
+                        i+=1
+                        if t[1] == val[1][1] :
+                            win32gui.SendMessage(partner_combo, win32con.CB_SETCURSEL, i )
 
                 if val[0] == 'name' and val[1] != False :
                     win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[2], str(val[1]))
@@ -1162,6 +1196,7 @@ def SearchPartner(btnProcessor,*args):
                     win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[5], str(val[1]))
 
                 if val[0] == 'state_id' and val[1] != False :
+                    #Finding the state index in list and setting it.
                     id = i = -1
                     temp = list(NewConn.GetAllState())
                     for t in temp:
@@ -1172,6 +1207,7 @@ def SearchPartner(btnProcessor,*args):
                     sel = win32gui.SendMessage(fs_combo, win32con.CB_SETCURSEL, id )
 
                 if val[0] == 'country_id' and val[1] != False :
+                    #Finding the country index in list and setting it.
                     id = i = -1
                     temp = list(NewConn.GetAllCountry())
                     for t in temp:
@@ -1196,13 +1232,12 @@ def SearchPartner(btnProcessor,*args):
             win32gui.SetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0], "<Enter  new search>")
     except Exception,e:
         msg = getMessage(e)
-        win32ui.MessageBox(msg, "Open Partner", flag_error)
+        win32ui.MessageBox(msg, "Open Contact", flag_error)
         pass
 
 def WritePartner(btnProcessor,*args):
     new_vals=[]
-    #Reading new value of the fileds
-    name = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
+    #Reading new value of the fields.
     contect_name = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[1])
     street = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[2])
     street2 = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[3])
@@ -1212,45 +1247,64 @@ def WritePartner(btnProcessor,*args):
     fax = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[9])
     email = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[10])
     zip = win32gui.GetDlgItemText(btnProcessor.window.hwnd, btnProcessor.other_ids[11])
-
-    if name.strip() == "" or contect_name.strip() == "":
-        win32ui.MessageBox('No matching records found or\nInformation is improper. Please Check it','Open Partner',flag_excl)
+    country_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[6])
+    country_sel = win32gui.SendMessage(country_combo, win32con.CB_GETCURSEL)
+    state_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[5])
+    state_sel = win32gui.SendMessage(state_combo, win32con.CB_GETCURSEL)
+    partner_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[0])
+    partner_sel = win32gui.SendMessage(partner_combo, win32con.CB_GETCURSEL)
+    #Checking that record not being saved without name or Partner
+    if contect_name.strip() == "":
+        win32ui.MessageBox("Please enter partner Contact Name name.", "Open Contact", flag_excl)
         return
-
-    fs_id=c_id = -1
-    try:
-        state_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[5])
-        state_sel = win32gui.SendMessage(state_combo, win32con.CB_GETCURSEL)
-        temp = {}
-        temp = NewConn.GetAllState()
-        i = -1
-        for t in temp:
-            i+=1
-            if i == state_sel:
-                fs_id = t[0]
-                break;
-    except Exception, e:
-        msg = getMessage(e)
-        win32ui.MessageBox(msg, "Open Partner", flag_error)
-        pass
-
-    try:
-        country_combo = win32gui.GetDlgItem(btnProcessor.window.hwnd, btnProcessor.other_ids[6])
-        country_sel = win32gui.SendMessage(country_combo, win32con.CB_GETCURSEL)
-        temp = {}
-        temp = NewConn.GetAllCountry()
-        i = -1
-        for t in temp:
-            i+=1
-            if i == country_sel:
-                c_id = t[0]
-                break;
-    except Exception, e:
-        msg = getMessage(e)
-        win32ui.MessageBox(msg, "Open Partner", flag_error)
-        pass
+    if partner_sel < 1:
+        win32ui.MessageBox("Please Select Partner From list.", "Open Contact", flag_excl)
+        return
+    fs_id = c_id = p_id = -1
+    #Finding the partner index in list finding it record ID.
+    if not partner_sel < 0 :
+        try:
+            temp = NewConn.GetPartners()
+            i = -1
+            for t in temp:
+                i+=1
+                if i == partner_sel:
+                    p_id = t[0]
+                    break;
+        except Exception, e:
+            msg = getMessage(e)
+            win32ui.MessageBox(msg, "Open Contact", flag_error)
+            pass
+    #Finding the State index in list finding it record ID.
+    if not state_sel == -1 :
+        try:
+            temp = NewConn.GetAllState()
+            i = -1
+            for t in temp:
+                i+=1
+                if i == state_sel:
+                    fs_id = t[0]
+                    break;
+        except Exception, e:
+            msg = getMessage(e)
+            win32ui.MessageBox(msg, "Open Contact", flag_error)
+            pass
+    #Finding the country index in list finding it record ID.
+    if not country_sel == -1 :
+        try:
+            temp = NewConn.GetAllCountry()
+            i = -1
+            for t in temp:
+                i+=1
+                if i == country_sel:
+                    c_id = t[0]
+                    break;
+        except Exception, e:
+            msg = getMessage(e)
+            win32ui.MessageBox(msg, "Open Contact", flag_error)
+            pass
     # Creating a list to write the values to the OpenERP
-    new_vals.append(['partner_id',name])
+    new_vals.append(['partner_id',p_id])
     new_vals.append(['name',contect_name])
     new_vals.append(['street',street])
     new_vals.append(['street2',street2])
@@ -1262,17 +1316,21 @@ def WritePartner(btnProcessor,*args):
     new_vals.append(['email',email])
     new_vals.append(['fax',fax])
     new_vals.append(['zip',zip])
-    flag = False
+    flag = 0
     try:
+        #writing the updated values to the Server.
         flag = NewConn.WritePartnerValues(new_vals)
     except Exception,e:
         msg = getMessage(e)
-        win32ui.MessageBox(msg, "Open Partner", flag_error)
+        win32ui.MessageBox(msg, "Open Contact", flag_error)
         pass
-    if flag:
-        win32ui.MessageBox("Changes have been Updated Successfully.", "Open Partner", flag_info)
-    else:
-        win32ui.MessageBox("Error in Updating the Changes.\n Please check the Database Connection.", "Open Partner", flag_error)
+    if flag == 1:
+        win32ui.MessageBox("Changes have been Updated Successfully.", "Open Contact", flag_info)
+    elif flag == 0:
+        win32ui.MessageBox("Error in Updating the Changes.\n Please check the Database Connection.", "Open Contact", flag_error)
+    elif flag == -1:
+        win32ui.MessageBox("Contact can not be Save.\nFirst select contact using Search.","Open Contact", flag_info)
+
 
 
 dialog_map = {
@@ -1341,11 +1399,14 @@ dialog_map = {
             ),
 
             "IDD_VIEW_PARTNER_DIALOG" : (
+                (PartnersComboProcessor,    "ID_PARTNER_DROPLIST", GetConn, ()),
                 (StateComboProcessor,       "ID_ALL_STATE_DROPDOWNLIST", GetConn, ()),
                 (CountryComboProcessor,     "ID_ALL_COUNTRY_DROPDOWNLIST", GetConn, ()),
-                (TextProcessor,             "IDET_SEARCH_PARTNER IDET_PARTNER_NAME IDET_PARTNER_CONTACT_NAME IDET_PARTNER_STREET IDET_PARTNER_STREET2 IDET_PARTNER_CITY IDET_PARTNER_OFFICENO IDET_PARTNER_MOBILENO IDET_PARTNER_EMAIL IDET_PARTNER_FAX IDET_ZIP ID_ALL_STATE_DROPDOWNLIST ID_ALL_COUNTRY_DROPDOWNLIST", GetDefaultEmail, ()),
-                (CommandButtonProcessor,    "IDPB_SEARCH_PARTNER IDET_SEARCH_PARTNER IDET_PARTNER_NAME IDET_PARTNER_CONTACT_NAME IDET_PARTNER_STREET IDET_PARTNER_STREET2 IDET_PARTNER_CITY IDET_PARTNER_OFFICENO IDET_PARTNER_MOBILENO IDET_PARTNER_EMAIL IDET_PARTNER_FAX IDET_ZIP ID_ALL_STATE_DROPDOWNLIST ID_ALL_COUNTRY_DROPDOWNLIST", SearchPartner, ()),
-                (CommandButtonProcessor,    "IDPB_WRITE_CHANGES IDET_PARTNER_NAME IDET_PARTNER_CONTACT_NAME IDET_PARTNER_STREET IDET_PARTNER_STREET2 IDET_PARTNER_CITY ID_ALL_STATE_DROPDOWNLIST ID_ALL_COUNTRY_DROPDOWNLIST IDET_PARTNER_OFFICENO IDET_PARTNER_MOBILENO IDET_PARTNER_EMAIL IDET_PARTNER_FAX IDET_ZIP", WritePartner, ()),
-                (CloseButtonProcessor,      "IDCANCEL")
+                (TextProcessor,             "IDET_SEARCH_PARTNER ID_PARTNER_DROPLIST IDET_PARTNER_CONTACT_NAME IDET_PARTNER_STREET IDET_PARTNER_STREET2 IDET_PARTNER_CITY IDET_PARTNER_OFFICENO IDET_PARTNER_MOBILENO IDET_PARTNER_EMAIL IDET_PARTNER_FAX IDET_ZIP ID_ALL_STATE_DROPDOWNLIST ID_ALL_COUNTRY_DROPDOWNLIST", GetDefaultEmail, ()),
+                (CommandButtonProcessor,    "IDPB_SEARCH_PARTNER IDET_SEARCH_PARTNER ID_PARTNER_DROPLIST IDET_PARTNER_CONTACT_NAME IDET_PARTNER_STREET IDET_PARTNER_STREET2 IDET_PARTNER_CITY IDET_PARTNER_OFFICENO IDET_PARTNER_MOBILENO IDET_PARTNER_EMAIL IDET_PARTNER_FAX IDET_ZIP ID_ALL_STATE_DROPDOWNLIST ID_ALL_COUNTRY_DROPDOWNLIST", SearchPartner, ()),
+                (CommandButtonProcessor,    "IDPB_WRITE_CHANGES ID_PARTNER_DROPLIST IDET_PARTNER_CONTACT_NAME IDET_PARTNER_STREET IDET_PARTNER_STREET2 IDET_PARTNER_CITY ID_ALL_STATE_DROPDOWNLIST ID_ALL_COUNTRY_DROPDOWNLIST IDET_PARTNER_OFFICENO IDET_PARTNER_MOBILENO IDET_PARTNER_EMAIL IDET_PARTNER_FAX IDET_ZIP", WritePartner, ()),
+                (CloseButtonProcessor,      "IDCANCEL"),
+                (DialogCommand,             "ID_NEW_PART_BUTTON", "IDD_NEW_PARTNER_DIALOG" ),
+                (DialogCommand,             "IDPB_NEWPARTNER_BUTTON" , "IDD_NEW_CONTACT_DIALOG")
             ),
 }

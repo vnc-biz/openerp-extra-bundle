@@ -112,7 +112,8 @@ class XMLRpcConn(object):
         import win32ui, win32con
         conn = xmlrpclib.ServerProxy(self._uri + '/xmlrpc/object')
         import eml
-        msg = "Mail archived to OpenERP.\nDetails : \n"
+        msg = ""
+        ext_msg = ""
         eml_path=eml.generateEML(mail)
         att_name = ustr(eml_path.split('\\')[-1])
         cnt=1
@@ -122,12 +123,14 @@ class XMLRpcConn(object):
             obj = rec[0]
             obj_id = rec[1]
             ids=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.attachment','search',[('res_id','=',obj_id),('name','=',att_name)])
+            object_ids = execute ( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','search',[('model','=',obj)])
+            object_name = execute( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','read',object_ids,['name'])[0]['name']
+            sub = ustr(mail.Subject)
             if ids:
                 name=execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'read',obj_id,['name'])['name']
-                msg="This mail is already attached to object with name '%s'"%name
-                win32ui.MessageBox(msg,"Make Attachment",win32con.MB_ICONINFORMATION)
+                ext_msg+="""  - File "{0}.eml" is already archived to {1} "{2}" .
+""".format(sub,object_name,name)
                 continue
-            sub = ustr(mail.Subject)
             if len(sub) > 60:
                 l = 60 - len(sub)
                 sub = sub[0:l]
@@ -139,14 +142,15 @@ class XMLRpcConn(object):
             res['datas'] = content
             res['res_id'] = obj_id
             execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.attachment','create',res)
-            object_ids = execute ( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','search',[('model','=',obj)])
-            object_name = execute( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','read',object_ids,['name'])[0]['name']
-
-            msg = msg + "File : "+sub+".eml"+" archived to : "+object_name+" : "+str(rec[2])+".\n"
+            msg+="""  - File "{0}.eml"  archived to {1} "{2}".
+""".format(sub,object_name,str(rec[2]))
             flag=True
-#
         if flag:
-            win32ui.MessageBox(msg,"Make Attachment",win32con.MB_ICONINFORMATION)
+            t = "Mail archived to OpenERP.\nArchive Summary : \n"
+            if ext_msg != "" :
+                t+="\nAlready Attached Documents : \n"+ext_msg +"\n"
+            t+="Newly Attachment Documents:\n"+msg
+            win32ui.MessageBox(t,"Archive To OpenERP",win32con.MB_ICONINFORMATION)
 
         return flag
 
@@ -158,7 +162,7 @@ class XMLRpcConn(object):
     def GetPartners(self):
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         ids=[]
-        ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','search',[],0,100)
+        ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,'res.partner','search',[])
         ids.sort()
         obj_list=[]
         obj_list.append((-999, ustr('')))
@@ -168,9 +172,12 @@ class XMLRpcConn(object):
         return obj_list
 
     def GetObjectItems(self, search_list=[], search_text=''):
+        import win32ui
         res = []
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         for obj in search_list:
+            object_ids = execute ( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','search',[('model','=',obj)])
+            object_name = execute( conn,'execute',self._dbname,int(self._uid),self._pwd,'ir.model','read',object_ids,['name'])[0]['name']
             if obj == "res.partner.address":
                 ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'search',['|',('name','ilike',ustr(search_text)),('email','ilike',ustr(search_text))])
                 recs = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'read',ids,['id','name','street','city'])
@@ -180,13 +187,13 @@ class XMLRpcConn(object):
                         name += ', ' + ustr(rec['street']).encode('iso-8859-1')
                     if rec['city']:
                         name += ', ' + ustr(rec['city']).encode('iso-8859-1')
-                    res.append((obj,rec['id'],name))
+                    res.append((obj,rec['id'],name,object_name))
             else:
                 ids = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'search',[('name','ilike',ustr(search_text))])
                 recs = execute(conn,'execute',self._dbname,int(self._uid),self._pwd,obj,'read',ids,['id','name'])
                 for rec in recs:
                     name = ustr(rec['name']).encode('iso-8859-1')
-                    res.append((obj,rec['id'],name))
+                    res.append((obj,rec['id'],name,object_name))
         return res
 
     def CreateCase(self, section, mail, partner_ids, with_attachments=True):
@@ -279,10 +286,13 @@ class XMLRpcConn(object):
 
     def WritePartnerValues(self, new_vals):
         import win32ui
+        flag = -1
         new_dict = dict(new_vals)
         email=new_dict['email']
         conn = xmlrpclib.ServerProxy(self._uri+ '/xmlrpc/object')
         address_id = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address', 'search', [('email','=',ustr(email))])
+        if not address_id:
+            return flag
         address = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address','read',address_id[0],['id','partner_id','state_id','country_id'])
         vals_res_address={ 'name' : new_dict['name'],
                            'street':new_dict['street'],
@@ -293,11 +303,17 @@ class XMLRpcConn(object):
                            'fax' : new_dict['fax'],
                            'zip' : new_dict['zip'],
                          }
+        if new_dict['partner_id'] != -1:
+            vals_res_address['partner_id'] = new_dict['partner_id']
         if new_dict['state_id'] != -1:
             vals_res_address['state_id'] = new_dict['state_id']
         if new_dict['country_id'] != -1:
             vals_res_address['country_id'] = new_dict['country_id']
-        flag = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address', 'write', address_id, vals_res_address)
+        temp = execute( conn, 'execute', self._dbname, int(self._uid), self._pwd, 'res.partner.address', 'write', address_id, vals_res_address)
+        if temp:
+            flag=1
+        else:
+            flag=0
         return flag
 
     def GetAllState(self):

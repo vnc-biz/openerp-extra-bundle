@@ -164,6 +164,9 @@
 #define ID_FAX_TEXT						2066
 #define ID_PARTNER_CITY_TEXT			2067
 #define ID_ZIP_TEXT						2068
+#define ID_PARTNER_DROPLIST				2069
+#define ID_NEW_PART_BUTTON				2070
+#define IDPB_NEWPARTNER_BUTTON			2071
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED

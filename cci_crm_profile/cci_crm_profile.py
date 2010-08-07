@@ -199,5 +199,51 @@ class questionnaire(osv.osv):
                 quest_fields[field] = {'string': question_rec.name, 'type': 'text',}
         return quest_form, quest_fields
 questionnaire()
+
+#'proxy' classes to give access to many2many tables by XML-RPC
+class relation_partner_answer(osv.osv):
+    _name = 'relation_partner_answer'
+    _table = 'partner_question_rel'
+    _log_access = False
+    _columns = {
+        'id':fields.integer('ID'),
+        'partner':fields.many2one('res.partner', 'Partner'),
+        'answer':fields.many2one('crm_profiling.answer', 'Answer'),
+    }
+relation_partner_answer()
+
+class relation_address_answer(osv.osv):
+    _name = 'relation_address_answer'
+    _table = 'address_question_rel'
+    _log_access = False
+    _columns = {
+        'id':fields.integer('ID'),
+        'address':fields.many2one('res.partner.address', 'Address'),
+        'answer':fields.many2one('crm_profiling.answer', 'Answer'),
+    }
+relation_address_answer()
+
+class relation_job_answer(osv.osv):
+    _name = 'relation_job_answer'
+    _table = 'jobs_question_rel'
+    _log_access = False
+    _columns = {
+        'id':fields.integer('ID'),
+        'job':fields.many2one('res.partner.job', 'Job'),
+        'answer':fields.many2one('crm_profiling.answer', 'Answer'),
+    }
+relation_job_answer()
+
+class relation_contact_answer(osv.osv):
+    _name = 'relation_contact_answer'
+    _table = 'contact_question_rel'
+    _log_access = False
+    _columns = {
+        'id':fields.integer('ID'),
+        'contact':fields.many2one('res.partner.contact', 'Contact'),
+        'answer':fields.many2one('crm_profiling.answer', 'Answer'),
+    }
+relation_contact_answer()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

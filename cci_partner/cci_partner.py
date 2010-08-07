@@ -460,6 +460,7 @@ class res_partner_address(osv.osv):
         'sequence_partner':fields.integer('Sequence (Partner)',help='order of importance of this address in the list of addresses of the linked partner'),
         'write_date' : fields.datetime('Last Modification'),
         'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this address'),
+        'activity_description':fields.text('Local Activity Description',translate=True),
     }
     _defaults = {
          'state' : lambda *a: 'correct',

@@ -44,7 +44,11 @@ class res_partner_contact(osv.osv):
         'old_id':fields.integer('Old Datman ID'),
         'badge_title': fields.char('Badge Title', size=128),
         'badge_name': fields.char('Badge Name', size=128),
-
+        'login_name': fields.char('Login', size=240),
+        'password': fields.char('Password', size=60),
+        'token': fields.char('Website token',size=36),
+        'write_date' : fields.datetime('Last Modification'),
+        'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this contact'),
     }
     _defaults = {
         'data_private' : lambda *a : False,
@@ -87,6 +91,8 @@ class res_partner_job(osv.osv):
         'login_name': fields.char('Login Name',size=80),
         'password': fields.char('Password',size=50),
         'token': fields.char('Token',size=40),
+        'write_date' : fields.datetime('Last Modification'),
+        'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this job'),
     }
 
 res_partner_job()

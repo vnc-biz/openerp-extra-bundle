@@ -152,8 +152,8 @@ class hotel_folio(osv.osv):
     }
     
     def create(self, cr, uid, vals, context=None, check=True):
-        tmp_room_lines = vals['room_lines']
-        tmp_service_lines = vals['service_lines']
+        tmp_room_lines = vals.get('room_lines',[])
+        tmp_service_lines = vals.get('service_lines',[])
         if not vals.has_key("folio_id"):
             vals.update({'room_lines':[],'service_lines':[]})
             folio_id = super(hotel_folio, self).create(cr, uid, vals, context)

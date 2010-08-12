@@ -83,6 +83,13 @@ def _createInvoices(self, cr, uid, data, context):
         translation_product_id = pool_obj.get('product.product').search(cr, uid, [('name', 'like', 'Translation Folder')])[0]
         fpos = transfolder.partner_id.property_account_position and transfolder.partner_id.property_account_position.id or False
         val = obj_lines.product_id_change(cr, uid, [], translation_product_id,uom =False, partner_id = transfolder.partner_id.id, fposition_id=fpos)
+        analytics_id = False
+        if translation_product_id:
+            tmp = pool_obj.get('account.analytic.default').search(cr, uid, [('product_id','=',translation_product_id)])
+            analytic_default_id = tmp and tmp[0] or False
+            if analytic_default_id:
+                analytics_id = pool_obj.get('account.analytic.default').browse(cr, uid, analytic_default_id).analytics_id.id
+
 
         note = ''
         cci_special_reference = False
@@ -99,6 +106,7 @@ def _createInvoices(self, cr, uid, data, context):
             'discount': False,
             'uos_id': val['value']['uos_id'],
             'product_id': translation_product_id,
+            'analytics_id': analytics_id,
             'invoice_line_tax_id': [(6,0,val['value']['invoice_line_tax_id'])],
             'note': note,
             'cci_special_reference': cci_special_reference

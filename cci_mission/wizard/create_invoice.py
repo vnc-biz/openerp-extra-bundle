@@ -87,6 +87,12 @@ def _createInvoices(self, cr, uid, data, context={}):
         fpos = data.order_partner_id.property_account_position and data.order_partner_id.property_account_position.id or False
 
         for lines in data.product_ids :
+            if lines.product_id:
+                tmp = pool_obj.get('account.analytic.default').search(cr, uid, [('product_id','=',lines.product_id.id)])
+                analytic_default_id = tmp and tmp[0] or False
+                if analytic_default_id:
+                    analytics_id = pool_obj.get('account.analytic.default').browse(cr, uid, analytic_default_id).analytics_id.id
+                    val['value'].update({'analytics_id': analytics_id})
             val = obj_lines.product_id_change(cr, uid, [], lines.product_id.id,uom =False, partner_id=data.order_partner_id.id, fposition_id=fpos)
             val['value'].update({'name':lines.name})
             val['value'].update({'account_id':lines.account_id.id})

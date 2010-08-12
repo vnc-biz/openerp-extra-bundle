@@ -69,6 +69,12 @@ def _createInvoices(self, cr, uid, data, context):
         fpos = carnet.partner_id.property_account_position and carnet.partner_id.property_account_position.id or False
         for product_line in carnet.product_ids:#extra Products
             val = obj_lines.product_id_change(cr, uid, [], product_line.product_id.id,uom =False, partner_id=carnet.partner_id.id, fposition_id=fpos)
+            if product_line.product_id:
+                tmp = pool_obj.get('account.analytic.default').search(cr, uid, [('product_id','=',product_line.product_id.id)])
+                analytic_default_id = tmp and tmp[0] or False
+                if analytic_default_id:
+                    analytics_id = pool_obj.get('account.analytic.default').browse(cr, uid, analytic_default_id).analytics_id.id
+                    val['value'].update({'analytics_id': analytics_id})
             val['value'].update({'product_id' : product_line.product_id.id })
             val['value'].update({'quantity' : product_line.quantity })
             val['value'].update({'price_unit':product_line.price_unit})

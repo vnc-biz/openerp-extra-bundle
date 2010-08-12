@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
@@ -18,6 +19,11 @@
 #
 ##############################################################################
 
+__authors__ = [
+    "OpenERP S.A.",
+    "Borja López Soilán (Pexego) <borjals@pexego.es>"
+]
+
 import purchase_tax_incl
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
 

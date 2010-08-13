@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
-<data noupdate="1">
+	<data noupdate="1">
 
 	#
 	# Sequences for commission
@@ -10,6 +10,7 @@
 		<field name="name">report.commission.month</field>
 		<field name="code">report.commission.month</field>
 	</record>
+
 	<record model="ir.sequence" id="report.comm.id">
 		<field name="name">report.commission.monthr</field>
 		<field name="code">report.commission.month</field>
@@ -17,5 +18,5 @@
 		<field name="padding">3</field>
 	</record>
 
-</data>
+	</data>
 </openerp>

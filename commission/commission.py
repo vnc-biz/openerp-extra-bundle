@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 from osv import fields,osv
@@ -26,11 +26,11 @@ class report_commission_month(osv.osv):
     _auto = False
     _columns = {
         'name': fields.char('Sales Agent Name',size=64, readonly=True),
-        'sono':fields.integer('Sales Order No', readonly=True),
-        'invno':fields.integer('Invoice Number', readonly=True),
-        'product_quantity':fields.integer('Product Quantity', readonly=True),
-        'productname':fields.char('Product Name',size=256, readonly=True),
-        'inv_total':fields.float('Invoice Amount', readonly=True),
+        'sono': fields.integer('Sales Order No', readonly=True),
+        'invno': fields.integer('Invoice Number', readonly=True),
+        'product_quantity': fields.integer('Product Quantity', readonly=True),
+        'productname': fields.char('Product Name',size=256, readonly=True),
+        'inv_total': fields.float('Invoice Amount', readonly=True),
         'in_date': fields.date('Invoice Date', readonly=True),
         'comrate': fields.float('Commission Rate (%)', readonly=True),
         'commission': fields.float('Commissions Amount', readonly=True),
@@ -41,7 +41,7 @@ class report_commission_month(osv.osv):
     _order = 'name,sono,state'
 
     def init(self, cr):
-        cr.execute(""" create or replace view report_commission_month as (select * from 
+        cr.execute(""" create or replace view report_commission_month as (select * from
         (select sg.id as id,sg.name as name,so.name as sono,ai.number as invno,
     al.quantity as product_quantity,al.name as productname,(al.quantity * al.price_unit) as inv_total,
     to_char(ai.date_invoice, 'YYYY-MM-DD') as in_date,
@@ -100,15 +100,14 @@ class report_commission_month_rate(osv.osv):
     _auto = False
     _columns = {
         'name': fields.char('Sales Agent Name',size=64, readonly=True, select=True),
-        'sono':fields.char('Sales Order No',size=64, readonly=True, select=True),
-        'invno':fields.char('Invoice Number',size=64, readonly=True, select=True),
-        'product_quantity':fields.integer('Product Quantity', readonly=True, select=True),
-        'productname':fields.char('Product Name',size=256, readonly=True, select=True),
-        'inv_total':fields.float('Invoice Amount', readonly=True, select=True),
+        'sono': fields.char('Sales Order No',size=64, readonly=True, select=True),
+        'invno': fields.char('Invoice Number',size=64, readonly=True, select=True),
+        'product_quantity': fields.integer('Product Quantity', readonly=True, select=True),
+        'productname': fields.char('Product Name',size=256, readonly=True, select=True),
+        'inv_total': fields.float('Invoice Amount', readonly=True, select=True),
         'in_date': fields.date('Invoice Date', readonly=True, select=True),
         'comrate': fields.float('Commission Rate (%)', readonly=True, select=True),
         'commission': fields.float('Commissions Amount', readonly=True, select=True),
-#        'state': fields.char('Invoice State', size=64,readonly=True, select=True),
         'state': fields.selection([
             ('draft','Draft'),
             ('proforma','Pro-forma'),
@@ -120,7 +119,6 @@ class report_commission_month_rate(osv.osv):
 
     }
     order = 'name,sono,state,productname'
-
 
     def init(self, cr):
         cr.execute("""
@@ -189,11 +187,4 @@ and ar.id = aml.reconcile_id
 ))""")
 report_commission_month_rate()
 
-
-
-
-
-
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

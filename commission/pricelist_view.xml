@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
-<data>
-
+	<data>
 
     <record model="ir.ui.view" id="product_pricelist_view">
         <field name="name">product.pricelist.form.inherit</field>
@@ -13,8 +12,7 @@
                 <field name="commrate"/>
             </field>
         </field>
-
     </record>
 
-</data>
+	</data>
 </openerp>

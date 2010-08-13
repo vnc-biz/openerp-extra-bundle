@@ -49,7 +49,6 @@
 		<field name="commission_rate">8</field>
 	</record>
 
-
 	<record id="res_partner_eiffel" model="res.partner">
 		<field name="name">Eiffel pvt ltd</field>
 		<field name="agent_id" search="[('name','=','Pritesh Sales Agent')]" />
@@ -91,7 +90,6 @@
 		<field name="partner_order_id" search="[]" model="res.partner.address"/>
 	</record>
 
-
 	<record model="sale.order.line" id="tiny_belgium_line">
 		<field name="order_id" ref="sale_agent_order"/>
 		<field name="name">New server config + material</field>
@@ -119,5 +117,5 @@
 		<field name="type">make_to_stock</field>
 	</record>
 
-</data>
+	</data>
 </openerp>

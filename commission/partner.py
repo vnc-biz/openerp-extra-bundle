@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,22 +15,21 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import math
+
 from osv import fields,osv
-import tools
-import ir
-import pooler
 
 class res_partner(osv.osv):
 	_name = "res.partner"
-        _description = "Sale agent sale info"
-        _inherit="res.partner"
+	_description = "Sale agent sale info"
+	_inherit = "res.partner"
 	_columns = {
                 #'agent_id': fields.one2many('sale.agent','partner_id','salesagent', required=True),
-                  'agent_id': fields.many2one('sale.agent','saleagent'),
-                }
+		'agent_id': fields.many2one('sale.agent','Sales Agent'),
+		}
+
 res_partner()
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

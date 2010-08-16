@@ -266,7 +266,7 @@ class account_move(osv.osv):
     _inherit = "account.move"
     def post(self, cr, uid, ids, context=None):
         move_ref = ''
-        if context.get('invoice', None) and context['invoice']:
+        if context and context.get('invoice', None) and context['invoice']:
             move_ref = context['invoice'].ref_move
         if self.validate(cr, uid, ids, context) and len(ids):
             for move in self.browse(cr, uid, ids):

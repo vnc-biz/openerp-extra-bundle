@@ -40,22 +40,11 @@ class aged_trial_report(report_sxw.rml_parse):
 
     def _get_lines(self, form):
         res = []
-
-        if form['category'] == 'Customer' or form['category'] == 'Supplier' :
-            cat_id=pooler.get_pool(self.cr.dbname).get('res.partner.category').search(self.cr,self.uid,[('name','=',form['category'])])
-            cat_id+=pooler.get_pool(self.cr.dbname).get('res.partner.category').search(self.cr,self.uid,[('parent_id','child_of',cat_id)])
-        else:
-            cat_id=pooler.get_pool(self.cr.dbname).get('res.partner.category').search(self.cr,self.uid,[('name','in',['Customer','Supplier'])])
-            cat_id+=pooler.get_pool(self.cr.dbname).get('res.partner.category').search(self.cr,self.uid,[('parent_id','child_of',cat_id)])
-
-        self.cr.execute('SELECT partner_id from res_partner_category_rel where category_id in ('+','.join(map(str,cat_id))+')')
-        data=self.cr.fetchall()
-        self.partner_ids=[]
-        self.partner_ids=list(set([x[0] for x in data]))
-
         account_move_line_obj = pooler.get_pool(self.cr.dbname).get('account.move.line')
         line_query = account_move_line_obj._query_get(self.cr, self.uid, obj='line',
                 context={'fiscalyear': form['fiscalyear']})
+        cat = form['category']
+        self.acc_type  = (cat == 'Supplier' and "('payable')") or (cat == 'Customer' and "('receivable')") or "'payable', 'receivable'"
         self.cr.execute("SELECT DISTINCT res_partner.id AS id, " \
                     "res_partner.name AS name " \
                 "FROM res_partner, account_move_line AS line, account_account " \
@@ -65,7 +54,6 @@ class aged_trial_report(report_sxw.rml_parse):
                     "AND " + line_query + " " \
                     "AND (account_account.company_id = %s) " \
                     "AND account_account.active " \
-                    "AND partner_id in ("+','.join(map(str,self.partner_ids))+")" \
                 "ORDER BY res_partner.name", (form['company_id'],))
         partners = self.cr.dictfetchall()
         for partner in partners:
@@ -73,7 +61,7 @@ class aged_trial_report(report_sxw.rml_parse):
             self.cr.execute("SELECT SUM(debit-credit) " \
                     "FROM account_move_line AS line, account_account " \
                     "WHERE (line.account_id=account_account.id) " \
-                        "AND (account_account.type IN ('payable','receivable')) " \
+                        "AND (account_account.type IN (" + self.acc_type + ")) " \
                         "AND (date < %s) AND (partner_id=%s) " \
                         "AND (reconcile_id IS NULL) " \
                         "AND " + line_query + " " \
@@ -86,7 +74,7 @@ class aged_trial_report(report_sxw.rml_parse):
                 self.cr.execute("SELECT SUM(debit-credit) " \
                         "FROM account_move_line AS line, account_account " \
                         "WHERE (line.account_id=account_account.id) " \
-                            "AND (account_account.type IN ('payable','receivable')) " \
+                            "AND (account_account.type IN (" + self.acc_type + ")) " \
                             "AND (date >= %s) AND (date <= %s) " \
                             "AND (partner_id = %s) " \
                             "AND (reconcile_id IS NULL) " \
@@ -101,7 +89,7 @@ class aged_trial_report(report_sxw.rml_parse):
             self.cr.execute("SELECT SUM(debit-credit) " \
                     "FROM account_move_line AS line, account_account " \
                     "WHERE (line.account_id = account_account.id) " \
-                        "AND (account_account.type IN ('payable','receivable')) " \
+                        "AND (account_account.type IN (" + self.acc_type + ")) " \
                         "AND (partner_id = %s) " \
                         "AND (reconcile_id IS NULL) " \
                         "AND " + line_query + " " \
@@ -132,12 +120,11 @@ class aged_trial_report(report_sxw.rml_parse):
         self.cr.execute("SELECT SUM(debit - credit) " \
                 "FROM account_move_line AS line, account_account " \
                 "WHERE (line.account_id = account_account.id) " \
-                    "AND (account_account.type IN ('payable', 'receivable')) "\
+                    "AND (account_account.type IN (" + self.acc_type + ")) " \
                     "AND reconcile_id IS NULL " \
                     "AND partner_id is NOT NULL " \
                     "AND " + line_query + " " \
                     "AND (account_account.company_id = %s) " \
-                    "AND partner_id in ("+','.join(map(str,self.partner_ids))+")" \
                     "AND account_account.active",
                     (company_id,))
         total = self.cr.fetchone()
@@ -150,13 +137,12 @@ class aged_trial_report(report_sxw.rml_parse):
         self.cr.execute("SELECT SUM(debit - credit) " \
                 "FROM account_move_line AS line, account_account " \
                 "WHERE (line.account_id = account_account.id) " \
-                    "AND (account_account.type IN ('payable', 'receivable')) " \
+                    "AND (account_account.type IN (" + self.acc_type + ")) " \
                     "AND reconcile_id IS NULL " \
                     "AND (date < %s) " \
                     "AND partner_id IS NOT NULL " \
                     "AND " + line_query + " " \
                     "AND (account_account.company_id = %s) " \
-                    "AND partner_id in ("+','.join(map(str,self.partner_ids))+")" \
                     "AND account_account.active",
                     (date, company_id))
         before = self.cr.fetchone()
@@ -169,14 +155,13 @@ class aged_trial_report(report_sxw.rml_parse):
         self.cr.execute("SELECT SUM(debit - credit) " \
                 "FROM account_move_line AS line, account_account " \
                 "WHERE (line.account_id = account_account.id) " \
-                    "AND (account_account.type IN ('payable', 'receivable')) " \
+                    "AND (account_account.type IN (" + self.acc_type + ")) " \
                     "AND reconcile_id IS NULL " \
                     "AND (date >= %s) " \
                     "AND (date <= %s) " \
                     "AND partner_id IS NOT NULL " \
                     "AND " + line_query + " " \
                     "AND (account_account.company_id = %s) " \
-                    "AND partner_id in ("+','.join(map(str,self.partner_ids))+")" \
                     "AND account_account.active",
                     (period['start'], period['stop'], company_id))
         period = self.cr.fetchone()

@@ -49,7 +49,7 @@ class aged_trial_report(report_sxw.rml_parse):
                     "res_partner.name AS name " \
                 "FROM res_partner, account_move_line AS line, account_account " \
                 "WHERE (line.account_id=account_account.id) " \
-                    "AND (line.reconcile_id IS NULL) " \
+               #     "AND (line.reconcile_id IS NULL) " \
                     "AND (line.partner_id=res_partner.id) " \
                     "AND " + line_query + " " \
                     "AND (account_account.company_id = %s) " \
@@ -63,7 +63,7 @@ class aged_trial_report(report_sxw.rml_parse):
                     "WHERE (line.account_id=account_account.id) " \
                         "AND (account_account.type IN (" + self.acc_type + ")) " \
                         "AND (date < %s) AND (partner_id=%s) " \
-                        "AND (reconcile_id IS NULL) " \
+#                        "AND (reconcile_id IS NULL) " \
                         "AND " + line_query + " " \
                         "AND (account_account.company_id = %s) " \
                         "AND account_account.active",
@@ -77,7 +77,7 @@ class aged_trial_report(report_sxw.rml_parse):
                             "AND (account_account.type IN (" + self.acc_type + ")) " \
                             "AND (date >= %s) AND (date <= %s) " \
                             "AND (partner_id = %s) " \
-                            "AND (reconcile_id IS NULL) " \
+#                            "AND (reconcile_id IS NULL) " \
                             "AND " + line_query + " " \
                             "AND (account_account.company_id = %s) " \
                             "AND account_account.active",
@@ -91,7 +91,7 @@ class aged_trial_report(report_sxw.rml_parse):
                     "WHERE (line.account_id = account_account.id) " \
                         "AND (account_account.type IN (" + self.acc_type + ")) " \
                         "AND (partner_id = %s) " \
-                        "AND (reconcile_id IS NULL) " \
+#                        "AND (reconcile_id IS NULL) " \
                         "AND " + line_query + " " \
                         "AND (account_account.company_id = %s) " \
                         "AND account_account.active",
@@ -121,7 +121,7 @@ class aged_trial_report(report_sxw.rml_parse):
                 "FROM account_move_line AS line, account_account " \
                 "WHERE (line.account_id = account_account.id) " \
                     "AND (account_account.type IN (" + self.acc_type + ")) " \
-                    "AND reconcile_id IS NULL " \
+#                    "AND reconcile_id IS NULL " \
                     "AND partner_id is NOT NULL " \
                     "AND " + line_query + " " \
                     "AND (account_account.company_id = %s) " \
@@ -138,7 +138,7 @@ class aged_trial_report(report_sxw.rml_parse):
                 "FROM account_move_line AS line, account_account " \
                 "WHERE (line.account_id = account_account.id) " \
                     "AND (account_account.type IN (" + self.acc_type + ")) " \
-                    "AND reconcile_id IS NULL " \
+#                    "AND reconcile_id IS NULL " \
                     "AND (date < %s) " \
                     "AND partner_id IS NOT NULL " \
                     "AND " + line_query + " " \
@@ -156,7 +156,7 @@ class aged_trial_report(report_sxw.rml_parse):
                 "FROM account_move_line AS line, account_account " \
                 "WHERE (line.account_id = account_account.id) " \
                     "AND (account_account.type IN (" + self.acc_type + ")) " \
-                    "AND reconcile_id IS NULL " \
+#                    "AND reconcile_id IS NULL " \
                     "AND (date >= %s) " \
                     "AND (date <= %s) " \
                     "AND partner_id IS NOT NULL " \

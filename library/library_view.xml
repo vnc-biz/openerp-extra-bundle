@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <openerp>
-	<data>
+  <data>
 
-    <record model="ir.ui.view" id="product_lang_tree_view">
+      <record model="ir.ui.view" id="product_lang_tree_view">
         <field name="name">product.lang.tree</field>
         <field name="model">product.lang</field>
         <field name="type">tree</field>
@@ -32,9 +32,13 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Books/Configuration/Books Languages" id="menu_lang" action="action_lang"/>
+  <menuitem name="Books" id="menu_books_main" />
 
-    <record model="ir.ui.view" id="product_state_tree_view">
+  <menuitem name="Configuration" parent="menu_books_main" id="menu_books_config" />
+
+  <menuitem parent="menu_books_config" id="menu_lang" action="action_lang"/>
+
+     <record model="ir.ui.view" id="product_state_tree_view">
         <field name="name">product.state.tree</field>
         <field name="model">product.state</field>
         <field name="type">tree</field>
@@ -68,7 +72,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Books/Configuration/Books States" id="menu_state" action="action_state"/>
+    <menuitem id="menu_state" action="action_state" parent="menu_books_config"/>
 
     <record model="ir.ui.view" id="product_product_tree_view">
         <field name="name">product.product.tree</field>
@@ -144,19 +148,12 @@
         <field name="view_type">form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_author_form">
+    <record model="ir.actions.act_window" id="action_author_list">
         <field name="name">Authors</field>
         <field name="res_model">library.author</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_type">form</field>
-    </record>
-<!--     <menuitem name="Authors" id="menu_action_author_form" action="action_author_form" sequence="6" parent_id="product.menu_main_product"/> -->
-    <record model="ir.ui.menu" id="author_menu">
-        <field name="name">Authors</field>
-        <field name="parent_id" ref="product.menu_main_product"/>
-        <field name="icon">STOCK_JUSTIFY_FILL</field>
-        <field name="sequence">6</field>
-        <field name="action" eval="'ir.actions.act_window,'+str(ref('action_author_form'))"/>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="action_author_new_form">
@@ -273,21 +270,14 @@
        </field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_product_book_form">
+    <record model="ir.actions.act_window" id="action_product_book_list">
         <field name="name">Books</field>
         <field name="res_model">product.product</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_type">form</field>
     </record>
-<!--     <menuitem name="Books" parent_id= "product.menu_main_product" id="menu_action_book_form" action="action_product_book_form" sequence="7"/> -->
 
-    <record model="ir.ui.menu" id="menu_action_book_form">
-        <field name="name">Books</field>
-        <field name="parent_id" ref="product.menu_main_product"/>
-        <field name="icon">STOCK_JUSTIFY_FILL</field>
-        <field name="sequence">7</field>
-        <field name="action" eval="'ir.actions.act_window,'+str(ref('action_product_book_form'))"/>
-    </record>
+   <menuitem parent="product.menu_main_product" id="menu_book_products" action="action_product_book_list" />
 
     <record model="ir.actions.act_window" id="action_product_book_new_form">
         <field name="name">New Book</field>
@@ -301,36 +291,28 @@
       <field name="sequence" eval="2"/>
       <field name="view_mode">form</field>
       <field name="view_id" ref="view_product_book_form"/>
-      <field name="act_window_id" ref="action_product_book_form"/>
+      <field name="act_window_id" ref="action_product_book_list"/>
     </record>
+
     <record model="ir.actions.act_window.view" id="action_view_book2">
       <field name="sequence" eval="1"/>
       <field name="view_mode">tree</field>
       <field name="view_id" ref="view_product_book_tree"/>
-      <field name="act_window_id" ref="action_product_book_form"/>
+      <field name="act_window_id" ref="action_product_book_list"/>
     </record>
 
     <record model="ir.actions.act_window" id="action_product_book_30days">
-        <field name="name">product.book.form.view</field>
+        <field name="name">Books to return before 30 days</field>
         <field name="res_model">product.product</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_id" ref="view_product_book_tree"/>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('date_retour','&lt;=', (datetime.datetime.today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d')),('date_retour','&gt;=', (datetime.datetime.today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]</field>
-
     </record>
 
-<!--     <menuitem name="Books to return before 30 days" id="menu_action_book_30days" parent_id="menu_action_book_form" -->
-<!--     action="action_product_book_30days" sequence="7"/> -->
-
-    <record model="ir.ui.menu" id="boock_return_menu">
-        <field name="name">Books to return before 30 days</field>
-        <field name="parent_id" ref="menu_action_book_form"/>
-        <field name="icon">STOCK_INDENT</field>
-        <field name="sequence">7</field>
-        <field name="action" eval="'ir.actions.act_window,'+str(ref('action_product_book_30days'))"/>
-    </record>
+    <menuitem id="menu_action_book_30days" parent="menu_book_products"
+    action="action_product_book_30days" />
 
     <record model="ir.ui.view" id="view_order_tree">
         <field name="name">sale.order.tree</field>
@@ -560,6 +542,7 @@
             </field>
         </field>
     </record>
+
     <record model="ir.ui.view" id="purchase_order_line_form">
         <field name="name">purchase.order.line.form</field>
         <field name="model">purchase.order.line</field>
@@ -575,6 +558,7 @@
     </record>
 
 <!--     Inherit the sale order to add fields on the sale line view -->
+
     <record model="ir.ui.view" id="view_order_form">
         <field name="name">sale.order.form</field>
         <field name="model">sale.order</field>
@@ -645,22 +629,12 @@
         src_model="sale.order"
         id="act_sale_picking"/>
 
-    <record model="ir.ui.menu" id="menu_action_book_form_new">
-        <field name="name">New Book</field>
-        <field name="parent_id" ref="menu_action_book_form"/>
-        <field name="icon">STOCK_JUSTIFY_FILL</field>
-        <field name="sequence">7</field>
-        <field name="action" eval="'ir.actions.act_window,'+str(ref('action_product_book_new_form'))"/>
-    </record>
-
+    <menuitem id="author_menu" action="action_author_list" parent="product.menu_main_product"/>
     <menuitem id="menu_new_author" action="action_author_new_form" parent="author_menu"/>
 
-    <!--
-    <menuitem name="Books/Configuration/Racks" id="rack_menu" action="action_book_rack"/>
-    <menuitem name="Books/Configuration/Price Categories" id="menu_price_category" action="action_price_category"/>
-    -->
+    <menuitem id="menu_new_book" action="action_product_book_new_form" parent="menu_book_products" />
 
-    <menuitem name="Books/Configuration/Price Categories" id="menu_price_category" action="action_price_category"/>
+    <menuitem parent="menu_books_config" id="menu_price_category" action="action_price_category"/>
 
         <record id="stock.view_picking_in_form" model="ir.ui.view">
             <field name="name">stock.picking.in.form</field>
@@ -820,5 +794,5 @@
             </field>
         </record>
 
-	</data>
+  </data>
 </openerp>

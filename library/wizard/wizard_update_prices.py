@@ -25,7 +25,7 @@ import pooler
 
 _upd_form = """<?xml version="1.0"?>
 <form string="Update price for products">
-    <label string="Update prices for this category ?"/>
+    <label string="Update prices for this category?"/>
 </form>
 """
 # _upd_fields = {
@@ -34,7 +34,7 @@ _upd_form = """<?xml version="1.0"?>
 
 _done_form = """<?xml version="1.0"?>
 <form string="Update prices">
-    <label string="Update Done"/>
+    <label string="Update Done!"/>
 </form>
 """
 
@@ -44,19 +44,19 @@ def _action_update_prices(self, cr, uid, data, context):
     categories = pool.get('library.price.category').browse(cr,uid,data['ids'])
 
     for cat in categories:
-        prod_ids= []
-        for product in cat.product_ids:
-            prod_ids.append(product.id)
-
-        prod_obj.write(cr,uid,prod_ids,{'list_price':cat.price})
-
+        prod_ids = [x.id for x in cat.product_ids]
+        if prod_ids:
+            prod_obj.write(cr, uid, prod_ids, {'list_price':cat.price})
     return {}
 
 class wizard_update_prices(wizard.interface):
     states = {
-        'init': {'actions': [_action_update_prices],
-                 'result' : {'type': 'state','state':'end'}
-                 }
+        'init': {'actions': [],
+                 'result' : {'type':'form', 'arch':_upd_form,'fields':{}, 'state':[('end','No','gtk-cancel'),('proceed','Yes','gtk-ok')]}
+                 },
+        'proceed': {'actions': [_action_update_prices],
+                 'result' : {'type':'form', 'arch':_done_form,'fields':{}, 'state':[('end','Ok','gtk-ok')]}
+                 },
     }
 wizard_update_prices('library.update.prices')
 

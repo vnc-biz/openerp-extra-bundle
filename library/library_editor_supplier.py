@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -23,10 +23,9 @@ from osv import osv, fields
 import tools
 from tools.translate import _
 
-
 class library_editor_supplier(osv.osv):
     _name = "library.editor.supplier"
-    _description = "many2many view for editor relations"
+    _description = "Editor Relations"
     _auto = False
     _columns = {
         'name': fields.many2one('res.partner', 'Editor'),
@@ -35,7 +34,7 @@ class library_editor_supplier(osv.osv):
         'delay': fields.integer('Customer Lead Time'),
         'junk': fields.function(lambda self, cr, uid, ids, name, attr, context: dict([(idn, '') for idn in ids]),
                 method=True, string=" ", type="text"),
-    }
+        }
 
     def init(self, cr):
         tools.sql.drop_view_if_exists(cr, self._table)
@@ -56,7 +55,7 @@ class library_editor_supplier(osv.osv):
 
     def create(self, cr, user, vals, context={}):
         if not (vals['name'] and vals['supplier_id']):
-            raise osv.except_osv("Error", "Please provide ..")
+            raise osv.except_osv(_("Error"), _("Please provide proper Information"))
         # search for books of these editor not already linked with this supplier :
         select = """select product_tmpl_id\n"""\
                  """from product_product\n"""\
@@ -64,7 +63,7 @@ class library_editor_supplier(osv.osv):
                  """  and id not in (select product_id from product_supplierinfo where name = %s)""" % (vals['name'], vals['supplier_id'])
         cr.execute(select)
         if not cr.rowcount:
-            raise osv.except_osv("Error", "No book to apply this relation")
+            raise osv.except_osv(_("Error"), _("No book to apply this relation"))
 
         sup_info = self.pool.get('product.supplierinfo')
         last_id = 0
@@ -77,6 +76,7 @@ class library_editor_supplier(osv.osv):
             }
             tmp_id = sup_info.create(cr, user, params, context)
             last_id = last_id < tmp_id and last_id or tmp_id
+
         return last_id
 
     def unlink(self, cr, uid, ids, context={}):
@@ -123,3 +123,4 @@ class library_editor_supplier(osv.osv):
 
 library_editor_supplier()
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

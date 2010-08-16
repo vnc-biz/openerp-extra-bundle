@@ -3,8 +3,8 @@
 	<data>
 
 		<wizard id="library_update_prices"
-		string="Update prices" 
-		model="library.price.category" 
+		string="Update Prices"
+		model="library.price.category"
 		name="library.update.prices" />
 
 	</data>

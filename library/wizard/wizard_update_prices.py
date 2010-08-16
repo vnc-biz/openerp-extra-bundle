@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,14 +15,13 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 import wizard
 from osv import osv
 import pooler
-
 
 _upd_form = """<?xml version="1.0"?>
 <form string="Update price for products">
@@ -48,9 +47,9 @@ def _action_update_prices(self, cr, uid, data, context):
         prod_ids= []
         for product in cat.product_ids:
             prod_ids.append(product.id)
-            
+
         prod_obj.write(cr,uid,prod_ids,{'list_price':cat.price})
-    
+
     return {}
 
 class wizard_update_prices(wizard.interface):
@@ -60,5 +59,5 @@ class wizard_update_prices(wizard.interface):
                  }
     }
 wizard_update_prices('library.update.prices')
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

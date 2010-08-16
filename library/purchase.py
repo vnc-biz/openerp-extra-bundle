@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,13 +15,12 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 from osv import fields, osv
 import netsvc
-
 
 class purchase_order_line(osv.osv):
     _inherit = 'purchase.order.line'
@@ -33,7 +32,6 @@ class purchase_order_line(osv.osv):
     }
 
 purchase_order_line()
-
 
 class purchase_order(osv.osv):
     _inherit = 'purchase.order'
@@ -111,3 +109,4 @@ class purchase_order(osv.osv):
 
 purchase_order()
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

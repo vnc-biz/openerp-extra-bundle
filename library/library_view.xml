@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
 <openerp>
-<data>
+	<data>
 
     <record model="ir.ui.view" id="product_lang_tree_view">
         <field name="name">product.lang.tree</field>
         <field name="model">product.lang</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Products langs">
+            <tree string="Product Languages">
                 <field name="name"/>
             </tree>
         </field>
     </record>
+
     <record model="ir.ui.view" id="product_lang_form_view">
         <field name="name">product.lang.form</field>
         <field name="model">product.lang</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Products langs">
+            <form string="Product Languages">
                 <field name="name"/>
             </form>
         </field>
@@ -33,7 +34,6 @@
 
     <menuitem name="Books/Configuration/Books Languages" id="menu_lang" action="action_lang"/>
 
-
     <record model="ir.ui.view" id="product_state_tree_view">
         <field name="name">product.state.tree</field>
         <field name="model">product.state</field>
@@ -46,6 +46,7 @@
             </tree>
         </field>
     </record>
+
     <record model="ir.ui.view" id="product_state_form_view">
         <field name="name">product.state.form</field>
         <field name="model">product.state</field>
@@ -92,14 +93,13 @@
         <field name="arch" type="xml">
             <form string="Authors">
                 <notebook>
-                    <page string="General Informations">
+                    <page string="General Information">
                         <field name="name" select="1"/>
-                        <field name="first_name" select="1"/> 
+                        <field name="first_name" select="1"/>
                         <separator string="Books" colspan="4"/>
                         <field name="book_ids" nolabel="1" colspan="4" select="1"/>
                     </page>
-
-                    <page string="More info">
+                    <page string="More Information">
                         <separator string="Editors" colspan="4"/>
                         <field name="editor_ids"  nolabel="1" colspan="4" select="1"/>
                         <separator string="Notes" colspan="4"/>
@@ -119,7 +119,7 @@
         <field name="arch" type="xml">
             <tree string="Authors">
                 <field name="name" select="1"/>
-                <field name="first_name" select="1"/> 
+                <field name="first_name" select="1"/>
             </tree>
         </field>
     </record>
@@ -131,17 +131,19 @@
         <field name="arch" type="xml">
             <form string="Authors">
                 <field name="name" select="1"/>
-                <field name="code" select="1"/> 
-                <field name="active" select="1"/> 
+                <field name="code" select="1"/>
+                <field name="active" select="1"/>
             </form>
         </field>
     </record>
+
     <record model="ir.actions.act_window" id="action_book_rack">
         <field name="name">Racks</field>
         <field name="res_model">library.rack</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_type">form</field>
     </record>
+
     <record model="ir.actions.act_window" id="action_author_form">
         <field name="name">Authors</field>
         <field name="res_model">library.author</field>
@@ -198,8 +200,7 @@
                     <field name="catalog_num" select="2"/>
                     <field name="isbn" select="2"/>
                     <field name="rack" select="2"/>
-
-                     <field name="categ_id" select="2"/> 
+                    <field name="categ_id" select="2"/>
                     <field name="editor" select="1" colspan="4"/>
                     <field name="collection" select="2"/>
                     <field name="num_pocket"/>
@@ -242,7 +243,6 @@
                     <separator string="Purchase Description"/>
                     <field name="description_purchase" colspan="4" nolabel="1"/>
                 </page>
-
                 <page string="Procurement (days)">
                     <field name="supply_method" />
                     <field name="active" select="2"/>
@@ -332,7 +332,6 @@
         <field name="action" eval="'ir.actions.act_window,'+str(ref('action_product_book_30days'))"/>
     </record>
 
-
     <record model="ir.ui.view" id="view_order_tree">
         <field name="name">sale.order.tree</field>
         <field name="model">sale.order</field>
@@ -349,7 +348,6 @@
             </tree>
         </field>
     </record>
-
 
     <record model="ir.actions.act_window" id="action_order_today_tree">
         <field name="name">sale.order</field>
@@ -432,13 +430,13 @@
             <form string="Price Category">
                 <field name="name" select="1" />
                 <field name="price" select="1" />
-                <field name="product_ids" select="1" colspan="4"/>
+                <field name="product_ids" select="1" nolabel="1" colspan="4"/>
             </form>
         </field>
     </record>
 
     <record model="ir.actions.act_window" id="action_price_category">
-        <field name="name">library.price.category</field>
+        <field name="name">Price Category</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">library.price.category</field>
         <field name="view_type">form</field>
@@ -481,12 +479,11 @@
         <field name="name">Partner relations</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">library.editor.supplier</field>
-         <field name="view_mode">tree,form</field> 
+         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
     </record>
 
     <menuitem name="Editor - Suppliers Relations" id="menu_editor_supplier" action="action_editor_supplier" parent="base.menu_base_partner"/>
-
 
     <record model="ir.ui.view" id="mrp_procurement_form_view">
         <field name="name">mrp.procurement.form</field>
@@ -552,7 +549,6 @@
         </field>
     </record>
 
-
     <record model="ir.ui.view" id="purchase_order_line_tree">
         <field name="name">purchase.order.line.tree</field>
         <field name="model">purchase.order.line</field>
@@ -577,7 +573,6 @@
             </field>
         </field>
     </record>
-
 
 <!--     Inherit the sale order to add fields on the sale line view -->
     <record model="ir.ui.view" id="view_order_form">
@@ -658,20 +653,13 @@
         <field name="action" eval="'ir.actions.act_window,'+str(ref('action_product_book_new_form'))"/>
     </record>
 
-
-    <record model="ir.ui.menu" id="menu_action_book_form_new">
-        <field name="name">New Author</field>
-        <field name="parent_id" ref="author_menu"/>
-        <field name="icon">STOCK_JUSTIFY_FILL</field>
-        <field name="sequence">7</field>
-        <field name="action" eval="'ir.actions.act_window,'+str(ref('action_author_new_form'))"/>
-    </record>
-
+    <menuitem id="menu_new_author" action="action_author_new_form" parent="author_menu"/>
 
     <!--
     <menuitem name="Books/Configuration/Racks" id="rack_menu" action="action_book_rack"/>
     <menuitem name="Books/Configuration/Price Categories" id="menu_price_category" action="action_price_category"/>
     -->
+
     <menuitem name="Books/Configuration/Price Categories" id="menu_price_category" action="action_price_category"/>
 
         <record id="stock.view_picking_in_form" model="ir.ui.view">
@@ -715,7 +703,7 @@
                                     <newline/>
                                     <newline/>
                                     <field groups="base.group_extended" name="product_packaging"/>
-                                    <newline/>                                    
+                                    <newline/>
                                     <field name="prodlot_id" select="1"
                                         context="{'location_id':location_id, 'product_id':product_id}"
                                         domain="[('product_id','=',product_id)]"
@@ -832,5 +820,5 @@
             </field>
         </record>
 
-</data>
+	</data>
 </openerp>

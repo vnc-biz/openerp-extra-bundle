@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -29,9 +29,8 @@ class product_state(osv.osv):
         'name': fields.char('State', size=64, select=1, required=True),
         'code': fields.char('Code', size=64, required=True),
         'active': fields.boolean('Active', select=2),
-    }
+        }
 product_state()
-
 
 class many2manysym(fields.many2many):
 
@@ -49,7 +48,6 @@ class many2manysym(fields.many2many):
             for r in cr.fetchall():
                 res[r[1]].append(r[0])
         return res
-
 
 class product_template(osv.osv):
     _inherit = "product.template"
@@ -69,13 +67,11 @@ class product_lang(osv.osv):
 
     _columns = {
         'name': fields.char('Name', size=128, required=True, select=True, translate=True),
-    }
+        }
 product_lang()
-
 
 class product_product(osv.osv):
     """Book variant of product"""
-    _name = "product.product"
     _inherit = "product.product"
 
     def name_get(self, cr, user, ids, context={}):
@@ -194,26 +190,24 @@ class product_product(osv.osv):
 
 product_product()
 
-
 class author_book_rel(osv.osv):
     _name = "author.book.rel"
     _rec_name = "author_id"
     _columns = {
         'author_id': fields.many2one('library.author', 'Author', ondelete='cascade'),
         'product_id': fields.many2one('product.product', 'Book', ondelete='cascade')
-    }
+        }
 
 author_book_rel()
-
 
 class product_product_in(osv.osv):
     _inherit = "product.product"
     _columns = {
         'author_ids': fields.many2many('library.author', 'author_book_rel', 'product_id', 'author_id', 'Authors'),
-    }
+        }
 
     def copy(self, cr, uid, id, default=None, context={}):
-        if not default:
+        if default is None:
             default = {}
         default.update({'author_ids': []})
         return super(product_product_in, self).copy(cr, uid, id, default, context)
@@ -223,12 +217,12 @@ class product_product_in(osv.osv):
 
 product_product_in()
 
-
 class library_author(osv.osv):
     _inherit = 'library.author'
     _columns = {
         'book_ids': fields.many2many('product.product', 'author_book_rel', 'author_id', 'product_id', 'Books', select=1),
-    }
+        }
 
 library_author()
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

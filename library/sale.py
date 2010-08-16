@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -23,14 +23,12 @@ from mx import DateTime
 import netsvc
 from osv import fields, osv
 
-
 class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
-
     _columns = {
         'production_lot_id': fields.many2one('stock.production.lot', 'Production Lot',),
         'customer_ref': fields.char(string='Customer reference', size=64),
-    }
+        }
 
     _defaults = {
         'type': lambda *a: 'make_to_order',
@@ -54,7 +52,7 @@ class sale_order_line(osv.osv):
         return
 
     def copy(self, cr, uid, id, default=None, context={}):
-        if not default:
+        if default is None:
             default = {}
         default.update({
             'production_lot_id': False,
@@ -63,12 +61,10 @@ class sale_order_line(osv.osv):
         return super(sale_order_line, self).copy(cr, uid, id, default, context)
 sale_order_line()
 
-
 class sale_order(osv.osv):
 
     _inherit = "sale.order"
     _order = "create_date desc"
-
     _defaults = {
         'invoice_quantity': lambda *a: 'procurement',
         'picking_policy': lambda *a: 'direct',
@@ -196,5 +192,5 @@ class sale_order(osv.osv):
 #       return result
 
 sale_order()
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -29,14 +29,10 @@ class stock_move(osv.osv):
         'customer_ref': fields.char('Customer reference', size=64),
         'origin_ref': fields.char('Origin', size=64),
         'procurement_ids': fields.one2many('mrp.procurement','move_id', 'Procurements')
-    }
-
-
+        }
     # New function to manage the update of the quantities
     def onchange_qty(self, cr, uid, ids, qty, context=None):
         return {'value': {'product_uos_qty':qty,'product_qty':qty}}
-
-
 
     # action_cancel overidden to avoid the cascading cancellation
     def action_cancel(self, cr, uid, ids, context={}):
@@ -71,13 +67,11 @@ class stock_picking(osv.osv):
         'sale_id': fields.many2one('sale.order', 'Sale Order', ondelete='set null', select=True, readonly=True),
         'purchase_id': fields.many2one('purchase.order', 'Purchase Order', ondelete='set null', readonly=True,select=True),
         'date_done': fields.datetime('Picking date', readonly=True),
-    }
+        }
     _defaults = {
         'sale_id': lambda *a: False,
         'purchase_id': lambda *a: False,
-    }
+        }
 stock_picking()
 
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,12 +15,11 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 from osv import osv, fields
-
 
 class library_price_category(osv.osv):
     _name = 'library.price.category'
@@ -29,41 +28,36 @@ class library_price_category(osv.osv):
         'name': fields.char('Category', size=64, required=True),
         'price': fields.float('Price', required=True),
         'product_ids': fields.one2many('product.product', 'price_cat', 'Books', readonly=True)
-    }
-
+        }
     _defaults = {
         'price': lambda *a: 0,
         }
 
 library_price_category()
 
-
 class library_rack(osv.osv):
     _name = 'library.rack'
     _description = "Library Rack"
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'code': fields.char('Code', size=16,),
+        'code': fields.char('Code', size=16),
         'active': fields.boolean('Active'),
-    }
-
+        }
     _defaults = {
         'active': lambda *a: True
-    }
+        }
 
 library_rack()
-
 
 class library_collection(osv.osv):
     _name = 'library.collection'
     _description = "Library Collection"
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        'code': fields.char('Code', size=16,),
+        'code': fields.char('Code', size=16),
     }
 
 library_collection()
-
 
 class library_author(osv.osv):
     _name = 'library.author'
@@ -71,8 +65,8 @@ class library_author(osv.osv):
     _columns = {
         'name': fields.char('Name', size=64, required=True, select=True),
         'first_name': fields.char('First Name', size=64),
-        'born_date': fields.date('Date of birth'),
-        'death_date': fields.date('Date of death'),
+        'born_date': fields.date('Date of Birth'),
+        'death_date': fields.date('Date of Death'),
         'biography': fields.text('Biography'),
         'note': fields.text('Notes'),
         'editor_ids': fields.many2many('res.partner', 'author_editor_rel', 'author_id', 'partner_id', 'Editors', select=1),
@@ -86,3 +80,4 @@ class library_author(osv.osv):
 
 library_author()
 
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

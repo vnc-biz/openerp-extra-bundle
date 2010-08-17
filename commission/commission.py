@@ -45,7 +45,7 @@ class report_commission_month(osv.osv):
         (select sg.id as id,sg.name as name,so.name as sono,ai.number as invno,
     al.quantity as product_quantity,al.name as productname,(al.quantity * al.price_unit) as inv_total,
     to_char(ai.date_invoice, 'YYYY-MM-DD') as in_date,
-    ((1-pi.price_discount)*100) as comrate,((al.quantity *al.price_unit)*(1-pi.price_discount))
+    ((1-pi.price_discount)*100)::double precision as comrate,((al.quantity *al.price_unit)*(1-pi.price_discount))
               as commission,ai.state,'' as pdate
 from
 account_invoice ai,

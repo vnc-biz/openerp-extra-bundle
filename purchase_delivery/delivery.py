@@ -69,7 +69,7 @@ class delivery_grid(osv.osv):
                 ok = True
                 break
         if not ok:
-            raise except_osv('No price avaible !', 'No line matched this order in the choosed delivery grids !')
+            raise osv.except_osv('No price avaible !', 'No line matched this order in the choosed delivery grids !')
         return price
 
 delivery_grid()

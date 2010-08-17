@@ -56,6 +56,7 @@ account_move()
 class account_invoice(osv.osv):
 
     _inherit = "account.invoice"
+    _order = "date_invoice desc"
     _columns = {
         'name': fields.char('Description', size=64, select=True),
         'ref_move': fields.char('Ref Move', size=64, select=True),

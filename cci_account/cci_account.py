@@ -268,7 +268,7 @@ class account_move(osv.osv):
     def post(self, cr, uid, ids, context=None):
         move_ref = ''
         if context and context.get('invoice', None) and context['invoice']:
-            move_ref = context['invoice'].ref_move
+            move_ref = context['invoice'].move_name
         if self.validate(cr, uid, ids, context) and len(ids):
             for move in self.browse(cr, uid, ids):
                 if move.name =='/':

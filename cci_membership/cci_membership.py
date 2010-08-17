@@ -40,7 +40,7 @@ class res_partner(osv.osv):
 
     def _membership_state_job(self, cr, uid, ids=False, context={}):
         today = datetime.date.today()
-        yesterday = today - datetime.timedelta(days=1)
+        yesterday = today - datetime.timedelta(days=4)
         membership_line_ids = self.pool.get('membership.membership_line').search(cr, uid, ['|', ('date_to','=', yesterday), ('date_from','=', today)], context=context)
         partner_tmp_ids = self.pool.get('membership.membership_line').read(cr, uid, membership_line_ids, ['partner'], context=context)
         partner_ids = partner_tmp_ids and map(lambda x:x['partner'][0],partner_tmp_ids) or False

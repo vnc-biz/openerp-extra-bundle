@@ -263,6 +263,19 @@ class account_bank_statement(osv.osv):
 
 account_bank_statement()
 
+class account_bank_statement_line(osv.osv):
+    _inherit = 'account.bank.statement.line'
+
+    def _check_account(self, cr, uid, ids):
+        for line in self.browse(cr, uid, ids):
+            if line.account_id.code in ('400000', '440000') and not line.partner_id:
+                return False
+        return True
+
+    _constraints = [(_check_account, u"Can not register this line without partner", ('name',))]
+
+account_bank_statement_line()
+
 class account_move(osv.osv):
     _inherit = "account.move"
     def post(self, cr, uid, ids, context=None):

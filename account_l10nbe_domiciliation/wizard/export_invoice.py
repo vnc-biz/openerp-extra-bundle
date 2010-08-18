@@ -33,6 +33,7 @@ form = """<?xml version="1.0"?>
    <field name="collection_date" colspan="4" />
    <field name="account_bank_number" colspan="4" />
    <field name="sender" colspan="4" />
+   <field name="credit_note" colspan="4" />
 </form>"""
 
 fields = {
@@ -63,6 +64,11 @@ fields = {
         'help': 'Select here the creditor account number',
         'domain': "[('state','=','bank'),('partner_id','=',1)]", #to improve: partner of the company of the uid
         'required': True
+    },
+        'credit_note': {
+        'string': 'With Credit Note?',
+        'type': 'boolean',
+        'help': 'Check if you want to export credit note'
     },
 
     }
@@ -257,7 +263,10 @@ def _create_file(self, cr, uid, data, context):
     #Data Record Start
     direct_debit_num_tot = 0
     inv_direct_debit_num_tot = 0
-    cr.execute("select id from account_invoice where domiciled=True and domiciled_send_date is null and type in('out_refund', 'out_invoice') and state ='open'")
+    if data['form']['credit_note']:
+        cr.execute("select id from account_invoice where domiciled=True and domiciled_send_date is null and type in('out_refund', 'out_invoice') and state ='open'")
+    else:
+        cr.execute("select id from account_invoice where domiciled=True and domiciled_send_date is null and type in('out_invoice') and state ='open'")
 
     inv_ids = map(lambda x:x[0], cr.fetchall())
     if not inv_ids:

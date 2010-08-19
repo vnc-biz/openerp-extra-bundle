@@ -205,6 +205,7 @@ class account_invoice(osv.osv):
 
                 self.write(cr, uid, [inv.id], {'name':vcs})
                 ids = self.pool.get('account.move.line').search(cr, uid, [('move_id','=',inv.move_id.id)])
+                self.pool.get('account.move').write(cr, uid, [inv.move_id.id], {'name' : inv.number})
                 self.pool.get('account.move.line').write(cr, uid, ids, {'name':vcs})
         return res
 
@@ -281,7 +282,7 @@ class account_move(osv.osv):
     def post(self, cr, uid, ids, context=None):
         move_ref = ''
         if context and context.get('invoice', None) and context['invoice']:
-            move_ref = context['invoice'].move_name
+            move_ref = context['invoice'].number
         if self.validate(cr, uid, ids, context) and len(ids):
             for move in self.browse(cr, uid, ids):
                 if move.name =='/':

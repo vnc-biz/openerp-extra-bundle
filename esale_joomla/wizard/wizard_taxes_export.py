@@ -23,9 +23,7 @@
 import ir
 import time
 import os
-import netsvc
 import xmlrpclib
-import netsvc
 import pooler
 import urllib
 import base64

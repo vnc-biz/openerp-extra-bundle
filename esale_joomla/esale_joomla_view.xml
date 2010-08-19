@@ -226,11 +226,13 @@
                         <field name="esale_joomla_id"/>
                         <field name="esale_joomla_name"/>
                         <field name="attribute"/>
+                        <field name="translate"/>
                         <field name="state"/>
                     </tree>
                     <form>
                         <field name="esale_joomla_id"/>
                         <field name="esale_joomla_name"/>
+                        <field name="translate"/>
                         <field name="state"/>
                         <separator string="Product Attribute"/>
                         <field name="attribute" nolabel="1" colspan="4"/>

@@ -117,7 +117,7 @@ def _export_from_product(self, cr, uid, data, context):
     rnew = rupdate = rdelete = rerror = 0
     try:
         if data['model'] != 'product.product':
-            logger.notifyChanne('No categories for this web shop',sys.stderr)
+            print >> sys.stderr, "Function called not allowed from this model %s" % data['model']
         else:
             pool = pooler.get_pool(cr.dbname)
             esale_joomla_product_map_obj = pool.get('esale_joomla.product_map')
@@ -126,7 +126,7 @@ def _export_from_product(self, cr, uid, data, context):
             prod_ids = data['ids']
             catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)]) #get categories for selected shop
             if not catmap_ids:
-                logger.notifyChannel('No categories for this web shop',sys.stderr)
+                print >> sys.stderr, "No categories for this web shop"
             else:
                 webcategories = {}
                 for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):
@@ -151,7 +151,7 @@ def _export_from_shop(self, cr, uid, data, context):
         web_id = data['form']['web_shop']
         catmap_ids = pool.get('esale_joomla.category_map').search(cr, uid, [('web_id', '=', web_id), ('esale_joomla_id', '!=', 0), ('category_id', '!=', False)]) #get categories for selected shop
         if not catmap_ids:
-           logger.notifyChannel('No categories for this web shop',sys.stderr)
+           print >>sys.stderr, "No categories for this web shop"
         else:
             webcategories = {}
             for x in esale_joomla_category_map_obj.read(cr, uid, catmap_ids, ['category_id', 'esale_joomla_id'], context=context):

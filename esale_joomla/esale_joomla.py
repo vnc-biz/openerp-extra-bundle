@@ -746,11 +746,11 @@ class esale_joomla_product_map(osv.osv): # {{{
                 id = self.search(cr, uid, [('web_id', '=', web_id), ('product_id', '=', product.id)])
                 if len(id):
                     eid = self.browse(cr, uid, id[0]).esale_joomla_id
-
+                    prod=product_obj.browse(cr, uid, product.id)
                     d = {
                       #vm_product
                         'id': eid,
-                        'in_stock': product_obj.browse(cr, uid, product.id).qty_available,
+                        'in_stock': prod.qty_available + prod.outgoing_qty,
                     }
 
                     try:
@@ -915,7 +915,8 @@ class esale_joomla_product_map(osv.osv): # {{{
                     #   available_msg = ""
 
                     #in_stock = product_obj.browse(cr, uid, product.id).qty_available
-                    in_stock = product.qty_available - product.outgoing_qty
+                    print "stock: ",product.qty_available, product.outgoing_qty, product.virtual_available
+                    in_stock = product.qty_available + product.outgoing_qty
                     d['in_stock'] = in_stock
 
                     print 'State=%s'%product.availability_id
@@ -988,6 +989,17 @@ class esale_joomla_product_map(osv.osv): # {{{
                                 #err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_s_desc', eid, tr.description_sale or '')
                                 desc=product.description_sale and product.description_sale.replace('\n','<br/>') or ''
                                 err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product', 'product_desc', eid, desc)
+                                #parameters
+                                for ptm_id in esale_joomla_producttype_map_obj.search(cr, uid, [('web_id', '=', web_id), ('category_id', '=', product.categ_id.id)], context=context):
+                                    ptm = esale_joomla_producttype_map_obj.browse(cr, uid, ptm_id, context=context)
+                                    for ptpm in ptm.producttypeparam_map_ids:
+                                        if ptpm.translate and ptpm.attribute:
+                                            try:
+                                                val = eval(ptpm.attribute)
+                                                if val is not False:
+                                                    err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product_type_%s'%ptm.esale_joomla_id, ptpm.esale_joomla_id, eid, val)
+                                            except Exception, e:
+                                                print >> sys.stderr, 'Cannot evaluate parameter %s (product id %s): %s' % (ptpm.esale_joomla_id, pid, traceback.format_exc().splitlines()[-1])
                             except Exception, e:
                                 print >> sys.stderr, "XMLRPC Error (product id %s) - openerp2vm.set_translation : %s"%(pid,e)
                         if err:
@@ -1104,10 +1116,12 @@ class esale_joomla_producttypeparam_map(osv.osv): # {{{
         'producttype_map_id': fields.many2one('esale_joomla.producttype_map', 'Product Type'),
         'esale_joomla_id': fields.char('Web Parameter Name', size=64, readonly=True, required=True),
         'esale_joomla_name': fields.char('Web Parameter Label', size=64, readonly=True),
+        'translate': fields.boolean('Translatable'),
         'state': fields.selection(STATES, 'state', readonly=True, required=True),
     }
     _defaults = {
-        'state': lambda *a: 'new'
+        'state': lambda *a: 'new',
+        #'translate' : lambda *a: 1,
     }
 
     def name_get(self, cr, uid, ids, context=None):

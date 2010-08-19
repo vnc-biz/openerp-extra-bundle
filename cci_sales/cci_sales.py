@@ -85,7 +85,7 @@ class sale_order(osv.osv):
             #'name': order.client_order_ref or order.name,
             'origin': order.name,
             'type': 'out_invoice',
-            'reference': "P%dSO%d" % (order.partner_id.id, order.id),
+#            'reference': "P%dSO%d" % (order.partner_id.id, order.id),
             'account_id': a,
             'partner_id': order.partner_id.id,
             'address_invoice_id': order.partner_invoice_id.id,

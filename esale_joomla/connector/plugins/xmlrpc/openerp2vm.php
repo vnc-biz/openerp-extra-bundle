@@ -540,11 +540,11 @@ class plgXMLRPCOpenERP2VmServices {
             query($db,"delete from #__vm_product_category_xref where product_id=".$id.";");
             query($db,"delete from #__vm_product_mf_xref where product_id=".$id.";");
             query($db,"delete from #__vm_product_price where product_id=".$id.";");
-            query($db,"select product_type_id from #__vm_product_type_xref where product_id=".$id.";",0);
+            query($db,"select product_type_id from #__vm_product_product_type_xref where product_id=".$id.";",0);
             foreach($db->loadRowList() as $row) {
                 query($db,"delete from #__vm_product_type_".$row[0]." where product_id=".$id.";");
             }
-            query($db,"delete from #__vm_product_type_xref where product_id=".$id.";");
+            query($db,"delete from #__vm_product_product_type_xref where product_id=".$id.";");
             query($db,"delete from #__jf_content where reference_table='vm_product' and reference_field in ('product_s_desc','product_desc') ;");
         } catch(Exception $e) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_($e->getMessage()));

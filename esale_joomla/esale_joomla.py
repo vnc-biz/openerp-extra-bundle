@@ -818,11 +818,11 @@ class esale_joomla_product_map(osv.osv): # {{{
         for (id, eid) in cr.fetchall():
             print 'delete %s/%s' % (id, eid)
             try:
-                if server.openerp2vm.delete_product(website.login, website.password, eid):
-                    cdelete += 1
+                server.openerp2vm.delete_product(website.login, website.password, eid)
             except Exception, e:
                 print >> sys.stderr, "XMLRPC Error (product id %s): %s"%(id,e)
             else:
+                cdelete += 1
                 self.unlink_permanent(cr, uid, id)
         #check products to export
         if not len(prod_ids):

@@ -167,7 +167,7 @@ def _export_from_taxes(self, cr, uid, data, context):
     rnew = rupdate = rdelete = rerror = 0
     try:
         if data['model'] != 'esale_joomla.tax_map':
-            logger.notifyChannel("Function called not allowed from this model %s" ,% data['model'])
+            logger.notifyChannel("Function called not allowed from this model %s" % data['model'])
         else:
             self.pool = pooler.get_pool(cr.dbname)
             #data['ids']=list of taxes to export. Classify by web_id

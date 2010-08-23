@@ -229,6 +229,27 @@
 
      <act_window domain="[('partner_id', '=', active_id),('account_id.code', 'in', ('400000','440000'))]" id="account.act_account_partner_account_move" name="All Account Entries" res_model="account.move.line" src_model="res.partner"/>
 
+        <record id="action_invoice_vatnull_tree" model="ir.actions.act_window">
+            <field name="name">Invoices without VAT</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" ref="account.invoice_tree"/>
+            <field name="context">{'type':'out_invoice'}</field>
+            <field name="domain">[('vat_num','=',False)]</field>
+        </record>
+        <record id="action_invoice_treevat_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_invoice_vatnull_tree"/>
+        </record>
+        <record id="action_invoice_treevat_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="act_window_id" ref="action_invoice_vatnull_tree"/>
+        </record>
+        <menuitem action="action_invoice_vatnull_tree" id="menu_finance_invoice" parent="account.menu_finance" sequence="9"/>
 </data>
 </openerp>
 

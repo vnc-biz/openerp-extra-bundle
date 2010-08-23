@@ -217,6 +217,19 @@ class res_partner(osv.osv):
             result[rec.id] = r and r[0] or False
         return result
 
+    def _salesman_search(self, cr, uid, ids, field_name, args, context={}):
+        if not len(args):
+          return []
+
+        operator = args[0][1]
+        value = args[0][2]
+        u_ids= self.pool.get('res.users').search(cr,uid,[('name', operator, value)])
+        p_ids= self.pool.get('res.partner').search(cr,uid,[('user_id', 'in' , u_ids)])
+        if not p_ids:
+          return [('id','=','0')]
+        return [('id','in',p_ids)]
+
+
     def _get_salesman(self, cr, uid, ids, field_name, arg, context={}):
         result = {}
         for rec in self.browse(cr, uid, ids, context):
@@ -266,7 +279,7 @@ class res_partner(osv.osv):
         'followup_max_level': fields.function(_get_followup_level, method=True, type='many2one', relation="account_followup.followup.line", string="Max. Followup Level"),
         'article_ids' : fields.many2many('res.partner.article','res_partner_article_rel','partner_id','article_id','Articles'),
         'badge_partner':fields.char('Badge Partner',size=128),
-        'user_id_readonly': fields.function(_get_salesman, method=True, string='Salesman', type='many2one', relation='res.users'),
+        'user_id_readonly': fields.function(_get_salesman, fnct_search=_salesman_search, method=True, string='Salesman', type='many2one', relation='res.users'),
         'write_date' : fields.datetime('Last Modification'),
         'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this address'),
         #Never,Always,Managed_by_Poste,Prospect

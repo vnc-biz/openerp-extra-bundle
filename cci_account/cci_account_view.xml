@@ -236,7 +236,7 @@
             <field name="view_mode">tree,form,calendar,graph</field>
             <field name="view_id" ref="account.invoice_tree"/>
             <field name="context">{'type':'out_invoice'}</field>
-            <field name="domain">[('vat_num','=',False)]</field>
+            <field name="domain">[('vat_num','=',False), ('partner_id.vat_subjected','=',False)]</field>
         </record>
         <record id="action_invoice_treevat_view" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>

@@ -136,11 +136,8 @@
     <para style="terp_default_1">
       <font color="white"> </font>
     </para>
-    <blockTable colWidths="61.0,137.0,59.0,57.0,55.0,52.0,59.0" style="Table_header">
+    <blockTable colWidths="198.0,59.0,57.0,55.0,52.0,59.0" style="Table_header">
       <tr>
-        <td>
-          <para style="terp_tblheader_Details">Code</para>
-        </td>
         <td>
           <para style="terp_tblheader_Details">(Account/Partner) Name</para>
         </td>
@@ -196,11 +193,8 @@
     </para>
     <section>
       <para style="terp_default_8">[[ repeatIn(lines(), 'a') ]]</para>
-      <blockTable colWidths="61.0,137.0,60.0,58.0,55.0,54.0,57.0" style="Table4">
+      <blockTable colWidths="198.0,60.0,58.0,55.0,54.0,57.0" style="Table4">
         <tr>
-          <td>
-            <para style="terp_default_9">[[ a['ref'] ]]</para>
-          </td>
           <td>
             <para style="terp_default_9">[[ a['name'] ]]</para>
           </td>

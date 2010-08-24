@@ -84,7 +84,7 @@ class partner_balance(report_sxw.rml_parse):
         line_query = account_move_line_obj._query_get(self.cr, self.uid, obj='l',
                 context={'fiscalyear': self.datas['form']['fiscalyear']})
         self.cr.execute(
-            "SELECT p.ref, p.name, sum(debit) as debit, sum(credit) as credit, " \
+            "SELECT p.name, sum(debit) as debit, sum(credit) as credit, " \
                     "CASE WHEN sum(debit) > sum(credit) " \
                         "THEN sum(debit) - sum(credit) " \
                         "ELSE 0 " \
@@ -108,8 +108,8 @@ class partner_balance(report_sxw.rml_parse):
                 "AND l.date >= %s " \
                 "AND l.date <= %s " \
                 "AND " + line_query + " " \
-            "GROUP BY p.id, p.ref, p.name " \
-            "ORDER BY p.ref, p.name ",
+            "GROUP BY p.id, p.name " \
+            "ORDER BY  p.name ",
             (self.datas['form']['date1'], self.datas['form']['date2'],
                 self.datas['form']['date1'], self.datas['form']['date2']))
         res = self.cr.dictfetchall()

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-01 03:53+0000\n"
+"X-Launchpad-Export-Date: 2010-08-26 04:05+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: hr_evaluation
@@ -84,7 +84,7 @@ msgstr "Datos informales"
 #. module: hr_evaluation
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Nombre de modelo inválido en la definición de acción."
+msgstr "Nombre de modelo no válido en la definición de la acción."
 
 #. module: hr_evaluation
 #: field:hr_evaluation.evaluation,employee_id:0

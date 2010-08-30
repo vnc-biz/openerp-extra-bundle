@@ -432,6 +432,7 @@
                             <field name="currency_id" on_change="onchange_currency_id(currency_id)" select="2"/>
                             <newline/>
                             <field name="date_due" select="1"/>
+                            <field name="followup_line_id" select="1"/>
                             <field name="invoice_special" select="2"/>
                             <newline/>
                             <field domain="[('partner_id.ref_companies', 'in', [company_id])]" name="partner_bank" select="2"/>

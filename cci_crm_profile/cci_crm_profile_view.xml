@@ -220,6 +220,10 @@
                         <newline/>
                         <field name="answers_ids" colspan="4" nolabel="1"/>
                     </page>
+                    <page string="Directory" groups="base.group_partner_manager">
+                        <field name="local_employee"/>
+                        <field name="activity_description" colspan="4"/>
+                    </page>
                 </notebook>
             </form></form>
         </field>

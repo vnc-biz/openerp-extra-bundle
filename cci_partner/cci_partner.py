@@ -288,7 +288,7 @@ class res_partner(osv.osv):
         }
     _defaults = {
         'wall_exclusion' : lambda *a: False,
-        'dir_presence' : lambda *a: True,
+        'dir_presence' : lambda *a: False,
         'dir_exclude':lambda *a: False,
         'state_id2': _get_customer_state,
         'invoice_special' :lambda *a: 1,
@@ -474,6 +474,7 @@ class res_partner_address(osv.osv):
         'write_date' : fields.datetime('Last Modification'),
         'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this address'),
         'activity_description':fields.text('Local Activity Description',translate=True),
+        'local_employee': fields.integer('Nbr of Employee (Site)',help="Nbr of Employee in the site (for the directory)"),
     }
     _defaults = {
          'state' : lambda *a: 'correct',

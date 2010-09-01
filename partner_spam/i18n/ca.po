@@ -7,14 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-alpha\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2008-12-13 18:12+0000\n"
-"PO-Revision-Date: 2010-01-26 11:31+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2010-08-31 07:36+0000\n"
+"Last-Translator: David Planella <david.planella@ubuntu.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-26 04:07+0000\n"
+"X-Launchpad-Export-Date: 2010-09-01 04:10+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: partner_spam
@@ -306,7 +305,7 @@ msgstr "Login"
 #: wizard_field:res.partner.address.sms_send,init,password:0
 #: wizard_field:res.partner.sms_send_2,init,password:0
 msgid "Password"
-msgstr "Password"
+msgstr "Contrasenya"
 
 #. module: partner_spam
 #: wizard_field:res.partner.address.spam_send,init,from:0
@@ -314,7 +313,7 @@ msgstr "Password"
 #: wizard_field:res.partner.spam_send_2,init,from:0
 #: wizard_field:res.partner.sms_send_2,init,email:0
 msgid "Sender's email"
-msgstr "Email remitent"
+msgstr "Adreça electrònica del remitent"
 
 #. module: partner_spam
 #: wizard_view:res.partner.address.spam_send,init:0

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 05:24+0000\n"
-"PO-Revision-Date: 2010-06-10 04:26+0000\n"
+"PO-Revision-Date: 2010-09-02 05:49+0000\n"
 "Last-Translator: nafterburner <nafterburner@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-26 04:05+0000\n"
+"X-Launchpad-Export-Date: 2010-09-03 03:57+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: olap
@@ -28,7 +28,7 @@ msgstr "Sakrij"
 #: model:ir.ui.menu,name:olap.menu_action_olap_saved_query_form
 #: view:olap.saved.query:0
 msgid "Olap Saved Query"
-msgstr ""
+msgstr "Olap Spremljene Upit"
 
 #. module: olap
 #: field:olap.query.logs,time:0
@@ -44,7 +44,7 @@ msgstr "Automatsko Konfiguriraj Strukturu"
 #. module: olap
 #: view:olap.fact.database:0
 msgid "Olap fact database"
-msgstr ""
+msgstr "Baza podataka Olap Činjenica"
 
 #. module: olap
 #: help:olap.measure,value_sql:0
@@ -77,7 +77,7 @@ msgstr "Lozinka baze podataka"
 #. module: olap
 #: view:olap.database.tables:0
 msgid "Olap database tables"
-msgstr ""
+msgstr "Tabele Olap baze podataka"
 
 #. module: olap
 #: view:olap.fact.database:0
@@ -97,7 +97,7 @@ msgstr "Ime Servera"
 #. module: olap
 #: help:olap.fact.database,db_password:0
 msgid "Password for the login."
-msgstr ""
+msgstr "Lozinka za prijavu."
 
 #. module: olap
 #: field:olap.application.field,application_id:0
@@ -114,7 +114,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:olap.action_view_olap_fact_database_form
 #: model:ir.ui.menu,name:olap.menu_bi_conf_fact
 msgid "Fact Databases"
-msgstr ""
+msgstr "Baza podataka Činjenica"
 
 #. module: olap
 #: model:ir.ui.menu,name:olap.menu_browser_url
@@ -124,7 +124,7 @@ msgstr ""
 #. module: olap
 #: model:ir.ui.menu,name:olap.menu_action_olap_dimension_form
 msgid "Olap Dimension"
-msgstr ""
+msgstr "Olap Dimenzije"
 
 #. module: olap
 #: model:ir.model,name:olap.model_olap_database_columns
@@ -176,7 +176,7 @@ msgstr ""
 #. module: olap
 #: model:ir.model,name:olap.model_olap_parameters_config_wizard
 msgid "Olap Server Parameters"
-msgstr ""
+msgstr "Parametri Olap Servera"
 
 #. module: olap
 #: model:ir.actions.act_window,name:olap.action_olap_cube_table_form
@@ -219,7 +219,7 @@ msgstr "Razina"
 #: field:olap.level,column_id_name:0
 #: field:olap.measure,value_column_id_name:0
 msgid "Column ID"
-msgstr ""
+msgstr "ID Stupca"
 
 #. module: olap
 #: view:bi.load.db.wizard:0
@@ -258,12 +258,12 @@ msgstr ""
 #. module: olap
 #: model:ir.actions.act_window,name:olap.act_bi_auto_configure
 msgid "Auto Configuration"
-msgstr ""
+msgstr "Automatska Konfiguracija"
 
 #. module: olap
 #: field:olap.schema,note:0
 msgid "Schema description"
-msgstr ""
+msgstr "Opis sheme"
 
 #. module: olap
 #: model:ir.actions.act_window,name:olap.act_bi_load_db_wizard

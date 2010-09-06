@@ -19,7 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+import tools
 import wizard
 import pooler
 from tools import UpdateableStr, UpdateableDict
@@ -57,11 +57,11 @@ class wizard_merge_partners(wizard.interface):
         fields_ids = pool.get('ir.model.fields').search(cr, uid, [('model', '=', 'res.partner')], context=context)
         fields_data = pool.get('ir.model.fields').read(cr, uid, fields_ids, ['name', 'field_description', 'ttype', 'relation', 'required'], context=context)
         for field in fields_data:
-            filter_name[str(field['name'])] = str(field['field_description'])
-            filter_type[str(field['name'])] = [str(field['ttype']), str(field['relation'])]
-            filter_required[str(field['name'])] = field['required']
+            filter_name[tools.ustr(field['name'])] = tools.ustr(field['field_description'])
+            filter_type[tools.ustr(field['name'])] = [tools.ustr(field['ttype']), tools.ustr(field['relation'])]
+            filter_required[tools.ustr(field['name'])] = field['required']
             if field['ttype'] == 'many2many':
-                m2m_list.append(str(field['name']))
+                m2m_list.append(tools.ustr(field['name']))
 
         if m2m_list:
             partner_data = pool.get('res.partner').read(cr, uid, [data['form']['partner_id1'], data['form']['partner_id2']], m2m_list ,context=context)
@@ -75,12 +75,12 @@ class wizard_merge_partners(wizard.interface):
                 if part1 == part2:
                     if part1 not in ('create_date', 'write_date', 'id', 'write_uid'):# to be check
                         if result[0][part1] is not None and result[1][part2] is not None and result[0][part1] == result[1][part2]:
-                            res[part1] = str(result[0][part1])
+                            res[part1] = tools.ustr(result[0][part1])
                         #every fields where one value is 'None', can be filled automatically by the other value if existing: no need to put that field on screen 2
                         elif result[0][part1] is None and result[1][part2] is not None and result[0][part1] != result[1][part2]:
-                            res[part1] = str(result[1][part2])
+                            res[part1] = tools.ustr(result[1][part2])
                         elif result[0][part1] is not None and result[1][part2] is None and result[0][part1] != result[1][part2]:
-                            res[part1] = str(result[0][part1])
+                            res[part1] = tools.ustr(result[0][part1])
                         #----------------------
                         elif (result[0][part1] is not None or result[1][part2] is not None) and result[0][part1] != result[1][part2]:
                             if filter_type[part1][0] == 'binary': # Improve: for use binary field copy while merging partner
@@ -107,6 +107,14 @@ class wizard_merge_partners(wizard.interface):
                                 quest_form = quest_form + '<field name="%s"/><newline/>' % (part1,)
                             select1 = False
                             select2 = False
+                            if isinstance(result[0][part1],float):
+                                result[0][part1] = str(result[0][part1])
+                            if isinstance(result[0][part2],float):
+                                result[0][part1] = str(result[0][part2])
+                            if isinstance(result[1][part1],float):
+                                result[1][part1] = str(result[1][part2])
+                            if isinstance(result[1][part2],float):
+                                result[1][part2] = str(result[1][part2])
                             if result[0][part1] in (True, False):
                                 result[0][part1] = str(result[0][part1])
                             if result[1][part2] in (True, False):
@@ -124,13 +132,13 @@ class wizard_merge_partners(wizard.interface):
                             if filter_type[part1][0] == 'many2one':
                                 relation = filter_type[part1][1].replace('.','_')
                                 if result[0][part1] != 'None':
-                                    cr.execute("select * from "+relation+" where id=%s"%(str(result[0][part1])))
+                                    cr.execute("select * from "+relation+" where id=%s"%(tools.ustr(result[0][part1])))
                                     first_m2o = cr.dictfetchone()
                                     if first_m2o.has_key('name') and first_m2o['name']:
                                         x = first_m2o['id']
                                         y = first_m2o['name']
                                 if result[1][part2] != 'None':
-                                    cr.execute("select * from "+relation+" where id=%s"%(str(result[1][part2])))
+                                    cr.execute("select * from "+relation+" where id=%s"%(tools.ustr(result[1][part2])))
                                     second_m2o = cr.dictfetchone()
                                     if second_m2o.has_key('name') and second_m2o['name']:
                                         a = second_m2o['id']
@@ -211,7 +219,7 @@ class wizard_merge_partners(wizard.interface):
                     from osv import fields
                     if pool.get(model_raw)._columns.get(name, False) and isinstance(pool.get(model_raw)._columns[name], fields.many2one):
                         model = model_raw.replace('.', '_')
-                        cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+str(name)+" in ("+str(part1)+", "+str(part2)+")")
+                        cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+ tools.ustr(name) +" in ("+ tools.ustr(part1) +", "+tools.ustr(part2)+")")
 
         data['form']['new_partner'] = part_id
         return {}

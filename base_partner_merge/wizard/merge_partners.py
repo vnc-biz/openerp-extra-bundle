@@ -64,7 +64,10 @@ class wizard_merge_partners(wizard.interface):
                 m2m_list.append(tools.ustr(field['name']))
 
         if m2m_list:
+          if data['form']['partner_id1'] != data['form']['partner_id2'] :
             partner_data = pool.get('res.partner').read(cr, uid, [data['form']['partner_id1'], data['form']['partner_id2']], m2m_list ,context=context)
+          else :
+              raise wizard.except_wizard(_('UserError'),_('You cannot merge same partner.'))
         for m2m in m2m_list:
             m2m_dict[m2m] = [(6, 0, partner_data[0][m2m] + partner_data[1][m2m])]
 

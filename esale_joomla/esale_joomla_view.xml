@@ -325,7 +325,7 @@
                         <newline/>
 
                         <field name="order_lines" colspan="4">
-                            <tree>
+                            <tree string="Order Lines">
                                 <field name="name"/>
                                 <field name="web_product_item_price" />
                                 <field name="web_product_final_price" />
@@ -338,7 +338,7 @@
                           <group col="6" colspan="4">
                             <field name="state" readonly="1" select="1" />
                             <button name="create_order" states="draft" string="Create Order" type="object" />
-                            <button name="cancel_order" states="draft" string="Cancel Order" type="object" />
+                            <!--<button name="cancel_order" states="done" string="Cancel Order" type="object" />-->
                           </group>
                           <group col="6" colspan="8">
                           </group>
@@ -372,15 +372,23 @@
         </field>
     </record>
     <record model="ir.actions.act_window" id="action_order_form">
-        <field name="name">esale_joomla.order</field>
+        <field name="name">esale_joomla.order.form</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">esale_joomla.order</field>
         <field name="view_type">form</field>
         <field name="view_id" ref="view_order_form"/>
     </record>
-    <menuitem name="eSale Orders" parent="menu_esale" id="menu_action_order_form" action="action_order_form" groups="base.group_system"/>
-
     <record model="ir.actions.act_window" id="action_order_tree">
+        <field name="name">esale_joomla.order.tree</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">esale_joomla.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_order_tree"/>
+    </record>
+    <menuitem name="eSale Orders" parent="menu_esale" id="menu_action_order_form" action="action_order_tree" groups="base.group_system"/>
+
+    <record model="ir.actions.act_window" id="action_draft_order_tree">
         <field name="name">esale_joomla.order</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">esale_joomla.order</field>
@@ -388,8 +396,7 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[('state','=','draft')]</field>
     </record>
-    <menuitem name="Draft eSale Orders" parent="menu_action_order_form" id="menu_action_order_tree" action="action_order_tree" groups="base.group_system"/>
-
+    <menuitem name="Draft eSale Orders" parent="menu_action_order_form" id="menu_action_order_tree" action="action_draft_order_tree" groups="base.group_system"/>
 
     <record model="ir.ui.view" id="view_order_line_form">
         <field name="name">esale_joomla.order.line.form</field>

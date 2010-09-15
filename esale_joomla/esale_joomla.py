@@ -895,7 +895,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                         #'unit', ,
                         'packaging': 0,
                       #vm_product_category_xref
-                        'category_id': sorted([webcategories[cat.id] for cat in product.esale_category_ids]),
+                        'category_id': sorted(filter(None, [webcategories.get(cat.id) for cat in product.esale_category_ids])),
                       #vm_product_price
                         'price': 0,
                         'currency': 'EUR',
@@ -1169,7 +1169,7 @@ class esale_joomla_order(osv.osv): # {{{
         'state': lambda *a: 'draft',
     }
 
-    def webimport(self, cr, uid, web_ids, *args): # {{{2
+    def webimport(self, cr, uid, web_ids, *args, **kwargs): # {{{2
         def _get_country(address):
             if len(address.get('country')) == 2:
                 country = address.get('country')
@@ -1190,8 +1190,15 @@ class esale_joomla_order(osv.osv): # {{{
 
         for website in self.pool.get('esale_joomla.web').browse(cr, uid, web_ids):
             server = _xmlrpc(website)
+##             if target == 'last':
+##                 # get esale orders having a sale.order or cancelled-> we exclude ids of orders having an order_id and not cancelled:
+##                 search_args = [('web_id', '=', website.id), ('order_id', '!=', False), ('state', '!=', 'cancel')]
+##                 ids = esale_joomla_order_obj.search(cr, uid, search_args)
+##                 exclude_ids = [obj.web_ref for obj in esale_joomla_order_obj.browse(cr, uid, ids)]
+##             else:
+##                 exclude_ids = []
             try:
-                orders = server.openerp2vm.get_orders(website.login, website.password)
+                orders = server.openerp2vm.get_orders(website.login, website.password, [])
             except Exception, e:
                 print >> sys.stderr, "XMLRPC Error: %s" % e
                 cerror += 1
@@ -1233,7 +1240,7 @@ class esale_joomla_order(osv.osv): # {{{
                                 'fax'+address_suffix: address.get('fax', ''),
                                 'email'+address_suffix: address.get('user_email', ''),
                                 'company'+address_suffix: address.get('company', ''),
-                                'country'+address_suffix: _get_country(address),
+                                'country'+address_suffix: _get_country(address) or '',
                             })
 
                 partner_value['name'] = partner_value.get('name_billing') or partner_value.get('name_shipping')
@@ -1252,9 +1259,9 @@ class esale_joomla_order(osv.osv): # {{{
                     'web_ref': order['order_id'],
                     'date_order': from_seconds_to_datetime_string(order['order_creation_date']),
                     'note': order['order_customer_note'],
-                    'total': order['order_total'],
+                    'total': order['order_total'],        # = subtotal + tax total + shipping + shipping tax
                     'subtotal': order['order_sub_total'],
-                    'tax': order['order_tax'],
+                    'tax': order['order_tax'],            # tax total
                     'tax_detail': order['order_tax_detail'],
                     'coupon_discount': order['order_coupon_discount'],
                     'coupon_code': order['order_coupon_code'],
@@ -1265,8 +1272,17 @@ class esale_joomla_order(osv.osv): # {{{
                     'epartner_id': partner_id,
                 }
 
-                ids = self.search(cr, uid, [('web_id', '=', website.id), ('web_ref', '=', order_value['web_ref'])])
-                if not len(ids):
+                print
+                print order['order_id']
+                print order['order_total']
+                print order['order_sub_total']
+                print order['order_tax']
+
+                # search if sale.order is already created (and not cancelled)
+                # if cancelled, we recreate a sale.order
+                search_created_sale_order_args = [('web_id', '=', website.id), ('web_ref', '=', order_value['web_ref']), ('state', '!=', 'cancel')]
+                ids = self.search(cr, uid, search_created_sale_order_args)
+                if not ids:
                     order_id = self.create(cr, uid, order_value)
                     cnew += 1
                 else:
@@ -1280,7 +1296,8 @@ class esale_joomla_order(osv.osv): # {{{
                     if product_web_id:
                         product_web_id = product_web_id[0]
                     else:
-                        print >> sys.stderr, "Import Error: product id not found"
+                        msg = "Import error: product with esale_joomla_id = %s not found" % (line['product_id'], )
+                        print >> sys.stderr, msg
                         cerror += 1
                         break
 
@@ -1297,9 +1314,7 @@ class esale_joomla_order(osv.osv): # {{{
                         'web_modification_date': from_seconds_to_datetime_string(line['modification_date']),
                     }
 
-                    #ids = esale_joomla_order_line_obj.search(cr, uid, [('web_id', '=', website.id), ('order_item_id', '=', 
-                    order_ids = esale_joomla_order_obj.search(cr, uid, [('web_id', '=', website.id)])
-                    order_line_ids = esale_joomla_order_line_obj.search(cr, uid, [('order_id', 'in', order_ids), ('order_item_id', '=', line['order_item_id'])])
+                    order_line_ids = esale_joomla_order_line_obj.search(cr, uid, [('order_item_id', '=', line['order_item_id'])])
                     if order_line_ids:
                         # already exists: update it:
                         esale_joomla_order_line_obj.write(cr, uid, order_line_ids, line_value)
@@ -1394,9 +1409,9 @@ class esale_joomla_order(osv.osv): # {{{
 
         return partner_id # }}}2
 
-    def create_order(self, cr, uid, ids, context=None):
+    def create_order(self, cr, uid, ids, context=None): # {{{2
         if context is None:
-            context =  {}
+            context = {}
 
         epartner_obj = self.pool.get('esale_joomla.partner')
 
@@ -1405,6 +1420,7 @@ class esale_joomla_order(osv.osv): # {{{
             # write or create the partner and its addresses:
             partner_id = self.write_partner(cr, uid, eorder.epartner_id)
             epartner_obj.write(cr, uid, eorder.epartner_id.id, {'partner_id': partner_id}, context=context)
+            eorder = self.browse(cr, uid, eorder.id, context)
 
             # XXX WORK IN PROGRESS XXX
 
@@ -1452,6 +1468,8 @@ class esale_joomla_order(osv.osv): # {{{
             pricelist_id = eorder.epartner_id.partner_id.property_product_pricelist.id
             order_lines = []
 
+            fpos = eorder.epartner_id.partner_id.property_account_position and eorder.epartner_id.partner_id.property_account_position.id or False
+
             default_uom_id = 1 # XXX hard coded values are bad !!!
             for line in eorder.order_lines:
                 val = {
@@ -1461,7 +1479,6 @@ class esale_joomla_order(osv.osv): # {{{
                     'product_uom': default_uom_id,
                     'price_unit': line.web_product_item_price,
                 }
-                fpos = eorder.epartner_id.partner_id.property_account_position and eorder.epartner_id.partner_id.property_account_position.id or False
                 val_new = self.pool.get('sale.order.line').product_id_change(cr, uid, None, pricelist_id, line.web_product_id.product_id.id,
                                                                              line.product_qty, default_uom_id,
                                                                              name=line.name, partner_id=eorder.epartner_id.partner_id.id,
@@ -1484,19 +1501,22 @@ class esale_joomla_order(osv.osv): # {{{
             if partner_shipping_id:
                 partner_shipping_id = partner_shipping_id[0]
 
+            # default adress:
+            partner_default_address_id = partner_shipping_id or partner_invoice_id
+
             partner_order_id = partner_invoice_id
 
             order_id = self.pool.get('sale.order').create(cr, uid, {
                 'name': eorder.name,
-                'date_ordername': eorder.date_order,
+                'date_order': eorder.date_order,
                 'shop_id': eorder.web_id.shop_id.id,
                 'origin': 'WEB:' + str(eorder.web_ref),
                 'user_id': uid,
                 'note': eorder.note or '',
                 'partner_id': eorder.epartner_id.partner_id.id,
-                'partner_order_id': partner_order_id,
-                'partner_invoice_id': partner_invoice_id,
-                'partner_shipping_id': partner_shipping_id,
+                'partner_order_id': partner_order_id or partner_default_address_id,
+                'partner_invoice_id': partner_invoice_id or partner_default_address_id,
+                'partner_shipping_id': partner_shipping_id or partner_default_address_id,
                 'pricelist_id': pricelist_id,
                 'order_line': order_lines,
                 'fiscal_position': fpos
@@ -1505,9 +1525,9 @@ class esale_joomla_order(osv.osv): # {{{
 
             # XXX END WORK IN PROGRESS XXX
 
-        return True
+        return True # }}}2
 
-    def order_createOLD(self, cr, uid, ids, context={}):
+    def order_createOLD(self, cr, uid, ids, context={}): # {{{2
         for order in self.browse(cr, uid, ids, context):
             if not (order.partner_id and order.partner_invoice_id and order.partner_shipping_id):
                 raise osv.except_osv('No addresses !', 'You must assign addresses before creating the order.')
@@ -1566,13 +1586,21 @@ class esale_joomla_order(osv.osv): # {{{
 ##                 'partner_invoice_id': order.epartner_shipping_id.address_id.id,
 ## 
 ##             })
+##         return True # }}}2
+
+##     def cancel_order(self, cr, uid, ids, context=None):
+##         # get sale.order:
+##         sale_order_obj = self.pool.get('sale.order')
+##         esale_joomla_order_obj = self.pool.get('esale_joomla.order')
+##         esale_orders = self.browse(cr, uid, ids, context=context)
+##         for esale_order in esale_orders:
+##             if esale_order.order_id and esale_order.order_id.state not in ['draft', 'cancel']:
+##                 sale_order_obj.action_cancel(cr, uid, esale_order.order_id, context=context)
+##             esale_joomla_order_obj.write(cr, uid, esale_order.id, {'state': 'cancel'}, context=context)
+## 
 ##         return True
 
-    def cancel_order(self, cr, uid, ids, context={}):
-        self.write(cr, uid, ids, {'state': 'cancel'})
-        return True
-
-esale_joomla_order() # 
+esale_joomla_order() # }}}
 
 
 class esale_joomla_order_line(osv.osv): # {{{
@@ -1645,6 +1673,22 @@ class product_product(osv.osv): # {{{
     }
 
 product_product() # }}}
+
+
+class sale_order(osv.osv): # {{{
+    _inherit = 'sale.order'
+
+    def action_cancel(self, cr, uid, ids, context=None):
+        res = super(sale_order, self).action_cancel(cr, uid, ids, context=context)
+        # check if an esale order is linked:
+        for idn in ids:
+            esale_joomla_order_obj = self.pool.get('esale_joomla.order')
+            esale_order_ids = esale_joomla_order_obj.search(cr, uid, [('order_id', '=', idn)])
+            esale_joomla_order_obj.write(cr, uid, esale_order_ids, {'state': 'cancel'}, context=context)
+
+        return res
+
+sale_order() # }}}
 
 # vi: fdm=marker
 

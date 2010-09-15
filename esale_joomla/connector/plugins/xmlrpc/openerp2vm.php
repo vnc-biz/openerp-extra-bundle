@@ -37,6 +37,10 @@ function debugfn($s) {
   }
 }
 
+function str_encode($s) {
+  return utf8_encode($s);
+}
+
 function query($db, $s, $run=1) {
   global $SHOW_SQL_ERRORS, $DEBUG_SQL;
 
@@ -153,7 +157,7 @@ class plgXMLRPCOpenERP2Vm extends JPlugin {
             "openerp2vm.get_orders" => array(
                 "function" => "plgXMLRPCOpenERP2VmServices::get_orders",
                 "docstring" => JText::_('Export the sale orders.'),
-                "signature" => array(array($xmlrpcArray,$xmlrpcString,$xmlrpcString))
+                "signature" => array(array($xmlrpcArray,$xmlrpcString,$xmlrpcString,$xmlrpcArray))
                 ),
         );
     }
@@ -583,7 +587,7 @@ class plgXMLRPCOpenERP2VmServices {
         return new xmlrpcresp(new xmlrpcval($id, $xmlrpcInt));
     }
 
-    function get_orders($username,$password) {
+    function get_orders($username,$password,$exclude_ids) {
         global $mainframe, $xmlrpcerruser, $xmlrpcI4, $xmlrpcInt, $xmlrpcBoolean, $xmlrpcDouble, $xmlrpcString, $xmlrpcDateTime, $xmlrpcBase64, $xmlrpcArray, $xmlrpcStruct, $xmlrpcValue;
         if(!plgXMLRPCOpenERP2VmHelper::authenticateUser($username, $password)) {
             return new xmlrpcresp(0, $xmlrpcerruser+1, JText::_("Login Failed"));
@@ -592,11 +596,19 @@ class plgXMLRPCOpenERP2VmServices {
         $end = " ";
         $db =& JFactory::getDBO();
         try {
+
+            if ($exclude_ids) {
+                $cond_q = "WHERE o.order_id not in (".implode(', ', $exclude_ids).")";
+            } else {
+                $cond_q = "";
+            }
+
             $q = "SELECT o.order_id, o.user_id,".$end;
             $q.= "       o.cdate, o.customer_note,".$end;
             $q.= "       o.order_total, o.order_subtotal, o.order_tax, o.order_tax_details, o.coupon_discount,".$end;
             $q.= "       o.coupon_code, o.order_discount, o.order_shipping, o.order_shipping_tax, o.ship_method_id".$end;
             $q.= "FROM jos_vm_orders as o".$end;
+            $q.= $cond_q;
             $q.= ";";
             query($db, $q);
             $order_result = $db->loadRowList();
@@ -616,25 +628,27 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
                 $q.= ";";
 
+                trace($q);
+
                 query($db, $q);
                 $address_result = $db->loadRowList();
                 $address_bt = array();
                 foreach($address_result as $row2) {
                   $address_bt[] = new xmlrpcval(array(
-                    "first_name" => new xmlrpcval($row2[1],  $xmlrpcString),
-                    "last_name" => new xmlrpcval($row2[2],  $xmlrpcString),
-                    "phone_1" => new xmlrpcval($row2[3],  $xmlrpcString),
-                    "address_1" => new xmlrpcval($row2[4],  $xmlrpcString),
-                    "address_2" => new xmlrpcval($row2[5],  $xmlrpcString),
-                    "city" => new xmlrpcval($row2[6],  $xmlrpcString),
-                    "zip" => new xmlrpcval($row2[7],  $xmlrpcString),
-                    "state" => new xmlrpcval($row2[8],  $xmlrpcString),
-                    "user_email" => new xmlrpcval($row2[9],  $xmlrpcString),
-                    "company" => new xmlrpcval($row2[10],  $xmlrpcString),
-                    "phone_2" => new xmlrpcval($row2[11],  $xmlrpcString),
-                    "fax" => new xmlrpcval($row2[12],  $xmlrpcString),
-                    "country" => new xmlrpcval($row2[13],  $xmlrpcString),
-                    "country_2" => new xmlrpcval($row2[14],  $xmlrpcString),
+                    "first_name" => new xmlrpcval(str_encode($row2[1]), $xmlrpcString),
+                    "last_name" => new xmlrpcval(str_encode($row2[2]), $xmlrpcString),
+                    "phone_1" => new xmlrpcval(str_encode($row2[3]), $xmlrpcString),
+                    "address_1" => new xmlrpcval(str_encode($row2[4]), $xmlrpcString),
+                    "address_2" => new xmlrpcval(str_encode($row2[5]), $xmlrpcString),
+                    "city" => new xmlrpcval(str_encode($row2[6]), $xmlrpcString),
+                    "zip" => new xmlrpcval(str_encode($row2[7]), $xmlrpcString),
+                    "state" => new xmlrpcval(str_encode($row2[8]), $xmlrpcString),
+                    "user_email" => new xmlrpcval(str_encode($row2[9]), $xmlrpcString),
+                    "company" => new xmlrpcval(str_encode($row2[10]), $xmlrpcString),
+                    "phone_2" => new xmlrpcval(str_encode($row2[11]), $xmlrpcString),
+                    "fax" => new xmlrpcval(str_encode($row2[12]), $xmlrpcString),
+                    "country" => new xmlrpcval(str_encode($row2[13]), $xmlrpcString),
+                    "country_2" => new xmlrpcval(str_encode($row2[14]), $xmlrpcString),
                   ), $xmlrpcStruct);
                 }
 
@@ -648,25 +662,27 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
                 $q.= ";";
 
+                trace($q);
+
                 query($db, $q);
                 $address_result = $db->loadRowList();
                 $address_st = array();
                 foreach($address_result as $row2) {
                   $address_st[] = new xmlrpcval(array(
-                    "first_name" => new xmlrpcval($row2[1],  $xmlrpcString),
-                    "last_name" => new xmlrpcval($row2[2],  $xmlrpcString),
-                    "phone_1" => new xmlrpcval($row2[3],  $xmlrpcString),
-                    "address_1" => new xmlrpcval($row2[4],  $xmlrpcString),
-                    "address_2" => new xmlrpcval($row2[5],  $xmlrpcString),
-                    "city" => new xmlrpcval($row2[6],  $xmlrpcString),
-                    "zip" => new xmlrpcval($row2[7],  $xmlrpcString),
-                    "state" => new xmlrpcval($row2[8],  $xmlrpcString),
-                    "user_email" => new xmlrpcval($row2[9],  $xmlrpcString),
-                    "company" => new xmlrpcval($row2[10],  $xmlrpcString),
-                    "phone_2" => new xmlrpcval($row2[11],  $xmlrpcString),
-                    "fax" => new xmlrpcval($row2[12],  $xmlrpcString),
-                    "country" => new xmlrpcval($row2[13],  $xmlrpcString),
-                    "country_2" => new xmlrpcval($row2[14],  $xmlrpcString),
+                    "first_name" => new xmlrpcval(str_encode($row2[1]), $xmlrpcString),
+                    "last_name" => new xmlrpcval(str_encode($row2[2]), $xmlrpcString),
+                    "phone_1" => new xmlrpcval(str_encode($row2[3]), $xmlrpcString),
+                    "address_1" => new xmlrpcval(str_encode($row2[4]), $xmlrpcString),
+                    "address_2" => new xmlrpcval(str_encode($row2[5]), $xmlrpcString),
+                    "city" => new xmlrpcval(str_encode($row2[6]), $xmlrpcString),
+                    "zip" => new xmlrpcval(str_encode($row2[7]), $xmlrpcString),
+                    "state" => new xmlrpcval(str_encode($row2[8]), $xmlrpcString),
+                    "user_email" => new xmlrpcval(str_encode($row2[9]), $xmlrpcString),
+                    "company" => new xmlrpcval(str_encode($row2[10]), $xmlrpcString),
+                    "phone_2" => new xmlrpcval(str_encode($row2[11]), $xmlrpcString),
+                    "fax" => new xmlrpcval(str_encode($row2[12]), $xmlrpcString),
+                    "country" => new xmlrpcval(str_encode($row2[13]), $xmlrpcString),
+                    "country_2" => new xmlrpcval(str_encode($row2[14]), $xmlrpcString),
                   ), $xmlrpcStruct);
                 }
 
@@ -678,6 +694,8 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.= "WHERE order_id = ".$order_id."".$end;
                 $q.= ";";
 
+                trace($q);
+
                 query($db, $q);
                 $order_line_result = $db->loadRowList();
                 $order_lines = array();
@@ -688,10 +706,10 @@ class plgXMLRPCOpenERP2VmServices {
                     "product_quantity" => new xmlrpcval($row3[2],  $xmlrpcFloat),
                     "product_item_price" => new xmlrpcval($row3[3],  $xmlrpcFloat),
                     "product_final_price" => new xmlrpcval($row3[4],  $xmlrpcFloat),
-                    "product_item_currency" => new xmlrpcval($row3[5],  $xmlrpcString),
+                    "product_item_currency" => new xmlrpcval(str_encode($row3[5]),  $xmlrpcString),
                     "creation_date" => new xmlrpcval($row3[6],  $xmlrpcInt),
                     "modification_date" => new xmlrpcval($row3[7],  $xmlrpcInt),
-                    "order_item_name" => new xmlrpcval($row3[8],  $xmlrpcString),
+                    "order_item_name" => new xmlrpcval(str_encode($row3[8]),  $xmlrpcString),
                   ), $xmlrpcStruct);
                 }
 
@@ -704,17 +722,17 @@ class plgXMLRPCOpenERP2VmServices {
                     "address_shipping" => new xmlrpcval($address_st, $xmlrpcStruct)
                   ), $xmlrpcStruct),
                   "order_creation_date" => new xmlrpcval($row[2], $xmlrpcInt),
-                  "order_customer_note" => new xmlrpcval($row[3], $xmlrpcString),
+                  "order_customer_note" => new xmlrpcval(str_encode($row[3]), $xmlrpcString),
                   "order_total" => new xmlrpcval($row[4], $xmlrpcDouble),
                   "order_sub_total" => new xmlrpcval($row[5], $xmlrpcDouble),
                   "order_tax" => new xmlrpcval($row[6], $xmlrpcDouble),
-                  "order_tax_detail" => new xmlrpcval($row[7], $xmlrpcString),
+                  "order_tax_detail" => new xmlrpcval(str_encode($row[7]), $xmlrpcString),
                   "order_coupon_discount" => new xmlrpcval($row[8], $xmlrpcDouble),
-                  "order_coupon_code" => new xmlrpcval($row[9], $xmlrpcString),
+                  "order_coupon_code" => new xmlrpcval(str_encode($row[9]), $xmlrpcString),
                   "order_discount" => new xmlrpcval($row[10], $xmlrpcDouble),
                   "order_shipping" => new xmlrpcval($row[11], $xmlrpcDouble),
                   "order_shipping_tax" => new xmlrpcval($row[12], $xmlrpcDouble),
-                  "order_ship_method_id" => new xmlrpcval($row[13], $xmlrpcString)),
+                  "order_ship_method_id" => new xmlrpcval(str_encode($row[13]), $xmlrpcString)),
                 $xmlrpcStruct);
             }
         } catch(Exception $e) {

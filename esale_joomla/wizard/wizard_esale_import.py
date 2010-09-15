@@ -36,6 +36,7 @@ _import_select_form = '''<?xml version="1.0"?>
 <form string="Sale Orders Import">
 <separator string="Select the Web Shop to import" colspan="4" />
 <field name="web_shop"/>
+<newline />
 </form>'''
 
 _import_select_fields = {
@@ -45,6 +46,13 @@ _import_select_fields = {
         'relation': 'esale_joomla.web',
         'required': True,
     },
+##     'target': {
+##         'string': 'Which Rows',
+##         'type': 'selection',
+##         'selection': [('last', 'new, modified and deleted since last import'), ('all', 'all rows')],
+##         'default': lambda *a: 'last',
+##         'required': True,
+##     },
 }
 
 _import_done_form = '''<?xml version="1.0"?>
@@ -105,6 +113,8 @@ def _import_from_shop(self, cr, uid, data, context):
     try:
         self.pool = pooler.get_pool(cr.dbname)
         web_id = data['form']['web_shop']
+        #target = data['form']['target']
+        #(rnew, rupdate, rerror) = self.pool.get('esale_joomla.order').webimport(cr, uid, [web_id], target)
         (rnew, rupdate, rerror) = self.pool.get('esale_joomla.order').webimport(cr, uid, [web_id])
     finally:
         log = sys.stderr.getvalue()

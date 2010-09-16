@@ -38,6 +38,7 @@ categories of products, taxes and languages.
     "update_xml" : [
             "security/esale_joomla_security.xml",
            # "security/ir.model.access.csv",
+            "esale_joomla_data.xml",
             "esale_joomla_view.xml",
             "esale_joomla_wizard.xml",
     ],

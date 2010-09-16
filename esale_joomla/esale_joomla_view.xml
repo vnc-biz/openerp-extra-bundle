@@ -350,13 +350,21 @@
                         <field name="coupon_discount"/>
                         <field name="coupon_code"/>
                         <field name="order_discount"/>
-                        <field name="shipping"/>
-                        <field name="shipping_tax"/>
 
                         <field name="tax" />
 
                         <newline />
-                        <separator string="Shipping Method Description" colspan="4" />
+                        <separator string="Shipping Details" colspan="4" />
+                        <field name="shipping"/>
+                        <field name="shipping_tax"/>
+                        <field name="shipping_tax_rate"/>
+                        <field name="shipping_type"/>
+                        <field name="shipping_shipper_name"/>
+                        <field name="shipping_method_name"/>
+                        <field name="shipping_range"/>
+                        <field name="shipping_rate_total_amount"/>
+                        <field name="shipping_joomla_ref"/>
+                        <separator string="Shipping Details Raw Description" colspan="4" />
                         <field name="shipping_method_description" nolabel="1" colspan="4" />
 
                         <newline />

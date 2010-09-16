@@ -1135,6 +1135,7 @@ esale_joomla_producttypeparam_map() # }}}
 
 class esale_joomla_order(osv.osv): # {{{
     _name = 'esale_joomla.order'
+    _order = 'web_ref desc, state desc'
     _columns = {
         'name': fields.char('Order Description', size=64, required=True),
         'state': fields.selection([
@@ -1162,12 +1163,31 @@ class esale_joomla_order(osv.osv): # {{{
         'shipping': fields.float('Web Order Shipping Amount', digits=(16, price_accuracy)),
         'shipping_tax': fields.float('Web Order Shipping Tax Amount', digits=(16, price_accuracy)),
         'shipping_method_description': fields.text('Web Order Shipping Method Description'),
+        'shipping_tax_rate': fields.float('Web Order Shipping Tax Rate', digits=(16, price_accuracy)),
+        'shipping_type': fields.char('Web Order Shipping Type', size=128),
+        'shipping_shipper_name': fields.char('Web Order Shipper Name', size=128),
+        'shipping_method_name': fields.char('Web Order Shipping Method Name', size=128),
+        'shipping_range': fields.char('Web Order Shipping Range', size=128),
+        'shipping_rate_total_amount': fields.float('Web Order Shipping Rate Total Amount', digits=(16, price_accuracy)),
+        'shipping_joomla_ref': fields.integer('Web Order Shipping Joomla Ref'),
     }
 
     _defaults = {
         'date_order': lambda *a: time.strftime('%Y-%m-%d'),
         'state': lambda *a: 'draft',
     }
+
+    def id_get(self, cr, uid, model, id_str):
+        mod, id_str = id_str.split('.')
+        try:
+            idn = self.pool.get('ir.model.data')._get_id(cr, uid, mod, id_str)
+            res = int(self.pool.get('ir.model.data').read(cr, uid, [idn], ['res_id'])[0]['res_id'])
+        except Exception, e:
+            res = None
+        return res
+
+    def _get_shipping_product_id(self, cr, uid, *args):
+        return self.id_get(cr, uid, 'product.product', 'esale_joomla.product_product_shipping_cost')
 
     def webimport(self, cr, uid, web_ids, *args, **kwargs): # {{{2
         def _get_country(address):
@@ -1252,6 +1272,21 @@ class esale_joomla_order(osv.osv): # {{{
                     esale_joomla_partner_obj.write(cr, uid, ids, partner_value)
                     partner_id = ids[0]
 
+                # shipping details:
+                shipping_method_raw_description = order['order_ship_method_id']
+                shipping_method_description_array = shipping_method_raw_description.split('|')
+
+                shipping_details = {
+                    'shipping_method_description': shipping_method_raw_description,
+                    'shipping_tax_rate': order['order_shipping_rate'],
+                    'shipping_type': shipping_method_description_array[0],
+                    'shipping_shipper_name': shipping_method_description_array[1],
+                    'shipping_method_name': shipping_method_description_array[2].split(';')[0],
+                    'shipping_range': shipping_method_description_array[2].split(';')[1],
+                    'shipping_rate_total_amount': shipping_method_description_array[3],
+                    'shipping_joomla_ref': shipping_method_description_array[4],
+                }
+
                 # eSale Order:
                 order_value = {
                     'web_id': website.id,
@@ -1268,9 +1303,9 @@ class esale_joomla_order(osv.osv): # {{{
                     'order_discount': order['order_discount'],
                     'shipping': order['order_shipping'],
                     'shipping_tax': order['order_shipping_tax'],
-                    'shipping_method_description': order['order_ship_method_id'],
                     'epartner_id': partner_id,
                 }
+                order_value.update(shipping_details)
 
                 print
                 print order['order_id']
@@ -1422,49 +1457,6 @@ class esale_joomla_order(osv.osv): # {{{
             epartner_obj.write(cr, uid, eorder.epartner_id.id, {'partner_id': partner_id}, context=context)
             eorder = self.browse(cr, uid, eorder.id, context)
 
-            # XXX WORK IN PROGRESS XXX
-
-##             esale_joomla.order.line : _columns = {
-##                 'name': fields.char('Order Line', size=256, required=True),
-##                 'order_id': fields.many2one('esale_joomla.order', 'eOrder Ref', reado
-##                 'order_item_id': fields.integer('eOrder Line Ref', readonly=True, req
-##                 'web_product_id': fields.many2one('esale_joomla.product_map', 'Produc
-##                 'web_creation_date': fields.datetime('Web Order Line Creation Date'),
-##                 'web_modification_date': fields.datetime('Web Order Line Modification
-##                 'web_product_item_price': fields.float('Web Order Line Item Price', d
-##                 'web_product_final_price': fields.float('Web Order Line Final Price',
-##                 'web_product_item_currency': fields.char('Web Order Line Item Currenc
-##                 'product_qty': fields.float('Quantity', digits=(16, 2), required=True
-
-##             sale.order.line: _columns = {
-##                 'order_id': fields.many2one('sale.order', 'Order Ref', required=True,
-##                 'name': fields.char('Description', size=256, required=True, select=Tru
-##                 'sequence': fields.integer('Sequence'),
-##                 'delay': fields.float('Delivery Lead Time', required=True, help="Numbe
-##                 'product_id': fields.many2one('product.product', 'Product', domain=[('
-##                 'invoice_lines': fields.many2many('account.invoice.line', 'sale_order_
-##                 'invoiced': fields.boolean('Invoiced', readonly=True),
-##                 'procurement_id': fields.many2one('mrp.procurement', 'Procurement'),
-##                 'price_unit': fields.float('Unit Price', required=True, digits=(16, in
-##                 'price_net': fields.function(_amount_line_net, method=True, string='Ne
-##                 'price_subtotal': fields.function(_amount_line, method=True, string='S
-##                 'tax_id': fields.many2many('account.tax', 'sale_order_tax', 'order_lin
-##                 'type': fields.selection([('make_to_stock', 'from stock'), ('make_to_o
-##                 'property_ids': fields.many2many('mrp.property', 'sale_order_line_prop
-##                 'address_allotment_id': fields.many2one('res.partner.address', 'Allotm
-##                 'product_uom_qty': fields.float('Quantity (UoM)', digits=(16, 2), requ
-##                 'product_uom': fields.many2one('product.uom', 'Product UoM', required=
-##                 'product_uos_qty': fields.float('Quantity (UoS)', readonly=True, state
-##                 'product_uos': fields.many2one('product.uom', 'Product UoS'),
-##                 'product_packaging': fields.many2one('product.packaging', 'Packaging')
-##                 'move_ids': fields.one2many('stock.move', 'sale_line_id', 'Inventory M
-##                 'discount': fields.float('Discount (%)', digits=(16, 2), readonly=True
-##                 'number_packages': fields.function(_number_packages, method=True, type
-##                 'notes': fields.text('Notes'),
-##                 'th_weight': fields.float('Weight', readonly=True, states={'draft':[('
-##                 'state': fields.selection([('draft', 'Draft'), ('confirmed', 'Confirme
-##                 'order_partner_id': fields.related('order_id', 'partner_id', type='man
-
             pricelist_id = eorder.epartner_id.partner_id.property_product_pricelist.id
             order_lines = []
 
@@ -1483,14 +1475,46 @@ class esale_joomla_order(osv.osv): # {{{
                                                                              line.product_qty, default_uom_id,
                                                                              name=line.name, partner_id=eorder.epartner_id.partner_id.id,
                                                                              fiscal_position=fpos)['value']
-                del val_new['price_unit']
-                #del val_new['weight']
                 del val_new['th_weight']
                 val_new['product_uos'] = 'product_uos' in val_new and val_new['product_uos'] and val_new['product_uos'][0] or False
                 val.update(val_new)
                 val['tax_id'] = 'tax_id' in val and [(6, 0, val['tax_id'])] or False
                 order_lines.append((0, 0, val))
 
+            # add shipping:
+
+            shipping_product_id = self._get_shipping_product_id(cr, uid)
+            shipping_product_name = "Shipping Cost"
+
+            val = self.pool.get('sale.order.line').product_id_change(cr, uid, None, pricelist_id, shipping_product_id,
+                                                                         1, 1,
+                                                                         name=shipping_product_name, partner_id=eorder.epartner_id.partner_id.id,
+                                                                         fiscal_position=fpos)['value']
+            val.update({
+                #'name': shipping_product_name,
+                'product_uom_qty': 1,
+                'product_id': shipping_product_id,
+                'product_uom': 1,
+                'price_unit': eorder.shipping + eorder.shipping_tax,
+            })
+            del val['th_weight']
+
+            joomla_tax_map_obj = self.pool.get('esale_joomla.tax_map')
+            tax_ids = joomla_tax_map_obj.search(cr, uid, [])
+            taxes = joomla_tax_map_obj.read(cr, uid, tax_ids, ['esale_joomla_rate', 'tax_id'])
+            tax_id = None
+            for tax_dict in taxes:
+                if abs(eorder.shipping_tax_rate - tax_dict['esale_joomla_rate']) < 0.00001:
+                    tax_id = tax_dict['tax_id'][0]
+                    break
+
+            if tax_id:
+                val['tax_id'] = [(6, 0, [tax_id])]
+            order_lines.append((0, 0, val))
+
+            # END shipping
+
+            # invoicing, billing and shipping addresses:
             address_obj = self.pool.get('res.partner.address')
 
             partner_invoice_id = address_obj.search(cr, uid, [('partner_id', '=', eorder.epartner_id.partner_id.id), ('type', '=', 'invoice')])
@@ -1523,55 +1547,7 @@ class esale_joomla_order(osv.osv): # {{{
             })
             self.write(cr, uid, [eorder.id], {'state': 'done', 'order_id': order_id})
 
-            # XXX END WORK IN PROGRESS XXX
-
         return True # }}}2
-
-    def order_createOLD(self, cr, uid, ids, context={}): # {{{2
-        for order in self.browse(cr, uid, ids, context):
-            if not (order.partner_id and order.partner_invoice_id and order.partner_shipping_id):
-                raise osv.except_osv('No addresses !', 'You must assign addresses before creating the order.')
-
-            #pricelist_id=order.partner_id.property_product_pricelist[0]
-            pricelist_id = order.partner_id.property_product_pricelist.id
-            order_lines = []
-            for line in order.order_lines:
-                val = {
-                    'name': line.name,
-                    'product_uom_qty': line.product_qty,
-                    'product_id': line.product_id.id,
-                    'product_uom': line.product_uom_id.id,
-                    'price_unit': line.price_unit,
-                }
-                fpos = order.partner_id.property_account_position and order.partner_id.property_account_position.id or False
-                val_new = self.pool.get('sale.order.line').product_id_change(cr, uid, None, pricelist_id, line.product_id.id, line.product_qty,
-                                                                             line.product_uom_id.id, name=line.name, partner_id=order.partner_id.id, fiscal_position=fpos)['value']
-                del val_new['price_unit']
-                #del val_new['weight']
-                del val_new['th_weight']
-                val_new['product_uos'] = 'product_uos' in val_new and val_new['product_uos'] and val_new['product_uos'][0] or False
-                val.update(val_new)
-                val['tax_id'] = 'tax_id' in val and [(6, 0, val['tax_id'])] or False
-                order_lines.append((0, 0, val))
-
-            order_id = self.pool.get('sale.order').create(cr, uid, {
-                'name': order.name,
-                'shop_id': order.web_id.shop_id.id,
-                'origin': 'WEB:' + str(order.web_ref),
-                'user_id': uid,
-                'note': order.note or '',
-                'partner_id': order.partner_id.id,
-                'partner_invoice_id': order.partner_invoice_id.id,
-                'partner_order_id': order.partner_invoice_id.id,
-                'partner_shipping_id': order.partner_shipping_id.id,
-                'pricelist_id': pricelist_id,
-                'order_line': order_lines,
-                'fiscal_position': order.partner_id.property_account_position.id
-            })
-            self.write(cr, uid, [order.id], {'state': 'done', 'order_id': order_id})
-#           wf_service = netsvc.LocalService("workflow")
-#           wf_service.trg_validate(uid, 'sale.order', order_id, 'order_confirm', cr)
-        return True
 
 ##     def address_set(self, cr, uid, ids, *args):
 ##         done = []
@@ -1608,7 +1584,7 @@ class esale_joomla_order_line(osv.osv): # {{{
     _description = 'eSale Order line'
     _columns = {
         'name': fields.char('Order Line', size=256, required=True),
-        'order_id': fields.many2one('esale_joomla.order', 'eOrder Ref', readonly=True, required=True),
+        'order_id': fields.many2one('esale_joomla.order', 'eOrder Ref', readonly=True, required=True, ondelete='cascade'),
         'order_item_id': fields.integer('eOrder Line Ref', readonly=True, required=True),
         'web_product_id': fields.many2one('esale_joomla.product_map', 'Product Mapping'),
         'web_creation_date': fields.datetime('Web Order Line Creation Date'),

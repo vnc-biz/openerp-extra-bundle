@@ -628,8 +628,6 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
                 $q.= ";";
 
-                trace($q);
-
                 query($db, $q);
                 $address_result = $db->loadRowList();
                 $address_bt = array();
@@ -662,8 +660,6 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.= "WHERE u.address_type = '".$address_type."' and order_id = ".$order_id."".$end;
                 $q.= ";";
 
-                trace($q);
-
                 query($db, $q);
                 $address_result = $db->loadRowList();
                 $address_st = array();
@@ -694,8 +690,6 @@ class plgXMLRPCOpenERP2VmServices {
                 $q.= "WHERE order_id = ".$order_id."".$end;
                 $q.= ";";
 
-                trace($q);
-
                 query($db, $q);
                 $order_line_result = $db->loadRowList();
                 $order_lines = array();
@@ -712,6 +706,21 @@ class plgXMLRPCOpenERP2VmServices {
                     "order_item_name" => new xmlrpcval(str_encode($row3[8]),  $xmlrpcString),
                   ), $xmlrpcStruct);
                 }
+
+                // get shipping tax rate:
+                $order_ship_method_id = $row[13];
+
+                $order_shipping_rate_array = explode("|", $order_ship_method_id);
+                $order_shipping_rate_id = $order_shipping_rate_array[4];
+
+                $q = "SELECT".$end;
+                $q.= "tax_rate FROM jos_vm_tax_rate where tax_rate_id = (".$end;
+                $q.= "  SELECT shipping_rate_vat_id FROM jos_vm_shipping_rate where shipping_rate_id = ".$order_shipping_rate_id."".$end;
+                $q.= ")".$end;
+                $q.= ";";
+                query($db, $q);
+                $order_shipping_rate_result = $db->loadRow();
+                $order_shipping_rate = $order_shipping_rate_result[0];
 
                 $orders[] = new xmlrpcval(array(
                   "order_id" => new xmlrpcval($order_id,  $xmlrpcInt),
@@ -732,7 +741,8 @@ class plgXMLRPCOpenERP2VmServices {
                   "order_discount" => new xmlrpcval($row[10], $xmlrpcDouble),
                   "order_shipping" => new xmlrpcval($row[11], $xmlrpcDouble),
                   "order_shipping_tax" => new xmlrpcval($row[12], $xmlrpcDouble),
-                  "order_ship_method_id" => new xmlrpcval(str_encode($row[13]), $xmlrpcString)),
+                  "order_ship_method_id" => new xmlrpcval(str_encode($order_ship_method_id), $xmlrpcString),
+                  "order_shipping_rate" => new xmlrpcval(str_encode($order_shipping_rate), $xmlrpcString)),
                 $xmlrpcStruct);
             }
         } catch(Exception $e) {

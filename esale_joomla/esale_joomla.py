@@ -996,7 +996,7 @@ class esale_joomla_product_map(osv.osv): # {{{
                                         if ptpm.translate and ptpm.attribute:
                                             try:
                                                 val = eval(ptpm.attribute)
-                                                if val is not False:
+                                                if val is not False and isinstance(val,basestring):
                                                     err &= php_set_trans_func(website.login, website.password, lang_id, 'vm_product_type_%s'%ptm.esale_joomla_id, ptpm.esale_joomla_id, eid, val)
                                             except Exception, e:
                                                 print >> sys.stderr, 'Cannot evaluate parameter %s (product id %s): %s' % (ptpm.esale_joomla_id, pid, traceback.format_exc().splitlines()[-1])

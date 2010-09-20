@@ -96,7 +96,7 @@ msgstr "Notes"
 #. module: library
 #: selection:product.product,back:0
 msgid "Paperback"
-msgstr "Couverture"
+msgstr "Cartonné"
 
 #. module: library
 #: model:ir.actions.act_window,name:library.act_sale_picking
@@ -232,7 +232,7 @@ msgstr "Référence Client"
 #. module: library
 #: selection:product.product,back:0
 msgid "Hardback"
-msgstr "Couverture dure"
+msgstr "Broché"
 
 #. module: library
 #: field:product.product,num_edition:0

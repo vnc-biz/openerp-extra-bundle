@@ -24,14 +24,32 @@ import wizard
 import pooler
 from tools import UpdateableStr, UpdateableDict
 from tools.translate import _
+from osv import osv
+
+class res_partner_address(osv.osv):
+    _inherit = 'res.partner.address'
+    
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
+            context=None, count=False):
+        if context is None:
+            context = {}
+        if context.get('merge',False):
+            partner_address_obj = self.pool.get('res.partner.address')
+            add2 = partner_address_obj.browse(cr, uid, context['merge'], context=context).partner_id.id
+            args.append(('partner_id','=',add2))
+        return super(res_partner_address, self).search(cr, uid, args, offset, limit,
+                order, context=context, count=count)
+res_partner_address()
+
 
 _MERGE_FORM = UpdateableStr()
 _MERGE_FIELDS = UpdateableDict()
 
 address_form = '''<?xml version="1.0"?>
 <form string="Merge Two Partner Address">
-    <field name="address_id1" />
-    <field name="address_id2" />
+    <field name="address_id1" colspan="4"/>
+    <field name="address_id2" colspan="4" context="{'merge':address_id1}"/>
+
 </form>'''
 
 address_fields = {

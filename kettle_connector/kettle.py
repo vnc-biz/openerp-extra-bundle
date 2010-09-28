@@ -64,7 +64,6 @@ class kettle_transformation(osv.osv):
         file_temp = base64.decodestring(transfo.file)
         if context.get('filter', False):
             for key in context['filter']:
-                print 'key', key, "context['filter'][key]", context['filter'][key]
                 file_temp = file_temp.replace(key, context['filter'][key])
         transformation_temp.write(file_temp)
         transformation_temp.close()
@@ -82,7 +81,7 @@ class kettle_transformation(osv.osv):
             else:
                 prefixe_log_name = "[SUCCESS]"
         
-        self.pool.get('ir.attachment').write(cr, uid, attachment_id, {'datas': base64.encodestring(open(kettle_dir +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
+        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
         cr.commit()
         os.system('rm "' + kettle_dir +"/" + log_file_name + '.log"')
         if os_result != 0:
@@ -147,17 +146,17 @@ class kettle_task(osv.osv):
                     logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
                     continue
                 else:
-                    context['filter'].update({'AUTO_REP_file_in' : str(context['input_filename'])})
+                    context['filter'].update({'AUTO_REP_file_in' : str(context['input_filename']), 'AUTO_REP_file_in_name' : str(context['input_filename'].split('/').pop())})
             
             context = self.execute_python_code(cr, uid, id, 'before', context)
             
             context['filter'].update(eval('{' + str(task['parameters'] or '')+ '}'))
-            self.pool.get('kettle.transformation').execute_transformation(cr, uid, id, log_file_name, attachment_id, context)
+            self.pool.get('kettle.transformation').execute_transformation(cr, uid, task['transformation_id'][0], log_file_name, attachment_id, context)
 
             context = self.execute_python_code(cr, uid, id, 'after', context)
             
             if context.get('input_filename',False):
-                self.attach_file_to_task(cr, uid, task['transformation_id'][0], context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
+                self.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
         
         return True
 kettle_task()

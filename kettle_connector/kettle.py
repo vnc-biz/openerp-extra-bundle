@@ -23,15 +23,26 @@ import netsvc
 import time
 import datetime
 import base64
+from terminator_install import installer
+import tools
 
 class kettle_server(osv.osv):
     _name = 'kettle.server'
-    _description = 'kettle server'  
+    _description = 'kettle server'
+    
+    def button_install(self, cr, uid, ids, context=None):
+        inst = installer()
+        inst.install(self.read(cr, uid, ids, ['kettle_dir'])[0]['kettle_dir'].replace('data-integration', ''))
+        return True
     
     _columns = {
         'name': fields.char('Server Name', size=64, required=True),
         'kettle_dir': fields.char('Kettle Directory', size=255, required=True),
         'transformation': fields.one2many('kettle.transformation', 'server_id', 'Transformation'),
+        }
+    
+    _defaults = {
+        'kettle_dir': lambda *a: tools.config['addons_path'].replace('/addons', '/data-integration'),
         }
     
 kettle_server()

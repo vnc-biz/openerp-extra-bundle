@@ -83,7 +83,8 @@ class kettle_transformation(osv.osv):
         
         self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
         cr.commit()
-        os.system('rm "' + kettle_dir +"/" + log_file_name + '.log"')
+        os.remove(kettle_dir +"/" + log_file_name + '.log')
+        os.remove(kettle_dir + '/transformations/'+ filename)
         if os_result != 0:
             self.error_wizard(cr, uid, attachment_id, context)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
@@ -113,6 +114,7 @@ class kettle_task(osv.osv):
             context = {}
         context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
         datas = base64.encodestring(open(datas_fname,'rb').read())
+        os.remove(datas_fname)
         attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
         return attachment_id
     

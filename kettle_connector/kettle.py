@@ -124,6 +124,8 @@ class kettle_task(osv.osv):
         return context
     
     def start_kettle_task(self, cr, uid, ids, context=None):
+        if context == None:
+            context = {}
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:

@@ -12,19 +12,19 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="kettle task">
-					<group colspan="4">
+					<group colspan="4" >
 				        <field name="name" select="1"/>
-				        <field name="server_id"/>
-				        <field name="transformation_id"/>
-				        <field name="scheduler"/>
-                        <field name="upload_file"/>
-                        <field name="output_file"/>
-				        <field name="active_python_code"/>
+				        <field name="server_id" groups="base.group_extended"/>
+				        <field name="transformation_id" groups="base.group_extended"/>
+				        <field name="scheduler" groups="base.group_extended"/>
+				        <field name="upload_file" groups="base.group_extended"/>
+				        <field name="output_file" groups="base.group_extended"/>
+				        <field name="active_python_code" groups="base.group_extended"/>
 				        <field name="last_date"/>
 				        <separator colspan="4" string="Parameters" />
 				        <field name="parameters" colspan = "4" nolabel="1"/>
 			        </group> 
-			        <group attrs="{'invisible':[('active_python_code','!=',1)]}"  colspan="4">
+			        <group attrs="{'invisible':[('active_python_code','!=',1)]}"  colspan="4" groups="base.group_extended">
 				        <separator colspan="4" string="Python Code Executed Before Transformation" />
 				        <field name="python_code_before" colspan = "4" nolabel="1"/>				        
 				        <separator colspan="4" string="Python Code Executed After Transformation" />
@@ -42,9 +42,8 @@
 			<field name="arch" type="xml">
 				<tree string="kettle task">
 			        <field name="name" select="1"/>
-			        <field name="server_id"/>
-			        <field name="transformation_id"/>
 			        <field name="scheduler"/>
+			        <field name="last_date"/>
 				</tree>
 			</field>
 		</record>
@@ -201,8 +200,8 @@
 
 		<menuitem id="menu_kettle_connection" name="kettle-connection"/>
 		
-		<menuitem action="action_kettle_server" id="kettle server" parent="menu_kettle_connection"/>
-		<menuitem action="action_kettle_transformation" id="kettle transformation" parent="menu_kettle_connection"/>
-		<menuitem action="action_kettle_task" id="kettle task" parent="menu_kettle_connection"/>
+		<menuitem action="action_kettle_server" id="menu_kettle_server" parent="menu_kettle_connection"/>
+		<menuitem action="action_kettle_transformation" id="menu_kettle_transformation" parent="menu_kettle_connection"/>
+		<menuitem action="action_kettle_task" id="menu_kettle_task" parent="menu_kettle_connection"/>
     </data>
 </openerp>

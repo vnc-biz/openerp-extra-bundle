@@ -27,7 +27,11 @@
     "category" : "Customer Modules",
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : ["kettle.xml"],
+    "update_xml" : [
+            "kettle.xml",
+            'security/kettle_security.xml',
+            'security/ir.model.access.csv',
+                    ],
     "active": False,
     "installable": True,
 

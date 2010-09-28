@@ -2,6 +2,8 @@
 
 <openerp>
 	<data>
+	
+<!-- KETTLE TASK VIEW -->
 
 		<record id="kettle_task_form" model="ir.ui.view">
 			<field name="name">kettle.task.form</field>
@@ -12,8 +14,8 @@
 				<form string="kettle task">
 					<group colspan="4">
 				        <field name="name" select="1"/>
-				        <field name="kettle_dir"/>
-				        <field name="file_name"/>
+				        <field name="server_id"/>
+				        <field name="transformation_id"/>
 				        <field name="scheduler"/>
                         <field name="upload_file"/>
 				        <field name="active_python_code"/>
@@ -38,15 +40,15 @@
 			<field name="arch" type="xml">
 				<tree string="kettle task">
 			        <field name="name" select="1"/>
-			        <field name="kettle_dir"/>
-			        <field name="file_name"/>
+			        <field name="server_id"/>
+			        <field name="transformation_id"/>
 			        <field name="scheduler"/>
 				</tree>
 			</field>
 		</record>
 		
 		<record id="action_kettle_task" model="ir.actions.act_window">
-			<field name="name">kettle task</field>
+			<field name="name">Task</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">kettle.task</field>
 			<field name="view_type">form</field>
@@ -54,7 +56,90 @@
 			<field name="context">{'wizard_object' : 'kettle.wizard', 'function' : 'start_kettle_task', 'object_link' : 'kettle.task' }</field>
 		</record>
 
+<!-- KETTLE SERVER VIEW -->
 
+		<record id="kettle_server_form" model="ir.ui.view">
+			<field name="name">kettle.server.form</field>
+			<field name="priority">20</field>
+			<field name="model">kettle.server</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="kettle server">
+					<group colspan="4">
+				        <field name="name" select="1"/>
+				        <field name="kettle_dir"/>
+				        <separator colspan="4" string="Transformations" />
+				        <field name="transformation" colspan = "4" nolabel="1"/>
+			        </group> 
+				</form>
+			</field>
+		</record>
+		
+		<record id="kettle_server_tree" model="ir.ui.view">
+			<field name="name">kettle.server.tree</field>
+			<field name="priority">20</field>
+			<field name="model">kettle.server</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="kettle server">
+			        <field name="name" select="1"/>
+			        <field name="kettle_dir"/>
+			        <separator colspan="4" string="Transformations" />
+				    <field name="transformation"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="action_kettle_server" model="ir.actions.act_window">
+			<field name="name">Server</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">kettle.server</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+<!-- KETTLE TRANSFORMATION VIEW -->
+
+		<record id="kettle_transformation_form" model="ir.ui.view">
+			<field name="name">kettle.transformation.form</field>
+			<field name="priority">20</field>
+			<field name="model">kettle.transformation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="kettle transformation">
+					<group colspan="4">
+				        <field name="name" select="1"/>
+				        <field name="server_id"/>
+                        <field name="file" filename="filename" colspan="2"/>
+                        <field name="filename" colspan="2"/>
+			        </group> 
+				</form>
+			</field>
+		</record>
+		
+		<record id="kettle_transformation_tree" model="ir.ui.view">
+			<field name="name">kettle.transformation.tree</field>
+			<field name="priority">20</field>
+			<field name="model">kettle.transformation</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="kettle transformation">
+			        <field name="name" select="1"/>
+			        <field name="server_id"/>
+			        <field name="filename"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record id="action_kettle_transformation" model="ir.actions.act_window">
+			<field name="name">Transformation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">kettle.transformation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+<!-- KETTLE  WIZARD START TASK -->
 		<record id="kettle_wizard" model="ir.ui.view">
 			<field name="name">kettle.wizard.form</field>
 			<field name="priority">20</field>
@@ -100,9 +185,7 @@
 		</record>
 
 
-		<menuitem id="menu_kettle_connection" name="kettle-connection"/>
-		
-		<menuitem action="action_kettle_task" id="kettle task" parent="menu_kettle_connection"/>
+<!-- KETTLE  WIZARD ADD SCHEDULER -->
 
 		<record id="ir_action_create_scheduler_in_kettle" model="ir.values">
 			<field name="key2">client_action_multi</field>
@@ -112,6 +195,12 @@
 			<field eval="True" name="object"/>
 		</record>
 		
+<!-- KETTLE  MENU -->
 
+		<menuitem id="menu_kettle_connection" name="kettle-connection"/>
+		
+		<menuitem action="action_kettle_server" id="kettle server" parent="menu_kettle_connection"/>
+		<menuitem action="action_kettle_transformation" id="kettle transformation" parent="menu_kettle_connection"/>
+		<menuitem action="action_kettle_task" id="kettle task" parent="menu_kettle_connection"/>
     </data>
 </openerp>

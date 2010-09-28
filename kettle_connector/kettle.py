@@ -24,18 +24,42 @@ import time
 import datetime
 import base64
 
+class kettle_server(osv.osv):
+    _name = 'kettle.server'
+    _description = 'kettle server'  
+    
+    _columns = {
+        'name': fields.char('Server Name', size=64, required=True),
+        'kettle_dir': fields.char('Kettle Directory', size=255, required=True),
+        'transformation': fields.one2many('kettle.transformation', 'server_id', 'Transformation'),
+        }
+    
+kettle_server()
+
+class kettle_transformation(osv.osv):
+    _name = 'kettle.transformation'
+    _description = 'kettle transformation'
+    
+    _columns = {
+        'name': fields.char('Transformation Name', size=64, required=True),
+        'server_id': fields.many2one('kettle.server', 'Server', required=True),
+        'file': fields.binary('File'),
+        'filename': fields.char('File Name', size=64),
+        }
+     
+kettle_transformation()
+
 class kettle_task(osv.osv):
     _name = 'kettle.task'
     _description = 'kettle task'    
     
     _columns = {
         'name': fields.char('Task Name', size=64, required=True),
-        'kettle_dir': fields.char('Kettle Directory', size=255, required=True),
-        'file_name': fields.char('Transformation File Name', size=64, required=True),
+        'server_id': fields.many2one('kettle.server', 'Server', required=True),
+        'transformation_id': fields.many2one('kettle.transformation', 'Transformation', required=True),
         'scheduler': fields.many2one('ir.cron', 'Scheduler', readonly=True),
         'parameters': fields.text('Parameters'),
         'upload_file': fields.boolean('Upload File'),
-        'file_name': fields.char('Internal File Name', size=255),
         'active_python_code' : fields.boolean('Active Python Code'),
         'python_code_before' : fields.text('Python Code Executed Before Transformation'),
         'python_code_after' : fields.text('Python Code Executed After Transformation'),

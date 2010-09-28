@@ -80,7 +80,7 @@ class kettle_task(osv.osv):
             prefixe_log_name = "[ERROR]"
         else:
             note = self.pool.get('ir.attachment').read(cr, uid, attachment_id, ['description'], context)['description']
-            if 'WARNING' in note:
+            if note and 'WARNING' in note:
                 prefixe_log_name = "[WARNING]"
             else:
                 prefixe_log_name = "[SUCCESS]"

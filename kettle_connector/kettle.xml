@@ -15,6 +15,7 @@
 				        <field name="kettle_dir"/>
 				        <field name="file_name"/>
 				        <field name="scheduler"/>
+                        <field name="upload_file"/>
 				        <field name="active_python_code"/>
 				        <separator colspan="4" string="Parameters" />
 				        <field name="parameters" colspan = "4" nolabel="1"/>
@@ -61,10 +62,19 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="kettle starter">
-					<group>
+					<group colspan="4">
+                        <group colspan="4">
 				    	<separator colspan="4" string="Start Kettle Transformation" />
+                        <field name="upload_file" invisible="1"/>
+                        </group>
+                        <group attrs="{'invisible':[('upload_file','=',False)]}" colspan="2">
+                            <field name="file"/>
+			            </group>
+                        <group colspan="4">
 				        <button icon="gtk-cancel" special="cancel" string="Cancel"/>
 				        <button icon="gtk-ok" name="action_start_tranformation" string="Start" type="object"/>
+                        <separator colspan="4"/>
+                        </group>
  					</group>
  				</form>
 			</field>

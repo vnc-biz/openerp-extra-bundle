@@ -33,6 +33,7 @@ class kettle_transformation(osv.osv):
         'file_name': fields.char('Transformation File Name', size=64, required=True),
         'scheduler': fields.many2one('ir.cron', 'Scheduler', readonly=True),
         'parameters': fields.text('Parameters'),
+        'upload_file': fields.boolean('Upload File'),
         'active_python_code' : fields.boolean('Active Python Code'),
         'python_code_before' : fields.text('Python Code Executed Before Transformation'),
         'python_code_after' : fields.text('Python Code Executed After Transformation'),
@@ -42,8 +43,20 @@ kettle_transformation()
 
 class kettle_wizard(osv.osv_memory):
     _name = 'kettle.wizard'
-    _description = 'kettle wizard'
-    
+    _description = 'kettle wizard'     
+
+    _columns = {
+        'upload_file': fields.boolean("Upload File?"),
+        'file': fields.binary('File'),
+    }
+
+    def _get_add_file(self, cr, uid, context):
+        return self.pool.get('kettle.transformation').read(cr, uid, context['active_id'], ['upload_file'])['upload_file']
+
+    _defaults = {
+        'upload_file': _get_add_file,
+    }
+
     def error_wizard(self, cr, uid, kettle_dir, context):
         error_file = open(kettle_dir+'/nohup.out', 'r')
         error_log = error_file.readlines()
@@ -59,7 +72,9 @@ class kettle_wizard(osv.osv_memory):
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:
             transfo = self.pool.get('kettle.transformation').browse(cr, uid, id, context)
-            
+            if transfo.upload_file and context and context.get('uploaded_file',False):
+                logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the transformation" + transfo.name + "can't be executed because the File is not uploaded)
+                continue
             if transfo.active_python_code and transfo.python_code_before:
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "execute python code before kettle transformation")
                 exec(transfo.python_code_before)
@@ -93,7 +108,7 @@ class kettle_wizard(osv.osv_memory):
         return True
 
     def action_start_tranformation(self, cr, uid, id, context):
-        self.start_kettle_tranformation(cr, uid, context['active_ids'], context)
+        self.start_kettle_tranformation(cr, uid, context['active_id'], context)
         return {'type': 'ir.actions.act_window_close'}
 
 kettle_wizard()

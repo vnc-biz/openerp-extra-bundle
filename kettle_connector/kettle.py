@@ -23,9 +23,9 @@ import netsvc
 import time
 import datetime
 
-class kettle_configuration(osv.osv):
-    _name = 'kettle.configuration'
-    _description = 'kettle configuration'    
+class kettle_transformation(osv.osv):
+    _name = 'kettle.transformation'
+    _description = 'kettle transformation'    
     
     _columns = {
         'name': fields.char('Transformation Name', size=64, required=True),
@@ -38,7 +38,7 @@ class kettle_configuration(osv.osv):
         'python_code_after' : fields.text('Python Code Executed After Transformation'),
     }
     
-kettle_configuration()
+kettle_transformation()
 
 class kettle_wizard(osv.osv_memory):
     _name = 'kettle.wizard'
@@ -53,12 +53,12 @@ class kettle_wizard(osv.osv_memory):
         raise osv.except_osv('Error !', 'You have an error in your kettle transformation, please look at the kettle log in ' + str(kettle_dir) + '/nohup.out' + "\n \n" + str(end_error_log))
         
         
-    def start_kettle_tranformation(self, cr, uid, ids, context):
+    def start_kettle_tranformation(self, cr, uid, ids, context=None):
         
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:
-            transfo = self.pool.get('kettle.configuration').browse(cr, uid, id, context)
+            transfo = self.pool.get('kettle.transformation').browse(cr, uid, id, context)
             
             if transfo.active_python_code and transfo.python_code_before:
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "execute python code before kettle transformation")
@@ -80,7 +80,7 @@ class kettle_wizard(osv.osv_memory):
             csv_temp.close()
             
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle transformation : kettle log in " + str(transfo.kettle_dir) + '/nohup.out')
-            cmd = "cd " + transfo.kettle_dir + "; nohup sh pan.sh -file=transformations/" + transfo.file_name + '_temp.ktr'
+            cmd = "cd " + transfo.kettle_dir + "; rm nohup.out ; nohup sh pan.sh -file=transformations/" + transfo.file_name + '_temp.ktr'
             
             if os.system(cmd) != 0:
                 self.error_wizard(cr, uid, transfo.kettle_dir, context)
@@ -92,7 +92,7 @@ class kettle_wizard(osv.osv_memory):
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return True
 
-    def action_start_tranformation(self, cr, uid, id, context=None):
+    def action_start_tranformation(self, cr, uid, id, context):
         self.start_kettle_tranformation(cr, uid, context['active_ids'], context)
         return {'type': 'ir.actions.act_window_close'}
 

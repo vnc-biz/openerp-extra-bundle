@@ -3,13 +3,13 @@
 <openerp>
 	<data>
 
-		<record id="kettle_configuration_form" model="ir.ui.view">
-			<field name="name">kettle.configuration.form</field>
+		<record id="kettle_transformation_form" model="ir.ui.view">
+			<field name="name">kettle.transformation.form</field>
 			<field name="priority">20</field>
-			<field name="model">kettle.configuration</field>
+			<field name="model">kettle.transformation</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="kettle configuration">
+				<form string="kettle transformation">
 					<group colspan="4">
 				        <field name="name" select="1"/>
 				        <field name="kettle_dir"/>
@@ -29,13 +29,13 @@
 			</field>
 		</record>
 		
-		<record id="kettle_configuration_tree" model="ir.ui.view">
-			<field name="name">kettle.configuration.tree</field>
+		<record id="kettle_transformation_tree" model="ir.ui.view">
+			<field name="name">kettle.transformation.tree</field>
 			<field name="priority">20</field>
-			<field name="model">kettle.configuration</field>
+			<field name="model">kettle.transformation</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="kettle configuration">
+				<tree string="kettle transformation">
 			        <field name="name" select="1"/>
 			        <field name="kettle_dir"/>
 			        <field name="file_name"/>
@@ -44,13 +44,13 @@
 			</field>
 		</record>
 		
-		<record id="action_kettle_configuration" model="ir.actions.act_window">
-			<field name="name">kettle configuration</field>
+		<record id="action_kettle_transformation" model="ir.actions.act_window">
+			<field name="name">kettle transformation</field>
 			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">kettle.configuration</field>
+			<field name="res_model">kettle.transformation</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-			<field name="context">{'wizard_object' : 'kettle.wizard', 'function' : 'start_kettle_tranformation', 'object_link' : 'kettle.configuration' }</field>
+			<field name="context">{'wizard_object' : 'kettle.wizard', 'function' : 'start_kettle_tranformation', 'object_link' : 'kettle.transformation' }</field>
 		</record>
 
 
@@ -82,7 +82,7 @@
 
 		<record id="ir_action_start_kettle_transformation" model="ir.values">
 			<field name="key2">client_action_multi</field>
-			<field name="model">kettle.configuration</field>
+			<field name="model">kettle.transformation</field>
 			<field name="name">Start Transformation</field>
 			<field eval="'ir.actions.act_window,%d'%action_kettle_wizard" name="value"/>
 			<field eval="True" name="object"/>
@@ -91,11 +91,11 @@
 
 		<menuitem id="menu_kettle_connection" name="kettle-connection"/>
 		
-		<menuitem action="action_kettle_configuration" id="kettle configuration" parent="menu_kettle_connection"/>
+		<menuitem action="action_kettle_transformation" id="kettle transformation" parent="menu_kettle_connection"/>
 
 		<record id="ir_action_create_scheduler_in_kettle" model="ir.values">
 			<field name="key2">client_action_multi</field>
-			<field name="model">kettle.configuration</field>
+			<field name="model">kettle.transformation</field>
 			<field name="name">Create a Scheduler</field>
 			<field eval="'ir.actions.act_window,%d'%ref('base_scheduler_creator.action_scheduler_creator_wizard')" name="value"/>
 			<field eval="True" name="object"/>

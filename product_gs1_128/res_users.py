@@ -22,7 +22,7 @@
 from osv import osv, fields
 
 class res_users(osv.osv):
-    """Add the barcode decoding configuratio to the user profile"""
+    """Add the bar code decoding configuration to the user profile"""
     _inherit = 'res.users'
 
     _columns = {

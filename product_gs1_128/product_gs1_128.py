@@ -81,7 +81,7 @@ class product_gs1_128(osv.osv):
         decoded, only the its last value is returned.
     
         @type  gs1_128_string: string
-        @param gs1_128_string: GS1-128 string  to decode (ie. content of a code-128 barcode)
+        @param gs1_128_string: GS1-128 string  to decode (ie. content of a code-128 bar code)
         @return:               A dictionary of values with Application Identifiers as keys
         """
 
@@ -94,7 +94,7 @@ class product_gs1_128(osv.osv):
 
         if gs1_128_string[:len(prefix)] != prefix:
             raise osv.except_osv(_('Error decoding GS1-128 code'),
-                                 _('Could not decode GS1-128 code : wrong prefix - the code should start with "%s"' % prefix))
+                                 _('Could not decode GS1-128 code : wrong prefix - the code should start with "%s"') % prefix)
 
         # We are going to use lots of regular expressions to decode the string,
         # and they all boil down to the following templates:
@@ -153,7 +153,7 @@ class product_gs1_128(osv.osv):
                         groups = value_regexps[ai].match(gs1_128_string, position).groupdict()
                     except AttributeError:
                         raise osv.except_osv(_('Error decoding GS1-128 code'),
-                                             _('Could not decode GS1-128 code : incorrect value for Application Identifer "%s" at position %d' % (ai, position)))
+                                             _('Could not decode GS1-128 code: incorrect value for Application Identifer "%s" at position %d') % (ai, position))
 
 
                     logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
@@ -175,7 +175,7 @@ class product_gs1_128(osv.osv):
             else:
                 # We couldn't find another valid AI in the rest of the code, give up
                 raise osv.except_osv(_('Error decoding GS1-128 code'),
-                                      'Could not decode GS1-128 code : unknown Application Identifier at position %d' % position)
+                                      _('Could not decode GS1-128 code : unknown Application Identifier at position %d') % position)
 
         return results
 

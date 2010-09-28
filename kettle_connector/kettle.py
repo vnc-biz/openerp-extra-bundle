@@ -115,10 +115,10 @@ class kettle_task(osv.osv):
     
     def execute_python_code(self, cr, uid, id, position, context):
         logger = netsvc.Logger()
-        transfo = self.read(cr, uid, id, ['active_python_code', 'python_code_' + position], context)
-        if transfo['active_python_code'] and transfo['python_code_' + position]:
+        task = self.read(cr, uid, id, ['active_python_code', 'python_code_' + position], context)
+        if task['active_python_code'] and task['python_code_' + position]:
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "execute python code " + position +" kettle task")
-            exec(transfo['python_code_' + position])
+            exec(task['python_code_' + position])
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return context
         

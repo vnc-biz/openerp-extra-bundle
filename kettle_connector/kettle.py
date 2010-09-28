@@ -54,7 +54,7 @@ class kettle_transformation(osv.osv):
         else:
             raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
     
-    def execute_transformation(self, cr, uid, id, filter, log_file_name, attachment_id, context):
+    def execute_transformation(self, cr, uid, id, log_file_name, attachment_id, context):
         transfo = self.browse(cr, uid, id, context)
         kettle_dir = transfo.server_id.kettle_dir
         filename = transfo.filename
@@ -62,8 +62,10 @@ class kettle_transformation(osv.osv):
         transformation_temp = open(kettle_dir + '/transformations/'+ filename, 'w')
         
         file_temp = base64.decodestring(transfo.file)
-        for key in filter:
-            file_temp = file_temp.replace(key, filter[key])
+        if context.get('filter', False):
+            for key in context['filter']:
+                print 'key', key, "context['filter'][key]", context['filter'][key]
+                file_temp = file_temp.replace(key, context['filter'][key])
         transformation_temp.write(file_temp)
         transformation_temp.close()
         
@@ -121,7 +123,43 @@ class kettle_task(osv.osv):
             exec(task['python_code_' + position])
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return context
+    
+    def start_kettle_task(self, cr, uid, ids, context=None):
+        logger = netsvc.Logger()
+        user = self.pool.get('res.users').browse(cr, uid, uid, context)
+        for id in ids:
+            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%d-%m-%Y %H:%M:%S')})
+            log_file_name = 'TASK LOG ' + context['start_date']
+            attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
+            cr.commit()
+            
+            context['filter'] = {
+                      'AUTO_REP_db_erp': str(cr.dbname),
+                      'AUTO_REP_user_erp': str(user.login),
+                      'AUTO_REP_db_pass_erp': str(user.password),
+                      'AUTO_REP_kettle_task_id' : str(id),
+                      'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
+                      }
+            
+            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id'], context)
+            if task['upload_file']: 
+                if not (context and context.get('input_filename',False)):
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
+                    continue
+                else:
+                    context['filter'].update({'AUTO_REP_file_in' : str(context['input_filename'])})
+            
+            context = self.execute_python_code(cr, uid, id, 'before', context)
+            
+            context['filter'].update(eval('{' + str(task['parameters'] or '')+ '}'))
+            self.pool.get('kettle.transformation').execute_transformation(cr, uid, id, log_file_name, attachment_id, context)
+
+            context = self.execute_python_code(cr, uid, id, 'after', context)
+            
+            if context.get('input_filename',False):
+                self.attach_file_to_task(cr, uid, task['transformation_id'][0], context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
         
+        return True
 kettle_task()
 
 class kettle_wizard(osv.osv_memory):
@@ -141,44 +179,6 @@ class kettle_wizard(osv.osv_memory):
         'upload_file': _get_add_file,
     }
 
-    def start_kettle_task(self, cr, uid, ids, context=None):
-        logger = netsvc.Logger()
-        user = self.pool.get('res.users').browse(cr, uid, uid, context)
-        obj_task = self.pool.get('kettle.task')
-        for id in ids:
-            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%d-%m-%Y %H:%M:%S')})
-            log_file_name = 'TASK LOG ' + context['start_date']
-            attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
-            cr.commit()
-            
-            filter = {
-                      'AUTO_REP_db_erp': str(cr.dbname),
-                      'AUTO_REP_user_erp': str(user.login),
-                      'AUTO_REP_db_pass_erp': str(user.password),
-                      'AUTO_REP_kettle_task_id' : str(id),
-                      'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
-                      }
-            
-            task = obj_task.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id'], context)
-            if task['upload_file']: 
-                if not (context and context.get('input_filename',False)):
-                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
-                    continue
-                else:
-                    filter.update({'AUTO_REP_file_in' : str(context['input_filename'])})
-            
-            context = obj_task.execute_python_code(cr, uid, id, 'before', context)
-            
-            filter.update(eval('{' + str(task['parameters'] or '')+ '}'))
-            self.pool.get('kettle.transformation').execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
-
-            context = obj_task.execute_python_code(cr, uid, id, 'after', context)
-            
-            if context.get('input_filename',False):
-                obj_task.attach_file_to_task(cr, uid, task['transformation_id'][0], context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
-        
-        return True
-
     def _save_file(self, cr, uid, id, vals, context):
         kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], ['server_id'], context).server_id.kettle_dir
         filename = kettle_dir + '/files/' + str(vals['filename'])
@@ -194,7 +194,7 @@ class kettle_wizard(osv.osv_memory):
                 raise osv.except_osv('Error !', 'You have to select a file before starting the task')
             else:
                 context['input_filename'] = self._save_file(cr, uid, id, wizard, context)
-        self.start_kettle_task(cr, uid, [context['active_id']], context)
+        self.pool.get('kettle.task').start_kettle_task(cr, uid, [context['active_id']], context)
         return {'type': 'ir.actions.act_window_close'}
 
 kettle_wizard()

@@ -57,8 +57,8 @@ class kettle_task(osv.osv):
         for i in range(0,20):
             end_error_log = error_log.pop() + end_error_log
         raise osv.except_osv('Error !', 'You have an error in your kettle task, please look at the kettle log in ' + str(kettle_dir) + '/nohup.out' + "\n \n" + str(end_error_log))
-          
-    def execute_transformation(self, cr, uid, id, filter, context):
+
+    def execute_transformation(self, cr, uid, id, filter, log_file_name, attachment_id, context):
         transfo = self.read(cr, uid, id, ['kettle_dir','file_name'], context)
         logger = netsvc.Logger()
         file = transfo['kettle_dir']+'/transformations/'+transfo['file_name']
@@ -74,9 +74,13 @@ class kettle_task(osv.osv):
         csv_temp.close()
         
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : kettle log in " + str(transfo['kettle_dir']) + '/nohup.out')
-        cmd = "cd " + transfo['kettle_dir'] + "; rm nohup.out ; nohup sh pan.sh -file=transformations/" + transfo['file_name'] + '_temp.ktr'
+        cmd = "cd " + transfo['kettle_dir'] + "; nohup sh pan.sh -file=transformations/" + transfo['file_name'] + '_temp.ktr' + '> "'+ log_file_name + '.log"'
+        os_result = os.system(cmd)
         
-        if os.system(cmd) != 0:
+        self.pool.get('ir.attachment').write(cr, uid, attachment_id, {'datas': base64.encodestring(open(transfo['kettle_dir'] +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log'}, context)
+        cr.commit()
+        os.system('rm "' + transfo['kettle_dir'] +"/" + log_file_name + '.log"')
+        if os_result != 0:
             self.error_wizard(cr, uid, transfo['kettle_dir'], context)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
    
@@ -104,11 +108,23 @@ class kettle_wizard(osv.osv_memory):
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         obj_transfo = self.pool.get('kettle.task')
         for id in ids:
-            filter = {'AUTO_REP_db_erp': str(cr.dbname), 'AUTO_REP_user_erp': str(user.login), 'AUTO_REP_db_pass_erp': str(user.password)}
+            log_file_name = 'TASK LOG ' + time.strftime('%d-%m-%Y %H:%M:%S')
+            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
+            attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
+            cr.commit()
+            
+            filter = {
+                      'AUTO_REP_db_erp': str(cr.dbname),
+                      'AUTO_REP_user_erp': str(user.login),
+                      'AUTO_REP_db_pass_erp': str(user.password),
+                      'AUTO_REP_kettle_task_id' : str(id),
+                      'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
+                      }
+            
             transfo = obj_transfo.read(cr, uid, id, ['upload_file', 'parameters'], context)
             if transfo['upload_file']: 
                 if not (context and context.get('input_filename',False)):
-                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + transfo.name + " can't be executed because the anyone File was uploaded")
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + transfo['name'] + " can't be executed because the anyone File was uploaded")
                     continue
                 else:
                     filter.update({'AUTO_REP_file_in' : str(context['input_filename'])})
@@ -116,7 +132,7 @@ class kettle_wizard(osv.osv_memory):
             context = obj_transfo.execute_python_code(cr, uid, id, 'before', context)
             
             filter.update(eval('{' + str(transfo['parameters'] or '')+ '}'))
-            obj_transfo.execute_transformation(cr, uid, id, filter, context)
+            obj_transfo.execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
 
             context = obj_transfo.execute_python_code(cr, uid, id, 'after', context)
                 

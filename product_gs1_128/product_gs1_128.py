@@ -28,8 +28,11 @@ Instead we focus on decoding the data contained in this bar-code.
 """
 
 import re
+import time
 
+import netsvc
 from osv import osv, fields
+from tools.translate import _
 
 
 class product_gs1_128(osv.osv):
@@ -82,6 +85,8 @@ class product_gs1_128(osv.osv):
         @return:               A dictionary of values with Application Identifiers as keys
         """
 
+        logger = netsvc.Logger()
+
         # <GS> = group separator character (ASCII 29)
         GS = '\x1D'
 
@@ -104,6 +109,7 @@ class product_gs1_128(osv.osv):
         # Make a dictionary of compiled regular expressions to decode the string
         ai_regexps = {}
         value_regexps = {}
+        types = {}
         for config in self.browse(cr, uid, self.search(cr, uid, [])):
             # Compile a regular expression to match the Application Identifier
             ai = config.ai
@@ -117,6 +123,8 @@ class product_gs1_128(osv.osv):
             if config.decimal:
                 value_regexp = DECIMAL + value_regexp
             value_regexps[ai] = re.compile(value_regexp)
+            # remember the data type
+            types[ai] = config.type
 
         # Now let's decode the string, one Application Identifier at a time
         results = {}
@@ -127,7 +135,10 @@ class product_gs1_128(osv.osv):
                 match = regexp.match(gs1_128_string, position)
                 if match:
                     position += len(match.group('ai'))
-                    print "searching for value in %s" % gs1_128_string[position:]
+                    logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
+                                         "Searching for value in %s"
+                                            % gs1_128_string[position:])
+
                     # We found the Application Identifier, now decode the value
                     try:
                         groups = value_regexps[ai].match(gs1_128_string, position).groupdict()
@@ -135,13 +146,20 @@ class product_gs1_128(osv.osv):
                         raise osv.except_osv(_('Error decoding GS1-128 code'),
                                              _('Could not decode GS1-128 code : incorrect value for Application Identifer "%s" at position %d' % (ai, position)))
 
-                    print "found %s" % groups
+
+                    logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
+                                         "found %s" % groups)
                     position += len(groups['value'])
                     results[ai] = groups['value'].replace(GS, '')
-                    if 'decimal' in groups:
+                    if types[ai] == 'numeric' and 'decimal' in groups:
                         # account for the decimal position
                         results[ai] = float(results[ai]) / (10 ^ groups['decimal'])
                         position += len(groups['decimal'])
+                    if types[ai] == 'date':
+                        # format the date
+                        results[ai] = time.strftime('%Y-%m-%d',
+                                                    time.strptime(results[ai],
+                                                                  '%y%m%d'))
 
                     # We know we won't match another AI for now, move on
                     break

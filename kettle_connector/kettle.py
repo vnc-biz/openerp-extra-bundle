@@ -105,8 +105,9 @@ class kettle_task(osv.osv):
         'active_python_code' : fields.boolean('Active Python Code'),
         'python_code_before' : fields.text('Python Code Executed Before Transformation'),
         'python_code_after' : fields.text('Python Code Executed After Transformation'),
+        'last_date' : fields.datetime('Last Execution'),
     }
-    
+        
     def attach_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
         if not context:
             context = {}
@@ -145,7 +146,7 @@ class kettle_task(osv.osv):
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:
-            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%d-%m-%Y %H:%M:%S')})
+            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
             log_file_name = 'TASK LOG ' + context['start_date']
             attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
             cr.commit()
@@ -157,8 +158,11 @@ class kettle_task(osv.osv):
                       'AUTO_REP_kettle_task_id' : str(id),
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       }
+            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'server_id', 'last_date'], context)
             
-            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'server_id'], context)
+            if task['last_date']:
+                context['filter']['AUTO_REP_last_date'] = task['last_date']
+                
             if task['output_file']:
                 kettle_dir = self.pool.get('kettle.server').read(cr, uid, task['server_id'][0], ['kettle_dir'], context)['kettle_dir']
                 context['filter'].update({'AUTO_REP_file_out' : str(kettle_dir + '/files/output_'+ task['name'] + context['start_date'])})
@@ -182,6 +186,8 @@ class kettle_task(osv.osv):
         
             if task['output_file']:
                 self.attach_output_file_to_task(cr, uid, id, context['filter']['AUTO_REP_file_out'], '[FILE OUT] FILE IMPORTED ' + context['start_date'], True, context)            
+            
+            self.write(cr, uid, [id], {'last_date' : context['start_date']})
         return True
 kettle_task()
 

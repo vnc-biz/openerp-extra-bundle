@@ -91,7 +91,7 @@ class kettle_wizard(osv.osv_memory):
             csv_temp = open(transfo.kettle_dir+'/transformations/'+transfo.file_name+'_temp.ktr', 'w')
             
             filter = eval('{' + str(transfo.parameters or '')+ '}')
-            filter.update({'db_erp': str(cr.dbname), 'user_erp': str(user.login), 'db_pass_erp': str(user.password)})
+            filter.update({'AUTO_REP_db_erp': str(cr.dbname), 'AUTO_REP_user_erp': str(user.login), 'AUTO_REP_db_pass_erp': str(user.password)})
             for line in csv_file.readlines():
                 for key in filter:
                     line = line.replace(key, filter[key])

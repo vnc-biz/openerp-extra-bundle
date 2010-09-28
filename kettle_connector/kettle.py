@@ -50,14 +50,13 @@ class kettle_task(osv.osv):
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return context
     
-    def error_wizard(self, cr, uid, kettle_dir, context):
-        error_file = open(kettle_dir+'/nohup.out', 'r')
-        error_log = error_file.readlines()
-        end_error_log = ''
-        for i in range(0,20):
-            end_error_log = error_log.pop() + end_error_log
-        raise osv.except_osv('Error !', 'You have an error in your kettle task, please look at the kettle log in ' + str(kettle_dir) + '/nohup.out' + "\n \n" + str(end_error_log))
-
+    def error_wizard(self, cr, uid, id, context):
+        error_description = self.pool.get('ir.attachment').read(cr, uid, id, ['description'], context)['description']
+        if error_description and "USER_ERROR" in error_description:
+            raise osv.except_osv('USER_ERROR', error_description)
+        else:
+            raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
+            
     def execute_transformation(self, cr, uid, id, filter, log_file_name, attachment_id, context):
         transfo = self.read(cr, uid, id, ['kettle_dir','file_name'], context)
         logger = netsvc.Logger()
@@ -81,7 +80,7 @@ class kettle_task(osv.osv):
         cr.commit()
         os.system('rm "' + transfo['kettle_dir'] +"/" + log_file_name + '.log"')
         if os_result != 0:
-            self.error_wizard(cr, uid, transfo['kettle_dir'], context)
+            self.error_wizard(cr, uid, attachment_id, context)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
    
 kettle_task()

@@ -65,11 +65,11 @@ class kettle_wizard(osv.osv_memory):
                 exec(transfo.python_code_before)
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
             
-            file = transfo.kettle_dir+'/transfo/'+transfo.file_name+'.ktr'
+            file = transfo.kettle_dir+'/transformations/'+transfo.file_name+'.ktr'
             if not os.path.isfile(file):
                 raise osv.except_osv('Error !', 'The tranformastion file or the kettle directory is invalid')
-            csv_file = open(transfo.kettle_dir+'/transfo/'+transfo.file_name+'.ktr', 'r')
-            csv_temp = open(transfo.kettle_dir+'/transfo/'+transfo.file_name+'_temp.ktr', 'w')
+            csv_file = open(transfo.kettle_dir+'/transformations/'+transfo.file_name+'.ktr', 'r')
+            csv_temp = open(transfo.kettle_dir+'/transformations/'+transfo.file_name+'_temp.ktr', 'w')
             
             filter = eval('{' + str(transfo.parameters or '')+ '}')
             filter.update({'db_erp': str(cr.dbname), 'user_erp': str(user.login), 'db_pass_erp': str(user.password)})
@@ -80,7 +80,7 @@ class kettle_wizard(osv.osv_memory):
             csv_temp.close()
             
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle transformation : kettle log in " + str(transfo.kettle_dir) + '/nohup.out')
-            cmd = "cd " + transfo.kettle_dir + "; nohup sh pan.sh -rep=my_repo -trans=" + transfo.file_name + '_temp'
+            cmd = "cd " + transfo.kettle_dir + "; nohup sh pan.sh -file=transformations/" + transfo.file_name + '_temp.ktr'
             
             if os.system(cmd) != 0:
                 self.error_wizard(cr, uid, transfo.kettle_dir, context)

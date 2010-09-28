@@ -28,8 +28,11 @@ Instead we focus on decoding the data contained in this bar-code.
 """
 
 import re
+import time
 
+import netsvc
 from osv import osv, fields
+from tools.translate import _
 
 
 class product_gs1_128(osv.osv):
@@ -67,7 +70,7 @@ class product_gs1_128(osv.osv):
     ]
     _order = 'ai'
 
-    def decode(self, cr, uid, gs1_128_string):
+    def decode(self, cr, uid, gs1_128_string, context=None):
         """
         Decode a GS1-128 string to dictionary of values with Application
         Identifiers as keys.
@@ -78,20 +81,25 @@ class product_gs1_128(osv.osv):
         decoded, only the its last value is returned.
     
         @type  gs1_128_string: string
-        @param gs1_128_string: GS1-128 string  to decode (ie. content of a code-128 barcode)
+        @param gs1_128_string: GS1-128 string  to decode (ie. content of a code-128 bar code)
         @return:               A dictionary of values with Application Identifiers as keys
         """
 
-        # <GS> = group separator character (ASCII 29)
-        GS = '\x1D'
+        logger = netsvc.Logger()
+
+        # Prefix and Group Separator
+        user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
+        prefix = user.gs1_128_prefix or ''
+        separator = user.gs1_128_separator or '\x1D'
+
+        if gs1_128_string[:len(prefix)] != prefix:
+            raise osv.except_osv(_('Error decoding GS1-128 code'),
+                                 _('Could not decode GS1-128 code : wrong prefix - the code should start with "%s"') % prefix)
 
         # We are going to use lots of regular expressions to decode the string,
         # and they all boil down to the following templates:
         #  * regular expression template to match the AI code %s, to the group "ai". Must be formated with a string
-        AI = r'(?P<ai>' + GS + r'?%s)'
-        #  * regular expression to match the position of the decimal separator
-        #    after the AI code, to the group called "decimal".
-        DECIMAL = r'(?P<decimal>\d)'
+        AI = r'(?P<ai>%s)'
         #  * regular expression template to match a fixed-length value of
         #    %d characters, to the group called "value".
         #    Must be formated with an integer.
@@ -99,12 +107,18 @@ class product_gs1_128(osv.osv):
         # * regular expression to match a variable length value ending with
         #   a <GS> character, to the group called "value".
         #   Must be formated with a pair of integers.
-        VARIABLE_LENGTH = r'(?P<value>[^' + GS + r']{%d,%d}' + GS + r'?)'
+        VARIABLE_LENGTH = r'(?P<value>[^' + separator + r']{%d,%d}' + separator + r'?)'
+        #  * regular expression to match the position of the decimal separator
+        #    after the AI code, to the group called "decimal".
+        DECIMAL = r'(?P<decimal>\d)'
 
         # Make a dictionary of compiled regular expressions to decode the string
         ai_regexps = {}
         value_regexps = {}
-        for config in self.browse(cr, uid, self.search(cr, uid, [])):
+        types = {}
+        for config in self.browse(cr, uid,
+                                  self.search(cr, uid, [], context=context),
+                                  context=context):
             # Compile a regular expression to match the Application Identifier
             ai = config.ai
             ai_regexps[ai] = re.compile(AI % ai)
@@ -117,38 +131,51 @@ class product_gs1_128(osv.osv):
             if config.decimal:
                 value_regexp = DECIMAL + value_regexp
             value_regexps[ai] = re.compile(value_regexp)
+            # remember the data type
+            types[ai] = config.type
 
         # Now let's decode the string, one Application Identifier at a time
         results = {}
-        position = 0 # start searching from the first character
+        # start searching from the first character after the prefix
+        position = len(prefix)
         while gs1_128_string[position:]:
             # Search for a known Application Identifier
             for (ai, regexp) in ai_regexps.items():
                 match = regexp.match(gs1_128_string, position)
                 if match:
                     position += len(match.group('ai'))
-                    print "searching for value in %s" % gs1_128_string[position:]
+                    logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
+                                         "Searching for value in %s"
+                                            % gs1_128_string[position:])
+
                     # We found the Application Identifier, now decode the value
                     try:
                         groups = value_regexps[ai].match(gs1_128_string, position).groupdict()
                     except AttributeError:
                         raise osv.except_osv(_('Error decoding GS1-128 code'),
-                                             _('Could not decode GS1-128 code : incorrect value for Application Identifer "%s" at position %d' % (ai, position)))
+                                             _('Could not decode GS1-128 code: incorrect value for Application Identifer "%s" at position %d') % (ai, position))
 
-                    print "found %s" % groups
+
+                    logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
+                                         "found %s" % groups)
                     position += len(groups['value'])
-                    results[ai] = groups['value'].replace(GS, '')
-                    if 'decimal' in groups:
+                    results[ai] = groups['value'].replace(separator, '')
+                    if types[ai] == 'numeric' and 'decimal' in groups:
                         # account for the decimal position
                         results[ai] = float(results[ai]) / (10 ^ groups['decimal'])
                         position += len(groups['decimal'])
+                    if types[ai] == 'date':
+                        # format the date
+                        results[ai] = time.strftime('%Y-%m-%d',
+                                                    time.strptime(results[ai],
+                                                                  '%y%m%d'))
 
                     # We know we won't match another AI for now, move on
                     break
             else:
                 # We couldn't find another valid AI in the rest of the code, give up
                 raise osv.except_osv(_('Error decoding GS1-128 code'),
-                                      'Could not decode GS1-128 code : unknown Application Identifier at position %d' % position)
+                                      _('Could not decode GS1-128 code : unknown Application Identifier at position %d') % position)
 
         return results
 

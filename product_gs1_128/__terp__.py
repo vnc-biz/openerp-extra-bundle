@@ -42,6 +42,7 @@ the associated data types.
     'init_xml' : [],
     'update_xml' : [
         'product_gs1_128_view.xml',
+        'res_users_view.xml',
         'data/product.gs1_128.csv',
         "security/ir.model.access.csv",
     ],

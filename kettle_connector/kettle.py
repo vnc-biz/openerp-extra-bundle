@@ -68,7 +68,7 @@ class kettle_transformation(osv.osv):
         transformation_temp.write(file_temp)
         transformation_temp.close()
         
-        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : kettle log in " + kettle_dir +"/" + log_file_name + '.log')
+        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : open kettle log with tail -f " + kettle_dir +'/"' + log_file_name + '.log"')
         cmd = "cd " + kettle_dir + "; nohup sh pan.sh -file=transformations/" + filename + '> "'+ log_file_name + '.log"'
         os_result = os.system(cmd)
         

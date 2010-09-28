@@ -22,6 +22,7 @@ import os
 import netsvc
 import time
 import datetime
+import base64
 
 class kettle_transformation(osv.osv):
     _name = 'kettle.transformation'
@@ -49,7 +50,7 @@ class kettle_wizard(osv.osv_memory):
     _columns = {
         'upload_file': fields.boolean("Upload File?"),
         'file': fields.binary('File'),
-        'filename': fields.char('Filename', size=255, readonly=True),
+        'filename': fields.char('Filename', size=64),
     }
 
     def _get_add_file(self, cr, uid, context):
@@ -69,16 +70,19 @@ class kettle_wizard(osv.osv_memory):
         
         
     def start_kettle_tranformation(self, cr, uid, ids, context=None):
-        
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:
+            filter = {'AUTO_REP_db_erp': str(cr.dbname), 'AUTO_REP_user_erp': str(user.login), 'AUTO_REP_db_pass_erp': str(user.password)}
+        
             transfo = self.pool.get('kettle.transformation').browse(cr, uid, id, context)
-
-            if transfo.upload_file and context and context.get('uploaded_file',False):
-                logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the transformation " + transfo.name + " can't be executed because the anyone File was uploaded")
-                continue
-
+            if transfo.upload_file: 
+                if not (context and context.get('input_filename',False)):
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the transformation " + transfo.name + " can't be executed because the anyone File was uploaded")
+                    continue
+                else:
+                    filter.update({'AUTO_REP_file_in' : str(context['input_filename'])})
+                
             if transfo.active_python_code and transfo.python_code_before:
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "execute python code before kettle transformation")
                 exec(transfo.python_code_before)
@@ -90,8 +94,8 @@ class kettle_wizard(osv.osv_memory):
             csv_file = open(transfo.kettle_dir+'/transformations/'+transfo.file_name+'.ktr', 'r')
             csv_temp = open(transfo.kettle_dir+'/transformations/'+transfo.file_name+'_temp.ktr', 'w')
             
-            filter = eval('{' + str(transfo.parameters or '')+ '}')
-            filter.update({'AUTO_REP_db_erp': str(cr.dbname), 'AUTO_REP_user_erp': str(user.login), 'AUTO_REP_db_pass_erp': str(user.password)})
+            filter.update(eval('{' + str(transfo.parameters or '')+ '}'))
+
             for line in csv_file.readlines():
                 for key in filter:
                     line = line.replace(key, filter[key])
@@ -112,9 +116,13 @@ class kettle_wizard(osv.osv_memory):
         return True
 
 
-    def _save_file(self, cr, uid, id, context):
-        context['uploaded_file'] = True
-
+    def _save_file(self, cr, uid, id, vals, context):
+        kettle_dir = self.pool.get('kettle.transformation').read(cr, uid, context['active_id'], ['kettle_dir'], context)['kettle_dir']
+        filename = kettle_dir + '/files/' + str(vals['filename'])
+        fp = file(filename,'wb+')
+        fp.write(base64.decodestring(vals['file']))
+        fp.close()
+        return filename
 
     def action_start_tranformation(self, cr, uid, id, context):
         wizard = self.read(cr, uid, id,context=context)[0]
@@ -122,7 +130,7 @@ class kettle_wizard(osv.osv_memory):
             if not wizard['file']:
                 raise osv.except_osv('Error !', 'You have to select a file before starting the transformation')
             else:
-                self._save_file(cr, uid, id, context)
+                context['input_filename'] = self._save_file(cr, uid, id, wizard, context)
         self.start_kettle_tranformation(cr, uid, [context['active_id']], context)
         return {'type': 'ir.actions.act_window_close'}
 

@@ -76,7 +76,16 @@ class kettle_task(osv.osv):
         cmd = "cd " + transfo['kettle_dir'] + "; nohup sh pan.sh -file=transformations/" + transfo['file_name'] + '_temp.ktr' + '> "'+ log_file_name + '.log"'
         os_result = os.system(cmd)
         
-        self.pool.get('ir.attachment').write(cr, uid, attachment_id, {'datas': base64.encodestring(open(transfo['kettle_dir'] +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log'}, context)
+        if os_result != 0:
+            prefixe_log_name = "[ERROR]"
+        else:
+            note = self.pool.get('ir.attachment').read(cr, uid, attachment_id, ['description'], context)['description']
+            if 'WARNING' in note:
+                prefixe_log_name = "[WARNING]"
+            else:
+                prefixe_log_name = "[SUCCESS]"
+        
+        self.pool.get('ir.attachment').write(cr, uid, attachment_id, {'datas': base64.encodestring(open(transfo['kettle_dir'] +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
         cr.commit()
         os.system('rm "' + transfo['kettle_dir'] +"/" + log_file_name + '.log"')
         if os_result != 0:

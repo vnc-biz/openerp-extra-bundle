@@ -34,6 +34,7 @@ class kettle_transformation(osv.osv):
         'scheduler': fields.many2one('ir.cron', 'Scheduler', readonly=True),
         'parameters': fields.text('Parameters'),
         'upload_file': fields.boolean('Upload File'),
+        'file_name': fields.char('Internal File Name', size=255),
         'active_python_code' : fields.boolean('Active Python Code'),
         'python_code_before' : fields.text('Python Code Executed Before Transformation'),
         'python_code_after' : fields.text('Python Code Executed After Transformation'),
@@ -48,6 +49,7 @@ class kettle_wizard(osv.osv_memory):
     _columns = {
         'upload_file': fields.boolean("Upload File?"),
         'file': fields.binary('File'),
+        'filename': fields.char('Filename', size=255, readonly=True),
     }
 
     def _get_add_file(self, cr, uid, context):
@@ -72,9 +74,11 @@ class kettle_wizard(osv.osv_memory):
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:
             transfo = self.pool.get('kettle.transformation').browse(cr, uid, id, context)
+
             if transfo.upload_file and context and context.get('uploaded_file',False):
-                logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the transformation" + transfo.name + "can't be executed because the File is not uploaded)
+                logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the transformation " + transfo.name + " can't be executed because the anyone File was uploaded")
                 continue
+
             if transfo.active_python_code and transfo.python_code_before:
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "execute python code before kettle transformation")
                 exec(transfo.python_code_before)
@@ -107,8 +111,19 @@ class kettle_wizard(osv.osv_memory):
                 logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return True
 
+
+    def _save_file(self, cr, uid, id, context):
+        context['uploaded_file'] = True
+
+
     def action_start_tranformation(self, cr, uid, id, context):
-        self.start_kettle_tranformation(cr, uid, context['active_id'], context)
+        wizard = self.read(cr, uid, id,context=context)[0]
+        if wizard['upload_file']:
+            if not wizard['file']:
+                raise osv.except_osv('Error !', 'You have to select a file before starting the transformation')
+            else:
+                self._save_file(cr, uid, id, context)
+        self.start_kettle_tranformation(cr, uid, [context['active_id']], context)
         return {'type': 'ir.actions.act_window_close'}
 
 kettle_wizard()

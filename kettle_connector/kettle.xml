@@ -68,7 +68,8 @@
                         <field name="upload_file" invisible="1"/>
                         </group>
                         <group attrs="{'invisible':[('upload_file','=',False)]}" colspan="2">
-                            <field name="file"/>
+                            <field name="file" filename="filename" colspan="2"/>
+                            <field name="filename" colspan="2"/>
 			            </group>
                         <group colspan="4">
 				        <button icon="gtk-cancel" special="cancel" string="Cancel"/>

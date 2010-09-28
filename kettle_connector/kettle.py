@@ -124,7 +124,7 @@ class kettle_wizard(osv.osv_memory):
     def start_kettle_task(self, cr, uid, ids, context=None):
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
-        obj_transfo = self.pool.get('kettle.task')
+        obj_task = self.pool.get('kettle.task')
         for id in ids:
             context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%d-%m-%Y %H:%M:%S')})
             log_file_name = 'TASK LOG ' + context['start_date']
@@ -139,7 +139,7 @@ class kettle_wizard(osv.osv_memory):
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       }
             
-            transfo = obj_transfo.read(cr, uid, id, ['upload_file', 'parameters', 'kettle_dir'], context)
+            transfo = obj_task.read(cr, uid, id, ['upload_file', 'parameters', 'kettle_dir'], context)
             if transfo['upload_file']: 
                 if not (context and context.get('input_filename',False)):
                     logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + transfo['name'] + " can't be executed because the anyone File was uploaded")
@@ -147,15 +147,15 @@ class kettle_wizard(osv.osv_memory):
                 else:
                     filter.update({'AUTO_REP_file_in' : str(context['input_filename'])})
             
-            context = obj_transfo.execute_python_code(cr, uid, id, 'before', context)
+            context = obj_task.execute_python_code(cr, uid, id, 'before', context)
             
             filter.update(eval('{' + str(transfo['parameters'] or '')+ '}'))
-            obj_transfo.execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
+            obj_task.execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
 
-            context = obj_transfo.execute_python_code(cr, uid, id, 'after', context)
+            context = obj_task.execute_python_code(cr, uid, id, 'after', context)
             
             if context.get('input_filename',False):
-                obj_transfo.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
+                obj_task.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
         
         return True
 

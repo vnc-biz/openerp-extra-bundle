@@ -41,6 +41,16 @@ class kettle_task(osv.osv):
         'python_code_after' : fields.text('Python Code Executed After Transformation'),
     }
     
+    def attach_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
+        if not context:
+            context = {}
+        context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
+        datas = base64.encodestring(open(datas_fname,'rb').read())
+        print 'name', datas_fname.split("/").pop()
+        print 'file', datas
+        attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
+        return attachment_id
+    
     def execute_python_code(self, cr, uid, id, position, context):
         logger = netsvc.Logger()
         transfo = self.read(cr, uid, id, ['active_python_code', 'python_code_' + position], context)
@@ -56,7 +66,7 @@ class kettle_task(osv.osv):
             raise osv.except_osv('USER_ERROR', error_description)
         else:
             raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
-            
+    
     def execute_transformation(self, cr, uid, id, filter, log_file_name, attachment_id, context):
         transfo = self.read(cr, uid, id, ['kettle_dir','file_name'], context)
         logger = netsvc.Logger()
@@ -91,7 +101,7 @@ class kettle_task(osv.osv):
         if os_result != 0:
             self.error_wizard(cr, uid, attachment_id, context)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
-   
+        
 kettle_task()
 
 class kettle_wizard(osv.osv_memory):
@@ -116,8 +126,8 @@ class kettle_wizard(osv.osv_memory):
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         obj_transfo = self.pool.get('kettle.task')
         for id in ids:
-            log_file_name = 'TASK LOG ' + time.strftime('%d-%m-%Y %H:%M:%S')
-            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
+            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%d-%m-%Y %H:%M:%S')})
+            log_file_name = 'TASK LOG ' + context['start_date']
             attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
             cr.commit()
             
@@ -129,7 +139,7 @@ class kettle_wizard(osv.osv_memory):
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       }
             
-            transfo = obj_transfo.read(cr, uid, id, ['upload_file', 'parameters'], context)
+            transfo = obj_transfo.read(cr, uid, id, ['upload_file', 'parameters', 'kettle_dir'], context)
             if transfo['upload_file']: 
                 if not (context and context.get('input_filename',False)):
                     logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + transfo['name'] + " can't be executed because the anyone File was uploaded")
@@ -143,14 +153,16 @@ class kettle_wizard(osv.osv_memory):
             obj_transfo.execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
 
             context = obj_transfo.execute_python_code(cr, uid, id, 'after', context)
-                
+            
+            if context.get('input_filename',False):
+                obj_transfo.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
+        
         return True
-
 
     def _save_file(self, cr, uid, id, vals, context):
         kettle_dir = self.pool.get('kettle.task').read(cr, uid, context['active_id'], ['kettle_dir'], context)['kettle_dir']
         filename = kettle_dir + '/files/' + str(vals['filename'])
-        fp = file(filename,'wb+')
+        fp = open(filename,'wb+')
         fp.write(base64.decodestring(vals['file']))
         fp.close()
         return filename

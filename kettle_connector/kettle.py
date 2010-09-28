@@ -46,6 +46,46 @@ class kettle_transformation(osv.osv):
         'file': fields.binary('File'),
         'filename': fields.char('File Name', size=64),
         }
+    
+    def error_wizard(self, cr, uid, id, context):
+        error_description = self.pool.get('ir.attachment').read(cr, uid, id, ['description'], context)['description']
+        if error_description and "USER_ERROR" in error_description:
+            raise osv.except_osv('USER_ERROR', error_description)
+        else:
+            raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
+    
+    def execute_transformation(self, cr, uid, id, filter, log_file_name, attachment_id, context):
+        transfo = self.browse(cr, uid, id, context)
+        kettle_dir = transfo.server_id.kettle_dir
+        filename = transfo.filename
+        logger = netsvc.Logger()
+        transformation_temp = open(kettle_dir + '/transformations/'+ filename, 'w')
+        
+        file_temp = base64.decodestring(transfo.file)
+        for key in filter:
+            file_temp = file_temp.replace(key, filter[key])
+        transformation_temp.write(file_temp)
+        transformation_temp.close()
+        
+        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : kettle log in " + str(kettle_dir) + '/nohup.out')
+        cmd = "cd " + kettle_dir + "; nohup sh pan.sh -file=transformations/" + filename + '> "'+ log_file_name + '.log"'
+        os_result = os.system(cmd)
+        
+        if os_result != 0:
+            prefixe_log_name = "[ERROR]"
+        else:
+            note = self.pool.get('ir.attachment').read(cr, uid, attachment_id, ['description'], context)['description']
+            if note and 'WARNING' in note:
+                prefixe_log_name = "[WARNING]"
+            else:
+                prefixe_log_name = "[SUCCESS]"
+        
+        self.pool.get('ir.attachment').write(cr, uid, attachment_id, {'datas': base64.encodestring(open(kettle_dir +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
+        cr.commit()
+        os.system('rm "' + kettle_dir +"/" + log_file_name + '.log"')
+        if os_result != 0:
+            self.error_wizard(cr, uid, attachment_id, context)
+        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
      
 kettle_transformation()
 
@@ -70,8 +110,6 @@ class kettle_task(osv.osv):
             context = {}
         context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
         datas = base64.encodestring(open(datas_fname,'rb').read())
-        print 'name', datas_fname.split("/").pop()
-        print 'file', datas
         attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
         return attachment_id
     
@@ -83,48 +121,6 @@ class kettle_task(osv.osv):
             exec(transfo['python_code_' + position])
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return context
-    
-    def error_wizard(self, cr, uid, id, context):
-        error_description = self.pool.get('ir.attachment').read(cr, uid, id, ['description'], context)['description']
-        if error_description and "USER_ERROR" in error_description:
-            raise osv.except_osv('USER_ERROR', error_description)
-        else:
-            raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
-    
-    def execute_transformation(self, cr, uid, id, filter, log_file_name, attachment_id, context):
-        transfo = self.read(cr, uid, id, ['kettle_dir','file_name'], context)
-        logger = netsvc.Logger()
-        file = transfo['kettle_dir']+'/transformations/'+transfo['file_name']
-        if not os.path.isfile(file + '.ktr'):
-            raise osv.except_osv('Error !', 'The transformation file or the kettle directory is invalid')
-        csv_file = open(file +'.ktr', 'r')
-        csv_temp = open(file +'_temp.ktr', 'w')
-
-        for line in csv_file.readlines():
-            for key in filter:
-                line = line.replace(key, filter[key])
-            csv_temp.write(line)
-        csv_temp.close()
-        
-        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : kettle log in " + str(transfo['kettle_dir']) + '/nohup.out')
-        cmd = "cd " + transfo['kettle_dir'] + "; nohup sh pan.sh -file=transformations/" + transfo['file_name'] + '_temp.ktr' + '> "'+ log_file_name + '.log"'
-        os_result = os.system(cmd)
-        
-        if os_result != 0:
-            prefixe_log_name = "[ERROR]"
-        else:
-            note = self.pool.get('ir.attachment').read(cr, uid, attachment_id, ['description'], context)['description']
-            if note and 'WARNING' in note:
-                prefixe_log_name = "[WARNING]"
-            else:
-                prefixe_log_name = "[SUCCESS]"
-        
-        self.pool.get('ir.attachment').write(cr, uid, attachment_id, {'datas': base64.encodestring(open(transfo['kettle_dir'] +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
-        cr.commit()
-        os.system('rm "' + transfo['kettle_dir'] +"/" + log_file_name + '.log"')
-        if os_result != 0:
-            self.error_wizard(cr, uid, attachment_id, context)
-        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
         
 kettle_task()
 
@@ -163,28 +159,28 @@ class kettle_wizard(osv.osv_memory):
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       }
             
-            transfo = obj_task.read(cr, uid, id, ['upload_file', 'parameters', 'kettle_dir'], context)
-            if transfo['upload_file']: 
+            task = obj_task.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id'], context)
+            if task['upload_file']: 
                 if not (context and context.get('input_filename',False)):
-                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + transfo['name'] + " can't be executed because the anyone File was uploaded")
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
                     continue
                 else:
                     filter.update({'AUTO_REP_file_in' : str(context['input_filename'])})
             
             context = obj_task.execute_python_code(cr, uid, id, 'before', context)
             
-            filter.update(eval('{' + str(transfo['parameters'] or '')+ '}'))
-            obj_task.execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
+            filter.update(eval('{' + str(task['parameters'] or '')+ '}'))
+            self.pool.get('kettle.transformation').execute_transformation(cr, uid, id, filter, log_file_name, attachment_id, context)
 
             context = obj_task.execute_python_code(cr, uid, id, 'after', context)
             
             if context.get('input_filename',False):
-                obj_task.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
+                obj_task.attach_file_to_task(cr, uid, task['transformation_id'][0], context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
         
         return True
 
     def _save_file(self, cr, uid, id, vals, context):
-        kettle_dir = self.pool.get('kettle.task').read(cr, uid, context['active_id'], ['kettle_dir'], context)['kettle_dir']
+        kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], ['server_id'], context).server_id.kettle_dir
         filename = kettle_dir + '/files/' + str(vals['filename'])
         fp = open(filename,'wb+')
         fp.write(base64.decodestring(vals['file']))

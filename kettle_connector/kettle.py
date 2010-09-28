@@ -101,6 +101,7 @@ class kettle_task(osv.osv):
         'scheduler': fields.many2one('ir.cron', 'Scheduler', readonly=True),
         'parameters': fields.text('Parameters'),
         'upload_file': fields.boolean('Upload File'),
+        'output_file' : fields.boolean('Output File'),
         'active_python_code' : fields.boolean('Active Python Code'),
         'python_code_before' : fields.text('Python Code Executed Before Transformation'),
         'python_code_after' : fields.text('Python Code Executed After Transformation'),
@@ -114,6 +115,21 @@ class kettle_task(osv.osv):
         attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
         return attachment_id
     
+    def attach_output_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
+        filename_completed = False
+        filename = datas_fname.split('/').pop()
+        dir = datas_fname.split('/')
+        dir.pop()
+        dir = '/'.join(dir)
+        files = os.listdir(dir)
+        for file in files:
+            if filename in file:
+                filename_completed = file
+        if filename_completed:
+            self.attach_file_to_task(cr, uid, id, dir + '/' + filename_completed, attach_name, delete, context)
+        else:
+            raise osv.except_osv('USER ERROR', 'the output file was not found, are you sure that you transformation will give you an output file?')
+        
     def execute_python_code(self, cr, uid, id, position, context):
         logger = netsvc.Logger()
         task = self.read(cr, uid, id, ['active_python_code', 'python_code_' + position], context)
@@ -142,7 +158,11 @@ class kettle_task(osv.osv):
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       }
             
-            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id'], context)
+            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'server_id'], context)
+            if task['output_file']:
+                kettle_dir = self.pool.get('kettle.server').read(cr, uid, task['server_id'][0], ['kettle_dir'], context)['kettle_dir']
+                context['filter'].update({'AUTO_REP_file_out' : str(kettle_dir + '/files/output_'+ task['name'] + context['start_date'])})
+                
             if task['upload_file']: 
                 if not (context and context.get('input_filename',False)):
                     logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
@@ -160,6 +180,8 @@ class kettle_task(osv.osv):
             if context.get('input_filename',False):
                 self.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
         
+            if task['output_file']:
+                self.attach_output_file_to_task(cr, uid, id, context['filter']['AUTO_REP_file_out'], '[FILE OUT] FILE IMPORTED ' + context['start_date'], True, context)            
         return True
 kettle_task()
 

@@ -18,6 +18,7 @@
 				        <field name="transformation_id"/>
 				        <field name="scheduler"/>
                         <field name="upload_file"/>
+                        <field name="output_file"/>
 				        <field name="active_python_code"/>
 				        <separator colspan="4" string="Parameters" />
 				        <field name="parameters" colspan = "4" nolabel="1"/>

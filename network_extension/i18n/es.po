@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-09-09 09:25+0000\n"
-"PO-Revision-Date: 2010-07-24 04:43+0000\n"
+"PO-Revision-Date: 2010-09-15 10:43+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-26 04:07+0000\n"
+"X-Launchpad-Export-Date: 2010-09-29 05:31+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: network_extension
@@ -58,7 +58,7 @@ msgstr "Nota"
 #. module: network_extension
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Nombre del modelo inválido en esta acción."
+msgstr "Nombre de modelo no válido en la definición de la acción."
 
 #. module: network_extension
 #: constraint:ir.model:0

@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-26 04:06+0000\n"
+"X-Launchpad-Export-Date: 2010-09-29 05:30+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: marketing
@@ -90,7 +90,7 @@ msgstr "Baja"
 #. module: marketing
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Nombre del modelo no válido en la definición de la acción."
+msgstr "Nombre de modelo no válido en la definición de la acción."
 
 #. module: marketing
 #: wizard_button:campaign.partner.email_send,init,send:0
@@ -354,7 +354,7 @@ msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: marketing
-#: model:ir.module.module,shortdesc:marketing.module_meta_information
+#: field:marketing.installer,marketing_campaign:0
 msgid "Marketing Campaigns"
 msgstr "Campañas de marketing"
 

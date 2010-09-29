@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-26 04:07+0000\n"
+"X-Launchpad-Export-Date: 2010-09-29 05:31+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: portal
@@ -38,7 +38,7 @@ msgstr "Portal para el módulo financiero"
 #. module: portal
 #: wizard_field:portal.create_user,init,mail_from:0
 msgid "From"
-msgstr "de"
+msgstr "De"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_customer
@@ -53,17 +53,17 @@ msgstr "Portal para el módulo de ventas"
 #. module: portal
 #: model:ir.actions.wizard,name:portal.wizard_portal_create_menu
 msgid "Create menu"
-msgstr "Crear menu"
+msgstr "Crear menú"
 
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
 msgid "Action triggered by the new menu :"
-msgstr "Acción ejecutada por el nuevo menú"
+msgstr "Acción ejecutada por el nuevo menú:"
 
 #. module: portal
 #: field:portal.portal,home_action_id:0
 msgid "User Home Action"
-msgstr "Acción portada usuario"
+msgstr "Acción inicial del usuario"
 
 #. module: portal
 #: constraint:ir.actions.act_window:0
@@ -74,7 +74,7 @@ msgstr "Nombre de modelo no válido en la definición de la acción."
 #: wizard_view:portal.create_menu,init:0
 #: wizard_view:portal.create_menu,second:0
 msgid "Create menu : "
-msgstr "Crear menu "
+msgstr "Crear menú : "
 
 #. module: portal
 #: constraint:ir.model:0
@@ -92,17 +92,17 @@ msgstr "Vistas usadas para mostrar la acción :"
 #. module: portal
 #: model:ir.actions.act_window,name:portal.action_config_install_module
 msgid "Portal : Install Extra Modules"
-msgstr "Instalar módulos extra"
+msgstr "Portal : Instalar módulos extra"
 
 #. module: portal
 #: wizard_field:portal.create_user,create,note:0
 msgid "Log"
-msgstr ""
+msgstr "Registro (Log)"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,mail:0
 msgid "Body"
-msgstr "Cuerpo"
+msgstr "Mensaje"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,send_mail:0
@@ -162,15 +162,14 @@ msgstr "Configuración"
 #. module: portal
 #: wizard_view:portal.create_menu,init:0
 msgid "The new menu will be available for the portal :"
-msgstr "El nuevo menú estará disponible para el portal"
+msgstr "El nuevo menú estará disponible para el portal :"
 
 #. module: portal
 #: help:portal.portal,home_action_id:0
 msgid ""
 "Complete this field to provide a Home menu different from the Main menu."
 msgstr ""
-"Complete este campo para proveer un menú en portada distinto del menú "
-"principal"
+"Complete este campo para proveer un menú inicial distinto del menú principal."
 
 #. module: portal
 #: help:portal.portal,menu_action_id:0
@@ -178,13 +177,13 @@ msgid ""
 "Default main menu for the users of the portal. This field is auto-completed "
 "at creation. "
 msgstr ""
-"Menú por defecto para usuarios del portal. Este campo se auto-rellena en la "
-"creación. "
+"Menú principal por defecto para los usuarios del portal. Este campo se auto-"
+"rellena en la creación. "
 
 #. module: portal
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "¡XML inválido para la definición de la vista!"
+msgstr "¡XML no válido para la definición de la vista!"
 
 #. module: portal
 #: field:portal.config.install_modules_wizard,portal_service:0
@@ -214,7 +213,7 @@ msgstr "Acción menú usuario"
 #. module: portal
 #: view:portal.config.install_modules_wizard:0
 msgid "Portal : Install Extra Module"
-msgstr "Portal: instalar módulo extra"
+msgstr "Portal : Instalar módulo extra"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,view_type:0
@@ -254,7 +253,7 @@ msgstr "Instalar"
 #. module: portal
 #: model:ir.model,name:portal.model_portal_config_install_modules_wizard
 msgid "portal.config.install_modules_wizard"
-msgstr ""
+msgstr "portal.config.install_modules_wizard"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,action_id:0
@@ -264,7 +263,7 @@ msgstr "Acción"
 #. module: portal
 #: model:ir.actions.todo,note:portal.config_install_module
 msgid "A few modules are proposed according to portal you selected."
-msgstr "Algunos módulos son propuestos en función del portal que seleccione"
+msgstr "Algunos módulos son propuestos en función del portal que seleccione."
 
 #. module: portal
 #: wizard_field:portal.create_menu,init,model_id:0
@@ -288,7 +287,7 @@ msgid "Form View"
 msgstr "Vista formulario"
 
 #. module: portal
-#: model:ir.module.module,shortdesc:portal.module_meta_information
+#: model:ir.module.module,shortdesc:portal.module_name_translation
 #: view:portal.config.install_modules_wizard:0
 msgid "Portal Management"
 msgstr "Gestión de portal"
@@ -301,7 +300,7 @@ msgstr "Acciones por defecto para los usuarios de este portal"
 #. module: portal
 #: model:ir.actions.act_window,name:portal.portal_customer_action_menu
 msgid "Portal Customer Menu"
-msgstr "Menu portal cliente"
+msgstr "Menú portal cliente"
 
 #. module: portal
 #: wizard_view:portal.create_user,create:0
@@ -362,4 +361,4 @@ msgstr "Vista de árbol"
 #: wizard_field:portal.create_user,init,mail_subject:0
 #: wizard_field:portal.create_user,init,mail_subject_existing:0
 msgid "Subject"
-msgstr "Tema"
+msgstr "Asunto"

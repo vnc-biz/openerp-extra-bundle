@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-26 04:07+0000\n"
+"X-Launchpad-Export-Date: 2010-09-29 05:31+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: label
@@ -376,7 +376,7 @@ msgstr "Error! Les mides de la pàgina no tenen la unitat (cm o in) al final."
 #. module: label
 #: field:report.pagesize,height:0
 msgid "Height"
-msgstr "Altura"
+msgstr "Alçada"
 
 #. module: label
 #: selection:label.wizard,font_type:0

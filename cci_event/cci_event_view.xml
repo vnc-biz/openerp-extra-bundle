@@ -158,12 +158,13 @@
 			<field name="state" select="1" position="replace">
 				 <field name="state" select="1"/>
                     <group col="4" colspan="2">
-                        <button string="Cancel Event" name="cci_event_cancel" states="fixed,open" type="object"/>
+                        <button string="Set To Draft" name="button_draft" states="fixed,open,confirm,cancel" type="object"/>
+                        <button string="Cancel Event" name="cci_event_cancel" states="draft,fixed,open,confirm,done" type="object"/>
                         <button string="Confirm Date" name="cci_event_fixed" states="draft" type="object"/>
                         <button string="Open Event" name="cci_event_open" states="fixed" type="object"/>
-                        <button string="Confirm Event" name="cci_event_confirm" states="open" type="object"/>
-                        <button string="Event is Running" name="cci_event_running" states="confirm" type="object"/>
-                        <button string="Event Done" name="cci_event_done" states="running" type="object"/>
+                        <button string="Confirm Event" name="cci_event_confirm" states="open,running" type="object"/>
+                        <button string="Event is Running" name="cci_event_running" states="confirm,done" type="object"/>
+                        <button string="Event Done" name="cci_event_done" states="running,closed" type="object"/>
                         <button string="Close Event" name="cci_event_closed" states="done" type="object"/>
 					</group>
 			</field>
@@ -644,7 +645,9 @@
 		<field name="model">event.registration</field>
 		<field name="inherit_id" ref="event.event_registration_tree"/>
 		<field name="arch" type="xml">
-			<field name="state" position="after" >
+			<field name="partner_id" position="after">
+				<field name="contact_id" select="1"/>
+				<field name="unit_price"/>
 				 <field name="nbr_event_check" select="2"/>
 			</field>
 		</field>

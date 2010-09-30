@@ -99,7 +99,6 @@
             src_model="res.partner"
             view_mode='form'
             id="act_res_partner_2_new_rsf"/>
-
             <!-- context="{'partner_id':active_id,'section_id':ref('case_section_rsf')}" -->
 
 <!-- Act window defining a shorcut on Invoice to open directly a new NCF -->
@@ -112,7 +111,6 @@
 			view_id="invoice_supplier_form"
             id="act_invoice_2_new_ncf"/>
 
-
 <!-- Act window defining a shorcut on Incoice to open directly a new CF -->
         <act_window name="Open a New CF"
             domain="[('id', '=', active_id)]"
@@ -122,7 +120,6 @@
     	    view_mode='form'
 			view_id="invoice_supplier_form"
             id="act_invoice_2_new_cf"/>
-
 <!-- view for Agenda -->
         <record model="ir.ui.view" id="agenda_form">
             <field name="name">meeting.confidential.info.form</field>

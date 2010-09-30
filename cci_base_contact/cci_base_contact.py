@@ -55,6 +55,20 @@ class res_partner_contact(osv.osv):
         'self_sufficent': lambda *a : False,
         'who_presence': lambda *a : True,
     }
+    def name_get(self, cr, user, ids, context={}):
+        #will return name and first_name (courtesy)
+        if not len(ids):
+            return []
+        res = []
+        for r in self.read(cr, user, ids, ['name','first_name','title']):
+            addr = r.get('name', '')
+            if r['name'] and r['first_name']:
+                addr += ' '
+            addr += (r.get('first_name', '') or '')
+            if r['title']:
+                addr += ' (' + r.get('title','') + ')'
+            res.append((r['id'], addr))
+        return res
 res_partner_contact()
 
 

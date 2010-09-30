@@ -1230,13 +1230,13 @@ class Product(osv.osv):
             if product.name.find('ATA - original') != -1:
                 if context and ('value_goods' in context):
                     if context['value_goods'] < 25000:
-                        res[product.id] = res[product.id] + context['value_goods']*0.008903875
+                        res[product.id] = res[product.id] + context['value_goods']*0.0084
                     elif 25000 <= context['value_goods'] < 75000 :
-                        res[product.id] = res[product.id] + context['value_goods']*0.006937375
+                        res[product.id] = res[product.id] + context['value_goods']*0.00655
                     elif 75000 <= context['value_goods'] < 250000 :
-                        res[product.id] = res[product.id] + context['value_goods']*0.004446475
+                        res[product.id] = res[product.id] + context['value_goods']*0.00419
                     else:
-                        res[product.id] = res[product.id] + context['value_goods']*0.002764025
+                        res[product.id] = res[product.id] + context['value_goods']*0.00261
                 if context and ('double_signature' in context):
                     if context['double_signature'] == False:
                         res[product.id] = res[product.id] + 5.45

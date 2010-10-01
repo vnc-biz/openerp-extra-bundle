@@ -40,36 +40,6 @@ _regex = re.compile('\[\[setHtmlImage\((.+?)\)\]\]')
 #    def create_single(self, cr, uid, ids, data, report_xml, context={}):
 #        report_sxw.create_single(self, cr, uid, ids, data, report_xml, context)
 
-def dm_register_all(db,report=False):
-    opj = os.path.join
-    cr = db.cursor()
-    result=''
-    cr.execute("SELECT * FROM ir_act_report_xml WHERE model=%s \
-                    ORDER BY id", ('dm.offer.document',))
-    result = cr.dictfetchall()
-    for r in result:
-        if netsvc.service_exist('report.'+r['report_name']):
-            continue
-        if r['report_rml'] or r['report_rml_content_data']:
-            report_sxw('report.'+r['report_name'], r['model'],
-                    opj('addons',r['report_rml'] or '/'), header=r['header'],
-                    parser=offer_document)
-    cr.execute("SELECT * FROM ir_act_report_xml WHERE auto=%s \
-                        ORDER BY id", (True,))
-    result = cr.dictfetchall()
-    cr.close()
-    for r in result:
-        if netsvc.service_exist('report.'+r['report_name']):
-            continue
-        if r['report_rml'] or r['report_rml_content_data']:
-            report_sxw('report.'+r['report_name'], r['model'],
-                    opj('addons',r['report_rml'] or '/'), header=r['header'])
-        if r['report_xsl']:
-            interface.report_rml('report.'+r['report_name'], r['model'],
-                    opj('addons', r['report_xml']),
-                    r['report_xsl'] and opj('addons', r['report_xsl']))
-    
-interface.register_all =  dm_register_all
 
 class report_xml(osv.osv):
     _inherit = 'ir.actions.report.xml'
@@ -88,8 +58,23 @@ class report_xml(osv.osv):
             ("oo_html","OO - HTML"),
             ("oo_txt","OO - Text"),
             ], string='Type', required=True),
-            
         }
+
+    def register_all(self, cr):
+        opj = os.path.join
+        result=''
+        cr.execute("SELECT * FROM ir_act_report_xml WHERE model=%s \
+                        ORDER BY id", ('dm.offer.document',))
+        result = cr.dictfetchall()
+        for r in result:
+            if netsvc.service_exist('report.'+r['report_name']):
+                continue
+            if r['report_rml'] or r['report_rml_content_data']:
+                report_sxw('report.'+r['report_name'], r['model'],
+                        opj('addons',r['report_rml'] or '/'), header=r['header'],
+                        parser=offer_document)
+
+        super(report_xml, self).register_all(cr)
 
     def upload_report(self, cr, uid, report_id, file_sxw,file_type, context):
         '''

@@ -22,5 +22,6 @@
 
 import merge_partners
 import merge_partners_address
+import base_partner_merge
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

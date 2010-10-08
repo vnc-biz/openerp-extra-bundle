@@ -35,7 +35,9 @@
     'website': 'http://www.openerp.com',
     'depends': ['base'],
     'init_xml': [],
-    'update_xml': ['base_partner_merge_wizard.xml'],
+    'update_xml': ['base_partner_merge_wizard.xml', 
+                            "wizard/base_partner_merge_view.xml"
+                   ],
     'demo_xml': [],
     'installable': True,
     "active": False,

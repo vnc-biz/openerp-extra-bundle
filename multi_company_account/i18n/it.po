@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-08-07 13:39+0000\n"
-"PO-Revision-Date: 2010-01-26 11:30+0000\n"
-"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"PO-Revision-Date: 2010-10-11 20:18+0000\n"
+"Last-Translator: simone.sandri <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-30 04:56+0000\n"
+"X-Launchpad-Export-Date: 2010-10-12 04:59+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: multi_company_account
@@ -48,7 +48,7 @@ msgstr ""
 #: field:account.period,company_id:0
 #: view:wizard.company.header.footer.setup:0
 msgid "Company"
-msgstr ""
+msgstr "Società"
 
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,company_id:0
@@ -79,19 +79,19 @@ msgstr ""
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,rml_header2:0
 msgid "RML Internal Header"
-msgstr ""
+msgstr "Intestazione Interna RML"
 
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,rml_header:0
 msgid "RML Header"
-msgstr ""
+msgstr "Intestazione RML"
 
 #. module: multi_company_account
 #: view:wizard.company.header.footer.setup:0
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #. module: multi_company_account
 #: view:wizard.company.header.footer.setup:0
 msgid "Header/Footer"
-msgstr ""
+msgstr "Intestazione / Piè di pagina"

@@ -65,7 +65,8 @@ def _createInvoices(self, cr, uid, data, context):
         context.update({'date':carnet.creation_date})
         list.append(carnet.type_id.original_product_id.id)
         list.append(carnet.type_id.copy_product_id.id)
-        list.append(carnet.warranty_product_id.id)
+        if carnet.own_risk:
+            list.append(carnet.warranty_product_id.id)
         fpos = carnet.partner_id.property_account_position and carnet.partner_id.property_account_position.id or False
         for product_line in carnet.product_ids:#extra Products
             val = obj_lines.product_id_change(cr, uid, [], product_line.product_id.id,uom =False, partner_id=carnet.partner_id.id, fposition_id=fpos)

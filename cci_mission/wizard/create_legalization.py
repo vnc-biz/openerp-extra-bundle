@@ -62,7 +62,6 @@ def _create_legalization(self, cr, uid, data, context):
     for data in data_certi:
         leg_create = leg_create + 1
         prod_lines = []
-        newname = obj_pool.get('ir.sequence').get(cr, uid,type_rec.sequence_id.code)        
 
         map(lambda x: prod_lines.append(x.id), data.product_ids)
         if data.order_partner_id.membership_state in ('none','canceled'): #the boolean "Apply the member price" should be set to TRUE or FALSE when the partner is changed in regard of the membership state of him.
@@ -71,7 +70,6 @@ def _create_legalization(self, cr, uid, data, context):
             is_member = True
 
         leg_id =obj_pool.get('cci_missions.legalization').create(cr, uid, {
-            'name': newname,
             'type_id': type_id,
             'date': data.date,
             'order_partner_id': data.order_partner_id.id,

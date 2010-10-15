@@ -12,7 +12,7 @@
         <field name="inherit_id" ref="account.view_invoice_line_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <field name="price_subtotal" position="after">
+            <field name="invoice_line_tax_id" position="before">
                 <field name="asset_id" context="name=name"/>
             </field>
         </field>

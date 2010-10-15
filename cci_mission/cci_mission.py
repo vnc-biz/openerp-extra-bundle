@@ -213,9 +213,10 @@ class cci_missions_embassy_folder_line (osv.osv):
         return super(osv.osv,self).create(cr, uid, vals, *args, **kwargs)
 
     def write(self, cr, uid, ids, vals, *args, **kwargs):
-        site_id = self.pool.get('cci_mission.embassy_folder_line').browse(cr, uid, ids)[0].folder_id.site_id
+        folder_line_id = self.pool.get('cci_missions.embassy_folder_line').browse(cr, uid, ids)
+        site_id = folder_line_id and folder_line_id[0].folder_id and folder_line_id[0].folder_id.site_id or False
         if vals.has_key('type'):
-            prod_name = vals['type'] + str(' Product ') + site_id.name
+            prod_name = vals['type'] + str(' Product ') + (site_id and site_id.name or '')
             cr.execute('select id from product_template where name='"'%s'"''%str(prod_name))
             prod=cr.fetchone()
             if prod:

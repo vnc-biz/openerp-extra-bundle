@@ -53,3 +53,4 @@
 "access_res_partner_country_relation_supervisor","res_partner_country_relation_supervisor","model_res_partner_country_relation","group_partner_supervisor",1,1,1,1
 "access_res_partner_contact_link_supervisor","res_partner_contact_link_supervisor","cci_base_contact.model_res_partner_contact_link","group_partner_supervisor",1,0,0,0
 "access_res_partner_contact_link_type_supervisor","res_partner_contact_link_type_supervisor","cci_base_contact.model_res_partner_contact_link_type","group_partner_supervisor",1,0,0,0
+"access_res_partner_reason_user","res_partner_reason","model_res_partner_reason","",1,1,1,1

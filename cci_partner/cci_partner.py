@@ -74,6 +74,14 @@ class res_company(osv.osv):
 
 res_company()
 
+class res_partner_reason(osv.osv):
+    _name = "res.partner.reason"
+    _description = 'res.partner.reason'
+    _columns = {
+        'name': fields.char('Reason', size=50, required=True, select="1"),
+    }
+res_partner_reason()
+
 class res_partner_state2(osv.osv):
     _name = "res.partner.state2"
     _description = 'res.partner.state2'
@@ -244,6 +252,7 @@ class res_partner(osv.osv):
         'invoice_public':fields.boolean('Invoice Public'),
         'invoice_special':fields.boolean('Invoice Special'),
         'state_id2':fields.many2one('res.partner.state2','Customer State',help='status of the partner as a customer'),
+        'reason_id':fields.many2one('res.partner.reason','Reason'),
         'activity_description':fields.text('Activity Description',translate=True),
         'activity_code_ids':fields.one2many('res.partner.activity.relation','partner_id','Activity Codes'),
         'export_procent':fields.integer('Export(%)'),

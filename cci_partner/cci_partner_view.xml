@@ -160,6 +160,13 @@ TODO: revoir la vue tree aussi
 		<menuitem name="States" groups="base.group_system" id="menu_partner_state_main" parent="base.menu_base_config"/>
 		<menuitem  parent="menu_partner_state_main" groups="base.group_system" action="action_partner_state" id="menu_partner_state"/>
 
+		<record model="ir.actions.act_window" id="action_partner_reason">
+			<field name="name">Refuse Reason</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.reason</field>
+			<field name="view_type">form</field>
+		</record>
+		<menuitem name="Reasons" id="menu_partner_reason_main" action="action_partner_reason" parent="base.menu_base_config"/>
 <!-- view for res.partner.state2 -->
 		<record model="ir.ui.view" id="view_partner_state2_form">
 			<field name="name">res.partner.state2.form</field>

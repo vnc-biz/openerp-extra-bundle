@@ -147,7 +147,8 @@
 	                            <separator string="special" colspan="2"/>
 	                            <field name="associate_member"/>
 	                            <field name="free_member"/>
-								<field name="refuse_membership" select="2"/>
+                              <field name="refuse_membership" select="2"/>
+                              <field name="reason_id" colspan="4" attrs="{'readonly':[('refuse_membership','=',False)]}" widget="selection"/>
 	                         </group>
                          	<separator string="Membership Lines" colspan="4"/>
                         	<field name="member_lines" select="2" colspan="4" nolabel="1">

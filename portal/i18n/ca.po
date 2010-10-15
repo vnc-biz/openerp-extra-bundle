@@ -13,13 +13,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-30 04:56+0000\n"
+"X-Launchpad-Export-Date: 2010-10-15 04:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: portal
 #: wizard_view:portal.create_user,init:0
 msgid "User creation "
-msgstr ""
+msgstr "Crea usuari "
 
 #. module: portal
 #: field:ir.actions.act_window,portal_visible:0
@@ -27,53 +27,53 @@ msgstr ""
 #: field:ir.actions.report.xml,portal_visible:0
 #: field:ir.actions.wizard,portal_visible:0
 msgid "Visible in Portal"
-msgstr ""
+msgstr "Visible en portal"
 
 #. module: portal
 #: field:portal.config.install_modules_wizard,portal_account:0
 msgid "Portal for Account Module"
-msgstr ""
+msgstr "Portal per al modul financer"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,mail_from:0
 msgid "From"
-msgstr ""
+msgstr "Des de"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_customer
 msgid "Customer Portal"
-msgstr ""
+msgstr "Portal de client"
 
 #. module: portal
 #: field:portal.config.install_modules_wizard,portal_sale:0
 msgid "Portal for Sale Module"
-msgstr ""
+msgstr "Portal per al modul de vendes"
 
 #. module: portal
 #: model:ir.actions.wizard,name:portal.wizard_portal_create_menu
 msgid "Create menu"
-msgstr ""
+msgstr "Crea menú"
 
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
 msgid "Action triggered by the new menu :"
-msgstr ""
+msgstr "Acció executada pel nou menú:"
 
 #. module: portal
 #: field:portal.portal,home_action_id:0
 msgid "User Home Action"
-msgstr ""
+msgstr "Acció inicial de l'usuari"
 
 #. module: portal
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom del model no vàlid en la definició de l'acció."
 
 #. module: portal
 #: wizard_view:portal.create_menu,init:0
 #: wizard_view:portal.create_menu,second:0
 msgid "Create menu : "
-msgstr ""
+msgstr "Crea menú : "
 
 #. module: portal
 #: constraint:ir.model:0
@@ -86,22 +86,22 @@ msgstr ""
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
 msgid "Views used to display the action :"
-msgstr ""
+msgstr "Vistes usades per a mostrar l'acció :"
 
 #. module: portal
 #: model:ir.actions.act_window,name:portal.action_config_install_module
 msgid "Portal : Install Extra Modules"
-msgstr ""
+msgstr "Portal : Instal·la mòduls extra"
 
 #. module: portal
 #: wizard_field:portal.create_user,create,note:0
 msgid "Log"
-msgstr ""
+msgstr "Registre (Log)"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,mail:0
 msgid "Body"
-msgstr ""
+msgstr "Missatge"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,send_mail:0
@@ -111,22 +111,22 @@ msgstr ""
 #. module: portal
 #: wizard_view:portal.create_user,create:0
 msgid "User creation"
-msgstr ""
+msgstr "Crea usuari"
 
 #. module: portal
 #: field:portal.model,view_ids:0
 msgid "Views"
-msgstr ""
+msgstr "Vistes"
 
 #. module: portal
 #: field:portal.portal,name:0
 msgid "Portal Name"
-msgstr ""
+msgstr "Nom portal"
 
 #. module: portal
 #: field:portal.portal,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: portal
 #: wizard_button:portal.create_user,create,end:0
@@ -140,18 +140,18 @@ msgstr ""
 #: wizard_field:portal.create_menu,init,portal_id:0
 #: wizard_field:portal.create_user,init,portal_id:0
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,send_mail_existing:0
 msgid "Send reminder for existing user"
-msgstr ""
+msgstr "Envia recordatori per a usuari existent"
 
 #. module: portal
 #: model:ir.actions.act_window,name:portal.action_portal_model_form
 #: model:ir.model,name:portal.model_portal_model
 msgid "Portal Model"
-msgstr ""
+msgstr "Model portal"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_configuration
@@ -161,13 +161,15 @@ msgstr "Configuració"
 #. module: portal
 #: wizard_view:portal.create_menu,init:0
 msgid "The new menu will be available for the portal :"
-msgstr ""
+msgstr "El nou menú estarà disponible per al portal :"
 
 #. module: portal
 #: help:portal.portal,home_action_id:0
 msgid ""
 "Complete this field to provide a Home menu different from the Main menu."
 msgstr ""
+"Completeu aquest camp per a proveir un menú inicial diferent del menú "
+"principal."
 
 #. module: portal
 #: help:portal.portal,menu_action_id:0
@@ -175,6 +177,8 @@ msgid ""
 "Default main menu for the users of the portal. This field is auto-completed "
 "at creation. "
 msgstr ""
+"Menú principal per defecte per als usuaris del portal. Aquest camp s'auto-"
+"omple en la creació. "
 
 #. module: portal
 #: constraint:ir.ui.view:0
@@ -184,62 +188,62 @@ msgstr "﻿XML invàlid per a la definició de la vista!"
 #. module: portal
 #: field:portal.config.install_modules_wizard,portal_service:0
 msgid "Portal for Service Module"
-msgstr ""
+msgstr "Portal per al mòdul de serveis"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_configuration_models
 msgid "Available Models"
-msgstr ""
+msgstr "Models disponibles"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,parent_menu_id:0
 msgid "Parent Menu"
-msgstr ""
+msgstr "Menú pare"
 
 #. module: portal
 #: wizard_view:portal.create_user,init:0
 msgid "Create user on portal :"
-msgstr ""
+msgstr "Crea usuari en portal :"
 
 #. module: portal
 #: field:portal.portal,menu_action_id:0
 msgid "User Menu Action"
-msgstr ""
+msgstr "Acció menú usuari"
 
 #. module: portal
 #: view:portal.config.install_modules_wizard:0
 msgid "Portal : Install Extra Module"
-msgstr ""
+msgstr "Portal : Instal·la mòdul extra"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,view_type:0
 msgid "Use Form View By Default"
-msgstr ""
+msgstr "Usa vista formulari per defecte"
 
 #. module: portal
 #: field:portal.config.install_modules_wizard,portal_analytic:0
 msgid "Portal for Analytic Account Module"
-msgstr ""
+msgstr "Portal per a mòdul de comptabilitat analític"
 
 #. module: portal
 #: model:ir.ui.menu,name:portal.menu_portal_configuration_portals
 msgid "Portals"
-msgstr ""
+msgstr "Portals"
 
 #. module: portal
 #: field:portal.portal,menu_id:0
 msgid "Main Menu"
-msgstr ""
+msgstr "Menú principal"
 
 #. module: portal
 #: wizard_button:portal.create_menu,second,init:0
 msgid "_Back"
-msgstr ""
+msgstr "_Enrere"
 
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
 msgid "The new menu is located under:"
-msgstr ""
+msgstr "El nou menú està localitzat sota:"
 
 #. module: portal
 #: view:portal.config.install_modules_wizard:0

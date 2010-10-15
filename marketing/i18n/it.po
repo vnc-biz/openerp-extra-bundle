@@ -14,13 +14,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-30 04:55+0000\n"
+"X-Launchpad-Export-Date: 2010-10-15 04:55+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Send an E-Mail"
-msgstr ""
+msgstr "Invia E-Mail"
 
 #. module: marketing
 #: field:campaign.partner,name:0
@@ -30,17 +30,17 @@ msgstr ""
 #. module: marketing
 #: selection:campaign.partner.add,init,priority:0
 msgid "Very Good"
-msgstr ""
+msgstr "Molto Buono"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_campaign
 msgid "campaign.campaign"
-msgstr ""
+msgstr "campagna.campagna"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,from:0
 msgid "From"
-msgstr ""
+msgstr "Da"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
@@ -53,17 +53,17 @@ msgstr ""
 #: view:campaign.partner.history:0
 #: field:campaign.partner.history,info:0
 msgid "Comments"
-msgstr ""
+msgstr "Commenti"
 
 #. module: marketing
 #: field:campaign.campaign,planned_costs:0
 msgid "Planned Costs"
-msgstr ""
+msgstr "Costi Pianificati"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Continue Campaign"
-msgstr ""
+msgstr "Continua Campagna"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,on_error:0
@@ -84,7 +84,7 @@ msgstr ""
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Low"
-msgstr ""
+msgstr "Basso"
 
 #. module: marketing
 #: constraint:ir.actions.act_window:0
@@ -94,7 +94,7 @@ msgstr "Nome del modello non valido nella definizione dell'azione."
 #. module: marketing
 #: wizard_button:campaign.partner.email_send,init,send:0
 msgid "Send Email"
-msgstr ""
+msgstr "Invia Email"
 
 #. module: marketing
 #: view:campaign.partner:0
@@ -112,7 +112,7 @@ msgstr ""
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #. module: marketing
 #: view:campaign.step:0
@@ -122,38 +122,38 @@ msgstr ""
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 msgid "Default Values"
-msgstr ""
+msgstr "Valori predefiniti"
 
 #. module: marketing
 #: selection:campaign.partner.add,init,priority:0
 msgid "Good"
-msgstr ""
+msgstr "Buono"
 
 #. module: marketing
 #: field:campaign.campaign,info:0
 #: field:campaign.step,info:0
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Header"
-msgstr ""
+msgstr "Intestazione"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,body:0
 msgid "Email Message"
-msgstr ""
+msgstr "Messaggio Email"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Main Information"
-msgstr ""
+msgstr "Informazioni Principali"
 
 #. module: marketing
 #: field:campaign.step,procent:0
 msgid "Success Rate (0<x<1)"
-msgstr ""
+msgstr "Punteggio del Successo (0<x<1)"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
@@ -170,7 +170,7 @@ msgstr ""
 #: view:campaign.campaign:0
 #: model:ir.ui.menu,name:marketing.menu_marketing_operations_campaigns
 msgid "Campaigns"
-msgstr ""
+msgstr "Campagne"
 
 #. module: marketing
 #: field:campaign.campaign,planned_revenue:0
@@ -181,22 +181,22 @@ msgstr ""
 #: field:campaign.partner,step:0
 #: field:campaign.partner.history,step_id:0
 msgid "Step"
-msgstr ""
+msgstr "Passo"
 
 #. module: marketing
 #: wizard_field:campaign.partner.add,init,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Waiting"
-msgstr ""
+msgstr "In attesa"
 
 #. module: marketing
 #: field:campaign.partner.history,date:0
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #. module: marketing
 #: field:campaign.partner,notes:0
@@ -211,12 +211,12 @@ msgstr ""
 #. module: marketing
 #: model:ir.ui.menu,name:marketing.menu_op_config
 msgid "Configuration"
-msgstr ""
+msgstr "Configurazione"
 
 #. module: marketing
 #: wizard_field:campaign.partner.add,init,campaign_step_id:0
 msgid "First Campaign Step"
-msgstr ""
+msgstr "Primo Passo della Campagna"
 
 #. module: marketing
 #: model:ir.ui.menu,name:marketing.menu_marketing_operations
@@ -226,7 +226,7 @@ msgstr ""
 #. module: marketing
 #: field:campaign.campaign,costs:0
 msgid "Initial Costs"
-msgstr ""
+msgstr "Costi Iniziali"
 
 #. module: marketing
 #: constraint:ir.ui.view:0
@@ -241,7 +241,7 @@ msgstr ""
 #. module: marketing
 #: field:campaign.campaign,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: marketing
 #: model:ir.module.module,description:marketing.module_meta_information
@@ -256,7 +256,7 @@ msgstr ""
 #. module: marketing
 #: selection:campaign.partner,priority:0
 msgid "Very High"
-msgstr ""
+msgstr "Molto Alto"
 
 #. module: marketing
 #: view:campaign.partner:0
@@ -272,18 +272,18 @@ msgstr ""
 #: field:campaign.partner,active:0
 #: field:campaign.step,active:0
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Medium"
-msgstr ""
+msgstr "Medio"
 
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Stopped"
-msgstr ""
+msgstr "Fermato"
 
 #. module: marketing
 #: view:campaign.campaign:0
@@ -294,13 +294,13 @@ msgstr ""
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_step
 msgid "campaign.step"
-msgstr ""
+msgstr "campagna.passo"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Very Low"
-msgstr ""
+msgstr "Molto Basso"
 
 #. module: marketing
 #: field:campaign.step,costs:0
@@ -313,12 +313,12 @@ msgstr ""
 #: view:campaign.partner.history:0
 #: field:campaign.partner.history,name:0
 msgid "History"
-msgstr ""
+msgstr "Cronologia"
 
 #. module: marketing
 #: field:campaign.partner.history,camp_partner_id:0
 msgid "Prospect"
-msgstr ""
+msgstr "Prospetto"
 
 #. module: marketing
 #: model:ir.actions.wizard,name:marketing.wizard_load_partners
@@ -328,13 +328,13 @@ msgstr ""
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Stop Campaign"
-msgstr ""
+msgstr "Ferma Campagna"
 
 #. module: marketing
 #: field:campaign.partner,priority:0
 #: wizard_field:campaign.partner.add,init,priority:0
 msgid "Priority"
-msgstr ""
+msgstr "Priorità"
 
 #. module: marketing
 #: field:campaign.partner,contact:0
@@ -345,12 +345,12 @@ msgstr ""
 #: field:campaign.partner,campaign_id:0
 #: field:campaign.step,campaign_id:0
 msgid "Campaign"
-msgstr ""
+msgstr "Campagna"
 
 #. module: marketing
 #: field:campaign.step,priority:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sequenza"
 
 #. module: marketing
 #: field:marketing.installer,marketing_campaign:0
@@ -360,12 +360,12 @@ msgstr "Campagne di Marketing"
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #. module: marketing
 #: field:campaign.partner,state:0
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 #. module: marketing
 #: field:campaign.partner,part_adr_id:0
@@ -375,13 +375,13 @@ msgstr ""
 #. module: marketing
 #: selection:campaign.partner,priority:0
 msgid "High"
-msgstr ""
+msgstr "Alta"
 
 #. module: marketing
 #: field:campaign.campaign,step_id:0
 #: view:campaign.step:0
 msgid "Campaign Steps"
-msgstr ""
+msgstr "Passi della Campagna"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_partner
@@ -397,7 +397,7 @@ msgstr ""
 #: wizard_button:campaign.partner.add,init,end:0
 #: wizard_button:campaign.partner.email_send,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancella"
 
 #. module: marketing
 #: field:campaign.partner,partner_id:0
@@ -408,7 +408,7 @@ msgstr ""
 #: field:campaign.campaign,date_start:0
 #: field:campaign.step,start_date:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data di Inizio"
 
 #. module: marketing
 #: view:campaign.partner:0
@@ -418,12 +418,12 @@ msgstr ""
 #. module: marketing
 #: field:campaign.partner,user_id:0
 msgid "Salesman"
-msgstr ""
+msgstr "Venditore"
 
 #. module: marketing
 #: model:ir.actions.wizard,name:marketing.wizard_email
 msgid "Send an email"
-msgstr ""
+msgstr "Invia una email"
 
 #. module: marketing
 #: field:campaign.step,name:0
@@ -433,4 +433,4 @@ msgstr ""
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,subject:0
 msgid "Subject"
-msgstr ""
+msgstr "Soggetto"

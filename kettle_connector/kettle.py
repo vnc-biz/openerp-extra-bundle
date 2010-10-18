@@ -70,7 +70,7 @@ class kettle_transformation(osv.osv):
         kettle_dir = transfo.server_id.kettle_dir
         filename = transfo.filename
         logger = netsvc.Logger()
-        transformation_temp = open(kettle_dir + '/transformations/'+ filename, 'w')
+        transformation_temp = open(kettle_dir + '/openerp_tmp/'+ filename, 'w')
         
         file_temp = base64.decodestring(transfo.file)
         if context.get('filter', False):
@@ -80,7 +80,7 @@ class kettle_transformation(osv.osv):
         transformation_temp.close()
         
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : open kettle log with tail -f " + kettle_dir +'/"' + log_file_name + '.log"')
-        cmd = "cd " + kettle_dir + "; nohup sh pan.sh -file=transformations/" + filename + '> "'+ log_file_name + '.log"'
+        cmd = "cd " + kettle_dir + "; nohup sh pan.sh -file=openerp_tmp/" + filename + '> "'+ log_file_name + '.log"'
         os_result = os.system(cmd)
         
         if os_result != 0:
@@ -95,7 +95,7 @@ class kettle_transformation(osv.osv):
         self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/" + log_file_name + '.log', 'rb').read()), 'datas_fname': log_file_name + '.log', 'name' : prefixe_log_name + ' ' + log_file_name}, context)
         cr.commit()
         os.remove(kettle_dir +"/" + log_file_name + '.log')
-        os.remove(kettle_dir + '/transformations/'+ filename)
+        os.remove(kettle_dir + '/openerp_tmp/'+ filename)
         if os_result != 0:
             self.error_wizard(cr, uid, attachment_id, context)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
@@ -124,23 +124,21 @@ class kettle_task(osv.osv):
         if not context:
             context = {}
         context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
-        datas = base64.encodestring(open(datas_fname,'rb').read())
-        os.remove(datas_fname)
+        datas = base64.encodestring(open(context['kettle_dir'] + '/' + datas_fname,'rb').read())
+        os.remove(context['kettle_dir'] + '/' + datas_fname)
         attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
         return attachment_id
     
     def attach_output_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
         filename_completed = False
         filename = datas_fname.split('/').pop()
-        dir = datas_fname.split('/')
-        dir.pop()
-        dir = '/'.join(dir)
+        dir = context['kettle_dir']+'/openerp_tmp'
         files = os.listdir(dir)
         for file in files:
             if filename in file:
                 filename_completed = file
         if filename_completed:
-            self.attach_file_to_task(cr, uid, id, dir + '/' + filename_completed, attach_name, delete, context)
+            self.attach_file_to_task(cr, uid, id, 'openerp_tmp/'+  filename_completed, attach_name, delete, context)
         else:
             raise osv.except_osv('USER ERROR', 'the output file was not found, are you sure that you transformation will give you an output file?')
         
@@ -172,20 +170,20 @@ class kettle_task(osv.osv):
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       }
             task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'server_id', 'last_date'], context)
+            context['kettle_dir'] = self.pool.get('kettle.server').read(cr, uid, task['server_id'][0], ['kettle_dir'], context)['kettle_dir']
             
             if task['last_date']:
                 context['filter']['AUTO_REP_last_date'] = task['last_date']
                 
             if task['output_file']:
-                kettle_dir = self.pool.get('kettle.server').read(cr, uid, task['server_id'][0], ['kettle_dir'], context)['kettle_dir']
-                context['filter'].update({'AUTO_REP_file_out' : str(kettle_dir + '/files/output_'+ task['name'] + context['start_date'])})
+                context['filter'].update({'AUTO_REP_file_out' : str('openerp_tmp/output_'+ task['name'] + context['start_date'])})
                 
             if task['upload_file']: 
                 if not (context and context.get('input_filename',False)):
                     logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
                     continue
                 else:
-                    context['filter'].update({'AUTO_REP_file_in' : str(context['input_filename']), 'AUTO_REP_file_in_name' : str(context['input_filename'].split('/').pop())})
+                    context['filter'].update({'AUTO_REP_file_in' : str(context['input_filename']), 'AUTO_REP_file_in_name' : str(context['input_filename'])})
             
             context = self.execute_python_code(cr, uid, id, 'before', context)
             
@@ -223,11 +221,11 @@ class kettle_wizard(osv.osv_memory):
 
     def _save_file(self, cr, uid, id, vals, context):
         kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], ['server_id'], context).server_id.kettle_dir
-        filename = kettle_dir + '/files/' + str(vals['filename'])
+        filename = kettle_dir + '/openerp_tmp/' + str(vals['filename'])
         fp = open(filename,'wb+')
         fp.write(base64.decodestring(vals['file']))
         fp.close()
-        return filename
+        return 'openerp_tmp/' + vals['filename']
 
     def action_start_task(self, cr, uid, id, context):
         wizard = self.read(cr, uid, id,context=context)[0]

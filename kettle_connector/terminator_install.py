@@ -126,7 +126,7 @@ class installer:
 		unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/termintatooor')
 		
 		shutil.move(kettle_root_directory + 'data-integration/plugins/steps/termintatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
-		os.mkdir(kettle_root_directory + '/transformations/')
+		os.mkdir(kettle_root_directory + '/data-integration/openerp_tmp/')
 		
 		if install_agilebi:
 			print "getting the AgileBI plugin from the Internet, this can take a while (>40Mo)..."

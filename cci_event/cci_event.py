@@ -309,7 +309,7 @@ class event_registration(osv.osv):
                 data['unit_price']=self.pool.get('product.product').price_get(cr, uid, [data_event.product_id.id],context=context)[data_event.product_id.id]
                 return {'value':data}
             data_partner = self.pool.get('res.partner').browse(cr,uid,partner_invoice_id)
-            context.update({'partner_id':data_partner})
+            context.update({'partner_id':data_partner and data_partner.id})
             data['unit_price']=self.pool.get('product.product').price_get(cr, uid, [data_event.product_id.id],context=context)[data_event.product_id.id]
             return {'value':data}
         return {'value':data}

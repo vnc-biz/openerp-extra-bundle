@@ -36,40 +36,32 @@ class switch_debit_credit(wizard.interface):
 
         model_data_ids = pool_obj.get('ir.model.data').search(cr,uid,[('model','=','ir.ui.view'),('name','=','view_move_form')])
         resource_id = pool_obj.get('ir.model.data').read(cr,uid,model_data_ids,fields=['res_id'])[0]['res_id']
+        new_ids = new_move_ids = []
 
         data['new_ids']=[]
+        result = {}
+        move_line_obj = pool_obj.get('account.move.line')
         for id in data['ids']:
 
             ids_lines=pool_obj.get('account.move.line').search(cr,uid,[('move_id','=',id)])
             move_id=False
+            move_id = obj_move_line=pool_obj.get('account.move').copy(cr,uid,id, {'line_id':{}})
 
             for line_id in ids_lines:
 
-                vals=pool_obj.get('account.move.line').read(cr, uid,line_id)
-
-                vals['state']='draft'
-                temp =vals['debit']
-                vals['debit']=vals['credit']
-                vals['credit']=temp
-                del vals['id']
-                del vals['move_id']
-                vals['reconcile_id']= False
-                if move_id:
-                    vals['move_id']=move_id
-                for field in vals:
-                    if isinstance(vals[field],tuple):
-                        vals[field]=vals[field][0]
-
-                new_id=pool_obj.get('account.move.line').create(cr, uid, vals, context)
-                obj_move_line=pool_obj.get('account.move.line').browse(cr,uid,new_id)
-                if not move_id:
-                    move_id=obj_move_line.move_id.id
-
-            data['new_ids'].append(move_id)
-
+                vals=move_line_obj.read(cr, uid,line_id)
+                new_ids.append(move_line_obj.copy(cr, uid, line_id, {'reconcile_id':False,
+                                                    'reconcile_partial_id':False,
+                                                    'blocked':False,
+                                                    'move_id':move_id,
+                                                    'state':'draft',
+                                                    'debit':vals['credit'],
+                                                    'credit':vals['debit']
+                }))
+                new_move_ids.append(move_id)
 
         result= {
-            'domain': "[('id','in', ["+','.join(map(str,data['new_ids']))+"])]",
+            'domain': "[('id','in', ["+','.join(map(str,new_move_ids))+"])]",
             'name': 'Entries',
             'view_type': 'form',
             'view_mode': 'tree,form',

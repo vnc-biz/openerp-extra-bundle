@@ -142,6 +142,7 @@
 	                              <field name="membership_start"/>
 	                              <field name="membership_stop" />
 	                              <field name="membership_cancel"/>
+                                      <field name="membership_first_year"/>
 	                         </group>
 	                        <group colspan="2" col="2">
 	                            <separator string="special" colspan="2"/>
@@ -150,6 +151,7 @@
                               <field name="refuse_membership" select="2"/>
                               <field name="reason_id" colspan="4" attrs="{'readonly':[('refuse_membership','=',False)]}" widget="selection"/>
 	                         </group>
+				<field name="membership_explanation" colspan="4"/>
                          	<separator string="Membership Lines" colspan="4"/>
                         	<field name="member_lines" select="2" colspan="4" nolabel="1">
 	                            <tree string="Membership">
@@ -583,6 +585,7 @@
                         <page string="Invoice">
                             <field name="date_invoice"/>
                             <field name="date_due" select="1"/>
+                            <field name="followup_line_id" select="1"/>
                             <field name="period_id"/>
                             <label align="0.0" colspan="2" string="(keep empty to use the current period)"/>
                             <field domain="[('partner_id', '=', partner_id)]" name="partner_bank" on_change="onchange_partner_bank(partner_bank)" select="2"/>

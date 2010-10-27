@@ -47,6 +47,7 @@ class res_partner_contact(osv.osv):
         'login_name': fields.char('Login', size=240),
         'password': fields.char('Password', size=60),
         'token': fields.char('Website token',size=36),
+        'gender':fields.selection([('man','Man'),('women','Women')],"Gender"),
         'write_date' : fields.datetime('Last Modification'),
         'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this contact'),
     }
@@ -54,6 +55,7 @@ class res_partner_contact(osv.osv):
         'data_private' : lambda *a : False,
         'self_sufficent': lambda *a : False,
         'who_presence': lambda *a : True,
+        'gender': lambda *a: 'man',
     }
     def name_get(self, cr, user, ids, context={}):
         #will return name and first_name (courtesy)

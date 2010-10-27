@@ -70,9 +70,11 @@ class res_partner(osv.osv):
         today = time.strftime('%Y-%m-%d')
         for id in ids:
             partner_data = self.browse(cr,uid,id)
-            if partner_data.membership_cancel and today > partner_data.membership_cancel:
-                res[id] = 'canceled'
-                continue
+            # commented by Philmer - the membership_cancel field is always filled if there is only one membership_line
+            # with a date_cance even if there is more membership_line more recent not canceled
+            #if partner_data.membership_cancel and today > partner_data.membership_cancel:
+            #    res[id] = 'canceled'
+            #    continue
             if partner_data.refuse_membership:
                 res[id] = 'canceled'
                 continue

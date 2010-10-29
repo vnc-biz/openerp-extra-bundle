@@ -846,5 +846,5 @@ msgstr ""
 #: code:addons/product_gs1_128/product_gs1_128.py:0
 #, python-format
 msgid "Could not decode GS1-128 code : unknown Application Identifier at position %d"
-msgstr "Impossible de décoder le code GS1-128 : Identiant d'Application inconnu à la position %d"
+msgstr "Impossible de décoder le code GS1-128 : Identifiant d'Application inconnu à la position %d"
 

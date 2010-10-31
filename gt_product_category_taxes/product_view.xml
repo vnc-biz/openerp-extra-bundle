@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    
+    <record id="view_product_category_taxes_form" model="ir.ui.view">
+      <field name="name">view.product.category.taxes.form</field>
+      <field name="model">product.category</field>
+      <field name="inherit_id" ref="product.product_category_form_view"/>
+      <field name="arch" type="xml">
+	<field name="type" position="after">
+	  <newline/>
+	  <group colspan="4">
+            <separator string="Impuestos Ventas" colspan="2"/>
+            <separator string="Impuestos Compras" colspan="2"/>
+            <field name="sale_tax_ids" nolabel="1" colspan="2"/>
+            <field name="purchase_tax_ids" nolabel="1" colspan="2"/>
+	  </group>
+	</field>
+      </field>
+    </record>
+
+  </data>
+</openerp>

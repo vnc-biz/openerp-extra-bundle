@@ -57,7 +57,6 @@ class window(object):
         self.login = gtk.Entry()
         self.login.set_text('admin')
         self.password = gtk.Entry()
-        self.password.set_invisible_char('.')
         self.password.set_visibility(False)
         
         col = 0

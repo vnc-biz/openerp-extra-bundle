@@ -170,7 +170,7 @@ class report_xml(osv.osv):
                 raise osv.except_osv(_('Error'), _('No report has been marked as default.'))
 
             # Ensure the report is registered so it can be used immediately
-            openoffice_report.register_openoffice_report( report.report_name, report.model )
+            openoffice_report.openoffice_report( report.report_name, report.model )
             
         return True
 

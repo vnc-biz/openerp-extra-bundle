@@ -484,6 +484,8 @@ class res_partner_address(osv.osv):
         'write_uid' : fields.many2one('res.users','Last Modifier',help='The last person who has modified this address'),
         'activity_description':fields.text('Local Activity Description',translate=True),
         'local_employee': fields.integer('Nbr of Employee (Site)',help="Nbr of Employee in the site (for the directory)"),
+        'dir_show_name' : fields.char('Directory Shown Name', size=128, help="Name of this address printed in the directory of members"),
+        'dir_sort_name' : fields.char('Directory Sort Name', size=128, help="Name of this address used to sort the partners in the directory of members"),
     }
     _defaults = {
          'state' : lambda *a: 'correct',

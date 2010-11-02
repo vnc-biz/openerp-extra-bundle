@@ -127,6 +127,8 @@ class res_partner(osv.osv):
     _columns = {
         'membership_vcs': fields.function( _membership_vcs, method=True,string='VCS number for membership offer', type='char', size=20),
         'refuse_membership': fields.boolean('Refuse to Become a Member'),
+        'membership_explanation': fields.text('Membership Explanation',help='Here you can explain the amount asked or the special treatment for the membership of this partner'),
+        'membership_first_year': fields.char('First Year of membership',help='To manually give the first year of membership',size=4),
     }
 
     _default = {

@@ -151,7 +151,8 @@
                               <field name="refuse_membership" select="2"/>
                               <field name="reason_id" colspan="4" attrs="{'readonly':[('refuse_membership','=',False)]}" widget="selection"/>
 	                         </group>
-				<field name="membership_explanation" colspan="4"/>
+				<separator string="Membership Explanation" colspan="4"/>
+				<field name="membership_explanation" colspan="4" nolabel="1"/>
                          	<separator string="Membership Lines" colspan="4"/>
                         	<field name="member_lines" select="2" colspan="4" nolabel="1">
 	                            <tree string="Membership">

@@ -39,7 +39,7 @@
 			                           <!--<field name="city" select="2"/>-->
 			                           <field name="country_id" select="2" completion="1"/>
 			                           <field name="state_id" select="2"/>
-                                <field name="active"/>
+                                                   <field name="active"/>
 			                        </group>
 		                        	<group string="Communication" colspan="2" col="2">
      						   <field name='name' string="Nom de l'adresse"/>
@@ -48,6 +48,7 @@
 			                           <field name="email" widget="email"/>
                                                    <field name="magazine_subscription"/>
                                                    <field name="magazine_subscription_source"/>
+                                                   <field name="notdelivered"/>
 			                        </group>
 		                    	<field name="job_ids" mode="tree,form" nolabel="1" colspan="4">
 			                            <tree string="Contacts" editable="top">

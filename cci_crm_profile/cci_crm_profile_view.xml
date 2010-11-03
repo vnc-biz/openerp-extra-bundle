@@ -225,6 +225,7 @@
                         <field name="activity_description" colspan="4"/>
 			<field name="dir_show_name" colspan="4"/>
 			<field name="dir_sort_name" colspan="4"/>
+			<field name="dir_exclude" />
                     </page>
                 </notebook>
             </form></form>

@@ -59,6 +59,6 @@
 
 	<wizard id="account.wizard_invoice_pay" model="account.invoice" name="cci.account.invoice.pay" string="Pay invoice" groups="base.group_user"/>
 	<wizard id="wizard_link_payment" model="account.invoice" name="cci.account.link.payment" string="Link payments" groups="base.group_user"/>
-
+	<wizard id="wizard_find_invoices" model="account.invoice" name="account.invoice.find" string="Find Unreconciled Invoices" groups="base.group_user"/>
 	</data>
 </openerp>

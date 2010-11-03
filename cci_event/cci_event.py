@@ -242,6 +242,7 @@ class event_registration(osv.osv):
             "group_id": fields.many2one('event.group','Event Group'),
             "cavalier": fields.boolean('Cavalier',help="Check if we should print papers with participant name"),
             "payment_mode":fields.many2one('payment.mode',"Payment Mode"),
+            "payment_linked":fields.many2one('account.move.line',"Linked Payment", domain=[('reconcile_id','=',False),('reconcile_partial_id','=',False)]),
             "check_mode":fields.boolean('Check Mode'),
             "check_ids":fields.one2many('event.check','reg_id',"Check ids"),
             "payment_ids":fields.many2many("account.move.line","move_line_registration", "reg_id", "move_line_id","Payment", readonly=True),

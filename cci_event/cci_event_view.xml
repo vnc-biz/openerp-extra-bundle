@@ -557,6 +557,7 @@
 		<field name="arch" type="xml">
 			<field name="invoice_id" position="after">
                     <field name="payment_mode" />
+                    <field name="payment_linked" />
                     <newline/>
                     <field name="training_authorization"/>
                     <newline/>

@@ -48,7 +48,7 @@ def _action_open_window(self, cr, uid, data, context):
     form = data['form']
     invoice_obj = pooler.get_pool(cr.dbname).get('account.invoice')
     inv_line_obj = pooler.get_pool(cr.dbname).get('account.invoice.line')
-    cr.execute("select distinct ai.id from account_invoice ai Inner join account_invoice_line al on al.invoice_id=ai.id and al.product_id = %s", (form['product_id'],))
+    cr.execute("select distinct ai.id from account_invoice ai Inner join account_invoice_line al on al.invoice_id=ai.id and al.product_id = %s and ai.reconciled is null", (form['product_id'],))
     return {
         'domain': [('id', 'in', cr.fetchall() )],
         'name': "Unreconciled Invoices",

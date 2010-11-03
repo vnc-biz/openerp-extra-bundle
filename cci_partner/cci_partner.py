@@ -486,6 +486,8 @@ class res_partner_address(osv.osv):
         'local_employee': fields.integer('Nbr of Employee (Site)',help="Nbr of Employee in the site (for the directory)"),
         'dir_show_name' : fields.char('Directory Shown Name', size=128, help="Name of this address printed in the directory of members"),
         'dir_sort_name' : fields.char('Directory Sort Name', size=128, help="Name of this address used to sort the partners in the directory of members"),
+        'dir_exclude' : fields.boolean('Directory exclusion', help='Check this box to exclude this address of the directory of members'),
+        'notdelivered' : fields.date('Post Return', help='Date of return of mails not delivered at this address'),
     }
     _defaults = {
          'state' : lambda *a: 'correct',

@@ -51,7 +51,7 @@
         <field name="inherit_id" ref="event.view_event_form"/>
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page string="Sponsoring">
+                <page string="Sponsoring" attrs="{'readonly':[('state','=','running')]}">
                     <separator string="Cases" colspan="4"/>
                     <field name="case_ids" colspan="4" nolabel="1" domain="[('section_id.name','=','Sponsoring')]"/>
                 </page>

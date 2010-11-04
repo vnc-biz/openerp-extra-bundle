@@ -87,7 +87,7 @@
 		<field name="inherit_id" ref="event.view_event_form"/>
 		<field name="arch" type="xml">
 			<notebook position="inside">
-                <page string="Extra Info">
+                <page string="Extra Info" attrs="{'readonly':[('state','=','running')]}">
                     <field name="fse_code" />
                     <field name="fse_hours" />
                     <field name="signet_type" select="2"/>

@@ -560,6 +560,16 @@ class res_partner_activity(osv.osv):#modfiy res.activity.code to res.partner.act
     }
 res_partner_activity()
 
+class res_partner_map_activity(osv.osv):
+    _name = "res.partner.map.activity"
+    _description = 'res.partner.map.activity'
+    _rec_name = 'activity_id'
+    _columns = {
+        'activity_pj_id':fields.many2one('res.partner.activity','Activity PJ', ondelete="cascade" ),
+        'activity_n_id':fields.many2one('res.partner.activity','Activity N', ondelete="cascade"),
+    }
+res_partner_map_activity()
+
 class res_partner_activity_relation(osv.osv):
     _name = "res.partner.activity.relation"
     _description = 'res.partner.activity.relation'

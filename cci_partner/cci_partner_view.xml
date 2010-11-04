@@ -191,6 +191,41 @@ TODO: revoir la vue tree aussi
 	Partner Activity
 	=====================
 	-->
+		<menuitem name="Partner Activity" id="menu_partner_activity_main" parent="base.menu_base_config"/>
+
+		<record model="ir.ui.view" id="view_partner_map_activity_form">
+			<field name="name">res.partner.map.activity.form</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.map.activity</field>
+			<field name="arch" type="xml">
+				<form string="Map Activities">
+					<field name="activity_pj_id" select="1"/>
+					<field name="activity_n_id" select="1"/>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_map_activity_tree">
+			<field name="name">res.partner.map.activity.tree</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.map.activity</field>
+			<field name="arch" type="xml">
+				<tree string="Map Activities">
+					<field name="activity_pj_id" select="1"/>
+					<field name="activity_n_id" select="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_partner_map_activity">
+			<field name="name">Partner Activity</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">res.partner.map.activity</field>
+			<field name="view_type">form</field>
+			<field name="view_id" ref="view_partner_map_activity_tree"/>
+		</record>
+		<menuitem name="Map Activities" action="action_partner_map_activity" id="menu_partner_map_activity" parent="menu_partner_activity_main"/>
+
 <!-- view for res.partner.activity ... -->
 		<record model="ir.ui.view" id="view_partner_activity_form">
 			<field name="name">res.partner.activity.form</field>
@@ -228,7 +263,6 @@ TODO: revoir la vue tree aussi
 			<field name="view_type">form</field>
 			<field name="view_id" ref="view_partner_activity_tree"/>
 		</record>
-		<menuitem name="Partner Activity" id="menu_partner_activity_main" parent="base.menu_base_config"/>
 		<menuitem name="Activity" action="action_partner_activity" id="menu_partner_activity" parent="menu_partner_activity_main"/>
 
 <!-- view for res.partner.activity.relation replaced frm res.partner.activity.code -->

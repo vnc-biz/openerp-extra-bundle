@@ -970,7 +970,7 @@ TODO: revoir la vue tree aussi
 				<notebook position="inside">
 					<page string="Activities">
 						<separator string="Activity Codes" colspan="4"/>
-						<field name="activity_code_ids" nolabel="1">
+						<field name="activity_code_ids" nolabel="1"  default_get="{'activities': activity_code_ids}" >
 							<tree string="Activity" editable="bottom">
 								<field name="activity_id"/>
 								<field name="importance"/>

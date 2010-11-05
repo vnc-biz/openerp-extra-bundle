@@ -564,6 +564,7 @@ class res_partner_map_activity(osv.osv):
     _name = "res.partner.map.activity"
     _description = 'res.partner.map.activity'
     _rec_name = 'activity_id'
+
     _columns = {
         'activity_pj_id':fields.many2one('res.partner.activity','Activity PJ', ondelete="cascade" ),
         'activity_n_id':fields.many2one('res.partner.activity','Activity N', ondelete="cascade"),
@@ -574,6 +575,28 @@ class res_partner_activity_relation(osv.osv):
     _name = "res.partner.activity.relation"
     _description = 'res.partner.activity.relation'
     _rec_name = 'activity_id'
+
+    def default_get(self, cr, uid, fields, context={}):
+        data = super(res_partner_activity_relation, self).default_get(cr, uid, fields, context)
+        if context.get('activities'):
+            map_obj = self.pool.get('res.partner.map.activity')
+            done = []
+            for i in context['activities']:
+                if i[2]:
+                    if i[2]['activity_id']:
+                        print context['activities']
+                        activity_id = i[2]['activity_id']
+                        activity_ids = map_obj.search(cr, uid, ['|',('activity_pj_id','=',activity_id),('activity_n_id','=',activity_id)])
+                        if activity_ids:
+                            for activ_item in map_obj.browse(cr, uid, activity_ids):
+                                if activ_item.activity_pj_id.id == activity_id and (activ_item.activity_pj_id.id not in done):
+                                    data['activity_id'] =  activ_item.activity_n_id.id
+                                    done.append(activ_item.activity_n_id.id)
+                                elif activ_item.activity_n_id.id == activity_id and (activ_item.activity_n_id.id not in done):
+                                    data['activity_id'] =  activ_item.activity_pj_id.id
+                                    done.append(activ_item.activity_pj_id.id)
+        return data
+
     _columns = {
         'importance': fields.selection([('main','Main'),('primary','Primary'),('secondary','Secondary')],'Importance',required=True),
         'activity_id':fields.many2one('res.partner.activity','Activity', ondelete="cascade"),

@@ -201,7 +201,7 @@ class event_registration(osv.osv):
         return True
 
     def cci_event_reg_cancel(self, cr, uid, ids, *args):
-        self.write(cr, uid, ids, {'state':'cancel',})
+        self.write(cr, uid, ids, {'state':'cancel','unit_price':0.0})
         self.pool.get('event.registration')._history(cr, uid, ids, 'Cancel', history=True)
         return True
 

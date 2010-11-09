@@ -59,7 +59,14 @@ class event(osv.osv):
         return True
 
     def cci_event_confirm(self, cr, uid, ids, *args):
+        for eve in self.browse(cr, uid, ids):
+            if eve.mail_auto_confirm:
+                #send reminder that will confirm the event for all the people that were already confirmed
+                reg_ids = self.pool.get('event.registration').search(cr, uid, [('event_id','=',eve.id),('state','not in',['draft','cancel'])])
+                if reg_ids:
+                    self.pool.get('event.registration').mail_user_confirm(cr, uid, reg_ids)
         self.write(cr, uid, ids, {'state':'confirm',})
+
         return True
 
     def cci_event_running(self, cr, uid, ids, *args):

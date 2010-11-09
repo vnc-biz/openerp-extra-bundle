@@ -23,21 +23,6 @@ import time
 import pickle
 from tools.translate import _
 
-#class account_move_line(osv.osv):
-#
-#    def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
-#        # will check if the partner/account exists in statement lines if not then display all partner's account.move.line
-#        for item in args:
-#            if (item[0] in ('partner_id','account_id')) and (not item[2]):
-#                args.pop(args.index(item))
-#
-#        return super(account_move_line,self).search(cr, user, args, offset, limit, order, context, count)
-#
-#    _inherit = "account.move.line"
-#    _description = "account.move.line"
-#
-#account_move_line()
-
 class account_move(osv.osv):
     _inherit = "account.move"
     _description = "Account Entry"
@@ -206,7 +191,6 @@ class account_invoice(osv.osv):
                 self.write(cr, uid, [inv.id], {'name':vcs})
                 ids = self.pool.get('account.move.line').search(cr, uid, [('move_id','=',inv.move_id.id)])
                 self.pool.get('account.move').write(cr, uid, [inv.move_id.id], {'name' : inv.number})
-                self.pool.get('account.move.line').write(cr, uid, ids, {'name':vcs})
         return res
 
     #raise an error if the partner has the warning 'alert_others' when we choose him in the account_invoice form

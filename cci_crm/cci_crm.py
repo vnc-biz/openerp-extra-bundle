@@ -64,6 +64,7 @@ class crm_case(osv.osv):
     _description = 'crm case'
     _columns = {
         'meeting_id' : fields.many2one('meeting.confidential.info','Meeting confidential'),
+        'invoice_id' : fields.many2one('account.invoice','Invoice'),
         'event_ids' : fields.many2many('event.event','case_event_rel','case_id','event_id','Events'),
     }
 

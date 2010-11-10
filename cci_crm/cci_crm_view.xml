@@ -38,6 +38,7 @@
                     <page string="Sponsoring">
                         <separator string="Events" colspan="4"/>
                         <field name="event_ids" colspan="4" nolabel="1"/>
+                        <field name="invoice_id" invisible="1"/>
                     </page>
                 </notebook>
             </field>
@@ -102,25 +103,29 @@
             <!-- context="{'partner_id':active_id,'section_id':ref('case_section_rsf')}" -->
 
 <!-- Act window defining a shorcut on Invoice to open directly a new NCF -->
+
         <act_window name="Open a New NCF"
-            domain="[('id', '=', active_id),('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name)]"
+            domain="[('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name),('invoice_id','=',active_id)]"
             context="{'section_id':ref('case_section_ncf')}"
             res_model="crm.case"
             src_model="account.invoice"
-            view_mode='form'
-			view_id="invoice_supplier_form"
+            view_mode='form,tree'
+            view_id="invoice_supplier_form"
             id="act_invoice_2_new_ncf"/>
 
 <!-- Act window defining a shorcut on Incoice to open directly a new CF -->
+
         <act_window name="Open a New CF"
-            domain="[('id', '=', active_id),('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name)]"
+            domain="[('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name),('invoice_id','=',active_id)]"
             context="{'section_id':ref('case_section_cf')}"
             res_model="crm.case"
-        	src_model="account.invoice"
-    	    view_mode='form'
-			view_id="invoice_supplier_form"
+            view_mode='form'
+            src_model="account.invoice"
+            view_id="invoice_supplier_form"
             id="act_invoice_2_new_cf"/>
+
 <!-- view for Agenda -->
+
         <record model="ir.ui.view" id="agenda_form">
             <field name="name">meeting.confidential.info.form</field>
             <field name="type">form</field>

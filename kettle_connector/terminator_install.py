@@ -121,11 +121,11 @@ class installer:
 		
 
 		print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
-		urllib.urlretrieve('http://github.com/downloads/rvalyi/terminatooor/terminatooor1.2.0.zip', kettle_root_directory + 'terminatooor.zip')
+		urllib.urlretrieve('http://github.com/downloads/rvalyi/terminatooor/terminatooor1.2.1.zip', kettle_root_directory + 'terminatooor.zip')
 		unzipper = unzip()
-		unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/termintatooor')
+		unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
 		
-		shutil.move(kettle_root_directory + 'data-integration/plugins/steps/termintatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
+		shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
 		os.mkdir(kettle_root_directory + '/data-integration/openerp_tmp/')
 		
 		if install_agilebi:

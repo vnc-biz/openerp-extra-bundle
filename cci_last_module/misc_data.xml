@@ -366,7 +366,6 @@
                     			<notebook>
 			                        <page string="Line">
                                                     <field name="state" select="1" on_change="_onchange_invoice_line_view(state)"/>
-						    <field name="sequence"/>
 						    <newline/>
 			                            <field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit)" select="1"/>
 			                            <field name="uos_id"/>
@@ -379,6 +378,7 @@
 			                            <field required="1" name="analytics_id" domain="[('plan_id','&lt;&gt;',False)]" context="{'journal_id':parent.journal_id}"/>
 			                            <newline/>
 			                            <field name="price_subtotal"/>
+                                  <field name="sequence"/>
 			                            <field colspan="4" name="invoice_line_tax_id" context="{'type':parent.type}" domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]" >
 											<tree string="Account Tax">
 							                    <field name="name"/>
@@ -610,6 +610,7 @@
 			                            <field colspan="4" name="origin" select="1"/>
 			                            <field domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '&lt;&gt;', 'view')]" name="account_id" on_change="onchange_account_id(parent.fiscal_position,account_id)" groups="base.group_user"/>
 			                            <field required="1" name="analytics_id" domain="[('plan_id','&lt;&gt;',False)]" context="{'journal_id':parent.journal_id}"/>
+                                  <field name="sequence"/>
 			                            <newline/>
 			                            <field name="price_subtotal"/>
 			                            <field colspan="4" name="invoice_line_tax_id" context="{'type':parent.type}" domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]" >

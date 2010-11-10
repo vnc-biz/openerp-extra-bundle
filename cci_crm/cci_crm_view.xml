@@ -119,7 +119,7 @@
             domain="[('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name),('invoice_id','=',active_id)]"
             context="{'section_id':ref('case_section_cf')}"
             res_model="crm.case"
-            view_mode='form'
+            view_mode='form,tree'
             src_model="account.invoice"
             view_id="invoice_supplier_form"
             id="act_invoice_2_new_cf"/>

@@ -103,7 +103,7 @@
 
 <!-- Act window defining a shorcut on Invoice to open directly a new NCF -->
         <act_window name="Open a New NCF"
-            domain="[('id', '=', active_id)]"
+            domain="[('id', '=', active_id),('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name)]"
             context="{'section_id':ref('case_section_ncf')}"
             res_model="crm.case"
             src_model="account.invoice"
@@ -113,7 +113,7 @@
 
 <!-- Act window defining a shorcut on Incoice to open directly a new CF -->
         <act_window name="Open a New CF"
-            domain="[('id', '=', active_id)]"
+            domain="[('id', '=', active_id),('partner_id', '=', partner_id),('partner_address_id','=',address_contact_id),('name','=',name)]"
             context="{'section_id':ref('case_section_cf')}"
             res_model="crm.case"
         	src_model="account.invoice"

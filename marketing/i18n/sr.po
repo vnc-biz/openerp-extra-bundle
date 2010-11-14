@@ -8,83 +8,83 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 05:05+0000\n"
-"PO-Revision-Date: 2010-11-03 17:52+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-11-13 17:42+0000\n"
+"Last-Translator: zmmaj <Unknown>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-04 05:00+0000\n"
+"X-Launchpad-Export-Date: 2010-11-14 05:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Send an E-Mail"
-msgstr ""
+msgstr "Pošalji Email"
 
 #. module: marketing
 #: field:campaign.partner,name:0
 msgid "Name / Reference"
-msgstr ""
+msgstr "Ime / Referenca"
 
 #. module: marketing
 #: selection:campaign.partner.add,init,priority:0
 msgid "Very Good"
-msgstr ""
+msgstr "Vrlo Dobro"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_campaign
 msgid "campaign.campaign"
-msgstr ""
+msgstr "campaign.campaign"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,from:0
 msgid "From"
-msgstr ""
+msgstr "Od"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 #: wizard_field:campaign.partner.add,init,partners:0
 msgid "Partners"
-msgstr ""
+msgstr "Partneri"
 
 #. module: marketing
 #: field:campaign.partner,info:0
 #: view:campaign.partner.history:0
 #: field:campaign.partner.history,info:0
 msgid "Comments"
-msgstr ""
+msgstr "Komentari"
 
 #. module: marketing
 #: field:campaign.campaign,planned_costs:0
 msgid "Planned Costs"
-msgstr ""
+msgstr "Planirani Troškovi"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Continue Campaign"
-msgstr ""
+msgstr "Nastavi Kampanju"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,on_error:0
 msgid "Error Return To"
-msgstr ""
+msgstr "Greška vraćanja na"
 
 #. module: marketing
 #: field:campaign.step,max_try:0
 msgid "Max Attemps"
-msgstr ""
+msgstr "Maks Pokušaja"
 
 #. module: marketing
 #: field:campaign.partner,date_recall:0
 msgid "Call again on"
-msgstr ""
+msgstr "Pozovi ponovo na"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Low"
-msgstr ""
+msgstr "Nisko"
 
 #. module: marketing
 #: constraint:ir.actions.act_window:0
@@ -94,12 +94,12 @@ msgstr "Neispravno ime modela u definiciji akcije."
 #. module: marketing
 #: wizard_button:campaign.partner.email_send,init,send:0
 msgid "Send Email"
-msgstr ""
+msgstr "Pošalji Email"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Marketing Prospects"
-msgstr ""
+msgstr "Prospekti Marketinga"
 
 #. module: marketing
 #: constraint:ir.model:0
@@ -111,121 +111,121 @@ msgstr ""
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #. module: marketing
 #: view:campaign.step:0
 msgid "Marketing Steps"
-msgstr ""
+msgstr "Koraci Marketinga"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 msgid "Default Values"
-msgstr ""
+msgstr "Podrazumevane vrednosti"
 
 #. module: marketing
 #: selection:campaign.partner.add,init,priority:0
 msgid "Good"
-msgstr ""
+msgstr "Dobro"
 
 #. module: marketing
 #: field:campaign.campaign,info:0
 #: field:campaign.step,info:0
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Header"
-msgstr ""
+msgstr "Zaglavlje"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,body:0
 msgid "Email Message"
-msgstr ""
+msgstr "Poruka Emaila"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Main Information"
-msgstr ""
+msgstr "Glavna Informacija"
 
 #. module: marketing
 #: field:campaign.step,procent:0
 msgid "Success Rate (0<x<1)"
-msgstr ""
+msgstr "Stopa Uspeha (0<x<1)"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 msgid "Add partners to campaign"
-msgstr ""
+msgstr "Dodaj partnere kampanji"
 
 #. module: marketing
 #: field:campaign.campaign,date_stop:0
 #: field:campaign.step,stop_date:0
 msgid "Stop Date"
-msgstr ""
+msgstr "Datum završetka"
 
 #. module: marketing
 #: view:campaign.campaign:0
 #: model:ir.ui.menu,name:marketing.menu_marketing_operations_campaigns
 msgid "Campaigns"
-msgstr ""
+msgstr "Kampanje"
 
 #. module: marketing
 #: field:campaign.campaign,planned_revenue:0
 msgid "Planned Revenue"
-msgstr ""
+msgstr "Planirani Prihodi"
 
 #. module: marketing
 #: field:campaign.partner,step:0
 #: field:campaign.partner.history,step_id:0
 msgid "Step"
-msgstr ""
+msgstr "Korak"
 
 #. module: marketing
 #: wizard_field:campaign.partner.add,init,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Korisnik"
 
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Waiting"
-msgstr ""
+msgstr "na čekanju"
 
 #. module: marketing
 #: field:campaign.partner.history,date:0
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. module: marketing
 #: field:campaign.partner,notes:0
 msgid "Prospect Notes"
-msgstr ""
+msgstr "Napomene Prospekta"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Call again Later"
-msgstr ""
+msgstr "Nazovi kasnije ponovo"
 
 #. module: marketing
 #: model:ir.ui.menu,name:marketing.menu_op_config
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguracija"
 
 #. module: marketing
 #: wizard_field:campaign.partner.add,init,campaign_step_id:0
 msgid "First Campaign Step"
-msgstr ""
+msgstr "Prvi Korak kampanje"
 
 #. module: marketing
 #: model:ir.ui.menu,name:marketing.menu_marketing_operations
 msgid "Marketing Operations"
-msgstr ""
+msgstr "Operacije Marketinga"
 
 #. module: marketing
 #: field:campaign.campaign,costs:0
 msgid "Initial Costs"
-msgstr ""
+msgstr "Početni troškovi"
 
 #. module: marketing
 #: constraint:ir.ui.view:0
@@ -235,76 +235,76 @@ msgstr "Neispravan XML za pregled Arhitekture !"
 #. module: marketing
 #: field:campaign.partner.history,step_attempt:0
 msgid "Attempt"
-msgstr ""
+msgstr "Pokušaj"
 
 #. module: marketing
 #: field:campaign.campaign,name:0
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #. module: marketing
 #: model:ir.module.module,description:marketing.module_meta_information
 msgid "Marketing management module"
-msgstr ""
+msgstr "Modul Upravljanja Marketingom"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_partner_history
 msgid "campaign.partner.history"
-msgstr ""
+msgstr "campaign.partner.history"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 msgid "Very High"
-msgstr ""
+msgstr "Vrlo Visoko"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Step Information"
-msgstr ""
+msgstr "Informacije Koraka"
 
 #. module: marketing
 #: wizard_button:campaign.partner.add,init,add:0
 msgid "Add these partners"
-msgstr ""
+msgstr "Dodaj ove partnere"
 
 #. module: marketing
 #: field:campaign.partner,active:0
 #: field:campaign.step,active:0
 msgid "Active"
-msgstr ""
+msgstr "Aktivan"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Medium"
-msgstr ""
+msgstr "Medijum"
 
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Stopped"
-msgstr ""
+msgstr "Zaustavljeno"
 
 #. module: marketing
 #: view:campaign.campaign:0
 #: model:ir.ui.menu,name:marketing.menu_op_config_camp_def
 msgid "Campaign Definition"
-msgstr ""
+msgstr "Definicija Kampanje"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_step
 msgid "campaign.step"
-msgstr ""
+msgstr "campaign.step"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Very Low"
-msgstr ""
+msgstr "Vrlo Nisko"
 
 #. module: marketing
 #: field:campaign.step,costs:0
 msgid "Step Costs"
-msgstr ""
+msgstr "Troškovi Koraka"
 
 #. module: marketing
 #: view:campaign.partner:0
@@ -312,44 +312,44 @@ msgstr ""
 #: view:campaign.partner.history:0
 #: field:campaign.partner.history,name:0
 msgid "History"
-msgstr ""
+msgstr "Istorija"
 
 #. module: marketing
 #: field:campaign.partner.history,camp_partner_id:0
 msgid "Prospect"
-msgstr ""
+msgstr "prospekt"
 
 #. module: marketing
 #: model:ir.actions.wizard,name:marketing.wizard_load_partners
 msgid "Load partners"
-msgstr ""
+msgstr "Učitaj partnera"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Stop Campaign"
-msgstr ""
+msgstr "Zaustavi Kampanju"
 
 #. module: marketing
 #: field:campaign.partner,priority:0
 #: wizard_field:campaign.partner.add,init,priority:0
 msgid "Priority"
-msgstr ""
+msgstr "Prioritet"
 
 #. module: marketing
 #: field:campaign.partner,contact:0
 msgid "Partner Contact"
-msgstr ""
+msgstr "Kontakt Partnera"
 
 #. module: marketing
 #: field:campaign.partner,campaign_id:0
 #: field:campaign.step,campaign_id:0
 msgid "Campaign"
-msgstr ""
+msgstr "Kampanja"
 
 #. module: marketing
 #: field:campaign.step,priority:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvenca"
 
 #. module: marketing
 #: field:marketing.installer,marketing_campaign:0
@@ -359,77 +359,77 @@ msgstr "Marketingske kampanje"
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Normal"
-msgstr ""
+msgstr "Normalno"
 
 #. module: marketing
 #: field:campaign.partner,state:0
 msgid "State"
-msgstr ""
+msgstr "Stanje"
 
 #. module: marketing
 #: field:campaign.partner,part_adr_id:0
 msgid "Partner Address"
-msgstr ""
+msgstr "Adresa Partnera"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 msgid "High"
-msgstr ""
+msgstr "Visoko"
 
 #. module: marketing
 #: field:campaign.campaign,step_id:0
 #: view:campaign.step:0
 msgid "Campaign Steps"
-msgstr ""
+msgstr "Koraci Kampanje"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_partner
 msgid "campaign.partner"
-msgstr ""
+msgstr "campaign.partner"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Prospect Information"
-msgstr ""
+msgstr "Informacije Prospekta"
 
 #. module: marketing
 #: wizard_button:campaign.partner.add,init,end:0
 #: wizard_button:campaign.partner.email_send,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Otkaži"
 
 #. module: marketing
 #: field:campaign.partner,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: marketing
 #: field:campaign.campaign,date_start:0
 #: field:campaign.step,start_date:0
 msgid "Start Date"
-msgstr ""
+msgstr "Datum Početka"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Marketing::Prospects"
-msgstr ""
+msgstr "Marketing::Prospekti"
 
 #. module: marketing
 #: field:campaign.partner,user_id:0
 msgid "Salesman"
-msgstr ""
+msgstr "Prodavac"
 
 #. module: marketing
 #: model:ir.actions.wizard,name:marketing.wizard_email
 msgid "Send an email"
-msgstr ""
+msgstr "Pošalji Email"
 
 #. module: marketing
 #: field:campaign.step,name:0
 msgid "Step Name"
-msgstr ""
+msgstr "Ime Koraka"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,subject:0
 msgid "Subject"
-msgstr ""
+msgstr "Subjekat"

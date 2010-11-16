@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:55+0000\n"
+"X-Launchpad-Export-Date: 2010-11-16 05:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: thunderbird
@@ -29,7 +29,7 @@ msgid ""
 msgstr "对象名必须是以x_开头并且不能含有特殊字符"
 
 #. module: thunderbird
-#: field:tinythunderbird.partner,description:0
+#: field:thunderbird.installer,description:0
 msgid "Description"
 msgstr "描述"
 
@@ -39,7 +39,7 @@ msgid "Reference"
 msgstr "参考"
 
 #. module: thunderbird
-#: model:ir.model,name:thunderbird.model_tinythunderbird_partner
+#: model:ir.model,name:thunderbird.model_thunderbird_partner
 msgid "Thunderbid mails"
 msgstr "Thunderbid邮件"
 

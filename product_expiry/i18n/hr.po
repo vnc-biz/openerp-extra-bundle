@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:54+0000\n"
+"X-Launchpad-Export-Date: 2010-11-16 05:19+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: product_expiry
@@ -86,7 +86,7 @@ msgstr "Kruh"
 #: model:product.uom,name:product_expiry.product_uom_ltr
 #: model:product.uom.categ,name:product_expiry.product_uom_categ_vol
 msgid "LTR"
-msgstr ""
+msgstr "LTR"
 
 #. module: product_expiry
 #: view:product.product:0
@@ -174,3 +174,20 @@ msgstr "Datum kada bi trebalo maknuti seriju proizvoda."
 #: field:product.product,alert_time:0
 msgid "Product alert time"
 msgstr "Vrijeme alarma proizvoda"
+
+#~ msgid ""
+#~ "Track different dates on products and lots. Used, for exampel, in food "
+#~ "industries: expiry date, alert date, date of removal, eso."
+#~ msgstr ""
+#~ "Prati različite datume na proizvodima i lotovima. Koristi se, npr., u "
+#~ "prehrambenoj industriji: datum isteka roka uporabe, datum upozoranje, datum "
+#~ "uklanjanja itd."
+
+#~ msgid "Alert date"
+#~ msgstr "Datum upozorenja"
+
+#~ msgid "DLUO"
+#~ msgstr "DLUO"
+
+#~ msgid "Removal date"
+#~ msgstr "Datum uklanjanja"

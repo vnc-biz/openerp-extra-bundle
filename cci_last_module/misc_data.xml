@@ -320,6 +320,12 @@
 					        <field name="property_product_pricelist_purchase"/>
 					</group>
 	            </page>
+                <page string="Warnings">
+                        <separator string="Warning on the Purchase Order" colspan="4"/>
+                        	<field name="purchase_warn" colspan="4"/>
+                          <field name="purchase_warn_msg" colspan="4" nolabel="1" attrs="{'required':[('purchase_warn','!=','no-message')]}"/>
+                    </page>
+
     	    </notebook>
 	    </form>
 	</field>

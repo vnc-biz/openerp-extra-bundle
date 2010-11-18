@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="group_invoice_supplier" model="res.groups">
+        <field name="name">Finance / Supplier</field>
+    </record>
+
+</data>
+</openerp>

@@ -53,6 +53,14 @@ class account_invoice(osv.osv):
     }
 
     def create(self, cr, uid, vals, context={}):
+        if context.get('type') == 'in_invoice':
+            data_pool = self.pool.get('ir.model.data')
+            user_group_ids = self.pool.get('res.users').browse(cr, uid, uid, context).groups_id
+            group_inv_id = data_pool._get_id(cr, uid, 'cci_account','group_invoice_supplier')
+            if group_inv_id:
+                group_id = data_pool.browse(cr, uid, group_inv_id, context=context).res_id
+                if group_id not in [x.id for x in user_group_ids]:
+                    raise osv.except_osv('Error!','You don\'t have enough access to create a supplier invoice.')
         if vals.has_key('partner_id') and vals['partner_id']:
             partner = self.pool.get('res.partner').browse(cr, uid, vals['partner_id'], context=context)
             vals.update({'invoice_special':partner.invoice_special})

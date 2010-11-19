@@ -78,7 +78,7 @@ class purchase_order(osv.osv):
                 'payment_term':o.partner_id.property_payment_term and o.partner_id.property_payment_term.id or False,
                 'internal_note': o.internal_notes,
             }
-            inv_id = self.pool.get('account.invoice').create(cr, uid, inv, {'type':'in_invoice'})
+            inv_id = self.pool.get('account.invoice').create(cr, uid, inv, {'type':'in_invoice','from_purchase':True})
             self.pool.get('account.invoice').button_compute(cr, uid, [inv_id], {'type':'in_invoice'}, set_total=True)
 
             self.write(cr, uid, [o.id], {'invoice_id': inv_id})

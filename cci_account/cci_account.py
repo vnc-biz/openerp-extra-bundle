@@ -53,7 +53,7 @@ class account_invoice(osv.osv):
     }
 
     def create(self, cr, uid, vals, context={}):
-        if context.get('type') == 'in_invoice':
+        if context.get('type') == 'in_invoice' and not context.get('from_purchase'):
             data_pool = self.pool.get('ir.model.data')
             user_group_ids = self.pool.get('res.users').browse(cr, uid, uid, context).groups_id
             group_inv_id = data_pool._get_id(cr, uid, 'cci_account','group_invoice_supplier')

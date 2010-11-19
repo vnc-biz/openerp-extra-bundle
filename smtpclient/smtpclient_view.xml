@@ -262,6 +262,6 @@
         </record>
         <menuitem name="Message Queue" id="menu_smtpclient_administration_smtp_server_queue" parent="menu_smtpclient_administration_smtp_server" action="action_email_smtpclient_queue_tree"/>
         
-        <act_window context="{'server_id': active_id}" domain="[('server_id', '=', active_id), ('state','!=', 'send')]" id="act_mail_server_2_mail_queue" name="Message Queus" res_model="email.smtpclient.queue" src_model="email.smtpclient"/>
+        <act_window context="{'server_id': active_id}" domain="[('server_id', '=', active_id), ('state','!=', 'send')]" id="act_mail_server_2_mail_queue" name="Message Queue" res_model="email.smtpclient.queue" src_model="email.smtpclient"/>
     </data>
 </openerp>

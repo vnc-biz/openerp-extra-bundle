@@ -43,5 +43,43 @@
 				</button>
 			</field>
 		</record>
+
+        <record id="purchase_order_hist_form" model="ir.ui.view">
+            <field name="name">purchase.order.history.form</field>
+            <field name="model">purchase.order.history</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order">
+                   <separator string="Purchase Order's Reference " colspan="4"/>
+                      <field name="purchase_id" select="1" colspan="4" readonly="1" nolabel="1"/>
+                   <separator string="Modification Date" colspan="4"/>
+                      <field name="date" select="1" colspan="4" readonly="1" nolabel="1"/>
+                   <separator colspan="4" string="User"/>
+                      <field name="user_id" select="1" colspan="4" readonly="1" nolabel="1"/>
+                </form>
+              </field>
+          </record>
+
+        <record id="purchase_order_hist_tree" model="ir.ui.view">
+            <field name="name">purchase.order.history.tree</field>
+            <field name="model">purchase.order.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order">
+                        <field name="purchase_id"/>
+                        <field name="date"/>
+                        <field name="user_id"/>
+                </tree>
+              </field>
+          </record>
+
+        <record id="purchase_hist_form_action" model="ir.actions.act_window">
+            <field name="name">Purchase Orders History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="purchase_hist_form_action" id="menu_purchase_hist_form_action" parent="purchase.menu_purchase_root"/>
 	</data>
 </openerp>

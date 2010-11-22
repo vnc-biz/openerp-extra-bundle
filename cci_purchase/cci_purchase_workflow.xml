@@ -53,17 +53,38 @@
 			<field name="signal">purchase_internal_approval</field>
 			<field name="role_id" ref="Purchase"/>
 		</record>
-		<record model="workflow.transition" id="trans_confirmed_bypass_approval">
+
+		<!--record model="workflow.transition" id="trans_confirmed_bypass_approval">
 			<field name="act_from" ref="act_temp0"/>
 			<field name="act_to" ref="purchase.act_confirmed"/>
 			<field name="signal">purchase_bypass_approval</field>
 			<field name="role_id" ref="Purchase_bypass"/>
-		</record>
+		</record-->
 
 		<record model="workflow.transition" id="trans_confirmed_cancel2">
 			<field name="act_from" ref="act_temp0"/>
 			<field name="act_to" ref="purchase.act_cancel"/>
 			<field name="signal">purchase_cancel</field>
+		</record>
+
+		<record id="activity_createhistory" model="workflow.activity">
+			<field name="wkf_id" ref="purchase.purchase_order"/>
+			<field name="name">history</field>
+			<field name="kind">function</field>
+			<field name="action">wkf_create_purchase_history()</field>
+		</record>
+
+		<record id="workflow_transition_0" model="workflow.transition">
+			<field name="act_from" ref="act_temp0"/>
+			<field eval="True" name="condition"/>
+			<field name="act_to" ref="activity_createhistory"/>
+		</record>
+
+		<record id="workflow_transition_1" model="workflow.transition">
+			<field name="act_from" ref="activity_createhistory"/>
+			<field name="act_to" ref="purchase.act_confirmed"/>
+			<field name="signal">purchase_bypass_approval</field>
+			<field name="role_id" ref="Purchase_bypass"/>
 		</record>
 
 	</data>

@@ -78,12 +78,13 @@
 			<field name="act_from" ref="act_temp0"/>
 			<field eval="True" name="condition"/>
 			<field name="act_to" ref="activity_createhistory"/>
+			<field name="signal">purchase_bypass_approval</field>
 		</record>
 
 		<record id="workflow_transition_1" model="workflow.transition">
 			<field name="act_from" ref="activity_createhistory"/>
 			<field name="act_to" ref="purchase.act_confirmed"/>
-			<field name="signal">purchase_bypass_approval</field>
+			<!--field name="signal">purchase_bypass_approval</field-->
 			<field name="role_id" ref="Purchase_bypass"/>
 		</record>
 

@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-11-22 10:19:32+0000\n"
-"PO-Revision-Date: 2010-11-22 10:19:32+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2009-08-07 13:39+0000\n"
+"PO-Revision-Date: 2010-11-22 21:36+0000\n"
+"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-11-23 05:14+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #. module: portal
 #: wizard_view:portal.create_user,init:0
@@ -76,8 +77,10 @@ msgstr "Create menu : "
 
 #. module: portal
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Objektnamnet måste börja med x_ och får inte innehålla några specialtecken!"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"Objektnamnet måste börja med x_ och får inte innehålla några specialtecken!"
 
 #. module: portal
 #: wizard_view:portal.create_menu,second:0
@@ -161,13 +164,19 @@ msgstr "The new menu will be available for the portal :"
 
 #. module: portal
 #: help:portal.portal,home_action_id:0
-msgid "Complete this field to provide a Home menu different from the Main menu."
-msgstr "Complete this field to provide a Home menu different from the Main menu."
+msgid ""
+"Complete this field to provide a Home menu different from the Main menu."
+msgstr ""
+"Complete this field to provide a Home menu different from the Main menu."
 
 #. module: portal
 #: help:portal.portal,menu_action_id:0
-msgid "Default main menu for the users of the portal. This field is auto-completed at creation. "
-msgstr "Default main menu for the users of the portal. This field is auto-completed at creation. "
+msgid ""
+"Default main menu for the users of the portal. This field is auto-completed "
+"at creation. "
+msgstr ""
+"Default main menu for the users of the portal. This field is auto-completed "
+"at creation. "
 
 #. module: portal
 #: constraint:ir.ui.view:0
@@ -276,7 +285,7 @@ msgid "Form View"
 msgstr "Form View"
 
 #. module: portal
-#: model:ir.module.module,shortdesc:portal.module_meta_information
+#: model:ir.module.module,shortdesc:portal.module_name_translation
 #: view:portal.config.install_modules_wizard:0
 msgid "Portal Management"
 msgstr "Portal Management"
@@ -351,4 +360,3 @@ msgstr "Tree View"
 #: wizard_field:portal.create_user,init,mail_subject_existing:0
 msgid "Subject"
 msgstr "Subject"
-

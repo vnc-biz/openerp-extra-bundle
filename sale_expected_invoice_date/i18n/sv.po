@@ -6,17 +6,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-11-22 10:19:32+0000\n"
-"PO-Revision-Date: 2010-11-22 10:19:32+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2009-11-25 14:26+0000\n"
+"PO-Revision-Date: 2010-11-23 01:16+0000\n"
+"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-11-23 05:13+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #. module: sale_expected_invoice_date
 #: model:ir.module.module,shortdesc:sale_expected_invoice_date.module_meta_information
 msgid "Sale Expected Invoice Date"
 msgstr "Sale Expected Invoice Date"
 
+#. module: sale_expected_invoice_date
+#: field:sale.order.line,expected_invoice_date:0
+msgid "Expected Invoice Date"
+msgstr ""
+
+#. module: sale_expected_invoice_date
+#: model:ir.module.module,description:sale_expected_invoice_date.module_meta_information
+msgid ""
+"\n"
+"     * add one field on sale order line\n"
+msgstr ""
+
+#. module: sale_expected_invoice_date
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr ""

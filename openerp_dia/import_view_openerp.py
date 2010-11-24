@@ -262,6 +262,9 @@ class display(object):
                 default = self.defaults[field_name]
                 
             shape_type = self.view['fields'][field_name]['type']
+            if shape_type == 'many2one':
+                if self.view['fields'][field_name].has_key('widget'):
+                    shape_type = self.view['fields'][field_name]['widget']
             shape = self.shapes.get(shape_type,'shape - '+shape_type)
             height = self.fields.get(shape_type, {}).get('height', 2)
             label = label and label + ' : '
@@ -273,6 +276,8 @@ class display(object):
         attrs['text'] = label
         
         colsize = self.sizes[-1][1] / float(self.sizes[-1][0])
+        if colspan == 0:
+            colspan = 1
         size = colsize * colspan
 
         if posx+colspan > self.sizes[-1][0]:

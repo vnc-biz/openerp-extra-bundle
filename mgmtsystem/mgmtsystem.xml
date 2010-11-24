@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_mgmtsystem_root" name="Management System" sequence="15" groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_user"/>
+        <menuitem id="menu_mgmtsystem_main" parent="menu_mgmtsystem_root" name="Management System" sequence="0" groups="base.group_mgmtsystem_manager"/>
+        <menuitem id="menu_mgmtsystem_configuration" name="Configuration" parent="mgmtsystem.menu_mgmtsystem_root" groups="base.group_mgmtsystem_manager" sequence="50"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+
+    <record id="base.group_mgmtsystem_manager" model="res.groups">
+        <field name="name">Management System / Manager</field>
+    </record>
+
+    <record id="base.group_mgmtsystem_auditor" model="res.groups">
+        <field name="name">Management System / Auditor</field>
+    </record>
+
+    <record id="base.group_mgmtsystem_user" model="res.groups">
+        <field name="name">Management System / User</field>
+    </record>
+
+</data>
+</openerp>

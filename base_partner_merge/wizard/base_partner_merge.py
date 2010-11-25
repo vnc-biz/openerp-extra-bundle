@@ -30,8 +30,8 @@ class base_partner_merge(osv.osv_memory):
     _description = 'Merges two partners'
 
     _columns = {
-        'partner_id1':fields.many2one('res.partner', 'Partner1'), 
-        'partner_id2':fields.many2one('res.partner', 'Partner2'), 
+     #   'partner_id1':fields.many2one('res.partner', 'Partner1'), 
+     #   'partner_id2':fields.many2one('res.partner', 'Partner2'), 
     }
     
     _values = {}
@@ -135,7 +135,7 @@ class base_partner_merge(osv.osv_memory):
         pool = self.pool
         if not record_id:
             return {}
-        res = self.read(cr, uid, ids, ['city', 'name_official', 'user_id', 'name', 'membership_state', 'credit', 'membership_amount', 'membership_vcs', 'user_id_readonly', 'employee_nbr'] , context=context)[0]
+        res = self.read(cr, uid, ids, context = context)[0]
 
         res.update(self._values)
         partner_pool = pool.get('res.partner')

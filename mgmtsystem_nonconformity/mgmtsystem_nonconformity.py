@@ -22,6 +22,48 @@
 from osv import fields, osv
 from crm import crm
 
+class mgmtsystem_nonconformity_cause(osv.osv):
+    """
+    Cause of the nonconformity of the management system
+    """
+    _name = "mgmtsystem.nonconformity.cause"
+    _description = "Cause of the nonconformity of the management system"
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Cause', size=50, required=True),
+        'description': fields.text('Description')
+    }
+
+mgmtsystem_nonconformity_cause()
+
+class mgmtsystem_nonconformity_procedure(osv.osv):
+    """
+    Procedure involved in the nonconformity of the management system
+    """
+    _name = "mgmtsystem.nonconformity.procedure"
+    _description = "Procedure involved in the nonconformity of the management system"
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Procedure', size=50, required=True),
+        'description': fields.text('Description')
+    }
+
+mgmtsystem_nonconformity_procedure()
+
+class mgmtsystem_nonconformity_origin(osv.osv):
+    """
+    Origin of nonconformity of the management system
+    """
+    _name = "mgmtsystem.nonconformity.origin"
+    _description = "Origin of nonconformity of the management system"
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Origin', size=50, required=True),
+        'description': fields.text('Description')
+    }
+
+mgmtsystem_nonconformity_origin()
+
 class mgmtsystem_nonconformity(osv.osv):
     """
     Management System - Nonconformity 
@@ -37,7 +79,7 @@ class mgmtsystem_nonconformity(osv.osv):
         'manager_user_id': fields.many2one('res.users','Manager', required=True),
         'author_user_id': fields.many2one('res.users','Filled in by', required=True),
         'origin_ids': fields.many2many('mgmtsystem.nonconformity.origin','mgmtsystem_nonconformity_origin_rel', 'nonconformity_id', 'origin_id', 'Origin', required=True),
-        'process_ids': fields.many2many('mgmtsystem.nonconformity.process','mgmtsystem_nonconformity_process_rel', 'nonconformity_id', 'process_id', 'Process', required=True),
+        'procedure_ids': fields.many2many('mgmtsystem.nonconformity.procedure','mgmtsystem_nonconformity_procedure_rel', 'nonconformity_id', 'procedure_id', 'Procedure', required=True),
         'description': fields.text('Description', required=True),
         'cause_ids': fields.many2many('mgmtsystem.nonconformity.cause','mgmtsystem_nonconformity_cause_rel', 'nonconformity_id', 'cause_id', 'Cause', required=True),
         'analysis': fields.text('Analysis', required=True),
@@ -53,47 +95,5 @@ class mgmtsystem_nonconformity(osv.osv):
     }
 
 mgmtsystem_nonconformity()
-
-class mgmtsystem_nonconformity_cause(osv.osv):
-    """
-    Cause of the nonconformity of the management system
-    """
-    _name = "mgmtsystem.nonconformity.cause"
-    _description = "Cause of the nonconformity of the management system"
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Cause', size=50, required=True),
-        'description': fields.text('Description')
-    }
-
-mgmtsystem_nonconformity_cause()
-
-class mgmtsystem_nonconformity_process(osv.osv):
-    """
-    Process involved in the nonconformity of the management system
-    """
-    _name = "mgmtsystem.nonconformity.process"
-    _description = "Process involved in the nonconformity of the management system"
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Process', size=50, required=True),
-        'description': fields.text('Description')
-    }
-
-mgmtsystem_nonconformity_process()
-
-class mgmtsystem_nonconformity_origin(osv.osv):
-    """
-    Origin of nonconformity of the management system
-    """
-    _name = "mgmtsystem.nonconformity.origin"
-    _description = "Origin of nonconformity of the management system"
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Origin', size=50, required=True),
-        'description': fields.text('Description')
-    }
-
-mgmtsystem_nonconformity_origin()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

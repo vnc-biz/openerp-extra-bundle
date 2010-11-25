@@ -1,61 +1,276 @@
 <openerp>
     <data>
 
-        <record id="view_mgmtsystem_nonconformity_filter" model="ir.ui.view">
-                    <field name="name">mgmtsystem.nonconformity.filter</field>
-                    <field name="model">mgmtsystem.nonconformity</field>
-                    <field name="type">search</field>
-                    <field name="arch" type="xml">
-                        <search string="Nonconformity">
-                                <group>
-                                      <filter icon="terp-document-new" domain="[('state','=','open')]" string="Open" help="Open Nonconformities"/>
-                                      <separator orientation="vertical"/>
-                                      <filter icon="terp-camera_test" domain="[('state','=','closed')]" string="Closed" help="Closed Nonconformities"/>
-                                      <separator orientation="vertical"/>
-                                      <field name="date" select='1'/>
-                                      <field name="name" select='1'/>
-                                      <field name="employee_id" select='1'/>
-                            </group>
-                            <newline />
-                            <group expand="0" string="Group By...">
-                                    <filter string="User" icon="terp-personal" domain="[]" context="{'group_by':'author_user_id'}"/>
-                                    <separator orientation="vertical"/>
-                                    <filter string="Process" icon="terp-personal+" domain="[]" context="{'group_by':'mgmtsystem_nonconformity_process_id'}"/>
-                            </group>
-                        </search>
-                    </field>
-            </record>        
+        <record id="view_mgmtsystem_nonconformity_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.tree</field>
+            <field name="model">mgmtsystem.nonconformity</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Nonconformity">
+                    <field name="date"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
 
-            <record id="view_mgmtsystem_nonconformity_form" model="ir.ui.view">
+        <record id="view_mgmtsystem_nonconformity_filter" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.filter</field>
+            <field name="model">mgmtsystem.nonconformity</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Nonconformity">
+                    <group>
+                        <filter icon="terp-document-new" domain="[('state','=','open')]" string="Open" help="Open Nonconformities"/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','closed')]" string="Closed" help="Closed Nonconformities"/>
+                        <separator orientation="vertical"/>
+                        <field name="date" select='1'/>
+                    </group>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="User" icon="terp-personal" domain="[]" context="{'group_by':'author_user_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Procedure" icon="terp-personal+" domain="[]" context="{'group_by':'mgmtsystem_nonconformity_procedure_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>        
+
+        <record id="view_mgmtsystem_nonconformity_form" model="ir.ui.view">
             <field name="name">mgmtsystem.nonconformity.form</field>
             <field name="type">form</field>
             <field name="model">mgmtsystem.nonconformity</field>
             <field name="arch" type="xml">
                 <form string="Nonconformity">
-                    <group colspan="4" col="6">
+                    <group colspan="1" col="2">
                         <field name="date"/>
                         <field name="partner_id"/>
                         <field name="reference"/>
+                    </group>
+                    <group colspan="1" col="2">
                         <field name="responsible_user_id"/>
                         <field name="manager_user_id"/>
                         <field name="author_user_id"/>
                     </group>
-                    <notebook colspan="4">
-                        <page string="Origin">
-                            <newline/>
-                            <field colspan="4" name="origin_ids" nolabel="1">
-                                <form string="Origins">
-                                    <group col="6" colspan="4">
-                                       <field name="origin_id"/>
-                                       <field name="name" colspan="4"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                    </notebook>
+                    <newline/>
+                    <field colspan="4" name="origin_ids" nolabel="1">
+                        <form string="Origins">
+                            <group col="6" colspan="4">
+                               <field name="name" colspan="4"/>
+                            </group>
+                        </form>
+                    </field>
+                    <newline/>
+                    <field colspan="4" name="procedure_ids" nolabel="1">
+                        <form string="Procedures">
+                            <group col="6" colspan="4">
+                               <field name="name" colspan="4"/>
+                            </group>
+                        </form>
+                    </field>
+                    <newline/>
+                    <group colspan="4">
+                        <field name="description"/>
+                    </group>
+                    <newline/>
+                    <field colspan="4" name="cause_ids" nolabel="1">
+                        <form string="Causes">
+                            <group col="6" colspan="4">
+                               <field name="name" colspan="4"/>
+                            </group>
+                        </form>
+                    </field>
+                    <newline/>
+                    <group colspan="4">
+                        <field name="analysis"/>
+                    </group>
+                    <newline/>
+                    <group colspan="4">
+                        <field name="immediate_action_id"/>
+                        <field name="corrective_action_id"/>
+                        <field name="preventive_action_id"/>
+                    </group>
                 </form>
             </field>
-            </record>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_mgmtsystem_nonconformity_list">
+            <field name="name">Nonconformity</field>
+            <field name="res_model">mgmtsystem.nonconformity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_open_nonconformity" 
+            action="open_mgmtsystem_nonconformity_list" 
+            parent="mgmtsystem.menu_mgmtsystem_main" 
+            sequence="5" 
+            groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor,base.group_mgmtsystem_user"/>
+
+        <!-- Origin -->
+        
+        <record id="view_mgmtsystem_nonconformity_origin_form" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.origin.form</field>
+            <field name="type">form</field>
+            <field name="model">mgmtsystem.nonconformity.origin</field>
+            <field name="arch" type="xml">
+                <form string="Origins of nonconformity">
+                    <group colspan="4" col="6">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_nonconformity_origin_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.origin.tree</field>
+            <field name="model">mgmtsystem.nonconformity.origin</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Origins">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_nonconformity_origin_filter" model="ir.ui.view">
+            <field name="name">Origins</field>
+            <field name="model">mgmtsystem.nonconformity.origin</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Origins">
+                    <field name="name"/>
+                </search>
+             </field>
+         </record>
+
+        <record id="open_mgmtsystem_nonconformity_origin_list" model="ir.actions.act_window">
+            <field name="name">Origins</field>
+            <field name="res_model">mgmtsystem.nonconformity.origin</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_mgmtsystem_nonconformity_origin_filter"/>
+        </record>
+
+        <menuitem id="menu_open_nonconformity_origin" 
+            action="open_mgmtsystem_nonconformity_origin_list" 
+            parent="mgmtsystem.menu_mgmtsystem_configuration" 
+            sequence="20" 
+            groups="base.group_mgmtsystem_manager"/>
+
+        <!-- Procedures -->
+        
+        <record id="view_mgmtsystem_nonconformity_procedure_form" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.procedure.form</field>
+            <field name="type">form</field>
+            <field name="model">mgmtsystem.nonconformity.procedure</field>
+            <field name="arch" type="xml">
+                <form string="Procedures of nonconformity">
+                    <group colspan="4" col="6">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_nonconformity_procedure_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.procedure.tree</field>
+            <field name="model">mgmtsystem.nonconformity.procedure</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Procedures">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_nonconformity_procedure_filter" model="ir.ui.view">
+            <field name="name">Procedures</field>
+            <field name="model">mgmtsystem.nonconformity.procedure</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Procedures">
+                    <field name="name"/>
+                </search>
+             </field>
+         </record>
+
+        <record id="open_mgmtsystem_nonconformity_procedure_list" model="ir.actions.act_window">
+            <field name="name">Procedures</field>
+            <field name="res_model">mgmtsystem.nonconformity.procedure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_mgmtsystem_nonconformity_procedure_filter"/>
+        </record>
+
+        <menuitem id="menu_open_nonconformity_procedure" 
+            action="open_mgmtsystem_nonconformity_procedure_list" 
+            parent="mgmtsystem.menu_mgmtsystem_configuration" 
+            sequence="10" 
+            groups="base.group_mgmtsystem_manager"/>
+
+        <!-- Cause -->
+        
+        <record id="view_mgmtsystem_nonconformity_cause_form" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.cause.form</field>
+            <field name="type">form</field>
+            <field name="model">mgmtsystem.nonconformity.cause</field>
+            <field name="arch" type="xml">
+                <form string="Causes of nonconformity">
+                    <group colspan="4" col="6">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_nonconformity_cause_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.nonconformity.cause.tree</field>
+            <field name="model">mgmtsystem.nonconformity.cause</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Causes">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_nonconformity_cause_filter" model="ir.ui.view">
+            <field name="name">Causes</field>
+            <field name="model">mgmtsystem.nonconformity.cause</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Causes">
+                    <field name="name"/>
+                </search>
+             </field>
+         </record>
+
+        <record id="open_mgmtsystem_nonconformity_cause_list" model="ir.actions.act_window">
+            <field name="name">Causes</field>
+            <field name="res_model">mgmtsystem.nonconformity.cause</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_mgmtsystem_nonconformity_cause_filter"/>
+        </record>
+
+        <menuitem id="menu_open_nonconformity_cause" 
+            action="open_mgmtsystem_nonconformity_cause_list" 
+            parent="mgmtsystem.menu_mgmtsystem_configuration" 
+            sequence="30" 
+            groups="base.group_mgmtsystem_manager"/>
 
     </data>
 </openerp>

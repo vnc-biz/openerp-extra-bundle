@@ -19,20 +19,23 @@
 #
 ##############################################################################
 {
-    "name" : "Management System - Nonconformity",
+    "name" : "Management System - Action",
     "version" : "0.1",
     "author" : "Savoir-faire Linux",
     "website" : "http://www.savoirfairelinux.com",
     "license" : "GPL-3",
     "category" : "Management System",
     "description": """
-	This module enables you to manage the nonconformities of your management 
-        system : quality (ISO9001), environment (ISO14001) or security (ISO27001).	
+	This module enables you to manage the different actions of your management 
+        system :
+            * immediate actions
+            * corrective actions
+            * preventive actions.
     """,
-    "depends" : ['mgmtsystem_action'],
+    "depends" : ['mgmtsystem','crm_claim'],
     "init_xml" : [],
     "update_xml" : [
-	'mgmtsystem_nonconformity.xml',
+	'mgmtsystem_action.xml',
     ],
     "demo_xml" : [],
     "installable" : True,

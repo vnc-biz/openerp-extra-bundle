@@ -20,7 +20,7 @@
 ##############################################################################
 
 from osv import fields, osv
-from crm import crm
+import time
 
 class mgmtsystem_nonconformity_cause(osv.osv):
     """
@@ -83,14 +83,14 @@ class mgmtsystem_nonconformity(osv.osv):
         'description': fields.text('Description', required=True),
         'cause_ids': fields.many2many('mgmtsystem.nonconformity.cause','mgmtsystem_nonconformity_cause_rel', 'nonconformity_id', 'cause_id', 'Cause', required=True),
         'analysis': fields.text('Analysis', required=True),
-        'immediate_action_id': fields.many2one('crm.claim', 'Immediate action'),
-        'corrective_action_id': fields.many2one('crm.claim', 'Corrective action'),
-        'preventive_action_id': fields.many2one('crm.claim', 'Preventive action'),
-        'state': fields.selection(crm.AVAILABLE_STATES, 'State', size=16, readonly=True),
+        'immediate_action_id': fields.many2one('mgmtsystem.action', 'Immediate action'),
+        'corrective_action_id': fields.many2one('mgmtsystem.action', 'Corrective action'),
+        'preventive_action_id': fields.many2one('mgmtsystem.action', 'Preventive action'),
+        'state': fields.selection((('n','New'), ('o','Open'),('c','Closed')), 'State', size=16, readonly=True),
     }
     _defaults = {
         'date': lambda *a: time.strftime('%Y-%m-%d'),
-        'state': 'open',
+        'state': 'n',
         'author_user_id': lambda cr, uid, id, c={}: id,
     }
 

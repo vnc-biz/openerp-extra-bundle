@@ -18,25 +18,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-{
-    "name" : "Management System - Nonconformity",
-    "version" : "0.1",
-    "author" : "Savoir-faire Linux",
-    "website" : "http://www.savoirfairelinux.com",
-    "license" : "GPL-3",
-    "category" : "Management System",
-    "description": """
-	This module enables you to manage the nonconformities of your management 
-        system : quality (ISO9001), environment (ISO14001) or security (ISO27001).	
-    """,
-    "depends" : ['mgmtsystem_action'],
-    "init_xml" : [],
-    "update_xml" : [
-	'mgmtsystem_nonconformity.xml',
-    ],
-    "demo_xml" : [],
-    "installable" : True,
-    "certificate" : ''
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+from osv import fields, osv
+from crm import crm
+
+class mgmtsystem_action(osv.osv):
+    _name = "mgmtsystem.action"
+    _description = "Action"
+    _inherit = "crm.claim"
+    _columns = {
+	'type_action': fields.selection([('immediate','Immediate Action'),('correction','Corrective Action'),('prevention','Preventive Action'),('improvement','Improvement Opportunity')], 'Action Type'),
+    }
+
+mgmtsystem_action()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

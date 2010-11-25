@@ -1,0 +1,70 @@
+<openerp>
+    <data>
+
+        <menuitem id="menu_mgmtsystem_audit" 
+            name="Audits" 
+            parent="mgmtsystem.menu_mgmtsystem_main" 
+            groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor"
+            sequence="50"/>
+
+        <!-- Verification Lines -->
+
+        <record id="view_mgmtsystem_verification_line_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.verification.line.tree</field>
+            <field name="model">mgmtsystem.verification.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Verification Lines">
+                    <field name="name"/>
+                    <field name="is_conformed"/>
+                    <field name="comments"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_verification_line_filter" model="ir.ui.view">
+            <field name="name">mgmtsystem.verification.line.filter</field>
+            <field name="model">mgmtsystem.verification.line</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Verification Lines">
+                    <group>
+                        <field name="name"/>
+                        <field name="is_conformed"/>
+                        <field name="comments"/>
+                    </group>
+                </search>
+            </field>
+        </record>        
+
+        <record id="view_mgmtsystem_verification_line_form" model="ir.ui.view">
+            <field name="name">mgmtsystem.verification.line.form</field>
+            <field name="type">form</field>
+            <field name="model">mgmtsystem.verification.line</field>
+            <field name="arch" type="xml">
+                <form string="Verification Line">
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="is_conformed"/>
+                        <newline/>
+                        <field name="comments"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="open_mgmtsystem_verification_line_list" model="ir.actions.act_window">
+            <field name="name">Verification Lines</field>
+            <field name="res_model">mgmtsystem.verification.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_open_verification_line" 
+            action="open_mgmtsystem_verification_line_list" 
+            parent="mgmtsystem.menu_mgmtsystem_configuration_audits" 
+            sequence="5" 
+            groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor"/>
+
+    </data>
+</openerp>

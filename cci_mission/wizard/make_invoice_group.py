@@ -270,6 +270,7 @@ def _group_invoice(self, cr, uid, data, context):
                 'reference': False,
                 'account_id': invoice.account_id.id,
                 'partner_id': invoice.partner_id.id,
+                'user_id': invoice.partner_id.user_id and invoice.partner_id.user_id.id or False,
                 'address_invoice_id':invoice.address_invoice_id.id,
                 'address_contact_id':invoice.address_contact_id.id,
                 'invoice_line': [(6,0,list_inv_lines)],

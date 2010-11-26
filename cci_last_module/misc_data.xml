@@ -364,7 +364,8 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Invoice">
-                        	<field name="create_uid" />
+                            <field name="create_uid" invisible="1" />
+                            <field name="user_id" on_change="_onchange_user_id(user_id, state)"/>
                             <field name="name" select="2" attrs="{'readonly':[('type','=','out_invoice')]}"/>
                             <field name="payment_term"/>
                             <field colspan="4" name="invoice_line" nolabel="1" widget="one2many_list">
@@ -587,7 +588,8 @@
                         <field name="number" select="2"/>
                         <field name="partner_id" domain="[('supplier','=', 1)]" on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term)" select="1" context="{'default_customer': 0}"/>
                         <field domain="[('partner_id','=',partner_id)]" name="address_invoice_id"/>
-			<field name="create_uid" />
+                        <field name="create_uid" invisible="1" />
+                        <field name="user_id" on_change="_onchange_user_id(user_id, state)"/>
                     </group>
                     <notebook colspan="4">
                         <page string="Invoice">

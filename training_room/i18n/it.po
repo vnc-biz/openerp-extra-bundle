@@ -1,0 +1,675 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* training_room
+# <> <>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.14\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-10-20 14:55:40+0000\n"
+"PO-Revision-Date: 2010-10-20 17:48+0200\n"
+"Last-Translator: <> <>\n"
+"Language-Team:  <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Please, Can you check the price list of the partner ?"
+msgstr "Per favore, puoi controllare il listino del partner?"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Replacement: %s %s -> %s %s"
+msgstr "Rimpiazzato: %s %s -> %s %s"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Error"
+msgstr "Errore"
+
+#. module: training_room
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Nome modulo non valido nella definizione dell'azione."
+
+#. module: training_room
+#: code:addons/training_room/training/document_price.py:0
+#, python-format
+msgid "No Pricelist !"
+msgstr "Nessun Listino!"
+
+#. module: training_room
+#: code:addons/training_room/training/document_price.py:0
+#, python-format
+msgid ""
+"You have to select a pricelist in the sale form !\n"
+"' \\n                'Please set one before choosing a product."
+msgstr ""
+"Devi selezionare un listino nel modulo vendita!\n"
+"' \\n                'Per favore impostane uno prima di scegliere il "
+"prodotto."
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid ""
+"You can not cancel this purchase line it is not the only one purchase order "
+"lines in the purchase order"
+msgstr ""
+"Non puoi annullare questa voce di acquisto, non è la sola voce nell'Ordine"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "%(participant)s is already following the session \"%(session)s\""
+msgstr "%(participant)s sta già seguendo la Sessione \"%(session)s\""
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Procurements email are only sent to suppliers"
+msgstr "Le Mail di Approvvigionamento sono spedite solo ai Fornitori"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Can you check the product on the course type of the course %s"
+msgstr "Puoi controllare il prodotto nel tipo di corso per: %s"
+
+#. module: training_room
+#: model:ir.module.module,shortdesc:training_room.module_meta_information
+msgid "Training Room"
+msgstr "Aula Training"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Please, Can you configure the holidays ?"
+msgstr "Per favore, puoi configurare le festività?"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_create_session.py:0
+#, python-format
+msgid "Please, you can create a session with a validated offer"
+msgstr "Per favore, puoi creare una sessione con Offerta convalidata"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You have not selected a participant of this session"
+msgstr "Non hai selezionato un partecipante di questa Sessione"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "FAILED"
+msgstr "FALLITA"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_create_block_offer.py:0
+#, python-format
+msgid "Please, You have selected a course with a different language"
+msgstr "Per favore, hai selezionato un Corso con lingua differente"
+
+#. module: training_room
+#: code:addons/training_room/training/partner.py:0
+#: code:addons/training_room/training/training.py:0
+#: code:addons/training_room/training/training_holiday.py:0
+#: code:addons/training_room/training/wizard/wizard_create_block_offer.py:0
+#: code:addons/training_room/training/wizard/wizard_create_offer.py:0
+#: code:addons/training_room/training/wizard/wizard_create_session.py:0
+#: code:addons/training_room/training/wizard/wizard_subscription_line_change_participant.py:0
+#: code:addons/training_room/training/wizard/wizard_subscription_session.py:0
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Warning"
+msgstr "Attenzione"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#: field:training.location,partner_id:0
+#, python-format
+msgid "Partner"
+msgstr "Partner"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Participant"
+msgstr "Partecipante"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Cannot modify important field of a question which is validated"
+msgstr ""
+"Non è possibile modificare campi importanti di una domanda che è stata "
+"convalidata"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Only lecturers will receive request emails"
+msgstr "Solo i Docenti riceveranno mail di richieste"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Accountant can only receive invoice emails"
+msgstr "I contabili possono ricevere solo mail di fatture"
+
+#. module: training_room
+#: code:addons/training_room/training/training_holiday.py:0
+#, python-format
+msgid "Can you give a right date ?"
+msgstr "Puoi fornire una data corretta?"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Invoice emails are only sent to accountants"
+msgstr "Le mail della fattura sono spedite solo ai contabili"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid ""
+"Please, Check the date of your seances because there is one seance with a "
+"date inferior to the session's date"
+msgstr ""
+"Per favore, controlla la data della Lezione perché c'è almeno una lezione "
+"con data inferiore alla data della Sessione"
+
+#. module: training_room
+#: field:res.partner,notify_location:0
+msgid "Notification for Location"
+msgstr "Notifica per Location"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "There is not an available questionnaire for the following course %s"
+msgstr "Non c'è un questionario disponibile per il seguente Corso:  %s"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid ""
+"You can not approve this purchase line it is not the only one purchase order "
+"lines in the purchase order"
+msgstr ""
+"Non puoi approvare questa voce di Acquisto non è l'unica voce nell'Ordine"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "There is at least a session in the \"Draft\" or \"Confirmed\" state"
+msgstr "C'è almeno una Sessione in stato: \"Bozza\" o \"Confermata\""
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You can not suppress a seance with a confirmed procurement"
+msgstr "Non puoi annullare una Lezione che ha approvvigionamenti confermati"
+
+#. module: training_room
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "XML non valido per la struttura della Vista!"
+
+#. module: training_room
+#: help:training.seance,location_id:0 help:training.session,location_id:0
+msgid "The location for seance"
+msgstr "Location per la Lezione"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Please, do not forget to have the seances in your session"
+msgstr "Per favore, non dimenticate di creare le Lezioni nella tua Sessione"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Cancelled by Postponement: %s"
+msgstr "Annullato dal rinvio: %s"
+
+#. module: training_room
+#: code:addons/training_room/training/document_price.py:0
+#, python-format
+msgid "No valid pricelist line found !"
+msgstr "Trovata voce di listino non valida!"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "The type of the course (%s) of this seance has no product defined"
+msgstr "Il tipo di corso (%s) di questa Lezione non ha il prodotto definito"
+
+#. module: training_room
+#: help:training.seance,seats:0 help:training.session,seats:0
+msgid "Maximum seats available in location"
+msgstr "Massimo numero di posti nella location"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Can't find validated questionnaire for course '%s'"
+msgstr "Non posso trovare questionari convalidati per il corso '%s'"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Created by Postponement of %s"
+msgstr "Creato dal rinvio di %s"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "The number of participants is less than the required minimal limit"
+msgstr "Il numero di partecipanti è minore del limite minimo richiesto"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "There is no product with the code equal to R50H !"
+msgstr "Non c'è nessun prodotto con il codice uguale a R50H!"
+
+#. module: training_room
+#: field:training.location,seats:0
+msgid "Seats"
+msgstr "Posti"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid ""
+"Can't assign questionnaire to participation %s because there is not exam "
+"defined on this participation"
+msgstr ""
+"Non posso assegnare il questionario al partecipante %s perchè non c'è "
+"l'esame definito in questa partecipazione"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Suppliers can only receive procurements emails"
+msgstr "I fornitori possono solo ricevere email di approvvigionamento"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Lecturers never recieve emails about subscriptions"
+msgstr "I Docenti non ricevono mai mail circa le Iscrizioni"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid ""
+"%(stakeholder)s is not available for seance \"%(this_seance)s\" because (s)"
+"he is already requested or confirmed for the seance \"%(other_seance)s\""
+msgstr ""
+"%(stakeholder)s non è disponibile per la Lezione \"%(this_seance)s\" perchè "
+"lui/ei è già richiesta o confermata per la Lezione \"%(other_seance)s\""
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Can you check the product on the course type of the course ?"
+msgstr "Puoi controllare il prodotto nel tipo di corso per questo corso?"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "SMTP Server Error !"
+msgstr "Errore Server SMTP!"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "The Payment Mode is not specified"
+msgstr "La modalità di pagamento non è specificata"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_subscription_session.py:0
+#, python-format
+msgid ""
+"The offer has not a product, so it is not possible to compute the price."
+msgstr ""
+"L'offerta non ha un prodotto, così non è possibile calcolarne il prezzo."
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "There is no Invoice for the Purchase Order for this request"
+msgstr "Non c'è fattura per l'Ordine di acquisto per questa Richiesta"
+
+#. module: training_room
+#: code:addons/training_room/training/partner.py:0
+#, python-format
+msgid "\"\"Do not forget to configure the contact's function\"\""
+msgstr "\"\"Non dimenticare di configurare le funzioni del contatto\"\""
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Selection Date"
+msgstr "Data selezione"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Exam"
+msgstr "Esame"
+
+#. module: training_room
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "You have selected an exam seance but there is no associated course"
+msgstr "Hai selezionato una Lezione di Esame ma non ci sono Corsi associati"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You can not suppress a seance with a invoiced subscription"
+msgstr "Non puoi annullare una Lezione con un una Iscrizione fatturata"
+
+#. module: training_room
+#: code:addons/training_room/training/partner.py:0
+#, python-format
+msgid "Please, Could you configure the contact's function ?"
+msgstr "Per favore, puoi configurare la funzione del Contatto?"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "There is no Purchase Order for a request"
+msgstr "Non c'è l'Ordine di Acquisto per la richiesta"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Subscription line %s doesn't have any corresponding invoice line"
+msgstr "La Voce Iscrizione %s non ha nessuna corrispondenza nelle voci fattura"
+
+#. module: training_room
+#: code:addons/training_room/training/partner.py:0
+#, python-format
+msgid ""
+"Please, Could you check the functions because the system does not find any "
+"function with the status 'current'"
+msgstr ""
+"Per favore, puoi controllare la funzione perché il sistema non trova nessuna "
+"funzione con lo stato \"corrente\""
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You have selected a session with a shared seance"
+msgstr "Hai selezionato una Sessione con una Lezione condivisa"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Please, you have at least a draft seance"
+msgstr "Per favore, hai almeno una Lezione bozza"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_subscription_session.py:0
+#, python-format
+msgid "You have selected a partner that has no address."
+msgstr "Hai selezionato un partner che non ha indirizzo"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "This trigger can be only used with the Portal"
+msgstr "Il trigger può essere usato solamente con il Portale"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "The type of the course (%s) of this seance hasn't a product"
+msgstr "Il tipo di Corso (%s) di questa Lezione non ha un prodotto"
+
+#. module: training_room
+#: model:ir.module.module,description:training_room.module_meta_information
+msgid ""
+"The module training_room helps the user to manage the training's location"
+msgstr ""
+"Il modulo training_room aiuta l'utente a gestire le location per il Training"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Unreachable couple trigger/target"
+msgstr "Coppia trigger/target non raggiungibile"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "The stakeholder %s %s has not a request"
+msgstr "Gli Interessati %s %s non hanno una richiesta"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "The following course has not a valid duration '%s' (%d)"
+msgstr "Il seguente corso non ha una durata valida '%s' (%d)"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Cancellation"
+msgstr "Annullamento"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_create_offer.py:0
+#, python-format
+msgid "Please, you can create an offer with a validated course"
+msgstr "Per favore, puoi creare una offerta con un Corso Convalidato"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "%d seance(s) updated"
+msgstr "%d Lezione(i) aggiornate"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "There is no group in this session !"
+msgstr "Non ci sono gruppi in questa Sessione!"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "There is a seance with a start date inferior to %(days)s day(s)"
+msgstr "Ci sono Lezioni con data di inizio inferiore a %(days)s giorno(i)"
+
+#. module: training_room
+#: model:ir.actions.act_window,name:training_room.training_location_new_act
+#: model:ir.ui.menu,name:training_room.training_config_locations_new_mi
+msgid "New Room"
+msgstr "Nuova aula"
+
+#. module: training_room
+#: view:training.location:0
+msgid "Locations"
+msgstr "Locations"
+
+#. module: training_room
+#: code:addons/training_room/training/document_price.py:0
+#, python-format
+msgid ""
+"Couldn't find a pricelist line matching this product\" \\n                \" "
+"and quantity.\n"
+"You have to change either the product,\" \\n                \" the quantity "
+"or the pricelist."
+msgstr ""
+"Non posso trovare una voce di listino che combacia con prodotto\" "
+"\\n                \" e quantità.\n"
+"Devi cambiare il prodotto,\" \\n                \", la quantità o il listino"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "Please, Could you check the subscription of your contact(s)"
+msgstr "Per favore, puoi controllare l'Iscrizione del tuo contatto(i)"
+
+#. module: training_room
+#: model:ir.model,name:training_room.model_training_location
+#: view:training.location:0
+#: field:training.participation.stakeholder,seance_location_id:0
+#: view:training.seance:0 field:training.seance,location_id:0
+#: view:training.session:0 field:training.session,location_id:0
+msgid "Location"
+msgstr "Location"
+
+#. module: training_room
+#: constraint:ir.model:0
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"Il nome dell'oggetto deve iniziare per x_ e non deve contenere caratteri "
+"speciali!"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_create_session.py:0
+#, python-format
+msgid "You can not create a session with a non-validated offer"
+msgstr "Non puoi creare una Sessione con una Offerta non Convalidata"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid " and "
+msgstr " e "
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid ""
+"The defined groups for this session does not have the same number of "
+"seances !"
+msgstr ""
+"I gruppi definiti per questa Sessione non hanno lo stesso numero di Lezioni!"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You can not select this date because it is a public holiday"
+msgstr "Non puoi selezionare questa data perché è una festività"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#: code:addons/training_room/training_exam/training_exam.py:0
+#, python-format
+msgid "Class %d"
+msgstr "Classe %d"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_create_block_offer.py:0
+#, python-format
+msgid "Please, The state of all courses must be 'validated'"
+msgstr "Per favore, lo stato di tutti i Corsi deve essere 'Confermato'"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You can not duplicate a session"
+msgstr "Non puoi duplicare la Sessione"
+
+#. module: training_room
+#: code:addons/training_room/training/training_email.py:0
+#, python-format
+msgid "Only examiners will receive request emails"
+msgstr "Solo gli esaminatori riceveranno le email di richiesta"
+
+#. module: training_room
+#: field:training.location,address_id:0
+msgid "Address"
+msgstr "Indirizzo"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid ""
+"No notification mode (HR and/or Participant) for this partner \"%s\", please "
+"choose at least one"
+msgstr ""
+"Nessuna modalità di notifica (HR e/o Partecipante) per questo partner \"%s"
+"\", per favore sceglierne almeno una"
+
+#. module: training_room
+#: help:training.seance,reserved:0
+msgid "Location is reserved "
+msgstr "La location è riservata"
+
+#. module: training_room
+#: field:training.location,name:0
+msgid "Room"
+msgstr "Aule"
+
+#. module: training_room
+#: help:training.location,seats:0
+msgid "Total Seats"
+msgstr "Posti totali"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You have selected the same seance"
+msgstr "Hai selezionato la stessa Lezione"
+
+#. module: training_room
+#: code:addons/training_room/training/training.py:0
+#, python-format
+msgid "You have to open all seances in this session"
+msgstr "Devi aprire tutte le Lezioni in questa Sessione"
+
+#. module: training_room
+#: field:training.seance,reserved:0
+msgid "Reserved"
+msgstr "Riservata"
+
+#. module: training_room
+#: view:training.location:0
+msgid "Location Description"
+msgstr "Descrizione Location"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_subscription_line_change_participant.py:0
+#, python-format
+msgid ""
+"You can not select a subscription with the following state: Done or Cancelled"
+msgstr ""
+"Non puoi selezionare una Iscrizione con il seguente stato: Conclusa o "
+"Annullata"
+
+#. module: training_room
+#: field:training.seance,seats:0 field:training.session,seats:0
+msgid "Maximum Seats"
+msgstr "Posti a sedere massimi"
+
+#. module: training_room
+#: code:addons/training_room/training/wizard/wizard_create_block_offer.py:0
+#, python-format
+msgid "You have selected a course with a different language"
+msgstr "Hai selezionato un Corso con lingua differente"
+
+#. module: training_room
+#: model:ir.actions.act_window,name:training_room.training_location_all_act
+#: model:ir.ui.menu,name:training_room.training_config_locations_mi
+msgid "Rooms"
+msgstr "Aule"

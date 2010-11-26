@@ -21,4 +21,24 @@
 #
 ############################################################################################
 
-import training_room
+{
+    'name' : 'Training Room',
+    'version' : '0.1',
+    'author' : 'Tiny SPRL - AJM Technologies S.A',
+    'website' : 'http://www.openerp.com',
+    'category' : 'Enterprise Specific Modules/Training',
+    'description' : """The module training_room helps the user to manage the training's location""",
+    'depends' : [
+        'training',
+    ],
+    'init_xml' : [ ],
+    'demo_xml' : [ ],
+    'update_xml' : [
+        'training_room_view.xml',
+        'security/ir.model.access.csv',
+    ],
+    'active' : False,
+    'installable' : True,
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

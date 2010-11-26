@@ -130,13 +130,10 @@
       <font color="white"> </font>
     </para>
     <para style="terp_tblheader_Details">Seances</para>
-      <blockTable colWidths="270.0,100.0,100.0,60.0" style="TableHeaderBorder">
+      <blockTable colWidths="370.0,100.0,60.0" style="TableHeaderBorder">
       <tr>
         <td>
           <para style="terp_tblheader_General">Name</para>
-        </td>
-        <td>
-          <para style="terp_tblheader_General">Type</para>
         </td>
         <td>
           <para style="terp_tblheader_General">Date</para>
@@ -147,22 +144,17 @@
       </tr>
     </blockTable>
     <section>
-    <para style="P2">[[repeatIn(session.event_ids,'event') ]]</para>
-    <blockTable colWidths="270.0,100.0,100.0,60.0" style="TableInsideLine">
+    <para style="P2">[[repeatIn(session.seance_ids,'seance_ids') ]]</para>
+    <blockTable colWidths="370.0,100.0,60.0" style="TableInsideLine">
       <tr>
         <td>
-           <para style="terp_default_8">[[event.name]]</para>
+           <para style="terp_default_8">[[seance_ids.name]]</para>
         </td>
         <td>
-          <para style="terp_default_8">
-            <font color="white"> </font>
-          </para>
+           <para style="terp_default_8">[[time.strftime('%Y-%m-%d %H:%M:%S', time.strptime( seance_ids.date, '%Y-%m-%d %H:%M:%S'))]]</para>
         </td>
         <td>
-           <para style="terp_default_8">[[time.strftime('%Y-%m-%d %H:%M:%S', time.strptime( event.date, '%Y-%m-%d %H:%M:%S'))]]</para>
-        </td>
-        <td>
-         <para style="terp_default_8">[[event.duration]]</para>
+         <para style="terp_default_8">[[seance_ids.duration]]</para>
         </td>
       </tr>
     </blockTable>

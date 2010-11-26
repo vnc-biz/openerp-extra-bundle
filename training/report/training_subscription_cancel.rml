@@ -17,39 +17,11 @@
     <blockTableStyle id="Table3">
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,0" stop="0,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="0,0" stop="0,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,0" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="1,0" stop="1,-1"/>
-      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="1,0" stop="1,0"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,1" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,1" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="1,1" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,2" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,2" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="1,2" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,3" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,3" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="1,3" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,4" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,4" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="1,4" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,5" stop="0,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
-      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,5" stop="1,-1"/>
-      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="1,5" stop="1,-1"/>
-      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
-    </blockTableStyle>
+		<lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+        <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+        <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+        <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+        </blockTableStyle>
     <initialize>
       <paraStyle name="all" alignment="justify"/>
     </initialize>
@@ -141,31 +113,35 @@
       <font face="Times-Roman" size="12.0"/>
     </para>
     -->
-    <blockTable colWidths="150.0,380.0" style="Table3">
+    <blockTable colWidths="200.0,200.0,137.0" style="Table3">
       <tr>
         <td>
           <para style="P3">Participant</para>
         </td>
-        <td>
-          <para style="P5">[[ subscription.contact_id.title ]] [[ subscription.contact_id.name ]] [[ subscription.contact_id.first_name ]]</para>
+		<td>
+          <para style="P3">Session</para>
         </td>
-      </tr>
-      <tr>
-        <td>
-          <para style="P3">Training</para>
-        </td>
-        <td>
-          <para style="P7">[[ subscription.session_id.name ]]</para>
-        </td>
-      </tr>
-      <tr>
         <td>
           <para style="P3">Date</para>
         </td>
+      </tr>
+      <tr>
+      <para>[[ repeatIn(subscription.subscription_line_ids,'subscription_line_ids') ]]</para>
         <td>
-          <para style="P6">[[subscription.session_id.date]]</para>
+         <para style="P7">[[ subscription_line_ids.job_id.contact_id.name ]]</para>
+        </td>
+        <td>
+        <para style="P7">[[ subscription_line_ids.session_id.name ]]</para>
+        </td>
+        <td>
+        <para style="P6">[[ formatLang(subscription_line_ids.session_id.date,date=True) ]]</para>
         </td>
       </tr>
+	</blockTable>
+	<para style="terp_default_9">
+      <font face="Times-Roman" size="8.0"/>
+    </para>
+	<blockTable colWidths="150.0,385.0" style="Table3">
       <tr>
         <td>
           <para style="P3">Motif</para>
@@ -186,16 +162,7 @@
           </para>
         </td>
       </tr>
-      <tr>
-        <td>
-          <para style="P3">Your  contact</para>
-        </td>
-        <td>
-          <para style="P5">
-            <font color="white"> </font>
-          </para>
-        </td>
-      </tr>
+
     </blockTable>
     <para style="terp_default_9">
       <font face="Times-Roman" size="8.0"/>

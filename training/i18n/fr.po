@@ -1,0 +1,3430 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* training
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.5-bzr\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-09-02 11:20:13+0000\n"
+"PO-Revision-Date: 2009-09-02 11:20:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: training
+#: view:training.course:0
+#: field:training.course,lecturer_ids:0
+#: view:training.seance:0
+#: field:training.seance,contact_ids:0
+#: field:training.seance,contact_names:0
+#: view:training.session:0
+#: field:training.session,contact_ids:0
+msgid "Lecturers"
+msgstr "Formateurs"
+
+#. module: training
+#: field:training.catalog,name:0
+msgid "Title"
+msgstr "Titre"
+
+#. module: training
+#: help:training.course,with_children:0
+msgid "Allows to know if the course contains some subcourses or not"
+msgstr "Permet de savoir si le cours contient des parties de cours ou pas"
+
+#. module: training
+#: selection:training.offer.purchase.line,fix:0
+#: selection:training.seance.purchase_line,fix:0
+msgid "Fix"
+msgstr "Fixe"
+
+#. module: training
+#: field:training.session,has_shared_seances:0
+msgid "Has Shared Seances"
+msgstr "Contient des séances partagées"
+
+#. module: training
+#: field:training.course,theme_ids:0
+#: view:training.course.theme:0
+#: field:training.offer,theme_ids:0
+msgid "Theme"
+msgstr "Thème"
+
+#. module: training
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Nom de modèle invalide pour la définition de l'action"
+
+#. module: training
+#: selection:training.course.pending.wizard,state:0
+msgid "First Screen"
+msgstr "Page de garde"
+
+#. module: training
+#: help:training.seance,manual:0
+#: help:training.session,manual:0
+msgid "Allows to the user to specify the number of participants"
+msgstr "Permet de spécifier le nombre de participants"
+
+#. module: training
+#: help:training.course_type,name:0
+msgid "The course type's name"
+msgstr "Le nom du type de cours"
+
+#. module: training
+#: view:training.course_category:0
+#: field:training.course_category,parent_category_id:0
+msgid "Parent"
+msgstr "Parent"
+
+#. module: training
+#: model:training.offer.kind,name:training.training_offer_kind_standard
+#: selection:training.participation.stakeholder,kind:0
+#: selection:training.seance,kind:0
+msgid "Standard"
+msgstr ""
+
+#. module: training
+#: field:training.subscription.line.cancel.invoice.wizard,subscription_wizard_id:0
+msgid "Subscription Wizard"
+msgstr "Assistant d'inscription"
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_training_subscription_line_second
+msgid "Subscription Second Line"
+msgstr ""
+
+#. module: training
+#: view:training.subscription:0
+msgid "subscription"
+msgstr "inscription"
+
+#. module: training
+#: help:training.catalog,session_ids:0
+msgid "The sessions in the catalog"
+msgstr "Les sessions du catalogue"
+
+#. module: training
+#: field:training.participation,present:0
+msgid "Present"
+msgstr "Présent"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Session Closed Confirmed Stakeholder"
+msgstr "Session Confirmé Fermé - Intervenant"
+
+#. module: training
+#: model:ir.model,name:training.model_res_partner_contact_technical_skill
+msgid "res.partner.contact_technical_skill"
+msgstr "Compétence linguistique"
+
+#. module: training
+#: model:ir.model,name:training.model_training_seance
+msgid "training.seance"
+msgstr "Séance"
+
+#. module: training
+#: field:training.session,confirmed_subscriptions:0
+msgid "Confirmed Subscriptions"
+msgstr "Inscriptions confirmées"
+
+#. module: training
+#: help:training.offer.public.target,name:0
+msgid "Allows to the participants to select a course whose can participate"
+msgstr ""
+
+#. module: training
+#: help:training.subscription.line,job_email:0
+msgid "Participant Email Address"
+msgstr "Email participant"
+
+#. module: training
+#: help:purchase.order.line,state:0
+msgid "The state of the purchase order or the quotation request. A quotation is a purchase order in a 'Draft' state. Then the order has to be confirmed by the user, the state switch to 'Confirmed'. Then the supplier must confirm the order to change the state to 'Approved'. When the purchase order is paid and received, the state becomes 'Done'. If a cancel action occurs in the invoice or in the reception of goods, the state becomes in exception."
+msgstr "L'état de la commande d'acaht ou de la demande devis. Un devis est une commande d'achat à l'état 'Brouillon'. Une fois la commande confirmée, l'état passe à 'Confirmé'. Puis le fournisseur doit confirmer la commande, elle passe en état 'Approuvée'. Si une annulation à lieu sur la facture ou l'approvisionnement l'état devient 'En exception'"
+
+#. module: training
+#: view:training.participation:0
+msgid "Participation (Seance)"
+msgstr "Participation (Séance)"
+
+#. module: training
+#: field:training.subscription,origin:0
+msgid "Origin"
+msgstr "Origine"
+
+#. module: training
+#: model:ir.ui.menu,name:training.training_config_mi
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: training
+#: field:training.subscription,name:0
+#: field:training.subscription.line,name:0
+msgid "Reference"
+msgstr "Référence"
+
+#. module: training
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Thresholds"
+msgstr "Seuils"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_theme
+msgid "training.course.theme"
+msgstr ""
+
+#. module: training
+#: model:ir.model,name:training.model_training_email
+msgid "Training Email"
+msgstr ""
+
+#. module: training
+#: field:training.course,splitted_by:0
+msgid "Splitted By"
+msgstr "En partie de"
+
+#. module: training
+#: field:training.course_category,analytic_account_id:0
+msgid "Analytic Account"
+msgstr "Compte analytique"
+
+#. module: training
+#: view:res.partner.contact:0
+#: field:training.contact.course,course_id:0
+#: view:training.course:0
+#: field:training.course.offer.rel,course_id:0
+#: field:training.course.pending,course_id:0
+#: field:training.course.pending.wizard,course_id:0
+#: field:training.course.purchase_line,course_id:0
+#: view:training.offer:0
+#: field:training.offer.purchase.line,course_id:0
+#: field:training.participation,course_id:0
+#: field:training.participation.stakeholder,course_id:0
+#: field:training.seance,course_id:0
+msgid "Course"
+msgstr "Cours"
+
+#. module: training
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Session Information"
+msgstr "Information de la session"
+
+#. module: training
+#: help:training.session,date:0
+msgid "The date of the planned session"
+msgstr "Date de la session plannifiée"
+
+#. module: training
+#: field:training.seance,available_seats:0
+#: field:training.session,available_seats:0
+#: field:training.subscription.line,available_seats:0
+msgid "Available Seats"
+msgstr "Places disponibles"
+
+#. module: training
+#: code:addons/training/training.py:0
+#: field:training.participation,partner_id:0
+#: field:training.subscription,partner_id:0
+#: field:training.subscription.line,partner_id:0
+#: field:training.subscription.line.second,partner_id:0
+#: view:training.subscription.mass.wizard:0
+#: field:training.subscription.mass.wizard,partner_id:0
+#, python-format
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: training
+#: view:purchase.order.line:0
+msgid "Order Line"
+msgstr "Ligne de commande"
+
+#. module: training
+#: model:ir.model,name:training.model_training_participation_stakeholder_session
+msgid "training.participation.stakeholder.session"
+msgstr "Participation Intervenant - Session"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Session Cancellation Participant"
+msgstr "Annulation Session - Participant"
+
+#. module: training
+#: code:addons/training/training.py:0
+#: field:res.partner,notif_participant:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+#, python-format
+msgid "Participant"
+msgstr "Participant"
+
+#. module: training
+#: help:training.course,duration:0
+#: help:training.course,duration_with_children:0
+#: help:training.course,duration_without_children:0
+msgid "The duration of the course"
+msgstr ""
+
+#. module: training
+#: help:training.participation.stakeholder,state:0
+msgid "The state of stakeholder"
+msgstr "État de l'intervenant"
+
+#. module: training
+#: help:training.session,offer_id:0
+msgid "Allows to select a validated offer for the session"
+msgstr "Permet de sélectionner une offre (validée) pour la session"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Cancellation By Training Center"
+msgstr "Annulation Inscription (par centre de formation)"
+
+#. module: training
+#: field:training.catalog,state:0
+#: field:training.course,state_course:0
+#: field:training.course.pending,state:0
+#: field:training.course.pending.wizard,state:0
+#: field:training.email,state:0
+#: field:training.offer,state:0
+#: field:training.participation,procurement_state:0
+#: field:training.participation,state:0
+#: field:training.participation.stakeholder,state:0
+#: field:training.participation.stakeholder.session,state:0
+#: field:training.seance,state:0
+#: field:training.session,state:0
+#: field:training.subscription,state:0
+#: field:training.subscription.cancel.invoice.wizard,state:0
+#: field:training.subscription.line,state:0
+msgid "State"
+msgstr "État"
+
+#. module: training
+#: help:training.course,long_name:0
+msgid "Allows to show the long name of the course for the external view"
+msgstr "Permet d'afficher le nom long du cours pour un affichage externe"
+
+#. module: training
+#: model:ir.model,name:training.model_training_config_contact_function
+msgid "training.config.contact.function"
+msgstr ""
+
+#. module: training
+#: field:training.email,smtp_client_id:0
+msgid "SMTP Client"
+msgstr "Client SMTP"
+
+#. module: training
+#: help:res.partner.team,specialisation_id:0
+msgid "A Quality Team has a particularity"
+msgstr "Le cercle de qualité à une spécialisation"
+
+#. module: training
+#: model:ir.model,name:training.model_training_participation
+#: view:training.participation.stakeholder:0
+msgid "Participation"
+msgstr "Participation"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_session_closed_confirmed_act
+#: model:ir.ui.menu,name:training.training_planning_session_closed_confirmed_mi
+msgid "Closed & Confirmed Sessions"
+msgstr "Confirmer & Fermer les sessions"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.contact_subscription_link
+#: model:ir.actions.act_window,name:training.res_partner_subscription_act
+#: model:ir.actions.act_window,name:training.training_subscription_all_act
+#: model:ir.ui.menu,name:training.training_subscription_management_mi
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_mi
+#: view:training.session:0
+#: view:training.subscription:0
+msgid "Subscriptions"
+msgstr "Inscriptions"
+
+#. module: training
+#: view:res.partner:0
+msgid "Notification Rules"
+msgstr "Règles de notification"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.participation_stakeholder_undermined_all_act
+#: model:ir.ui.menu,name:training.participation_stakeholder_undermined_mi
+msgid "Rejected Participations (StakeHolder)"
+msgstr "Participations rejetées (Intervenant)"
+
+#. module: training
+#: selection:training.participation.stakeholder,state:0
+#: selection:training.participation.stakeholder.session,state:0
+msgid "Rejected"
+msgstr "Rejetée"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course
+msgid "training.course"
+msgstr ""
+
+#. module: training
+#: field:training.holiday.period,date_stop:0
+msgid "Date Stop"
+msgstr "Date de fin"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You can not suppress a seance with a confirmed procurement"
+msgstr "Vous ne pouvez pas supprimer une séance qui possède qui un/des approvisionnement(s) confirmé(s)"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.offer_session_link
+msgid "Planned Sessions"
+msgstr "Sessions plannifiées"
+
+#. module: training
+#: code:addons/training/training_holiday.py:0
+#, python-format
+msgid "Can you give a right date ?"
+msgstr "Pouvez-vous saisir une date valide ?"
+
+#. module: training
+#: wizard_view:training.subscription.line_second,init:0
+msgid "Mass Subscription Second Line"
+msgstr ""
+
+#. module: training
+#: field:res.partner.job,departments:0
+msgid "Departments"
+msgstr "Départements"
+
+#. module: training
+#: model:ir.model,name:training.model_document_price_component
+msgid "document.price.component"
+msgstr ""
+
+#. module: training
+#: field:training.contact.course,contact_id:0
+#: field:training.course.pending,job_id:0
+#: field:training.course.pending.wizard,job_id:0
+#: field:training.holiday.period,contact_id:0
+#: field:training.participation,contact_id:0
+#: field:training.participation.stakeholder,job_id:0
+#: field:training.participation.stakeholder.session,contact_id:0
+#: field:training.participation.stakeholder.session,job_id:0
+#: field:training.subscription.line,contact_id:0
+#: field:training.subscription.line.cancel.invoice.wizard,job_id:0
+#: field:training.subscription.line.second,job_id:0
+msgid "Contact"
+msgstr "Contact"
+
+#. module: training
+#: code:addons/training/document_price.py:0
+#, python-format
+msgid "No valid pricelist line found !"
+msgstr "Aucune liste de prix valide n'a été trouvé ! "
+
+#. module: training
+#: view:training.email:0
+msgid "_Draft"
+msgstr "_Brouillon"
+
+#. module: training
+#: help:training.session,seance_ids:0
+msgid "List of the events in the session"
+msgstr "Liste des événements de la session"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.action_training_participation_stakeholder_all
+#: model:ir.ui.menu,name:training.training_participation_stakeholder_mi
+msgid "Participations (StakeHolder)"
+msgstr "Participations (Intervenant)"
+
+#. module: training
+#: help:training.course,lang_id:0
+msgid "The language of the course"
+msgstr "La langue du cours"
+
+#. module: training
+#: field:training.session,min_limit:0
+msgid "Mininum Threshold"
+msgstr "Seuil miniumum"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_current_all_act
+#: model:ir.ui.menu,name:training.training_library_course_course_validate_mi
+msgid "Validated Courses"
+msgstr "Cours validés"
+
+#. module: training
+#: help:training.offer,target_public_id:0
+msgid "Set the target audience"
+msgstr "Indique le public cible"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.holiday_year_all_act
+#: model:ir.ui.menu,name:training.holiday_year_all_mi
+#: view:training.holiday.year:0
+msgid "Holiday Years"
+msgstr ""
+
+#. module: training
+#: field:training.participation.stakeholder,participation_sh_session_id:0
+#: view:training.participation.stakeholder.session:0
+msgid "Participation Stakeholder Session"
+msgstr ""
+
+#. module: training
+#: view:res.partner.job:0
+msgid "Birth Date"
+msgstr "Date de naissance"
+
+#. module: training
+#: field:training.course.pending,category_id:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: training
+#: help:training.course,p_id:0
+msgid "The parent course"
+msgstr "Module de cours parent"
+
+#. module: training
+#: model:ir.model,name:training.model_training_group
+#: view:training.group:0
+#: field:training.participation,group_id:0
+#: field:training.participation.stakeholder,group_id:0
+#: field:training.participation.stakeholder.session,group_id:0
+#: field:training.seance,group_id:0
+#: field:training.session,group_id:0
+#: field:training.session.duplicate.wizard,group_id:0
+msgid "Group"
+msgstr "Groupe"
+
+#. module: training
+#: field:training.session,participant_count:0
+msgid "Total Confirmed Seats"
+msgstr "Total places confirmées"
+
+#. module: training
+#: field:ir.attachment,is_support:0
+msgid "Support"
+msgstr "Support"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_line_uninvoiced_act
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_line_uninvoiced_mi
+msgid "Uninvoiced Subscription Lines"
+msgstr "Lignes d'inscription non facturées"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Confirmation Participant"
+msgstr "Inscription - Confirmation Participant"
+
+#. module: training
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "Le nom de l'objet doit commencer avec x_ et ne pas contenir de charactères spéciaux !"
+
+#. module: training
+#: field:training.course,long_name:0
+msgid "Long Name"
+msgstr "Nom détaillé"
+
+#. module: training
+#: selection:training.course,splitted_by:0
+msgid "8 Hours"
+msgstr "8 Heures"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_offer_rel
+msgid "training.course.offer.rel"
+msgstr ""
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription_line_second
+msgid "training.subscription.line.second"
+msgstr ""
+
+#. module: training
+#: help:training.session,min_limit:0
+msgid "The minimum threshold is the minimum of the maximum threshold of each seance"
+msgstr ""
+
+#. module: training
+#: field:training.participation,seance_id:0
+#: field:training.participation.stakeholder,seance_id:0
+#: view:training.seance:0
+#: field:training.seance.purchase_line,seance_id:0
+msgid "Seance"
+msgstr "Séance"
+
+#. module: training
+#: view:training.session:0
+msgid "Overall seats"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_training_course_validate
+msgid "Validate Course(s)"
+msgstr "Valider le(s) cours"
+
+#. module: training
+#: model:ir.model,name:training.model_training_holiday_period
+msgid "training.holiday.period"
+msgstr ""
+
+#. module: training
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "Seance Information"
+msgstr "Information séance"
+
+#. module: training
+#: selection:training.offer.purchase.line,fix:0
+#: selection:training.seance.purchase_line,fix:0
+msgid "By Subscription"
+msgstr "Par inscription"
+
+#. module: training
+#: view:training.seance:0
+#: field:training.seance,user_id:0
+#: field:training.session,user_id:0
+#: field:training.subscription,responsible_id:0
+#: field:training.subscription.line,create_uid:0
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: training
+#: view:training.course_type:0
+msgid "Limits"
+msgstr "Limites"
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription_line
+msgid "training.subscription.line"
+msgstr ""
+
+#. module: training
+#: help:training.session,has_shared_seances:0
+msgid "Allows to know if the session has a shared seance"
+msgstr "Détermine si le session contient des séances partagées"
+
+#. module: training
+#: field:document.price.component,product_qty:0
+#: field:training.course.purchase_line,product_qty:0
+#: field:training.offer.purchase.line,product_qty:0
+#: field:training.seance.purchase_line,product_qty:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: training
+#: view:training.course:0
+msgid "Course Description"
+msgstr "Description du cours"
+
+#. module: training
+#: help:training.seance,participant_count_manual:0
+#: help:training.session,participant_count_manual:0
+msgid "The quantity of supports, catering, ... relative to the number of participants coming from the confirmed seats"
+msgstr "La quantité des supports, catering, ... relatif au nombre des participants provenant des places confirmées"
+
+#. module: training
+#: field:training.subscription.line,has_certificate:0
+#: field:training.subscription.line.cancel.invoice.wizard,has_certificate:0
+msgid "Has Certificate"
+msgstr "Certificat médical disponible"
+
+#. module: training
+#: view:training.holiday.year:0
+msgid "Period"
+msgstr "Période"
+
+#. module: training
+#: model:ir.ui.menu,name:training.training_config_library_mi
+#: model:ir.ui.menu,name:training.training_library_mi
+msgid "Library"
+msgstr "Bibliothèque"
+
+#. module: training
+#: help:training.participation.stakeholder,seance_id:0
+msgid "Select the Seance"
+msgstr "Selectionnez la séance"
+
+#. module: training
+#: field:training.course.purchase_line,attachment_price:0
+#: field:training.offer.purchase.line,attachment_price:0
+msgid "Attachment Price"
+msgstr "Prix de la pièce jointe"
+
+#. module: training
+#: view:training.course:0
+#: view:training.offer:0
+#: field:training.offer,purchase_line_ids:0
+#: view:training.participation:0
+#: field:training.participation,procurement_ids:0
+#: view:training.seance:0
+msgid "Procurements"
+msgstr ""
+
+#. module: training
+#: field:training.seance,original_session_id:0
+msgid "Original Session"
+msgstr "Session d'origine"
+
+#. module: training
+#: model:ir.model,name:training.model_training_holiday_year
+msgid "training.holiday.year"
+msgstr ""
+
+#. module: training
+#: field:training.course,child_reference_id:0
+#: field:training.course_category,child_ids:0
+msgid "Children"
+msgstr "Enfants"
+
+#. module: training
+#: view:training.catalog:0
+#: selection:training.catalog,state:0
+#: selection:training.course.pending,state:0
+#: selection:training.participation.stakeholder,state_seance:0
+#: view:training.seance:0
+#: selection:training.seance,state:0
+#: view:training.session:0
+#: selection:training.session,state:0
+msgid "In Progress"
+msgstr "En cours"
+
+#. module: training
+#: code:addons/training/wizard/wizard_create_session.py:0
+#, python-format
+msgid "You can not create a session with a non-validated offer"
+msgstr "Vous ne pouvez pas créer de session avec une offre non validée"
+
+#. module: training
+#: field:training.subscription.mass.line,wizard_id:0
+msgid "Wizard"
+msgstr "Assistant"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid " and "
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_catalog_old_act
+#: model:ir.ui.menu,name:training.training_offer_catalog_old_mi
+msgid "Old Catalogs"
+msgstr "Anciens catalogues"
+
+#. module: training
+#: view:purchase.order.line:0
+msgid "Approved By Supplier"
+msgstr "Approuvé par le fournisseur"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.purchase_order_line_all_act
+#: model:ir.ui.menu,name:training.purchase_order_line_all_mi
+msgid "Purchase Order Lines"
+msgstr "Ligne de commande d'achat"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_problematic_act
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_problematic_mi
+msgid "Subscription Lines to Validate"
+msgstr "Lignes d'inscription à valider"
+
+#. module: training
+#: view:training.course_type:0
+#: field:training.course_type,objective:0
+#: view:training.offer:0
+#: field:training.offer,objective:0
+msgid "Objective"
+msgstr "Objectif"
+
+#. module: training
+#: field:document.price.component,unit_price:0
+#: field:training.seance.purchase_line,product_price:0
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.holiday_year_new_act
+#: model:ir.ui.menu,name:training.holiday_year_new_mi
+msgid "New Holiday Year"
+msgstr ""
+
+#. module: training
+#: help:training.course,reference_id:0
+msgid "The master course is necessary if the user wants to link certain courses together to easy the managment"
+msgstr "Le cours référant est nécessaire l'ont veut liéer certains cours ensemble pour facilier leur gestion"
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription_mass_wizard
+msgid "Mass Subscription Wizard"
+msgstr "Assistant inscription en masse"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.participation_stakeholder_requested_all_act
+#: model:ir.ui.menu,name:training.participation_stakeholder_requested_mi
+msgid "Requested Participations (StakeHolder)"
+msgstr "Participations demandées (Intervenant)"
+
+#. module: training
+#: wizard_button:training.subscription.line_second,init,make_subscription:0
+msgid "Make Subscription"
+msgstr "Lancer l'inscription"
+
+#. module: training
+#: model:ir.model,name:training.model_training_holiday_year_wizard
+msgid "training.holiday.year.wizard"
+msgstr ""
+
+#. module: training
+#: help:training.course,internal_note:0
+msgid "The user can write some internal note for this course"
+msgstr "L'utilisateur peut renseigner une note interne sur ce cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_email_all_act
+#: model:ir.ui.menu,name:training.training_email_all_mi
+msgid "Emails"
+msgstr ""
+
+#. module: training
+#: help:training.session,max_limit:0
+msgid "The maximum threshold is the maximum of the minimum threshold of each seance"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_session_draft_act
+#: model:ir.ui.menu,name:training.training_planning_session_draft_mi
+msgid "Draft Sessions"
+msgstr "Sessions brouillon"
+
+#. module: training
+#: view:product.pricelist.item:0
+msgid "Fixed Amount"
+msgstr "Montant fixe"
+
+#. module: training
+#: code:addons/training/wizard/wizard_create_offer.py:0
+#, python-format
+msgid "Please, you can create an offer with a validated course"
+msgstr "S'il vous plait, pouvez-vous créer un offre avec un cours validé"
+
+#. module: training
+#: view:training.participation.stakeholder.session:0
+msgid "Request"
+msgstr ""
+
+#. module: training
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "_Paid"
+msgstr "_Payé"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, Could you check the dates in the holiday periods !"
+msgstr "S'il vous plait, pouvez-vous vérifier les dates de la période de congés ! "
+
+#. module: training
+#: field:training.course,reference_id:0
+msgid "Master Course"
+msgstr "Cours référant"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Acknowledge Receipt (Participant)"
+msgstr ""
+
+#. module: training
+#: view:training.seance:0
+#: field:training.seance,presence_form:0
+msgid "Presence Form"
+msgstr "Fiche de présence"
+
+#. module: training
+#: field:training.course.pending,create_date:0
+#: field:training.offer,create_date:0
+#: field:training.subscription.line,create_date:0
+msgid "Create Date"
+msgstr "Date de création"
+
+#. module: training
+#: view:training.course.pending.wizard:0
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: training
+#: help:training.group,name:0
+msgid "The group's name"
+msgstr "Le nom du groupe"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "No SMTP Server has been defined!"
+msgstr "Aucun serveur SMTP n'a été défini !"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, Can you check the price list of the partner ?"
+msgstr "Veuillez vérifier la liste de prix sur le partenaire!"
+
+#. module: training
+#: field:training.seance,master_id:0
+msgid "Master Seance"
+msgstr "Séance principale"
+
+#. module: training
+#: field:training.offer.purchase.line,procurement_quantity:0
+msgid "Trigger"
+msgstr "Déclenchement"
+
+#. module: training
+#: field:training.email,body:0
+msgid "Body"
+msgstr "Corps"
+
+#. module: training
+#: model:ir.model,name:training.model_training_session_duplicate_wizard
+msgid "training.session.duplicate.wizard"
+msgstr ""
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_type
+msgid "The type of a course"
+msgstr "Le type du cours"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Cancellation HR Manager"
+msgstr "Annulation Inscription (par contact RH)"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Send Email"
+msgstr "Envoyer email"
+
+#. module: training
+#: help:training.seance,shared:0
+msgid "Allows to know if the seance is linked with a lot of sessions"
+msgstr "Détermine si la séance est liée à plus d'une session"
+
+#. module: training
+#: view:training.offer:0
+#: view:training.seance:0
+msgid "Automatic Declaration"
+msgstr "Déclaration automatique"
+
+#. module: training
+#: view:ir.attachment:0
+#: selection:training.config.product,type:0
+msgid "Support of Course"
+msgstr "Support de cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_config_session_act
+#: view:training.config.session:0
+msgid "Session Configuration"
+msgstr "Configuration de la session"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_to_validate_act
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_validate_mi
+msgid "Subscriptions to Validate"
+msgstr "Inscriptions à valider"
+
+#. module: training
+#: view:training.session:0
+msgid "Open & Confirm"
+msgstr "Ouvrir & Confirmer"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "There is no product associated for the lecturer"
+msgstr "Il n'y a pas de produit associé avec le formateur"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Confirmation Stakeholder"
+msgstr "Confirmation Inscription (Intervenant)"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_line_all_act
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_line_all_mi
+#: view:training.subscription:0
+#: field:training.subscription,subscription_line_ids:0
+#: view:training.subscription.cancel.invoice.wizard:0
+#: field:training.subscription.cancel.invoice.wizard,line_ids:0
+#: view:training.subscription.line:0
+#: view:training.subscription.line.second:0
+msgid "Subscription Lines"
+msgstr "Lignes d'inscription"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_support_price
+msgid "Support Price"
+msgstr "Prix du support"
+
+#. module: training
+#: help:training.course.purchase_line,course_id:0
+msgid "The course attached to this purchase line"
+msgstr "Le cours attaché à cette ligne d'achat"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_purchase_line
+msgid "training.course.purchase_line"
+msgstr ""
+
+#. module: training
+#: field:training.subscription,address_id:0
+msgid "Invoice Address"
+msgstr "Adresse de facturation"
+
+#. module: training
+#: view:training.offer.public.target:0
+msgid "Target Audience (Internet)"
+msgstr "Public cible (Internet)"
+
+#. module: training
+#: model:ir.model,name:training.model_dummy_support_delivery
+msgid "dummy.support.delivery"
+msgstr ""
+
+#. module: training
+#: view:training.session:0
+msgid "Close & Confirm"
+msgstr "Fermer & Confirmer"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_category
+msgid "training.course_category"
+msgstr ""
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You have not selected a participant of this session"
+msgstr "Vous devez selectionner un participant de cette session"
+
+#. module: training
+#: model:ir.model,name:training.model_training_offer_kind
+msgid "training.offer.kind"
+msgstr ""
+
+#. module: training
+#: field:training.seance,participant_count:0
+msgid "Confirmed Seats"
+msgstr "Places confirmées"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.session_duplicate_wizard_act
+#: model:ir.ui.menu,name:training.training_planning_session_duplicate_mi
+#: view:training.session.duplicate.wizard:0
+msgid "Session Duplicate Wizard"
+msgstr "Assistant dédoublement de session"
+
+#. module: training
+#: field:training.course.pending,seance_next_date:0
+msgid "Seance Next Date"
+msgstr "Prochaine date de séance"
+
+#. module: training
+#: field:training.seance,duplicated:0
+msgid "Duplicated"
+msgstr "Dédoublée"
+
+#. module: training
+#: view:training.holiday.year:0
+msgid "Holiday year"
+msgstr ""
+
+#. module: training
+#: field:training.seance,state_course:0
+msgid "Course's State"
+msgstr "État du cours"
+
+#. module: training
+#: field:training.course_type,max_limit:0
+#: field:training.seance,max_limit:0
+#: field:training.session,max_limit:0
+msgid "Maximum Threshold"
+msgstr "Seuil maximum"
+
+#. module: training
+#: view:training.offer:0
+msgid "Load Procurements From Courses"
+msgstr "Récuperer les approvisionnements depuis les cours"
+
+#. module: training
+#: view:training.subscription.cancel.invoice.wizard:0
+msgid "Next"
+msgstr "Suivant"
+
+#. module: training
+#: selection:purchase.order.line,state:0
+msgid "Waiting"
+msgstr "En attente"
+
+#. module: training
+#: code:addons/training/training.py:0
+#: view:training.subscription.line.cancel.invoice.wizard:0
+#: field:training.subscription.line.cancel.invoice.wizard,medical_certificate:0
+#, python-format
+msgid "Medical Certificate"
+msgstr "Certificat médical"
+
+#. module: training
+#: field:training.course_type,min_limit:0
+#: field:training.seance,min_limit:0
+msgid "Minimum Threshold"
+msgstr "Seuil minimum"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.course_theme_all_act
+#: model:ir.ui.menu,name:training.course_theme_all_mi
+#: view:training.course:0
+#: view:training.course.theme:0
+#: view:training.offer:0
+msgid "Themes"
+msgstr "Thèmes"
+
+#. module: training
+#: help:training.seance,date:0
+msgid "The create date of seance"
+msgstr "La date de création de la séance"
+
+#. module: training
+#: help:training.offer,objective:0
+msgid "The objective of the course will be used by the internet web site"
+msgstr "L'objectif du cours sera affiché sur le site internet"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.participation_stakeholder_confirmed_all_act
+#: model:ir.ui.menu,name:training.participation_stakeholder_confirmed_mi
+msgid "Confirmed Participations (StakeHolder)"
+msgstr "Participations Confirmées (Intervenant)"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_seance_all_act
+#: model:ir.actions.act_window,name:training.training_session_seances_act
+#: model:ir.ui.menu,name:training.training_planning_seances_mi
+#: view:training.group:0
+#: field:training.group,seance_ids:0
+#: view:training.seance:0
+#: view:training.session:0
+#: field:training.session,seance_ids:0
+msgid "Seances"
+msgstr "Séances"
+
+#. module: training
+#: field:training.participation,job_id:0
+#: field:training.subscription.line,job_id:0
+msgid "Job"
+msgstr "Participant"
+
+#. module: training
+#: help:training.course,purchase_line_ids:0
+msgid "The purchase line helps to create a purchase order for the seance"
+msgstr "La ligne d'achat permet la création d'un commande fournisseur pour la séance"
+
+#. module: training
+#: field:training.subscription,pricelist_id:0
+msgid "Pricelist"
+msgstr "Liste de prix"
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_create_session
+#: wizard_view:training.offer.create.session,init:0
+msgid "Plannify Session"
+msgstr "Plannifier une session"
+
+#. module: training
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "XML non valide pour l'architecture de la vue"
+
+#. module: training
+#: view:training.session:0
+msgid "Session Description"
+msgstr "Description de la session"
+
+#. module: training
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "_Accept"
+msgstr "_Accepter"
+
+#. module: training
+#: selection:training.course.pending.wizard,state:0
+msgid "Second Screen"
+msgstr "2ème page"
+
+#. module: training
+#: field:res.partner.contact,linguistic_skill_ids:0
+msgid "Linguistic Skill"
+msgstr "Compétences linguistique"
+
+#. module: training
+#: view:training.catalog:0
+msgid "Catalog Description"
+msgstr "Description du catalogue"
+
+#. module: training
+#: model:ir.model,name:training.model_training_offer
+msgid "training.offer"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_mature_all_act
+#: model:ir.ui.menu,name:training.training_library_course_course_mature_mi
+msgid "Deprecated Courses"
+msgstr "Cours obsolètes"
+
+#. module: training
+#: help:training.subscription.line,session_id:0
+msgid "Select the session"
+msgstr "Selectionner la session"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_new_act
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_new_mi
+msgid "New Subscription"
+msgstr "Nouvelle Inscription"
+
+#. module: training
+#: field:ir.attachment,component_ids:0
+#: field:res.partner.job,birthdate:0
+#: field:training.participation,session_id:0
+#: field:training.participation.stakeholder,contact_id:0
+msgid "unknown"
+msgstr "Date de naissance"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_draft_all_act
+#: model:ir.ui.menu,name:training.training_library_course_course_draft_mi
+msgid "Draft Courses"
+msgstr "Cours brouillon"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_email_new_act
+#: model:ir.ui.menu,name:training.training_email_new_mi
+msgid "New Email"
+msgstr "Nouvel Email"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "warning"
+msgstr ""
+
+#. module: training
+#: field:res.partner.contact,matricule:0
+#: field:res.partner.job,external_matricule:0
+msgid "Matricule"
+msgstr "Matricule"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_pending
+msgid "training.course.pending"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_offer_validated_act
+#: model:ir.ui.menu,name:training.training_offer_validated_mi
+msgid "Validated Offers"
+msgstr "Offres validées"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.act_window_subscription_line_to_confirm
+msgid "Subscription Lines To Confirm"
+msgstr "Lignes d'inscription à confirmer"
+
+#. module: training
+#: view:res.partner:0
+#: view:training.subscription:0
+msgid "Notification"
+msgstr "Notification"
+
+#. module: training
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Administration"
+msgstr "Administration"
+
+#. module: training
+#: view:training.seance:0
+#: field:training.seance,participant_ids:0
+#: view:training.session.duplicate.wizard:0
+#: view:training.subscription.mass.wizard:0
+msgid "Participants"
+msgstr "Participants"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "The lecturer %s has not a partner"
+msgstr "Le formateur %s n'a pas de partenaire"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "SMTP Server Error !"
+msgstr ""
+
+#. module: training
+#: model:ir.model,name:training.model_training_session_purchase_line
+msgid "training.session.purchase_line"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_catalog_all_act
+#: model:ir.ui.menu,name:training.training_catalog_mi
+#: model:ir.ui.menu,name:training.training_offer_catalog_all_mi
+#: view:training.catalog:0
+msgid "Catalogs"
+msgstr "Catalogues"
+
+#. module: training
+#: field:training.subscription,partner_rh_email:0
+msgid "Partner HR Contact"
+msgstr "Contact RH Partenaire"
+
+#. module: training
+#: help:res.partner.contact,matricule:0
+msgid "The matricule of the contact"
+msgstr "Le matricule du contact"
+
+#. module: training
+#: model:training.course.pending.reason,name:training.course_pending_reason_2
+msgid "External Update Support (Free)"
+msgstr "Mise à jour de support en Externe (Gratuit)"
+
+#. module: training
+#: help:training.subscription,name:0
+msgid "The unique identifier is generated by the system (customizable)"
+msgstr "L'identifiant unique est générer par le système (personalisable)"
+
+#. module: training
+#: help:training.seance,presence_form:0
+msgid "The training center has received the presence list"
+msgstr "Le centre de formation à reçut la liste de présence"
+
+#. module: training
+#: wizard_field:training.offer.create.session,init,date:0
+#: field:training.participation,date:0
+#: field:training.participation.stakeholder,date:0
+#: field:training.seance,date:0
+#: field:training.session,date:0
+#: field:training.subscription.line,date:0
+msgid "Date"
+msgstr "Date"
+
+#. module: training
+#: field:res.partner.contact,technical_skill_ids:0
+#: view:res.partner.contact_technical_skill:0
+msgid "Technical Skill"
+msgstr "Compétence technique"
+
+#. module: training
+#: help:training.offer,product_id:0
+msgid "An offer can be a product for invoicing"
+msgstr "Une offre peut être un produit facturable"
+
+#. module: training
+#: model:training.course.pending.reason,name:training.course_pending_reason_3
+msgid "Internal Update Support"
+msgstr "Mise à jour du support en Interne"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.res_partner_contact_technical_skill_all_act
+#: model:ir.ui.menu,name:training.partner_config_contact_technical_skill_all
+msgid "Technical Skills"
+msgstr "Compétances technique"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You have selected a session with a shared seance"
+msgstr "Vous avez selectionner une session contenant une séance partagée"
+
+#. module: training
+#: field:training.course,lang_id:0
+#: wizard_field:training.course.create.block.offer,init,lang_id:0
+#: field:training.course.offer.rel,lang_id:0
+#: field:training.course.pending,lang_id:0
+#: field:training.offer,lang_id:0
+msgid "Language"
+msgstr "Langue"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_catalog_new_act
+#: model:ir.ui.menu,name:training.training_offer_catalog_new_mi
+msgid "New Catalog"
+msgstr "Nouveau catalogue"
+
+#. module: training
+#: selection:training.catalog,state:0
+#: selection:training.course,state_course:0
+#: selection:training.course.pending,state:0
+#: selection:training.email,state:0
+#: selection:training.offer,state:0
+#: selection:training.seance,state_course:0
+msgid "Deprecated"
+msgstr "Obsolète"
+
+#. module: training
+#: model:ir.model,name:training.model_training_offer_purchase_line
+msgid "training.offer.purchase.line"
+msgstr ""
+
+#. module: training
+#: selection:training.seance,confirmed_lecturer:0
+#: selection:training.seance,presence_form:0
+msgid "No"
+msgstr "Non"
+
+#. module: training
+#: field:training.subscription.line,partner_rh:0
+msgid "Partner RH Contact"
+msgstr "Contact RH Partenaire"
+
+#. module: training
+#: model:ir.model,name:training.model_training_participation_stakeholder
+msgid "training.participation.stakeholder"
+msgstr ""
+
+#. module: training
+#: view:res.partner.contact:0
+msgid "Linguistic Skills"
+msgstr "Conpétences Linguistique"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You can not suppress a seance with a invoiced subscription"
+msgstr "Vous ne pouvez pas supprimer de séance liée avec une inscription facturée"
+
+#. module: training
+#: view:training.course:0
+msgid "History"
+msgstr "Historique"
+
+#. module: training
+#: field:training.config.session,code:0
+#: field:training.course.pending.reason,code:0
+#: view:training.course_category:0
+#: field:training.email,name:0
+#: field:training.offer.kind,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: training
+#: field:res.partner.job,orientation:0
+msgid "Orientation"
+msgstr "Orientation"
+
+#. module: training
+#: model:ir.module.module,shortdesc:training.module_meta_information
+#: model:ir.ui.menu,name:training.training_mi
+msgid "Training Management"
+msgstr "Gestion de formation"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_offer_new_act
+msgid "New Offer"
+msgstr "Nouvelle offre"
+
+#. module: training
+#: field:training.subscription.line,notification_text:0
+msgid "Notification (Kind)"
+msgstr "Notification (Type)"
+
+#. module: training
+#: view:training.catalog:0
+#: wizard_button:training.course.create.block.offer,init,end:0
+#: wizard_button:training.course.create.offer,init,end:0
+#: view:training.course.pending.wizard:0
+#: wizard_button:training.course.validate,init,end:0
+#: wizard_button:training.offer.create.session,init,end:0
+#: view:training.participation.stakeholder.session:0
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.session.duplicate.wizard:0
+#: view:training.subscription:0
+#: view:training.subscription.cancel.invoice.wizard:0
+#: view:training.subscription.line:0
+#: view:training.subscription.line.cancel.invoice.wizard:0
+#: wizard_button:training.subscription.line.confirm,init,end:0
+#: wizard_button:training.subscription.line.make_invoice,init,end:0
+#: wizard_button:training.subscription.line_second,init,end:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: training
+#: help:training.seance,participant_count:0
+msgid "Confirmed Subscriptions for this seance"
+msgstr "Inscriptions confirmées pour cette séance"
+
+#. module: training
+#: view:training.course.pending:0
+#: view:training.group:0
+msgid "Information"
+msgstr "Information"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Session Confirmation Participant"
+msgstr "Confirmation Session - Participant"
+
+#. module: training
+#: selection:purchase.order.line,state:0
+msgid "Request for Quotation"
+msgstr "Devis"
+
+#. module: training
+#: help:training.course_type,min_limit:0
+msgid "The minimum threshold is the minimum for this type of course"
+msgstr "Le seuil minimum est le minimum pour ce type de cours"
+
+#. module: training
+#: help:training.offer,is_standalone:0
+msgid "Allows to know if an offer is standalone or a block of courses"
+msgstr "Permet de savoir si une offre est un cours seul, ou un bloc de cours"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Cancellation Stakeholder"
+msgstr "Annulation Inscription - Intervenant"
+
+#. module: training
+#: model:training.course.pending.reason,name:training.course_pending_reason_6
+msgid "Other"
+msgstr "Autre"
+
+#. module: training
+#: selection:training.course,splitted_by:0
+msgid "2 Hours"
+msgstr "2 Heures"
+
+#. module: training
+#: wizard_view:training.subscription.line.make_invoice,init:0
+msgid "Do you really want to create the invoices ?"
+msgstr "Voulez-vous réellement créer les factures ?"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Session Confirmation Partner"
+msgstr "Confirmation Session - Partenaire"
+
+#. module: training
+#: help:training.session,available_seats:0
+msgid "Available Seats = Maximum Threshold - Total Confirmed Seats"
+msgstr "Places disponibles = Seuil Max. - Total places confirmées"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "Please check the Server Configuration!"
+msgstr "S'il vous plait, vérifier la configuration serveur !"
+
+#. module: training
+#: field:training.seance,is_first_seance:0
+msgid "First Seance"
+msgstr "1ère séance"
+
+#. module: training
+#: help:training.session,draft_subscriptions:0
+msgid "Draft Subscriptions for this session"
+msgstr "Inscriptions brouillon pour cette session"
+
+#. module: training
+#: field:training.course,purchase_line_ids:0
+#: field:training.seance,purchase_line_ids:0
+msgid "Supplier Commands"
+msgstr "Commandes fournisseur"
+
+#. module: training
+#: view:ir.attachment:0
+msgid "Component"
+msgstr "Composant"
+
+#. module: training
+#: field:training.participation.stakeholder.session,generated:0
+msgid "Generated"
+msgstr "Généré"
+
+#. module: training
+#: help:training.offer,name:0
+msgid "The name's offer"
+msgstr "Nom de l'offre"
+
+#. module: training
+#: help:training.seance,min_limit:0
+msgid "The Minimum of Participants in Seance"
+msgstr "Le nombre minimum de participants à la séance"
+
+#. module: training
+#: model:ir.model,name:training.model_training_config_session
+msgid "The configuration for the session"
+msgstr "La configuration pour cette session"
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription_line_cancel_invoice_wizard
+msgid "training.subscription.line.cancel.invoice.wizard"
+msgstr ""
+
+#. module: training
+#: wizard_button:training.course.validate,init,validate_courses:0
+msgid "Validate Courses"
+msgstr "Valider les cours"
+
+#. module: training
+#: field:training.course,has_support:0
+msgid "Has Support"
+msgstr "Support disponible"
+
+#. module: training
+#: view:training.seance:0
+msgid "Linked Sessions"
+msgstr "Sessions liées"
+
+#. module: training
+#: field:res.partner.contact_technical_skill,name:0
+#: field:training.config.session,name:0
+#: wizard_field:training.course.create.block.offer,init,name:0
+#: field:training.course.pending.reason,name:0
+#: field:training.course.theme,name:0
+#: field:training.group,name:0
+#: field:training.holiday.period,name:0
+#: field:training.offer,name:0
+#: wizard_field:training.offer.create.session,init,name:0
+#: field:training.offer.kind,name:0
+#: field:training.offer.public.target,name:0
+#: field:training.seance,name:0
+#: field:training.session,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_training_course_create_block_offer
+msgid "Create Block Offer"
+msgstr "Créer offre bloc"
+
+#. module: training
+#: view:training.course.pending:0
+#: view:training.offer:0
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "Course Information"
+msgstr "Information du cours"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Session Cancellation Partner"
+msgstr "Annulation Session - Partenaire"
+
+#. module: training
+#: help:training.course.purchase_line,product_qty:0
+#: help:training.offer.purchase.line,product_qty:0
+msgid "The quantity of this product"
+msgstr "La quantité pour ce produit"
+
+#. module: training
+#: help:training.course_type,max_limit:0
+msgid "The maximum threshold is the maximum for this type of course"
+msgstr "Le seuil maximum est le maximum pour ce type de cours"
+
+#. module: training
+#: field:training.seance,confirmed_lecturer:0
+msgid "Confirmed Lecturer"
+msgstr "Formateur confirmés"
+
+#. module: training
+#: help:training.offer,course_ids:0
+msgid "An offer can contain some courses"
+msgstr "Une offre peut contenir plusieurs cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_catalog_current_act
+#: model:ir.ui.menu,name:training.training_offer_catalog_current_mi
+msgid "Current Catalogs"
+msgstr "Catalogue actuel"
+
+#. module: training
+#: help:training.seance,duration:0
+msgid "The duration of the seance"
+msgstr "La durée de la séance"
+
+#. module: training
+#: model:ir.ui.menu,name:training.training_participation_mi
+#: view:training.participation.stakeholder:0
+#: field:training.participation.stakeholder.session,participation_ids:0
+#: field:training.session.duplicate.wizard,subscription_line_ids:0
+msgid "Participations"
+msgstr "Participations"
+
+#. module: training
+#: model:training.course.pending.reason,name:training.course_pending_reason_1
+msgid "External Update Support (Pay)"
+msgstr "Mise à jour du support de cours en Externe (Payante)"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_session_planning_act
+#: model:ir.ui.menu,name:training.training_planning_session_calendar_mi
+msgid "Planning of Sessions"
+msgstr "Planning des sessions"
+
+#. module: training
+#: model:ir.model,name:training.model_training_seance_purchase_line
+msgid "training.seance.purchase_line"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_session_opened_confirmed_act
+#: model:ir.ui.menu,name:training.training_planning_session_opened_confirmed_mi
+msgid "Opened & Confirmed Sessions"
+msgstr "Sessions Confirmé & Ouvert"
+
+#. module: training
+#: view:training.course.pending:0
+msgid "Internal Contact"
+msgstr "Contact interne"
+
+#. module: training
+#: field:document.price.component,attach_id:0
+msgid "Document"
+msgstr ""
+
+#. module: training
+#: view:training.course:0
+msgid "Support of Courses"
+msgstr "Support de cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_to_invoice_act
+#: model:ir.ui.menu,name:training.training_subscription_management_subscription_invoice_mi
+msgid "Subscriptions to Invoice"
+msgstr "Inscriptions à facturer"
+
+#. module: training
+#: selection:training.config.session,unit:0
+msgid "Hours"
+msgstr "Heures"
+
+#. module: training
+#: code:addons/training/document_price.py:0
+#, python-format
+msgid "No Pricelist !"
+msgstr "Aucune liste de prix !"
+
+#. module: training
+#: view:training.holiday.period:0
+msgid "Holiday Period"
+msgstr ""
+
+#. module: training
+#: field:training.subscription.line,partner_hr_email:0
+msgid "HR Email"
+msgstr "Email RH"
+
+#. module: training
+#: help:training.course_type,objective:0
+msgid "Allows to the user to write the objectives of the course type"
+msgstr "Permet à l'utilisateur de renseigner les objectifs pour ce type de cours"
+
+#. module: training
+#: help:res.partner.contact,birthplace:0
+msgid "The birthplace of the contact"
+msgstr "Le lieu de naissance du contact"
+
+#. module: training
+#: view:training.catalog:0
+#: view:training.course:0
+#: view:training.offer:0
+msgid "Validate"
+msgstr "Valider"
+
+#. module: training
+#: field:res.partner.contact,birthplace:0
+msgid "BirthPlace"
+msgstr "Lieu de naissance"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You can not cancel this purchase line it is not the only one purchase order lines in the purchase order"
+msgstr ""
+
+#. module: training
+#: field:training.course,analytic_account_id:0
+msgid "Account"
+msgstr "Compte analytique"
+
+#. module: training
+#: help:training.course,sequence:0
+msgid "The sequence can help the user to reorganize the order of the courses"
+msgstr "Le champs séquence permet de changer l'ordre des cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.holiday_period_all_act
+#: model:ir.ui.menu,name:training.holiday_period_all_mi
+#: view:training.holiday.period:0
+#: field:training.holiday.year,period_ids:0
+msgid "Holiday Periods"
+msgstr ""
+
+#. module: training
+#: view:purchase.order.line:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: training
+#: model:ir.ui.menu,name:training.training_planning_mi
+msgid "Plannings"
+msgstr "Plannings"
+
+#. module: training
+#: selection:training.config.session,unit:0
+msgid "Days"
+msgstr "Jours"
+
+#. module: training
+#: view:training.offer:0
+msgid "Complementary Offers (Internet)"
+msgstr "Offres complémentaires (Internet)"
+
+#. module: training
+#: field:training.offer,target_public_id:0
+#: view:training.offer.public.target:0
+#: field:training.offer.public.target,note:0
+msgid "Target Audience"
+msgstr "Public cible"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, Can you configure the holidays ?"
+msgstr "S'il vous plait, pouvez vous configurer les jours non-ouvré ?"
+
+#. module: training
+#: view:training.participation.stakeholder.session:0
+msgid "Generate Participations"
+msgstr "Générer les participations"
+
+#. module: training
+#: wizard_button:training.subscription.line.make_invoice,init,invoice:0
+msgid "Create Invoices"
+msgstr "Créer les factures"
+
+#. module: training
+#: code:addons/training/wizard/wizard_create_session.py:0
+#, python-format
+msgid "Please, you can create a session with a validated offer"
+msgstr ""
+
+#. module: training
+#: field:res.partner.team,specialisation_id:0
+msgid "Specialisation"
+msgstr "Spécialisation"
+
+#. module: training
+#: help:training.course.purchase_line,product_id:0
+#: help:training.offer.purchase.line,product_id:0
+msgid "The product for this purchase line"
+msgstr "Le produit pour cette ligne d'achat"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_config_product_all_act
+#: model:ir.ui.menu,name:training.training_config_product_mi
+#: view:training.config.product:0
+msgid "Config Product"
+msgstr "Config produit"
+
+#. module: training
+#: view:training.participation.stakeholder:0
+#: field:training.participation.stakeholder,payment_mode:0
+#: field:training.participation.stakeholder.session,payment_mode:0
+#: view:training.seance:0
+msgid "Payment Mode"
+msgstr "Mode de paiement"
+
+#. module: training
+#: model:ir.model,name:training.model_training_offer_public_target
+msgid "training.offer.public.target"
+msgstr ""
+
+#. module: training
+#: help:training.subscription.line,job_id:0
+msgid "Select the Participant"
+msgstr "Selectionner le participant"
+
+#. module: training
+#: help:training.seance,group_id:0
+msgid "The group of participants"
+msgstr "Le group des participants"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.holiday_period_new_act
+#: model:ir.ui.menu,name:training.holiday_period_new_mi
+msgid "New Holiday Period"
+msgstr ""
+
+#. module: training
+#: field:training.course.pending,date:0
+#: field:training.course.pending.wizard,date:0
+msgid "Planned Date"
+msgstr "Date planifiée"
+
+#. module: training
+#: wizard_view:training.course.create.offer,init:0
+msgid "Do you want to create an offer for each selected course ?"
+msgstr "Voulez-vous créer une offre pour chaque cours selectionnés ?"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Part"
+msgstr "Partie"
+
+#. module: training
+#: help:training.subscription,partner_id:0
+msgid "The Subscription name"
+msgstr "Le nom de l'inscription"
+
+#. module: training
+#: field:training.participation,subscription_id:0
+#: view:training.subscription:0
+#: field:training.subscription.cancel.invoice.wizard,subscription_id:0
+#: field:training.subscription.line,subscription_id:0
+msgid "Subscription"
+msgstr "Inscription"
+
+#. module: training
+#: selection:training.config.product,type:0
+#: view:training.seance:0
+msgid "Lecturer"
+msgstr "Formateur"
+
+#. module: training
+#: field:training.config.contact.function,kind:0
+#: field:training.offer,kind:0
+#: field:training.participation.stakeholder,kind:0
+#: field:training.seance,kind:0
+#: field:training.session,kind:0
+#: field:training.subscription,notification_text:0
+#: field:training.subscription.line,kind:0
+#: field:training.subscription.mass.line,kind:0
+msgid "Kind"
+msgstr "Genre"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, do not forget to have the seances in your session"
+msgstr "Veuillez ne pas oublier d'avoir de créer des séances dans votre session"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_offer_public_act
+#: model:ir.ui.menu,name:training.training_offer_public_mi
+msgid "Target Audience Configuration"
+msgstr "Configuration du public cible"
+
+#. module: training
+#: field:training.seance,manual:0
+#: field:training.session,manual:0
+msgid "Manual"
+msgstr "Manuelle"
+
+#. module: training
+#: view:training.participation.stakeholder.session:0
+msgid "Participations Stakeholder Session"
+msgstr "Participations des formateurs à la session"
+
+#. module: training
+#: view:training.course:0
+#: view:training.offer:0
+#: view:training.seance:0
+#: field:training.seance.purchase_line,procurement_id:0
+msgid "Procurement"
+msgstr "Approvisionnement"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Acknowledge Receipt (HR Manager)"
+msgstr ""
+
+#. module: training
+#: selection:purchase.order.line,state:0
+msgid "Shipping Exception"
+msgstr "Exception d'envoi"
+
+#. module: training
+#: model:ir.model,name:training.model_training_master_course
+msgid "training.master.course"
+msgstr ""
+
+#. module: training
+#: wizard_view:training.course.create.offer,init:0
+#: wizard_button:training.course.create.offer,init,create_offers:0
+#: wizard_view:training.course.validate,init:0
+msgid "Create Offers"
+msgstr "Créer les offres"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_seance_new_act
+#: model:ir.ui.menu,name:training.training_planning_seances_new_mi
+msgid "New Seance"
+msgstr "Nouvelle séance"
+
+#. module: training
+#: code:addons/training/document_price.py:0
+#, python-format
+msgid "Couldn't find a pricelist line matching this product\" \\n"
+"                \" and quantity.\nYou have to change either the product,\" \\n"
+"                \" the quantity or the pricelist."
+msgstr ""
+
+#. module: training
+#: selection:training.subscription.cancel.invoice.wizard,state:0
+msgid "Second Page"
+msgstr "2ème page"
+
+#. module: training
+#: selection:training.config.session,unit:0
+msgid "Month"
+msgstr "Mois"
+
+#. module: training
+#: code:addons/training/document_price.py:0
+#, python-format
+msgid "You have to select a pricelist in the sale form !\n' \\n"
+"                'Please set one before choosing a product."
+msgstr ""
+
+#. module: training
+#: field:training.config.product,type:0
+#: field:training.course,course_type_id:0
+#: wizard_field:training.course.create.block.offer,init,type_id:0
+#: field:training.course.pending,type_id:0
+#: field:training.course.pending.wizard,type:0
+#: view:training.course_type:0
+#: field:training.offer,type_id:0
+msgid "Type"
+msgstr "Type"
+
+#. module: training
+#: view:training.subscription:0
+msgid "Cancel With Invoice"
+msgstr "Annuler avec facture"
+
+#. module: training
+#: field:training.config.session,unit:0
+msgid "Unit"
+msgstr "Unité"
+
+#. module: training
+#: help:training.course,price:0
+msgid "The price of the support of the courses"
+msgstr "Le prix du support de cours"
+
+#. module: training
+#: view:training.course:0
+#: field:training.course,category_id:0
+#: field:training.course.offer.rel,category_id:0
+#: view:training.course_category:0
+msgid "Product Line"
+msgstr "Ligne produit"
+
+#. module: training
+#: selection:training.seance,confirmed_lecturer:0
+#: selection:training.seance,presence_form:0
+msgid "Yes"
+msgstr "Oui"
+
+#. module: training
+#: field:training.course.pending,todo:0
+msgid "Todo"
+msgstr "À faire"
+
+#. module: training
+#: selection:training.offer.purchase.line,procurement_quantity:0
+msgid "On All Seances"
+msgstr "Sur toutes les séances"
+
+#. module: training
+#: wizard_view:training.subscription.line.confirm,init:0
+#: wizard_view:training.subscription.line.make_invoice,init:0
+msgid "Create invoices"
+msgstr "Créer les factures"
+
+#. module: training
+#: view:ir.attachment:0
+#: field:ir.attachment,support_note:0
+#: view:training.catalog:0
+#: field:training.catalog,note:0
+#: view:training.course:0
+#: field:training.course,internal_note:0
+#: field:training.course.pending,reason:0
+#: view:training.participation.stakeholder:0
+#: field:training.participation.stakeholder,note:0
+#: view:training.seance:0
+msgid "Note"
+msgstr "Note"
+
+#. module: training
+#: view:training.holiday.year.wizard:0
+msgid "Generate Year"
+msgstr "Générer l'année"
+
+#. module: training
+#: view:training.course:0
+#: field:training.course.purchase_line,attachment_id:0
+#: view:training.offer:0
+#: field:training.offer.purchase.line,attachment_id:0
+#: field:training.seance.purchase_line,attachment_id:0
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#. module: training
+#: selection:training.participation.stakeholder,state_seance:0
+#: selection:training.seance,state:0
+#: selection:training.session,state:0
+msgid "Closed"
+msgstr "Fermé"
+
+#. module: training
+#: view:training.participation.stakeholder.session:0
+msgid "Reject"
+msgstr "Rejeter"
+
+#. module: training
+#: selection:purchase.order.line,state:0
+msgid "Invoice Exception"
+msgstr "Exception de facture"
+
+#. module: training
+#: view:training.course:0
+#: view:training.course.pending:0
+#: selection:training.course.pending,state:0
+#: selection:training.seance,state_course:0
+msgid "Pending"
+msgstr "En attente"
+
+#. module: training
+#: help:training.course,lecturer_ids:0
+msgid "The lecturers who give the course"
+msgstr "Le formateur dispensant le cours"
+
+#. module: training
+#: selection:training.participation.stakeholder,state:0
+#: field:training.participation.stakeholder.session,paid:0
+#: field:training.subscription.line,paid:0
+msgid "Paid"
+msgstr "Payé"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.group_all_act
+#: model:ir.ui.menu,name:training.group_all_mi
+#: view:training.group:0
+msgid "Groups"
+msgstr "Groupes"
+
+#. module: training
+#: wizard_view:training.subscription.line_second,init:0
+msgid "This wizard will generate the subscription !"
+msgstr "Cet assistant va créer les inscriptions !"
+
+#. module: training
+#: field:training.course.theme,active:0
+#: field:training.holiday.period,active:0
+#: field:training.subscription,notification_active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: training
+#: help:res.partner,notif_contact_id:0
+msgid "The person to contact if the the partner want to receive a notification for a subscription"
+msgstr "La personne de contact du partenaire, si celui-ci souhaite recevoir une notification lors d'une inscription"
+
+#. module: training
+#: wizard_view:training.course.validate,init:0
+msgid "Do you want to validate the selected courses ?"
+msgstr "Voulez-vous valider les cours selectionnés ?"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Seance Cancellation Partner"
+msgstr "Annluation Séance - Partenaire"
+
+#. module: training
+#: view:training.email:0
+msgid "Definition"
+msgstr "Définition"
+
+#. module: training
+#: view:training.course_type:0
+msgid "Course Type Description"
+msgstr "Description du type de cours"
+
+#. module: training
+#: field:email.smtpclient,auth:0
+msgid "Use Auth?"
+msgstr "Authentification?"
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription_mass_line
+msgid "training.subscription.mass.line"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.offer_course_link
+#: model:ir.actions.act_window,name:training.open_training_course_by_category_all_act
+#: model:ir.actions.act_window,name:training.training_course_all_act
+#: model:ir.ui.menu,name:training.training_library_course_course_mi
+#: model:ir.ui.menu,name:training.training_library_course_mi
+#: view:res.partner.contact:0
+#: field:res.partner.contact,course_ids:0
+#: view:training.course:0
+#: view:training.offer:0
+#: field:training.offer,course_ids:0
+msgid "Courses"
+msgstr "Cours"
+
+#. module: training
+#: view:training.subscription.cancel.invoice.wizard:0
+#: view:training.subscription.line.cancel.invoice.wizard:0
+msgid "Cancel - Invoice"
+msgstr "Annulation - Facturation"
+
+#. module: training
+#: view:training.email:0
+msgid "Email Description"
+msgstr "Description email"
+
+#. module: training
+#: view:training.seance:0
+msgid "Seance Description"
+msgstr "Description de la séance"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.holiday_year_wizard_act
+#: model:ir.ui.menu,name:training.holiday_year_wizard_mi
+msgid "Holiday Year Generator"
+msgstr ""
+
+#. module: training
+#: view:training.session:0
+msgid "_Create Seances"
+msgstr "_Créer les séances"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_attachment
+#: model:ir.actions.act_window,name:training.training_seance_attachment
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+#. module: training
+#: view:training.email:0
+msgid "_Validate"
+msgstr "_Valider"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "There is a seance with a start date inferior to %(days)s day(s)"
+msgstr ""
+
+#. module: training
+#: view:training.participation:0
+msgid "Participation Description"
+msgstr "Description de la participation"
+
+#. module: training
+#: field:training.config.session,value:0
+msgid "Number"
+msgstr "Nombre"
+
+#. module: training
+#: field:training.seance.purchase_line,proc_qty:0
+msgid "Ordered Quantity"
+msgstr "Quantitée commandée"
+
+#. module: training
+#: view:training.participation:0
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "General"
+msgstr "Général"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "Error sending email"
+msgstr ""
+
+#. module: training
+#: selection:purchase.order.line,state:0
+#: selection:training.participation,procurement_state:0
+#: view:training.seance:0
+#: selection:training.seance,state:0
+#: field:training.session,done:0
+#: view:training.subscription:0
+#: selection:training.subscription,state:0
+#: view:training.subscription.line:0
+#: selection:training.subscription.line,state:0
+msgid "Done"
+msgstr "Effectué"
+
+#. module: training
+#: view:training.holiday.year:0
+msgid "Periods"
+msgstr "Périodes"
+
+#. module: training
+#: selection:training.participation.stakeholder,payment_mode:0
+#: selection:training.participation.stakeholder.session,payment_mode:0
+#: view:training.subscription:0
+#: field:training.subscription.line,invoice_id:0
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, Could you check the subscription of your contact(s)"
+msgstr "Veuillez vérifier l'inscription de vos contacts""
+
+#. module: training
+#: selection:training.catalog,state:0
+#: selection:training.course,state_course:0
+#: selection:training.course.pending,state:0
+#: selection:training.email,state:0
+#: selection:training.offer,state:0
+#: selection:training.seance,state_course:0
+msgid "Validated"
+msgstr "Validé"
+
+#. module: training
+#: view:training.session:0
+msgid "Open"
+msgstr "Ouvert"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.holiday_period_future_act
+#: model:ir.ui.menu,name:training.holiday_period_future_mi
+msgid "Futures Holiday Periods"
+msgstr ""
+
+#. module: training
+#: wizard_view:training.course.create.block.offer,init:0
+msgid "Create a Block Offer"
+msgstr "Créer une offre bloc"
+
+#. module: training
+#: selection:training.participation,procurement_state:0
+msgid "To Do"
+msgstr "À faire"
+
+#. module: training
+#: help:training.participation,present:0
+msgid "Allows to know if a participant was present or not"
+msgstr "Permet de savoir si un participant était présent ou non"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You can not select this date because it is a public holiday"
+msgstr "Vous ne pouvez pas sélectionner cette date, car c'est un jour férié"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Confirmation HR Manager"
+msgstr "Confirmation Inscription - Contact RH"
+
+#. module: training
+#: model:ir.module.module,description:training.module_meta_information
+msgid "\n"
+"From the conception of a project to the elaboration of your catalog, our training management allows you to create easily courses and to organize the sessions.\n"
+"With the analytic account support, you can know the costs of your trainings.\n"
+"\n"
+"* Manage the subscriptions\n"
+"* Manage the courses\n"
+"* Manage the offers (for a planning)\n"
+"* Manage the sessions\n"
+"* Manage the support of course\n"
+""
+msgstr ""
+
+#. module: training
+#: field:res.partner.contact,education_level:0
+msgid "Education Level"
+msgstr "Niveau d'éducation"
+
+#. module: training
+#: code:addons/training/wizard/wizard_create_block_offer.py:0
+#, python-format
+msgid "Please, The state of all courses must be 'validated'"
+msgstr "Erreur, tout les cours doit être en état 'validé'""
+
+#. module: training
+#: field:document.price.component,product_id:0
+#: field:training.config.product,product_id:0
+#: field:training.course.purchase_line,product_id:0
+#: field:training.offer,product_id:0
+#: field:training.offer.purchase.line,product_id:0
+#: field:training.seance.purchase_line,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.subscription_cancel_invoice_wizard_act
+#: model:ir.actions.act_window,name:training.subscription_line_cancel_invoice_wizard_act
+#: view:training.subscription.cancel.invoice.wizard:0
+msgid "Cancel & Invoice"
+msgstr "Annuler & Facturer"
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_training_course_create_offer
+msgid "Create Standalone Offer(s)"
+msgstr "Créer offre(s) standalone"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_seance_to_confirm_act
+#: model:ir.ui.menu,name:training.training_planning_seances_confirm_mi
+msgid "Seances to Confirm"
+msgstr "Séances à confirmer"
+
+#. module: training
+#: model:ir.model,name:training.model_training_session
+#: field:training.group,session_id:0
+#: field:training.participation.stakeholder.session,session_id:0
+#: view:training.session:0
+#: field:training.session.duplicate.wizard,session_id:0
+#: field:training.subscription.line,session_id:0
+#: field:training.subscription.line.cancel.invoice.wizard,session_id:0
+#: field:training.subscription.line.second,session_id:0
+#: view:training.subscription.mass.line:0
+#: field:training.subscription.mass.line,session_id:0
+msgid "Session"
+msgstr "Session"
+
+#. module: training
+#: help:training.catalog,note:0
+msgid "Allows to write a note for the catalog"
+msgstr "Permet de spécifier une note pour le catalogue"
+
+#. module: training
+#: help:training.subscription.line,subscription_id:0
+msgid "Select the subscription"
+msgstr "Selectionner l'inscription"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_seance_calendar_all_act
+#: model:ir.ui.menu,name:training.training_planning_seances_planning_mi
+msgid "Calendar of Seances"
+msgstr "Calendrier des séances"
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_training_subscription_line_invoice
+msgid "Make invoices"
+msgstr "Creer les factures"
+
+#. module: training
+#: field:training.session,id:0
+msgid "ID Database"
+msgstr ""
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_type_all_act
+#: model:ir.ui.menu,name:training.training_config_library_course_type_mi
+#: view:training.course_type:0
+msgid "Types"
+msgstr "Types"
+
+#. module: training
+#: view:training.course:0
+#: selection:training.course,state_course:0
+msgid "Ask Review"
+msgstr ""
+
+#. module: training
+#: selection:training.participation.stakeholder,state:0
+#: selection:training.participation.stakeholder.session,state:0
+msgid "Requested"
+msgstr ""
+
+#. module: training
+#: selection:training.participation.stakeholder,state_seance:0
+#: selection:training.session,state:0
+msgid "Closed Confirmed"
+msgstr "Confirmé Fermé"
+
+#. module: training
+#: field:training.course.purchase_line,product_uom:0
+#: field:training.offer.purchase.line,product_uom:0
+#: field:training.seance.purchase_line,product_uom:0
+msgid "Product UoM"
+msgstr "UdM Produit"
+
+#. module: training
+#: field:training.participation,subscription_line_id:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+#: field:training.subscription.line.cancel.invoice.wizard,subscription_line_id:0
+msgid "Subscription Line"
+msgstr "Ligne d'inscription"
+
+#. module: training
+#: view:training.offer:0
+#: field:training.offer,complementary_offer_ids:0
+msgid "Complementary Offers"
+msgstr "Offres complémentaires"
+
+#. module: training
+#: help:training.course,state_course:0
+msgid "The state of the course"
+msgstr "État du cours"
+
+#. module: training
+#: wizard_button:training.course.create.block.offer,init,create_offers:0
+msgid "Create the Block Offer"
+msgstr "Créer l'offre bloc"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.course_linked_course
+msgid "Linked Courses"
+msgstr "Cours liées"
+
+#. module: training
+#: selection:training.participation.stakeholder,state_seance:0
+#: selection:training.session,state:0
+msgid "Opened Confirmed"
+msgstr "Confirmé Ouvert"
+
+#. module: training
+#: selection:training.course,splitted_by:0
+msgid "4 Hours"
+msgstr "4 Heures"
+
+#. module: training
+#: field:training.course,duration:0
+#: field:training.course,duration_with_children:0
+#: field:training.course,duration_without_children:0
+#: field:training.course.offer.rel,duration:0
+#: field:training.offer,duration:0
+#: field:training.participation.stakeholder,duration:0
+#: field:training.seance,duration:0
+msgid "Duration"
+msgstr "Durée"
+
+#. module: training
+#: field:training.holiday.period,date_start:0
+msgid "Date Start"
+msgstr "Date début"
+
+#. module: training
+#: field:document.price.component,price:0
+#: field:ir.attachment,price:0
+#: field:training.course,price:0
+msgid "Price"
+msgstr "Prix"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_subcourse_act
+msgid "Course Structure (By Sub Courses)"
+msgstr "Structure de cours (par partie de cours)"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Seance Confirmation Participant"
+msgstr "Confirmation Séance - Participant"
+
+#. module: training
+#: view:ir.attachment:0
+msgid "Components"
+msgstr "Composants"
+
+#. module: training
+#: field:training.offer,is_standalone:0
+msgid "Is Standalone"
+msgstr "Est standalone"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "\"\"Can you check the email configuration, because the system doesn't find the email with this code \"%s\" \"\""
+msgstr ""
+
+#. module: training
+#: field:training.subscription.line.cancel.invoice.wizard,filename:0
+msgid "Filename"
+msgstr "Nom du fichier"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You can not confirm a seance without at least one participant"
+msgstr "Vous ne pouvez pas confirmer une séance sans au moins 1 participant"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_subscription_mass_act
+#: model:ir.ui.menu,name:training.training_subscription_mass_mi
+#: view:training.subscription.mass.wizard:0
+msgid "Mass Subscription"
+msgstr "Inscription en masse"
+
+#. module: training
+#: help:res.partner,notif_participant:0
+msgid "Allows to know if the participant wants to receive a notification"
+msgstr "Permet de savoir si le participant désire recevoir une notification"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_session_participants_act
+#: field:training.seance,draft_seats:0
+#: help:training.seance,draft_seats:0
+#: field:training.session,draft_subscriptions:0
+#: field:training.subscription.line,draft_subscriptions:0
+msgid "Draft Subscriptions"
+msgstr "Inscriptions brouillon"
+
+#. module: training
+#: view:training.course.pending.wizard:0
+msgid "Course Pending"
+msgstr "Cours en attente"
+
+#. module: training
+#: field:training.offer.purchase.line,fix:0
+#: field:training.seance.purchase_line,fix:0
+msgid "Invoiced Quantity"
+msgstr "Quantité facturée"
+
+#. module: training
+#: field:training.course,attachment_ids:0
+msgid "Supports of Course"
+msgstr "Supports de cours"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Seance Confirmation Partner"
+msgstr "Confirmation Séance - Partenaire"
+
+#. module: training
+#: field:training.course.offer.rel,offer_id:0
+#: view:training.offer:0
+#: field:training.offer.purchase.line,offer_id:0
+#: field:training.participation.stakeholder.session,offer_id:0
+#: field:training.session,offer_id:0
+#: field:training.subscription.line,offer_id:0
+msgid "Offer"
+msgstr "Offre"
+
+#. module: training
+#: field:training.seance,participant_count_manual:0
+#: field:training.session,participant_count_manual:0
+msgid "Manual Confirmed Seats"
+msgstr "Places confirmées manuellement"
+
+#. module: training
+#: model:ir.ui.menu,name:training.holiday_mi
+msgid "Holidays"
+msgstr "Congés"
+
+#. module: training
+#: view:training.course:0
+#: view:training.course.pending:0
+#: field:training.course.pending,type:0
+#: field:training.course.pending.wizard,reason:0
+msgid "Reason"
+msgstr "Raison"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_config_contact_function_act
+#: model:ir.ui.menu,name:training.training_config_contact_function_mi
+#: view:training.config.contact.function:0
+msgid "Contact Function Configuration"
+msgstr "Configuration fonction de contact"
+
+#. module: training
+#: field:training.course,p_id:0
+msgid "Parent Course"
+msgstr "Module de cours"
+
+#. module: training
+#: selection:purchase.order.line,state:0
+msgid "Approved"
+msgstr "Approuvé"
+
+#. module: training
+#: view:training.subscription.line.cancel.invoice.wizard:0
+msgid "Without a certificate, the system will generate the penalties"
+msgstr "Sans certificat médical, le système va générer des pénalités"
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription
+msgid "training.subscription"
+msgstr ""
+
+#. module: training
+#: help:training.course_type,description:0
+msgid "Allows to the user to write the description of the course type"
+msgstr "Permet à l'utilisateur de spécifier la description du type de cours"
+
+#. module: training
+#: field:training.course.pending,purchase_order_id:0
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
+
+#. module: training
+#: model:ir.model,name:training.model_training_contact_course
+msgid "training.contact.course"
+msgstr ""
+
+#. module: training
+#: selection:training.offer.purchase.line,procurement_quantity:0
+msgid "Relative to the course"
+msgstr "Relatif au cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_offer_draft_act
+#: model:ir.ui.menu,name:training.training_offer_draft_mi
+msgid "Draft Offers"
+msgstr "Offres brouillon"
+
+#. module: training
+#: selection:purchase.order.line,state:0
+#: selection:training.catalog,state:0
+#: selection:training.participation,procurement_state:0
+#: selection:training.participation,state:0
+#: selection:training.participation.stakeholder,state:0
+#: selection:training.participation.stakeholder,state_seance:0
+#: selection:training.participation.stakeholder.session,state:0
+#: selection:training.seance,state:0
+#: selection:training.session,state:0
+#: selection:training.subscription,state:0
+#: selection:training.subscription.line,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: training
+#: help:training.course.purchase_line,product_uom:0
+#: help:training.offer.purchase.line,product_uom:0
+msgid "The unit of mesure for this product"
+msgstr "L'unité de mesure pour ce produit"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_category_all_act
+#: model:ir.ui.menu,name:training.training_config_library_product_line_mi
+#: view:training.course_category:0
+msgid "Product Lines"
+msgstr "Lignes produit"
+
+#. module: training
+#: model:training.course.pending.reason,name:training.course_pending_reason_4
+msgid "Update Questionnaire"
+msgstr "Mise à jour questionnaire"
+
+#. module: training
+#: model:ir.model,name:training.model_training_subscription_cancel_invoice_wizard
+msgid "training.subscription.cancel.invoice.wizard"
+msgstr ""
+
+#. module: training
+#: help:training.catalog,state:0
+msgid "The status of the catalog"
+msgstr "État du catalogue"
+
+#. module: training
+#: model:ir.actions.wizard,name:training.wizard_training_subscription_line_confirm
+msgid "Confirm Subscription Lines"
+msgstr "Confirmer les lignes d'inscription"
+
+#. module: training
+#: view:training.course:0
+msgid "Short Name"
+msgstr "Nom court"
+
+#. module: training
+#: help:training.participation.stakeholder,job_id:0
+msgid "Select the contact of participation"
+msgstr "Selectionnez le contact du participant"
+
+#. module: training
+#: code:addons/training/wizard/wizard_create_block_offer.py:0
+#, python-format
+msgid "Please, You have selected a course with a different language"
+msgstr "Veuillez sélection un cours avec une autre langue"
+
+#. module: training
+#: code:addons/training/partner.py:0
+#: code:addons/training/training.py:0
+#: code:addons/training/training_holiday.py:0
+#: code:addons/training/wizard/wizard_create_block_offer.py:0
+#: code:addons/training/wizard/wizard_create_offer.py:0
+#: code:addons/training/wizard/wizard_create_session.py:0
+#, python-format
+msgid "Warning"
+msgstr "Avertissement"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.participation_stakeholder_draft_all_act
+#: model:ir.ui.menu,name:training.participation_stakeholder_draft_mi
+msgid "Draft Participations (StakeHolder)"
+msgstr "Participations brouillon (Intervenant)"
+
+#. module: training
+#: view:purchase.order.line:0
+msgid "Purchase Order Line"
+msgstr "Ligne de commande"
+
+#. module: training
+#: view:training.seance:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+#: view:training.subscription.line.cancel.invoice.wizard:0
+#: wizard_button:training.subscription.line.confirm,init,confirm:0
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: training
+#: view:training.subscription:0
+msgid "Other Data"
+msgstr "Autre donnée"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Confirmation"
+msgstr "Confirmation Inscription"
+
+#. module: training
+#: help:res.partner.contact_technical_skill,name:0
+msgid "The name of the technical skill"
+msgstr "Le nom de la compétence technique"
+
+#. module: training
+#: field:training.course,with_children:0
+msgid "With Children"
+msgstr "Avec partie de cours"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.course_offer_link
+#: model:ir.actions.act_window,name:training.training_offer_all_act
+#: model:ir.ui.menu,name:training.training_offer_all_mi
+#: model:ir.ui.menu,name:training.training_offer_mi
+#: view:training.offer:0
+msgid "Offers"
+msgstr "Offres"
+
+#. module: training
+#: help:training.seance,available_seats:0
+msgid "Available seats in Seance"
+msgstr "Places disponibles dans la séance"
+
+#. module: training
+#: field:training.course.pending,job_email:0
+#: view:training.email:0
+#: field:training.participation.stakeholder,email:0
+#: field:training.participation.stakeholder.session,email:0
+#: field:training.subscription.line,job_email:0
+msgid "Email"
+msgstr "Email"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Seance Cancellation Participant"
+msgstr "Annulation Séance - Participant"
+
+#. module: training
+#: field:training.participation.stakeholder,state_seance:0
+msgid "State of Seance"
+msgstr "État de la séance"
+
+#. module: training
+#: view:training.offer:0
+#: view:training.seance:0
+msgid "Manual Description"
+msgstr "Description manuelle"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.subscription_line_second_all_act
+#: model:ir.ui.menu,name:training.subscription_line_second_all_mi
+msgid "Subscription Lines (Validation)"
+msgstr "Lignes d'inscriptions (Validation)"
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription Cancellation Participant"
+msgstr "Annulation Inscription - Participant"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Group A"
+msgstr "Groupe A"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.course_pending_all_act
+#: model:ir.ui.menu,name:training.course_pending_mi
+msgid "Courses Pending Reviews (Update)"
+msgstr "Cours en attente de relecture (Mise à jour)"
+
+#. module: training
+#: model:ir.model,name:training.model_training_catalog
+#: view:training.catalog:0
+#: field:training.session,catalog_id:0
+msgid "Catalog"
+msgstr "Catalogue"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "You can not approve this purchase line it is not the only one purchase order lines in the purchase order"
+msgstr ""
+
+#. module: training
+#: help:training.session,catalog_id:0
+msgid "Allows to select a published catalog"
+msgstr "Permet de selectionner un catalogue publié"
+
+#. module: training
+#: field:training.course.offer.rel,course_type_id:0
+#: field:training.course_type,name:0
+msgid "Course Type"
+msgstr "Type de cours"
+
+#. module: training
+#: selection:training.participation.stakeholder,state:0
+#: selection:training.participation.stakeholder.session,state:0
+msgid "Accepted"
+msgstr "Accepté"
+
+#. module: training
+#: wizard_view:training.course.create.block.offer,init:0
+#: view:training.offer:0
+msgid "Offer Description"
+msgstr "Description de l'offre"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.action_training_participation_all
+#: model:ir.ui.menu,name:training.training_participation_all_mi
+msgid "Participations (Seance)"
+msgstr "Participations (Séance)"
+
+#. module: training
+#: help:training.subscription,state:0
+msgid "The state of the Subscription"
+msgstr "L'etat de l'inscription"
+
+#. module: training
+#: view:training.holiday.year.wizard:0
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+#: view:training.subscription.mass.wizard:0
+msgid "_Cancel"
+msgstr "_Annuler"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_by_category_all_act
+#: model:ir.ui.menu,name:training.training_library_course_category_course_mi
+msgid "Course Structure (By Product Line)"
+msgstr "Structure de cours (par ligne produit)"
+
+#. module: training
+#: field:training.subscription.line,validation_date:0
+msgid "Validation Date"
+msgstr "Date de validation"
+
+#. module: training
+#: code:addons/training/partner.py:0
+#, python-format
+msgid "\"\"Do not forget to configure the contact's function\"\""
+msgstr "\"\"N'oubliez pas de configurer les fonctions de contact's\"\""
+
+#. module: training
+#: selection:training.email,name:0
+msgid "Subscription stakeholder"
+msgstr "Inscription intervenant"
+
+#. module: training
+#: field:training.course_category,complete_name:0
+msgid "Full Name"
+msgstr "Nom complet"
+
+#. module: training
+#: wizard_button:training.offer.create.session,init,create_session:0
+msgid "Create Session"
+msgstr "Créer la session"
+
+#. module: training
+#: field:training.subscription.line,invoice_line_id:0
+msgid "Invoice Line"
+msgstr "Ligne de facture"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "The number of participants is less than the required minimal limit"
+msgstr "Le nombre de participants est inférieur au seuil minimum"
+
+#. module: training
+#: help:training.seance,state:0
+msgid "The status of the Seance"
+msgstr "Le status de la séance"
+
+#. module: training
+#: view:training.seance:0
+msgid "Seats"
+msgstr "Places"
+
+#. module: training
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Cancel with Invoice"
+msgstr "Annuler avec facture"
+
+#. module: training
+#: field:training.email,subject:0
+msgid "Subject"
+msgstr "Sujet"
+
+#. module: training
+#: view:training.subscription:0
+msgid "Invoiced"
+msgstr "Facturé"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_session_new_act
+#: model:ir.ui.menu,name:training.training_planning_session_new_mi
+msgid "New Session"
+msgstr "Nouvelle session"
+
+#. module: training
+#: model:ir.model,name:training.model_training_config_product
+msgid "training.config.product"
+msgstr ""
+
+#. module: training
+#: field:training.course,course_ids:0
+msgid "Sub Courses"
+msgstr "Parties de cours"
+
+#. module: training
+#: selection:training.participation.stakeholder,state_seance:0
+#: selection:training.seance,state:0
+#: selection:training.session,state:0
+msgid "Opened"
+msgstr "Ouvert"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_participation_stakeholder_session_all_act
+#: model:ir.ui.menu,name:training.training_participation_stakeholder_session_all_mi
+msgid "Participations Stakeholder Sessions"
+msgstr "Participations des formateurs aux sessions"
+
+#. module: training
+#: model:ir.ui.menu,name:training.partner_config_contact
+#: field:training.subscription.mass.wizard,job_ids:0
+msgid "Contacts"
+msgstr "Contacts"
+
+#. module: training
+#: selection:training.offer.purchase.line,procurement_quantity:0
+msgid "On Last Seance"
+msgstr "Sur dernière séance"
+
+#. module: training
+#: view:training.holiday.year.wizard:0
+#: view:training.subscription.mass.wizard:0
+msgid "_Apply"
+msgstr "_Appliquer"
+
+#. module: training
+#: selection:purchase.order.line,state:0
+#: selection:training.participation,state:0
+#: selection:training.seance,state:0
+#: selection:training.subscription,state:0
+#: selection:training.subscription.line,state:0
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: training
+#: help:training.seance,max_limit:0
+msgid "The Maximum of Participants in Seance"
+msgstr "Le nombre maximum de participants dans la séance"
+
+#. module: training
+#: view:training.session.duplicate.wizard:0
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#. module: training
+#: selection:training.catalog,state:0
+#: selection:training.course,state_course:0
+#: selection:training.course.pending,state:0
+#: selection:training.email,state:0
+#: selection:training.offer,state:0
+#: selection:training.participation,state:0
+#: selection:training.participation.stakeholder,state:0
+#: selection:training.participation.stakeholder,state_seance:0
+#: selection:training.participation.stakeholder.session,state:0
+#: selection:training.seance,state_course:0
+#: selection:training.session,state:0
+#: selection:training.subscription,state:0
+#: selection:training.subscription.line,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: training
+#: view:training.course.pending:0
+#: view:training.participation.stakeholder:0
+msgid "Contact Information"
+msgstr "Information du contact"
+
+#. module: training
+#: field:training.seance,duplicata:0
+msgid "Duplicata"
+msgstr "Duplicata"
+
+#. module: training
+#: field:training.seance,shared:0
+msgid "Shared"
+msgstr "Partagée"
+
+#. module: training
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Create Invoice"
+msgstr "Créer la facture"
+
+#. module: training
+#: selection:training.participation.stakeholder,kind:0
+#: selection:training.seance,kind:0
+msgid "Exam"
+msgstr "Examen"
+
+#. module: training
+#: view:training.offer:0
+msgid "Pedagogical Suggestion"
+msgstr "Suggestion pédagogique"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_offer_deprecated_act
+#: model:ir.ui.menu,name:training.training_offer_deprecated_mi
+msgid "Deprecated Offers"
+msgstr "Offres obsolètes"
+
+#. module: training
+#: help:training.offer,description:0
+msgid "Allows to write the description of the course"
+msgstr "Permet de spécifier une description pour le cours"
+
+#. module: training
+#: view:training.offer:0
+msgid "Offer Content (Internet Index)"
+msgstr "Contenu de l'offre (Index Internet)"
+
+#. module: training
+#: code:addons/training/partner.py:0
+#, python-format
+msgid "Please, Could you configure the contact's function ?"
+msgstr "Veuillez configurer les fonctions de contact"
+
+#. module: training
+#: code:addons/training/partner.py:0
+#, python-format
+msgid "Please, Could you check the functions because the system does not find any function with the status 'current'"
+msgstr "Veuillez vérifier les fonctions car le système ne trouve aucune fonction avec le status 'courant'"
+
+#. module: training
+#: field:training.course.purchase_line,product_price:0
+#: field:training.offer.purchase.line,product_price:0
+msgid "Cost Price"
+msgstr "Prix d'achat"
+
+#. module: training
+#: view:training.catalog:0
+#: view:training.course:0
+#: view:training.email:0
+#: view:training.offer:0
+msgid "Deprecate"
+msgstr "Rendre obsolète"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, you have at least a draft seance"
+msgstr ""
+
+#. module: training
+#: field:res.partner,notif_contact_id:0
+msgid "Contact HR"
+msgstr "Contact RH"
+
+#. module: training
+#: help:training.subscription,address_id:0
+msgid "The Subscription invoice address"
+msgstr "L'adresse de facturation de l'inscription"
+
+#. module: training
+#: selection:training.participation.stakeholder,payment_mode:0
+#: selection:training.participation.stakeholder.session,payment_mode:0
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: training
+#: selection:training.subscription.cancel.invoice.wizard,state:0
+msgid "First Page"
+msgstr "Page de garde"
+
+#. module: training
+#: code:addons/training/training_email.py:0
+#, python-format
+msgid "Error"
+msgstr "Erreur"
+
+#. module: training
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "_Reject"
+msgstr "_Rejecter"
+
+#. module: training
+#: field:purchase.order.line,state:0
+msgid "Order Status"
+msgstr "Status commande"
+
+#. module: training
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "_Request"
+msgstr ""
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_pending_reason
+msgid "training.course.pending.reason"
+msgstr ""
+
+#. module: training
+#: help:training.catalog,year:0
+msgid "The year when the catalog has been published"
+msgstr "L'année de publication du catalogue"
+
+#. module: training
+#: selection:training.config.product,type:0
+msgid "Voucher"
+msgstr ""
+
+#. module: training
+#: help:training.course,course_ids:0
+msgid "A course can be completed with some subcourses"
+msgstr "Un cours peut être compléter avec des parties de cours"
+
+#. module: training
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Close"
+msgstr "Fermer"
+
+#. module: training
+#: field:training.participation.stakeholder.session,offer_kind:0
+msgid "Offer's Kind"
+msgstr "Type d'offre"
+
+#. module: training
+#: view:training.course.pending:0
+msgid "Courses in Pending"
+msgstr "Cours en attente"
+
+#. module: training
+#: help:training.offer,state:0
+msgid "The status of the course"
+msgstr "État du cours"
+
+#. module: training
+#: view:training.offer:0
+msgid "Preliminary Offers (Internet)"
+msgstr "Offres préliminaires (Internet)"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.training_course_planned
+msgid "Planned Courses"
+msgstr "Cours plannifiés"
+
+#. module: training
+#: field:training.course,reference_type:0
+msgid "Master Course's Type"
+msgstr "Type du cours référant"
+
+#. module: training
+#: code:addons/training/training.py:0
+#, python-format
+msgid "Please, Check the date of your seances because there is one seance with a date inferior to the session's date"
+msgstr "Veuillez vérifier la date des séances, car il y a au moins une séance avec un date inférieur à celle de la session"
+
+#. module: training
+#: view:training.course_category:0
+msgid "Product Line Description"
+msgstr "Description ligne produit"
+
+#. module: training
+#: help:training.session,state:0
+msgid "The status of the session"
+msgstr "État de la session"
+
+#. module: training
+#: field:training.config.contact.function,function_id:0
+#: field:training.contact.course,function_id:0
+msgid "Function"
+msgstr "Fonction"
+
+#. module: training
+#: view:training.course_category:0
+#: view:training.course_type:0
+#: field:training.course_type,description:0
+#: view:training.email:0
+#: field:training.email,description:0
+#: view:training.offer:0
+#: field:training.offer,description:0
+#: field:training.seance.purchase_line,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.act_window_session_from_subscription
+#: model:ir.actions.act_window,name:training.training_session_all_act
+#: model:ir.ui.menu,name:training.training_planning_session_all_mi
+#: view:training.catalog:0
+#: field:training.catalog,session_ids:0
+#: field:training.seance,session_ids:0
+#: view:training.session:0
+#: view:training.subscription.mass.line:0
+#: view:training.subscription.mass.wizard:0
+#: field:training.subscription.mass.wizard,session_ids:0
+msgid "Sessions"
+msgstr "Sessions"
+
+#. module: training
+#: view:purchase.order.line:0
+msgid "Cancel Purchase Order Line"
+msgstr "Annuler la ligne de commande d'achat"
+
+#. module: training
+#: view:training.offer:0
+#: field:training.offer,preliminary_offer_ids:0
+msgid "Preliminary Offers"
+msgstr "Offres préliminaires"
+
+#. module: training
+#: field:training.course.pending,followup_by:0
+msgid "Followup By"
+msgstr "Suivi par"
+
+#. module: training
+#: selection:training.offer.purchase.line,procurement_quantity:0
+msgid "On First Seance"
+msgstr "Sur la 1ère séance"
+
+#. module: training
+#: view:training.seance:0
+msgid "Lecturer Information"
+msgstr "Information sur le formateur"
+
+#. module: training
+#: model:training.course.pending.reason,name:training.course_pending_reason_5
+msgid "Update Course"
+msgstr "Mise à jour du cours"
+
+#. module: training
+#: model:ir.model,name:training.model_training_course_pending_wizard
+msgid "training.course.pending.wizard"
+msgstr ""
+
+#. module: training
+#: view:training.subscription:0
+msgid "Subscription Description"
+msgstr "Description de l'inscription"
+
+#. module: training
+#: field:training.course,reference_lang_id:0
+msgid "Master Course's Language"
+msgstr "Langue du cours référant"
+
+#. module: training
+#: help:training.subscription.line,state:0
+msgid "The state of participant"
+msgstr "L'état du participant"
+
+#. module: training
+#: wizard_view:training.subscription.line.confirm,init:0
+msgid "Do you want to confirm all subscription lines ?"
+msgstr "Voulez vous confirmer toutes les lignes d'inscription ?"
+
+#. module: training
+#: wizard_view:training.offer.create.session,init:0
+msgid "Can you select a date for the session ?"
+msgstr "Veuillez selectionner une date pour la session"
+
+#. module: training
+#: field:training.course,sequence:0
+#: field:training.course.offer.rel,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: training
+#: field:training.subscription.line,price:0
+msgid "Sale Price"
+msgstr "Prix de vente"
+
+#. module: training
+#: field:training.subscription,payment_term_id:0
+msgid "Payment Term"
+msgstr "Conditions de paiement"
+
+#. module: training
+#: view:training.participation.stakeholder.session:0
+msgid "Accept"
+msgstr "Accepter"
+
+#. module: training
+#: view:training.course:0
+#: field:training.course,pending_ids:0
+msgid "Pendings"
+msgstr "En attente"
+
+#. module: training
+#: field:training.subscription,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: training
+#: code:addons/training/wizard/wizard_create_block_offer.py:0
+#, python-format
+msgid "You have selected a course with a different language"
+msgstr "Vous avez selectionné un cours avec une langue différente"
+
+#. module: training
+#: field:training.catalog,year:0
+#: field:training.holiday.period,year_id:0
+#: field:training.holiday.year,year:0
+#: field:training.holiday.year.wizard,year:0
+msgid "Year"
+msgstr "Année"
+
+#. module: training
+#: model:ir.actions.act_window,name:training.wizard_course_pending
+msgid "wizard.course.pending"
+msgstr ""
+

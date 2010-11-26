@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record id="training_holiday_wizard_1" model="training.holiday.year.wizard">
+            <field name="year" eval="int(time.strftime('%Y'))" />
+        </record>
+
+        <function model="training.holiday.year.wizard" name="action_apply">
+            <value eval="[ref('training_holiday_wizard_1')]" />
+        </function>
+    </data>
+    <data noupdate="1">
+        <record id="training_session_0" model="training.session">
+            <field name="offer_id" ref="training.training_offer_openerpintegrator0"/>
+            <field name="name">Open ERP 5.0 - Integrator</field>
+            <field name="catalog_id" ref="training.training_catalog_0"/>
+            <field eval="(DateTime.now() + DateTime.RelativeDateTime(months=1)).strftime('%Y-%m-%d 08:30:00')" name="date" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="format_id" ref="training_offer_format0" />
+        </record>
+    </data>
+    <data>
+        <function model="training.session" name="action_create_seances">
+            <value eval="[ref('training_session_0')]" />
+        </function>
+        <workflow action="signal_open" model="training.session" ref="training_session_0"/>
+        <workflow action="signal_open_confirm" model="training.session" ref="training_session_0"/>
+    </data>
+    <data noupdate="1">
+        <record id="training_session_1" model="training.session">
+            <field name="offer_id" ref="training.training_offer_openerpbusiness0"/>
+            <field name="name">Open ERP 5.0 - Business</field>
+            <field name="catalog_id" ref="training.training_catalog_0"/>
+            <field eval="(DateTime.now() + DateTime.RelativeDateTime(days=25)).strftime('%Y-%m-%d 08:30:00')" name="date" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="format_id" ref="training_offer_format1" />
+        </record>
+    </data>
+    <data>
+        <function model="training.session" name="action_create_seances">
+            <value eval="[ref('training_session_1')]" />
+        </function>
+        <workflow action="signal_open" model="training.session" ref="training_session_1"/>
+    </data>
+    <data noupdate="1">
+        <record id="training_session_2" model="training.session">
+            <field name="offer_id" ref="training.training_offer_openerpbusiness0"/>
+            <field name="name">Open ERP 5.0 - Business</field>
+            <field name="catalog_id" ref="training.training_catalog_0"/>
+            <field eval="(DateTime.now() + DateTime.RelativeDateTime(days=15)).strftime('%Y-%m-%d 08:30:00')" name="date" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="format_id" ref="training_offer_format1" />
+        </record>
+    </data>
+    <data>
+        <function model="training.session" name="action_create_seances">
+            <value eval="[ref('training_session_2')]" />
+        </function>
+        <workflow action="signal_open" model="training.session" ref="training_session_2"/>
+        <workflow action="signal_open_confirm" model="training.session" ref="training_session_2"/>
+    </data>
+</openerp>

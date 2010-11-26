@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="training_course_type_basic0" model="training.course_type">
+			<field eval="10" name="max_limit"/>
+			<field eval="&quot;&quot;&quot;Basic&quot;&quot;&quot;" name="name"/>
+			<field eval="5" name="min_limit"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_course_type_advanced0" model="training.course_type">
+			<field eval="10" name="max_limit"/>
+			<field eval="&quot;&quot;&quot;Advanced&quot;&quot;&quot;" name="name"/>
+			<field eval="5" name="min_limit"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_course_type_expert0" model="training.course_type">
+			<field eval="5" name="max_limit"/>
+			<field eval="&quot;&quot;&quot;Expert&quot;&quot;&quot;" name="name"/>
+			<field eval="3" name="min_limit"/>
+		</record>
+	</data>
+</openerp>

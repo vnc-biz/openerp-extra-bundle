@@ -173,6 +173,17 @@ class base_partner_merge(osv.osv_memory):
                         res['comment'] += '\n' + str_unq
                     else:
                         res['comment'] = str_unq
+        list_partn = []
+        list_partn.append(part1)
+        list_partn.append(part2)
+        count_default_address = 0
+        for partner in partner_pool.browse(cr, uid, list_partn):
+            for address in partner.address:
+                if address.type == 'default':
+                    count_default_address +=1
+        if count_default_address > 1:
+            raise osv.except_osv(_('Error!'), _('You have more than one default type in your addresses.\n Please change it and test once again!'))
+
 
         remove_field.update({'active': False})
         try:

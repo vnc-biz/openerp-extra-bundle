@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+        <!--
         <report
             id="training_planned_exam_cancel_report"
             model="training.planned_exam"
             name="training.planned_exam.cancel"
             string="Training Cancellation"
+            groups="training.group_subscription_manager"
             rml="training_exam/report/training_exam_cancel.rml" />
 
         <report
@@ -14,7 +16,75 @@
             name="training.planned_exam.report"
             string="Training Confirmation"
             rml="training_exam/report/training_exam_confirm.rml" />
+        -->
 
+        <report
+            id="training_questionnaire"
+            model="training.exam.questionnaire"
+            name="training.exam.questionnaire.report"
+            string="Preview Exam Sheet With Solution"
+            rml="training_exam/report/exam_sheet.rml"
+            header="False"/>
+
+        <report
+            id="training_participation"
+            model="training.participation"
+            name="training.participation.report"
+            string="Print Original Exam Sheet"
+            rml="training_exam/report/exam_sheet.rml"
+            header="False"
+            attachment="('Exam_'+('%08d' % (object.id)))"
+            attachment_use="1"
+            groups="training_exam.group_exam_user"/>
+
+	<report
+	    id="training_participation_preview"
+	    model="training.exam.questionnaire"
+	    name="training.participation.report.preview"
+	    string="Preview Exam Sheet"
+	    rml="training_exam/report/exam_sheet.rml"
+	    header="False"
+	    groups="training_exam.group_exam_user"/>
+
+        <report
+            auto="False"
+            id="training_participation_exam_result_report"
+            model="training.participation"
+            name="training.participation.exam.result"
+            string="Exam Result"
+            rml="training_exam/report/training_exam_result.rml"
+            header="True"
+            groups="training_exam.group_exam_user"
+            attachment="((object.present and object.succeeded) and ('CERTIF'+('%08d' % (object.id))))"
+            attachment_use="1"/>
+
+        <report
+            auto="False"
+            id="training_participation_exam_result_firstpage_report"
+            model="training.participation"
+            name="training.participation.exam.result.firstpage"
+            groups="training_exam.group_exam_user"
+            string="Exam Result - First Page"
+            rml="training_exam/report/training_exam_result_firstpage.rml"
+            header="True"/>
+
+        <report
+            id="training_seance_exam_followup_list_report"
+            model="training.seance"
+            name="training.seance.exam.followup.list.report"
+            string="Exam Followup List"
+            rml="training_exam/report/training_seance_exam_followup_list.rml"
+            groups="training_exam.group_exam_user"
+            header="False" />
+ 
+        <report
+            id="training_seance_exam_labels_report"
+            model="training.seance"
+            name="training.seance.exam.labels.report"
+            string="Exam Labels"
+            groups="training_exam.group_exam_user"
+            rml="training_exam/report/training_seance_exam_labels.rml"
+            header="False" />
+           
     </data>
 </openerp>
-

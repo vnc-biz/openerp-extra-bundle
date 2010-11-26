@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(29.7cm,21.0cm)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="1.15" y1="1.9cm" width="29.6cm" height="16.3cm"/>
+      <pageGraphics>
+        <!-- You Logo - Change X,Y,Width and Height -->
+        <image x="1.15cm" y="18.6cm" height="60.0" >[[company.logo]]</image>
+        <setFont name="Helvetica" size="8"/>
+        <fill color="black"/>
+        <stroke color="#d16701"/>
+        <lines>1.15cm 18.2cm 28.55cm 18.2cm</lines>
+        <stroke color="black"/>
+
+        <drawString x="25.3cm" y="20.2cm">[[ company.partner_id.address and company.partner_id.address[0].street or  '' ]]</drawString>
+        <drawString x="25.3cm" y="19.8cm">[[ company.partner_id.address and company.partner_id.address[0].zip or '' ]] [[ company.partner_id.address and company.partner_id.address[0].city or '' ]]</drawString>
+        <drawString x="25.3cm" y="19.4cm">Fax:</drawString>
+        <drawRightString x="28.5cm" y="19.4cm">[[ company.partner_id.address and company.partner_id.address[0].fax or '' ]]</drawRightString>
+        <drawString x="25.3cm" y="19.0cm">Tel:</drawString>
+        <drawRightString x="28.5cm" y="19.0cm">[[ company.partner_id.address and company.partner_id.address[0].phone or '' ]]</drawRightString>
+        <drawString x="25.3cm" y="18.6cm">E-Mail:</drawString>
+        <drawRightString x="28.5cm" y="18.6cm">[[ company.partner_id.address and company.partner_id.address[0].email or '' ]]</drawRightString>
+
+        <!--page bottom-->
+        <stroke color="#d16701"/>
+        <lines>1.15cm 1.95cm 28.55cm 1.95cm</lines>
+        <stroke color="black"/>
+
+        <drawCentredString x="14.85cm" y="1.6cm">[[ company.rml_footer1 ]]</drawCentredString>
+        <drawCentredString x="14.85cm" y="1.2cm">[[ company.rml_footer2 ]]</drawCentredString>
+        <drawCentredString x="14.85cm" y="0.8cm">Page:  <pageNumber/>  /  </drawCentredString>
+        <drawCentredString x="15.7cm" y="0.8cm"><pageCount/></drawCentredString>
+      </pageGraphics>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#808080" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#808080" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#808080" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#808080" start="0,0" stop="-1,-1"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman"/>
+   	<paraStyle name="terp_tblheader_General" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="seanceInfo" fontName="Helvetica-Bold" fontSize="9.0" leading="10" alignment="LEFT" spaceBefore="1.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Bold_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_tblheader_General_Centre" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_General_Right" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_Details_Centre" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_Details_Right" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_Right_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Centre_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_header_Right" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="15.0" leading="29" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_address" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Bold_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Centre_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Right_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.5" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+  </stylesheet>
+  <images/>
+  <story>
+    <para style="Standard">[[ repeatIn(objects,'seance') ]]</para>
+    <section>
+    <para style="Standard"><font color="white">[[ setLang(seance.course_id and (seance.course_id.lang_id and seance.course_id.lang_id.code or '') or 'fr_FR') ]]</font></para>
+    <para style="Standard"><font color="white">[[ seance.kind == 'exam' or removeParentNode('story') ]]</font></para>
+    <para style="terp_header_Centre">Exam Followup List</para>
+    <blockTable colWidths="120.0,100.0,330.0,100.0,130.0" style="Table1">
+    <tr>
+        <td><para style="seanceInfo">[[ seance.name ]]</para></td>
+        <td><para style="seanceInfo">[[ formatLang(seance.date, date_time=True) ]]</para></td>
+        <td><para style="seanceInfo">[[ seance.contact_names ]]</para></td>
+        <td><para style="seanceInfo">[[ seance.group_id.name or '' ]]</para></td>
+        <td><para style="seanceInfo">[[ _('Number Of Participant: ') ]][[ seance.participant_count ]]</para></td>
+    </tr>
+    </blockTable>
+    
+    <para style="Standard"><font color="white"><br/></font></para>
+    
+    <blockTable colWidths="3.5cm,3cm,2cm,4.5cm,4.5cm,2.5cm,2.5cm,2.5cm,2.5cm" style="Table1" repeatRows="1">
+      <tr>
+        <td><para style="terp_tblheader_General_Centre">CORRECTOR</para></td>
+        <td><para style="terp_tblheader_General_Centre">NAME</para></td>
+        <td><para style="terp_tblheader_General_Centre">FIRST NAME</para></td>
+        <td><para style="terp_tblheader_General_Centre">EXAM</para></td>
+        <td><para style="terp_tblheader_General_Centre">EMPLOYER</para></td>
+        <td><para style="terp_tblheader_General_Centre">SCORE / 100</para></td>
+        <td><para style="terp_tblheader_General_Centre">SEND ON</para></td>
+        <td><para style="terp_tblheader_General_Centre">RECEIVED ON</para></td>
+        <td><para style="terp_tblheader_General_Centre">PAPER VERSION</para></td>
+      </tr>
+      <tr>
+        <para style="Standard">[[ repeatIn(ordered_participants(seance), 'participate') ]]</para>
+        <td></td>
+        <td><para style="terp_default_8">[[ participate.contact_id.name or '' ]]</para></td>
+        <td><para style="terp_default_8">[[ participate.contact_id.first_name or '' ]]</para></td>
+        <td><para style="terp_default_8">[[ participate.course_questionnaire_id and participate.course_questionnaire_id.name or '' ]]</para></td>
+        <td><para style="terp_default_8">[[ participate.partner_id and participate.partner_id.name or '' ]]</para></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </blockTable>
+    
+    <para style="Standard"><font color="white"><br/></font></para>
+    <para style="terp_tblheader_Details_Centre">Extra Participants</para> 
+    <blockTable colWidths="3.5cm,3cm,2cm,4.5cm,4.5cm,2.5cm,2.5cm,2.5cm,2.5cm" style="Table1" repeatRows="1">
+      <tr>
+        <td><para style="terp_tblheader_General_Centre">CORRECTOR</para></td>
+        <td><para style="terp_tblheader_General_Centre">NAME</para></td>
+        <td><para style="terp_tblheader_General_Centre">FIRST NAME</para></td>
+        <td><para style="terp_tblheader_General_Centre">EXAM</para></td>
+        <td><para style="terp_tblheader_General_Centre">EMPLOYER</para></td>
+        <td><para style="terp_tblheader_General_Centre">SCORE / 100</para></td>
+        <td><para style="terp_tblheader_General_Centre">SEND ON</para></td>
+        <td><para style="terp_tblheader_General_Centre">RECEIVED ON</para></td>
+        <td><para style="terp_tblheader_General_Centre">PAPER VERSION</para></td>
+      </tr>
+      <tr>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+      </tr>
+      <tr>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+      </tr>
+      <tr>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+        <td><para style="Table Contents"><font color="white"><br/><br/></font></para></td>
+      </tr>
+    </blockTable>
+    <pageNumberReset/>
+    </section>
+  </story>
+</document>

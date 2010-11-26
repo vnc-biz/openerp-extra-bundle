@@ -146,7 +146,7 @@
           <para style="P13">Date</para>
         </td>
         <td>
-          <para style="P10">[[ planned_exam.date ]]</para>
+          <para style="P10">[[ formatLang(planned_exam.date,date=True) ]]</para>
         </td>
       </tr>
       <tr>

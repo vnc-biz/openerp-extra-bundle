@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+        <pageTemplate>
+            <frame id="first" x1="0.9cm" y1="1.7cm" height="25.30cm" width="20cm"/>
+            <pageGraphics>
+                <!-- You Logo - Change X,Y,Width and Height -->
+                <image x="1.15cm" y="27.3cm" height="60.0" >[[company.logo]]</image>
+                <setFont name="Helvetica" size="8"/>
+                <fill color="black"/>
+                <stroke color="#d16701"/>
+                <lines>1.15cm 27.1cm 20cm 27.1cm</lines>
+                <stroke color="black"/>
+
+
+                <!--page bottom-->
+                <stroke color="#d16701"/>
+                <lines>1.15cm 1.2cm 19.9cm 1.2cm</lines>
+                <stroke color="black"/>
+
+                <drawCentredString x="10.5cm" y="0.8cm">Page:  <pageNumber/></drawCentredString>
+                <drawCentredString x="11.3cm" y="0.8cm"> /  </drawCentredString>
+                <drawCentredString x="11.5cm" y="0.8cm"><pageCount/></drawCentredString>
+            </pageGraphics>
+        </pageTemplate>
+    </template>
+    <stylesheet>
+        <blockTableStyle id="ExamPageHeader">
+            <blockAlignment value="CENTER"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Standard_Outline">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table1">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_Question_Number">
+            <blockAlignment value="RIGHT"/>
+            <blockValign value="TOP"/>
+            <blockLeftPadding value="0"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_Question_Text">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <blockLeftPadding value="0"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_Responses">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="MIDDLE"/>
+            <blockLeftPadding value="0"/>
+            <blockAlignment value="CENTER" start="0,0" stop="0,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_Plain_Response">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="BOTTOM"/>
+            <blockLeftPadding value="0"/>
+            <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,0" stop="-1,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_NoPadding">
+            <blockLeftPadding value="0"/>
+            <blockRightPadding value="0"/>
+            <blockTopPadding value="0"/>
+            <blockBottomPadding value="0"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_Image">
+            <blockAlignment value="CENTER"/>
+            <blockValign value="MIDDLE"/>
+            <blockLeftPadding value="0"/>
+            <blockRightPadding value="0"/>
+            <blockTopPadding value="0"/>
+            <blockBottomPadding value="0"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2_Plain_Response_Number">
+            <blockAlignment value="RIGHT" start="0,0" stop="-1,-1"/>
+            <blockValign value="BOTTOM" start="0,0" stop="-1,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table5">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <initialize>
+            <paraStyle name="all" alignment="justify"/>
+        </initialize>
+        <paraStyle name="P1" fontName="Helvetica"/>
+        <paraStyle name="Standard" fontName="Helvetica"/>
+        <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="Index" fontName="Helvetica"/>
+        <paraStyle name="Table Contents" fontName="Helvetica"/>
+        <paraStyle name="Table Heading" fontName="Helvetica" alignment="CENTER"/>
+        <paraStyle name="terp_header" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_10" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="10.0" leading="12" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_italic_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-Oblique" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Right_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_10" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="10.0" leading="12" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_10_right" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="10.0" leading="12" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Centre_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_tblheader_General" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_General_Centre" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="P8" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_nopadding_10" fontName="Helvetica" fontSize="10.0" leading="5" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    </stylesheet>
+    <images/>
+    <story>
+        <para style="Standard">[[repeatIn(objects,'participation')]] [[ setLang(get_questionnaire(participation).main_course_id.lang_id.code) ]] </para>
+        <para style="P8"><font color="white"> </font></para>
+        <para style="P8"><font color="white"> </font></para>
+        <para style="P8"><font color="white"> </font></para>
+        <para style="P8"><font color="white"> </font></para>
+        <blockTable colWidths="270.0,290.0" style="Standard_Outline">
+            <tr>
+                <td><para style="P8"><font color="white"> </font></para></td>
+                <td>
+                    <para style="terp_default_10">[[ get_partner_name(participation) ]]</para>
+                    <para style="terp_default_10">[[ get_contact_name(participation) ]]</para>
+                    <para style="terp_default_10">[[ formatLang(get_participation_date(participation),date=True)[:16] ]]</para>
+                    <para style="terp_default_10">[[ get_questionnaire(participation).main_course_id.name ]] ([[len(get_questionnaire(participation).question_ids)]])</para>
+                </td>
+            </tr>
+        </blockTable>
+        <para style="Standard"><font color="white"> </font> </para>
+        <para style="Standard"><font color="white"> </font> </para>
+        <para style="Standard"><font color="white"> </font> </para>
+        <para style="Standard"><font color="white"> </font> </para>
+        <para style="Standard"><font color="white"> </font> </para>
+        <blockTable colWidths="530.0" style="Table2">
+          <tr>[[ get_questionnaire(participation).objective or removeParentNode('blockTable') ]]
+                  <td><para style="terp_default_10_bold"><u>Objective:</u></para>
+                <para style="terp_default_10">[[ preformat(get_questionnaire(participation).objective) ]]</para></td>
+          </tr>
+        </blockTable>
+        <blockTable colWidths="530.0" style="Table2">
+          <tr>[[ get_questionnaire(participation).remark_firstpage or removeParentNode('blockTable') ]]
+                  <td><para style="terp_default_10_bold"><u>Remarks:</u></para>
+                <para style="terp_default_10">[[ preformat(get_questionnaire(participation).remark_firstpage) ]]</para></td>
+          </tr>
+        </blockTable>
+        <qrBarCode version="3" x="18.0cm" y="27.3cm" appendPageNumber="1" absolutePos="1" model="training.participation">[[ get_participation_id(participation) ]]</qrBarCode>
+        <pageBreak/>
+        <para><seqReset id="L1" /></para>
+        <section>
+            <blockTable colWidths="580.0" style="Table5" repeatRows="1">
+                <tr>
+                    <td>
+                        <qrBarCode version="3" x="18.0cm" y="27.3cm" appendPageNumber="1" absolutePos="1" model="training.participation">[[ get_participation_id(participation) ]]</qrBarCode>
+                        <blockTable colWidths="150.0,75.0,290.0,55.0" splitByRows="1" style="ExamPageHeader">
+                        <tr>
+                                <td><para style="terp_default_8">[[ get_contact_name(participation) ]]</para></td>
+                                <td><para style="terp_default_8">[[ formatLang(get_participation_date(participation),date=True)[:16] ]]</para></td>
+                                <td><para style="terp_default_8">[[ get_questionnaire(participation).name ]]</para></td>
+                                <td><para style="terp_default_8">[[ get_participation_id(participation) ]]</para></td>
+                        </tr>
+                        </blockTable>
+                    </td>
+                </tr>
+                <tr>[[ repeatIn(get_questionnaire(participation).question_ids,'question') ]]
+                    <td>
+                        <blockTable colWidths="20.0,525.0" style="Table2">
+                            <tr>
+                                <td>
+                                    <blockTable colWidths="20.0" style="Table2_Question_Number">
+                                    <tr><td><para style="terp_default_10_right"><seq id="L1"/>.</para></td></tr>
+                                    </blockTable>
+                                </td>
+                                <td>
+                                    <blockTable colWidths="525.0" style="Table2_Question_Text">
+                                    <tr style="Table2_Image">
+                                        <td><imageinline>[[ get_image(question, 'before_text') or removeParentNode('tr') ]]</imageinline></td>
+                                    </tr>
+                                    <tr>
+                                        <td><para style="terp_default_10">[[ preformat(question.question_id.question) ]]</para>
+                                        <para style="terp_italic_8">([[ get_question_point(question.question_id) ]][[ get_question_type_tips(question.question_id) and ', '+get_question_type_tips(question.question_id) or '' ]])[[ show_solution() and (' TYPE - %s' % (question.question_id.type)) or '']]</para>
+                                        </td>
+                                    </tr>
+                                    <tr style="Table2_Image">
+                                        <td><imageinline>[[ get_image(question, 'after_text') or removeParentNode('tr') ]]</imageinline></td>
+                                    </tr>
+                                    </blockTable>
+                                </td>
+                            </tr>
+                            <tr style="Table2_NoPadding">[[ question.question_id.type in ('qcm','qcu','yesno') or removeParentNode('tr') ]]
+                                                         [[ repeatIn(solution(question.question_id, question.question_id.type), 'response') ]]
+                                <td></td>
+                                <td><blockTable colWidths="30.0,495.0" style="Table2_Responses">
+                                    <tr>
+                                        <td>[[ (show_solution() and response['is_solution'] == 'yes') or removeParentNode('td') ]]<CheckBox checked="1" x="0" y="0" size="7">[[ '%s-%s' % (question.question_id.id, response['id']) ]]</CheckBox></td>
+                                        <td>[[ ((show_solution() and response['is_solution'] == 'no') or (not show_solution())) or removeParentNode('td') ]]<CheckBox x="0" y="0" size="7">[[ '%s-%s' % (question.question_id.id, response['id']) ]]</CheckBox></td>
+                                        <td><para style="terp_default_8">[[ preformat(response['name']) ]]</para></td>
+                                    </tr>
+                                    </blockTable>
+                                </td>
+                            </tr>
+                        </blockTable>
+                        <blockTable colWidths="20.0,525.0" style="Table2_Plain_Response" rowHeights="20">
+                            <tr>[[ (not show_solution() and question.question_id.type in ('plain')) or removeParentNode('blockTable') ]]
+                                [[ repeatIn(solution(question.question_id, question.question_id.type), 'response') ]]
+                                <td style="Table2_Plain_Response_Number"><para style="terp_nopadding_10"><font color="#c6c6c6"> </font></para></td>
+                                <td> </td>
+                            </tr>
+                        </blockTable>
+                        <blockTable colWidths="20.0,525.0" style="Table2_Plain_Response" rowHeights="20">
+                            <tr>[[ (show_solution() and question.question_id.type in ('plain')) or removeParentNode('blockTable') ]]
+			        [[ repeatIn(get_plain_lines(question.question_id), 'line') ]]
+                                <td style="Table2_Plain_Response_Number"><para style="terp_nopadding_10"><font color="#c6c6c6"> </font></para></td>
+				<td style="Table2_Plain_Response"><para style="terp_default_8">[[ preformat(line) ]]</para></td>
+                            </tr>
+                        </blockTable>
+                    </td>
+                </tr>
+            </blockTable>
+        </section>
+        <pageNumberReset/>
+    </story>
+</document>

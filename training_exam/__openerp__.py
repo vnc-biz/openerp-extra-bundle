@@ -21,6 +21,35 @@
 #
 ############################################################################################
 
-import in_construction
+{
+    'name' : 'Training Exam',
+    'version' : '0.5',
+    'author' : 'Tiny SPRL - AJM Technologies S.A',
+    'website' : 'http://www.openerp.com',
+    'category' : 'Enterprise Specific Modules/Training',
+    'description' : """This module adds the exam management for the training management""",
+    'depends' : [
+        'training',
+    ],
+    'init_xml' : [
+        'training_exam_data.xml',
+    ],
+    'demo_xml' : [
+        'data/training.exam.question.csv',
+        'data/training.exam.question.answer.csv',
+        #'training_exam_demo.xml',
+    ],
+    'update_xml' : [
+        'security/training_exam_security.xml',
+        'security/ir.model.access.csv',
+        'training_exam_view.xml',
+        'training_exam_report.xml',
+        'workflow/questionnaire_workflow.xml',
+        'training_exam_sequence.xml',
+        'training_exam_wizard.xml',
+    ],
+    'active' : False,
+    'installable' : True,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

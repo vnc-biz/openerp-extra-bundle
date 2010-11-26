@@ -4,7 +4,8 @@
         <menuitem id="menu_mgmtsystem_configuration_nonconformities" 
             name="Nonconformities"
             parent="mgmtsystem.menu_mgmtsystem_configuration"
-            groups="base.group_mgmtsystem_manager" sequence="10"/>
+            groups="base.group_mgmtsystem_manager" 
+            sequence="10"/>
 
         <record id="view_mgmtsystem_nonconformity_tree" model="ir.ui.view">
             <field name="name">mgmtsystem.nonconformity.tree</field>
@@ -50,32 +51,25 @@
             <field name="model">mgmtsystem.nonconformity</field>
             <field name="arch" type="xml">
                 <form string="Nonconformity">
-                    <group colspan="1" col="2">
+                    <group colspan="2" col="2">
                         <field name="date"/>
                         <field name="partner_id"/>
                         <field name="reference"/>
                     </group>
-                    <group colspan="1" col="2">
+                    <group colspan="2" col="2">
                         <field name="responsible_user_id"/>
                         <field name="manager_user_id"/>
                         <field name="author_user_id"/>
                     </group>
                     <newline/>
-                    <field colspan="4" name="origin_ids" nolabel="1">
-                        <form string="Origins">
-                            <group col="6" colspan="4">
-                               <field name="name" colspan="4"/>
-                            </group>
-                        </form>
-                    </field>
-                    <newline/>
-                    <field colspan="4" name="procedure_ids" nolabel="1">
-                        <form string="Procedures">
-                            <group col="6" colspan="4">
-                               <field name="name" colspan="4"/>
-                            </group>
-                        </form>
-                    </field>
+                    <group colspan="2" col="2" expand="1">
+                        <separator string="Origins" colspan="2"/>
+                        <field name="origin_ids" colspan="2" nolabel="1"/>
+                    </group>
+                    <group colspan="2" col="2" expand="1">
+                        <separator string="Procedures" colspan="2"/>
+                        <field name="procedure_ids" colspan="2" nolabel="1"/>
+                    </group>
                     <newline/>
                     <group colspan="4">
                         <field name="description"/>
@@ -95,8 +89,10 @@
                     <newline/>
                     <group colspan="4">
                         <field name="immediate_action_id" domain="[('type_action','=','immediate')]"/>
-                        <field name="corrective_action_id" domain="[('type_action','=','corrective')]"/>
-                        <field name="preventive_action_id" domain="[('type_action','=','preventive')]"/>
+                        <newline/>
+                        <field name="corrective_action_id" domain="[('type_action','=','correction')]"/>
+                        <newline/>
+                        <field name="preventive_action_id" domain="[('type_action','=','prevention')]"/>
                     </group>
                 </form>
             </field>
@@ -112,8 +108,8 @@
         <menuitem id="menu_open_nonconformity" 
             action="open_mgmtsystem_nonconformity_list" 
             parent="mgmtsystem.menu_mgmtsystem_main" 
-            sequence="5" 
-            groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor,base.group_mgmtsystem_user"/>
+            sequence="20" 
+            groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor,base.group_user"/>
 
         <!-- Origin -->
         

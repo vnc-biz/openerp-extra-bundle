@@ -1,12 +1,6 @@
 <openerp>
     <data>
 
-        <menuitem id="menu_mgmtsystem_audit" 
-            name="Audits" 
-            parent="mgmtsystem.menu_mgmtsystem_main" 
-            groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor"
-            sequence="50"/>
-
         <!-- Verification Lines -->
 
         <record id="view_mgmtsystem_verification_line_tree" model="ir.ui.view">
@@ -60,10 +54,108 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_open_verification_line" 
-            action="open_mgmtsystem_verification_line_list" 
-            parent="mgmtsystem.menu_mgmtsystem_configuration_audits" 
-            sequence="5" 
+        <!-- Audits -->
+
+        <record id="view_mgmtsystem_audit_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.audit.tree</field>
+            <field name="model">mgmtsystem.audit</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Audits">
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_audit_filter" model="ir.ui.view">
+            <field name="name">mgmtsystem.audit.filter</field>
+            <field name="model">mgmtsystem.audit</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Audits">
+                    <group>
+                        <field name="name"/>
+                        <field name="date"/>
+                    </group>
+                </search>
+            </field>
+        </record>        
+
+        <record id="view_mgmtsystem_audit_form" model="ir.ui.view">
+            <field name="name">mgmtsystem.audit.form</field>
+            <field name="type">form</field>
+            <field name="model">mgmtsystem.audit</field>
+            <field name="arch" type="xml">
+                <form string="Audit">
+                    <group colspan="4">
+                        <field name="name"/>
+                        <field name="date"/>
+                        <newline/>
+                         <group colspan="2" col="2" expand="1">
+                            <separator string="Auditors" colspan="2"/>
+                            <field name="auditor_user_ids" colspan="2" nolabel="1"/>
+                        </group>
+                        <group colspan="2" col="2" expand="1">
+                            <separator string="Auditees" colspan="2"/>
+                            <field name="auditee_user_ids" colspan="2" nolabel="1"/>
+                        </group>
+                        <newline/>
+                         <group colspan="4">
+                            <separator string="Verification List" colspan="4"/>
+                            <field name="line_ids" colspan="4" nolabel="1"/>
+                        </group>
+                        <newline/>
+                         <group colspan="2" col="2" expand="1">
+                            <separator string="Strong Points" colspan="2"/>
+                            <field name="strong_points" colspan="2" nolabel="1"/>
+                        </group>
+                        <group colspan="2" col="2" expand="1">
+                            <separator string="To Improve Points" colspan="2"/>
+                            <field name="to_improve_points" colspan="2" nolabel="1"/>
+                        </group>
+                        <newline/>
+                         <group colspan="2" col="2" expand="1">
+                            <separator string="Improvement Opportunities" colspan="2"/>
+                            <field name="imp_opp_ids" domain="[('type_action','=','improvement')]" colspan="2" nolabel="1"/>
+                        </group>
+                        <group colspan="2" col="2" expand="1">
+                            <separator string="Nonconformities" colspan="2"/>
+                            <field name="nonconformity_ids" colspan="2" nolabel="1"/>
+                        </group>
+                    </group>
+                    <group col="8" colspan="4">
+                        <field name="state" select="1"/>
+                        <button name="audit_closed" string="Done" states="open" type="object" icon="gtk-jump-to"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_audit_calendar" model="ir.ui.view">
+            <field name="name">mgmtsystem.audit.calendar</field>
+            <field name="model">mgmtsystem.audit</field>
+            <field name="type">calendar</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="name" date_start="date" string="Audits">
+                    <field name="name"/>
+                    <field name="auditor_user_ids"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="open_mgmtsystem_audit_list" model="ir.actions.act_window">
+            <field name="name">Audits</field>
+            <field name="res_model">mgmtsystem.audit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+
+        <menuitem id="menu_open_audit" 
+            action="open_mgmtsystem_audit_list" 
+            parent="mgmtsystem.menu_mgmtsystem_main" 
+            sequence="10" 
             groups="base.group_mgmtsystem_manager,base.group_mgmtsystem_auditor"/>
 
     </data>

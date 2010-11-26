@@ -10,9 +10,5 @@
         <field name="name">Management System / Auditor</field>
     </record>
 
-    <record id="base.group_mgmtsystem_user" model="res.groups">
-        <field name="name">Management System / User</field>
-    </record>
-
 </data>
 </openerp>

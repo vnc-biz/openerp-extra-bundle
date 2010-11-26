@@ -20,43 +20,42 @@
 ##############################################################################
 
 from osv import fields, osv
-
-class mgmtsystem_verification_line(osv.osv):
-    _name = "mgmtsystem.verification.line"
-    _description = "Verification Line"
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-	'name': fields.char(size=300, 'Question'),
-	'is_conformed': fields.boolean('Is conformed'),
-	'comments': fields.text('Comments'),
-    }
-
-mgmtsystem_verification_line()
-
-class mgmtsystem_verification(osv.osv):
-    _name = "mgmtsystem.verification"
-    _description = "Verification List"
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-	'name': fields.text('Question'),
-        'line_ids': fields.one2many('mgmtsystem.verification.line','mgmtsystem_verification_line_id','Verifications Lines'),
-    }
-
-mgmtsystem_verification()
+from tools.translate import _
 
 class mgmtsystem_audit(osv.osv):
     _name = "mgmtsystem.audit"
     _description = "Audit"
     _columns = {
         'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Name', size=50),
         'date': fields.date('Date'),
+        'line_ids': fields.one2many('mgmtsystem.verification.line','audit_id','Verification List'),
 	'auditor_user_ids': fields.many2many('res.users','mgmtsystem_auditor_user_rel','user_id','mgmtsystem_audit_id','Auditors'),
 	'auditee_user_ids': fields.many2many('res.users','mgmtsystem_auditee_user_rel','user_id','mgmtsystem_audit_id','Auditees'),
         'strong_points': fields.text('Strong Points'),
         'to_improve_points': fields.text('Points To Improve'),
-        'imp_opp_ids': fields.many2many('mgmtsystem.action','mgmtsystem_audit_imp_opp_rel','mgmtsystem_action_id,''mgmtsystem_audit_id','Improvement Opportunities'),
-        'nonconformity_ids': fields.many2many('mgmtsystem.nonconformity','mgmtsystem_audit_nonconformity_rel','mgmtsystem_action_id,''mgmtsystem_audit_id','Nonconformities'),
+        'imp_opp_ids': fields.many2many('mgmtsystem.action','mgmtsystem_audit_imp_opp_rel','mgmtsystem_action_id','mgmtsystem_audit_id','Improvement Opportunities'),
+        'nonconformity_ids': fields.many2many('mgmtsystem.nonconformity','mgmtsystem_audit_nonconformity_rel','mgmtsystem_action_id','mgmtsystem_audit_id','Nonconformities'),
+        'state': fields.selection([('o','Open'),('c','Closed')], 'State')
     }
+
+    _defaults = {
+        'state': 'o'
+    }
+
 mgmtsystem_audit()
+
+class mgmtsystem_verification_line(osv.osv):
+    _name = "mgmtsystem.verification.line"
+    _description = "Verification Line"
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
+	'name': fields.char('Question',size=300, required=True),
+        'audit_id': fields.many2one('mgmtsystem.audit', 'Audit', ondelete='cascade', select=True),
+	'is_conformed': fields.boolean('Is conformed'),
+	'comments': fields.text('Comments'),
+    }
+
+mgmtsystem_verification_line()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -18,26 +18,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-{
-    "name" : "Management System - Audit",
-    "version" : "0.1",
-    "author" : "Savoir-faire Linux",
-    "website" : "http://www.savoirfairelinux.com",
-    "license" : "GPL-3",
-    "category" : "Management System",
-    "description": """
-	This module enables you to manage audits and verifications lists of 
-        your management system.
-    """,
-    "depends" : ['mgmtsystem_nonconformity'],
-    "init_xml" : [],
-    "update_xml" : [
-	'mgmtsystem_audit.xml',
-	'report/audit_report.xml',
-    ],
-    "demo_xml" : [],
-    "installable" : True,
-    "certificate" : ''
-}
+import audit_report
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

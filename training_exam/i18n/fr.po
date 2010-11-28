@@ -1,177 +1,226 @@
-# Translation of OpenERP Server.
-# This file contains the translation of the following modules:
-#	* training_exam
+# French translation for openobject-addons
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the openobject-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.6\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-10-22 13:39:09+0000\n"
-"PO-Revision-Date: 2009-10-22 13:39:09+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"Project-Id-Version: openobject-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-10-05 18:29+0000\n"
+"PO-Revision-Date: 2010-11-27 14:53+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-11-28 05:02+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #. module: training_exam
 #: view:training.participation.line:0
 msgid "The response(s) from the question"
-msgstr "La/les réponse(s) à la question"
-
-#. module: training_exam
-#: help:training.participation,questionnaire_id:0
-msgid "Select the Questionnaire for participant"
-msgstr "Selectionner les questionnaire pour le participant"
-
-#. module: training_exam
-#: field:training.exam.questionnaire,passing_score:0
-#: field:training.participation,passing_score:0
-#: rml:training.participation.report:0
-msgid "Passing Score"
-msgstr "Score de passage"
-
-#. module: training_exam
-#: field:training.exam.correction,estimated_date:0
-msgid "Estimated Date"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.question.answer:0
-msgid "Question Answer"
-msgstr "Réponse à la question"
+#: field:training.exam.questionnaire,passing_score:0
+msgid "Global Passing Score"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.questionnaire.course,category_id:0
+msgid "Category of Course"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.report.xml,name:training_exam.training_seance_exam_labels_report
+msgid "Exam Labels"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.questionnaire.course:0
+#: field:training.exam.questionnaire.course,passing_score:0
+#: field:training.participation,passing_score:0
+msgid "Passing Score"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "1.15cm 1.95cm 28.55cm 1.95cm"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.model,name:training_exam.model_training_exam_questionnaire_question
+msgid "training.exam.questionnaire.question"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_questionnaire_all_act
+#: model:ir.actions.act_window,name:training_exam.link_question_to_questionnaire
 #: model:ir.actions.act_window,name:training_exam.show_questionnaire_from_course
 #: model:ir.ui.menu,name:training_exam.library_exam_questionnaire_all_mi
 #: view:training.course:0
 #: view:training.exam.question:0
 #: view:training.exam.questionnaire:0
 msgid "Questionnaires"
-msgstr "Questionnaires"
-
-#. module: training_exam
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Nom de modèle invalide pour la définition de l'action"
-
-#. module: training_exam
-#: model:ir.actions.report.xml,name:training_exam.training_participation
-msgid "Print Original Exam Sheet"
-msgstr ""
-
-#. module: training_exam
-#: field:training.exam.questionnaire,total_point:0
-#: rml:training.participation.report:0
-msgid "Total Point"
-msgstr "Total des points"
-
-#. module: training_exam
-#: model:ir.actions.report.xml,name:training_exam.training_planned_exam_confirm_report
-msgid "Training Confirmation"
-msgstr "Confirmation formation"
-
-#. module: training_exam
-#: code:addons/training_exam/training_exam.py:0
-#, python-format
-msgid "There is not an available questionnaire for the following course %s"
-msgstr "Il n'y a aucun questionnaire disponible pour le cours %s"
-
-#. module: training_exam
-#: field:training.subscription.line,parent_id:0
-msgid "Parent"
-msgstr "Parent"
-
-#. module: training_exam
-#: field:training.exam.questionnaire,category:0
-msgid "Category of  Course"
-msgstr "Categorie des cours"
-
-#. module: training_exam
-#: rml:training.participation.exam.result:0
-msgid "("
 msgstr ""
 
 #. module: training_exam
 #: help:training.exam.questionnaire,len_question_ids:0
 msgid "Total number of questions"
-msgstr "Nombre total de questions"
-
-#. module: training_exam
-#: rml:training.participation.exam.result:0
-msgid "FOR INFORMATION"
-msgstr "POUR INFORMATION"
-
-#. module: training_exam
-#: field:training.participation.line,response_qcm_ids:0
-msgid "Solutions"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.questionnaire:0
-msgid "Validate"
-msgstr "Valider"
+#: help:training.exam.questionnaire,kind:0
+msgid "How this questionnaire could be corrected"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Support"
-msgstr "Support"
+#: field:training.exam.question.answer,is_solution:0
+msgid "Acceptable Solution"
+msgstr ""
+
+#. module: training_exam
+#: help:training.participation,forced_noresult:0
+msgid ""
+"Check if this participation won't have any result, and that is normal. This "
+"particaption will not be taken anymore in account for correction request, "
+"exam certificate"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.questionnaire,total_point:0
+#: field:training.exam.questionnaire.course,total_point:0
+msgid "Total Point"
+msgstr ""
+
+#. module: training_exam
+#: help:training.exam.questionnaire,name:0
+msgid "Name of questionnaire"
+msgstr ""
+
+#. module: training_exam
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "There is not an available questionnaire for the following course %s"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "Extra Participants"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.questionnaire,category:0
+msgid "Category of  Course"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.exam.questionnaire.report:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+msgid "("
+msgstr ""
+
+#. module: training_exam
+#: help:training.exam.question,free_lines_count:0
+msgid ""
+"How many free line available to formulate a response to a plain question"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "EMPLOYER"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.participation.exam.result.firstpage:0
+msgid "FOR INFORMATION"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation.line,page_num:0
+msgid "Page N°"
+msgstr ""
+
+#. module: training_exam
+#: help:training.participation,passing_score:0
+msgid ""
+"The minimum score needed to succueed to this exam, assigned when "
+"questionnaire is affected to the participation (on \"Exam Sheet\" "
+"generation) and not updated after"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+#: view:training.exam.questionnaire:0
+msgid "Validate"
+msgstr ""
+
+#. module: training_exam
+#: field:training.subscription.line,parent_id:0
+msgid "Parent"
+msgstr ""
 
 #. module: training_exam
 #: help:training.participation,duration_questionnaire_id:0
 msgid "Duration of selected  Questionnaire"
-msgstr "Durée du questionnaire selectionné"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "L'inscription est payable dès réception de la facture."
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.correction:0
-#: selection:training.exam.correction,state:0
-msgid "Received"
+#: rml:training.participation.exam.result:0
+msgid ""
+"The Luxembourg Institute for Training in Banking (IFBL) hereby certifies "
+"that the person indicated below has obtained the following exam result:"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.question,image_position:0
+msgid "Image Position"
 msgstr ""
 
 #. module: training_exam
 #: model:ir.model,name:training_exam.model_training_exam_question_wizard
 #: view:training.exam.question.wizard:0
 msgid "Question Wizard"
-msgstr "Assistant question"
-
-#. module: training_exam
-#: view:training.participation.line:0
-msgid "Notes"
-msgstr "Notes"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Toute modification ou annulation d'examen sera facturée au prix de l'inscription."
 msgstr ""
 
 #. module: training_exam
-#: field:training.exam.correction,purchase_order_id:0
-msgid "Purchase Order"
+#: field:training.exam.questionnaire,main_course_id:0
+msgid "Main Course"
 msgstr ""
 
 #. module: training_exam
-#: code:addons/training_exam/training_exam.py:0
-#, python-format
-msgid "Unable to find an exam session for the following sessions"
+#: help:training.exam.questionnaire,passing_score:0
+msgid "The global passing score of the questionnaire"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.model,name:training_exam.model_training_exam_questionnaire_course
+msgid "Training Exam Questionnaire Course"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.question,free_lines_count:0
+msgid "Free Lines"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.report.xml,name:training_exam.training_seance_exam_followup_list_report
+#: rml:training.seance.exam.followup.list.report:0
+msgid "Exam Followup List"
 msgstr ""
 
 #. module: training_exam
 #: model:ir.model,name:training_exam.model_training_exam_questionnaire_wizard
 #: view:training.exam.questionnaire.wizard:0
 msgid "Questionnaire Wizard"
-msgstr "Assistant questionnaire"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.question.answer:0
 msgid "Examen Answer"
-msgstr "Réponse d'examen"
+msgstr ""
 
 #. module: training_exam
 #: code:addons/training_exam/training_exam.py:0
@@ -181,53 +230,86 @@ msgstr ""
 
 #. module: training_exam
 #: view:training.exam.question:0
+#: field:training.exam.questionnaire.attachment,position:0
+msgid "Position"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
 msgid "Exposition of the question"
-msgstr "Exposition de la question"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.exam.questionnaire,kind:0
 #: selection:training.exam.questionnaire.wizard,kind:0
 msgid "Automatic"
-msgstr "Automatique"
-
-#. module: training_exam
-#: help:training.participation.line,point:0
-msgid "Number of point get from question"
-msgstr "Nombre de points reçut depuis cette question"
-
-#. module: training_exam
-#: help:training.exam.question,duration:0
-msgid "Time related to question"
-msgstr "Temps alloué à la question"
-
-#. module: training_exam
-#: rml:training.participation.exam.result:0
-msgid "The Luxembourg Institute for Training in Banking (IFBL) hereby certifies that the person indicated below has obtained the following exam result:"
-msgstr "L’Institut de Formation Bancaire, Luxembourg certifie que la personne désignée ci-dessous a obtenu le résultat d’examen suivant :"
-
-#. module: training_exam
-#: rml:training.planned_exam.cancel:0
-msgid "Exam - Cancellation:"
-msgstr "Examen - Annulation:"
-
-#. module: training_exam
-#: rml:training.participation.report:0
-msgid ". Type:"
 msgstr ""
 
 #. module: training_exam
-#: model:ir.actions.report.xml,name:training_exam.training_planned_exam_cancel_report
-msgid "Training Cancellation"
-msgstr "Annulation formation"
+#: view:training.exam.questionnaire.course:0
+msgid "Course Scores"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "NAME"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation,certif_printed:0
+msgid "Certificate Printed"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+msgid "Response (Plain)"
+msgstr ""
 
 #. module: training_exam
 #: field:training.exam.question,number_of_good_answers:0
 msgid "Number of Good Answers"
-msgstr "Nombre de réponse valide"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation.line,sequence:0
+msgid "Question N°"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "SCORE / 100"
+msgstr ""
+
+#. module: training_exam
+#: wizard_field:training.exam.question.assign.course,init,course_id:0
+#: field:training.exam.question.wizard,course_id:0
+#: field:training.exam.questionnaire.course,course_id:0
+#: field:training.exam.questionnaire.wizard,course_id:0
+#: field:training.exam.wizard.helper,course_id:0
+msgid "Course"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.questionnaire:0
+msgid "Reset to Draft"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question.wizard:0
+#: view:training.exam.questionnaire.wizard:0
+msgid "_Cancel"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.questionnaire.question,question_exposition:0
+msgid "Exposition"
+msgstr ""
 
 #. module: training_exam
 #: rml:training.exam.questionnaire.report:0
-msgid "Questionnaire Description"
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+msgid "1.15cm 1.2cm 19.9cm 1.2cm"
 msgstr ""
 
 #. module: training_exam
@@ -236,14 +318,126 @@ msgid "Solution Plain"
 msgstr ""
 
 #. module: training_exam
-#: wizard_field:training.exam.question.assign.course,init,course_id:0
-#: field:training.exam.question.wizard,course_id:0
-#: field:training.exam.questionnaire,course_id:0
+#: view:training.exam.question:0
+msgid "Response (Yes/No)"
+msgstr ""
+
+#. module: training_exam
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr ""
+
+#. module: training_exam
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "Cannot modify important field of a question which is validated"
+msgstr ""
+
+#. module: training_exam
+#: wizard_button:training.exam.question.assign.course,init,confirm:0
+msgid "Confirm"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+#: field:training.exam.question,question:0
+#: field:training.exam.question.answer,question_id:0
+#: view:training.exam.questionnaire:0
+#: field:training.exam.questionnaire.question,question_id:0
+#: view:training.participation.line:0
+#: field:training.participation.line,question_id:0
+msgid "Question"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.questionnaire.course,kind:0
+#: field:training.exam.wizard.helper,kind:0
+msgid "Kind"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.report.xml,name:training_exam.training_questionnaire
+msgid "Preview Exam Sheet With Solution"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.question,state:0
+#: field:training.exam.questionnaire,state:0
+msgid "State"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+#: selection:training.exam.question,state:0
+#: selection:training.exam.questionnaire,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: training_exam
+#: help:training.participation.line,point_question_id:0
+msgid "Point of question"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.question,type:0
+#: field:training.exam.questionnaire,type:0
+#: field:training.exam.questionnaire.question,question_type:0
+#: field:training.exam.questionnaire.wizard,kind:0
+#: field:training.participation.line,type_question_id:0
+msgid "Type"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "Fax:"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation.line,participation_id:0
+msgid "Participation"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.report.xml,name:training_exam.training_participation
+msgid "Print Original Exam Sheet"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+msgid "Question Image"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.model,name:training_exam.model_training_exam_wizard_helper
+msgid "training.exam.wizard.helper"
+msgstr ""
+
+#. module: training_exam
+#: help:training.exam.question,duration:0
+msgid "Time related to question"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question.answer:0
+msgid "Question Answer"
+msgstr ""
+
+#. module: training_exam
 #: rml:training.exam.questionnaire.report:0
-#: field:training.exam.questionnaire.wizard,course_id:0
 #: rml:training.participation.report:0
-msgid "Course"
-msgstr "Cours"
+#: rml:training.participation.report.preview:0
+msgid "/"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.model,name:training_exam.model_training_exam_questionnaire_attachment
+msgid "training.exam.questionnaire.attachment"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "FIRST NAME"
+msgstr ""
 
 #. module: training_exam
 #: code:addons/training_exam/training_exam.py:0
@@ -252,151 +446,42 @@ msgid "Warning"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.question.wizard:0
-#: view:training.exam.questionnaire.wizard:0
-msgid "_Cancel"
-msgstr "_Annuler"
-
-#. module: training_exam
-#: selection:training.exam.correction,state:0
-#: view:training.exam.questionnaire:0
-#: selection:training.exam.questionnaire,state:0
-msgid "Draft"
-msgstr "Brouillon"
-
-#. module: training_exam
-#: field:training.subscription.line,with_exam:0
-#: field:training.subscription.line.second,with_exams:0
-#: field:training.subscription.mass.wizard,with_exams:0
-msgid "With Exam(s)"
-msgstr "Avec examen(s)"
-
-#. module: training_exam
-#: rml:training.participation.report:0
-#: rml:training.planned_exam.report:0
-msgid "Participant"
-msgstr "Participant"
-
-#. module: training_exam
-#: field:training.exam.question.answer,is_solution:0
-msgid "Acceptable Solution"
-msgstr "Solution acceptable"
-
-#. module: training_exam
-#: wizard_button:training.exam.question.assign.course,init,confirm:0
-msgid "Confirm"
-msgstr "Confirmer"
-
-#. module: training_exam
-#: view:training.exam.question:0
-#: field:training.exam.question,question:0
-#: field:training.exam.question.answer,question_id:0
-#: rml:training.exam.questionnaire.report:0
-#: view:training.participation.line:0
-#: field:training.participation.line,question_id:0
-msgid "Question"
-msgstr "Question"
-
-#. module: training_exam
-#: view:training.exam.correction:0
-msgid "Dates"
-msgstr ""
-
-#. module: training_exam
-#: view:training.exam.correction:0
-msgid "Send"
-msgstr ""
-
-#. module: training_exam
-#: field:training.exam.correction,state:0
-#: field:training.exam.questionnaire,state:0
-msgid "State"
-msgstr "État"
-
-#. module: training_exam
-#: rml:training.participation.report:0
-msgid "- Point:"
-msgstr ""
-
-#. module: training_exam
-#: rml:training.planned_exam.cancel:0
-#: rml:training.planned_exam.report:0
-msgid "Location"
-msgstr ""
-
-#. module: training_exam
-#: help:training.participation.line,point_question_id:0
-msgid "Point of question"
-msgstr "Point maximum de la question"
-
-#. module: training_exam
-#: field:training.exam.question,type:0
-#: rml:training.exam.questionnaire.report:0
-#: field:training.exam.questionnaire.wizard,kind:0
-#: field:training.participation.line,type_question_id:0
-msgid "Type"
-msgstr "Type"
-
-#. module: training_exam
-#: selection:training.exam.questionnaire.wizard,kind:0
-msgid "At Least one open-ended question"
-msgstr "Au moins une question ouverte"
-
-#. module: training_exam
-#: field:training.participation.line,participation_id:0
-msgid "Participation"
-msgstr "Participation"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Room"
-msgstr "Salle"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Conditions d'annulation :"
-msgstr ""
-
-#. module: training_exam
-#: view:training.participation.line:0
-msgid "Responses"
-msgstr "Réponses"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Miscellaneous"
-msgstr "Divers"
-
-#. module: training_exam
-#: wizard_view:training.exam.question.assign.course,init:0
-msgid "Assign to a new course"
-msgstr "Assigner à un cours"
-
-#. module: training_exam
-#: field:training.exam.correction,job_id:0
-msgid "Job"
-msgstr ""
-
-#. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_questionnaire_new_act
 #: model:ir.ui.menu,name:training_exam.library_exam_new_mi
 msgid "New Questionnaire"
-msgstr "Nouveau questionnaire"
+msgstr ""
 
 #. module: training_exam
-#: model:training.offer.kind,name:training_exam.offer_kind_exam
-msgid "Exam Only"
-msgstr "Examen seulement"
+#: field:training.participation,succeeded:0
+msgid "Succeeded"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "l'immeuble."
+#: selection:training.exam.questionnaire,type:0
+msgid "Examen"
+msgstr ""
+
+#. module: training_exam
+#: view:training.participation:0
+msgid "Configuration"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation.line,point_question_id:0
+msgid "Max Point"
 msgstr ""
 
 #. module: training_exam
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "XML non valide pour l'architecture de la vue"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.exam.questionnaire.report:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+msgid "Objective:"
+msgstr ""
 
 #. module: training_exam
 #: field:training.participation.line,qcm_question_id:0
@@ -409,122 +494,128 @@ msgid "If not zero, this is the score that will be forced"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.questionnaire.wizard:0
-msgid "Information about the questions"
-msgstr "Information sur les questions"
+#: model:ir.actions.report.xml,name:training_exam.training_participation_exam_result_firstpage_report
+msgid "Exam Result - First Page"
+msgstr ""
 
 #. module: training_exam
 #: help:training.exam.questionnaire,total_point:0
 msgid "Total point for the questionnaire"
-msgstr "Nombre total de point pour le questionnaire"
-
-#. module: training_exam
-#: rml:training.planned_exam.cancel:0
-msgid "For more information you can consult our web site"
-msgstr "Pour plus d'information vous pouvez consulter le site web"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.exam.questionnaire,kind:0
 msgid "Manual"
-msgstr "Manuel"
-
-#. module: training_exam
-#: view:training.exam.correction:0
-msgid "Command"
 msgstr ""
 
 #. module: training_exam
+#: rml:training.exam.questionnaire.report:0
 #: rml:training.participation.report:0
-msgid "Partner"
+#: rml:training.participation.report.preview:0
+msgid "Remarks:"
+msgstr ""
+
+#. module: training_exam
+#: wizard_button:training.exam.question.assign.course,init,end:0
+#: view:training.exam.wizard.helper:0
+msgid "Cancel"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.questionnaire:0
+#: field:training.exam.questionnaire,remark_firstpage:0
+msgid "Remark First Page"
 msgstr ""
 
 #. module: training_exam
 #: view:training.exam.questionnaire.wizard:0
 msgid "Questionnaire Information"
-msgstr "Information sur le questionnaire"
-
-#. module: training_exam
-#: rml:training.exam.questionnaire.report:0
-#: rml:training.participation.report:0
-msgid "Number Of Questions"
 msgstr ""
 
 #. module: training_exam
-#: model:ir.actions.report.xml,name:training_exam.training_questionnaire
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "The type of the course (%s) of this seance has no product defined"
+msgstr ""
+
+#. module: training_exam
+#: field:training.exam.questionnaire.attachment,store_in_dms:0
+msgid "Store In DMS"
+msgstr ""
+
+#. module: training_exam
 #: view:training.course:0
 #: field:training.course,questionnaire_ids:0
 #: field:training.exam.question,questionnaire_ids:0
 #: view:training.exam.questionnaire:0
-#: rml:training.exam.questionnaire.report:0
+#: field:training.exam.questionnaire.attachment,questionnaire_id:0
+#: field:training.exam.questionnaire.course,questionnaire_id:0
+#: field:training.exam.questionnaire.question,questionnaire_id:0
+#: field:training.exam.wizard.helper,questionnaire_id:0
 #: field:training.participation,questionnaire_id:0
 msgid "Questionnaire"
-msgstr "Questionnaire"
+msgstr ""
 
 #. module: training_exam
 #: help:training.exam.question,type:0
 #: help:training.participation.line,yesno_question_id:0
 msgid "Question type"
-msgstr "Type de la question"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.module.module,description:training_exam.module_meta_information
 msgid "This module adds the exam management for the training management"
-msgstr "Ce module ajout le support des examens à la gestion de formation"
-
-#. module: training_exam
-#: rml:training.participation.exam.result:0
-msgid "This document is an official certificate issued by the IFBL."
-msgstr "La présente communication tient lieu de certificat."
+msgstr ""
 
 #. module: training_exam
 #: field:training.exam.question,is_eliminatory:0
-#: rml:training.exam.questionnaire.report:0
 msgid "Eliminatory"
-msgstr "Éliminatoire"
+msgstr ""
 
 #. module: training_exam
 #: field:training.subscription.line,computed:0
 msgid "Computed"
-msgstr "Caculé"
+msgstr ""
 
 #. module: training_exam
 #: field:training.exam.question,point:0
-#: rml:training.exam.questionnaire.report:0
 #: field:training.participation.line,point:0
-#: field:training.participation.line,point_question_id:0
 msgid "Point"
-msgstr "Point"
+msgstr ""
 
 #. module: training_exam
-#: view:training.participation.line:0
-msgid "The response(s) from the student"
-msgstr "La/les réponse(s) de l'étudiant"
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "Can't find validated questionnaire for course '%s'"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.cancel:0
-#: rml:training.planned_exam.report:0
-msgid "Schedule"
-msgstr "Plannifier"
+#: view:training.exam.question:0
+#: field:training.exam.question,image:0
+msgid "Image"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "We have the pleasure to confirm the following exam:"
-msgstr "Nous avons le plaisir de confirmer votre inscription à l'examen:"
-
-#. module: training_exam
-#: rml:training.exam.questionnaire.report:0
-msgid "Solution(s)"
+#: model:ir.model,name:training_exam.model_training_exam_question
+msgid "training.exam.question"
 msgstr ""
 
 #. module: training_exam
 #: field:training.participation.line,yesno_question_id:0
 msgid "Solution YesNo"
-msgstr "Solution Oui/Non"
+msgstr ""
 
 #. module: training_exam
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "There is no product with the code equal to R50H !"
+msgstr ""
+
+#. module: training_exam
+#: view:training.participation:0
 #: field:training.participation,result:0
 msgid "Result"
-msgstr "Résultat"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.course_questions
@@ -533,72 +624,98 @@ msgstr "Résultat"
 #: model:ir.ui.menu,name:training_exam.library_exam_question_mi
 #: view:training.exam.questionnaire:0
 #: field:training.exam.questionnaire,question_ids:0
-#: rml:training.exam.questionnaire.report:0
+#: field:training.exam.wizard.helper,question_ids:0
 #: view:training.participation.line:0
 msgid "Questions"
-msgstr "Questions"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_questionnaire_current_act
 #: model:ir.ui.menu,name:training_exam.library_exam_current_mi
 msgid "Current Questionnaires"
-msgstr "Questionnaires actuels"
+msgstr ""
+
+#. module: training_exam
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid ""
+"Can't assign questionnaire to participation %s because there is not exam "
+"defined on this participation"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+msgid "Product Line"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.exam.question,response_yesno:0
 #: selection:training.exam.question.answer,is_solution:0
 #: selection:training.participation,succeeded:0
 #: selection:training.participation.line,response_yesno:0
-#: selection:training.subscription.line.second,with_exams:0
-#: selection:training.subscription.mass.wizard,with_exams:0
 msgid "Yes"
-msgstr "Oui"
+msgstr ""
 
 #. module: training_exam
-#: help:training.exam.questionnaire,state:0
-msgid "The state of the Questionnaire"
-msgstr "L'état du questionnaire"
+#: selection:training.exam.questionnaire.attachment,position:0
+msgid "Before"
+msgstr ""
 
 #. module: training_exam
-#: model:ir.model,name:training_exam.model_training_exam_correction
-msgid "training.exam.correction"
+#: view:training.exam.questionnaire.wizard:0
+msgid "Information about the questions"
+msgstr ""
+
+#. module: training_exam
+#: help:training.exam.question,image:0
+msgid "Image to be display next to question text"
+msgstr ""
+
+#. module: training_exam
+#: field:training.subscription.line,exam_session_id:0
+#: field:training.subscription.line.second,exam_session_id:0
+msgid "Exam Session"
 msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_questionnaire_wizard_act
 #: model:ir.ui.menu,name:training_exam.library_exam_questionnaire_generate_mi
 msgid "Generate Questionnaire"
-msgstr "Générer un questionnaire"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.exam.question,response_yesno:0
 #: selection:training.exam.question.answer,is_solution:0
 #: selection:training.participation,succeeded:0
 #: selection:training.participation.line,response_yesno:0
-#: selection:training.subscription.line.second,with_exams:0
-#: selection:training.subscription.mass.wizard,with_exams:0
 msgid "No"
-msgstr "Non"
+msgstr ""
 
 #. module: training_exam
 #: rml:training.participation.exam.result:0
 msgid "Examination Result"
-msgstr "Résultat d’examen"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_question_without_act
 #: model:ir.ui.menu,name:training_exam.library_exam_question_mi1
 msgid "Questions Without Course"
-msgstr "Questions sans cours"
+msgstr ""
 
 #. module: training_exam
-#: view:training.exam.correction:0
-#: field:training.exam.correction,note:0
+#: rml:training.exam.questionnaire.report:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+#: rml:training.seance.exam.followup.list.report:0
+msgid "You Logo - Change X,Y,Width and Height"
+msgstr ""
+
+#. module: training_exam
 #: view:training.exam.question:0
 #: field:training.exam.question,note:0
 #: field:training.participation.line,note:0
 msgid "Note"
-msgstr "Note"
+msgstr ""
 
 #. module: training_exam
 #: code:addons/training_exam/training_exam.py:0
@@ -607,103 +724,135 @@ msgid "Can you check the product on the course type of the course ?"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.correction:0
-msgid "Contact Information"
+#: field:training.exam.questionnaire.attachment,attachment_id:0
+msgid "Attachment"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.question:0
-msgid "Response (Yes/No)"
-msgstr "Réponse (Oui/Non)"
+#: rml:training.seance.exam.followup.list.report:0
+msgid "CORRECTOR"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.exam.question,type:0
+#: selection:training.exam.questionnaire.question,question_type:0
 #: selection:training.participation.line,type_question_id:0
 msgid "Yes/No"
-msgstr "Oui/Non"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.questionnaire:0
 #: selection:training.exam.questionnaire,state:0
 msgid "Pending"
-msgstr "En attente"
+msgstr ""
+
+#. module: training_exam
+#: view:training.participation:0
+msgid "Status"
+msgstr ""
 
 #. module: training_exam
 #: help:training.exam.questionnaire,duration:0
 msgid "Duration for the exam"
-msgstr "Durée de l'examen"
+msgstr ""
 
 #. module: training_exam
 #: view:training.participation.line:0
 msgid "Question Information"
-msgstr "Information sur la question"
+msgstr ""
 
 #. module: training_exam
 #: code:addons/training_exam/training_exam.py:0
+#: model:training.course.kind,name:training_exam.course_kind_exam
 #: field:training.course_type,exam_product_id:0
+#: model:training.offer.kind,name:training_exam.offer_kind_exam
 #: field:training.participation,course_questionnaire_id:0
 #: field:training.participation,exam_id:0
-#: rml:training.planned_exam.report:0
 #: view:training.subscription:0
 #: view:training.subscription.line:0
 #: field:training.subscription.line,course_id:0
 #: field:training.subscription.line.second,course_id:0
-#: field:training.subscription.mass.line,course_id:0
 #, python-format
 msgid "Exam"
-msgstr "Examen"
+msgstr ""
 
 #. module: training_exam
-#: field:training.exam.correction,contact_id:0
-msgid "unknown"
+#: field:training.participation,result_pourcentage:0
+msgid "Result (%)"
 msgstr ""
 
 #. module: training_exam
 #: code:addons/training_exam/training_exam.py:0
 #, python-format
 msgid "You have selected an exam seance but there is no associated course"
-msgstr "Vous avez selectionné une séance d'examen mais il n'y a pas de cours associé"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.question:0
 msgid "Question Description"
-msgstr "Description de la question"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.wizard,name:training_exam.wizard_training_exam_question_assign_course
 msgid "Assign Course"
-msgstr "Assigner un cours"
+msgstr ""
 
 #. module: training_exam
-#: model:ir.actions.report.xml,name:training_exam.training.participation.exam.result
-#: rml:training.participation.exam.result:0
-msgid "Exam Result:"
-msgstr "Résultat obtenu:"
+#: rml:training.exam.questionnaire.report:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+#: rml:training.seance.exam.followup.list.report:0
+msgid "page bottom"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.report.xml,name:training_exam.training_participation_exam_result_report
+msgid "Exam Result"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "SEND ON"
+msgstr ""
 
 #. module: training_exam
 #: help:training.exam.question,name:0
 msgid "Name of Question"
-msgstr "Nom de la question"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Parking souterrain (euro : 1,-/hre) et restauration (chèque-repas ou cash) possibles dans"
+#: help:training.exam.questionnaire.attachment,store_in_dms:0
+msgid ""
+"Indicate if generated document will be store is the document management "
+"system or discared on scan"
 msgstr ""
 
 #. module: training_exam
 #: view:training.exam.questionnaire:0
 msgid "Deprecate"
-msgstr "Déprécier"
+msgstr ""
 
 #. module: training_exam
-#: help:training.exam.questionnaire,name:0
-msgid "Name of questionnaire"
-msgstr "Nom du questionnaire"
+#: rml:training.seance.exam.followup.list.report:0
+msgid "EXAM"
+msgstr ""
 
 #. module: training_exam
+#: view:training.exam.question:0
+msgid "Designation"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation,forced_noresult:0
+msgid "Forced No Result"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.question:0
+#: selection:training.exam.question,state:0
 #: selection:training.exam.questionnaire,state:0
 msgid "Deprecated"
-msgstr "Déprécié"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.participation,succeeded:0
@@ -713,89 +862,116 @@ msgstr ""
 #. module: training_exam
 #: help:training.exam.question,is_mandatory:0
 msgid "Question is mandatory or not"
-msgstr "Question obligatoire ou non"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.participation.report:0
-#: rml:training.planned_exam.cancel:0
-#: rml:training.planned_exam.report:0
-msgid "Date"
-msgstr "Date"
+#: view:training.exam.question:0
+#: field:training.exam.question,course_ids:0
+#: view:training.exam.questionnaire:0
+#: field:training.exam.questionnaire,course_ids:0
+#: view:training.exam.questionnaire.course:0
+msgid "Courses"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation.line,graded:0
+msgid "Is Graded"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "PAPER VERSION"
+msgstr ""
+
+#. module: training_exam
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "E-Mail:"
+msgstr ""
 
 #. module: training_exam
 #: rml:training.participation.exam.result:0
 msgid "Participant:"
-msgstr "Participant:"
+msgstr ""
 
 #. module: training_exam
-#: selection:training.exam.question,type:0
-#: selection:training.participation.line,type_question_id:0
-msgid "Plain"
-msgstr "Text libre"
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "The following course has not a valid duration '%s' (%d)"
+msgstr ""
 
 #. module: training_exam
-#: help:training.subscription.line,with_exam:0
-msgid "Select if participant give exam"
-msgstr "Indique si le participant participera à un examen"
-
-#. module: training_exam
-#: view:training.exam.correction:0
-msgid "Exam Correction"
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "Cancellation"
 msgstr ""
 
 #. module: training_exam
 #: field:training.exam.question,is_mandatory:0
-#: rml:training.exam.questionnaire.report:0
 msgid "Mandatory"
-msgstr "Obligatoire"
+msgstr ""
 
 #. module: training_exam
-#: field:training.exam.questionnaire,kind:0
-msgid "Kind"
-msgstr "Type"
+#: view:training.exam.questionnaire:0
+#: field:training.exam.questionnaire,attachment_ids:0
+#: view:training.exam.questionnaire.attachment:0
+msgid "Attachments"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.question.answer:0
 msgid "Proposed Answer"
-msgstr "Réponse proposé"
+msgstr ""
 
 #. module: training_exam
 #: rml:training.participation.exam.result:0
 msgid "Training:"
-msgstr "Formation:"
+msgstr ""
 
 #. module: training_exam
-#: view:training.exam.correction:0
 #: view:training.exam.questionnaire:0
 msgid "General"
-msgstr "Général"
+msgstr ""
 
 #. module: training_exam
-#: wizard_button:training.exam.question.assign.course,init,end:0
-msgid "Cancel"
-msgstr "Annuler"
+#: view:training.seance.generate.zip.wizard:0
+msgid "Exam Reports"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_question_new_act
 #: model:ir.ui.menu,name:training_exam.library_exam_question_new_mi
 msgid "New Question"
-msgstr "Nouvelle question"
+msgstr ""
 
 #. module: training_exam
+#: selection:training.exam.question,state:0
 #: selection:training.exam.questionnaire,state:0
 msgid "Validated"
-msgstr "Validé"
+msgstr ""
 
 #. module: training_exam
-#: model:ir.module.module,shortdesc:training_exam.module_meta_information
-msgid "Training Exam"
-msgstr "Examen"
+#: view:training.participation.line:0
+msgid "The response(s) from the student"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.act_window,name:training_exam.exam_questionnaire_wizard_helper_act
+#: view:training.exam.questionnaire:0
+#: view:training.exam.wizard.helper:0
+msgid "Add Questions"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.questionnaire:0
 #: selection:training.exam.questionnaire,state:0
 msgid "In Progress"
-msgstr "En cours"
+msgstr ""
 
 #. module: training_exam
 #: view:training.subscription:0
@@ -804,60 +980,87 @@ msgstr ""
 
 #. module: training_exam
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Le nom de l'objet doit commencer avec x_ et ne pas contenir de charactères spéciaux !"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.questionnaire:0
 msgid "Exam Content"
-msgstr "Contenu de l'examen"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.cancel:0
-msgid "Your contact"
-msgstr "Votre contact"
+#: view:training.exam.questionnaire.course:0
+#: field:training.participation,total_points:0
+msgid "Total Points"
+msgstr ""
 
 #. module: training_exam
-#: view:training.exam.question:0
-msgid "Designation"
-msgstr "Désignation"
+#: view:training.course:0
+#: field:training.exam.questionnaire,len_question_ids:0
+#: field:training.exam.questionnaire.wizard,number_of_question:0
+msgid "Number of Questions"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.questionnaire:0
 #: field:training.exam.questionnaire,objective:0
 msgid "Objective"
-msgstr "Objectif"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.cancel:0
-msgid "Cancellation Reason"
-msgstr "Raison d'annulation"
+#: view:training.participation:0
+msgid "Exam Summary"
+msgstr ""
+
+#. module: training_exam
+#: code:addons/training_exam/training_exam.py:0
+#, python-format
+msgid "Class %d"
+msgstr ""
+
+#. module: training_exam
+#: help:training.participation.line,point:0
+msgid "Number of point get from question"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.question_wizard_act
 #: model:ir.ui.menu,name:training_exam.library_exam_question_course_wizard_mi
 msgid "Questions by Course"
-msgstr "Questions par Cours"
-
-#. module: training_exam
-#: selection:training.exam.question,type:0
-#: selection:training.participation.line,type_question_id:0
-msgid "QCM"
 msgstr ""
 
 #. module: training_exam
-#: selection:training.exam.correction,state:0
-msgid "Requested"
+#: rml:training.participation.exam.result:0
+msgid "Exam Result:"
 msgstr ""
 
 #. module: training_exam
-#: rml:training.participation.report:0
-msgid "%"
+#: rml:training.seance.exam.followup.list.report:0
+msgid "1.15cm 18.2cm 28.55cm 18.2cm"
+msgstr ""
+
+#. module: training_exam
+#: view:training.exam.wizard.helper:0
+msgid "Add Questions to Questionnaire"
+msgstr ""
+
+#. module: training_exam
+#: view:training.participation:0
+msgid "Exam Participation"
 msgstr ""
 
 #. module: training_exam
 #: field:training.exam.questionnaire,description:0
+#: view:training.offer:0
 msgid "Description"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.exam.questionnaire.report:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+msgid "1.15cm 27.1cm 20cm 27.1cm"
 msgstr ""
 
 #. module: training_exam
@@ -866,67 +1069,87 @@ msgid "training.exam.questionnaire"
 msgstr ""
 
 #. module: training_exam
+#: rml:training.exam.questionnaire.report:0
 #: rml:training.participation.exam.result:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
 msgid ")"
 msgstr ""
 
 #. module: training_exam
 #: view:training.exam.question:0
 msgid "Response (QCU/QCM)"
-msgstr "Réponse (QCU/QCM)"
-
-#. module: training_exam
-#: code:addons/training_exam/wizard/wizard_subscription_mass.py:0
-#, python-format
-msgid "Mass Subscription Wizard"
-msgstr "Assistant inscription massive"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Your Contact"
-msgstr "Votre contact"
-
-#. module: training_exam
-#: selection:training.exam.correction,state:0
-msgid "Sent"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.correction:0
-#: selection:training.exam.correction,state:0
-msgid "Waiting"
+#: selection:training.exam.questionnaire.attachment,position:0
+msgid "After"
 msgstr ""
 
 #. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Address"
-msgstr "Adresse"
+#: help:training.participation,questionnaire_id:0
+msgid "Select the Questionnaire for participant"
+msgstr ""
 
 #. module: training_exam
-#: field:training.exam.correction,reception_date:0
-msgid "Reception Date"
+#: selection:training.exam.questionnaire.wizard,kind:0
+msgid "At Least one open-ended question"
+msgstr ""
+
+#. module: training_exam
+#: selection:training.exam.question,type:0
+#: selection:training.exam.questionnaire.question,question_type:0
+#: selection:training.participation.line,type_question_id:0
+msgid "QCM"
+msgstr ""
+
+#. module: training_exam
+#: selection:training.exam.question,type:0
+#: selection:training.exam.questionnaire.question,question_type:0
+#: selection:training.participation.line,type_question_id:0
+msgid "Plain"
+msgstr ""
+
+#. module: training_exam
+#: help:training.participation,total_points:0
+msgid "Total Point on Questionnaire"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "RECEIVED ON"
+msgstr ""
+
+#. module: training_exam
+#: view:training.participation.line:0
+msgid "Notes"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation.line,response_qcm_ids:0
+msgid "Solutions"
 msgstr ""
 
 #. module: training_exam
 #: help:training.participation,result:0
 msgid "Exam Result of participate"
-msgstr "Résultat d'examen du participant"
+msgstr ""
 
 #. module: training_exam
 #: field:training.exam.question,name:0
 #: field:training.exam.questionnaire,name:0
 #: field:training.exam.questionnaire.wizard,name:0
 msgid "Name"
-msgstr "Nom"
-
-#. module: training_exam
-#: field:training.participation,succeeded:0
-msgid "Succeeded"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.correction:0
-msgid "Request"
+#: rml:training.participation.exam.result:0
+msgid "% ("
+msgstr ""
+
+#. module: training_exam
+#: rml:training.seance.exam.followup.list.report:0
+msgid "Tel:"
 msgstr ""
 
 #. module: training_exam
@@ -945,18 +1168,18 @@ msgid "Forced Result"
 msgstr ""
 
 #. module: training_exam
-#: rml:training.participation.report:0
-msgid "Q"
+#: rml:training.participation.exam.result:0
+msgid "This document is an official certificate issued by the IFBL."
 msgstr ""
 
 #. module: training_exam
 #: model:ir.model,name:training_exam.model_training_exam_question_answer
 msgid "Training Question Answer"
-msgstr "Réponse question"
+msgstr ""
 
 #. module: training_exam
-#: field:training.exam.correction,sent_date:0
-msgid "Sent Date"
+#: view:training.exam.questionnaire.course:0
+msgid "Course Information"
 msgstr ""
 
 #. module: training_exam
@@ -964,43 +1187,53 @@ msgstr ""
 #: view:training.offer:0
 #: field:training.offer,questionnaire_ids:0
 msgid "Exams"
-msgstr "Examens"
+msgstr ""
 
 #. module: training_exam
 #: view:training.exam.question.wizard:0
 #: view:training.exam.questionnaire.wizard:0
 msgid "_Apply"
-msgstr "_Appliquer"
+msgstr ""
 
 #. module: training_exam
-#: view:training.participation:0
-msgid "Exam Participation"
-msgstr "Participation à un examen"
+#: field:training.exam.questionnaire,kind:0
+msgid "Mode"
+msgstr ""
 
 #. module: training_exam
 #: field:training.course,has_questionnaire:0
 msgid "Has Questionnaires"
-msgstr "Questionnaires disponibles"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.participation.report:0
-msgid "ID"
+#: selection:training.exam.question,image_position:0
+msgid "Before text"
+msgstr ""
+
+#. module: training_exam
+#: view:training.participation.line:0
+msgid "Responses"
 msgstr ""
 
 #. module: training_exam
 #: field:training.participation,participation_line_ids:0
 msgid "Participation Lines"
-msgstr "Lignes de participations"
+msgstr ""
 
 #. module: training_exam
-#: help:training.exam.questionnaire,passing_score:0
+#: help:training.exam.questionnaire.course,passing_score:0
 msgid "Passing score of  related to Exam"
-msgstr "Score de passage pour l'examen lié"
+msgstr ""
 
 #. module: training_exam
 #: help:training.exam.question,point:0
 msgid "Point related to question"
-msgstr "Point lié à la question"
+msgstr ""
+
+#. module: training_exam
+#: selection:training.exam.question,image_position:0
+msgid "After text"
+msgstr ""
 
 #. module: training_exam
 #: model:ir.model,name:training_exam.model_training_participation_line
@@ -1008,43 +1241,47 @@ msgid "training.participation.line"
 msgstr ""
 
 #. module: training_exam
-#: view:training.exam.question:0
-#: field:training.exam.question,course_ids:0
-msgid "Courses"
-msgstr "Cours"
-
-#. module: training_exam
-#: rml:training.planned_exam.report:0
-msgid "Exam – Confirmation"
-msgstr "Examen - Confirmation"
-
-#. module: training_exam
-#: view:training.exam.question:0
-msgid "Response (Plain)"
+#: field:training.exam.questionnaire.attachment,sequence:0
+#: field:training.exam.questionnaire.question,sequence:0
+msgid "Sequence"
 msgstr ""
 
 #. module: training_exam
-#: model:ir.model,name:training_exam.model_training_exam_question
-msgid "Training Exam Question"
-msgstr "Question d'examen"
+#: model:ir.module.module,shortdesc:training_exam.module_meta_information
+msgid "Training Exam"
+msgstr ""
+
+#. module: training_exam
+#: model:ir.actions.report.xml,name:training_exam.training_participation_preview
+msgid "Preview Exam Sheet"
+msgstr ""
+
+#. module: training_exam
+#: help:training.exam.questionnaire,state:0
+msgid "The state of the Questionnaire"
+msgstr ""
+
+#. module: training_exam
+#: field:training.participation,result_received:0
+msgid "Result received"
+msgstr ""
+
+#. module: training_exam
+#: rml:training.exam.questionnaire.report:0
+#: rml:training.participation.report:0
+#: rml:training.participation.report.preview:0
+#: rml:training.seance.exam.followup.list.report:0
+msgid "Page:"
+msgstr ""
 
 #. module: training_exam
 #: rml:training.participation.exam.result:0
 msgid "Exam Date:"
-msgstr "Date examen:"
-
-#. module: training_exam
-#: rml:training.participation.exam.result:0
-msgid "Pass"
-msgstr "Réussi"
-
-#. module: training_exam
-#: rml:training.participation.exam.result:0
-msgid "Failed"
-msgstr "Non réussi"
+msgstr ""
 
 #. module: training_exam
 #: selection:training.exam.question,type:0
+#: selection:training.exam.questionnaire.question,question_type:0
 #: selection:training.participation.line,type_question_id:0
 msgid "QCU"
 msgstr ""
@@ -1052,38 +1289,16 @@ msgstr ""
 #. module: training_exam
 #: field:training.exam.question,duration:0
 #: field:training.exam.questionnaire,duration:0
-#: rml:training.exam.questionnaire.report:0
 #: field:training.participation,duration_questionnaire_id:0
 msgid "Duration"
-msgstr "Durée"
+msgstr ""
 
 #. module: training_exam
-#: view:training.course:0
-#: field:training.exam.questionnaire,len_question_ids:0
-#: field:training.exam.questionnaire.wizard,number_of_question:0
-msgid "Number of Questions"
-msgstr "Nombre de questions"
+#: wizard_view:training.exam.question.assign.course,init:0
+msgid "Assign to a new course"
+msgstr ""
 
 #. module: training_exam
-#: rml:training.participation.report:0
-#: rml:training.exam.questionnaire.report:0
-msgid "one response"
-msgstr "une réponse"
-
-#. module: training_exam
-#: rml:training.participation.report:0
-#: rml:training.exam.questionnaire.report:0
-msgid "multiple responses"
-msgstr "plusieurs réponses"
-
-#. module: training_exam
-#: rml:training.participation.report:0
-#: rml:training.exam.questionnaire.report:0
-msgid "Yes"
-msgstr "Oui"
-
-#. module: training_exam
-#: rml:training.participation.report:0
-#: rml:training.exam.questionnaire.report:0
-msgid "No"
-msgstr "Non"
+#: help:training.participation,result_pourcentage:0
+msgid "Exam Result of Participate in Pourcetage"
+msgstr ""

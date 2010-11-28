@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-10-22 08:30:47+0000\n"
-"PO-Revision-Date: 2010-10-22 11:19+0200\n"
-"Last-Translator: <> <>\n"
-"Language-Team:  <>\n"
+"POT-Creation-Date: 2010-10-05 18:29+0000\n"
+"PO-Revision-Date: 2010-11-27 15:01+0000\n"
+"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
+"<jesteve@zikzakmedia.com>\n"
+"Language-Team: <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-11-28 05:02+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #. module: training_exam
 #: view:training.participation.line:0
@@ -57,7 +59,8 @@ msgstr "training.exam.questionnaire.question"
 #: model:ir.actions.act_window,name:training_exam.link_question_to_questionnaire
 #: model:ir.actions.act_window,name:training_exam.show_questionnaire_from_course
 #: model:ir.ui.menu,name:training_exam.library_exam_questionnaire_all_mi
-#: view:training.course:0 view:training.exam.question:0
+#: view:training.course:0
+#: view:training.exam.question:0
 #: view:training.exam.questionnaire:0
 msgid "Questionnaires"
 msgstr "Questionari"
@@ -149,10 +152,11 @@ msgid ""
 msgstr ""
 "Il punteggio minio per passare questo esame, assegnato quanto il "
 "questionario è interessato alla partecipazione (sulla generazione del "
-"\"Foglio esame\") e non aggiornato dopo "
+"\"Foglio esame\") e non aggiornato dopo"
 
 #. module: training_exam
-#: view:training.exam.question:0 view:training.exam.questionnaire:0
+#: view:training.exam.question:0
+#: view:training.exam.questionnaire:0
 msgid "Validate"
 msgstr "Convalidato"
 
@@ -340,7 +344,8 @@ msgid "Confirm"
 msgstr "Confirma"
 
 #. module: training_exam
-#: view:training.exam.question:0 field:training.exam.question,question:0
+#: view:training.exam.question:0
+#: field:training.exam.question,question:0
 #: field:training.exam.question.answer,question_id:0
 #: view:training.exam.questionnaire:0
 #: field:training.exam.questionnaire.question,question_id:0
@@ -367,7 +372,8 @@ msgid "State"
 msgstr "Stato"
 
 #. module: training_exam
-#: view:training.exam.question:0 selection:training.exam.question,state:0
+#: view:training.exam.question:0
+#: selection:training.exam.question,state:0
 #: selection:training.exam.questionnaire,state:0
 msgid "Draft"
 msgstr "Bozza"
@@ -543,7 +549,8 @@ msgid "Store In DMS"
 msgstr "Archivia in DMS"
 
 #. module: training_exam
-#: view:training.course:0 field:training.course,questionnaire_ids:0
+#: view:training.course:0
+#: field:training.course,questionnaire_ids:0
 #: field:training.exam.question,questionnaire_ids:0
 #: view:training.exam.questionnaire:0
 #: field:training.exam.questionnaire.attachment,questionnaire_id:0
@@ -588,7 +595,8 @@ msgid "Can't find validated questionnaire for course '%s'"
 msgstr "Non trovato un questionario convalidato per il corso '%s'"
 
 #. module: training_exam
-#: view:training.exam.question:0 field:training.exam.question,image:0
+#: view:training.exam.question:0
+#: field:training.exam.question,image:0
 msgid "Image"
 msgstr "Immagine"
 
@@ -609,7 +617,8 @@ msgid "There is no product with the code equal to R50H !"
 msgstr "Non c'è prodotto con il codice uguale a R50H !"
 
 #. module: training_exam
-#: view:training.participation:0 field:training.participation,result:0
+#: view:training.participation:0
+#: field:training.participation,result:0
 msgid "Result"
 msgstr "Risultato"
 
@@ -709,7 +718,8 @@ msgid "You Logo - Change X,Y,Width and Height"
 msgstr "Il logo - Cambia X,Y, Larghezza e Altezza"
 
 #. module: training_exam
-#: view:training.exam.question:0 field:training.exam.question,note:0
+#: view:training.exam.question:0
+#: field:training.exam.question,note:0
 #: field:training.participation.line,note:0
 msgid "Note"
 msgstr "Note"
@@ -764,7 +774,8 @@ msgstr "Informazione domanda"
 #: field:training.course_type,exam_product_id:0
 #: model:training.offer.kind,name:training_exam.offer_kind_exam
 #: field:training.participation,course_questionnaire_id:0
-#: field:training.participation,exam_id:0 view:training.subscription:0
+#: field:training.participation,exam_id:0
+#: view:training.subscription:0
 #: view:training.subscription.line:0
 #: field:training.subscription.line,course_id:0
 #: field:training.subscription.line.second,course_id:0
@@ -846,7 +857,8 @@ msgid "Forced No Result"
 msgstr "Forzato nessun risultato"
 
 #. module: training_exam
-#: view:training.exam.question:0 selection:training.exam.question,state:0
+#: view:training.exam.question:0
+#: selection:training.exam.question,state:0
 #: selection:training.exam.questionnaire,state:0
 msgid "Deprecated"
 msgstr "Disapprovato"
@@ -862,7 +874,8 @@ msgid "Question is mandatory or not"
 msgstr "Domanda obbligatoria o meno"
 
 #. module: training_exam
-#: view:training.exam.question:0 field:training.exam.question,course_ids:0
+#: view:training.exam.question:0
+#: field:training.exam.question,course_ids:0
 #: view:training.exam.questionnaire:0
 #: field:training.exam.questionnaire,course_ids:0
 #: view:training.exam.questionnaire.course:0
@@ -958,7 +971,8 @@ msgstr "La risposta(e) dallo studente"
 
 #. module: training_exam
 #: model:ir.actions.act_window,name:training_exam.exam_questionnaire_wizard_helper_act
-#: view:training.exam.questionnaire:0 view:training.exam.wizard.helper:0
+#: view:training.exam.questionnaire:0
+#: view:training.exam.wizard.helper:0
 msgid "Add Questions"
 msgstr "Aggiungi domande"
 
@@ -993,7 +1007,8 @@ msgid "Total Points"
 msgstr "Punti totali"
 
 #. module: training_exam
-#: view:training.course:0 field:training.exam.questionnaire,len_question_ids:0
+#: view:training.course:0
+#: field:training.exam.questionnaire,len_question_ids:0
 #: field:training.exam.questionnaire.wizard,number_of_question:0
 msgid "Number of Questions"
 msgstr "Numero di domande"
@@ -1047,7 +1062,8 @@ msgid "Exam Participation"
 msgstr "Partecipazione esame"
 
 #. module: training_exam
-#: field:training.exam.questionnaire,description:0 view:training.offer:0
+#: field:training.exam.questionnaire,description:0
+#: view:training.offer:0
 msgid "Description"
 msgstr "Descrizione"
 
@@ -1178,7 +1194,8 @@ msgid "Course Information"
 msgstr "Informazione Corso"
 
 #. module: training_exam
-#: model:ir.ui.menu,name:training_exam.library_exam_mi view:training.offer:0
+#: model:ir.ui.menu,name:training_exam.library_exam_mi
+#: view:training.offer:0
 #: field:training.offer,questionnaire_ids:0
 msgid "Exams"
 msgstr "Esami"

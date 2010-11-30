@@ -36,6 +36,7 @@
     "init_xml" : [],
     "update_xml" : [
 	'mgmtsystem_action.xml',
+	'board_mgmtsystem_action.xml',
     ],
     "demo_xml" : [],
     "installable" : True,

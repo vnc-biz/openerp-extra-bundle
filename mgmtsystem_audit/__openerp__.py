@@ -34,6 +34,8 @@
     "update_xml" : [
 	'mgmtsystem_audit.xml',
 	'report/audit_report.xml',
+	'board_mgmtsystem_audit.xml',
+	'audit_sequence.xml',
     ],
     "demo_xml" : [],
     "installable" : True,

@@ -13,11 +13,11 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Nonconformity">
-                    <field name="date"/>
-                    <field name="partner_id"/>
-                    <field name="description"/>
-                    <field name="responsible_user_id"/>
-                    <field name="author_user_id"/>
+                    <field name="date" attrs="{'readonly':[('state','=','c')]}"/>
+                    <field name="partner_id" attrs="{'readonly':[('state','=','c')]}"/>
+                    <field name="description" attrs="{'readonly':[('state','=','c')]}"/>
+                    <field name="responsible_user_id" attrs="{'readonly':[('state','=','c')]}"/>
+                    <field name="author_user_id" attrs="{'readonly':[('state','=','c')]}"/>
                 </tree>
             </field>
         </record>
@@ -52,47 +52,52 @@
             <field name="arch" type="xml">
                 <form string="Nonconformity">
                     <group colspan="2" col="2">
-                        <field name="date"/>
-                        <field name="partner_id"/>
-                        <field name="reference"/>
+                        <field name="date" attrs="{'readonly':[('state','=','c')]}"/>
+                        <field name="partner_id" attrs="{'readonly':[('state','=','c')]}"/>
+                        <field name="reference" attrs="{'readonly':[('state','=','c')]}"/>
                     </group>
                     <group colspan="2" col="2">
-                        <field name="responsible_user_id"/>
-                        <field name="manager_user_id"/>
-                        <field name="author_user_id"/>
+                        <field name="responsible_user_id" attrs="{'readonly':[('state','=','c')]}"/>
+                        <field name="manager_user_id" attrs="{'readonly':[('state','=','c')]}"/>
+                        <field name="author_user_id" attrs="{'readonly':[('state','=','c')]}"/>
                     </group>
                     <newline/>
                     <group colspan="2" col="2" expand="1">
                         <separator string="Origins" colspan="2"/>
-                        <field name="origin_ids" colspan="2" nolabel="1"/>
+                        <field name="origin_ids" colspan="2" nolabel="1" attrs="{'readonly':[('state','=','c')]}"/>
                     </group>
                     <group colspan="2" col="2" expand="1">
                         <separator string="Procedures" colspan="2"/>
-                        <field name="procedure_ids" colspan="2" nolabel="1"/>
+                        <field name="procedure_ids" colspan="2" nolabel="1" attrs="{'readonly':[('state','=','c')]}"/>
                     </group>
                     <newline/>
                     <group colspan="4">
-                        <field name="description"/>
+                        <field name="description" attrs="{'readonly':[('state','=','c')]}"/>
                     </group>
                     <newline/>
                     <field colspan="4" name="cause_ids" nolabel="1">
                         <form string="Causes">
                             <group col="6" colspan="4">
-                               <field name="name" colspan="4"/>
+                               <field name="name" colspan="4" attrs="{'readonly':[('state','=','c')]}"/>
                             </group>
                         </form>
                     </field>
                     <newline/>
                     <group colspan="4">
-                        <field name="analysis"/>
+                        <field name="analysis" attrs="{'readonly':[('state','=','c')]}"/>
                     </group>
                     <newline/>
                     <group colspan="4">
-                        <field name="immediate_action_id" domain="[('type_action','=','immediate')]"/>
+                        <field name="immediate_action_id" domain="[('type_action','=','immediate')]" attrs="{'readonly':[('state','=','c')]}"/>
                         <newline/>
-                        <field name="corrective_action_id" domain="[('type_action','=','correction')]"/>
+                        <field name="corrective_action_id" domain="[('type_action','=','correction')]" attrs="{'readonly':[('state','=','c')]}"/>
                         <newline/>
-                        <field name="preventive_action_id" domain="[('type_action','=','prevention')]"/>
+                        <field name="preventive_action_id" domain="[('type_action','=','prevention')]" attrs="{'readonly':[('state','=','c')]}"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="state" select="1"/>
+                        <button name="nonconf_open" string="Open" states="n" type="object" icon="gtk-jump-to"/>
+                        <button name="nonconf_close" string="Close" states="n,o" type="object" icon="gtk-jump-to"/>
                     </group>
                 </form>
             </field>

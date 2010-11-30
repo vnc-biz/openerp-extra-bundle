@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<document filename="test.pdf">
-  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+<document filename="Audit Report.pdf">
+  <template pageSize="(595.0,842.0)" title="Audit Report" author="Savoir-faire Linux" allowSplitting="20">
     <pageTemplate id="first">
       <frame id="first" x1="15.0" y1="42.0" width="539" height="758"/>
     </pageTemplate>
@@ -10,16 +10,85 @@
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
     </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="3,0" stop="3,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="3,-1" stop="3,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="3,0" stop="3,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="3,-1" stop="3,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="3,-1" stop="3,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="4,-1" stop="4,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="5,-1" stop="5,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table5">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="3,-1" stop="3,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="4,-1" stop="4,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="5,-1" stop="5,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="6,-1" stop="6,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table6">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEABOVE" colorName="#ffffff" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,1" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#ffffff" start="0,2" stop="0,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#ffffff" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,2" stop="1,2"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="2,2" stop="2,2"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table7">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
     <initialize>
       <paraStyle name="all" alignment="justify"/>
     </initialize>
-    <paraStyle name="P1" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P2" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P3" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
-    <paraStyle name="P4" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P5" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P6" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
-    <paraStyle name="P7" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
     <paraStyle name="Standard" fontName="Helvetica"/>
     <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
     <paraStyle name="Heading" fontName="Helvetica" fontSize="8.0" leading="10" spaceBefore="12.0" spaceAfter="6.0"/>
@@ -57,81 +126,37 @@
     <images/>
   </stylesheet>
   <story>
+  <pto>
+    <para style="terp_default_8">[[repeatIn(objects,'o')]]</para>
     <para style="terp_default_8">
       <font color="white"> </font>
     </para>
+    <para style="terp_header_Centre">Audit Report</para>
+    <para style="terp_header_Centre">[[ o.name ]]</para>
     <para style="terp_default_8">
       <font color="white"> </font>
     </para>
-    <para style="P1">o.name</para>
-    <para style="P2">o.date</para>
-    <para style="terp_default_9">
-      <font face="Helvetica">Auditors: </font>
-      <font face="Helvetica">
-        <font face="Helvetica">[[ repeatIn(o.auditor_user_ids,’user’) ]]</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">user.name,</font>
-      </font>
-    </para>
-    <para style="terp_default_9">Auditees: <font face="Helvetica"><font face="Helvetica">[[ repeatIn(o.audit</font></font><font face="Helvetica"><font face="Helvetica">ee</font></font><font face="Helvetica"><font face="Helvetica">_user_ids,’user’) ]]</font></font><font face="Helvetica"><font face="Helvetica">user.name,</font></font></para>
-    <para style="P3">Strong points</para>
-    <para style="P4" leftIndent="15" bulletIndent="0"><bullet size="9.0"><seq id="L1"/>.</bullet>o.strong_points</para>
+    <para>Reference: [[ o.reference ]]</para>
+    <para>Date: [[ o.date ]]</para>
+    <para>Auditors:</para>
+    <section>
+      <para>[[repeatIn(o.auditor_user_ids,'auditor')]]</para>
+      <para>- [[ auditor.name ]] </para>
+    </section>
+    <para style="terp_header">Strong points</para>
+    <para>[[ o.strong_points ]]</para>
     <para style="terp_header">Points To Improve</para>
-    <para style="P5" leftIndent="15" bulletIndent="0"><bullet size="9.0"><seq id="L2"/>.</bullet>o.to_improve_points</para>
+    <para>[[ o.to_improve_points ]]</para>
     <para style="terp_header">Improvement opportunities</para>
-    <para style="terp_default_9">
-      <font face="Helvetica">
-        <font face="Helvetica">[[ repeatIn(o.</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">imp_opp</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">_ids,’</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">imp</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">’) ]]</font>
-      </font>
-    </para>
-    <para style="P6" leftIndent="15" bulletIndent="0"><bullet size="9.0"><seq id="L3"/>.</bullet>imp.name</para>
+    <section>
+        <para>[[ repeatIn(o.imp_opp_ids,'improvement') ]]</para>
+        <para leftIndent="15" bulletIndent="20"><bullet size="20">.</bullet>[[ improvement.name ]]</para>
+    </section>
     <para style="terp_header">Nonconformities</para>
-    <para style="terp_default_9">
-      <font face="Helvetica">
-        <font face="Helvetica">[[ repeatIn(o.</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">nonconformity</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">_ids,’</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">nonc</font>
-      </font>
-      <font face="Helvetica">
-        <font face="Helvetica">’) ]]</font>
-      </font>
-    </para>
-    <para style="P7" leftIndent="15" bulletIndent="0"><bullet size="9.0"><seq id="L4"/>.</bullet>nonc.description</para>
-    <para style="terp_default_9">
-      <font color="white"> </font>
-    </para>
-    <para>
-      <seqReset id="L1"/>
-    </para>
-    <para>
-      <seqReset id="L2"/>
-    </para>
-    <para>
-      <seqReset id="L3"/>
-    </para>
-    <para>
-      <seqReset id="L4"/>
-    </para>
+    <section>
+        <para>[[ repeatIn(o.nonconformity_ids,'nonconformity') ]]</para>
+        <para leftIndent="15" bulletIndent="20"><bullet size="20">.</bullet>[[ nonconformity.description ]]</para>
+    </section> 
+  </pto>
   </story>
 </document>
-

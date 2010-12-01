@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<document filename="Audit Report.pdf">
-  <template pageSize="(595.0,842.0)" title="Audit Report" author="Savoir-faire Linux" allowSplitting="20">
+<document filename="Verification List.pdf">
+  <template pageSize="(595.0,842.0)" title="Verification List" author="Savoir-faire Linux" allowSplitting="20">
     <pageTemplate id="first">
       <frame id="first" x1="15.0" y1="42.0" width="539" height="758"/>
     </pageTemplate>
@@ -9,6 +9,11 @@
     <blockTableStyle id="Standard_Outline">
       <blockAlignment value="LEFT"/>
       <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#e6e6e6"/>
     </blockTableStyle>
     <initialize>
       <paraStyle name="all" alignment="justify"/>
@@ -51,11 +56,26 @@
   </stylesheet>
   <story>
   <pto>
+    <pto_header>
+    <blockTable colWidths="11cm,2cm,5cm" repeatRows="1" style="Table1">
+      <tr>
+        <td>
+          <para style="terp_tblheader_General_Centre">Question</para>
+        </td>
+        <td>
+          <para style="terp_tblheader_General_Centre">Conformed?</para>
+        </td>
+        <td>
+          <para style="terp_tblheader_General_Centre">Comments</para>
+        </td>
+      </tr>
+    </blockTable>
+    </pto_header>
     <para style="terp_default_8">[[repeatIn(objects,'o')]]</para>
     <para style="terp_default_8">
       <font color="white"> </font>
     </para>
-    <para style="terp_header_Centre">Audit Report</para>
+    <para style="terp_header_Centre">Verification List</para>
     <para style="terp_header_Centre">[[ o.name ]]</para>
     <para style="terp_default_8">
       <font color="white"> </font>
@@ -63,24 +83,52 @@
     <para>Confidentiality: Internal</para>
     <para>Reference: [[ o.reference ]]</para>
     <para>Date: [[ o.date ]]</para>
-    <para>Auditors:</para>
+    <blockTable>
+      <tr>
+        <td>
+          <para>Auditors:</para>
+          <section>
+            <para>[[repeatIn(o.auditor_user_ids,'auditor')]]</para>
+            <para>- [[ auditor.name ]] </para>
+          </section>
+        </td>
+        <td>
+          <para>Auditees:</para>
+          <section>
+            <para>[[repeatIn(o.auditee_user_ids,'auditee')]]</para>
+            <para>- [[ auditee.name ]] </para>
+          </section>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="11cm,2cm,5cm" repeatRows="1" style="Table1">
+      <tr>
+        <td>
+          <para style="terp_tblheader_General_Centre">Question</para>
+        </td>
+        <td>
+          <para style="terp_tblheader_General_Centre">Conformed?</para>
+        </td>
+        <td>
+          <para style="terp_tblheader_General_Centre">Comments</para>
+        </td>
+      </tr>
+    </blockTable>
     <section>
-      <para>[[repeatIn(o.auditor_user_ids,'auditor')]]</para>
-      <para>- [[ auditor.name ]] </para>
-    </section>
-    <para style="terp_header">Strong points</para>
-    <para>[[ o.strong_points ]]</para>
-    <para style="terp_header">Points To Improve</para>
-    <para>[[ o.to_improve_points ]]</para>
-    <para style="terp_header">Improvement opportunities</para>
-    <section>
-        <para>[[ repeatIn(o.imp_opp_ids,'improvement') ]]</para>
-        <para leftIndent="15" bulletIndent="20"><bullet size="20">.</bullet>[[ improvement.name ]]</para>
-    </section>
-    <para style="terp_header">Nonconformities</para>
-    <section>
-        <para>[[ repeatIn(o.nonconformity_ids,'nonconformity') ]]</para>
-        <para leftIndent="15" bulletIndent="20"><bullet size="20">.</bullet>[[ nonconformity.description ]]</para>
+      <blockTable colWidths="11cm,2cm,5cm" repeatRows="1" style="Table1">
+      <para>[[ repeatIn(o.line_ids,'line') ]]</para>
+      <tr>
+        <td>
+          <para>[[ line.name ]]</para>
+        </td>
+        <td>
+          <para style="terp_default_Centre_9">Yes / No</para>
+        </td>
+        <td>
+          <para></para>
+        </td>
+      </tr>
+    </blockTable>
     </section> 
   </pto>
   </story>

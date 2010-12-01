@@ -45,6 +45,9 @@ class mgmtsystem_audit(osv.osv):
         'state': 'o'
     }
 
+    def button_close(self, cr, uid, ids, context=None):
+        return self.write(cr, uid, ids, {'state': 'c'})
+
 mgmtsystem_audit()
 
 class mgmtsystem_verification_line(osv.osv):
@@ -56,6 +59,10 @@ class mgmtsystem_verification_line(osv.osv):
         'audit_id': fields.many2one('mgmtsystem.audit', 'Audit', ondelete='cascade', select=True),
 	'is_conformed': fields.boolean('Is conformed'),
 	'comments': fields.text('Comments'),
+    }
+
+    _defaults = {
+        'is_conformed' = False,
     }
 
 mgmtsystem_verification_line()

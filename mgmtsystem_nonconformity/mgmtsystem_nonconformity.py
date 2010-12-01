@@ -86,13 +86,16 @@ class mgmtsystem_nonconformity(osv.osv):
         'immediate_action_id': fields.many2one('mgmtsystem.action', 'Immediate action'),
         'corrective_action_id': fields.many2one('mgmtsystem.action', 'Corrective action'),
         'preventive_action_id': fields.many2one('mgmtsystem.action', 'Preventive action'),
-        'state': fields.selection((('n','New'), ('o','Open'),('c','Closed')), 'State', size=16, readonly=True),
+        'state': fields.selection((('o','Open'),('c','Closed')), 'State', size=16, readonly=True),
     }
     _defaults = {
         'date': lambda *a: time.strftime('%Y-%m-%d'),
-        'state': 'n',
+        'state': 'o',
         'author_user_id': lambda cr, uid, id, c={}: id,
     }
+
+    def button_close(self, cr, uid, ids, context=None):
+        return self.write(cr, uid, ids, {'state': 'c'})
 
 mgmtsystem_nonconformity()
 

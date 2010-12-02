@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+import common_report_header
 import account_central_journal
 import account_general_journal
 import account_journal

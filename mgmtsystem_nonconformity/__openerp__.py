@@ -33,6 +33,7 @@
     "init_xml" : [],
     "update_xml" : [
 	'mgmtsystem_nonconformity.xml',
+	'board_mgmtsystem_nonconformity.xml',
     ],
     "demo_xml" : [],
     "installable" : True,

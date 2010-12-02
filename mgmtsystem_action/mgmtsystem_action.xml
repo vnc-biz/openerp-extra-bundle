@@ -22,11 +22,9 @@
             <field name="arch" type="xml">
                 <search string="Action">
                     <group>
-                        <filter icon="terp-document-new" domain="[('state','=','draft')]" string="New" help="New Actions"/>
+                        <filter icon="terp-document-new" domain="[('state','in',('draft','open','pending'))]" string="Open" help="Open Actions"/>
                         <separator orientation="vertical"/>
-                        <filter icon="terp-document-new" domain="[('state','=','open')]" string="Open" help="Open Actions"/>
-                        <separator orientation="vertical"/>
-                        <filter icon="terp-camera_test" domain="[('state','=','closed')]" string="Closed" help="Closed Actions"/>
+                        <filter icon="terp-camera_test" domain="[('state','in',('cancelled','closed'))]" string="Closed" help="Closed Actions"/>
                         <separator orientation="vertical"/>
                         <field name="date" select='1'/>
                     </group>
@@ -117,6 +115,7 @@
             <field name="res_model">mgmtsystem.action</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('draft','open','pending'))]</field>
         </record>
 
         <menuitem id="menu_open_action" 

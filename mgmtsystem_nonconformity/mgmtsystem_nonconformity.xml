@@ -29,15 +29,15 @@
             <field name="arch" type="xml">
                 <search string="Nonconformity">
                     <group>
-                        <filter icon="terp-document-new" domain="[('state','=','open')]" string="Open" help="Open Nonconformities"/>
+                        <filter icon="terp-document-new" domain="[('state','=','o')]" string="Open" help="Open Nonconformities"/>
                         <separator orientation="vertical"/>
-                        <filter icon="terp-camera_test" domain="[('state','=','closed')]" string="Closed" help="Closed Nonconformities"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','c')]" string="Closed" help="Closed Nonconformities"/>
                         <separator orientation="vertical"/>
                         <field name="date" select='1'/>
                     </group>
                     <newline />
                     <group expand="0" string="Group By...">
-                        <filter string="User" icon="terp-personal" domain="[]" context="{'group_by':'author_user_id'}"/>
+                        <filter string="Author" icon="terp-personal" domain="[]" context="{'group_by':'author_user_id'}"/>
                         <separator orientation="vertical"/>
                         <filter string="Procedure" icon="terp-personal+" domain="[]" context="{'group_by':'mgmtsystem_nonconformity_procedure_id'}"/>
                     </group>
@@ -107,6 +107,7 @@
             <field name="res_model">mgmtsystem.nonconformity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','o')]</field>
         </record>
 
         <menuitem id="menu_open_nonconformity" 

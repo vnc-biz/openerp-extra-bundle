@@ -62,7 +62,7 @@ class mgmtsystem_verification_line(osv.osv):
     }
 
     _defaults = {
-        'is_conformed' = False,
+        'is_conformed': False
     }
 
 mgmtsystem_verification_line()

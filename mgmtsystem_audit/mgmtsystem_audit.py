@@ -28,7 +28,7 @@ class mgmtsystem_audit(osv.osv):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=50),
-        'reference': fields.char('Reference', size=64, required=True, readonly=True),
+        'reference': fields.char('Reference', size=64, required=True, readonly=True, select=True),
         'date': fields.date('Date'),
         'line_ids': fields.one2many('mgmtsystem.verification.line','audit_id','Verification List'),
 	'auditor_user_ids': fields.many2many('res.users','mgmtsystem_auditor_user_rel','user_id','mgmtsystem_audit_id','Auditors'),

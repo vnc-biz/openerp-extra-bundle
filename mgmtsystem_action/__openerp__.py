@@ -38,7 +38,9 @@
 	'mgmtsystem_action.xml',
 	'board_mgmtsystem_action.xml',
     ],
-    "demo_xml" : [],
+    "demo_xml" : [
+	'demo_action.xml',
+    ],
     "installable" : True,
     "certificate" : ''
 }

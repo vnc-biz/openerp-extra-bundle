@@ -30,7 +30,6 @@
                 <search string="Nonconformity">
                     <group>
                         <filter icon="terp-document-new" domain="[('state','=','o')]" string="Open" help="Open Nonconformities"/>
-                        <separator orientation="vertical"/>
                         <filter icon="terp-camera_test" domain="[('state','=','c')]" string="Closed" help="Closed Nonconformities"/>
                         <separator orientation="vertical"/>
                         <field name="date" select='1'/>
@@ -107,7 +106,7 @@
             <field name="res_model">mgmtsystem.nonconformity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('state','=','o')]</field>
+            <field name="search_view_id" ref="view_mgmtsystem_nonconformity_filter"/>
         </record>
 
         <menuitem id="menu_open_nonconformity" 

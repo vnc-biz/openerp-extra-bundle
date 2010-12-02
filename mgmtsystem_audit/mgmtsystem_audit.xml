@@ -77,7 +77,6 @@
                 <search string="Audits">
                     <group>
                         <filter icon="terp-document-new" domain="[('state','=','o')]" string="Open" help="Open Audits"/>
-                        <separator orientation="vertical"/>
                         <filter icon="terp-camera_test" domain="[('state','=','c')]" string="Closed" help="Closed Audits"/>
                         <separator orientation="vertical"/>
                         <field name="name"/>
@@ -158,7 +157,7 @@
             <field name="res_model">mgmtsystem.audit</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
-            <field name="domain">[('state','=','o')]</field>
+            <field name="search_view_id" ref="view_mgmtsystem_audit_filter"/>
         </record>
 
         <menuitem id="menu_open_audit" 

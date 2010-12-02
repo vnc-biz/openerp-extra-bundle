@@ -35,7 +35,9 @@
 	'mgmtsystem_nonconformity.xml',
 	'board_mgmtsystem_nonconformity.xml',
     ],
-    "demo_xml" : [],
+    "demo_xml" : [
+	'demo_nonconformity.xml',
+    ],
     "installable" : True,
     "certificate" : ''
 }

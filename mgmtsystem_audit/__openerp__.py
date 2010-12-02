@@ -30,15 +30,18 @@
         your management system.
     """,
     "depends" : ['mgmtsystem_nonconformity'],
-    "init_xml" : [],
+    "init_xml" : [
+	'audit_sequence.xml',
+    ],
     "update_xml" : [
 	'mgmtsystem_audit.xml',
 	'report/audit_report.xml',
 	'report/verification_list.xml',
 	'board_mgmtsystem_audit.xml',
-	'audit_sequence.xml',
     ],
-    "demo_xml" : [],
+    "demo_xml" : [
+	'demo_audit.xml',
+    ],
     "installable" : True,
     "certificate" : ''
 }

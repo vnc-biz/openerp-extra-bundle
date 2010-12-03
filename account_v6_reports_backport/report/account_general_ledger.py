@@ -35,6 +35,8 @@ class general_ledger(report_sxw.rml_parse, common_report_header):
     _name = 'report.account.general.ledger'
 
     def strip_name(self, char, size=50, truncation_str='...'):
+        if not char:
+            return ""
         if len(char) <= size:
             return char
         return char[:size-len(truncation_str)] + truncation_str

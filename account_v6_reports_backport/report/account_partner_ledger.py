@@ -27,6 +27,8 @@ from common_report_header import common_report_header
 class third_party_ledger(report_sxw.rml_parse, common_report_header):
 
     def strip_name(self, char, size=50, truncation_str='...'):
+        if not char:
+            return ""
         if len(char) <= size:
             return char
         return char[:size-len(truncation_str)] + truncation_str

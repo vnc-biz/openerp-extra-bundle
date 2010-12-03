@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record model="ir.sequence.type" id="seq_training_planned_exam_type">
+            <field name="name">Training Planned Exam Sequence Type</field>
+            <field name="code">training.planned_exam</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_training_planned_exam">
+            <field name="name">Training Planned Exam</field>
+            <field name="code">training.planned_exam</field>
+            <field name="prefix">TPE/</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_training_exam_questionnaire_type">
+            <field name="name">Training Exam Questionnaire Sequence Type</field>
+            <field name="code">training.exam.questionnaire</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_training_exam_questionnaire">
+            <field name="name">Training Exam Questionnaire</field>
+            <field name="code">training.exam.questionnaire</field>
+            <field name="prefix">TQA/</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_training_exam_question_type">
+            <field name="name">Training Exam Question Sequence Type</field>
+            <field name="code">training.exam.question</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_training_exam_question">
+            <field name="name">Training Exam Question</field>
+            <field name="code">training.exam.question</field>
+            <field name="prefix">TQA/</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</openerp>

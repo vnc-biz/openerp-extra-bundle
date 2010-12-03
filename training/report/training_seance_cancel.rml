@@ -126,7 +126,7 @@
                 <para style="terp_tblheader_General">Date</para>
             </td>
             <td>
-                <para style="terp_default_8">[[ seance.date ]]</para>
+                <para style="terp_default_8">[[ formatLang(seance.date,date=True) ]]</para>
             </td>
         </tr>
     </blockTable>

@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="training_exam.question_1" model="training.exam.question">
+            <field eval="[(6,0,[ref('training.training_course_openerpcrm0'),ref('training.training_course_openerpaccounting0')])]" name="course_ids"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_exam.question_2" model="training.exam.question">
+            <field eval="[(6,0,[ref('training.training_course_openerpcrm0')])]" name="course_ids"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_exam.question_3" model="training.exam.question">
+            <field eval="[(6,0,[ref('training.training_course_openerpaccounting0')])]" name="course_ids"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_questionnaire_questionnaire0" model="training.exam.questionnaire">
+            <field eval="&quot;&quot;&quot;automatic&quot;&quot;&quot;" name="kind"/>
+            <field eval="[(6,0,[ref('training_exam.question_1'),ref('training_exam.question_2')])]" name="question_ids"/>
+            <field eval="&quot;&quot;&quot;Questionnaire - 1&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field eval="4.0" name="duration"/>
+            <field name="course_id" ref="training.training_course_openerpcrm0"/>
+        </record>
+    </data>
+    <data>
+        <workflow action="signal_pending" model="training.exam.questionnaire" ref="training_questionnaire_questionnaire0"/>
+    </data>
+    <data>
+        <workflow action="signal_inprogress" model="training.exam.questionnaire" ref="training_questionnaire_questionnaire0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.exam.questionnaire" ref="training_questionnaire_questionnaire0"/>
+    </data>
+    <data noupdate="1">
+        <record id="product_product_examproduct0" model="product.product">
+            <field eval="&quot;&quot;&quot;produce&quot;&quot;&quot;" name="supply_method"/>
+            <field eval="1.0" name="list_price"/>
+            <field eval="0" name="track_production"/>
+            <field eval="1.0" name="standard_price"/>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field eval="&quot;&quot;&quot;service&quot;&quot;&quot;" name="type"/>
+            <field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="cost_method"/>
+            <field eval="1.0" name="uos_coeff"/>
+            <field eval="1" name="sale_ok"/>
+            <field eval="1" name="purchase_ok"/>
+            <field eval="0" name="track_outgoing"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field eval="1.0" name="price_margin"/>
+            <field eval="0" name="track_incoming"/>
+            <field name="property_stock_production" ref="stock.location_production"/>
+            <field eval="[(6,0,[])]" name="supplier_taxes_id"/>
+            <field eval="&quot;&quot;&quot;make_to_order&quot;&quot;&quot;" name="procure_method"/>
+            <field eval="1" name="active"/>
+            <field name="property_stock_inventory" ref="stock.location_inventory"/>
+            <field name="property_stock_procurement" ref="stock.location_procurement"/>
+            <field eval="&quot;&quot;&quot;Exam Product&quot;&quot;&quot;" name="name"/>
+            <field eval="0" name="rental"/>
+            <field eval="&quot;&quot;&quot;fixed&quot;&quot;&quot;" name="mes_type"/>
+            <field eval="7.0" name="sale_delay"/>
+            <field name="categ_id" ref="product.product_category_services"/>
+            <field eval="[(6,0,[])]" name="taxes_id"/>
+            <field eval="1.0" name="produce_delay"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_offer_exam0" model="training.offer">
+            <field eval="&quot;&quot;&quot;exam&quot;&quot;&quot;" name="kind"/>
+            <field eval="[(6,0,[])]" name="course_ids"/>
+            <field eval="[(6,0,[])]" name="questionnaire_ids"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="product_id" ref="product_product_examproduct0"/>
+            <field eval="&quot;&quot;&quot;Exam&quot;&quot;&quot;" name="name"/>
+        </record>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.offer" ref="training_offer_exam0"/>
+    </data>
+    <data noupdate="1">
+        <record id="training_session_0" model="training.session">
+            <field eval="[(6,0,[])]" name="seance_ids"/>
+            <field name="offer_id" ref="training_offer_exam0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="catalog_id" ref="training.training_catalog_0"/>
+            <field eval="&quot;&quot;&quot;2009-06-22 12:08:25&quot;&quot;&quot;" name="date"/>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+    </data>
+    <data>
+        <function model="training.session" name="action_create_seances">
+            <value eval="[ref('training_session_0')]" />
+        </function>
+        <!--workflow action="signal_open" model="training.session" ref="training_session_0"/-->
+    </data>
+    <data>
+        <workflow action="signal_open_confirm" model="training.session" ref="training_session_0"/>
+    </data>
+    <data noupdate="1">
+        <record id="training_subscription_mass_wizard_0" model="training.subscription.mass.wizard">
+            <field eval="[(6,0,[ref('base_contact.res_partner_contact_debois0'),ref('base_contact.res_partner_contact_luu0'),ref('base_contact.res_partner_contact_elkhayat0'),ref('base_contact.res_partner_contact_depaoli0')])]" name="contact_ids"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record>
+        <record id="training_subscription_mass_line_0" model="training.subscription.mass.line">
+            <field name="course_id" ref="training.training_course_openerpcrm0"/>
+            <field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+            <field name="wizard_id" ref="training_subscription_mass_wizard_0"/>
+            <field name="session_id" ref="training_session_0"/>
+        </record>
+    </data>
+</openerp>

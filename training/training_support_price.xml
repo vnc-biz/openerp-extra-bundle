@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="training_support_price_form">
+            <field name="name">training.course.support.price.form</field>
+            <field name="model">training.course.support.price</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Support Price">
+                    <field name="name" />
+                    <field name="course_id" />
+                    <field name="page" />
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="training_support_price_tree">
+            <field name="name">training.course.support.price.tree</field>
+            <field name="model">training.course.support.price</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Support Price">
+                    <field name="name" />
+                    <field name="course_id" />
+                    <field name="page" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_training_support_price_form">
+            <field name="name">Support Price of Course</field>
+            <field name="res_model">training.course.support.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+	<menuitem parent="training.training_library_course_mi" id="menu_training_support_price_form" action="act_training_support_price_form"/>
+    </data>
+</openerp>

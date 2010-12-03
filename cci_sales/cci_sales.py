@@ -91,6 +91,7 @@ class sale_order(osv.osv):
             'address_invoice_id': order.partner_invoice_id.id,
             'address_contact_id': order.partner_order_id.id,
             'invoice_line': [(6, 0, lines)],
+            'user_id': order.user_id and order.user_id.id or False,
             'currency_id': order.pricelist_id.currency_id.id,
             'comment': order.note,
             'payment_term': pay_term,

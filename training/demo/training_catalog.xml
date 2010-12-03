@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record id="training_catalog_0" model="training.catalog">
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field eval="time.strftime('Catalog %Y')" name="name" />
+            <field eval="time.strftime('%Y')" name="year"/>
+        </record>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.catalog" ref="training_catalog_0"/>
+    </data>
+</openerp>

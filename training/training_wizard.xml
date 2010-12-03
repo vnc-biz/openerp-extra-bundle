@@ -2,20 +2,93 @@
 <openerp>
     <data>
         <!--
-        <wizard 
-            string="Invoice" 
-            model="training.subscription" 
-            name="wizard_not_implemented" 
-            id="wizard_training_subscription_invoice" 
+        <wizard
+            string="Invoice"
+            model="training.subscription"
+            name="wizard_not_implemented"
+            id="wizard_training_subscription_invoice"
             />
         -->
+        <!--
         <wizard
             id="wizard_training_subscription_line_invoice"
             keyword="client_action_multi"
             model="training.subscription.line"
             name="training.subscription.line.make_invoice"
             multi="True"
+            groups="training.group_subscription_manager" 
             string="Make invoices"/>
+        -->
+
+        <wizard
+            id="wizard_training_subscription_line_confirm"
+            keyword="client_action_multi"
+            model="training.subscription.line"
+            name="training.subscription.line.confirm"
+            multi="True"
+            groups="training.group_subscription_manager"
+            string="Confirm Subscription Lines"/>
+
+        <wizard
+            id="wizard_create_session"
+            keyword="client_action_multi"
+            model="training.offer"
+            name="training.offer.create.session"
+            groups="training.group_session_manager"
+            string="Plannify Session"/>
+       <wizard
+           id="wizard_training_subscription_line_second"
+           keyword="client_action_multi"
+           multi="True"
+           model="training.subscription.line.second"
+           name="training.subscription.line_second"
+           groups="training.group_subscription_manager"
+           string="Subscription Second Line"/>
+
+        <wizard
+            id="wizard_training_course_validate"
+            name="training.course.validate"
+            keyword="client_action_multi"
+            model="training.course"
+            groups="training.group_course_manager"
+            string="Validate Course(s)" />
+
+        <wizard
+            id="wizard_training_course_create_offer"
+            name="training.course.create.offer"
+            keyword="client_action_multi"
+            model="training.course"
+            groups="training.group_course_manager"
+            string="Create Standalone Offer(s)" />
+
+        <wizard
+            id="wizard_training_course_create_block_offer"
+            name="training.course.create.block.offer"
+            keyword="client_action_multi"
+            model="training.course"
+            multi="True"
+            groups="training.group_course_manager"
+            string="Create Block Offer" />
+
+        <!--
+        <wizard id="res_partner_contact_mass_mailing_wizard"
+            model="res.partner.contact"
+            name="res.partner.contact.mass.mailing.wizard"
+            string="Mass Mailing"/>
+
+        <wizard id="res_partner_job_mass_mailing_wizard"
+            model="res.partner.job"
+            name="res.partner.job.mass.mailing.wizard"
+            string="Mass Mailing"/>
+        -->
+
+        <wizard
+            id="wizard_subscription_session"
+            keyword="client_action_multi"
+            model="training.session"
+            name="training.subscription.session"
+            groups="training.group_subscription_manager"
+            string="Create Subscription"/>
 
     </data>
 </openerp>

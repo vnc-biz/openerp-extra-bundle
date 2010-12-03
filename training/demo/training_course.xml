@@ -1,0 +1,333 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="training_course_openerpcrm0" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field name="category_id" ref="training_course_category_functionaluser0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - CRM&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpaccounting0" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field name="category_id" ref="training_course_category_functionaluser0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Accounting&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpaccounting1" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_functionaluser0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Functional User / Open ERP 5.0 - Accounting&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Accounting&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;validated&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpaccounting1" model="training.course">
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpaccounting2" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_functionaluser0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Functional User / Open ERP 5.0 - Accounting&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Accounting&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;validated&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpaccounting2" model="training.course">
+            <field eval="4.0" name="duration_without_children"/>
+            <field name="course_type_id" ref="training_course_type_expert0"/>
+        </record>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpaccounting2"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpaccounting0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpcrm0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpaccounting1"/>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_economicmodelofopenerp0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="4.0" name="duration_without_children"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;Economic Model of Open ERP&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+            <field name="category_id" ref="training_course_category_business0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_economicmodelofopenerp1" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="4.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_business0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Business / Economic Model of Open ERP&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Economic Model of Open ERP&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;validated&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_economicmodelofopenerp1" model="training.course">
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field eval="&quot;&quot;&quot;How to sale Open ERP&quot;&quot;&quot;" name="name"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_howtoinstallopenerp0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;How to install Open ERP&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+            <field name="category_id" ref="training_course_category_integrator0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_howtoinstallopenerp0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field eval="&quot;&quot;&quot;How to configure Open ERP&quot;&quot;&quot;" name="name"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_howtoconfigureopenerp0" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_integrator0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Integrator / How to configure Open ERP&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;How to configure Open ERP&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_howtoconfigureopenerp0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="&quot;&quot;&quot;How to install Open ERP&quot;&quot;&quot;" name="name"/>
+            <field eval="4.0" name="duration_without_children"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_howtoconfigureopenerp0" model="training.course">
+            <field eval="8.0" name="duration_without_children"/>
+            <field eval="&quot;&quot;&quot;How to extend Open ERP&quot;&quot;&quot;" name="name"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_howtoconfigureopenerp0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_expert0"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_howtoinstallopenerp1" model="training.course">
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="4.0" name="duration_without_children"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;How to install Open ERP&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+            <field name="category_id" ref="training_course_category_integrator0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpetiny0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="8.0" name="duration_without_children"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - eTiny&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+            <field name="category_id" ref="training_course_category_developer0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpopenofficereportdesigner0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="4.0" name="duration_without_children"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Open Office Report Designer&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+            <field name="category_id" ref="training_course_category_integrator0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpopenofficereportdesigner1" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="4.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_integrator0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Integrator / Open ERP 5.0 - Open Office Report Designer&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Open Office Report Designer&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;validated&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpopenofficereportdesigner1" model="training.course">
+            <field name="category_id" ref="training_course_category_developer0"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpopenofficereportdesigner1" model="training.course">
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Modules&quot;&quot;&quot;" name="name"/>
+            <field eval="96.0" name="duration_without_children"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpopenofficereportdesigner1" model="training.course">
+            <field name="course_type_id" ref="training_course_type_basic0"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Open Office Report Designer&quot;&quot;&quot;" name="name"/>
+            <field eval="4.0" name="duration_without_children"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpmodules0" model="training.course">
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field eval="96.0" name="duration_without_children"/>
+            <field eval="0" name="has_support"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Modules&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state_course"/>
+            <field name="category_id" ref="training_course_category_developer0"/>
+            <field name="lang_id" ref="base.lang_en"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpmodules1" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="96.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_developer0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Developer / Open ERP 5.0 - Modules&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_advanced0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Modules&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;validated&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpmodules1" model="training.course">
+            <field name="course_type_id" ref="training_course_type_expert0"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Extend the server&quot;&quot;&quot;" name="name"/>
+            <field eval="16.0" name="duration_without_children"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="training_course_openerpextendtheserver0" model="training.course">
+            <field eval="[(6,0,[])]" name="lecturer_ids"/>
+            <field name="company_currency_id" ref="base.EUR"/>
+            <field eval="1" name="active"/>
+            <field eval="16.0" name="duration_without_children"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="category_id" ref="training_course_category_developer0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field name="lang_id" ref="base.lang_en"/>
+            <field eval="&quot;&quot;&quot;Open ERP / Developer / Open ERP 5.0 - Extend the server&quot;&quot;&quot;" name="complete_name"/>
+            <field eval="&quot;&quot;&quot;normal&quot;&quot;&quot;" name="type"/>
+            <field name="course_type_id" ref="training_course_type_expert0"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Extend the server&quot;&quot;&quot;" name="name"/>
+            <field eval="&quot;&quot;&quot;validated&quot;&quot;&quot;" name="state_course"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_course_openerpextendtheserver0" model="training.course">
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Extend the client&quot;&quot;&quot;" name="name"/>
+        </record>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpextendtheserver0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpmodules1"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_economicmodelofopenerp0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_economicmodelofopenerp1"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_howtoconfigureopenerp0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpetiny0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpopenofficereportdesigner0"/>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.course" ref="training_course_openerpmodules0"/>
+    </data>
+</openerp>

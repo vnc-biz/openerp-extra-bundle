@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model='ir.ui.view' id='document_price_form'>
+            <field name="name">document.price.form</field>
+            <field name="model">ir.attachment</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="document.view_document_file_form" />
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string='Support of Course'>
+                        <separator string="Support of Course" colspan="4" />
+                        <field name="is_support" />
+                        <newline/>
+                        <field name="component_ids" colspan="4" nolabel="1" attrs="{'readonly' : [('is_support', '=', 0)]}">
+                            <tree string="Components">
+                                <field name="product_id" />
+                                <field name="product_qty" />
+                                <field name="unit_price" />
+                                <field name="price" />
+                            </tree>
+                            <form string="Component">
+                                <field name="product_id" />
+                                <field name="product_qty" />
+                                <field name="unit_price" />
+                                <field name="price" />
+                            </form>
+                        </field>
+                        <field name="price" />
+                        <separator string="Note" colspan="4" />
+                        <field name="support_note" colspan="4" nolabel="1" />
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

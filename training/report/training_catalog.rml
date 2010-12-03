@@ -1,0 +1,373 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+        <pageTemplate id="first" >
+            <pageGraphics>
+                <setFont name="Helvetica" size="8"/>
+                <fill color="#dddddd"/>
+                <rect x="1.cm" y="1.0cm"   width="540" height="790"  stroke="no" fill="yes"/>
+                <setFont name="Helvetica-Bold" size="12"/>
+                <fill color="black"/>
+                <drawRightString x="19.5cm" y="28.0cm"><pageNumber/></drawRightString>
+            </pageGraphics>
+            <frame id="one" x1="34.0" y1="28.0" width="530" height="786"/>
+        </pageTemplate>
+
+        <pageTemplate id="second">
+            <pageGraphics>
+                <setFont name="Helvetica" size="20"/>
+                <fill color="#dddddd"/>
+                <rect x="1.8cm" y="1.0cm"   width="520" height="790"  stroke="no" fill="yes"/>
+                <fill color="#ff950e"/>
+                <rect  x="2.2cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <setFont name="Helvetica-Bold" size="12"/>
+                <fill color="white"/>
+                <drawString x="2.4cm" y="28.3cm">M1</drawString>
+                <fill color="#ffcc99"/>
+                <rect  x="3.5cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <fill color="white"/>
+                <drawString x="3.7cm" y="28.3cm">M2</drawString>
+                <fill color="#ffcc99"/>
+                <rect  x="4.8cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <fill color="white"/>
+                <drawString x="5.0cm" y="28.3cm">M3</drawString>
+                <fill color="#ffcc99"/>
+                <rect  x="6.0cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <fill color="white"/>
+                <drawString x="6.2cm" y="28.3cm">M4</drawString>
+                <setFont name="Helvetica" size="10"/>
+                <fill color="black"/>
+                <drawCentredString x="8.2cm" y="1.9cm">You can view the contents of the course on our website www.ifbl.lu</drawCentredString>
+                <fill color="#ff950e"/>
+                <setFont name="Helvetica" size="25"/>
+                <drawRightString x="18cm" y="1.9cm">IFBL</drawRightString>
+
+                <fill color="#ff950e"/>
+                <rect x="0.0cm" y="24.0cm" width="35" height="140" fill="yes" stroke="no"/>
+                <rect x="0.0cm" y="22.0cm" width="35" height="50" fill="yes" stroke="no"/>
+                <rotate degrees="89"/>
+                <setFont name="Helvetica" size="10"/>
+                <fill color="white"/>
+                <drawRightString x="28.0cm" y="0.15cm">Culture financiÃ¨re</drawRightString>
+                <drawRightString x="23.0cm" y="0.10cm">CFI</drawRightString>
+
+
+            </pageGraphics>
+
+            <frame id="one" x1="34.0" y1="28.0" width="530" height="786"/>
+            <frame id="inside_frame" x1="34.0" y1="50cm"  width="200" height="200"/>
+        </pageTemplate>
+        <pageTemplate id="third">
+            <pageGraphics>
+                <setFont name="Helvetica" size="20"/>
+                <fill color="#dddddd"/>
+                <rect x="1.8cm" y="1.0cm"   width="520" height="790"  stroke="no" fill="yes"/>
+                <fill color="#ff8080"/>
+                <rect  x="2.2cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <setFont name="Helvetica-Bold" size="12"/>
+                <fill color="white"/>
+                <drawString x="2.4cm" y="28.3cm">M1</drawString>
+                <fill color="#ff8080"/>
+                <rect  x="3.5cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <fill color="white"/>
+                <drawString x="3.7cm" y="28.3cm">M2</drawString>
+                <fill color="#b80047"/>
+                <rect  x="4.8cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <fill color="white"/>
+                <drawString x="5.0cm" y="28.3cm">M3</drawString>
+                <fill color="#ff8080"/>
+                <rect  x="6.0cm" y="28.0cm" width="28" height="25" fill="yes" stroke="no"/>
+                <fill color="white"/>
+                <drawString x="6.2cm" y="28.3cm">M4</drawString>
+                <setFont name="Helvetica" size="10"/>
+                <fill color="black"/>
+                <drawCentredString x="8.2cm" y="1.9cm">You can view the contents of the course on our website www.ifbl.lu</drawCentredString>
+                <fill color="#ff950e"/>
+                <setFont name="Helvetica" size="25"/>
+                <drawRightString x="18cm" y="1.9cm">IFBL</drawRightString>
+
+                <fill color="#b80047"/>
+                <rect x="0.0cm" y="24.0cm" width="35" height="140" fill="yes" stroke="no"/>
+                <rect x="0.0cm" y="22.0cm" width="35" height="50" fill="yes" stroke="no"/>
+                <rotate degrees="89"/>
+                <setFont name="Helvetica" size="10"/>
+                <fill color="white"/>
+                <drawRightString x="28.0cm" y="0.15cm">Culture financiÃ¨re</drawRightString>
+                <drawRightString x="23.0cm" y="0.10cm">CFI</drawRightString>
+
+
+            </pageGraphics>
+
+            <frame id="one" x1="34.0" y1="28.0" width="530" height="786"/>
+            <frame id="inside_frame" x1="34.0" y1="50cm"  width="200" height="200"/>
+        </pageTemplate>
+
+    </template>
+    <stylesheet>
+        <blockTableStyle id="Standard_Outline">
+            <blockAlignment value="Right"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table1">
+            <blockAlignment value="CENTER"/>
+            <blockValign value="TOP"/>
+            <blockBackground colorName="#dddddd" start="0,0" stop="-1,-1"/>
+            <blockTextColor
+                colorName="grey"
+                start="0,0" stop="-1,-1"/>
+
+
+        </blockTableStyle>
+        <blockTableStyle id="Table2">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+
+
+        </blockTableStyle>
+        <blockTableStyle id="Table3">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+
+        </blockTableStyle>
+        <blockTableStyle id="inside_table">
+            <blockAlignment value="CENTER"/>
+            <blockValign value="TOP"/>
+            <blockBackground colorName="white" start="0,0" stop="-1,-1"/>
+            <!--blockBackground colorName="#dddddd" start="1,0" stop="-1,-1"/-->
+            <blockTextColor
+                colorName="grey"
+                start="0,0" stop="-1,-1"/>
+
+        </blockTableStyle>
+        <initialize>
+            <paraStyle name="all" alignment="justify"/>
+            <fill color="#ffcc99"/>
+        </initialize>
+        <paraStyle name="P1" fontName="Times-Bold" alignment="Left"/>
+        <paraStyle name="P2" fontName="Times-Roman"/>
+        <paraStyle name="P3" fontName="Times-Roman" fontSize="10.0" leading="13"/>
+        <paraStyle name="P4" fontName="Times-Roman" fontSize="13.0" leading="16"/>
+        <paraStyle name="P5" fontName="Times-Roman" fontSize="12.0" leading="15"/>
+        <paraStyle name="P6" fontName="Times-Roman"/>
+        <paraStyle name="P7" fontName="Times-Roman"/>
+        <paraStyle name="P8" fontName="Helvetica" fontSize="32.0" leading="39" alignment="LEFT" textColor="#ff6309" />
+        <paraStyle name="Standard" fontName="Times-Roman"/>
+        <paraStyle name="inside_font" fontName="Helvetica" fontSize="10.0" leading="39" alignment="LEFT" textColor="#ff6309" />
+        <paraStyle name="leading_font" fontName="Helvetica-Bold" leading="39" fontSize="18.0"  alignment="LEFT" textColor="#ff6309"/>
+        <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="Index" fontName="Helvetica"/>
+        <paraStyle name="Table Contents" fontName="Times-Roman"/>
+        <paraStyle name="Table Heading" fontName="Times-Roman" alignment="CENTER"/>
+
+        <paraStyle name="summary" fontName="Helvetica" alignment="JUSTIFY"  leftIndent="150" fontSize="10.0" />
+        <paraStyle name="summary_inside" fontName="Helvetica" alignment="JUSTIFY" leftIndent="200" bulletIndent="4" bulletText="" fontSize="9.0" />
+        <paraStyle name="summary_inside1" fontName="Helvetica" fontSize="9.0"   />
+        <paraStyle name="text_inside" fontName="Helvetica" alignment="JUSTIFY" firstLineIndent="100" fontSize="10.0"/>
+        <paraStyle name="color_set" fontName="Helvetica" fontSize="32.0" leading="20" alignment="LEFT" textColor="#ff6309" />
+        <paraStyle name="bullet_text" fontName="Times-Roman" alignment="JUSTIFY" leftIndent="15" bulletIndent="4" bulletText="->" fontSize="12.0"/>
+        <paraStyle name="bullet_page2" fontName="Helvetica" alignment="Left" />
+        <paraStyle name="catalog" fontName="Helvetica-Bold" alignment="JUSTIFY"  leftIndent="150" fontSize="10.0" />
+        <paraStyle name="catalog_text" fontName="Helvetica-Bold"  fontSize="8.0" />
+    </stylesheet>
+    <story>
+        <spacer length="1cm" />
+        <setNextTemplate name="second"/>
+        <spacer length="1cm" />
+        <para>[[repeatIn(objects,'catalog')]]</para>
+        <blockTable colWidths="482.0" style="Table1">
+            <tr>
+                <td>
+                    <para style="P8">Summary</para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+
+                </td>
+            </tr>
+        </blockTable>
+        <blockTable colWidths="482.0" style="Table1">
+
+            <tr>
+                <td>
+                    <para style="summary">Preface</para></td>
+                <para style="P6">
+                    <font color="white"> </font>
+                </para>
+            </tr>
+            <tr>
+                <td>
+                    <para style="summary">Sommaire</para></td>
+                <para style="P6">
+                    <font color="white"> </font>
+                </para>
+            </tr>
+            <tr>
+                <td>
+                    <para style="summary">Presentation of the IFBL</para>
+                    <para style="P6">
+                        <font color="white"> </font>
+                    </para>
+                    <blockTable colWidths="482.0" style="Table1">
+                        <tr>
+                            <td>
+                                <para style="summary_inside" >Our profile</para>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <para style="summary_inside">Our goals</para>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <para style="summary_inside">Our 5 key principles </para>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <para style="summary_inside" >Our quality approach </para>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <para style="summary_inside">Our Team </para>
+                            </td>
+                        </tr>
+                    </blockTable>
+                </td>
+            </tr>
+            <tr>
+                <td><para style="summary" >Aggregate supply of IFBL</para></td>
+            </tr>
+            <tr>
+                <td><para style="summary" >Catalog : [[catalog.year]]</para>
+
+
+					<section>
+                    <blockTable colWidths="482.0" style="Table2">
+                        <tr>
+                            <td>
+                                <para style="summary" >News ::[[catalog.note or removeParentNode('tr')]]</para>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<para>[[ repeatIn(offer_name(),'offer') ]]</para>
+                            <td>
+                                <para style="summary" bulletIndent="200" leftIndent="190" bulletText="-" >[[ offer['name'] ]]</para>
+                            </td>
+                        </tr>
+
+
+                    </blockTable>
+                    </section>
+                </td>
+            </tr>
+            <tr>
+                <td><para style="summary" >Practical Information </para></td>
+            </tr>
+            <tr>
+                <td><para style="summary" >Terms and Conditions  </para></td>
+            </tr>
+            <tr>
+                <td><para style="summary">REGISTRATION Form  </para></td>
+
+            </tr>
+        </blockTable>
+        <section>
+
+		<para>[[ repeatIn(offer_session(),'offer_session') ]]</para>
+            <pageBreak/>
+            <spacer length="1cm" />
+            <setNextTemplate name="third"/>
+            <section>
+
+            <para style="leading_font" leftIndent="25">[[ offer['name'] ]]</para>
+            <para style="inside_font" leftIndent="25" >Connaître les acteurs, les activités et les atouts de la place financière</para>
+            <blockTable colWidths="200.0,150.0" style="inside_table">
+                <tr>
+                    <td>
+                        <para style="catalog_text">Session Name</para>
+                    </td>
+                    <td>
+                        <para style="catalog_text">Date</para>
+                    </td>
+                </tr>
+                <tr>
+				<para style="summary_inside1">[[repeatIn(offer_session,'session') ]]</para>
+                    <td>
+                        <para> [[session['name'] ]] </para>
+                    </td>
+                    <td>
+                        <para style="summary_inside1">[[session['date'] ]]</para>
+                    </td>
+                </tr>
+
+            </blockTable>
+            </section>
+            <para style="P6">
+                <font color="white"> </font>
+            </para>
+            <para style="inside_font" leftIndent="25">OBJECTIFS DE LA FORMATION</para>
+            <para style="color_set" ></para>
+            <para  style="summary_inside1" leftIndent="25">
+                À l’issue de cette formation, vous aurez une vue d’ensemble de la place financière de Luxembourg en ayant découvert
+                son origine, les principales étapes de son développement, le cadre réglementaire dans lequel elle opère, ses activités,
+                ses métiers, ses acteurs et intervenants ainsi que les avantages spécifiques dont elle peut se prévaloir et qui contribuent à sa
+                prospérité. Pour ce faire, vous aurez passé en revue:</para>
+            <para style="P1">
+                <font color="white"> </font>
+            </para>
+            <para style="bullet_page2" bulletIndent="50" backColor="#dddddd" leftIndent="65" bulletText="->"  bulletColor="#ff6309"> l’historique du système bancaire et financier luxembourgeois (au niveau politique, au niveau économique, au niveauf monétaire et au niveau de la place financière proprement dite)</para>
+            <para style="P1" >
+                <font color="white"> </font>
+            </para>
+            <para style="bullet_page2" bulletIndent="50" bulletText="->" bulletColor="#ff6309" leftIndent="65 ">  les principaux textes législatifs successifs ayant abouti à la réglementation bancaire actuelle
+            </para>
+            <para style="P1" >
+                <font color="white"> </font>
+            </para>
+            <para style="bullet_page2" bulletIndent="50" bulletText="->"  bulletColor="#ff6309">
+                les acteurs de la place financière
+            </para>
+            <para style="P1" >
+                <font color="white"> </font>
+            </para>
+            <para style="bullet_page2" bulletIndent="100" leftIndent="100" bulletText="-"  >les acteurs publics: la Commission de Surveillance du Secteur Financier (CSSF),la Banque Centrale du Luxembourg (BCL), le Commissariat aux Assurances (CAA)</para>
+            <para style="P1" >
+                <font color="white"> </font>
+            </para>
+            <para style="bullet_page2" bulletIndent="100" leftIndent="100" bulletText="-" >les acteurs du marché: les banques, les Professionnels du Secteur Financier (PSF), la Bourse de Luxembourg,Clearstream International, Cetrel, les fonds d’investissement, les compagnies d’assurances
+
+            </para>
+            <para style="P1" >
+                <font color="white"> </font>
+            </para>
+            <para style="bullet_page2" bulletIndent="100"  leftIndent="100" bulletText="-" >les associations du secteur financier: ABBL, IFBL, ATTF, PROFIL, ASTF, ALFI, ACA...
+            </para>
+
+            <para style="bullet_page2" leftIndent="100" bulletIndent="100" bulletText="-" >l
+                les atouts de la place financière</para>
+            <para style="P1" >
+                <font color="white"> </font>
+            </para>
+        </section>
+    </story>
+</document>

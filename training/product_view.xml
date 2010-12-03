@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_normal_form_view_training">
+            <field name="name">product.normal.form.training</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="list_price" position="after">
+                    <field name="deposit_price" />
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

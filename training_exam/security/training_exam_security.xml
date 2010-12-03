@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="0">
-        <!-- "Training / Questionnaire Manager" Group -->
-        <record id="group_questionnaire_manager" model="res.groups">
-            <field name="name">Training / Questionnaire Manager</field>
+        <!-- "Training" Exam Group -->
+
+         <record id="group_exam_manager" model="res.groups">
+            <field name="name">Training / Exam Manager</field>
         </record>
 
-        <!-- "Training / Questionnaire User" Group -->
-        <record id="group_questionnaire_user" model="res.groups">
-            <field name="name">Training / Questionnaire User</field>
+        <!-- "Training / Exam User" Group -->
+        <record id="group_exam_user" model="res.groups">
+            <field name="name">Training / Exam User</field>
         </record>
     </data>
 </openerp>

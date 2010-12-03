@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#808080" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEBELOW" colorName="#808080" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#808080" start="0,0" stop="-1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#808080" start="0,0" stop="-1,-1"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="Standard" fontName="Times-Roman"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Times-Roman" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Times-Roman"/>
+   	<paraStyle name="terp_tblheader_General" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="seanceInfo" fontName="Helvetica-Bold" fontSize="9.0" leading="10" alignment="LEFT" spaceBefore="1.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Bold_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_tblheader_General_Centre" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_General_Right" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_Details_Centre" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_tblheader_Details_Right" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_Right_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Centre_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_header_Right" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="15.0" leading="29" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_address" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Bold_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Centre_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_Right_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.5" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+  </stylesheet>
+  <images/>
+  <story>
+    <para style="Standard">[[ repeatIn(objects,'seance') ]]</para>
+    <section>
+    <para style="Standard"><font color="white">[[ seance.course_id and seance.course_id.lang_id and setLang(seance.course_id.lang_id.code) ]]</font></para>
+    <para style="terp_header_Centre">Presence NoShow List</para>
+    <blockTable colWidths="481.0" style="Table1" rowHeights="65"><tr>
+        <td>
+            <para style="seanceInfo">[[seance.name]]</para>
+            <para style="seanceInfo">[[formatLang(seance.date, date_time=True)]]</para>
+            <para style="seanceInfo">[[seance.group_id.name or '']]</para>
+            <para style="seanceInfo">[[_('Number Of Participant Not Present: ')]][[ get_participants_noshow_count(seance) ]] / [[seance.participant_count]]</para>
+        </td>
+    </tr></blockTable>
+    
+    <para style="Standard"><font color="white"><br/></font></para>
+    
+    <blockTable colWidths="150.0,150.0,181.0" style="Table1" repeatRows="1">
+      <tr>
+        <td><para style="terp_tblheader_General_Centre">Name</para></td>
+        <td><para style="terp_tblheader_General_Centre"></para></td>
+        <td><para style="terp_tblheader_General_Centre">[[ seance.kind in ('exam','diagnostic') and 'Exam' or '' ]]</para></td>
+      </tr>
+      <tr>
+        <para style="Standard">[[ repeatIn(ordered_participants_noshow(seance), 'participate') ]]</para>
+        <td><para style="terp_default_8">[[participate.contact_id.name or '']] [[participate.contact_id.first_name or '']]</para></td>
+        <td><para style="terp_default_8">[[ participate.partner_id.name ]]</para></td>
+        <td><para style="terp_default_8">[[ seance.kind in ('exam','diagnostic') and participate.course_questionnaire_id.name or '' ]]</para></td>
+      </tr>
+    </blockTable>
+    
+    <para style="Standard"><font color="white"><br/></font></para>
+    
+    <pageNumberReset/>
+    </section>
+  </story>
+</document>

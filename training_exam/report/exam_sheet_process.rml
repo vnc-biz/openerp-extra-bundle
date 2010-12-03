@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+        <pageTemplate id="first">
+            <pageGraphics>
+                <place x="40" y="20.0cm"  width="520.0" height="9cm">
+                    <blockTable colWidths="100.0,420.0" style="Table1">
+                        <tr>
+                            <td>
+                                <para style="terp_default_header">Partner</para>
+                                <para style="terp_default_header">Participant</para>
+                                <para style="terp_default_header">Course</para>
+                                <para style="terp_default_header">Questionnaire</para>
+                                <para style="terp_default_header">Number Of Questions</para>
+                                <para style="terp_default_header">Total Point</para>
+                                <para style="terp_default_header">Passing Score</para>
+                                <para style="terp_default_header">Date</para>
+                                <para style="terp_default_header">ID</para>
+                            </td>
+                            <td>
+                                <para style="terp_default_8">[[ participation.partner_id.name ]]</para>
+                                <para style="terp_default_8">[[ participation.job_id.contact_id.name ]] [[ participation.job_id.contact_id.first_name ]]</para>
+                                <para style="terp_default_8">[[ participation.questionnaire_id.course_id.name ]]</para>
+                                <para style="terp_default_8">[[ participation.questionnaire_id.name ]]</para>
+                                <para style="terp_default_8">[[ int(participation.questionnaire_id.len_question_ids) ]]</para>
+                                <para style="terp_default_8">[[ participation.questionnaire_id.total_point ]]</para>
+                                <para style="terp_default_8">[[ participation.questionnaire_id.passing_score ]] %</para>
+                                <para style="terp_default_8">[[ participation.date ]]</para>
+                                <para style="terp_default_8">[[ "%010d" % participation.id ]]</para>
+                            </td>
+                        </tr>
+
+                    </blockTable>
+                </place>
+            </pageGraphics>
+            <frame id="first" x1="30.0" y1="00.0" width="520" height="728"/>
+        </pageTemplate>
+    </template>
+    <stylesheet>
+        <blockTableStyle id="Standard_Outline">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table1">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <lineStyle kind="LINEBEFORE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+            <lineStyle kind="LINEBELOW" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+            <lineStyle kind="LINEAFTER" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+            <lineStyle kind="LINEABOVE" colorName="#e6e6e6" start="0,0" stop="-1,-1"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table2">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+        </blockTableStyle>
+        <blockTableStyle id="Table_new">
+            <blockAlignment value="LEFT"/>
+            <blockValign value="TOP"/>
+            <lineStyle kind="LINEBEFORE" colorName="#808080" start="0,0" stop="-1,-1"/>
+            <lineStyle kind="LINEBELOW" colorName="#808080" start="0,0" stop="-1,-1"/>
+            <lineStyle kind="LINEAFTER" colorName="#808080" start="0,0" stop="-1,-1"/>
+            <lineStyle kind="LINEABOVE" colorName="#808080" start="0,0" stop="-1,-1"/>
+        </blockTableStyle>
+        <initialize>
+            <paraStyle name="all" alignment="justify"/>
+        </initialize>
+        <paraStyle name="Standard" fontName="Helvetica"/>
+        <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+        <paraStyle name="Caption" fontName="Helvetica-Oblique" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="Index" fontName="Helvetica"/>
+        <paraStyle name="Table Contents" fontName="Helvetica"/>
+        <paraStyle name="terp_header" fontName="Helvetica-Bold" fontSize="12.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_Details" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Right_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_9" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_Centre_8" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_tblheader_General" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_tblheader_General_Centre" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+        <paraStyle name="terp_default_81" rightIndent="0.0" leftIndent="50.0" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+        <paraStyle name="terp_default_header" rightIndent="0.0" leftIndent="0.0" fontName="Helvetica" fontSize="9.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    </stylesheet>
+    <images/>
+    <story>
+        <spacer length="0.5cm" />
+        <para style="Standard">[[ repeatIn(objects,'participation') ]]</para>
+        <!--
+        <para style="Standard">
+            <font color="white"> </font>
+        </para>
+        -->
+        <para style="Standard">
+            <seqReset id="L1"/>
+            <seqReset id="L2"/>
+        </para>
+        <section>
+            <para><seqReset id="L2"/></para>
+            <para style="terp_default_8">[[ repeatIn(participation.questionnaire_id.question_ids,'question') ]]</para>
+            <blockTable colWidths="50.0,300.0" style="Table2" >
+                <tr>
+                    <td>
+                        <para style="terp_default_9">
+                            Q<seq id="L1"/>
+                        </para>
+                    </td>
+                    <td>
+                    	<blockTable colWidths="30.0,30.0,30.0" style="Table_new" >
+						<tr>
+						<td> <para style="terp_default_8" leftIndent="10"  ><seq id="L2"/> </para>
+						</td>
+						<td> <para style="terp_default_8" leftIndent="10" ><seq id="L2"/> </para>
+						</td>
+						<td><para style="terp_default_8" leftIndent="10" ><seq id="L2"/> </para>
+						</td>
+						</tr>
+						</blockTable>
+                   </td>
+                </tr>
+            </blockTable>
+            <para style="Standard">
+                <font color="white"> </font>
+            </para>
+            <condPageBreak height="3cm"/>
+
+        </section>
+
+        <pageBreak/>
+	<para><seqReset id="L3"/></para>
+         <section>
+
+  		<para><seqReset id="L4"/></para>
+            <para style="terp_default_8">[[ repeatIn(participation.questionnaire_id.question_ids,'question') ]]</para>
+            <blockTable colWidths="500.0" style="Table2" >
+                <tr>
+                    <td>
+                        <para style="terp_default_9" leftIndent="15" bulletIndent="0">
+                            Q<seq id="L3"/> <font>. Type: [[ question.question_id.type ]] - Point: [[ question.question_id.point ]]</font>
+                        </para>
+                        <para style="terp_default_9" leftIndent="33" bulletIndent="0">[[ question.question_id.question ]]</para>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <para>[[ question.question_id.type in ('yesno','qcm', 'qcu') and ' ' or removeParentNode('tr') ]]</para>
+                        <para style="terp_default_8">[[ repeatIn(solution(question.question_id.id, question.question_id.type), 'response') ]]</para>
+                        <blockTable colWidths="20.0,400.0" style="Table2" >
+                        <tr>
+                        <td>
+                        <para style="terp_default_8" leftIndent="33" bulletIndent="4"><seq id="L4"/> </para>
+                        </td>
+                        <td>
+						<para style="terp_default_8"  leftIndent="33" >[[ response['name'] ]]</para>
+                        </td>
+                        </tr>
+                        </blockTable>
+                    </td>
+                </tr>
+  			<para><seqReset id="L4"/></para>
+            </blockTable>
+
+            <para style="Standard">
+                <font color="white"> </font>
+            </para>
+            <condPageBreak height="3cm"/>
+
+        </section>
+        <para style="Standard">
+            <seqReset id="L2"/>
+            <seqReset id="L1"/>
+			<seqReset id="L4"/>
+            <font color="white"> </font>
+        </para>
+    </story>
+</document>

@@ -1,423 +1,796 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <record model="ir.ui.view" id="training_course_form_with_questionnaires">
-            <field name="name">training.course.form.with.questionnaires</field>
-            <field name="model">training.course</field>
-            <field name="inherit_id" ref="training.training_course_form" />
+        <record model="ir.ui.view" id="course_type_form_inherited">
+            <field name="name">training.course_type.form.inherited</field>
+            <field name="model">training.course_type</field>
+            <field name="inherit_id" ref="training.training_course_type_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <xpath expr="/form/notebook/page[@string='Supplier Orders']" position="after">
-                    <page string="Questionnaires">
-                        <field name="questionnaire_ids" nolabel="1" colspan="4">
-                            <tree string="Questionnaire">
-                                <field name="name" />
-                                <field name="state" />
-                            </tree>
-                            <form string="Questionnaire">
-                                <field name="name" />
-                                <field name="state" />
-                            </form>
-                        </field> 
-                    </page>
-                </xpath>
+                <field name="product_id" position="after">
+                    <field name="exam_product_id" required="1" colspan="4"/>
+                </field>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="training_question_form">
-            <field name="name">training.question.form</field>
-            <field name="model">training.question</field>
+        <act_window id="link_question_to_questionnaire"
+                name="Questionnaires"
+                src_model="training.exam.question"
+                res_model="training.exam.questionnaire"
+                view_type="form"
+                view_mode="tree,form"
+                domain="[('id','in', questionnaire_ids[0][2])]"/>
+
+        <record model="ir.ui.view" id="exam_question_form">
+            <field name="name">training.exam.question.form</field>
+            <field name="model">training.exam.question</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Question">
                     <separator string="Question Description" colspan="4" />
-                    <field name="type" />
-                    <field name="kind" />
-                    <separator string="Question" colspan="4"/>
-                    <field name="name" colspan="4" nolabel="1"/>
+                    <field name="name" />
                     <notebook colspan="4">
-                        <page string="Response">
-                            <group attrs="{'invisible':[('type', '!=', 'plain')]}" col="1"
-                                colspan="4">
-                                <field name="response_plain" colspan="4" />
+                        <page string="Question">
+                            <group col="6" colspan="4">
+                                <field name="type" />
+                                <field name="point" />
+                                <field name="duration" />
+                                <label string="" colspan="2" />
+                                <field name="is_mandatory" />
+                                <field name="is_eliminatory" />
                             </group>
-                            <group attrs="{'invisible':[('type', '!=', 'yesno')]}" col="1"
-                                colspan="4">
-                                <field name="response_yesno" colspan="4" /> 
-                            </group>
-                            <group attrs="{'invisible':[('type','!=', 'qcm')]}" col="1" colspan="4">
-                                <field name="exam_answer_ids" /> 
-                            </group>
+                            <separator string="Exposition of the question" colspan="4" />
+                            <field name="question" colspan="4" nolabel="1"  />
+                            <separator string="Note" colspan="4" />
+                            <field name="note" colspan="4" nolabel="1" />
                         </page>
-                        <page string="Questionnaire">
-                            <field name="questionnaire_ids" colspan="4" nolabel="1"/>
+                        <page string="Question Image">
+                            <separator string="Image" colspan="4"/>
+                            <field name="image_position" string="Position"/>
+                            <newline/>
+                            <field name="image" widget="image" nolabel="1" colspan="4"/>
+                        </page>
+                        <page string="Response (Plain)" attrs="{'invisible':[('type', '!=', 'plain')]}">
+                            <field name="response_plain" colspan="4" nolabel="1" />
+                            <field name="free_lines_count" colspan="4"/>
+                        </page>
+                        <page string="Response (Yes/No)" attrs="{'invisible' : [('type', '!=', 'yesno')]}">
+                            <field name="response_yesno" />
+                            <label string="" colspan="2"/>
+                        </page>
+                        <page string="Response (QCU/QCM)" attrs="{'invisible' : [('type', '!=', 'qcm'),('type', '!=', 'qcu')]}">
+                            <field name="question_answer_ids" colspan="4" nolabel="1" />
+                            <field name="number_of_good_answers" />
+                        </page>
+                        <page string="Questionnaires">
+                            <field name="questionnaire_ids" colspan="4" nolabel="1">
+                                <tree string="Questionnaires">
+                                    <field name="name"/>
+                                </tree>
+                                <form string="Questionnaires">
+                                    <field name="name"/>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Courses">
+                            <field name="course_ids" domain="[('state_course','=','validated')]" nolabel="1" colspan="4">
+                                <tree string="Courses">
+                                    <field name="name" string="Designation" />
+                                    <field name="category_id" string="Product Line" />
+                                    <field name="course_type_id" />
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
+                    <group colspan="4" col="8">
+                        <field name="state"/>
+                        <button type="object" name="action_draft" string="Draft" states="deprecated"/>
+                        <button type="object" name="action_draft_validate" string="Draft" states="validated" confirm="Are you sure you want to set this question to draft? (All Validated questionnaires related to this question will be set to Pending."/>
+                        <button type="object" name="action_validate" string="Validate" states="draft"/>
+                        <button type="object" name="action_deprecate" string="Deprecated" states="validated" confirm="Are you sure you want to deprecate this question? (All Validated questionnaires related to this question will be set to Pending."/>
+                    </group>
                 </form>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="training_question_tree">
-            <field name="name">training.question.tree</field>
-            <field name="model">training.question</field>
+        <record model="ir.ui.view" id="exam_question_tree">
+            <field name="name">training.exam.question.tree</field>
+            <field name="model">training.exam.question</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Question">
                     <field name="name" />
                     <field name="type" />
-                    <field name="kind" />
+                    <field name="point" />
+                    <field name="duration" />
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="training_question_all_act">
+        <record model="ir.actions.act_window" id="exam_question_all_act">
             <field name="name">Questions</field>
-            <field name="res_model">training.question</field>
+            <field name="res_model">training.exam.question</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="training_question_new_act">
+        <record model="ir.actions.act_window" id="exam_question_new_act">
             <field name="name">New Question</field>
-            <field name="res_model">training.question</field>
+            <field name="res_model">training.exam.question</field>
             <field name="view_type">form</field>
             <field name="view_mode">form,tree</field>
         </record>
 
+        <record model="ir.actions.act_window" id="exam_question_without_act">
+            <field name="name">Questions Without Course</field>
+            <field name="res_model">training.exam.question</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'course':'cid'}</field>
+        </record>
 
-        <record model="ir.ui.view" id="training_questionnaire_form">
-            <field name="name">training.questionnaire.form</field>
-            <field name="model">training.questionnaire</field>
+        <record model="ir.ui.view" id="exam_questionnaire_wizard_helper_form">
+            <field name="name">Add Questions (helper)</field>
+            <field name="model">training.exam.wizard.helper</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add Questions to Questionnaire">
+                    <field name="questionnaire_id" invisible="1" />
+                    <field name="course_id" />
+                    <newline />
+                    <field name="question_ids" nolabel="1" colspan="4"
+                        context="{'course_id' : course_id}" domain="[('state','in',['draft','validated'])]" />
+                    <group colspan="4" col="2">
+                        <button name="cancel_cb" string="Cancel" special="cancel" type="object" />
+                        <button name="add_questions_cb" string="Add Questions" type="object" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="exam_questionnaire_wizard_helper_act">
+            <field name="name">Add Questions</field>
+            <field name="res_model">training.exam.wizard.helper</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="training_exam_questionnaire_course_tree">
+            <field name="name">training.exam.questionnaire.course.tree</field>
+            <field name="model">training.exam.questionnaire.course</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Courses">
+                    <field name="course_id"/>
+                    <field name="category_id"/>
+                    <field name="kind"/>
+                    <field name="passing_score" sum="Passing Score"/>
+                    <field name="total_point" sum="Total Points"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="training_exam_questionnaire_course_from">
+            <field name="name">training.exam.questionnaire.course.form</field>
+            <field name="model">training.exam.questionnaire.course</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Courses">
+                    <separator string="Course Information" colspan="4"/>
+                    <field name="course_id" on_change="on_change_course(course_id)" colspan="4"/>
+                    <field name="category_id"/>
+                    <field name="kind"/>
+                    <separator string="Course Scores" colspan="4"/>
+                    <field name="passing_score"/>
+                    <field name="total_point"/>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="exam_questionnaire_form">
+            <field name="name">training.exam.questionnaire.form</field>
+            <field name="model">training.exam.questionnaire</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Questionnaire">
                     <separator string="Questionnaire" colspan="4" />
                     <field name="name" />
-                    <field name="course_id" />
+                        <group colspan="2" col="4" attrs="{'readonly': [('state','=','validated')]}">
+                        <field name="type" />
+                        <field name="kind" />
+                    </group>
+                    <field name="category"/>
+                    <field name="main_course_id" attrs="{'readonly': [('state','=','validated')]}"/>
+                    <field name="passing_score"/>
+                    <field name="total_point" />
                     <notebook colspan="4">
                         <page string="General">
                             <separator string="Objective" colspan="4" />
                             <field name="objective" nolabel="1" colspan="4" />
                             <separator string="Exam Content" colspan="4" />
                             <field name="description" nolabel="1" colspan="4" />
+			    <separator string="Remark First Page" colspan="4"/>
+			    <field name="remark_firstpage" nolabel="1" colspan="4"/>
+                        </page>
+                        <page string="Courses">
+                            <field name="course_ids" nolabel="1" colspan="4" attrs="{'readonly': [('state','=','validated')]}"/>
                         </page>
                         <page string="Questions">
-                            <field name="question_ids" colspan="4" nolabel="1" />
+                            <button name="%(exam_questionnaire_wizard_helper_act)d" string="Add Questions" type="action" colspan="4" attrs="{'readonly': [('state','=','validated')]}"/>
+                            <field name="question_ids" colspan="4" nolabel="1" attrs="{'readonly' : [('state', '=', 'validated')]}">
+                                <tree string="Questions">
+                                    <field name="sequence" invisible="1" />
+                                    <field name="question_id" context="{'course_id' : parent.course_id, 'kind' : kind}"/>
+                                    <field name="question_type" />
+                                    <field name="question_exposition" />
+                                </tree>
+                                <form string="Question">
+                                    <field name="question_id" context="{'course_id' : parent.course_id, 'kind' : kind}"/>
+                                    <field name="question_type" />
+                                    <field name="question_exposition" />
+                                </form>
+                            </field>
+                            <field name="duration" widget="float_time" />
+                        </page>
+                        <page string='Attachments'>
+                            <field name="attachment_ids" nolabel="1" colspan="4"/>
                         </page>
                     </notebook>
-                    <group colspan="4" col="6">
+                    <group colspan="4" col="7">
                         <field name="state" />
-                        <button name="signal_pending" string="Pending" type="workflow"
-                            states="draft,validated,deprecated,inprogress" />
-                        <button name="signal_inprogress" string="In Progress" type="workflow" 
-                            states="pending" />
-                        <button name="signal_deprecate" string="Deprecate" type="workflow" 
-                            states="inprogress"/>
-                        <button name="signal_validate" string="Validate" type="workflow"
-                            states="inprogress" />
-                        <button name="signal_draft" string="Draft" type="workflow"
-                            states="deprecated" />
+                        <button name="set_pending_status" string="Pending" type="object" states="draft,validated,deprecated,inprogress" />
+                        <button name="signal_teq_inprogress" string="In Progress" type="workflow" states="pending" />
+                        <button name="signal_teq_deprecate" string="Deprecate" type="workflow" states="inprogress" confirm="Do you want to deprecate this questionnaire ?" />
+                        <button name="signal_teq_validate" string="Validate" type="workflow" states="inprogress" confirm="Do you want to validate this questionnaire ?" />
+                        <button name="reset_to_draft_cb" string="Reset to Draft" type="object" states="deprecated" />
                     </group>
                 </form>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="training_questionnaire_tree">
-            <field name="name">training.questionnaire.tree</field>
-            <field name="model">training.questionnaire</field>
+        <act_window id="show_question_from_questionnaire"
+            name="Questions"
+            src_model="training.exam.questionnaire"
+            res_model="training.exam.question"
+            domain="[('id','in', [ x[2]['question_id'] for x in question_ids ])]" 
+            />
+
+        <act_window id="show_questionnaire_from_course"
+            name="Questionnaires"
+            src_model="training.course"
+            res_model="training.exam.questionnaire"
+            domain="[('main_course_id', '=', active_id)]" />
+
+
+        <record model="ir.ui.view" id="exam_questionnaire_tree">
+            <field name="name">training.exam.questionnaire.tree</field>
+            <field name="model">training.exam.questionnaire</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Questionnaires">
                     <field name="name" />
-                    <field name="course_id" />
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_questionnaire_all_act">
-            <field name="name">Questionnaires</field>
-            <field name="res_model">training.questionnaire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_questionnaire_current_act">
-            <field name="name">Current Questionnaires</field>
-            <field name="res_model">training.questionnaire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('state', '=', 'validated')]</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_questionnaire_new_act">
-            <field name="name">New Questionnaire</field>
-            <field name="res_model">training.questionnaire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-        </record>
-
-        <record model="ir.ui.view" id="training_planned_exam_form">
-            <field name="name">training.planned_exam.form</field>
-            <field name="model">training.planned_exam</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Exam">
-                    <separator string="Exam Description" colspan="4" />
-                    <field name="name" />
-                    <field name="questionnaire_id" />
-                    <notebook colspan="4">
-                        <page string="General">
-                            <field name="date" />
-                            <field name="duration" widget="float_time" />
-                            <!--
-                            <field name="location_id" />
-                            -->
-                        </page>
-                        <page string="Participants">
-                            <field name="group_id" invisible="1" />
-                            <field name="participant_ids" nolabel="1"/>
-                        </page>
-                        <page string="Contacts">
-                            <field name="contact_ids" nolabel="1"/>
-                        </page>
-                    </notebook>
-                    <group col="8" colspan="4">
-                        <field name="state" />
-                        <button name="signal_open" string="Opened" 
-                            type="workflow" states="draft" />
-                        <button name="signal_open_confirm" string="Opened Confirmed" 
-                            type="workflow" states="opened" />
-                        <button name="signal_close_confirm" string="Closed Confirmed"
-                            type="workflow" states="opened_confirmed" />
-                        <button name="signal_inprogress" string="In Progress" 
-                            type="workflow" states="closed_confirmed"/>
-                        <button name="signal_close" string="Close" 
-                            type="workflow" states="inprogress" />
-                        <button name="signal_cancel" string="Cancel" 
-                            type="workflow" states="draft,opened,opened_confirmed,closed_confirmed"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="training_planned_exam_tree">
-            <field name="name">training.planned_exam.tree</field>
-            <field name="model">training.planned_exam</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Planned Exams">
-                    <field name="name" />
-                    <field name="questionnaire_id" />
-                    <field name="date" />
-                    <field name="duration" widget="float_time" />
-                    <!--
-                    <field name="location_id" />
-                    -->
+                    <field name="course_ids" />
+                    <field name="duration" />
+                    <field name="kind" />
+                    <field name="passing_score"/>
                     <field name="state" />
                 </tree>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="training_planned_exam_calendar">
-            <field name="name">training.planned_exam.calendar</field>
-            <field name="model">training.planned_exam</field>
-            <field name="type">calendar</field>
-            <field name="arch" type="xml">
-                <calendar string="Events" date_start="date">
-                    <field name="name"/>
-                    <field name="questionnaire_id" />
-                    <field name="duration" widget="float_time" />
-                    <field name="contact_ids" />
-                    <!--
-                    <field name="location_id"/>
-                    -->
-                </calendar>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_planned_exam_calendar_act">
-            <field name="name">Calendar of Exams</field>
-            <field name="res_model">training.planned_exam</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">calendar,tree</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_planned_exam_all_act">
-            <field name="name">Exams</field>
-            <field name="res_model">training.planned_exam</field>
+        <record model="ir.actions.act_window" id="exam_questionnaire_all_act">
+            <field name="name">Questionnaires</field>
+            <field name="res_model">training.exam.questionnaire</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <record model="ir.actions.act_window" id="training_planned_exam_new_act">
-            <field name="name">New Exam</field>
-            <field name="res_model">training.planned_exam</field>
+
+        <record model="ir.actions.act_window" id="exam_questionnaire_current_act">
+            <field name="name">Current Questionnaires</field>
+            <field name="res_model">training.exam.questionnaire</field>
             <field name="view_type">form</field>
-            <field name="view_mode">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state', '=', 'validated')]</field>
         </record>
 
-        <record model="ir.ui.view" id="training_offer_form_with_questionnaires">
-            <field name="name">training.offer.form.with.questionnaires</field>
-            <field name="model">training.offer</field>
-            <field name="inherit_id" ref="training.training_offer_form"/>
+        <record model="ir.actions.act_window" id="exam_questionnaire_new_act">
+            <field name="name">New Questionnaire</field>
+            <field name="res_model">training.exam.questionnaire</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+        </record>
+
+        <record id="exam_question_answer_form" model="ir.ui.view">
+            <field name="name">training.exam.question.answer.form</field>
+            <field name="model">training.exam.question.answer</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <xpath expr="/form/notebook/page[@string='Courses']" position="after">
-                    <page string="Questionnaires">
-                        <field name="questionnaire_ids" colspan="4" nolabel="1"/>
+                <form string="Question Answer">
+                    <separator string="Proposed Answer" colspan="4" />
+                    <field name="name" nolabel="1" colspan="4" />
+                    <field name="is_solution" />
+                </form>
+            </field>
+        </record>
+
+        <record id="exam_question_answer_tree" model="ir.ui.view">
+            <field name="name">training.exam.question.answer.tree</field>
+            <field name="model">training.exam.question.answer</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Examen Answer">
+                    <field name="name" />
+                    <field name="is_solution" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="exam_seance_form_inherited">
+            <field name="name">training.seance.form.inherited</field>
+            <field name="model">training.seance</field>
+            <field name="inherit_id" ref="training.training_seance_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="course_id" position="attributes">
+                    <attribute name="attrs">{'readonly' : [('kind', '=', 'exam')], 'required' : [('kind', '=', 'standard')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="session_form_inherited">
+            <field name="name">training.session.form.inherited</field>
+            <field name="model">training.session</field>
+            <field name="inherit_id" ref="training.training_session_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="catalog_id" position="replace">
+                    <field name="catalog_id" attrs="{'readonly' : [('kind', '=', 'exam')]}" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="course_form_with_questionnaires">
+            <field name="name">training.course.form.with.questionnaires</field>
+            <field name="model">training.course</field>
+            <field name="inherit_id" ref="training.training_course_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Procurements']" position="after">
+                    <page string="Questionnaires" attrs="{'invisible' : [('p_id', '!=', False)]}">
+                        <field name="questionnaire_ids" nolabel="1" colspan="4">
+                            <tree string="Questionnaire">
+                                <field name="name" />
+                                <field name="kind" />
+                                <field name="state" />
+                                <field name="len_question_ids" string="Number of Questions" />
+                            </tree>
+                            <form string="Questionnaire">
+                                <field name="name" readonly="1" />
+                                <field name="state" readonly="1" />
+                                <field name="kind" readonly="1" />
+                            </form>
+                        </field>
                     </page>
                 </xpath>
             </field>
         </record>
 
-        <record id="training_exam_answer_form" model="ir.ui.view">
-            <field name="name">training.exam_answer.form</field>
-            <field name="model">training.exam_answer</field>
+        <act_window name="Questions"
+            id="course_questions"
+            src_model="training.course"
+            res_model="training.exam.question"
+            domain="[('course_ids', '=', [active_id])]" />
+
+        <record model="ir.ui.view" id="question_wizard_form">
+            <field name="name">training.exam.question.wizard.form</field>
+            <field name="model">training.exam.question.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Examen Answer">
-                    <field name="name" />
-                    <field name="is_response" />
+                <form string="Question Wizard" col="4">
+                    <separator string="Question Wizard" colspan="4"/>
+                    <field name="course_id" colspan="4"/>
+                    <group colspan="4">
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel" />
+                        <button name="find_question_with_course" string="_Apply" icon="gtk-apply" type="object" />
+                    </group>
                 </form>
             </field>
         </record>
 
-        <record id="training_exam_answer_tree" model="ir.ui.view">
-            <field name="name">training.exam_answer.tree</field>
-            <field name="model">training.exam_answer</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Examen Answer">
-                    <field name="name" />
-                    <field name="is_response" />
-                </tree>
-            </field>
-        </record>
-
-        <record id="training_exam_result_form" model="ir.ui.view">
-            <field name="name">training.exam.result.form</field>
-            <field name="model">training.exam.result</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Result">
-                    <field name="participation_id" />
-                    <field name="exam_id" />
-                </form>
-            </field>
-        </record>
-
-        <record id="training_exam_result_tree" model="ir.ui.view">
-            <field name="name">training.exam.result.tree</field>
-            <field name="model">training.exam.result</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Results">
-                    <field name="participation_id" />
-                    <field name="exam_id" />
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_exam_result_all_act">
-            <field name="name">All Results</field>
-            <field name="res_model">training.exam.result</field>
+        <record model="ir.actions.act_window" id="question_wizard_act">
+            <field name="name">Questions by Course</field>
+            <field name="res_model">training.exam.question.wizard</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
         </record>
 
-        <record id="training_exam_answer_form" model="ir.ui.view">
-            <field name="name">training.exam_answer.form</field>
-            <field name="model">training.exam_answer</field>
+        <record model="ir.ui.view" id="exam_questionnaire_wizard_form">
+            <field name="name">training.exam.questionnaire.wizard.form</field>
+            <field name="model">training.exam.questionnaire.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Examen Answer">
+                <form string="Questionnaire Wizard" col="2">
+                    <separator string="Questionnaire Information" colspan="2" />
                     <field name="name" />
-                    <field name="is_response" />
+                    <field name="course_id" />
+                    <separator string="Information about the questions" colspan="2"/>
+                    <field name="kind" />
+                    <field name="number_of_question" />
+                    <separator colspan="2" />
+                    <group colspan="2">
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel" type="object"/>
+                        <button name="action_generate_questionnaire" string="_Apply" icon="gtk-apply" type="object" />
+                    </group>
                 </form>
             </field>
         </record>
 
-        <record id="training_exam_answer_tree" model="ir.ui.view">
-            <field name="name">training.exam_answer.tree</field>
-            <field name="model">training.exam_answer</field>
-            <field name="type">tree</field>
+        <record model="ir.actions.act_window" id="exam_questionnaire_wizard_act">
+            <field name="name">Generate Questionnaire</field>
+            <field name="res_model">training.exam.questionnaire.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="offer_form_with_questionnaires">
+            <field name="name">training.offer.form.with.questionnaires</field>
+            <field name="model">training.offer</field>
+            <field name="inherit_id" ref="training.training_offer_form"/>
+            <field name="type">form</field>
             <field name="arch" type="xml">
-                <tree string="Examen Answer">
-                    <field name="name" />
-                    <field name="is_response" />
-                </tree>
+                <page string='Description' position='after'>
+                    <page string="Exams">
+                        <field name="questionnaire_ids" colspan="4" nolabel="1">
+                            <field name="name" />
+                            <field name="kind" />
+                        </field>
+                    </page>
+                </page>
             </field>
         </record>
-    </data>
 
-    <data>
-        <record id="training_subscription_line_form_inherited" model="ir.ui.view">
+        <record model="ir.ui.view" id="subscription_line_form_inherited">
             <field name="name">training.subscription.line.form.inherited</field>
+            <field name="model">training.subscription.line</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_subscription_line_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="session_id" position="after">
+                        <field name="exam_session_id" /> <!--link="0"-->
+                    </field>
+                    <field name="kind" position="after">
+                        <group colspan="2" col="2" attrs="{'invisible': [('kind', '!=', 'exam')]}">
+                            <field name="course_id" string="Exam" 
+                                attrs="{'required': [('kind', '=', 'exam')], 'readonly': [('state', '!=', 'draft')]}"
+                                on_change="on_change_exam(session_id, price_list_id, course_id, partner_id)" /> <!--link="0"-->
+                        </group>
+                    </field>
+                    <field name="price_list_id" position="attributes">
+                        <attribute name="on_change">on_change_price_list(session_id, price_list_id, course_id)</attribute>
+                    </field>
+                </data>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="subscription_line_tree_inherited">
+            <field name="name">training.subscription.line.tree.inherited</field>
+            <field name="model">training.subscription.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training.training_subscription_line_tree" />
+            <field name="arch" type="xml">
+                <field name="session_id" position="after">
+                    <field name="course_id" select="1" /> <!--link="0"-->
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="subscription_line_tree2_inherited">
+            <field name="name">training.subscription.line.tree2.inherited</field>
+            <field name="model">training.subscription.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training.training_subscription_line_tree2" />
+            <field name="arch" type="xml">
+                <field name="session_id" position="after">
+                    <field name="course_id" select="1" /> <!--link="0"-->
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="subscription_form_inherit">
+            <field name="name">training.subscription.form.inherited</field>
             <field name="model">training.subscription</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="training.training_subscription_form" />
             <field name="arch" type="xml">
-                <xpath
-                    expr="/form/notebook/page[@string='Subscription']/field[@name='subscription_line_ids']/tree/field[@name='invoiced']" position="after">
-                    <field name="with_exam" />
+                <data>
+                    <xpath expr="/form/notebook/page[@string='Subscription']/field[@name='subscription_line_ids']/tree/field[@name='kind']" position="after">
+                        <field name="course_id" string="Exam" /> <!--link="0"-->
+                    </xpath>
+                    <xpath expr="/form/notebook/page[@string='Subscription']/field[@name='subscription_line_ids']/form/field[@name='session_id']" position="after">
+                        <field name="exam_session_id" /> <!--link="0"-->
+                    </xpath>
+                    <xpath expr="/form/notebook/page[@string='Subscription']/field[@name='subscription_line_ids']/form/field[@name='kind']" position="after">
+                        <group colspan="2" col="2" attrs="{'invisible': [('kind', '!=', 'exam')]}">
+                            <field name="course_id" string="Exam" 
+                                attrs="{'required': [('kind', '=', 'exam')]}"
+                                on_change="on_change_exam(session_id, price_list_id, course_id, parent.partner_id)"/> <!--link="0"-->
+                        </group>
+                    </xpath>
+                    <xpath expr="/form/notebook/page[@string='Subscription']/field[@name='subscription_line_ids']/form/field[@name='price_list_id']" position="attributes">
+                        <attribute name="on_change">on_change_price_list(session_id, price_list_id, course_id)</attribute>
+                    </xpath>
+                    <xpath expr="/form/notebook/page[@string='Subscription']/field[@name='subscription_line_ids']" position="before">
+                        <button name="action_subscription_line_compute" string="Compute Exam Subscription" type="object" colspan="2" states="draft" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="seance_form_inherit">
+            <field name="name">training_exam.seance.form.inherit</field>
+            <field name="model">training.seance</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_seance_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page/field[@name='participant_ids']/tree/field[@name='present']" position='before'>
                     <field name="exam_id" />
                 </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="participation_form_inherited">
+            <field name="name">training.participation.form.inherited</field>
+            <field name="model">training.participation</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.view_training_participation_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="seance_id" position="after">
+                        <field name="kind" invisible="1"/>
+                    </field>
+
+                    <notebook position="inside">
+			<page string="Exam Summary" attrs="{'invisible':[('kind', '!=', 'exam')]}" groups="base.group_user">
+                            <field name="course_questionnaire_id" colspan="4"/>
+			    <group colspan="2" col="2">
+				<separator string='Result' colspan="2"/>
+				<field name="result"/>
+				<field name="total_points"/>
+				<field name="result_pourcentage"/>
+				<separator string='' colspan="2"/>
+				<field name="passing_score" />
+				<field name="forced_result" on_change="on_change_forced_result(forced_result)"/>
+			    </group>
+			    <group colspan="2" col="2">
+				<separator string='Status' colspan="2"/>
+				<field name="result_received"/>
+				<field name="succeeded" />
+				<separator string="Configuration" colspan="2"/>
+				<field name="forced_noresult"/>
+			    </group>
+			</page>
+                        <page string="Exam Participation" attrs="{'invisible':[('kind', '!=', 'exam')]}" groups="base.group_user">
+                            <field name="questionnaire_id" on_change="on_change_questionnaire(questionnaire_id)" domain="[('main_course_id','=',course_questionnaire_id)]"/>
+                            <field name="duration_questionnaire_id" />
+                            <field name="participation_line_ids" editable="bottom" colspan="4" nolabel="1" />
+                        </page>
+                    </notebook>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_training_participation_tree_inherited">
+            <field name="name">training.participation.tree.inherited</field>
+            <field name="model">training.participation</field>
+            <field name="inherit_id" ref="training.view_training_participation_tree" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="present" position="after">
+                    <field name="course_questionnaire_id" />
+                    <field name="result_received"/>
+                    <field name="result" />
+                    <field name="succeeded" />
+                    <field name="certif_printed" groups="base.group_user"/>
+                </field> 
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="participation_line_tree">
+            <field name="name">training.participation.line.tree</field>
+            <field name="model">training.participation.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Questions" editable="bottom">
+                    <field name="sequence"/>
+                    <field name="page_num"/>
+                    <field name="question_id" />
+                    <field name="point" />
+                    <field name="point_question_id" />
+                    <field name="type_question_id" />
+                    <field name="graded"/>
+                    <!--
+                    <field name="yesno_question_id" />
+                    <field name="plain_question_id" />
+                    <field name="qcm_question_id" />
+                    -->
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="participation_line_form">
+            <field name="name">training.participation.line.form</field>
+            <field name="model">training.participation.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Question">
+                    <separator string="Question Information" colspan="4" />
+                    <field name="question_id" on_change="on_change_question(question_id)"
+                        context="{'questionnaire_id' : parent.questionnaire_id }"/>
+                    <field name="type_question_id" />
+                    <field name="point_question_id" />
+                    <group col="4" colspan="2">
+                        <field name="point" />
+                        <field name="graded"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Responses" attrs="{'invisible':[('type_question_id', '!=', 'qcm'),('type_question_id', '!=', 'qcu')]}">
+                            <separator string="The response(s) from the question" colspan="4"/>
+                            <field name="qcm_question_id" colspan="4" nolabel="1" />
+                            <separator string="The response(s) from the student" colspan="4"/>
+                            <field name="response_qcm_ids" colspan="4" nolabel="1" />
+                        </page>
+                        <page string="Responses" attrs="{'invisible' : [('type_question_id', '!=', 'yesno')]}">
+                            <separator string="The response(s) from the question" colspan="4"/>
+                            <field name="yesno_question_id" />
+                            <separator string="The response(s) from the student" colspan="4"/>
+                            <field name="response_yesno" />
+                        </page>
+                        <page string="Responses" attrs="{'invisible' : [('type_question_id', '!=', 'plain')]}">
+                            <separator string="The response(s) from the question" colspan="4"/>
+                            <field name="plain_question_id" nolabel="1" />
+                            <separator string="The response(s) from the student" colspan="4"/>
+                            <field name="response_plain" nolabel="1" />
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1" colspan="4" />
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <!-- Training/ Library/ Exams/ -->
+        <menuitem
+            id="library_exam_mi"
+            parent="training.training_library_mi"
+            name="Exams" />
+        <!-- Training/ Library/ Exams/ Exams-->
+        <menuitem
+            id="library_exam_questionnaire_all_mi"
+            parent="library_exam_mi"
+            action="exam_questionnaire_all_act" />
+        <!-- Training/ Library/ Exams/ Questionnaires/ Current Exams-->
+        <menuitem
+            id="library_exam_current_mi"
+            parent="library_exam_questionnaire_all_mi"
+            action="exam_questionnaire_current_act" />
+
+        <!-- Training/ Library/ Exams/ Questionnaires/ Generate Questionnaire -->
+        <menuitem
+            id="library_exam_questionnaire_generate_mi"
+            parent="library_exam_questionnaire_all_mi"
+            action="exam_questionnaire_wizard_act" />
+
+        <!-- Training/ Library/ Exams/ Questionnaires/ New Exam-->
+        <menuitem
+            id="library_exam_new_mi"
+            parent="library_exam_questionnaire_all_mi"
+            action="exam_questionnaire_new_act" />
+
+        <!-- Training/ Library/ Exams/ Questions -->
+        <menuitem
+            id="library_exam_question_mi"
+            parent="library_exam_mi"
+            action="exam_question_all_act"/>
+
+        <!-- Training/ Library/ Exams/ Without Couser Question -->
+        <menuitem
+            id="library_exam_question_mi1"
+            parent="library_exam_question_mi"
+            action="exam_question_without_act" />
+
+        <!-- Training/ Library/ Exams/ Questions By Course -->
+        <menuitem
+            id="library_exam_question_course_wizard_mi"
+            parent="library_exam_question_mi"
+            action="question_wizard_act" />
+
+        <!-- Training/ Library/ Exams/ New Question -->
+        <menuitem
+            id="library_exam_question_new_mi"
+            parent="library_exam_question_mi"
+            action="exam_question_new_act" />
+
+    </data>
+
+    <data>
+        <record model="ir.ui.view" id="subscription_mass_line_form">
+            <field name="name">training.subscription.mass.line.form</field>
+            <field name="model">training.subscription.mass.line</field>
+            <field name="inherit_id" ref="training.subscription_mass_line_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="session_id" position="attributes">
+                        <attribute name="on_change">on_change_session(session_id)</attribute>
+                    </field>
+
+                    <field name="kind" position="attributes">
+                        <attribute name="invisible">0</attribute>
+                    </field>
+                    <field name="session_id" position="after">
+                        <field name="date_session" />
+                        <field name="exam_session_id" attrs="{'readonly' : [('kind', '=', 'exam')]}" />
+                        <field name="course_id"
+                            attrs="{'readonly':[('kind', '!=', 'exam')], 'required':[('kind', '=', 'exam')]}"
+                            domain="[('has_questionnaire', '=', True)]" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="subscription_mass_line_tree">
+            <field name="name">training.subscription.mass.line.tree</field>
+            <field name="model">training.subscription.mass.line</field>
+            <field name="inherit_id" ref="training.subscription_mass_line_tree" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="session_id" position="after">
+                        <field name="date_session" />
+                        <field name="course_id" />
+                        <field name="exam_session_id" />
+                    </field>
+                    <field name="kind" position="attributes">
+                        <attribute name="invisible">0</attribute>
+                    </field>
+                </data>
             </field>
         </record>
     </data>
 
     <data>
-        <!-- Training/ Library/ Exams/ -->
-        <menuitem 
-            id="training_library_exam_mi" 
-            parent="training.training_library_mi" 
-            name="Exams" />
-        <!-- Training/ Library/ Exams/ Exams-->
-        <menuitem 
-            id="training_library_exam_questionnaire_all_mi" 
-            parent="training_library_exam_mi" 
-            action="training_questionnaire_all_act" />
-        <!-- Training/ Library/ Exams/ Questionnaires/ Current Exams-->
-        <menuitem 
-            id="training_library_exam_current_mi" 
-            parent="training_library_exam_questionnaire_all_mi" 
-            action="training_questionnaire_current_act" />
-        <!-- Training/ Library/ Exams/ Questionnaires/ New Exam-->
-        <menuitem 
-            id="training_library_exam_new_mi" 
-            parent="training_library_exam_questionnaire_all_mi" 
-            action="training_questionnaire_new_act" />
-        <!-- Training/ Library/ Exams/ Questions -->
-        <menuitem 
-            id="training_library_exam_question_mi" 
-            parent="training_library_exam_mi" 
-            action="training_question_all_act"/>
-        <!-- Training/ Library/ Exams/ New Question -->
-        <menuitem 
-            id="training_library_exam_question_new_mi" 
-            parent="training_library_exam_question_mi" 
-            action="training_question_new_act" />
+        <record model="ir.ui.view" id="exam_seance_generate_zip_wizard_form">
+            <field name="name">training.exam.seance.generate.zip.wizard.form</field>
+            <field name="model">training.seance.generate.zip.wizard</field>
+            <field name="inherit_id" ref="training.seance_generate_zip_wizard_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="remuneration_form_report" position="after">
+                    <separator string="Exam Reports" colspan="2" />
+                    <field name="exams_report" />
+                </field>
+            </field>
+        </record>
+    </data>
 
-        <!-- Training/ Plannings/ Exams -->
-        <menuitem 
-            id="training_planning_exam_planning_mi" 
-            parent="training.training_planning_mi" 
-            action="training_planned_exam_all_act" />
-
-        <!-- Training/ Plannings/ Exams/ Calendar of Exams -->
-        <menuitem 
-            id="training_planning_exam_planning_planning_mi" 
-            parent="training_planning_exam_planning_mi" 
-            action="training_planned_exam_calendar_act" />
-        <!-- Training/ Plannings/ Exams/ New Exam -->
-        <menuitem 
-            id="training_planning_exam_planning_planify_mi" 
-            parent="training_planning_exam_planning_mi" 
-            action="training_planned_exam_new_act" />
-
-        <!-- Training/ Plannings/ Exams/ All Results -->
-        <menuitem
-            id="training_planning_exam_result_all_mi"
-            parent="training_planning_exam_planning_mi"
-            action="training_exam_result_all_act" />
+    <data>
+        <record model="ir.ui.view" id="exam_questionnaire_attachments_tree">
+            <field name="name">training.exam.questionnaire.attachment.tree</field>
+            <field name="model">training.exam.questionnaire.attachment</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Attachments" editable="bottom">
+                    <field name="attachment_id" domain="[('res_model','=','training.exam.questionnaire'),('res_id','=',parent.id)]"/>
+                    <field name="position"/>
+                    <field name="sequence"/>
+                    <field name="store_in_dms"/>
+                </tree>
+            </field>
+        </record>
     </data>
 </openerp>

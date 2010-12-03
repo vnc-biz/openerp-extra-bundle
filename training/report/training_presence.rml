@@ -100,6 +100,7 @@
   </stylesheet>
   <images/>
   <story>
+  	<section>
     <para style="P1">[[repeatIn(objects,'seance')]]</para>
     <para style="terp_default_Right_8">Date:[[ formatLang(time.strftime('%Y-%m-%d'),date=True) ]]
     </para>
@@ -124,7 +125,7 @@
           <para style="terp_default_8">[[ seance.name ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ seance.date ]]</para>
+          <para style="terp_default_8">[[ formatLang(seance.date,date=True) ]]</para>
         </td>
       </tr>
       <tr>
@@ -140,13 +141,13 @@
       </tr>
       <tr>
         <td>
-          <para style="terp_default_8">[[ seance.event_id.location ]]</para>
+          <para style="terp_default_8">[[ seance.location_id.address_id.name or removeParentNode('para') ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ seance.room ]]</para>
+          <para style="terp_default_8">[[ seance.location_id.name or removeParentNode('para') ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ seance.participant_count ]]</para>
+          <para style="terp_default_8">[[ formatLang(seance.participant_count) ]]</para>
         </td>
       </tr>
     </blockTable>
@@ -160,14 +161,16 @@
             </td>
         </tr>
 	</blockTable>
+	<section>
+	<para style="P6">[[repeatIn(seance.course_id.lecturer_ids,'lect')]]</para>
 	<blockTable colWidths="530.0" style="TableInsideLine">
         <tr>
             <td>
-                <para style="P6">[[repeatIn(seance.course_id.lecturer_ids,'lect')]]</para>
                 <para style="terp_default_8">[[ lect.name ]] [[ lect.first_name ]]</para>
             </td>
         </tr>
     </blockTable>
+	</section>
     <para style="P3">
       <font color="white"> </font>
     </para>
@@ -190,10 +193,7 @@
         <blockTable colWidths="227.0,227.0,75.0" style="TableInsideLine">
             <tr>
                 <td>
-                    <para style="terp_default_8">
-                        [[ participant_ids.contact_id.title or '']]
-                        [[ participant_ids.contact_id.name or '' ]]
-                        [[ participant_ids.contact_id.first_name or '']]
+                    <para style="terp_default_8">[[ participant_ids.job_id.contact_id.title or '']][[ participant_ids.job_id.contact_id.name or '' ]][[ participant_ids.job_id.contact_id.first_name or '']]
                     </para>
                 </td>
                 <td>
@@ -214,5 +214,7 @@
       <font color="white"> </font>
     </para>
     <para style="terp_default_8">The attendance record and evaluation forms are completed</para>
+  </section>
   </story>
+
 </document>

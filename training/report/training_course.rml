@@ -160,7 +160,7 @@
           <para style="terp_tblheader_General">Language</para>
         </td>
         <td>
-          <para style="terp_tblheader_General">Public</para>
+          <para style="terp_tblheader_General">Type</para>
         </td>
       </tr>
       <tr>
@@ -174,7 +174,7 @@
           <para style="terp_default_8">[[ course.lang_id.name ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[course.target_public]]</para>
+          <para style="terp_default_8">[[course.type]]</para>
         </td>
       </tr>
   </blockTable>
@@ -195,24 +195,24 @@
       </tr>
       <tr>
         <td>
-          <para style="terp_default_8">[[course.p_id.name]]</para>
+          <para style="terp_default_8">[[ course.analytic_account_id.parent_id.name ]]</para>
         </td>
         <td>
           <para style="terp_default_8">[[ course.course_type_id.name ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[course.total_duration]]</para>
+          <para style="terp_default_8">[[ formatLang(course.duration_with_children or course.duration_without_children) ]]</para>
         </td>
       </tr>
     </blockTable>
           <para style="P6">
             <font color="white"> </font>
           </para>
-    <para style="terp_tblheader_Details">Sub Courses</para>
+    <para style="terp_tblheader_Details">Sub Courses [[course.course_ids and ' ' or removeParentNode('para')]]</para>
     <blockTable colWidths="265.0,200.0,64.0" style="Table4">
       <tr>
         <td>
-          <para style="terp_tblheader_General">Course</para>
+          <para style="terp_tblheader_General">Course[[course.course_ids and ' ' or removeParentNode('blockTable') ]]</para>
         </td>
         <td>
           <para style="terp_tblheader_General">Type</para>
@@ -223,11 +223,11 @@
       </tr>
     </blockTable>
     <section>
+    <para style="terp_default_8">[[repeatIn(course.course_ids,'children') ]]</para>
     <blockTable colWidths="265.0,200.0,64.0" style="Table5">
       <tr>
         <td>
-          <para style="terp_default_8">[[repeatIn(course.children,'children')]]</para>
-          <para style="terp_default_8">[[ children.name ]]</para>
+          <para style="terp_default_8">[[ children.name or removeParentNode('blockTable') ]]</para>
         </td>
         <td>
           <para style="terp_default_8">[[ children.course_type_id.name ]]</para>
@@ -241,33 +241,33 @@
           <para style="P6">
             <font color="white"> </font>
           </para>
-    <para style="terp_tblheader_Details">Preliminary Courses [[course.preliminary_course_ids and  ' ' or removeParentNode('para')]]</para>
+    <para style="terp_tblheader_Details">Lectures of  Courses [[course.lecturer_ids and  ' ' or removeParentNode('para')]]</para>
 
     <blockTable colWidths="265.0,200.0,64.0" style="Table4">
       <tr>
         <td>
-          <para style="terp_tblheader_General">Course [[course.preliminary_course_ids and ' ' or removeParentNode('blockTable')]]</para>
+          <para style="terp_tblheader_General">Lecture Name [[course.lecturer_ids and ' ' or removeParentNode('blockTable')]]</para>
         </td>
         <td>
-          <para style="terp_tblheader_General">Type</para>
+          <para style="terp_tblheader_General">Partner</para>
         </td>
         <td>
-          <para style="terp_tblheader_General">Duration</para>
+          <para style="terp_tblheader_General">Function</para>
         </td>
       </tr>
     </blockTable>
     <section>
+    <para style="terp_default_8">[[repeatIn(course.lecturer_ids,'lect') ]]</para>
     <blockTable colWidths="265.0,200.0,64.0" style="Table5">
       <tr>
         <td>
-          <para style="terp_default_8">[[repeatIn(course.preliminary_course_ids,'prelimary')]]</para>
-          <para style="terp_default_8">[[ prelimary.name ]]</para>
+          <para style="terp_default_8">[[ lect.contact_id.name  or removeParentNode('blockTable') ]] [[lect.contact_id.first_name]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ prelimary.course_type_id.name ]]</para>
+          <para style="terp_default_8">[[ lect.name ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ prelimary .duration]]</para>
+          <para style="terp_default_8">[[ lect.function_id.name]]</para>
         </td>
       </tr>
     </blockTable>
@@ -275,33 +275,32 @@
           <para style="P6">
             <font color="white"> </font>
           </para>
-
-    <para style="terp_tblheader_Details">Complementary Courses[[course.complementary_course_ids and  ' ' or removeParentNode('para')]]</para>
+    <para style="terp_tblheader_Details">Procurement[[course.purchase_line_ids and  ' ' or removeParentNode('para')]]</para>
     <blockTable colWidths="265.0,200.0,64.0" style="Table4">
       <tr>
         <td>
-          <para style="terp_tblheader_General">Course [[ course.complementary_course_ids and  ' ' or removeParentNode('blockTable') ]]</para>
+          <para style="terp_tblheader_General">Product [[ course.purchase_line_ids and  ' ' or removeParentNode('blockTable') ]]</para>
         </td>
         <td>
-          <para style="terp_tblheader_General">Type</para>
+          <para style="terp_tblheader_General">Qty</para>
         </td>
         <td>
-          <para style="terp_tblheader_General">Duration</para>
+          <para style="terp_tblheader_General">Price</para>
         </td>
       </tr>
     </blockTable>
 <section>
+ <para style="terp_default_8">[[ repeatIn(course.purchase_line_ids ,'purchase_line') ]]</para>
     <blockTable colWidths="265.0,200.0,64.0" style="Table5">
       <tr>
         <td>
-          <para style="terp_default_8">[[repeatIn(course.complementary_course_ids ,'complementary')]]</para>
-          <para style="terp_default_8">[[ complementary.name ]]</para>
+          <para style="terp_default_8">[[ purchase_line.product_id.name ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ complementary.course_type_id.name ]]</para>
+          <para style="terp_default_8">[[ purchase_line.product_qty ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ complementary .duration]]</para>
+          <para style="terp_default_8">[[ purchase_line.product_price]]</para>
         </td>
       </tr>
     </blockTable>

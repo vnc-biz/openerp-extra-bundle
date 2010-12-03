@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record id="product_product_coursesession0" model="product.product">
+            <field eval="&quot;&quot;&quot;buy&quot;&quot;&quot;" name="supply_method"/>
+            <field eval="1.0" name="list_price"/>
+            <field eval="0" name="track_production"/>
+            <field eval="1.0" name="standard_price"/>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field eval="&quot;&quot;&quot;service&quot;&quot;&quot;" name="type"/>
+            <field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="cost_method"/>
+            <field eval="1.0" name="uos_coeff"/>
+            <field eval="1" name="sale_ok"/>
+            <field eval="1" name="purchase_ok"/>
+            <field eval="0" name="track_outgoing"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="uom_po_id" ref="product.product_uom_unit"/>
+            <field eval="1.0" name="price_margin"/>
+            <field eval="0" name="track_incoming"/>
+            <field name="property_stock_production" ref="stock.location_production"/>
+            <field eval="[(6,0,[])]" name="supplier_taxes_id"/>
+            <field eval="&quot;&quot;&quot;make_to_order&quot;&quot;&quot;" name="procure_method"/>
+            <field eval="1" name="active"/>
+            <field name="property_stock_inventory" ref="stock.location_inventory"/>
+            <field name="property_stock_procurement" ref="stock.location_procurement"/>
+            <field eval="&quot;&quot;&quot;Course Session&quot;&quot;&quot;" name="name"/>
+            <field eval="0" name="rental"/>
+            <field eval="&quot;&quot;&quot;fixed&quot;&quot;&quot;" name="mes_type"/>
+            <field eval="7.0" name="sale_delay"/>
+            <field name="categ_id" ref="product.product_category_services"/>
+            <field eval="[(6,0,[])]" name="taxes_id"/>
+            <field eval="1.0" name="produce_delay"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_offer_format0" model="training.offer.format">
+            <field eval="&quot;&quot;&quot;Classroom&quot;&quot;&quot;" name="name"/>
+            <field eval="1" name="active"/>
+        </record>
+        <record id="training_offer_format1" model="training.offer.format">
+            <field eval="&quot;&quot;&quot;On-line&quot;&quot;&quot;" name="name"/>
+            <field eval="1" name="active"/>
+        </record>
+
+        <record id="training_offer_openerpintegrator0" model="training.offer">
+            <field name="lang_id" ref="base.lang_en" />
+            <field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+            <field name="product_id" ref="product_product_coursesession0"/>
+            <field name="product_line_id" ref="training_course_category_integrator0"/>
+            <field name="format_id" ref="training_offer_format0" />
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field eval="&quot;&quot;&quot;This offer helps an integrator to launch his Open ERP activity&quot;&quot;&quot;" name="objective"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Integrator&quot;&quot;&quot;" name="name"/>
+        </record>
+
+        <record model="training.course.offer.rel" id="training_course_offer_rel_0">
+            <field name="course_id" eval="ref('training_course_howtoconfigureopenerp0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpintegrator0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_1">
+            <field name="course_id" eval="ref('training_course_economicmodelofopenerp1')" />
+            <field name="offer_id" eval="ref('training_offer_openerpintegrator0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_2">
+            <field name="course_id" eval="ref('training_course_openerpetiny0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpintegrator0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_3">
+            <field name="course_id" eval="ref('training_course_openerpopenofficereportdesigner0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpintegrator0')" />
+        </record>
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.offer" ref="training_offer_openerpintegrator0"/>
+    </data>
+    <data>
+        <record id="training_offer_openerpbusiness0" model="training.offer">
+            <field name="lang_id" ref="base.lang_en" />
+            <field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Business&quot;&quot;&quot;" name="name"/>
+            <field name="product_id" ref="product_product_coursesession0"/>
+            <field name="product_line_id" ref="training_course_category_business0"/>
+            <field name="format_id" ref="training_offer_format1" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_4">
+            <field name="course_id" eval="ref('training_course_openerpcrm0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpbusiness0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_5">
+            <field name="course_id" eval="ref('training_course_economicmodelofopenerp0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpbusiness0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_6">
+            <field name="course_id" eval="ref('training_course_economicmodelofopenerp1')" />
+            <field name="offer_id" eval="ref('training_offer_openerpbusiness0')" />
+        </record>
+
+    </data>
+    <data>
+        <workflow action="signal_validate" model="training.offer" ref="training_offer_openerpbusiness0"/>
+    </data>
+    <data>
+        <record id="training_offer_openerpbusiness0" model="training.offer">
+            <field name="product_id" ref="product_product_coursesession0"/>
+        </record>
+    </data>
+    <data>
+        <record id="training_offer_openerpdeveloper0" model="training.offer">
+            <field name="lang_id" ref="base.lang_en" />
+            <field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+            <field name="product_id" ref="product_product_coursesession0"/>
+            <field eval="&quot;&quot;&quot;draft&quot;&quot;&quot;" name="state"/>
+            <field eval="&quot;&quot;&quot;Open ERP 5.0 - Developer&quot;&quot;&quot;" name="name"/>
+            <field name="product_line_id" ref="training_course_category_developer0"/>
+            <field name="format_id" ref="training_offer_format1" />
+        </record>
+
+        <record model="training.course.offer.rel" id="training_course_offer_rel_7">
+            <field name="course_id" eval="ref('training_course_openerpetiny0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpdeveloper0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_8">
+            <field name="course_id" eval="ref('training_course_openerpopenofficereportdesigner0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpdeveloper0')" />
+        </record>
+        <record model="training.course.offer.rel" id="training_course_offer_rel_9">
+            <field name="course_id" eval="ref('training_course_openerpmodules0')" />
+            <field name="offer_id" eval="ref('training_offer_openerpdeveloper0')" />
+        </record>
+    </data>
+</openerp>

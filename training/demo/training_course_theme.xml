@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="training_course_theme_0" model="training.course.theme">
+            <field name="name">Functional</field>
+            <field name="active">True</field>
+        </record>
+        <record id="training_course_theme_1" model="training.course.theme">
+            <field name="name">Technical</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</openerp>

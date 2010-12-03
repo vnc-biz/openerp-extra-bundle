@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <wizard
+            id="wizard_training_exam_question_assign_course"
+            keyword="client_action_multi"
+            model="training.exam.question"
+            name="training.exam.question.assign.course"
+            multi="True"
+            string="Assign Course"/>
+    </data>
+</openerp>

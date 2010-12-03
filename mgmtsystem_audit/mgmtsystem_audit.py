@@ -28,7 +28,7 @@ class mgmtsystem_audit(osv.osv):
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=50),
-        'reference': fields.char('Reference', size=64, required=True, readonly=True, select=True),
+        'reference': fields.char('Reference', size=64, required=True, readonly=True),
         'date': fields.date('Date'),
         'line_ids': fields.one2many('mgmtsystem.verification.line','audit_id','Verification List'),
 	'auditor_user_ids': fields.many2many('res.users','mgmtsystem_auditor_user_rel','user_id','mgmtsystem_audit_id','Auditors'),
@@ -41,9 +41,14 @@ class mgmtsystem_audit(osv.osv):
     }
 
     _defaults = {
-        'reference': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'mgmtsystem.audit'),
         'state': 'o'
     }
+
+    def create(self, cr, uid, vals, context=None):
+        vals.update({
+            'reference': self.pool.get('ir.sequence').get(cr, uid, 'mgmtsystem.audit')
+        })
+        return super(mgmtsystem_audit, self).create(cr, uid, vals, context)
 
     def button_close(self, cr, uid, ids, context=None):
         return self.write(cr, uid, ids, {'state': 'c'})

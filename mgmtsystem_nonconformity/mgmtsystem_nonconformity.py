@@ -70,6 +70,9 @@ class mgmtsystem_nonconformity(osv.osv):
     """
     _name = "mgmtsystem.nonconformity"
     _description = "Nonconformity of the management system"
+    _rec_name = 'description'
+    _order = 'date desc'
+
     _columns = {
         'id': fields.integer('ID', readonly=True),
         'date': fields.date('Date', required=True),

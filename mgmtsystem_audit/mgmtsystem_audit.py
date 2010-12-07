@@ -41,6 +41,7 @@ class mgmtsystem_audit(osv.osv):
     }
 
     _defaults = {
+        'reference': 'NEW', 
         'state': 'o'
     }
 

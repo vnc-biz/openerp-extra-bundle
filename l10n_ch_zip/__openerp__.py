@@ -1,12 +1,7 @@
 # -*- encoding: utf-8 -*-
-#
-#  __init__.py
-#  
-#
-#  Created by Nicolas Bessi
-#
-#  Copyright (c) 2010 CamptoCamp. All rights reserved.
 ##############################################################################
+#
+#    Author Nicolas Bessi. Copyright Camptocamp SA
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -29,29 +24,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
+#
 ##############################################################################
 {
-    "name" : "l10n_ch_bank",
-    "description" : """
- Swiss localisation :
- Swiss banks for zip use better ZIP modules
-""",
-    "version" : "5.0",
-    "author" : "Camptocamp SA",
-    "category" : "Localisation/Europe",
-    "website": "http://www.camptocamp.com",
-    
-    "depends" : [
-        "l10n_ch", 
-        "base"
-    ],
-    "init_xml" : [
-        "bank.xml",
-    ],
-    "demo_xml" : [
-    ],
-    "update_xml" : [
-    ],
-    "active": False,
-    "installable": True,
+    'name' : 'l10_ch_zip',
+    'description' : 'Better zip management data for CH',
+    'version' : '0.1',
+    'depends' : [
+                 'better_zip',
+                 ],
+    'author' : 'Camptocamp',
+    'description': """better zip data for Switzerland""",
+    'website': 'http://www.camptocamp.com',
+    'init_xml': [],
+    'update_xml': [
+                    'l10n_ch_better_zip.xml',
+                   ],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
 }

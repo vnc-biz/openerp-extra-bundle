@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 #
-#  __terp__.py
+#  __init__.py
 #  
 #
-#  Created by Nicolas Bessi based on Credric Krier contribution
+#  Created by Nicolas Bessi
 #
-#  Copyright (c) 2009 CamptoCamp. All rights reserved.
+#  Copyright (c) 2010 CamptoCamp. All rights reserved.
 ##############################################################################
 #
 # WARNING: This program as such is intended to be used by professional
@@ -34,7 +34,7 @@
     "name" : "Switzerland localisation bank and zip data Camptocamp",
     "description" : """
 Swiss localisation :
- Swiss banks and zip codes initialisation
+ Swiss banks for zip use better ZIP modules
 """,
     "version" : "5.0",
     "author" : "Camptocamp SA",
@@ -46,7 +46,6 @@ Swiss localisation :
         "base"
     ],
     "init_xml" : [
-        "zip.xml",
         "bank.xml",
     ],
     "demo_xml" : [

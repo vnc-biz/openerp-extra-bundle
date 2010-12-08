@@ -651,7 +651,6 @@
                     <separator orientation="vertical"/>
                     <filter domain="[('state','in',('in_progress','draft','to_validate'))]"
                         string="In Progress" icon="gtk-execute"
-                        default="1"
                         help="Process changes having the next Phase to validate that is late"/>
                     <filter domain="[('state','=','to_validate')]"
                         string="To Validate"

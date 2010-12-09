@@ -1290,7 +1290,7 @@ TODO: revoir la vue tree aussi
 			<field name="type">tree</field>
 			<field name="model">res.partner.address.change</field>
 			<field name="arch" type="xml">
-				<tree string = "Partner Names Changes">
+				<tree string = "Address Changes">
 					<field name="code"/>
 					<field name="name"/>
 					<field name="old_address"/>

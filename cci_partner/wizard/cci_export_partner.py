@@ -48,7 +48,7 @@ view_form_finish="""<?xml version="1.0"?>
     <group colspan="2" col="4">
         <separator string="Export done" colspan="4"/>
         <field name="data" colspan="3" readonly="1" filename="file_name"/>
-        <label align="0.0" string="Save this document to a .xsl file and open it with\n your favourite spreadsheet software. The file\n encoding is UTF-8." colspan="4"/>
+        <label align="0.0" string="Save this document to a .xsl file and open it with\n your favorite spreadsheet software. The file\n encoding is UTF-8." colspan="4"/>
     </group>
 </form>"""
 
@@ -98,7 +98,7 @@ def _make_calculation(self, cr, uid, data, context):
         """
         Create entries for losts partners
         """
-        cr.execute("select id from res_partner where (state_id is null or state_id not in (1)) and id not in (select partner_id from res_partner_address_lost where photo_id = %s)", [last_photo_id])
+        cr.execute("select id from res_partner where (state_id is null or state_id not in (1)) and id not in (select partner_id from res_partner_address_lost)")
         for part_id in cr.dictfetchall():
             partner_id = partner_obj.browse(cr, uid, part_id['id'])
             if len(partner_id.address):
@@ -129,6 +129,7 @@ def _make_calculation(self, cr, uid, data, context):
             address_zip =  adr_item.address_id.zip_id and adr_item.address_id.zip_id.city or ''
             if adr_item.new_address != ((adr_item.address_id.street or '')+ '- ' + address_zip):
                 part_address_chg_obj.create(cr, uid, {'old_address': adr_item.new_address,
+                                                'new_address' : (adr_item.address_id.street or '')+ '- ' + address_zip,
                                                 'code' : adr_item.address_id and adr_item.address_id.partner_id and adr_item.address_id.partner_id.ref or '',
                                                 'name' : adr_item.address_id and adr_item.address_id.partner_id.id or False,
                                                 'address_id' : adr_item and adr_item.address_id.id or False,
@@ -141,13 +142,14 @@ def _make_calculation(self, cr, uid, data, context):
         cr.execute("select id from res_partner_address where magazine_subscription = 'postal' and id not in (select address_id from res_partner_address_new where address_id is not null)")
         for item in cr.dictfetchall():
             address_id = part_address_obj.browse(cr, uid, item['id'])
-            address_zip =  address_id.zip_id and address_id.zip_id.city or ''
-            part_address_new_obj.create(cr, uid, {'name': address_id.partner_id.id,
-                                                'address_id': address_id.id,
-                                                'code': address_id.partner_id.ref,
-                                                'state_activity' : address_id.partner_id.state_id and address_id.partner_id.state_id.id or False,
-                                                'address': (adr_item.address_id.street or '') + '- ' + address_zip,
-                                                'photo_id' : photo_id})
+            if address_id.partner_id.state_id.id in (1):
+                address_zip =  address_id.zip_id and address_id.zip_id.city or ''
+                part_address_new_obj.create(cr, uid, {'name': address_id.partner_id.id,
+                                                    'address_id': address_id.id,
+                                                    'code': address_id.partner_id.ref,
+                                                    'state_activity' : address_id.partner_id.state_id and address_id.partner_id.state_id.id or False,
+                                                    'address': (address_id.street or '') + '- ' + address_zip,
+                                                    'photo_id' : photo_id})
 
         """
         Create entries for changed partner names
@@ -155,9 +157,9 @@ def _make_calculation(self, cr, uid, data, context):
         for adr_item in part_photo_obj.browse(cr, uid, last_photo_id).partner_chg_ids:
             if adr_item.address_id and adr_item.address_id.partner_id and (adr_item.address_id.partner_id.id not in list_lost_out):
                 partner_name = (adr_item.address_id and adr_item.address_id.partner_id.name + ' ') + (adr_item.address_id.name and (adr_item.address_id.name or '') or '')
-                if adr_item.name != partner_name:
+                if (adr_item.name).strip() != partner_name.strip():
                     part_chg_obj.create(cr, uid, {'old_name': adr_item.name,
-                                                'name': (adr_item.address_id.street or '') + '- ' + address_zip,
+                                                'name': partner_name,
                                                 'code' : adr_item.address_id and adr_item.address_id.partner_id and adr_item.address_id.partner_id.ref or '',
                                                 'address_id' : adr_item and adr_item.address_id.id or False,
                                                 'photo_id' : photo_id})
@@ -196,7 +198,7 @@ def _make_excel_file(self, cr, uid, data, context):
         address_def = [((x.street or '')+ '- ' + (x.zip_id and x.city or '')) for x in rec.partner_id.address if x.type == 'default']
         if len(address_def):
             docSheet1.write(row_count,2,address_def[0])
-        docSheet1.write(row_count,3,(rec.partner_id.ref or ''))
+        docSheet1.write(row_count,3,(rec.partner_id.state_id and rec.partner_id.state_id.name or ''))
 
     """
         Data of New partners
@@ -207,10 +209,10 @@ def _make_excel_file(self, cr, uid, data, context):
     row_count = 0
     for rec in photo_rec.partner_new_ids:
         row_count += 1
-        docSheet2.write(row_count,0,(rec.partner_id and rec.partner_id.ref or ''))
-        docSheet2.write(row_count,1,rec.partner_id and rec.partner_id.name or '')
+        docSheet2.write(row_count,0,(rec.address_id.partner_id and rec.address_id.partner_id.ref or ''))
+        docSheet2.write(row_count,1,rec.address_id.partner_id and rec.address_id.partner_id.name or '')
         docSheet2.write(row_count,2,rec.address or '')
-        docSheet2.write(row_count,3,(rec.partner_id.ref or ''))
+        docSheet2.write(row_count,3,(rec.address_id.partner_id and rec.address_id.partner_id.state_id and rec.address_id.partner_id.state_id.name or ''))
 
     """
         Data of Changed partners
@@ -237,10 +239,11 @@ def _make_excel_file(self, cr, uid, data, context):
     for rec in photo_rec.partner_state_ids:
         row_count += 1
         docSheet4.write(row_count,0,(rec.address_id.partner_id.ref or ''))
-        docSheet4.write(row_count,1,(rec.new_state and rec.new_state.name or ''))
-        docSheet4.write(row_count,2,(rec.partner_id and rec.partner_id.state_id and rec.partner_id.state_id.name or ''))
+        docSheet4.write(row_count,1,(rec.address_id.partner_id.name or ''))
+        docSheet4.write(row_count,2,(rec.new_state and rec.new_state.name or ''))
+        docSheet4.write(row_count,3,(rec.partner_id and rec.partner_id.state_id and rec.partner_id.state_id.name or ''))
         address = (rec.address_id.street or '')+ ' ' + (rec.address_id.zip or '')+ '  ' + (rec.address_id.city or '')
-        docSheet4.write(row_count,3,address)
+        docSheet4.write(row_count,4,address)
 
     """
         Data of Changed Adresses
@@ -255,8 +258,8 @@ def _make_excel_file(self, cr, uid, data, context):
         address_def = [x.name for x in rec.address_id.partner_id.address if x.type == 'default']
         address_def = address_def and address_def[0] or ''
         docSheet5.write(row_count,1,rec.address_id and (rec.address_id.partner_id.name +' '+ address_def))
-        docSheet5.write(row_count,2,rec.old_address)
-        docSheet5.write(row_count,3,rec.new_address)
+        docSheet5.write(row_count,2,rec.old_address or '')
+        docSheet5.write(row_count,3,rec.new_address or '')
     file=StringIO.StringIO()
     out=workBookDocument.save(file)
     out=base64.encodestring(file.getvalue())

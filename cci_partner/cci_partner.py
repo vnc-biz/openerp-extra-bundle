@@ -670,6 +670,7 @@ res_partner_contact()
 
 class res_partner_photo(osv.osv):
     _name='res.partner.photo'
+    _order = 'date desc'
     _columns = {
         'partner_chg_ids':fields.one2many('res.partner.change','photo_id','Partner Changes'),
         'address_chg_ids':fields.one2many('res.partner.address.change','photo_id','Address Changes'),
@@ -718,8 +719,8 @@ class res_partner_change(osv.osv):
     _name='res.partner.change'
     _columns = {
         'code': fields.char('Code', size=64),
-        'name': fields.char('New Address', size=264),
-        'old_name': fields.char('Old Address', size=264),
+        'name': fields.char('New Name', size=264),
+        'old_name': fields.char('Old Name', size=264),
         'address_id': fields.many2one('res.partner.address','Address'),
         'photo_id':fields.many2one('res.partner.photo','Photo', ondelete="cascade")
     }

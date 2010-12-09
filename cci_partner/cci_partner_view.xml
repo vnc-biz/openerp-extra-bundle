@@ -1153,6 +1153,230 @@ TODO: revoir la vue tree aussi
         />
 
 
+<!-- View for res.partner register state............... -->
+
+		<menuitem name="Partners Photo" groups="base.group_system" id="menu_partner_photo" parent="base.menu_base_config"/>
+
+		<record model="ir.ui.view" id="view_partner_form_state_reg">
+			<field name="name">res.partner</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.state.register</field>
+			<field name="arch" type="xml">
+				<form string = "Partner" >
+					<field name="name"/>
+					<field name="old_state"/>
+					<field name="new_state"/>
+					<field name="address_id"/>
+					<field name="partner_id"/>
+        </form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_tree_state_reg">
+			<field name="name">res.partner</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.state.register</field>
+			<field name="arch" type="xml">
+				<tree string = "Partner Register States">
+					<field name="name"/>
+					<field name="old_state"/>
+					<field name="new_state"/>
+					<field name="address_id"/>
+					<field name="partner_id"/>
+        </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_partner_reg">
+			<field name="name">Partner State Register</field>
+			<field name="res_model">res.partner.state.register</field>
+			<field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+		</record>
+
+		<!--menuitem parent="menu_partner_photo" action="action_partner_reg" id="menu_partner_reg"/-->
+
+		<record model="ir.ui.view" id="view_partner_form_chng">
+			<field name="name">res.partner</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.change</field>
+			<field name="arch" type="xml">
+				<form string = "Partner">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="old_name"/>
+					<field name="address_id"/>
+        </form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_tree_chng">
+			<field name="name">Partner</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.change</field>
+			<field name="arch" type="xml">
+				<tree string = "Partner Names Changes">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="old_name"/>
+					<field name="address_id"/>
+        </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_partner_chg">
+			<field name="name">New Address</field>
+			<field name="res_model">res.partner.address.change</field>
+			<field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+		</record>
+
+		<!--menuitem parent="menu_partner_photo" action="action_partner_chg" id="menu_partner_chg"/-->
+
+		<record model="ir.ui.view" id="view_partner_form_new">
+			<field name="name">res.partner</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.address.new</field>
+			<field name="arch" type="xml">
+				<form string = "Partner">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="address"/>
+					<field name="state_activity"/>
+        </form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_tree_new">
+			<field name="name">Partner</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.address.new</field>
+			<field name="arch" type="xml">
+				<tree string = "New Partners">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="address"/>
+					<field name="state_activity"/>
+        </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_partner_new">
+			<field name="name">New Address</field>
+			<field name="res_model">res.partner.address.new</field>
+			<field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+		</record>
+
+		<!--menuitem parent="menu_partner_photo" action="action_partner_new" id="menu_partner_new"/-->
+
+		<record model="ir.ui.view" id="view_addr_form">
+			<field name="name">res.partner</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.address.change</field>
+			<field name="arch" type="xml">
+				<form string = "Partner">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="old_address"/>
+					<field name="new_address"/>
+					<field name="address_id"/>
+        </form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_tree_chg_adr">
+			<field name="name">Partner</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.address.change</field>
+			<field name="arch" type="xml">
+				<tree string = "Partner Names Changes">
+					<field name="code"/>
+					<field name="name"/>
+					<field name="old_address"/>
+					<field name="new_address"/>
+					<field name="address_id"/>
+        </tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_form_lost">
+			<field name="name">res.partner</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.address.lost</field>
+			<field name="arch" type="xml">
+				<form string = "Partner">
+					<field name="name"/>
+					<field name="address_id"/>
+					<field name="partner_id"/>
+					<field name="state_activity"/>
+        </form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_tree_lost">
+			<field name="name">Partner</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.address.lost</field>
+			<field name="arch" type="xml">
+				<tree string = "New Partners">
+					<field name="name"/>
+					<field name="address_id"/>
+					<field name="partner_id"/>
+					<field name="state_activity"/>
+        </tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_partner_form_photo">
+			<field name="name">res.partner</field>
+			<field name="type">form</field>
+			<field name="model">res.partner.photo</field>
+			<field name="arch" type="xml">
+      <form string = "Partner Photo">
+        <field name="name" required="1"/>
+        <field name="date"/>
+      <notebook colspan="4">
+        <page string="New Partners">
+          <field name="partner_new_ids" colspan="4" nolabel="1"/>
+        </page>
+        <page string="Partner Names">
+          <field name="partner_chg_ids" colspan="4" nolabel="1"/>
+        </page>
+        <page string="Postal Adresses">
+          <field name="address_chg_ids" colspan="4" nolabel="1"/>
+        </page>
+        <page string="Partner Activities">
+          <field name="partner_state_ids" colspan="4" nolabel="1"/>
+        </page>
+        <page string="Lost Partners">
+          <field name="partner_lost_ids" colspan="4" nolabel="1"/>
+        </page>
+      </notebook>
+        </form>
+      </field>
+    </record>
+
+		<record model="ir.ui.view" id="view_partner_tree_photo">
+			<field name="name">Partner Photo</field>
+			<field name="type">tree</field>
+			<field name="model">res.partner.photo</field>
+			<field name="arch" type="xml">
+				<tree string = "Partner Change">
+					<field name="name"/>
+					<field name="date"/>
+        </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_partner_photo">
+			<field name="name">Partners changes photo</field>
+			<field name="res_model">res.partner.photo</field>
+			<field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem parent="menu_partner_photo" action="action_partner_photo" id="menu_photo_partner"/>
 	</data>
 </openerp>
 

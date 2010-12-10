@@ -19,6 +19,7 @@
 #
 ##############################################################################
 import time
+import datetime
 from report import report_sxw
 import pooler
 from tools import amount_to_text_fr
@@ -115,6 +116,7 @@ class account_invoice_with_message(report_sxw.rml_parse):
         sum_flag[j]=-1
         for entry in invoice_list:
             k+=1
+            is_empty = False
             res={}
 
             if entry.state=='article':
@@ -157,7 +159,7 @@ class account_invoice_with_message(report_sxw.rml_parse):
                 res['uos']=''
 
                 if entry.state=='subtotal':
-                    res['name']=entry.name
+                    res['name']='Sous-Total'
                     sum=0
                     sum_id=0
                     if sum_flag[j]==-1:
@@ -178,22 +180,31 @@ class account_invoice_with_message(report_sxw.rml_parse):
                     res['tax_types']=''
                     res['uos']=''
                 elif entry.state=='title':
-                    res['name']=entry.name
+                    try:
+                        date_title = datetime.datetime.strptime(entry.name.split(' ')[0], "%Y-%m-%d")
+                        res['name'] = date_title.strftime('%d-%m-%Y')
+                    except:
+                        res['name']=entry.name
                     res['price_subtotal']=''
                     res['currency']=''
                 elif entry.state=='text':
-                    res['name']=entry.name
-                    res['price_subtotal']=''
-                    res['currency']=''
+                    if not entry.name:
+                        is_empty = True
+                        res={}
+                    else:
+                        res['name']=entry.name
+                        res['price_subtotal']=''
+                        res['currency']=''
                 elif entry.state=='line':
-                    res['quantity']='___________________'
-                    res['price_unit']='______________________'
-                    res['discount']='____________________________________'
-                    res['tax_types']='_____________________'
-                    res['uos']='_______'
-                    res['name']='____________________________________________'
-                    res['price_subtotal']='___________'
-                    res['currency']='_'
+                    res = {}
+                  #  res['quantity']='___________________________'
+                  #  res['price_unit']='_________________________________'
+                  #  res['discount']='____________________________________'
+                  #  res['tax_types']='_____________________'
+                  #  res['uos']='___________'
+                  #  res['name']='_________________________________________________________________________________________________________'
+                  #  res['price_subtotal']='___________'
+                  #  res['currency']='_'
                 elif entry.state=='break':
                     res['type']=entry.state
                     res['name']=entry.name
@@ -204,8 +215,9 @@ class account_invoice_with_message(report_sxw.rml_parse):
                     res['price_subtotal']=''
                     res['currency']=invoice.currency_id.code
 
-            res['k'] = k
-            result.append(res)
+            if not is_empty:
+                res['k'] = k
+                result.append(res)
 
         return result
 

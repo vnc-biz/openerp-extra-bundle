@@ -1319,7 +1319,7 @@ TODO: revoir la vue tree aussi
 			<field name="type">tree</field>
 			<field name="model">res.partner.address.lost</field>
 			<field name="arch" type="xml">
-				<tree string = "New Partners">
+				<tree string = "Lost Partners">
 					<field name="name"/>
 					<field name="address_id"/>
 					<field name="partner_id"/>

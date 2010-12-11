@@ -1,4 +1,4 @@
-# Brazilian Portuguese translation for openobject-addons
+# Serbian latin translation for openobject-addons
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-24 13:11+0000\n"
-"PO-Revision-Date: 2010-12-10 07:49+0000\n"
-"Last-Translator: OpenERP Administrators <Unknown>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"PO-Revision-Date: 2010-12-10 15:59+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Serbian latin <sr@latin@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: view:account.coda:0
 #: field:account.coda.import,note:0
 msgid "Log"
-msgstr "Log"
+msgstr ""
 
 #. module: account_coda
 #: wizard_button:account.coda_import,extraction,open:0
@@ -68,7 +68,7 @@ msgstr ""
 #. module: account_coda
 #: field:account.coda,note:0
 msgid "Import log"
-msgstr "Log de Importação"
+msgstr ""
 
 #. module: account_coda
 #: wizard_field:account.coda_import,init,def_receivable:0
@@ -102,7 +102,7 @@ msgstr ""
 #: view:account.coda:0
 #: field:account.coda,user_id:0
 msgid "User"
-msgstr "Usuário"
+msgstr ""
 
 #. module: account_coda
 #: constraint:ir.ui.view:0
@@ -117,7 +117,7 @@ msgstr ""
 #. module: account_coda
 #: field:account.coda.import,def_payable:0
 msgid "Default Payable Account"
-msgstr "Conta de Pagamento padrão"
+msgstr ""
 
 #. module: account_coda
 #: model:ir.ui.menu,name:account_coda.menu_account_coda
@@ -143,12 +143,12 @@ msgstr ""
 #. module: account_coda
 #: field:account.bank.statement,coda_id:0
 msgid "Coda"
-msgstr "Coda"
+msgstr ""
 
 #. module: account_coda
 #: view:account.coda.import:0
 msgid "Results :"
-msgstr "Resultados :"
+msgstr ""
 
 #. module: account_coda
 #: field:account.coda.import,coda:0
@@ -159,7 +159,7 @@ msgstr ""
 #. module: account_coda
 #: help:account.coda,date:0
 msgid "Import Date"
-msgstr "Data de Importação"
+msgstr "Datum Unosa"
 
 #. module: account_coda
 #: wizard_view:account.coda_import,init:0

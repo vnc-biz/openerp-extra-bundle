@@ -8,21 +8,21 @@
             <field name="arch" type="xml">
                 <field name="corrective_action_id" position="replace">
                    <newline/>
-                   <field name="corrective_type" colspan="2"/>
-                   <group attrs="{'invisible' : [('corrective_type', '=', 'project')]}" colspan="4">
+                   <field name="corrective_type"/>
+                   <group attrs="{'invisible' : [('corrective_type', '!=', 'task')]}">
                        <field name="corrective_action_id" nolabel="1"/>
                    </group>
-                   <group attrs="{'invisible' : [('corrective_type', '=', 'task')]}" colspan="4">
+                   <group attrs="{'invisible' : [('corrective_type', '!=', 'project')]}">
                        <field name="corrective_project_id" nolabel="1"/>
                    </group>
                 </field>
                 <field name="preventive_action_id" position="replace">
                    <newline/>
                    <field name="preventive_type"/>
-                   <group attrs="{'invisible' : [('preventive_type', '=', 'project')]}">
+                   <group attrs="{'invisible' : [('preventive_type', '!=', 'task')]}">
                        <field name="preventive_action_id" nolabel="1"/>
                    </group>
-                   <group attrs="{'invisible' : [('preventive_type', '=', 'task')]}">
+                   <group attrs="{'invisible' : [('preventive_type', '!=', 'project')]}">
                        <field name="preventive_project_id" nolabel="1"/>
                    </group>
                 </field>

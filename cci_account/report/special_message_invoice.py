@@ -197,14 +197,6 @@ class account_invoice_with_message(report_sxw.rml_parse):
                         res['currency']=''
                 elif entry.state=='line':
                     res = {}
-                  #  res['quantity']='___________________________'
-                  #  res['price_unit']='_________________________________'
-                  #  res['discount']='____________________________________'
-                  #  res['tax_types']='_____________________'
-                  #  res['uos']='___________'
-                  #  res['name']='_________________________________________________________________________________________________________'
-                  #  res['price_subtotal']='___________'
-                  #  res['currency']='_'
                 elif entry.state=='break':
                     res['type']=entry.state
                     res['name']=entry.name

@@ -97,7 +97,7 @@
 					</group>
 					<notebook>
 						<page string="Budget Lines">
-							<field name="budget_line_ids" nolabel="1" mode="tree" select="1" context="currency_id=currency_id, budget_id=budget_id, version_id=id" >
+							<field name="budget_line_ids" nolabel="1" mode="tree" select="1" context="currency_id=currency_id, budget_id=budget_id, version_id=active_id" >
 								<tree string="Budget Lines" editable="top">	
 									<field name="period_id" context="budget_id=parent.budget_id, version_id=parent.id" />
 									<field name="budget_item_id" context="budget_id=parent.budget_id, version_id=parent.id" />

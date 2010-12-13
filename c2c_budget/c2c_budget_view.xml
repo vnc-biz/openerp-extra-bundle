@@ -428,12 +428,12 @@
     	
         	
     	
-		<menuitem name="Financial Management/Budgets"  id="menu_budget" />
-		<menuitem name="Financial Management/Budgets/Budgets" id="menu_budget_list" action="open_budget_list"/>
-		<menuitem name="Financial Management/Budgets/Budgets Versions" id="menu_budget_version_list" action="open_budget_version_list"/>
-    	<menuitem name="Financial Management/Budgets/Budgets Lines" id="menu_budget_line_list" action="open_budget_lines_list"/>
-		<menuitem name="Financial Management/Budgets/Budgets Items" id="menu_budget_item_list" action="open_budget_items_list"/>
-    	<menuitem name="Financial Management/Budgets/Budgets Structures" id="menu_budget_item_tree" action="open_budget_items_tree"/>
+		<menuitem id="menu_budget_c2c"  name="Budget c2c" parent="account.menu_finance"/>
+		<menuitem id="menu_budget_list" name="Budgets" action="c2c_budget.open_budget_list" parent="c2c_budget.menu_budget_c2c"/>
+		<menuitem id="menu_budget_version_list" name="Budget Verisions" action="c2c_budget.open_budget_version_list" parent="c2c_budget.menu_budget_c2c"/>
+    	        <menuitem id="menu_budget_line_list" name="Budget Lines" action="c2c_budget.open_budget_lines_list" parent="c2c_budget.menu_budget_c2c"/>
+		<menuitem id="menu_budget_item_list" name="Budget Items" action="c2c_budget.open_budget_items_list" parent="c2c_budget.menu_budget_c2c"/>
+               	<menuitem id="menu_budget_item_tree" name="Budget Items Structures" action="c2c_budget.open_budget_items_tree" parent="c2c_budget.menu_budget_c2c"/>
 
 
     </data>

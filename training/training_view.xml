@@ -225,7 +225,7 @@
                         <filter icon="terp-check" string="Done" domain="[('state_course','=','validated')]" help="Course State Validated"/>
                         <filter icon="terp-dialog-close" string="Cancelled" domain="[('state_course','=','deprecated')]" help="Course State Deprecated"/>
                        <separator orientation="vertical"/>
-                       <filter icon="terp-personal+" string="My Courses" domain="['|',('create_uid', '=', uid)]" help="Courses in which I create." default="1"/>
+                       <filter icon="terp-personal+" string="My Courses" domain="['|',('create_uid', '=', uid)]" help="Courses in which I create."/>
                        <separator orientation="vertical"/>
                        <field name="name" string="Name"/>
                        <field name="long_name" string="Long Name"/>
@@ -583,7 +583,7 @@
                         <filter icon="terp-dialog-close" string="Closed Subscription" domain="[('state','=','closed_confirmed')]" help="Session State Closed Subscription"/>
                        <separator orientation="vertical"/>
                         <filter string="Offer" name="Offer" icon="terp-document-new" domain = "[]" context="{'group_by':'offer_id'}"/>
-                       <filter icon="terp-personal+" string="Responsible" domain="['|',('user_id', '=', uid)]" help="Sessions in which I am a responsible." default="1"/>
+                       <filter icon="terp-personal+" string="Responsible" domain="['|',('user_id', '=', uid)]" help="Sessions in which I am a responsible."/>
                        <field name="name" string="Name"/>
                    </group>
                    <newline/>
@@ -1158,7 +1158,7 @@
                         <filter icon="terp-check" string="Done" domain="[('state','=','done')]" help="Subscription State Done"/>
                         <filter icon="terp-dialog-close" string="Cancelled" domain="[('state','=','cancelled')]" help="Subscription State Cancelled"/>
                        <separator orientation="vertical"/>
-                       <filter icon="terp-personal+" string="My Subscriptions" domain="['|',('create_uid', '=', uid)]" help="Suscriptions in which I create." default="1"/>
+                       <filter icon="terp-personal+" string="My Subscriptions" domain="['|',('create_uid', '=', uid)]" help="Suscriptions in which I create."/>
                        <separator orientation="vertical"/>
                         <filter string="Partner" name="Partner" icon="terp-partner" domain = "[]" context="{'group_by':'partner_id'}"/>
                    </group>
@@ -1698,7 +1698,7 @@
                         <filter icon="terp-camera_test" string="Validated" domain="[('state','=','validated')]" help="Offers State Validated"/>
                         <filter icon="terp-gtk-stop" string="Deprecated" domain="[('state','=','deprecated')]" help="Offers State Deprecated"/>
                        <separator orientation="vertical"/>
-                       <filter icon="terp-personal+" string="Member" domain="['|',('create_uid', '=', uid)]" help="Offers in which I am create." default="1"/>
+                       <filter icon="terp-personal+" string="Member" domain="['|',('create_uid', '=', uid)]" help="Offers in which I am create."/>
                        <separator orientation="vertical"/>
                        <field name="name" string="Name"/>
                    </group>

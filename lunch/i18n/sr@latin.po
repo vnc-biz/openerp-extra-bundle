@@ -1,4 +1,4 @@
-# Portuguese translation for openobject-addons
+# Serbian latin translation for openobject-addons
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 04:56+0000\n"
-"PO-Revision-Date: 2010-12-05 10:35+0000\n"
-"Last-Translator: OpenERP Administrators <Unknown>\n"
-"Language-Team: Portuguese <pt@li.org>\n"
+"PO-Revision-Date: 2010-12-10 18:23+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Serbian latin <sr@latin@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-08 05:02+0000\n"
+"X-Launchpad-Export-Date: 2010-12-11 05:21+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: lunch
@@ -24,7 +24,7 @@ msgstr ""
 #: field:lunch.order,category:0
 #: field:lunch.product,category_id:0
 msgid "Category"
-msgstr "Categori­a"
+msgstr ""
 
 #. module: lunch
 #: view:lunch.cashbox.clean:0
@@ -42,8 +42,6 @@ msgstr ""
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
-"O nome do Objeto deve começar com x_ e não pode conter nenhum caracter "
-"especial !"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_cashmove
@@ -53,7 +51,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.order.cancel:0
 msgid "Are you sure you want to cancel this order ?"
-msgstr "Tem a certeza de que quer cancelar esta ordem?"
+msgstr ""
 
 #. module: lunch
 #: model:ir.module.module,shortdesc:lunch.module_meta_information
@@ -64,7 +62,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashmove_form
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashmove_form
 msgid "Cash Moves"
-msgstr ""
+msgstr "Protok Gotovine"
 
 #. module: lunch
 #: rml:lunch.order:0
@@ -84,7 +82,7 @@ msgstr ""
 #. module: lunch
 #: field:lunch.order,state:0
 msgid "State"
-msgstr "Estado"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashbox_form
@@ -95,12 +93,12 @@ msgstr ""
 #. module: lunch
 #: selection:lunch.order,state:0
 msgid "Draft"
-msgstr "Rascunho"
+msgstr ""
 
 #. module: lunch
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Nome de modelo inválido na definição da ação"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.cashmove,user_cashmove:0
@@ -108,7 +106,7 @@ msgstr "Nome de modelo inválido na definição da ação"
 #: field:report.lunch.amount,user_id:0
 #: field:report.lunch.order,user_id:0
 msgid "User Name"
-msgstr "Nome de utilizador"
+msgstr ""
 
 #. module: lunch
 #: view:report.lunch.amount:0
@@ -123,26 +121,26 @@ msgstr ""
 #. module: lunch
 #: field:lunch.order,product:0
 msgid "Product"
-msgstr "Produto"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.cashmove,name:0
 #: report:lunch.order:0
 #: field:lunch.product,description:0
 msgid "Description"
-msgstr "Descrição"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.order,price:0
 #: field:lunch.product,price:0
 msgid "Price"
-msgstr "Preço"
+msgstr ""
 
 #. module: lunch
 #: view:lunch.cashbox.clean:0
 #: view:lunch.order.cancel:0
 msgid "No"
-msgstr "Não"
+msgstr ""
 
 #. module: lunch
 #: view:lunch.category:0
@@ -159,7 +157,7 @@ msgstr ""
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_category_root_configuration
 msgid "Lunch"
-msgstr "Almoço"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.order,descript:0
@@ -212,7 +210,7 @@ msgstr ""
 #. module: lunch
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "XML inválido para a arquitetura da vista"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_report_lunch_amount_tree
@@ -225,7 +223,7 @@ msgstr ""
 #: field:lunch.product,name:0
 #: field:report.lunch.order,box_name:0
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_category_form
@@ -235,7 +233,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.cashmove:0
 msgid "Total amount"
-msgstr "Valor total"
+msgstr ""
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_cashbox
@@ -246,20 +244,20 @@ msgstr ""
 #: view:lunch.cashmove:0
 #: field:lunch.order,date:0
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.cashmove,amount:0
 #: field:report.lunch.amount,amount:0
 msgid "Amount"
-msgstr "Montante"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_product_form
 #: model:ir.ui.menu,name:lunch.menu_lunch_product_form
 #: view:lunch.product:0
 msgid "Products"
-msgstr "Produtos"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_category_form
@@ -317,12 +315,12 @@ msgstr ""
 #. module: lunch
 #: field:lunch.cashbox,manager:0
 msgid "Manager"
-msgstr "Gestor"
+msgstr ""
 
 #. module: lunch
 #: report:lunch.order:0
 msgid "Unit Price"
-msgstr "Preço unitário"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.order.confirm,confirm_cashbox:0
@@ -332,7 +330,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.order:0
 msgid "Total price"
-msgstr "Preço total"
+msgstr ""
 
 #. module: lunch
 #: view:lunch.order.confirm:0
@@ -342,12 +340,12 @@ msgstr ""
 #. module: lunch
 #: view:lunch.cashbox.clean:0
 msgid "Set to Zero"
-msgstr "Por a zero"
+msgstr ""
 
 #. module: lunch
 #: view:lunch.order.cancel:0
 msgid "Yes"
-msgstr "Sim"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_tools

@@ -54,3 +54,10 @@
 "access_res_partner_contact_link_supervisor","res_partner_contact_link_supervisor","cci_base_contact.model_res_partner_contact_link","group_partner_supervisor",1,0,0,0
 "access_res_partner_contact_link_type_supervisor","res_partner_contact_link_type_supervisor","cci_base_contact.model_res_partner_contact_link_type","group_partner_supervisor",1,0,0,0
 "access_res_partner_reason_user","res_partner_reason","model_res_partner_reason","",1,1,1,1
+"access_res_partner_state_register","res_partner_state_register","model_res_partner_state_register","",1,1,1,1
+"access_res_partner_address_change","res_partner_address_change","model_res_partner_address_change","",1,1,1,1
+"access_res_partner_address_new","res_partner_address_new","model_res_partner_address_new","",1,1,1,1
+"access_res_partner_photo","res_partner_photo","model_res_partner_photo","",1,1,1,1
+"access_res_partner_change","res_partner_change","model_res_partner_change","",1,1,1,1
+"access_res_partner_address_lost","res_partner_address_lost","model_res_partner_address_lost","",1,1,1,1
+"access_res_partner_map_activity","res_partner_map_activity","model_res_partner_map_activity","",1,1,1,1

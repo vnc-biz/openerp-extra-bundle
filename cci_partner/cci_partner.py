@@ -668,6 +668,93 @@ class res_partner_contact(osv.osv):
 
 res_partner_contact()
 
+class res_partner_photo(osv.osv):
+    _name='res.partner.photo'
+    _order = 'date desc'
+    _columns = {
+        'partner_chg_ids':fields.one2many('res.partner.change','photo_id','Partner Changes'),
+        'address_chg_ids':fields.one2many('res.partner.address.change','photo_id','Address Changes'),
+        'partner_new_ids':fields.one2many('res.partner.address.new','photo_id','New Partners'),
+        'partner_state_ids':fields.one2many('res.partner.state.register','photo_id','State Changes'),
+        'partner_lost_ids':fields.one2many('res.partner.address.lost','photo_id','Losts'),
+        'name': fields.char('Photo Name', size=164, select=True),
+        'date': fields.date('Date', size=64, select=True),
+    }
+    _defaults = {
+        'name': lambda *a: 'Photo '+time.strftime('%Y-%m-%d'),
+        'date': lambda *a: time.strftime('%Y-%m-%d'),
+    }
+
+res_partner_photo()
+
+class res_partner_state_register(osv.osv):
+
+    _name='res.partner.state.register'
+    _columns = {
+        'name': fields.char('Code', size=64, select=True),
+        'old_state': fields.many2one('res.partner.state', 'Old State'),
+        'new_state': fields.many2one('res.partner.state', 'New State'),
+        'partner_id': fields.many2one('res.partner','Partner Name'),
+        'address_id': fields.many2one('res.partner.address','Address'),
+        'photo_id':fields.many2one('res.partner.photo','Photo',ondelete="cascade"),
+    }
+res_partner_state_register()
+
+
+class res_partner_address_change(osv.osv):
+
+    _name='res.partner.address.change'
+    _columns = {
+        'code': fields.char('Code', size=64),
+        'name': fields.many2one('res.partner','Partner Name'),
+        'old_address': fields.char('Old Address', size=264),
+        'new_address': fields.char('New Address', size=264),
+        'address_id': fields.many2one('res.partner.address','Address'),
+        'photo_id':fields.many2one('res.partner.photo','Photo', ondelete="cascade")
+    }
+
+res_partner_address_change()
+
+class res_partner_change(osv.osv):
+    _name='res.partner.change'
+    _columns = {
+        'code': fields.char('Code', size=64),
+        'name': fields.char('New Name', size=264),
+        'old_name': fields.char('Old Name', size=264),
+        'address_id': fields.many2one('res.partner.address','Address'),
+        'photo_id':fields.many2one('res.partner.photo','Photo', ondelete="cascade")
+    }
+res_partner_change()
+
+
+class res_partner_address_new(osv.osv):
+
+    _name='res.partner.address.new'
+    _rec_name = 'code'
+    _columns = {
+        'code': fields.char('Code', size=64),
+        'address': fields.char('Postal Address', size=264),
+        'state_activity': fields.many2one('res.partner.state', 'State Activity'),
+        'name': fields.many2one('res.partner','Partner'),
+        'address_id': fields.many2one('res.partner.address','Address'),
+        'photo_id':fields.many2one('res.partner.photo','Photo', ondelete="cascade"),
+    }
+res_partner_address_new()
+
+
+class res_partner_address_lost(osv.osv):
+
+    _name='res.partner.address.lost'
+    _columns = {
+        'name': fields.char('Code', size=64),
+        'state_activity': fields.many2one('res.partner.state', 'State Activity'),
+        'address_id': fields.many2one('res.partner.address','Address'),
+        'partner_id': fields.many2one('res.partner','Partner'),
+        'photo_id':fields.many2one('res.partner.photo', 'Photo', ondelete="cascade"),
+    }
+
+res_partner_address_lost()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
 

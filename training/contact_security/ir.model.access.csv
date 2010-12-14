@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_res_partner_contact","res.partner.contact","base_contact.model_res_partner_contact","group_contact_manager",1,1,1,1
+"access_res_partner_job","res.partner.job","base_contact.model_res_partner_job","group_contact_manager",1,1,1,1
+
+"access_res_partner_address","res.partner.address","base.model_res_partner_address","group_contact_manager",1,1,0,0
+"access_res_partner","res.partner","base.model_res_partner","group_contact_manager",1,0,0,0

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="training.offer.kind" id="training_offer_kind_standard">
+            <field name="code">standard</field>
+            <field name="name">Standard</field>
+        </record>
+
+        <record model="training.course.kind" id="training_course_kind_standard">
+            <field name="code">standard</field>
+            <field name="name">Standard</field>
+        </record>
+
+        <record model="training.course.pending.reason" id="course_pending_reason_1">
+            <field name="code">extern_update_support_pay</field>
+            <field name="name">External Update Support (Pay)</field>
+        </record>
+
+        <record model="training.course.pending.reason" id="course_pending_reason_2">
+            <field name="code">extern_update_support_free</field>
+            <field name="name">External Update Support (Free)</field>
+        </record>
+
+        <record model="training.course.pending.reason" id="course_pending_reason_3">
+            <field name="code">internal_support_update</field>
+            <field name="name">Internal Update Support</field>
+        </record>
+
+        <record model="training.course.pending.reason" id="course_pending_reason_4">
+            <field name="code">update_questionnaire</field>
+            <field name="name">Update Questionnaire</field>
+        </record>
+
+        <record model="training.course.pending.reason" id="course_pending_reason_5">
+            <field name="code">update_course</field>
+            <field name="name">Update Course</field>
+        </record>
+
+        <record model="training.course.pending.reason" id="course_pending_reason_6">
+            <field name="code">other</field>
+            <field name="name">Other</field>
+        </record>
+    </data>
+</openerp>
+

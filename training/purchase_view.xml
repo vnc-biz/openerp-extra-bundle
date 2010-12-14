@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="purchase_order_form">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                <field name="invoice_id" position="replace">
+                    <group colspan="2" col="3">
+                        <field name="invoice_id" readonly="1" />
+                        <group attrs="{'invisible' : [('invoice_id', '!=', False)]}" col="1" colspan="1">
+                            <button states="approved" name="action_invoice_create" string="Create Invoice" type="object" />
+                        </group>
+                    </group>
+            </field>
+            </field>
+        </record>
+
+        <act_window id="purchase_order_invoice_related"
+            name="Invoice"
+            src_model="purchase.order"
+            res_model="account.invoice"
+            view_mode="tree,form"
+            domain="[('id', '=', invoice_id)]" />
+    </data>
+</openerp>

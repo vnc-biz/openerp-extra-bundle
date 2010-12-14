@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<record id="training_subscription_mass_wizard_0" model="training.subscription.mass.wizard">
+			<field name="partner_id" ref="base.res_partner_agrolait"/>
+			<field eval="[(6,0,[ref('base_contact.res_partner_job_7')])]" name="job_ids"/>
+		</record>
+		<record id="training_subscription_mass_line_0" model="training.subscription.mass.line">
+			<field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+			<field name="wizard_id" ref="training_subscription_mass_wizard_0"/>
+			<field name="session_id" ref="training.training_session_0"/>
+		</record>
+	</data>
+	<data noupdate="1">
+		<record id="training_subscription_mass_wizard_1" model="training.subscription.mass.wizard">
+			<field name="partner_id" ref="base.res_partner_asus"/>
+			<field eval="[(6,0,[ref('base_contact.res_partner_job_3')])]" name="job_ids"/>
+		</record>
+		<record id="training_subscription_mass_line_1" model="training.subscription.mass.line">
+			<field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+			<field name="wizard_id" ref="training_subscription_mass_wizard_1"/>
+			<field name="session_id" ref="training.training_session_2"/>
+		</record>
+	</data>
+	<data noupdate="1">
+		<record id="training_subscription_mass_wizard_2" model="training.subscription.mass.wizard">
+			<field name="partner_id" ref="base.res_partner_2"/>
+			<field eval="[(6,0,[ref('base_contact.res_partner_job_8')])]" name="job_ids"/>
+		</record>
+		<record id="training_subscription_mass_line_2" model="training.subscription.mass.line">
+			<field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+			<field name="wizard_id" ref="training_subscription_mass_wizard_2"/>
+			<field name="session_id" ref="training.training_session_0"/>
+		</record>
+	</data>
+	<data noupdate="1">
+		<record id="training_subscription_mass_wizard_3" model="training.subscription.mass.wizard">
+			<field name="partner_id" ref="base.res_partner_3"/>
+			<field eval="[(6,0,[ref('base_contact.res_partner_job_10')])]" name="job_ids"/>
+		</record>
+		<record id="training_subscription_mass_line_3" model="training.subscription.mass.line">
+			<field eval="&quot;&quot;&quot;standard&quot;&quot;&quot;" name="kind"/>
+			<field name="wizard_id" ref="training_subscription_mass_wizard_3"/>
+			<field name="session_id" ref="training.training_session_0"/>
+		</record>
+	</data>
+</openerp>

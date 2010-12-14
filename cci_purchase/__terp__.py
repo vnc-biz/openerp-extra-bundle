@@ -31,7 +31,7 @@
     "init_xml" : [],
     "demo_xml" : [],
 
-    "update_xml" : ["cci_purchase_view.xml","cci_purchase_workflow.xml"],
+    "update_xml" : ["cci_purchase_view.xml","cci_purchase_workflow.xml", "security/ir.model.access.csv"],
     "active": False,
     "installable": True
 }

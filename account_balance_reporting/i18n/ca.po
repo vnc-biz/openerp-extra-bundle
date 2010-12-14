@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-09-27 08:18+0000\n"
-"PO-Revision-Date: 2010-07-06 06:19+0000\n"
+"PO-Revision-Date: 2010-12-13 22:27+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:58+0000\n"
+"X-Launchpad-Export-Date: 2010-12-14 05:50+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_balance_reporting
 #: field:account.balance.report,current_period_ids:0
 msgid "Fiscal year 1 periods"
-msgstr "Períodes d'any fiscal 1"
+msgstr "Períodes exercici fiscal 1"
 
 #. module: account_balance_reporting
 #: help:account.balance.report.template.line,css_class:0
@@ -86,14 +86,14 @@ msgstr "Línies de plantilla"
 #: field:account.balance.report,current_fiscalyear_id:0
 #: field:account.balance.report.line,current_value:0
 msgid "Fiscal year 1"
-msgstr "Any fiscal 1"
+msgstr "Exercici fiscal 1"
 
 #. module: account_balance_reporting
 #: view:account.balance.report:0
 #: field:account.balance.report,previous_fiscalyear_id:0
 #: field:account.balance.report.line,previous_value:0
 msgid "Fiscal year 2"
-msgstr "Any fiscal 2"
+msgstr "Exercici fiscal 2"
 
 #. module: account_balance_reporting
 #: selection:account.balance.report.template,balance_mode:0
@@ -105,17 +105,17 @@ msgstr "Deure-Haver, invers amb parèntesis"
 msgid "Concept code, may be used on formulas to reference this line"
 msgstr ""
 "Codi de concepte, pot ser usat en les fórmules per fer referència a aquesta "
-"línia"
+"línia."
 
 #. module: account_balance_reporting
 #: help:account.balance.report.template.line,sequence:0
 msgid "Lines will be sorted/grouped by this field"
-msgstr "Les línies seran ordenades/agrupades per aquest camp"
+msgstr "Les línies seran ordenades/agrupades per aquest camp."
 
 #. module: account_balance_reporting
 #: field:account.balance.report.template.line,negate:0
 msgid "Negate"
-msgstr "Negat"
+msgstr "Nega"
 
 #. module: account_balance_reporting
 #: model:ir.model,name:account_balance_reporting.model_account_balance_report_template_line
@@ -186,12 +186,12 @@ msgid ""
 "  Mode 2: credit-debit;\n"
 "  Mode 3: credit-debit, debit-credit for accounts in brackets."
 msgstr ""
-"Mode de càlcul de la fórmula: Depenent d'aquest, el saldo es calcula com "
+"Mode de càlcul de la fórmula: Depenent del mode, el saldo es calcula com "
 "segueix:\n"
 "  Mode 0: deure-haver (per defecte);\n"
-"  Mode 1: deure-haver, haver-deure per els comptes amb parèntesis;\n"
+"  Mode 1: deure-haver, haver-deure pels comptes amb parèntesis;\n"
 "  Mode 2: haver-deure;\n"
-"  Mode 3: haver-deure, deure-haver per els comptes amb parèntesis."
+"  Mode 3: haver-deure, deure-haver pels comptes amb parèntesis."
 
 #. module: account_balance_reporting
 #: help:account.balance.report.template.line,negate:0
@@ -235,7 +235,7 @@ msgstr ""
 "\n"
 "El mòdul permet a l'usuari crear informes de balanços de comptes i "
 "plantilles,\n"
-"comparant els valors 'conceptes comptables' entre dos anys fiscals\n"
+"comparant els valors 'conceptes comptables' entre dos exercicis fiscals\n"
 "o un conjunt de períodes fiscals.\n"
 "\n"
 "Els valors dels conceptes comptables es poden calcular com la suma dels "
@@ -279,12 +279,12 @@ msgstr "Classe CSS"
 #: field:account.balance.report.template,report_xml_id:0
 #: wizard_view:account_balance_report.print_wizard,init:0
 msgid "Report design"
-msgstr "Disseny d'informe"
+msgstr "Disseny de l'informe"
 
 #. module: account_balance_reporting
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "﻿XML invàlid per a la definició de la vista!"
+msgstr "﻿XML no vàlid per a la definició de la vista!"
 
 #. module: account_balance_reporting
 #: view:account.balance.report.template:0
@@ -305,7 +305,7 @@ msgstr "Data de càlcul"
 #. module: account_balance_reporting
 #: field:account.balance.report,previous_period_ids:0
 msgid "Fiscal year 2 periods"
-msgstr "Períodes d'any fiscal 2"
+msgstr "Períodes exercici fiscal 2"
 
 #. module: account_balance_reporting
 #: view:account.balance.report.template:0
@@ -363,7 +363,7 @@ msgstr "Usuari"
 #. module: account_balance_reporting
 #: field:account.balance.report.template.line,current_value:0
 msgid "Fiscal year 1 formula"
-msgstr "Fórmula any fiscal 1"
+msgstr "Fórmula exercici fiscal 1"
 
 #. module: account_balance_reporting
 #: field:account.balance.report.line,template_line_id:0
@@ -384,7 +384,7 @@ msgstr "Per defecte"
 #. module: account_balance_reporting
 #: field:account.balance.report.template.line,previous_value:0
 msgid "Fiscal year 2 formula"
-msgstr "Fórmula any fiscal 2"
+msgstr "Fórmula exercici fiscal 2"
 
 #. module: account_balance_reporting
 #: selection:account.balance.report.template,type:0
@@ -420,7 +420,7 @@ msgstr "Codi"
 #. module: account_balance_reporting
 #: selection:account.balance.report,state:0
 msgid "Done"
-msgstr "Fet"
+msgstr "Realitzat"
 
 #. module: account_balance_reporting
 #: model:ir.model,name:account_balance_reporting.model_account_balance_report

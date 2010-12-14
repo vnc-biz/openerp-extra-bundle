@@ -180,17 +180,21 @@
         </td>
       </tr>
       <tr>
+
         <td>
-          <para style="terp_default_8">[[ subscription.contact_id.title ]] [[ subscription.contact_id.name ]] [[ subscription.contact_id.first_name ]]</para>
+          <para style="terp_default_8">[[ subscription.address_id.title ]] [[ subscription.address_id.name ]] </para>
         </td>
         <td>
-          <para style="terp_default_8">[[ subscription.session_id.offer_id.name ]] </para>
+        	<para style="P2">[[repeatIn(subscription.subscription_line_ids.session_id,'session_id')]]</para>
+          <para style="terp_default_8">[[ session_id.offer_id.name or removeParentNode('para') ]] </para>
         </td>
       </tr>
     </blockTable>
+
     <para style="P6">
       <font color="white"> </font>
     </para>
+    <section>
     <blockTable colWidths="530." style="TableLightGrey">
         <tr>
             <td>
@@ -198,16 +202,19 @@
             </td>
         </tr>
         <tr>
+        	<para style="P2">[[repeatIn(subscription.subscription_line_ids.session_id,'session_id') or removeParentNode('blockTable') ]]</para>
             <td>
-                <para style="terp_default_8">[[ len(subscription.session_id.offer_id.course_ids) > 0 and subscription.session_id.offer_id.course_ids[0].location or "The address isn't defined" ]]</para>
+                <para style="terp_default_8">[[ len(session_id.seance_ids.course_id > 0 and session_id.seance_ids.course_id[0].location or "The address isn't defined" ]]</para>
             </td>
         </tr>
     </blockTable>
+	</section>
     <para style="P6">
       <font color="white"> </font>
     </para>
     <para style="terp_tblheader_Details">Seances</para>
       <blockTable colWidths="270.0,100.0,100.0,60.0" style="TableHeaderBorder">
+
       <tr>
         <td>
           <para style="terp_tblheader_General">Name</para>
@@ -224,22 +231,21 @@
       </tr>
     </blockTable>
     <section>
-    <para style="P2">[[repeatIn(subscription.session_id.event_ids,'event') ]]</para>
+    <para style="P2">[[repeatIn(subscription.subscription_line_ids.session_id,'session_id') ]]</para>
+    <para style="P2">[[repeatIn(session_id.seance_ids,'seance_ids') ]]</para>
     <blockTable colWidths="270.0,100.0,100.0,60.0" style="TableInsideLine">
       <tr>
         <td>
-           <para style="terp_default_8">[[event.name]]</para>
+           <para style="terp_default_8">[[seance_ids.name]]</para>
         </td>
         <td>
-          <para style="terp_default_8">
-            <font color="white"> </font>
-          </para>
+           <para style="terp_default_8">[[seance_ids.kind]]</para>
         </td>
         <td>
-           <para style="terp_default_8">[[time.strftime('%Y-%m-%d %H:%M:%S', time.strptime( event.date, '%Y-%m-%d %H:%M:%S'))]]</para>
+           <para style="terp_default_8">[[time.strftime('%Y-%m-%d %H:%M:%S', time.strptime( seance_ids.date, '%Y-%m-%d %H:%M:%S'))]]</para>
         </td>
         <td>
-         <para style="terp_default_8">[[event.duration]]</para>
+         <para style="terp_default_8">[[seance_ids.duration]]</para>
         </td>
       </tr>
     </blockTable>

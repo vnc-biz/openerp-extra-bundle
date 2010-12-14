@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:54+0000\n"
+"X-Launchpad-Export-Date: 2010-11-17 05:03+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: sale_layout
@@ -33,7 +33,7 @@ msgid "sale_layout"
 msgstr "sale_layout"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Disc. (%)"
 msgstr "Rabatt (%)"
 
@@ -43,12 +43,12 @@ msgid "Note"
 msgstr "Notiz"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Unit Price"
 msgstr "Preis/ME"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Order N°"
 msgstr "Bestellnummer"
 
@@ -58,7 +58,7 @@ msgid "Order Lines"
 msgstr "Auftragszeilen"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Disc.(%)"
 msgstr "Rabatt (%)"
 
@@ -69,7 +69,6 @@ msgstr "Layout Typ"
 
 #. module: sale_layout
 #: view:sale.order:0
-#: view:sale.order.line:0
 msgid "Seq."
 msgstr "Seq."
 
@@ -94,7 +93,7 @@ msgid ""
 msgstr ""
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -104,7 +103,7 @@ msgid "Manual Description"
 msgstr "Manuelle Beschreibung"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Our Salesman"
 msgstr "Unser Verkäufer"
 
@@ -119,17 +118,17 @@ msgid "Invoice Lines"
 msgstr "Rechnungszeilen"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Quantity"
 msgstr "Menge"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Quotation N°"
 msgstr "Angebot Nr."
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "VAT"
 msgstr "USt."
 
@@ -144,7 +143,7 @@ msgid "Properties"
 msgstr "Eigenschaften"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Invoice address :"
 msgstr "Rechnungsanschrift:"
 
@@ -164,37 +163,37 @@ msgid "Notes"
 msgstr "Notiz"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Date Ordered"
 msgstr "Auftragsdatum"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Shipping address :"
 msgstr "Lieferanschrift:"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Taxes"
 msgstr "Steuern"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Net Total :"
 msgstr "Gesamt Netto:"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Tel. :"
 msgstr "Tel.:"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Total :"
 msgstr "Summe :"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Payment Terms"
 msgstr "Zahlungsbedingungen"
 
@@ -214,7 +213,7 @@ msgid "Separator Line"
 msgstr "Trennlinie"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Your Reference"
 msgstr "Ihre Referenz"
 
@@ -234,7 +233,7 @@ msgid "States"
 msgstr "Zustände"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "TVA :"
 msgstr "USt.:"
 
@@ -254,7 +253,7 @@ msgid "UoM"
 msgstr "ME"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Fax :"
 msgstr "Fax:"
 
@@ -264,12 +263,12 @@ msgid "Order Line"
 msgstr "Auftragszeile"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Price"
 msgstr "Preis"
 
 #. module: sale_layout
-#: rml:sale.order.layout:0
+#: report:sale.order.layout:0
 msgid "Taxes :"
 msgstr "Steuern:"
 

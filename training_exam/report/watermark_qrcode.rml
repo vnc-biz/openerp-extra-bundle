@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+    <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+        <pageTemplate>
+            <frame id="first" x1="0.9cm" y1="1.7cm" height="25.30cm" width="20cm"/>
+        </pageTemplate>
+    </template>
+    <stylesheet>
+        <initialize>
+            <paraStyle name="all" alignment="justify"/>
+        </initialize>
+    </stylesheet>
+    <images/>
+    <story>
+        [[repeatIn(objects,'pannex')]]
+        <qrBarCode version="3" x="18.0cm" y="27.3cm" appendPageNumber="0" absolutePos="1" model="training.participation">[[ pannex ]]</qrBarCode>
+    </story>
+</document>

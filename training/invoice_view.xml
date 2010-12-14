@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="invoice_form">
+            <field name="name">account_invoice_training_form</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <notebook position='inside'>
+                    <page string="Email" groups='training.group_training'>
+                        <field name="send_to" colspan="4" attrs="{'readonly': [('state', 'in', ['open', 'paid', 'cancel'])]}"/>
+                        <field name="sent_by_mail" />
+                        <field name="sent_by_mail_at" />
+                        <field name="send_manually"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="invoice_list">
+            <field name="name">account_invoice_training_list</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position='after'>
+                        <field name="send_to" groups='training.group_training' />
+                        <field name="sent_by_mail" groups='training.group_training' />
+                    </field>
+                    <field name="origin" position="attributes">
+                        <attribute name="groups">base.group_user</attribute>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

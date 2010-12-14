@@ -10,6 +10,7 @@
             <field name="arch" type="xml">
                 <field colspan="2" name="section_id" position="replace" >
                     <field colspan="2" name="section_id" context="{'section_event': True}"/>
+                    <field name="group_id" select="2"/>
                 </field>
             </field>
         </record>
@@ -22,8 +23,8 @@
             <field name="model">crm.case</field>
             <field name="inherit_id" ref="crm_configuration.crm_case_form_view_meet"/>
             <field name="arch" type="xml">
-                <field name="note" position="after">
-                    <field name="meeting_id" select="2" colspan="4"/>
+                <field name="section_id" position="after">
+                    <field name="group_id" select="2"/>
                 </field>
             </field>
         </record>

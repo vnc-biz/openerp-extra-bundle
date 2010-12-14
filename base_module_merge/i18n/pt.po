@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-28 16:01+0000\n"
-"PO-Revision-Date: 2010-01-27 05:51+0000\n"
+"PO-Revision-Date: 2010-11-16 14:00+0000\n"
 "Last-Translator: Fabien (Open ERP) <fp@tinyerp.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:57+0000\n"
+"X-Launchpad-Export-Date: 2010-11-17 05:06+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: base_module_merge
@@ -30,7 +30,7 @@ msgstr "Informação"
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,init:0
 msgid "Module Merging"
-msgstr "Junção de módulos"
+msgstr "Fusão de Módulos"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,author:0
@@ -40,12 +40,12 @@ msgstr "Autor"
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,directory_name:0
 msgid "Directory Name"
-msgstr "Nome da directoria"
+msgstr "Nome da Directoria"
 
 #. module: base_module_merge
 #: selection:base_module_merge.module_merge,info,data_kind:0
 msgid "Demo Data"
-msgstr "Dados de demonstração"
+msgstr "Dados de Demonstração"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,save,module_filename:0
@@ -61,7 +61,7 @@ msgstr "Versão"
 #: wizard_view:base_module_merge.module_merge,info:0
 #: wizard_view:base_module_merge.module_merge,save:0
 msgid "Module Recording"
-msgstr "Gravação do módulo"
+msgstr "Gravação do Módulo"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,save:0
@@ -71,28 +71,28 @@ msgstr "Os nossos sinceros agradecimentos pela sua contribuição"
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,description:0
 msgid "Full Description"
-msgstr "Descrição completa"
+msgstr "Descrição Completa"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,name:0
 msgid "Module Name"
-msgstr "Nome do módulo"
+msgstr "Nome do Módulo"
 
 #. module: base_module_merge
 #: model:ir.actions.wizard,name:base_module_merge.wizard_base_module_merger
 #: model:ir.ui.menu,name:base_module_merge.menu_wizard_base_module_merger
 msgid "Merge module"
-msgstr "Unir módulos"
+msgstr "Junsão do Módulo"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,save,module_file:0
 msgid "Module .zip File"
-msgstr "Ficheiro módulo .zip"
+msgstr "Ficheiro do módulo .zip"
 
 #. module: base_module_merge
 #: model:ir.module.module,shortdesc:base_module_merge.module_meta_information
 msgid "Module Merger"
-msgstr "Fundir modulos"
+msgstr "Fusão de módulo"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,save:0
@@ -102,7 +102,7 @@ msgstr "Módulo criado com sucesso !"
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,website:0
 msgid "Documentation URL"
-msgstr "URL da documentação"
+msgstr "URL da Documentação"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,init,modules_list:0
@@ -118,7 +118,7 @@ msgstr "Continuar"
 #. module: base_module_merge
 #: selection:base_module_merge.module_merge,info,data_kind:0
 msgid "Normal Data"
-msgstr "Dados normais"
+msgstr "Dados Normais"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,save:0
@@ -127,24 +127,25 @@ msgid ""
 "publish it on OpenERP.com, in the 'Modules' section. You can do it through "
 "the website or using features of the 'base_module_publish' module."
 msgstr ""
-"Se você pensa seu módulo poderá interessar a outras pessoas, nos gostariamos "
-"de no OpenERP.com, na secção dos ' Módulos'. Você pode fazê-lo através do  "
-"Web site ou usando as funcionalidades do módulo 'base_module_publish'."
+"Se pensa que o seu módulo poderá interessar a outras pessoas, nós "
+"gostariamos que publicasse-o no OpenERP.com, na secção dos ' Módulos'.  "
+"Poderá fazê-lo através do página web ou utilize as funcionalidades do módulo "
+"'base_module_publish'."
 
 #. module: base_module_merge
 #: help:base_module_merge.module_merge,init,modules_list:0
 msgid "Select Modules which you want to merge in single module"
-msgstr "Seleccione os módulos que você quer unir num só"
+msgstr "Seleccione os Módulos que deseja unir em um único módulo"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,data_kind:0
 msgid "Type of Data"
-msgstr "Tipo de dado"
+msgstr "Tipo de Dado"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,info:0
 msgid "Module Information"
-msgstr "Informação do módulo"
+msgstr "Informação do ódulo"
 
 #. module: base_module_merge
 #: wizard_button:base_module_merge.module_merge,info,end:0

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="group_contact_manager" model="res.groups">
+            <field name="name">Partner Contact Manager</field>
+        </record>
+    </data>
+</openerp>
+

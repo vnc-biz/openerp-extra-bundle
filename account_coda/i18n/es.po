@@ -14,12 +14,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:54+0000\n"
+"X-Launchpad-Export-Date: 2010-11-17 05:02+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_coda
-#: field:account.coda,journal_id:0
-#: wizard_field:account.coda_import,init,journal_id:0
+#: help:account.coda,journal_id:0
+#: field:account.coda.import,journal_id:0
 msgid "Bank Journal"
 msgstr "Diario bancario"
 
@@ -31,7 +31,8 @@ msgstr ""
 "¡El objeto debe empezar con  x_ y no puede contener ningún carácter especial!"
 
 #. module: account_coda
-#: wizard_field:account.coda_import,extraction,note:0
+#: view:account.coda:0
+#: field:account.coda.import,note:0
 msgid "Log"
 msgstr "Registro"
 
@@ -48,7 +49,7 @@ msgstr ""
 #. module: account_coda
 #: field:account.coda,name:0
 msgid "Coda file"
-msgstr ""
+msgstr "Fichero Coda"
 
 #. module: account_coda
 #: wizard_view:account.coda_import,init:0
@@ -95,12 +96,11 @@ msgstr "Extracto bancario generado"
 
 #. module: account_coda
 #: view:account.coda:0
-#: model:ir.actions.act_window,name:account_coda.act_account_payment_account_bank_statement
-#: model:ir.actions.act_window,name:account_coda.action_account_coda
 msgid "Coda import"
-msgstr ""
+msgstr "Importar Coda"
 
 #. module: account_coda
+#: view:account.coda:0
 #: field:account.coda,user_id:0
 msgid "User"
 msgstr "Usuario"
@@ -113,10 +113,10 @@ msgstr "¡XML inválido para la estructura de la vista!"
 #. module: account_coda
 #: model:ir.model,name:account_coda.model_account_coda
 msgid "coda for an Account"
-msgstr ""
+msgstr "Coda para una cuenta"
 
 #. module: account_coda
-#: wizard_field:account.coda_import,init,def_payable:0
+#: field:account.coda.import,def_payable:0
 msgid "Default Payable Account"
 msgstr "Cuenta a pagar por defecto"
 
@@ -126,9 +126,9 @@ msgid "Coda Statements"
 msgstr ""
 
 #. module: account_coda
-#: model:ir.ui.menu,name:account_coda.menu_account_coda_wizard
+#: model:ir.ui.menu,name:account_coda.menu_account_coda_import
 msgid "Import Coda Statements"
-msgstr ""
+msgstr "Importar extractos Coda"
 
 #. module: account_coda
 #: wizard_button:account.coda_import,init,extraction:0
@@ -136,28 +136,29 @@ msgid "_Ok"
 msgstr "_Aceptar"
 
 #. module: account_coda
-#: wizard_view:account.coda_import,extraction:0
-#: wizard_view:account.coda_import,init:0
+#: view:account.coda.import:0
+#: model:ir.actions.act_window,name:account_coda.action_account_coda_import
 msgid "Import Coda Statement"
-msgstr ""
+msgstr "Importar extracto Coda"
 
 #. module: account_coda
 #: field:account.bank.statement,coda_id:0
 msgid "Coda"
-msgstr ""
+msgstr "Coda"
 
 #. module: account_coda
-#: wizard_view:account.coda_import,extraction:0
+#: view:account.coda.import:0
 msgid "Results :"
 msgstr "Resultados :"
 
 #. module: account_coda
-#: wizard_field:account.coda_import,init,coda:0
+#: field:account.coda.import,coda:0
+#: model:ir.actions.act_window,name:account_coda.act_account_payment_account_bank_statement
 msgid "Coda File"
-msgstr ""
+msgstr "Fichero Coda"
 
 #. module: account_coda
-#: field:account.coda,date:0
+#: help:account.coda,date:0
 msgid "Import Date"
 msgstr "Fecha de importación"
 

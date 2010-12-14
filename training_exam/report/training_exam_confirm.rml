@@ -191,7 +191,7 @@
           <para style="P10">Date</para>
         </td>
         <td>
-          <para style="P5">[[ planned_exam.date ]]</para>
+          <para style="P5">[[ formatLang(planned_exam.date,date=True) ]]</para>
         </td>
       </tr>
       <tr>
@@ -199,7 +199,7 @@
           <para style="P10">Schedule </para>
         </td>
         <td>
-          <para style="P5">[[ planned_exam.duration ]]</para>
+          <para style="P5">[[ formatLang(planned_exam.duration) ]]</para>
         </td>
       </tr>
       <tr>

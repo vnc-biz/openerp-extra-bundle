@@ -42,6 +42,22 @@ class account_invoice(osv.osv):
 
     _inherit = "account.invoice"
     _order = "date_invoice desc"
+
+    def _onchange_user_id(self, cr, uid, ids, user_id, status):
+        result = {'value': {'user_id': user_id}}
+        data_pool = self.pool.get('ir.model.data')
+        user_obj =  self.pool.get('res.users')
+        user_group_ids = user_obj.browse(cr, uid, uid).groups_id
+        group_ch_user_id = data_pool._get_id(cr, uid, 'cci_account', 'group_inv_change_user')
+        if group_ch_user_id:
+            group_id = data_pool.browse(cr, uid, group_ch_user_id).res_id
+        groups_user = [x.id for x in user_group_ids] 
+        if (status not in ('open')) or ((status == 'open') and (group_id in groups_user)):
+            result = {'value': {'user_id': user_id}}
+        else:
+            raise osv.except_osv('Error!','You don\'t have enough access to change the user on confirmed invoice.')
+        return result
+    
     _columns = {
         'name': fields.char('Description', size=64, select=True),
         'ref_move': fields.char('Ref Move', size=64, select=True),
@@ -50,9 +66,19 @@ class account_invoice(osv.osv):
         'internal_note': fields.text('Internal Note'),
         'vat_num' : fields.related('partner_id', 'vat',  type='char', string="VAT"),
         'create_uid': fields.many2one('res.users', 'Creation User', readonly=True),
+        'user_id': fields.many2one('res.users', 'User'),
     }
 
     def create(self, cr, uid, vals, context={}):
+        data_pool = self.pool.get('ir.model.data')
+        user_obj =  self.pool.get('res.users')
+        if context.get('type') == 'in_invoice' and not context.get('from_purchase'):
+            user_group_ids = user_obj.browse(cr, uid, uid, context).groups_id
+            group_inv_id = data_pool._get_id(cr, uid, 'cci_account','group_invoice_supplier')
+            if group_inv_id:
+                group_id = data_pool.browse(cr, uid, group_inv_id, context=context).res_id
+                if group_id not in [x.id for x in user_group_ids]:
+                    raise osv.except_osv('Error!','You don\'t have enough access to create a supplier invoice.')
         if vals.has_key('partner_id') and vals['partner_id']:
             partner = self.pool.get('res.partner').browse(cr, uid, vals['partner_id'], context=context)
             vals.update({'invoice_special':partner.invoice_special})
@@ -198,9 +224,11 @@ class account_invoice(osv.osv):
         warning = False
         inv_special=False
         domiciled = False
+        user_id = False
         if partner_id:
             data_partner = self.pool.get('res.partner').browse(cr,uid,partner_id)
             domiciled = bool(data_partner.domiciliation)
+            user_id = data_partner.user_id.id
             inv_special=data_partner.invoice_special
             if data_partner.alert_others:
                 warning = {
@@ -209,6 +237,7 @@ class account_invoice(osv.osv):
                         }
         data=super(account_invoice,self).onchange_partner_id( cr, uid, ids, type, partner_id,date_invoice, payment_term)
         data['value']['domiciled'] = domiciled
+        data['value']['user_id'] = user_id
         data['value']['invoice_special']=inv_special
         if warning:
             data['warning'] = warning

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
-    <data>
+    <data noupdate="1">
         <record model="ir.sequence.type" id="seq_training_subscription_type">
             <field name="name">Training Subscription Sequence Type</field>
             <field name="code">training.subscription</field>
@@ -10,6 +10,30 @@
             <field name="name">Training Subscription</field>
             <field name="code">training.subscription</field>
             <field name="prefix">SUB/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_training_subscription_line_type">
+            <field name="name">Training Subscription Line Sequence Type</field>
+            <field name="code">training.subscription.line</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_training_subscription_line">
+            <field name="name">Training Subscription Line</field>
+            <field name="code">training.subscription.line</field>
+            <field name="prefix">SUBL/</field>
+            <field name="padding">6</field>
+        </record>
+        
+        <record model="ir.sequence.type" id="seq_training_pshr_type">
+            <field name="name">Training Participation Stakeholder Request Sequence Type</field>
+            <field name="code">training.pshr</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_training_pshr">
+            <field name="name">Training Participation Stakeholder Request</field>
+            <field name="code">training.pshr</field>
+            <field name="prefix">PSHR/%(year)s-</field>
             <field name="padding">4</field>
         </record>
     </data>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="training.offer.kind" id="offer_kind_exam">
+            <field name="code">exam</field>
+            <field name="name">Exam</field>
+        </record>
+
+        <record model="training.course.kind" id="course_kind_exam">
+            <field name="code">exam</field>
+            <field name="name">Exam</field>
+        </record>
+    </data>
+</openerp>

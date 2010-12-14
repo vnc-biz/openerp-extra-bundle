@@ -605,7 +605,7 @@
 		<field name="arch" type="xml">
 			<field name="badge_partner" position="after">
 				<separator colspan="4" string=""/>
-                <field name="group_id"/>
+                <field name="grp_id"/>
                 <field name="cavalier"/>
 			</field>
 		</field>

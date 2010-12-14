@@ -1,0 +1,11 @@
+"id","name","question","type","is_mandatory","is_eliminatory","point"
+"question_1","info_1","Dans l’ordinateur, le programme BIOS (Basic Input Output System) est chargé dans la mémoire","qcm",1,0,5
+"question_2","info_2","La mémoire cache d’un ordinateur permet","qcm",0,1,5
+"question_3","info_3","La RS232C correspond à","qcm",0,0,5
+"question_4","info_4","Le système d’exploitation d’un ordinateur fait partie","qcm",1,0,5
+"question_5","info_5","La taille d’un octet de données correspond à","qcm",0,1,5
+"question_6","info_6","Dans un octet, le bit de parité permet","qcm",0,0,5
+"question_7","info_7","Le rôle d’un modem est","qcm",1,0,5
+"question_8","info_8","Un caractère ASCII est codé sur","qcm",0,1,5
+"question_9","info_9","Un protocole de communication est","qcm",0,0,5
+"question_10","info_10","Un processus est","qcm",1,0,5

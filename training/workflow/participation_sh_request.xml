@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="workflow" id="wkf_participation_stakeholder_request">
+            <field name="name">workflow.training.participation_stakeholder_request</field>
+            <field name="osv">training.participation.stakeholder.request</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="wkf_act_pshr_draft">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">draft</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'draft'})</field>
+            <field name="flow_start">True</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_cancelled">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">cancelled</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'cancelled'})</field>
+            <field name="action">action_wkf_cancel()</field>
+            <field name="flow_stop">True</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_done">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_done()</field>
+            <field name="flow_stop">True</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_valid">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">valid</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_valid()</field>
+        </record>
+
+        <record model="workflow.activity" id="wkf_act_pshr_requested">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">requested</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_request()</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_send_request_email">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">[send request email]</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_send_request_email()</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_refused">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">refused</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_refuse()</field>
+            <field name="flow_stop">True</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_accepted">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">accepted</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_accept()</field>
+        </record>
+        
+        <record model="workflow.activity" id="wkf_act_pshr_send_cancellation_email">
+            <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
+            <field name="name">[send cancellation email]</field>
+            <field name="kind">function</field>
+            <field name="action">action_wkf_send_cancellation_email()</field>
+        </record>
+
+
+        <record model="workflow.transition" id="wkf_tr_pshr_draft_to_valid">
+            <field name="act_from" ref="wkf_act_pshr_draft"/>
+            <field name="act_to" ref="wkf_act_pshr_valid"/>
+            <field name="signal">pshr_validate</field>
+            <field name="condition">test_wkf_valid()</field>
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_draft_to_cancelled">
+            <field name="act_from" ref="wkf_act_pshr_draft"/>
+            <field name="act_to" ref="wkf_act_pshr_cancelled"/>
+            <field name="signal">pshr_cancel</field>
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_valid_to_cancelled">
+            <field name="act_from" ref="wkf_act_pshr_valid"/>
+            <field name="act_to" ref="wkf_act_pshr_cancelled"/>
+            <field name="signal">pshr_cancel</field>
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_valid_to_requested">
+            <field name="act_from" ref="wkf_act_pshr_valid"/>
+            <field name="act_to" ref="wkf_act_pshr_requested"/>
+            <field name="condition">test_wkf_request()</field>
+            <field name="signal">pshr_request</field>
+        </record>
+
+        <record model="workflow.transition" id="wkf_tr_pshr_requested_to_sre">
+            <field name="act_from" ref="wkf_act_pshr_requested" />
+            <field name="act_to" ref="wkf_act_pshr_send_request_email" />
+            <field name="signal" eval="False" />
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_sre_to_sre">
+            <field name="act_from" ref="wkf_act_pshr_send_request_email" />
+            <field name="act_to" ref="wkf_act_pshr_send_request_email" />
+            <field name="signal">pshr_resend_email</field>
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_valid_to_accepted">
+            <field name="act_from" ref="wkf_act_pshr_valid"/>
+            <field name="act_to" ref="wkf_act_pshr_accepted"/>
+            <field name="condition">test_wkf_accept()</field>
+            <field name="signal">pshr_accept</field>
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_accepted_to_done">
+            <field name="act_from" ref="wkf_act_pshr_accepted"/>
+            <field name="act_to" ref="wkf_act_pshr_done"/>
+            <field name="condition">test_wkf_done()</field>
+            <field name="signal">pshr_done</field>
+        </record>
+        
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_sre_to_refused">
+            <field name="act_from" ref="wkf_act_pshr_send_request_email"/>
+            <field name="act_to" ref="wkf_act_pshr_refused"/>
+            <field name="signal">pshr_refuse</field>
+        </record>
+        
+        <record model="workflow.transition" id="wkf_tr_pshr_sre_to_accepted">
+            <field name="act_from" ref="wkf_act_pshr_send_request_email"/>
+            <field name="act_to" ref="wkf_act_pshr_accepted"/>
+            <field name="signal">pshr_accept</field>
+        </record>
+
+        <record model="workflow.transition" id="wkf_tr_pshr_sre_to_sce">
+            <field name="act_from" ref="wkf_act_pshr_send_request_email"/>
+            <field name="act_to" ref="wkf_act_pshr_send_cancellation_email"/>
+            <field name="signal">pshr_cancel</field>
+        </record>
+
+        <record model="workflow.transition" id="wkf_tr_pshr_accepted_to_cancelled">
+            <field name="act_from" ref="wkf_act_pshr_accepted" />
+            <field name="act_to" ref="wkf_act_pshr_send_cancellation_email" />
+            <field name="signal">pshr_cancel</field>
+        </record>
+
+        <record model="workflow.transition" id="wkf_tr_pshr_sce_to_cancelled">
+            <field name="act_from" ref="wkf_act_pshr_send_cancellation_email"/>
+            <field name="act_to" ref="wkf_act_pshr_cancelled"/>
+            <field name="signal" eval="False" />
+        </record>
+        
+    </data>
+</openerp>

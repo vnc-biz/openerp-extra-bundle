@@ -25,7 +25,6 @@
                 <filter
                     string="Level 4"
                     domain="[('level','=',5)]"
-                    default="1"
                     icon="terp-hr"/>
 
                 <separator orientation="vertical"/>
@@ -36,7 +35,6 @@
                 <filter
                     string="By Type"
                     icon="terp-hr" 
-                    default="1"
                     context="{'group_by':'change_type_id'}"/>
                 <separator orientation="vertical"/>
                 <field name="change_type_id" select="1" widget="selection"/>

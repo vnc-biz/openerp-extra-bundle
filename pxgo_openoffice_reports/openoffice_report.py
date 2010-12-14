@@ -476,8 +476,10 @@ class openoffice_report(report.interface.report_int):
         return (rpt.execute(output_format=output_format), output_format )
 
 
-#Allow call to old create method
-report.report_sxw.report_sxw.old_create = report.report_sxw.report_sxw.create
+#Allow calling to old create method...
+if 'old_create' not in dir(report.report_sxw.report_sxw):
+    report.report_sxw.report_sxw.old_create = report.report_sxw.report_sxw.create 
+
 
 def create(self, cr, uid, ids, data, context=None):
     """
@@ -485,37 +487,15 @@ def create(self, cr, uid, ids, data, context=None):
     that registers 'automagically' OpenOffice reports.
     """
     if context is None: context = {}
-
     if self.internal_header:
         context.update({'internal_header': self.internal_header})
-    pool = pooler.get_pool(cr.dbname)
-    ir_obj = pool.get('ir.actions.report.xml')
-    report_xml_ids = ir_obj.search(cr, uid,
-            [('report_name', '=', self.name[7:])], context=context)
-
+    
     fnct_ret = False
+    report_type= data.get('report_type', 'pdf')
 
-    if report_xml_ids:
-        report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
+    if not report_type.startswith('oo-'):
+        fnct_ret = self.old_create(cr, uid, ids, data, context=context)
     else:
-        title = ''
-        report_type= data.get('report_type', 'pdf')
-
-        if not report_type.startswith('oo-'):
-            fnct_ret = self.old_create(cr, uid, ids, data, context=context)
-        else:
-            rml = tools.file_open(self.tmpl, subdir=None).read()
-
-            class a(object):
-                def __init__(self, *args, **argv):
-                    for key,arg in argv.items():
-                        setattr(self, key, arg)
-
-            report_xml = a(title=title, report_type=report_type, report_rml_content=rml, name=title, attachment=False, header=self.header)
-
-    report_xml.header = False
-
-    if not fnct_ret:
         oo_report = openoffice_report(self.name, data['model'], context=context)
         fnct_ret = oo_report.create(cr, uid, ids, data, context)
         if not fnct_ret:

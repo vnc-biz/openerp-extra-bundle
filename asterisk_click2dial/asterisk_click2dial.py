@@ -19,16 +19,13 @@
 #
 ##############################################################################
 
-# TODO list :
-# Wait time don't seem to be taken into account
-# In fact, maybe it the waittime for external correspondants !
-# -> if yes, default waittime should be changed from 15 to 30
-
 from osv import osv, fields
 # Lib required to open a socket (needed to communicate with Asterisk server)
 import socket
 # Lib required to print logs
 import netsvc
+# Lib to translate error messages
+from tools.translate import _
 
 
 class asterisk_server(osv.osv):
@@ -118,17 +115,20 @@ class asterisk_server(osv.osv):
     ]
 
 
-    # This function is dedicated to the transformation of the number
-    # available in OpenERP to the number that Asterisk should dial.
-    # You may have to inherit this function in another module specific
-    # for your company if you are not happy with the way I reformat
-    # the OpenERP numbers.
     def reformat_number(self, cr, uid, ids, erp_number, ast_server, context):
+        '''
+        This function is dedicated to the transformation of the number
+        available in OpenERP to the number that Asterisk should dial.
+        You may have to inherit this function in another module specific
+        for your company if you are not happy with the way I reformat
+        the OpenERP numbers.
+        '''
+
         logger = netsvc.Logger()
-        error_title_msg = "Invalid phone number"
-        invalid_international_format_msg = "The phone number is not written in valid international format. Example of valid international format : +33 1 41 98 12 42"
-        invalid_national_format_msg = "The phone number is not written in valid national format."
-        invalid_format_msg = "The phone number is not written in valid format."
+        error_title_msg = _("Invalid phone number")
+        invalid_international_format_msg = _("The phone number is not written in valid international format. Example of valid international format : +33 1 41 98 12 42")
+        invalid_national_format_msg = _("The phone number is not written in valid national format.")
+        invalid_format_msg = _("The phone number is not written in valid format.")
 
         # Let's call the variable tmp_number now
         tmp_number = erp_number
@@ -187,29 +187,34 @@ class asterisk_server(osv.osv):
         logger.notifyChannel('asterisk_click2dial', netsvc.LOG_DEBUG, 'Out prefix = ' + out_prefix + ' - Number to be sent to Asterisk = ' + tmp_number)
         return tmp_number
 
-    # Open the socket to the Asterisk Manager Interface
-    # and send instructions to Dial to Asterisk
     def dial(self, cr, uid, ids, erp_number, context):
+        '''
+        Open the socket to the Asterisk Manager Interface (AMI)
+        and send instructions to Dial to Asterisk. That's the important function !
+
+        '''
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
 
         # Check if the number to dial is not empty
         if not erp_number:
-            raise osv.except_osv('Error', 'There is no phone number !')
+            raise osv.except_osv(_('Error :'), _('There is no phone number !'))
+        # Note : if I write 'Error' without ' :', it won't get translated...
+        # I don't understand why !
 
         # We check if the user has an Asterisk server configured
         if not user.asterisk_server_id.id:
-            raise osv.except_osv('No Asterisk server configured for the current user', "You must associate an Asterisk server to the current user.")
+            raise osv.except_osv(_('Error :'), _('No Asterisk server configured for the current user.'))
         else:
             ast_server = user.asterisk_server_id
 
         # We check if the current user has a chan type
         if not user.asterisk_chan_type:
-            raise osv.except_osv('No channel type configured for the current user', "You must configure an Asterisk channel type for the current user.")
+            raise osv.except_osv(_('Error :'), _('No channel type configured for the current user.'))
 
         # We check if the current user has an internal number
         if not user.internal_number:
-            raise osv.except_osv('No internal phone number configured for the current user', "You must configure an internal phone number for the current user.")
+            raise osv.except_osv(_('Error :'), _('No internal phone number configured for the current user'))
 
         # Convert the phone number in the format that will be sent to Asterisk
         ast_number = self.reformat_number(cr, uid, ids, erp_number, ast_server, context=context)
@@ -220,8 +225,8 @@ class asterisk_server(osv.osv):
         try:
             ast_ip = socket.gethostbyname(str(ast_server.ip_address))
         except:
-            logger.notifyChannel('asterisk_click2dial', netsvc.LOG_DEBUG, "Can't resolve the Asterisk server's DNS : " + str(ast_server.ip_address))
-            raise osv.except_osv('Wrong DNS', "Can't resolve the DNS name of the Asterisk server.")
+            logger.notifyChannel('asterisk_click2dial', netsvc.LOG_DEBUG, "Can't resolve the DNS of the Asterisk server : " + str(ast_server.ip_address))
+            raise osv.except_osv(_('Error :'), _("Can't resolve the DNS of the Asterisk server : ") + str(ast_server.ip_address))
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((ast_ip, ast_server.port))
@@ -231,18 +236,18 @@ class asterisk_server(osv.osv):
             sock.send('Secret: '+str(ast_server.password)+'\r\n\r\n')
             sock.send('Action: originate\r\n')
             sock.send('Channel: ' + str(user.asterisk_chan_type) + '/' + str(user.internal_number)+'\r\n')
-            sock.send('WaitTime: '+str(ast_server.wait_time)+'\r\n')
+            sock.send('Timeout: '+str(ast_server.wait_time*1000)+'\r\n')
             sock.send('CallerId: '+str(user.callerid)+'\r\n')
             sock.send('Exten: '+str(ast_number)+'\r\n')
             sock.send('Context: '+str(ast_server.context)+'\r\n')
             if not ast_server.alert_info and user.asterisk_chan_type == 'SIP':
-                sock.send('Variable: SIPAddHeader=Alert_Info: '+str(ast_server.alert_info)+'\r\n')
+                sock.send('Variable: SIPAddHeader=Alert-Info: '+str(ast_server.alert_info)+'\r\n')
             sock.send('Priority: '+str(ast_server.extension_priority)+'\r\n\r\n')
             sock.send('Action: Logoff\r\n\r\n')
             sock.close()
         except:
             logger.notifyChannel('asterisk_click2dial', netsvc.LOG_WARNING, "Click2dial failed : unable to connect to Asterisk")
-            raise osv.except_osv('Asterisk server unreachable', "The connection from OpenERP to the Asterisk server failed. Please check the configuration on OpenERP and on Asterisk.")
+            raise osv.except_osv(_('Error :'), _("The connection from OpenERP to the Asterisk server failed. Please check the configuration on OpenERP and on Asterisk."))
         logger.notifyChannel('asterisk_click2dial', netsvc.LOG_INFO, "Asterisk Click2Dial from " + user.internal_number + ' to ' + ast_number)
 
 asterisk_server()
@@ -270,12 +275,15 @@ class res_partner_address(osv.osv):
     _name = "res.partner.address"
     _inherit ="res.partner.address"
 
-    # Functions called by the button "Dial" in the partner address view
     def action_dial_phone(self, cr, uid, ids, context):
+        '''Function called by the button 'Dial' next to the 'phone' field
+        in the partner address view'''
         erp_number = self.read(cr, uid, ids, ['phone'], context=context)[0]['phone']
         self.pool.get('asterisk.server').dial(cr, uid, ids, erp_number, context)
 
     def action_dial_mobile(self, cr, uid, ids, context):
+        '''Function called by the button 'Dial' next to the 'mobile' field
+        in the partner address view'''
         erp_number = self.read(cr, uid, ids, ['mobile'], context=context)[0]['mobile']
         self.pool.get('asterisk.server').dial(cr, uid, ids, erp_number, context)
 

@@ -48,5 +48,10 @@
 			name="event.contact_registration"
 			id="wizard_contact_registration" />
 
+	<wizard string="Create Registrations for event"
+			model="event.registration"
+			menu="True"
+			name="event.create_registrations"
+			id="wizard_create_registration" />
 	</data>
 </openerp>

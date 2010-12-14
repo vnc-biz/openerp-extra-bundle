@@ -18,7 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from osv import fields, osv
 from tools.translate import _
 import tools
@@ -31,8 +30,8 @@ class base_partner_merge(osv.osv_memory):
     _description = 'Merges two partners'
 
     _columns = {
-        'partner_id1':fields.many2one('res.partner', 'Partner1'), 
-        'partner_id2':fields.many2one('res.partner', 'Partner2'), 
+     #   'partner_id1':fields.many2one('res.partner', 'Partner1'), 
+     #   'partner_id2':fields.many2one('res.partner', 'Partner2'), 
     }
     
     _values = {}
@@ -105,8 +104,8 @@ class base_partner_merge(osv.osv_memory):
         return formxml, update_fields, update_values, columns
 
 
-    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        res = super(base_partner_merge, self).fields_view_get(cr, uid, view_id, view_type, context=context, toolbar=toolbar, submenu=submenu)
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
+        res = super(base_partner_merge, self).fields_view_get(cr, uid, view_id, view_type, context=context, toolbar=toolbar)
         partner_ids = context.get('active_ids') or []
         if not len(partner_ids) == 2:
             return res
@@ -134,14 +133,13 @@ class base_partner_merge(osv.osv_memory):
         """
         record_id = context and context.get('active_id', False) or False
         pool = self.pool
-
         if not record_id:
             return {}
-        res = self.read(cr, uid, ids, context=context)[0]
+        res = self.read(cr, uid, ids, context = context)[0]
+
         res.update(self._values)
         partner_pool = pool.get('res.partner')
         partner_ids = context.get('active_ids') or []
-
         if not len(partner_ids) == 2:
             raise osv.except_osv(_('Warning!'), _('You must select only two partners'))
         part1 = partner_ids[0]
@@ -175,9 +173,23 @@ class base_partner_merge(osv.osv_memory):
                         res['comment'] += '\n' + str_unq
                     else:
                         res['comment'] = str_unq
+        list_partn = []
+        list_partn.append(part1)
+        list_partn.append(part2)
+        count_default_address = 0
+        for partner in partner_pool.browse(cr, uid, list_partn):
+            for address in partner.address:
+                if address.type == 'default':
+                    count_default_address +=1
+        if count_default_address > 1:
+            raise osv.except_osv(_('Error!'), _('You have more than one default type in your addresses.\n Please change it and test once again!'))
+
 
         remove_field.update({'active': False})
-        partner_pool.write(cr, uid, [part1, part2], remove_field, context=context)
+        try:
+            partner_pool.write(cr, uid, [part1, part2], remove_field, context=context)
+        except:
+            raise osv.except_osv(_('Error!'), _('You should change the type of the address to avoid having two default addresses'))
 
         part_id = partner_pool.create(cr, uid, res, context=context)
         # For one2many fields on res.partner
@@ -193,7 +205,8 @@ class base_partner_merge(osv.osv_memory):
                     from osv import fields
                     if pool.get(model_raw)._columns.get(name, False) and isinstance(pool.get(model_raw)._columns[name], fields.many2one):
                         model = model_raw.replace('.', '_')
-                        cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+ tools.ustr(name) +" in ("+ tools.ustr(part1) +", "+tools.ustr(part2)+")")
+                        if name not in ('relation_partner_answer'):
+                            cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+ tools.ustr(name) +" in ("+ tools.ustr(part1) +", "+tools.ustr(part2)+")")
 
         return {}
 
@@ -201,3 +214,4 @@ base_partner_merge()
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

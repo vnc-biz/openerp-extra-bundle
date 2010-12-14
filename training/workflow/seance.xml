@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="workflow" id="workflow_seance">
+            <field name="name">workflow.training.seance</field>
+            <field name="osv">training.seance</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record model="workflow.activity" id="activity_seance_opened">
+            <field name="wkf_id" ref="workflow_seance" />
+            <field name="name">open</field>
+            <field name="kind">function</field>
+            <field name="action">action_workflow_open()</field>
+            <field name="flow_start">True</field>
+        </record>
+
+        <record model="workflow.activity" id="activity_seance_confirmed">
+            <field name="wkf_id" ref="workflow_seance" />
+            <field name="name">confirm</field>
+            <field name="kind">function</field>
+            <field name="action">action_workflow_confirm()</field>
+        </record>
+
+        <record model="workflow.activity" id="activity_seance_inprogress">
+            <field name="wkf_id" ref="workflow_seance" />
+            <field name="name">inprogress</field>
+            <field name="kind">function</field>
+            <field name="action">action_workflow_inprogress()</field>
+        </record>
+
+        <record model="workflow.activity" id="activity_seance_done">
+            <field name="wkf_id" ref="workflow_seance" />
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="action">action_workflow_done()</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record model="workflow.activity" id="activity_seance_closed">
+            <field name="wkf_id" ref="workflow_seance" />
+            <field name="name">closed</field>
+            <field name="kind">function</field>
+            <field name="action">action_workflow_close()</field>
+            <field name="flow_stop" eval='False' />
+        </record>
+
+        <record model="workflow.activity" id="activity_seance_cancelled">
+            <field name="wkf_id" ref="workflow_seance" />
+            <field name="name">cancelled</field>
+            <field name="kind">function</field>
+            <field name="action">action_workflow_cancel()</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_seance_opened_confirmed">
+            <field name="act_from" ref="activity_seance_opened" />
+            <field name="act_to" ref="activity_seance_confirmed" />
+            <field name="signal">seance_confirm</field>
+            <field name="condition">test_workflow_confirm()</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_seance_confirmed_inprogress">
+            <field name="act_from" ref="activity_seance_confirmed" />
+            <field name="act_to" ref="activity_seance_inprogress" />
+            <field name="signal">signal_inprogress</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_seance_inprogress_to_closed">
+            <field name="act_from" ref="activity_seance_inprogress" />
+            <field name="act_to" ref="activity_seance_closed" />
+            <field name="signal">signal_close</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_seance_closed_to_done">
+            <field name="act_from" ref="activity_seance_closed" />
+            <field name="act_to" ref="activity_seance_done" />
+            <field name="signal">signal_seance_done</field>
+            <!--<field name="condition">test_workflow_done()</field>-->
+            <field name="condition" eval="True"/>
+        </record>
+
+        <record model="workflow.transition" id="transition_seance_opened_to_cancelled">
+            <field name="act_from" ref="activity_seance_opened" />
+            <field name="act_to" ref="activity_seance_cancelled" />
+            <field name="signal">signal_cancel</field>
+            <field name="condition">test_workflow_cancel()</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_seance_confirmed_to_cancelled">
+            <field name="act_from" ref="activity_seance_confirmed" />
+            <field name="act_to" ref="activity_seance_cancelled" />
+            <field name="signal">signal_cancel</field>
+            <field name="condition">test_workflow_cancel()</field>
+        </record>
+    </data>
+</openerp>

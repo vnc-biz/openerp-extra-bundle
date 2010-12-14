@@ -32,7 +32,7 @@
         #"cci_account_data.xml"
     ],
     "demo_xml" : [],
-    "update_xml" : ["cci_account_wizard.xml","cci_account_view.xml","cci_account_report.xml"],
+    "update_xml" : ["cci_account_wizard.xml","cci_account_view.xml","cci_account_report.xml","security/cci_account_security.xml"],
     "active": False,
     "installable": True
 }

@@ -320,6 +320,12 @@
 					        <field name="property_product_pricelist_purchase"/>
 					</group>
 	            </page>
+                <page string="Warnings">
+                        <separator string="Warning on the Purchase Order" colspan="4"/>
+                        	<field name="purchase_warn" colspan="4"/>
+                          <field name="purchase_warn_msg" colspan="4" nolabel="1" attrs="{'required':[('purchase_warn','!=','no-message')]}"/>
+                    </page>
+
     	    </notebook>
 	    </form>
 	</field>
@@ -346,7 +352,7 @@
                         <field name="journal_id" select="2" groups="base.group_user"/>
                         <field name="type" readonly="1" select="2"/>
                         <field name="number" select="1"/>
-                        <field name="partner_id" on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term)" select="1" groups="base.group_user"/>
+                        <field name="partner_id" domain="[('customer','=', 1)]" on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term)" select="1" groups="base.group_user"/>
                         <field domain="[('partner_id','=',partner_id)]" name="address_invoice_id"/>
                         <field name="vat_num" readonly="1"/>
                         <field name="date_invoice" select="1"/>
@@ -358,7 +364,8 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Invoice">
-                        	<field name="create_uid" />
+                            <field name="create_uid" invisible="1" />
+                            <field name="user_id" on_change="_onchange_user_id(user_id, state)"/>
                             <field name="name" select="2" attrs="{'readonly':[('type','=','out_invoice')]}"/>
                             <field name="payment_term"/>
                             <field colspan="4" name="invoice_line" nolabel="1" widget="one2many_list">
@@ -581,7 +588,8 @@
                         <field name="number" select="2"/>
                         <field name="partner_id" domain="[('supplier','=', 1)]" on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term)" select="1" context="{'default_customer': 0}"/>
                         <field domain="[('partner_id','=',partner_id)]" name="address_invoice_id"/>
-			<field name="create_uid" />
+                        <field name="create_uid" invisible="1" />
+                        <field name="user_id" on_change="_onchange_user_id(user_id, state)"/>
                     </group>
                     <notebook colspan="4">
                         <page string="Invoice">

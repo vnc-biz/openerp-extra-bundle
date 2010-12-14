@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-15 04:53+0000\n"
+"X-Launchpad-Export-Date: 2010-11-17 05:01+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: hr_evaluation
@@ -57,6 +57,10 @@ msgid "Good Points"
 msgstr ""
 
 #. module: hr_evaluation
+#: view:hr.evaluation.interview:0
+#: view:hr.evaluation.report:0
+#: field:hr.evaluation.report,state:0
+#: view:hr_evaluation.evaluation:0
 #: field:hr_evaluation.evaluation,state:0
 msgid "State"
 msgstr "Tila"
@@ -70,6 +74,7 @@ msgid "Score"
 msgstr "Pisteet"
 
 #. module: hr_evaluation
+#: selection:hr.evaluation.report,state:0
 #: selection:hr_evaluation.evaluation,state:0
 msgid "Draft"
 msgstr "Vedos"
@@ -85,7 +90,11 @@ msgid "Invalid model name in the action definition."
 msgstr "Virheellinen mallin nimi toimenpiteen määrittelyssä."
 
 #. module: hr_evaluation
+#: view:hr.evaluation.report:0
+#: field:hr.evaluation.report,employee_id:0
+#: view:hr_evaluation.evaluation:0
 #: field:hr_evaluation.evaluation,employee_id:0
+#: model:ir.model,name:hr_evaluation.model_hr_employee
 msgid "Employee"
 msgstr "Työntekijä"
 
@@ -96,12 +105,13 @@ msgid "To Improve"
 msgstr ""
 
 #. module: hr_evaluation
-#: field:hr_evaluation.quote,evaluation_id:0
+#: view:hr.employee:0
+#: view:hr_evaluation.evaluation:0
 msgid "Evaluation"
 msgstr "Arviointi"
 
 #. module: hr_evaluation
-#: field:hr_evaluation.type.value,type_id:0
+#: field:hr.evaluation.interview,evaluation_id:0
 msgid "Evaluation Type"
 msgstr ""
 
@@ -141,13 +151,14 @@ msgid "Choices Results"
 msgstr ""
 
 #. module: hr_evaluation
-#: field:hr_evaluation.evaluation,date:0
+#: view:hr_evaluation.evaluation:0
 msgid "Date"
 msgstr "Päiväys"
 
 #. module: hr_evaluation
+#: model:ir.actions.act_window,name:hr_evaluation.open_view_hr_evaluation_tree
 #: model:ir.ui.menu,name:hr_evaluation.menu_eval_hr
-#: model:ir.ui.menu,name:hr_evaluation.menu_open_view_employee_evaluation_form
+#: model:ir.ui.menu,name:hr_evaluation.menu_open_view_hr_evaluation_tree
 msgid "Evaluations"
 msgstr ""
 
@@ -193,17 +204,16 @@ msgid "Summary"
 msgstr ""
 
 #. module: hr_evaluation
-#: field:hr_evaluation.type,active:0
+#: field:hr_evaluation.plan,active:0
 msgid "Active"
 msgstr ""
 
 #. module: hr_evaluation
-#: view:hr_evaluation.type:0
+#: view:hr.employee:0
 msgid "Notes"
 msgstr ""
 
 #. module: hr_evaluation
-#: view:hr_evaluation.evaluation:0
 #: model:ir.model,name:hr_evaluation.model_hr_evaluation_evaluation
 msgid "Employee Evaluation"
 msgstr ""
@@ -255,6 +265,8 @@ msgid "Quotes"
 msgstr ""
 
 #. module: hr_evaluation
+#: view:hr.evaluation.report:0
+#: selection:hr.evaluation.report,state:0
 #: view:hr_evaluation.evaluation:0
 #: selection:hr_evaluation.evaluation,state:0
 msgid "Done"

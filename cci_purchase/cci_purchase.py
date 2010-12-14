@@ -23,10 +23,23 @@ import time
 import netsvc
 from osv import fields, osv
 
+class purchase_order_history(osv.osv):
+    _name = 'purchase.order.history'
+    _decription = 'purchase order'
+    _rec_name = 'date'
+    _columns = {
+        'purchase_id': fields.many2one('purchase.order', 'PO Ref'),
+        'date': fields.date('Modification Date'),
+        'user_id': fields.many2one('res.users', 'User')
+    }
+purchase_order_history()
+
 class purchase_order(osv.osv):
     _inherit = 'purchase.order'
     _decription = 'purchase order'
-
+    _columns = {
+        'history_ids': fields.one2many('purchase.order.history','purchase_id', 'PO Ref'),
+    }
     def wkf_temp_order0(self, cr, uid, ids, context={}):
         for po in self.browse(cr, uid, ids):
             self.write(cr, uid, [po.id], {'state' : 'wait_approve'})
@@ -78,19 +91,28 @@ class purchase_order(osv.osv):
                 'payment_term':o.partner_id.property_payment_term and o.partner_id.property_payment_term.id or False,
                 'internal_note': o.internal_notes,
             }
-            inv_id = self.pool.get('account.invoice').create(cr, uid, inv, {'type':'in_invoice'})
+            inv_id = self.pool.get('account.invoice').create(cr, uid, inv, {'type':'in_invoice','from_purchase':True})
             self.pool.get('account.invoice').button_compute(cr, uid, [inv_id], {'type':'in_invoice'}, set_total=True)
 
             self.write(cr, uid, [o.id], {'invoice_id': inv_id})
             res = inv_id
         return res
 
+    def write(self, cr, uid, ids, vals, context=None):
+        result = super(osv.osv, self).write(cr, uid, ids, vals, context)
+        return result
 #    def wkf_write_approvator(self, cr, uid, ids, context={}):
 #        wf_service = netsvc.LocalService('workflow')
 #        for po in self.browse(cr, uid, ids):
 #            self.write(cr, uid, [po.id], { 'validator' : uid})
 #            wf_service.trg_validate(uid, 'purchase.order', po.id, 'purchase_dummy_confirmed', cr)
 #        return True
+
+    def wkf_create_purchase_history(self, cr, uid, ids, context={}):
+        history_obj = self.pool.get('purchase.order.history')
+        for id in ids:
+            history_obj.create(cr, uid, {'purchase_id':id, 'date': time.strftime('%Y-%m-%d'), 'user_id':uid})
+        return True
 
     def wkf_confirm_order(self, cr, uid, ids, context={}):
         for po in self.browse(cr, uid, ids):

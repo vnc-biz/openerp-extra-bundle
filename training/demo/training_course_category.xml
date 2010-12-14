@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="training_course_category_openerp0" model="training.course_category">
+			<field eval="'Open ERP'" name="name"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_course_category_functionaluser0" model="training.course_category">
+			<field eval="'Functional User'" name="name"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_course_category_integrator0" model="training.course_category">
+			<field eval="'Integrator'" name="name"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_course_category_developer0" model="training.course_category">
+			<field eval="'Developer'" name="name"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_course_category_business0" model="training.course_category">
+			<field eval="'Business'" name="name"/>
+		</record>
+	</data>
+</openerp>

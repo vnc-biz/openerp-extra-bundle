@@ -246,7 +246,7 @@ class event_registration(osv.osv):
     _description="event.registration"
     _columns={
             "contact_order_id":fields.many2one('res.partner.contact','Contact Order'),
-            "group_id": fields.many2one('event.group','Event Group'),
+            "grp_id": fields.many2one('event.group','Event Group'),
             "cavalier": fields.boolean('Cavalier',help="Check if we should print papers with participant name"),
             "payment_mode":fields.many2one('payment.mode',"Payment Mode"),
             "payment_linked":fields.many2one('account.move.line',"Linked Payment", domain=[('reconcile_id','=',False),('reconcile_partial_id','=',False)]),

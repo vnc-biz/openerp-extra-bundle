@@ -1,45 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-
-        <!--
-        <record model="ir.ui.view" id="training_event_form_with_location">
-            <field name="name">training.event.form</field>
-            <field name="model">training.event</field>
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="name">view.partner.form</field>
+            <field name="model">res.partner</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="training.training_event_form" />
+            <field name="inherit_id" ref="training.res_partner_view_form_inherited" />
             <field name="arch" type="xml">
-                <field name="duration" position="after">
-                    <field name="location_id" />
+                <field name="notif_participant" position="after">
+                    <field name="notify_location" />
                 </field>
             </field>
         </record>
-
-        <record model="ir.ui.view" id="training_event_tree_with_location">
-            <field name="name">training.event.tree</field>
-            <field name="model">training.event</field>
-            <field name="type">tree</field>
-            <field name="inherit_id" ref="training.training_event_tree" />
-            <field name="arch" type="xml">
-                <field name="duration" position="after">
-                    <field name="location_id" />
-                </field>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="training_event_all_calendar_with_location">
-            <field name="name">training.event.all.calendar</field>
-            <field name="model">training.event</field>
-            <field name="type">calendar</field>
-            <field name="inherit_id" ref="training.training_event_all_calendar" />
-            <field name="arch" type="xml">
-                <field name="session_ids" position="after">
-                    <field name="location_id" />
-                </field>
-            </field>
-        </record>
-        -->
-
         <record model="ir.ui.view" id="view_training_location_form">
             <field name="name">view.training.location.form</field>
             <field name="model">training.location</field>
@@ -47,8 +19,10 @@
             <field name="arch" type="xml">
                 <form string="Location">
                     <separator string="Location Description" colspan="4" />
+                    <field name="partner_id" on_change="on_change_partner(partner_id)" /> <!--link="0"-->
+                    <field name="address_id" /> <!--link="0"-->
                     <field name="name" />
-                    <field name="address_id" />
+                    <field name="seats" />
                 </form>
             </field>
         </record>
@@ -60,20 +34,22 @@
             <field name="arch" type="xml">
                 <tree string="Locations">
                     <field name="name" />
+                    <field name="partner_id" />
                     <field name="address_id" />
+                    <field name="seats" />
                 </tree>
             </field>
         </record>
 
         <record model="ir.actions.act_window" id="training_location_all_act">
-            <field name="name">Locations</field>
+            <field name="name">Rooms</field>
             <field name="res_model">training.location</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <record model="ir.actions.act_window" id="training_location_new_act">
-            <field name="name">New Location</field>
+            <field name="name">New Room</field>
             <field name="res_model">training.location</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -82,10 +58,85 @@
         <menuitem 
             id="training_config_locations_mi" 
             parent="training.training_config_mi" 
-            action="training_location_all_act"/>
+            action="training_location_all_act" sequence='45'/>
         <menuitem 
             id="training_config_locations_new_mi" 
             parent="training_config_locations_mi" 
             action="training_location_new_act" />
+
+        <record model="ir.ui.view" id="training_seance_form">
+            <field name="name">training.seance.form</field>
+            <field name="model">training.seance</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_seance_form" />
+            <field name="arch" type="xml">
+                <field name="max_limit" position="after">
+                    <separator string="Location" colspan="4" />
+                    <field name="location_id" required="1" />
+                    <field name="reserved" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_seance_tree">
+            <field name="name">training.seance.tree</field>
+            <field name="model">training.seance</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training.training_seance_tree" />
+            <field name="arch" type="xml">
+                <field name="confirmed_lecturer" position="before">
+                    <field name="location_id" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_session_form">
+            <field name="name">training.session.form</field>
+            <field name="model">training.session</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_session_form" />
+            <field name="arch" type="xml">
+                <field name="max_limit" position="after">
+                    <separator string="Location" colspan="4" />
+                    <field name="location_id" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_participation_stakeholder_form_location">
+            <field name="name">training.participation.stakeholder.from.location</field>
+            <field name="model">training.participation.stakeholder</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.view_training_participation_stakeholder_form"/>
+            <field name="arch" type="xml">
+                <field name="state_seance" position="after">
+                    <field name="seance_location_id" /> <!--link="0"-->
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_participation_stakeholder_tree_location">
+            <field name="name">training.participation.stakeholder.tree.location</field>
+            <field name="model">training.participation.stakeholder</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training.view_training_participation_stakeholder_tree"/>
+            <field name="arch" type="xml">
+                <field name="seance_id" position="after">
+                    <field name="seance_location_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_participation_stakeholder_request_location">
+            <field name="name">training.participation.stakeholder.request.form.location</field>
+            <field name="model">training.participation.stakeholder.request</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.view_participation_stakeholder_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page/field[@name='participation_ids']/tree/field[@name='seance_id']" position="after">
+                    <field name="seance_location_id"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>

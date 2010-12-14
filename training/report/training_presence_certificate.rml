@@ -139,14 +139,14 @@
           <para style="terp_default_8">[[ subscription.partner_id.name ]]</para>
         </td>
         <td>
-          <para style="terp_default_8">[[ subscription.contact_id.title or ' ']] [[ subscription.contact_id.name or '']] [[ subscription.contact_id.first_name or '' ]]</para>
+          <para style="terp_default_8">[[ subscription.address_id.title or ' ']] [[ subscription.address_id.name or '']] </para>
         </td>
       </tr>
       </blockTable>
       <para style="P2">
           <font color="white"> </font>
       </para>
-
+	<section>
       <blockTable colWidths="265.0,132.5,132.5" style="Table1">
       <tr>
         <td>
@@ -160,21 +160,23 @@
         </td>
       </tr>
       <tr>
+      <para style="terp_default_8">[[repeatIn(subscription.subscription_line_ids,'subscription_line_ids') ]]</para>
         <td>
-          <para style="terp_default_8">[[ subscription.session_id.name ]]</para>
+           <para style="terp_default_8">[[subscription_line_ids.session_id.name]]</para>
         </td>
         <td>
-            <para style="terp_default_8">[[ subscription.session_id.date #formatLang(subscription.session_id.date,date=True) ]]</para>
+            <para style="terp_default_8">[[ formatLang(subscription_line_ids.session_id.date,date=True) ]]</para>
         </td>
         <td>
-            <para style="terp_default_8">[[ subscription.session_id._get_seances() ]]</para>
+            <para style="terp_default_8">[[ subscription_line_ids.session_id._get_seances() ]]</para>
         </td>
       </tr>
     </blockTable>
+	</section>
     <para style="P2">
         <font color="white"> </font>
     </para>
-    <section>
+
     <para style="terp_tblheader_Details">Courses</para>
     <blockTable colWidths="65.0,230.0,150.0,85.0" style="Table3">
       <tr>
@@ -192,11 +194,11 @@
         </td>
       </tr>
     </blockTable>
-
+ <section>
+  	 <para style="P4">[[repeatIn(subscription_line_ids.session_id.seance_ids.course_id,'course')]]</para>
     <blockTable colWidths="65.0,230.0,150.0,85.0" style="Table5">
       <tr>
         <td>
-          <para style="P4">[[repeatIn(subscription._get_courses_with_attendance(), 'course') #session_id.offer_id.course_ids,'course')]]</para>
           <para style="terp_default_8">[[course.code]]</para>
         </td>
         <td>

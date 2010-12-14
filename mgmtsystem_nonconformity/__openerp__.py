@@ -29,7 +29,10 @@
 	This module enables you to manage the nonconformities of your management 
         system : quality (ISO9001), environment (ISO14001) or security (ISO27001).	
     """,
-    "depends" : ['mgmtsystem_action','mgmtsystem_procedure'],
+    "depends" : [
+        'mgmtsystem_action',
+        'wiki_procedure',
+    ],
     "init_xml" : [],
     "update_xml" : [
 	'mgmtsystem_nonconformity.xml',

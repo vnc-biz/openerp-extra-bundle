@@ -1,0 +1,63 @@
+<openerp>
+    <data>
+
+        <record id="view_mgmtsystem_procedure_form" model="ir.ui.view">
+            <field name="name">mgmtsystem.procedure.form</field>
+            <field name="type">form</field>
+            <field name="model">mgmtsystem.procedure</field>
+            <field name="arch" type="xml">
+                <form string="Procedures">
+                    <group colspan="4" col="6">
+                        <field name="name"/>
+                        <newline/>
+                        <field name="objective"/>
+                        <newline/>
+                        <field name="domain"/>
+                        <newline/>
+                        <field name="responsibilities"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_procedure_tree" model="ir.ui.view">
+            <field name="name">mgmtsystem.procedure.tree</field>
+            <field name="model">mgmtsystem.procedure</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Procedures">
+                    <field name="name"/>
+                    <field name="objective"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mgmtsystem_procedure_filter" model="ir.ui.view">
+            <field name="name">Procedures</field>
+            <field name="model">mgmtsystem.procedure</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Procedures">
+                    <field name="name"/>
+                    <field name="objective"/>
+                </search>
+             </field>
+         </record>
+
+        <record id="open_mgmtsystem_procedure_list" model="ir.actions.act_window">
+            <field name="name">Procedures</field>
+            <field name="res_model">mgmtsystem.procedure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_mgmtsystem_procedure_filter"/>
+        </record>
+
+        <menuitem id="menu_open_procedure" 
+            action="open_mgmtsystem_procedure_list" 
+            parent="mgmtsystem.menu_mgmtsystem_main" 
+            sequence="10"
+            groups="base.group_user"/>
+
+    </data>
+</openerp>

@@ -18,28 +18,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-{
-    "name" : "Management System - Nonconformity",
-    "version" : "0.1",
-    "author" : "Savoir-faire Linux",
-    "website" : "http://www.savoirfairelinux.com",
-    "license" : "GPL-3",
-    "category" : "Management System",
-    "description": """
-	This module enables you to manage the nonconformities of your management 
-        system : quality (ISO9001), environment (ISO14001) or security (ISO27001).	
-    """,
-    "depends" : ['mgmtsystem_action','mgmtsystem_procedure'],
-    "init_xml" : [],
-    "update_xml" : [
-	'mgmtsystem_nonconformity.xml',
-	'board_mgmtsystem_nonconformity.xml',
-    ],
-    "demo_xml" : [
-	'demo_nonconformity.xml',
-    ],
-    "installable" : True,
-    "certificate" : ''
-}
+import mgmtsystem_procedure
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-

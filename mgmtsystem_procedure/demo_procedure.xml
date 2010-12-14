@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- demo data mgmtsystem.procedure -->
+        <record id="demo_procedure" model="mgmtsystem.procedure">
+            <field name="name">Document Management</field>
+            <field name="objective">This procedure applies to all the documents of the management system.</field>
+        </record>
+
+    </data>
+</openerp>

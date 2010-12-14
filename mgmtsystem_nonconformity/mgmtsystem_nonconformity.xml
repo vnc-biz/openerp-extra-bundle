@@ -38,7 +38,7 @@
                     <group expand="0" string="Group By...">
                         <filter string="Author" icon="terp-personal" domain="[]" context="{'group_by':'author_user_id'}"/>
                         <separator orientation="vertical"/>
-                        <filter string="Procedure" icon="terp-personal+" domain="[]" context="{'group_by':'mgmtsystem_nonconformity_procedure_id'}"/>
+                        <filter string="Procedure" icon="terp-personal+" domain="[]" context="{'group_by':'procedure_ids'}"/>
                     </group>
                 </search>
             </field>
@@ -161,61 +161,6 @@
             action="open_mgmtsystem_nonconformity_origin_list" 
             parent="menu_mgmtsystem_configuration_nonconformities" 
             sequence="20" 
-            groups="base.group_mgmtsystem_manager"/>
-
-        <!-- Procedures -->
-        
-        <record id="view_mgmtsystem_nonconformity_procedure_form" model="ir.ui.view">
-            <field name="name">mgmtsystem.nonconformity.procedure.form</field>
-            <field name="type">form</field>
-            <field name="model">mgmtsystem.nonconformity.procedure</field>
-            <field name="arch" type="xml">
-                <form string="Procedures of nonconformity">
-                    <group colspan="4" col="6">
-                        <field name="name"/>
-                        <newline/>
-                        <field name="description"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_mgmtsystem_nonconformity_procedure_tree" model="ir.ui.view">
-            <field name="name">mgmtsystem.nonconformity.procedure.tree</field>
-            <field name="model">mgmtsystem.nonconformity.procedure</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Procedures">
-                    <field name="name"/>
-                    <field name="description"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_mgmtsystem_nonconformity_procedure_filter" model="ir.ui.view">
-            <field name="name">Procedures</field>
-            <field name="model">mgmtsystem.nonconformity.procedure</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="Procedures">
-                    <field name="name"/>
-                </search>
-             </field>
-         </record>
-
-        <record id="open_mgmtsystem_nonconformity_procedure_list" model="ir.actions.act_window">
-            <field name="name">Procedures</field>
-            <field name="res_model">mgmtsystem.nonconformity.procedure</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" eval="False"/>
-            <field name="search_view_id" ref="view_mgmtsystem_nonconformity_procedure_filter"/>
-        </record>
-
-        <menuitem id="menu_open_nonconformity_procedure" 
-            action="open_mgmtsystem_nonconformity_procedure_list" 
-            parent="menu_mgmtsystem_configuration_nonconformities" 
-            sequence="10" 
             groups="base.group_mgmtsystem_manager"/>
 
         <!-- Cause -->

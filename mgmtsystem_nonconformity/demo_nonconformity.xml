@@ -8,12 +8,6 @@
             <field name="description">The nonconformity was discovered during an internal audit.</field>
         </record>
 
-        <!-- demo data mgmtsystem.nonconformity.procedure -->
-        <record id="demo_procedure" model="mgmtsystem.nonconformity.procedure">
-            <field name="name">Document Management</field>
-            <field name="description">The nonconformity is related to the Document Management procedure.</field>
-        </record>
-
         <!-- demo data mgmtsystem.nonconformity.cause -->
         <record id="demo_cause" model="mgmtsystem.nonconformity.cause">
             <field name="name">Lack of expertise</field>
@@ -30,7 +24,7 @@
             <field name="description">The procedure has changed with no comments on the revision.</field>
             <field name="analysis">Administrator didn't know he had to add a comment when changing the procedure.</field>
             <field name="origin_ids" eval="[(6,0,[ref('demo_origin')])]"/>
-	    <field name="procedure_ids" eval="[(6,0,[ref('demo_procedure')])]"/>
+	    <field name="procedure_ids" eval="[(6,0,[ref('mgmtsystem_procedure.demo_procedure')])]"/>
             <field name="cause_ids" eval="[(6,0,[ref('demo_cause')])]"/>
             <field name="immediate_action_id" ref="mgmtsystem_action.demo_immediate"/>
             <field name="corrective_action_id" ref="mgmtsystem_action.demo_corrective"/>

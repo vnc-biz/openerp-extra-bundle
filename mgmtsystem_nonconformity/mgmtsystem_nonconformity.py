@@ -36,20 +36,6 @@ class mgmtsystem_nonconformity_cause(osv.osv):
 
 mgmtsystem_nonconformity_cause()
 
-class mgmtsystem_nonconformity_procedure(osv.osv):
-    """
-    Procedure involved in the nonconformity of the management system
-    """
-    _name = "mgmtsystem.nonconformity.procedure"
-    _description = "Procedure involved in the nonconformity of the management system"
-    _columns = {
-        'id': fields.integer('ID', readonly=True),
-        'name': fields.char('Procedure', size=50, required=True),
-        'description': fields.text('Description')
-    }
-
-mgmtsystem_nonconformity_procedure()
-
 class mgmtsystem_nonconformity_origin(osv.osv):
     """
     Origin of nonconformity of the management system
@@ -82,7 +68,7 @@ class mgmtsystem_nonconformity(osv.osv):
         'manager_user_id': fields.many2one('res.users','Manager', required=True),
         'author_user_id': fields.many2one('res.users','Filled in by', required=True),
         'origin_ids': fields.many2many('mgmtsystem.nonconformity.origin','mgmtsystem_nonconformity_origin_rel', 'nonconformity_id', 'origin_id', 'Origin', required=True),
-        'procedure_ids': fields.many2many('mgmtsystem.nonconformity.procedure','mgmtsystem_nonconformity_procedure_rel', 'nonconformity_id', 'procedure_id', 'Procedure'),
+        'procedure_ids': fields.many2many('mgmtsystem.procedure','mgmtsystem_nonconformity_procedure_rel', 'nonconformity_id', 'procedure_id', 'Procedure'),
         'description': fields.text('Description', required=True),
         'cause_ids': fields.many2many('mgmtsystem.nonconformity.cause','mgmtsystem_nonconformity_cause_rel', 'nonconformity_id', 'cause_id', 'Cause'),
         'analysis': fields.text('Analysis'),

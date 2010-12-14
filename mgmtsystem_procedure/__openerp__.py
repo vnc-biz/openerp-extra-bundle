@@ -19,24 +19,23 @@
 #
 ##############################################################################
 {
-    "name" : "Management System - Nonconformity",
+    "name" : "Management System - Procedure",
     "version" : "0.1",
     "author" : "Savoir-faire Linux",
     "website" : "http://www.savoirfairelinux.com",
     "license" : "GPL-3",
     "category" : "Management System",
     "description": """
-	This module enables you to manage the nonconformities of your management 
+	This module enables you to manage the procedures of your management 
         system : quality (ISO9001), environment (ISO14001) or security (ISO27001).	
     """,
-    "depends" : ['mgmtsystem_action','mgmtsystem_procedure'],
+    "depends" : ['mgmtsystem'],
     "init_xml" : [],
     "update_xml" : [
-	'mgmtsystem_nonconformity.xml',
-	'board_mgmtsystem_nonconformity.xml',
+	'mgmtsystem_procedure.xml',
     ],
     "demo_xml" : [
-	'demo_nonconformity.xml',
+        'demo_procedure.xml',
     ],
     "installable" : True,
     "certificate" : ''

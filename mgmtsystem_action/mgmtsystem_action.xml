@@ -23,7 +23,6 @@
                 <search string="Action">
                     <group>
                         <filter icon="terp-document-new" domain="[('state','in',('draft','open','pending'))]" string="Open" help="Open Actions"/>
-                        <separator orientation="vertical"/>
                         <filter icon="terp-camera_test" domain="[('state','in',('cancelled','closed'))]" string="Closed" help="Closed Actions"/>
                         <separator orientation="vertical"/>
                         <field name="date" select='1'/>

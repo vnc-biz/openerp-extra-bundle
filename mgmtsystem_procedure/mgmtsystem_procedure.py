@@ -18,28 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-{
-    "name" : "Management System - Nonconformity",
-    "version" : "0.1",
-    "author" : "Savoir-faire Linux",
-    "website" : "http://www.savoirfairelinux.com",
-    "license" : "GPL-3",
-    "category" : "Management System",
-    "description": """
-	This module enables you to manage the nonconformities of your management 
-        system : quality (ISO9001), environment (ISO14001) or security (ISO27001).	
-    """,
-    "depends" : ['mgmtsystem_action','mgmtsystem_procedure'],
-    "init_xml" : [],
-    "update_xml" : [
-	'mgmtsystem_nonconformity.xml',
-	'board_mgmtsystem_nonconformity.xml',
-    ],
-    "demo_xml" : [
-	'demo_nonconformity.xml',
-    ],
-    "installable" : True,
-    "certificate" : ''
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+from osv import fields, osv
+
+class mgmtsystem_procedure(osv.osv):
+    """
+    Procedure of the management system
+    """
+    _name = "mgmtsystem.procedure"
+    _description = "Procedure of the management system"
+    _columns = {
+        'id': fields.integer('ID', readonly=True),
+        'name': fields.char('Procedure', size=50, required=True),
+        'objective': fields.text('Objective'),
+        'domain': fields.text('Application Domain'),
+        'responsibilities': fields.text('Responsibilities')
+    }
+
+mgmtsystem_procedure()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

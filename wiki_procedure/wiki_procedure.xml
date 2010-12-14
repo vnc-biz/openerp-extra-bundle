@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+      <record id="wiki_procedure" model="wiki.wiki">
+        <field name="name">Procedure</field>
+        <field name="tags">procedure</field>
+        <field name="minor_edit">0</field>
+        <field name="toc">1</field>
+        <field name="review">1</field>
+        <field name="section">2</field>
+        <field name="summary">Procedure template</field>
+        <field name="text_area">
+=Objective=
+
+=Application Domain=
+
+=Terms and Definitions=
+
+=Responsibilities=
+
+=Process=
+        </field>
+      </record>
+      <record id="wiki_group_procedure" model="wiki.groups">
+        <field name="name">Procedure</field>
+        <field name="section">2</field>
+        <field name="home" ref="wiki_procedure"/>
+      </record>
+    </data>
+    <data>
+      <record id="wiki_procedure" model="wiki.wiki">
+        <field name="group_id" ref="wiki_group_procedure"/>
+      </record>
+    </data>
+</openerp>

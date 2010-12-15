@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-rc1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-04-19 22:26+0000\n"
+"POT-Creation-Date: 2010-06-02 08:55+0000\n"
 "PO-Revision-Date: 2010-07-19 04:43+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
@@ -15,18 +15,49 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:06+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_payment_extension
-#: selection:payment.order,type:0
-msgid "Receivable"
-msgstr "A cobrar"
+#: model:ir.actions.act_window,name:account_payment_extension.action_invoice_payments_to_pay
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_invoice_payments_to_pay
+msgid "Invoice payments to pay"
+msgstr "Efectes pendents de pagament"
 
 #. module: account_payment_extension
 #: model:ir.ui.menu,name:account_payment_extension.menu_pay_payments
 msgid "Payable payment orders"
 msgstr "Ordres de pag. a pagar"
+
+#. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_payable_unreconciled
+msgid "Done payable payments unreconciled"
+msgstr "Pagaments realitzats no conciliats"
+
+#. module: account_payment_extension
+#: selection:payment.order,create_account_moves:0
+msgid "Direct Payment"
+msgstr "Per pagament directe"
+
+#. module: account_payment_extension
+#: code:addons/account_payment_extension/payment.py:0
+#, python-format
+msgid ""
+"Payment order should create account moves but line with amount %.2f for "
+"partner \"%s\" has no account assigned."
+msgstr ""
+"L'ordre de pagament hauria de crear els assentaments però la línia amb "
+"import %.2f i l'empresa \"%s\" no té cap compte comptable assignat."
+
+#. module: account_payment_extension
+#: wizard_button:populate_statement_ext,init,add:0
+msgid "_Add"
+msgstr "_Afegeix"
+
+#. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_invoice_payments_receivable
+msgid "All received and to receive invoice payments"
+msgstr "Tots els efectes de cobrament"
 
 #. module: account_payment_extension
 #: model:ir.actions.act_window,name:account_payment_extension.action_payment_type_form
@@ -36,21 +67,25 @@ msgid "Payment Type"
 msgstr "Tipus de pagament"
 
 #. module: account_payment_extension
-#: code:addons/account_payment_extension/payment.py:0
-#, python-format
-msgid ""
-"You cannot delete payment order(s) which are already confirmed or done!"
-msgstr "No podeu eliminar ordres de pagament confirmades ni realitzades!"
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "XML invàlid per a la definició de la vista!"
 
 #. module: account_payment_extension
-#: model:ir.actions.wizard,name:account_payment_extension.wizard_populate_statement_ext
-msgid "Populate Statement with Payment lines"
-msgstr "Emplena extracte amb línies de pagament"
+#: field:payment.order,period_id:0
+msgid "Period"
+msgstr "Períde"
 
 #. module: account_payment_extension
-#: wizard_field:populate_statement_ext,init,lines:0
-msgid "Payment Lines"
-msgstr "Pagaments"
+#: field:payment.mode,require_bank_account:0
+msgid "Require bank account"
+msgstr "Requereix compte bancari"
+
+#. module: account_payment_extension
+#: model:ir.actions.act_window,name:account_payment_extension.action_rec_payment_order_draft
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_rec_payment_order_draft
+msgid "Draft rec. payment order"
+msgstr "Ordres de cobrament esborrany"
 
 #. module: account_payment_extension
 #: model:ir.actions.act_window,name:account_payment_extension.action_rec_payment_order_tree
@@ -70,10 +105,9 @@ msgid "Invalid model name in the action definition."
 msgstr "Nom de model no vàlid en la definició de l'acció."
 
 #. module: account_payment_extension
-#: model:ir.actions.act_window,name:account_payment_extension.action_payments_to_pay
-#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_to_pay
-msgid "Payments to pay"
-msgstr "Efectes pendents de pagament"
+#: model:ir.actions.wizard,name:account_payment_extension.wizard_populate_statement_ext
+msgid "Populate Statement with Payment lines"
+msgstr "Emplena extracte amb línies de pagament"
 
 #. module: account_payment_extension
 #: wizard_field:populate_payment_ext,search,communication2:0
@@ -81,9 +115,19 @@ msgid "Communication 2"
 msgstr "Comunicació 2"
 
 #. module: account_payment_extension
+#: model:ir.actions.act_window,name:account_payment_extension.action_invoice_payments_receivable
+msgid "Receivable invoice payments"
+msgstr "Efectes de cobrament"
+
+#. module: account_payment_extension
 #: field:payment.order,type:0
 msgid "Type"
 msgstr "Tipus"
+
+#. module: account_payment_extension
+#: wizard_field:populate_statement_ext,init,lines:0
+msgid "Payment Lines"
+msgstr "Pagaments"
 
 #. module: account_payment_extension
 #: model:ir.actions.act_window,name:account_payment_extension.action_rec_payment_order_open
@@ -92,14 +136,24 @@ msgid "Rec. payment orders to validate"
 msgstr "Ordres de cobrament per validar"
 
 #. module: account_payment_extension
-#: wizard_button:populate_statement_ext,init,add:0
-msgid "_Add"
-msgstr "_Afegeix"
+#: help:payment.mode,require_bank_account:0
+msgid ""
+"If your bank allows you to send orders without the bank account info, you "
+"may disable this option"
+msgstr ""
+"Si el vostre banc us permet enviar ordres sense la informació del compte "
+"bancari podeu deshabilitar aquesta opció."
 
 #. module: account_payment_extension
-#: model:ir.ui.menu,name:account_payment_extension.menu_rec_payments
-msgid "Receivable payment orders"
-msgstr "Ordres de pag. a cobrar"
+#: selection:payment.order,type:0
+msgid "Receivable"
+msgstr "A cobrar"
+
+#. module: account_payment_extension
+#: code:addons/account_payment_extension/payment.py:0
+#, python-format
+msgid "Error !"
+msgstr "Error !"
 
 #. module: account_payment_extension
 #: view:payment.type:0
@@ -108,9 +162,20 @@ msgid "Description"
 msgstr "Descripció"
 
 #. module: account_payment_extension
-#: wizard_button:populate_payment_ext,init,search:0
-msgid "_Search"
-msgstr "_Cerca"
+#: selection:payment.order,type:0
+msgid "Payable"
+msgstr "A pagar"
+
+#. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_rec_payments
+msgid "Receivable payment orders"
+msgstr "Ordres de pag. a cobrar"
+
+#. module: account_payment_extension
+#: code:addons/account_payment_extension/payment.py:0
+#, python-format
+msgid "Account move line \"%s\" is not valid"
+msgstr "L'apunt \"%s\" no és vàlid."
 
 #. module: account_payment_extension
 #: field:payment.order,payment_type_name:0
@@ -118,9 +183,15 @@ msgid "Payment type name"
 msgstr "Nom tipus de pagament"
 
 #. module: account_payment_extension
-#: selection:payment.order,type:0
-msgid "Payable"
-msgstr "A pagar"
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_invoice_payments_payable
+msgid "All paid and to pay invoice payments"
+msgstr "Tots els efectes de pagament"
+
+#. module: account_payment_extension
+#: model:ir.actions.act_window,name:account_payment_extension.action_invoice_payments_to_receive
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_invoice_payments_to_receive
+msgid "Invoice payments to receive"
+msgstr "Efectes pendents de cobrament"
 
 #. module: account_payment_extension
 #: model:ir.actions.wizard,name:account_payment_extension.wizard_populate_payment_ext
@@ -155,14 +226,41 @@ msgid "Active"
 msgstr "Actiu"
 
 #. module: account_payment_extension
+#: help:payment.line,payment_move_id:0
+msgid "Account move that pays this debt."
+msgstr "Assentament que paga aquest deute."
+
+#. module: account_payment_extension
 #: help:populate_payment_ext,search,communication2:0
 msgid "The successor message of payment communication."
 msgstr "El següent missatge del comunicat del pagament/cobrament."
 
 #. module: account_payment_extension
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "XML invàlid per a la definició de la vista!"
+#: code:addons/account_payment_extension/payment.py:0
+#, python-format
+msgid ""
+"You cannot delete payment order(s) which are already confirmed or done!"
+msgstr "No podeu eliminar ordres de pagament confirmades ni realitzades!"
+
+#. module: account_payment_extension
+#: field:payment.order,create_account_moves:0
+msgid "Create Account Moves"
+msgstr "Crea els assentaments"
+
+#. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_finance_payments
+msgid "Done payments"
+msgstr "Pagaments/cobraments realitzats"
+
+#. module: account_payment_extension
+#: field:payment.line,account_id:0
+msgid "Account"
+msgstr "Compte"
+
+#. module: account_payment_extension
+#: model:ir.actions.act_window,name:account_payment_extension.action_payments_receivable_unreconciled
+msgid "Receivable payments unreconciled"
+msgstr "Cobraments no conciliats"
 
 #. module: account_payment_extension
 #: field:payment.order,name:0
@@ -175,14 +273,24 @@ msgid "Due Date"
 msgstr "Data venciment"
 
 #. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_payable
+msgid "All done payable payments"
+msgstr "Tots els pagaments realitzats"
+
+#. module: account_payment_extension
 #: field:res.partner.bank,default_bank:0
 msgid "Default"
 msgstr "Per defecte"
 
 #. module: account_payment_extension
-#: wizard_button:populate_payment_ext,search,create:0
-msgid "_Add to payment order"
-msgstr "_Afegir a l'ordre de pagament"
+#: wizard_button:populate_payment_ext,init,search:0
+msgid "_Search"
+msgstr "_Cerca"
+
+#. module: account_payment_extension
+#: field:payment.line,payment_move_id:0
+msgid "Payment Move"
+msgstr "Assentament del pagament"
 
 #. module: account_payment_extension
 #: field:account.move.line,partner_bank:0
@@ -190,15 +298,20 @@ msgid "Bank Account"
 msgstr "Compte bancari"
 
 #. module: account_payment_extension
-#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_payable
-msgid "All paid and to pay payments"
-msgstr "Tots els efectes de pagament"
+#: wizard_button:populate_payment_ext,search,create:0
+msgid "_Add to payment order"
+msgstr "_Afegir a l'ordre de pagament"
 
 #. module: account_payment_extension
 #: code:addons/account_payment_extension/payment.py:0
 #, python-format
 msgid "Invalid action!"
 msgstr "Acció no vàlida!"
+
+#. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_receivable_unreconciled
+msgid "Done receivable payments unreconciled"
+msgstr "Cobraments realitzats no conciliats"
 
 #. module: account_payment_extension
 #: wizard_field:populate_payment_ext,init,amount:0
@@ -212,7 +325,6 @@ msgstr "Importa línies de pagament"
 
 #. module: account_payment_extension
 #: view:account.move.line:0
-#: model:ir.ui.menu,name:account_payment_extension.menu_finance_payments
 msgid "Payments"
 msgstr "Pagaments"
 
@@ -238,6 +350,11 @@ msgid "Account Payment Extension"
 msgstr "Extensió de pagaments comptables (Tresoreria)"
 
 #. module: account_payment_extension
+#: model:ir.ui.menu,name:account_payment_extension.menu_finance_invoice_payments
+msgid "Invoice payments"
+msgstr "Efectes"
+
+#. module: account_payment_extension
 #: help:populate_payment_ext,init,amount:0
 msgid "Next step will automatically select payments up to this amount."
 msgstr ""
@@ -245,9 +362,9 @@ msgstr ""
 "import."
 
 #. module: account_payment_extension
-#: model:ir.actions.act_window,name:account_payment_extension.action_payments_receivable
-msgid "Receivable payments"
-msgstr "Cobraments"
+#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_receivable
+msgid "All done receivable payments"
+msgstr "Tots els cobraments realitzats"
 
 #. module: account_payment_extension
 #: field:account.invoice,payment_type:0
@@ -263,15 +380,35 @@ msgid "Bank Details"
 msgstr "Detalls del banc"
 
 #. module: account_payment_extension
+#: code:addons/account_payment_extension/payment.py:0
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: account_payment_extension
+#: model:ir.actions.act_window,name:account_payment_extension.action_invoice_payments_payable
+msgid "Payable invoice payments"
+msgstr "Efectes de pagament"
+
+#. module: account_payment_extension
+#: model:ir.actions.act_window,name:account_payment_extension.action_payments_receivable
+msgid "Receivable payments"
+msgstr "Cobraments"
+
+#. module: account_payment_extension
 #: help:payment.type,note:0
 msgid "Description of the payment type that will be shown in the invoices"
 msgstr "Descripció del tipus de pagament que es mostrarà a les factures."
 
 #. module: account_payment_extension
-#: model:ir.actions.act_window,name:account_payment_extension.action_rec_payment_order_draft
-#: model:ir.ui.menu,name:account_payment_extension.menu_action_rec_payment_order_draft
-msgid "Draft rec. payment order"
-msgstr "Ordres de cobrament esborrany"
+#: model:ir.actions.act_window,name:account_payment_extension.action_payments_payable_unreconciled
+msgid "Payable payments unreconciled"
+msgstr "Pagaments no conciliats"
+
+#. module: account_payment_extension
+#: selection:payment.order,create_account_moves:0
+msgid "Bank Statement"
+msgstr "Per l'extracte bancari"
 
 #. module: account_payment_extension
 #: help:res.partner,payment_type_supplier:0
@@ -298,15 +435,9 @@ msgid "_Cancel"
 msgstr "_Cancel·la"
 
 #. module: account_payment_extension
-#: model:ir.actions.act_window,name:account_payment_extension.action_payments_to_receive
-#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_to_receive
-msgid "Payments to receive"
-msgstr "Efectes pendents de cobrament"
-
-#. module: account_payment_extension
-#: model:ir.ui.menu,name:account_payment_extension.menu_action_payments_receivable
-msgid "All received and to receive payments"
-msgstr "Tots els efectes de cobrament"
+#: field:account.move.line,received_check:0
+msgid "Received check"
+msgstr "Xec rebut"
 
 #. module: account_payment_extension
 #: model:ir.actions.act_window,name:account_payment_extension.action_rec_payment_order_tree_new
@@ -379,6 +510,26 @@ msgstr ""
 "Basat en el treball anterior de Pablo Rocandio i Zikzakmedia (versió 4.2).\n"
 
 #. module: account_payment_extension
-#: field:account.move.line,received_check:0
-msgid "Received check"
-msgstr "Xec rebut"
+#: help:payment.order,create_account_moves:0
+msgid ""
+"Indicates when account moves should be created for order payment lines. "
+"\"Bank Statement\" will wait until user introduces those payments in bank a "
+"bank statement. \"Direct Payment\" will mark all payment lines as payied "
+"once the order is done."
+msgstr ""
+"Indica quan s'haurien de crear els assentament comptables per les línies de "
+"pagament. \"Per l'extracte bancari\" esperarà fins que l'usuari introdueixi "
+"l'extracte bancari. \"Per pagament directe\" marcarà totes les línies com a "
+"pagades quan es realitzi aquesta ordre."
+
+#~ msgid "Payments to pay"
+#~ msgstr "Efectes pendents de pagament"
+
+#~ msgid "All paid and to pay payments"
+#~ msgstr "Tots els efectes de pagament"
+
+#~ msgid "Payments to receive"
+#~ msgstr "Efectes pendents de cobrament"
+
+#~ msgid "All received and to receive payments"
+#~ msgstr "Tots els efectes de cobrament"

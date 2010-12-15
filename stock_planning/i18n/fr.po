@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:04+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: stock_planning
@@ -56,7 +56,7 @@ msgstr ""
 #: field:stock.sale.forecast,period_id:0
 #: field:stock.sale.forecast.createlines,period_id:0
 msgid "Period"
-msgstr ""
+msgstr "Période"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -64,14 +64,14 @@ msgstr ""
 #: field:stock.planning,state:0
 #: field:stock.sale.forecast,state:0
 msgid "State"
-msgstr ""
+msgstr "État"
 
 #. module: stock_planning
 #: selection:stock.period,state:0
 #: selection:stock.planning,state:0
 #: selection:stock.sale.forecast,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Brouilon"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_stock_planning_period_form
@@ -101,7 +101,7 @@ msgstr ""
 #: view:stock.sale.forecast:0
 #: selection:stock.sale.forecast,state:0
 msgid "Validated"
-msgstr ""
+msgstr "Validé"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_prevision_form_my
@@ -125,7 +125,7 @@ msgstr ""
 #: view:stock.sale.forecast:0
 #: field:stock.sale.forecast,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Produit"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,amt_sold:0
@@ -151,7 +151,7 @@ msgstr ""
 #: field:stock.period,name:0
 #: field:stock.period.createlines,name:0
 msgid "Period Name"
-msgstr ""
+msgstr "Nom de la Période"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -178,7 +178,7 @@ msgstr ""
 #. module: stock_planning
 #: view:stock.planning:0
 msgid "Stock"
-msgstr ""
+msgstr "Stock"
 
 #. module: stock_planning
 #: field:stock.planning,incoming:0
@@ -188,7 +188,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,product_uom:0
 msgid "UoM"
-msgstr ""
+msgstr "UdM"
 
 #. module: stock_planning
 #: field:stock.planning,planned_sale:0
@@ -199,7 +199,7 @@ msgstr ""
 #: field:stock.period,date_stop:0
 #: field:stock.period.createlines,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Date de fin"
 
 #. module: stock_planning
 #: view:stock.period.createlines:0
@@ -209,7 +209,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.sale.forecast,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: stock_planning
 #: view:stock.period.createlines:0
@@ -241,7 +241,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.sale.forecast,product_uom:0
 msgid "Product UoM"
-msgstr ""
+msgstr "UdM produit"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_all
@@ -325,7 +325,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.period.createlines,period_ids:0
 msgid "Periods"
-msgstr ""
+msgstr "Périodes"
 
 #. module: stock_planning
 #: view:stock.period:0

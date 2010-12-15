@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:01+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: hr_evaluation
@@ -110,7 +110,7 @@ msgstr "Zu verbessern"
 #: view:hr.employee:0
 #: view:hr_evaluation.evaluation:0
 msgid "Evaluation"
-msgstr "Bewertung"
+msgstr "Beurteilung"
 
 #. module: hr_evaluation
 #: field:hr.evaluation.interview,evaluation_id:0
@@ -162,7 +162,7 @@ msgstr "Datum"
 #: model:ir.ui.menu,name:hr_evaluation.menu_eval_hr
 #: model:ir.ui.menu,name:hr_evaluation.menu_open_view_hr_evaluation_tree
 msgid "Evaluations"
-msgstr "Bewertungen"
+msgstr "Beurteilungen"
 
 #. module: hr_evaluation
 #: model:ir.ui.menu,name:hr_evaluation.menu_eval_config
@@ -218,7 +218,7 @@ msgstr "Anmerkungen"
 #. module: hr_evaluation
 #: model:ir.model,name:hr_evaluation.model_hr_evaluation_evaluation
 msgid "Employee Evaluation"
-msgstr "Mitarbeiter Bewertung"
+msgstr "Personalbeurteilung"
 
 #. module: hr_evaluation
 #: model:ir.model,name:hr_evaluation.model_hr_evaluation_type
@@ -259,7 +259,7 @@ msgstr "Bewertungs Quote"
 #. module: hr_evaluation
 #: model:ir.module.module,shortdesc:hr_evaluation.module_meta_information
 msgid "Human Resources Evaluation"
-msgstr "Personal Bewertung"
+msgstr "Personalbeurteilung"
 
 #. module: hr_evaluation
 #: field:hr_evaluation.evaluation,quote_ids:0

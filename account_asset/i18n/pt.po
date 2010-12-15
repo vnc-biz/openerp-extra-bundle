@@ -14,14 +14,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-19 05:00+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:37+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_list_normal
 msgid "Open Assets"
-msgstr ""
+msgstr "Activos em Aberto"
 
 #. module: account_asset
 #: field:account.asset.property,method_end:0
@@ -45,12 +45,12 @@ msgstr ""
 #: model:ir.model,name:account_asset.model_account_asset_asset
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_form
 msgid "Asset"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_asset
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nome do modelo inválido na definição da acção."
 
 #. module: account_asset
 #: selection:account.asset.property,method:0
@@ -82,12 +82,12 @@ msgstr ""
 #: field:account.asset.asset,entry_ids:0
 #: wizard_field:account.asset.compute,asset_compute,move_ids:0
 msgid "Entries"
-msgstr ""
+msgstr "Movimentos"
 
 #. module: account_asset
 #: wizard_view:account.asset.compute,asset_compute:0
 msgid "Generated entries"
-msgstr ""
+msgstr "Gerar movimentos"
 
 #. module: account_asset
 #: wizard_field:account.asset.modify,init,method_delay:0
@@ -99,7 +99,7 @@ msgstr ""
 #. module: account_asset
 #: wizard_button:account.asset.compute,asset_compute,asset_open:0
 msgid "Open entries"
-msgstr ""
+msgstr "Movimentos Abertos"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -108,25 +108,25 @@ msgstr ""
 #: model:ir.ui.menu,name:account_asset.menu_finance_Assets
 #: model:ir.ui.menu,name:account_asset.menu_finance_config_Assets
 msgid "Assets"
-msgstr ""
+msgstr "Activos"
 
 #. module: account_asset
 #: selection:account.asset.property,method:0
 msgid "Progressive"
-msgstr ""
+msgstr "Progressiva"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_draft
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_list_draft
 msgid "Draft Assets"
-msgstr ""
+msgstr "Rascunho de Activos"
 
 #. module: account_asset
 #: wizard_view:account.asset.modify,init:0
 #: wizard_field:account.asset.modify,init,note:0
 #: view:account.asset.property.history:0
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -151,7 +151,7 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.asset,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Terceiro"
 
 #. module: account_asset
 #: wizard_field:account.asset.modify,init,method_period:0
@@ -198,7 +198,7 @@ msgstr ""
 #. module: account_asset
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "XML Inválido para a Arquitectura de Vista!"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset_property
@@ -212,14 +212,14 @@ msgstr ""
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_compute
 #: model:ir.ui.menu,name:account_asset.menu_wizard_asset_compute
 msgid "Compute assets"
-msgstr ""
+msgstr "Processados activos"
 
 #. module: account_asset
 #: wizard_view:account.asset.modify,init:0
 #: wizard_button:account.asset.modify,init,asset_modify:0
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_modify
 msgid "Modify asset"
-msgstr ""
+msgstr "Modificar activo"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -230,7 +230,7 @@ msgstr ""
 #: view:account.asset.property.history:0
 #: model:ir.model,name:account_asset.model_account_asset_property_history
 msgid "Asset history"
-msgstr ""
+msgstr "Histórico de activos"
 
 #. module: account_asset
 #: field:account.asset.property,date:0
@@ -247,6 +247,12 @@ msgid ""
 "    *Asset usage period and property.\n"
 "    "
 msgstr ""
+"Gestão financeira e contabilidade de activos.\n"
+"    Permite definir\n"
+"    * Categoria de activos.\n"
+"    * Activos.\n"
+"    * Activo usa período e bens.\n"
+"    "
 
 #. module: account_asset
 #: field:account.asset.board,value_gross:0
@@ -274,13 +280,13 @@ msgstr ""
 #: field:account.asset.category,note:0
 #: field:account.asset.property.history,note:0
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #. module: account_asset
 #: selection:account.asset.asset,state:0
 #: selection:account.asset.property,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Rascunho"
 
 #. module: account_asset
 #: field:account.asset.property,type:0
@@ -295,12 +301,12 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.property.history,asset_property_id:0
 msgid "Method"
-msgstr ""
+msgstr "Método"
 
 #. module: account_asset
 #: selection:account.asset.asset,state:0
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #. module: account_asset
 #: field:account.asset.property,method_progress_factor:0
@@ -310,7 +316,7 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.asset,localisation:0
 msgid "Localisation"
-msgstr ""
+msgstr "Localização"
 
 #. module: account_asset
 #: field:account.asset.property,method:0
@@ -325,12 +331,12 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.asset,active:0
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_asset
 #: field:account.asset.property.history,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Utilizador"
 
 #. module: account_asset
 #: field:account.asset.asset,property_ids:0
@@ -341,7 +347,7 @@ msgstr ""
 #: field:account.asset.asset,date:0
 #: field:account.asset.property.history,date:0
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #. module: account_asset
 #: field:account.asset.board,value_net:0
@@ -352,12 +358,12 @@ msgstr ""
 #: wizard_view:account.asset.close,init:0
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_close
 msgid "Close asset"
-msgstr ""
+msgstr "Fechar activo"
 
 #. module: account_asset
 #: field:account.asset.property,history_ids:0
 msgid "History"
-msgstr ""
+msgstr "Histórico"
 
 #. module: account_asset
 #: field:account.asset.property,account_actif_id:0
@@ -368,43 +374,45 @@ msgstr ""
 #: field:account.asset.asset,period_id:0
 #: wizard_field:account.asset.compute,init,period_id:0
 msgid "Period"
-msgstr ""
+msgstr "Periodo"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_category_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_category_form
 msgid "Asset Category"
-msgstr ""
+msgstr "Categoria de Activo"
 
 #. module: account_asset
 #: wizard_button:account.asset.close,init,end:0
 #: wizard_button:account.asset.compute,init,end:0
 #: wizard_button:account.asset.modify,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: account_asset
 #: selection:account.asset.asset,state:0
 #: wizard_button:account.asset.compute,asset_compute,end:0
 #: selection:account.asset.property,state:0
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #. module: account_asset
 #: selection:account.asset.property,state:0
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #. module: account_asset
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"O nome do Objecto deve começar com x_ e não pode conter nenhum caracter "
+"especial !"
 
 #. module: account_asset
 #: model:ir.module.module,shortdesc:account_asset.module_meta_information
 msgid "Asset management"
-msgstr ""
+msgstr "Gestão de Activo"
 
 #. module: account_asset
 #: view:account.asset.board:0
@@ -426,7 +434,7 @@ msgstr ""
 #. module: account_asset
 #: wizard_view:account.asset.close,init:0
 msgid "General information"
-msgstr ""
+msgstr "Informação Geral"
 
 #. module: account_asset
 #: field:account.asset.property,journal_analytic_id:0
@@ -436,17 +444,17 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.property,name:0
 msgid "Method name"
-msgstr ""
+msgstr "Nome do Método"
 
 #. module: account_asset
 #: field:account.asset.property,journal_id:0
 msgid "Journal"
-msgstr ""
+msgstr "Diário"
 
 #. module: account_asset
 #: field:account.asset.property.history,name:0
 msgid "History name"
-msgstr ""
+msgstr "Nome de História"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -464,7 +472,7 @@ msgstr ""
 #: field:account.asset.category,name:0
 #: model:ir.model,name:account_asset.model_account_asset_category
 msgid "Asset category"
-msgstr ""
+msgstr "Categoria de activos"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -485,12 +493,12 @@ msgstr ""
 #. module: account_asset
 #: selection:account.asset.asset,state:0
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #. module: account_asset
 #: view:account.asset.asset:0
 msgid "General info"
-msgstr ""
+msgstr "Informações Gerais"
 
 #. module: account_asset
 #: field:account.asset.asset,sequence:0

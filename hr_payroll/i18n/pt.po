@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-27 05:06+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:37+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: hr_payroll
@@ -98,7 +98,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "Salary Payment Register"
-msgstr ""
+msgstr "Registo de pagamento de salário"
 
 #. module: hr_payroll
 #: field:hr.payslip,paid:0
@@ -114,7 +114,7 @@ msgstr ""
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Paid Salary"
-msgstr ""
+msgstr "Salário pago"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,flag:0
@@ -247,7 +247,7 @@ msgstr ""
 #: field:company.contribution.line,value:0
 #: field:hr.payslip.line.line,value:0
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -257,7 +257,7 @@ msgstr "Nome do empregado"
 #. module: hr_payroll
 #: field:hr.contract,permit_no:0
 msgid "Work Permit No"
-msgstr ""
+msgstr "Licença de trabalho nº"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,amount:0
@@ -296,7 +296,7 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Deduction"
-msgstr ""
+msgstr "Outras deduções"
 
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
@@ -311,7 +311,7 @@ msgstr "Detalhes dos salários dos empregados"
 #. module: hr_payroll
 #: field:hr.passport,date_expire:0
 msgid "Passport Expire Date"
-msgstr ""
+msgstr "Data de expiração do passaporte"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -406,7 +406,7 @@ msgstr "Subtotal"
 #. module: hr_payroll
 #: field:hr.contract,visa_no:0
 msgid "Visa No"
-msgstr ""
+msgstr "Número de visto"
 
 #. module: hr_payroll
 #: field:company.contribution.line,from_val:0
@@ -414,13 +414,13 @@ msgstr ""
 #: field:hr.payslip.line.line,from_val:0
 #: report:year.salary:0
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,bysal:0
 #: report:payroll.advice:0
 msgid "By Salary"
-msgstr ""
+msgstr "Por salário"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_wizard_print_year_salary
@@ -458,7 +458,7 @@ msgstr "Notas:"
 #: field:hr.payroll.year.salary,date_to:0
 #: report:salary.structure:0
 msgid "End Date"
-msgstr ""
+msgstr "Data de fim"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -484,14 +484,14 @@ msgstr "Passaporte"
 #: field:hr.payslip.line,employee_id:0
 #: model:ir.model,name:hr_payroll.model_hr_employee
 msgid "Employee"
-msgstr ""
+msgstr "Empregado"
 
 #. module: hr_payroll
 #: field:hr.payroll.employees.detail,date_from:0
 #: field:hr.payroll.year.salary,date_from:0
 #: report:salary.structure:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data de início"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice_line
@@ -505,7 +505,7 @@ msgstr ""
 #: field:hr.payslip.line,type:0
 #: report:salary.structure:0
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
@@ -557,18 +557,18 @@ msgstr ""
 #: field:hr.payslip,grows:0
 #: report:salary.structure:0
 msgid "Gross Salary"
-msgstr ""
+msgstr "Salário bruto"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Total Earnings"
-msgstr ""
+msgstr "Total de ganhos"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Payment"
-msgstr ""
+msgstr "Outros pagamentos"
 
 #. module: hr_payroll
 #: field:hr.payslip,basic:0
@@ -588,7 +588,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payroll.advice,line_ids:0
 msgid "Employee Salary"
-msgstr ""
+msgstr "Salário do empregado"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,chaque_nos:0
@@ -607,7 +607,7 @@ msgstr ""
 #: selection:hr.payslip.line,amount_type:0
 #: selection:hr.payslip.line.line,amount_type:0
 msgid "Fixed Amount"
-msgstr ""
+msgstr "Montante fixo"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
@@ -629,7 +629,7 @@ msgstr "XML inválido para a arquitectura da vista!"
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Pay Salary"
-msgstr ""
+msgstr "Pagar salário"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
@@ -645,7 +645,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "For the month of"
-msgstr ""
+msgstr "Para o mês de"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -731,12 +731,12 @@ msgstr "Montante líquido"
 #: field:hr.payroll.register,state:0
 #: field:hr.payslip,state:0
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Salary Structure:"
-msgstr ""
+msgstr "Estrutura do salário:"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_employees_detail
@@ -881,7 +881,7 @@ msgstr ""
 #: report:hr.payroll.register.sheet:0
 #: report:payroll.advice:0
 msgid "For"
-msgstr ""
+msgstr "Para"
 
 #. module: hr_payroll
 #: field:hr.payroll.register,journal_id:0
@@ -991,12 +991,12 @@ msgstr ""
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Designation"
-msgstr ""
+msgstr "Designação"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "HR Manager"
-msgstr ""
+msgstr "Gestor de RH"
 
 #. module: hr_payroll
 #: field:hr.contract,basic:0
@@ -1004,12 +1004,12 @@ msgstr ""
 #: field:hr.payslip,basic_before_leaves:0
 #: report:payslip.pdf:0
 msgid "Basic Salary"
-msgstr ""
+msgstr "Salário base"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,code:0
 msgid "Categoty Code"
-msgstr ""
+msgstr "Código de categoria"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -1052,7 +1052,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.contract,visa_expire:0
 msgid "Visa Expire Date"
-msgstr ""
+msgstr "Data de expiração do visto"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -1105,7 +1105,7 @@ msgstr ""
 #: field:hr.payslip.line.line,to_val:0
 #: report:year.salary:0
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 #. module: hr_payroll
 #: wizard_button:payroll.analysis,init,process:0
@@ -1141,7 +1141,7 @@ msgstr "Número"
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Contract Detail:"
-msgstr ""
+msgstr "Detalhes do contrato:"
 
 #. module: hr_payroll
 #: view:hr.employee.grade:0
@@ -1165,13 +1165,13 @@ msgstr ""
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_employee_function
 msgid "Salary Structure"
-msgstr ""
+msgstr "Estrutura do salário"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1186,7 +1186,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.payroll.year.salary,salary_on:0
 msgid "Current Month Date"
-msgstr ""
+msgstr "Data atual"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -1240,7 +1240,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,line_ids:0
 msgid "Calculations"
-msgstr ""
+msgstr "Cálculos"
 
 #. module: hr_payroll
 #: wizard_view:wizard.year.salary,init:0
@@ -1265,7 +1265,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,function_id:0
 msgid "Function"
-msgstr ""
+msgstr "Função"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -1296,7 +1296,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,note:0
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #. module: hr_payroll
 #: field:hr.employee,pg_joining:0
@@ -1319,7 +1319,7 @@ msgstr "Salário anual"
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,name:0
 msgid "Categoty Name"
-msgstr ""
+msgstr "Nome da categoria"
 
 #. module: hr_payroll
 #: model:ir.actions.wizard,name:hr_payroll.wizard_payroll_analysis
@@ -1510,7 +1510,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Total Deductions"
-msgstr ""
+msgstr "Total de deduções"
 
 #. module: hr_payroll
 #: report:employees.salary:0

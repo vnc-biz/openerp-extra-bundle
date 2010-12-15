@@ -14,18 +14,18 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:03+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Sub Total"
-msgstr ""
+msgstr "Subtotal"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #. module: sale_layout
 #: model:ir.module.module,shortdesc:sale_layout.module_meta_information
@@ -35,7 +35,7 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Disc. (%)"
-msgstr ""
+msgstr "Desc. (%)"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
@@ -45,7 +45,7 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Unit Price"
-msgstr ""
+msgstr "Precio unidad"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -60,22 +60,22 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Disc.(%)"
-msgstr ""
+msgstr "Desc.(%)"
 
 #. module: sale_layout
 #: field:sale.order.line,layout_type:0
 msgid "Layout Type"
-msgstr ""
+msgstr "Tipo de plantilla"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Seq."
-msgstr ""
+msgstr "Sec."
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: sale_layout
 #: model:ir.module.module,description:sale_layout.module_meta_information
@@ -95,57 +95,57 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Manual Description"
-msgstr ""
+msgstr "Descripción manual"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Our Salesman"
-msgstr ""
+msgstr "Nuestro comercial"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Automatic Declaration"
-msgstr ""
+msgstr "Declaración automática"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Invoice Lines"
-msgstr ""
+msgstr "Líneas de factura"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Quantity"
-msgstr ""
+msgstr "Cantidad"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Quotation N°"
-msgstr ""
+msgstr "Presupuesto Nº"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "VAT"
-msgstr ""
+msgstr "CIF/NIF"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Make Invoice"
-msgstr ""
+msgstr "Crear factura"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Invoice address :"
-msgstr ""
+msgstr "Dirección de factura:"
 
 #. module: sale_layout
 #: constraint:ir.ui.view:0
@@ -250,7 +250,7 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "UoM"
-msgstr ""
+msgstr "UdM"
 
 #. module: sale_layout
 #: report:sale.order.layout:0

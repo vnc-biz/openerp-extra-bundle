@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:01+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: hr_evaluation
@@ -28,6 +28,8 @@ msgstr "Мэдээлэл"
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"Объектын нэрний эхлэл x_ байх ёстой бөгөөд бусад тусгай тэмдэгтийг агуулж "
+"болохгүй!"
 
 #. module: hr_evaluation
 #: view:hr_evaluation.evaluation:0
@@ -87,7 +89,7 @@ msgstr "Албан ёсны өгөгдөл"
 #. module: hr_evaluation
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Дэлгэцийн үйлдлийг тодорхойлохдоо байхгүй моделын нэр хэрэглэжээ"
+msgstr "Үйлдлийн тодорхойлолтод буруу моделийн нэр байна."
 
 #. module: hr_evaluation
 #: view:hr.evaluation.report:0
@@ -118,7 +120,7 @@ msgstr "Үнэлгээний төрөл"
 #. module: hr_evaluation
 #: view:hr_evaluation.evaluation:0
 msgid "Status"
-msgstr "Байдал"
+msgstr "Төлөв"
 
 #. module: hr_evaluation
 #: view:hr_evaluation.type:0
@@ -138,7 +140,7 @@ msgstr "Квот"
 #. module: hr_evaluation
 #: field:hr_evaluation.type,category_ids:0
 msgid "Appliable Role"
-msgstr ""
+msgstr "Тохирох дүр"
 
 #. module: hr_evaluation
 #: field:hr_evaluation.evaluation,user_id:0
@@ -226,7 +228,7 @@ msgstr "Ажилтаны үнэлгээний төрөл"
 #. module: hr_evaluation
 #: view:hr_evaluation.evaluation:0
 msgid "Quotations"
-msgstr "Квот"
+msgstr "Үнийн санал"
 
 #. module: hr_evaluation
 #: model:ir.actions.act_window,name:hr_evaluation.open_view_employee_evaluation_next_list

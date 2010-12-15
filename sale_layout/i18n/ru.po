@@ -14,13 +14,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:03+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Sub Total"
-msgstr ""
+msgstr "Подитог"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
@@ -35,7 +35,7 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Disc. (%)"
-msgstr ""
+msgstr "Скидка (%)"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
@@ -60,7 +60,7 @@ msgstr "Позиции заказа"
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Disc.(%)"
-msgstr ""
+msgstr "Дисконт (%)"
 
 #. module: sale_layout
 #: field:sale.order.line,layout_type:0
@@ -105,12 +105,12 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Our Salesman"
-msgstr ""
+msgstr "Наш менеджер продаж"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Automatic Declaration"
-msgstr ""
+msgstr "Автоматическое объявление"
 
 #. module: sale_layout
 #: view:sale.order:0

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-17 05:03+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:38+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: product_expiry
@@ -35,15 +35,15 @@ msgstr "Kuhmilch"
 #. module: product_expiry
 #: model:ir.module.module,shortdesc:product_expiry.module_meta_information
 msgid "Products date of expiry"
-msgstr "Produkt Ablaufdatum"
+msgstr "Produkte Verwendungsdauer und Ablaufwarnung"
 
 #. module: product_expiry
 #: constraint:product.template:0
 msgid ""
 "Error: The default UOM and the purchase UOM must be in the same category."
 msgstr ""
-"Fehler: Die Standard Mengeneinheit sowie die Beschaffungs ME muss in "
-"derselben Kategorie sein."
+"Fehler: Die Standard Mengeneinheit (ME) sowie die Mengeneinheit (ME) bei der "
+"Beschaffung muss in derselben Kategorie sein."
 
 #. module: product_expiry
 #: constraint:ir.ui.view:0
@@ -54,13 +54,14 @@ msgstr "Fehlerhafter XML-Code für diese Ansicht!"
 #: help:stock.production.lot,life_date:0
 msgid "The date the lot may become dangerous and should not be consumed."
 msgstr ""
-"Das Ablaufdatum des Loses könnte gefährlich werde und sollte nicht "
-"konsumiert werden"
+"Das Datum an dem die Verwendung des Los gefährlich werden kann und deshalb "
+"nicht mehr konsumiert bzw. angewendet werden sollte (z.B. Verwendbar bis bei "
+"Arzneimitteln)."
 
 #. module: product_expiry
 #: field:stock.production.lot,removal_date:0
 msgid "Removal Date"
-msgstr "Entnahmedatum"
+msgstr "Datum der Vernichtung"
 
 #. module: product_expiry
 #: model:ir.module.module,description:product_expiry.module_meta_information
@@ -72,6 +73,13 @@ msgid ""
 " - alert date\n"
 "Used, for example, in food industries."
 msgstr ""
+"Rückverfolgung diverser kritischer Haltbarkeits- und Nutzungsdauern für "
+"Produkte und Fertigungslose:\n"
+"- Verfalldatum (VD) auf Produktetikett: Verwendbar bis ...\n"
+"- Mindesthaltbarkeitsdatum (MHD) auf Produktetikett: Mindestens haltbar bis "
+"...\n"
+"- Datum der Vernichtung \n"
+"- Datum der Ablaufwarnung"
 
 #. module: product_expiry
 #: model:product.template,name:product_expiry.product_product_pain_product_template
@@ -82,13 +90,13 @@ msgstr "Brot"
 #: model:product.uom,name:product_expiry.product_uom_ltr
 #: model:product.uom.categ,name:product_expiry.product_uom_categ_vol
 msgid "LTR"
-msgstr ""
+msgstr "Produkthaltbarkeit"
 
 #. module: product_expiry
 #: view:product.product:0
 #: view:stock.production.lot:0
 msgid "Dates"
-msgstr "Zeitpunkte"
+msgstr "Haltbarkeitsdauern"
 
 #. module: product_expiry
 #: constraint:product.template:0
@@ -100,18 +108,21 @@ msgstr ""
 #. module: product_expiry
 #: field:stock.production.lot,life_date:0
 msgid "End of Life Date"
-msgstr "Ende der Lebensdauer"
+msgstr "verwendbar bis"
 
 #. module: product_expiry
 #: field:stock.production.lot,use_date:0
 msgid "Best before Date"
-msgstr "Mindesthaltbarkeitsdatum"
+msgstr "mindestens Haltbar bis"
 
 #. module: product_expiry
 #: help:stock.production.lot,use_date:0
 msgid "The date the lot starts deteriorating without becoming dangerous."
 msgstr ""
-"Das Datum, ab dem das Produkt schlechter wird ohne gefährlich zu werden."
+"Das Datum, ab dem das Produkt schlechter wird ohne gefährlich zu werden (... "
+"mindestens Haltbar bis). Dieser Hinweis findet sich z.B. bei Lebensmitteln, "
+"die zwar ohneGefahr verzehrt werden können, aber z.B. "
+"geschmacklichbeeinträchtigt sind."
 
 #. module: product_expiry
 #: model:product.template,name:product_expiry.product_product_jambon_product_template
@@ -121,7 +132,7 @@ msgstr "französicher Camembert"
 #. module: product_expiry
 #: help:product.product,removal_time:0
 msgid "The number of days before a production lot should be removed."
-msgstr "Tage bevor ein Produktionslos entfernt werden soll"
+msgstr "Tage bis ein Los vernichtet oder anderweitig verwertet werden soll"
 
 #. module: product_expiry
 #: field:product.product,use_time:0
@@ -145,8 +156,8 @@ msgid ""
 "The number of days before a production lot starts deteriorating without "
 "becoming dangerous."
 msgstr ""
-"Die Anzahl der Tage bevor ein Produktionslos schlechter wird ohne gefährlich "
-"zu werden"
+"Die Anzahl der Tage bevor ein Los schlechter wird ohne gefährlich zu werden "
+"(mindestens Haltbar bis ...)"
 
 #. module: product_expiry
 #: constraint:product.product:0
@@ -159,13 +170,14 @@ msgid ""
 "The number of days before a production lot may become dangerous and should "
 "not be consumed."
 msgstr ""
-"Die Anzahl der Tage bevor ein Produkt gefährlich wird und nicht konsumiert "
-"werden soll"
+"Die Anzahl der Tage bevor ein Produkt gefährlich wird und nicht mehr "
+"verwendet werden sollte (Verwendbar bis ...)"
 
 #. module: product_expiry
 #: help:stock.production.lot,removal_date:0
 msgid "The date the lot should be removed."
-msgstr "Datum an dem das Los entfernt werden soll"
+msgstr ""
+"Datum an dem das Los vernichtet oder anderweitig verwertet werden soll"
 
 #. module: product_expiry
 #: field:product.product,alert_time:0

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-13 05:19+0000\n"
+"X-Launchpad-Export-Date: 2010-12-15 05:41+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: survey
@@ -24,7 +24,7 @@ msgstr ""
 #: model:ir.ui.menu,name:survey.menu_survey_form
 #: model:ir.ui.menu,name:survey.menu_surveys
 msgid "Surveys"
-msgstr ""
+msgstr "Sondages"
 
 #. module: survey
 #: model:ir.actions.report.xml,name:survey.survey
@@ -49,17 +49,17 @@ msgstr ""
 #. module: survey
 #: field:survey.history,date:0
 msgid "Date started"
-msgstr ""
+msgstr "Date de démarrage"
 
 #. module: survey
 #: field:survey,history:0
 msgid "History Lines"
-msgstr ""
+msgstr "Lignes d'historique"
 
 #. module: survey
 #: field:survey.send.invitation,mail:0
 msgid "Body"
-msgstr ""
+msgstr "Corps"
 
 #. module: survey
 #: model:ir.actions.act_window,name:survey.action_view_survey_name
@@ -125,7 +125,7 @@ msgstr ""
 #. module: survey
 #: view:survey.question.wiz:0
 msgid "Your Messages"
-msgstr ""
+msgstr "Vos messages"
 
 #. module: survey
 #: selection:survey,state:0
@@ -137,7 +137,7 @@ msgstr "Annulé"
 #. module: survey
 #: field:survey.question,allow_comment:0
 msgid "Allow Comment Field"
-msgstr ""
+msgstr "Autoriser le champ 'Commentaire'"
 
 #. module: survey
 #: code:addons/survey/survey.py:0
@@ -706,7 +706,7 @@ msgstr "Séquence"
 #. module: survey
 #: view:survey.send.invitation.log:0
 msgid "Results :"
-msgstr ""
+msgstr "Résultats :"
 
 #. module: survey
 #: code:addons/survey/wizard/survey_send_invitation.py:0

@@ -35,6 +35,11 @@ class kettle_server(osv.osv):
         inst.install(self.read(cr, uid, ids, ['kettle_dir'])[0]['kettle_dir'].replace('data-integration', ''))
         return True
     
+    def button_update_terminatooor(self, cr, uid, ids, context=None):
+        inst = installer()
+        inst.update_terminatoor(self.read(cr, uid, ids, ['kettle_dir'])[0]['kettle_dir'].replace('data-integration', ''))
+        return True
+
     _columns = {
         'name': fields.char('Server Name', size=64, required=True),
         'kettle_dir': fields.char('Kettle Directory', size=255, required=True),

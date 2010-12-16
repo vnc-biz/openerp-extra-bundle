@@ -93,45 +93,51 @@ class unzip:
 
 
 class installer:
-	def install(self, kettle_root_directory, install_agilebi=True):
-		
-		print "checking if Kettle is possibly already installed..."
-		
-		kettle_dir = kettle_root_directory + 'data-integration'
-		if os.path.isdir(kettle_dir):
-			raise Exception("looks like Pentaho Data Integration (Kettle) is already installed!\nPlease remove the %s directory first if you want to re-install it." % kettle_dir)
 
-		print "checking Java version, should be >= 1.6..."
-		try:
-			retcode = subprocess.call(["java", "-version"])
-		except:
-			raise Exception("looks like you don't have Java installed! Please install Java (1.6 or superior) first!")
-		
-		
-		print "getting Pentaho Data Integration (Kettle) from the Internet, this can take a while (>80Mo)..."
-		urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-RC1/pdi-ce-4.1.0-RC1.tar.gz/download', kettle_root_directory + 'kettle.tar.gz')
-		try:
-		    tar = tarfile.open(kettle_root_directory + 'kettle.tar.gz', 'r:gz')
-		    for item in tar:
-		        tar.extract(item, kettle_root_directory)
-		except:
-		    name = os.path.basename(sys.argv[0])
-		    print name[:name.rfind('.')], '<filename>'
+    def install_terminatooor(self, kettle_root_directory):
+        print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
+        urllib.urlretrieve('http://github.com/downloads/rvalyi/terminatooor/terminatooor1.2.1.zip', kettle_root_directory + 'terminatooor.zip')
+        unzipper = unzip()
+        unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
+        shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
 
-		
+    def update_terminatoor(self, kettle_root_directory):
+        print kettle_root_directory
+        os.remove(kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
+        shutil.rmtree(kettle_root_directory+'data-integration/plugins/steps/terminatooor')
+        self.install_terminatooor(kettle_root_directory)
 
-		print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
-		urllib.urlretrieve('http://github.com/downloads/rvalyi/terminatooor/terminatooor1.2.1.zip', kettle_root_directory + 'terminatooor.zip')
-		unzipper = unzip()
-		unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
-		
-		shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
-		os.mkdir(kettle_root_directory + '/data-integration/openerp_tmp/')
-		
-		if install_agilebi:
-			print "getting the AgileBI plugin from the Internet, this can take a while (>80Mo)..."
-			urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-RC1.zip', kettle_root_directory + 'agilebi.zip')
-			unzipper.extract(kettle_root_directory + 'agilebi.zip', kettle_root_directory + 'data-integration/plugins/spoon')
+    def install(self, kettle_root_directory, install_agilebi=True):
+        unzipper = unzip()
+        print "checking if Kettle is possibly already installed..."
+
+        kettle_dir = kettle_root_directory + 'data-integration'
+        if os.path.isdir(kettle_dir):
+	        raise Exception("looks like Pentaho Data Integration (Kettle) is already installed!\nPlease remove the %s directory first if you want to re-install it." % kettle_dir)
+
+        print "checking Java version, should be >= 1.6..."
+        try:
+	        retcode = subprocess.call(["java", "-version"])
+        except:
+	        raise Exception("looks like you don't have Java installed! Please install Java (1.6 or superior) first!")
+
+        print "getting Pentaho Data Integration (Kettle) from the Internet, this can take a while (>80Mo)..."
+        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-RC1/pdi-ce-4.1.0-RC1.tar.gz/download', kettle_root_directory + 'kettle.tar.gz')
+        try:
+            tar = tarfile.open(kettle_root_directory + 'kettle.tar.gz', 'r:gz')
+            for item in tar:
+                tar.extract(item, kettle_root_directory)
+        except:
+            name = os.path.basename(sys.argv[0])
+            print name[:name.rfind('.')], '<filename>'
+
+        self.install_terminatooor(kettle_root_directory)
+        os.mkdir(kettle_root_directory + '/data-integration/openerp_tmp/')
+
+        if install_agilebi:
+	        print "getting the AgileBI plugin from the Internet, this can take a while (>80Mo)..."
+	        urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-RC1.zip', kettle_root_directory + 'agilebi.zip')
+	        unzipper.extract(kettle_root_directory + 'agilebi.zip', kettle_root_directory + 'data-integration/plugins/spoon')
 
 
 if __name__ == '__main__':

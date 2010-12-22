@@ -1,31 +1,31 @@
 # Vietnamese translation for openobject-addons
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# Phong Nguyen <phong.nguyen_thanh@yahoo.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-28 16:01+0000\n"
-"PO-Revision-Date: 2010-01-26 11:00+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-12-21 14:09+0000\n"
+"Last-Translator: Phong Nguyen <Unknown>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-15 05:43+0000\n"
+"X-Launchpad-Export-Date: 2010-12-22 05:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,category:0
 msgid "Category"
-msgstr ""
+msgstr "Loại"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,save:0
 msgid "Information"
-msgstr ""
+msgstr "Thông tin"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,init:0
@@ -35,27 +35,27 @@ msgstr ""
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,author:0
 msgid "Author"
-msgstr ""
+msgstr "Tác giả"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,directory_name:0
 msgid "Directory Name"
-msgstr ""
+msgstr "Tên thư mục"
 
 #. module: base_module_merge
 #: selection:base_module_merge.module_merge,info,data_kind:0
 msgid "Demo Data"
-msgstr ""
+msgstr "Dữ liệu mẫu"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,save,module_filename:0
 msgid "Filename"
-msgstr ""
+msgstr "Tên tập tin"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,version:0
 msgid "Version"
-msgstr ""
+msgstr "Phiên bản"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,info:0
@@ -71,12 +71,12 @@ msgstr ""
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,description:0
 msgid "Full Description"
-msgstr ""
+msgstr "Mô tả đầy đủ"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,name:0
 msgid "Module Name"
-msgstr ""
+msgstr "Tên mô-đun"
 
 #. module: base_module_merge
 #: model:ir.actions.wizard,name:base_module_merge.wizard_base_module_merger
@@ -87,7 +87,7 @@ msgstr ""
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,save,module_file:0
 msgid "Module .zip File"
-msgstr ""
+msgstr "Tập tin .zip của mô-đun"
 
 #. module: base_module_merge
 #: model:ir.module.module,shortdesc:base_module_merge.module_meta_information
@@ -97,7 +97,7 @@ msgstr ""
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,save:0
 msgid "Module successfully created !"
-msgstr ""
+msgstr "Mô-đun được tạo thành công"
 
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,website:0
@@ -107,18 +107,18 @@ msgstr ""
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,init,modules_list:0
 msgid "Modules"
-msgstr ""
+msgstr "Các mô-đun"
 
 #. module: base_module_merge
 #: wizard_button:base_module_merge.module_merge,info,save:0
 #: wizard_button:base_module_merge.module_merge,init,info:0
 msgid "Continue"
-msgstr ""
+msgstr "Tiếp tục"
 
 #. module: base_module_merge
 #: selection:base_module_merge.module_merge,info,data_kind:0
 msgid "Normal Data"
-msgstr ""
+msgstr "Dữ liệu thông thường"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,save:0
@@ -136,20 +136,20 @@ msgstr ""
 #. module: base_module_merge
 #: wizard_field:base_module_merge.module_merge,info,data_kind:0
 msgid "Type of Data"
-msgstr ""
+msgstr "Loại dữ liệu"
 
 #. module: base_module_merge
 #: wizard_view:base_module_merge.module_merge,info:0
 msgid "Module Information"
-msgstr ""
+msgstr "Thông tin về mô-đun"
 
 #. module: base_module_merge
 #: wizard_button:base_module_merge.module_merge,info,end:0
 #: wizard_button:base_module_merge.module_merge,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Hủy bỏ"
 
 #. module: base_module_merge
 #: wizard_button:base_module_merge.module_merge,save,end:0
 msgid "Close"
-msgstr ""
+msgstr "Đóng"

@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-15 05:37+0000\n"
+"X-Launchpad-Export-Date: 2010-12-23 05:14+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_asset
@@ -535,3 +535,6 @@ msgstr ""
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_tree
 msgid "Asset Hierarchy"
 msgstr "Jerarquía de activos"
+
+#~ msgid "Childs asset"
+#~ msgstr "Activos hijos"

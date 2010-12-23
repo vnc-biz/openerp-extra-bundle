@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-15 05:41+0000\n"
+"X-Launchpad-Export-Date: 2010-12-23 05:19+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: lunch
@@ -29,7 +29,7 @@ msgstr "Catégorie"
 #. module: lunch
 #: view:lunch.cashbox.clean:0
 msgid "Reset cashbox"
-msgstr ""
+msgstr "Réinitialiser la caisse"
 
 #. module: lunch
 #: view:lunch.order:0
@@ -37,8 +37,6 @@ msgstr ""
 msgid "Confirmed"
 msgstr "Confirmée"
 
-#. module: lunch
-#: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
@@ -53,18 +51,18 @@ msgstr ""
 #. module: lunch
 #: view:lunch.order.cancel:0
 msgid "Are you sure you want to cancel this order ?"
-msgstr ""
+msgstr "Confirmez-vous l'annulation de cette commande ?"
 
 #. module: lunch
 #: model:ir.module.module,shortdesc:lunch.module_meta_information
 msgid "Lunch Module"
-msgstr ""
+msgstr "Module déjeuner"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashmove_form
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashmove_form
 msgid "Cash Moves"
-msgstr ""
+msgstr "Déplacement de trésorerie"
 
 #. module: lunch
 #: rml:lunch.order:0
@@ -79,7 +77,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.cashbox.clean:0
 msgid "Are you sure you want to reset this cashbox ?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir réinitialiser cette caisse ?"
 
 #. module: lunch
 #: field:lunch.order,state:0
@@ -97,8 +95,6 @@ msgstr ""
 msgid "Draft"
 msgstr "Brouillon"
 
-#. module: lunch
-#: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
 msgstr "Nom de modèle incorrect dans la définition de l'action"
 
@@ -113,12 +109,12 @@ msgstr "Nom d'utilisateur"
 #. module: lunch
 #: view:report.lunch.amount:0
 msgid "Box Amount by User"
-msgstr ""
+msgstr "Montant de la boîte par utilisateur"
 
 #. module: lunch
 #: view:report.lunch.amount:0
 msgid "Total box"
-msgstr ""
+msgstr "Total boîte"
 
 #. module: lunch
 #: field:lunch.order,product:0
@@ -164,7 +160,7 @@ msgstr "Déjeuner"
 #. module: lunch
 #: field:lunch.order,descript:0
 msgid "Description Order"
-msgstr ""
+msgstr "Description de commande"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_order_confirm
@@ -177,7 +173,7 @@ msgstr "Confirmer la commande"
 #. module: lunch
 #: view:lunch.order.confirm:0
 msgid "Orders Confirmation"
-msgstr ""
+msgstr "Confirmation de commandes"
 
 #. module: lunch
 #: field:lunch.cashmove,active:0
@@ -209,8 +205,6 @@ msgstr "Annuler la commande"
 msgid " CashBox "
 msgstr ""
 
-#. module: lunch
-#: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
 msgstr "XML incorrect dans l'architecture de la vue !"
 
@@ -259,7 +253,7 @@ msgstr "Montant"
 #: model:ir.ui.menu,name:lunch.menu_lunch_product_form
 #: view:lunch.product:0
 msgid "Products"
-msgstr ""
+msgstr "Produits"
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_category_form
@@ -279,12 +273,12 @@ msgstr ""
 #. module: lunch
 #: model:ir.model,name:lunch.model_report_lunch_amount
 msgid "Amount available by user and box"
-msgstr ""
+msgstr "Montant disponible par utilisateur et par boîte"
 
 #. module: lunch
 #: view:lunch.category:0
 msgid "Category related to Products"
-msgstr ""
+msgstr "Catégorie relative aux produits"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_order
@@ -306,13 +300,13 @@ msgstr ""
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashbox_clean
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashbox_clean_values
 msgid "Set CashBox to Zero"
-msgstr ""
+msgstr "Mettre la caisse à zéro"
 
 #. module: lunch
 #: field:lunch.cashmove,box:0
 #: field:report.lunch.amount,box:0
 msgid "Box Name"
-msgstr ""
+msgstr "Nom de boîte"
 
 #. module: lunch
 #: field:lunch.cashbox,manager:0
@@ -327,12 +321,12 @@ msgstr "Prix unitaire"
 #. module: lunch
 #: field:lunch.order.confirm,confirm_cashbox:0
 msgid "Name of box"
-msgstr ""
+msgstr "Nom de la boîte"
 
 #. module: lunch
 #: view:lunch.order:0
 msgid "Total price"
-msgstr ""
+msgstr "Prix total"
 
 #. module: lunch
 #: view:lunch.order.confirm:0
@@ -358,4 +352,4 @@ msgstr ""
 #: view:lunch.cashmove:0
 #: field:lunch.order,cashmove:0
 msgid "CashMove"
-msgstr ""
+msgstr "Transfert de trésorerie"

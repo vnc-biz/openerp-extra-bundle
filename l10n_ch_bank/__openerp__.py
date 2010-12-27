@@ -34,7 +34,7 @@
     "name" : "l10n_ch_bank",
     "description" : """
  Swiss localisation :
- Swiss banks for zip use better ZIP modules
+ Swiss banks for zip use better ZIP modules and l10n_ch_zip
 """,
     "version" : "5.0",
     "author" : "Camptocamp SA",

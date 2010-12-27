@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 14:51+0000\n"
-"PO-Revision-Date: 2010-12-25 21:45+0000\n"
+"PO-Revision-Date: 2010-12-26 23:08+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-26 05:03+0000\n"
+"X-Launchpad-Export-Date: 2010-12-27 04:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: esale_osc
@@ -220,12 +220,12 @@ msgstr "Mapeo de formas de pago"
 #. module: esale_osc
 #: view:sale.order:0
 msgid "Sales Order"
-msgstr "Orden de ventas"
+msgstr "Pedido de venta"
 
 #. module: esale_osc
 #: view:sale.order:0
 msgid "Order Line"
-msgstr ""
+msgstr "Línea de pedido"
 
 #. module: esale_osc
 #: wizard_button:esale.oscom.products,init,end:0

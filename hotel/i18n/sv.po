@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-11-26 07:33+0000\n"
-"PO-Revision-Date: 2010-11-23 02:26+0000\n"
-"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
+"PO-Revision-Date: 2010-12-29 22:08+0000\n"
+"Last-Translator: Magnus Brandt (mba), Aspirix AB <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:18+0000\n"
+"X-Launchpad-Export-Date: 2010-12-30 05:03+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: hotel
@@ -24,13 +24,13 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Recreate Procurement"
-msgstr ""
+msgstr "Återskapa inköp"
 
 #. module: hotel
 #: field:hotel.folio,checkout_date:0
 #: field:hotel_folio.line,checkout_date:0
 msgid "Check Out"
-msgstr ""
+msgstr "Checka ut"
 
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.menu_action_hotel_room_amenities_view_form
@@ -40,12 +40,12 @@ msgstr ""
 #. module: hotel
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Felaktigt namn för modell i händelsedefinitionen."
 
 #. module: hotel
 #: field:hotel.floor,name:0
 msgid "Floor Name"
-msgstr ""
+msgstr "Golvnamn"
 
 #. module: hotel
 #: field:product.product,iscategid:0
@@ -70,12 +70,12 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Set to Draft"
-msgstr ""
+msgstr "Sätt till preliminär"
 
 #. module: hotel
 #: rml:folio.total:0
 msgid "to"
-msgstr ""
+msgstr "till"
 
 #. module: hotel
 #: wizard_view:hotel.folio.total_folio,init:0
@@ -85,17 +85,17 @@ msgstr ""
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.menu_open_hotel_services_form
 msgid "Services"
-msgstr ""
+msgstr "Tjänster"
 
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Cancel Order"
-msgstr ""
+msgstr "Avbryt order"
 
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Confirm Order"
-msgstr ""
+msgstr "Bekräfta order"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_amenities_type_0_product_category
@@ -105,17 +105,17 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Notes"
-msgstr ""
+msgstr "Anteckningar"
 
 #. module: hotel
 #: view:hotel.floor:0
 msgid " Hotel Floor"
-msgstr ""
+msgstr " Hotellvåning"
 
 #. module: hotel
 #: rml:folio.total:0
 msgid "Customer Name"
-msgstr ""
+msgstr "Kundnamn"
 
 #. module: hotel
 #: field:product.product,isroom:0
@@ -158,7 +158,7 @@ msgstr ""
 #. module: hotel
 #: constraint:product.category:0
 msgid "Error ! You can not create recursive categories."
-msgstr ""
+msgstr "Fel ! Du kan inte skapa rekursiva kategorier."
 
 #. module: hotel
 #: model:ir.model,name:hotel.model_hotel_folio
@@ -168,17 +168,17 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Extra Info"
-msgstr ""
+msgstr "Extra Info"
 
 #. module: hotel
 #: model:ir.actions.act_window,name:hotel.hotel_room_category_action
 msgid "Rooms by Category"
-msgstr ""
+msgstr "Rum efter kategori"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_amenities_type_3_product_category
 msgid "Single Bed"
-msgstr ""
+msgstr "Enkelsäng"
 
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.menu_open_hotel_service_type_form_tree
@@ -188,7 +188,7 @@ msgstr ""
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_amenities_type_2_product_category
 msgid "Tables"
-msgstr ""
+msgstr "Bord"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -198,12 +198,12 @@ msgstr ""
 #. module: hotel
 #: rml:folio.total:0
 msgid "From"
-msgstr ""
+msgstr "Från"
 
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Recreate Invoice"
-msgstr ""
+msgstr "Återskapa faktura"
 
 #. module: hotel
 #: field:product.category,isamenitype:0
@@ -219,7 +219,7 @@ msgstr ""
 #: field:hotel.folio,checkin_date:0
 #: field:hotel_folio.line,checkin_date:0
 msgid "Check In"
-msgstr ""
+msgstr "Checka in"
 
 #. module: hotel
 #: model:ir.actions.act_window,name:hotel.hotel_amenity_category_action
@@ -235,7 +235,7 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Invoice Lines"
-msgstr ""
+msgstr "Fakturarader"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -247,7 +247,7 @@ msgstr ""
 #: field:hotel.room_type,cat_id:0
 #: field:hotel.service_type,ser_id:0
 msgid "category"
-msgstr ""
+msgstr "kategori"
 
 #. module: hotel
 #: view:hotel.room:0
@@ -258,12 +258,12 @@ msgstr ""
 #. module: hotel
 #: field:hotel.room_amenities,room_categ_id:0
 msgid "Product Category"
-msgstr ""
+msgstr "Produktkategori"
 
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Manual Description"
-msgstr ""
+msgstr "Manuell beskrivning"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_service_type_0_product_category
@@ -275,7 +275,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:hotel.action_hotel_room_form
 #: model:ir.model,name:hotel.model_hotel_room
 msgid "Hotel Room"
-msgstr ""
+msgstr "Hotellrum"
 
 #. module: hotel
 #: rml:folio.total:0
@@ -285,12 +285,12 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Inventory Moves"
-msgstr ""
+msgstr "Lagertransaktioner"
 
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.hotel_configuration_menu
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -300,17 +300,17 @@ msgstr ""
 #. module: hotel
 #: view:hotel.floor:0
 msgid " Hotel Floors"
-msgstr ""
+msgstr " Hotellvåningar"
 
 #. module: hotel
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Ogiltig XML för Vy-arkitektur!"
 
 #. module: hotel
 #: field:hotel.folio,order_id:0
 msgid "order_id"
-msgstr ""
+msgstr "order_id"
 
 #. module: hotel
 #: field:hotel.room_amenities,amenity_rate:0
@@ -322,12 +322,12 @@ msgstr ""
 #: view:hotel.room_amenities:0
 #: view:hotel.services:0
 msgid "Procurement"
-msgstr ""
+msgstr "Inköp"
 
 #. module: hotel
 #: field:hotel.floor,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvens"
 
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.menu_action_hotel_room_amenities_type_view_form
@@ -337,7 +337,7 @@ msgstr ""
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.menu_hotel_room_category_action
 msgid "Room by Category"
-msgstr ""
+msgstr "Rum efter kategori"
 
 #. module: hotel
 #: field:hotel.room_amenities,rcateg_id:0
@@ -347,7 +347,7 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Other data"
-msgstr ""
+msgstr "Övrig data"
 
 #. module: hotel
 #: field:hotel.room,max_child:0
@@ -359,12 +359,12 @@ msgstr ""
 #: view:hotel.room_amenities:0
 #: view:hotel.services:0
 msgid "Descriptions"
-msgstr ""
+msgstr "Beskrivningar"
 
 #. module: hotel
 #: wizard_field:hotel.folio.total_folio,init,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Startdatum"
 
 #. module: hotel
 #: model:ir.model,name:hotel.model_hotel_folio_line
@@ -426,7 +426,7 @@ msgstr ""
 #: field:hotel.folio,room_lines:0
 #: field:hotel.folio,service_lines:0
 msgid "unknown"
-msgstr ""
+msgstr "okänd"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -452,7 +452,7 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -460,7 +460,7 @@ msgstr ""
 #: view:hotel.room_amenities:0
 #: view:hotel.services:0
 msgid "Properties"
-msgstr ""
+msgstr "Egenskaper"
 
 #. module: hotel
 #: view:hotel.room_amenities:0
@@ -471,7 +471,7 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Compute"
-msgstr ""
+msgstr "Beräkna"
 
 #. module: hotel
 #: model:ir.model,name:hotel.model_hotel_room_amenities
@@ -491,7 +491,7 @@ msgstr ""
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_amenities_type_1_product_category
 msgid "Beds"
-msgstr ""
+msgstr "Sängar"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_service_type_2_product_category
@@ -501,7 +501,7 @@ msgstr ""
 #. module: hotel
 #: field:hotel.room,floor_id:0
 msgid "Floor No"
-msgstr ""
+msgstr "Våningsnummer"
 
 #. module: hotel
 #: view:hotel.services:0
@@ -518,7 +518,7 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "History"
-msgstr ""
+msgstr "Historik"
 
 #. module: hotel
 #: model:ir.actions.act_window,name:hotel.open_hotel_floor_form_tree
@@ -533,12 +533,12 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Related invoices"
-msgstr ""
+msgstr "Relaterade fakturor"
 
 #. module: hotel
 #: selection:hotel.room,avail_status:0
 msgid "Assigned"
-msgstr ""
+msgstr "Tilldelad"
 
 #. module: hotel
 #: selection:hotel.room,avail_status:0
@@ -554,14 +554,14 @@ msgstr "Hotel Management"
 #. module: hotel
 #: wizard_button:hotel.folio.total_folio,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #. module: hotel
 #: view:hotel.room:0
 #: view:hotel.room_amenities:0
 #: view:hotel.services:0
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #. module: hotel
 #: constraint:ir.model:0
@@ -584,22 +584,22 @@ msgstr ""
 #: model:ir.model,name:hotel.model_hotel_floor
 #: model:ir.ui.menu,name:hotel.menu_open_hotel_floor_form_tree
 msgid "Floor"
-msgstr ""
+msgstr "Våning"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_type_0_product_category
 msgid "All Rooms"
-msgstr ""
+msgstr "Alla rum"
 
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Create Invoice"
-msgstr ""
+msgstr "Skapa faktura"
 
 #. module: hotel
 #: wizard_button:hotel.folio.total_folio,init,print_report:0
 msgid "Print Report"
-msgstr ""
+msgstr "Skriv ut rapport"
 
 #. module: hotel
 #: model:ir.actions.report.xml,name:hotel.hotel_folio_details
@@ -630,12 +630,12 @@ msgstr ""
 #: view:hotel.room_amenities:0
 #: view:hotel.services:0
 msgid "Sale Description"
-msgstr ""
+msgstr "Försäljningsbeskrivning"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_amenities_type_4_product_category
 msgid "Double Bed"
-msgstr ""
+msgstr "Dubbelsäng"
 
 #. module: hotel
 #: field:product.product,isservice:0
@@ -661,7 +661,7 @@ msgstr ""
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.menu_open_hotel_room_form
 msgid "Rooms"
-msgstr ""
+msgstr "Rum"
 
 #. module: hotel
 #: view:hotel.room:0
@@ -671,12 +671,12 @@ msgstr ""
 #. module: hotel
 #: wizard_field:hotel.folio.total_folio,init,date_end:0
 msgid "End Date"
-msgstr ""
+msgstr "Slutdatum"
 
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_type_2_product_category
 msgid "Double"
-msgstr ""
+msgstr "Dubbel"
 
 #. module: hotel
 #: rml:folio.total:0
@@ -706,7 +706,7 @@ msgstr ""
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.hotel_report_menu
 msgid "Reports"
-msgstr ""
+msgstr "Rapporter"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -726,7 +726,7 @@ msgstr ""
 #. module: hotel
 #: view:hotel.folio:0
 msgid "Invoice Corrected"
-msgstr ""
+msgstr "Fakturan rättad"
 
 #. module: hotel
 #: model:ir.ui.menu,name:hotel.wizard_hotel_menu
@@ -741,12 +741,12 @@ msgstr ""
 #. module: hotel
 #: model:product.category,name:hotel.hotel_room_type_1_product_category
 msgid "Single"
-msgstr ""
+msgstr "Enkel"
 
 #. module: hotel
 #: constraint:product.product:0
 msgid "Error: Invalid ean code"
-msgstr ""
+msgstr "Fel: felaktig ean kod"
 
 #. module: hotel
 #: view:hotel.folio:0
@@ -756,4 +756,4 @@ msgstr ""
 #. module: hotel
 #: rml:folio.total:0
 msgid "Total"
-msgstr ""
+msgstr "Total"

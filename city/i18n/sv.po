@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-02-27 09:13+0000\n"
-"PO-Revision-Date: 2010-11-23 02:08+0000\n"
-"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
+"PO-Revision-Date: 2010-12-29 21:42+0000\n"
+"Last-Translator: Magnus Brandt (mba), Aspirix AB <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:18+0000\n"
+"X-Launchpad-Export-Date: 2010-12-30 05:03+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: city
@@ -22,12 +22,12 @@ msgstr ""
 #: model:ir.model,name:city.model_city_city
 #: model:ir.module.module,shortdesc:city.module_meta_information
 msgid "City"
-msgstr ""
+msgstr "Stad"
 
 #. module: city
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Ogiltig XML för Vy-arkitektur!"
 
 #. module: city
 #: constraint:ir.model:0
@@ -38,7 +38,7 @@ msgstr ""
 #. module: city
 #: field:city.city,zipcode:0
 msgid "ZIP"
-msgstr ""
+msgstr "Postnummer"
 
 #. module: city
 #: field:city.city,state_id:0
@@ -48,7 +48,7 @@ msgstr ""
 #. module: city
 #: field:city.city,country_id:0
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #. module: city
 #: field:city.city,code:0
@@ -72,7 +72,7 @@ msgstr ""
 #. module: city
 #: field:res.partner.address,location:0
 msgid "Location"
-msgstr ""
+msgstr "Plats"
 
 #. module: city
 #: help:city.city,code:0
@@ -83,7 +83,7 @@ msgstr ""
 #: model:ir.ui.menu,name:city.menu_city_partner
 #: field:res.country.state,city_ids:0
 msgid "Cities"
-msgstr ""
+msgstr "Städer"
 
 #~ msgid ""
 #~ "Creates a model for storing cities\n"

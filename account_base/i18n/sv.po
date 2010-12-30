@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-11-24 12:58+0000\n"
-"PO-Revision-Date: 2010-11-22 23:02+0000\n"
-"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
+"PO-Revision-Date: 2010-12-29 21:42+0000\n"
+"Last-Translator: Magnus Brandt (mba), Aspirix AB <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:14+0000\n"
+"X-Launchpad-Export-Date: 2010-12-30 05:03+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. module: account_base
@@ -25,7 +25,7 @@ msgstr ""
 #. module: account_base
 #: view:wizard.account.base.setup:0
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 #. module: account_base
 #: field:wizard.account.base.setup,excise:0
@@ -35,13 +35,13 @@ msgstr ""
 #. module: account_base
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Felaktigt namn för modell i händelsedefinitionen."
 
 #. module: account_base
 #: field:res.partner,pan_no:0
 #: field:wizard.account.base.setup,pan_no:0
 msgid "PAN Number"
-msgstr ""
+msgstr "PAN Nummer"
 
 #. module: account_base
 #: model:ir.module.module,shortdesc:account_base.module_meta_information
@@ -69,7 +69,7 @@ msgstr ""
 #. module: account_base
 #: field:wizard.account.base.setup,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Företag"
 
 #. module: account_base
 #: model:ir.module.module,description:account_base.module_meta_information
@@ -87,12 +87,12 @@ msgstr ""
 #. module: account_base
 #: model:ir.model,name:account_base.model_wizard_account_base_setup
 msgid "wizard.account.base.setup"
-msgstr ""
+msgstr "wizard.account.base.setup"
 
 #. module: account_base
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Ogiltig XML för Vy-arkitektur!"
 
 #. module: account_base
 #: field:res.partner,excise:0
@@ -135,7 +135,7 @@ msgstr ""
 #. module: account_base
 #: view:wizard.account.base.setup:0
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #. module: account_base
 #: field:wizard.account.base.setup,partner_id:0

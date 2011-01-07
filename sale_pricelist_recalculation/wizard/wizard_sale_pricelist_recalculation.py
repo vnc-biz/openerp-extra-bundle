@@ -38,7 +38,7 @@ class sale_extended_wizard(osv.osv_memory):
         date_order = sale_obj.date_order
 
         if sale_obj.pricelist_id.id == pricelist_id.id:
-            raise osv.except_osv(_('Warning'),_('The Pricelist is already applied to the sale order!'))
+            raise osv.except_osv(_('Warning'),_('The Pricelist is already applied to the sales order!'))
 
         if sale_obj['state'] == 'draft':
             sale_order_pool.write(cr, uid, context['active_id'], {'pricelist_id': pricelist_id.id})
@@ -48,7 +48,7 @@ class sale_extended_wizard(osv.osv_memory):
                     if 'price_unit' in vals['value'].keys():
                         order_line_obj.write(cr, uid, line.id, {'price_unit': vals['value']['price_unit']},context=context)
         else:
-            raise osv.except_osv(_('Warning'),_('PriceList cannot be changed! Make sure the Sale Order is in "Quotation" state!'))
+            raise osv.except_osv(_('Warning'),_('PriceList cannot be changed! Make sure the Sales Order is in "Quotation" state!'))
         return {}
 
 sale_extended_wizard()

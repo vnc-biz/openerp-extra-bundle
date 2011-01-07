@@ -23,7 +23,7 @@
     'version': '1.0',
     'category': 'Sales & Purchases',
     'description': """
-        This module adds a wizard on sale order which will let the user change the pricelist
+        This module adds a wizard on sales order which will let the user change the pricelist
         and the concerned sale order lines will take an effect.
      """,
     'author': 'OpenERP SA',

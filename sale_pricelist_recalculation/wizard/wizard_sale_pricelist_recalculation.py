@@ -25,15 +25,15 @@ class sale_extended_wizard(osv.osv_memory):
     _name = "sale.extended.wizard"
     _description = "Sale Extended wizard"
     _columns = {
-        'pricelist_id': fields.many2one('product.pricelist', 'Pricelist', required=True)
+        'pricelist_id': fields.many2one('product.pricelist', 'Pricelist', required=True, domain=[('type','=','sale')])
     }
 
     def change_pricelist_products(self, cr, uid, ids, context):
         obj_curr = self.browse(cr, uid, ids, context)[0]
         order_line_obj = self.pool.get('sale.order.line')
-        sale_oder_pool = self.pool.get('sale.order')
+        sale_order_pool = self.pool.get('sale.order')
         pricelist_id = obj_curr['pricelist_id']
-        sale_obj = sale_oder_pool.browse(cr, uid, context['active_id'], context)
+        sale_obj = sale_order_pool.browse(cr, uid, context['active_id'], context)
         partner_id = sale_obj.partner_id.id
         date_order = sale_obj.date_order
 
@@ -41,7 +41,7 @@ class sale_extended_wizard(osv.osv_memory):
             raise osv.except_osv(_('Warning'),_('The Pricelist is already applied to the sale order!'))
 
         if sale_obj['state'] == 'draft':
-            sale_oder_pool.write(cr, uid, context['active_id'], {'pricelist_id': pricelist_id.id})
+            sale_order_pool.write(cr, uid, context['active_id'], {'pricelist_id': pricelist_id.id})
             for line in sale_obj.order_line:
                 vals = order_line_obj.product_id_change(cr, uid, line.id, pricelist_id.id, line.product_id.id ,qty=line.product_uom_qty,uom=line.product_uom.id,uos=line.product_uos.id, partner_id=partner_id, date_order=date_order)
                 if vals.get('value',False):

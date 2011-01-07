@@ -21,12 +21,12 @@
 {
     'name': 'Sale Pricelist Recalculation',
     'version': '1.0',
-    'category': 'Generic Modules',
+    'category': 'Sales & Purchases',
     'description': """
         This module adds a wizard on sale order which will let the user change the pricelist
         and the concerned sale order lines will take an effect.
      """,
-    'author': 'OpenERP S.A.',
+    'author': 'OpenERP SA',
     'depends': ['sale'],
     'init_xml': [],
     'update_xml': [

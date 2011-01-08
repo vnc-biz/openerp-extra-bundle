@@ -30,35 +30,48 @@ import netsvc
 from osv import fields, osv
 import math
 
+def is_pair(x):
+    return not x%2
+
 def check_ean(eancode):
     if not eancode:
         return True
-		
-                        if not len(eancode) in [8,12,13,14]:
-                                return False
-                        try:
-                                int(eancode)
-                        except:
-                                return False
-                        sum=0
-                        ean_len=len(eancode)
-                        for i in range(ean_len-1):
-                                pos=int(ean_len-2-i)
-                                if is_pair(i):
-                                        sum += 3 * int(eancode[pos])
-                                else:
-                                        sum += int(eancode[pos])
-                        check = int(math.ceil(sum / 10.0) * 10 - sum)
-                        if check != int(eancode[ean_len-1]): # last digit
-                                return False
-                return True
+    if not len(eancode) in [8,12,13,14]:
+        return False
+    try:
+        int(eancode)
+    except:
+        return False
+    sum=0
+    ean_len=len(eancode)
+    for i in range(ean_len-1):
+        pos=int(ean_len-2-i)
+        if is_pair(i):
+            sum += 3 * int(eancode[pos])
+        else:
+            sum += int(eancode[pos])
+        check = int(math.ceil(sum / 10.0) * 10 - sum)
+
+	i += 1
+    if check != int(eancode[ean_len-1]): # last digit
+        return False
+    return True
 
 class product_product(osv.osv):
     _inherit = "product.product"
+
+
+    # this def shouldn't be necessary, but is not available from product_product
+    def _check_ean_key(self, cr, uid, ids, context=None):
+        for product in self.browse(cr, uid, ids, context=context):
+           res = check_ean(product.ean13)
+        return res
+
     _columns = {
         'ean13': fields.char('EAN', help ='Barcode number for EAN8 EAN13 UPC JPC GTIN http://de.wikipedia.org/wiki/Global_Trade_Item_Number', size=14),
 	}
 
+    # this constraint is ADDED, so we have 2 constraints with name _check_ean_key 
     _constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
 
 product_product()
@@ -71,14 +84,12 @@ class res_partner(osv.osv):
     _columns = {
         'ean13':    fields.char('EAN', help ='Barcode number for EAN8 EAN13 UPC JPC GTIN', size=14),
 	}
-	
-    _constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
 
     def _check_ean_key(self, cr, uid, ids, context=None):
         for product in self.browse(cr, uid, ids, context=context):
             res = check_ean(product.ean13)
             return res
+    _constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
 res_partner()
-
 
 

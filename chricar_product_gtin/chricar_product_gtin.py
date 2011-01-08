@@ -28,89 +28,57 @@
 
 import netsvc
 from osv import fields, osv
-#import pooler
-#import wizard
 import math
-#from _common import rounding
 
-#import product 
-	
-# need to replace the check_ean_key function 
-class product_product(osv.osv):
-	_inherit = "product.product"
-	_columns = {
-		'ean13': 	fields.char('EAN', help ='Barcode number for EAN8 EAN13 UPC JPC GTIN http://de.wikipedia.org/wiki/Global_Trade_Item_Number', size=14),
-	}
-
-# this code does not get replaced ??? --why ???
-	def _check_ean_key(self, cr, uid, ids):
-		def is_pair(x):
-			return not x%2
+def check_ean(eancode):
+    if not eancode:
+        return True
 		
-                for product in self.browse(cr, uid, ids):
-                        if not product.ean13:
-                                continue
-                        if not len(product.ean13) in [8,12,13,14]:
+                        if not len(eancode) in [8,12,13,14]:
                                 return False
                         try:
-                                int(product.ean13)
+                                int(eancode)
                         except:
                                 return False
                         sum=0
-                        ean_len=len(product.ean13)
+                        ean_len=len(eancode)
                         for i in range(ean_len-1):
                                 pos=int(ean_len-2-i)
                                 if is_pair(i):
-                                        sum += 3 * int(product.ean13[pos])
+                                        sum += 3 * int(eancode[pos])
                                 else:
-                                        sum += int(product.ean13[pos])
+                                        sum += int(eancode[pos])
                         check = int(math.ceil(sum / 10.0) * 10 - sum)
-                        if check != int(product.ean13[ean_len-1]): # last digit
+                        if check != int(eancode[ean_len-1]): # last digit
                                 return False
                 return True
 
-	_constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
+class product_product(osv.osv):
+    _inherit = "product.product"
+    _columns = {
+        'ean13': fields.char('EAN', help ='Barcode number for EAN8 EAN13 UPC JPC GTIN http://de.wikipedia.org/wiki/Global_Trade_Item_Number', size=14),
+	}
+
+    _constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
 
 product_product()
 
+
+# ******* Just to be complete ****
+# the ean13 is defined in partner.py but apparently not used in any xml
 class res_partner(osv.osv):
-	_inherit = "res.partner"
-	_columns = {
+    _inherit = "res.partner"
+    _columns = {
         'ean13':    fields.char('EAN', help ='Barcode number for EAN8 EAN13 UPC JPC GTIN', size=14),
 	}
 	
-# this code does not get replaced ??? --why ???
-	def _check_ean_key(self, cr, uid, ids):
-		def is_pair(x):
-			return not x%2
-		
-                for partner in self.browse(cr, uid, ids):
-                        if not partner.ean13:
-                                continue
-                        if not len(partner.ean13) in [8,12,13,14]:
-                                return False
-                        try:
-                                int(partner.ean13)
-                        except:
-                                return False
-                        sum=0
-                        ean_len=len(partner.ean13)
-                        for i in range(ean_len-1):
-                                pos=int(ean_len-2-i)
-                                if is_pair(i):
-                                        sum += 3 * int(partner.ean13[pos])
-                                else:
-                                        sum += int(partner.ean13[pos])
-                        check = int(math.ceil(sum / 10.0) * 10 - sum)
-                        if check != int(partner.ean13[ean_len-1]): # last digit
-                                return False
-                return True
+    _constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
 
-	_constraints = [(_check_ean_key, 'Error: Invalid Bar Code Number', ['ean13'])]
-
+    def _check_ean_key(self, cr, uid, ids, context=None):
+        for product in self.browse(cr, uid, ids, context=context):
+            res = check_ean(product.ean13)
+            return res
 res_partner()
 
-#class wiz_ean_check(wizard.interface):
-#wiz_ean_check()
 
 

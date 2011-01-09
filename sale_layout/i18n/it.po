@@ -1,4 +1,4 @@
-# Chinese (Simplified) translation for openobject-addons
+# Italian translation for openobject-addons
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 08:45+0000\n"
-"PO-Revision-Date: 2011-01-04 17:47+0000\n"
-"Last-Translator: OpenERP Administrators <Unknown>\n"
-"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
+"PO-Revision-Date: 2011-01-08 09:19+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,12 +20,12 @@ msgstr ""
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Sub Total"
-msgstr "小计"
+msgstr "Sub totale"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Title"
-msgstr "标题"
+msgstr "Titolo"
 
 #. module: sale_layout
 #: model:ir.module.module,shortdesc:sale_layout.module_meta_information
@@ -35,47 +35,47 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Disc. (%)"
-msgstr "折扣 (%)"
+msgstr "Sconto (%)"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Note"
-msgstr "备注"
+msgstr "Note"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Unit Price"
-msgstr "单价"
+msgstr "Prezzo unitario"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Order N°"
-msgstr "订单号"
+msgstr "Ordine N°"
 
 #. module: sale_layout
 #: field:sale.order,abstract_line_ids:0
 msgid "Order Lines"
-msgstr "订单明细"
+msgstr "Righe Ordine"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Disc.(%)"
-msgstr "折扣(%)"
+msgstr "Sconto (%)"
 
 #. module: sale_layout
 #: field:sale.order.line,layout_type:0
 msgid "Layout Type"
-msgstr ""
+msgstr "Tipo layout"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Seq."
-msgstr "序列"
+msgstr "Seq."
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: sale_layout
 #: model:ir.module.module,description:sale_layout.module_meta_information
@@ -95,57 +95,57 @@ msgstr ""
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Manual Description"
-msgstr ""
+msgstr "Descrizione Manuale"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Our Salesman"
-msgstr ""
+msgstr "Il nostro commerciale"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Automatic Declaration"
-msgstr ""
+msgstr "Dichiarazione automatica"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Invoice Lines"
-msgstr "发票明细"
+msgstr "Righe Fattura"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Quantity"
-msgstr "数量"
+msgstr "Quantità"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Quotation N°"
-msgstr "报价单号"
+msgstr "Preventivo N°"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "VAT"
-msgstr "增值税"
+msgstr "IVA"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Make Invoice"
-msgstr "生成发票"
+msgstr "Crea Fattura"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Properties"
-msgstr "属性"
+msgstr "Proprietà"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Invoice address :"
-msgstr "发票地址:"
+msgstr "Indirizzo fatturazione:"
 
 #. module: sale_layout
 #: constraint:ir.ui.view:0
@@ -155,82 +155,82 @@ msgstr ""
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Page Break"
-msgstr "分页"
+msgstr "Interruzione di pagina"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Notes"
-msgstr "备注"
+msgstr "Note"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Date Ordered"
-msgstr "订单日期"
+msgstr ""
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Shipping address :"
-msgstr "运货地址:"
+msgstr "Indirizzo Spedizione:"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Taxes"
-msgstr "税金"
+msgstr ""
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Net Total :"
-msgstr ""
+msgstr "Totale netto :"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Tel. :"
-msgstr ""
+msgstr "Tel. :"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Total :"
-msgstr ""
+msgstr "Totale:"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Payment Terms"
-msgstr ""
+msgstr "Termini di pagamento"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "History"
-msgstr ""
+msgstr "Storico"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Sale Order Lines"
-msgstr ""
+msgstr "Righe ordine di vendita"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
 msgid "Separator Line"
-msgstr ""
+msgstr "Linea di separazione"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Your Reference"
-msgstr ""
+msgstr "Vostro riferimento"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Sales order lines"
-msgstr ""
+msgstr "Righe Ordine di Vendita"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Qty"
-msgstr ""
+msgstr "Q.tà"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "States"
-msgstr ""
+msgstr "Stati"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -240,27 +240,27 @@ msgstr ""
 #. module: sale_layout
 #: model:ir.actions.report.xml,name:sale_layout.sale_order_1
 msgid "Order with Layout"
-msgstr ""
+msgstr "Ordine senza layout"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Extra Info"
-msgstr ""
+msgstr "Informazioni aggiuntive"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "UoM"
-msgstr ""
+msgstr "U.M."
 
 #. module: sale_layout
 #: report:sale.order.layout:0
 msgid "Fax :"
-msgstr ""
+msgstr "Fax:"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Order Line"
-msgstr ""
+msgstr "Riga Ordine"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -275,4 +275,4 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Stock Moves"
-msgstr ""
+msgstr "Movimenti di Magazzino"

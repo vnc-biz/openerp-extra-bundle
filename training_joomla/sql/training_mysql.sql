@@ -120,9 +120,9 @@ CREATE TABLE zik_training_course_offer_rel(
 CREATE TABLE zik_training_session (
     id int(11) unsigned NOT NULL,
     address_id integer,
-    date_end timestamp NOT NULL,
+    date_end datetine NOT NULL,
     min_limit_reached tinyint(1) NOT NULL DEFAULT '0',
-    date timestamp NOT NULL,
+    date datetine NOT NULL,
     participant_count_manual integer,
     format_id int(11) unsigned NOT NULL,
     name character varying(64) NOT NULL,

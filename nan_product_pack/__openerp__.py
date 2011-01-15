@@ -14,7 +14,10 @@ The module has been made compatible with nan_external_prices and containts code 
 	"category" : "Custom Modules",
 	"init_xml" : [],
 	"demo_xml" : [],
-	"update_xml" : [ 'pack_view.xml' ],
+	"update_xml" : [
+		'security/ir.model.access.csv',
+		'pack_view.xml'
+	],
 	"active": False,
 	"installable": True
 }

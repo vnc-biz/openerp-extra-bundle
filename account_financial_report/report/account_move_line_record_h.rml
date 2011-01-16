@@ -128,7 +128,7 @@
       <blockTable colWidths="1.8cm,1.8cm,2cm,2.5cm,6.7cm,6.5cm,2cm,2cm,1.2cm,1.5cm" style="SubTabla">
         <tr>
         <td>
-          <para style="DetailCenter">[[o.name]]</para>
+          <para style="DetailCenter">[[o.name_split]]</para>
         </td>
         <td>
           <para style="Detail">[[formatLang(o.date, date=True)]]</para>

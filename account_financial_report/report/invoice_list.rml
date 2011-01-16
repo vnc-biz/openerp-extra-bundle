@@ -141,7 +141,7 @@
         <section>
             <section> [[ repeatIn(out_invoices, 'obj') ]] <para style="Standard"> Currency : [[ obj[0] ]] </para>
                 <!--<blockTable colWidths="1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm,1.8cm,1.6cm" repeatRows="1" style="Table3">-->
-                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" repeatRows="1" style="Table3a">
+                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" repeatRows="1" style="Table3a">
                     <tr>
                         <td>
                             <para style="Standard" size="5">Number</para>
@@ -188,7 +188,7 @@
                     </tr>
                 </blockTable>
                 <section>[[ repeatIn(obj[1], 'inv') ]]
-                    <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" style="Table3">
+                    <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" style="Table3">
                         <tr>
                             <td>
                                 <para style="Text body">[[inv.number]]</para>
@@ -197,7 +197,7 @@
                                 <para style="Text body">[[inv.reference]]</para>
                             </td>
                             <td>
-                                <para style="Text body">[[inv.move_id.name]]</para>
+                                <para style="Text body">[[inv.move_id.name_split]]</para>
                             </td>
                             <td>
                                 <para style="Text body">[[inv.date_invoice and formatLang(inv.date_invoice, date=True)]]</para>
@@ -264,7 +264,7 @@
                         </blockTable>
                     </section>
                 </section>
-                <blockTable colWidths="10.0cm,9.7cm,1.8cm,1.4cm,1.6cm,2.6cm" style="Table3">
+                <blockTable colWidths="10.0cm,9.7cm,2.0cm,1.6cm,1.8cm,2.0cm" style="Table3">
                     <tr>
                         <td>
                             <para/>
@@ -345,7 +345,7 @@
                     </tr>
                 </blockTable>
                 <section>[[ repeatIn(obj[1], 'inv') ]]
-                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" style="Table3">
+                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" style="Table3">
                     <tr>
                         <td>
                             <para style="Text body">[[inv.number]]</para>
@@ -354,7 +354,7 @@
                             <para style="Text body">[[inv.reference]]</para>
                         </td>
                         <td>
-                            <para style="Text body">[[inv.move_id.name]]</para>
+                            <para style="Text body">[[inv.move_id.name_split]]</para>
                         </td>
                         <td>
                             <para style="Text body">[[inv.date_invoice and formatLang(inv.date_invoice, date=True)]]</para>
@@ -421,7 +421,7 @@
                         </blockTable>
                     </section>
                 </section>
-                <blockTable colWidths="10.0cm,9.7cm,1.8cm,1.4cm,1.6cm,2.6cm" style="Table3">
+                <blockTable colWidths="10.0cm,9.7cm,2.0cm,1.6cm,1.8cm,2.0cm" style="Table3">
                     <tr>
                         <td>
                             <para/>
@@ -455,7 +455,7 @@
         <section>
             <section> [[ repeatIn(in_invoices, 'obj') ]] <para style="Standard"> Currency : [[ obj[0] ]] </para>
                 <!--<blockTable colWidths="1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm,1.8cm,1.6cm" repeatRows="1" style="Table3">-->
-                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" repeatRows="1" style="Table3a">
+                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" repeatRows="1" style="Table3a">
                     <tr>
                         <td>
                             <para style="Standard" size="5">Number</para>
@@ -502,7 +502,7 @@
                     </tr>
                 </blockTable>
                 <section>[[ repeatIn(obj[1], 'inv') ]]
-                    <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" style="Table3">
+                    <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" style="Table3">
                         <tr>
                             <td>
                                 <para style="Text body">[[inv.number]]</para>
@@ -511,7 +511,7 @@
                                 <para style="Text body">[[inv.reference]]</para>
                             </td>
                             <td>
-                                <para style="Text body">[[inv.move_id.name]]</para>
+                                <para style="Text body">[[inv.move_id.name_split]]</para>
                             </td>
                             <td>
                                 <para style="Text body">[[inv.date_invoice and formatLang(inv.date_invoice, date=True)]]</para>
@@ -578,7 +578,7 @@
                         </blockTable>
                     </section>
                 </section>
-                <blockTable colWidths="10.0cm,9.7cm,1.8cm,1.4cm,1.6cm,2.6cm" style="Table3">
+                <blockTable colWidths="10.0cm,9.7cm,2.0cm,1.6cm,1.8cm,2.0cm" style="Table3">
                     <tr>
                         <td>
                             <para/>
@@ -612,7 +612,7 @@
         <section>
             <section> [[ repeatIn(in_refunds, 'obj') ]] <para style="Standard"> Currency : [[ obj[0] ]] </para>
                 <!--<blockTable colWidths="1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm,1.8cm,1.6cm" repeatRows="1" style="Table3">-->
-                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" repeatRows="1" style="Table3a">
+                <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" repeatRows="1" style="Table3a">
                     <tr>
                         <td>
                             <para style="Standard" size="5">Number</para>
@@ -659,7 +659,7 @@
                     </tr>
                 </blockTable>
                 <section>[[ repeatIn(obj[1], 'inv') ]]
-                    <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,1.8cm,1.4cm,1.6cm,2.6cm" repeatRows="1" style="Table3">
+                    <blockTable colWidths="2.0cm,2.3cm,1.4cm,1.8cm,1.8cm,2cm,5.2cm,2cm,1.2cm,2.0cm,1.6cm,1.8cm,2.0cm" repeatRows="1" style="Table3">
                         <tr>
                             <td>
                                 <para style="Text body">[[inv.number]]</para>
@@ -668,7 +668,7 @@
                                 <para style="Text body">[[inv.reference]]</para>
                             </td>
                             <td>
-                                <para style="Text body">[[inv.move_id.name]]</para>
+                                <para style="Text body">[[inv.move_id.name_split]]</para>
                             </td>
                             <td>
                                 <para style="Text body">[[inv.date_invoice and formatLang(inv.date_invoice, date=True)]]</para>
@@ -735,7 +735,7 @@
                         </blockTable>
                     </section>
                 </section>
-                <blockTable colWidths="10.0cm,9.7cm,1.8cm,1.4cm,1.6cm,2.6cm" repeatRows="1" style="Table3">
+                <blockTable colWidths="10.0cm,9.7cm,2.0cm,1.6cm,1.8cm,2.0cm" repeatRows="1" style="Table3">
                     <tr>
                         <td>
                             <para/>
@@ -762,6 +762,7 @@
                 </para>
             </section>
         </section>
+    <para alignment="LEFT" style="Standard">End of report</para>
 
     </story>
 </document>

@@ -315,7 +315,7 @@ class general_ledger(rml_parse.rml_parse):
 
         for l in reversed(res):
             line = move_line_obj.browse(self.cr, self.uid, l['id'])
-            l['move'] = line.move_id.name
+            l['move'] = line.move_id.name_split
             self.cr.execute('Select id from account_invoice where move_id =%s'%(line.move_id.id))
             tmpres = self.cr.dictfetchall()
             if len(tmpres) > 0 :

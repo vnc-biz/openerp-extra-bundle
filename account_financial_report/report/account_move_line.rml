@@ -152,7 +152,7 @@
         <blockTable colWidths="1.5cm,1.5cm,7cm,2cm,2cm,5cm" style="SubTabla">
             <tr>
                 <td>
-                    <para style="DetailCenter">[[o.move_id.name]]</para>
+                    <para style="DetailCenter">[[o.move_id.name_split]]</para>
                 </td>
                 <td>
                     <para style="DetailCenter">[[formatLang(o.date_created, date=True)]]</para>

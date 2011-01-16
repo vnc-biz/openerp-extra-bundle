@@ -47,7 +47,7 @@ period_form = '''<?xml version="1.0"?>
         <field name="cancel"/>
     </group>
     <group colspan="4">
-        <separator string="Filter by date" colspan="4"/>
+        <separator string="Filter by date (default current year)" colspan="4"/>
         <field name="state" required="True"/>
         <newline/>
         <group attrs="{'invisible':[('state','=','none')]}" colspan="4">

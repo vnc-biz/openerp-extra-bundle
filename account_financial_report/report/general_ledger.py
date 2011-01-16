@@ -295,7 +295,7 @@ class general_ledger(rml_parse.rml_parse):
         else:
             sorttag = 'j.code'
         sql = """
-            SELECT l.id, l.date, j.code, c.code AS currency_code, l.amount_currency, l.ref, l.name , l.debit, l.credit, l.period_id
+            SELECT l.id, l.date, j.code, c.symbol AS currency_code, l.amount_currency, l.ref, l.name , l.debit, l.credit, l.period_id
                     FROM account_move_line as l
                        LEFT JOIN res_currency c on (l.currency_id=c.id)
                           JOIN account_journal j on (l.journal_id=j.id)
@@ -381,7 +381,7 @@ class general_ledger(rml_parse.rml_parse):
 
 
     def _set_get_account_currency_code(self, account_id):
-        self.cr.execute("SELECT c.code as code "\
+        self.cr.execute("SELECT c.symbol as code "\
                 "FROM res_currency c, account_account as ac "\
                 "WHERE ac.id = %s AND ac.currency_id = c.id" % (account_id))
         result = self.cr.fetchone()

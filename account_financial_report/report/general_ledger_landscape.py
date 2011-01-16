@@ -32,7 +32,6 @@
 import time
 from report import report_sxw
 import rml_parse
-from tools import config
 from tools.translate import _
 
 
@@ -296,7 +295,7 @@ class general_ledger_landscape(rml_parse.rml_parse):
         else:
             sorttag = 'j.code'
         sql = """
-            SELECT l.id, l.date, j.code, c.code AS currency_code, l.amount_currency, l.ref, l.name , l.debit, l.credit, l.period_id
+            SELECT l.id, l.date, j.code, c.symbol AS currency_code, l.amount_currency, l.ref, l.name , l.debit, l.credit, l.period_id
                     FROM account_move_line as l
                        LEFT JOIN res_currency c on (l.currency_id=c.id)
                           JOIN account_journal j on (l.journal_id=j.id)
@@ -338,8 +337,12 @@ class general_ledger_landscape(rml_parse.rml_parse):
                     l['amount_currency'] = abs(l['amount_currency']) * -1
             if l['amount_currency'] != None:
                 self.tot_currency = self.tot_currency + l['amount_currency']
+        decimal_precision_obj = self.pool.get('decimal.precision')
+	ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
+	digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
 
-        if abs(sum) > 10**-int(config['price_accuracy']) and form['initial_balance']:
+        #if abs(sum) > 10**-int(config['price_accuracy']) and form['initial_balance']:
+        if round(sum,digits) <> 0.0  and form['initial_balance']:
             res.insert(0, {
                 'date': self.min_date,
                 'name': _('Initial balance'),
@@ -382,7 +385,7 @@ class general_ledger_landscape(rml_parse.rml_parse):
 
 
     def _set_get_account_currency_code(self, account_id):
-        self.cr.execute("SELECT c.code as code "\
+        self.cr.execute("SELECT c.symbol as code "\
                 "FROM res_currency c, account_account as ac "\
                 "WHERE ac.id = %s AND ac.currency_id = c.id" % (account_id))
         result = self.cr.fetchone()

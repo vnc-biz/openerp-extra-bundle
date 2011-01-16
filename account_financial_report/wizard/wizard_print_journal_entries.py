@@ -54,7 +54,7 @@ class wizard_print_journal(wizard.interface):
         period_obj = pooler.get_pool(cr.dbname).get('account.period')
         journal_obj = pooler.get_pool(cr.dbname).get('account.journal')
         data['form']['period_ids'] = period_obj.search(cr, uid, [('fiscalyear_id','=',fiscalyear_obj.find(cr, uid))])
-        data['form']['journal_ids'] = journal_obj.search(cr, uid, [('active','=','True')])
+        data['form']['journal_ids'] = journal_obj.search(cr, uid, [])
         return data['form']
 
 

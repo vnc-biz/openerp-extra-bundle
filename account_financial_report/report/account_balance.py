@@ -29,10 +29,13 @@ import time
 import datetime
 from report import report_sxw
 from tools import config
+#import decimal_precision as dp
 
+#import sys
 
 class account_balance(report_sxw.rml_parse):
     _name = 'report.account.balance.full'
+    
 
     def __init__(self, cr, uid, name, context):
         super(account_balance, self).__init__(cr, uid, name, context)
@@ -201,6 +204,11 @@ class account_balance(report_sxw.rml_parse):
         #
         # Generate the report lines (checking each account)
         #
+	decimal_precision_obj = self.pool.get('decimal.precision')
+	ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
+	digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
+	#print >>sys.stderr, 'digits',digits
+
         for account in accounts:
             account_id = account['id']
 
@@ -249,27 +257,37 @@ class account_balance(report_sxw.rml_parse):
                 #
                 # Round the values to zero if needed (-0.000001 ~= 0)
                 #
-                if abs(res['balance']) < 0.5 * 10**-int(config['price_accuracy']):
-                    res['balance'] = 0.0
-                if abs(res['balance_fy']) < 0.5 * 10**-int(config['price_accuracy']):
-                    res['balance_fy'] = 0.0
-                if abs(res['balanceinit']) < 0.5 * 10**-int(config['price_accuracy']):
-                    res['balanceinit'] = 0.0
-                if abs(res['balanceinit_fy']) < 0.5 * 10**-int(config['price_accuracy']):
-                    res['balanceinit_fy'] = 0.0
+                res['balance'] = round(res['balance'],digits)
+                res['balance_fy'] = round(res['balance_fy'],digits)
+                res['balanceinit'] = round(res['balanceinit'],digits)
+                res['balanceinit_fy'] = round(res['balanceinit_fy'],digits)
+                res['debit'] = round(res['debit'],digits)
+                res['credit'] = round(res['credit'],digits)
+                #if abs(res['balance']) < 0.5 * 10**-int(config['price_accuracy']):
+                #    res['balance'] = 0.0
+                #if abs(res['balance_fy']) < 0.5 * 10**-int(config['price_accuracy']):
+                #    res['balance_fy'] = 0.0
+                #if abs(res['balanceinit']) < 0.5 * 10**-int(config['price_accuracy']):
+                #    res['balanceinit'] = 0.0
+                #if abs(res['balanceinit_fy']) < 0.5 * 10**-int(config['price_accuracy']):
+                #    res['balanceinit_fy'] = 0.0
 
                 #
                 # Check whether we must include this line in the report or not
                 #
                 if form['display_account'] == 'bal_mouvement' and account['parent_id']:
                     # Include accounts with movements
-                    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']) \
-                            or abs(res['credit']) >= 0.5 * 10**-int(config['price_accuracy']) \
-                            or abs(res['debit']) >= 0.5 * 10**-int(config['price_accuracy']):
+		     if res['balance'] <> 0.0 \
+	                or res['debit'] <> 0.0 \
+			or res['credit'] <> 0.0:
+                #    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']) \
+                #            or abs(res['credit']) >= 0.5 * 10**-int(config['price_accuracy']) \
+                #            or abs(res['debit']) >= 0.5 * 10**-int(config['price_accuracy']):
                         result_acc.append(res)
                 elif form['display_account'] == 'bal_solde' and account['parent_id']:
                     # Include accounts with balance
-                    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']):
+                    #if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']):
+		     if  res['balance'] <> 0.0 :
                         result_acc.append(res)
                 else:
                     # Include all accounts

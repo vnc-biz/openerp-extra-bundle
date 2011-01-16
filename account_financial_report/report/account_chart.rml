@@ -132,6 +132,8 @@
     <para style="Standard">
       <font color="white"> </font>
     </para>
+      <para alignment="LEFT" style="Standard">End of report</para>
+
   </story>
 </document>
 

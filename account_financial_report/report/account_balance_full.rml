@@ -263,5 +263,7 @@
                 </td>
             </tr>
         </blockTable>
+	  <para alignment="LEFT" style="Standard">End of report</para>
+
     </story>
 </document>

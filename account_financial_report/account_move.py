@@ -37,7 +37,7 @@ class account_move(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids, context):
            if len(move.name) > 8:
-               result[move.id] = move.name.replace('-','- ')
+               result[move.id] = move.name.replace('-','- ').replace('/','/ ')
            else:
 	       result[move.id] = move.name
         return result
@@ -56,7 +56,7 @@ class account_move_line(osv.osv):
         result = {}
         for move in self.browse(cr, uid, ids, context):
            if len(move.name) > 8:
-               result[move.id] = move.name.replace('-','- ')
+               result[move.id] = move.name.replace('-','- ').replace('/','/ ')
            else:
                result[move.id] = move.name
         return result

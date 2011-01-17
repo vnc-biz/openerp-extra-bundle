@@ -84,7 +84,7 @@ class training_course(osv.osv):
         'metadescription' : fields.text('MetaDescription'),
     }
 
-    def _onchange_longName(self, cr, uid, ids, long_name, alias):
+    def onchange_longName(self, cr, uid, ids, long_name, alias):
         value = {}
         if not alias:
             alias = slugify(unicode(long_name,'UTF-8'))
@@ -134,9 +134,11 @@ class training_subscription(osv.osv):
     _inherit = 'training.subscription'
 
     def check_vat(self, vat):
+        partner_obj = self.pool.get('res.partner')
         vat_country, vat_number = vat[:2].lower(), vat[2:].replace(' ', '')
-        expr = "self.pool.get('res.partner').check_vat_" + vat_country + "('" + vat_number + "')"
-        res = eval(expr)
+        if hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
+            check = getattr(partner_obj, 'check_vat_' + vat_country.lower())
+            res = check(vat_number)
         return res
 
     def create_partner(self, cr, uid, values, context=None):

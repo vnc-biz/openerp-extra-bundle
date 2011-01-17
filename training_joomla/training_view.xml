@@ -79,7 +79,7 @@
             <field name="inherit_id" ref="training.training_course_form" />
             <field name="arch" type="xml">
                 <field name="long_name" position="replace">
-                    <field name="long_name" attrs="{'readonly' : [('p_id', '!=', False)]}" colspan="4" on_change="_onchange_longName(long_name, alias)"/>
+                    <field name="long_name" attrs="{'readonly' : [('p_id', '!=', False)]}" colspan="4" on_change="onchange_longName(long_name, alias)"/>
                 </field>
             </field>
         </record>

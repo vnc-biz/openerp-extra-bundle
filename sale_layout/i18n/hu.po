@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-11 05:24+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:24+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: sale_layout
 #: selection:sale.order.line,layout_type:0
@@ -115,7 +115,7 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Invoice Lines"
-msgstr ""
+msgstr "Számlasorok"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -160,7 +160,7 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Notes"
-msgstr ""
+msgstr "Megjegyzések"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -200,7 +200,7 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "History"
-msgstr ""
+msgstr "Előzmény"
 
 #. module: sale_layout
 #: view:sale.order:0
@@ -225,12 +225,12 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Qty"
-msgstr ""
+msgstr "Db"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "States"
-msgstr ""
+msgstr "Állapotok"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -245,12 +245,12 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Extra Info"
-msgstr ""
+msgstr "Extra információ"
 
 #. module: sale_layout
 #: view:sale.order:0
 msgid "UoM"
-msgstr ""
+msgstr "ME"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -260,7 +260,7 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Order Line"
-msgstr ""
+msgstr "Rendelési tétel"
 
 #. module: sale_layout
 #: report:sale.order.layout:0
@@ -275,4 +275,4 @@ msgstr ""
 #. module: sale_layout
 #: view:sale.order:0
 msgid "Stock Moves"
-msgstr ""
+msgstr "Készletmozgások"

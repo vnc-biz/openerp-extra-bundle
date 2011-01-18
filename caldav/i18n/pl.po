@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:17+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:25+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: caldav
 #: model:ir.model,name:caldav.model_caldav_attendee
@@ -31,7 +31,7 @@ msgstr ""
 "specjalnych !"
 
 #. module: caldav
-#: model:ir.module.module,shortdesc:caldav.module_meta_information
+#: selection:user.preference,service:0
 msgid "CalDAV"
 msgstr ""
 

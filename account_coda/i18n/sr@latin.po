@@ -14,154 +14,136 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:15+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:22+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: account_coda
 #: help:account.coda,journal_id:0
 #: field:account.coda.import,journal_id:0
 msgid "Bank Journal"
-msgstr ""
+msgstr "Dnevnik Banke"
 
 #. module: account_coda
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"Ime objekta mora da počinje sa x_ i ne sme da sadrži specijalne karaktere !"
 
 #. module: account_coda
 #: view:account.coda:0
 #: field:account.coda.import,note:0
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
-#. module: account_coda
-#: wizard_button:account.coda_import,extraction,open:0
 msgid "_Open Statement"
-msgstr ""
+msgstr "_Otvori izvod"
 
-#. module: account_coda
-#: model:ir.module.module,shortdesc:account_coda.module_meta_information
 msgid "Account CODA"
-msgstr ""
+msgstr "CODA Nalog"
 
 #. module: account_coda
 #: field:account.coda,name:0
 msgid "Coda file"
-msgstr ""
+msgstr "Coda Fajl"
 
-#. module: account_coda
-#: wizard_view:account.coda_import,init:0
 msgid "Clic on 'New' to select your file :"
-msgstr ""
+msgstr "Klikni na 'Novi' da izaberes svoj fajl"
 
-#. module: account_coda
-#: model:ir.actions.wizard,name:account_coda.wizard_account_coda_import
 msgid "Import Coda File"
-msgstr ""
+msgstr "Uvezi Coda fajl"
 
 #. module: account_coda
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Pogrešno ime modela u definiciji akcije."
 
 #. module: account_coda
 #: field:account.coda,note:0
 msgid "Import log"
-msgstr ""
+msgstr "Uvezi log"
 
-#. module: account_coda
-#: wizard_field:account.coda_import,init,def_receivable:0
 msgid "Default receivable Account"
-msgstr ""
+msgstr "Osnovni Konto Prihoda"
 
-#. module: account_coda
-#: model:ir.module.module,description:account_coda.module_meta_information
 msgid ""
 "Module provides functionality to import\n"
 "    bank statements from .csv file.\n"
 "    Import coda file wizard is used to import bank statements."
 msgstr ""
+"Ovaj modul omogucava funkionalnost uvoza\n"
+"Bancinih izvoda iz .csv fajla.\n"
+"Coda fajl carobnjak za uvoz se koristi za uvoz bancinih stavki"
 
-#. module: account_coda
-#: wizard_button:account.coda_import,extraction,end:0
 msgid "_Close"
-msgstr ""
+msgstr "_Zatvori"
 
-#. module: account_coda
-#: field:account.coda,statement_id:0
 msgid "Generated Bank Statement"
-msgstr ""
+msgstr "Generisani Bancin Izvod"
 
 #. module: account_coda
 #: view:account.coda:0
 msgid "Coda import"
-msgstr ""
+msgstr "Coda Uvoz"
 
 #. module: account_coda
 #: view:account.coda:0
 #: field:account.coda,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Korisnik"
 
 #. module: account_coda
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Nevažeći XML za pregled arhitekture"
 
 #. module: account_coda
 #: model:ir.model,name:account_coda.model_account_coda
 msgid "coda for an Account"
-msgstr ""
+msgstr "coda za jedan nalog"
 
 #. module: account_coda
 #: field:account.coda.import,def_payable:0
 msgid "Default Payable Account"
-msgstr ""
+msgstr "Osnovni platni konto"
 
-#. module: account_coda
-#: model:ir.ui.menu,name:account_coda.menu_account_coda
 msgid "Coda Statements"
-msgstr ""
+msgstr "Coda stavke"
 
 #. module: account_coda
 #: model:ir.ui.menu,name:account_coda.menu_account_coda_import
 msgid "Import Coda Statements"
-msgstr ""
+msgstr "Uvezi Coda Stavke"
 
-#. module: account_coda
-#: wizard_button:account.coda_import,init,extraction:0
 msgid "_Ok"
-msgstr ""
+msgstr "_U Redu"
 
 #. module: account_coda
 #: view:account.coda.import:0
 #: model:ir.actions.act_window,name:account_coda.action_account_coda_import
 msgid "Import Coda Statement"
-msgstr ""
+msgstr "Uvezi Coda Stavku"
 
 #. module: account_coda
 #: field:account.bank.statement,coda_id:0
 msgid "Coda"
-msgstr ""
+msgstr "Coda"
 
 #. module: account_coda
 #: view:account.coda.import:0
 msgid "Results :"
-msgstr ""
+msgstr "Rezultati :"
 
 #. module: account_coda
 #: field:account.coda.import,coda:0
 #: model:ir.actions.act_window,name:account_coda.act_account_payment_account_bank_statement
 msgid "Coda File"
-msgstr ""
+msgstr "Coda Fajl"
 
 #. module: account_coda
 #: help:account.coda,date:0
 msgid "Import Date"
 msgstr "Datum Unosa"
 
-#. module: account_coda
-#: wizard_view:account.coda_import,init:0
 msgid "Select your bank journal :"
-msgstr ""
+msgstr "Izaberi svoj bancin dnevnik"

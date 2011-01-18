@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:19+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:27+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: survey
 #: model:ir.actions.act_window,name:survey.action_survey_form1
@@ -26,8 +26,6 @@ msgstr ""
 msgid "Surveys"
 msgstr "Санал асуулгууд"
 
-#. module: survey
-#: model:ir.actions.report.xml,name:survey.survey
 msgid "Survey Analysis Report"
 msgstr "Санал асуулгын шинжилгээний мэдээлэл"
 
@@ -61,14 +59,9 @@ msgstr "Түүхийн мөрүүд"
 msgid "Body"
 msgstr "Бие"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_view_survey_name
-#: model:ir.ui.menu,name:survey.menu_run_survey_form
 msgid "Give Survey Response"
 msgstr "Санал асуулгад хариулт өгөх"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.act_survey_question
 msgid "All Questions"
 msgstr "Бүх асуултууд"
 
@@ -82,8 +75,6 @@ msgstr "Санал асуулга нээх огноо"
 msgid "survey.name.wiz"
 msgstr "survey.name.wiz"
 
-#. module: survey
-#: view:survey:0
 msgid "Users Details"
 msgstr "Хэрэглэгчдийн мэдээлэл"
 
@@ -96,8 +87,6 @@ msgstr "Хэрэглэгчдийн мэдээлэл"
 msgid "Survey Question"
 msgstr "Санал асуулгын асуулт"
 
-#. module: survey
-#: help:survey,response_user:0
 msgid "Set to one if  you require only one response per user"
 msgstr ""
 
@@ -117,8 +106,6 @@ msgstr "Санал асуулгын түүх"
 msgid "Notes"
 msgstr "Тэмдэглэгээ"
 
-#. module: survey
-#: field:survey.question,tot_resp:0
 msgid "Total Response"
 msgstr "Нийт хариулт"
 
@@ -140,10 +127,49 @@ msgid "Allow Comment Field"
 msgstr "Тайлбарыг зөвшөөрөх"
 
 #. module: survey
-#: code:addons/survey/survey.py:0
-#: code:addons/survey/wizard/survey_answer.py:0
-#: code:addons/survey/wizard/survey_selection.py:0
-#: code:addons/survey/wizard/survey_send_invitation.py:0
+#: code:addons/survey/survey.py:375
+#: code:addons/survey/survey.py:387
+#: code:addons/survey/survey.py:401
+#: code:addons/survey/survey.py:406
+#: code:addons/survey/survey.py:416
+#: code:addons/survey/survey.py:422
+#: code:addons/survey/survey.py:428
+#: code:addons/survey/survey.py:434
+#: code:addons/survey/survey.py:438
+#: code:addons/survey/survey.py:444
+#: code:addons/survey/survey.py:448
+#: code:addons/survey/survey.py:458
+#: code:addons/survey/survey.py:462
+#: code:addons/survey/survey.py:467
+#: code:addons/survey/survey.py:473
+#: code:addons/survey/survey.py:475
+#: code:addons/survey/survey.py:477
+#: code:addons/survey/survey.py:482
+#: code:addons/survey/survey.py:484
+#: code:addons/survey/survey.py:642
+#: code:addons/survey/wizard/survey_answer.py:124
+#: code:addons/survey/wizard/survey_answer.py:131
+#: code:addons/survey/wizard/survey_answer.py:699
+#: code:addons/survey/wizard/survey_answer.py:738
+#: code:addons/survey/wizard/survey_answer.py:758
+#: code:addons/survey/wizard/survey_answer.py:787
+#: code:addons/survey/wizard/survey_answer.py:792
+#: code:addons/survey/wizard/survey_answer.py:800
+#: code:addons/survey/wizard/survey_answer.py:811
+#: code:addons/survey/wizard/survey_answer.py:820
+#: code:addons/survey/wizard/survey_answer.py:825
+#: code:addons/survey/wizard/survey_answer.py:899
+#: code:addons/survey/wizard/survey_answer.py:935
+#: code:addons/survey/wizard/survey_answer.py:953
+#: code:addons/survey/wizard/survey_answer.py:981
+#: code:addons/survey/wizard/survey_answer.py:984
+#: code:addons/survey/wizard/survey_answer.py:987
+#: code:addons/survey/wizard/survey_answer.py:999
+#: code:addons/survey/wizard/survey_answer.py:1006
+#: code:addons/survey/wizard/survey_answer.py:1009
+#: code:addons/survey/wizard/survey_selection.py:134
+#: code:addons/survey/wizard/survey_selection.py:138
+#: code:addons/survey/wizard/survey_send_invitation.py:74
 #, python-format
 msgid "Warning !"
 msgstr "Алдаа!"
@@ -154,19 +180,12 @@ msgstr "Алдаа!"
 msgid "Send reminder for existing user"
 msgstr "Хэрэглэгчид сануулга илгээх"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_new_survey_question_form
-#: model:ir.ui.menu,name:survey.menu_new_survey_question_form1
 msgid "New Survey Question"
 msgstr "Шинэ санал асуулгын асуулт"
 
-#. module: survey
-#: view:survey.response:0
 msgid "Skip"
 msgstr "Алгасах"
 
-#. module: survey
-#: wizard_field:wizard.send.invitation,init,partner_ids:0
 msgid "Partner"
 msgstr "Түнш"
 
@@ -176,8 +195,6 @@ msgstr "Түнш"
 msgid "Subject"
 msgstr "Сэдэв"
 
-#. module: survey
-#: field:survey,max_response_limit:0
 msgid "Maximum Response Limit"
 msgstr "Хамгийн их хариултын хэмжээ"
 
@@ -186,8 +203,6 @@ msgstr "Хамгийн их хариултын хэмжээ"
 msgid "From"
 msgstr "Хаанаас"
 
-#. module: survey
-#: field:survey.response,response_type:0
 msgid "Response Type"
 msgstr "Хариултын төрөл"
 
@@ -210,18 +225,12 @@ msgstr "Асуулт"
 msgid "Send"
 msgstr "Илгээх"
 
-#. module: survey
-#: field:survey.answer,response:0
 msgid "#Response"
 msgstr "#Хариулах"
 
-#. module: survey
-#: field:survey.response,response_answer_ids:0
 msgid "Response Answer"
 msgstr "Хариулах Хариулт"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Response Summary"
 msgstr "Товч хариулт"
 
@@ -231,19 +240,13 @@ msgstr "Товч хариулт"
 msgid "Send mail for new user"
 msgstr "Шинэ хэрэглэгчид имэйл илгээх"
 
-#. module: survey
-#: code:addons/survey/survey.py:0
 #, python-format
 msgid "Error !"
 msgstr "Алдаа!"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Skipped Question"
 msgstr "Алгассан асуулт"
 
-#. module: survey
-#: wizard_button:wizard.send.invitation,send,end:0
 msgid "_Ok"
 msgstr "Тийм"
 
@@ -252,8 +255,6 @@ msgstr "Тийм"
 msgid "Link"
 msgstr "Линк"
 
-#. module: survey
-#: model:ir.ui.menu,name:survey.menu_survey_config
 msgid "Configuration"
 msgstr "Тохиргоо"
 
@@ -267,24 +268,15 @@ msgstr "survey.question.wiz"
 msgid "Invalid XML for View Architecture!"
 msgstr "Алдаатай XML- н архитектур харах"
 
-#. module: survey
-#: model:ir.model,name:survey.model_survey_response_answer
-#: view:survey.response.answer:0
 msgid "Survey Response Answer"
 msgstr "Санал асуулга Хариулах Хариулт"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Page :-"
 msgstr "Хуудас:-"
 
-#. module: survey
-#: field:survey,response_user:0
 msgid "Maximum Response per User"
 msgstr "Хамгийн их хариулсан дундаж хэрэглэгч"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Total Started Survey :-"
 msgstr "Нийт эхэлсэн санал асуулга:-"
 
@@ -294,18 +286,14 @@ msgstr "Нийт эхэлсэн санал асуулга:-"
 msgid "Comment"
 msgstr "Сэтгэгдэл"
 
-#. module: survey
-#: field:survey.response,date_modify:0
 msgid "Modify Date"
 msgstr "Өөрчлөх огноо"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Answered Question"
 msgstr "Хариулсан асуулт"
 
 #. module: survey
-#: code:addons/survey/wizard/survey_selection.py:0
+#: code:addons/survey/wizard/survey_selection.py:134
 #, python-format
 msgid "You can not give response for this survey more than %s times"
 msgstr "Та энэ санал асуулгад  %s -с илүү цаг хариулт өгөхгүй байж болно"
@@ -315,8 +303,6 @@ msgstr "Та энэ санал асуулгад  %s -с илүү цаг хари
 msgid "Manually"
 msgstr "Гараар"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_survey_form1
 msgid "All Surveys"
 msgstr "Бүх санал асуулгууд"
 
@@ -340,8 +326,6 @@ msgstr "Хуувасны дугаар"
 msgid "Log"
 msgstr "Лог"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_survey_question_form
 msgid "All Survey Questions"
 msgstr "Бүх санал асуулгын хариултууд"
 
@@ -390,8 +374,6 @@ msgstr "Хаасан"
 msgid "Answer"
 msgstr "Хариулт"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_survey_page_form
 msgid "All Survey Pages"
 msgstr "Бүх санал асуулгын хуудас"
 
@@ -412,8 +394,6 @@ msgstr "Төлөв"
 msgid "Survey Module"
 msgstr "Санал асуулгын модул"
 
-#. module: survey
-#: model:ir.module.module,description:survey.module_meta_information
 msgid ""
 "\n"
 "    This module is used for surveing. It depends on the answers or reviews "
@@ -453,24 +433,12 @@ msgstr "Хэрэглэгч"
 msgid "Groups"
 msgstr "Группүүд"
 
-#. module: survey
-#: view:survey:0
-#: view:survey.page:0
-#: view:survey.question:0
-#: field:survey.question,response_ids:0
-#: view:survey.response:0
-#: field:survey.response.answer,response_id:0
 msgid "Response"
 msgstr "Хариулах"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_new_survey_form1
-#: model:ir.ui.menu,name:survey.menu_new_survey_form
 msgid "New Survey"
 msgstr "Шинэ санал асуулга"
 
-#. module: survey
-#: model:ir.ui.menu,name:survey.main_menu_survey
 msgid "Survey Management"
 msgstr "Санал асуулгын менежмент"
 
@@ -489,8 +457,6 @@ msgstr "Алгассан"
 msgid "Survey Answer"
 msgstr "Санал асуулгын хариулт"
 
-#. module: survey
-#: code:addons/survey/wizard/wizard_survey.py:0
 #, python-format
 msgid "Attention!"
 msgstr "Анхаар!"
@@ -516,8 +482,6 @@ msgstr "Анхаар!"
 msgid "Survey"
 msgstr "Санал асуулга"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Total Completed Survey :-"
 msgstr "Нийт дууссан санал асуулга:-"
 
@@ -539,8 +503,6 @@ msgstr "Дараалал"
 msgid "Total Completed Survey"
 msgstr "Нийт дууссан санал асуулга"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Response Percentage"
 msgstr "Хариултын хувь"
 
@@ -549,8 +511,6 @@ msgstr "Хариултын хувь"
 msgid "Number"
 msgstr "Дугаар"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Survey Title :-"
 msgstr "Санал асуулгын гарчиг:-"
 
@@ -560,8 +520,6 @@ msgstr "Санал асуулгын гарчиг:-"
 msgid "Done"
 msgstr "Дууссан"
 
-#. module: survey
-#: code:addons/survey/survey.py:0
 #, python-format
 msgid "'\" + que_rec[0]['question'] + \"' This question requires an answer."
 msgstr "'\" + que_rec[0]['question'] + \"' Энэ асуултанд шаардагдах хариулт."
@@ -601,9 +559,6 @@ msgstr ""
 "Объектын нэрний эхлэл x_ байх ёстой бөгөөд бусад тусгай тэмдэгтийг агуулж "
 "болохгүй!"
 
-#. module: survey
-#: model:ir.model,name:survey.model_survey_response
-#: view:survey.response:0
 msgid "Survey Response"
 msgstr "Санал асуулгын хариу"
 
@@ -639,8 +594,6 @@ msgstr "Урилга илгээх"
 msgid "Survey Title"
 msgstr "Санал асуулгын гарчиг"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "%"
 msgstr "%"
 
@@ -658,9 +611,6 @@ msgstr "Тайлбар"
 msgid "Select Survey"
 msgstr "Санал асуулга сонгох"
 
-#. module: survey
-#: model:ir.actions.act_window,name:survey.action_new_survey_page_form
-#: model:ir.ui.menu,name:survey.menu_new_survey_page_form1
 msgid "New Survey Page"
 msgstr "Санал асуулгын шинэ хуудас"
 
@@ -682,8 +632,6 @@ msgstr "Санал асуулгын Хариултууд"
 msgid "#Questions"
 msgstr "#Асуултууд"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Que:"
 msgstr ""
 
@@ -711,7 +659,7 @@ msgid "Results :"
 msgstr "Үр дүн:"
 
 #. module: survey
-#: code:addons/survey/wizard/survey_send_invitation.py:0
+#: code:addons/survey/wizard/survey_send_invitation.py:74
 #, python-format
 msgid "%sSurvey is not in open state"
 msgstr ""
@@ -735,8 +683,6 @@ msgstr "Үүсгэх огноо"
 msgid "Survey Pages"
 msgstr "Санал асуулгын хуудсууд"
 
-#. module: survey
-#: rml:survey_analysis_report:0
 msgid "Response Count"
 msgstr "Хариултыг тоолох"
 

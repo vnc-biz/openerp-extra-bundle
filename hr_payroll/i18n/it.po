@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-23 05:14+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:22+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -34,7 +34,7 @@ msgstr ""
 #: field:hr.payslip,net:0
 #: report:salary.structure:0
 msgid "Net Salary"
-msgstr ""
+msgstr "Stipendio netto"
 
 #. module: hr_payroll
 #: field:hr.contract,working_days_per_week:0
@@ -83,7 +83,7 @@ msgstr "Dipartimento"
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Deductions:"
-msgstr ""
+msgstr "Detrazioni"
 
 #. module: hr_payroll
 #: field:company.contribution,gratuity:0
@@ -103,18 +103,18 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip,paid:0
 msgid "Paid ? "
-msgstr ""
+msgstr "Pagare? "
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_salary_report
 msgid "Year Salary Report"
-msgstr ""
+msgstr "Report stipendio annuale"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Paid Salary"
-msgstr ""
+msgstr "Stipendio pagato"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,flag:0
@@ -131,7 +131,7 @@ msgstr ""
 #: field:hr.payroll.structure,company_id:0
 #: field:hr.payslip,company_id:0
 msgid "Company"
-msgstr "Company"
+msgstr "Azienda"
 
 #. module: hr_payroll
 #: help:hr.employee,employee_account:0
@@ -141,7 +141,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Letter Details"
-msgstr ""
+msgstr "Dettagli lettera"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -177,7 +177,7 @@ msgstr "Altri"
 #: model:ir.model,name:hr_payroll.model_hr_payslip
 #: report:payslip.pdf:0
 msgid "Pay Slip"
-msgstr ""
+msgstr "Busta paga"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -201,7 +201,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Salary"
-msgstr ""
+msgstr "Stipendio"
 
 #. module: hr_payroll
 #: field:hr.holidays.status,account_id:0
@@ -230,7 +230,7 @@ msgstr "Permessi"
 #: field:hr.payslip,register_id:0
 #: report:payslip.pdf:0
 msgid "Register"
-msgstr ""
+msgstr "Registra"
 
 #. module: hr_payroll
 #: selection:hr.payroll.year.salary,salary_on:0
@@ -247,12 +247,12 @@ msgstr ""
 #: field:company.contribution.line,value:0
 #: field:hr.payslip.line.line,value:0
 msgid "Value"
-msgstr ""
+msgstr "Valore"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Name of the Employee"
-msgstr ""
+msgstr "Nome dell'impiegato"
 
 #. module: hr_payroll
 #: field:hr.contract,permit_no:0
@@ -264,7 +264,7 @@ msgstr ""
 #: report:payroll.advice:0
 #: report:salary.structure:0
 msgid "Amount"
-msgstr ""
+msgstr "Importo"
 
 #. module: hr_payroll
 #: view:hr.payroll.structure:0
@@ -273,7 +273,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
 msgid "Payslip Line"
-msgstr ""
+msgstr "Linea busta baga"
 
 #. module: hr_payroll
 #: field:hr.passport,country_id:0
@@ -296,17 +296,17 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Deduction"
-msgstr ""
+msgstr "Altre detrazioni"
 
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
 msgid "Paid Holiday"
-msgstr ""
+msgstr "Festività pagate"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Employees Salary Details"
-msgstr ""
+msgstr "Dettaglio stipendio impiegati"
 
 #. module: hr_payroll
 #: field:hr.passport,date_expire:0
@@ -321,7 +321,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
 msgid "Un-Paid Holiday"
-msgstr ""
+msgstr "Festività non pagate"
 
 #. module: hr_payroll
 #: field:hr.payroll.register,period_id:0
@@ -337,7 +337,7 @@ msgstr "Importo (in lettere) :"
 #. module: hr_payroll
 #: field:hr.holidays.status,type:0
 msgid "Payment"
-msgstr ""
+msgstr "Pagamento"
 
 #. module: hr_payroll
 #: field:hr.employee,analytic_account:0
@@ -357,7 +357,7 @@ msgstr ""
 #: view:hr.allounce.deduction.categoty:0
 #: field:hr.allounce.deduction.categoty,base:0
 msgid "Based on"
-msgstr ""
+msgstr "Basato su"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -365,7 +365,7 @@ msgstr ""
 #: field:hr.payroll.register,bank_id:0
 #: report:salary.structure:0
 msgid "Bank"
-msgstr ""
+msgstr "Banca"
 
 #. module: hr_payroll
 #: field:hr.payslip,move_id:0
@@ -375,7 +375,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.module.module,shortdesc:hr_payroll.module_meta_information
 msgid "Human Resource Payroll"
-msgstr ""
+msgstr "Risorse umane Busta paga"
 
 #. module: hr_payroll
 #: constraint:account.analytic.account:0
@@ -406,7 +406,7 @@ msgstr "Sub totale"
 #. module: hr_payroll
 #: field:hr.contract,visa_no:0
 msgid "Visa No"
-msgstr ""
+msgstr "N. VISA"
 
 #. module: hr_payroll
 #: field:company.contribution.line,from_val:0
@@ -420,7 +420,7 @@ msgstr "Da"
 #: field:hr.payroll.advice.line,bysal:0
 #: report:payroll.advice:0
 msgid "By Salary"
-msgstr ""
+msgstr "Per stipendio"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_wizard_print_year_salary
@@ -430,7 +430,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.salary_payslip
 msgid "Employee PaySlip"
-msgstr ""
+msgstr "Busta paga impiegato"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -458,7 +458,7 @@ msgstr "Note:"
 #: field:hr.payroll.year.salary,date_to:0
 #: report:salary.structure:0
 msgid "End Date"
-msgstr ""
+msgstr "Data fine"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -473,7 +473,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.passport:0
 msgid "Passport"
-msgstr ""
+msgstr "Passaporto"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,employee_id:0
@@ -490,7 +490,7 @@ msgstr "Impiegato"
 #: field:hr.payroll.year.salary,date_from:0
 #: report:salary.structure:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data inizio"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice_line
@@ -509,7 +509,7 @@ msgstr "Tipo"
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -556,7 +556,7 @@ msgstr ""
 #: field:hr.payslip,grows:0
 #: report:salary.structure:0
 msgid "Gross Salary"
-msgstr ""
+msgstr "Stipendio lordo"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -567,7 +567,7 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Payment"
-msgstr ""
+msgstr "Altro pagamento"
 
 #. module: hr_payroll
 #: field:hr.payslip,basic:0
@@ -587,7 +587,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payroll.advice,line_ids:0
 msgid "Employee Salary"
-msgstr ""
+msgstr "Stipendio impiegato"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,chaque_nos:0
@@ -606,13 +606,13 @@ msgstr ""
 #: selection:hr.payslip.line,amount_type:0
 #: selection:hr.payslip.line.line,amount_type:0
 msgid "Fixed Amount"
-msgstr ""
+msgstr "Importo fisso"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Wating for Verification"
-msgstr ""
+msgstr "In attesa di verifica"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -644,13 +644,13 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "For the month of"
-msgstr ""
+msgstr "Per il mese di"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Payslip"
-msgstr ""
+msgstr "Busta paga"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -660,7 +660,7 @@ msgstr ""
 #: field:hr.payslip,deduction:0
 #: selection:hr.payslip.line,type:0
 msgid "Deduction"
-msgstr ""
+msgstr "Detrazione"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice
@@ -701,12 +701,12 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Complete HR Checking"
-msgstr ""
+msgstr "Verifica completa HR"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Yours Sincerely"
-msgstr ""
+msgstr "Sinceramente"
 
 #. module: hr_payroll
 #: field:hr.employee,advantages_gross:0
@@ -723,14 +723,14 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Net Amount"
-msgstr ""
+msgstr "Importo netto"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,state:0
 #: field:hr.payroll.register,state:0
 #: field:hr.payslip,state:0
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 #. module: hr_payroll
 #: report:salary.structure:0
@@ -740,7 +740,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_employees_detail
 msgid "Employees Salary Detail"
-msgstr ""
+msgstr "Dettaglio stipendio impiegati"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_employee_grade
@@ -764,13 +764,12 @@ msgstr ""
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Others:"
-msgstr ""
+msgstr "Altri:"
 
 #. module: hr_payroll
-#: view:hr.passport:0
 #: field:hr.passport,contracts_ids:0
 msgid "Contracts"
-msgstr ""
+msgstr "Contratti"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -780,7 +779,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Employee Code"
-msgstr ""
+msgstr "Codice impiegato"
 
 #. module: hr_payroll
 #: field:company.contribution,amount_type:0
@@ -789,13 +788,13 @@ msgstr ""
 #: field:hr.payslip.line.line,amount_type:0
 #: report:salary.structure:0
 msgid "Amount Type"
-msgstr ""
+msgstr "Tipo di importo"
 
 #. module: hr_payroll
 #: view:company.contribution:0
 #: field:hr.payslip.line,category_id:0
 msgid "Category"
-msgstr ""
+msgstr "Categoria"
 
 #. module: hr_payroll
 #: field:hr.payslip,move_line_ids:0
@@ -832,7 +831,7 @@ msgstr ""
 #: field:hr.payroll.register,line_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
-msgstr ""
+msgstr "Buste paga"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -855,7 +854,7 @@ msgstr ""
 #: report:employees.salary:0
 #: report:hr.payroll.register.sheet:0
 msgid "Employee Name"
-msgstr ""
+msgstr "Nome Dipendente"
 
 #. module: hr_payroll
 #: field:hr.employee,salary_account:0
@@ -865,7 +864,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.payslip.line,amount_type:0
 msgid "Percentage (%)"
-msgstr ""
+msgstr "Percentuale (%)"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,register_id:0
@@ -880,7 +879,7 @@ msgstr ""
 #: report:hr.payroll.register.sheet:0
 #: report:payroll.advice:0
 msgid "For"
-msgstr ""
+msgstr "per"
 
 #. module: hr_payroll
 #: field:hr.payroll.register,journal_id:0
@@ -902,7 +901,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.structure:0
 msgid "Employee Function"
-msgstr ""
+msgstr "Funzione impiegato"
 
 #. module: hr_payroll
 #: field:hr.contract,working_days_per_week:0
@@ -924,7 +923,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,based_on:0
@@ -946,7 +945,7 @@ msgstr ""
 #: field:company.contribution,active:0
 #: field:hr.payroll.register,active:0
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #. module: hr_payroll
 #: field:hr.employee,employee_account:0
@@ -956,18 +955,18 @@ msgstr ""
 #. module: hr_payroll
 #: report:year.salary:0
 msgid "Yearly Salary Details"
-msgstr ""
+msgstr "Dettagli stipendi annuali"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,condition:0
 msgid "Condition"
-msgstr ""
+msgstr "Condizione"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Wating for HR Verification"
-msgstr ""
+msgstr "In attesa di verifica da HR"
 
 #. module: hr_payroll
 #: field:hr.employee,pf_account:0
@@ -977,12 +976,12 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Compute"
-msgstr ""
+msgstr "Calcola"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Payment Lines"
-msgstr ""
+msgstr "Righe pagamento"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -995,7 +994,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "HR Manager"
-msgstr ""
+msgstr "Manager HR"
 
 #. module: hr_payroll
 #: field:hr.contract,basic:0
@@ -1003,12 +1002,12 @@ msgstr ""
 #: field:hr.payslip,basic_before_leaves:0
 #: report:payslip.pdf:0
 msgid "Basic Salary"
-msgstr ""
+msgstr "Stipendio base"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,code:0
 msgid "Categoty Code"
-msgstr ""
+msgstr "Codice categoria"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -1041,7 +1040,7 @@ msgstr ""
 #: field:hr.payroll.register,date:0
 #: field:hr.payslip,date:0
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
@@ -1051,13 +1050,13 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.contract,visa_expire:0
 msgid "Visa Expire Date"
-msgstr ""
+msgstr "Data scadenza VISA"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 #: report:salary.structure:0
 msgid "Phone No."
-msgstr ""
+msgstr "N. di Telefono"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,include_in_salary:0
@@ -1090,7 +1089,7 @@ msgstr ""
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Code"
-msgstr ""
+msgstr "Codice"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
@@ -1104,7 +1103,7 @@ msgstr ""
 #: field:hr.payslip.line.line,to_val:0
 #: report:year.salary:0
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #. module: hr_payroll
 #: wizard_button:payroll.analysis,init,process:0
@@ -1115,7 +1114,7 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Loan"
-msgstr ""
+msgstr "Prestito"
 
 #. module: hr_payroll
 #: field:company.contribution.line,sequence:0
@@ -1123,7 +1122,7 @@ msgstr ""
 #: field:hr.payslip.line,sequence:0
 #: field:hr.payslip.line.line,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sequenza"
 
 #. module: hr_payroll
 #: field:hr.payroll.year.salary,salary_on:0
@@ -1135,12 +1134,12 @@ msgstr ""
 #: field:hr.payroll.register,number:0
 #: field:hr.payslip,number:0
 msgid "Number"
-msgstr ""
+msgstr "Numero"
 
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Contract Detail:"
-msgstr ""
+msgstr "Dettaglio contratto:"
 
 #. module: hr_payroll
 #: view:hr.employee.grade:0
@@ -1170,7 +1169,7 @@ msgstr ""
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1201,7 +1200,7 @@ msgstr ""
 #: field:hr.contract,passport_id:0
 #: field:hr.passport,name:0
 msgid "Passport No"
-msgstr ""
+msgstr "Num. passaporto"
 
 #. module: hr_payroll
 #: view:hr.employee.grade:0
@@ -1216,7 +1215,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "for period"
-msgstr ""
+msgstr "per periodo"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -1226,7 +1225,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "E-mail"
-msgstr ""
+msgstr "Email"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_payroll_register
@@ -1250,7 +1249,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Other Informations"
-msgstr ""
+msgstr "Altre informazioni"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -1265,12 +1264,12 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,function_id:0
 msgid "Function"
-msgstr ""
+msgstr "Funzione"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Dear Sir/Madam,"
-msgstr ""
+msgstr "Gentile Signora/Signore,"
 
 #. module: hr_payroll
 #: rml:employees.salary:0
@@ -1296,7 +1295,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,note:0
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: hr_payroll
 #: field:hr.employee,pg_joining:0
@@ -1314,12 +1313,12 @@ msgstr ""
 #: view:hr.payroll.employees.detail:0
 #: view:hr.payroll.year.salary:0
 msgid "Year Salary"
-msgstr ""
+msgstr "Stipendio annuale"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,name:0
 msgid "Categoty Name"
-msgstr ""
+msgstr "Nome categoria"
 
 #. module: hr_payroll
 #: model:ir.actions.wizard,name:hr_payroll.wizard_payroll_analysis
@@ -1333,7 +1332,7 @@ msgstr ""
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Address"
-msgstr ""
+msgstr "Indirizzo"
 
 #. module: thr_payroll
 #: help:hr.employee,property_bank_account:0
@@ -1386,7 +1385,7 @@ msgstr ""
 #: report:salary.structure:0
 #: report:year.salary:0
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1411,12 +1410,12 @@ msgstr ""
 #: field:hr.payroll.year.salary,employee_ids:0
 #: view:hr.payslip:0
 msgid "Employees"
-msgstr ""
+msgstr "Impiegati"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Bank Account"
-msgstr ""
+msgstr "Conto bancario"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,name:0
@@ -1433,7 +1432,7 @@ msgstr ""
 #: field:hr.payslip,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Contract"
-msgstr ""
+msgstr "Contratto"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -1443,7 +1442,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.holidays.status:0
 msgid "Payroll Configurtion"
-msgstr ""
+msgstr "Configurazione busta paga"
 
 #. module: hr_payroll
 #: field:hr.passport,date_issue:0
@@ -1462,7 +1461,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip,holiday_days:0
 msgid "No of Leaves"
-msgstr ""
+msgstr "Num. di permessi"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1474,18 +1473,18 @@ msgstr ""
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Deductions"
-msgstr ""
+msgstr "Detrazioni"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
 #: model:ir.ui.menu,name:hr_payroll.menu_department_tree
 msgid "Employee Payslip"
-msgstr ""
+msgstr "Busta paga impiegato"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Letter Content"
-msgstr ""
+msgstr "Contenuto lettera"
 
 #. module: hr_payroll
 #: rml:payroll.advice:0
@@ -1517,4 +1516,4 @@ msgstr ""
 #: field:hr.contibution.register.line,total:0
 #: report:year.salary:0
 msgid "Total"
-msgstr ""
+msgstr "Totale"

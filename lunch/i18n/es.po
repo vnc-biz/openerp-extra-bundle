@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-31 05:39+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:27+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_category
@@ -29,7 +29,7 @@ msgstr "Categoría"
 #. module: lunch
 #: view:lunch.cashbox.clean:0
 msgid "Reset cashbox"
-msgstr ""
+msgstr "Resetear caja"
 
 #. module: lunch
 #: view:lunch.order:0
@@ -60,7 +60,7 @@ msgstr "Módulo de almuerzos"
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashmove_form
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashmove_form
 msgid "Cash Moves"
-msgstr ""
+msgstr "Movimientos de Efectivo"
 
 #. module: lunch
 #: rml:lunch.order:0
@@ -75,7 +75,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.cashbox.clean:0
 msgid "Are you sure you want to reset this cashbox ?"
-msgstr ""
+msgstr "¿Está seguro que desea reiniciar esta caja de efectivo?"
 
 #. module: lunch
 #: field:lunch.order,state:0
@@ -107,7 +107,7 @@ msgstr "Nombre usuario"
 #. module: lunch
 #: view:report.lunch.amount:0
 msgid "Box Amount by User"
-msgstr ""
+msgstr "Importe de caja por Usuario"
 
 #. module: lunch
 #: view:report.lunch.amount:0
@@ -271,7 +271,7 @@ msgstr ""
 #. module: lunch
 #: model:ir.model,name:lunch.model_report_lunch_amount
 msgid "Amount available by user and box"
-msgstr ""
+msgstr "Importe disponible por usuario y caja"
 
 #. module: lunch
 #: view:lunch.category:0
@@ -298,7 +298,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashbox_clean
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashbox_clean_values
 msgid "Set CashBox to Zero"
-msgstr ""
+msgstr "Establecer caja a cero"
 
 #. module: lunch
 #: field:lunch.cashmove,box:0
@@ -350,4 +350,4 @@ msgstr ""
 #: view:lunch.cashmove:0
 #: field:lunch.order,cashmove:0
 msgid "CashMove"
-msgstr ""
+msgstr "Movimientos de caja"

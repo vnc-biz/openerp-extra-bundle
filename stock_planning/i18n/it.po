@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-09 05:11+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:26+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: stock_planning
 #: view:stock.planning:0
@@ -25,17 +25,17 @@ msgstr ""
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_sale_forecast_form
 msgid "Sales Forecast"
-msgstr ""
+msgstr "Previsioni Vendite"
 
 #. module: stock_planning
 #: field:stock.planning,planned_outgoing:0
 msgid "Planned Out"
-msgstr ""
+msgstr "Pianificate in Uscita"
 
 #. module: stock_planning
 #: field:stock.planning,outgoing:0
 msgid "Confirmed Out"
-msgstr ""
+msgstr "Confermate in Uscita"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_form
@@ -43,7 +43,7 @@ msgstr ""
 #: model:ir.ui.menu,name:stock_planning.menu_stock_planning
 #: view:stock.planning:0
 msgid "Master Procurement Schedule"
-msgstr ""
+msgstr "Programma Principale degli Approvvigionamenti"
 
 #. module: stock_planning
 #: constraint:ir.ui.view:0
@@ -71,7 +71,7 @@ msgstr "Stato"
 #: selection:stock.planning,state:0
 #: selection:stock.sale.forecast,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Bozza"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_stock_planning_period_form
@@ -89,7 +89,7 @@ msgstr ""
 #: field:stock.sale.forecast,warehouse_id:0
 #: field:stock.sale.forecast.createlines,warehouse_id:0
 msgid "Warehouse"
-msgstr ""
+msgstr "Magazzino"
 
 #. module: stock_planning
 #: constraint:ir.model:0
@@ -101,7 +101,7 @@ msgstr ""
 #: view:stock.sale.forecast:0
 #: selection:stock.sale.forecast,state:0
 msgid "Validated"
-msgstr ""
+msgstr "Confermato"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_prevision_form_my
@@ -112,12 +112,12 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,to_procure:0
 msgid "Planned In"
-msgstr "Pianificato"
+msgstr "Pianificate in entrata"
 
 #. module: stock_planning
 #: field:stock.planning,outgoing_left:0
 msgid "Expected Out"
-msgstr "Attese"
+msgstr "Attese in Uscita"
 
 #. module: stock_planning
 #: view:stock.planning:0
@@ -125,7 +125,7 @@ msgstr "Attese"
 #: view:stock.sale.forecast:0
 #: field:stock.sale.forecast,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,amt_sold:0
@@ -151,7 +151,7 @@ msgstr ""
 #: field:stock.period,name:0
 #: field:stock.period.createlines,name:0
 msgid "Period Name"
-msgstr ""
+msgstr "Nome Periodo"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -168,7 +168,7 @@ msgstr ""
 #: code:addons/stock_planning/stock_planning.py:140
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Azione non valida !"
 
 #. module: stock_planning
 #: view:stock.planning.sale.prevision:0
@@ -178,17 +178,17 @@ msgstr ""
 #. module: stock_planning
 #: view:stock.planning:0
 msgid "Stock"
-msgstr ""
+msgstr "Scorte"
 
 #. module: stock_planning
 #: field:stock.planning,incoming:0
 msgid "Confirmed In"
-msgstr ""
+msgstr "Arrivo Confermato"
 
 #. module: stock_planning
 #: field:stock.planning,product_uom:0
 msgid "UoM"
-msgstr ""
+msgstr "UoM"
 
 #. module: stock_planning
 #: field:stock.planning,planned_sale:0
@@ -199,17 +199,17 @@ msgstr ""
 #: field:stock.period,date_stop:0
 #: field:stock.period.createlines,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Data Finale"
 
 #. module: stock_planning
 #: view:stock.period.createlines:0
 msgid "Create Weekly Periods"
-msgstr ""
+msgstr "Crea Periodi Settimanali"
 
 #. module: stock_planning
 #: field:stock.sale.forecast,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: stock_planning
 #: view:stock.period.createlines:0
@@ -236,12 +236,12 @@ msgstr ""
 #: model:ir.ui.menu,name:stock_planning.menu_stock_sale_forecast_all
 #: view:stock.sale.forecast:0
 msgid "Sales Forecasts"
-msgstr ""
+msgstr "Previsioni delle Vendite"
 
 #. module: stock_planning
 #: field:stock.sale.forecast,product_uom:0
 msgid "Product UoM"
-msgstr ""
+msgstr "UoM Prodotto"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_all
@@ -276,7 +276,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.sale.forecast,product_amt:0
 msgid "Product Amount"
-msgstr ""
+msgstr "Ammontare del Prodotto"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,user_id:0
@@ -291,7 +291,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,line_time:0
 msgid "Past/Future"
-msgstr ""
+msgstr "Passato/Futuro"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_stock_period_form
@@ -300,17 +300,17 @@ msgstr ""
 #: view:stock.period:0
 #: view:stock.period.createlines:0
 msgid "Stock and Sales Periods"
-msgstr ""
+msgstr "Periodi di Scorte e Vendite"
 
 #. module: stock_planning
 #: field:stock.sale.forecast,product_qty:0
 msgid "Product Quantity"
-msgstr ""
+msgstr "Quantità prodotto"
 
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_planning
 msgid "stock.planning"
-msgstr ""
+msgstr "scorte.pianificazione"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_my_current
@@ -320,12 +320,12 @@ msgstr ""
 #. module: stock_planning
 #: selection:stock.planning,state:0
 msgid "Done"
-msgstr ""
+msgstr "Eseguito"
 
 #. module: stock_planning
 #: field:stock.period.createlines,period_ids:0
 msgid "Periods"
-msgstr ""
+msgstr "Periodi"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -333,13 +333,13 @@ msgstr ""
 #: view:stock.planning.createlines:0
 #: view:stock.sale.forecast.createlines:0
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 #. module: stock_planning
 #: field:stock.period,date_start:0
 #: field:stock.period.createlines,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data di Inizio"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_planning_main
@@ -351,7 +351,7 @@ msgstr "Pianificazione delle Scorte"
 #: view:stock.period:0
 #: selection:stock.period,state:0
 msgid "Open"
-msgstr ""
+msgstr "Aperto"
 
 #. module: stock_planning
 #: code:addons/stock_planning/stock_planning.py:0

@@ -91,6 +91,8 @@ class wizard_report(wizard.interface):
         data['form']['company_id'] = company_id
         fiscalyear_obj = pooler.get_pool(cr.dbname).get('account.fiscalyear')
         data['form']['fiscalyear'] = fiscalyear_obj.find(cr, uid)
+        if (data['model'] == 'account.account'):
+            data['form']['account_list'] = data['ids']
         data['form']['context'] = context
         return data['form']
 

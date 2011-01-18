@@ -337,9 +337,10 @@ class general_ledger_landscape(rml_parse.rml_parse):
                     l['amount_currency'] = abs(l['amount_currency']) * -1
             if l['amount_currency'] != None:
                 self.tot_currency = self.tot_currency + l['amount_currency']
+
         decimal_precision_obj = self.pool.get('decimal.precision')
-	ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
-	digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
+        ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
+        digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
 
         #if abs(sum) > 10**-int(config['price_accuracy']) and form['initial_balance']:
         if round(sum,digits) <> 0.0  and form['initial_balance']:

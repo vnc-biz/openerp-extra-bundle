@@ -39,7 +39,7 @@ class account_move(osv.osv):
            if len(move.name) > 8:
                result[move.id] = move.name.replace('-','- ').replace('/','/ ')
            else:
-	       result[move.id] = move.name
+               result[move.id] = move.name
         return result
 
     _columns = {

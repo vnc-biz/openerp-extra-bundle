@@ -204,10 +204,10 @@ class account_balance(report_sxw.rml_parse):
         #
         # Generate the report lines (checking each account)
         #
-	decimal_precision_obj = self.pool.get('decimal.precision')
-	ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
-	digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
-	#print >>sys.stderr, 'digits',digits
+        decimal_precision_obj = self.pool.get('decimal.precision')
+        ids = decimal_precision_obj.search(self.cr, self.uid, [('name', '=', 'Account')])
+        digits = decimal_precision_obj.browse(self.cr, self.uid, ids)[0].digits
+        #print >>sys.stderr, 'digits',digits
 
         for account in accounts:
             account_id = account['id']
@@ -277,9 +277,9 @@ class account_balance(report_sxw.rml_parse):
                 #
                 if form['display_account'] == 'bal_mouvement' and account['parent_id']:
                     # Include accounts with movements
-		     if res['balance'] <> 0.0 \
-	                or res['debit'] <> 0.0 \
-			or res['credit'] <> 0.0:
+                    if res['balance'] <> 0.0 \
+                            or res['debit'] <> 0.0 \
+                            or res['credit'] <> 0.0:
                 #    if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']) \
                 #            or abs(res['credit']) >= 0.5 * 10**-int(config['price_accuracy']) \
                 #            or abs(res['debit']) >= 0.5 * 10**-int(config['price_accuracy']):
@@ -287,7 +287,7 @@ class account_balance(report_sxw.rml_parse):
                 elif form['display_account'] == 'bal_solde' and account['parent_id']:
                     # Include accounts with balance
                     #if abs(res['balance']) >= 0.5 * 10**-int(config['price_accuracy']):
-		     if  res['balance'] <> 0.0 :
+                    if res['balance'] <> 0.0 :
                         result_acc.append(res)
                 else:
                     # Include all accounts

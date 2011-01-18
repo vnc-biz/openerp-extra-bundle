@@ -1118,3 +1118,17 @@ msgstr ""
 msgid "SR: "
 msgstr ""
 
+#. module: account_financial_report
+#: report:account.account.chart.report:0
+#: report:account.balance.full:0
+#: report:account.general.ledger.cumulative:0
+#: report:account.general.ledger.cumulative.landscape:0
+#: report:account.invoice.list.report:0
+#: report:account.move.line.report:0
+#: report:account.move.report:0
+#: report:account.move.report.h:0
+#: report:account.print.journal.entries:0
+#: report:account.print.journal.entriesh:0
+msgid "End of report"
+msgstr ""
+

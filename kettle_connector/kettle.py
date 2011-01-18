@@ -85,8 +85,8 @@ class kettle_transformation(osv.osv):
         transformation_temp.write(file_temp)
         transformation_temp.close()
         
-        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : open kettle log with tail -f " + kettle_dir +'/openerp_tmp/' + log_file_name + '.log')
-        cmd = "cd " + kettle_dir + "; sh pan.sh -log=openerp_tmp/" + log_file_name + ".log -file=openerp_tmp/" + filename
+        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : open kettle log with tail -f " + kettle_dir +'/openerp_tmp/' + log_file_name)
+        cmd = "cd " + kettle_dir + "; nohup sh pan.sh -file=openerp_tmp/" + filename + " > openerp_tmp/" + log_file_name
         os_result = os.system(cmd)
         
         if os_result != 0:
@@ -98,9 +98,9 @@ class kettle_transformation(osv.osv):
             else:
                 prefixe_log_name = "[SUCCESS]"
         
-        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/openerp_tmp/" + log_file_name + '.log', 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG'}, context)
+        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/openerp_tmp/" + log_file_name, 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG'}, context)
         cr.commit()
-        os.remove(kettle_dir +"/" + log_file_name + '.log')
+        os.remove(kettle_dir +"/openerp_tmp/" + log_file_name)
         os.remove(kettle_dir +"/openerp_tmp/" + log_file_name + '.log')
         if os_result != 0:
             self.error_wizard(cr, uid, attachment_id, context)
@@ -164,7 +164,7 @@ class kettle_task(osv.osv):
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for id in ids:
             context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
-            log_file_name = 'TASK_LOG_ID' + str(id) + '_DATE_' + context['start_date'].replace(' ', '_')
+            log_file_name = 'TASK_LOG_ID' + str(id) + '_DATE_' + context['start_date'].replace(' ', '_') + ".log"
             attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
             cr.commit()
             

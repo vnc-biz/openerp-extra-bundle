@@ -136,7 +136,7 @@ class PythonReport(report_int):
         """
         frame = inspect.stack()[1][0]        
         filename= frame.f_code.co_filename
-        result = tools.translate(self.cr, self.uid, filename, 'code', self.lang, source) or source 
+        result = tools.translate(self.cr, filename, 'code', self.lang, source) or source 
         return result
 
 

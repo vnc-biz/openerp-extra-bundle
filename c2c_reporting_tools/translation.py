@@ -57,7 +57,7 @@ class GettextAlias_42(object):
         if not (lang and cr):
             result = source
         else:
-            result = tools.translate(cr, None, filename, 'code', lang, source) or source
+            result = tools.translate(cr, filename, 'code', lang, source) or source
         return result
         
 

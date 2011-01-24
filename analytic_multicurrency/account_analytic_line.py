@@ -101,5 +101,10 @@ class account_analytic_line(osv.osv):
         res=super(account_analytic_line,self).on_change_unit_amount(cr, uid, id, prod_id, quantity, company_id, \
                 unit=unit, journal_id=journal_id, context=context)
         return res
-    
+        
+    def create(self,cr,uid,args, context):
+        print "asédflkjaslkfjaslkdfjaélsd"
+        print args
+        return super(account_analytic_line,self).create(cr,uid,args,context)
+        
 account_analytic_line()

@@ -61,6 +61,7 @@ class c2c_budget_version(osv.osv):
     
     _defaults = { 
         'ref_date' : lambda *a: time.strftime("%Y-%m-%d"),
+        'company_id': lambda s,cr,uid,c: s.pool.get('res.company')._company_default_get(cr, uid, 'account.account', context=c),
                 }
 
 

@@ -430,16 +430,17 @@ it is used for recursive calls
     
     
     
-    def _check_recursion(self, cr, uid, ids):
+    def _check_recursion(self, cr, uid, ids, context=None, parent=None):
         """ use in _constraints[]: return false 
         if there is a recursion in the budget items structure """
-        
+
         #use the parent check_recursion function defined in orm.py
-        return super(c2c_budget_item,self).check_recursion(
+        return super(c2c_budget_item,self)._check_recursion(
                                                             cr,
                                                             uid,
                                                             ids,
-                                                            parent='parent_id'
+                                                            parent=parent or 'parent_id',
+                                                            context=context
                                                         )
     
     

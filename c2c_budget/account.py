@@ -37,30 +37,23 @@ class account_account(osv.osv):
 
     
     def get_children_map(self, cr, uid, company_id, context={}, sql_filter=""):
-        """ return a dictionnary mapping the parent relation between 
+        """ return a dictionary mapping the parent relation between 
         accounts and their children """
 
-        #build a dictionnary {parent_id -> [children_ids]}
+        #build a dictionary {parent_id -> [children_ids]}
         children_ids =  {}
-        query = """SELECT rel.child_id, rel.parent_id
-           FROM account_account_rel rel, 
-           account_account aa, account_account aa2
-           WHERE rel.parent_id = aa.id
-           AND rel.child_id = aa2.id
-           AND aa.company_id = %s
-           AND aa2.company_id = %s
-           AND aa.active 
-           AND aa2.active
-            %s """ % (company_id, company_id, sql_filter)
-           
-        cr.execute(query)
-        for i in cr.fetchall():
-            if i[1] not in children_ids:
-                children_ids[i[1]] = []
-            children_ids[i[1]].append(i[0])
-        
+        account_obj = self.pool.get('account.account')
+        domain = [('company_id','=',company_id)]
+        # Get all the accounts in the company
+        acc_ids =  account_obj.search(cr, uid, domain, context=context)
+
+        # For each account, get the child accounts
+        for acc in acc_ids:
+            child_ids = account_obj.search(cr, uid, [('parent_id','child_of',acc)], context=context)
+            children_ids[acc] = [child_id for child_id in child_ids if child_id != acc]
+
         return children_ids
-    
+        
     
     def get_children_flat_list(self, cr, uid, ids, company_id, context={}):            
         """return a flat list of all accounts'ids above the 
@@ -121,16 +114,17 @@ class account_period(osv.osv):
         parent_result = super(account_period, self).search(cr, user, args, offset, limit, order, context, count)    
 
         #special search limited to a version
-        if 'version_id' in context and context['version_id'] != False:
+        if context.get('version_id', None):
             
             #get version's periods
             version_obj = self.pool.get('c2c_budget.version')
-            vesion = version_obj.browse(
+            version = version_obj.browse(
                                             cr, 
                                             user, 
                                             context['version_id'], 
                                             context=context
                                         )
+
             allowed_periods = version_obj.get_periods(
                                                         cr, 
                                                         user, 

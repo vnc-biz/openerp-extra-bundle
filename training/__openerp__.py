@@ -62,7 +62,7 @@ With the analytic account support, you can know the costs of your trainings.
         'demo/training_offer.xml',
         'demo/training_catalog.xml',
         'demo/training_session.xml',
-        'demo/training_seance.xml',
+#        'demo/training_seance.xml', #It needs review you are trying to load data on a osv_memory
     ],
     'update_xml' : [
         'security/training_security.xml',

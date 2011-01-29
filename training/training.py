@@ -2112,7 +2112,7 @@ class training_session(osv.osv):
 
 training_session()
 
-class training_mass_subscription_wizard(osv.osv_memory):
+class training_subscription_mass_wizard(osv.osv_memory):
     _name = 'training.subscription.mass.wizard'
     _description = 'Mass Subscription Wizard'
 
@@ -2200,7 +2200,7 @@ class training_mass_subscription_wizard(osv.osv_memory):
 
         return res
 
-training_mass_subscription_wizard()
+training_subscription_mass_wizard()
 
 class mass_subscription_line(osv.osv_memory):
     _name = 'training.subscription.mass.line'

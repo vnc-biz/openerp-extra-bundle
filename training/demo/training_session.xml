@@ -14,7 +14,8 @@
             <field name="offer_id" ref="training.training_offer_openerpintegrator0"/>
             <field name="name">Open ERP 5.0 - Integrator</field>
             <field name="catalog_id" ref="training.training_catalog_0"/>
-            <field eval="(DateTime.now() + DateTime.RelativeDateTime(months=1)).strftime('%Y-%m-%d 08:30:00')" name="date" />
+<!--            <field eval="(DateTime.now() + DateTime.RelativeDateTime(months=1)).strftime('%Y-%m-%d 08:30:00')" name="date" />-->
+            <field name="date">2011-03-01 08:30:00</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="format_id" ref="training_offer_format0" />
         </record>
@@ -31,7 +32,8 @@
             <field name="offer_id" ref="training.training_offer_openerpbusiness0"/>
             <field name="name">Open ERP 5.0 - Business</field>
             <field name="catalog_id" ref="training.training_catalog_0"/>
-            <field eval="(DateTime.now() + DateTime.RelativeDateTime(days=25)).strftime('%Y-%m-%d 08:30:00')" name="date" />
+<!--            <field eval="(DateTime.now() + DateTime.RelativeDateTime(days=25)).strftime('%Y-%m-%d 08:30:00')" name="date" />-->
+            <field name="date">2011-02-23 08:30:00</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="format_id" ref="training_offer_format1" />
         </record>
@@ -47,7 +49,8 @@
             <field name="offer_id" ref="training.training_offer_openerpbusiness0"/>
             <field name="name">Open ERP 5.0 - Business</field>
             <field name="catalog_id" ref="training.training_catalog_0"/>
-            <field eval="(DateTime.now() + DateTime.RelativeDateTime(days=15)).strftime('%Y-%m-%d 08:30:00')" name="date" />
+<!--            <field eval="(DateTime.now() + DateTime.RelativeDateTime(days=15)).strftime('%Y-%m-%d 08:30:00')" name="date" />-->
+            <field name="date">2011-02-13 08:30:00</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="format_id" ref="training_offer_format1" />
         </record>

@@ -109,14 +109,14 @@
              
 
            <!-- add a print item in budgets objects to compare it with reality -->
-        <wizard string="Budget vs. Reality" 
+        <wizard string="Budget vs. Actual" 
                 model="c2c_budget" 
                 name="budget.vs.reality" 
                 id="wizard_budget_vs_reality" 
                 keyword="client_print_multi"/>
                 
            <!-- add a print item in versions objects to compare it with reality -->
-        <wizard string="Budget vs. Reality" 
+        <wizard string="Budget vs. Actual" 
                 model="c2c_budget.version" 
                 name="budget.vs.reality" 
                 id="wizard_budget_vs_reality" 

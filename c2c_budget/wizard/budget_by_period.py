@@ -53,7 +53,7 @@ _form_footer = """
 _fields = {
     'compare_item': {'string':'Ref. For % Comparing: ', 'type':'many2one', 'relation':'c2c_budget.item'},
     'from_date': {'string':'Starting From:', 'type':'date', 'required':True },
-    'periods_nbr': {'string':'Nb Periods', 'type':'selection', 'selection':[(i,i) for i in range(0, 13)], 'default':lambda *a: 12},
+    'periods_nbr': {'string':'Nb Periods', 'type':'selection', 'selection':[(i,str(i)) for i in range(0, 13)], 'default':lambda *a: 12},
     'display_previous': {'string':'Display Previous', 'type':'boolean', 'default':lambda *a:True},
     'display_next': {'string':'Display Next', 'type':'boolean', 'default':lambda *a:True},
 }

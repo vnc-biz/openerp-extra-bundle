@@ -36,7 +36,7 @@ from tools.misc import UpdateableStr
 arch = UpdateableStr()
 
 _form_header = """<?xml version="1.0"?>
-<form string="Budget Vs. Reality" width="600">
+<form string="Budget Vs. Actual" width="600">
     
     <separator string="Select periods (empty for all)" colspan="4"/>
     <field name="periods" colspan="4" nolabel="1" width="600" height="200"/>

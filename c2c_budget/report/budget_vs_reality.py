@@ -42,7 +42,7 @@ class budget_vs_reality(StandardReport):
     
     def get_template_title(self, cr, context):
         """ return the title of the report """
-        return _("Budget Vs. Reality")
+        return _("Budget Vs. Actual")
     
 
     def get_story(self):
@@ -95,8 +95,8 @@ class budget_vs_reality(StandardReport):
                 #first column for structure
                 table.add_text_column(self._('Structure'), 40*mm)
                 table.add_num_column(v.name)
-                table.add_num_column(self._('Real'))
-                table.add_num_column(v.name+" - "+self._('Real'))
+                table.add_num_column(self._('Actual'))
+                table.add_num_column(v.name+" - "+self._('Actual'))
                 
                 
                 #
@@ -156,4 +156,4 @@ class budget_vs_reality(StandardReport):
     
 
            
-budget_vs_reality('report.budget_vs_reality', "Budget Vs. Reality", 'c2c_budget.line', StandardReport.A4_PORTRAIT)        
+budget_vs_reality('report.budget_vs_reality', "Budget Vs. Actual", 'c2c_budget.line', StandardReport.A4_PORTRAIT)        

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
 <data>
-    <menuitem name="Sales Management" icon="terp-sale" id="menu_sale_root"/>
+    <menuitem name="Sales Management" icon="terp-sale" id="base.menu_base_partner"/>
 <!--
     =======================
     Saleagent Information
@@ -61,7 +61,7 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_saleagent_form"/>
     </record>
-	<menuitem name="Commissions" id="menu_sale_commisions" parent="base.menu_sale_root"/>
+	<menuitem name="Commissions" id="menu_sale_commisions" parent="base.menu_base_partner"/>
 	<menuitem name="Sales Agent" id="menu_sale_commisions_agent" parent="menu_sale_commisions" action="action_saleagent_tree"/>
 	<menuitem name="New Sales Agent" id="menu_new_sale_commisions_agent" parent="menu_sale_commisions_agent" action="action_saleagent_form"/>
 </data>

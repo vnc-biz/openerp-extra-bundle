@@ -133,7 +133,6 @@ class joomla_configuration_wizard(osv.osv_memory):
                 for i in range(len(filter_partners)-1):
                     filter_partners.insert(0, '|')
 
-                print filter_partners
                 (partner_new, partner_update, partner_delete) = export_table.export_table(self, cr, uid, data, context, server, username, password, 'res.partner', ['id', 'name'], filter_partners, filterphp)
 
                 (address_new, address_update, address_delete) = export_table.export_table(self, cr, uid, data, context, server, username, password, 'res.partner.address', ['id', 'name', 'street', 'zip', 'city', 'phone', 'partner_id'], filter, filterphp)

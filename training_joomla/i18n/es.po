@@ -6,20 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.11\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-11-12 10:08:31+0000\n"
-"PO-Revision-Date: 2010-11-12 11:20+0100\n"
+"POT-Creation-Date: 2011-01-28 14:43:49+0000\n"
+"PO-Revision-Date: 2011-01-28 15:46+0100\n"
 "Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Spanish\n"
-
-#. module: training_joomla
-#: code:addons/training_joomla/training.py:0
-#, python-format
-msgid "Subscription Create: %s"
-msgstr "Subscripción creada: %s"
 
 #. module: training_joomla
 #: help:training.joomla,location:0
@@ -37,11 +31,6 @@ msgstr "Imágenes actualizadas"
 #: view:training.session:0
 msgid "Metakey"
 msgstr "Meta Palabras clave"
-
-#. module: training_joomla
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Nombre del modelo no válido en la definición de la acción."
 
 #. module: training_joomla
 #: field:training.offer,frontpage:0
@@ -71,6 +60,11 @@ msgid "MetaKey"
 msgstr "Palabras clave"
 
 #. module: training_joomla
+#: field:training.joomla,duplicate_subscription:0
+msgid "Duplicate subscription"
+msgstr "Subscripción duplicada"
+
+#. module: training_joomla
 #: view:training.joomla.offer.wizard:0
 msgid "Are you sure to export all offers?"
 msgstr "Queréis exportar todos los cursos?"
@@ -91,12 +85,14 @@ msgid "Export Offers to Joomla!"
 msgstr "Exportar cursos a Joomla!"
 
 #. module: training_joomla
-#: code:addons/training_joomla/wizard/export_table.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_configuration.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_course.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_images.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_offer.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_session.py:0
+#: code:addons/training_joomla/wizard/export_table.py:47
+#: code:addons/training_joomla/wizard/export_table.py:95
+#: code:addons/training_joomla/wizard/export_table.py:100
+#: code:addons/training_joomla/wizard/wizard_training_joomla_configuration.py:178
+#: code:addons/training_joomla/wizard/wizard_training_joomla_course.py:89
+#: code:addons/training_joomla/wizard/wizard_training_joomla_images.py:77
+#: code:addons/training_joomla/wizard/wizard_training_joomla_offer.py:87
+#: code:addons/training_joomla/wizard/wizard_training_joomla_session.py:111
 #, python-format
 msgid "Error!"
 msgstr "Error!"
@@ -142,6 +138,20 @@ msgid "training.session"
 msgstr "training.session"
 
 #. module: training_joomla
+#: code:addons/training_joomla/wizard/wizard_training_joomla_configuration.py:178
+#: code:addons/training_joomla/wizard/wizard_training_joomla_course.py:89
+#: code:addons/training_joomla/wizard/wizard_training_joomla_images.py:77
+#: code:addons/training_joomla/wizard/wizard_training_joomla_offer.py:87
+#: code:addons/training_joomla/wizard/wizard_training_joomla_session.py:111
+#, python-format
+msgid ""
+"No Joomla! location defined!\n"
+"Please create one."
+msgstr ""
+"No se ha definido una localización para Joomla!\n"
+"Crea una."
+
+#. module: training_joomla
 #: view:training.joomla:0
 msgid "XML-RPC"
 msgstr "XML-RPĈ"
@@ -162,9 +172,9 @@ msgid "From"
 msgstr "Desde"
 
 #. module: training_joomla
-#: field:training.joomla,session_closed:0
-msgid "Closed"
-msgstr "Cerrado"
+#: help:training.joomla,duplicate_subscription:0
+msgid "If active, cancel other subscriptions with same edition and create new subscription"
+msgstr "If active, cancel other subscriptions with same edition and create new subscription"
 
 #. module: training_joomla
 #: help:training.joomla,password:0
@@ -217,13 +227,16 @@ msgid "Are you sure to export all training configuration?"
 msgstr "Queréis exportar todas las configuraciones?"
 
 #. module: training_joomla
-#: code:addons/training_joomla/training.py:0
+#: code:addons/training_joomla/training.py:259
+#: code:addons/training_joomla/training.py:312
+#: code:addons/training_joomla/training.py:316
+#: code:addons/training_joomla/training.py:330
 #, python-format
 msgid "Training Joomla Subscription"
 msgstr "Joomla! Formación Subscripción"
 
 #. module: training_joomla
-#: code:addons/training_joomla/training.py:0
+#: code:addons/training_joomla/training.py:259
 #, python-format
 msgid "Training Enrol Component not defined Name Website"
 msgstr "Training Enrol Component not defined Name Website"
@@ -232,6 +245,11 @@ msgstr "Training Enrol Component not defined Name Website"
 #: field:training.joomla,product_category_id:0
 msgid "Product Category"
 msgstr "Categoría del producto"
+
+#. module: training_joomla
+#: constraint:training.subscription.line:0
+msgid "Invalid Subscription"
+msgstr "Subscripción inválida"
 
 #. module: training_joomla
 #: field:training.joomla.configuration.wizard,type_new:0
@@ -274,11 +292,6 @@ msgid "Joomla! Export Offers"
 msgstr "Joomla! Cursos exportados"
 
 #. module: training_joomla
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "XML no válido para la estructura de la vista!"
-
-#. module: training_joomla
 #: field:training.joomla.configuration.wizard,country_new:0
 msgid "Country New"
 msgstr "Países nuevos"
@@ -309,9 +322,21 @@ msgid "Images New"
 msgstr "Imágenes nuevas"
 
 #. module: training_joomla
-#: field:training.joomla.course.wizard,course_delete:0
-msgid "Course Delete"
-msgstr "Asignaturas eliminadas"
+#: constraint:training.course:0
+msgid "Please, Can you check the duration ?"
+msgstr "Please, Can you check the duration ?"
+
+#. module: training_joomla
+#: code:addons/training_joomla/wizard/export_table.py:47
+#: code:addons/training_joomla/wizard/export_table.py:95
+#: code:addons/training_joomla/wizard/export_table.py:100
+#, python-format
+msgid ""
+"No Joomla! connection or username not valid!\n"
+"Try again."
+msgstr ""
+"No se ha podido conectar a Joomla! o el usuario no es válido!\n"
+"Revisa la configuración."
 
 #. module: training_joomla
 #: view:training.joomla.configuration.wizard:0
@@ -363,14 +388,10 @@ msgid "Audience Delete"
 msgstr "Destinatarios eliminados"
 
 #. module: training_joomla
-#: code:addons/training_joomla/wizard/export_table.py:0
+#: code:addons/training_joomla/training.py:312
 #, python-format
-msgid ""
-"No Joomla! connection or username not valid!\n"
-"Try again."
-msgstr ""
-"No se ha podido conectar a Joomla! o el usuario no es válido!\n"
-"Revisa la configuración."
+msgid "Subscription Create: %s"
+msgstr "Subscripción creada: %s"
 
 #. module: training_joomla
 #: model:ir.model,name:training_joomla.model_training_joomla_images_wizard
@@ -385,7 +406,7 @@ msgstr "Abierto"
 #. module: training_joomla
 #: view:training.joomla:0
 msgid "Partner Address Export"
-msgstr "Exporta direcciones de empresa"
+msgstr "Empresas y direcciones para exportar"
 
 #. module: training_joomla
 #: field:training.joomla.images.wizard,images_delete:0
@@ -400,16 +421,14 @@ msgid "Draft"
 msgstr "Borrador"
 
 #. module: training_joomla
-#: constraint:ir.ui.menu:0
-msgid "Error ! You can not create recursive Menu."
-msgstr "Error ! You can not create recursive Menu."
+#: field:training.joomla,session_closed:0
+msgid "Closed"
+msgstr "Cerrado"
 
 #. module: training_joomla
-#: code:addons/training_joomla/wizard/export_table.py:0
-#: model:ir.module.module,shortdesc:training_joomla.module_meta_information
-#, python-format
-msgid "Training Joomla"
-msgstr "Joomla! formación"
+#: field:training.joomla.course.wizard,course_delete:0
+msgid "Course Delete"
+msgstr "Asignaturas eliminadas"
 
 #. module: training_joomla
 #: field:training.joomla,course_pending:0
@@ -442,7 +461,7 @@ msgid "Joomla! Export Courses"
 msgstr "Jooml! Asignaturas exportadas"
 
 #. module: training_joomla
-#: code:addons/training_joomla/training.py:0
+#: code:addons/training_joomla/training.py:316
 #, python-format
 msgid "Price List %s not found or not active"
 msgstr "Price List %s not found or not active"
@@ -529,10 +548,16 @@ msgid "Audience Update"
 msgstr "Destinatarios actualizados"
 
 #. module: training_joomla
-#: code:addons/training_joomla/wizard/export_table.py:0
+#: code:addons/training_joomla/wizard/export_table.py:88
 #, python-format
 msgid "Table:%s,Value:%s"
 msgstr "Tabla:%s, Valor:%s"
+
+#. module: training_joomla
+#: code:addons/training_joomla/training.py:330
+#, python-format
+msgid "Subscription %s is cancell"
+msgstr "La subscripción %s  se ha cancelado"
 
 #. module: training_joomla
 #: selection:training.joomla.configuration.wizard,state:0
@@ -583,14 +608,14 @@ msgid "In Progress"
 msgstr "En progreso"
 
 #. module: training_joomla
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "El nombre del objeto tiene que empezar con x_ y no contener ningún carácter especial!"
-
-#. module: training_joomla
 #: model:ir.ui.menu,name:training_joomla.training_config_joomla_mi
 msgid "Joomla! Configuration"
 msgstr "Configuración de Joomla!"
+
+#. module: training_joomla
+#: constraint:training.session:0
+msgid "You have a seance with a date inferior to the session's date"
+msgstr "You have a seance with a date inferior to the session's date"
 
 #. module: training_joomla
 #: field:training.joomla.configuration.wizard,partner_delete:0
@@ -616,20 +641,6 @@ msgstr "Cursos eliminados"
 #: model:ir.model,name:training_joomla.model_training_joomla_course_wizard
 msgid "training.joomla.course.wizard"
 msgstr "training.joomla.course.wizard"
-
-#. module: training_joomla
-#: code:addons/training_joomla/wizard/wizard_training_joomla_configuration.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_course.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_images.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_offer.py:0
-#: code:addons/training_joomla/wizard/wizard_training_joomla_session.py:0
-#, python-format
-msgid ""
-"No Joomla! location defined!\n"
-"Please create one."
-msgstr ""
-"No se ha definido una localización para Joomla!\n"
-"Crea una."
 
 #. module: training_joomla
 #: field:training.joomla.configuration.wizard,address_delete:0
@@ -675,6 +686,11 @@ msgstr "Joomla! Imágenes exportadas"
 #: model:ir.actions.act_window,name:training_joomla.action_training_joomla_images_wizard
 msgid "Export Images"
 msgstr "Exporta imágenes"
+
+#. module: training_joomla
+#: sql_constraint:training.subscription:0
+msgid "The name of the subscription must be unique !"
+msgstr "The name of the subscription must be unique !"
 
 #. module: training_joomla
 #: view:training.joomla.images.wizard:0
@@ -737,7 +753,26 @@ msgid "Export"
 msgstr "Exportar"
 
 #. module: training_joomla
+#: code:addons/training_joomla/wizard/export_table.py:88
+#: model:ir.module.module,shortdesc:training_joomla.module_meta_information
+#, python-format
+msgid "Training Joomla"
+msgstr "Joomla! formación"
+
+#. module: training_joomla
 #: field:training.joomla.configuration.wizard,lang_update:0
 msgid "Lang Update"
 msgstr "Lenguas actualizadas"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Nombre del modelo no válido en la definición de la acción."
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "XML no válido para la estructura de la vista!"
+#~ msgid "Error ! You can not create recursive Menu."
+#~ msgstr "Error ! You can not create recursive Menu."
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "El nombre del objeto tiene que empezar con x_ y no contener ningún "
+#~ "carácter especial!"
 

@@ -12,35 +12,36 @@
 				    <field name="active" select="1" />
                     <notebook colspan="4">
                         <page string="XML-RPC">
-				            <field name="location" colspan="4" select="1" />
+                            <field name="location" colspan="4" select="1" />
                             <newline/>
-				            <field name="username" select="2" />
-				            <field name="password" />
+                            <field name="username" select="2" />
+                            <field name="password" />
                         </page>
                         <page string="Configuration" >
-				            <field name="price_list_id" />
-				            <field name="product_category_id" />
+                            <field name="price_list_id" />
+                            <field name="product_category_id" />
+                            <field name="duplicate_subscription" />
                             <separator string="Partner Address Export" colspan="4" />
-				            <field name="partner_joomla_ids" colspan="4" nolabel="1" />
+                            <field name="partner_joomla_ids" colspan="4" nolabel="1" />
                         </page>
                         <page string="State" >
                             <separator string="Course" colspan="4" />
-				            <field name="course_draft" />
-				            <field name="course_pending" />
-				            <field name="course_deprecated" />
-				            <field name="course_validated" />
+                            <field name="course_draft" />
+                            <field name="course_pending" />
+                            <field name="course_deprecated" />
+                            <field name="course_validated" />
                             <separator string="Offer" colspan="4" />
-				            <field name="offer_draft" />
-				            <field name="offer_deprecated" />
-				            <field name="offer_validated" />
+                            <field name="offer_draft" />
+                            <field name="offer_deprecated" />
+                            <field name="offer_validated" />
                             <separator string="Session" colspan="4" />
-				            <field name="session_draft" />
-				            <field name="session_opened" />
-				            <field name="session_opened_confirmed" />
-				            <field name="session_closed_confirmed" />
-				            <field name="session_inprogress" />
-				            <field name="session_closed" />
-				            <field name="session_cancelled" />
+                            <field name="session_draft" />
+                            <field name="session_opened" />
+                            <field name="session_opened_confirmed" />
+                            <field name="session_closed_confirmed" />
+                            <field name="session_inprogress" />
+                            <field name="session_closed" />
+                            <field name="session_cancelled" />
                         </page>
                     </notebook>
 		    </form>

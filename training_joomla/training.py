@@ -52,6 +52,7 @@ class training_joomla(osv.osv):
         'session_inprogress': fields.boolean('In Progress'),
         'session_closed': fields.boolean('Closed'),
         'session_cancelled': fields.boolean('Cancelled'),
+        'duplicate_subscription': fields.boolean('Duplicate subscription', help="If active, cancel other subscriptions with same edition and create new subscription"),
         'active': fields.boolean('Active'),
     }
 
@@ -262,6 +263,17 @@ class training_subscription(osv.osv):
             website = self.pool.get('training.joomla').browse(cr, uid, ids[0], context)
             price_list_id = website.price_list_id.id
 
+            # Delete duplicate subscripcions
+            if website.duplicate_subscription:
+                for line in subscription_order['lines']:
+                    subscription_line_ids = self.pool.get('training.subscription.line').search(cr, uid, [('partner_id','=',subscription_order['partner_id']),('session_id','=',line['session_id']),('subscription_state','=','draft')])
+                    for subscription_line_id in subscription_line_ids:
+                        subscription_id = self.pool.get('training.subscription').search(cr, uid, [('partner_id','=',subscription_order['partner_id']),('subscription_line_ids','=',subscription_line_id),('state','=','draft')])
+                        if subscription_id:
+                            # Cancel Subscription
+                            wf_service = netsvc.LocalService('workflow')
+                            wf_service.trg_validate(uid, 'training.subscription', subscription_id[0], 'signal_cancel', cr)
+
             name = self.pool.get('ir.sequence').get(cr, uid, 'training.joomla.subscription') #reference
 
             #check if partner training fields exists. if not, add
@@ -294,6 +306,7 @@ class training_subscription(osv.osv):
                     'session_state': 'draft',
                     'state': 'draft',
                 }
+
                 self.pool.get('training.subscription.line').create(cr, uid, values ,context)
 
             logger.notifyChannel(_("Training Joomla Subscription"), netsvc.LOG_INFO, _("Subscription Create: %s") % (name))

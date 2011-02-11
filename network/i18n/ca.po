@@ -1,21 +1,20 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 # 	* network
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-08-06 18:35+0000\n"
-"PO-Revision-Date: 2010-03-24 17:53+0000\n"
+"POT-Creation-Date: 2009-09-13 16:12+0000\n"
+"PO-Revision-Date: 2010-09-24 16:07+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:28+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2010-09-25 09:23+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #. module: network
 #: field:network.hardware.type,networkable:0
@@ -60,7 +59,7 @@ msgstr "Informació general"
 
 #. module: network
 #: field:network.material,child_id:0
-msgid "Child Materials"
+msgid "Childs Materials"
 msgstr "Maquinari fill"
 
 #. module: network
@@ -98,6 +97,12 @@ msgstr "Període de garantia"
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
 msgstr "Nom del model invàlid en aquesta acció."
+
+#. module: network
+#: view:network.material:0
+#: view:network.network:0
+msgid "Network Material"
+msgstr "Maquinari de la xarxa"
 
 #. module: network
 #: field:network.material,supplier:0
@@ -140,9 +145,9 @@ msgid "Add a password"
 msgstr "Afegir contrasenya"
 
 #. module: network
-#: field:network.network,range:0
-msgid "Address range"
-msgstr "Rang d'adreces"
+#: model:network.hardware.type,name:network.demo_hard_type1
+msgid "Hub"
+msgstr "Hub"
 
 #. module: network
 #: view:network.material:0
@@ -156,9 +161,9 @@ msgid "Network changes"
 msgstr "Canvis de xarxes"
 
 #. module: network
-#: field:network.software,version:0
-msgid "Software version"
-msgstr "Versió del programari"
+#: model:network.hardware.type,name:network.demo_hard_type3
+msgid "Screen"
+msgstr "Pantalla"
 
 #. module: network
 #: model:ir.actions.act_window,name:network.edit_material_2click
@@ -166,6 +171,11 @@ msgstr "Versió del programari"
 #: field:network.software,material_id:0
 msgid "Material"
 msgstr "Maquinari"
+
+#. module: network
+#: model:network.hardware.type,name:network.demo_hard_type4
+msgid "Network Printer"
+msgstr "Impressora de xarxa"
 
 #. module: network
 #: model:ir.model,name:network.model_network_software_type
@@ -202,6 +212,11 @@ msgstr "Introdueix una intervenció"
 #: model:ir.ui.menu,name:network.menu_network_definition
 msgid "Configuration"
 msgstr "Configuració"
+
+#. module: network
+#: model:ir.ui.menu,name:network.menu_add_new_network
+msgid "Networks"
+msgstr "Xarxes"
 
 #. module: network
 #: field:network.network,user_id:0
@@ -241,6 +256,11 @@ msgid "Members"
 msgstr "Membres"
 
 #. module: network
+#: model:network.software.type,name:network.demo_soft_type1
+msgid "Database"
+msgstr "Base de dades"
+
+#. module: network
 #: view:network.software:0
 msgid "Network Softwares"
 msgstr "Programari de la xarxa"
@@ -256,10 +276,10 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: network
-#: view:network.material:0
-#: view:network.network:0
-msgid "Network Material"
-msgstr "Maquinari de la xarxa"
+#: field:network.material,date:0
+#: field:network.software,date:0
+msgid "Installation Date"
+msgstr "Data d'instal·lació"
 
 #. module: network
 #: model:ir.actions.act_window,name:network.action_software_type
@@ -279,6 +299,11 @@ msgstr "Element de la xarxa"
 #: field:network.software.logpass,software_id:0
 msgid "Software"
 msgstr "Programari"
+
+#. module: network
+#: model:network.software.type,name:network.demo_soft_type2
+msgid "DNS Server"
+msgstr "Servidor de DNS"
 
 #. module: network
 #: field:network.hardware.type,name:0
@@ -302,10 +327,9 @@ msgid "Hardware Type"
 msgstr "Tipus de maquinari"
 
 #. module: network
-#: field:network.material,date:0
-#: field:network.software,date:0
-msgid "Installation Date"
-msgstr "Data d'instal·lació"
+#: view:network.changes:0
+msgid "Description"
+msgstr "Descripció"
 
 #. module: network
 #: view:network.material:0
@@ -360,9 +384,15 @@ msgid "Parent Material"
 msgstr "Maquinari pare"
 
 #. module: network
-#: model:ir.ui.menu,name:network.menu_add_new_network
-msgid "Networks"
-msgstr "Xarxes"
+#: model:network.hardware.type,name:network.demo_hard_type2
+msgid "Switch"
+msgstr "Switch"
+
+#. module: network
+#: model:ir.model,name:network.model_network_hardware_type
+#: field:network.material,type:0
+msgid "Hardware type"
+msgstr "Tipus de maquinari"
 
 #. module: network
 #: model:ir.ui.menu,name:network.menu_hardware
@@ -373,6 +403,26 @@ msgstr "Maquinari"
 #: field:network.material,ip_addr:0
 msgid "IP Address"
 msgstr "Adreça IP"
+
+#. module: network
+#: model:network.hardware.type,name:network.demo_hard_type0
+msgid "Computer"
+msgstr "Ordinador"
+
+#. module: network
+#: field:network.software,version:0
+msgid "Software version"
+msgstr "Versió del programari"
+
+#. module: network
+#: model:network.software.type,name:network.demo_soft_type0
+msgid "LDAP"
+msgstr "LDAP"
+
+#. module: network
+#: field:network.changes,user_id:0
+msgid "User"
+msgstr "Usuari"
 
 #. module: network
 #: field:network.network,contact_id:0
@@ -396,15 +446,11 @@ msgid "Tools"
 msgstr "Eines"
 
 #. module: network
-#: model:ir.model,name:network.model_network_hardware_type
-#: field:network.material,type:0
-msgid "Hardware type"
-msgstr "Tipus de maquinari"
+#: field:network.network,range:0
+msgid "Address range"
+msgstr "Rang d'adreces"
 
 #. module: network
 #: field:network.network,name:0
 msgid "Network name"
 msgstr "Nom de la xarxa"
-
-#~ msgid "Childs Materials"
-#~ msgstr "Maquinari fill"

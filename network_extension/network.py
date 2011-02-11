@@ -1,17 +1,20 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
-#                       Jordi Esteve <jesteve@zikzakmedia.com>
-#    $Id$
+#    network_extension module for OpenERP
+#    Copyright (C) 2008 Zikzakmedia S.L. (http://zikzakmedia.com)
+#       Jordi Esteve <jesteve@zikzakmedia.com> All Rights Reserved.
+#    Copyright (C) 2009 SYLEAM (http://syleam.fr)
+#       Christophe Chauvet <christophe.chauvet@syleam.fr> All Rights Reserved.
 #
-#    This program is free software: you can redistribute it and/or modify
+#    This file is a part of network_extension
+#
+#    network_extension is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    This program is distributed in the hope that it will be useful,
+#    network_extension is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
@@ -21,15 +24,20 @@
 #
 ##############################################################################
 
-import time
-from osv import fields, osv
-import base64
+from osv import osv
+from osv import fields
 from tools.translate import _
+
+import base64
+import time
 
 #--------------------------------------------------------------
 # A network is composed of all kind of networkable materials
 #--------------------------------------------------------------
 class network_network(osv.osv):
+    """
+    A network is composed of all kind of networkable materials
+    """
     _inherit = "network.network"
     _columns = {
         'gateway': fields.char('Gateway', size=100),
@@ -37,18 +45,39 @@ class network_network(osv.osv):
         'public_ip_address': fields.char('Public IP address', size=100),
         'public_domain': fields.char('Public domain', size=100),
     }
+
 network_network()
+
+
+#----------------------------------------------------------
+# Materials; computer, printer, switch, ...
+#----------------------------------------------------------
+class network_material(osv.osv):
+    _inherit = "network.material"
+    _columns = {
+        'mac_addr': fields.char('MAC addresss', size=17),
+        'partner_id': fields.related('network_id', 'contact_id', type='many2one', relation='res.partner', string='Partner', readonly=True),
+    }
+    # TODO: Add On Changeon the mac adress, to check if it correct
+    #       regexp: /^([0-9a-f]{2}([:-]|$)){6}$/i
+
+network_material()
 
 
 #----------------------------------------------------------
 # A software installed on a material
 #----------------------------------------------------------
 class network_software(osv.osv):
+    """
+    A software installed on a material
+    """
     _inherit = "network.software"
     _columns = {
         'type': fields.many2one('network.software.type',
                                 'Software Type', required=True, select=1),
         'service_ids': fields.one2many('network.service', 'software_id', string='Service'),
+        'network_id': fields.related('material_id', 'network_id', type='many2one', relation='network.network', string='Network', readonly=True),
+        'partner_id': fields.related('material_id', 'partner_id', type='many2one', relation='res.partner', string='Partner', readonly=True),
     }
 
     def _default_material(self, cursor, user, context=None):
@@ -60,6 +89,7 @@ class network_software(osv.osv):
     _defaults = {
         'material_id': lambda obj, cursor, user, context: obj._default_material(cursor, user, context=context),
     }
+
 network_software()
 
 
@@ -67,12 +97,16 @@ network_software()
 # Couples of login/password
 #------------------------------------------------------------
 class network_software_logpass(osv.osv):
+    """
+    Couples of login/password
+    """
     _inherit = "network.software.logpass"
     _columns = {
         'name': fields.char('Name', size=100),
         'note': fields.text('Note'),
         'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True),
         'encrypted': fields.boolean('Encrypted'),
+        'superuser': fields.boolean('Super User'),
     }
 
     _defaults = {
@@ -83,7 +117,7 @@ class network_software_logpass(osv.osv):
         return {'value':{'encrypted': False}}
 
 
-    def encrypt_password(self, cr, uid, ids, *args):
+    def _encrypt_password(self, cr, uid, ids, *args):
         for rec in self.browse(cr, uid, ids):
             try:
                 from Crypto.Cipher import ARC4
@@ -107,7 +141,7 @@ class network_software_logpass(osv.osv):
         return True
 
 
-    def decrypt_password(self, cr, uid, ids, *args):
+    def _decrypt_password(self, cr, uid, ids, *args):
         for rec in self.browse(cr, uid, ids):
             try:
                 from Crypto.Cipher import ARC4
@@ -135,14 +169,22 @@ network_software_logpass()
 
 
 #----------------------------------------------------------
-# Protocol (ssh, http, smpt, ...)
+# Protocol (ssh, http, smtp, ...)
 #----------------------------------------------------------
 class network_protocol(osv.osv):
+    """
+    Protocol (ssh, http, smtp, ...)
+    """
     _name = "network.protocol"
     _description = "Protocol"
+
     _columns = {
-        'name': fields.char('Name', size=64, select=1),
+        'name': fields.char('Name', size=64, required=True, select=1),
+        'description': fields.char('Description', size=256, translate=True),
+        'port': fields.integer('Port', help='Default port defined see(http://www.iana.org/assignments/port-numbers)', required=True),
+        'protocol': fields.selection([('tcp', 'TCP'),('udp', 'UDP'), ('both', 'Both'), ('other', 'Other')], 'Protocol', required=True),
     }
+
 network_protocol()
 
 
@@ -150,8 +192,12 @@ network_protocol()
 # Services
 #----------------------------------------------------------
 class network_service(osv.osv):
+    """
+    Services
+    """
     _name = "network.service"
     _description = "Service Network"
+
     _columns = {
         'name': fields.char('Name', size=64, select=1),
         'software_id': fields.many2one('network.software', 'Software', required=True),
@@ -164,7 +210,7 @@ class network_service(osv.osv):
         'public_url': fields.char('Public URL', size=256),
     }
 
-    def compute_public_url(self, cr, uid, ids, *args):
+    def _compute_public_url(self, cr, uid, ids, *args):
         for rec in self.browse(cr, uid, ids):
             if not rec.protocol_id or not rec.software_id:
                 continue
@@ -197,13 +243,18 @@ class network_service(osv.osv):
     def onchange_port(self, cr, uid, ids, port, context={}):
         if not port:
             return {}
-        return {'value':{'public_port': port}}
+        return {'value': {'public_port': port}}
 
 network_service()
 
 
 class network_encrypt_password(osv.osv_memory):
+    """
+    Password encryption
+    """
     _name = 'network.encrypt.password'
+    _description = 'Password encryption'
+
     _columns = {
         'name': fields.char('Encrypt/Decrypt password', size=100),
     }
@@ -214,3 +265,7 @@ class network_encrypt_password(osv.osv_memory):
         return super(osv.osv_memory, self).create(cr, uid, vals, context=context)
 
 network_encrypt_password()
+
+
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

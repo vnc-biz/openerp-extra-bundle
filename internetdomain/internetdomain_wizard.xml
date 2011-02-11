@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <wizard
+            id="wizard_internetdomain_renewal_make_invoice"
+            keyword="client_action_multi"
+            model="internetdomain.renewal"
+            name="internetdomain.renewal.make_invoice"
+            multi="True"
+            string="Make invoice"/>
+
+        <wizard
+            id="wizard_internetdomain_renewal_make_invoice"
+            model="internetdomain.renewal"
+            name="internetdomain.renewal.make_invoice"
+            string="Make invoice"
+            menu="True"/>
+    </data>
+</openerp>

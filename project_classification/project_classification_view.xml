@@ -54,7 +54,7 @@
                 </xpath>
                 <xpath expr="/form/notebook/page/field[@name='currency_id']" position="after">
                     <field name="pricelist_id" domain="[('type','=','sale')]" widget="selection"/>
-                    <field name="to_invoice" />
+                    <!-- <field name="to_invoice" /> -->
                     <field name="parent_id" string="Parent Project" domain="[('id','!=',active_id)]" context="{'current_model': 'project.project'}" readonly="1"/>
                 </xpath>
             </field>

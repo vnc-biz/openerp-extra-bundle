@@ -49,11 +49,12 @@ class project_work(osv.osv):
     
     def create(self, cr, uid, vals, *args, **kwargs):
         res = super(project_work,self).create(cr, uid, vals, *args, **kwargs)
-        context = kwargs.get('context', {})
-        task_work_obj = self.pool.get('project.task.work')
-        timesheet_obj = self.pool.get('hr.analytic.timesheet')
-        hr_ts_line_id = task_work_obj.browse(cr,uid,res).hr_analytic_timesheet_id.id
-        timesheet_obj.write(cr,uid,[hr_ts_line_id],{'activity':vals['activity']},context)
+        if vals.has_key('activity'):
+            context = kwargs.get('context', {})
+            task_work_obj = self.pool.get('project.task.work')
+            timesheet_obj = self.pool.get('hr.analytic.timesheet')
+            hr_ts_line_id = task_work_obj.browse(cr,uid,res).hr_analytic_timesheet_id.id
+            timesheet_obj.write(cr,uid,[hr_ts_line_id],{'activity':vals['activity']},context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):

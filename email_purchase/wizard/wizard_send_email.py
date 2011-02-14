@@ -4,6 +4,7 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
 #                       Jordi Esteve <jesteve@zikzakmedia.com>
+#                       Albert Cervera i Areny <albert@nan-tic.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -26,16 +27,14 @@ import pooler
 import tools
 
 from tools.translate import _
-from osv import fields,osv
-import time
+from osv import osv
 import netsvc
-from tools.misc import UpdateableStr, UpdateableDict
 
 email_send_form = '''<?xml version="1.0" encoding="utf-8"?>
-<form string="Send sale order/s by Email">
-    <field name="to"/>
+<form string="Send purchase order/s by Email">
+    <field name="to" colspan="4"/>
     <newline/>
-    <field name="subject"/>
+    <field name="subject" colspan="4"/>
     <newline/>
     <separator string="Message:" colspan="4"/>
     <field name="text" nolabel="1" colspan="4"/>
@@ -43,12 +42,12 @@ email_send_form = '''<?xml version="1.0" encoding="utf-8"?>
 
 email_send_fields = {
     'to': {'string':"To", 'type':'char', 'size':512, 'required':True},
-    'subject': {'string':'Subject', 'type':'char', 'size': 512, 'required':True},
+    'subject': {'string':'Subject', 'type':'char', 'size':512, 'required':True},
     'text': {'string':'Message', 'type':'text_tag', 'required':True}
 }
 
 email_done_form = '''<?xml version="1.0" encoding="utf-8"?>
-<form string="Send sale order/s by Email">
+<form string="Send purchase order/s by Email">
     <field name="email_sent"/>
 </form>'''
 
@@ -66,7 +65,7 @@ def _get_defaults(self, cr, uid, data, context):
     # Ensure subject is tranlated into partner's language.
     current_lang = context.get('lang')
     context['lang'] = orders[0].partner_id.lang or current_lang
-    subject = user.company_id.name+_('. Sale Num.')
+    subject = user.company_id.name + _('. Purchase Num.')
     context['lang'] = current_lang
 
     # Calculate 'text'
@@ -80,14 +79,10 @@ def _get_defaults(self, cr, uid, data, context):
             raise osv.except_osv(_('Warning'), _('You have selected documents for different partners.'))
         if o.name:
             subject = subject + ' ' + o.name
-        if o.client_order_ref:
-            text = o.client_order_ref + '\n' + text
-        if o.partner_order_id.id not in adr_ids:
-            adr_ids.append(o.partner_order_id.id)
-        if o.partner_invoice_id.id not in adr_ids:
-            adr_ids.append(o.partner_invoice_id.id)
-        if o.partner_shipping_id.id not in adr_ids:
-            adr_ids.append(o.partner_shipping_id.id)
+        if o.partner_ref:
+            text = o.partner_ref + '\n' + text
+        if o.partner_address_id.id not in adr_ids:
+            adr_ids.append(o.partner_address_id.id)
     addresses = p.get('res.partner.address').browse(cr, uid, adr_ids, context)
     to = []
     for adr in addresses:
@@ -105,8 +100,8 @@ def create_report(cr, uid, res_ids, report_name=False, file_name=False):
         return (False, Exception('Report name and Resources ids are required !!!'))
     try:
         ret_file_name = '/tmp/'+file_name+'.pdf'
-        service = netsvc.LocalService("report."+report_name)
-        (result, format) = service.create(cr, uid, res_ids, {'model': 'sale.order'}, {})
+        service = netsvc.LocalService("report."+report_name);
+        (result, format) = service.create(cr, uid, res_ids, {'model': 'purchase.order'}, {})
         fp = open(ret_file_name, 'wb+');
 	try:
 		fp.write(result);
@@ -123,11 +118,11 @@ def _send_mails(self, cr, uid, data, context):
     p = pooler.get_pool(cr.dbname)
 
     user = p.get('res.users').browse(cr, uid, uid, context)
-    file_name = user.company_id.name.replace(' ','_')+'_'+_('Sale_Order')
-    sale_smtpserver_id = p.get('email.smtpclient').search(cr, uid, [('type','=','sale'),('state','=','confirm'),('active','=',True)], context=False)
-    if not sale_smtpserver_id:
+    file_name = user.company_id.name.replace(' ','_')+'_'+_('Purchase_Order')
+    purchase_smtpserver_id = p.get('email.smtpclient').search(cr, uid, [('type','=','purchase'),('state','=','confirm'),('active','=',True)], context=False)
+    if not purchase_smtpserver_id:
         default_smtpserver_id = p.get('email.smtpclient').search(cr, uid, [('type','=','default'),('state','=','confirm'),('active','=',True)], context=False)
-    smtpserver_id = sale_smtpserver_id or default_smtpserver_id
+    smtpserver_id = purchase_smtpserver_id or default_smtpserver_id
     if smtpserver_id:
         smtpserver_id = smtpserver_id[0]
     else:
@@ -151,7 +146,7 @@ def _send_mails(self, cr, uid, data, context):
     c_id = p.get('res.partner.canal').search(cr ,uid, [('name','ilike','EMAIL'),('active','=',True)])
     c_id = c_id and c_id[0] or False
     p.get('res.partner.event').create(cr, uid,
-            {'name': _('Email sent through sale order wizard'),
+            {'name': _('Email sent through purchase order wizard'),
              'partner_id': partner_id,
              'description': _('To: ').encode('utf-8') + data['form']['to'] +
                             _('\n\nSubject: ').encode('utf-8') + data['form']['subject'] +
@@ -173,4 +168,4 @@ class send_email(wizard.interface):
             'result': {'type': 'form', 'arch': email_done_form, 'fields': email_done_fields, 'state': [('end', 'End')] }
         }
     }
-send_email('sale.order.email_send_2')
+send_email('purchase.order.email_send_2')

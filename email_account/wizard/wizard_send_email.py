@@ -25,6 +25,7 @@ import wizard
 import pooler
 import tools
 
+from tools.translate import _
 from osv import fields,osv
 import time
 import netsvc
@@ -138,7 +139,9 @@ def _send_mails(self, cr, uid, data, context):
     p.get('res.partner.event').create(cr, uid,
             {'name': _('Email sent through invoice wizard'),
              'partner_id': partner_id,
-             'description': _('To: ') + data['form']['to'] + _('\n\nSubject: ') + data['form']['subject'] + _('\n\nText:\n') + data['form']['text'],
+             'description': _('To: ').encode('utf-8') + data['form']['to'] +
+                            _('\n\nSubject: ').encode('utf-8') + data['form']['subject'] +
+                            _('\n\nText:\n').encode('utf-8') + data['form']['text'],
              'document': data['model']+','+str(docs[0].id),
              'canal_id': c_id,
              'user_id': uid, })

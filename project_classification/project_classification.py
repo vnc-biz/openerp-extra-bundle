@@ -39,7 +39,7 @@ class project_classification(osv.osv):
         
     _columns ={
         'name': fields.char('Classification Name', required=True, size=64),
-        'project_id':fields.many2one('project.project', 'Parent project', help="The parent\
+        'project_id':fields.many2one('account.analytic.account', 'Parent project', help="The parent\
             project that will be set when choosing this classification in a project.", required=True),
         'to_invoice': fields.many2one('hr_timesheet_invoice.factor', 'Reinvoice Costs',
             help="Fill this field if you plan to automatically generate invoices based " \
@@ -57,7 +57,7 @@ class project_project(osv.osv):
     def onchange_classification_id(self, cr, uid, ids, classification_id):
         classification = self.pool.get('project.classification').browse(cr,uid,classification_id)
         return {'value':{
-                'parent_id': classification.project_id.analytic_account_id.id,
+                'parent_id': classification.project_id.id,
                 'to_invoice': classification.to_invoice.id or False,
                 'currency_id': classification.currency_id.id or False,
                 'user_id': classification.user_id.id or False,

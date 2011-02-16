@@ -57,7 +57,7 @@ class project_project(osv.osv):
     def onchange_classification_id(self, cr, uid, ids, classification_id):
         classification = self.pool.get('project.classification').browse(cr,uid,classification_id)
         return {'value':{
-                'parent_id': classification.project_id.id,
+                'parent_id': classification.project_id.analytic_account_id.id,
                 'to_invoice': classification.to_invoice.id or False,
                 'currency_id': classification.currency_id.id or False,
                 'user_id': classification.user_id.id or False,

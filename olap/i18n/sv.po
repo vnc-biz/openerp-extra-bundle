@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-11-26 05:24+0000\n"
-"PO-Revision-Date: 2010-11-23 10:04+0000\n"
+"PO-Revision-Date: 2011-02-15 15:15+0000\n"
 "Last-Translator: OpenERP Administrators <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:23+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:16+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: olap
 #: view:olap.database.columns:0
@@ -1398,6 +1398,3 @@ msgstr "Konfigurera automatiskt "
 #: wizard_button:olap.query.logs.clear,init,ok:0
 msgid "Clear Logs"
 msgstr "Rensa loggar"
-
-#~ msgid "Olap Schemes Management"
-#~ msgstr "Olap Schemes Management"

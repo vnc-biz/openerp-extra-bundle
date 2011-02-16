@@ -1,29 +1,34 @@
-# Translation of OpenERP Server.
-# This file contains the translation of the following modules:
-# * network_extension
+# French translation for openobject-addons
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the openobject-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-09-13 13:41:03+0000\n"
-"PO-Revision-Date: 2009-09-13 15:45+0100\n"
-"Last-Translator: Christophe Chauvet <christophe.chauvet@syleam.fr>\n"
-"Language-Team: \n"
+"Project-Id-Version: openobject-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-02-01 12:11+0000\n"
+"PO-Revision-Date: 2011-02-15 15:15+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:16+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: network_extension
 #: model:ir.actions.act_window,name:network_extension.action_network_encrypt_password
 #: view:network.encrypt.password:0
 msgid "En/Decrypt password"
-msgstr "En/Decoder le mot de passe "
+msgstr "En/Decoder le mot de passe"
 
 #. module: network_extension
 #: help:network.protocol,port:0
-msgid "Default port defined see(http://www.iana.org/assignments/port-numbers)"
-msgstr "Port défini par défaut voir(http://www.iana.org/assignments/port-numbers)"
+msgid ""
+"Default port defined see(http://www.iana.org/assignments/port-numbers)"
+msgstr ""
+"Port défini par défaut voir(http://www.iana.org/assignments/port-numbers)"
 
 #. module: network_extension
 #: view:network.software:0
@@ -32,14 +37,19 @@ msgid "Encrypt"
 msgstr "Encoder"
 
 #. module: network_extension
+#: field:network.software,network_id:0
+msgid "Network"
+msgstr ""
+
+#. module: network_extension
 #: field:network.service,public_url:0
 msgid "Public URL"
 msgstr "URL publique"
 
 #. module: network_extension
 #: model:ir.model,name:network_extension.model_network_encrypt_password
-msgid "network.encrypt.password"
-msgstr "network.encrypt.password"
+msgid "Password encryption"
+msgstr ""
 
 #. module: network_extension
 #: help:network.service,public_port:0
@@ -86,8 +96,17 @@ msgstr "Adresse MAC"
 
 #. module: network_extension
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "Le nom de l'object doit commencer par x_ et ne doit pas contenir de caractères spéciaux !"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"Le nom de l'object doit commencer par x_ et ne doit pas contenir de "
+"caractères spéciaux !"
+
+#. module: network_extension
+#: field:network.protocol,port:0
+#: field:network.service,port:0
+msgid "Port"
+msgstr "Port"
 
 #. module: network_extension
 #: model:network.protocol,description:network_extension.network_protocol_http0
@@ -149,6 +168,11 @@ msgid "Simple Mail Transfer"
 msgstr "Transfert de mail simple"
 
 #. module: network_extension
+#: model:ir.actions.act_window,name:network_extension.act_partner_2_softwares
+msgid "Softwares"
+msgstr ""
+
+#. module: network_extension
 #: selection:network.protocol,protocol:0
 msgid "Both"
 msgstr "Les deux"
@@ -186,6 +210,11 @@ msgstr "Extension de la gestion de réseau"
 #: field:network.service,software_id:0
 msgid "Software"
 msgstr "Logiciel"
+
+#. module: network_extension
+#: model:ir.actions.act_window,name:network_extension.act_partner_2_materials
+msgid "Materials"
+msgstr ""
 
 #. module: network_extension
 #: field:network.network,dns:0
@@ -281,10 +310,9 @@ msgstr ""
 "Dépendance du système: paquet python-crypto requis."
 
 #. module: network_extension
-#: field:network.protocol,port:0
-#: field:network.service,port:0
-msgid "Port"
-msgstr "Port"
+#: model:ir.actions.act_window,name:network_extension.act_partner_2_networks
+msgid "Networks"
+msgstr ""
 
 #. module: network_extension
 #: model:ir.ui.menu,name:network_extension.menu_action_logpass_tree
@@ -297,7 +325,12 @@ msgid "Services"
 msgstr "Services"
 
 #. module: network_extension
+#: field:network.material,partner_id:0
+#: field:network.software,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: network_extension
 #: field:network.network,gateway:0
 msgid "Gateway"
 msgstr "Passerelle"
-

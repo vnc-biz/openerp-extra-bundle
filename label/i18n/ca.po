@@ -7,18 +7,18 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-alpha\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2008-12-15 17:51+0000\n"
-"PO-Revision-Date: 2010-01-26 11:12+0000\n"
+"PO-Revision-Date: 2011-02-15 15:13+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:28+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:15+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: label
-#: field:label.wizard,printer_right:0
+#: wizard_field:res.partner.address.label,init,printer_right:0
 msgid "Right"
 msgstr "Dret"
 
@@ -31,17 +31,17 @@ msgstr ""
 "especial!"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Helvetica-Bold"
 msgstr "Helvetica-Bold"
 
 #. module: label
-#: view:label.wizard:0
+#: wizard_view:res.partner.address.label,init:0
 msgid "Label Char Font"
 msgstr "Lletra de les etiquetes"
 
 #. module: label
-#: field:label.wizard,printer_bottom:0
+#: wizard_field:res.partner.address.label,init,printer_bottom:0
 msgid "Bottom"
 msgstr "Inferior"
 
@@ -54,17 +54,17 @@ msgid "Notification"
 msgstr "Avís"
 
 #. module: label
-#: field:label.wizard,printer_top:0
+#: wizard_field:res.partner.address.label,init,printer_top:0
 msgid "Top"
 msgstr "Superior"
 
 #. module: label
-#: field:label.wizard,first_row:0
+#: wizard_field:res.partner.address.label,init,first_row:0
 msgid "First Row"
 msgstr "Primera fila"
 
 #. module: label
-#: field:label.wizard,font_type:0
+#: wizard_field:res.partner.address.label,init,font_type:0
 msgid "Font Type"
 msgstr "Tipus lletra"
 
@@ -74,7 +74,7 @@ msgid "Number of Columns"
 msgstr "Núm. columnes"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Helvetica"
 msgstr "Helvetica"
 
@@ -98,6 +98,8 @@ msgstr "informe.midapàgina"
 msgid "Page Size"
 msgstr "Format pàgina"
 
+#. module: label
+#: wizard_button:res.partner.address.label,init,check:0
 msgid "Print"
 msgstr "Imprimeix"
 
@@ -116,8 +118,8 @@ msgstr ""
 "o in). Per exemple 29.7cm o 11in"
 
 #. module: label
-#: field:report.label,name:0
 #: field:report.label.manufacturer,name:0
+#: field:report.label,name:0
 #: field:report.pagesize,name:0
 msgid "Name"
 msgstr "Nom"
@@ -128,12 +130,12 @@ msgid "Description"
 msgstr "Descripció"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Courier"
 msgstr "Courier"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Courier-BoldOblique"
 msgstr "Courier-BoldOblique"
 
@@ -162,7 +164,7 @@ msgstr ""
 "exemple, A4 és 29.7cm i letter és 11in"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Helvetica-BoldOblique"
 msgstr "Helvetica-BoldOblique"
 
@@ -191,7 +193,7 @@ msgstr ""
 "exemple, A4 és 21cm i letter és 8.5in"
 
 #. module: label
-#: selection:label.wizard,state:0
+#: wizard_view:res.partner.address.label,notify_bottom:0
 msgid ""
 "Printer bottom margin bigger than (bottom label margin + label height). Try "
 "again."
@@ -200,27 +202,27 @@ msgstr ""
 "l'etiqueta + altura etiqueta). Torna-ho a provar."
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "7"
 msgstr "7"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "6"
 msgstr "6"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "9"
 msgstr "9"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "8"
 msgstr "8"
 
 #. module: label
-#: selection:label.wizard,state:0
+#: wizard_view:res.partner.address.label,notify_left:0
 msgid ""
 "Printer left margin bigger than (left label margin + label width). Try again."
 msgstr ""
@@ -233,7 +235,7 @@ msgid "Manufacturer"
 msgstr "Fabricant"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Courier-Oblique"
 msgstr "Courier-Oblique"
 
@@ -242,6 +244,11 @@ msgstr "Courier-Oblique"
 msgid "report.label"
 msgstr "informe.etiqueta"
 
+#. module: label
+#: wizard_button:res.partner.address.label,notify_bottom,end:0
+#: wizard_button:res.partner.address.label,notify_right,end:0
+#: wizard_button:res.partner.address.label,notify_top,end:0
+#: wizard_button:res.partner.address.label,notify_left,end:0
 msgid "Ok"
 msgstr "D'acord"
 
@@ -274,12 +281,12 @@ msgid "Left Margin"
 msgstr "Marge esquerre"
 
 #. module: label
-#: field:label.wizard,font_size:0
+#: wizard_field:res.partner.address.label,init,font_size:0
 msgid "Font Size"
 msgstr "Mida lletra"
 
 #. module: label
-#: selection:label.wizard,state:0
+#: wizard_view:res.partner.address.label,notify_right:0
 msgid ""
 "Printer right margin bigger than (right label margin + label width). Try "
 "again."
@@ -288,7 +295,7 @@ msgstr ""
 "amplada etiqueta). Torna-ho a provar."
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Times-Italic"
 msgstr "Times-Italic"
 
@@ -307,47 +314,47 @@ msgstr ""
 "o in). Per exemple 29.7cm o 11in"
 
 #. module: label
-#: view:label.wizard:0
+#: wizard_view:res.partner.address.label,init:0
 msgid "First Label"
 msgstr "Primera etiqueta"
 
 #. module: label
-#: field:label.wizard,printer_left:0
+#: wizard_field:res.partner.address.label,init,printer_left:0
 msgid "Left"
 msgstr "Esquerre"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "11"
 msgstr "11"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "10"
 msgstr "10"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Times-BoldItalic"
 msgstr "Times-BoldItalic"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "12"
 msgstr "12"
 
 #. module: label
-#: field:label.wizard,first_col:0
+#: wizard_field:res.partner.address.label,init,first_col:0
 msgid "First Column"
 msgstr "Primera columna"
 
 #. module: label
-#: selection:label.wizard,font_size:0
+#: selection:res.partner.address.label,init,font_size:0
 msgid "14"
 msgstr "14"
 
 #. module: label
-#: view:label.wizard:0
+#: wizard_view:res.partner.address.label,init:0
 msgid "Printer Margins"
 msgstr "Marges impressora"
 
@@ -359,12 +366,12 @@ msgid "Label Formats"
 msgstr "Formats etiquetes"
 
 #. module: label
-#: model:ir.ui.menu,name:label.label_reports_menu
+#: model:ir.actions.wizard,name:label.res_partner_address_report
 msgid "Labels"
 msgstr "Etiquetes"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Times-Bold"
 msgstr "Times-Bold"
 
@@ -379,7 +386,7 @@ msgid "Height"
 msgstr "Altura"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Courier-Bold"
 msgstr "Courier-Bold"
 
@@ -393,21 +400,23 @@ msgstr "Increment horitzontal"
 msgid "report.label.manufacturer"
 msgstr "informe.etiqueta.fabricant"
 
+#. module: label
+#: wizard_button:res.partner.address.label,init,end:0
 msgid "Cancel"
 msgstr "Cancel·la"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Times-Roman"
 msgstr "Times-Roman"
 
 #. module: label
-#: selection:label.wizard,font_type:0
+#: selection:res.partner.address.label,init,font_type:0
 msgid "Helvetica-Oblique"
 msgstr "Helvetica-Oblique"
 
 #. module: label
-#: selection:label.wizard,state:0
+#: wizard_view:res.partner.address.label,notify_top:0
 msgid ""
 "Printer top margin bigger than (top label margin + label height). Try again."
 msgstr ""
@@ -420,6 +429,6 @@ msgid "Landscape"
 msgstr "Horitzontal"
 
 #. module: label
-#: field:label.wizard,label_format:0
+#: wizard_field:res.partner.address.label,init,label_format:0
 msgid "Label Format"
 msgstr "Format etiqueta"

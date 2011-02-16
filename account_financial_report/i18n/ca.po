@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-04-23 11:30:23+0000\n"
-"PO-Revision-Date: 2011-01-18 18:21+0100\n"
+"POT-Creation-Date: 2010-04-23 11:30+0000\n"
+"PO-Revision-Date: 2011-02-15 15:01+0000\n"
 "Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:29+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:13+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: account_financial_report
 #: wizard_field:account.invoice.list.report,init,in_invoice:0
@@ -203,7 +203,8 @@ msgstr "Error de l'usuari"
 #: model:ir.module.module,description:account_financial_report.module_meta_information
 msgid ""
 "\n"
-"Add some common financial/accounting reports and some wizards to quickly compute them:\n"
+"Add some common financial/accounting reports and some wizards to quickly "
+"compute them:\n"
 "  * Account chart list\n"
 "  * Invoice list\n"
 "  * Account move (journal ledger)\n"
@@ -211,12 +212,16 @@ msgid ""
 "  * Account balance compared period-fiscal year\n"
 "  * Cumulative general ledger\n"
 "\n"
-"They can be found in the \"Financial Management/Legal Statements/Generic Reports\" menu or in the tree/form views of accounts, journals, invoices, account entries and account move lines.\n"
+"They can be found in the \"Financial Management/Legal Statements/Generic "
+"Reports\" menu or in the tree/form views of accounts, journals, invoices, "
+"account entries and account move lines.\n"
 "\n"
-"Some reports are based on previous work by Pexego and others on the c2c_finance_report module for TinyERP 4.2 by Camptocamp SA.\n"
+"Some reports are based on previous work by Pexego and others on the "
+"c2c_finance_report module for TinyERP 4.2 by Camptocamp SA.\n"
 msgstr ""
 "\n"
-"Proporciona alguns informes comptables/financers comuns i alguns assistents per a calcular ràpidament:\n"
+"Proporciona alguns informes comptables/financers comuns i alguns assistents "
+"per a calcular ràpidament:\n"
 "   * Llistat del plan comptable\n"
 "   * Llistat de factures emeses/rebudes\n"
 "   * Assentaments comptables (llibre diari)\n"
@@ -224,9 +229,13 @@ msgstr ""
 "   * Balanç de sumes i saldos\n"
 "   * Llibre major amb saldos acumulatius\n"
 "\n"
-"Estan disponibles en el menú \"Gestió Financera / Declaracions oficials / Informes genèrics\" o en les vistes arbre /formulari dels comptes comptables, diaris, factures, assentaments comptables i línies d'assentament comptable.\n"
+"Estan disponibles en el menú \"Gestió Financera / Declaracions oficials / "
+"Informes genèrics\" o en les vistes arbre /formulari dels comptes "
+"comptables, diaris, factures, assentaments comptables i línies d'assentament "
+"comptable.\n"
 "\n"
-"Alguns informes es basen en treballs anteriors de Pexego i altres en el mòdul c2c_finance_report per TinyERP 4.2 de Camptocamp SA.\n"
+"Alguns informes es basen en treballs anteriors de Pexego i altres en el "
+"mòdul c2c_finance_report per TinyERP 4.2 de Camptocamp SA.\n"
 
 #. module: account_financial_report
 #: rml:account.move.line.report:0
@@ -464,8 +473,12 @@ msgstr "Amb saldo diferent a 0"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
-msgid "<td>                             <para style=\"Standard\" size=\"5\">Invoice description</para>                         </td>"
-msgstr "<td>                             <para style=\"Standard\" size=\"5\">Descripció factura</para>                         </td>"
+msgid ""
+"<td>                             <para style=\"Standard\" size=\"5\">Invoice "
+"description</para>                         </td>"
+msgstr ""
+"<td>                             <para style=\"Standard\" "
+"size=\"5\">Descripció factura</para>                         </td>"
 
 #. module: account_financial_report
 #: wizard_view:account.invoice.list.report,init:0
@@ -491,8 +504,14 @@ msgstr "Comptes a incloure"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
-msgid "<blockTable colWidths=\"1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm,1.8cm,1.6cm\" repeatRows=\"1\" style=\"Table3\">"
-msgstr "<blockTable colWidths=\"1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm,1.8cm,1.6cm\" repeatRows=\"1\" style=\"Table3\">"
+msgid ""
+"<blockTable "
+"colWidths=\"1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm"
+",1.8cm,1.6cm\" repeatRows=\"1\" style=\"Table3\">"
+msgstr ""
+"<blockTable "
+"colWidths=\"1.8cm,1.4cm,1.4cm,1.8cm,1.8cm,2cm,3.5cm,2cm,4cm,1.2cm,1.8cm,1.4cm"
+",1.8cm,1.6cm\" repeatRows=\"1\" style=\"Table3\">"
 
 #. module: account_financial_report
 #: rml:account.general.ledger.cumulative:0
@@ -1115,7 +1134,9 @@ msgstr "Factures rectificatives de Client (Abonaments)"
 #. module: account_financial_report
 #: help:account.balance.full.report,init,fiscalyear:0
 msgid "Keep empty to use all open fiscal years to compute the balance"
-msgstr "Deixeu-lo buit per utilitzar tots els exercicis fiscals oberts per calcular el saldo."
+msgstr ""
+"Deixeu-lo buit per utilitzar tots els exercicis fiscals oberts per calcular "
+"el saldo."
 
 #. module: account_financial_report
 #: rml:account.general.ledger.cumulative:0
@@ -1144,13 +1165,3 @@ msgstr "FRP: "
 #: report:account.print.journal.entriesh:0
 msgid "End of report"
 msgstr "Final de l'informe"
-
-#~ msgid "Select period"
-#~ msgstr "Selecciona període"
-#~ msgid "Sort by:"
-#~ msgstr "Ordena per:"
-#~ msgid ":"
-#~ msgstr ":"
-#~ msgid "Invoice description"
-#~ msgstr "Descripció factura"
-

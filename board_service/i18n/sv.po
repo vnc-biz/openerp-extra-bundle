@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-11-26 06:19+0000\n"
-"PO-Revision-Date: 2010-11-23 02:12+0000\n"
+"PO-Revision-Date: 2011-02-15 15:01+0000\n"
 "Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:26+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:14+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: board_service
 #: view:sale.forecast.line:0
@@ -40,27 +40,27 @@ msgstr ""
 #. module: board_service
 #: view:sale.forecast.line:0
 msgid "Results"
-msgstr ""
+msgstr "Resultat"
 
 #. module: board_service
 #: view:project.task:0
 msgid "Delay"
-msgstr ""
+msgstr "Fördröjning"
 
 #. module: board_service
 #: view:board.board:0
 msgid "My Inbox"
-msgstr ""
+msgstr "Min Inbox"
 
 #. module: board_service
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Felaktigt namn för modellen i händelsedefinitionen."
 
 #. module: board_service
 #: view:board.board:0
 msgid "Open Cases"
-msgstr ""
+msgstr "Öppna ärenden"
 
 #. module: board_service
 #: view:sale.forecast.line:0
@@ -82,7 +82,7 @@ msgstr ""
 #. module: board_service
 #: view:board.board:0
 msgid "Closed Cases"
-msgstr ""
+msgstr "Stängda ärenden"
 
 #. module: board_service
 #: view:crm.case:0
@@ -97,7 +97,7 @@ msgstr ""
 #. module: board_service
 #: view:board.board:0
 msgid "Timesheet Lines"
-msgstr ""
+msgstr "Tidrapportrader"
 
 #. module: board_service
 #: view:sale.forecast.line:0
@@ -107,14 +107,14 @@ msgstr ""
 #. module: board_service
 #: view:sale.forecast.line:0
 msgid "Forecasts"
-msgstr ""
+msgstr "Prognoser"
 
 #. module: board_service
 #: view:board.board:0
 #: model:ir.actions.act_window,name:board_service.action_view_task_pending_dashboard
 #: view:project.task:0
 msgid "My Pending Tasks"
-msgstr ""
+msgstr "Mina väntande aktiviteter"
 
 #. module: board_service
 #: view:board.board:0
@@ -139,17 +139,17 @@ msgstr ""
 #. module: board_service
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Ogiltig XML för Vy-arkitektur!"
 
 #. module: board_service
 #: view:board.board:0
 msgid "Turnover Per Month"
-msgstr ""
+msgstr "Omsättning per månad"
 
 #. module: board_service
 #: view:sale.forecast.line:0
 msgid "Notes"
-msgstr ""
+msgstr "Anteckningar"
 
 #. module: board_service
 #: view:board.board:0
@@ -171,12 +171,12 @@ msgstr ""
 #. module: board_service
 #: view:sale.forecast.line:0
 msgid "Filter on Products"
-msgstr ""
+msgstr "Filtrera på produkter"
 
 #. module: board_service
 #: view:board.board:0
 msgid "Turnover Per Product"
-msgstr ""
+msgstr "Omsättning per produkt"
 
 #. module: board_service
 #: view:board.board:0
@@ -186,7 +186,7 @@ msgstr ""
 #. module: board_service
 #: view:board.board:0
 msgid "My Open Tasks"
-msgstr ""
+msgstr "Mina öppna aktiviteter"
 
 #. module: board_service
 #: model:ir.actions.act_window,name:board_service.action_service_random_activities_board
@@ -197,28 +197,28 @@ msgstr ""
 #. module: board_service
 #: view:project.task:0
 msgid "Delegated To"
-msgstr ""
+msgstr "Delegerad till"
 
 #. module: board_service
 #: view:crm.case:0
 msgid "Meeting Date"
-msgstr ""
+msgstr "Mötesdatum"
 
 #. module: board_service
 #: view:board.board:0
 #: model:ir.actions.act_window,name:board_service.action_my_meetings
 msgid "My Meeting of the Day"
-msgstr ""
+msgstr "Dagens möten"
 
 #. module: board_service
 #: view:sale.forecast.line:0
 msgid "Feedback"
-msgstr ""
+msgstr "Feedback"
 
 #. module: board_service
 #: view:sale.forecast.line:0
 msgid "Filter on Product Categories"
-msgstr ""
+msgstr "Filtrera på produktkategorier"
 
 #. module: board_service
 #: view:board.board:0

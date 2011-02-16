@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-04-23 11:30+0000\n"
-"PO-Revision-Date: 2011-01-18 01:57+0000\n"
+"PO-Revision-Date: 2011-02-15 15:01+0000\n"
 "Last-Translator: Ferdinand Gassauer <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:29+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:13+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: account_financial_report
 #: wizard_field:account.invoice.list.report,init,in_invoice:0
@@ -58,7 +58,7 @@ msgstr "Steuer Umschlüsselung"
 #: code:addons/account_financial_report/wizard/wizard_general_ledger_report.py:0
 #, python-format
 msgid "Date to must be set between %s and %s"
-msgstr ""
+msgstr "Das Datum muss zwischen %s und %s liegen"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -198,7 +198,7 @@ msgstr "Tabellen Stil"
 #: code:addons/account_financial_report/wizard/wizard_general_ledger_report.py:0
 #, python-format
 msgid "UserError"
-msgstr ""
+msgstr "Benutzer Fehler"
 
 #. module: account_financial_report
 #: model:ir.module.module,description:account_financial_report.module_meta_information
@@ -265,7 +265,7 @@ msgstr "Referenz"
 #: code:addons/account_financial_report/wizard/wizard_general_ledger_report.py:0
 #, python-format
 msgid "Date not in a defined fiscal year"
-msgstr ""
+msgstr "Datum liegt nicht in einem definierten Geschäftsjahr"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -356,7 +356,7 @@ msgstr "Wählen übergeordnetes Konto"
 #: code:addons/account_financial_report/report/general_ledger_landscape.py:0
 #, python-format
 msgid "Initial balance"
-msgstr ""
+msgstr "Eröffnungskontostand"
 
 #. module: account_financial_report
 #: rml:account.invoice.list.report:0
@@ -515,7 +515,7 @@ msgstr ""
 #: rml:account.general.ledger.cumulative:0
 #: rml:account.general.ledger.cumulative.landscape:0
 msgid "Mvt"
-msgstr ""
+msgstr "Buchung"
 
 #. module: account_financial_report
 #: rml:account.account.chart.report:0
@@ -551,7 +551,7 @@ msgstr "Gegenkonto"
 #: code:addons/account_financial_report/wizard/wizard_print_journal_entries.py:0
 #, python-format
 msgid "No Data Available"
-msgstr ""
+msgstr "Keine Daten verfügbar"
 
 #. module: account_financial_report
 #: wizard_view:account.invoice.list.report,init:0
@@ -1089,7 +1089,7 @@ msgstr "Alle"
 #: code:addons/account_financial_report/wizard/wizard_print_journal_entries.py:0
 #, python-format
 msgid "No records found for your selection!"
-msgstr ""
+msgstr "Keine Datensätze für Ihre Auswahl gefunden"
 
 #. module: account_financial_report
 #: model:ir.actions.wizard,name:account_financial_report.wizard_invoice_list_report
@@ -1147,4 +1147,18 @@ msgstr "Gesamt"
 #: code:addons/account_financial_report/report/general_ledger_landscape.py:0
 #, python-format
 msgid "SR: "
+msgstr ""
+
+#. module: account_financial_report
+#: report:account.account.chart.report:0
+#: report:account.balance.full:0
+#: report:account.general.ledger.cumulative:0
+#: report:account.general.ledger.cumulative.landscape:0
+#: report:account.invoice.list.report:0
+#: report:account.move.line.report:0
+#: report:account.move.report:0
+#: report:account.move.report.h:0
+#: report:account.print.journal.entries:0
+#: report:account.print.journal.entriesh:0
+msgid "End of report"
 msgstr ""

@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-02-25 14:39:34+0000\n"
-"PO-Revision-Date: 2010-02-25 18:35+0100\n"
+"POT-Creation-Date: 2010-02-25 14:39+0000\n"
+"PO-Revision-Date: 2011-02-15 15:28+0000\n"
 "Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-02-16 06:17+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: internetdomain
 #: view:internetdomain.domain:0
@@ -23,8 +24,11 @@ msgstr "dominio"
 
 #. module: internetdomain
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "¡El nombre del objeto debe empezar con x_ y no contener ningún carácter especial!"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"¡El nombre del objeto debe empezar con x_ y no contener ningún carácter "
+"especial!"
 
 #. module: internetdomain
 #: field:internetdomain.domain,network_id:0
@@ -67,6 +71,7 @@ msgstr ""
 "* Productos\n"
 "* Red\n"
 "* Envío de correo mediante Acciones Planificadas y Power Email\n"
+"    "
 
 #. module: internetdomain
 #: view:internetdomain.domain:0
@@ -269,4 +274,3 @@ msgstr "Renovaciones"
 #: wizard_field:internetdomain.renewal.make_invoice,init,price:0
 msgid "Price"
 msgstr "Precio"
-

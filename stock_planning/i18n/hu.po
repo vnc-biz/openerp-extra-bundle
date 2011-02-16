@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 06:00+0000\n"
-"PO-Revision-Date: 2011-01-10 11:19+0000\n"
+"PO-Revision-Date: 2011-02-15 15:29+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:26+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-16 06:18+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: stock_planning
 #: view:stock.planning:0
@@ -23,11 +23,13 @@ msgid "Procure Incoming Left"
 msgstr ""
 
 #. module: stock_planning
-#: model:ir.actions.act_window,name:stock_planning.action_view_stock_sale_forecast_form
+#: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_prevision_form
+#: view:stock.planning.sale.prevision:0
 msgid "Sales Forecast"
-msgstr ""
+msgstr "Értékesítési előrejelzés"
 
 #. module: stock_planning
+#: view:stock.planning:0
 #: field:stock.planning,planned_outgoing:0
 msgid "Planned Out"
 msgstr ""
@@ -52,26 +54,23 @@ msgstr ""
 
 #. module: stock_planning
 #: field:stock.planning,period_id:0
-#: field:stock.planning.createlines,period_id:0
-#: field:stock.sale.forecast,period_id:0
-#: field:stock.sale.forecast.createlines,period_id:0
+#: field:stock.planning.sale.prevision,period_id:0
 msgid "Period"
-msgstr ""
+msgstr "Időszak"
 
 #. module: stock_planning
-#: view:stock.period:0
 #: field:stock.period,state:0
 #: field:stock.planning,state:0
-#: field:stock.sale.forecast,state:0
+#: field:stock.planning.sale.prevision,state:0
 msgid "State"
-msgstr ""
+msgstr "Állapot"
 
 #. module: stock_planning
 #: selection:stock.period,state:0
 #: selection:stock.planning,state:0
-#: selection:stock.sale.forecast,state:0
+#: selection:stock.planning.sale.prevision,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Tervezet"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_stock_planning_period_form
@@ -85,11 +84,8 @@ msgstr ""
 
 #. module: stock_planning
 #: field:stock.planning,warehouse_id:0
-#: field:stock.planning.createlines,warehouse_id:0
-#: field:stock.sale.forecast,warehouse_id:0
-#: field:stock.sale.forecast.createlines,warehouse_id:0
 msgid "Warehouse"
-msgstr ""
+msgstr "Raktár"
 
 #. module: stock_planning
 #: constraint:ir.model:0
@@ -98,10 +94,9 @@ msgid ""
 msgstr ""
 
 #. module: stock_planning
-#: view:stock.sale.forecast:0
-#: selection:stock.sale.forecast,state:0
+#: selection:stock.planning.sale.prevision,state:0
 msgid "Validated"
-msgstr ""
+msgstr "Jóváhagyott"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_prevision_form_my
@@ -120,12 +115,10 @@ msgid "Expected Out"
 msgstr ""
 
 #. module: stock_planning
-#: view:stock.planning:0
 #: field:stock.planning,product_id:0
-#: view:stock.sale.forecast:0
-#: field:stock.sale.forecast,product_id:0
+#: field:stock.planning.sale.prevision,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Termék"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,amt_sold:0
@@ -138,9 +131,9 @@ msgid "Sales Previsions of Current Period"
 msgstr ""
 
 #. module: stock_planning
-#: view:stock.period.createlines:0
+#: view:stock.planning.period:0
 msgid "Create Daily Periods"
-msgstr ""
+msgstr "Napi időszakok létrehozása"
 
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_period
@@ -149,9 +142,9 @@ msgstr ""
 
 #. module: stock_planning
 #: field:stock.period,name:0
-#: field:stock.period.createlines,name:0
+#: field:stock.planning.period,name:0
 msgid "Period Name"
-msgstr ""
+msgstr "Időszak neve"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -165,10 +158,10 @@ msgid "stock.planning.sale.prevision"
 msgstr ""
 
 #. module: stock_planning
-#: code:addons/stock_planning/stock_planning.py:140
+#: code:addons/stock_planning/stock_planning.py:0
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Érvénytelen művelet !"
 
 #. module: stock_planning
 #: view:stock.planning.sale.prevision:0
@@ -178,9 +171,10 @@ msgstr ""
 #. module: stock_planning
 #: view:stock.planning:0
 msgid "Stock"
-msgstr ""
+msgstr "Készlet"
 
 #. module: stock_planning
+#: view:stock.planning:0
 #: field:stock.planning,incoming:0
 msgid "Confirmed In"
 msgstr ""
@@ -188,7 +182,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,product_uom:0
 msgid "UoM"
-msgstr ""
+msgstr "ME"
 
 #. module: stock_planning
 #: field:stock.planning,planned_sale:0
@@ -197,24 +191,25 @@ msgstr ""
 
 #. module: stock_planning
 #: field:stock.period,date_stop:0
-#: field:stock.period.createlines,date_stop:0
+#: field:stock.planning.period,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Záró dátum"
 
 #. module: stock_planning
-#: view:stock.period.createlines:0
+#: view:stock.planning.period:0
 msgid "Create Weekly Periods"
-msgstr ""
+msgstr "Heti időszakok létrehozása"
 
 #. module: stock_planning
-#: field:stock.sale.forecast,name:0
+#: field:stock.planning,name:0
+#: field:stock.planning.sale.prevision,name:0
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #. module: stock_planning
-#: view:stock.period.createlines:0
+#: view:stock.planning.period:0
 msgid "Create Monthly Periods"
-msgstr ""
+msgstr "Havi időszak létrehozása"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_manual_plannification
@@ -232,16 +227,14 @@ msgid "Stock Start"
 msgstr ""
 
 #. module: stock_planning
-#: model:ir.ui.menu,name:stock_planning.menu_stock_sale_forecast
-#: model:ir.ui.menu,name:stock_planning.menu_stock_sale_forecast_all
-#: view:stock.sale.forecast:0
+#: model:ir.ui.menu,name:stock_planning.menu_stock_prevision
 msgid "Sales Forecasts"
-msgstr ""
+msgstr "Értékesítési előrejelzések"
 
 #. module: stock_planning
-#: field:stock.sale.forecast,product_uom:0
+#: field:stock.planning.sale.prevision,product_uom:0
 msgid "Product UoM"
-msgstr ""
+msgstr "Termék ME"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_all
@@ -274,9 +267,9 @@ msgid ""
 msgstr ""
 
 #. module: stock_planning
-#: field:stock.sale.forecast,product_amt:0
+#: field:stock.planning.sale.prevision,product_amt:0
 msgid "Product Amount"
-msgstr ""
+msgstr "Termékösszeg"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,user_id:0
@@ -291,26 +284,23 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,line_time:0
 msgid "Past/Future"
-msgstr ""
+msgstr "Múlt/Jövő"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_stock_period_form
 #: model:ir.ui.menu,name:stock_planning.menu_stock_period
-#: model:ir.ui.menu,name:stock_planning.menu_stock_period_main
-#: view:stock.period:0
-#: view:stock.period.createlines:0
 msgid "Stock and Sales Periods"
-msgstr ""
+msgstr "Készlet és értékesítési időszakok"
 
 #. module: stock_planning
-#: field:stock.sale.forecast,product_qty:0
+#: field:stock.planning.sale.prevision,product_qty:0
 msgid "Product Quantity"
-msgstr ""
+msgstr "Termékmennyiség"
 
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_planning
 msgid "stock.planning"
-msgstr ""
+msgstr "stock.planning"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_my_current
@@ -320,35 +310,31 @@ msgstr ""
 #. module: stock_planning
 #: selection:stock.planning,state:0
 msgid "Done"
-msgstr ""
+msgstr "Kész"
 
 #. module: stock_planning
-#: field:stock.period.createlines,period_ids:0
+#: field:stock.planning.period,period_ids:0
 msgid "Periods"
-msgstr ""
+msgstr "Időszakok"
 
 #. module: stock_planning
-#: view:stock.period:0
 #: selection:stock.period,state:0
-#: view:stock.planning.createlines:0
-#: view:stock.sale.forecast.createlines:0
 msgid "Close"
 msgstr ""
 
 #. module: stock_planning
 #: field:stock.period,date_start:0
-#: field:stock.period.createlines,date_start:0
+#: field:stock.planning.period,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Kezdő dátum"
 
 #. module: stock_planning
-#: model:ir.ui.menu,name:stock_planning.menu_stock_planning_main
 #: view:stock.planning:0
+#: view:stock.planning.sale.prevision:0
 msgid "Stock Planning"
-msgstr ""
+msgstr "Készlettervezés"
 
 #. module: stock_planning
-#: view:stock.period:0
 #: selection:stock.period,state:0
 msgid "Open"
 msgstr ""

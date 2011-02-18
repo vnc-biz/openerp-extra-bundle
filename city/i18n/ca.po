@@ -7,15 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-alpha\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-02-27 09:13+0000\n"
-"PO-Revision-Date: 2011-02-15 15:02+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-02-18 19:22+0100\n"
+"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:14+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-01-18 05:26+0000\n"
+"X-Generator: Launchpad (build 12177)\n"
 
 #. module: city
 #: view:city.city:0
@@ -28,15 +27,12 @@ msgstr "Ciutat"
 #. module: city
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "﻿XML invàlid per a la definició de la vista!"
+msgstr "﻿XML no vàlid per a la definició de la vista!"
 
 #. module: city
 #: constraint:ir.model:0
-msgid ""
-"The Object name must start with x_ and not contain any special character !"
-msgstr ""
-"El nom de l'objecte ha de començar amb x_ i no contenir cap caràcter "
-"especial !"
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "El nom de l'objecte ha de començar amb x_ i no contenir cap caràcter especial !"
 
 #. module: city
 #: field:city.city,zipcode:0
@@ -51,26 +47,28 @@ msgstr "Província"
 #. module: city
 #: field:city.city,country_id:0
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #. module: city
 #: field:city.city,code:0
 msgid "City Code"
-msgstr ""
+msgstr "Codi de ciutat"
 
 #. module: city
 #: model:ir.module.module,description:city.module_meta_information
 msgid ""
 "Creates a model for storing cities\n"
-"Zip code, city, state and country fields are replaced with a location field "
-"in partner and partner contact forms.\n"
+"Zip code, city, state and country fields are replaced with a location field in partner and partner contact forms.\n"
 "This module helps to keep homogeneous address data in the database."
 msgstr ""
+"Crea un model per emmagatzemar ciutats.\n"
+"Els camps de codi postal, província i país són reemplaçats amb un camp de localització en els formularis d'empresa i contacte/adreça d'empresa.\n"
+"Aquest mòdul ajuda a mantenir informació homogènia d'adreces a la base de dades."
 
 #. module: city
 #: field:city.city,name:0
 msgid "City Name"
-msgstr ""
+msgstr "Nom de la ciutat"
 
 #. module: city
 #: field:res.partner.address,location:0
@@ -80,10 +78,11 @@ msgstr "Ubicació"
 #. module: city
 #: help:city.city,code:0
 msgid "The official code for the city"
-msgstr ""
+msgstr "El codi oficial de la ciutat."
 
 #. module: city
 #: model:ir.ui.menu,name:city.menu_city_partner
 #: field:res.country.state,city_ids:0
 msgid "Cities"
 msgstr "Ciutats"
+

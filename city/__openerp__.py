@@ -1,10 +1,9 @@
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (c) 2008 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
-#                       Jordi Esteve <jesteve@zikzakmedia.com>
-#    Copyright (c) 2008 Pablo Rocandio. All Rights Reserved.
+#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -22,19 +21,19 @@
 #
 ##############################################################################
 {
-	"name" : "City for Base Contact",
-	"version" : "1.0",
-	"author" : "Pablo Rocandio",
-	"license" : "GPL-3",
-	"category" : "Generic Modules/Base",
-	"description": """Zip code, city, state and country fields are replaced with a location field in partner form when base_contact module is installed.
-This module helps to keep homogeneous address data in our database.
-You should use this module if you are already using base_contact and city""",
-	"depends" : ["base", "base_contact", "city"],
-	"init_xml" : [],
-	"update_xml" : [
-	    'city_view.xml',
-	    ],
-	"active": False,
-	"installable": True
+    "name" : "City-Helps to keep Homogenous address data in the Database",
+    "version" : "1.0",
+    "author" : "Pablo Rocandio",
+    "category" : "Generic Modules/Base",
+    "description": """Creates a model for storing cities
+Zip code, city, state and country fields are replaced with a location field in partner and partner contact forms.
+This module helps to keep homogenous address data in the database.""",
+    "depends" : ["base"],
+    "init_xml" : [],
+    "update_xml" : [
+        'city_view.xml',
+        'security/ir.model.access.csv'
+        ],
+    "active": False,
+    "installable": True
 }

@@ -34,7 +34,7 @@ Tools -> Domain
 * Invoice renewal domain
     """,
     "version" : "0.1",
-    "depends" : ["base","product","account","network","poweremail-v6"],
+    "depends" : ["base","product","account","network","poweremail"],
     "init_xml" : [],
     "update_xml" : [
         "security/internetdomain_security.xml",

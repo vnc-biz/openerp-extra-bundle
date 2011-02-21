@@ -100,7 +100,7 @@
 			<field name="view_id" ref="sale_advertising_issue_tree"/>
 		</record>
 
-		<menuitem name="Advertising" id="menu_sale_advertising" parent="sale.menu_sale_root"/>
+		<menuitem name="Advertising" id="menu_sale_advertising" parent="base.menu_sales"/>
 		<menuitem name="Advertising Issue" id="menu_sale_advertising_issue" parent="menu_sale_advertising" action="action_sale_advertising_issue"/>
 
 <!-- View for sale.advertising.proof object -->
@@ -147,7 +147,7 @@
 			<field name="inherit_id" ref="product.product_normal_form_view"/>
 			<field name="arch" type="xml">
 				<field name="product_manager" position="after" >
-					<field name="equivalency_in_A4" select="2"/>
+					<field name="equivalency" select="2"/>
 					<newline/>
 				</field>
 			</field>

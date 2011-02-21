@@ -35,7 +35,7 @@
 			<field name="name">Full Banner 468x60</field>
 			<field name="categ_id" ref="product_category_website0"/>
 			<field eval="1" name="active"/>
-			<field eval="1.0" name="equivalency_in_A4"/>
+			<field eval="1.0" name="equivalency"/>
 			<field eval="1.0" name="price_margin"/>
 		</record>
 		<record id="advert_product_1" model="product.product">
@@ -46,7 +46,7 @@
 			<field name="name">Half Banner 234x60</field>
 			<field name="categ_id" ref="product_category_website0"/>
 			<field eval="1" name="active"/>
-			<field eval="0.50" name="equivalency_in_A4"/>
+			<field eval="0.50" name="equivalency"/>
 			<field eval="1.0" name="price_margin"/>
 		</record>
 		<record id="advert_product_2" model="product.product">
@@ -57,7 +57,7 @@
 			<field name="name">Press Review Advertising A4/2</field>
 			<field name="categ_id" ref="product_category_magazine0"/>
 			<field eval="1" name="active"/>
-			<field eval="0.50" name="equivalency_in_A4"/>
+			<field eval="0.50" name="equivalency"/>
 			<field eval="1.0" name="price_margin"/>
 		</record>
 		<record id="advert_product_3" model="product.product">
@@ -68,7 +68,7 @@
 			<field name="name">Press Review Advertising Central Pages</field>
 			<field name="categ_id" ref="product_category_magazine0"/>
 			<field eval="1" name="active"/>
-			<field eval="2.00" name="equivalency_in_A4"/>
+			<field eval="2.00" name="equivalency"/>
 			<field eval="1.0" name="price_margin"/>
 		</record>
 	</data>

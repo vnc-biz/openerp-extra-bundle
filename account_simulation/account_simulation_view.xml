@@ -42,7 +42,7 @@
         <field name="inherit_id" ref="account.view_account_journal_form"/>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <field name="update_posted" position="after">
+            <field name="view_id" position="after">
                 <field name="state"/>
             </field>
         </field>

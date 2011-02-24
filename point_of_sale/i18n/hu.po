@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-05-19 14:36+0000\n"
-"PO-Revision-Date: 2010-01-26 11:02+0000\n"
+"PO-Revision-Date: 2011-02-23 16:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:28+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:20+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -26,12 +26,12 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Qty of product"
-msgstr ""
+msgstr "Termékmenny."
 
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Set to draft"
-msgstr ""
+msgstr "Piszkozat"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_transaction_pos
@@ -56,7 +56,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,name:0
 msgid "Order Description"
-msgstr ""
+msgstr "Rendelés leírása"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_scan_product
@@ -71,7 +71,7 @@ msgstr ""
 #. module: point_of_sale
 #: wizard_view:pos.add_product,init:0
 msgid "Add product :"
-msgstr ""
+msgstr "Termék hozzáadása :"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
@@ -87,22 +87,22 @@ msgstr ""
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No Pricelist !"
-msgstr ""
+msgstr "Nincs árlista !"
 
 #. module: point_of_sale
 #: wizard_view:pos.sale.get,init:0
 msgid "Select an Open Sale Order"
-msgstr ""
+msgstr "Nyitott vevői megrendelés kiválasztása"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "Company"
-msgstr ""
+msgstr "Vállalat"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Invoice Date"
-msgstr ""
+msgstr "Számla kelte"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
@@ -113,22 +113,22 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_lines_detail
 msgid "Details of Sales"
-msgstr ""
+msgstr "Értékesítés részletei"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Base"
-msgstr ""
+msgstr "Adóalap"
 
 #. module: point_of_sale
 #: wizard_view:pos.scan_product,init:0
 msgid "Scan product"
-msgstr ""
+msgstr "Termék vizsgálata"
 
 #. module: point_of_sale
 #: field:pos.order.line,price_subtotal:0
 msgid "Subtotal"
-msgstr ""
+msgstr "Részösszeg"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -138,12 +138,12 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order.line,name:0
 msgid "Line Description"
-msgstr ""
+msgstr "Sor leírása"
 
 #. module: point_of_sale
 #: field:pos.order,shop_id:0
 msgid "Shop"
-msgstr ""
+msgstr "Üzlet"
 
 #. module: point_of_sale
 #: wizard_button:pos.refund_order,init,refund_n_quit:0
@@ -154,12 +154,12 @@ msgstr ""
 #: view:pos.order:0
 #: field:pos.order,note:0
 msgid "Notes"
-msgstr ""
+msgstr "Megjegyzések"
 
 #. module: point_of_sale
 #: field:stock.picking,pos_order:0
 msgid "Pos order"
-msgstr ""
+msgstr "Értékesítési pont rendelése"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -172,18 +172,18 @@ msgstr ""
 #: rml:pos.lines:0
 #: field:pos.order,amount_tax:0
 msgid "Taxes"
-msgstr ""
+msgstr "Adók"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_order_line
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_order_line_day
 msgid "Sale line"
-msgstr ""
+msgstr "Értékesítési sor"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "No. Of Articles"
-msgstr ""
+msgstr "Cikkek száma"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/report/pos_invoice.py:0
@@ -195,7 +195,7 @@ msgstr ""
 #: field:pos.order,date_validity:0
 #: wizard_field:pos.refund_order,init,date_validity:0
 msgid "Validity Date"
-msgstr ""
+msgstr "Érvényesség dátuma"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -206,7 +206,7 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.lines:0
 msgid "VAT"
-msgstr ""
+msgstr "ÁFA"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_refund
@@ -231,12 +231,12 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Tax"
-msgstr ""
+msgstr "Adó"
 
 #. module: point_of_sale
 #: view:report.transaction.pos:0
 msgid "Total Transaction"
-msgstr ""
+msgstr "Összes tranzakció"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -246,7 +246,7 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Fax :"
-msgstr ""
+msgstr "Fax :"
 
 #. module: point_of_sale
 #: wizard_view:pos.scan_product,init:0
@@ -256,7 +256,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: point_of_sale
 #: field:pos.order,payments:0
@@ -277,29 +277,29 @@ msgstr ""
 #: model:ir.actions.wizard,name:point_of_sale.pos_confirm
 #: wizard_button:pos.sale.get,init,set:0
 msgid "Confirm"
-msgstr ""
+msgstr "Jóváhagyás"
 
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "POS Orders"
-msgstr ""
+msgstr "Értékesítési pont rendelései"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 #: rml:pos.lines:0
 msgid "Disc. (%)"
-msgstr ""
+msgstr "Eng. (%)"
 
 #. module: point_of_sale
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Sales total"
-msgstr ""
+msgstr "Összes eladás"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Supplier Invoice"
-msgstr ""
+msgstr "Bejövő számla"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
@@ -310,12 +310,12 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "Sum of subtotals"
-msgstr ""
+msgstr "Részösszegek összege"
 
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_date:0
 msgid "Payment date"
-msgstr ""
+msgstr "Kifizetés dátuma"
 
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_name:0
@@ -325,25 +325,25 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,lines:0
 msgid "Order Lines"
-msgstr ""
+msgstr "Megrendelés sorok"
 
 #. module: point_of_sale
 #: rml:pos.details:0
 #: rml:pos.receipt:0
 msgid "Qty"
-msgstr ""
+msgstr "Menny."
 
 #. module: point_of_sale
 #: model:ir.module.module,shortdesc:point_of_sale.module_meta_information
 msgid "Point Of Sale"
-msgstr ""
+msgstr "Értékesítési pont"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Hiba !"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -353,12 +353,12 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order.line,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Létrehozás dátuma"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "PRO-FORMA"
-msgstr ""
+msgstr "Pro forma"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -368,12 +368,12 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_rep
 msgid "Reporting"
-msgstr ""
+msgstr "Jelentés"
 
 #. module: point_of_sale
 #: view:report.transaction.pos:0
 msgid "POS "
-msgstr ""
+msgstr "Értékesítési pont "
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_config_journal
@@ -395,7 +395,7 @@ msgstr ""
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Érvénytelen művelet !"
 
 #. module: point_of_sale
 #: field:pos.order,account_receivable:0
@@ -410,14 +410,14 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_config
 msgid "Configuration"
-msgstr ""
+msgstr "Beállítások"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 #: rml:pos.lines:0
 #: field:pos.order.line,price_unit:0
 msgid "Unit Price"
-msgstr ""
+msgstr "Egységár"
 
 #. module: point_of_sale
 #: constraint:ir.ui.view:0
@@ -432,7 +432,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,nb_print:0
 msgid "Number of Print"
-msgstr ""
+msgstr "Nyomtatás száma"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_wizard_default_journal
@@ -443,17 +443,17 @@ msgstr ""
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No valid pricelist line found !"
-msgstr ""
+msgstr "A rendszer nem talált érvényes árlista sort."
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Draft Invoice"
-msgstr ""
+msgstr "Számlatervezet"
 
 #. module: point_of_sale
 #: field:pos.order.line,discount:0
 msgid "Discount (%)"
-msgstr ""
+msgstr "Engedmény (%)"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_add_product
@@ -463,7 +463,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "Total qty"
-msgstr ""
+msgstr "Összes menny."
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_line
@@ -473,7 +473,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Sales Order POS"
-msgstr ""
+msgstr "Étékesítési pontok megrendelései"
 
 #. module: point_of_sale
 #: wizard_button:pos.config.journal,init,set_default_journal:0
@@ -484,7 +484,7 @@ msgstr ""
 #: field:pos.order,amount_paid:0
 #: field:pos.order,amount_return:0
 msgid "unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_order_tree2
@@ -494,18 +494,18 @@ msgstr ""
 #: model:ir.ui.menu,name:point_of_sale.menu_point_ofsale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_root
 msgid "Point of Sale"
-msgstr ""
+msgstr "Értékesítési pont"
 
 #. module: point_of_sale
 #: field:pos.order,user_id:0
 msgid "Salesman"
-msgstr ""
+msgstr "Értékesítő"
 
 #. module: point_of_sale
 #: rml:pos.details:0
 #: selection:pos.order,state:0
 msgid "Invoiced"
-msgstr ""
+msgstr "Számlázott"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -541,27 +541,27 @@ msgstr ""
 #. module: point_of_sale
 #: wizard_button:pos.scan_product,init,add:0
 msgid "Add"
-msgstr ""
+msgstr "Hozzáadás"
 
 #. module: point_of_sale
 #: selection:pos.order,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Tervezet"
 
 #. module: point_of_sale
 #: selection:pos.order,state:0
 msgid "Paid"
-msgstr ""
+msgstr "Fizetve"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "VAT :"
-msgstr ""
+msgstr "ÁFA:"
 
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order lines"
-msgstr ""
+msgstr "Értékesítési pont rendelési tételek"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -572,7 +572,7 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Total invoiced"
-msgstr ""
+msgstr "Számlázott összesen"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_trans_pos_tree_today
@@ -588,7 +588,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order line"
-msgstr ""
+msgstr "Értékesítési pont rendelési tétel"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -603,12 +603,12 @@ msgstr ""
 #. module: point_of_sale
 #: field:report.transaction.pos,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Felhasználó"
 
 #. module: point_of_sale
 #: field:pos.payment,payment_date:0
 msgid "Payment Date"
-msgstr ""
+msgstr "Kifizetés dátuma"
 
 #. module: point_of_sale
 #: field:pos.payment,payment_name:0
@@ -619,14 +619,14 @@ msgstr ""
 #: rml:pos.details:0
 #: field:report.transaction.pos,date_create:0
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #. module: point_of_sale
 #: model:ir.actions.act_window,name:point_of_sale.action_trans_pos_tree
 #: model:ir.actions.act_window,name:point_of_sale.action_trans_pos_tree_month
 #: model:ir.actions.act_window,name:point_of_sale.action_trans_pos_tree_today
 msgid "Sales by user"
-msgstr ""
+msgstr "Értékesítések felhasználók szerint"
 
 #. module: point_of_sale
 #: wizard_button:pos.add_product,init,add:0
@@ -637,7 +637,7 @@ msgstr ""
 #. module: point_of_sale
 #: wizard_button:pos.discount,init,apply_discount:0
 msgid "Apply Discount"
-msgstr ""
+msgstr "Kedvezmény alkalmazása"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -658,25 +658,25 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Total:"
-msgstr ""
+msgstr "Összesen:"
 
 #. module: point_of_sale
 #: view:pos.order:0
 #: field:pos.order,pickings:0
 msgid "Picking"
-msgstr ""
+msgstr "Kiszedés"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
 #, python-format
 msgid "You can't modify this order. It has already been paid"
-msgstr ""
+msgstr "Nem módosíthatja ezt a megrendelést. Már kifizették."
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Hiba"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -689,12 +689,12 @@ msgstr ""
 #: rml:pos.lines:0
 #: field:pos.order.line,qty:0
 msgid "Quantity"
-msgstr ""
+msgstr "Mennyiség"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Refund"
-msgstr ""
+msgstr "Jóváíró számla"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -711,12 +711,12 @@ msgstr ""
 #: field:pos.config.journal,code:0
 #: rml:pos.details:0
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 #. module: point_of_sale
 #: field:pos.order,pricelist_id:0
 msgid "Pricelist"
-msgstr ""
+msgstr "Árlista"
 
 #. module: point_of_sale
 #: wizard_field:pos.discount,init,discount:0
@@ -726,12 +726,12 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_receipt
 msgid "Receipt"
-msgstr ""
+msgstr "Bevétel"
 
 #. module: point_of_sale
 #: field:pos.order,state:0
 msgid "State"
-msgstr ""
+msgstr "Állapot"
 
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
@@ -741,12 +741,12 @@ msgstr ""
 #. module: point_of_sale
 #: field:report.transaction.pos,no_trans:0
 msgid "Number of Transaction"
-msgstr ""
+msgstr "Tranzakció száma"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Net Total:"
-msgstr ""
+msgstr "Nettó érték:"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
@@ -757,12 +757,12 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Other"
-msgstr ""
+msgstr "Egyéb"
 
 #. module: point_of_sale
 #: selection:pos.order,state:0
 msgid "Done"
-msgstr ""
+msgstr "Kész"
 
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_invoice_report
@@ -771,7 +771,7 @@ msgstr ""
 #: wizard_field:pos.payment,ask_pay,invoice_wanted:0
 #: field:report.transaction.pos,invoice_id:0
 msgid "Invoice"
-msgstr ""
+msgstr "Számla"
 
 #. module: point_of_sale
 #: wizard_button:pos.add_product,init,end:0
@@ -784,23 +784,23 @@ msgstr ""
 #: wizard_button:pos.sale.get,init,end:0
 #: wizard_button:pos.scan_product,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Close"
-msgstr ""
+msgstr "Zárás"
 
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Order lines"
-msgstr ""
+msgstr "Rendelési tételek"
 
 #. module: point_of_sale
 #: field:pos.order.line,order_id:0
 #: field:pos.payment,order_id:0
 msgid "Order Ref"
-msgstr ""
+msgstr "Rendelési hiv."
 
 #. module: point_of_sale
 #: wizard_view:pos.payment,ask_pay:0
@@ -828,12 +828,12 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Total discount"
-msgstr ""
+msgstr "Engedmény összesen"
 
 #. module: point_of_sale
 #: field:pos.order,invoice_wanted:0
 msgid "Create Invoice"
-msgstr ""
+msgstr "Számla készítése"
 
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
@@ -848,20 +848,20 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Taxes:"
-msgstr ""
+msgstr "Adók:"
 
 #. module: point_of_sale
 #: view:pos.order:0
 #: view:report.transaction.pos:0
 msgid "Amount total"
-msgstr ""
+msgstr "Végösszeg"
 
 #. module: point_of_sale
 #: wizard_field:pos.add_product,init,product:0
 #: rml:pos.details:0
 #: field:pos.order.line,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Termék"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -880,12 +880,12 @@ msgstr ""
 #: field:pos.payment,journal_id:0
 #: field:report.transaction.pos,journal_id:0
 msgid "Journal"
-msgstr ""
+msgstr "Napló"
 
 #. module: point_of_sale
 #: wizard_field:pos.scan_product,init,gencod:0
 msgid "Barcode"
-msgstr ""
+msgstr "Vonalkód"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -895,17 +895,17 @@ msgstr ""
 #. module: point_of_sale
 #: view:report.transaction.pos:0
 msgid "POS"
-msgstr ""
+msgstr "Értékesítési pont"
 
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_lines_report
 msgid "Pos Lines"
-msgstr ""
+msgstr "Értékesítési pont sorok"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Tel. :"
-msgstr ""
+msgstr "Tel. :"
 
 #. module: point_of_sale
 #: field:pos.payment,payment_nb:0
@@ -921,7 +921,7 @@ msgstr ""
 #: model:ir.actions.wizard,name:point_of_sale.pos_payment
 #: view:pos.order:0
 msgid "Payment"
-msgstr ""
+msgstr "Átutalás"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_tree3
@@ -931,7 +931,7 @@ msgstr ""
 #. module: point_of_sale
 #: wizard_field:pos.sale.get,init,picking_id:0
 msgid "Sale Order"
-msgstr ""
+msgstr "Vevői megrendelés"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_trans_pos_tree_month
@@ -946,7 +946,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,date_order:0
 msgid "Date Ordered"
-msgstr ""
+msgstr "Megrendelés dátuma"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -956,12 +956,12 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Payments"
-msgstr ""
+msgstr "Kifizetések"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Supplier Refund"
-msgstr ""
+msgstr "Bejövő jóváíró számla"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
@@ -973,7 +973,7 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Summary"
-msgstr ""
+msgstr "Összegzés"
 
 #. module: point_of_sale
 #: field:pos.config.journal,name:0
@@ -982,17 +982,17 @@ msgstr ""
 #: field:pos.payment,name:0
 #: rml:pos.receipt:0
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_details_summary
 msgid "Sales (summary)"
-msgstr ""
+msgstr "Értékesítés (összegzés)"
 
 #. module: point_of_sale
 #: field:pos.order,account_move:0
 msgid "Account Entry"
-msgstr ""
+msgstr "Könyvelési tétel"
 
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_id:0
@@ -1006,7 +1006,7 @@ msgstr ""
 #: wizard_field:pos.payment,ask_pay,amount:0
 #: field:report.transaction.pos,amount:0
 msgid "Amount"
-msgstr ""
+msgstr "Összeg"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -1017,7 +1017,7 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Mode of Taxes"
-msgstr ""
+msgstr "Adómódok"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -1034,13 +1034,13 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "Print Date"
-msgstr ""
+msgstr "Nyomtatás dátuma"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
 #: field:pos.order,amount_total:0
 msgid "Total"
-msgstr ""
+msgstr "Összesen"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -1048,4 +1048,4 @@ msgstr ""
 #: rml:pos.lines:0
 #: rml:pos.receipt:0
 msgid "Price"
-msgstr ""
+msgstr "Ár"

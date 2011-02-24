@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-05-19 14:36+0000\n"
-"PO-Revision-Date: 2010-01-26 11:14+0000\n"
+"PO-Revision-Date: 2011-02-23 16:35+0000\n"
 "Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:28+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:20+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -46,12 +46,12 @@ msgstr "Popust:"
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_nb:0
 msgid "Piece number"
-msgstr ""
+msgstr "Številka kosa"
 
 #. module: point_of_sale
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Napačno ime modela v definiciji dejanja."
 
 #. module: point_of_sale
 #: field:pos.order,name:0
@@ -61,7 +61,7 @@ msgstr "Opis naročila"
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_scan_product
 msgid "Scan Product"
-msgstr ""
+msgstr "Skeniraj proizvod"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -76,7 +76,7 @@ msgstr "Dodaj proizvod:"
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "Net Total"
-msgstr ""
+msgstr "Skupaj (neto)"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_tree2
@@ -87,7 +87,7 @@ msgstr "Naročila tega dne"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No Pricelist !"
-msgstr ""
+msgstr "Ni cenika!"
 
 #. module: point_of_sale
 #: wizard_view:pos.sale.get,init:0
@@ -97,12 +97,12 @@ msgstr "Izberi odprt prodajni nalog"
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "Company"
-msgstr ""
+msgstr "Družba"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Invoice Date"
-msgstr ""
+msgstr "Datum računa"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
@@ -123,7 +123,7 @@ msgstr "Osnova"
 #. module: point_of_sale
 #: wizard_view:pos.scan_product,init:0
 msgid "Scan product"
-msgstr ""
+msgstr "Skeniraj proizvod"
 
 #. module: point_of_sale
 #: field:pos.order.line,price_subtotal:0
@@ -133,7 +133,7 @@ msgstr "Delna vsota"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Partner Ref."
-msgstr ""
+msgstr "Sklic partnerja"
 
 #. module: point_of_sale
 #: field:pos.order.line,name:0
@@ -178,12 +178,12 @@ msgstr "Davki"
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_order_line
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_order_line_day
 msgid "Sale line"
-msgstr ""
+msgstr "Postavka prodaje"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "No. Of Articles"
-msgstr ""
+msgstr "Število izdelkov"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/report/pos_invoice.py:0
@@ -216,7 +216,7 @@ msgstr "Nalogi dobropisa"
 #. module: point_of_sale
 #: field:pos.order,last_out_picking:0
 msgid "Last Output Picking"
-msgstr ""
+msgstr "Izbira zadnjega izhoda"
 
 #. module: point_of_sale
 #: wizard_view:pos.config.journal,init:0
@@ -246,12 +246,12 @@ msgstr "Popust"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Fax :"
-msgstr ""
+msgstr "Faks:"
 
 #. module: point_of_sale
 #: wizard_view:pos.scan_product,init:0
 msgid "Scan Barcode"
-msgstr ""
+msgstr "Preberi črtno kodo"
 
 #. module: point_of_sale
 #: field:pos.order,partner_id:0
@@ -261,7 +261,7 @@ msgstr "Partner"
 #. module: point_of_sale
 #: field:pos.order,payments:0
 msgid "Order Payments"
-msgstr ""
+msgstr "Plačila naročila"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -282,7 +282,7 @@ msgstr "Potrdi"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "POS Orders"
-msgstr ""
+msgstr "POS naročila"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -315,12 +315,12 @@ msgstr "Seštevek delnih zneskov"
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_date:0
 msgid "Payment date"
-msgstr ""
+msgstr "Datum plačila"
 
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_name:0
 msgid "Payment name"
-msgstr ""
+msgstr "Ime plačila"
 
 #. module: point_of_sale
 #: field:pos.order,lines:0
@@ -336,14 +336,14 @@ msgstr "Kol."
 #. module: point_of_sale
 #: model:ir.module.module,shortdesc:point_of_sale.module_meta_information
 msgid "Point Of Sale"
-msgstr ""
+msgstr "Prodajno mesto"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Napaka!"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -353,7 +353,7 @@ msgstr "Uporabnik :"
 #. module: point_of_sale
 #: field:pos.order.line,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Ustvarjeno dne"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -395,7 +395,7 @@ msgstr "Privzeti dnevnik"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Nepravilno dejanje!"
 
 #. module: point_of_sale
 #: field:pos.order,account_receivable:0
@@ -432,7 +432,7 @@ msgstr "Dnevne POS postavke"
 #. module: point_of_sale
 #: field:pos.order,nb_print:0
 msgid "Number of Print"
-msgstr ""
+msgstr "Številka izpisa"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_wizard_default_journal
@@ -448,7 +448,7 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Draft Invoice"
-msgstr ""
+msgstr "Osnutek računa"
 
 #. module: point_of_sale
 #: field:pos.order.line,discount:0
@@ -473,7 +473,7 @@ msgstr "POS Postavke"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Sales Order POS"
-msgstr ""
+msgstr "POS prodajnega naloga"
 
 #. module: point_of_sale
 #: wizard_button:pos.config.journal,init,set_default_journal:0
@@ -520,12 +520,12 @@ msgstr "Privzet dnevnik popustov"
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.wizard_default_journal
 msgid "Wizard default journals"
-msgstr ""
+msgstr "Privzet dnevniki čarovnika"
 
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Ma_ke Payment"
-msgstr ""
+msgstr "Izvedi plačilo"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
@@ -536,12 +536,12 @@ msgstr ""
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid ","
-msgstr ""
+msgstr ","
 
 #. module: point_of_sale
 #: wizard_button:pos.scan_product,init,add:0
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #. module: point_of_sale
 #: selection:pos.order,state:0
@@ -556,7 +556,7 @@ msgstr "Plačano"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "VAT :"
-msgstr ""
+msgstr "DDV:"
 
 #. module: point_of_sale
 #: view:pos.order.line:0
@@ -608,12 +608,12 @@ msgstr "Uporabnik"
 #. module: point_of_sale
 #: field:pos.payment,payment_date:0
 msgid "Payment Date"
-msgstr ""
+msgstr "Datum plačila"
 
 #. module: point_of_sale
 #: field:pos.payment,payment_name:0
 msgid "Payment Name"
-msgstr ""
+msgstr "Ime plačila"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -658,7 +658,7 @@ msgstr "Izračunaj"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Total:"
-msgstr ""
+msgstr "Skupaj:"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -676,7 +676,7 @@ msgstr ""
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Napaka"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -726,7 +726,7 @@ msgstr "Odstotek popusta"
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_receipt
 msgid "Receipt"
-msgstr ""
+msgstr "Prejemek"
 
 #. module: point_of_sale
 #: field:pos.order,state:0
@@ -736,17 +736,17 @@ msgstr "Stanje"
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
 msgid "Refund order :"
-msgstr ""
+msgstr "Nalog za dobropis :"
 
 #. module: point_of_sale
 #: field:report.transaction.pos,no_trans:0
 msgid "Number of Transaction"
-msgstr ""
+msgstr "Številka transakcije"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Net Total:"
-msgstr ""
+msgstr "Skupaj (brez davkov):"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
@@ -834,7 +834,7 @@ msgstr "Popust skupaj"
 #. module: point_of_sale
 #: field:pos.order,invoice_wanted:0
 msgid "Create Invoice"
-msgstr ""
+msgstr "Ustvari račun"
 
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
@@ -886,7 +886,7 @@ msgstr "Dnevnik"
 #. module: point_of_sale
 #: wizard_field:pos.scan_product,init,gencod:0
 msgid "Barcode"
-msgstr ""
+msgstr "Črtna koda"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -906,17 +906,17 @@ msgstr "POS postavke"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Tel. :"
-msgstr ""
+msgstr "Tel.:"
 
 #. module: point_of_sale
 #: field:pos.payment,payment_nb:0
 msgid "Piece Number"
-msgstr ""
+msgstr "Številka dela"
 
 #. module: point_of_sale
 #: wizard_field:pos.config.journal,init,default_journal_gift:0
 msgid "Default gift journal"
-msgstr ""
+msgstr "Privzet 'darilni' dnevnik"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_payment
@@ -942,7 +942,7 @@ msgstr "Mesečna prodaja"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "D_iscount"
-msgstr ""
+msgstr "_Popust"
 
 #. module: point_of_sale
 #: field:pos.order,date_order:0
@@ -968,7 +968,7 @@ msgstr "Dobropis dobavitelja"
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
 #, python-format
 msgid "UserError"
-msgstr ""
+msgstr "NapakaUporabnika"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -999,7 +999,7 @@ msgstr "Vknjižba"
 #: wizard_field:pos.payment,ask_pay,payment_id:0
 #: field:pos.payment,payment_id:0
 msgid "Payment Term"
-msgstr ""
+msgstr "Plačilni pogoj"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -1035,7 +1035,7 @@ msgstr "Družba:"
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "Print Date"
-msgstr ""
+msgstr "Datum izpisa"
 
 #. module: point_of_sale
 #: rml:pos.lines:0

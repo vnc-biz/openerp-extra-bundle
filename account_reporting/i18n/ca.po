@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0dev\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-10-18 17:46+0000\n"
-"PO-Revision-Date: 2010-08-02 22:23+0000\n"
+"PO-Revision-Date: 2011-02-23 16:32+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-30 05:41+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:17+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: account_reporting
 #: model:ir.model,name:account_reporting.model_color_rml
@@ -264,12 +264,3 @@ msgstr ""
 #: field:account.report.bs,child_id:0
 msgid "Children"
 msgstr "Fills"
-
-#~ msgid "Print BalanceSheet"
-#~ msgstr "Imprimeix fulla de balanç"
-
-#~ msgid "Rml Colors"
-#~ msgstr "Colors RML"
-
-#~ msgid "Customize Report"
-#~ msgstr "Informe personalitzat"

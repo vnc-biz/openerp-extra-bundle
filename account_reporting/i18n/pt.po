@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0dev\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-10-18 17:46+0000\n"
-"PO-Revision-Date: 2010-08-02 22:56+0000\n"
+"PO-Revision-Date: 2011-02-23 16:32+0000\n"
 "Last-Translator: mga (Open ERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-30 05:41+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:17+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: account_reporting
 #: model:ir.model,name:account_reporting.model_color_rml
@@ -31,12 +31,13 @@ msgstr "código"
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
-"O nome do objecto deve começar com x_ e não pode conter um carácter especial!"
+"O nome do Objecto deve começar com x_ e não pode conter nenhum carácter "
+"especial !"
 
 #. module: account_reporting
 #: selection:account.report.bs,font_style:0
 msgid "Helvetica-Bold"
-msgstr "Helvetica-Bold"
+msgstr "Helvetica-Negrito"
 
 #. module: account_reporting
 #: selection:account.report.bs,font_style:0
@@ -57,7 +58,7 @@ msgstr "Tipo de Relatório"
 #: model:ir.ui.menu,name:account_reporting.action_account_report_bs_form
 #: model:ir.ui.menu,name:account_reporting.menu_finan_config_BSheet
 msgid "Balance Sheet Report"
-msgstr "Relatório Balancete"
+msgstr "Balancete"
 
 #. module: account_reporting
 #: constraint:ir.ui.menu:0
@@ -72,7 +73,7 @@ msgstr ""
 #. module: account_reporting
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Nome de modelo inválido na definição da acção"
+msgstr "Nome de modelo inválido na definição da acção."
 
 #. module: account_reporting
 #: field:account.report.bs,font_style:0
@@ -87,7 +88,7 @@ msgstr "Courier"
 #. module: account_reporting
 #: selection:account.report.bs,font_style:0
 msgid "Courier-BoldOblique"
-msgstr "Courier-BoldOblique"
+msgstr "Courier-Negrito Obliquo"
 
 #. module: account_reporting
 #: help:account.reporting.balance.report,periods:0
@@ -97,12 +98,12 @@ msgstr "Todos os períodos se vazio"
 #. module: account_reporting
 #: field:account.report.bs,color_font:0
 msgid "Font Color"
-msgstr "Cor da letra fonte"
+msgstr "Cor da Letra"
 
 #. module: account_reporting
 #: selection:account.report.bs,report_type:0
 msgid "Report Objects With Accounts and child of Accounts"
-msgstr "Relatar objectos com contas e contas descendentes"
+msgstr "Relatório de Objectos com Contas e Contas descendentes"
 
 #. module: account_reporting
 #: model:ir.module.module,description:account_reporting.module_meta_information
@@ -110,13 +111,13 @@ msgid ""
 "Financial and accounting reporting\n"
 "    Balance Sheet Report"
 msgstr ""
-"Relatórios da contabilidade financeira\n"
+"Relatórios Financeiros e Contabilístico\n"
 "    Balancete"
 
 #. module: account_reporting
 #: selection:account.report.bs,report_type:0
 msgid "Report Objects With Accounts"
-msgstr "Relatar objectos com contas"
+msgstr "Relatório de Objectos com Contas"
 
 #. module: account_reporting
 #: selection:account.report.bs,font_style:0
@@ -126,7 +127,7 @@ msgstr "Courier-Oblíquo"
 #. module: account_reporting
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "XML inválido para a arquitectura de vista"
+msgstr "XML Inválido para a Arquitectura de Vista!"
 
 #. module: account_reporting
 #: field:account.report.bs,name:0
@@ -137,12 +138,12 @@ msgstr "Nome"
 #. module: account_reporting
 #: view:account.report.bs:0
 msgid "Account reporting"
-msgstr "Relatório de Contabilidade"
+msgstr "Relatórios de Conta"
 
 #. module: account_reporting
 #: model:ir.ui.menu,name:account_reporting.bs_report_action_form
 msgid "Balance Sheet Report Form"
-msgstr "Formulário de relatório do balanço"
+msgstr "Formulário do Balancete"
 
 #. module: account_reporting
 #: view:account.report.bs:0
@@ -152,12 +153,12 @@ msgstr "Notas"
 #. module: account_reporting
 #: selection:account.report.bs,font_style:0
 msgid "Times-BoldItalic"
-msgstr "Times-NegritoItálico"
+msgstr "Times-Negrito Itálico"
 
 #. module: account_reporting
 #: model:ir.model,name:account_reporting.model_account_report_bs
 msgid "Account reporting for Balance Sheet"
-msgstr "Relatório de conta para balancete"
+msgstr "Relatórios de Conta para Balancete"
 
 #. module: account_reporting
 #: selection:account.report.bs,font_style:0
@@ -172,12 +173,12 @@ msgstr "Times-Italico"
 #. module: account_reporting
 #: selection:account.report.bs,report_type:0
 msgid "Report Objects Only"
-msgstr "Relatar somente objectos"
+msgstr "Relatório Somente de Objectos"
 
 #. module: account_reporting
 #: model:ir.module.module,shortdesc:account_reporting.module_meta_information
 msgid "Reporting of Balancesheet for accounting"
-msgstr "Relatório do balancete para a contabilidade."
+msgstr "Relatório do Balancete para a contabilidade."
 
 #. module: account_reporting
 #: field:account.report.bs,code:0
@@ -187,7 +188,7 @@ msgstr "Código"
 #. module: account_reporting
 #: field:account.report.bs,parent_id:0
 msgid "Parent"
-msgstr "Pai"
+msgstr "Ascendente"
 
 #. module: account_reporting
 #: view:account.reporting.balance.report:0
@@ -214,7 +215,7 @@ msgstr ""
 #. module: account_reporting
 #: view:account.report.bs:0
 msgid "General"
-msgstr "Geral:"
+msgstr "Geral"
 
 #. module: account_reporting
 #: field:account.reporting.balance.report,fiscalyear:0
@@ -236,7 +237,7 @@ msgstr "Períodos"
 #. module: account_reporting
 #: field:account.report.bs,color_back:0
 msgid "Back Color"
-msgstr "Cor de fundo"
+msgstr "Cor de Fundo"
 
 #. module: account_reporting
 #: view:account.reporting.balance.report:0
@@ -261,13 +262,4 @@ msgstr ""
 #. module: account_reporting
 #: field:account.report.bs,child_id:0
 msgid "Children"
-msgstr "Contas-filho"
-
-#~ msgid "Print BalanceSheet"
-#~ msgstr "Imprimir balancete"
-
-#~ msgid "Rml Colors"
-#~ msgstr "Cores rml"
-
-#~ msgid "Customize Report"
-#~ msgstr "Personalizar relatório"
+msgstr "Dependentes"

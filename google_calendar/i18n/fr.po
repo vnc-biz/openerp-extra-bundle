@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-12-30 06:21+0000\n"
-"PO-Revision-Date: 2009-12-31 07:01+0000\n"
+"PO-Revision-Date: 2011-02-23 16:32+0000\n"
 "Last-Translator: Mustufa Rangwala (Open ERP) <mra@tinyerp.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:20+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:18+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0

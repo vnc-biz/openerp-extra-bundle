@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-08-28 16:01+0000\n"
-"PO-Revision-Date: 2010-08-02 22:10+0000\n"
+"PO-Revision-Date: 2011-02-23 16:32+0000\n"
 "Last-Translator: mga (Open ERP) <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-29 04:52+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:17+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: account_report
 #: field:account.report.history,name:0
@@ -542,24 +542,3 @@ msgstr ""
 #: selection:account.report.report,type:0
 msgid "Fiscal Statement"
 msgstr "Λογιστική Δήλωση"
-
-#, python-format
-#~ msgid "Please select maximum 8 records to fit the page-width."
-#~ msgstr ""
-#~ "Παρακαλώ επιλέξτε το μέγιστο 8 εγγραφές για να χωρέσουν στο πλάτος σελίδας."
-
-#, python-format
-#~ msgid "Error !"
-#~ msgstr "Σφάλμα!"
-
-#, python-format
-#~ msgid ""
-#~ "You cannot delete an indicator history record. You may have to delete the "
-#~ "concerned Indicator!"
-#~ msgstr ""
-#~ "Δεν μπορείτε να διαγράψετε μιά εγγραφή απο το ιστορικό του δείκτη. Ίσως "
-#~ "χρειαστεί να διαγράψετε τον εν λόγω δείκτη!"
-
-#, python-format
-#~ msgid "User Error!"
-#~ msgstr "Σφάλμα Χρήστη!"

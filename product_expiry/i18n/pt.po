@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-06-30 15:09+0000\n"
-"PO-Revision-Date: 2010-12-10 15:47+0000\n"
+"PO-Revision-Date: 2011-02-23 16:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:23+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:21+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
+#. module: product_expiry
+#: field:product.product,life_time:0
 msgid "Product lifetime"
 msgstr ""
 
@@ -114,6 +116,8 @@ msgstr "Queijo Camembert francês"
 msgid "The number of days before a production lot should be removed."
 msgstr "Número de dias antes de um lote dever ser retirado."
 
+#. module: product_expiry
+#: field:product.product,use_time:0
 msgid "Product usetime"
 msgstr ""
 
@@ -122,6 +126,8 @@ msgstr ""
 msgid "Alert Date"
 msgstr ""
 
+#. module: product_expiry
+#: field:product.product,removal_time:0
 msgid "Product removal time"
 msgstr ""
 
@@ -149,5 +155,7 @@ msgstr ""
 msgid "The date the lot should be removed."
 msgstr ""
 
+#. module: product_expiry
+#: field:product.product,alert_time:0
 msgid "Product alert time"
 msgstr ""

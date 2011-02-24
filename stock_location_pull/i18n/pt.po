@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-05-19 14:36+0000\n"
-"PO-Revision-Date: 2010-01-26 11:41+0000\n"
-"Last-Translator: Pieter J. Kersten (EduSense BV) <Unknown>\n"
+"PO-Revision-Date: 2011-02-23 19:44+0000\n"
+"Last-Translator: Fabien (Open ERP) <fp@tinyerp.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:27+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:21+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: stock_location
 #: help:stock.location.path,delay:0
@@ -29,7 +29,7 @@ msgstr "XML inválido para a arquitectura de vista"
 #. module: stock_location
 #: model:ir.module.module,shortdesc:stock_location.module_meta_information
 msgid "Stock Location Paths"
-msgstr ""
+msgstr "Trajectos Para a Localização de Stock"
 
 #. module: stock_location
 #: constraint:ir.model:0
@@ -41,13 +41,15 @@ msgstr ""
 #. module: stock_location
 #: selection:stock.location.path,auto:0
 msgid "Automatic No Step Added"
-msgstr ""
+msgstr "Automático Sem Etapa Adicionada"
 
 #. module: stock_location
 #: help:product.product,path_ids:0
 msgid ""
 "These rules set the right path of the product in the whole location tree."
 msgstr ""
+"Estas regras estabelecem o caminho correcto do produto na árvore de "
+"localizações."
 
 #. module: stock_location
 #: field:stock.location.path,location_from_id:0
@@ -78,7 +80,7 @@ msgstr "Operação Manual"
 #. module: stock_location
 #: model:ir.model,name:stock_location.model_stock_location_path
 msgid "stock.location.path"
-msgstr ""
+msgstr "localização.trajecto.stock"
 
 #. module: stock_location
 #: help:stock.location.path,auto:0
@@ -90,6 +92,13 @@ msgid ""
 "move has to be validated by a worker. With 'Automatic No Step Added', the "
 "location is replaced in the original move."
 msgstr ""
+"Isto é utilizado para definir os trajectos que o produto tem a seguir dentro "
+"da localização da árvore. \n"
+"O Valor da ' Mudança Automática' vai criar um movimento de stock depois do "
+"actual que irá ser validado automaticamente. Com o 'Manual de Operação' o "
+"movimento do stock terá de ser validado por um trabalhador. Com a 'Nenhuma "
+"etapa adicionada Automática' a localização é substituída no movimento "
+"original."
 
 #. module: stock_location
 #: field:stock.location.path,name:0
@@ -101,7 +110,7 @@ msgstr "Operação"
 #: field:product.product,path_ids:0
 #: view:stock.location.path:0
 msgid "Location Paths"
-msgstr ""
+msgstr "Trajectos de Localização"
 
 #. module: stock_location
 #: field:stock.location.path,delay:0

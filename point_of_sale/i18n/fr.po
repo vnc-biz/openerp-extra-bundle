@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-05-19 14:36+0000\n"
-"PO-Revision-Date: 2010-12-03 09:03+0000\n"
-"Last-Translator: OpenERP Administrators <Unknown>\n"
+"PO-Revision-Date: 2011-02-23 22:17+0000\n"
+"Last-Translator: Christophe Chauvet - http://www.syleam.fr/ <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-01-18 05:28+0000\n"
-"X-Generator: Launchpad (build 12177)\n"
+"X-Launchpad-Export-Date: 2011-02-24 06:20+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -31,7 +31,7 @@ msgstr "Qté de Produits"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Set to draft"
-msgstr ""
+msgstr "Mettre en brouillon"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_transaction_pos
@@ -46,12 +46,12 @@ msgstr "Remise :"
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_nb:0
 msgid "Piece number"
-msgstr ""
+msgstr "Numéro de pièce"
 
 #. module: point_of_sale
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nom du Modèle non valide dans la définition de l'action."
 
 #. module: point_of_sale
 #: field:pos.order,name:0
@@ -61,7 +61,7 @@ msgstr "Description de la Commande"
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_scan_product
 msgid "Scan Product"
-msgstr ""
+msgstr "Scan de produit"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -81,18 +81,18 @@ msgstr "Total Net"
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_tree2
 msgid "Orders of the day"
-msgstr ""
+msgstr "Commandes du jour"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No Pricelist !"
-msgstr ""
+msgstr "Pas de Liste de Prix !"
 
 #. module: point_of_sale
 #: wizard_view:pos.sale.get,init:0
 msgid "Select an Open Sale Order"
-msgstr ""
+msgstr "Sélectionnez une Commande Ouverte"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
@@ -123,12 +123,12 @@ msgstr "Base"
 #. module: point_of_sale
 #: wizard_view:pos.scan_product,init:0
 msgid "Scan product"
-msgstr ""
+msgstr "Scan de produit"
 
 #. module: point_of_sale
 #: field:pos.order.line,price_subtotal:0
 msgid "Subtotal"
-msgstr ""
+msgstr "Sous-total"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -148,7 +148,7 @@ msgstr "Magasin"
 #. module: point_of_sale
 #: wizard_button:pos.refund_order,init,refund_n_quit:0
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -189,7 +189,7 @@ msgstr "Nb. Articles"
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "Please create an invoice for this sale."
-msgstr ""
+msgstr "Veuillez créer une facture pour cette vente."
 
 #. module: point_of_sale
 #: field:pos.order,date_validity:0
@@ -200,7 +200,7 @@ msgstr "Date de validité"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "Operation N° :"
-msgstr ""
+msgstr "Operation N° :"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -211,7 +211,7 @@ msgstr "TVA"
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_refund
 msgid "Refund Orders"
-msgstr ""
+msgstr "Remboursement"
 
 #. module: point_of_sale
 #: field:pos.order,last_out_picking:0
@@ -221,12 +221,12 @@ msgstr "Colisages"
 #. module: point_of_sale
 #: wizard_view:pos.config.journal,init:0
 msgid "Select default journals"
-msgstr ""
+msgstr "Sélectionnez le Journal par défaut"
 
 #. module: point_of_sale
 #: rml:pos.details:0
 msgid "VAT(%)"
-msgstr ""
+msgstr "TVA(%)"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -251,12 +251,12 @@ msgstr "Fax :"
 #. module: point_of_sale
 #: wizard_view:pos.scan_product,init:0
 msgid "Scan Barcode"
-msgstr ""
+msgstr "Scanner le code barre"
 
 #. module: point_of_sale
 #: field:pos.order,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: point_of_sale
 #: field:pos.order,payments:0
@@ -266,12 +266,12 @@ msgstr "Paiements des commandes"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "Date :"
-msgstr ""
+msgstr "Date :"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "Disc :"
-msgstr ""
+msgstr "Rem :"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_confirm
@@ -305,7 +305,7 @@ msgstr "Facture fournisseur"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Modify line failed !"
-msgstr ""
+msgstr "Échec de modification de ligne !"
 
 #. module: point_of_sale
 #: view:pos.order.line:0
@@ -343,17 +343,17 @@ msgstr "Point de Vente"
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Erreur !"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "User :"
-msgstr ""
+msgstr "Utilisateur :"
 
 #. module: point_of_sale
 #: field:pos.order.line,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Date de création"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -363,7 +363,7 @@ msgstr "PRO-FORMA"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "Total :"
-msgstr ""
+msgstr "Total :"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_rep
@@ -384,28 +384,28 @@ msgstr "Configuration des Journaux utilisés par les Points de Vente."
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Create line failed !"
-msgstr ""
+msgstr "Échec de création de ligne !"
 
 #. module: point_of_sale
 #: wizard_field:pos.config.journal,init,default_journal:0
 msgid "Default journal"
-msgstr ""
+msgstr "Journal par défault"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Action incorrecte !"
 
 #. module: point_of_sale
 #: field:pos.order,account_receivable:0
 msgid "Default Receivable"
-msgstr ""
+msgstr "Recevable par défaut"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_sale_get
 msgid "Get From Order"
-msgstr ""
+msgstr "Obtenir à partir d'une commande"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_config
@@ -427,23 +427,23 @@ msgstr "XML non valide pour l'architecture de la vue"
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_line_day
 msgid "POS Lines of the day"
-msgstr ""
+msgstr "Lignes du Point de Vente du Jour"
 
 #. module: point_of_sale
 #: field:pos.order,nb_print:0
 msgid "Number of Print"
-msgstr ""
+msgstr "Nombre d'Impression"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_wizard_default_journal
 msgid "Default journals"
-msgstr ""
+msgstr "Journaux par défaut"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No valid pricelist line found !"
-msgstr ""
+msgstr "Aucune ligne de Liste de Prix valide trouvée !"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -468,7 +468,7 @@ msgstr "Qté Totale"
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_line
 msgid "POS Lines"
-msgstr ""
+msgstr "Lignes de ticket"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -478,7 +478,7 @@ msgstr "Ventes"
 #. module: point_of_sale
 #: wizard_button:pos.config.journal,init,set_default_journal:0
 msgid "Define default journals"
-msgstr ""
+msgstr "Définir les journaux par défaut"
 
 #. module: point_of_sale
 #: field:pos.order,amount_paid:0
@@ -510,17 +510,17 @@ msgstr "Facturée"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "Tel :"
-msgstr ""
+msgstr "Tél. :"
 
 #. module: point_of_sale
 #: wizard_field:pos.config.journal,init,default_journal_rebate:0
 msgid "Default rebate journal"
-msgstr ""
+msgstr "Journal des Remises par défaut"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.wizard_default_journal
 msgid "Wizard default journals"
-msgstr ""
+msgstr "Assistant des journaux par défaut"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -531,17 +531,17 @@ msgstr "Effectuer le paiement"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No order lines defined for this sale."
-msgstr ""
+msgstr "Aucune lignes de commande pour cette vente."
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid ","
-msgstr ""
+msgstr ","
 
 #. module: point_of_sale
 #: wizard_button:pos.scan_product,init,add:0
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #. module: point_of_sale
 #: selection:pos.order,state:0
@@ -566,7 +566,7 @@ msgstr "Lignes de commandes Point de Vente"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "E-mail :"
-msgstr ""
+msgstr "E-mail :"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -593,7 +593,7 @@ msgstr "Ligne de ticket"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "."
-msgstr ""
+msgstr "."
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_discount
@@ -643,7 +643,7 @@ msgstr "Appliquer Remise"
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Period:"
-msgstr ""
+msgstr "Période :"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_trans_pos_tree
@@ -676,7 +676,7 @@ msgstr "Paiement déjà effectué: Vous ne pouvez pas modifier cette vente."
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -726,7 +726,7 @@ msgstr "Pourcentage de remise"
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_receipt
 msgid "Receipt"
-msgstr ""
+msgstr "Reçu"
 
 #. module: point_of_sale
 #: field:pos.order,state:0
@@ -736,12 +736,12 @@ msgstr "État"
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
 msgid "Refund order :"
-msgstr ""
+msgstr "Rembourser la commande :"
 
 #. module: point_of_sale
 #: field:report.transaction.pos,no_trans:0
 msgid "Number of Transaction"
-msgstr ""
+msgstr "Nombre de Transactions"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -789,7 +789,7 @@ msgstr "Annuler"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -840,7 +840,7 @@ msgstr "Créer Facture"
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
 msgid "Refund "
-msgstr ""
+msgstr "Remise "
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_order_line
@@ -873,7 +873,7 @@ msgstr "Facturation"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #. module: point_of_sale
 #: field:pos.config.journal,journal_id:0
@@ -887,7 +887,7 @@ msgstr "Journal"
 #. module: point_of_sale
 #: wizard_field:pos.scan_product,init,gencod:0
 msgid "Barcode"
-msgstr ""
+msgstr "Code Barre"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -917,7 +917,7 @@ msgstr "Nb."
 #. module: point_of_sale
 #: wizard_field:pos.config.journal,init,default_journal_gift:0
 msgid "Default gift journal"
-msgstr ""
+msgstr "Journal des Bons par défaut"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_payment
@@ -928,12 +928,12 @@ msgstr "Paiement"
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_action_pos_order_tree3
 msgid "All orders"
-msgstr ""
+msgstr "Toutes les commandes"
 
 #. module: point_of_sale
 #: wizard_field:pos.sale.get,init,picking_id:0
 msgid "Sale Order"
-msgstr ""
+msgstr "Commande client"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_trans_pos_tree_month
@@ -953,7 +953,7 @@ msgstr "Date de Commande"
 #. module: point_of_sale
 #: rml:pos.receipt:0
 msgid "Ce bon est valide jusqu'au"
-msgstr ""
+msgstr "Ce bon est valide jusqu'au"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -969,7 +969,7 @@ msgstr "Note de Crédit Fournisseur"
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
 #, python-format
 msgid "UserError"
-msgstr ""
+msgstr "Error Utilisateur"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -1025,13 +1025,13 @@ msgstr "Mode des Taxes"
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Print Date:"
-msgstr ""
+msgstr "Date d'impression :"
 
 #. module: point_of_sale
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Company:"
-msgstr ""
+msgstr "Société :"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
@@ -1051,315 +1051,3 @@ msgstr "Total"
 #: rml:pos.receipt:0
 msgid "Price"
 msgstr "Prix"
-
-#~ msgid "Sales by day"
-#~ msgstr "Ventes par jour"
-
-#~ msgid "Return Goods"
-#~ msgstr "Retourner les marchandises"
-
-#~ msgid "Contract Number"
-#~ msgstr "N° de contrat"
-
-#~ msgid "Sales by User Monthly Margin"
-#~ msgstr "Marges des Ventes Mensuelles par utilisateur"
-
-#~ msgid "Error ! The duration of the Period(s) is/are invalid. "
-#~ msgstr "Erreur ! La durée de la ou des Périodes est invalide. "
-
-#~ msgid "Salesman Manager"
-#~ msgstr "Vendeur 2"
-
-#~ msgid ""
-#~ "You can not set discount greater than company discount ! Discount should be "
-#~ "less or equal to %s "
-#~ msgstr ""
-#~ "Cette remise n'est pas autorisée. Votre remise doit être inférieure ou égale "
-#~ "à %s "
-
-#~ msgid "Today's Payment By User"
-#~ msgstr "Paiement du jour par utilisateur"
-
-#~ msgid "Output Operations"
-#~ msgstr "Sortie de caisse"
-
-#~ msgid "Details Of Operations"
-#~ msgstr "Détails des Opérations"
-
-#~ msgid "Products"
-#~ msgstr "Produits"
-
-#~ msgid "Error ! You can not create recursive accounts."
-#~ msgstr "Erreur ! Vous ne pouvez pas créer d'écritures récursives."
-
-#~ msgid "All Sales"
-#~ msgstr "Toutes les ventes"
-
-#~ msgid "Error ! You can not create recursive categories."
-#~ msgstr "Erreur ! Vous ne pouvez pas créer de catégories récursives"
-
-#~ msgid "Nbr Invoice"
-#~ msgstr "Nbr Facture"
-
-#~ msgid "Refunded Quantity"
-#~ msgstr "Qté Remboursée"
-
-#~ msgid "Accepted Sales"
-#~ msgstr "Ventes Acceptées"
-
-#~ msgid "Sales Details"
-#~ msgstr "Détails des Ventes"
-
-#~ msgid "Connected Salesman"
-#~ msgstr "Magasin connecté"
-
-#~ msgid "Sale by User"
-#~ msgstr "Ventes par Utilisateur"
-
-#~ msgid "Discount Controle "
-#~ msgstr "Contrôle de Remise "
-
-#~ msgid "Sales by User Daily Margin"
-#~ msgstr "Marges des Ventes Quotidiennes par Magasin"
-
-#~ msgid "Miscelleanous"
-#~ msgstr "Divers"
-
-#~ msgid "Sales Report"
-#~ msgstr "Rapport des Ventes"
-
-#~ msgid "Products for Input Operations"
-#~ msgstr "Produits pour Entrées de Caisse"
-
-#~ msgid "Payment Report"
-#~ msgstr "Rapport de Paiement"
-
-#~ msgid "Product Name"
-#~ msgstr "Nom du Produit"
-
-#~ msgid "Accepted"
-#~ msgstr "Accepté"
-
-#~ msgid "Sales by Users"
-#~ msgstr "Ventes par Magasins"
-
-#~ msgid "Error: UOS must be in a different category than the UOM"
-#~ msgstr ""
-#~ "Erreur: l'unité de vente doit appartenir à une catégorie différente que "
-#~ "l'unité de mesure"
-
-#~ msgid "Return goods and Exchange"
-#~ msgstr "Retour & Échange de Marchandises"
-
-#~ msgid "You don't have enough access to validate this sale!"
-#~ msgstr ""
-#~ "Vous ne disposez pas de suffisament de droits pour valider cette vente"
-
-#~ msgid "Today"
-#~ msgstr "Quotidien"
-
-#~ msgid "To Verify"
-#~ msgstr "À vérifier"
-
-#~ msgid "Miscelleanous Operations"
-#~ msgstr "Opérations diverses"
-
-#~ msgid "Product for expenses"
-#~ msgstr "Produits pour Sortie de Caisse"
-
-#~ msgid "Sales for Current User"
-#~ msgstr "Ventes du Magasin Connecté"
-
-#~ msgid ""
-#~ "You can not set discount greater than company discount on %s! Discount "
-#~ "Should be less than %d %s"
-#~ msgstr ""
-#~ "Vous ne pouvez pas accorder une remise supérieure à celle autorisée %s! La "
-#~ "remise doit être inférieure à %d %s"
-
-#~ msgid "Invoices"
-#~ msgstr "Factures"
-
-#~ msgid "All Sales Lines"
-#~ msgstr "Toutes les Lignes de Ventes"
-
-#~ msgid "Sales by User Monthly"
-#~ msgstr "Ventes par magasin"
-
-#~ msgid "Sales Waiting Validation"
-#~ msgstr "Ventes en Attente de Validation"
-
-#~ msgid "Products for Output Operations"
-#~ msgstr "Produits pour Sorties de caisse"
-
-#~ msgid "Start Date"
-#~ msgstr "Date de début"
-
-#~ msgid "Sales by User Daily margin"
-#~ msgstr "Marges quotidiennes par utilisateur"
-
-#~ msgid "Information"
-#~ msgstr "Information"
-
-#~ msgid "Sales encoding"
-#~ msgstr "Nouvelle vente"
-
-#~ msgid ""
-#~ "Error: The default UOM and the purchase UOM must be in the same category."
-#~ msgstr ""
-#~ "Erreur: l'unité de mesure par défaut et l'unité de mesure d'achat doivent "
-#~ "faire partie de la même catégorie"
-
-#~ msgid ""
-#~ "Quantities you enter, match to products that will return to the stock."
-#~ msgstr ""
-#~ "Les quantités que vous avez entré correspondent à celles qui retournent en "
-#~ "stock"
-
-#~ msgid "_Reprint"
-#~ msgstr "_Réimprimer"
-
-#~ msgid "Return Packing"
-#~ msgstr "Retour de marchandises"
-
-#~ msgid "Are you sure you want to close your sales ?"
-#~ msgstr "Êtes vous sûr de vouloir clôturer ces ventes"
-
-#~ msgid "The maximum value you can still enter is equal to %d "
-#~ msgstr "La valeur maximum que vous pouvez entrer est égale à %d "
-
-#~ msgid "Order Information"
-#~ msgstr "Information sur la vente"
-
-#~ msgid "Shipping cost"
-#~ msgstr "Frais de Port"
-
-#~ msgid "Receipt Notice"
-#~ msgstr "Note du ticket"
-
-#~ msgid "Make entries in the Cashbox"
-#~ msgstr "Entrées dans la caisse"
-
-#~ msgid "Sales by margin"
-#~ msgstr "Marges par ventes"
-
-#~ msgid "Refloat Box entries"
-#~ msgstr "Renflouer les caisses"
-
-#~ msgid "Statement lines"
-#~ msgstr "Mouvements de caisse"
-
-#~ msgid "Subtotal w/o tax"
-#~ msgstr "Sous-total sans Taxes"
-
-#~ msgid "Advance"
-#~ msgstr "Avance"
-
-#~ msgid ""
-#~ "Invalid period ! Some periods overlap or the date period is not in the scope "
-#~ "of the fiscal year. "
-#~ msgstr ""
-#~ "Période non valide ! Certaines périodes se chevauchent ou la date de la "
-#~ "période n'est pas incluse dans l'année fiscale. "
-
-#~ msgid "All Invoices"
-#~ msgstr "Toutes les Factures"
-
-#~ msgid "Product Type"
-#~ msgstr "Type de produit"
-
-#~ msgid "Error ! The duration of the Fiscal Year is invalid. "
-#~ msgstr "Erreur ! La durée de l'Année Fiscale n'est pas valide. "
-
-#~ msgid "Codes"
-#~ msgstr "Codes"
-
-#~ msgid "Input Operations"
-#~ msgstr "Entrées de caisse"
-
-#~ msgid "You have to open at least one cashbox"
-#~ msgstr "Vous devez ouvrir au moins une caisse"
-
-#~ msgid "Sales by month"
-#~ msgstr "Ventes par mois"
-
-#~ msgid "Margin"
-#~ msgstr "Marge"
-
-#~ msgid "Sales by User"
-#~ msgstr "Ventes par Magasin"
-
-#~ msgid "Sales Lines of the day"
-#~ msgstr "Détails de des ventes du jour"
-
-#~ msgid "Sales by User Margin"
-#~ msgstr "Marges par utilisateurs"
-
-#~ msgid "Please fill these fields for entries to the box:"
-#~ msgstr "Veuillez entrer ces champs pour les entrées de caisse"
-
-#~ msgid "please check that account is set to %s"
-#~ msgstr "Vérifier que le compte comptable est renseigné"
-
-#~ msgid "Sales Reports"
-#~ msgstr "Rapports de ventes"
-
-#~ msgid "Product Description"
-#~ msgstr "Description du produit"
-
-#~ msgid "Invoice Amount"
-#~ msgstr "Montant de la facture"
-
-#~ msgid "Internal Notes"
-#~ msgstr "Note interne"
-
-#~ msgid "Open Sales Line"
-#~ msgstr "Ouvrir des lignes de vente"
-
-#~ msgid "Customer"
-#~ msgstr "Client"
-
-#~ msgid "End Date"
-#~ msgstr "Date de fin"
-
-#~ msgid "Today's Sales"
-#~ msgstr "Les ventes du jour"
-
-#~ msgid "Remboursed"
-#~ msgstr "Remboursé"
-
-#~ msgid "Opened Sales"
-#~ msgstr "Ventes en cours"
-
-#~ msgid "Validation of the Sale"
-#~ msgstr "Validation de la vente"
-
-#~ msgid "Payment Report For Sale"
-#~ msgstr "Paiements des ventes"
-
-#~ msgid "Sales by User Monthly margin"
-#~ msgstr "Marges mensuelles par utilisateur"
-
-#~ msgid "Today's Sales by Current User"
-#~ msgstr "Ventes du jour de l'utilisateur courant"
-
-#~ msgid "Type of Receipt"
-#~ msgstr "Type de reçu"
-
-#~ msgid "Payments by Users"
-#~ msgstr "Paiement par utilisateur"
-
-#~ msgid "Payments and Sales"
-#~ msgstr "Paiements et Ventes"
-
-#~ msgid "Error: Invalid ean code"
-#~ msgstr "Erreur: code EAN invalide"
-
-#~ msgid "Open Statements"
-#~ msgstr "Ouvrir les caisses automatiques"
-
-#~ msgid "Max Difference for Cashboxes"
-#~ msgstr "Différence max. pour les sorties de caisse"
-
-#~ msgid "Box entries"
-#~ msgstr "Entrées de caisse"

@@ -1,5 +1,9 @@
 <terp>
 	<data>
+
+		<menuitem name="Analytic" id="menu_report_analytic" parent="account.menu_finance_reporting"/>
+		<menuitem name="All Months" id="menu_report_all_months" parent="menu_report_analytic"/>
+
 		<record model="ir.ui.view" id="view_report_camount_tree">
 			<field name="name">Amounts by year</field>
 			<field name="model">report.analytic.by.year</field>
@@ -32,7 +36,8 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-		<menuitem name="Financial Management/Reporting/Analytic/All Months/Analytic Amount by year" action="action_report_analytics_amount_tree" id="menu_report_amount_tree"/>
+		<menuitem name="Analytic Amount by year" action="action_report_analytics_amount_tree" id="menu_report_amount_tree" parent="menu_report_all_months"/>
+
 
 		<record model="ir.ui.view" id="view_report_analytics_amount_tree_m">
 			<field name="name">Amounts by months</field>
@@ -68,7 +73,7 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-		<menuitem name="Financial Management/Reporting/Analytic/All Months/Analytic Amounts by month" action="action_report_analytics_amount_tree_m" id="menu_report_amount_tree_m"/>
+		<menuitem name="Analytic Amounts by month" action="action_report_analytics_amount_tree_m" id="menu_report_amount_tree_m" parent="menu_report_all_months"/>
 
 
 		<record model="ir.ui.view" id="view_report_analytics_amount_tree_p">
@@ -105,7 +110,7 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
-		<menuitem name="Financial Management/Reporting/Analytic/All Months/Analytic Amounts by product" action="action_report_analytics_amount_tree_p" id="menu_report_amount_tree_p"/>
+		<menuitem name="Analytic Amounts by product" action="action_report_analytics_amount_tree_p" id="menu_report_amount_tree_p" parent="menu_report_all_months"/>
 
 	</data>
 </terp>

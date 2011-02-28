@@ -365,7 +365,23 @@ class training_subscription_line(osv.osv):
             sl_ids = self.search(cr, 1, same_contact_same_session, context=context)
 
             if sl_ids:
-                return True
+                #if duplicate subscription are avaible
+                ids = self.pool.get('training.joomla').search(cr, uid, [('active','=',True)])
+                if ids:
+                    website = self.pool.get('training.joomla').browse(cr, uid, ids[0], context)
+                    if website.duplicate_subscription:
+                        print "AQUI"
+                        print sl_ids[0]
+                        subscription_order = {'reference':sl_ids[0]}
+                        cancel = self.pool.get('training.subscription').cancel_subscription(cr, uid, subscription_order, context=None)
+                        if cancel: #it's avaible generate other subscription
+                            return False
+                        else:
+                            return True
+                    else:
+                        return True
+                else:
+                    return True
             else:
                 return False
 

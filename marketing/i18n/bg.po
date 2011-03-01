@@ -8,62 +8,62 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 05:05+0000\n"
-"PO-Revision-Date: 2011-02-23 16:32+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-02-28 23:41+0000\n"
+"Last-Translator: Dimitar Markov <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:19+0000\n"
+"X-Launchpad-Export-Date: 2011-03-01 06:01+0000\n"
 "X-Generator: Launchpad (build 12351)\n"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Send an E-Mail"
-msgstr ""
+msgstr "Изпрати имейл"
 
 #. module: marketing
 #: field:campaign.partner,name:0
 msgid "Name / Reference"
-msgstr ""
+msgstr "Име / Означение"
 
 #. module: marketing
 #: selection:campaign.partner.add,init,priority:0
 msgid "Very Good"
-msgstr ""
+msgstr "Много добре"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_campaign
 msgid "campaign.campaign"
-msgstr ""
+msgstr "campaign.campaign"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,from:0
 msgid "From"
-msgstr ""
+msgstr "От"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 #: wizard_field:campaign.partner.add,init,partners:0
 msgid "Partners"
-msgstr ""
+msgstr "Партньори"
 
 #. module: marketing
 #: field:campaign.partner,info:0
 #: view:campaign.partner.history:0
 #: field:campaign.partner.history,info:0
 msgid "Comments"
-msgstr ""
+msgstr "Коментари"
 
 #. module: marketing
 #: field:campaign.campaign,planned_costs:0
 msgid "Planned Costs"
-msgstr ""
+msgstr "Планирание разходи"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Continue Campaign"
-msgstr ""
+msgstr "Продължи кампанията"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,on_error:0
@@ -73,80 +73,81 @@ msgstr ""
 #. module: marketing
 #: field:campaign.step,max_try:0
 msgid "Max Attemps"
-msgstr ""
+msgstr "Макс. бр. опити"
 
 #. module: marketing
 #: field:campaign.partner,date_recall:0
 msgid "Call again on"
-msgstr ""
+msgstr "Обадете се отново на"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Low"
-msgstr ""
+msgstr "Нисък"
 
 #. module: marketing
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Невалидно име на модел при задаване на действие"
 
 #. module: marketing
 #: wizard_button:campaign.partner.email_send,init,send:0
 msgid "Send Email"
-msgstr ""
+msgstr "Изпрати имейл"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Marketing Prospects"
-msgstr ""
+msgstr "Маркетингови перспективи"
 
 #. module: marketing
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"Името на обекта трябва да започва с x_ и не може да никакви специални знаци !"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Email"
-msgstr ""
+msgstr "Имейл"
 
 #. module: marketing
 #: view:campaign.step:0
 msgid "Marketing Steps"
-msgstr ""
+msgstr "Маркетингови стъпки"
 
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 msgid "Default Values"
-msgstr ""
+msgstr "Стойности по подразбиране"
 
 #. module: marketing
 #: selection:campaign.partner.add,init,priority:0
 msgid "Good"
-msgstr ""
+msgstr "Добро"
 
 #. module: marketing
 #: field:campaign.campaign,info:0
 #: field:campaign.step,info:0
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #. module: marketing
 #: wizard_view:campaign.partner.email_send,init:0
 msgid "Header"
-msgstr ""
+msgstr "Заглавка"
 
 #. module: marketing
 #: wizard_field:campaign.partner.email_send,init,body:0
 msgid "Email Message"
-msgstr ""
+msgstr "Имейл съобщение"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Main Information"
-msgstr ""
+msgstr "Основна информация"
 
 #. module: marketing
 #: field:campaign.step,procent:0
@@ -156,75 +157,75 @@ msgstr ""
 #. module: marketing
 #: wizard_view:campaign.partner.add,init:0
 msgid "Add partners to campaign"
-msgstr ""
+msgstr "Добавете партньори в кампанията"
 
 #. module: marketing
 #: field:campaign.campaign,date_stop:0
 #: field:campaign.step,stop_date:0
 msgid "Stop Date"
-msgstr ""
+msgstr "Дата за край"
 
 #. module: marketing
 #: view:campaign.campaign:0
 #: model:ir.ui.menu,name:marketing.menu_marketing_operations_campaigns
 msgid "Campaigns"
-msgstr ""
+msgstr "Кампании"
 
 #. module: marketing
 #: field:campaign.campaign,planned_revenue:0
 msgid "Planned Revenue"
-msgstr ""
+msgstr "Планирани приходи"
 
 #. module: marketing
 #: field:campaign.partner,step:0
 #: field:campaign.partner.history,step_id:0
 msgid "Step"
-msgstr ""
+msgstr "Етап"
 
 #. module: marketing
 #: wizard_field:campaign.partner.add,init,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Потребител"
 
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Waiting"
-msgstr ""
+msgstr "Изчакване"
 
 #. module: marketing
 #: field:campaign.partner.history,date:0
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #. module: marketing
 #: field:campaign.partner,notes:0
 msgid "Prospect Notes"
-msgstr ""
+msgstr "Бележки отнсоно перспективи"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Call again Later"
-msgstr ""
+msgstr "Обадете се пак по-късно"
 
 #. module: marketing
 #: model:ir.ui.menu,name:marketing.menu_op_config
 msgid "Configuration"
-msgstr ""
+msgstr "Настройка"
 
 #. module: marketing
 #: wizard_field:campaign.partner.add,init,campaign_step_id:0
 msgid "First Campaign Step"
-msgstr ""
+msgstr "Първи етап в кампанията"
 
 #. module: marketing
 #: model:ir.ui.menu,name:marketing.menu_marketing_operations
 msgid "Marketing Operations"
-msgstr ""
+msgstr "Маркетингови операции"
 
 #. module: marketing
 #: field:campaign.campaign,costs:0
 msgid "Initial Costs"
-msgstr ""
+msgstr "Начални разходи"
 
 #. module: marketing
 #: constraint:ir.ui.view:0
@@ -234,60 +235,60 @@ msgstr ""
 #. module: marketing
 #: field:campaign.partner.history,step_attempt:0
 msgid "Attempt"
-msgstr ""
+msgstr "Опит"
 
 #. module: marketing
 #: field:campaign.campaign,name:0
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #. module: marketing
 #: model:ir.module.module,description:marketing.module_meta_information
 msgid "Marketing management module"
-msgstr ""
+msgstr "Модул за управление на маркетинг"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_partner_history
 msgid "campaign.partner.history"
-msgstr ""
+msgstr "campaign.partner.history"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 msgid "Very High"
-msgstr ""
+msgstr "Много високо"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Step Information"
-msgstr ""
+msgstr "Информация за етап"
 
 #. module: marketing
 #: wizard_button:campaign.partner.add,init,add:0
 msgid "Add these partners"
-msgstr ""
+msgstr "Добавете тези партньори"
 
 #. module: marketing
 #: field:campaign.partner,active:0
 #: field:campaign.step,active:0
 msgid "Active"
-msgstr ""
+msgstr "Активен"
 
 #. module: marketing
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Medium"
-msgstr ""
+msgstr "Среден"
 
 #. module: marketing
 #: selection:campaign.partner,state:0
 msgid "Stopped"
-msgstr ""
+msgstr "Спрян"
 
 #. module: marketing
 #: view:campaign.campaign:0
 #: model:ir.ui.menu,name:marketing.menu_op_config_camp_def
 msgid "Campaign Definition"
-msgstr ""
+msgstr "Опеделение относно кампанията"
 
 #. module: marketing
 #: model:ir.model,name:marketing.model_campaign_step
@@ -298,7 +299,7 @@ msgstr ""
 #: selection:campaign.partner,priority:0
 #: selection:campaign.partner.add,init,priority:0
 msgid "Very Low"
-msgstr ""
+msgstr "Много ниска"
 
 #. module: marketing
 #: field:campaign.step,costs:0
@@ -311,33 +312,33 @@ msgstr ""
 #: view:campaign.partner.history:0
 #: field:campaign.partner.history,name:0
 msgid "History"
-msgstr ""
+msgstr "Хронология"
 
 #. module: marketing
 #: field:campaign.partner.history,camp_partner_id:0
 msgid "Prospect"
-msgstr ""
+msgstr "Перспектива"
 
 #. module: marketing
 #: model:ir.actions.wizard,name:marketing.wizard_load_partners
 msgid "Load partners"
-msgstr ""
+msgstr "Зареди партньори"
 
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Stop Campaign"
-msgstr ""
+msgstr "Спри кампания"
 
 #. module: marketing
 #: field:campaign.partner,priority:0
 #: wizard_field:campaign.partner.add,init,priority:0
 msgid "Priority"
-msgstr ""
+msgstr "Приоритет"
 
 #. module: marketing
 #: field:campaign.partner,contact:0
 msgid "Partner Contact"
-msgstr ""
+msgstr "Контакт на партньора"
 
 #. module: marketing
 #: field:campaign.partner,campaign_id:0
@@ -411,7 +412,7 @@ msgstr ""
 #. module: marketing
 #: view:campaign.partner:0
 msgid "Marketing::Prospects"
-msgstr ""
+msgstr "Маркетинг::Перспективи"
 
 #. module: marketing
 #: field:campaign.partner,user_id:0

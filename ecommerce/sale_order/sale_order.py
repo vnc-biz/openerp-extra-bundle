@@ -252,7 +252,7 @@ class ecommerce_order_line(osv.osv):
         'order_id': fields.many2one('ecommerce.saleorder', 'eOrder Ref'),
         'product_id': fields.many2one('product.product', 'Product', domain=[('sale_ok','=',True)], change_default=True),
         'product_uom_id': fields.many2one('product.uom', 'Product UOM',required=True),
-        'price_unit': fields.float('Unit Price',digits=(16, int(config['price_accuracy'])), required=True),
+        'price_unit': fields.float('Unit Price',digits=(16,2), required=True),
     }
     
     def onchange_product(self, cr, uid, ids, product_id):

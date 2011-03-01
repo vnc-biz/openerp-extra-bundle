@@ -837,7 +837,7 @@
 	
 		
 		<record id="ecommerce.ecommerce_shop_0" model="ecommerce.shop">
-			<field eval="[(6,0,[ref('base.EUR'),ref('res_currency_aud0'),ref('base.EUR'),ref('base.CAD'),ref('base.USD')])]" name="currency_ids"/>
+<!--			<field eval="[(6,0,[ref('base.EUR'),ref('res_currency_aud0'),ref('base.EUR'),ref('base.CAD'),ref('base.USD')])]" name="currency_ids"/>-->
 			<field eval="[(6,0,[ref('ecommerce_payment'),ref('ecommerce_payment1')])]" name="payment_method_ids"/>
 			<field eval="[(6,0,[ref('base.lang_en')])]" name="language_ids"/>
 			<field eval="[(6,0,[ref('ecommerce_search_name0'),ref('ecommerce_search_price0')])]" name="search_ids"/>

@@ -49,16 +49,13 @@
 			<field name="model">sale.order.line</field>
 			<field name="inherit_id" ref="sale.view_order_line_form2"/>
 			<field name="arch" type="xml">
-			<notebook position="inside">
-				<page string="Advertising">
+			<field name="notes" position="after">
+                    <separator colspan="4" string="Advertising"/>
 					<field name="adv_issue" select="1"/>
 					<field name="page_reference"/>
 					<field name="from_date"/>
 					<field name="to_date"/>
-					<separator string="Layout Remark" colspan="4"/>
-					<field name="layout_remark" colspan="4" nolabel="1"/>
-				</page>
-			</notebook>
+			</field>
 			</field>
 		</record>
 

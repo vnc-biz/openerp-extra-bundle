@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.11\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-01-28 14:43:49+0000\n"
-"PO-Revision-Date: 2011-01-28 15:46+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-01-28 14:43+0000\n"
+"PO-Revision-Date: 2011-03-01 08:09+0000\n"
+"Last-Translator: Raimon Esteve (Zikzakmedia) <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-03-02 14:14+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 "X-Poedit-Language: Spanish\n"
 
 #. module: training_joomla
@@ -173,8 +175,12 @@ msgstr "Desde"
 
 #. module: training_joomla
 #: help:training.joomla,duplicate_subscription:0
-msgid "If active, cancel other subscriptions with same edition and create new subscription"
-msgstr "If active, cancel other subscriptions with same edition and create new subscription"
+msgid ""
+"If active, cancel other subscriptions with same edition and create new "
+"subscription"
+msgstr ""
+"If active, cancel other subscriptions with same edition and create new "
+"subscription"
 
 #. module: training_joomla
 #: help:training.joomla,password:0
@@ -763,16 +769,3 @@ msgstr "Joomla! formación"
 #: field:training.joomla.configuration.wizard,lang_update:0
 msgid "Lang Update"
 msgstr "Lenguas actualizadas"
-
-#~ msgid "Invalid model name in the action definition."
-#~ msgstr "Nombre del modelo no válido en la definición de la acción."
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "XML no válido para la estructura de la vista!"
-#~ msgid "Error ! You can not create recursive Menu."
-#~ msgstr "Error ! You can not create recursive Menu."
-#~ msgid ""
-#~ "The Object name must start with x_ and not contain any special character !"
-#~ msgstr ""
-#~ "El nombre del objeto tiene que empezar con x_ y no contener ningún "
-#~ "carácter especial!"
-

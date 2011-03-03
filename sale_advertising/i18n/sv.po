@@ -6,25 +6,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-11-25 14:25+0000\n"
+"POT-Creation-Date: 2011-03-02 11:08+0000\n"
 "PO-Revision-Date: 2011-02-15 15:26+0000\n"
 "Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:17+0000\n"
+"X-Launchpad-Export-Date: 2011-03-03 06:02+0000\n"
 "X-Generator: Launchpad (build 12351)\n"
-
-#. module: sale_advertising
-#: model:product.template,name:sale_advertising.advert_product_3_product_template
-msgid "Press Review Advertising Central Pages"
-msgstr ""
 
 #. module: sale_advertising
 #: field:sale.order,published_customer:0
 msgid "Published Customer"
 msgstr ""
+
+#. module: sale_advertising
+#: model:ir.module.module,description:sale_advertising.module_meta_information
+msgid ""
+"This module allow you to use the Sale Management to encode your advertising "
+"sales ... TODO\n"
+msgstr ""
+"This module allow you to use the Sale Management to encode your advertising "
+"sales ... TODO\n"
 
 #. module: sale_advertising
 #: model:ir.model,name:sale_advertising.model_sale_advertising_proof
@@ -37,19 +41,8 @@ msgid "Sale Advertising Issue"
 msgstr ""
 
 #. module: sale_advertising
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr ""
-
-#. module: sale_advertising
 #: view:sale.advertising.proof:0
 msgid "Advertising proof"
-msgstr ""
-
-#. module: sale_advertising
-#: constraint:product.template:0
-msgid ""
-"Error: The default UOM and the purchase UOM must be in the same category."
 msgstr ""
 
 #. module: sale_advertising
@@ -58,8 +51,8 @@ msgid "State"
 msgstr ""
 
 #. module: sale_advertising
-#: model:product.category,name:sale_advertising.product_category_advertisingmedium0
-msgid "Advertising Medium"
+#: field:sale.advertising.issue,issue_date:0
+msgid "Issue Date"
 msgstr ""
 
 #. module: sale_advertising
@@ -68,19 +61,7 @@ msgid "Advertising issue"
 msgstr ""
 
 #. module: sale_advertising
-#: constraint:ir.model:0
-msgid ""
-"The Object name must start with x_ and not contain any special character !"
-msgstr ""
-
-#. module: sale_advertising
-#: model:product.template,name:sale_advertising.advert_product_2_product_template
-msgid "Press Review Advertising A4/2"
-msgstr ""
-
-#. module: sale_advertising
 #: view:sale.order:0
-#: view:sale.order.line:0
 #: field:sale.order.line,layout_remark:0
 msgid "Layout Remark"
 msgstr ""
@@ -91,13 +72,21 @@ msgid "Target"
 msgstr ""
 
 #. module: sale_advertising
-#: model:product.category,name:sale_advertising.product_category_website0
-msgid "Website"
+#: model:ir.model,name:sale_advertising.model_product_product
+msgid "Product"
 msgstr ""
 
 #. module: sale_advertising
 #: field:sale.advertising.issue,medium:0
 msgid "Medium"
+msgstr ""
+
+#. module: sale_advertising
+#: help:sale.order.line,from_date:0
+#: help:sale.order.line,to_date:0
+msgid ""
+"You can use this field if you are selling advertising limited in time, like "
+"banners on a website"
 msgstr ""
 
 #. module: sale_advertising
@@ -130,13 +119,13 @@ msgid "Delivery Address"
 msgstr ""
 
 #. module: sale_advertising
-#: field:sale.advertising.proof,number:0
-msgid "Number of Copies"
+#: field:sale.order.line,to_date:0
+msgid "End of Validity"
 msgstr ""
 
 #. module: sale_advertising
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
+#: field:sale.advertising.proof,number:0
+msgid "Number of Copies"
 msgstr ""
 
 #. module: sale_advertising
@@ -146,13 +135,8 @@ msgid "Name"
 msgstr ""
 
 #. module: sale_advertising
-#: constraint:product.template:0
-msgid "Error: UOS must be in a different category than the UOM"
-msgstr ""
-
-#. module: sale_advertising
-#: field:sale.order.line,to_date:0
-msgid "End of Validity"
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
 msgstr ""
 
 #. module: sale_advertising
@@ -163,17 +147,8 @@ msgid "Advertising"
 msgstr ""
 
 #. module: sale_advertising
-#: model:ir.module.module,description:sale_advertising.module_meta_information
-msgid ""
-"This module allow you to use the Sale Management to encode your advertising "
-"sales ... TODO\n"
-msgstr ""
-"This module allow you to use the Sale Management to encode your advertising "
-"sales ... TODO\n"
-
-#. module: sale_advertising
-#: model:product.category,name:sale_advertising.product_category_magazine0
-msgid "Press Review"
+#: model:ir.actions.act_window,name:sale_advertising.act_sale_order_2_sale_adver_proof
+msgid "Open Advertising Proof"
 msgstr ""
 
 #. module: sale_advertising
@@ -182,18 +157,13 @@ msgid "Start of Validity"
 msgstr ""
 
 #. module: sale_advertising
-#: field:product.product,equivalency_in_A4:0
+#: field:product.product,equivalency:0
 msgid "A4 Equivalency"
 msgstr ""
 
 #. module: sale_advertising
 #: field:sale.order.line,page_reference:0
 msgid "Reference of the Page"
-msgstr ""
-
-#. module: sale_advertising
-#: constraint:product.category:0
-msgid "Error ! You can not create recursive categories."
 msgstr ""
 
 #. module: sale_advertising
@@ -212,13 +182,13 @@ msgid "Error: Invalid ean code"
 msgstr ""
 
 #. module: sale_advertising
-#: model:product.template,name:sale_advertising.advert_product_1_product_template
-msgid "Half Banner 234x60"
+#: selection:sale.advertising.issue,state:0
+msgid "Close"
 msgstr ""
 
 #. module: sale_advertising
-#: selection:sale.advertising.issue,state:0
-msgid "Close"
+#: model:ir.model,name:sale_advertising.model_sale_order
+msgid "Sales Order"
 msgstr ""
 
 #. module: sale_advertising
@@ -227,11 +197,6 @@ msgid "Open"
 msgstr ""
 
 #. module: sale_advertising
-#: field:sale.advertising.issue,issue_date:0
-msgid "Issue Date"
-msgstr ""
-
-#. module: sale_advertising
-#: model:product.template,name:sale_advertising.advert_product_0_product_template
-msgid "Full Banner 468x60"
+#: model:ir.model,name:sale_advertising.model_sale_order_line
+msgid "Sales Order Line"
 msgstr ""

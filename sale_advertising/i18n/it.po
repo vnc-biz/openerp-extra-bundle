@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-02 11:18+0000\n"
-"PO-Revision-Date: 2011-03-02 12:27+0100\n"
-"Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
+"POT-Creation-Date: 2011-03-02 11:08+0000\n"
+"PO-Revision-Date: 2011-03-03 07:31+0000\n"
+"Last-Translator: Lorenzo Battistini - agilebg.com "
+"<lorenzo.battistini@agilebg.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-03-04 06:24+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #. module: sale_advertising
 #: field:sale.order,published_customer:0
@@ -22,13 +24,17 @@ msgstr "Cliente pubblicato"
 
 #. module: sale_advertising
 #: model:ir.module.module,description:sale_advertising.module_meta_information
-msgid "This module allow you to use the Sale Management to encode your advertising sales ... TODO\n"
-msgstr "Questo modulo permette di usare la gestione vendite per codificare le proprie vendite pubblicitarie ... TODO\n"
+msgid ""
+"This module allow you to use the Sale Management to encode your advertising "
+"sales ... TODO\n"
+msgstr ""
+"Questo modulo permette di usare la gestione vendite per codificare le "
+"proprie vendite pubblicitarie ... TODO\n"
 
 #. module: sale_advertising
 #: model:ir.model,name:sale_advertising.model_sale_advertising_proof
 msgid "Sale Advertising Proof"
-msgstr "Prova pubblicitaria "
+msgstr "Prova pubblicitaria"
 
 #. module: sale_advertising
 #: model:ir.model,name:sale_advertising.model_sale_advertising_issue
@@ -79,8 +85,12 @@ msgstr "Media"
 #. module: sale_advertising
 #: help:sale.order.line,from_date:0
 #: help:sale.order.line,to_date:0
-msgid "You can use this field if you are selling advertising limited in time, like banners on a website"
-msgstr "Si può usare questo campo se si sta vendendo pubblicità limitata nel tempo, come i banner di un sito"
+msgid ""
+"You can use this field if you are selling advertising limited in time, like "
+"banners on a website"
+msgstr ""
+"Si può usare questo campo se si sta vendendo pubblicità limitata nel tempo, "
+"come i banner di un sito"
 
 #. module: sale_advertising
 #: model:ir.actions.act_window,name:sale_advertising.action_sale_advertising_proof
@@ -193,4 +203,3 @@ msgstr "Aperto"
 #: model:ir.model,name:sale_advertising.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Linea d'ordine di vendita"
-

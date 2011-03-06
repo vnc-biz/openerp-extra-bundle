@@ -1,0 +1,194 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* nan_account_bank_statement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.14\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-10-17 00:12:09+0000\n"
+"PO-Revision-Date: 2010-10-17 00:12:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: nan_account_bank_statement
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "The Object name must start with x_ and not contain any special character !"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "Invoice Origin"
+msgstr "Invoice Origin"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "Payment Order"
+msgstr "Payment Order"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "None"
+msgstr "None"
+
+#. module: nan_account_bank_statement
+#: view:account.bank.statement.line.data:0
+msgid "Statement Line Data"
+msgstr "Statement Line Data"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "Reference and Amount"
+msgstr "Reference and Amount"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "Vat and Amount"
+msgstr "Vat and Amount"
+
+#. module: nan_account_bank_statement
+#: model:ir.module.module,description:nan_account_bank_statement.module_meta_information
+msgid "NaN account bank statement"
+msgstr "NaN account bank statement"
+
+#. module: nan_account_bank_statement
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Invalid model name in the action definition."
+
+#. module: nan_account_bank_statement
+#: field:account.bank.statement.line.data,line_id:0
+msgid "Statement Line"
+msgstr "Statement Line"
+
+#. module: nan_account_bank_statement
+#: code:addons/nan_account_bank_statement/account_statement.py:0
+#, python-format
+msgid "Search by VAT error"
+msgstr "Search by VAT error"
+
+#. module: nan_account_bank_statement
+#: view:account.bank.statement.split.line.wizard:0
+msgid "Split Line Wizard"
+msgstr "Split Line Wizard"
+
+#. module: nan_account_bank_statement
+#: code:addons/nan_account_bank_statement/account_statement.py:0
+#, python-format
+msgid "Search by reference error"
+msgstr "Search by reference error"
+
+#. module: nan_account_bank_statement
+#: model:ir.model,name:nan_account_bank_statement.model_account_bank_statement_line_data
+msgid "account.bank.statement.line.data"
+msgstr "account.bank.statement.line.data"
+
+#. module: nan_account_bank_statement
+#: model:ir.actions.act_window,name:nan_account_bank_statement.action_statement_line_split_wizard
+msgid "action.statement.line.split.wizard"
+msgstr "action.statement.line.split.wizard"
+
+#. module: nan_account_bank_statement
+#: field:account.bank.statement.line.data,key:0
+msgid "Key"
+msgstr "Key"
+
+#. module: nan_account_bank_statement
+#: code:addons/nan_account_bank_statement/account_statement.py:0
+#, python-format
+msgid "You cannot search by reference because it seems this line has not been imported from a bank statement file. The system expected a \"reference\" key in the line with amount %.2f in statement %s."
+msgstr "You cannot search by reference because it seems this line has not been imported from a bank statement file. The system expected a \"reference\" key in the line with amount %.2f in statement %s."
+
+#. module: nan_account_bank_statement
+#: code:addons/nan_account_bank_statement/account_statement.py:0
+#, python-format
+msgid "Search by invoice error"
+msgstr "Search by invoice error"
+
+#. module: nan_account_bank_statement
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Invalid XML for View Architecture!"
+
+#. module: nan_account_bank_statement
+#: help:account.bank.statement.line,data_ids:0
+msgid "Data related to the line, usually extracted/imported from a file provided by the bank or another partner."
+msgstr "Data related to the line, usually extracted/imported from a file provided by the bank or another partner."
+
+#. module: nan_account_bank_statement
+#: view:account.bank.statement.split.line.wizard:0
+msgid "_Cancel"
+msgstr "_Cancel"
+
+#. module: nan_account_bank_statement
+#: view:account.bank.statement:0
+msgid "_Search"
+msgstr "_Search"
+
+#. module: nan_account_bank_statement
+#: view:account.bank.statement.split.line.wizard:0
+msgid "_Accept"
+msgstr "_Accept"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "All"
+msgstr "All"
+
+#. module: nan_account_bank_statement
+#: field:account.bank.statement.line.data,value:0
+msgid "Value"
+msgstr "Value"
+
+#. module: nan_account_bank_statement
+#: model:ir.model,name:nan_account_bank_statement.model_account_bank_statement_split_line_wizard
+msgid "account.bank.statement.split.line.wizard"
+msgstr "account.bank.statement.split.line.wizard"
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+#: field:account.bank.statement.split.line.wizard,amount:0
+msgid "Amount"
+msgstr "Amount"
+
+#. module: nan_account_bank_statement
+#: code:addons/nan_account_bank_statement/account_statement.py:0
+#, python-format
+msgid "You cannot search by VAT because it seems this line has not been imported from a bank statement file. The system expected a \"vat\" key in the line with amount %.2f in statement %s."
+msgstr "You cannot search by VAT because it seems this line has not been imported from a bank statement file. The system expected a \"vat\" key in the line with amount %.2f in statement %s."
+
+#. module: nan_account_bank_statement
+#: model:ir.module.module,shortdesc:nan_account_bank_statement.module_meta_information
+msgid "nan_account_bank_statement"
+msgstr "nan_account_bank_statement"
+
+#. module: nan_account_bank_statement
+#: field:account.bank.statement.line,search_by:0
+msgid "Search By"
+msgstr "Search By"
+
+#. module: nan_account_bank_statement
+#: field:account.bank.statement.line,data_ids:0
+msgid "Related Data"
+msgstr "Related Data"
+
+#. module: nan_account_bank_statement
+#: code:addons/nan_account_bank_statement/account_statement.py:0
+#, python-format
+msgid "You cannot search by invoice because it seems this line has not been imported from a bank statement file. The system expected an \"invoice\" key in the line with amount %.2f in statement %s."
+msgstr "You cannot search by invoice because it seems this line has not been imported from a bank statement file. The system expected an \"invoice\" key in the line with amount %.2f in statement %s."
+
+#. module: nan_account_bank_statement
+#: selection:account.bank.statement.line,search_by:0
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: nan_account_bank_statement
+#: view:account.bank.statement:0
+msgid "S_plit"
+msgstr "S_plit"
+

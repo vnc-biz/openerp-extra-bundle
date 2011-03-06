@@ -535,7 +535,7 @@ class account_bank_statement_line(osv.osv):
         Searchs for a non-conciled payment order with the same total amount.
         (If more than one order matches None is returned).
         """
-        # We require account_payment to be instaled
+        # We require account_payment to be installed
         if not 'payment.order' in self.pool.obj_list():
             return None
 

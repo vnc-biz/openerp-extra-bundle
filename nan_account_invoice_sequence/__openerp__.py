@@ -34,7 +34,7 @@
     "category" : "Accounting",
     "website": "http://www.NaN-tic.com",
     "description": """\
-This module separates invoice and account move sequences but instead of creating a new internal sequence in moves which would require changing lots of reports, it simply converts invoice's number related field into a normal char one.
+This module separates invoice and account move numbers. The difference with account_sequence module is that instead of creating a new internal number in moves which would require changing lots of reports, it simply converts invoice's number related field into a normal char one.
 """,
     "depends" : [
         'account',

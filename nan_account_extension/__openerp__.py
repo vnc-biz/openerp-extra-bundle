@@ -35,10 +35,13 @@
     "website": "http://www.nan-tic.com",
     "description": """\
 This module adds some new features to account module, including:
-- Automatic partner account creation, update and removal.
+- Automatic partner account creation, update and removal (Configurable per company).
 - Avoids duplicate supplier invoices by checking no other invoice has the same partner, date and reference when the user tries to create the invoice.
 - Allows searching draft account moves by adding the corresponding '*' before the ID.
 - Ensures both Journal and Period are always consistent among account move and all its move lines. If the user changes Journal or Period in a move the change will be propagated to all lines and vice-versa.
+- Makes 'date_due' field in invoices readonly when payment_term is set.
+- Allows grouping invoice lines that have different products into the same account move line. (Configurable per journal).
+- Allows ensuring new invoices do not have a date previous to the latest invoice in the journal, as required by the law of some countries such as Spain. (Configurable per journal).
 """,
     "depends" : [
         'account',
@@ -48,6 +51,7 @@ This module adds some new features to account module, including:
         'account_view.xml',
         'company_view.xml',
         'partner_view.xml',
+        'invoice_view.xml',
     ],
     "demo_xml" : [],
     "active": False,

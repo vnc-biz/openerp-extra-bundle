@@ -36,6 +36,48 @@ import psycopg2
 class account_invoice(osv.osv):
     _inherit = 'account.invoice'
 
+    def _check_invoice_number_date(self, cr, uid, ids):
+        for invoice in self.browse(cr, uid, ids):
+            if invoice.number and invoice.number != '/' and invoice.date_invoice and invoice.journal_id.check_invoice_number_date:
+                cr.execute("""
+                    SELECT 
+                        number, 
+                        date_invoice
+                    FROM
+                        account_invoice
+                    WHERE
+                        journal_id = %s and (
+                        ( number < %s and date_invoice > %s ) or
+                        ( number > %s and date_invoice < %s )
+                        )
+                        """, (invoice.journal_id.id, invoice.number, invoice.date_invoice, invoice.number, invoice.date_invoice) )
+                records = cr.fetchall()
+                if records:
+                    limit = 10
+                    records = [_('Number: %s, Date: %s') % (record[0], record[1]) for record in records]
+                    text = '\n'.join( records[:limit] )
+                    if len(records) > limit:
+                        text += '\n...'
+                    raise osv.except_osv( _('Error!'), _('Journal %(journal)s is configured to check invoice numbers and dates but the check failed.\n\nYou are trying to create invoice %(invoice_number)s with date %(invoice_date)s but %(invoice_count)d invoices exist which have incompatible numbers and dates:\n\n%(invoices)s') % {
+                        'journal': invoice.journal_id.name, 
+                        'invoice_number': invoice.number, 
+                        'invoice_date': invoice.date_invoice, 
+                        'invoice_count': len(records),
+                        'invoices': text,
+                        })
+        return True 
+
+    _constraints = [ (_check_invoice_number_date, 'Invoice date is previous to an existing invoice.', ['number','date_invoice']) ]
+
+    def onchange_payment_term(self, cr, uid, ids, payment_term, context):
+        if payment_term:
+            return {
+                'value': {
+                    'date_due': False,
+                }
+            }
+        return {}
+
     def write(self, cr, uid, ids, vals, context=None):
         result = super(account_invoice, self).write(cr, uid, ids, vals, context)
         if vals.get('state') == 'open':
@@ -56,6 +98,18 @@ class account_invoice(osv.osv):
                     text = '\n\n'.join( text )
                     raise osv.except_osv( _('Validation Error'), _('The following supplier invoices have duplicated information:\n\n%s') % text)
         return result
+
+    def inv_line_characteristic_hashcode(self, invoice, invoice_line):
+        if invoice.journal_id.group_products:
+            value = "%s-%s-%s-%s"%(
+                invoice_line['account_id'],
+                invoice_line.get('tax_code_id','False'),
+                invoice_line.get('analytic_account_id','False'),
+                invoice_line.get('date_maturity','False'))
+            if invoice.journal_id.group_products_text:
+                invoice_line['name'] = invoice.journal_id.group_products_text
+            return value
+        return super(account_invoice, self).inv_line_characteristic_hashcode(invoice, invoice_line)
 
 account_invoice()
 

@@ -117,5 +117,16 @@ class account_account(osv.osv):
         return super(account_account, self).copy(cr, uid, id, default, context=context)
 account_account()
 
+class account_journal(osv.osv):
+    _inherit = 'account.journal'
+
+    _columns = {
+        'group_products': fields.boolean('Group Products', help='If set, it will group all invoice lines even if they have different products. Note that if products have the different accounts they will not be grouped.'),
+        'group_products_text': fields.char('Account Move Line Text', size=64, help='If "Group Products" is set and this field is not empty, this text will be used as description for all account move lines.'),
+        'check_invoice_number_date': fields.boolean('Check invoice date and number', help='If set, ensures no invoice number is created with a date previous to an existing invoice.'),
+    }
+
+account_journal()
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

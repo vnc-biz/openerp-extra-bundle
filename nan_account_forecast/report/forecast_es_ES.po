@@ -1,0 +1,51 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Albert Cervera i Areny <albert@nan-tic.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-21 03:35+0100\n"
+"PO-Revision-Date: 2010-12-21 03:37+0100\n"
+"Last-Translator: Albert Cervera i Areny <albert@nan-tic.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: /tmp/tmp.RfxZt1RXGv:312 /tmp/tmp.RfxZt1RXGv:456 /tmp/tmp.RfxZt1RXGv:600
+msgid "Partner"
+msgstr "Empresa"
+
+#: /tmp/tmp.RfxZt1RXGv:316 /tmp/tmp.RfxZt1RXGv:460 /tmp/tmp.RfxZt1RXGv:604
+msgid "Document"
+msgstr "Documento"
+
+#: /tmp/tmp.RfxZt1RXGv:320 /tmp/tmp.RfxZt1RXGv:464 /tmp/tmp.RfxZt1RXGv:608
+msgid "Expiry Date"
+msgstr "Vencimiento"
+
+#: /tmp/tmp.RfxZt1RXGv:324 /tmp/tmp.RfxZt1RXGv:468 /tmp/tmp.RfxZt1RXGv:612
+msgid "Amount"
+msgstr "Importe"
+
+#: /tmp/tmp.RfxZt1RXGv:328 /tmp/tmp.RfxZt1RXGv:472 /tmp/tmp.RfxZt1RXGv:616
+msgid "Aggregated Amount"
+msgstr "Importe acumulado"
+
+#: /tmp/tmp.RfxZt1RXGv:340 /tmp/tmp.RfxZt1RXGv:484 /tmp/tmp.RfxZt1RXGv:628
+msgid "Expiry date totals:"
+msgstr "Totales al vencimiento:"
+
+#: /tmp/tmp.RfxZt1RXGv:344 /tmp/tmp.RfxZt1RXGv:488 /tmp/tmp.RfxZt1RXGv:632
+msgid "Payment/receivables forecast"
+msgstr "Previsión de pagos/cobros "
+
+#: /tmp/tmp.RfxZt1RXGv:356 /tmp/tmp.RfxZt1RXGv:500 /tmp/tmp.RfxZt1RXGv:644
+msgid "Page:"
+msgstr "Página:"
+

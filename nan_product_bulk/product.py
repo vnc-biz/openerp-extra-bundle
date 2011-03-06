@@ -100,18 +100,10 @@ class product_product(osv.osv):
     def _bulk( self, cr, uid, ids, field_name, field_value, context=None):
         result = {}
         for product in self.browse(cr, uid, ids, context):
-<<<<<<< HEAD
             if product.bulk_of_product_ids and len(product.bulk_of_product_ids) > 0:
                 result[product.id] = True
             else:
                 result[product.id] = False
-=======
-            for bulks in product.bulk_of_product_ids:
-                if product.bulk_of_product_ids and len(product.bulk_of_product_ids) > 0:
-                    result[product.id] = True
-                else:
-                    result[product.id] = False
->>>>>>> 6dfe98a788cc2c7a754f46028a8cd135f6c63cfc
         return result
 
     _columns = {

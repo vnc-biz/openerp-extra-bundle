@@ -34,7 +34,7 @@ FIELDS = {
 
 field_duedate={
     'duedate': {'string':'Due Date', 'type':'date','required':True, 'default': lambda *a: time.strftime('%Y-%m-%d'),},
-    'amount': {'string':'Amount', 'type':'float', 'help': 'Next step will automatically select payments up to this amount.'},
+    'amount': {'string':'Amount', 'type':'float', 'help': 'Next step will automatically select payments up to this amount as long as account moves have bank account if that is required by the selected payment mode.'},
     'show_refunds': {'string':'Show Refunds','type':'boolean', 'help':'Indicates if search should include refunds.', 'default': lambda *a: False},
     }
 arch_duedate='''<?xml version="1.0" encoding="utf-8"?>
@@ -123,9 +123,14 @@ def create_payment(self, cr, uid, data, context):
             date_to_pay = line.date_maturity
         elif payment.date_prefered == 'fixed':
             date_to_pay = payment.date_scheduled
+
+        if payment.type == 'payable':
+            amount_to_pay = line.amount_to_pay
+        else:
+            amount_to_pay = -line.amount_to_pay
         pool.get('payment.line').create(cr,uid,{
             'move_line_id': line.id,
-            'amount_currency': line.amount_to_pay,
+            'amount_currency': amount_to_pay,
             'bank_id': line2bank.get(line.id),
             'order_id': payment.id,
             'partner_id': line.partner_id and line.partner_id.id or False,

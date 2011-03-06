@@ -1,0 +1,5 @@
+<openerp>
+<data>
+	<wizard id="wizard_invoice_state_draft" keyword="client_action_multi" model="account.invoice" multi="True" name="account.invoice.state.draft" string="Set invoices to draft state" groups="base.group_user"/>
+</data>
+</openerp>

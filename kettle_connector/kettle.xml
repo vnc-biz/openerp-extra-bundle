@@ -14,7 +14,6 @@
 				<form string="kettle task">
 					<group colspan="4" >
 				        <field name="name" select="1"/>
-				        <field name="server_id" groups="base.group_extended"/>
 				        <field name="transformation_id" groups="base.group_extended"/>
 				        <field name="scheduler" groups="base.group_extended"/>
 				        <field name="upload_file" groups="base.group_extended"/>

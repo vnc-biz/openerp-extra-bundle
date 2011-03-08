@@ -114,7 +114,6 @@ class kettle_task(osv.osv):
     
     _columns = {
         'name': fields.char('Task Name', size=64, required=True),
-        'server_id': fields.many2one('kettle.server', 'Server', required=True),
         'transformation_id': fields.many2one('kettle.transformation', 'Transformation', required=True),
         'scheduler': fields.many2one('ir.cron', 'Scheduler', readonly=True),
         'parameters': fields.text('Parameters'),
@@ -176,8 +175,9 @@ class kettle_task(osv.osv):
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
                       'AUTO_REP_erp_url' : "http://localhost:" + config['xmlrpc_port'] + "/xmlrpc"
                       }
-            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'server_id', 'last_date'], context)
-            context['kettle_dir'] = self.pool.get('kettle.server').read(cr, uid, task['server_id'][0], ['kettle_dir'], context)['kettle_dir']
+            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'last_date'], context)
+            server_id = self.pool.get('kettle.transformation').read(cr, uid, task['transformation_id'][0], ['server_id'])[0]
+            context['kettle_dir'] = self.pool.get('kettle.server').read(cr, uid, server_id, ['kettle_dir'], context)['kettle_dir']
             
             if task['last_date']:
                 context['filter']['AUTO_REP_last_date'] = task['last_date']
@@ -227,7 +227,7 @@ class kettle_wizard(osv.osv_memory):
     }
 
     def _save_file(self, cr, uid, id, vals, context):
-        kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], ['server_id'], context).server_id.kettle_dir
+        kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], context).transformation_id.server_id.kettle_dir
         filename = kettle_dir + '/openerp_tmp/' + str(vals['filename'])
         fp = open(filename,'wb+')
         fp.write(base64.decodestring(vals['file']))

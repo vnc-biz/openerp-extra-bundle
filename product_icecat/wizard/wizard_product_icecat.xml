@@ -12,6 +12,7 @@
                     <field name="name"/><newline/>
                     <field name="description"/><newline/>
                     <field name="description_sale"/><newline/>
+                    <field name="attributes"/><newline/>
                     <field name="language_id"/><newline/>
                     <field name="image"/><newline/>
                     <field name="html"/>

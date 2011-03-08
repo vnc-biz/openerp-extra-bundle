@@ -39,6 +39,7 @@ class product_icecat_wizard(osv.osv_memory):
         'name':fields.boolean('Name'),
         'description':fields.boolean('Description'),
         'description_sale':fields.boolean('Description Śale'),
+        'attributes':fields.boolean('Attributes'),
         'language_id': fields.many2one('res.lang','Language'),
         'image':fields.boolean('Image'),
         'html':fields.boolean('HTML Code'),
@@ -55,6 +56,7 @@ class product_icecat_wizard(osv.osv_memory):
         'name': lambda *a: 1,
         'description': lambda *a: 1,
         'description_sale': lambda *a: 1,
+        'attributes': lambda *a: 1,
         'html': lambda *a: 1,
     }
 
@@ -91,6 +93,12 @@ class product_icecat_wizard(osv.osv_memory):
     # Convert icecat values to OpenERP mapline
     # ==========================================
     def icecat2oerp(self, cr, uid, form, product, icecat, pathxml, language, data, context):
+
+        #check if attributes product exists. If exists, raise error. Not update attributes values
+        if form.attributes:
+            attributes_ids = self.pool.get('product.manufacturer.attribute').search(cr, uid, [('product_id', '=', product.id)])
+            if len(attributes_ids) > 0:
+                raise osv.except_osv(_('Error'),_("There are attributes avaible in this product. Delete this attributes or uncheck attributes option"))
 
         if form.language_id.code:
             language = form.language_id.code
@@ -165,10 +173,27 @@ class product_icecat_wizard(osv.osv_memory):
         #show details product
         #TODO: HTML template use Mako template for not hardcode HTML tags
         mapline_values = []
+        attributes_values = []
+        sequence = 0
         for cat in category:
+
             catID = cat[0]
             catName = cat[1]
+
+            #product_manufacturer
+            if form.attributes:
+                attributes_values.append({'name':catName,'icecat_category':catID,'product_id':product.id,'sequence':sequence})
+                sequence+1
+
             if catID in prodFeature and len(prodFeature[catID]):
+
+                for feature in prodFeature[catID]:
+                    prod_value = feature.split(":")
+                    if len(prod_value)>0:
+                        attributes_values.append({'name':'>'+self.StripTags(prod_value[0]),
+'value':self.StripTags(prod_value[1]),'icecat_category':catID,'product_id':product.id,'sequence':sequence})
+                        sequence+1
+
                 for mapline_field in mapline_fields:
                     if mapline_field['icecat'] == catID:
                         source = '<h3>%s</h3>' % catName
@@ -213,11 +238,30 @@ class product_icecat_wizard(osv.osv_memory):
             else:
                 values['description'] = description
 
+        #manufacturer product
+        manufacturers = []
+        for supplier in doc.xpathEval('//Supplier'):
+            manufacturers.append(supplier.xpathEval('@Name')[0].content)
+        if len(manufacturers)>0:
+            partner_id = self.pool.get('res.partner').search(cr, uid, [('name', 'ilike', manufacturers[len(manufacturers)-1])])
+            if len(partner_id) > 0:
+               values['manufacturer'] = partner_id[0]
+        values['manufacturer_pname'] = name
+        ref = []
+        for prod in doc.xpathEval('//Product'):
+            ref.append(prod.xpathEval('@Prod_id')[0].content)
+        values['manufacturer_pref'] = ref[0]
+
         # add mapline values calculated
         for mapline_value in mapline_values:
             values[mapline_value['field']] = mapline_value['source']
         
         self.pool.get('product.product').write(cr, uid, [product.id], values, context)
+
+        #create manufacturer attribute
+        if form.attributes:
+            for values in attributes_values:
+                self.pool.get('product.manufacturer.attribute').create(cr, uid, values, context)
 
         result = _("Product %s XML Import successfully") % name
 
@@ -274,8 +318,11 @@ class product_icecat_wizard(osv.osv_memory):
     # wizard
     # =========================================
     def import_xml(self, cr, uid, ids, data, context={}):
-        icecat_id = self.pool.get('product.icecat').search(cr, uid, [('active', '=', 1)])[0]
-        icecat = self.pool.get('product.icecat').browse(cr, uid, icecat_id)
+        icecat_id = self.pool.get('product.icecat').search(cr, uid, [('active', '=', 1)])
+        if not icecat_id:
+            raise osv.except_osv(_('Error'),_("Configure your icecat preferences!"))
+
+        icecat = self.pool.get('product.icecat').browse(cr, uid, icecat_id[0])
 
         form = self.browse(cr, uid, ids[0])
 

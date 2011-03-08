@@ -176,7 +176,7 @@ class kettle_task(osv.osv):
                       'AUTO_REP_erp_url' : "http://localhost:" + config['xmlrpc_port'] + "/xmlrpc"
                       }
             task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'last_date'], context)
-            server_id = self.pool.get('kettle.transformation').read(cr, uid, task['transformation_id'][0], ['server_id'])[0]
+            server_id = self.pool.get('kettle.transformation').read(cr, uid, task['transformation_id'][0], ['server_id'])['server_id'][0]
             context['kettle_dir'] = self.pool.get('kettle.server').read(cr, uid, server_id, ['kettle_dir'], context)['kettle_dir']
             
             if task['last_date']:

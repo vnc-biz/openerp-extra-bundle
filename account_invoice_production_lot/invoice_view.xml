@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_invoice_line_form_prod_lots">
+            <field name="name">account.invoice.line.form.prod_lots</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                 <page string="Notes" position="after">
+                        <page string="Production Lots">
+                            <field colspan="4" name="prod_lot_ids" nolabel="1"/>
+                        </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -8,30 +8,33 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-02-18 16:03+0000\n"
-"PO-Revision-Date: 2011-02-18 16:54+0100\n"
-"Last-Translator: Jordi Pasquina <jordi@nan-tic.com>\n"
+"PO-Revision-Date: 2011-03-08 16:03+0000\n"
+"Last-Translator: Jordi Pasquina - http://www.nan-tic.com <Unknown>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
-"X-Generator: Lokalize 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-03-09 06:13+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
+"Language: \n"
 
 #. module: nan_sale_discount
-#: code:addons/nan_sale_discount/sale.py:43 field:sale.order.line,discount3:0
+#: code:addons/nan_sale_discount/sale.py:43
+#: field:sale.order.line,discount3:0
 #, python-format
 msgid "Discount 3"
 msgstr "Descompte 3"
 
 #. module: nan_sale_discount
-#: code:addons/nan_sale_discount/sale.py:42 field:sale.order.line,discount2:0
+#: code:addons/nan_sale_discount/sale.py:42
+#: field:sale.order.line,discount2:0
 #, python-format
 msgid "Discount 2"
 msgstr "Descuento 2"
 
 #. module: nan_sale_discount
-#: code:addons/nan_sale_discount/sale.py:41 field:sale.order.line,discount1:0
+#: code:addons/nan_sale_discount/sale.py:41
+#: field:sale.order.line,discount1:0
 #, python-format
 msgid "Discount 1"
 msgstr "Descompte 1"
@@ -106,10 +109,6 @@ msgstr "Línies de comanda de Venda"
 
 #~ msgid "Unit Of Measure"
 #~ msgstr "Unit Of Measure"
-
-#, fuzzy
-#~ msgid "Stock Moves"
-#~ msgstr "Stock Move"
 
 #~ msgid "Stock Moves Jordi"
 #~ msgstr "Stock Moves Jordi"

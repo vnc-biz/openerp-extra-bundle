@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-10 11:55+0000\n"
-"PO-Revision-Date: 2011-03-10 12:55+0100\n"
+"PO-Revision-Date: 2011-03-10 18:32+0100\n"
 "Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Fattura"
 #. module: account_invoice_production_lot
 #: model:ir.module.module,description:account_invoice_production_lot.module_meta_information
 msgid "This module shows, for each (customer) invoice line, the delivered production lots"
-msgstr "This module shows, for each (customer) invoice line, the delivered production lots"
+msgstr "Questo module visualizza, per ogni riga di fattura (cliente), i lotti di produzione consegnati"
 
 #. module: account_invoice_production_lot
 #: view:account.invoice.line:0
@@ -33,7 +33,7 @@ msgstr "Note"
 #. module: account_invoice_production_lot
 #: view:account.invoice:0
 msgid "Load Lines Lots"
-msgstr "Load Lines Lots"
+msgstr "Carica i lotti delle righe"
 
 #. module: account_invoice_production_lot
 #: model:ir.model,name:account_invoice_production_lot.model_account_invoice_line
@@ -54,16 +54,16 @@ msgstr "lotto"
 #. module: account_invoice_production_lot
 #: field:account.invoice.line,displayed_lot_id:0
 msgid "Lot"
-msgstr "Lot"
+msgstr "Lotto"
 
 #. module: account_invoice_production_lot
 #: view:account.invoice.line:0
 #: field:account.invoice.line,prod_lot_ids:0
 msgid "Production Lots"
-msgstr "Production Lots"
+msgstr "Lotti di produzione"
 
 #. module: account_invoice_production_lot
 #: field:account.invoice.line,order_lines:0
 msgid "Order Lines"
-msgstr "Order Lines"
+msgstr "Righe ordine"
 

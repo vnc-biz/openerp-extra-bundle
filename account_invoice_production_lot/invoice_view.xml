@@ -14,5 +14,16 @@
                 </page>
             </field>
         </record>
+        <record model="ir.ui.view" id="invoice_form_load_button">
+            <field name="name">account.invoice.form.load_button</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                 <xpath expr="/form/notebook/page/group/label[@string='']" position="replace">
+                        <button name="load_lines_lots" type="object" string="Load Lines Lots" colspan="2"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </openerp>

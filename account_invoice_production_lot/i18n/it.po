@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-09 15:04+0000\n"
-"PO-Revision-Date: 2011-03-09 16:05+0100\n"
+"POT-Creation-Date: 2011-03-10 11:55+0000\n"
+"PO-Revision-Date: 2011-03-10 12:55+0100\n"
 "Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_production_lot
+#: model:ir.model,name:account_invoice_production_lot.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: account_invoice_production_lot
+#: model:ir.module.module,description:account_invoice_production_lot.module_meta_information
+msgid "This module shows, for each (customer) invoice line, the delivered production lots"
+msgstr "This module shows, for each (customer) invoice line, the delivered production lots"
+
+#. module: account_invoice_production_lot
 #: view:account.invoice.line:0
 msgid "Notes"
 msgstr "Note"
 
 #. module: account_invoice_production_lot
-#: model:ir.module.module,description:account_invoice_production_lot.module_meta_information
-msgid "This module shows, for each (customer) invoice line, the delivered production lots"
-msgstr "Questo modulo visualizza, per ogni riga di fattura (cliente), i lotti di produzione consegnati"
+#: view:account.invoice:0
+msgid "Load Lines Lots"
+msgstr "Load Lines Lots"
 
 #. module: account_invoice_production_lot
 #: model:ir.model,name:account_invoice_production_lot.model_account_invoice_line
@@ -36,13 +46,24 @@ msgid "Invoice Production Lots"
 msgstr "Lotti di produzione in fattura"
 
 #. module: account_invoice_production_lot
+#: code:addons/account_invoice_production_lot/invoice.py:68
+#, python-format
+msgid "lot"
+msgstr "lotto"
+
+#. module: account_invoice_production_lot
+#: field:account.invoice.line,displayed_lot_id:0
+msgid "Lot"
+msgstr "Lot"
+
+#. module: account_invoice_production_lot
 #: view:account.invoice.line:0
 #: field:account.invoice.line,prod_lot_ids:0
 msgid "Production Lots"
-msgstr "Lotti di produzione"
+msgstr "Production Lots"
 
 #. module: account_invoice_production_lot
 #: field:account.invoice.line,order_lines:0
 msgid "Order Lines"
-msgstr "Righe ordine"
+msgstr "Order Lines"
 

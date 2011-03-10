@@ -20,6 +20,7 @@
 ##############################################################################
 
 from osv import fields,osv
+from tools.translate import _
 
 class account_invoice_line(osv.osv):
 
@@ -38,7 +39,40 @@ class account_invoice_line(osv.osv):
     _columns = {
         'order_lines': fields.many2many('sale.order.line', 'sale_order_line_invoice_rel', 'invoice_id', 'order_line_id', 'Order Lines', readonly=True),
         'prod_lot_ids': fields.function(_get_prod_lots, method=True, type='many2many', relation="stock.production.lot", string="Production Lots"),
+        'displayed_lot_id': fields.many2one('stock.production.lot', 'Lot'),
         }
 
 account_invoice_line()
+
+class account_invoice(osv.osv):
+     
+    def load_lines_lots(self, cr, uid, ids, context):
+        invoices = self.browse(cr, uid, ids, context)
+        line_obj = self.pool.get('account.invoice.line')
+        for invoice in invoices:
+            line_list = []
+            for line in invoice.abstract_line_ids:
+                if not line.displayed_lot_id:
+                    line_list.append((line.id, line.sequence))
+                else:
+                    line_obj.unlink(cr, uid, line.id)
+            sorted_line_list = sorted(line_list, key=lambda inv_line: inv_line[1])
+            counter = 0
+            for line_tuple in sorted_line_list:
+                counter += 1
+                line = line_obj.browse(cr, uid, line_tuple[0])
+                line_obj.write(cr, uid, line.id, {'sequence': counter * 10})
+                for lot in line.prod_lot_ids:
+                    line_obj.create(cr, uid, {
+                        'sequence': counter * 10 + 1,
+                        'name': '> (' + _('lot') + ') ' + lot.name,
+                        'state': 'text',
+                        'displayed_lot_id': lot.id,
+                        'invoice_id': line.invoice_id.id,
+                        })
+        return True
+
+    _inherit = "account.invoice"
+
+account_invoice()
 

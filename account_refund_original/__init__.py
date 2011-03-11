@@ -3,6 +3,7 @@
 #
 #    Copyright (C) 2004-2011
 #        Pexego Sistemas Informáticos. (http://pexego.es) All Rights Reserved
+#        Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -19,7 +20,8 @@
 #
 ##############################################################################
 
-__author__ = "Luis Manuel Angueira Blanco (Pexego)"
+__author__ = "Luis Manuel Angueira Blanco (Pexego), Jordi Esteve <jesteve@zikzakmedia.com> (Zikzakmedia)"
 
 
 import account_invoice
+import account_invoice_refund

@@ -62,14 +62,17 @@ class account_invoice(osv.osv):
                 counter += 1
                 line = line_obj.browse(cr, uid, line_tuple[0])
                 line_obj.write(cr, uid, line.id, {'sequence': counter * 10})
+                added_lots = []
                 for lot in line.prod_lot_ids:
-                    line_obj.create(cr, uid, {
-                        'sequence': counter * 10 + 1,
-                        'name': '> (' + _('lot') + ') ' + lot.name,
-                        'state': 'text',
-                        'displayed_lot_id': lot.id,
-                        'invoice_id': line.invoice_id.id,
-                        })
+                    if lot.id not in added_lots:
+                        line_obj.create(cr, uid, {
+                            'sequence': counter * 10 + 1,
+                            'name': '> (' + _('lot') + ') ' + lot.name,
+                            'state': 'text',
+                            'displayed_lot_id': lot.id,
+                            'invoice_id': line.invoice_id.id,
+                            })
+                        added_lots.append(lot.id)
         return True
 
     _inherit = "account.invoice"

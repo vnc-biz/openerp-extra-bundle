@@ -57,10 +57,11 @@
 			<field name="view_id" ref="performance_tree" />
 		</record>
 
+		<menuitem name="Performance Review" parent="hr.menu_hr_root" id="menu_performance_review"/>
 		<menuitem
-			name="Human Resources/Performance Review/Performance HR"
+			name="Performance HR"
 			action="act_hr_performance_form" groups="base.group_system"
-			id="menu_hr_performance" />
+			id="menu_hr_performance" parent="menu_performance_review"/>
 
 		<record model="ir.ui.view" id="Attribute_line_form">
 			<field name="name">hr.attribute.line.form</field>
@@ -137,8 +138,9 @@
 		</record>
 
 		<menuitem
-			name="Human Resources/Performance Review/Review Attributes HR"
+			name="Review Attributes HR"
 			action="act_hr_performance_line_attribute_form"
-			groups="base.group_system" id="menu_hr_performance_attribute" />
+			groups="base.group_system" id="menu_hr_performance_attribute"
+			parent="menu_performance_review" />
 	</data>
 </openerp>

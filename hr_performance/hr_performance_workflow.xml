@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="hr_review" model="res.roles">
-            <field name="name">Human Resources - Review</field>
-        </record>
+<!--        <record id="hr_review" model="res.roles">-->
+<!--            <field name="name">Human Resources - Review</field>-->
+<!--        </record>-->
         
         <record id="wkf_performance" model="workflow">
             <field name="name">hr.performance.basic</field>
@@ -38,14 +38,14 @@
             <field name="act_from" ref="act_new"/>
             <field name="act_to" ref="act_saved"/>
             <field name="signal">get_employee_list</field>
-            <field name="role_id" ref="hr_review"/>
+<!--            <field name="role_id" ref="hr_review"/>-->
         </record>
         
         <record id="t2" model="workflow.transition">
             <field name="act_from" ref="act_saved"/>
             <field name="act_to" ref="act_done"/>
             <field name="signal">confirm_review</field>
-            <field name="role_id" ref="hr_review"/>
+<!--            <field name="role_id" ref="hr_review"/>-->
         </record>
 	</data>
 </openerp>

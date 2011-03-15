@@ -96,13 +96,13 @@ class installer:
 
     def install_terminatooor(self, kettle_root_directory):
         print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('http://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.0.zip', kettle_root_directory + 'terminatooor.zip')
+        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.1.zip', kettle_root_directory + 'terminatooor.zip')
         unzipper = unzip()
         unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
         shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
 
         print "getting Ruby-Scripting-for-Kettle ffrom the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('http://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_RC1_Kettle_4.zip', kettle_root_directory + 'RubyPlugin.zip')
+        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_RC2_Kettle_4.zip', kettle_root_directory + 'RubyPlugin.zip')
         unzipper = unzip()
         unzipper.extract(kettle_root_directory + 'RubyPlugin.zip', kettle_root_directory + 'RubyPlugin')
         shutil.move(kettle_root_directory + 'RubyPlugin/Ruby', kettle_root_directory + 'data-integration/plugins/steps/Ruby')
@@ -143,7 +143,7 @@ class installer:
 
         if install_agilebi:
 	        print "getting the AgileBI plugin from the Internet, this can take a while (>80Mo)..."
-	        urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-RC1.zip', kettle_root_directory + 'agilebi.zip')
+	        urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-stable.zip', kettle_root_directory + 'agilebi.zip')
 	        unzipper.extract(kettle_root_directory + 'agilebi.zip', kettle_root_directory + 'data-integration/plugins/spoon')
 
 

@@ -1,4 +1,4 @@
-# Brazilian Portuguese translation for openobject-addons
+# Russian translation for openobject-addons
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 04:56+0000\n"
-"PO-Revision-Date: 2011-03-15 01:01+0000\n"
+"PO-Revision-Date: 2011-03-16 00:17+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: view:lunch.category:0
 #: field:lunch.product,category_id:0
 msgid "Category"
-msgstr "Categoria"
+msgstr ""
 
 #. module: lunch
 #: wizard_view:lunch.cashbox.clean,init:0
@@ -32,7 +32,7 @@ msgstr ""
 #. module: lunch
 #: selection:lunch.order,state:0
 msgid "Confirmed"
-msgstr "Confirmado"
+msgstr ""
 
 #. module: lunch
 #: constraint:ir.model:0
@@ -48,7 +48,7 @@ msgstr ""
 #. module: lunch
 #: wizard_view:lunch.order.cancel,init:0
 msgid "Are you sure you want to cancel this order ?"
-msgstr "Tem certeza que deseja cancelar este pedido?"
+msgstr ""
 
 #. module: lunch
 #: model:ir.module.module,shortdesc:lunch.module_meta_information
@@ -78,7 +78,7 @@ msgstr ""
 #. module: lunch
 #: field:lunch.order,state:0
 msgid "State"
-msgstr "Status"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashbox_form
@@ -89,7 +89,7 @@ msgstr ""
 #. module: lunch
 #: selection:lunch.order,state:0
 msgid "Draft"
-msgstr "Provisório"
+msgstr ""
 
 #. module: lunch
 #: constraint:ir.actions.act_window:0
@@ -101,7 +101,7 @@ msgstr ""
 #: field:lunch.order,user_id:0
 #: field:report.lunch.amount,user_id:0
 msgid "User Name"
-msgstr "Nome do Usuário"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_report_amount_tree
@@ -118,31 +118,31 @@ msgstr ""
 #: model:ir.actions.act_window,name:lunch.action_lunch_product_form
 #: field:lunch.order,product:0
 msgid "Product"
-msgstr "Produto"
+msgstr ""
 
 #. module: lunch
 #: rml:lunch.order:0
 #: field:lunch.product,description:0
 msgid "Description"
-msgstr "Descrição"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.order,price:0
 #: field:lunch.product,price:0
 msgid "Price"
-msgstr "Preço"
+msgstr ""
 
 #. module: lunch
 #: wizard_button:lunch.order.cancel,init,end:0
 msgid "No"
-msgstr "Não"
+msgstr ""
 
 #. module: lunch
 #: view:lunch.category:0
 #: rml:lunch.order:0
 #: view:lunch.order:0
 msgid "Order"
-msgstr "Pedido"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.cashmove,create_date:0
@@ -157,13 +157,13 @@ msgstr ""
 #. module: lunch
 #: field:lunch.order,descript:0
 msgid "Description Order"
-msgstr "Descrição do Pedido"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.wizard,name:lunch.lunch_order_confirm
 #: wizard_button:lunch.order.confirm,init,go:0
 msgid "Confirm Order"
-msgstr "Confirmar Pedido"
+msgstr ""
 
 #. module: lunch
 #: wizard_view:lunch.order.confirm,init:0
@@ -174,7 +174,7 @@ msgstr ""
 #: field:lunch.cashmove,active:0
 #: field:lunch.product,active:0
 msgid "Active"
-msgstr "Ativo"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_order_day_form
@@ -190,7 +190,7 @@ msgstr ""
 #: model:ir.actions.wizard,name:lunch.wizard_id_cancel
 #: wizard_view:lunch.order.cancel,init:0
 msgid "Cancel Order"
-msgstr "Cancelar Pedido"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashbox_form
@@ -214,7 +214,7 @@ msgstr ""
 #: rml:lunch.order:0
 #: field:lunch.product,name:0
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_category_form
@@ -224,7 +224,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.cashmove:0
 msgid "Total amount"
-msgstr "Valor total"
+msgstr ""
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_cashbox
@@ -234,19 +234,19 @@ msgstr ""
 #. module: lunch
 #: field:lunch.order,date:0
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #. module: lunch
 #: field:lunch.cashmove,amount:0
 #: field:report.lunch.amount,amount:0
 msgid "Amount"
-msgstr "Valor"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_product_form
 #: view:lunch.product:0
 msgid "Products"
-msgstr "Produtos"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_category_form
@@ -303,12 +303,12 @@ msgstr ""
 #. module: lunch
 #: field:lunch.cashbox,manager:0
 msgid "Manager"
-msgstr "Gerente"
+msgstr ""
 
 #. module: lunch
 #: rml:lunch.order:0
 msgid "Unit Price"
-msgstr "Preço Unitário"
+msgstr ""
 
 #. module: lunch
 #: wizard_field:lunch.order.confirm,init,confirm_cashbox:0
@@ -324,17 +324,17 @@ msgstr ""
 #: wizard_button:lunch.cashbox.clean,init,end:0
 #: wizard_button:lunch.order.confirm,init,end:0
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr ""
 
 #. module: lunch
 #: wizard_button:lunch.cashbox.clean,init,zero:0
 msgid "Set to Zero"
-msgstr "Definir como Zero"
+msgstr ""
 
 #. module: lunch
 #: wizard_button:lunch.order.cancel,init,cancel:0
 msgid "Yes"
-msgstr "Sim"
+msgstr ""
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_tools

@@ -14,10 +14,10 @@
 								<field name="link" colspan="2" />
 							</group>
 							<group col="4" colspan="4" attrs="{'invisible':[('link','!=',0)]}">
-								<field name="image" colspan="4" />
+								<field name="image" colspan="4" attrs="{'required':[('link','=', False)]}"/>
 							</group>
 							<group col="4" colspan="4" attrs="{'invisible':[('link','=',0)]}">
-								<field name="filename" colspan="4" widget="url"/>
+								<field name="filename" colspan="4" widget="url" attrs="{'required':[('link','=', True)]}"/>
 							</group>
 							<separator string="Preview (Only when saved)" colspan="4" />
 							<field name="preview" widget="image" nolabel="1" colspan="4"/>

@@ -1,0 +1,147 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* product_images_repository
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.1\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-03-17 10:03+0000\n"
+"PO-Revision-Date: 2011-03-17 11:13+0100\n"
+"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: product_images_repository
+#: code:addons/product_images_repository/wizard/load_product_media.py:39
+#, python-format
+msgid "The path to OpenERP medias folder does not exists on the server !"
+msgstr "La ruta del directorio media de OpenERP no existe en el servidor!"
+
+#. module: product_images_repository
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr "Error! No puede crear compañías recursivas."
+
+#. module: product_images_repository
+#: field:load.product.media,media_fname:0
+msgid "Filename"
+msgstr "Nombre del fichero"
+
+#. module: product_images_repository
+#: model:ir.actions.act_window,name:product_images_repository.modify_product_media_act_window
+msgid "Modify product media"
+msgstr "Modificar fichero"
+
+#. module: product_images_repository
+#: code:addons/product_images_repository/wizard/load_product_media.py:72
+#, python-format
+msgid "The path to OpenERP medias folder is not configured on the company !"
+msgstr "La ruta del directorio media no se encuentra configurado en la compañía!"
+
+#. module: product_images_repository
+#: model:ir.model,name:product_images_repository.model_load_product_media
+msgid "Load Product Medias"
+msgstr "Carga media de los productos"
+
+#. module: product_images_repository
+#: field:res.company,local_media_repository:0
+msgid "Images Repository Path"
+msgstr "Ruta del repositorio de las imágenes"
+
+#. module: product_images_repository
+#: model:ir.actions.act_window,name:product_images_repository.load_product_media_act_window
+msgid "Load an image"
+msgstr "Carga una imagen"
+
+#. module: product_images_repository
+#: model:ir.model,name:product_images_repository.model_product_images
+msgid "Products Image gallery"
+msgstr "Galería imágenes del producto"
+
+#. module: product_images_repository
+#: view:load.product.media:0
+msgid "Select the image or media to load"
+msgstr "Selecciona una imagen o media para cargar"
+
+#. module: product_images_repository
+#: code:addons/product_images_repository/wizard/load_product_media.py:67
+#, python-format
+msgid "Context is missing !"
+msgstr "Context es vacío!"
+
+#. module: product_images_repository
+#: view:product.images:0
+msgid "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
+msgstr "Sencilla publicación de imágenes (utiliza el acceso directo a la barra lateral derecha para fijar simplemente un nuevo media)"
+
+#. module: product_images_repository
+#: view:product.images:0
+msgid "Advanced media informations"
+msgstr "Informaciones media avanzadas"
+
+#. module: product_images_repository
+#: view:load.product.media:0
+msgid "_Load Media File"
+msgstr "_Load Media File"
+
+#. module: product_images_repository
+#: model:ir.model,name:product_images_repository.model_res_company
+msgid "Companies"
+msgstr "Compañía"
+
+#. module: product_images_repository
+#: view:product.images:0
+msgid "Modify the image"
+msgstr "Modificar la imagen"
+
+#. module: product_images_repository
+#: code:addons/product_images_repository/wizard/load_product_media.py:39
+#: code:addons/product_images_repository/wizard/load_product_media.py:67
+#: code:addons/product_images_repository/wizard/load_product_media.py:72
+#: code:addons/product_images_repository/wizard/load_product_media.py:76
+#: code:addons/product_images_repository/wizard/load_product_media.py:79
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: product_images_repository
+#: help:res.company,local_media_repository:0
+msgid "Local mounted path on OpenERP server where all your images are stored."
+msgstr "Directorio local de montaje al servidor de OpenERP cuando todas sus imágenes se publiquen."
+
+#. module: product_images_repository
+#: view:load.product.media:0
+msgid "Load Product Image"
+msgstr "Carga imagen del producto"
+
+#. module: product_images_repository
+#: code:addons/product_images_repository/wizard/load_product_media.py:76
+#, python-format
+msgid "No media selected !"
+msgstr "No ha seleccionado ningún media!"
+
+#. module: product_images_repository
+#: field:load.product.media,media:0
+msgid "Image"
+msgstr "Imagen"
+
+#. module: product_images_repository
+#: view:res.company:0
+msgid "Product images"
+msgstr "Imagen de productos"
+
+#. module: product_images_repository
+#: view:load.product.media:0
+msgid "_Cancel"
+msgstr "_Cancel"
+
+#. module: product_images_repository
+#: code:addons/product_images_repository/wizard/load_product_media.py:79
+#, python-format
+msgid "No filename !"
+msgstr "Sin fijar!"
+

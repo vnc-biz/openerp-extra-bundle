@@ -26,10 +26,13 @@ class product_images(osv.osv):
     def get_image(self, cr, uid, id):
         each = self.read(cr, uid, id, ['link', 'filename', 'image'])
         if each['link']:
-            (filename, header) = urllib.urlretrieve(each['filename'])
-            f = open(filename , 'rb')
-            img = base64.encodestring(f.read())
-            f.close()
+            try:
+                (filename, header) = urllib.urlretrieve(each['filename'])
+                f = open(filename , 'rb')
+                img = base64.encodestring(f.read())
+                f.close()
+            except:
+                img = ''
         else:
             img = each['image']
         return img

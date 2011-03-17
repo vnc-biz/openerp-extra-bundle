@@ -22,6 +22,7 @@
     'version' : '1.0',
     'depends' : ['base', 'product', 'product_images_olbs'],
     'author' : 'Camptocamp',
+    "category" : "Added functionality - Product Extension",
     'description': """Add a repository functionnality to the product's images :
  - Images repository: configure a path where all your files are stored on the OpenERP Server thereby you just have to type the name (instead of the full path) of the image file in the image's link field and OpenERP will automatically get the image in the right folder.
  - Wizard to simply add or modify images (upload the image in the repository and create it with the right link on the product)

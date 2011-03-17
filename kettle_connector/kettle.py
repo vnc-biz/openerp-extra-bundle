@@ -101,7 +101,6 @@ class kettle_transformation(osv.osv):
         self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/openerp_tmp/" + log_file_name, 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG'}, context)
         cr.commit()
         os.remove(kettle_dir +"/openerp_tmp/" + log_file_name)
-        os.remove(kettle_dir +"/openerp_tmp/" + log_file_name + '.log')
         if os_result != 0:
             self.error_wizard(cr, uid, attachment_id, context)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")

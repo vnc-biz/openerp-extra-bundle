@@ -23,7 +23,7 @@
 {
     "name" : "Product Manufacturer Extension",
     "version" : "1.0",
-    "author" : "Zikzakmedia",
+    "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
     "category" : "Enterprise Specific Modules/Manufacturer Industries",
     "depends" : [

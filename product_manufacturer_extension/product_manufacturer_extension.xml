@@ -47,6 +47,13 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+   <act_window name="Attributes"
+        domain="[('product_id', '=', active_id)]"
+        context="{'product_id': active_id}"
+        res_model="product.manufacturer.attribute"
+        src_model="product.product"
+        id="act_product_2_attributes"/>
+
     <menuitem id="product_manufacturer_extension" name="Product Attributes" parent="base.menu_product" action="action_product_attributes"/>
 </data>
 </openerp>

@@ -25,7 +25,7 @@
     "version": "1.0",
     'category': 'Generic Modules/Accounting',
     "depends": ["sale", "account_invoice_layout"],
-    "author": "Lorenzo Battistini",
+    "author": "Domsense",
     "description": """This module shows, for each (customer) invoice line, the delivered production lots""",
     'website': 'http://www.domsense.com',
     'init_xml': [],

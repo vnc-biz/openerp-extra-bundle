@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-17 10:03+0000\n"
-"PO-Revision-Date: 2011-03-17 11:13+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-03-21 20:36+0000\n"
+"Last-Translator: Raimon Esteve (Zikzakmedia) <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-03-22 06:24+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:39
@@ -40,7 +41,8 @@ msgstr "Modificar fichero"
 #: code:addons/product_images_repository/wizard/load_product_media.py:72
 #, python-format
 msgid "The path to OpenERP medias folder is not configured on the company !"
-msgstr "La ruta del directorio media no se encuentra configurado en la compañía!"
+msgstr ""
+"La ruta del directorio media no se encuentra configurado en la compañía!"
 
 #. module: product_images_repository
 #: model:ir.model,name:product_images_repository.model_load_product_media
@@ -75,8 +77,12 @@ msgstr "Context es vacío!"
 
 #. module: product_images_repository
 #: view:product.images:0
-msgid "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
-msgstr "Sencilla publicación de imágenes (utiliza el acceso directo a la barra lateral derecha para fijar simplemente un nuevo media)"
+msgid ""
+"Simple update image (use the shortcut on the right sidebar to simply attach "
+"a new media)"
+msgstr ""
+"Sencilla publicación de imágenes (utiliza el acceso directo a la barra "
+"lateral derecha para fijar simplemente un nuevo media)"
 
 #. module: product_images_repository
 #: view:product.images:0
@@ -110,8 +116,11 @@ msgstr "Error!"
 
 #. module: product_images_repository
 #: help:res.company,local_media_repository:0
-msgid "Local mounted path on OpenERP server where all your images are stored."
-msgstr "Directorio local de montaje al servidor de OpenERP cuando todas sus imágenes se publiquen."
+msgid ""
+"Local mounted path on OpenERP server where all your images are stored."
+msgstr ""
+"Directorio local de montaje al servidor de OpenERP cuando todas sus imágenes "
+"se publiquen."
 
 #. module: product_images_repository
 #: view:load.product.media:0
@@ -144,4 +153,3 @@ msgstr "_Cancel"
 #, python-format
 msgid "No filename !"
 msgstr "Sin fijar!"
-

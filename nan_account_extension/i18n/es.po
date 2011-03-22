@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-14 12:22+0000\n"
-"PO-Revision-Date: 2011-03-15 16:46+0100\n"
-"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-03-21 20:33+0000\n"
+"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
+"<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-03-22 06:24+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: nan_account_extension
 #: field:res.company,parent_receivable_account_id:0
@@ -22,8 +24,10 @@ msgstr "Cuenta a cobrar"
 
 #. module: nan_account_extension
 #: constraint:account.move:0
-msgid "You cannot create entries on different periods/journals in the same move"
-msgstr "No puede crear apuntes en distintos periodos/diarios en el mismo asiento"
+msgid ""
+"You cannot create entries on different periods/journals in the same move"
+msgstr ""
+"No puede crear apuntes en distintos periodos/diarios en el mismo asiento"
 
 #. module: nan_account_extension
 #: sql_constraint:account.account:0
@@ -37,8 +41,12 @@ msgstr "¡Error! No puede crear compañías recursivas."
 
 #. module: nan_account_extension
 #: help:res.company,parent_receivable_account_id:0
-msgid "If set, a receivable account will be created for all partners with the \"Customer\" flag set."
-msgstr "Si se activa, se creará una cuenta a cobrar para todas las empresas con la opción \"Cliente\"."
+msgid ""
+"If set, a receivable account will be created for all partners with the "
+"\"Customer\" flag set."
+msgstr ""
+"Si se activa, se creará una cuenta a cobrar para todas las empresas con la "
+"opción \"Cliente\"."
 
 #. module: nan_account_extension
 #: field:res.company,parent_payable_account_id:0
@@ -53,22 +61,32 @@ msgstr "Número: %s, Fecha: %s"
 
 #. module: nan_account_extension
 #: help:account.journal,group_products_text:0
-msgid "If \"Group Products\" is set and this field is not empty, this text will be used as description for all account move lines."
-msgstr "Si se activa \"Agrupar productos\" y este campo no está vacío, este texto se utilizará como descripción en todos los apuntes contables."
+msgid ""
+"If \"Group Products\" is set and this field is not empty, this text will be "
+"used as description for all account move lines."
+msgstr ""
+"Si se activa \"Agrupar productos\" y este campo no está vacío, este texto se "
+"utilizará como descripción en todos los apuntes contables."
 
 #. module: nan_account_extension
 #: constraint:account.account:0
 msgid ""
 "Configuration Error! \n"
-"You cannot define children to an account with internal type different of \"View\"! "
+"You cannot define children to an account with internal type different of "
+"\"View\"! "
 msgstr ""
 "¡Error de configuración!\n"
-"¡No puede definir hijos de una cuenta de tipo interno distinto al tipo \"Vista\"!"
+"¡No puede definir hijos de una cuenta de tipo interno distinto al tipo "
+"\"Vista\"! "
 
 #. module: nan_account_extension
 #: help:res.company,parent_payable_account_id:0
-msgid "If set, a payable account will be created for all partners with the \"Supplier\" flag set."
-msgstr "Si se activa, se creará una cuenta a pagar para todas las empresas con la opción \"Proveedor\"."
+msgid ""
+"If set, a payable account will be created for all partners with the "
+"\"Supplier\" flag set."
+msgstr ""
+"Si se activa, se creará una cuenta a pagar para todas las empresas con la "
+"opción \"Proveedor\"."
 
 #. module: nan_account_extension
 #: model:ir.model,name:nan_account_extension.model_account_journal
@@ -77,8 +95,14 @@ msgstr "Diario"
 
 #. module: nan_account_extension
 #: help:account.journal,group_products:0
-msgid "If set, it will group all invoice lines even if they have different products. Note that if products have the different accounts they will not be grouped."
-msgstr "Si se activa, agrupará todas las líneas de factura incluso si tienen productos diferentes. Tenga en cuenta que si los productos tienen cuentas diferentes, no se agruparán."
+msgid ""
+"If set, it will group all invoice lines even if they have different "
+"products. Note that if products have the different accounts they will not be "
+"grouped."
+msgstr ""
+"Si se activa, agrupará todas las líneas de factura incluso si tienen "
+"productos diferentes. Tenga en cuenta que si los productos tienen cuentas "
+"diferentes, no se agruparán."
 
 #. module: nan_account_extension
 #: field:account.journal,group_products:0
@@ -112,8 +136,10 @@ msgstr "Creación de cuenta automática"
 
 #. module: nan_account_extension
 #: constraint:account.move:0
-msgid "You cannot create more than one move per period on centralized journal"
-msgstr "No puede crear más de un movimiento por periodo en un diario centralizado"
+msgid ""
+"You cannot create more than one move per period on centralized journal"
+msgstr ""
+"No puede crear más de un movimiento por periodo en un diario centralizado"
 
 #. module: nan_account_extension
 #: model:ir.model,name:nan_account_extension.model_account_account
@@ -132,8 +158,12 @@ msgstr "Número de dígitos"
 
 #. module: nan_account_extension
 #: help:account.journal,check_invoice_number_date:0
-msgid "If set, ensures no invoice number is created with a date previous to an existing invoice."
-msgstr "Si se activa, no se crearán números de factura con una fecha anterior a una factura existente."
+msgid ""
+"If set, ensures no invoice number is created with a date previous to an "
+"existing invoice."
+msgstr ""
+"Si se activa, no se crearán números de factura con una fecha anterior a una "
+"factura existente."
 
 #. module: nan_account_extension
 #: model:ir.model,name:nan_account_extension.model_res_company
@@ -142,8 +172,12 @@ msgstr "Compañías"
 
 #. module: nan_account_extension
 #: help:res.company,account_digits:0
-msgid "Indicates the number of digits to be used for automatically created receivable and payable partner accounts."
-msgstr "Indica el número de dígitos que se utilizarán para crear automáticamente las cuentas de empresas a cobrar y a pagar."
+msgid ""
+"Indicates the number of digits to be used for automatically created "
+"receivable and payable partner accounts."
+msgstr ""
+"Indica el número de dígitos que se utilizarán para crear automáticamente las "
+"cuentas de empresas a cobrar y a pagar."
 
 #. module: nan_account_extension
 #: sql_constraint:account.move.line:0
@@ -164,7 +198,7 @@ msgstr "La fecha de la factura es anterior a una factura existente."
 #: code:addons/nan_account_extension/account.py:110
 #, python-format
 msgid "(copy)"
-msgstr " (copia)"
+msgstr "(copia)"
 
 #. module: nan_account_extension
 #: code:addons/nan_account_extension/invoice.py:99
@@ -224,15 +258,21 @@ msgstr "Factura"
 #: code:addons/nan_account_extension/invoice.py:61
 #, python-format
 msgid ""
-"Journal %(journal)s is configured to check invoice numbers and dates but the check failed.\n"
+"Journal %(journal)s is configured to check invoice numbers and dates but the "
+"check failed.\n"
 "\n"
-"You are trying to create invoice %(invoice_number)s with date %(invoice_date)s but %(invoice_count)d invoices exist which have incompatible numbers and dates:\n"
+"You are trying to create invoice %(invoice_number)s with date "
+"%(invoice_date)s but %(invoice_count)d invoices exist which have "
+"incompatible numbers and dates:\n"
 "\n"
 "%(invoices)s"
 msgstr ""
-"El diario %(journal)s se configuró para comprobar el número y la fecha de la factura, pero la comprobación falló.\n"
+"El diario %(journal)s se configuró para comprobar el número y la fecha de la "
+"factura, pero la comprobación falló.\n"
 "\n"
-"Está tratando de crear la factura %(invoice_number)s con fecha %(invoice_date)s pero existe la factura %(invoice_count)d que tiene números y fechas incompatibles:\n"
+"Está tratando de crear la factura %(invoice_number)s con fecha "
+"%(invoice_date)s pero existe la factura %(invoice_count)d que tiene números "
+"y fechas incompatibles:\n"
 "\n"
 "%(invoices)s"
 
@@ -255,4 +295,3 @@ msgid ""
 msgstr ""
 "Empresa: %s\n"
 "Referencia de factura: %s"
-

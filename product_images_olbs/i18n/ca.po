@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-17 07:53+0000\n"
-"PO-Revision-Date: 2011-03-17 09:31+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-03-21 20:36+0000\n"
+"Last-Translator: Raimon Esteve (Zikzakmedia) <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-03-22 06:24+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: product_images_olbs
 #: model:ir.model,name:product_images_olbs.model_product_product
@@ -52,7 +53,9 @@ msgstr ""
 "    Gestió de galeria d'imatges del producte.\n"
 "    Es pot afegir imatges per a cada producte.\n"
 "    \n"
-"    Aquest mòdul es genèric però ha estat dissenyat pel connector Magento per a OpenERP\n"
+"    Aquest mòdul es genèric però ha estat dissenyat pel connector Magento "
+"per a OpenERP\n"
+"    "
 
 #. module: product_images_olbs
 #: field:product.images,name:0
@@ -71,8 +74,11 @@ msgstr "Error: Invàlid codi ean"
 
 #. module: product_images_olbs
 #: help:product.images,link:0
-msgid "Images can be linked from files on your file system or remote (Preferred)"
-msgstr "Les imatges poden ser vinculades des del seu sistema de fitxers o remotament (preferiblement)"
+msgid ""
+"Images can be linked from files on your file system or remote (Preferred)"
+msgstr ""
+"Les imatges poden ser vinculades des del seu sistema de fitxers o remotament "
+"(preferiblement)"
 
 #. module: product_images_olbs
 #: view:product.images:0
@@ -105,4 +111,3 @@ msgstr "Vincle?"
 #: model:ir.model,name:product_images_olbs.model_product_images
 msgid "Products Image gallery"
 msgstr "Galeria d'imatges"
-

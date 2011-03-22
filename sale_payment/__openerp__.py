@@ -24,7 +24,7 @@
 {
     "name" : "Sale payment type",
     "version" : "1.0",
-    "author" : "Zikzakmedia",
+    "author" : "Zikzakmedia SL",
     "website": "www.zikzakmedia.com",
     "license" : "GPL-3",
     "category" : 'Generic Modules/Sales & Purchases',

@@ -21,7 +21,7 @@
 ##############################################################################
 {
     "name" : "Internet Domain",
-    "author" : "Zikzakmedia",
+    "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
     "description" : """
 Organize your domains and services

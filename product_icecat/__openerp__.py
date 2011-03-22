@@ -23,7 +23,7 @@
 {
     "name" : "Product Information Import from icecat",
     "version" : "1.0",
-    "author" : "Zikzakmedia",
+    "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
     "category" : "Added functionality",
     "depends" : [

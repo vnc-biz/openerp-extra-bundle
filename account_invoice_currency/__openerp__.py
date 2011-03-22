@@ -22,7 +22,7 @@
 {
     "name" : "Company currency in invoices",
     "version" : "1.0",
-    "author" : "Zikzakmedia",
+    "author" : "Zikzakmedia SL",
     "category": "Localisation / Accounting",
     "description": """
     Adds functional fields to show Amount Untaxed, Amount Tax and Amount Total invoice fields in the company currency. These fields are shown in "Other information" tab in invoice form.

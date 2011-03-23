@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-08 11:36+0000\n"
-"PO-Revision-Date: 2011-03-08 12:37+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-03-23 04:46+0000\n"
+"Last-Translator: Raimon Esteve (Zikzakmedia) <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-03-23 06:25+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: product_manufacturer_extension
 #: model:ir.model,name:product_manufacturer_extension.model_product_icecat
@@ -39,4 +40,3 @@ msgstr "Icecat Mapline Configuration"
 #: model:ir.ui.menu,name:product_manufacturer_extension.product_manufacturer_extension
 msgid "Product Attributes"
 msgstr "Atributos de producto"
-

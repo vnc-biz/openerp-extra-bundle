@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-17 07:53+0000\n"
-"PO-Revision-Date: 2011-03-17 07:53+0000\n"
+"POT-Creation-Date: 2011-03-23 09:49+0000\n"
+"PO-Revision-Date: 2011-03-23 09:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,11 @@ msgstr "Product"
 #: model:ir.module.module,shortdesc:product_images_olbs.module_meta_information
 msgid "Product Image Gallery"
 msgstr "Product Image Gallery"
+
+#. module: product_images_olbs
+#: constraint:product.product:0
+msgid "Several dimension values for the same dimension type"
+msgstr "Several dimension values for the same dimension type"
 
 #. module: product_images_olbs
 #: field:product.images,preview:0
@@ -86,6 +91,7 @@ msgid "File Location"
 msgstr "File Location"
 
 #. module: product_images_olbs
+#: model:ir.actions.act_window,name:product_images_olbs.act_product_2_images
 #: view:product.product:0
 msgid "Images"
 msgstr "Images"

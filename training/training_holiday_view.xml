@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
+        <record model="ir.ui.view" id="holiday_period_search_view">
+            <field name="name">training.holiday.period.search</field>
+            <field name="model">training.holiday.period</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Holiday Period">
+                   <group col='10' colspan='4'>
+                        <filter string="Future Periods" name="date_start" domain="[('date_start', '>=', time.strftime('%%Y-%%m-%%d'))]" help="View only the futures periods."/>
+                        <separator orientation="vertical"/>
+                        <field name="year_id" />
+                        <field name="name" select="1"/>
+                        <field name="date_start" select="1"/>
+                        <field name="date_stop" select="1"/>
+                        <field name="contact_id" />
+                        <field name="active" />
+                   </group>
+               </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="holiday_period_tree">
             <field name="name">training.holiday.period.tree</field>
             <field name="model">training.holiday.period</field>
@@ -52,25 +73,8 @@
             <field name="view_mode">tree,form,calendar</field>
         </record>
 
-        <record model="ir.actions.act_window" id="holiday_period_future_act">
-            <field name="name">Futures Periods</field>
-            <field name="res_model">training.holiday.period</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,calendar</field>
-            <field name="domain">[('date_start', '>=', time.strftime('%Y-%m-%d'))]</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="holiday_period_new_act">
-            <field name="name">New Period</field>
-            <field name="res_model">training.holiday.period</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-        </record>
-
         <menuitem id="holiday_mi" name="Non-Working Days" parent="training_config_mi" sequence='60'/>
         <menuitem id="holiday_period_all_mi" action="holiday_period_all_act" parent="holiday_mi" />
-        <menuitem id="holiday_period_future_mi" action="holiday_period_future_act" parent="holiday_period_all_mi" sequence='10'/>
-        <menuitem id="holiday_period_new_mi" action="holiday_period_new_act" parent="holiday_period_all_mi" sequence='20'/>
 
         <record model="ir.ui.view" id="holiday_year_tree">
             <field name="name">training.holiday.year.tree</field>
@@ -114,15 +118,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="holiday_year_new_act">
-            <field name="name">Define New Year</field>
-            <field name="res_model">training.holiday.year</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-        </record>
-
         <menuitem id="holiday_year_all_mi" action="holiday_year_all_act" parent="holiday_mi" />
-        <menuitem id="holiday_year_new_mi" action="holiday_year_new_act" parent="holiday_year_all_mi" />
 
         <record model="ir.ui.view" id="holiday_year_wizard">
             <field name="name">training.holiday.year.wizard</field>
@@ -150,7 +146,7 @@
         </record>
 
         <menuitem id="holiday_year_wizard_mi"
-            parent="holiday_year_new_mi" 
+            parent="holiday_mi" 
             action="holiday_year_wizard_act" icon="STOCK_EXECUTE"/>
     </data>
 </openerp>

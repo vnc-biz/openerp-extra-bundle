@@ -137,7 +137,6 @@ class holiday_year_wizard(osv.osv):
 
         counter = 1
         while tmp_day <= last_day:
-            tmp_day = tmp_day + mx.DateTime.RelativeDate(days=1)
 
             if tmp_day.day_of_week == mx.DateTime.Saturday:
                 saturday = tmp_day.strftime('%Y-%m-%d')
@@ -148,13 +147,11 @@ class holiday_year_wizard(osv.osv):
                     'year_id' : year_id,
                     'date_start' : saturday,
                     'date_stop' : sunday,
-                    'name' : 'Week-End %02d' % (counter,)
+                    'name' : _('Weekend %02d') % (counter,)
                 }, context=context),
 
                 counter = counter + 1
-
-            else:
-                continue
+            tmp_day = tmp_day + mx.DateTime.RelativeDate(days=1)
 
         return {
             'view_type': 'form',

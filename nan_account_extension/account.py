@@ -121,6 +121,9 @@ class account_journal(osv.osv):
     _inherit = 'account.journal'
 
     _columns = {
+        # Make code's size > 5 because otherwise it's almost impossible to duplicate a journal. The copy() operation will add the '(copy)' suffix but with
+        # a maximum of 5 chars it won't be possible to avoid duplicates.
+        'code': fields.char('Code', size=20, required=True, help="The code will be used to generate the numbers of the journal entries of this journal."),
         'group_products': fields.boolean('Group Products', help='If set, it will group all invoice lines even if they have different products. Note that if products have the different accounts they will not be grouped.'),
         'group_products_text': fields.char('Account Move Line Text', size=64, help='If "Group Products" is set and this field is not empty, this text will be used as description for all account move lines.'),
         'check_invoice_number_date': fields.boolean('Check invoice date and number', help='If set, ensures no invoice number is created with a date previous to an existing invoice.'),

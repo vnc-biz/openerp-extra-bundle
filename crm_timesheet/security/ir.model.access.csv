@@ -1,0 +1,2 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_crm_analytic_timesheet_user","crm.analytic.timesheet User","crm_timesheet.model_crm_analytic_timesheet","base.group_crm_timesheet_user",1,1,1,1

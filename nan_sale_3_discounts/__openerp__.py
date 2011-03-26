@@ -32,13 +32,13 @@
     "website" : "http://www.NaN-tic.com",
     "depends" : [ 
         'sale',
+        'stock',
+        'account'
     ], 
     "category" : "Generic Modules/Production",
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [
-        'security/nan_sale_3_discounts.xml',
-        'security/ir.model.access.csv',
         'sale_view.xml',
     ],
     "active": False,

@@ -23,11 +23,39 @@
 ##############################################################################
 
 
-import report
-import wizard
-import company
-import crm_timesheet
-import crm_lead
-import crm_phonecall
+from osv import osv
+from osv import fields
+
+
+class crm_phonecall(osv.osv):
+    _inherit = 'crm.phonecall'
+    _name = "crm.phonecall"
+
+    _columns = {
+        'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', ondelete='cascade', ),
+        'timesheet_ids': fields.one2many('crm.analytic.timesheet', 'res_id', 'Messages', domain=[('model', '=', _name)]),
+    }
+
+    def create(self, cr, uid, values, context=None):
+        """
+        Add model in context for crm_analytic_timesheet object
+        """
+        if context is None:
+            context = {}
+        # Add model for crm_timesheet
+        context['model'] = self._name
+        return super(crm_phonecall, self).create(cr, uid, values, context=context)
+
+    def write(self, cr, uid, ids, values, context=None):
+        """
+        Add model in context for crm_analytic_timesheet object
+        """
+        if context is None:
+            context = {}
+        # Add model for crm_timesheet
+        context['model'] = self._name
+        return super(crm_phonecall, self).write(cr, uid, ids, values, context=context)
+
+crm_phonecall()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

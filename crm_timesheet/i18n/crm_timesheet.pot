@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-26 15:43+0000\n"
-"PO-Revision-Date: 2011-03-26 15:43+0000\n"
+"POT-Creation-Date: 2011-03-26 16:23+0000\n"
+"PO-Revision-Date: 2011-03-26 16:23+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,8 @@ msgid "No journal defined on the related employee.\n"
 msgstr ""
 
 #. module: crm_timesheet
-#: model:ir.module.module,description:crm_timesheet.module_meta_information
-msgid "\n"
-"        This module lets you transfer the entries under CRM Management to\n"
-"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
-"    "
+#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
+msgid "Related Timeline Id"
 msgstr ""
 
 #. module: crm_timesheet
@@ -60,6 +57,7 @@ msgstr ""
 
 #. module: crm_timesheet
 #: view:crm.lead:0
+#: view:crm.phonecall:0
 msgid "Summary Work"
 msgstr ""
 
@@ -84,11 +82,6 @@ msgid "Configuration"
 msgstr ""
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
-msgid "Related Timeline Id"
-msgstr ""
-
-#. module: crm_timesheet
 #: model:ir.model,name:crm_timesheet.model_crm_analytic_timesheet
 msgid "CRM summary work"
 msgstr ""
@@ -105,6 +98,7 @@ msgstr ""
 
 #. module: crm_timesheet
 #: field:crm.lead,timesheet_ids:0
+#: field:crm.phonecall,timesheet_ids:0
 msgid "Messages"
 msgstr ""
 
@@ -146,18 +140,19 @@ msgid "CRM Time Unit"
 msgstr ""
 
 #. module: crm_timesheet
+#: model:ir.model,name:crm_timesheet.model_crm_phonecall
+msgid "crm.phonecall"
+msgstr ""
+
+#. module: crm_timesheet
 #: field:crm.analytic.timesheet,analytic_account_id:0
 #: field:crm.lead,analytic_account_id:0
+#: field:crm.phonecall,analytic_account_id:0
 msgid "Analytic Account"
 msgstr ""
 
 #. module: crm_timesheet
 #: field:crm.analytic.timesheet,name:0
 msgid "Work summary"
-msgstr ""
-
-#. module: crm_timesheet
-#: model:ir.module.module,shortdesc:crm_timesheet.module_meta_information
-msgid "CRM Timesheet"
 msgstr ""
 

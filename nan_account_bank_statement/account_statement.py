@@ -137,7 +137,8 @@ class account_bank_statement_line(osv.osv):
                                         ('invoice_number','Invoice Number'),
                                         ('invoice_origin','Invoice Origin' ),
                                         ('payment_order','Payment Order' ),
-                                        ('bank_statement','Bank Statement')], 'Search By' )
+                                        ('bank_statement','Bank Statement'),
+                                        ('rules','Statement Line Rules')], 'Search By' )
     }
 
     _defaults={
@@ -229,28 +230,40 @@ class account_bank_statement_line(osv.osv):
     def _get_references( self, cr, uid, line, data, context ):
         if not 'reference' in data:
             if line.search_by != 'all':
-                raise osv.except_osv(_('Search by reference error'), _('You cannot search by reference because it seems this line has not been imported from a bank statement file. The system expected a "reference" key in the line with amount %.2f in statement %s.') % (line.amount, line.statement_id.name) )
+                raise osv.except_osv(_('Search by reference error'), _('You cannot search by reference because it seems this line has not been imported from a bank statement file. The system expected a "reference" key in the line with amount %(amount).2f in statement %(statement)s.') % {
+                    'amount': line.amount, 
+                    'statement': line.statement_id.name,
+                })
             return []
         return [ data['reference'] ]
 
     def _get_vats( self, cr, uid, line, data, context ):
         if not 'vat' in data:
             if line.search_by != 'all':
-                raise osv.except_osv(_('Search by VAT error'), _('You cannot search by VAT because it seems this line has not been imported from a bank statement file. The system expected a "vat" key in the line with amount %.2f in statement %s.') % (line.amount, line.statement_id.name) )
+                raise osv.except_osv(_('Search by VAT error'), _('You cannot search by VAT because it seems this line has not been imported from a bank statement file. The system expected a "vat" key in the line with amount %(amount).2f in statement %(statement)s.') % {
+                    'amount': line.amount, 
+                    'statement': line.statement_id.name,
+                })
             return []
         return [ data['vat'] ]
 
     def _get_invoice_numbers( self, cr, uid, line, data, context ):
         if not 'invoice_number' in data:
             if line.search_by != 'all':
-                raise osv.except_osv(_('Search by invoice error'), _('You cannot search by invoice number because it seems this line has not been imported from a bank statement file. The system expected an "invoice_number" key in the line with amount %.2f in statement %s.') % (line.amount, line.statement_id.name) )
+                raise osv.except_osv(_('Search by invoice error'), _('You cannot search by invoice number because it seems this line has not been imported from a bank statement file. The system expected an "invoice_number" key in the line with amount %(amount).2f in statement %(statement)s.') % {
+                    'amount': line.amount, 
+                    'statement': line.statement_id.name,
+                })
             return []
         return [ data['invoice_number'] ]
 
     def _get_invoice_origins( self, cr, uid, line, data, context ):
         if not 'invoice_origin' in data:
             if line.search_by != 'all':
-                raise osv.except_osv(_('Search by invoice error'), _('You cannot search by invoice origin because it seems this line has not been imported from a bank statement file. The system expected an "invoice_origin" key in the line with amount %.2f in statement %s.') % (line.amount, line.statement_id.name) )
+                raise osv.except_osv(_('Search by invoice error'), _('You cannot search by invoice origin because it seems this line has not been imported from a bank statement file. The system expected an "invoice_origin" key in the line with amount %(amount).2f in statement %(statement)s.') % {
+                    'amount': line.amount, 
+                    'statement': line.statement_id.name
+                })
             return []
         return [ data['invoice_origin'] ]
 
@@ -310,12 +323,16 @@ class account_bank_statement_line(osv.osv):
                     new_line_id = self.pool.get('account.bank.statement.line').copy(cr, uid, line.id, {
                         'account_id': line.move_line_id.account.id,
                         'partner_id': line.move_line_id.partner_id and line.move_line_id.partner_id.id or None,
-                        'amount': -line.amount_currency,
+                        'amount': payment_order.type == 'receivable' and line.amount_currency or -line.amount_currency,
                         'reconcile_id': reconcile_id,
                     }, context)
                 # Remove current line because all payment order lines have already been created
                 self.pool.get('account.bank.statement.line').unlink(cr, uid, [line.id], context)
 
+        # Search by using statement line rules
+        if not move_lines and line.search_by in ('rules', 'all'):
+            self._process_rules(cr, uid, line, context)
+ 
         return move_lines 
 
     def _get_default_partner_account_ids(self, cr, uid, context=None):
@@ -337,21 +354,33 @@ class account_bank_statement_line(osv.osv):
 
         for prop in self.pool.get('ir.property').browse(cr, uid, property_ids, context):
             if prop.fields_id.name == 'property_account_receivable':
-                try:
-                    # OpenERP 5.0 and 5.2/6.0 revno <= 2236
-                    account_receivable_id = int(prop.value.split(',')[1])
-                except AttributeError:
-                    # OpenERP 6.0 revno >= 2236
-                    account_receivable_id = prop.value_reference.id
+                account_receivable_id = prop.value_reference.id
             elif prop.fields_id.name == 'property_account_payable':
-                try:
-                    # OpenERP 5.0 and 5.2/6.0 revno <= 2236
-                    account_payable_id = int(prop.value.split(',')[1])
-                except AttributeError:
-                    # OpenERP 6.0 revno >= 2236
-                    account_payable_id = prop.value_reference.id
+                account_payable_id = prop.value_reference.id
 
         return (account_receivable_id, account_payable_id)
+
+    def _process_rules(self, cr, uid, line, context):
+            ids = self.pool.get('account.bank.statement.line.rule').search(cr, uid, [], context=context)
+
+            found = False
+            for rule in self.pool.get('account.bank.statement.line.rule').browse(cr, uid, ids, context):
+                if found:
+                    break
+                for data in line.data_ids:
+                    if data.key != rule.key:
+                        continue
+                    if not rule.expression in data.value:
+                        continue
+
+                    values = {}
+                    if rule.account_id:
+                        values['account_id'] = rule.account_id.id
+                    if rule.partner_id:
+                        values['partner_id'] = rule.partner_id.id
+                    self.pool.get('account.bank.statement.line').write(cr, uid, [line.id], values, context)
+                    found = True
+                    break
 
 
     def _find_partner_by_line_vat_number(self, cr, uid, vat, context=None):
@@ -558,7 +587,7 @@ class account_bank_statement_line(osv.osv):
                         AND COUNT(account_move_line.reconcile_partial_id) = 0
                 """
 
-        cr.execute(query % -line.amount)
+        cr.execute(query % line.amount)
         res = cr.fetchall()
 
         if len(res) == 1:
@@ -599,5 +628,25 @@ class account_bank_statement_line_data(osv.osv):
         return data
 
 account_bank_statement_line_data()
+
+class account_bank_statement_line_rule(osv.osv):
+    _name = 'account.bank.statement.line.rule'
+    _rec_name = 'key'
+    _order = 'sequence'
+
+    _columns = {
+        'company_id': fields.many2one('res.company', 'Company', required=True, ondelete='cascade', help='Company in which this rule should apply.'),
+        'sequence': fields.integer('Sequence', required=True, help='Rules will be applied in the order defined by this Sequence and will stop in the first matching rule.'),
+        'key': fields.char('Key', size=256, required=True, help='Key in statement line data that should match the given Expression.'),
+        'expression': fields.char('Expression', size=500, help='If the value of the given Key contains this Expression, Account and Partner will be used for that statement line.'),
+        'account_id': fields.many2one('account.account', 'Account', domain="[('type','!=','view')]", ondelete='cascade', help='Account to be used if expression matches.'),
+        'partner_id': fields.many2one('res.partner', 'Partner', ondelete='cascade', help='Partner to be used if expression matches'),
+    }
+
+    _defaults = {
+        'sequence': lambda self, cr, uid, context: 1,
+        'company_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
+    }
+account_bank_statement_line_rule()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

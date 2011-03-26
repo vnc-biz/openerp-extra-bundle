@@ -41,7 +41,7 @@ This enhances standard bank statements by:
     	'account',
         'account_voucher',
     ], 
-    "category" : "Custom Modules",
+    "category" : "Accounting",
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [

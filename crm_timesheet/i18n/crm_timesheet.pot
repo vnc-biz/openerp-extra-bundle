@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-26 17:11+0000\n"
-"PO-Revision-Date: 2011-03-26 17:11+0000\n"
+"POT-Creation-Date: 2011-03-26 17:46+0000\n"
+"PO-Revision-Date: 2011-03-26 17:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,8 @@ msgid "No journal defined on the related employee.\n"
 msgstr ""
 
 #. module: crm_timesheet
-#: model:ir.module.module,description:crm_timesheet.module_meta_information
-msgid "\n"
-"        This module lets you transfer the entries under CRM Management to\n"
-"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
-"    "
+#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
+msgid "Related Timeline Id"
 msgstr ""
 
 #. module: crm_timesheet
@@ -58,10 +55,8 @@ msgid "CRM Management"
 msgstr ""
 
 #. module: crm_timesheet
-#: code:addons/crm_timesheet/crm_timesheet.py:76
-#, python-format
-msgid "No product and product category property account defined on the related employee.\n"
-"Fill in the timesheet tab of the employee form."
+#: view:account.analytic.account:0
+msgid "CRM Analytic"
 msgstr ""
 
 #. module: crm_timesheet
@@ -91,8 +86,8 @@ msgid "Configuration"
 msgstr ""
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
-msgid "Related Timeline Id"
+#: field:account.analytic.account,rounding_duration:0
+msgid "Rouding Duration"
 msgstr ""
 
 #. module: crm_timesheet
@@ -111,6 +106,11 @@ msgid "Companies"
 msgstr ""
 
 #. module: crm_timesheet
+#: field:crm.analytic.timesheet,name:0
+msgid "Work summary"
+msgstr ""
+
+#. module: crm_timesheet
 #: field:crm.lead,timesheet_ids:0
 #: field:crm.phonecall,timesheet_ids:0
 msgid "Messages"
@@ -126,6 +126,11 @@ msgstr ""
 #. module: crm_timesheet
 #: model:ir.model,name:crm_timesheet.model_crm_lead
 msgid "crm.lead"
+msgstr ""
+
+#. module: crm_timesheet
+#: constraint:account.analytic.account:0
+msgid "Error! The currency has to be the same as the currency of the selected company"
 msgstr ""
 
 #. module: crm_timesheet
@@ -159,19 +164,30 @@ msgid "crm.phonecall"
 msgstr ""
 
 #. module: crm_timesheet
+#: help:account.analytic.account,rounding_duration:0
+msgid "This field allow to rounding duration of cases.\n"
+"Example :\n"
+"- value to 00:15, we have a case with timesheet to 00:35, the duration will be 00:45\n"
+"- value to 00:15, we have a case with timesheet to 00:30, the duration will be 00:30"
+msgstr ""
+
+#. module: crm_timesheet
 #: field:crm.analytic.timesheet,analytic_account_id:0
 #: field:crm.lead,analytic_account_id:0
 #: field:crm.phonecall,analytic_account_id:0
+#: model:ir.model,name:crm_timesheet.model_account_analytic_account
 msgid "Analytic Account"
 msgstr ""
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,name:0
-msgid "Work summary"
+#: code:addons/crm_timesheet/crm_timesheet.py:76
+#, python-format
+msgid "No product and product category property account defined on the related employee.\n"
+"Fill in the timesheet tab of the employee form."
 msgstr ""
 
 #. module: crm_timesheet
-#: model:ir.module.module,shortdesc:crm_timesheet.module_meta_information
-msgid "CRM Timesheet"
+#: constraint:account.analytic.account:0
+msgid "Error! You can not create recursive analytic accounts."
 msgstr ""
 

@@ -22,13 +22,17 @@
 #
 ##############################################################################
 
+from osv import osv
+from osv import fields
 
-import report
-import wizard
-import analytic
-import company
-import crm_timesheet
-import crm_lead
-import crm_phonecall
+class account_analytic_account(osv.osv):
+    _inherit = 'account.analytic.account'
+
+    _columns = {
+        'rounding_duration': fields.float('Rouding Duration', help="This field allow to rounding duration of cases.\nExample :\n- value to 00:15, we have a case with timesheet to 00:35, the duration will be 00:45\n- value to 00:15, we have a case with timesheet to 00:30, the duration will be 00:30"),
+    }
+
+account_analytic_account()
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -40,6 +40,7 @@
     'update_xml': [
         'security/crm_security.xml',
         'security/ir.model.access.csv',
+        'analytic_view.xml',
         'company_view.xml',
         'crm_lead_view.xml',
         'crm_opportunity_view.xml',

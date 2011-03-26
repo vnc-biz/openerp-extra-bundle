@@ -22,16 +22,37 @@
 #
 ##############################################################################
 
+from math import ceil
+
 
 def duration_calc(self, cr, uid, ids, field_name, arg, context=None):
+    """
+    This method allow to calculate time spend for the analytic account of CRM
+    """
     res = {}
     for crm in self.browse(cr, uid, ids, context=context):
-        res[crm.id] = 0.0
-        for line in crm.timesheet_ids:
-            res[crm.id] += line.hours
+        res[crm.id] = duration = 0.0
+        # check if there is an analytc account in crm
+        if hasattr(crm, 'analytic_account_id') and crm.analytic_account_id.id:
+            for line in crm.timesheet_ids:
+                # add duration only with same analytic account
+                if line.analytic_account_id.id == crm.analytic_account_id.id:
+                    duration += line.hours
+            # If there is a rounding in analytic account so apply at the end
+            if crm.analytic_account_id.rounding_duration:
+                rounding = crm.analytic_account_id.rounding_duration
+                duration = ceil((duration * 100) / (rounding * 100)) * rounding
+        else:
+            # not analytic account in crm so add all lines
+            for line in crm.timesheet_ids:
+                duration += line.hours
+        res[crm.id] = duration
     return res
 
 def get_crm(self, cr, uid, ids, context=None):
+    """
+    This method triggers the field function
+    """
     result = {}
     for line in self.pool.get('crm.analytic.timesheet').browse(cr, uid, ids, context=context):
         result[line.res_id] = True

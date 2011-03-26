@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-26 17:11+0000\n"
-"PO-Revision-Date: 2011-03-26 17:11+0000\n"
+"POT-Creation-Date: 2011-03-26 17:49+0000\n"
+"PO-Revision-Date: 2011-03-26 17:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,31 +24,25 @@ msgstr "Resource ID"
 #: code:addons/crm_timesheet/crm_timesheet.py:61
 #, python-format
 msgid "No employee defined for user \"%s\". You must create one."
-msgstr "No employee defined for user \"%s\". You must create one."
+msgstr "Pas d'employé défini pour l'utilisateur \"%s\".  Vous devez en créer un."
 
 #. module: crm_timesheet
 #: code:addons/crm_timesheet/crm_timesheet.py:69
 #, python-format
 msgid "No journal defined on the related employee.\n"
 "Fill in the timesheet tab of the employee form."
-msgstr "No journal defined on the related employee.\n"
-"Fill in the timesheet tab of the employee form."
+msgstr "Pas de journal défini sur l'employé concerné.\n"
+"Remplissez l'onglet de la feuille de temps du formulaire de l'employé"
 
 #. module: crm_timesheet
-#: model:ir.module.module,description:crm_timesheet.module_meta_information
-msgid "\n"
-"        This module lets you transfer the entries under CRM Management to\n"
-"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
-"    "
-msgstr "\n"
-"        This module lets you transfer the entries under CRM Management to\n"
-"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
-"    "
+#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
+msgid "Related Timeline Id"
+msgstr "Identifiant de la chronologie associée"
 
 #. module: crm_timesheet
 #: constraint:res.company:0
 msgid "Error! You can not create recursive companies."
-msgstr "Erreur ! Vous ne pouvez pas créer de sociétés récursives"
+msgstr "Erreur ! Vous ne pouvez pas créer de sociétés récursives."
 
 #. module: crm_timesheet
 #: field:crm.lead,duration_timesheet:0
@@ -62,18 +56,15 @@ msgid "CRM Management"
 msgstr "CRM Management"
 
 #. module: crm_timesheet
-#: code:addons/crm_timesheet/crm_timesheet.py:76
-#, python-format
-msgid "No product and product category property account defined on the related employee.\n"
-"Fill in the timesheet tab of the employee form."
-msgstr "No product and product category property account defined on the related employee.\n"
-"Fill in the timesheet tab of the employee form."
+#: view:account.analytic.account:0
+msgid "CRM Analytic"
+msgstr "CRM Analytique"
 
 #. module: crm_timesheet
 #: view:crm.lead:0
 #: view:crm.phonecall:0
 msgid "Summary Work"
-msgstr "Travail effectué"
+msgstr "Résumé du travail effectué"
 
 #. module: crm_timesheet
 #: view:crm.lead:0
@@ -96,9 +87,9 @@ msgid "Configuration"
 msgstr "Configuration"
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
-msgid "Related Timeline Id"
-msgstr "Related Timeline Id"
+#: field:account.analytic.account,rounding_duration:0
+msgid "Rouding Duration"
+msgstr "Temps arrondi au"
 
 #. module: crm_timesheet
 #: model:ir.model,name:crm_timesheet.model_crm_analytic_timesheet
@@ -116,6 +107,11 @@ msgid "Companies"
 msgstr "Sociétés"
 
 #. module: crm_timesheet
+#: field:crm.analytic.timesheet,name:0
+msgid "Work summary"
+msgstr "Travail effectué"
+
+#. module: crm_timesheet
 #: field:crm.lead,timesheet_ids:0
 #: field:crm.phonecall,timesheet_ids:0
 msgid "Messages"
@@ -126,8 +122,8 @@ msgstr "Messages"
 #, python-format
 msgid "No product defined on the related employee.\n"
 "Fill in the timesheet tab of the employee form."
-msgstr "No product defined on the related employee.\n"
-"Fill in the timesheet tab of the employee form."
+msgstr "Pas de produit définit sur l'employé concerné\n"
+"Remplissez l'onglet de la feuille de temps du formulaire de l'employé"
 
 #. module: crm_timesheet
 #: model:ir.model,name:crm_timesheet.model_crm_lead
@@ -135,11 +131,18 @@ msgid "crm.lead"
 msgstr "crm.lead"
 
 #. module: crm_timesheet
+#: constraint:account.analytic.account:0
+msgid "Error! The currency has to be the same as the currency of the selected company"
+msgstr "Erreur! La monnaie doit être la même que la monnaie de la société sélectionnée"
+
+#. module: crm_timesheet
 #: help:res.company,crm_time_mode_id:0
 msgid "This will set the unit of measure used in CRM.\n"
 "If you use the timesheet linked to CRM (crm_timesheet module), don't forget to setup the right unit of measure in your employees."
-msgstr "This will set the unit of measure used in CRM.\n"
-"If you use the timesheet linked to CRM (crm_timesheet module), don't forget to setup the right unit of measure in your employees."
+msgstr "Ceci fixe l'unité de mesure utilisée dans le CRM.\n"
+"Si vous utilisez les feuilles de temps couplés au CRM "
+"(crm_timesheet module), n'oubliez pas de fixer la bonne unité de mesure "
+"de vos employés."
 
 #. module: crm_timesheet
 #: code:addons/crm_timesheet/crm_timesheet.py:60
@@ -148,7 +151,7 @@ msgstr "This will set the unit of measure used in CRM.\n"
 #: code:addons/crm_timesheet/crm_timesheet.py:75
 #, python-format
 msgid "Bad Configuration !"
-msgstr "Bad Configuration !"
+msgstr "Mauvaise configuration !"
 
 #. module: crm_timesheet
 #: field:crm.analytic.timesheet,user_id:0
@@ -158,7 +161,7 @@ msgstr "Assigné à"
 #. module: crm_timesheet
 #: field:res.company,crm_time_mode_id:0
 msgid "CRM Time Unit"
-msgstr "CRM Time Unit"
+msgstr "Unité de temps du CRM"
 
 #. module: crm_timesheet
 #: model:ir.model,name:crm_timesheet.model_crm_phonecall
@@ -166,19 +169,35 @@ msgid "crm.phonecall"
 msgstr "crm.phonecall"
 
 #. module: crm_timesheet
+#: help:account.analytic.account,rounding_duration:0
+msgid "This field allow to rounding duration of cases.\n"
+"Example :\n"
+"- value to 00:15, we have a case with timesheet to 00:35, the duration will be 00:45\n"
+"- value to 00:15, we have a case with timesheet to 00:30, the duration will be 00:30"
+msgstr "C champ vous permet d'arrondir la durée de la feuille de temps sur le CRM.\n"
+"Exemple :\n"
+"- valeur à 00:15, nous avons un cas d'une durée totale de 00:35, la durée sera arrondie à 00:45\n"
+"- valeur à 00:15, nous avons un cas d'une durée totale de 00:30, la durée ne sera pas arrondie"
+
+#. module: crm_timesheet
 #: field:crm.analytic.timesheet,analytic_account_id:0
 #: field:crm.lead,analytic_account_id:0
 #: field:crm.phonecall,analytic_account_id:0
+#: model:ir.model,name:crm_timesheet.model_account_analytic_account
 msgid "Analytic Account"
 msgstr "Compte analytique"
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,name:0
-msgid "Work summary"
-msgstr "Travail effectué"
+#: code:addons/crm_timesheet/crm_timesheet.py:76
+#, python-format
+msgid "No product and product category property account defined on the related employee.\n"
+"Fill in the timesheet tab of the employee form."
+msgstr "Pas de propriétés comptables définis pour le produit et la catégorie du "
+"produit associé à l'employé.\n"
+"Compléter l'onglet feuille de temps du formulaire de l'employé."
 
 #. module: crm_timesheet
-#: model:ir.module.module,shortdesc:crm_timesheet.module_meta_information
-msgid "CRM Timesheet"
-msgstr "CRM Timesheet"
+#: constraint:account.analytic.account:0
+msgid "Error! You can not create recursive analytic accounts."
+msgstr "Erreur ! Vous ne pouvez pas créer de comptes analytiques récursifs."
 

@@ -151,7 +151,7 @@ class sale_order(osv.osv):
                         'state': 'waiting',
                         'note': line.note,
                     })
-                    proc_id = self.pool.get('mrp.procurement').create(cr, uid, {
+                    proc_id = self.pool.get('procurement.order').create(cr, uid, {
                         'name': order.name,
                         'origin': order.name,
                         'date_planned': date_planned,
@@ -166,10 +166,10 @@ class sale_order(osv.osv):
                         'property_ids': [(6, 0, [x.id for x in sale_line.property_ids])],
                     })
                     wf_service = netsvc.LocalService("workflow")
-                    wf_service.trg_validate(uid, 'mrp.procurement', proc_id, 'button_confirm', cr)
+                    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
 
                 elif line.product_id and line.product_id.product_tmpl_id.type=='service':
-                    proc_id = self.pool.get('mrp.procurement').create(cr, uid, {
+                    proc_id = self.pool.get('procurement.order').create(cr, uid, {
                         'name': line.name,
                         'origin': order.name,
                         'date_planned': date_planned,
@@ -181,7 +181,7 @@ class sale_order(osv.osv):
                         'property_ids': [(6, 0, [x.id for x in line.property_ids])],
                     })
                     wf_service = netsvc.LocalService("workflow")
-                    wf_service.trg_validate(uid, 'mrp.procurement', proc_id, 'button_confirm', cr)
+                    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
 
                 wf_service = netsvc.LocalService("workflow")
                 wf_service.trg_validate(uid, 'stock.picking', picking[date_planned], 'button_confirm', cr)

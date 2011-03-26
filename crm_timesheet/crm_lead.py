@@ -25,6 +25,7 @@
 
 from osv import osv
 from osv import fields
+import crm_operators
 
 
 class crm_lead(osv.osv):
@@ -34,6 +35,11 @@ class crm_lead(osv.osv):
     _columns = {
         'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', ondelete='cascade', ),
         'timesheet_ids': fields.one2many('crm.analytic.timesheet', 'res_id', 'Messages', domain=[('model', '=', _name)]),
+        'duration_timesheet': fields.function(crm_operators.duration_calc, method=True, string='Hours spend',
+            store = {
+                'crm.lead': (lambda self, cr, uid, ids, c={}: ids, ['timesheet_ids'], 10),
+                'crm.analytic.timesheet': (crm_operators.get_crm, ['hours', 'analytic_account_id'], 10),
+            },)
     }
 
     def create(self, cr, uid, values, context=None):

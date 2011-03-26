@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-26 16:24+0000\n"
-"PO-Revision-Date: 2011-03-26 16:24+0000\n"
+"POT-Creation-Date: 2011-03-26 17:11+0000\n"
+"PO-Revision-Date: 2011-03-26 17:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,14 +35,26 @@ msgstr "No journal defined on the related employee.\n"
 "Fill in the timesheet tab of the employee form."
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
-msgid "Related Timeline Id"
-msgstr "Related Timeline Id"
+#: model:ir.module.module,description:crm_timesheet.module_meta_information
+msgid "\n"
+"        This module lets you transfer the entries under CRM Management to\n"
+"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
+"    "
+msgstr "\n"
+"        This module lets you transfer the entries under CRM Management to\n"
+"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
+"    "
 
 #. module: crm_timesheet
 #: constraint:res.company:0
 msgid "Error! You can not create recursive companies."
-msgstr "Erreur ! Vous ne pouvez pas créer de sociétés récursives."
+msgstr "Erreur ! Vous ne pouvez pas créer de sociétés récursives"
+
+#. module: crm_timesheet
+#: field:crm.lead,duration_timesheet:0
+#: field:crm.phonecall,duration_timesheet:0
+msgid "Hours spend"
+msgstr "Heures effectuées"
 
 #. module: crm_timesheet
 #: view:res.company:0
@@ -61,12 +73,12 @@ msgstr "No product and product category property account defined on the related 
 #: view:crm.lead:0
 #: view:crm.phonecall:0
 msgid "Summary Work"
-msgstr "Summary Work"
+msgstr "Travail effectué"
 
 #. module: crm_timesheet
 #: view:crm.lead:0
 msgid "Timesheet"
-msgstr "Timesheet"
+msgstr "Feuille de temps"
 
 #. module: crm_timesheet
 #: field:crm.analytic.timesheet,date:0
@@ -82,6 +94,11 @@ msgstr "Object Name"
 #: view:res.company:0
 msgid "Configuration"
 msgstr "Configuration"
+
+#. module: crm_timesheet
+#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
+msgid "Related Timeline Id"
+msgstr "Related Timeline Id"
 
 #. module: crm_timesheet
 #: model:ir.model,name:crm_timesheet.model_crm_analytic_timesheet
@@ -159,4 +176,9 @@ msgstr "Compte analytique"
 #: field:crm.analytic.timesheet,name:0
 msgid "Work summary"
 msgstr "Travail effectué"
+
+#. module: crm_timesheet
+#: model:ir.module.module,shortdesc:crm_timesheet.module_meta_information
+msgid "CRM Timesheet"
+msgstr "CRM Timesheet"
 

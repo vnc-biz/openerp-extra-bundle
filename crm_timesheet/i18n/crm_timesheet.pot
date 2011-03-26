@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-26 16:23+0000\n"
-"PO-Revision-Date: 2011-03-26 16:23+0000\n"
+"POT-Creation-Date: 2011-03-26 17:11+0000\n"
+"PO-Revision-Date: 2011-03-26 17:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,13 +34,22 @@ msgid "No journal defined on the related employee.\n"
 msgstr ""
 
 #. module: crm_timesheet
-#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
-msgid "Related Timeline Id"
+#: model:ir.module.module,description:crm_timesheet.module_meta_information
+msgid "\n"
+"        This module lets you transfer the entries under CRM Management to\n"
+"        the Timesheet line entries for particular date and particular user with the effect of creating, editing and deleting either ways.\n"
+"    "
 msgstr ""
 
 #. module: crm_timesheet
 #: constraint:res.company:0
 msgid "Error! You can not create recursive companies."
+msgstr ""
+
+#. module: crm_timesheet
+#: field:crm.lead,duration_timesheet:0
+#: field:crm.phonecall,duration_timesheet:0
+msgid "Hours spend"
 msgstr ""
 
 #. module: crm_timesheet
@@ -79,6 +88,11 @@ msgstr ""
 #. module: crm_timesheet
 #: view:res.company:0
 msgid "Configuration"
+msgstr ""
+
+#. module: crm_timesheet
+#: field:crm.analytic.timesheet,hr_analytic_timesheet_id:0
+msgid "Related Timeline Id"
 msgstr ""
 
 #. module: crm_timesheet
@@ -154,5 +168,10 @@ msgstr ""
 #. module: crm_timesheet
 #: field:crm.analytic.timesheet,name:0
 msgid "Work summary"
+msgstr ""
+
+#. module: crm_timesheet
+#: model:ir.module.module,shortdesc:crm_timesheet.module_meta_information
+msgid "CRM Timesheet"
 msgstr ""
 

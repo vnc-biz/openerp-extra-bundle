@@ -32,7 +32,8 @@
             <field name="arch" type="xml">
                 <xpath expr="/form/field[@name='description']" position="after">
                     <separator colspan="4" />
-                    <field name="analytic_account_id" domain="[('type', '=', 'normal'), ('state', '=', 'open')]" colspan="4"/>
+                    <field name="duration_timesheet" widget="float_time"/>
+                    <field name="analytic_account_id" domain="[('type', '=', 'normal'), ('state', '=', 'open')]"/>
                     <newline/>
                     <field name="timesheet_ids" nolabel="1" mode="tree,form" colspan="4" context="{'default_analytic_account_id': analytic_account_id}">
                         <tree string="Summary Work" editable="bottom">
@@ -62,7 +63,8 @@
             <field name="arch" type="xml">
                 <xpath expr="/form/field[@name='description']" position="after">
                     <separator colspan="4" />
-                    <field name="analytic_account_id" domain="[('type', '=', 'normal'), ('state', '=', 'open')]" colspan="4"/>
+                    <field name="duration_timesheet" widget="float_time"/>
+                    <field name="analytic_account_id" domain="[('type', '=', 'normal'), ('state', '=', 'open')]"/>
                     <newline/>
                     <field name="timesheet_ids" nolabel="1" mode="tree,form" colspan="4" context="{'default_analytic_account_id': analytic_account_id}">
                         <tree string="Summary Work" editable="bottom">

@@ -7,15 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.0-rc1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-08 08:12+0000\n"
-"PO-Revision-Date: 2011-02-24 17:24+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-03-25 16:01+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-03-10 06:24+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-03-26 15:07+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: product_icecat
 #: code:addons/product_icecat/wizard/wizard_product_icecat.py:159
@@ -329,7 +328,7 @@ msgstr "Icecat"
 #. module: product_icecat
 #: view:product.icecat.wizard:0
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #. module: product_icecat
 #: view:product.icecat.wizard:0

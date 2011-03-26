@@ -21,16 +21,11 @@
 {
     "name":"Sale Delivery Planning",
     "version":"1.0",
-    "author": "Tiny, NaN Projectes de Programari Lliure, S.L.",
+    "author":"Tiny",
     "category" : "Generic Modules/Sales & Purchases",
-    "depends": [
-        "sale"
-    ],
+    "depends":["sale"],
     "demo_xml":[],
-    "update_xml":[
-        "security/ir.model.access.csv",
-        "sale_delivery_view.xml"
-    ],
+    "update_xml":["security/ir.model.access.csv","sale_delivery_view.xml"],
     "active": False,
     "installable": True,
 }

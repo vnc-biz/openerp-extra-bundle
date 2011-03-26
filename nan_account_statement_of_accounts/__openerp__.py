@@ -45,7 +45,6 @@ Unreconciled account move lines are shown in red and partially reconcilled ones 
     "update_xml" : [
         'account_view.xml',
         'account_wizard.xml',
-        'security/ir.model.access.csv',
     ],
     "demo_xml" : [],
     "active": False,

@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 NaN Projectes de Programari Lliure S.L. (http://nan-tic.com)
 #    Copyright (c) 2008 ACYSOS S.L. (http://acysos.com) All Rights Reserved.
 #                       Pedro Tarrafeta <pedro@acysos.com>
 #    Copyright (c) 2008 Pablo Rocandio. All Rights Reserved.
@@ -23,6 +24,7 @@
 ##############################################################################
 
 from osv import fields, osv
+import decimal_precision as dp
 
 #----------------------------------------------------------
 # Partner
@@ -49,14 +51,14 @@ class stock_picking(osv.osv):
     def _amount_untaxed(self, cr, uid, ids, prop, unknow_none,unknow_dict):
 
         id_set=",".join(map(str,map(int, ids)))
-        cr.execute("""  select 
-                            sp.id, 
-                            COALESCE(sum( sm.product_qty*sol.price_unit*(100-sol.discount))/100.0,0)::decimal(16,2) as amount 
-                        from 
-                            stock_picking sp 
-                            left join stock_move sm on sp.id=sm.picking_id 
-                            left join sale_order_line sol on sm.sale_line_id=sol.id 
-                        where 
+        cr.execute("""  select
+                            sp.id,
+                            COALESCE(sum( sm.product_qty*sol.price_unit*(100-sol.discount))/100.0,0)::decimal(16,2) as amount
+                        from
+                            stock_picking sp
+                            left join stock_move sm on sp.id=sm.picking_id
+                            left join sale_order_line sol on sm.sale_line_id=sol.id
+                        where
                             sp.id in ( %s ) and
                             sm.state != 'cancel'
                         group by sp.id"""%id_set)
@@ -66,17 +68,17 @@ class stock_picking(osv.osv):
 
     def _amount_tax(self, cr, uid, ids, field_name, arg, context):
         id_set = ",".join(map(str, map(int,ids)))
-        cr.execute(""" 
-                   select 
-                        sp.id, 
-                        COALESCE(sum( at.amount*sm.product_qty*sol.price_unit*(100-sol.discount))/100.0,0)::decimal(16,2) as amount 
-                   from stock_picking sp 
-                        left join stock_move sm on sp.id=sm.picking_id 
-                        left join sale_order_line sol on sm.sale_line_id=sol.id 
-                        left join sale_order_tax sot on sol.id=sot.order_line_id 
-                        left join account_tax at on at.id=sot.tax_id 
-                   where 
-                        sp.id in ( %s ) 
+        cr.execute("""
+                   select
+                        sp.id,
+                        COALESCE(sum( at.amount*sm.product_qty*sol.price_unit*(100-sol.discount))/100.0,0)::decimal(16,2) as amount
+                   from stock_picking sp
+                        left join stock_move sm on sp.id=sm.picking_id
+                        left join sale_order_line sol on sm.sale_line_id=sol.id
+                        left join sale_order_tax sot on sol.id=sot.order_line_id
+                        left join account_tax at on at.id=sot.tax_id
+                   where
+                        sp.id in ( %s )
                         and sm.state != 'cancel'
                    group by sp.id"""%id_set )
         res = dict(cr.fetchall())
@@ -94,10 +96,9 @@ class stock_picking(osv.osv):
     _description = "Picking list"
     _inherit = "stock.picking"
     _columns = {
-        'partner_id':fields.many2one('res.partner', 'Partner', change_default=True, select=True),
-        'amount_untaxed': fields.function(_amount_untaxed, method=True, digits=(16,2),string='Untaxed Amount'),
-        'amount_tax': fields.function(_amount_tax, method=True, string='Taxes'),
-        'amount_total': fields.function(_amount_total, method=True, string='Total'),
+        'amount_untaxed': fields.function(_amount_untaxed, method=True, digits_compute=dp.get_precision('Account'),string='Untaxed Amount'),
+        'amount_tax': fields.function(_amount_tax,digits_compute=dp.get_precision('Account'), method=True, string='Taxes'),
+        'amount_total': fields.function(_amount_total,digits_compute=dp.get_precision('Account'), method=True, string='Total'),
         'tracking': fields.char('Tracking', size=64),
             }
 
@@ -127,7 +128,7 @@ class stock_move(osv.osv):
         cur_obj = self.pool.get('res.currency')
         for line in self.browse(cr, uid, ids):
             if line.sale_line_id:
-                res[line.id] = line.sale_line_id.price_net
+                res[line.id] = line.sale_line_id.price_unit
             else:
                 res[line.id] = 0
         return res
@@ -152,7 +153,7 @@ class stock_move(osv.osv):
 
     _inherit = "stock.move"
     _columns = {
-        'sale_line_id': fields.many2one('sale.order.line', 'Sale Order Line'), 
+        'sale_line_id': fields.many2one('sale.order.line', 'Sale Order Line'),
         'price_subtotal': fields.function(_price_subtotal, method=True, digits=(16,2),string='Subtotal', select=True),
         'price_net': fields.function(_price_net, method=True, digits=(16,2),string='Net', select=True), # Con descuento aplicado
         'price_unit': fields.function(_price_unit, method=True, digits=(16,2),string='Price', select=True),

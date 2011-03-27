@@ -3,6 +3,7 @@
 #    
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2011 SYLEAM (<http://www.syleam.fr>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,49 +20,48 @@
 #
 ##############################################################################
 
-from osv import fields,osv
-from mx import DateTime
-import tools
-import ir
-import pooler
-import time
+from osv import osv
+from osv import fields
+
 
 class res_partner_address(osv.osv):
-    _name = 'res.partner.address'
     _inherit ='res.partner.address'
+
+    def _get_name_calc(self, cr, uid, ids, field_name, unknow_none, context):
+        """
+        This is for overriding object 'name' property 
+        """
+        ar_ctc = self.read(cr, uid, ids, ['id', 'first_name', 'last_name'], context)
+        res={}
+        for record in ar_ctc:
+            _name = "%s %s" % (record['first_name'] or '', record['last_name'] or '')
+            res[record['id']] = _name
+        return res
+
+    def _set_name_calc(self, cr, uid, ids, field_name, value, fnct_inv_arg, context=None):
+        """
+        Set name of partner_address if not used first and last name
+        """
+        if not field_name:
+            return False
+        ids = isinstance(ids, list) and ids or [ids]
+        for address in self.browse(cr, uid, ids, context):
+            cr.execute("""UPDATE res_partner_address SET
+                    name=%s
+                WHERE
+                    id=%s""", (value or '', address.id))
+        return True
+
+
     _columns = {
-        'first_name' : fields.char('First Name', size=128),
-        'last_name' : fields.char('Last Name', size=128),
-        'name' : fields.char('Name', size=128,readonly=True),
+        'first_name': fields.char('First Name', size=63),
+        'last_name': fields.char('Last Name', size=64),
+        'name': fields.function(_get_name_calc, fnct_inv=_set_name_calc, type='char', size=128, method=True, string='Name',
+                                store = {
+                                    'res.partner.address': (lambda self, cr, uid, ids, c={}: ids, ['first_name', 'last_name'], 10),
+                                }, select=1,
+                               ),
     }
-    def write(self, cr, uid, ids, vals, context={}):
-        first_name=''
-        last_name=''
-        if 'first_name' in vals and vals['first_name']:
-            first_name=vals['first_name']
-        if 'last_name' in vals and vals['last_name']:
-            last_name=vals['last_name']
-
-        vals['name']= first_name + ' ' + last_name
-        return super(res_partner_address, self).write(cr, uid, ids, vals, context)
-
-    def create(self, cr, uid, vals, context={}):
-        first_name=''
-        last_name=''
-        if 'first_name' in vals and vals['first_name']:
-            first_name=vals['first_name']
-        if 'last_name' in vals and vals['last_name']:
-            last_name=vals['last_name']
-
-        vals['name']= first_name + ' ' + last_name
-        return super(res_partner_address, self).create(cr, uid, vals, context)
-
-    def onchange_name(self, cr, uid, id, first_name,last_name,context={}):
-        if not first_name:
-            first_name=''
-        if not last_name:
-            last_name=''
-        return {'value': {'name': first_name + ' ' + last_name}}
 
 res_partner_address()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

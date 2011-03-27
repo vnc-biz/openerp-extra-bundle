@@ -45,6 +45,7 @@
         'crm_lead_view.xml',
         'crm_opportunity_view.xml',
         'crm_phonecall_view.xml',
+        'res_partner_view.xml',
     ],
     'demo_xml': [],
     'installable': True,

@@ -30,5 +30,6 @@ import company
 import crm_timesheet
 import crm_lead
 import crm_phonecall
+import res_partner
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

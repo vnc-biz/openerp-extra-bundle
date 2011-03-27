@@ -192,4 +192,21 @@ class crm_analytic_timesheet(osv.osv):
 
 crm_analytic_timesheet()
 
+class crm_analytic_timesheet_configuration(osv.osv):
+    _name = 'crm.analytic.timesheet.configuration'
+    _description = 'Add value by default in CRM'
+
+    _columns = {
+        'name': fields.char('Name', size=64, required=True, help="Name of this parameter, use in partner",),
+        'model': fields.char('Model', size=128, required=True, help="Model of OpenERP, eg: crm.lead",),
+        'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', ondelete='cascade', required=True, help="Analytic account by default for the model indicated",),
+    }
+
+    _sql_constraints = [
+        ('model_uniq', 'unique (model)', 'The model of the OpenERP must be unique !'),
+    ]
+
+crm_analytic_timesheet_configuration()
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

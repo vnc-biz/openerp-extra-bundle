@@ -58,4 +58,19 @@ def get_crm(self, cr, uid, ids, context=None):
         result[line.res_id] = True
     return result.keys()
 
+def get_default_analytic(self, cr, uid, context=None):
+    """Gives id of analytic for this case
+    @param self: The object pointer
+    @param cr: the current row, from the database cursor,
+    @param uid: the current user’s ID for security checks,
+    @param context: A standard dictionary for contextual values
+    """
+    if context is None:
+        context = {}
+    crm_analytic_obj = self.pool.get('crm.analytic.timesheet.configuration')
+    crm_analytic_conf_id = crm_analytic_obj.search(cr, uid, [('model', '=', self._name)], offset=0, limit=None, order=None, context=context)
+    if not crm_analytic_conf_id:
+        return False
+    return crm_analytic_obj.browse(cr, uid, crm_analytic_conf_id[0], context=context).analytic_account_id.id
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

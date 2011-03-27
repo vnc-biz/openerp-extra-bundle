@@ -41,6 +41,35 @@ class crm_phonecall(osv.osv):
             },)
     }
 
+    _defaults = {
+         'analytic_account_id': crm_operators.get_default_analytic,
+    }
+
+    def onchange_partner_id(self, cr, uid, ids, part, email=False):
+        """This function returns value of partner address based on partner
+        @param self: The object pointer
+        @param cr: the current row, from the database cursor,
+        @param uid: the current user’s ID for security checks,
+        @param ids: List of case IDs
+        @param part: Partner's id
+        @email: Partner's email ID
+        """
+        if not part:
+            return {'value': {'partner_address_id': False,
+                            'email_from': False, 
+                            'phone': False,
+                            'analytic_account_id': False,
+                            }}
+        partner_obj = self.pool.get('res.partner')
+        addr = partner_obj.address_get(cr, uid, [part], ['contact'])
+        partners = partner_obj.browse(cr, uid, part)
+        data = {'partner_address_id': addr['contact']}
+        data.update(self.onchange_partner_address_id(cr, uid, ids, addr['contact'])['value'])
+        for timesheet in partners.crm_analytic_ids:
+            if timesheet.crm_model_id.model == self._name:
+                data['analytic_account_id'] = timesheet.analytic_account_id.id
+        return {'value': data}
+
     def create(self, cr, uid, values, context=None):
         """
         Add model in context for crm_analytic_timesheet object

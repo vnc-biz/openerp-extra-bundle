@@ -40,11 +40,11 @@ class account_journal(osv.osv):
 
     def _check_company(self, cr, uid, ids):
         for journal in self.browse(cr, uid, ids):
-            if journal.invoice_sequence_id and journal.invoice_sequence_id != journal.company_id:
-                raise osv.except_osv(_('Invoice Sequence Error'), _("The company of invoice sequence does not match with journal's company."))
+            if journal.invoice_sequence_id and journal.invoice_sequence_id.company_id != journal.company_id:
+                raise osv.except_osv(_('Invoice Sequence Error'), _("The company of invoice sequence does not match journal's company."))
         return True
 
-    _constraints = [ (_check_company, 'Journal Company and invoice sequence company do not match.', ['company_id','invoice_sequence_id']) ]
+    _constraints = [ (_check_company, 'Journal company and invoice sequence company do not match.', ['company_id','invoice_sequence_id']) ]
 account_journal()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

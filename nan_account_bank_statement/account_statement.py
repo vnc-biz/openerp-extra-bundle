@@ -179,7 +179,7 @@ class account_bank_statement_line(osv.osv):
             reconciled_move_line_ids=[]
             for statement_line in line.statement_id.line_ids:
                 if statement_line.voucher_id and statement_line.id != line.id:
-                    reconciled_move_line_ids += [x.id for x in statement_line.voucher_id.line_ids]
+                    reconciled_move_line_ids += [x.move_line_id.id for x in statement_line.voucher_id.line_ids]
  
             # Get extra information attached to the line
             data = self.pool.get('account.bank.statement.line.data').load_to_dictionary(cr, uid, line.id, context)
@@ -639,7 +639,7 @@ class account_bank_statement_line_rule(osv.osv):
         'sequence': fields.integer('Sequence', required=True, help='Rules will be applied in the order defined by this Sequence and will stop in the first matching rule.'),
         'key': fields.char('Key', size=256, required=True, help='Key in statement line data that should match the given Expression.'),
         'expression': fields.char('Expression', size=500, help='If the value of the given Key contains this Expression, Account and Partner will be used for that statement line.'),
-        'account_id': fields.many2one('account.account', 'Account', domain="[('type','!=','view')]", ondelete='cascade', help='Account to be used if expression matches.'),
+        'account_id': fields.many2one('account.account', 'Account', domain="[('type','!=','view'),('company_id','=',company_id)]", ondelete='cascade', help='Account to be used if expression matches.'),
         'partner_id': fields.many2one('res.partner', 'Partner', ondelete='cascade', help='Partner to be used if expression matches'),
     }
 
@@ -647,6 +647,20 @@ class account_bank_statement_line_rule(osv.osv):
         'sequence': lambda self, cr, uid, context: 1,
         'company_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
     }
+
+    def _check_company(self, cr, uid, ids):
+        for rule in self.browse(cr, uid, ids):
+            if rule.account_id and rule.company_id != rule.account_id.company_id:
+                raise osv.except_osv(_('Company Check Error'), _("Company for account %(account)s does not match rule's company for rule %(rule)s.") % {
+                    'account': rule.account_id.code,
+                    'rule': rule.key
+                })
+        return True
+        
+    _constraints = [ 
+        (_check_company, 'Company Check Error.', ['company_id','account_id']) 
+    ]
+
 account_bank_statement_line_rule()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

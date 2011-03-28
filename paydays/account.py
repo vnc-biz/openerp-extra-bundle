@@ -19,8 +19,8 @@
 #
 ##############################################################################
 
-import mx.DateTime
-from mx.DateTime import RelativeDateTime
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from osv import fields, osv
 
@@ -50,7 +50,14 @@ class account_payment_term(osv.osv):
     }
     _constraints = [(_check_payment_days, 'Error: Payment days field format is not valid.', ['payment_days'])]
 
+    def days_in_month(self, date):
+        date = date + relativedelta(day=1, months=1)
+        date = date + relativedelta(days=-1)
+        return date.day
+
     def compute(self, cr, uid, id, value, date_ref=False, context=None):
+        if isinstance(id, list):
+            id = id[0]
         result = super(account_payment_term,self).compute(cr, uid, id, value, date_ref, context)
         term = self.browse(cr, uid, id, context)
         if not term.payment_days:
@@ -66,18 +73,18 @@ class account_payment_term(osv.osv):
         new_result = []
         for line in result:
             new_date = None
-            date = mx.DateTime.strptime( line[0], '%Y-%m-%d' )
+            date = datetime.strptime( line[0], '%Y-%m-%d' )
             for day in days:
                 if date.day <= day:
-                    if day > date.days_in_month:
-                        day = date.days_in_month
-                    new_date = date + RelativeDateTime( day=day )
+                    if day > self.days_in_month(date):
+                        day = self.days_in_month(date)
+                    new_date = date + relativedelta( day=day )
                     break
             if not new_date:
                 day = days[0]
-                if day > date.days_in_month:
-                    day = date.days_in_month
-                new_date = date + RelativeDateTime( day=day, months=1 )
+                if day > self.days_in_month(date):
+                    day = self.days_in_month(date)
+                new_date = date + relativedelta( day=day, months=1 )
             new_result.append( (new_date.strftime('%Y-%m-%d'), line[1]) )
         return new_result
 

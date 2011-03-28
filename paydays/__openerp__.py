@@ -27,12 +27,14 @@
     'description': """This module allows setting more than one payment days in payment terms.""",
     'license' : "GPL-3",
     'depends' : [
-        'base', 
-        'account',
+        'nan_account_payment_term_extension',
     ],
     'init_xml' : [],
     'update_xml' : [
-        'paydays_view.xml',
+        'account_view.xml',
+    ],
+    'test': [
+        'test/account_payment_term.yml',
     ],
     'active': False,
     'installable': True

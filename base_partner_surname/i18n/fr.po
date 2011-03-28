@@ -48,8 +48,3 @@ msgid ""
 "\n"
 "    "
 msgstr ""
-
-#. module: base_partner_surname
-#: view:res.partner:0
-msgid "Partner Contacts"
-msgstr "Contacts du partenaire"

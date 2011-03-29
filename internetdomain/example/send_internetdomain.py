@@ -21,14 +21,20 @@
 #
 ##############################################################################
 
-from osv import osv
-from osv import fields
+import xmlrpclib
 
-class company(osv.osv):
-    _inherit = 'res.company'
-    _columns = {
-        'intdomain_alert_expire': fields.char('Alert Expire', size=100, help="Days notice of expire (separated with comma. Ex. 30,15,10)"),
-        'intdomain_template': fields.many2one('poweremail.templates', 'Template'),
-    }
+username = 'admin' #the user
+pwd = 'admin'      #the password of the user
+dbname = 'internetdomain'    #the database
 
-company()
+# Get the uid
+# replace localhost with the address of the server and port
+sock_common = xmlrpclib.ServerProxy ('http://localhost:8069/xmlrpc/common')
+uid = sock_common.login(dbname, username, pwd)
+
+# replace localhost with the address of the server and port
+sock = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/object')
+
+context = ()
+cron_id = sock.execute(dbname, uid, pwd, 'internetdomain.domain', 'run_mail_scheduler', context)
+print cron_id

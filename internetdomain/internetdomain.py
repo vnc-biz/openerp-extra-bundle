@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Raimon Esteve <resteve@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,10 +20,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from osv import osv, fields
+from tools.translate import _
+from tools import config
+
 import time
 import datetime
-from tools import config
 import netsvc
 
 class internetdomain_domain(osv.osv):
@@ -51,7 +55,6 @@ class internetdomain_domain(osv.osv):
                         max_alert = x
 
             if rec.date_expire:
-#                print rec.date_expire
                 today = datetime.date.today()
                 date_exp = datetime.date(int(rec.date_expire[:4]), int(rec.date_expire[5:7]), int(rec.date_expire[8:]))
                 diff_date = datetime.timedelta()
@@ -70,18 +73,20 @@ class internetdomain_domain(osv.osv):
             else:
                 days_alert = intdomain_alert_expire.split(',')
                 days_alert = [int(x) for x in days_alert]
-
             for day in days_alert:
                 cr.execute("select domain_id from internetdomain_renewal as a LEFT JOIN internetdomain_domain AS b ON b.id = a.domain_id where a.date_expire=%s AND b.company_id = %s AND b.active = True", (datetime.date.today()+datetime.timedelta(days=day),company_id))
                 res = cr.dictfetchall()
                 ids = [r['domain_id'] for r in res]
                 for domain in self.browse(cr, uid, ids, context):
                     template = domain.company_id.intdomain_template
+                    logger = netsvc.Logger()
                     if not template.id:
-                        logger = netsvc.Logger()
                         logger.notifyChannel(_("Internet Domain"), netsvc.LOG_ERROR, _("Not template configurated. Configure your company template or desactive Scheduled Actions"))
+                        return False
                     else:
-                        self.pool.get('poweremail.templates').generate_mail(cr, uid, template.id, ids)
+                        logger.notifyChannel(_("Internet Domain"), netsvc.LOG_INFO, _("Send email domain: %s") % domain.name)
+                        self.pool.get('poweremail.templates').generate_mail(cr, uid, template.id, [domain.id])
+        return True
 
     def onchange_partner_id(self, cr, uid, ids, partner_id, context=None):
         res = False
@@ -134,7 +139,6 @@ internetdomain_domain()
 
 class internetdomain_renewal(osv.osv):
     def onchange_registrator_id(self, cr, uid, ids, domain_id):
-        #print domain_id
         if not domain_id:
             return {'value':{'registrator_id': False}}
         value = self.pool.get('internetdomain.domain').browse(cr, uid, domain_id).registrator_id.id

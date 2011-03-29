@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Raimon Esteve <resteve@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify

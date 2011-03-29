@@ -25,9 +25,9 @@
     "version": "1.0",
     'category': 'Generic Modules/Accounting',
     "depends": ["sale", "account_invoice_layout"],
-    "author": "Domsense",
+    "author": "Agile Business Group & Domsense",
     "description": """This module shows, for each (customer) invoice line, the delivered production lots""",
-    'website': 'http://www.domsense.com',
+    'website': 'http://www.agilebg.com',
     'init_xml': [],
     'update_xml': [
         'invoice_view.xml',

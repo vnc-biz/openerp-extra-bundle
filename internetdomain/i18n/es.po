@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-29 11:10:27+0000\n"
-"PO-Revision-Date: 2011-03-29 13:12+0100\n"
+"PO-Revision-Date: 2011-03-30 14:44+0100\n"
 "Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -139,7 +139,7 @@ msgstr "Alertas vencimiento"
 #. module: internetdomain
 #: field:internetdomain.domain,company_id:0
 msgid "Company"
-msgstr "Empresa"
+msgstr "Compañía"
 
 #. module: internetdomain
 #: field:internetdomain.domain,dns3:0

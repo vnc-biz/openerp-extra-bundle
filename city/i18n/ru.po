@@ -1,4 +1,4 @@
-# Bulgarian translation for openobject-addons
+# Russian translation for openobject-addons
 # Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-02-27 09:13+0000\n"
-"PO-Revision-Date: 2011-03-30 07:20+0000\n"
-"Last-Translator: Dimitar Markov <dimitar.markov@gmail.com>\n"
-"Language-Team: Bulgarian <bg@li.org>\n"
+"PO-Revision-Date: 2011-03-30 17:04+0000\n"
+"Last-Translator: Nikolay Chesnokov <chesnokov_n@msn.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,39 +23,40 @@ msgstr ""
 #: model:ir.model,name:city.model_city_city
 #: model:ir.module.module,shortdesc:city.module_meta_information
 msgid "City"
-msgstr "Град"
+msgstr "Город"
 
 #. module: city
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Неправильный XML для просмотра структуры!"
 
 #. module: city
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
-"Името на обекта трябва да започва с x_ и не може да никакви специални знаци !"
+"Имя Объекта должно начинаться с x_ и не должно содержать специальных "
+"символов!"
 
 #. module: city
 #: field:city.city,zipcode:0
 msgid "ZIP"
-msgstr ""
+msgstr "Почтовый индекс"
 
 #. module: city
 #: field:city.city,state_id:0
 msgid "State"
-msgstr "Област"
+msgstr "Область/штат"
 
 #. module: city
 #: field:city.city,country_id:0
 msgid "Country"
-msgstr "Държава"
+msgstr "Страна"
 
 #. module: city
 #: field:city.city,code:0
 msgid "City Code"
-msgstr "Код на града"
+msgstr "Код города"
 
 #. module: city
 #: model:ir.module.module,description:city.module_meta_information
@@ -69,20 +70,20 @@ msgstr ""
 #. module: city
 #: field:city.city,name:0
 msgid "City Name"
-msgstr "Име на град"
+msgstr "Название города"
 
 #. module: city
 #: field:res.partner.address,location:0
 msgid "Location"
-msgstr "Местоположение"
+msgstr "Расположение"
 
 #. module: city
 #: help:city.city,code:0
 msgid "The official code for the city"
-msgstr ""
+msgstr "Официальный код для города"
 
 #. module: city
 #: model:ir.ui.menu,name:city.menu_city_partner
 #: field:res.country.state,city_ids:0
 msgid "Cities"
-msgstr "Градове"
+msgstr "Города"

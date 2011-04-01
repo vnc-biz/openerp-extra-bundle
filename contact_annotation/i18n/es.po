@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-22 12:16+0000\n"
-"PO-Revision-Date: 2011-03-23 16:18+0100\n"
-"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-03-23 15:14+0000\n"
+"PO-Revision-Date: 2011-03-31 12:07+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-04-01 06:05+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: contact_annotation
 #: field:contact.planning_change_states,permanent:0
@@ -204,8 +205,11 @@ msgstr "Permisos para crear"
 
 #. module: contact_annotation
 #: view:contact.state_range2_norm:0
-msgid "When the button is clicked, all the contact state ranges will be recomputed."
-msgstr "Cuando se pulsa el botón, se recalculan todos los intervalos de estado del contacto."
+msgid ""
+"When the button is clicked, all the contact state ranges will be recomputed."
+msgstr ""
+"Cuando se pulsa el botón, se recalculan todos los intervalos de estado del "
+"contacto."
 
 #. module: contact_annotation
 #: view:contact.annotation.state:0
@@ -279,7 +283,9 @@ msgstr "Intervalo de estados"
 #. module: contact_annotation
 #: help:contact.annotation.state,function_ids:0
 msgid "Partners can view the status over contact with these functions."
-msgstr "Los contactos pueden ver el estado sobre los otros contactos con estas funciones."
+msgstr ""
+"Los contactos pueden ver el estado sobre los otros contactos con estas "
+"funciones."
 
 #. module: contact_annotation
 #: sql_constraint:contact.annotation:0
@@ -290,10 +296,12 @@ msgstr "La fecha desde debe ser anterior a la fecha hasta"
 #: model:ir.module.module,description:contact_annotation.module_meta_information
 msgid ""
 "\n"
-"Contact annotation management. Initialy created to support school_base module.\n"
+"Contact annotation management. Initialy created to support school_base "
+"module.\n"
 msgstr ""
 "\n"
-"Gestión de anotación de contacto. Inicialmente creado para soportar el módulo school_base\n"
+"Gestión de anotación de contacto. Inicialmente creado para soportar el "
+"módulo school_base\n"
 
 #. module: contact_annotation
 #: view:contact.planning_change_states:0
@@ -354,7 +362,8 @@ msgstr "contact.annotation_type.function_access"
 #. module: contact_annotation
 #: help:contact.type_annotation,perms_groups:0
 msgid "Group which users could create and modify that annotation type."
-msgstr "Grupo cuyos usuarios pueden crear y modificar este tipo de anotación."
+msgstr ""
+"Grupo cuyos usuarios pueden crear y modificar este tipo de anotación."
 
 #. module: contact_annotation
 #: field:contact.annotation.state,group_ids:0
@@ -440,8 +449,11 @@ msgstr "Código"
 
 #. module: contact_annotation
 #: help:contact.type_annotation,perms_functions:0
-msgid "Perms for informer function over contact to create that annotation type."
-msgstr "Permanentes para la función de informante sobre el contacto para crear este tipo de anotación."
+msgid ""
+"Perms for informer function over contact to create that annotation type."
+msgstr ""
+"Permanentes para la función de informante sobre el contacto para crear este "
+"tipo de anotación."
 
 #. module: contact_annotation
 #: view:contact.annotation:0
@@ -544,8 +556,12 @@ msgstr "Cambia la planificación de los estados"
 
 #. module: contact_annotation
 #: help:contact.type_annotation,states:0
-msgid "States (letters from A-Z, words separates with comas, prefix - if retire state of annotations superseded)."
-msgstr "Estados (letras de la A a la Z, palabras separadas por comas, ponga el prefijo '-' si sustituye el estado de retirada de la anotación)."
+msgid ""
+"States (letters from A-Z, words separates with comas, prefix - if retire "
+"state of annotations superseded)."
+msgstr ""
+"Estados (letras de la A a la Z, palabras separadas por comas, ponga el "
+"prefijo '-' si sustituye el estado de retirada de la anotación)."
 
 #. module: contact_annotation
 #: model:ir.model,name:contact_annotation.model_contact_type_annotation
@@ -574,19 +590,14 @@ msgstr "contact.subtype_annotation"
 msgid "Each annotation type must have only one function."
 msgstr "Cada tipo de anotación debe tener sólo una función."
 
-#, fuzzy
-#~ msgid "Only Flag state subs"
-#~ msgstr "Sólo marca subestados"
 #~ msgid "Annotations Management"
 #~ msgstr "Gestión de anotaciones"
 
-#, fuzzy
-#~ msgid "Flag state add and others"
-#~ msgstr "Añade estado de marca y otras"
 #~ msgid "General"
 #~ msgstr "General"
+
 #~ msgid "Flag State Ranges"
 #~ msgstr "Marca de estado de intervalos"
+
 #~ msgid "Contact-Partner function"
 #~ msgstr "Función contacto en empresa"
-

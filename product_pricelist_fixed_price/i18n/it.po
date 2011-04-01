@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-25 10:11+0000\n"
-"PO-Revision-Date: 2011-03-28 15:23+0100\n"
-"Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
+"POT-Creation-Date: 2011-03-25 10:08+0000\n"
+"PO-Revision-Date: 2011-03-31 12:04+0000\n"
+"Last-Translator: Lorenzo Battistini - agilebg.com "
+"<lorenzo.battistini@agilebg.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-04-01 06:05+0000\n"
+"X-Generator: Launchpad (build 12559)\n"
 
 #. module: product_pricelist_fixed_price
 #: view:product.pricelist.item:0
@@ -32,8 +34,12 @@ msgstr "Metodo Arrotondamento"
 
 #. module: product_pricelist_fixed_price
 #: constraint:product.pricelist.item:0
-msgid "Error ! You cannot assign the Main Pricelist as Other Pricelist in PriceList Item!"
-msgstr "Errore ! Non è possibile assegnare il listino principale come 'altro listino' nell'elemento di listino!"
+msgid ""
+"Error ! You cannot assign the Main Pricelist as Other Pricelist in PriceList "
+"Item!"
+msgstr ""
+"Errore ! Non è possibile assegnare il listino principale come 'altro "
+"listino' nell'elemento di listino!"
 
 #. module: product_pricelist_fixed_price
 #: model:ir.model,name:product_pricelist_fixed_price.model_product_pricelist
@@ -57,4 +63,3 @@ msgstr "Oggetto Listino"
 #, python-format
 msgid "Fixed Price"
 msgstr "Prezzo fisso"
-

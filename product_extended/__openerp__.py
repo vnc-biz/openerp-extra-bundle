@@ -1,7 +1,8 @@
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2011 OpenERP S.A. (<http://www.openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +21,7 @@
 {
     "name" : "Product extension to track sales and purchases",
     "version" : "1.0",
-    "author" : "Tiny",
+    "author" : "OpenERP S.A.",
     "depends" : ["product", "purchase", "sale", "mrp"],
     "category" : "Generic Modules/Inventory Control",
     "description": """

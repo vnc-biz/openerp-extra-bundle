@@ -27,6 +27,7 @@ import tarfile
 import shutil
 import subprocess
 
+tmp_directory = "/tmp"
 
 
 class unzip:
@@ -96,15 +97,15 @@ class installer:
 
     def install_terminatooor(self, kettle_root_directory):
         print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.1.zip', kettle_root_directory + 'terminatooor.zip')
+        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.1.zip', tmp_directory + 'terminatooor.zip')
         unzipper = unzip()
-        unzipper.extract(kettle_root_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
+        unzipper.extract(tmp_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
         shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
 
         print "getting Ruby-Scripting-for-Kettle ffrom the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_RC2_Kettle_4.zip', kettle_root_directory + 'RubyPlugin.zip')
+        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_RC2_Kettle_4.zip', tmp_directory + 'RubyPlugin.zip')
         unzipper = unzip()
-        unzipper.extract(kettle_root_directory + 'RubyPlugin.zip', kettle_root_directory + 'RubyPlugin')
+        unzipper.extract(tmp_directory + 'RubyPlugin.zip', kettle_root_directory + 'RubyPlugin')
         shutil.move(kettle_root_directory + 'RubyPlugin/Ruby', kettle_root_directory + 'data-integration/plugins/steps/Ruby')
 
 
@@ -131,7 +132,7 @@ class installer:
         print "getting Pentaho Data Integration (Kettle) from the Internet, this can take a while (>80Mo)..."
         urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-RC1/pdi-ce-4.1.0-RC1.tar.gz/download', kettle_root_directory + 'kettle.tar.gz')
         try:
-            tar = tarfile.open(kettle_root_directory + 'kettle.tar.gz', 'r:gz')
+            tar = tarfile.open(tmp_directory + 'kettle.tar.gz', 'r:gz')
             for item in tar:
                 tar.extract(item, kettle_root_directory)
         except:
@@ -143,8 +144,8 @@ class installer:
 
         if install_agilebi:
 	        print "getting the AgileBI plugin from the Internet, this can take a while (>80Mo)..."
-	        urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-stable.zip', kettle_root_directory + 'agilebi.zip')
-	        unzipper.extract(kettle_root_directory + 'agilebi.zip', kettle_root_directory + 'data-integration/plugins/spoon')
+	        urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-stable.zip', tmp_directory + 'agilebi.zip')
+	        unzipper.extract(tmp_directory + 'agilebi.zip', kettle_root_directory + 'data-integration/plugins/spoon')
 
 
 if __name__ == '__main__':

@@ -27,7 +27,7 @@ import tarfile
 import shutil
 import subprocess
 
-tmp_directory = "/tmp"
+tmp_directory = "/tmp/"
 
 
 class unzip:

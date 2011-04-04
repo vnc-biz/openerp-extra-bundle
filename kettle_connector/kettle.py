@@ -23,7 +23,7 @@ import netsvc
 import time
 import datetime
 import base64
-from terminator_install import installer
+from installer import installer
 import tools
 from tools import config
 

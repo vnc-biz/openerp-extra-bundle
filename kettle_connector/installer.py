@@ -113,10 +113,13 @@ class installer:
         print "Loading Akretion shield..."
         urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor2.0.zip', tmp_directory + 'TerminatOOOOR2.zip')
         unzipper = unzip()
-        unzipper.extract(tmp_directory + 'TerminatOOOOR2.zip', tmp_directory + 'TerminatOOOOR2')
-        shutil.move(tmp_directory + 'TerminatOOOOR2/gems', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/gems')
         shutil.move(tmp_directory + 'TerminatOOOOR2/specifications', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
-
+        shutil.move(tmp_directory + 'TerminatOOOOR2/specifications', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
+        shuti.move(tmp_dict(tmp_directory + 'TerminatOOOOR2.zip', tmp_directory + 'TerminatOOOOR2')
+        shutil.rmtree(kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/gems')
+        shutil.rmtree(kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
+        shutil.move(tmp_directory + 'TerminatOOOOR2/gems', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems')
+        shutil.move(tmp_directory + 'TerminatOOOOR2/specifications', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems')
 
     def update_terminatoor(self, kettle_root_directory):
         print kettle_root_directory

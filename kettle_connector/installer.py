@@ -28,6 +28,7 @@ import shutil
 import subprocess
 
 tmp_directory = "/tmp/"
+install_directory = "/opt/openerp/"
 
 
 class unzip:
@@ -96,23 +97,32 @@ class unzip:
 class installer:
 
     def install_terminatooor(self, kettle_root_directory):
+        print "installing the T800 generation..."
         print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
         urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.1.zip', tmp_directory + 'terminatooor.zip')
         unzipper = unzip()
         unzipper.extract(tmp_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
-        shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
+        #shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
 
+        print "installing TerminatOOOR 2 generation"
         print "getting Ruby-Scripting-for-Kettle ffrom the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_RC2_Kettle_4.zip', tmp_directory + 'RubyPlugin.zip')
+        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_Kettle_4.zip', tmp_directory + 'RubyPlugin.zip')
         unzipper = unzip()
         unzipper.extract(tmp_directory + 'RubyPlugin.zip', kettle_root_directory + 'RubyPlugin')
         shutil.move(kettle_root_directory + 'RubyPlugin/Ruby', kettle_root_directory + 'data-integration/plugins/steps/Ruby')
+        print "Loading Akretion shield..."
+        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor2.0.zip', tmp_directory + 'TerminatOOOOR2.zip')
+        unzipper = unzip()
+        unzipper.extract(tmp_directory + 'TerminatOOOOR2.zip', tmp_directory + 'TerminatOOOOR2')
+        shutil.move(tmp_directory + 'TerminatOOOOR2/gems', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/gems')
+        shutil.move(tmp_directory + 'TerminatOOOOR2/specifications', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
 
 
     def update_terminatoor(self, kettle_root_directory):
         print kettle_root_directory
-        os.remove(kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
+        #os.remove(kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
         shutil.rmtree(kettle_root_directory+'data-integration/plugins/steps/terminatooor')
+        shutil.rmtree(kettle_root_directory+'data-integration/plugins/steps/Ruby')
         self.install_terminatooor(kettle_root_directory)
 
     def install(self, kettle_root_directory, install_agilebi=True):
@@ -130,7 +140,7 @@ class installer:
 	        raise Exception("looks like you don't have Java installed! Please install Java (1.6 or superior) first!")
 
         print "getting Pentaho Data Integration (Kettle) from the Internet, this can take a while (>80Mo)..."
-        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-RC1/pdi-ce-4.1.0-RC1.tar.gz/download', kettle_root_directory + 'kettle.tar.gz')
+        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-RC1/pdi-ce-4.1.0-RC1.tar.gz/download', tmp_directory + 'kettle.tar.gz')
         try:
             tar = tarfile.open(tmp_directory + 'kettle.tar.gz', 'r:gz')
             for item in tar:
@@ -140,7 +150,6 @@ class installer:
             print name[:name.rfind('.')], '<filename>'
 
         self.install_terminatooor(kettle_root_directory)
-        os.mkdir(kettle_root_directory + '/data-integration/openerp_tmp/')
 
         if install_agilebi:
 	        print "getting the AgileBI plugin from the Internet, this can take a while (>80Mo)..."
@@ -150,5 +159,5 @@ class installer:
 
 if __name__ == '__main__':
 	installer = installer()
-	installer.install('../../')
+	installer.install(install_directory)
 	print "Done!"

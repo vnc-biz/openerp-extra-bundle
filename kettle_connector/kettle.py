@@ -44,7 +44,10 @@ class kettle_server(osv.osv):
     _columns = {
         'name': fields.char('Server Name', size=64, required=True),
         'kettle_dir': fields.char('Kettle Directory', size=255, required=True),
+        'url': fields.char('Kettle URL', size=64, required=True, help='URL of Kettle server if any (can be localhost)'),
         'transformation': fields.one2many('kettle.transformation', 'server_id', 'Transformation'),
+        'user': fields.char('Kettle Server User', size=32),
+        'password': fields.char('Kettle Server Password', size=32),
         }
     
     _defaults = {

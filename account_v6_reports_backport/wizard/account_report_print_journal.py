@@ -21,6 +21,8 @@
 
 from osv import osv, fields
 import time
+from lxml import etree
+
 class account_print_journal(osv.osv_memory):
     _name = 'account.print.journal'
     _description = 'Account Print Journal'

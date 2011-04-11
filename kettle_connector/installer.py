@@ -113,9 +113,7 @@ class installer:
         print "Loading Akretion shield..."
         urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor2.0.zip', tmp_directory + 'TerminatOOOOR2.zip')
         unzipper = unzip()
-        shutil.move(tmp_directory + 'TerminatOOOOR2/specifications', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
-        shutil.move(tmp_directory + 'TerminatOOOOR2/specifications', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
-        shuti.move(tmp_dict(tmp_directory + 'TerminatOOOOR2.zip', tmp_directory + 'TerminatOOOOR2')
+        unzipper.extract(tmp_directory + 'TerminatOOOOR2.zip', tmp_directory + 'TerminatOOOOR2')
         shutil.rmtree(kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/gems')
         shutil.rmtree(kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/specifications')
         shutil.move(tmp_directory + 'TerminatOOOOR2/gems', kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems')

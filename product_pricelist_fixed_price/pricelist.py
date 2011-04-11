@@ -169,8 +169,10 @@ class product_pricelist(osv.osv):
                                 res2 = cr.dictfetchone()
                                 if res2:
                                     price = res2['price']
+                        #This is added by product_pricelist_fixed_price
                         elif res['base'] == -3:
                             price = res['fixed_price']
+                        #End
                         else:
                             price_type = price_type_obj.browse(cr, uid, int(res['base']))
                             price = currency_obj.compute(cr, uid,

@@ -143,7 +143,7 @@ class installer:
 	        raise Exception("looks like you don't have Java installed! Please install Java (1.6 or superior) first!")
 
         print "getting Pentaho Data Integration (Kettle) from the Internet, this can take a while (>80Mo)..."
-        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-RC1/pdi-ce-4.1.0-RC1.tar.gz/download', tmp_directory + 'kettle.tar.gz')
+        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-stable/pdi-ce-4.1.0-stable.tar.gz/download', tmp_directory + 'kettle.tar.gz')
         try:
             tar = tarfile.open(tmp_directory + 'kettle.tar.gz', 'r:gz')
             for item in tar:

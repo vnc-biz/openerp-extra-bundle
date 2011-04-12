@@ -51,7 +51,11 @@ class account_payment_term(osv.osv):
             elif line.value == 'division':
                 amt = round(value / line.value_amount, prec)
             if amt:
-                next_date = (datetime.strptime(date_ref, '%Y-%m-%d') + relativedelta(days=line.days) + relativedelta(months=line.months or 0))
+                next_date = datetime.strptime(date_ref, '%Y-%m-%d') 
+		# Add months first
+		next_date += relativedelta(months=line.months or 0)
+		# Add days later
+                next_date += relativedelta(days=line.days)
                 if line.days2 < 0:
                     next_first_date = next_date + relativedelta(day=1,months=1) #Getting 1st of next month
                     next_date = next_first_date + relativedelta(days=line.days2)

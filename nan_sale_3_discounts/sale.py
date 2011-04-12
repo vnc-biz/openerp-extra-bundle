@@ -27,6 +27,55 @@ import netsvc
 import time
 import tools
 
+class account_invoice_line(osv.osv):
+    _inherit = 'account.invoice.line'
+
+    def _get_discount(self, cr, uid, ids, field_name, field_value, context):
+        result = {}
+        for line in self.browse(cr,uid,ids,context=context):
+            value = 100*(1 - ( (100-line.discount1)/100 *(100-line.discount2)/100 * (100-line.discount3)/100 ))
+            result[line.id] = value
+        return result
+
+
+    def onchange_discount(self, cr, uid, ids, discount1,discount2,discount3 ,context=None ):
+        if context is None:
+            context={}
+        result = {'value':{}}
+        result['value']['discount']= 100*( 1 - ((100-discount1)/100 * (100-discount2)/100 * (100 - discount3)/100 ) )
+        return result
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        
+        for line in self.browse(cr,uid,ids,context=context):
+	    discount1 = vals.get('discount1', line.discount1) or 0.0
+	    discount2 = vals.get('discount2', line.discount2) or 0.0
+	    discount3 = vals.get('discount3', line.discount3) or 0.0
+            value = 100*(1 - ( (100-discount1)/100 *(100-discount2)/100 * (100-discount3)/100 ))
+            vals['discount'] = value
+            if not super( account_invoice_line , self ).write( cr, uid,[line.id], vals, context=context ):
+                return False
+
+        return True
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context ={}
+        
+        vals['discount'] = 100*( 1 - ((100-vals.get('discount1',0))/100 * (100-vals.get('discount2',0))/100 * (100 - vals.get('discount3',0))/100 ) )
+        return super( account_invoice_line, self).create( cr, uid, vals,context )
+
+    _columns = {
+        'discount': fields.float( 'Calculated discount', digits=(10,2) , readonly="True" ),
+        'discount1': fields.float('Discount 1', digits=(10,2)),
+        'discount2': fields.float('Discount 2', digits=(10,2)),
+        'discount3': fields.float('Discount 3', digits=(10,2)),
+    }
+
+account_invoice_line()
+
 class stock_picking( osv.osv ):
     _inherit =  'stock.picking'
 
@@ -40,11 +89,17 @@ class stock_picking( osv.osv ):
 
 
     def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
-        self.pool.get('account.invoice.line').write( cr, uid, [invoice_line_id], {        
-            'discount1':move_line.sale_line_id.discount1, 
-            'discount2':move_line.sale_line_id.discount2,
-            'discount3':move_line.sale_line_id.discount3,
-            } )
+        if move_line.sale_line_id:
+            self.pool.get('account.invoice.line').write( cr, uid, [invoice_line_id], {        
+                'discount1':move_line.sale_line_id.discount1, 
+                'discount2':move_line.sale_line_id.discount2,
+                'discount3':move_line.sale_line_id.discount3,
+                } )
+        elif move_line.purchase_line_id:
+            if 'discount' in self.pool.get('purchase.order.line')._columns:
+                self.pool.get('account.invoice.line').write( cr, uid, [invoice_line_id], {
+                    'discount1':move_line.purchase_line_id.discount or 0,
+                    } )
 
         return super( stock_picking, self)._invoice_line_hook( cr, uid, move_line,invoice_line_id )
 
@@ -60,6 +115,32 @@ class sale_order_line(osv.osv):
             value = 100*(1 - ( (100-line.discount1)/100 *(100-line.discount2)/100 * (100-line.discount3)/100 ))
             result[line.id] = value
         return result
+
+    def onchange_discount(self, cr, uid, ids, discount1,discount2,discount3 ,context=None ):
+        if context is None:
+            context={}
+        result = {'value':{}}
+        result['value']['discount']= 100*( 1 - ((100-discount1)/100 * (100-discount2)/100 * (100 - discount3)/100 ) )
+        return result
+
+    def write(self, cr, uid, ids, vals, context=None):
+        if context is None:
+            context = {}
+        
+        for line in self.browse(cr,uid,ids,context=context):
+            value = 100*(1 - ( (100-vals.get('discount1',line.discount1) )/100 *(100-vals.get('discount2',line.discount2))/100 * (100-vals.get('discount3',line.discount3))/100 ))
+            vals['discount'] = value
+            if not super( sale_order_line , self ).write( cr, uid,[line.id], vals, context=context ):
+                return False
+
+        return True
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context ={}
+        
+        vals['discount'] = 100*( 1 - ((100-vals.get('discount1',0))/100 * (100-vals.get('discount2',0))/100 * (100 - vals.get('discount3',0))/100 ) )
+        return super( sale_order_line, self).create( cr, uid, vals,context )
 
     def invoice_line_create(self, cr, uid, ids, context=None):
         if context is None:
@@ -118,7 +199,7 @@ class sale_order_line(osv.osv):
                     'account_id': a,
                     'price_unit': pu,
                     'quantity': uosqty,
-                    'discount': line.discount,
+                    'discount': 100*(1 - ( (100-line.discount1)/100 *(100-line.discount2)/100 * (100-line.discount3)/100 )),
                     'uos_id': uos_id,
                     'product_id': line.product_id.id or False,
                     'invoice_line_tax_id': [(6, 0, [x.id for x in line.tax_id])],
@@ -138,13 +219,19 @@ class sale_order_line(osv.osv):
             wf_service.trg_write(uid, 'sale.order', sid, cr)
         return create_ids
 
+    def _get_sale_order_state(self, cr, uid, ids, context=None):
+        result = {}
+        for order in self.pool.get('sale.order').browse(cr, uid, ids, context=context):
+            for line in order.order_line:
+                result[line.id] = True
+        return result.keys()            
+
+
     _columns = {
-        'discount': fields.function(_get_discount, method=True, type="float", digits=(10,2), priority=-100, store={
-            'sale.order.line': (lambda self, cr, uid, ids, context=None: ids, ['discount1','discount2','discount3'], 1),
-	        }, string='Calculated discount'),
         'discount1': fields.float('Discount 1', digits=(10,2)),
         'discount2': fields.float('Discount 2', digits=(10,2)),
         'discount3': fields.float('Discount 3', digits=(10,2)),
+        'discount': fields.float( 'Calculated discount', digits=(10,2) , readonly="True" ),
     }
 
 sale_order_line()

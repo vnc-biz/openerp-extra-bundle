@@ -8,9 +8,10 @@
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
                 <field name="discount" position="replace">
-                        <field name="discount1" />
-                        <field name="discount2" />
-                        <field name="discount3" />
+                    <field name="discount1"  on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount2" on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount3" on_change="onchange_discount( discount1,discount2,discount3)" />
+                     <field name="discount" on_change="onchange_discount( discount1,discount2,discount3)" />
                 </field>
             </field>
         </record>
@@ -21,9 +22,10 @@
             <field name="inherit_id" ref="view_order_form_discounts" />
             <field name="arch" type="xml">
                 <field name="discount" position="replace">
-                        <field name="discount1" />
-                        <field name="discount2" />
-                        <field name="discount3" />
+                    <field name="discount1"  on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount2" on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount3" on_change="onchange_discount( discount1,discount2,discount3)" />
+                        <field name="discount" />
                 </field>
             </field>
         </record>
@@ -36,9 +38,10 @@
             <field name="inherit_id" ref="sale.view_order_line_form2" />
             <field name="arch" type="xml">
                 <field name="discount" position="replace">
-                        <field name="discount1" />
-                        <field name="discount2" />
-                        <field name="discount3" />
+                    <field name="discount1"  on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount2" on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount3" on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount" />
                 </field>
             </field>
         </record>
@@ -55,6 +58,7 @@
                      <field name="discount1" />
                      <field name="discount2" />
                      <field name="discount3" />
+                     <field name="discount" />
                 </field>
             </field>
         </record>
@@ -66,9 +70,10 @@
             <field name="inherit_id" ref="account.view_invoice_line_form" />
             <field name="arch" type="xml">
                 <field name="discount" position="replace" >
-                     <field name="discount1" />
-                     <field name="discount2" />
-                     <field name="discount3" />
+                    <field name="discount1"  on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount2" on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount3" on_change="onchange_discount( discount1,discount2,discount3)" />
+                    <field name="discount" />
                 </field>
             </field>
         </record>

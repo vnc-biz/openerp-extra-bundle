@@ -31,11 +31,11 @@
     "author" : "NaN Projectes de Programari Lliure S.L.",
     "website" : "http://www.NaN-tic.com",
     "depends" : [ 
+        'account',
         'sale',
         'stock',
-        'account'
     ], 
-    "category" : "Generic Modules/Production",
+    "category" : "Generic Modules/Sale",
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [

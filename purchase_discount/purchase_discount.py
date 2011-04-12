@@ -72,6 +72,35 @@ class purchase_order(osv.osv):
             res[order.id]['amount_total'] = res[order.id]['amount_untaxed'] + res[order.id]['amount_tax']
         return res
     
+    def inv_line_create(self, cr, uid, a, ol):
+        return (0, False, {
+            'name': ol.name,
+            'account_id': a,
+            'price_unit': ol.price_unit or 0.0,
+            'quantity': ol.product_qty,
+            'product_id': ol.product_id.id or False,
+            'uos_id': ol.product_uom.id or False,
+            'discount': ol.discount or 0.0,
+            'invoice_line_tax_id': [(6, 0, [x.id for x in ol.taxes_id])],
+            'account_analytic_id': ol.account_analytic_id.id or False,
+        })
+
 purchase_order()
+
+
+class stock_picking( osv.osv ):
+    _inherit =  'stock.picking'
+
+    def _invoice_line_hook(self, cr, uid, move_line, invoice_line_id):
+        if move_line.purchase_line_id:
+            self.pool.get('account.invoice.line').write( cr, uid, [invoice_line_id], {        
+                'discount':move_line.purchase_line_id.discount, 
+                } )
+        return super( stock_picking, self)._invoice_line_hook( cr, uid, move_line,invoice_line_id )
+
+stock_picking()
+
+
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

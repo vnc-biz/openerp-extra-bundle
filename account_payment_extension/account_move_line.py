@@ -59,7 +59,7 @@ class account_move_line(osv.osv):
                         THEN ml.amount_currency
                         ELSE ml.credit - ml.debit
                     END AS debt,
-                    (SELECT coalesce(sum(amount_currency),0)
+                    (SELECT coalesce(sum(CASE WHEN pl.type='receivable' THEN -amount_currency ELSE amount_currency END),0)
                         FROM payment_line pl
                             INNER JOIN payment_order po
                                 ON (pl.order_id = po.id)

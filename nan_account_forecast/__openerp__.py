@@ -35,7 +35,7 @@
     "website": "http://www.NaN-tic.com",
     "description": "This provides a jasper report in account move lines for viewing payments and receivables grouped by date. The module does not provide any wizard with default filters as it expects users to create their own filters and select the ones to be printed.",
     "depends" : [
-        'account',
+        'account_payment_extension',
         'jasper_reports',
 	],
     "init_xml" : [],

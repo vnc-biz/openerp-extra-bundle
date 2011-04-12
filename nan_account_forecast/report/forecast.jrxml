@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="forecast" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="forecast" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="848"/>
 	<property name="ireport.y" value="0"/>
 	<style name="defecto" isDefault="true" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" markup="none" pattern="" isBlankWhenNull="true" fontName="SansSerif" fontSize="8" isBold="false" isItalic="true" isUnderline="false" pdfFontName="Helvetica-Bold"/>
 	<style name="textoscabecera" style="defecto" forecolor="#000000" backcolor="#FFFFFF" radius="10" isBold="true" pdfFontName="Helvetica-Bold">
@@ -35,6 +35,24 @@
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[/data/record/partner_id/name]]></fieldDescription>
 	</field>
+	<field name="acc_number" class="java.lang.String">
+		<fieldDescription><![CDATA[/data/record/partner_bank_id/acc_number]]></fieldDescription>
+	</field>
+	<field name="iban" class="java.lang.String">
+		<fieldDescription><![CDATA[/data/record/partner_bank_id/iban]]></fieldDescription>
+	</field>
+	<field name="bank_name" class="java.lang.String">
+		<fieldDescription><![CDATA[/data/record/partner_bank_id/bank/name]]></fieldDescription>
+	</field>
+	<field name="payment_type" class="java.lang.String">
+		<fieldDescription><![CDATA[/data/record/payment_type/name]]></fieldDescription>
+	</field>
+	<field name="received_check" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[/data/record/received_check]]></fieldDescription>
+	</field>
+	<field name="ref" class="java.lang.String">
+		<fieldDescription><![CDATA[/data/record/ref]]></fieldDescription>
+	</field>
 	<sortField name="date_maturity"/>
 	<variable name="importe" class="java.lang.Double" resetType="None">
 		<variableExpression><![CDATA[($F{debit}==null ? 0.0 : $F{debit})-($F{credit}==null ? 0.0 : $F{credit})]]></variableExpression>
@@ -61,52 +79,80 @@
 					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Partner")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="defecto" x="216" y="11" width="87" height="18"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<reportElement style="defecto" x="520" y="11" width="87" height="18"/>
+					<textElement verticalAlignment="Middle">
 						<font size="8" isItalic="false" isUnderline="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Document")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="defecto" x="329" y="10" width="66" height="19"/>
+					<reportElement style="defecto" x="608" y="10" width="66" height="19"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isItalic="false" isUnderline="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Expiry Date")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="defecto" x="412" y="10" width="62" height="19"/>
+					<reportElement style="defecto" x="675" y="10" width="62" height="19"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isItalic="false" isUnderline="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Amount")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="defecto" x="493" y="10" width="62" height="19"/>
+					<reportElement style="defecto" x="738" y="10" width="62" height="19"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="8" isItalic="false" isUnderline="false"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Aggregated Amount")]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement x="0" y="29" width="555" height="1"/>
+					<reportElement x="0" y="29" width="802" height="1"/>
 				</line>
+				<textField>
+					<reportElement style="defecto" x="183" y="11" width="87" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Payment Type")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="defecto" x="273" y="11" width="87" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Bank Account")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="defecto" x="364" y="11" width="87" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Bank Name")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="defecto" x="454" y="11" width="66" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[tr($V{L},"Check?")]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="27">
 				<textField pattern="#,##0.00;-#,##0.00">
-					<reportElement x="474" y="6" width="81" height="15"/>
+					<reportElement x="738" y="6" width="62" height="15"/>
 					<textElement textAlignment="Right"/>
 					<textFieldExpression class="java.lang.Double"><![CDATA[$V{acumulado}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
-					<reportElement x="395" y="6" width="79" height="15"/>
+					<reportElement x="675" y="6" width="62" height="15"/>
 					<textElement textAlignment="Right"/>
 					<textFieldExpression class="java.lang.Double"><![CDATA[$V{total-vto}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="defecto" x="262" y="6" width="133" height="15"/>
+					<reportElement style="defecto" x="520" y="6" width="154" height="15"/>
 					<textElement verticalAlignment="Middle">
 						<font size="8" isItalic="false" isUnderline="false"/>
 					</textElement>
@@ -154,7 +200,7 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="313" y="0" width="82" height="15"/>
+				<reportElement x="607" y="1" width="66" height="15"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{date_maturity}]]></textFieldExpression>
 			</textField>
@@ -164,14 +210,34 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="404" y="1" width="70" height="14"/>
+				<reportElement x="675" y="1" width="62" height="14"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$V{importe}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="213" y="1" width="90" height="15"/>
+				<reportElement x="520" y="1" width="87" height="15"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{number}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{number} != null ? $F{number} : $F{ref}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="1" width="87" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{payment_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="1" width="87" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{acc_number} != null ? $F{acc_number} : $F{iban}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="1" width="87" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bank_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="1" width="66" height="15"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{received_check} ? tr($V{L}, "Yes") : tr($V{L},"No")]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

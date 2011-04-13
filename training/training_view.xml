@@ -225,29 +225,29 @@
 
 <!-- training.course views & actions -->
        <record id="training_course_filter" model="ir.ui.view">
-            <field name="name">training.course.select</field>
+            <field name="name">training.course.search</field>
             <field name="model">training.course</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
                 <search string="Search Course">
                    <group col='15' colspan='4'>
-                        <filter icon="terp-document-new" string="Draft" domain="[('state_course','=','draft')]" help="Course State Draft."/>
+                        <filter icon="terp-document-new" string="Draft" domain="[('state_course','=', 'draft')]"/>
+                        <filter icon="terp-camera_test" string="Validated" domain="[('state_course','=', 'validated')]"/>
                         <filter icon="terp-tools" string="Ask Reviews" domain="[('pending_ids.state','=','pending')]" help="Course Pending Reviews."/>
-                        <filter icon="terp-check" string="Validated" domain="[('state_course','=','validated')]" help="Course State Validated."/>
-                        <filter icon="terp-gtk-stop" string="Deprecated" domain="[('state_course','=','deprecated')]" help="Course State Deprecated."/>
-                       <separator orientation="vertical"/>
-                       <filter icon="terp-personal+" string="My Courses" domain="['|',('create_uid', '=', uid)]" help="Courses in which I create." default="1"/>
-                       <separator orientation="vertical"/>
-                       <field name="name" string="Name"/>
-                       <field name="long_name" string="Long Name"/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-personal+" string="My Courses" domain="['|',('create_uid', '=', uid)]" help="Courses in which I create." default="1"/>
+                        <separator orientation="vertical"/>
+                        <field name="name" string="Name"/>
+                        <field name="long_name" string="Long Name"/>
                    </group>
                    <newline/>
                    <group expand="0" string="Group By...">
-                       <filter string="Type" icon="terp-folder-blue" domain="[]" context="{'group_by' : 'course_type_id'}"/>
-                       <filter string="Product Line" icon="terp-folder-green" domain="[]" context="{'group_by' : 'category_id'}"/>
-                       <filter string="Kind" icon="terp-folder-orange" domain="[]" context="{'group_by' : 'kind'}"/>
-                       <filter string="Language" icon="terp-folder-yellow" domain="[]" context="{'group_by' : 'lang_id'}"/>
-                       <filter string="Master Course" icon="terp-folder-blue" domain="[]" context="{'group_by' : 'reference_id'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'state_course'}"/>
+                        <filter string="Type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'course_type_id'}"/>
+                        <filter string="Product Line" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'category_id'}"/>
+                        <filter string="Kind" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'kind'}"/>
+                        <filter string="Language" icon="terp-stage" domain="[]" context="{'group_by' : 'lang_id'}"/>
+                        <filter string="Master Course" icon="terp-report" domain="[]" context="{'group_by' : 'reference_id'}"/>
                    </group>
                </search>
             </field>
@@ -540,16 +540,22 @@
         </record>
 
        <record model="ir.ui.view" id="training_catalog_filter">
-            <field name="name">training.catalog.select</field>
+            <field name="name">Catalogs Search</field>
             <field name="model">training.catalog</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
-                <search string="Search Catalog">
-                   <group col='15' colspan='4'>
-                        <filter icon="terp-go-year" name="current" string="Current Catalogs" domain="[('year','=', time.strftime('%%Y'))]" help="If it's selected, only show current catalogs."/>
-                        <filter icon="terp-go-year" string="Old Catalogs" domain="[('year','&lt;', time.strftime('%%Y'))]" help="If it's selected, only show old catalogs."/>
-                   </group>
-               </search>
+                <search string="Search Catalogs">
+                	<filter icon="gtk-apply" string="In Progress" domain="[('state','=', 'inprogress')]"/>
+                    <filter icon="terp-camera_test" string="Validated" domain="[('state','=', 'validated')]"/>
+                    <separator orientation="vertical"/>
+                    <field name="name"/>
+                    <newline/>
+                    <group expand="0" string="Group By..." >
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Year" icon="terp-go-month" domain="[]" context="{'group_by':'year'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -595,6 +601,8 @@
                     <newline/>
                     <group expand="0" string="Group by..." groups="base.group_extended" col='15' colspan='4'>
                         <filter icon="terp-document-new" string="Offer" name="Offer" domain = "[]" context="{'group_by':'offer_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Catalog" icon="gtk-jump-to" domain="[]" context="{'group_by':'catalog_id'}"/>
                     </group>
                 </search>
             </field>
@@ -847,6 +855,12 @@
                         <field name="name" string="Name"/>
                         <field name="original_offer_id" string="Offer"/>
                         <field name="session_ids" string="Session"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Group" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'group_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
                     </group>
                     <newline/>
                     <group expand="0" string="Extended filters..." groups="base.group_extended" col='15' colspan='4'>
@@ -1140,16 +1154,14 @@
 
 <!-- training.subscription -->
        <record id="training_subscription_filter" model="ir.ui.view">
-            <field name="name">training.subscription.select</field>
+            <field name="name">training.subscription.search</field>
             <field name="model">training.subscription</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
                 <search string="Search Subscription">
                    <group col='15' colspan='4'>
                         <filter icon="terp-document-new" string="To Validate" domain="[('state','=','draft')]" help="Subscription State Draft."/>
-                        <filter icon="terp-camera_test" string="To Invoice" domain="[('state','=','confirmed')]" help="Subscription State Confirmed."/>
-                        <filter icon="terp-check" string="Done" domain="[('state','=','done')]" help="Subscription State Done."/>
-                        <filter icon="terp-gtk-stop" string="Cancelled" domain="[('state','=','cancelled')]" help="Subscription State Cancelled."/>
+                        <filter icon="terp-check" string="To Invoice" domain="[('state','=','confirmed')]" help="Subscription State Confirmed."/>
                         <separator orientation="vertical"/>
                         <filter icon="terp-personal+" string="My Subscriptions" domain="['|',('create_uid', '=', uid)]" help="Suscriptions in which I create." default="1"/>
                         <separator orientation="vertical"/>
@@ -1165,6 +1177,11 @@
                    <newline/>
                    <group expand="0" string="Group By...">                      
                         <filter string="Partner" name="Partner" icon="terp-partner" domain = "[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Responsible" icon="terp-personal" domain="[]" context="{'group_by':'responsible_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Create Date" icon="terp-go-month" domain="[]" context="{'group_by':'create_date'}"/>
                    </group>
                </search>
             </field>
@@ -1223,7 +1240,7 @@
                                                 <field name="paid"/>
                                             </group>
                                             <group states="confirmed,done">
-                                                <button name="action_create_invoice" string="Create Invoice" type="object" attrs="{'invisible': [('invoice_line_id', '!=', False)]}"/>
+                                                <button name="action_create_invoice" string="Create Invoice" type="object" attrs="{'invisible': [('invoice_line_id', '!=', False)]}" icon="gtk-new"/>
                                             </group>
                                         </group>
                                     </group>
@@ -1251,10 +1268,8 @@
                     </notebook>
                     <group colspan="4" col="6">
                         <field name="state"/>
-                        <button string="Confirm Request" type="workflow" name="signal_confirm" states="draft" 
-                            confirm="Do you want to confirm the request for this subscription ?"/>
-                        <button string="Cancel" type="workflow" name="signal_cancel" states="draft" 
-                            confirm="Do you want to cancel this subscription ?"/>
+                        <button string="Confirm Request" type="workflow" name="signal_confirm" states="draft" confirm="Do you want to confirm the request for this subscription ?" icon="terp-camera_test"/>
+                        <button string="Cancel" type="workflow" name="signal_cancel" states="draft" confirm="Do you want to cancel this subscription ?" icon="gtk-cancel"/>
                     </group>
                 </form>
             </field>
@@ -1433,37 +1448,41 @@
             <field name="type">search</field>
             <field name="arch" type="xml">
                 <search string="Search Subscription Line">
-                   <group col='15' colspan='4'>
+                    <group col='15' colspan='4'>
                         <filter icon="terp-document-new" string="Draft" domain="[('state', '=', 'draft')]" help="Subscription lines in draft state."/>
                         <filter icon="terp-camera_test" string="Confirmed" domain="[('state', '=', 'confirmed')]" help="Subscription lines in confirmed state."/>
-                        <filter icon="terp-gtk-stop" string="Cancelled" domain="[('state', '=', 'cancelled')]" help="Subscription lines in cancelled state."/>
-                        <filter icon="terp-check" string="Done" domain="[('state', '=', 'done')]" help="Subscription lines in done state."/>
                         <separator orientation="vertical"/>
-                        <filter icon="terp-document-new" string="To Validate" domain="[('state', '=', 'draft'), ('subscription_id.state', '=', 'confirmed')]" help="Subscription Line State To Validate."/>
-                        <filter icon="terp-camera_test" string="To Invoice" domain="[('invoice_line_id', '=', False),('state', 'in', ('done','confirmed')),('subscription_id.state', 'in', ('confirmed', 'done')), ('session_id.state', 'not in', ['cancelled', 'draft']),('price','!=',0)]" help="Subscription Line State To Invoice."/>
-                        <filter icon="terp-tools" string="To Fix" domain="[('session_id.date', '&lt;', (datetime.datetime.today()+datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59')),('session_id.state','in',['inprogress','closed'])]" help="Subscription Line State To Fix."/>
+                        <filter icon="terp-camera_test" string="To Validate" domain="[('state', '=', 'draft'), ('subscription_id.state', '=', 'confirmed')]" help="Subscription Line State To Validate."/>
+                        <filter icon="terp-check" string="To Invoice" domain="[('invoice_line_id', '=', False),('state', 'in', ('done','confirmed')),('subscription_id.state', 'in', ('confirmed', 'done')), ('session_id.state', 'not in', ['cancelled', 'draft']),('price','!=',0)]" help="Subscription Line State To Invoice."/>
+                        <filter icon="terp-emblem-important" string="To Fix" domain="[('session_id.date', '&lt;', (datetime.datetime.today()+datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59')),('session_id.state','in',['inprogress','closed'])]" help="Subscription Line State To Fix."/>
                         <separator orientation="vertical"/>
                         <field name="name" string="Reference"/>
                         <field name="partner_id" string="Partner"/>
-                   </group>
-                   <newline/>
-                   <group expand="0" string="Extended Filters...">
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Extended Filters...">
                         <field name="create_uid" string="Created by"/>
                         <field name="subscription_state" string="State"/>
-                        <field name="session_id" string="Session"/>
                         <field name="offer_id" string="Offer"/>
                         <field name="offer_product_line_id" string="Product Line"/>
                         <field name="job_id" string="Participant"/>
                         <field name="contact_id" string="Contact"/>
                         <field name="kind" string="Kind"/>
                         <newline/>
-                        <field name="state" string="State"/>
                         <field name="validation_uid" string="Validated by"/>
                         <field name="cancellation_uid" string="Cancelled by"/>
                         <field name="session_state" string="Session State"/>
                         <field name="session_date" string="Session Date"/>
                         <field name="has_certificate" string="Has Certificate"/>
-                   </group>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'session_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Create Date" icon="terp-go-month" domain="[]" context="{'group_by':'create_date'}"/>
+                    </group>
                </search>
             </field>
         </record>
@@ -1498,8 +1517,7 @@
                                         <field name="paid"/>
                                     </group>
                                     <group states="confirmed,done" groups="training.group_training">
-                                        <button name="action_create_invoice" string="Create Invoice" type="object" 
-                                            attrs="{'invisible': [('invoice_line_id', '!=', False)]}"/>
+                                        <button name="action_create_invoice" string="Create Invoice" type="object" icon="gtk-new" attrs="{'invisible': [('invoice_line_id', '!=', False)]}"/>
                                     </group>
                                 </group>
                             </group>
@@ -1529,34 +1547,13 @@
                     <separator colspan="4"/>
                     <group col="9" colspan="4">
                         <field name="state"/>
-                        <button name="signal_confirm" string="Confirm" type="workflow" states="draft"
-                            confirm="Do you want to confirm this subscription line ?"/>
-                        <button name="signal_cancel" string="Cancel" type="workflow" states="draft"
-                            confirm="Do you want to cancel this subscription line ?"/>
-                        <button name="signal_invoice_and_send_emails" string="Cancel (Penalities)" type="workflow" states="confirmed"
-                            confirm="Do you want to cancel this subscription line ?"/>
-                        <button name="%(training.subscription_cancellation_wizard_act)d"
-                            string="Cancel (Free)" 
-                            type="action"
-                            groups="training.group_subscription_manager"
-                            states="confirmed"
-                            context="{'default_state':'cancellation'}" 
-                            confirm="Do you want to cancel this subscription line ?"/>
-                        <button name="%(training.subscription_cancellation_wizard_act)d"
-                            string="Replacement"
-                            type="action"
-                            states="confirmed"
-                            groups="training.group_subscription_manager"
-                            context="{'default_state':'replacement'}" 
-                            confirm="Do you want to do a replacement for this subscription line ?"/>
-                        <button name="%(training.subscription_cancellation_wizard_act)d"
-                            string="Postponement"
-                            type="action"
-                            states="confirmed"
-                            groups="training.group_subscription_manager"
-                            context="{'default_state':'postponement'}" 
-                            confirm="Do you want to postpone this subscription line ?"/>
-                        <button name="signal_done" string="Done" type="workflow"  states="confirmed"/>
+                        <button name="signal_confirm" string="Confirm" type="workflow" states="draft" confirm="Do you want to confirm this subscription line ?" icon="terp-camera_test"/>
+                        <button name="signal_cancel" string="Cancel" type="workflow" states="draft" confirm="Do you want to cancel this subscription line ?" icon="gtk-cancel"/>
+                        <button name="signal_invoice_and_send_emails" string="Cancel (Penalities)" type="workflow" states="confirmed" confirm="Do you want to cancel this subscription line ?" icon="gtk-cancel"/>
+                        <button name="%(training.subscription_cancellation_wizard_act)d" string="Cancel (Free)" type="action" groups="training.group_subscription_manager" states="confirmed" context="{'default_state':'cancellation'}" confirm="Do you want to cancel this subscription line ?" icon="gtk-cancel"/>
+                        <button name="%(training.subscription_cancellation_wizard_act)d" string="Replacement" type="action" states="confirmed" groups="training.group_subscription_manager" context="{'default_state':'replacement'}" confirm="Do you want to do a replacement for this subscription line ?" icon="terp-stock_effects-object-colorize"/>
+                        <button name="%(training.subscription_cancellation_wizard_act)d" string="Postponement" type="action" states="confirmed" groups="training.group_subscription_manager" context="{'default_state':'postponement'}" confirm="Do you want to postpone this subscription line ?" icon="terp-stock_effects-object-colorize"/>
+                        <button name="signal_done" string="Done" type="workflow" states="confirmed" icon="terp-camera_test"/>
                     </group>
                 </form>
             </field>
@@ -1674,8 +1671,8 @@
 
 
 <!-- training.offer -->
-       <record id="training_offer_filter" model="ir.ui.view">
-            <field name="name">training.offer.select</field>
+       <record id="training_offer_search" model="ir.ui.view">
+            <field name="name">training.offer.search</field>
             <field name="model">training.offer</field>
             <field name="type">search</field>
             <field name="arch" type="xml">
@@ -1683,7 +1680,6 @@
                    <group col='15' colspan='4'>
                         <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Offers State Draft."/>
                         <filter icon="terp-camera_test" string="Validated" domain="[('state','=','validated')]" help="Offers State Validated."/>
-                        <filter icon="terp-gtk-stop" string="Deprecated" domain="[('state','=','deprecated')]" help="Offers State Deprecated."/>
                         <filter icon="terp-personal+" string="Member" domain="['|',('create_uid', '=', uid)]" help="Offers I have created." default="1"/>
                         <separator orientation="vertical"/>
                         <field name="name" string="Name"/>
@@ -1692,11 +1688,12 @@
                    </group>
                    <newline/>
                    <group expand="0" string="Group By...">
-                       <filter string="Type" icon="terp-folder-blue" domain="[]" context="{'group_by' : 'type_id'}"/>
-                       <filter string="Product Line" icon="terp-folder-green" domain="[]" context="{'group_by' : 'product_line_id'}"/>
-                       <filter string="Kind" icon="terp-folder-orange" domain="[]" context="{'group_by' : 'kind'}"/>
-                       <filter string="Language" icon="terp-folder-yellow" domain="[]" context="{'group_by' : 'lang_id'}"/>
-                       <filter string="Format" icon="terp-folder-blue" domain="[]" context="{'group_by' : 'format_id'}"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'state'}"/>
+                        <filter string="Type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'type_id'}"/>
+                        <filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by' : 'product_line_id'}"/>
+                        <filter string="Kind" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'kind'}"/>
+                        <filter string="Language" icon="terp-stage" domain="[]" context="{'group_by' : 'lang_id'}"/>
+                        <filter string="Format" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'format_id'}"/>
                    </group>
                    </search>
             </field>
@@ -1918,8 +1915,12 @@
                        <field name="seance_date" string="Seance Date"/>
                        <field name="contact_id" string="Contact"/>
                        <field name="kind" string="Kind"/>
-                       <field name="date" string="Date"/>
                    </group>
+                    <group expand="0" string="Group By...">
+                        <filter string="Group" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'group_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
                </search>
             </field>
         </record>

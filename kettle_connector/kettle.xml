@@ -71,6 +71,8 @@
 				        <button name="button_install" string="Install Kettle" type="object" icon="gtk-execute" colspan="1"/>
                         <button name="button_update_terminatooor" string="Update Terminatooor" type="object" icon="gtk-execute" colspan="1"/>
 			        </group>
+                    <field name="url"/>
+                    <field name="user"/>
 			   		<separator colspan="4" string="Transformations" />
 		        	<field name="transformation" colspan="4" nolabel="1"/>
 				</form>

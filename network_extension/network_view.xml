@@ -154,8 +154,8 @@
             <field name="model">network.software</field>
             <field name="inherit_id" ref="network.software_form"/>
             <field name="arch" type="xml">
-                <field name="logpass" position="replace">
-                    <field name="logpass" nolabel="1" colspan="4" widget="one2many_list">
+                <xpath expr="//field[@name='logpass']" position="replace">
+                    <field name="logpass" nolabel="1" colspan="4">
                         <tree string="Login/Password">
                             <field name="name"/>
                             <field name="login"/>
@@ -174,7 +174,7 @@
                             <field name="encrypted" invisible="True"/>
                         </form>
                     </field>
-                    <field name="service_ids" nolabel="1" colspan="4" widget="one2many_list">
+                    <field name="service_ids" nolabel="1" colspan="4">
                         <tree string="Service">
                             <field name="name"/>
                             <field name="protocol_id"/>
@@ -195,7 +195,7 @@
                             <button name="_compute_public_url" type="object" string="Compute URL" colspan="3"/>
                         </form>
                     </field>
-                </field>
+                </xpath>
             </field>
         </record>
 

@@ -341,7 +341,27 @@
             action="action_network_service" 
             groups="network.group_network_manager"/>
 
-        <!-- PROTOCOL -->
+        <!-- ************************************************************** -->
+        <!-- ** Protocol ************************************************** -->
+        <!-- ************************************************************** -->
+        <record id="view_network_protocol_search" model="ir.ui.view">
+            <field name="name">network.protocol.search</field>
+            <field name="model">network.protocol</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Protocol">
+                    <field name="name" select="True"/>
+                    <field name="port"/>
+                    <field name="protocol"/>
+                   <newline/>
+                   <group expand="0" string="Group By...">
+                       <filter string="Protocol" icon="terp-personal" domain="[]" context="{'group_by' : 'protocol'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="protocol_tree">
             <field name="name">network.protocol.tree</field>
             <field name="model">network.protocol</field>
@@ -376,6 +396,8 @@
             <field name="name">Protocol</field>
             <field name="res_model">network.protocol</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_network_protocol_search"/>
         </record>
 
         <menuitem 
@@ -385,7 +407,9 @@
             action="action_network_protocol" 
             groups="network.group_network_manager"/>
 
-        <!-- ENCRYPT_PASSWORD -->
+        <!-- ************************************************************** -->
+        <!-- ** Password encryption *************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="encrypt_password_tree">
             <field name="name">network.encrypt.password.tree</field>
             <field name="model">network.encrypt.password</field>
@@ -424,23 +448,23 @@
 
         <!-- Shortcuts -->
         <act_window name="Networks"
-                    domain="[('contact_id', '=', active_id)]"
-                    context="{'contact_id': active_id}"
-                    res_model="network.network"
-                    src_model="res.partner"
-                    id="act_partner_2_networks"/>
+            domain="[('contact_id', '=', active_id)]"
+            context="{'contact_id': active_id}"
+            res_model="network.network"
+            src_model="res.partner"
+            id="act_partner_2_networks"/>
         <act_window name="Materials"
-                    domain="[('partner_id', '=', active_id)]"
-                    context="{'partner_id': active_id}"
-                    res_model="network.material"
-                    src_model="res.partner"
-                    id="act_partner_2_materials"/>
+            domain="[('partner_id', '=', active_id)]"
+            context="{'partner_id': active_id}"
+            res_model="network.material"
+            src_model="res.partner"
+            id="act_partner_2_materials"/>
         <act_window name="Softwares"
-                    domain="[('partner_id', '=', active_id)]"
-                    context="{'partner_id': active_id}"
-                    res_model="network.software"
-                    src_model="res.partner"
-                    id="act_partner_2_softwares"/>
+            domain="[('partner_id', '=', active_id)]"
+            context="{'partner_id': active_id}"
+            res_model="network.software"
+            src_model="res.partner"
+            id="act_partner_2_softwares"/>
 
     </data>
 </openerp>

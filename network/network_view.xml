@@ -237,6 +237,8 @@
 					<field name="range" colspan="4" select="1"/>
 					<field name="user_id" colspan="4"  select="1"/>
 					<field name="contact_id" colspan="4" select="1"/>
+                                        <notebook colspan="4">
+                                            <page string="General">
 					<field name="material_ids" nolabel="1" colspan="4" widget="one2many_list">
 						<form string="Network Material">
 							<field name="name" select="1"/>
@@ -260,6 +262,9 @@
 							</notebook>
 						</form>
 					</field>
+                                            
+                                            </page>
+                                        </notebook>
 				</form>
 			</field>
 		</record>

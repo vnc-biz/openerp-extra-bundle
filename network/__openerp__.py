@@ -37,6 +37,7 @@
     "update_xml": [
         "security/network_security.xml",
         "security/ir.model.access.csv",
+        "network_menu.xml",
         "network_view.xml",
         "network_report.xml"
     ],

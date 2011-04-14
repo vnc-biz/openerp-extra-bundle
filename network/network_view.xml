@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
-        <menuitem name="Tools" id="menu_tools" icon="STOCK_PREFERENCES"/>
-        <menuitem name="Network" parent="menu_tools" groups="network.group_network_user" id="menu_network"/>
-        <menuitem name="Configuration" parent="menu_network" id="menu_network_definition" groups="network.group_network_manager" sequence="1"/>
 
         <record model="ir.ui.view" id="edit_network">
             <field name="name">network.material.form</field>
@@ -307,6 +304,9 @@
         <menuitem name="Material List" parent="menu_network"
             id="menu_add_view_material" action="add_view_material" groups="network.group_network_user"/>
 
+        <!-- ************************************************************** -->
+        <!-- ** History all changes on the network ************************ -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="add_diary_entry_form">
             <field name="name">network.changes.form</field>
             <field name="model">network.changes</field>

@@ -201,7 +201,7 @@
 		
 <!-- KETTLE  MENU -->
 
-		<menuitem id="menu_kettle_connection" name="kettle-connection"/>
+		<menuitem id="menu_kettle_connection" name="kettle-connection" web_icon_hover="images/spoon-hover.png" web_icon="images/spoon.png"/>
 		
 		<menuitem action="action_kettle_server" id="menu_kettle_server" parent="menu_kettle_connection"/>
 		<menuitem action="action_kettle_transformation" id="menu_kettle_transformation" parent="menu_kettle_connection"/>

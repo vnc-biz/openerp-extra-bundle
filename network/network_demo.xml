@@ -3,22 +3,31 @@
 	<data noupdate="1">
 		<record model="network.hardware.type" id="demo_hard_type0">
 			<field name="name">Computer</field>
-			<field name="networkable">True</field>
+                        <field name="networkable" eval="True"/>
 		</record>
 		<record model="network.hardware.type" id="demo_hard_type1">
 			<field name="name">Hub</field>
-			<field name="networkable">True</field>
+                        <field name="networkable" eval="True"/>
 		</record>
 		<record model="network.hardware.type" id="demo_hard_type2">
 			<field name="name">Switch</field>
-			<field name="networkable">True</field>
+			<field name="networkable" eval="True"/>
+		</record>
+		<record model="network.hardware.type" id="demo_hard_router">
+			<field name="name">Router</field>
+			<field name="networkable" eval="True"/>
 		</record>
 		<record model="network.hardware.type" id="demo_hard_type3">
 			<field name="name">Screen</field>
+			<field name="networkable" eval="False"/>
+		</record>
+		<record model="network.hardware.type" id="demo_hard_webcam">
+			<field name="name">Webcam</field>
+			<field name="networkable" eval="False"/>
 		</record>
 		<record model="network.hardware.type" id="demo_hard_type4">
 			<field name="name">Network Printer</field>
-			<field name="networkable">True</field>
+			<field name="networkable" eval="True"/>
 		</record>
 
 		<record model="network.network" id="net1">

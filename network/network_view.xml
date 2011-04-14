@@ -140,8 +140,12 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Hardware Type">
-					<field name="name"/>
-					<field name="networkable"/>
+					<field name="name" colspan="4"/>
+                                        <notebook colspan="4">
+                                            <page string="General">
+					        <field name="networkable"/>
+                                            </page>
+                                        </notebook>
 				</form>
 			</field>
 		</record>

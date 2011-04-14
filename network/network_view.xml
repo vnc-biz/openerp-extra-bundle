@@ -179,11 +179,11 @@
             <field name="type">search</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-            <search string="Hardware Type">
-                <filter string="Networkable" name="networkable" icon="terp-personal" domain="[('networkable','=',1)]" help="Composant link on the network"/>
-                <separator orientation="vertical"/>
-                <field name="name" select="True"/>
-            </search>
+                <search string="Hardware Type">
+                    <filter string="Networkable" name="networkable" icon="terp-personal" domain="[('networkable','=',1)]" help="Composant link on the network"/>
+                    <separator orientation="vertical"/>
+                    <field name="name" select="True"/>
+                </search>
             </field>
         </record>
 
@@ -269,10 +269,14 @@
                     <field name="type"/>
                     <field name="date" select="1"/>
                     <field name="email" select="1"/>
-                    <separator string="Login / Password" colspan="4" />
-                    <field name="logpass" colspan="4" nolabel="1"/>
-                    <separator string="Notes" colspan="4"/>
-                    <field name="note" colspan="4" nolabel="1"/>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <field name="logpass" colspan="4" nolabel="1"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" colspan="4" nolabel="1"/>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>

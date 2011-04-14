@@ -4,7 +4,7 @@
 #    network_extension module for OpenERP
 #    Copyright (C) 2008 Zikzakmedia S.L. (http://zikzakmedia.com)
 #       Jordi Esteve <jesteve@zikzakmedia.com> All Rights Reserved.
-#    Copyright (C) 2009 SYLEAM (http://syleam.fr)
+#    Copyright (C) 2009-2011 SYLEAM (http://syleam.fr)
 #       Christophe Chauvet <christophe.chauvet@syleam.fr> All Rights Reserved.
 #
 #    This file is a part of network_extension
@@ -25,16 +25,16 @@
 ##############################################################################
 
 {
-    "name" : "Network Management Extension",
-    "version" : "1.0.1",
-    "author" : "Zikzakmedia SL",
-    "category" : "Enterprise Specific Modules/Information Technology",
+    "name": "Network Management Extension",
+    "version": "1.0.1",
+    "author": "Zikzakmedia SL, SYLEAM",
+    "category": "Enterprise Specific Modules/Information Technology",
     "website": "www.zikzakmedia.com",
-    "license" : "GPL-3",
-    "depends" : ["network"],
+    "license": "GPL-3",
+    "depends": ["network"],
     'init_xml': ['network_protocol_data.xml'],
-    "demo_xml" : [],
-    "update_xml" : [
+    "demo_xml": [],
+    "update_xml": [
         'security/ir.model.access.csv',
         "network_view.xml",
     ],
@@ -48,7 +48,7 @@ Organize your software and configurations.
     - Password encryption
 
 System dependency: package python-crypto required.""",
-    "active" : False,
+    "active": False,
     "installable": True
 }
 

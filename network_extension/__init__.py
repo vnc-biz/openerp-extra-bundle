@@ -4,7 +4,7 @@
 #    network_extension module for OpenERP
 #    Copyright (C) 2008 Zikzakmedia S.L. (http://zikzakmedia.com)
 #       Jordi Esteve <jesteve@zikzakmedia.com> All Rights Reserved.
-#    Copyright (C) 2009 SYLEAM (http://syleam.fr)
+#    Copyright (C) 2009-2011 SYLEAM (http://syleam.fr)
 #       Christophe Chauvet <christophe.chauvet@syleam.fr> All Rights Reserved.
 #
 #    This file is a part of network_extension

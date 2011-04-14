@@ -21,6 +21,7 @@
 
 from osv import fields, osv
 import time
+from lxml import etree
 
 class account_partner_balance(osv.osv_memory):
     """

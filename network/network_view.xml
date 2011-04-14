@@ -2,11 +2,14 @@
 <openerp>
     <data>
 
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="edit_network">
             <field name="name">network.material.form</field>
             <field name="model">network.material</field>
             <field name="type">form</field>
-            <field name="priority" eval="1"/>
+            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Network Material">
                     <field name="name" select="1"/>
@@ -38,6 +41,7 @@
             <field name="model">network.material</field>
             <field name="type">tree</field>
             <field name="field_parent">child_id</field>
+            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="All Network Material">
                     <field name="name"/>
@@ -62,6 +66,7 @@
                 </tree>
             </field>
         </record>
+
         <record model="ir.actions.act_window" id="tree_by_network">
             <field name="name">Material in this network</field>
             <field name="type">ir.actions.act_window</field>
@@ -70,6 +75,7 @@
             <field name="domain">[('network_id', '=', active_id)]</field>
             <field name="view_id" ref="material_view_by_network"/>
         </record>
+
         <record model="ir.values" id="ir_open_network">
             <field name="key" eval="'action'" />
             <field name="key2" eval="'tree_but_open'" />
@@ -78,13 +84,14 @@
             <field name="value" eval="'ir.actions.act_window,%d'%tree_by_network" />
             <field name="object" eval="True" />
         </record>
+
         <record model="ir.values" id="ir_open_network2">
             <field name="key" eval="'action'" />
             <field name="key2" eval="'client_action_multi'" />
             <field name="model" eval="'network.network'"/>
             <field name="name">Material</field>
             <field name="value"
-                eval="'ir.actions.act_window,%d'%tree_by_network" />
+                eval="'ir.actions.act_window,%d' % tree_by_network" />
             <field name="object" eval="True" />
         </record>
 
@@ -97,6 +104,7 @@
             <field name="domain">[('id', '=', active_id)]</field>
             <!--<field name="view_id" ref="edit_network" />-->
         </record>
+
         <record model="ir.values" id="ir_open_network3">
             <field name="key" eval="'action'" />
             <field name="key2" eval="'tree_but_open'" />
@@ -105,6 +113,33 @@
             <field name="value"
                 eval="'ir.actions.act_window,%d'%edit_material_2click" />
             <field name="object" eval="True" />
+        </record>
+
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
+        <record id="view_software_type_search" model="ir.ui.view">
+            <field name="name">network.software.type.search</field>
+            <field name="model">network.software.type</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Software Type">
+                    <field name="name" select="True"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_software_type_tree" model="ir.ui.view">
+            <field name="name">network.software.type.tree</field>
+            <field name="model">network.software.type</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Sortware Type">
+                    <field name="name"/>
+                </tree>
+            </field>
         </record>
 
         <record model="ir.ui.view" id="view_software_type_form">
@@ -122,19 +157,54 @@
                 </form>
             </field>
         </record>
+
         <record model="ir.actions.act_window" id="action_software_type">
             <field name="name">Software Type</field>
             <field name="res_model">network.software.type</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_software_type_search"/>
         </record>
-        <menuitem name="Software" parent="menu_network_definition" id="menu_software"/>
-        <menuitem name="Types" parent="menu_software" id="menu_action_software_type" action="action_software_type" groups="network.group_network_manager"/>
+
+        <menuitem id="menu_action_software_type" name="Types"
+            parent="menu_software" action="action_software_type"
+            groups="network.group_network_manager"/>
+
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
+        <record id="view_harware_type_search" model="ir.ui.view">
+            <field name="name">network.hardware.type.search</field>
+            <field name="model">network.hardware.type</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Hardware Type">
+                <filter string="Networkable" name="networkable" icon="terp-personal" domain="[('networkable','=',1)]" help="Composant link on the network"/>
+                <separator orientation="vertical"/>
+                <field name="name" select="True"/>
+            </search>
+            </field>
+        </record>
+
+        <record id="view_hardware_type_tree" model="ir.ui.view">
+            <field name="name">network.hardware.type.tree</field>
+            <field name="model">network.hardware.type</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Hardware Type">
+                    <field name="name"/>
+                    <field name="networkable"/>
+                </tree>
+            </field>
+        </record>
 
         <record model="ir.ui.view" id="view_hardware_type_form">
             <field name="name">network.hardware.type.form</field>
             <field name="model">network.hardware.type</field>
             <field name="type">form</field>
+            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Hardware Type">
                     <field name="name" colspan="4"/>
@@ -146,16 +216,21 @@
                 </form>
             </field>
         </record>
+
         <record model="ir.actions.act_window" id="action_hard_type">
             <field name="name">Hardware Type</field>
             <field name="res_model">network.hardware.type</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_harware_type_search"/>
+            <field name="context">{"search_default_networkable":1}</field>
         </record>
-        <menuitem name="Hardware" parent="menu_network_definition" id="menu_hardware"/>
+
         <menuitem name="Types" parent="menu_hardware" id="menu_action_hard_type" action="action_hard_type" groups="network.group_network_manager"/>
 
-
+        <!-- ************************************************************** -->
+        <!-- ** Password form and tree ************************************ -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="password_form">
             <field name="name">network.software.logpass.form</field>
             <field name="model">network.software.logpass</field>
@@ -167,6 +242,7 @@
                 </form>
             </field>
         </record>
+
         <record model="ir.ui.view" id="password_tree">
             <field name="name">network.software.logpass.tree</field>
             <field name="model">network.software.logpass</field>
@@ -179,6 +255,9 @@
             </field>
         </record>
 
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="software_form">
             <field name="name">network.software.form</field>
             <field name="model">network.software</field>
@@ -197,6 +276,7 @@
                 </form>
             </field>
         </record>
+
         <record model="ir.ui.view" id="view_software_tree">
             <field name="name">network.software.tree</field>
             <field name="model">network.software</field>
@@ -211,6 +291,9 @@
             </field>
         </record>
 
+        <!-- ************************************************************** -->
+        <!-- ** Network *************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="view_network">
             <field name="name">network.network.tree</field>
             <field name="model">network.network</field>
@@ -223,14 +306,20 @@
                 </tree>
             </field>
         </record>
+
         <record model="ir.actions.act_window" id="add_view_network">
             <field name="name">Netwok List</field>
             <field name="res_model">network.network</field>
             <field name="view_type">tree</field>
         </record>
-        <menuitem name="Network List" parent="menu_network"
-            id="menu_add_view_network" action="add_view_network" groups="network.group_network_user"/>
 
+        <menuitem id="menu_add_view_network"
+            name="Network List" parent="menu_network"
+            action="add_view_network" groups="network.group_network_user"/>
+
+        <!-- ************************************************************** -->
+        <!-- ** Network *************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="add_network_view">
             <field name="name">network.network.form</field>
             <field name="model">network.network</field>
@@ -273,6 +362,7 @@
                 </form>
             </field>
         </record>
+
         <record model="ir.actions.act_window" id="add_new_network">
             <field name="name">Network</field>
             <field name="res_model">network.network</field>

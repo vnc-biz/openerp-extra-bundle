@@ -39,5 +39,13 @@
             groups="network.group_network_manager" 
             sequence="50"/>
 
+        <menuitem id="menu_software"
+            name="Software"
+            parent="menu_network_definition"/>
+
+        <menuitem id="menu_hardware" 
+            name="Hardware"
+            parent="menu_network_definition"/>
+
     </data>
 </openerp>

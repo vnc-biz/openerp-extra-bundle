@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:20+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-15 07:18+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -87,7 +87,7 @@ msgstr "Zamówienia dnia"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No Pricelist !"
-msgstr ""
+msgstr "Brak cennika !"
 
 #. module: point_of_sale
 #: wizard_view:pos.sale.get,init:0
@@ -189,7 +189,7 @@ msgstr "Liczba artykułów"
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "Please create an invoice for this sale."
-msgstr ""
+msgstr "Przoszę utworzyć fakturę dla tej sprzedaży."
 
 #. module: point_of_sale
 #: field:pos.order,date_validity:0
@@ -216,7 +216,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,last_out_picking:0
 msgid "Last Output Picking"
-msgstr "Ostatnie pobranie (wydanie)"
+msgstr "Ostatnie wydanie"
 
 #. module: point_of_sale
 #: wizard_view:pos.config.journal,init:0
@@ -236,7 +236,7 @@ msgstr "Podatek"
 #. module: point_of_sale
 #: view:report.transaction.pos:0
 msgid "Total Transaction"
-msgstr ""
+msgstr "Suma transakcji"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -256,7 +256,7 @@ msgstr "Skanuj kod kreskowy"
 #. module: point_of_sale
 #: field:pos.order,partner_id:0
 msgid "Partner"
-msgstr "Kontrahent"
+msgstr "Partner"
 
 #. module: point_of_sale
 #: field:pos.order,payments:0
@@ -288,7 +288,7 @@ msgstr "Zamówienia POS"
 #: rml:pos.invoice:0
 #: rml:pos.lines:0
 msgid "Disc. (%)"
-msgstr ""
+msgstr "Up. (%)"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -305,7 +305,7 @@ msgstr "Faktura dostawcy"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Modify line failed !"
-msgstr ""
+msgstr "Modyfikacja pozycji nieudana !"
 
 #. module: point_of_sale
 #: view:pos.order.line:0
@@ -343,7 +343,7 @@ msgstr "Punkt sprzedaży"
 #: code:addons/point_of_sale/report/pos_invoice.py:0
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Błąd !"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -384,7 +384,7 @@ msgstr "Konfiguracja dziennika punktu sprzedaży."
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Create line failed !"
-msgstr ""
+msgstr "Tworzenie pozycji nieudane !"
 
 #. module: point_of_sale
 #: wizard_field:pos.config.journal,init,default_journal:0
@@ -395,7 +395,7 @@ msgstr "Domyślny dziennik"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Niedozwolona akcja !"
 
 #. module: point_of_sale
 #: field:pos.order,account_receivable:0
@@ -410,7 +410,7 @@ msgstr "Pobierz z zamówienia"
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_config
 msgid "Configuration"
-msgstr "Ustawienia"
+msgstr "Konfiguracja"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -443,7 +443,7 @@ msgstr "Domyślne dzienniki"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No valid pricelist line found !"
-msgstr ""
+msgstr "Nie znaleziono poprawnej pozycji cennika !"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -494,7 +494,7 @@ msgstr "nieznany"
 #: model:ir.ui.menu,name:point_of_sale.menu_point_ofsale
 #: model:ir.ui.menu,name:point_of_sale.menu_point_root
 msgid "Point of Sale"
-msgstr "Punkt Obsługi Sprzedaży"
+msgstr "Punkt sprzedaży"
 
 #. module: point_of_sale
 #: field:pos.order,user_id:0
@@ -531,7 +531,7 @@ msgstr "Do_konaj Płatności"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "No order lines defined for this sale."
-msgstr ""
+msgstr "Nie ma pozycji zamówienia dla tej sprzedaży."
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -583,7 +583,7 @@ msgstr "Sprzedaż dnia"
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Please provide a partner for the sale."
-msgstr ""
+msgstr "Proszę wprowadzić partnera dla sprzedaży."
 
 #. module: point_of_sale
 #: view:pos.order.line:0
@@ -670,13 +670,13 @@ msgstr "Pobranie"
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
 #, python-format
 msgid "You can't modify this order. It has already been paid"
-msgstr ""
+msgstr "Nie możesz modyfikowac tego zamówienia. Już jest zapłacone."
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Błąd"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -694,7 +694,7 @@ msgstr "Ilość"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Refund"
-msgstr "Zwrot"
+msgstr "Korekta"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -897,7 +897,7 @@ msgstr "Anulowana faktura"
 #. module: point_of_sale
 #: view:report.transaction.pos:0
 msgid "POS"
-msgstr "Punkt Obsługi Sprzedaży"
+msgstr "Punkt sprzedaży"
 
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_lines_report
@@ -933,7 +933,7 @@ msgstr "Wszystkie zamówienia"
 #. module: point_of_sale
 #: wizard_field:pos.sale.get,init,picking_id:0
 msgid "Sale Order"
-msgstr "Zamówienie odbiorcy"
+msgstr "Zamówienie sprzedaży"
 
 #. module: point_of_sale
 #: model:ir.ui.menu,name:point_of_sale.menu_trans_pos_tree_month
@@ -963,7 +963,7 @@ msgstr "Płatności"
 #. module: point_of_sale
 #: rml:pos.invoice:0
 msgid "Supplier Refund"
-msgstr ""
+msgstr "Korekta od dostawcy"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
@@ -1008,7 +1008,7 @@ msgstr "Warunki płatności"
 #: wizard_field:pos.payment,ask_pay,amount:0
 #: field:report.transaction.pos,amount:0
 msgid "Amount"
-msgstr "Wartość"
+msgstr "Kwota"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -1019,7 +1019,7 @@ msgstr ""
 #: rml:pos.details:0
 #: rml:pos.details_summary:0
 msgid "Mode of Taxes"
-msgstr ""
+msgstr "Tryb podatków"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -1036,7 +1036,7 @@ msgstr "Firma:"
 #. module: point_of_sale
 #: rml:pos.lines:0
 msgid "Print Date"
-msgstr "data wydruku"
+msgstr "Data wydruku"
 
 #. module: point_of_sale
 #: rml:pos.lines:0

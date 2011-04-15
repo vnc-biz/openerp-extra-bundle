@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:20+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-15 07:18+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -71,7 +71,7 @@ msgstr "Dokument"
 #. module: point_of_sale
 #: wizard_view:pos.add_product,init:0
 msgid "Add product :"
-msgstr "Hinzuf. Produkt:"
+msgstr "Produkt hinzufügen:"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
@@ -637,7 +637,7 @@ msgstr "Hinzuf. Produkt"
 #. module: point_of_sale
 #: wizard_button:pos.discount,init,apply_discount:0
 msgid "Apply Discount"
-msgstr "Erzeuge Rabatt"
+msgstr "Rabatt anwenden"
 
 #. module: point_of_sale
 #: rml:pos.details:0

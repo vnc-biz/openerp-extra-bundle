@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:21+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-15 07:18+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: product_expiry
 #: field:product.product,life_time:0
@@ -58,7 +58,7 @@ msgstr ""
 #. module: product_expiry
 #: field:stock.production.lot,removal_date:0
 msgid "Removal Date"
-msgstr ""
+msgstr "Data d'eliminació"
 
 #. module: product_expiry
 #: model:ir.module.module,description:product_expiry.module_meta_information
@@ -70,6 +70,12 @@ msgid ""
 " - alert date\n"
 "Used, for example, in food industries."
 msgstr ""
+"Gestiona diferents dates en productes i lots de producció:\n"
+" - fi de vida\n"
+" - data de caducitat\n"
+" - data de retirada\n"
+" - data d'alerta\n"
+"Utilitzats, per exemple, en la indústria alimentària."
 
 #. module: product_expiry
 #: model:product.template,name:product_expiry.product_product_pain_product_template
@@ -96,12 +102,12 @@ msgstr "Error: La UdV ha d'estar en una categoria diferent que la UdM."
 #. module: product_expiry
 #: field:stock.production.lot,life_date:0
 msgid "End of Life Date"
-msgstr ""
+msgstr "Data de finalització de vida"
 
 #. module: product_expiry
 #: field:stock.production.lot,use_date:0
 msgid "Best before Date"
-msgstr ""
+msgstr "Data caducitat"
 
 #. module: product_expiry
 #: help:stock.production.lot,use_date:0
@@ -116,7 +122,7 @@ msgstr "Formatge Camembert francès"
 #. module: product_expiry
 #: help:product.product,removal_time:0
 msgid "The number of days before a production lot should be removed."
-msgstr ""
+msgstr "Número de dies abans que un lot de producció hagi de ser retirat."
 
 #. module: product_expiry
 #: field:product.product,use_time:0
@@ -126,7 +132,7 @@ msgstr "Temps d'ús producte"
 #. module: product_expiry
 #: field:stock.production.lot,alert_date:0
 msgid "Alert Date"
-msgstr ""
+msgstr "Data d'alerta"
 
 #. module: product_expiry
 #: field:product.product,removal_time:0
@@ -139,6 +145,8 @@ msgid ""
 "The number of days before a production lot starts deteriorating without "
 "becoming dangerous."
 msgstr ""
+"Número de dies abans que un producte comença a deteriorar-se sense arribar a "
+"ser perillós."
 
 #. module: product_expiry
 #: constraint:product.product:0
@@ -151,6 +159,8 @@ msgid ""
 "The number of days before a production lot may become dangerous and should "
 "not be consumed."
 msgstr ""
+"Número de dies abans que un producte pugui arribar a ser perillós i no ha de "
+"ser consumit."
 
 #. module: product_expiry
 #: help:stock.production.lot,removal_date:0

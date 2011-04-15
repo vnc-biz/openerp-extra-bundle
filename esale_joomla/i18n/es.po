@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-03-09 06:13+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-15 07:09+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: esale_joomla
 #: view:esale_joomla.web:0
@@ -49,23 +49,23 @@ msgstr "Importación categorías Web"
 #. module: esale_joomla
 #: field:esale_joomla.producttypeparam_map,esale_joomla_id:0
 msgid "Web Parameter Name"
-msgstr ""
+msgstr "Nombre del parámetro web"
 
 #. module: esale_joomla
 #: view:esale_joomla.category_map:0
 #: model:ir.model,name:esale_joomla.model_esale_joomla_category_map
 msgid "eSale Web Categories Mapping"
-msgstr ""
+msgstr "Mapeo de categorías web"
 
 #. module: esale_joomla
 #: model:ir.model,name:esale_joomla.model_esale_joomla_synclog
 msgid "eSale Import/Export log"
-msgstr ""
+msgstr "Importar/Exportar registro"
 
 #. module: esale_joomla
 #: view:esale_joomla.web:0
 msgid "Product Types Mapping"
-msgstr ""
+msgstr "Mapeo de tipos de productos"
 
 #. module: esale_joomla
 #: wizard_view:esale_joomla.tax_map.wizard.export,init:0
@@ -100,7 +100,7 @@ msgstr "Estado del pedido"
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_action_order_form
 msgid "eSale Orders"
-msgstr ""
+msgstr "Pedidos"
 
 #. module: esale_joomla
 #: selection:esale_joomla.stocks,init,target:0
@@ -108,7 +108,7 @@ msgstr ""
 #: selection:esale_joomla.web.wizard.export.products,init,target:0
 #: selection:esale_joomla.web.wizard.export.taxes,init,target:0
 msgid "all rows"
-msgstr ""
+msgstr "todas las lineas"
 
 #. module: esale_joomla
 #: field:esale_joomla.order.line,product_uom_id:0
@@ -149,7 +149,7 @@ msgstr "Tienda Web"
 #. module: esale_joomla
 #: field:esale_joomla.tax_map,esale_joomla_state_id:0
 msgid "Web State"
-msgstr ""
+msgstr "Estado de la web"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,zip:0
@@ -164,12 +164,12 @@ msgstr "Padre"
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_action_esale_joomla_product_map
 msgid "Products Mappings"
-msgstr ""
+msgstr "Mapeo de productos"
 
 #. module: esale_joomla
 #: field:esale_joomla.order,epartner_shipping_id:0
 msgid "Joomla Shipping Address"
-msgstr ""
+msgstr "Joomla Dirección de envío"
 
 #. module: esale_joomla
 #: wizard_field:esale_joomla.category_map.wizard.export,init,new:0
@@ -177,32 +177,32 @@ msgstr ""
 #: wizard_field:esale_joomla.web.wizard.export.categories,export,new:0
 #: wizard_field:esale_joomla.web.wizard.import.categories,import,new:0
 msgid "New Web Categories"
-msgstr ""
+msgstr "Nueva categoría web"
 
 #. module: esale_joomla
 #: model:ir.module.module,shortdesc:esale_joomla.module_meta_information
 msgid "eSale Interface - Joomla"
-msgstr ""
+msgstr "Interfaz - Joomla"
 
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_action_esale_joomla_producttype_map
 msgid "Product Types Mappings"
-msgstr ""
+msgstr "Mapeo de tipos de productos"
 
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_action_order_tree
 msgid "Draft eSale Orders"
-msgstr ""
+msgstr "Pedidos en borrador"
 
 #. module: esale_joomla
 #: view:esale_joomla.synclog:0
 msgid "Web Synchronization Log"
-msgstr ""
+msgstr "Registro sincronización web"
 
 #. module: esale_joomla
 #: field:esale_joomla.tax_map,esale_joomla_rate:0
 msgid "Web Rate"
-msgstr ""
+msgstr "Tarifa web"
 
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_esale_synch
@@ -220,7 +220,7 @@ msgstr "Cancelar pedido"
 #: wizard_field:esale_joomla.web.wizard.export.taxes,export,new:0
 #: wizard_field:esale_joomla.web.wizard.import.taxes,import,new:0
 msgid "New Taxes"
-msgstr ""
+msgstr "Nuevos impuestos"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,url:0
@@ -231,7 +231,7 @@ msgstr "URL"
 #: wizard_field:esale_joomla.category_map.wizard.export,init,delete:0
 #: wizard_field:esale_joomla.web.wizard.export.categories,export,delete:0
 msgid "Deleted Web Categories"
-msgstr ""
+msgstr "Categorías web borradas"
 
 #. module: esale_joomla
 #: field:esale_joomla.order,note:0
@@ -274,12 +274,12 @@ msgstr "Importar tipos de productos"
 #. module: esale_joomla
 #: view:esale_joomla.web:0
 msgid "Web Shop Info"
-msgstr ""
+msgstr "Información tienda web"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_category_map_form
 msgid "esale_joomla.category_map"
-msgstr ""
+msgstr "esale_joomla.category_map"
 
 #. module: esale_joomla
 #: field:esale_joomla.order,partner_invoice_id:0
@@ -308,12 +308,12 @@ msgstr "Importar tipos de productos"
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_producttype_map_form
 msgid "esale_joomla.producttype_map"
-msgstr ""
+msgstr "esale_joomla.producttype_map"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,esale_id:0
 msgid "eSale ID"
-msgstr ""
+msgstr "ID"
 
 #. module: esale_joomla
 #: view:esale_joomla.order:0
@@ -367,7 +367,7 @@ msgstr "Exportar categorías Web"
 #. module: esale_joomla
 #: field:esale_joomla.order,epartner_invoice_id:0
 msgid "Joomla Invoice Address"
-msgstr ""
+msgstr "Joomla Dirección de envío"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,state:0
@@ -393,7 +393,7 @@ msgstr ""
 #. module: esale_joomla
 #: model:ir.model,name:esale_joomla.model_esale_joomla_partner
 msgid "eShop Partner"
-msgstr ""
+msgstr "Empresa"
 
 #. module: esale_joomla
 #: selection:esale_joomla.category_map,state:0
@@ -442,7 +442,7 @@ msgstr "Tipo de producto"
 #. module: esale_joomla
 #: field:esale_joomla.category_map,esale_joomla_name:0
 msgid "Web Name"
-msgstr ""
+msgstr "Nombre web"
 
 #. module: esale_joomla
 #: model:ir.actions.wizard,name:esale_joomla.wizard_esale_joomla_product_map_export
@@ -490,7 +490,7 @@ msgstr "borrado"
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_esale_joomla_saleorders
 msgid "Import eSales Orders"
-msgstr ""
+msgstr "Importar pedidos"
 
 #. module: esale_joomla
 #: view:esale_joomla.order:0
@@ -500,28 +500,28 @@ msgstr "Crear direcciones"
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_esale
 msgid "eSale"
-msgstr ""
+msgstr "eSale"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_tax_map_form
 msgid "esale_joomla.tax_map"
-msgstr ""
+msgstr "esale_joomla.tax_map"
 
 #. module: esale_joomla
 #: view:esale_joomla.category:0
 #: model:ir.model,name:esale_joomla.model_esale_joomla_category
 msgid "eSale Web Category"
-msgstr ""
+msgstr "Categoría web"
 
 #. module: esale_joomla
 #: field:esale_joomla.producttype_map,esale_joomla_name:0
 msgid "Web Product Type Name"
-msgstr ""
+msgstr "Nombre web de tipo de producto"
 
 #. module: esale_joomla
 #: field:esale_joomla.order.line,order_id:0
 msgid "eOrder Ref"
-msgstr ""
+msgstr "Referencia web"
 
 #. module: esale_joomla
 #: view:esale_joomla.order:0
@@ -535,6 +535,9 @@ msgid ""
 "categories mapping. Go to the next tabs, import data form the website and "
 "complete the third column."
 msgstr ""
+"Después de introducir la estos datos, proceder con el mapeo de impuestos, "
+"idiomas y categorías. En la siguiente pestaña, importar los datos de la web "
+"y completar la tercera columna."
 
 #. module: esale_joomla
 #: view:esale_joomla.web:0
@@ -565,12 +568,12 @@ msgstr "Resultado"
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_wizard_esale_joomla_stocks
 msgid "Export Inventory Level"
-msgstr ""
+msgstr "Exportar el inventario"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_web_form
 msgid "esale_joomla.web"
-msgstr ""
+msgstr "esale_joomla.web"
 
 #. module: esale_joomla
 #: selection:esale_joomla.stocks,init,target:0
@@ -583,7 +586,7 @@ msgstr "nuevo, modificado y borrado desde la último exportación"
 #. module: esale_joomla
 #: model:ir.model,name:esale_joomla.model_esale_joomla_order_line
 msgid "eSale Order line"
-msgstr ""
+msgstr "Línea de pedido"
 
 #. module: esale_joomla
 #: selection:esale_joomla.product_map,state:0
@@ -631,18 +634,18 @@ msgstr "Otros datos"
 #. module: esale_joomla
 #: model:ir.model,name:esale_joomla.model_esale_joomla_web
 msgid "eCommerce Website"
-msgstr ""
+msgstr "Sitio web"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_synclog_tree
 msgid "esale_joomla.synclog"
-msgstr ""
+msgstr "esale_joomla.synclog"
 
 #. module: esale_joomla
 #: view:esale_joomla.tax_map:0
 #: model:ir.model,name:esale_joomla.model_esale_joomla_tax_map
 msgid "eSale Taxes Mapping"
-msgstr ""
+msgstr "Mapeo de impuestos"
 
 #. module: esale_joomla
 #: selection:esale_joomla.order,state:0
@@ -652,7 +655,7 @@ msgstr "Borrador"
 #. module: esale_joomla
 #: field:esale_joomla.order,web_ref:0
 msgid "Web Ref"
-msgstr ""
+msgstr "Referencia web"
 
 #. module: esale_joomla
 #: wizard_field:esale_joomla.web.wizard.export.products,export,new:0
@@ -692,7 +695,7 @@ msgstr "Exportar impuestos"
 #. module: esale_joomla
 #: field:esale_joomla.synclog,date:0
 msgid "Log date"
-msgstr ""
+msgstr "Fecha de registro"
 
 #. module: esale_joomla
 #: field:esale_joomla.category_map,status:0
@@ -719,7 +722,7 @@ msgstr "Actualizar tipos de productos"
 #: wizard_field:esale_joomla.web.wizard.export.products,init,target:0
 #: wizard_field:esale_joomla.web.wizard.export.taxes,init,target:0
 msgid "Which Rows"
-msgstr ""
+msgstr "Que líneas"
 
 #. module: esale_joomla
 #: field:esale_joomla.order,partner_shipping_id:0
@@ -740,7 +743,7 @@ msgstr "Importar impuestos"
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_category_form
 msgid "esale_joomla.category"
-msgstr ""
+msgstr "esale_joomla.category"
 
 #. module: esale_joomla
 #: field:esale_joomla.category_map,esale_joomla_id:0
@@ -748,7 +751,7 @@ msgstr ""
 #: field:esale_joomla.producttype_map,esale_joomla_id:0
 #: field:esale_joomla.tax_map,esale_joomla_id:0
 msgid "Web ID"
-msgstr ""
+msgstr "ID web"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,active:0
@@ -771,7 +774,7 @@ msgstr "Impuestos actualizados"
 #. module: esale_joomla
 #: field:product.product,esale_category_ids:0
 msgid "eSale Categories"
-msgstr ""
+msgstr "Categorías"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,language_id:0
@@ -805,6 +808,7 @@ msgstr "Seleccionar tienda Web para importar"
 #: wizard_view:esale_joomla.web.wizard.export.products,init:0
 msgid "To add a Product for exporting, just add a Web Category to it."
 msgstr ""
+"Para añadir un producto a la exportación, asignarle una categoría web."
 
 #. module: esale_joomla
 #: model:ir.actions.wizard,name:esale_joomla.wizard_esale_joomla_web_import_categories
@@ -815,12 +819,12 @@ msgstr "Importar categorías"
 #: view:esale_joomla.product_map:0
 #: model:ir.model,name:esale_joomla.model_esale_joomla_product_map
 msgid "eSale Products Mapping"
-msgstr ""
+msgstr "Mapeo de productos"
 
 #. module: esale_joomla
 #: model:ir.model,name:esale_joomla.model_esale_joomla_producttypeparam_map
 msgid "eSale Product Type Parameters Mapping"
-msgstr ""
+msgstr "Parámetros del mapeo de tipos de productos"
 
 #. module: esale_joomla
 #: field:esale_joomla.order.line,product_qty:0
@@ -842,13 +846,13 @@ msgstr "Productos actualizados"
 #. module: esale_joomla
 #: field:esale_joomla.producttype_map,producttypeparam_map_ids:0
 msgid "Product Type Parameters"
-msgstr ""
+msgstr "Parametros de los tipos de productos"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.esale_joomla_category_action_form
 #: model:ir.ui.menu,name:esale_joomla.menu_product_category_action_form
 msgid "Products Web Categories"
-msgstr ""
+msgstr "Categorías web de los productos"
 
 #. module: esale_joomla
 #: selection:esale_joomla.category_map,state:0
@@ -868,17 +872,17 @@ msgstr "modificado"
 #: wizard_view:esale_joomla.web.wizard.export.products,init:0
 #: wizard_view:esale_joomla.web.wizard.export.taxes,init:0
 msgid "Select the Web Shop and the rows to export"
-msgstr ""
+msgstr "Seleccionar la tienda web y la líneas exportadas"
 
 #. module: esale_joomla
 #: selection:esale_joomla.order,state:0
 msgid "Done"
-msgstr ""
+msgstr "Realizado"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,shop_id:0
 msgid "Sale Shop"
-msgstr ""
+msgstr "Tienda venta"
 
 #. module: esale_joomla
 #: selection:esale_joomla.category_map,state:0
@@ -890,7 +894,7 @@ msgstr ""
 #: selection:esale_joomla.tax_map,state:0
 #: selection:esale_joomla.tax_map,status:0
 msgid "error"
-msgstr ""
+msgstr "error"
 
 #. module: esale_joomla
 #: wizard_button:esale_joomla.category_map.wizard.import,init,end:0
@@ -905,18 +909,20 @@ msgstr ""
 #: wizard_button:esale_joomla.web.wizard.import.producttypes,init,end:0
 #: wizard_button:esale_joomla.web.wizard.import.taxes,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,city:0
 msgid "City"
-msgstr ""
+msgstr "Población"
 
 #. module: esale_joomla
 #: constraint:ir.model:0
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"El nombre del objeto no puede empezar con x_  y contener caracteres "
+"especiales"
 
 #. module: esale_joomla
 #: selection:esale_joomla.category_map,state:0
@@ -928,7 +934,7 @@ msgstr ""
 #: selection:esale_joomla.tax_map,state:0
 #: selection:esale_joomla.tax_map,status:0
 msgid "synchronized"
-msgstr ""
+msgstr "sincronizado"
 
 #. module: esale_joomla
 #: model:ir.module.module,description:esale_joomla.module_meta_information
@@ -941,36 +947,42 @@ msgid ""
 "and create links between\n"
 "categories of products, taxes and languages.\n"
 msgstr ""
+"Interfaz de sincronización para Joomla (Virtuemart).\n"
+"Los pedidos de la web se importan automáticamente a OpenERP.\n"
+"\n"
+"Puede exportar productos, categorías, impuestos, inventario y crear enlaces "
+"entre\n"
+"categorías, impuestos e idiomas.\n"
 
 #. module: esale_joomla
 #: model:ir.ui.menu,name:esale_joomla.menu_action_esale_joomla_category_map
 msgid "Web Categories Mappings"
-msgstr ""
+msgstr "Mapeo de categorías web"
 
 #. module: esale_joomla
 #: field:esale_joomla.order.line,price_unit:0
 msgid "Unit Price"
-msgstr ""
+msgstr "Precio unitario"
 
 #. module: esale_joomla
 #: view:esale_joomla.web:0
 msgid "eSale Web Shop"
-msgstr ""
+msgstr "Tienda web"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,email:0
 msgid "Mail"
-msgstr ""
+msgstr "Correo electrónico"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,producttypes_ids:0
 msgid "Product Types"
-msgstr ""
+msgstr "Tipos de productos"
 
 #. module: esale_joomla
 #: field:esale_joomla.producttypeparam_map,attribute:0
 msgid "Product Attribute"
-msgstr ""
+msgstr "Atributo de producto"
 
 #. module: esale_joomla
 #: wizard_view:esale_joomla.category_map.wizard.export,init:0
@@ -986,14 +998,14 @@ msgstr ""
 #: wizard_view:esale_joomla.web.wizard.import.producttypes,import:0
 #: wizard_view:esale_joomla.web.wizard.import.taxes,import:0
 msgid "Error Log"
-msgstr ""
+msgstr "Registro de errores"
 
 #. module: esale_joomla
 #: field:esale_joomla.order.line,product_id:0
 #: field:esale_joomla.product_map,product_id:0
 #: selection:esale_joomla.synclog,object:0
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: esale_joomla
 #: wizard_field:esale_joomla.category_map.wizard.export,init,update:0
@@ -1001,106 +1013,106 @@ msgstr ""
 #: wizard_field:esale_joomla.web.wizard.export.categories,export,update:0
 #: wizard_field:esale_joomla.web.wizard.import.categories,import,update:0
 msgid "Updated Web Categories"
-msgstr ""
+msgstr "Categorías web actualizadas"
 
 #. module: esale_joomla
 #: field:esale_joomla.synclog,user_id:0
 msgid "Exported By"
-msgstr ""
+msgstr "Exportado por"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_order_form
 #: model:ir.actions.act_window,name:esale_joomla.action_order_tree
 #: model:ir.model,name:esale_joomla.model_esale_joomla_order
 msgid "esale_joomla.order"
-msgstr ""
+msgstr "esale_joomla.order"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,address:0
 msgid "Address"
-msgstr ""
+msgstr "Dirección"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,password:0
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,address_id:0
 msgid "Partner Address"
-msgstr ""
+msgstr "Dirección empresa"
 
 #. module: esale_joomla
 #: field:esale_joomla.category,name:0
 #: field:esale_joomla.partner,name:0
 #: field:esale_joomla.web,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: esale_joomla
 #: view:esale_joomla.order:0
 msgid "eSale Order"
-msgstr ""
+msgstr "Pedido"
 
 #. module: esale_joomla
 #: field:esale_joomla.partner,country:0
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #. module: esale_joomla
 #: field:esale_joomla.order,date_order:0
 msgid "Date Ordered"
-msgstr ""
+msgstr "Fecha de pedido"
 
 #. module: esale_joomla
 #: field:esale_joomla.category_map,category_id:0
 msgid "Web Category"
-msgstr ""
+msgstr "Categoría web"
 
 #. module: esale_joomla
 #: field:esale_joomla.producttypeparam_map,esale_joomla_name:0
 msgid "Web Parameter Label"
-msgstr ""
+msgstr "Etiqueta del parámetro"
 
 #. module: esale_joomla
 #: model:ir.actions.wizard,name:esale_joomla.wizard_esale_joomla_web_export_categories
 msgid "Export Categories"
-msgstr ""
+msgstr "Exportar categorías"
 
 #. module: esale_joomla
 #: model:ir.actions.act_window,name:esale_joomla.action_esale_joomla_product_map_form
 msgid "esale_joomla.product_map"
-msgstr ""
+msgstr "esale_joomla.product_map"
 
 #. module: esale_joomla
 #: view:esale_joomla.order.line:0
 msgid "eSales Order Line"
-msgstr ""
+msgstr "Línea de pedido"
 
 #. module: esale_joomla
 #: field:esale_joomla.web,login:0
 msgid "Login"
-msgstr ""
+msgstr "Acceso"
 
 #. module: esale_joomla
 #: field:product.product,image:0
 msgid "Image Name"
-msgstr ""
+msgstr "Nombre de la imagen"
 
 #. module: esale_joomla
 #: field:esale_joomla.product_map,export_date:0
 msgid "Export date"
-msgstr ""
+msgstr "Exportar fechas"
 
 #. module: esale_joomla
 #: view:esale_joomla.order:0
 msgid "States"
-msgstr ""
+msgstr "Estados"
 
 #. module: esale_joomla
 #: field:esale_joomla.tax_map,esale_joomla_country_id:0
 msgid "Web Country"
-msgstr ""
+msgstr "País web"
 
 #. module: esale_joomla
 #: wizard_button:esale_joomla.stocks,init,export:0
@@ -1111,7 +1123,7 @@ msgstr ""
 #: model:ir.actions.wizard,name:esale_joomla.wizard_esale_joomla_category_map_export
 #: model:ir.actions.wizard,name:esale_joomla.wizard_esale_joomla_tax_map_export
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #. module: esale_joomla
 #: field:esale_joomla.synclog,type:0
@@ -1122,4 +1134,4 @@ msgstr ""
 #: view:esale_joomla.producttype_map:0
 #: model:ir.model,name:esale_joomla.model_esale_joomla_producttype_map
 msgid "eSale Product Types Mapping"
-msgstr ""
+msgstr "Mapeo de tipos de productos"

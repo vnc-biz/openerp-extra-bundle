@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-09-13 16:12+0000\n"
+"POT-Creation-Date: 2011-04-14 12:14+0000\n"
 "PO-Revision-Date: 2011-02-15 15:15+0000\n"
 "Last-Translator: Numérigraphe <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:16+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-15 07:11+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: network
 #: field:network.hardware.type,networkable:0
@@ -42,17 +42,12 @@ msgstr ""
 "    Vous pouvez imprimer le formulaire d'interventions pour les techniciens."
 
 #. module: network
-#: constraint:ir.model:0
-msgid ""
-"The Object name must start with x_ and not contain any special character !"
-msgstr ""
-"Le nom de l'objet doit commencer par x_ et ne doit pas contenir de "
-"caractères spéciaux !"
-
-#. module: network
-#: model:ir.actions.act_window,name:network.tree_by_network
-msgid "Material in this network"
-msgstr "Ordinateur sur ce réseau"
+#: model:ir.actions.act_window,name:network.add_new_network
+#: model:ir.model,name:network.model_network_network
+#: model:ir.ui.menu,name:network.menu_network
+#: field:network.material,network_id:0
+msgid "Network"
+msgstr "Réseau"
 
 #. module: network
 #: view:network.software:0
@@ -65,9 +60,10 @@ msgid "Childs Materials"
 msgstr "Matériel enfant"
 
 #. module: network
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "XML non valide pour cette vue"
+#: view:network.material:0
+#: view:network.network:0
+msgid "Network Material"
+msgstr "Matériel réseau"
 
 #. module: network
 #: field:network.changes,date:0
@@ -91,20 +87,19 @@ msgid "Top Materials"
 msgstr "Top liste du matériels"
 
 #. module: network
-#: field:network.material,warranty:0
-msgid "Warranty deadline"
-msgstr "Limite de garantie"
+#: view:network.hardware.type:0
+msgid "Networkable"
+msgstr ""
 
 #. module: network
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Nom de modèle non valide pour l'action définit"
+#: model:ir.actions.act_window,name:network.tree_by_network
+msgid "Material in this network"
+msgstr "Ordinateur sur ce réseau"
 
 #. module: network
-#: view:network.material:0
-#: view:network.network:0
-msgid "Network Material"
-msgstr "Matériel réseau"
+#: model:network.hardware.type,name:network.demo_hard_router
+msgid "Router"
+msgstr ""
 
 #. module: network
 #: field:network.material,supplier:0
@@ -122,14 +117,6 @@ msgstr "Identifiant / Mot de passe"
 #: model:ir.ui.menu,name:network.menu_add_view_material
 msgid "Material List"
 msgstr "Liste du matériel"
-
-#. module: network
-#: model:ir.actions.act_window,name:network.add_new_network
-#: model:ir.model,name:network.model_network_network
-#: model:ir.ui.menu,name:network.menu_network
-#: field:network.material,network_id:0
-msgid "Network"
-msgstr "Réseau"
 
 #. module: network
 #: model:ir.model,name:network.model_network_software_logpass
@@ -163,9 +150,10 @@ msgid "Network changes"
 msgstr "Changement réseau"
 
 #. module: network
-#: model:network.hardware.type,name:network.demo_hard_type3
-msgid "Screen"
-msgstr "Écran"
+#: model:ir.model,name:network.model_network_hardware_type
+#: field:network.material,type:0
+msgid "Hardware type"
+msgstr "Type de matériel"
 
 #. module: network
 #: model:ir.actions.act_window,name:network.edit_material_2click
@@ -173,6 +161,11 @@ msgstr "Écran"
 #: field:network.software,material_id:0
 msgid "Material"
 msgstr "Matériel"
+
+#. module: network
+#: view:network.software.type:0
+msgid "Sortware Type"
+msgstr ""
 
 #. module: network
 #: model:network.hardware.type,name:network.demo_hard_type4
@@ -183,6 +176,11 @@ msgstr "Imrprimante réseau"
 #: model:ir.model,name:network.model_network_software_type
 msgid "Software type"
 msgstr "Type de logiciel"
+
+#. module: network
+#: field:network.material,warranty:0
+msgid "Warranty deadline"
+msgstr "Limite de garantie"
 
 #. module: network
 #: view:network.network:0
@@ -278,6 +276,16 @@ msgid "Notes"
 msgstr "Notes"
 
 #. module: network
+#: model:network.hardware.type,name:network.demo_hard_type3
+msgid "Screen"
+msgstr "Écran"
+
+#. module: network
+#: view:network.software.type:0
+msgid "Note"
+msgstr ""
+
+#. module: network
 #: field:network.material,date:0
 #: field:network.software,date:0
 msgid "Installation Date"
@@ -311,6 +319,11 @@ msgstr "Serveur DNS"
 #: field:network.hardware.type,name:0
 msgid "Type of material"
 msgstr "Type de matériel"
+
+#. module: network
+#: model:network.hardware.type,name:network.demo_hard_webcam
+msgid "Webcam"
+msgstr ""
 
 #. module: network
 #: model:ir.actions.act_window,name:network.add_view_network
@@ -391,10 +404,10 @@ msgid "Switch"
 msgstr "Switch"
 
 #. module: network
-#: model:ir.model,name:network.model_network_hardware_type
-#: field:network.material,type:0
-msgid "Hardware type"
-msgstr "Type de matériel"
+#: view:network.hardware.type:0
+#: view:network.network:0
+msgid "General"
+msgstr ""
 
 #. module: network
 #: model:ir.ui.menu,name:network.menu_hardware
@@ -456,3 +469,15 @@ msgstr "Plage d'adresse"
 #: field:network.network,name:0
 msgid "Network name"
 msgstr "Nom du matériel"
+
+#~ msgid ""
+#~ "The Object name must start with x_ and not contain any special character !"
+#~ msgstr ""
+#~ "Le nom de l'objet doit commencer par x_ et ne doit pas contenir de "
+#~ "caractères spéciaux !"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "XML non valide pour cette vue"
+
+#~ msgid "Invalid model name in the action definition."
+#~ msgstr "Nom de modèle non valide pour l'action définit"

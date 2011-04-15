@@ -166,8 +166,8 @@
             <field name="search_view_id" ref="view_software_type_search"/>
         </record>
 
-        <menuitem id="menu_action_software_type" name="Types"
-            parent="menu_software" action="action_software_type"
+        <menuitem id="menu_action_software_type" name="Software Type"
+            parent="menu_tools_configuration_network" action="action_software_type"
             groups="network.group_network_manager"/>
 
         <!-- ************************************************************** -->
@@ -226,7 +226,9 @@
             <field name="context">{"search_default_networkable":1}</field>
         </record>
 
-        <menuitem name="Types" parent="menu_hardware" id="menu_action_hard_type" action="action_hard_type" groups="network.group_network_manager"/>
+        <menuitem id="menu_action_hard_type" name="Hardware Type" 
+            parent="menu_tools_configuration_network" action="action_hard_type" 
+            groups="network.group_network_manager"/>
 
         <!-- ************************************************************** -->
         <!-- ** Password form and tree ************************************ -->
@@ -312,7 +314,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="add_view_network">
-            <field name="name">Netwok List</field>
+            <field name="name">Network List</field>
             <field name="res_model">network.network</field>
             <field name="view_type">tree</field>
         </record>

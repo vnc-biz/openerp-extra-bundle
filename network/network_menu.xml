@@ -33,19 +33,16 @@
             parent="menu_tools" 
             groups="network.group_network_user"/>
 
-        <menuitem id="menu_network_definition" 
-            name="Configuration" 
-            parent="menu_network" 
+        <menuitem id="menu_tools_configuration" 
+            parent="menu_tools"
+            sequence="50"
             groups="network.group_network_manager" 
-            sequence="50"/>
+            name="Configuration"/>
 
-        <menuitem id="menu_software"
-            name="Software"
-            parent="menu_network_definition"/>
-
-        <menuitem id="menu_hardware" 
-            name="Hardware"
-            parent="menu_network_definition"/>
+        <menuitem id="menu_tools_configuration_network" 
+            parent="menu_tools_configuration"
+            sequence="20"
+            name="Network"/>
 
     </data>
 </openerp>

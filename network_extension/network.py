@@ -54,7 +54,7 @@ class network_material(osv.osv):
     _inherit = "network.material"
     _columns = {
         'mac_addr': fields.char('MAC addresss', size=17),
-        'partner_id': fields.related('network_id', 'contact_id', type='many2one', relation='res.partner', string='Partner', readonly=True),
+        'partner_id': fields.related('network_id', 'contact_id', type='many2one', relation='res.partner', string='Partner', readonly=True, store=True),
     }
     # TODO: Add On Changeon the mac adress, to check if it correct
     #       regexp: /^([0-9a-f]{2}([:-]|$)){6}$/i
@@ -74,8 +74,8 @@ class network_software(osv.osv):
         'type': fields.many2one('network.software.type',
                                 'Software Type', required=True, select=1),
         'service_ids': fields.one2many('network.service', 'software_id', string='Service'),
-        'network_id': fields.related('material_id', 'network_id', type='many2one', relation='network.network', string='Network', readonly=True),
-        'partner_id': fields.related('material_id', 'partner_id', type='many2one', relation='res.partner', string='Partner', readonly=True),
+        'network_id': fields.related('material_id', 'network_id', type='many2one', relation='network.network', string='Network', readonly=True, store=True),
+        'partner_id': fields.related('material_id', 'partner_id', type='many2one', relation='res.partner', string='Partner', readonly=True, store=True),
     }
 
     def _default_material(self, cursor, user, context=None):
@@ -102,7 +102,7 @@ class network_software_logpass(osv.osv):
     _columns = {
         'name': fields.char('Name', size=100),
         'note': fields.text('Note'),
-        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True),
+        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True, store=True),
         'encrypted': fields.boolean('Encrypted'),
         'superuser': fields.boolean('Super User'),
     }
@@ -197,7 +197,7 @@ class network_service(osv.osv):
     _columns = {
         'name': fields.char('Name', size=64, select=1),
         'software_id': fields.many2one('network.software', 'Software', required=True),
-        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True),
+        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True, store=True),
         'protocol_id': fields.many2one('network.protocol', 'Protocol', select=1),
         'path': fields.char('Path', size=100),
         'port': fields.integer('Port', required=True, select=2),

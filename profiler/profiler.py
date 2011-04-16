@@ -201,8 +201,10 @@ def _execute_cr_wrapper(self, cr, uid, model, method, *args, **kwargs):
 
     return res
 
-# Register our method.
-osv.object_proxy.execute_cr = _execute_cr_wrapper
+# Register our method (if it is not already registered).
+if not hasattr(osv.object_proxy, 'profiler_enabled'):
+    osv.object_proxy.profiler_enabled = True
+    osv.object_proxy.execute_cr = _execute_cr_wrapper
 
 
 ################################################################################
@@ -340,13 +342,15 @@ def _search_wrapper(self, *args, **kwargs):
                                 kwargs.get('limit', '0'), *args, **kwargs)
 
 #
-# Register our wrappers.
+# Register our wrappers (if they are not already registered).
 #
-orm.orm.create = _create_wrapper
-orm.orm.read = _read_wrapper
-orm.orm.write = _write_wrapper
-orm.orm.unlink = _unlink_wrapper
-orm.orm.search = _search_wrapper
+if not hasattr(orm.orm, 'profiler_enabled'):
+    orm.orm.profiler_enabled = True
+    orm.orm.create = _create_wrapper
+    orm.orm.read = _read_wrapper
+    orm.orm.write = _write_wrapper
+    orm.orm.unlink = _unlink_wrapper
+    orm.orm.search = _search_wrapper
 
 
 
@@ -399,8 +403,12 @@ def _browse_record_init_wrapper(self, cr, uid, oid, table, *args, **kwargs):
 
     return _old_browse_record_init(self, cr, uid, oid, table, *args, **kwargs)
 
-# Register our wrappers.
-orm.browse_record.__init__ = _browse_record_init_wrapper
+#
+# Register our wrapper (if it is not already registered).
+#
+if not hasattr(orm.browse_record, 'profiler_enabled'):
+    orm.browse_record.profiler_enabled = True
+    orm.browse_record.__init__ = _browse_record_init_wrapper
 
 
 

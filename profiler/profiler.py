@@ -31,6 +31,20 @@ import time
 import gc
 import tools
 import netsvc
+import sys
+
+
+#
+# Note: As the profiler wraps some method calls, it makes the stack bigger:
+#       Instead of one stack frame for each wrapped method, you'll
+#       have two or three.
+#       That means that the Python maximum recursion deep (usually 1000)
+#       may be exceeded on recursive methods that previously were just
+#       under the limit (for example ir.ui.menu._filter_visible_menus).
+#
+#       To prevent this, we raise the recursion limit a bit :)
+#
+sys.setrecursionlimit(2*sys.getrecursionlimit())
 
 
 ################################################################################

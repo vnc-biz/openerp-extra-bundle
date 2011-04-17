@@ -23,10 +23,10 @@
                             <field name="parent_id"/>
                             <field name="network_id"/>
                             <separator string="Softwares" colspan="4"/>
-                            <field name="software_id" nolabel="1" colspan="4" widget="one2many_list"/>
+                            <field name="software_id" nolabel="1" colspan="4"/>
                         </page>
                         <page string="Updates">
-                            <field name="change_id" nolabel="1" colspan="4" widget="one2many_list" />
+                            <field name="change_id" nolabel="1" colspan="4"/>
                         </page>
                         <page string="Notes">
                             <field name="note" nolabel="1" colspan="4"/>
@@ -313,19 +313,6 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="add_view_network">
-            <field name="name">Network List</field>
-            <field name="res_model">network.network</field>
-            <field name="view_type">tree</field>
-        </record>
-
-        <menuitem id="menu_add_view_network"
-            name="Network List" parent="menu_network"
-            action="add_view_network" groups="network.group_network_user"/>
-
-        <!-- ************************************************************** -->
-        <!-- ** Network *************************************************** -->
-        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="add_network_view">
             <field name="name">network.network.form</field>
             <field name="model">network.network</field>
@@ -339,7 +326,14 @@
                     <field name="contact_id" colspan="4" select="1"/>
                     <notebook colspan="4">
                         <page string="General">
-                            <field name="material_ids" nolabel="1" colspan="4" widget="one2many_list">
+                            <field name="material_ids" nolabel="1" colspan="4">
+                                <tree string="Network Material">
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="supplier" />
+                                    <field name="date"/>
+                                    <field name="warranty" />
+                                </tree>
                                 <form string="Network Material">
                                     <field name="name" select="1"/>
                                     <notebook>
@@ -351,10 +345,10 @@
                                             <field name="warranty" />
                                             <field name="parent_id"/>
                                             <separator string="Softwares" colspan="4"/>
-                                            <field name="software_id" nolabel="1" colspan="4" widget="one2many_list"/>
+                                            <field name="software_id" nolabel="1" colspan="4"/>
                                         </page>
                                         <page string="Updates">
-                                            <field name="change_id" nolabel="1" colspan="4" widget="one2many_list" />
+                                            <field name="change_id" nolabel="1" colspan="4"/>
                                         </page>
                                         <page string="Notes">
                                             <field name="note" nolabel="1" colspan="4"/>
@@ -368,6 +362,16 @@
                 </form>
             </field>
         </record>
+
+        <record model="ir.actions.act_window" id="add_view_network">
+            <field name="name">Network List</field>
+            <field name="res_model">network.network</field>
+            <field name="view_type">tree</field>
+        </record>
+
+        <menuitem id="menu_add_view_network"
+            name="Network List" parent="menu_network"
+            action="add_view_network" groups="network.group_network_user"/>
 
         <record model="ir.actions.act_window" id="add_new_network">
             <field name="name">Network</field>

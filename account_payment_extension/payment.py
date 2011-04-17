@@ -279,7 +279,7 @@ class payment_order(osv.osv):
                 # if currency is not the same than the company
                 if currency_id <> company_currency_id:
                     amount_currency = line_amount
-                    move_currency_id = currencty_id
+                    move_currency_id = currency_id
                 else:
                     amount_currency = False
                     move_currency_id = False

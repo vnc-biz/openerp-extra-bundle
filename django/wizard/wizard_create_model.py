@@ -72,9 +72,11 @@ class create_model_wizard(osv.osv_memory):
         djmodel = ''
         djmodel += 'from django.db import models\n'
         djmodel += 'from django.utils.translation import ugettext_lazy as _\n'
+        djmodel += 'from transmeta import TransMeta\n'
         djmodel += '\n'
         djmodel += 'class %s(models.Model):\n' % djmodel_name
         djmodel += '    """%s OpenERP"""\n'  % djmodel_name
+        djmodel += '    __metaclass__ = TransMeta\n'
         djmodel += '\n'
 
         if len(fields) > 0:
@@ -83,7 +85,7 @@ class create_model_wizard(osv.osv_memory):
                 field_extra_values = ''
 
                 if field.required is False:
-                    field_extra_values += ', blank=True'
+                    field_extra_values += ', null=True, blank=True'
 
                 if field.ttype == 'char':
                     djmodel += "    %s = models.CharField(_('%s'), max_length=%s%s)\n" % (field.name, field.field_description, field.size or 128, field_extra_values)
@@ -113,8 +115,8 @@ class create_model_wizard(osv.osv_memory):
 
                 elif field.ttype == 'selection':
                     choices_name = field.name.swapcase()+'_CHOICES'
-                    djmodel += "    "+choices_name+" = () #TODO: Selection Options\n" #TODO: Selection Options
-                    djmodel += "    %s = models.CharField(_('%s'), choices=%s)\n" % (field.name, field.field_description, choices_name) 
+                    djmodel += "    "+choices_name+" = () #TODO: Selection Options and default value\n" #TODO: Selection Options
+                    djmodel += "    %s = models.CharField(_('%s'), choices=%s, default='', max_length=40)\n" % (field.name, field.field_description, choices_name) 
 
                 elif field.ttype == 'binary':
                     djmodel += "    %s = models.FileField(_('%s')%s)\n" % (field.name, field.field_description, field_extra_values)
@@ -141,7 +143,7 @@ class create_model_wizard(osv.osv_memory):
                             djrelation_name += relation.capitalize()
                     else:
                         djrelation_name += relation_name[0].capitalize()
-                    djmodel += "    %s = models.ManyToManyField('%s',db_table = '', related_name='') #TODO: Related table\n" % (field.name, djrelation_name)
+                    djmodel += "    %s = models.ManyToManyField('%s',db_table = '', related_name='', blank=True) #TODO: Related table. Delete prefix table and ids\n" % (field.name, djrelation_name)
 
                 #others fields TODO: Add list
                 else:

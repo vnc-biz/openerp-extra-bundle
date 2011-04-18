@@ -20,101 +20,183 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from osv import osv, fields
 from tools.translate import _
+from sets import Set
 
-class res_partner(osv.osv):
-    _inherit = "res.partner"
+import netsvc
 
-    def dj_check_partner(self, cr, uid, username, email, values, context=None):
-        """
-        Django Check Partner: check if partner exists with username and email. Create one or update
-        username: string
-        email: string
-        values: dicc
-        """
-        if context == None:
-            context = {}
-
-        ids = self.pool.get('res.partner').search(cr, uid,[('dj_username', '=', username),('dj_email', '=', email)])
-
-        if len(ids) > 0:
-            self.pool.get('res.partner').write(cr, uid, ids, values)
-            return True
-        else:
-            if 'name' in values:
-                values['dj_username'] = username
-                values['dj_email'] = email
-                self.pool.get('res.partner').create(cr, uid, values)
-                return True
-            else:
-                return False
-
-    def dj_check_partner_address(self, cr, uid, username, email, values, address_id=None, context=None):
-        """
-        Django Check Partner Address: check if partner exists with username and email. Check if partner address exists. Create one or update
-        username: string
-        email: string
-        values: dicc
-        address_id: integer
-        """
-        if context == None:
-            context = {}
-
-        partner_ids = self.pool.get('res.partner').search(cr, uid,[('dj_username', '=', username),('dj_email', '=', email)])
-
-        if len(partner_ids) > 0:
-            partner_id = partner_ids[0]
-
-            if address_id:
-                address_ids = self.pool.get('res.partner.address').search(cr, uid,[('id', '=', address_id),('partner_id', '=', partner_id)])
-            else:
-                address_ids = []
-
-            if len(address_ids) > 0:
-                self.pool.get('res.partner.address').write(cr, uid, address_ids, values)
-            else:
-                values['partner_id'] = partner_id
-                if not 'type' in values:
-                    values['type'] = 'default'
-                self.pool.get('res.partner.address').create(cr, uid, values)
-            return True
-        else:
-            return False
-
-    def dj_check_vat(self, cr, uid, vat, context=None):
-        """
-        Django Check VAT: check if VAT is valid or not
-        vat: string
-        """
-        if context == None:
-            context = {}
-
-        check_vat = True
-        partner_obj = self.pool.get('res.partner')
-
-        vat_country = vat[:2]
-        vat = vat[2:]
-
-        if not hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
-            shop = self.pool.get('sale.shop').browse(cr, uid, res['shop_id'])
-            for country_id in shop.vat_country_ids:
-                vat_country = country_id.code
-                if hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
-                    check_vat = True
-                    break
-
-        if check_vat and hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
-            check = getattr(partner_obj, 'check_vat_' + vat_country.lower())
-            vat_ok = check(vat)
-        else:
-            vat_ok = False
-
-        return vat_ok
-
+class django_external_mapping_line(osv.osv):
+    _name = 'django.external.mapping.line'
+    _rec_name = 'name_function'
+    
+    def _name_get_fnc(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        for mapping_line in self.browse(cr, uid, ids, context):
+            res[mapping_line.id] = mapping_line.field_id or mapping_line.external_field
+        return res
+    
     _columns = {
-        'dj_username':fields.char('Username ID', size=100, readonly=True),
-        'dj_email':fields.char('Email ID', size=100, readonly=True),
+        'name_function': fields.function(_name_get_fnc, method=True, type="char", string='Full Name'),
     }
 
-res_partner()
+django_external_mapping_line()
+
+class django_external_mapping(osv.osv):
+    _name = 'django.external.mapping'
+    _description = 'Django External Mapping'
+    _rec_name = 'model_id'
+
+    def get_oerp_to_dj(self, cr, uid, code, ids=[]):
+        """From OpenERP values to Django
+            Search all mapping lines same code and calculated their values
+            Return list with dictionary [{},{}]
+            If not code or ids, return dicc blank
+            code: name of mapping
+            ids: ids get values
+            many2many field: return a list with id m2m[]
+        """
+
+        res=[]
+        self.logger = netsvc.Logger()
+
+        fields_relationals = ['many2one','one2many','many2many']
+
+        if code == '' or len(ids) == 0:
+            self.logger.notifyChannel(_("Django"), netsvc.LOG_ERROR, _("Code or ids without value"))
+            return res
+
+        dj_mappline_ids = self.search(cr, uid, [('name','=',code)])
+        if len(dj_mappline_ids) == 0:
+            self.logger.notifyChannel(_("Django"), netsvc.LOG_ERROR, _("Mappline Code %s not found") % code)
+            return res
+
+        self.logger.notifyChannel(_("Django"), netsvc.LOG_INFO, _("Django call %s") % code)
+
+        langs = self.pool.get('res.lang').search(cr, uid, [])
+        dj_mappline = self.browse(cr, uid, dj_mappline_ids[0])
+
+        dj_mappline_line_ids = self.pool.get('django.external.mapping.line').search(cr, uid, [('mapping_id','=',dj_mappline_ids[0])])
+
+        mappline_rules = []
+        for dj_mappline_line_id in dj_mappline_line_ids:
+            mappline_rules_values = {}
+            dj_mappline_line = self.pool.get('django.external.mapping.line').browse(cr, uid, dj_mappline_line_id)
+            if dj_mappline_line.type == 'out':
+                mappline_rules_values['field_id'] = dj_mappline_line.field_id.name
+                mappline_rules_values['translate'] = dj_mappline_line.translate
+                mappline_rules_values['external_field'] = dj_mappline_line.external_field
+                mappline_rules_values['out_function'] = dj_mappline_line.out_function
+                mappline_rules_values['ttype'] = dj_mappline_line.field_id.ttype
+            mappline_rules.append(mappline_rules_values)
+
+        for data_id in ids:
+            values_data = {}
+            values_model = self.pool.get(dj_mappline.model_id.model).browse(cr, uid, data_id)
+
+            values_data['id'] = data_id
+            for mappline_rule in mappline_rules:
+                field =  mappline_rule['field_id']
+                if mappline_rule['translate']:
+                    for lang in langs:
+                        language = self.pool.get('res.lang').browse(cr, uid, lang)
+                        if language.code != 'en_US':
+                            trans = self.pool.get('ir.translation').search(cr, uid, [('lang', '=', language.code),('name','=',dj_mappline.model_id.model+','+field),('res_id','=',data_id)])
+                            if len(trans) > 0:
+                                translation = self.pool.get('ir.translation').browse(cr, uid, trans[0])
+                                trans_value = translation.value
+                            else:
+                                trans_value = getattr(values_model, field)
+                                if trans_value is False:
+                                    trans_value = ''
+                        else:
+                            trans_value = getattr(values_model, field)
+                            if trans_value is False:
+                                trans_value = ''
+                        values_data[mappline_rule['external_field']+'_'+language.code[:2]]= trans_value
+                else:
+                    if mappline_rule['out_function']:
+                        value = eval(mappline_rule['out_function'])
+                    else:
+                        if mappline_rule['ttype'] in fields_relationals:
+                            if mappline_rule['ttype'] == 'many2many': #m2m fields, create list
+                                value = []
+                                values = getattr(values_model, field)
+                                for val in values:
+                                    value.append(val.id)
+                            else:
+#                               value = getattr(values_model, field)
+                                value = values_model.id
+                        else:
+                            value = getattr(values_model, field)
+
+                    values_data[mappline_rule['external_field']]= value
+
+            res.append(values_data)
+
+        self.logger.notifyChannel(_("Django"), netsvc.LOG_INFO, _("%s") % res)
+
+        return res
+
+    def get_dj_to_oerp(self, cr, uid, code=None, values=[]):
+        """From Django values to OpenERP
+            Search all mapping lines same code and calculated their values
+            Get list with dicctionay [{},{}]
+            If not code or value, return dicc blank"""
+
+        #TODO: If you need this function, design it! For this moment, we use OOOP or webservice functions
+        return True
+    
+    _columns = {
+        'name': fields.char('Code', size=64, required=True),
+        'model_id': fields.many2one('ir.model', 'OpenERP Model', required=True, select=True, ondelete='cascade'),
+        'model':fields.related('model_id', 'model', type='char', string='Model Name'),
+        'mapping_ids': fields.one2many('django.external.mapping.line', 'mapping_id', 'Mappings Lines'),
+        'state' : fields.selection([('draft', 'Draft'),('done', 'Done')],'State',required=True,readonly=True),
+    }
+
+    _defaults = {
+        'state' : lambda *a: 'draft',
+    }
+
+    def create(self, cr, uid, vals, context=None):
+        dj_external_mapping_ids = self.pool.get('django.external.mapping').search(cr, uid, [('name','ilike',vals['name'])])
+        if len(dj_external_mapping_ids) > 0:
+            raise osv.except_osv(_('Error !'), _("Another External Mapping have same code!"))
+        vals['state'] = 'done'
+        return super(django_external_mapping, self).create(cr, uid, vals, context)
+
+django_external_mapping()
+
+class django_external_mapping_line(osv.osv):
+    _inherit = 'django.external.mapping.line'
+
+    def _check_mapping_line_name(self, cr, uid, ids):
+        for mapping_line in self.browse(cr, uid, ids):
+            if (not mapping_line.field_id) and (not mapping_line.external_field):
+                return False
+        return True
+    
+    _columns = {
+        'mapping_id': fields.many2one('django.external.mapping', 'External Mapping', select=True, ondelete='cascade'),
+        'field_id': fields.many2one('ir.model.fields', 'OpenERP Field', select=True, ondelete='cascade', required=True,domain="[('model_id', '=', parent.model_id),('ttype','!=','binary')]"),
+        'external_field': fields.char('External Field', size=32, required=True),
+        'type': fields.selection([('in_out', 'External <-> OpenERP'), ('in', 'External -> OpenERP'), ('out', 'External <- OpenERP')], 'Type', required=True),
+        'external_type': fields.selection([('str', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float')], 'External Type', required=True),
+        'translate': fields.boolean('Translate'),
+        'in_function': fields.text('Import in OpenERP Mapping Python Function'),
+        'out_function': fields.text('Export from OpenERP Mapping Python Function'),
+    }
+    
+    _default = {
+         'type' : lambda * a: 'in_out',
+    }
+    
+    _constraints = [
+        (_check_mapping_line_name, "Error ! Invalid Mapping Line Name: Field and External Field cannot be both null", ['parent_id'])
+    ]
+    
+    _order = 'field_id desc'
+
+django_external_mapping_line()

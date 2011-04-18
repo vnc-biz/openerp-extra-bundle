@@ -20,28 +20,30 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name" : "Django",
-    "author" : "Zikzakmedia SL",
-    "website" : "http://www.zikzakmedia.com",
-    "description" : """
-OpenERP integration to Django.
-- Create OpenObject Model to Django Model. Select model and copy-paste Django Model (wizard)
-- OpenERP to Django Mapping Fields. Export OpenERP data to Django Models
-- Update SQL Django. Update Django models when already been created previously in Django (wizard)
-This module was built generically but in focus of the ZZSaaS service of Zikzakmedia and Zoook e-sale for OpenERP
-    """,
-    "version" : "0.1",
-    "depends" : ["base"],
-    "init_xml" : [],
-    "update_xml" : [
-        "security/ir.model.access.csv",
-        "django_view.xml",
-        "partner_view.xml",
-        "django_wizard.xml",
-        "wizard/wizard_create_model.xml",
-    ],
-    "category" : "Generic Modules",
-    "active": False,
-    "installable": True
-}
+
+""" 
+Design Mapping name zoook.product.category and execute this script. 
+Remember change username, pwd, dbname and port.
+It's only a test. This file is not use to production.
+"""
+import xmlrpclib
+
+username = 'admin' #the user
+pwd = 'admin'      #the password of the user
+dbname = 'oerp6_zoook'    #the database
+
+# Get the uid
+sock_common = xmlrpclib.ServerProxy ('http://localhost:8051/xmlrpc/common')
+uid = sock_common.login(dbname, username, pwd)
+
+#replace localhost with the address of the server
+sock = xmlrpclib.ServerProxy('http://localhost:8051/xmlrpc/object')
+
+context = ()
+code = 'zoook.product.category'
+ids = [1,2]
+values = sock.execute(dbname, uid, pwd, 'django.external.mapping', 'get_oerp_to_dj', code, ids)
+
+for value in values:
+    for val, key  in value.iteritems():
+        print "field: %s -|- value: %s" % (val, key)

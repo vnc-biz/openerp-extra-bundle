@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+<!-- training.course -->
+        <record model="ir.ui.view" id="training_course_wiki_doc_inherit_form_view">
+            <field name="name">training.course.wiki.doc.inherit.form.view</field>
+            <field name="model">training.course</field>
+		    <field name="inherit_id" ref="training.training_course_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='History']" position="after">
+                    <page string="Wiki">
+                        <field name="course_wiki_pages_ids" nolabel="1"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+<!-- wiki Tree view  -->
+        <record model="ir.ui.view" id="view_wiki_inherit_tree_view">
+            <field name="name">wiki.wiki.inherit.tree.view</field>
+            <field name="model">wiki.wiki</field>
+		    <field name="inherit_id" ref="wiki.view_wiki_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='write_date']" position="after">
+                    <field name="sequence"/>
+                </xpath>
+            </field>
+        </record>
+
+</data>
+</openerp>

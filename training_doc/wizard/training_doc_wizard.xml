@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!-- training.course.add.wiki.wizard -->
+        <record model="ir.ui.view" id="training_course_add_wiki_wizard">
+            <field name="name">training.course.add.wiki.wizard.form.view</field>
+            <field name="model">training.course.add.wiki.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Add Wikis">
+                <group col="4" colspan="4" attrs="{'invisible':[('state','=','second') or ('state','=','done')]}">
+                    <separator string="Search with keyword all wiki pages and add in Course Training" colspan="4"/>
+                    <newline/>
+                    <field name="keyword" colspan="4"/>
+                    <newline/>
+                    <button string="Cancel" special="cancel" icon="gtk-cancel" states="first" colspan="4"/>
+                    <newline/>
+                    <button string="Continue" name="selectWikis" type="object" icon="gtk-ok" states="first" colspan="4"/>
+                </group>
+                <group col="4" colspan="4" attrs="{'invisible':[('state','=','first') or ('state','=','done')]}">
+                    <label string="Select wikis to add"/>
+                    <newline/>
+                    <field name="course_wiki_pages_wizard_ids" colspan="4" nolabel="1"/>
+                    <button string="Cancel" special="cancel" icon="gtk-cancel" states="second"/>
+                    <button string="Continue" name="addWikis" type="object" icon="gtk-ok" states="second"/>
+                </group>
+                <group col="4" colspan="4" attrs="{'invisible':[('state','=','first') or ('state','=','second')]}">
+                    <field name="state" invisible="1"/>
+                    <button string="Close" special="cancel" icon="gtk-ok" states="done"/>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <act_window name="Add Wikis"
+            res_model="training.course.add.wiki.wizard"
+            src_model="training.course"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"    
+            id="training_course_add_wiki_action"
+            groups="training.group_course_user"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,2 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_training_wiki_doc_manager","training.wiki.doc.manager","model_training_course_add_wiki_wizard","training.group_course_user",1,1,1,1

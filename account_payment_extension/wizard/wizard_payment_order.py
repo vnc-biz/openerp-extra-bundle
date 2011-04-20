@@ -68,7 +68,7 @@ def search_entries(self, cr, uid, data, context):
         domain += [ ('debit','>',0) ]
 
     if payment.mode:
-        domain += [('payment_type','=',payment.mode.type.id)]
+        domain += ['|',('payment_type','=',payment.mode.type.id),('payment_type','=',False)]
 
     domain += ['|',('date_maturity','<',search_due_date),('date_maturity','=',False)]
     line_ids = line_obj.search(cr, uid, domain, order='date_maturity', context=context)

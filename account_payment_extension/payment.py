@@ -235,7 +235,7 @@ class payment_order(osv.osv):
 
                 currency_id = order.mode.journal.currency and order.mode.journal.currency.id or company_currency_id
 
-                if line.type == 'payment':
+                if line.type == 'payable':
                     line_amount = line.amount_currency or line.amount
                 else:
                     line_amount = -line.amount_currency or -line.amount

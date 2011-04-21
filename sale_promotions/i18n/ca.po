@@ -6,431 +6,251 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.15\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-14 14:53+0000\n"
-"PO-Revision-Date: 2011-03-14 15:53+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-03-21 11:10+0000\n"
+"PO-Revision-Date: 2011-04-21 02:21+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-
-#. module: sale_promotions
-#: field:promos.rules,name:0
-msgid "Promo Name"
-msgstr "Nom"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-msgid "expressions are"
-msgstr "les expressions son"
-
-#. module: sale_promotions
-#: field:promos.rules.conditions.exps,stop_further:0
-msgid "Stop further checks"
-msgstr "Finalitzar comprovació"
-
-#. module: sale_promotions
-#: field:promos.rules,uses_per_coupon:0
-msgid "Uses per Coupon"
-msgstr "Usos per cupó"
-
-#. module: sale_promotions
-#: field:promos.rules,coupon_used:0
-msgid "Number of Coupon Uses"
-msgstr "Número d'usos per cupó"
-
-#. module: sale_promotions
-#: field:promos.rules.actions,product_code:0
-msgid "Product Code"
-msgstr "Codi producte"
-
-#. module: sale_promotions
-#: model:ir.actions.act_window,name:sale_promotions.act_promotion_rules
-#: model:ir.model,name:sale_promotions.model_promos_rules
-#: model:ir.ui.menu,name:sale_promotions.promos
-msgid "Promotion Rules"
-msgstr "Regles de promoció"
-
-#. module: sale_promotions
-#: field:sale.order,coupon_code:0
-msgid "Promo Coupon Code"
-msgstr "Codi cupó de la promoció"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-msgid "Applicable Period"
-msgstr "Període aplicable"
-
-#. module: sale_promotions
-#: field:promos.rules,stop_further:0
-msgid "Stop Checks"
-msgstr "Finalitzar procés"
-
-#. module: sale_promotions
-#: model:ir.model,name:sale_promotions.model_promos_rules_conditions_exps
-msgid "Expressions for conditions"
-msgstr "Expressions per les condicions"
-
-#. module: sale_promotions
-#: field:promos.rules,to_date:0
-msgid "To Date"
-msgstr "Des de"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:62
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "not equal to"
-msgstr "no es igual a"
-
-#. module: sale_promotions
-#: field:promos.rules.actions,arguments:0
-msgid "Arguments"
-msgstr "Arguments"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:64
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "greater than or equal to"
-msgstr "major o igual a"
-
-#. module: sale_promotions
-#: field:promos.rules,expected_logic_result:0
-msgid "Output"
-msgstr "Sortida"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Product UnitPrice combination"
-msgstr "Combinació preu unitat del producte"
-
-#. module: sale_promotions
-#: help:promos.rules,stop_further:0
-msgid "Stops further promotions being checked"
-msgstr "Finalitzar promocions"
-
-#. module: sale_promotions
-#: model:ir.model,name:sale_promotions.model_promos_rules_actions
-msgid "Promotions actions"
-msgstr "Accions de la promoció"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Product Discount combination"
-msgstr "Combinació descompte del producte"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-msgid "Conditions"
-msgstr "Condicions"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:75
-#: selection:promos.rules.actions,action_type:0
-#, python-format
-msgid "Fixed amount on Sub Total"
-msgstr "Quantitat fixa en subtotal"
-
-#. module: sale_promotions
-#: sql_constraint:sale.order:0
-msgid "Order Reference must be unique !"
-msgstr "Order Reference must be unique !"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-#: field:promos.rules,description:0
-msgid "Description"
-msgstr "Descripció"
-
-#. module: sale_promotions
-#: field:promos.rules.conditions.exps,serialised_expr:0
-msgid "Expression"
-msgstr "Expressió"
-
-#. module: sale_promotions
-#: field:promos.rules,coupon_code:0
-msgid "Coupon Code"
-msgstr "Codi cupó"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:68
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "is not in"
-msgstr "no està en"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Product Weight combination"
-msgstr "Combinació pes del producte"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Product SubTotal combination"
-msgstr "Combinació subtotal del producte"
-
-#. module: sale_promotions
-#: help:sale.order.line,promotion_line:0
-msgid "Indicates if the line was created by promotions"
-msgstr "Indicar si aquesta línia es creada per promocions"
-
-#. module: sale_promotions
-#: field:promos.rules,active:0
-msgid "Active"
-msgstr "Actiu"
-
-#. module: sale_promotions
-#: selection:promos.rules,expected_logic_result:0
-msgid "True"
-msgstr "Verdader"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-msgid "Coupon/Voucher Settings"
-msgstr "Configuració dels cupons"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-msgid "Promotions"
-msgstr "Promocions"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:76
-#: selection:promos.rules.actions,action_type:0
-#, python-format
-msgid "Buy X get Y free"
-msgstr "Compra X i emportis Y"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Compute sub total of products"
-msgstr "Calcula subtotal dels productes"
-
-#. module: sale_promotions
-#: field:promos.rules.conditions.exps,comparator:0
-msgid "Comparator"
-msgstr "Comparador"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Tax Amount"
-msgstr "Impostos"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:42
-#: selection:promos.rules.conditions.exps,attribute:0
-#, python-format
-msgid "Untaxed Total"
-msgstr "Base imponible"
-
-#. module: sale_promotions
-#: field:promos.rules.conditions.exps,value:0
-msgid "Value"
-msgstr "Valor"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:61
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "equals"
-msgstr "es igual a"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-#: field:promos.rules,partner_categories:0
-msgid "Partner Categories"
-msgstr "Categories de clients"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Product Quantity combination"
-msgstr "Combinació quantitat del producte"
-
-#. module: sale_promotions
-#: field:promos.rules,uses_per_partner:0
-msgid "Uses per Partner"
-msgstr "Usos per client"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Compute sub total excluding products"
-msgstr "Calcula subtotal excloent productes"
-
-#. module: sale_promotions
-#: field:promos.rules,logic:0
-msgid "Logic"
-msgstr "Lògica"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-msgid "If"
-msgstr "Si"
-
-#. module: sale_promotions
-#: field:promos.rules.actions,action_type:0
-msgid "Action"
-msgstr "Accions"
-
-#. module: sale_promotions
-#: selection:promos.rules,expected_logic_result:0
-msgid "False"
-msgstr "Fals"
-
-#. module: sale_promotions
-#: field:promos.rules.actions,promotion:0
-#: field:promos.rules.conditions.exps,promotion:0
-msgid "Promotion"
-msgstr "Promoció"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Custom domain expression"
-msgstr "Expressió personalitzada"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:74
-#: selection:promos.rules.actions,action_type:0
-#, python-format
-msgid "Discount % on Sub Total"
-msgstr "Descompte % en el subtotal"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:66
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "less than or equal to"
-msgstr "menor o igual a"
-
-#. module: sale_promotions
-#: field:sale.order.line,promotion_line:0
-msgid "Promotion Line"
-msgstr "Línia de promoció"
-
-#. module: sale_promotions
-#: field:promos.rules,shop:0
-msgid "Shop"
-msgstr "Botiga"
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Total Amount"
-msgstr "Quantitat Total"
-
-#. module: sale_promotions
-#: selection:promos.rules,logic:0
-msgid "All"
-msgstr "Tot"
-
-#. module: sale_promotions
-#: model:ir.model,name:sale_promotions.model_sale_order
-msgid "Sales Order"
-msgstr "Sales Order"
-
-#. module: sale_promotions
-#: field:promos.rules,expressions:0
-msgid "Expressions/Conditions"
-msgstr "Expressions/Condicions"
-
-#. module: sale_promotions
-#: field:promos.rules,sequence:0
-#: field:promos.rules.actions,sequence:0
-#: field:promos.rules.conditions.exps,sequence:0
-msgid "Sequence"
-msgstr "Seqüència"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:67
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "is in"
-msgstr "es en"
-
-#. module: sale_promotions
-#: field:promos.rules.conditions.exps,attribute:0
-msgid "Attribute"
-msgstr "Atribut"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:65
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "less than"
-msgstr "menys de"
-
-#. module: sale_promotions
-#: view:promos.rules:0
-#: field:promos.rules,actions:0
-msgid "Actions"
-msgstr "Accions"
-
-#. module: sale_promotions
-#: help:promos.rules,partner_categories:0
-msgid "Applicable to all if none is selected"
-msgstr "Aplicable en tot si cap es seleccionat"
-
-#. module: sale_promotions
-#: model:ir.model,name:sale_promotions.model_sale_order_line
-msgid "Sales Order Line"
-msgstr "Sales Order Line"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:63
-#: selection:promos.rules.conditions.exps,comparator:0
-#, python-format
-msgid "greater than"
-msgstr "major que"
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:72
-#: selection:promos.rules.actions,action_type:0
-#, python-format
-msgid "Discount % on Product"
-msgstr "Descompte % en el producte"
-
-#. module: sale_promotions
-#: help:promos.rules,coupon_used:0
-msgid "The number of times this coupon has been used."
-msgstr "El número de cupons ja s'ha utilitzat."
-
-#. module: sale_promotions
-#: selection:promos.rules.conditions.exps,attribute:0
-msgid "Product Code in order"
-msgstr "Codi producte en la comanda"
-
-
-#. module: sale_promotions
-#: code:addons/sale_promotions/models/rules.py:73
-#: selection:promos.rules.actions,action_type:0
-#, python-format
-msgid "Fixed amount on Product"
-msgstr "Quantitat fixe del producte"
-
-#. module: sale_promotions
-#: selection:promos.rules,logic:0
-msgid "Any"
-msgstr "Cap"
-
-#. module: sale_promotions
-#: view:sale.order:0
-msgid "Apply Promotions"
-msgstr "Aplicar promocions"
-
-#. module: sale_promotions
-#: field:promos.rules,from_date:0
-msgid "From Date"
-msgstr "Fins a"
+"X-Launchpad-Export-Date: 2011-04-21 06:01+0000\n"
+"X-Generator: Launchpad (build 12758)\n"
+
+#~ msgid "Promo Name"
+#~ msgstr "Nom"
+
+#~ msgid "expressions are"
+#~ msgstr "les expressions son"
+
+#~ msgid "Stop further checks"
+#~ msgstr "Finalitzar comprovació"
+
+#~ msgid "Uses per Coupon"
+#~ msgstr "Usos per cupó"
+
+#~ msgid "Number of Coupon Uses"
+#~ msgstr "Número d'usos per cupó"
+
+#~ msgid "Product Code"
+#~ msgstr "Codi producte"
+
+#~ msgid "Promotion Rules"
+#~ msgstr "Regles de promoció"
+
+#~ msgid "Promo Coupon Code"
+#~ msgstr "Codi cupó de la promoció"
+
+#~ msgid "Applicable Period"
+#~ msgstr "Període aplicable"
+
+#~ msgid "Stop Checks"
+#~ msgstr "Finalitzar procés"
+
+#~ msgid "Expressions for conditions"
+#~ msgstr "Expressions per les condicions"
+
+#~ msgid "To Date"
+#~ msgstr "Des de"
+
+#~ msgid "not equal to"
+#~ msgstr "no es igual a"
+
+#~ msgid "Arguments"
+#~ msgstr "Arguments"
+
+#~ msgid "greater than or equal to"
+#~ msgstr "major o igual a"
+
+#~ msgid "Output"
+#~ msgstr "Sortida"
+
+#~ msgid "Product UnitPrice combination"
+#~ msgstr "Combinació preu unitat del producte"
+
+#~ msgid "Stops further promotions being checked"
+#~ msgstr "Finalitzar promocions"
+
+#~ msgid "Promotions actions"
+#~ msgstr "Accions de la promoció"
+
+#~ msgid "Product Discount combination"
+#~ msgstr "Combinació descompte del producte"
+
+#~ msgid "Conditions"
+#~ msgstr "Condicions"
+
+#~ msgid "Fixed amount on Sub Total"
+#~ msgstr "Quantitat fixa en subtotal"
+
+#~ msgid "Order Reference must be unique !"
+#~ msgstr "Order Reference must be unique !"
+
+#~ msgid "Description"
+#~ msgstr "Descripció"
+
+#~ msgid "Expression"
+#~ msgstr "Expressió"
+
+#~ msgid "Coupon Code"
+#~ msgstr "Codi cupó"
+
+#~ msgid "is not in"
+#~ msgstr "no està en"
+
+#~ msgid "Product Weight combination"
+#~ msgstr "Combinació pes del producte"
+
+#~ msgid "Product SubTotal combination"
+#~ msgstr "Combinació subtotal del producte"
+
+#~ msgid "Indicates if the line was created by promotions"
+#~ msgstr "Indicar si aquesta línia es creada per promocions"
+
+#~ msgid "Active"
+#~ msgstr "Actiu"
+
+#~ msgid "True"
+#~ msgstr "Verdader"
+
+#~ msgid "Coupon/Voucher Settings"
+#~ msgstr "Configuració dels cupons"
+
+#~ msgid "Promotions"
+#~ msgstr "Promocions"
+
+#~ msgid "Buy X get Y free"
+#~ msgstr "Compra X i emportis Y"
+
+#~ msgid "Compute sub total of products"
+#~ msgstr "Calcula subtotal dels productes"
+
+#~ msgid "Comparator"
+#~ msgstr "Comparador"
+
+#~ msgid "Tax Amount"
+#~ msgstr "Impostos"
+
+#~ msgid "Untaxed Total"
+#~ msgstr "Base imponible"
+
+#~ msgid "Value"
+#~ msgstr "Valor"
+
+#~ msgid "equals"
+#~ msgstr "es igual a"
+
+#~ msgid "Partner Categories"
+#~ msgstr "Categories de clients"
+
+#~ msgid "Product Quantity combination"
+#~ msgstr "Combinació quantitat del producte"
+
+#~ msgid "Uses per Partner"
+#~ msgstr "Usos per client"
+
+#~ msgid "Compute sub total excluding products"
+#~ msgstr "Calcula subtotal excloent productes"
+
+#~ msgid "Logic"
+#~ msgstr "Lògica"
+
+#~ msgid "If"
+#~ msgstr "Si"
+
+#~ msgid "Action"
+#~ msgstr "Accions"
+
+#~ msgid "False"
+#~ msgstr "Fals"
+
+#~ msgid "Promotion"
+#~ msgstr "Promoció"
+
+#~ msgid "Custom domain expression"
+#~ msgstr "Expressió personalitzada"
+
+#~ msgid "Discount % on Sub Total"
+#~ msgstr "Descompte % en el subtotal"
+
+#~ msgid "less than or equal to"
+#~ msgstr "menor o igual a"
+
+#~ msgid "Promotion Line"
+#~ msgstr "Línia de promoció"
+
+#~ msgid "Shop"
+#~ msgstr "Botiga"
+
+#~ msgid "Total Amount"
+#~ msgstr "Quantitat Total"
+
+#~ msgid "All"
+#~ msgstr "Tot"
+
+#~ msgid "Sales Order"
+#~ msgstr "Sales Order"
+
+#~ msgid "Expressions/Conditions"
+#~ msgstr "Expressions/Condicions"
+
+#~ msgid "Sequence"
+#~ msgstr "Seqüència"
+
+#~ msgid "is in"
+#~ msgstr "es en"
+
+#~ msgid "Attribute"
+#~ msgstr "Atribut"
+
+#~ msgid "less than"
+#~ msgstr "menys de"
+
+#~ msgid "Actions"
+#~ msgstr "Accions"
+
+#~ msgid "Applicable to all if none is selected"
+#~ msgstr "Aplicable en tot si cap es seleccionat"
+
+#~ msgid "Sales Order Line"
+#~ msgstr "Sales Order Line"
+
+#~ msgid "greater than"
+#~ msgstr "major que"
+
+#~ msgid "Discount % on Product"
+#~ msgstr "Descompte % en el producte"
+
+#~ msgid "The number of times this coupon has been used."
+#~ msgstr "El número de cupons ja s'ha utilitzat."
+
+#~ msgid "Product Code in order"
+#~ msgstr "Codi producte en la comanda"
+
+#~ msgid "Fixed amount on Product"
+#~ msgstr "Quantitat fixe del producte"
+
+#~ msgid "Any"
+#~ msgstr "Cap"
+
+#~ msgid "Apply Promotions"
+#~ msgstr "Aplicar promocions"
+
+#~ msgid "From Date"
+#~ msgstr "Fins a"
 
 #~ msgid "Rule Expressions"
 #~ msgstr "Expressió de la regla"
+
 #~ msgid ""
 #~ "The Object name must start with x_ and not contain any special character !"
 #~ msgstr ""
 #~ "¡El nom del objecte ha de començar amb x_ i no contenir cap caràcter "
 #~ "especial!"
+
 #~ msgid "Promotions for Open ERP"
 #~ msgstr "Promociones per OpenERP"
+
 #~ msgid ""
 #~ "\n"
 #~ "    Promotions on Sale Order for Open ERP\n"
@@ -455,6 +275,6 @@ msgstr "Fins a"
 #~ "        Aquest mòdul està dissenyat/inspirat en Magento ecommerce\n"
 #~ "        Agraïments a Yannick Buron pel anàlisis\n"
 #~ "    "
+
 #~ msgid "Product NetPrice combination"
 #~ msgstr "Combinació preu net del producte"
-

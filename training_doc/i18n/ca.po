@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-04-19 17:44+0000\n"
-"PO-Revision-Date: 2011-04-19 19:53+0100\n"
-"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-04-20 16:46+0000\n"
+"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
+"<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-04-21 06:01+0000\n"
+"X-Generator: Launchpad (build 12758)\n"
 
 #. module: training_doc
 #: view:training.course:0
@@ -23,7 +25,9 @@ msgstr "Wiki"
 #. module: training_doc
 #: view:training.course.add.wiki.wizard:0
 msgid "Search with keyword all wiki pages and add in Course Training"
-msgstr "Cerca totes les pàgines wiki que continguin una paraula clau i les afegeix en una matèria de formació."
+msgstr ""
+"Cerca totes les pàgines wiki que continguin una paraula clau i les afegeix "
+"en una matèria de formació."
 
 #. module: training_doc
 #: field:wiki.wiki,sequence:0
@@ -119,8 +123,9 @@ msgstr "Primer"
 
 #~ msgid "Input a keyword to select wikis"
 #~ msgstr "Wiki"
+
 #~ msgid "add.wiki.doc.wizard"
 #~ msgstr "afegir.wiki.document.assistent"
+
 #~ msgid "Make Invoices"
 #~ msgstr "Crea factures"
-

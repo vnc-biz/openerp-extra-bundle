@@ -3,6 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2011 SYLEAM (<http://syleam.fr/>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -25,15 +26,17 @@ import time
 import urllib
 from tools.translate import _
 
+
 class SMSClient(osv.osv):
     _name = 'sms.smsclient'
     _description = 'SMS Client'
+
     _columns = {
-        'name' : fields.char('Gateway Name', size=256, required=True),
-        'url' : fields.char('Gateway URL', size=256, required=True),
-        'property_ids':fields.one2many('sms.smsclient.parms', 'gateway_id', 'Parameters'),
-        'history_line':fields.one2many('sms.smsclient.history', 'gateway_id', 'History'),
-        'method':fields.selection([
+        'name': fields.char('Gateway Name', size=256, required=True),
+        'url': fields.char('Gateway URL', size=256, required=True, help='Base url for message'),
+        'property_ids': fields.one2many('sms.smsclient.parms', 'gateway_id', 'Parameters'),
+        'history_line': fields.one2many('sms.smsclient.history', 'gateway_id', 'History'),
+        'method': fields.selection([
             ('http','HTTP Method')
         ],'API Method', select=True),
         'state': fields.selection([
@@ -42,12 +45,13 @@ class SMSClient(osv.osv):
             ('confirm','Verified'),
         ],'Gateway Status', select=True, readonly=True),
         'users_id': fields.many2many('res.users', 'res_smsserver_group_rel', 'sid', 'uid', 'Users Allowed'),
-        'code' : fields.char('Verification Code', size=256),
-        'body' : fields.text('Message', help="The message text that will be send along with the email which is send through this server"),
+        'code': fields.char('Verification Code', size=256),
+        'body': fields.text('Message', help="The message text that will be send along with the email which is send through this server"),
     }
+
     _defaults = {
         'state': lambda *a: 'new',
-        'method': lambda *a: 'http'
+        'method': lambda *a: 'http',
     }
 
     def check_permissions(self, cr, uid, id):
@@ -55,7 +59,6 @@ class SMSClient(osv.osv):
         data = cr.fetchall()
         if len(data) <= 0:
             return False
-
         return True
 
     def send_message(self, cr, uid, gateway, to, text):
@@ -75,7 +78,7 @@ class SMSClient(osv.osv):
                 prms[p.name] = p.value
 
         params = urllib.urlencode(prms)
-        req = url+"?"+params
+        req = url + "?" + params
         queue = self.pool.get('sms.smsclient.queue')
         queue.create(cr, uid, {
                     'name':req,
@@ -86,11 +89,14 @@ class SMSClient(osv.osv):
                 })
         return True
 
-    def _check_queue(self, cr, uid, ids=False, context={}):
+    def _check_queue(self, cr, uid, ids=False, context=None):
+        if context is None:
+            context = {}
+
         queue = self.pool.get('sms.smsclient.queue')
         history = self.pool.get('sms.smsclient.history')
 
-        sids = queue.search(cr, uid, [('state','!=','send'),('state','!=','sending')], limit=30)
+        sids = queue.search(cr, uid, [('state', '!=', 'send'), ('state', '!=', 'sending')], limit=30)
         queue.write(cr, uid, sids, {'state':'sending'})
         error = []
         sent = []
@@ -101,11 +107,11 @@ class SMSClient(osv.osv):
                 continue
 
             history.create(cr, uid, {
-                        'name':'SMS Sent',
+                        'name': _('SMS Sent'),
                         'gateway_id':sms.gateway_id.id,
                         'sms': sms.msg,
                         'to':sms.mobile
-                    })
+                    } , context=context)
             sent.append(sms.id)
 
         queue.write(cr, uid, sent, {'state':'send'})
@@ -118,6 +124,7 @@ SMSClient()
 class SMSQueue(osv.osv):
     _name = 'sms.smsclient.queue'
     _description = 'SMS Queue'
+
     _columns = {
         'name' : fields.text('SMS Request', size=256, required=True, readonly=True, states={'draft':[('readonly',False)]}),
         'msg' : fields.text('SMS Text', size=256, required=True, readonly=True, states={'draft':[('readonly',False)]}),
@@ -132,18 +139,22 @@ class SMSQueue(osv.osv):
         'error':fields.text('Last Error', size=256, readonly=True, states={'draft':[('readonly',False)]}),
         'date_create': fields.datetime('Date', readonly=True),
     }
+
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'state': lambda *a: 'draft',
     }
+
 SMSQueue()
+
 
 class Properties(osv.osv):
     _name = 'sms.smsclient.parms'
     _description = 'SMS Client Properties'
+
     _columns = {
-        'name' : fields.char('Property name', size=256, required=True),
-        'value' : fields.char('Property value', size=256, required=True),
+        'name' : fields.char('Property name', size=256, required=True, help='Name of the property whom appear on the URL'),
+        'value' : fields.char('Property value', size=256, required=True, help='Value associate on the property for the URL'),
         'gateway_id':fields.many2one('sms.smsclient', 'SMS Gateway'),
         'type':fields.selection([
             ('user','User'),
@@ -151,21 +162,23 @@ class Properties(osv.osv):
             ('sender','Sender Name'),
             ('to','Recipient No'),
             ('sms','SMS Message')
-        ],'API Method', select=True),
+        ],'API Method', select=True, help='If parameter concern a value to substitute, indicate it'),
     }
 
 Properties()
 
+
 class HistoryLine(osv.osv):
     _name = 'sms.smsclient.history'
     _description = 'SMS Client History'
+
     _columns = {
-        'name' : fields.char('Description',size=160, required=True, readonly=True),
+        'name': fields.char('Description',size=160, required=True, readonly=True),
         'date_create': fields.datetime('Date', readonly=True),
-        'user_id':fields.many2one('res.users', 'Username', readonly=True, select=True),
-        'gateway_id' : fields.many2one('sms.smsclient', 'SMS Gateway', ondelete='set null', required=True),
-        'to':fields.char('Mobile No', size=15, readonly=True),
-        'sms':fields.text('SMS', size=160, readonly=True),
+        'user_id': fields.many2one('res.users', 'Username', readonly=True, select=True),
+        'gateway_id': fields.many2one('sms.smsclient', 'SMS Gateway', ondelete='set null', required=True),
+        'to': fields.char('Mobile No', size=15, readonly=True),
+        'sms': fields.text('SMS', size=160, readonly=True),
     }
 
     _defaults = {

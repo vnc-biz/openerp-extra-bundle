@@ -3,7 +3,7 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 OpenERP SA (<http://openerp.com>)
-#    Copyright (C) 2011 SYLEAM (<http://
+#    Copyright (C) 2011 SYLEAM (<http://syleam.fr/>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -24,17 +24,15 @@
     "name" : "SMS Client",
     "version" : "1.0",
     "depends" : ["base"],
-    "author" : "OpenERP AS,SYLEAM",
+    "author" : "OpenERP SA,SYLEAM",
     "description": """SMS Client module that provides:
     Sending SMS
     Use Multiple Gateways
     """,
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules",
-    "init_xml" : [
-    ],
-    "demo_xml" : [
-    ],
+    "init_xml" : [],
+    "demo_xml" : [],
     "update_xml" : [
         "smsclient_view.xml",
         "serveraction_view.xml",

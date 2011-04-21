@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -29,18 +30,18 @@ class ServerAction(osv.osv):
     _columns = {
         'sms_server':fields.many2one('sms.smsclient', 'SMS Server'),
     }
-    
+
     def run(self, cr, uid, ids, context={}):
         logger = netsvc.Logger()
-        
+
         act_ids = []
-        
+
         for action in self.browse(cr, uid, ids, context):
             obj_pool = self.pool.get(action.model_id.model)
             obj = obj_pool.browse(cr, uid, context['active_id'], context=context)
             cxt = {
-                'context':context, 
-                'object': obj, 
+                'context':context,
+                'object': obj,
                 'time':time,
                 'cr': cr,
                 'pool' : self.pool,
@@ -62,19 +63,21 @@ class ServerAction(osv.osv):
                         logger.notifyChannel('sms', netsvc.LOG_ERROR, 'Mobile number not specified !')
                 except:
                     pass
-                
+
                 text = self.merge_message(cr, uid, str(action.sms), action, context)
-                
+
                 if sms_pool.send_message(cr, uid, action.sms_server.id, to, text) == True:
                     logger.notifyChannel('sms', netsvc.LOG_INFO, 'SMS successfully send to : %s' % (to))
                 else:
                     logger.notifyChannel('sms', netsvc.LOG_ERROR, 'Failed to send SMS to : %s' % (to))
             else:
                 act_ids.append(action.id)
-        
+
         if act_ids:
             return super(ServerAction,self).run(cr, uid, act_ids, context)
         else:
             return False
 
 ServerAction()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

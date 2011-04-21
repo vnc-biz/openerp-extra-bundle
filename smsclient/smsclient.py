@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,11 +15,12 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-from osv import fields, osv
+from osv import osv
+from osv import fields
 import time
 import urllib
 from tools.translate import _
@@ -47,21 +49,21 @@ class SMSClient(osv.osv):
         'state': lambda *a: 'new',
         'method': lambda *a: 'http'
     }
-    
+
     def check_permissions(self, cr, uid, id):
         cr.execute('select * from res_smsserver_group_rel where sid=%s and uid=%s' % (id, uid))
         data = cr.fetchall()
         if len(data) <= 0:
             return False
-        
+
         return True
-    
+
     def send_message(self, cr, uid, gateway, to, text):
         gate = self.browse(cr, uid, gateway)
-        
+
         if not self.check_permissions(cr, uid, gateway):
             raise osv.except_osv(_('Permission Error!'), _('You have no permission to access %s ') % (gate.name,) )
-        
+
         url = gate.url
         prms = {}
         for p in gate.property_ids:
@@ -71,7 +73,7 @@ class SMSClient(osv.osv):
                 prms[p.name] = text
             else:
                 prms[p.name] = p.value
-                
+
         params = urllib.urlencode(prms)
         req = url+"?"+params
         queue = self.pool.get('sms.smsclient.queue')
@@ -83,11 +85,11 @@ class SMSClient(osv.osv):
                     'msg':text
                 })
         return True
-    
+
     def _check_queue(self, cr, uid, ids=False, context={}):
         queue = self.pool.get('sms.smsclient.queue')
         history = self.pool.get('sms.smsclient.history')
-        
+
         sids = queue.search(cr, uid, [('state','!=','send'),('state','!=','sending')], limit=30)
         queue.write(cr, uid, sids, {'state':'sending'})
         error = []
@@ -97,7 +99,7 @@ class SMSClient(osv.osv):
             if len(sms.msg) > 160:
                 error.append(sms.id)
                 continue
-            
+
             history.create(cr, uid, {
                         'name':'SMS Sent',
                         'gateway_id':sms.gateway_id.id,
@@ -105,11 +107,13 @@ class SMSClient(osv.osv):
                         'to':sms.mobile
                     })
             sent.append(sms.id)
-            
+
         queue.write(cr, uid, sent, {'state':'send'})
         queue.write(cr, uid, error, {'state':'error', 'error':'Size of SMS should not be more then 160 char'})
         return True
+
 SMSClient()
+
 
 class SMSQueue(osv.osv):
     _name = 'sms.smsclient.queue'
@@ -149,6 +153,7 @@ class Properties(osv.osv):
             ('sms','SMS Message')
         ],'API Method', select=True),
     }
+
 Properties()
 
 class HistoryLine(osv.osv):
@@ -162,13 +167,16 @@ class HistoryLine(osv.osv):
         'to':fields.char('Mobile No', size=15, readonly=True),
         'sms':fields.text('SMS', size=160, readonly=True),
     }
-    
+
     _defaults = {
         'date_create': lambda *a: time.strftime('%Y-%m-%d %H:%M:%S'),
         'user_id': lambda obj, cr, uid, context: uid,
     }
-    
+
     def create(self, cr, uid, vals, context=None):
         super(HistoryLine,self).create(cr, uid, vals, context)
         cr.commit()
+
 HistoryLine()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

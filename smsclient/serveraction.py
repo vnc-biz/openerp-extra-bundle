@@ -25,10 +25,13 @@ import netsvc
 import time
 
 class ServerAction(osv.osv):
+    """
+    Possibility to specify the SMS Gateway when configure this server action
+    """
     _inherit = 'ir.actions.server'
-    _description = 'Email Client'
+
     _columns = {
-        'sms_server':fields.many2one('sms.smsclient', 'SMS Server'),
+        'sms_server':fields.many2one('sms.smsclient', 'SMS Server', help='Select the SMS Gateway configuration to use with this action'),
     }
 
     def run(self, cr, uid, ids, context={}):
@@ -47,6 +50,7 @@ class ServerAction(osv.osv):
                 'pool' : self.pool,
                 'uid' : uid
             }
+
             expr = eval(str(action.condition), cxt)
             if not expr:
                 continue

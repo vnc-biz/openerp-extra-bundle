@@ -40,6 +40,7 @@ This module was built generically but in focus of the ZZSaaS service of Zikzakme
         "partner_view.xml",
         "django_wizard.xml",
         "wizard/wizard_create_model.xml",
+        "wizard/wizard_sql_update.xml",
     ],
     "category" : "Generic Modules",
     "active": False,

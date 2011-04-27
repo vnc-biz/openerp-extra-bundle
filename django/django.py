@@ -48,7 +48,7 @@ class django_external_mapping(osv.osv):
     _description = 'Django External Mapping'
     _rec_name = 'model_id'
 
-    def get_oerp_to_dj(self, cr, uid, code, ids=[]):
+    def get_oerp_to_dj(self, cr, uid, code, ids=[], context=None):
         """From OpenERP values to Django
             Search all mapping lines same code and calculated their values
             Return list with dictionary [{},{}]
@@ -117,7 +117,9 @@ class django_external_mapping(osv.osv):
                         values_data[mappline_rule['external_field']+'_'+language.code[:2]]= trans_value
                 else:
                     if mappline_rule['out_function']:
-                        value = eval(mappline_rule['out_function'])
+                        localspace = {"self":self,"cr":cr,"uid":uid,"ids":ids,"context":context}
+                        exec mappline_rule['out_function'] in localspace
+                        value = localspace['value']
                     else:
                         if mappline_rule['ttype'] in fields_relationals:
                             if mappline_rule['ttype'] == 'many2many': #m2m fields, create list
@@ -138,7 +140,7 @@ class django_external_mapping(osv.osv):
 
         return res
 
-    def get_dj_to_oerp(self, cr, uid, code=None, values=[]):
+    def get_dj_to_oerp(self, cr, uid, code=None, values=[], context=None):
         """From Django values to OpenERP
             Search all mapping lines same code and calculated their values
             Get list with dicctionay [{},{}]

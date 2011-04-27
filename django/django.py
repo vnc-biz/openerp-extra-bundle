@@ -126,8 +126,7 @@ class django_external_mapping(osv.osv):
                                 for val in values:
                                     value.append(val.id)
                             else:
-#                               value = getattr(values_model, field)
-                                value = values_model.id
+                                value = getattr(values_model, field).id
                         else:
                             value = getattr(values_model, field)
 

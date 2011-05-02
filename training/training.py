@@ -132,11 +132,9 @@ class training_course_type(osv.osv):
                                     help="Allows to the user to write the description of the course type."),
         'min_limit' : fields.integer('Minimum Threshold',
                                      required=True,
-                                     select=2,
                                      help="The minimum threshold is the minimum for this type of course."),
         'max_limit' : fields.integer('Maximum Threshold',
                                      required=True,
-                                     select=2,
                                      help="The maximum threshold is the maximum for this type of course."),
         'product_id' : fields.many2one('product.product', 'Lecturer'),
     }
@@ -418,65 +416,53 @@ class training_course(osv.osv):
                                   help='The price of the support of the courses.'),
         'theme_ids' : fields.many2many('training.course.theme', 'training_course_theme_rel', 'course_id',
                                       'theme_id', 'Theme'),
-
         'duration' : fields.function(_duration_compute,
                                      method=True,
                                      string='Duration',
                                      type='float',
                                      store=True,
                                      help='The duration of the course.'),
-
         'duration_with_children':fields.function(_total_duration_compute,
                                                  method=True,
                                                  string='Duration',
                                                  type='float',
                                                  store=True,
                                                  help='The duration of the course.'),
-
         'duration_without_children':fields.float('Duration',
                                                  help="The duration of the course."),
-
         'with_children': fields.function(_with_children_compute,
                                          method=True,
                                          string='With Children',
                                          store=True,
                                          type='boolean',
                                          help='Allows to know if the course contains some subcourses or not.'),
-
         'p_id' : fields.many2one('training.course',
                                  'Parent Course',
                                  help="The parent course.",
                                  readonly=True,
                                  domain="[('state_course', '=', 'validated')]"),
-
         'course_ids' : fields.one2many('training.course',
                                        'p_id',
                                        "Sub Courses",
                                        help="A course can be completed with some subcourses."),
-
         'sequence' : fields.integer('Sequence',
                                     help="The sequence can help the user to reorganize the order of the courses."),
-
         'reference_id' : fields.many2one('training.course',
                                          'Master Course',
                                          help="The master course is necessary if the user wants to link certain courses together to easy the managment.",
                                         ),
         'child_reference_id' : fields.one2many('training.course', 'reference_id', 'Children'),
-
         'reference_lang_id' : fields.related('reference_id', 'lang_id', type='many2one', relation='res.lang', string="Master Course's Language", readonly=True),
         'reference_type' : fields.related('reference_id', 'course_type_id', type='many2one', relation='training.course_type', string="Master Course's Type", readonly=True),
         'analytic_account_id' : fields.many2one('account.analytic.account', 'Account'),
         'course_type_id' : fields.many2one('training.course_type', 'Type', select=1),
         'category_id': fields.many2one('training.course_category', 'Product Line', select=1),
-
         'lecturer_ids' : fields.many2many('res.partner.job', 'training_course_job_rel', 'course_id', 'job_id', 'Lecturers',
                                           select=1,
                                           help="The lecturers who give the course."),
-
         'internal_note' : fields.text('Note',
                                       translate=True,
                                       help="The user can write some internal note for this course."),
-
         'lang_id' : fields.many2one('res.lang',
                                     'Language',
                                     required=True,
@@ -488,7 +474,6 @@ class training_course(osv.osv):
                                  required=True,
                                  select=2,
                                  help="The kind of course."),
-
         'state_course' : fields.selection([('draft', 'Draft'),
                                            ('pending', 'Ask Review'),
                                            ('deprecated', 'Deprecated'),
@@ -500,12 +485,9 @@ class training_course(osv.osv):
                                           select=1,
                                           help="The state of the course."
                                          ),
-
         'purchase_line_ids' : fields.one2many('training.course.purchase_line', 'course_id',
                                               'Supplier Commands',
                                               help="The purchase line helps to create a purchase order for the seance."),
-
-
         'has_support' : fields.function(_has_support,
                                         method=True,
                                         type="boolean",
@@ -514,19 +496,16 @@ class training_course(osv.osv):
                                         },
                                         select=2,
                                         string="Has Support"),
-
         'long_name' : fields.char('Long Name',
                                      size=256,
                                      select=1,
                                      help='Allows to show the long name of the course for the external view.'),
-
         'attachment_ids' : fields.function(_attachment_compute,
                                            method=True,
                                            string='Supports of Course',
                                            type='one2many',
                                            relation='ir.attachment'),
         'pending_ids' : fields.one2many('training.course.pending', 'course_id', 'Pendings'),
-
     }
 
     _defaults = {
@@ -1023,7 +1002,6 @@ class training_offer(osv.osv):
 
     _columns = {
         'product_line_id' : fields.many2one('training.course_category', 'Product Line', required=True),
-
         'type_id' : fields.many2one('training.course_type', 'Type'),
         'name' : fields.char('Name',
                              size=64,
@@ -1071,34 +1049,29 @@ class training_offer(osv.osv):
                                           help="Set the target audience."),
         'lang_id' : fields.many2one('res.lang', 'Language'),
         'create_date' : fields.datetime('Create Date', readonly=True),
-
         'preliminary_offer_ids' : fields.many2many('training.offer',
                                                    'training_offer_pre_offer_rel',
                                                    'offer_id',
                                                    'prel_offer_id',
                                                    'Preliminary Offers',
                                                    domain="[('state', '=', 'validated')]"),
-
         'complementary_offer_ids' : fields.many2many('training.offer',
                                                      'training_offer_cpl_offer_rel',
                                                      'offer_id',
                                                      'cpl_offer_id',
                                                      'Complementary Offers',
                                                      domain="[('state', '=', 'validated')]"),
-
         'included_offer_ids' : fields.many2many('training.offer',
                                                      'training_offer_incl_offer_rel',
                                                      'offer_id',
                                                      'incl_offer_id',
                                                      'Included Offers',
                                                      domain="[('state', '=', 'validated')]"),
-
         'is_standalone' : fields.function(_is_standalone_compute,
                                           method=True,
                                           string='Is Standalone',
                                           type="boolean",
                                           help="Allows to know if an offer is standalone or a block of courses."),
-
         'purchase_line_ids' : fields.one2many('training.offer.purchase.line',
                                               'offer_id',
                                               'Procurements'),
@@ -1109,12 +1082,10 @@ class training_offer(osv.osv):
                                       'theme_id', 'Theme'),
         'notification_note': fields.text('Notification Note', help='This note will be show on notification emails.'),
         'is_certification': fields.boolean('Is a certification?', help='Indicate is this Offer is a Certification Offer.'),
-
         'can_be_planned' : fields.function(_can_be_planned_compute, method=True,
                                            fnct_search=_can_be_planned_search,
                                            type='boolean',
                                            string='Can Be Planned'),
-
         'is_planned': fields.function(is_planned_compute, method=True,
                                       fnct_search=is_planned_search,
                                       type='boolean',
@@ -1317,7 +1288,7 @@ class training_group(osv.osv):
     _description = 'Group'
     _columns = {
         'name': fields.char('Name', size=64, required=True, select=True, help="The group's name.",),
-        'session_id' : fields.many2one('training.session', 'Session', required=True, ondelete='cascade'),
+        'session_id' : fields.many2one('training.session', 'Session', required=True, select=True, ondelete='cascade'),
         'seance_ids' : fields.one2many('training.seance', 'group_id', 'Seances', readonly=True),
     }
 
@@ -3630,7 +3601,7 @@ class training_subscription_line(osv.osv):
         # Selection de toutes les lignes d'inscriptions
         for sl in self.browse(cr, uid, ids, context=context):
             today = mx.DateTime.today()
-            session_date_minus_x = mx.DateTime.strptime(sl.session_id.date[:10], '%Y-%m-%d') - mx.DateTime.RelativeDateTime(days=DISCOUNT_DAYS)
+            session_date_minus_x = mx.DateTime.strptime(sl.session_id.date[:20], '%Y-%m-%d %H:%M:%S') - mx.DateTime.RelativeDateTime(days=DISCOUNT_DAYS)
             before_x_days = today < session_date_minus_x
             if sl.price >= -0.00001 and sl.price <= 0.00001:
                 # Ignore subscription line with a sale price of ZERO
@@ -4950,255 +4921,6 @@ class res_lang(osv.osv):
 
 res_lang()
 
-class training_subscription_cancellation_wizard(osv.osv_memory):
-    _name = 'training.subscription.cancellation.wizard'
-
-    _description = 'Training Subscription Cancellation Wizard'
-
-    _columns = {
-        'subscription_line_id' : fields.many2one('training.subscription.line', 'Subscription Line',
-                                                 domain="[('state', 'in', ['draft', 'confirmed']),('session_id.state', 'in', ('opened', 'opened_confirmed', 'closed_confirmed'))]",
-                                                 required=True
-                                                ),
-        'subscription_id' : fields.related('subscription_line_id', 'subscription_id',
-                                           type='many2one',
-                                           relation='training.subscription',
-                                           string='Subscription',
-                                           readonly=True),
-
-        'partner_id' : fields.related('subscription_line_id', 'subscription_id', 'partner_id',
-                                      type='many2one',
-                                      relation='res.partner',
-                                      string='Partner',
-                                      readonly=True),
-
-        'participant_id' : fields.related('subscription_line_id', 'job_id',
-                                          type='many2one',
-                                          relation='res.partner.job',
-                                          string='Participant',
-                                          readonly=True),
-
-        'session_id' : fields.related('subscription_line_id', 'session_id',
-                                      type='many2one',
-                                      relation='training.session',
-                                      string='Session',
-                                      readonly=True),
-
-        'session_offer_id' : fields.related('subscription_line_id', 'session_id', 'offer_id',
-                                            type='many2one',
-                                            relation='training.session',
-                                            string='Session Offer',
-                                            readonly=True),
-
-        'session_date' : fields.related('subscription_line_id', 'session_id', 'date',
-                                        type='datetime',
-                                        string='Session Date',
-                                        readonly=True),
-
-        'session_state' : fields.related('subscription_line_id', 'session_id', 'state',
-                                         type='selection',
-                                         selection=[
-                                             ('draft', 'Draft'),
-                                             ('opened', 'Opened'),
-                                             ('opened_confirmed', 'Confirmed'),
-                                             ('closed_confirmed', 'Closed Subscriptions'),
-                                             ('inprogress', 'In Progress'),
-                                             ('closed', 'Closed'),
-                                             ('cancelled', 'Cancelled')
-                                         ],
-                                         string='Session State',
-                                         readonly=True),
-
-        'new_participant_id' : fields.many2one('res.partner.job', 'Participant',
-                                               domain="[('name', '=', partner_id),('id', '!=', participant_id),('state', '=', 'current')]"),
-
-        'new_participant_email' : fields.char('Email', size=128),
-
-        'new_session_id' : fields.many2one('training.session', 'Session',
-                                           domain="[('state', 'in', ('opened', 'opened_confirmed')),('date', '>', time.strftime('%Y-%m-%d')),('date', '>', session_date),('offer_id', '=', session_offer_id)]"
-                                          ),
-
-        'new_session_date' : fields.related('new_session_id', 'date', type='datetime', string='Session Date', readonly=True),
-
-        'cancellation_reason' : fields.text('Reason'),
-        'cancellation_medical_certificate_toggle' : fields.boolean('Has Justification'),
-        'cancellation_medical_certificate_name' : fields.char('Filename', size=128),
-        'cancellation_medical_certificate' : fields.binary('Justification'),
-
-        'state' : fields.selection([('init', 'Init'),
-                                    ('replacement', 'Replacement'),
-                                    ('postponement', 'Postponement'),
-                                    ('cancellation', 'Cancellation'),
-                                    ('end', 'End')],
-                                   'State',
-                                   required=True,
-                                   readonly=True
-                                  ),
-
-
-
-    }
-
-    _defaults = {
-        'subscription_line_id' : lambda obj, cr, uid, context: context['active_id'],
-        'state' : lambda *a: 'init',
-    }
-
-    def on_change_subscription_line(self, cr, uid, ids, subscription_line_id, context=None):
-        if not subscription_line_id:
-            return {}
-
-        subscription_line = self.pool.get('training.subscription.line').browse(cr, uid, subscription_line_id, context=context)
-        return {
-            'value' : {
-                'subscription_id' : subscription_line.subscription_id.id,
-                'subscription_line_id' : subscription_line.id,
-                'session_id' : subscription_line.session_id.id,
-                'session_date' : subscription_line.session_id.date,
-                'session_state' : subscription_line.session_id.state,
-                'partner_id' : subscription_line.subscription_id.partner_id.id,
-                'participant_id' : subscription_line.job_id.id,
-                'session_offer_id' : subscription_line.session_id.offer_id.id,
-            }
-        }
-
-    def on_change_new_participant(self, cr, uid, ids, new_participant_id, context=None):
-        if not new_participant_id:
-            return {}
-
-        job = self.pool.get('res.partner.job').browse(cr, uid, new_participant_id, context=context)
-        return {'value' : {'new_participant_email' : job.email }}
-
-    def on_change_new_session(self, cr, uid, ids, new_session_id, context=None):
-        if not new_session_id:
-            return {}
-
-        session = self.pool.get('training.session').browse(cr, uid, new_session_id, context=context)
-
-        return {
-            'value' : {
-                'new_session_date' : session.date,
-            }
-        }
-
-
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type':'ir.actions.act_window_close'}
-
-    def action_cancellation(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'state' : 'cancellation'}, context=context)
-
-    def action_replacement(self, cr, uid, ids, context=None):
-        return self.write(cr, uid, ids, {'state' : 'replacement'}, context=context)
-
-    def action_postponement(self, cr, uid, ids, context=None):
-        # Assign a new session to the subscription line
-        return self.write(cr, uid, ids, {'state' : 'postponement'}, context=context)
-
-    def action_apply(self, cr, uid, ids, context=None):
-        if not ids:
-            return False
-
-        this = self.browse(cr, uid, ids[0], context=context)
-
-        old_participant_id = this.participant_id
-
-        workflow = netsvc.LocalService('workflow')
-
-        context2 = context.copy()
-        if 'default_state' in context2:
-            del context2['default_state']
-
-        if this.state == 'cancellation':
-            if this.cancellation_medical_certificate:
-                values = {
-                    'name' : 'Medical Certificate',
-                    'datas' : this.cancellation_medical_certificate,
-                    'datas_fname' : this.cancellation_medical_certificate_name,
-                    'description' : 'Medical Certificate',
-                    'res_model' : 'training.subscription.line',
-                    'res_id' : this.subscription_line_id.id,
-                }
-
-                self.pool.get('ir.attachment').create(cr, uid, values, context=context2)
-
-            this.subscription_line_id.write(
-                {
-                    'has_certificate' : this.cancellation_medical_certificate_toggle,
-                    'reason_cancellation' : this.cancellation_reason,
-                },
-                context=context2
-            )
-
-            workflow.trg_validate(uid, 'training.subscription.line', this.subscription_line_id.id, 'signal_cancel', cr)
-            sl_proxy = self.pool.get('training.subscription.line')
-            sl_proxy.send_email(cr, uid, [ this.subscription_line_id.id ], 'sub_cancelled', context=context)
-
-
-        elif this.state == 'replacement':
-            email_proxy = self.pool.get('training.email')
-
-            objects = {
-                'new_participant_id' : this.new_participant_id,
-                'old_participant_id' : old_participant_id,
-            }
-
-            this.subscription_line_id.write( { 'job_id' : this.new_participant_id.id, 'job_email' : this.new_participant_email, })
-
-            internal_note = []
-
-            if this.subscription_line_id.internal_note:
-                internal_note.append(this.subscription_line_id.internal_note)
-
-            internal_note.append(_("Replacement: %s %s -> %s %s") % (old_participant_id.contact_id.first_name,
-                                                                     old_participant_id.contact_id.name,
-                                                                     this.new_participant_id.contact_id.first_name,
-                                                                     this.new_participant_id.contact_id.name))
-
-            this.subscription_line_id.write({'internal_note' : "\n----\n".join(internal_note)})
-
-            email_proxy.send_email(cr, uid,
-                             'sub_replacement',
-                             'hr',
-                             this.subscription_line_id.partner_hr_email,
-                             session=this.subscription_line_id.session_id,
-                             context=context2,
-                             subline=this.subscription_line_id,
-                             **objects)
-
-            #if this.subscription_line_id.job_id.name.notif_participant and this.new_participant_email:
-            #    email_proxy.send(cr, uid,
-            #                     'sub_replacement',
-            #                     'p',
-            #                     this.new_participant_email,
-            #                     session=sl.session_id,
-            #                     context=context,
-            #                     subline=this.subscription_line_id,
-            #                     **objects)
-
-
-
-        elif this.state == 'postponement':
-            values = {
-                'session_id' : this.new_session_id.id,
-            }
-            sl_proxy = self.pool.get('training.subscription.line')
-
-            new_sl_id = sl_proxy.copy(cr, uid, this.subscription_line_id.id, values, context = context2 or {})
-
-            new_sl = sl_proxy.browse(cr, uid, new_sl_id, context=context2)
-            new_sl.write({'internal_note' : _("Created by Postponement of %s") % this.subscription_line_id.name})
-            this.subscription_line_id.write({'reason_cancellation' : _("Cancelled by Postponement: %s") % new_sl.name })
-
-            if this.subscription_line_id.state == 'confirmed':
-                workflow.trg_validate(uid, 'training.subscription.line', new_sl_id, 'signal_confirm', cr)
-            workflow.trg_validate(uid, 'training.subscription.line', this.subscription_line_id.id, 'signal_cancel', cr)
-        return self.write(cr, uid, ids, {'state' : 'end'}, context=context)
-
-    def action_done(self, cr, uid, ids, context=None):
-        return {'type' : 'ir.actions.act_window_close'}
-
-training_subscription_cancellation_wizard()
 
 class training_config_penality(osv.osv):
     _name = 'training.config.penality'

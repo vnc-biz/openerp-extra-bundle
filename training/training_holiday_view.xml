@@ -18,6 +18,10 @@
                         <field name="contact_id" />
                         <field name="active" />
                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Year" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'year_id'}"/>
+                    </group>
                </search>
             </field>
         </record>

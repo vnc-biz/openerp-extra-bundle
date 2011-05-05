@@ -46,7 +46,7 @@
 			action="open_board_frontdesk"
 			sequence="1"
 			id="menu_board_frontdesk" icon="terp-graph"
-			parent="board.dashboard_menu"/>
+			parent="board.admin_menu_dasboard"/>
 			
 	</data>
 </openerp>

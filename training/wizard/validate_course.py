@@ -3,6 +3,8 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Jesús Martín <jmartin@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,49 +22,20 @@
 #
 ##############################################################################
 
-import wizard
-import pooler
-import tools
+from osv import osv
 import netsvc
 
-class wizard_validate_courses(wizard.interface):
-    first_screen_fields = {
-    }
+class validate_courses(osv.osv_memory):
+    _name = 'validate.courses'
 
-    first_screen_form = '''<?xml version="1.0"?>
-    <form string="Create Offers" colspan="6">
-        <label string="Do you want to validate the selected courses ?" />
-    </form>'''
-
-    def validate_courses(self, cr, uid, data, context=None):
+    def validate_courses(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         workflow = netsvc.LocalService('workflow')
-        pool = pooler.get_pool(cr.dbname)
-        proxy = pool.get('training.course')
-        for course in proxy.browse(cr, uid, data['ids'], context=context):
+        course_obj = self.pool.get('training.course')
+        for course in course_obj.browse(cr, uid, context.get('active_ids',[]), context=context):
             if course.state_course in ('pending','draft'):
                 workflow.trg_validate(uid, 'training.course', course.id, 'signal_validate', cr)
-
         return {}
 
-    states = {
-        'init': {
-            'actions': [],
-            'result': {
-                'type': 'form',
-                'arch': first_screen_form,
-                'fields': first_screen_fields,
-                'state':[('end','Cancel', 'gtk-cancel'),('validate_courses', 'Validate Courses', 'gtk-apply')],
-            }
-        },
-        'validate_courses' : {
-            'result' : {
-                'type' : 'action',
-                'action' : validate_courses,
-                'state' : 'end',
-            }
-        }
-    }
-
-wizard_validate_courses('training.course.validate')
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+validate_courses()

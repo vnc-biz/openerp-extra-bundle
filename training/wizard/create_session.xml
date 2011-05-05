@@ -1,0 +1,35 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="training_session_create_wizard_form">
+            <field name="name">training.session.create.wizard.form</field>
+            <field name="model">training.session.create.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Plannify Session" col="2">
+                    <label string="Can you select a date for the session ?" colspan="2"/>
+                    <newline/>
+                    <field name="name"/>
+                    <newline/>
+                    <field name="date"/>
+                    <newline/>
+                    <separator colspan="4"/>
+                    <group colspan="4">
+                        <label colspan="2"/>
+                        <button type="special" special="cancel" string="Cancel" icon="gtk-cancel"/>
+                        <button type="object" name="create_session" string="Create Session" icon="gtk-apply"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+	    <act_window name="Plannify Session"
+			    res_model="training.session.create.wizard"
+			    src_model="training.offer"
+			    view_mode="form"
+			    target="new"
+	            key2="client_action_multi"
+			    id="wizard_create_session"/>
+
+    </data>
+</openerp>

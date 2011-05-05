@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	    <record model="ir.ui.view" id="training_subscription_line_confim_form">
+	        <field name="name">training.subscription.line.confim.form</field>
+	        <field name="model">training.subscription.line.confim</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Confirm Subscription Lines">
+	            	<label string="Do you want to confirm all subscription lines?" />
+	                <newline/>
+	                <separator colspan="4"/>
+	                <group colspan="4">
+                        <label colspan="2"/>
+	                    <button type="special" special="cancel" string="Cancel" icon="gtk-cancel"/>
+	                    <button type="object" name="confirm_line" string="Confirm" icon="gtk-apply"/>
+	                </group>
+	            </form>
+	        </field>
+	    </record>
+
+	    <act_window
+			    id="action_training_subscription_line_confim"
+			    name="Confirm Subscription Lines"
+			    res_model="training.subscription.line.confim"
+			    src_model="training.subscription.line"
+			    view_mode="form"
+			    target="new"
+	            key2="client_action_multi"/>
+	</data>
+</openerp>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	    <record model="ir.ui.view" id="training_create_offer_form">
+	        <field name="name">training.create.offer.form</field>
+	        <field name="model">training.create.offer</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Create Offers">
+	            	<label string="Do you want to create an offer for each selected course?" colspan="4"/>
+	                <newline/>
+	                <field name="format_id" colspan="4"/>
+	                <field name="product_id" colspan="4"/>
+	                <separator colspan="4"/>
+	                <group colspan="4">
+                        <label colspan="2"/>
+	                    <button type="special" special="cancel" string="Cancel" icon="gtk-cancel"/>
+	                    <button type="object" name="create_offers" string="Create Offers" icon="gtk-new"/>
+	                </group>
+	            </form>
+	        </field>
+	    </record>
+
+	    <act_window name="Create Standalone Offer"
+			    res_model="training.create.offer"
+			    src_model="training.course"
+			    view_mode="form"
+			    target="new"
+	            key2="client_action_multi"
+			    id="action_training_create_offer"/>
+	</data>
+</openerp>

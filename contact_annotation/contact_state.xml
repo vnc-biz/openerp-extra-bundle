@@ -82,7 +82,7 @@
 
         <menuitem
             id="contact_annotation_states_mi"
-            parent="annotations_mi"
+            parent="config_annotations_mi"
             action="contact_annotation_state_list_act"/>
 
     </data>

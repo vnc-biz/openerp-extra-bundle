@@ -54,6 +54,8 @@ class payment_mode(osv.osv):
     _columns = {
         'type': fields.many2one('payment.type', 'Payment type', required=True, help='Select the Payment Type for the Payment Mode.'),
         'require_bank_account': fields.boolean('Require Bank Account', help='Ensure all lines in the payment order have a bank account when proposing lines to be added in the payment order.'),
+        'require_received_check': fields.boolean('Require Received Check', help='Ensure all lines in the payment order have the Received Check flag set.'),
+        'require_same_bank_account': fields.boolean('Require the Same Bank Account', help='Ensure all lines in the payment order and the payment mode have the same account number.'),
     }
     _defaults = {
         'require_bank_account': lambda *a: False,

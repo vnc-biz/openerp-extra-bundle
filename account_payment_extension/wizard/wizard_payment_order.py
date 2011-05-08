@@ -72,6 +72,8 @@ def search_entries(self, cr, uid, data, context):
 
     domain += ['|',('date_maturity','<',search_due_date),('date_maturity','=',False)]
     line_ids = line_obj.search(cr, uid, domain, order='date_maturity', context=context)
+
+
     FORM.string = '''<?xml version="1.0" encoding="utf-8"?>
 <form string="Populate Payment:">
     <field name="entries" colspan="4" height="300" width="800" nolabel="1"
@@ -81,6 +83,21 @@ def search_entries(self, cr, uid, data, context):
 </form>''' % (','.join([str(x) for x in line_ids]), ctx)
 
     selected_ids = []
+
+
+#    if payment.mode.require_bank_account and not line.partner_bank_id:
+#        continue
+#    if payment.mode.require_same_bank_account:
+#        if not line.partner_bank_id:
+#            continue
+#        mode_account = payment.mode.bank_id.acc_number or payment.mode.bank_id.iban
+#        line_account = line.partner_bank_id.acc_number or line.partner_bank_id.iban
+#        if mode_account != line_account:
+#            continue
+#    if payment.mode.require_received_check:
+#        if not line.received_check:
+#            continue
+
     amount = data['form']['amount']
     if amount:
         if payment.mode and payment.mode.require_bank_account:
@@ -91,8 +108,6 @@ def search_entries(self, cr, uid, data, context):
         # if payment mode allows bank account to be null.
         for line in pool.get('account.move.line').browse(cr, uid, line_ids, context):
             if abs(line.amount_to_pay) <= amount:
-                if line2bank and not line2bank.get(line.id):
-                    continue
                 amount -= abs(line.amount_to_pay)
                 selected_ids.append( line.id )
     return {

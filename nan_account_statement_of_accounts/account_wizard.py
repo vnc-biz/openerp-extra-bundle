@@ -129,6 +129,9 @@ class account_move_line(osv.osv):
 
         ids = super(account_move_line,self).search(cr, uid, args, offset, limit, order, context, count)
 
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+
         if context.get('statement_of_accounts') and ids:
             # If it's a statement_of_accounts, ignore order given
             ids = ','.join( [str(int(x)) for x in ids] )

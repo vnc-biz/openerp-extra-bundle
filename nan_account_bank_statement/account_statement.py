@@ -513,8 +513,8 @@ class account_bank_statement_line(osv.osv):
         if line_ids:
             lines = self.pool.get('account.move.line').browse(cr, uid, line_ids, context)
             line_id = self._get_nearest_move_line(lines, maturity_date, max_date_diff)
-            return [line_id]
- 
+            if line_id:
+                return [ line_id ]
         return []
 
     def _find_entry_to_reconcile_by_line_vat_number_and_amount(self, cr, uid, line, vat, reconciled_move_line_ids, maturity_date, max_date_diff, context=None):

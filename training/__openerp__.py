@@ -70,15 +70,14 @@ With the analytic account support, you can know the costs of your trainings.
         'security/ir.model.access.csv',
         
         'wizard/create_block_offer.xml',
-        'wizard/create_groups.xml',
         'wizard/create_offer.xml',
         'wizard/create_session.xml',
         'wizard/subscription_cancelation.xml',
-#        'wizard/subscription_line_change_participant.xml',
         'wizard/subscription_line_confirm.xml',
         'wizard/subscription_second_line.xml',
         'wizard/subscription_session.xml',
         'wizard/validate_course.xml',
+        'wizard/create_holiday_year.xml',
 
         # TODO move this into the base_contact module
         'contact_security/groups.xml',

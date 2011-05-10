@@ -34,16 +34,16 @@ class holiday_year(osv.osv):
     _rec_name = 'year'
 
     _columns = {
-        'year' : fields.integer('Year', select=1, required=True),
+        'year': fields.integer('Year', select=1, required=True),
 
-        'period_ids' : fields.one2many('training.holiday.period',
+        'period_ids': fields.one2many('training.holiday.period',
                                        'year_id',
                                        'Holiday Periods',
                                       ),
     }
 
     _defaults = {
-        'year' : lambda *a: int(time.strftime('%Y')),
+        'year': lambda *a: int(time.strftime('%Y')),
     }
 
     _sql_constraints = [
@@ -64,23 +64,22 @@ class holiday_period(osv.osv):
     _name = 'training.holiday.period'
 
     _columns = {
-        'year_id' : fields.many2one('training.holiday.year',
+        'year_id': fields.many2one('training.holiday.year',
                                     'Year',
                                     required=True,
                                     select=1,
                                     ondelete='cascade'),
-
-        'name' : fields.char('Name', size=64, required=True),
-        'date_start' : fields.date('Date Start', required=True, select=1),
-        'date_stop' : fields.date('Date Stop', required=True, select=1),
-        'active' : fields.boolean('Active'),
-        'contact_id' : fields.many2one('res.partner.contact', 'Contact'),
+        'name': fields.char('Name', size=64, required=True),
+        'date_start': fields.date('Date Start', required=True, select=1),
+        'date_stop': fields.date('Date Stop', required=True, select=1),
+        'active': fields.boolean('Active'),
+        'contact_id': fields.many2one('res.partner.contact', 'Contact'),
     }
 
     _defaults = {
-        'active' : lambda *a: 1,
-        'date_start' : lambda *a: time.strftime('%Y-%m-%d'),
-        'date_stop' : lambda *a: time.strftime('%Y-%m-%d'),
+        'active': lambda *a: 1,
+        'date_start': lambda *a: time.strftime('%Y-%m-%d'),
+        'date_stop': lambda *a: time.strftime('%Y-%m-%d'),
     }
 
     def _check_date_start_stop(self, cr, uid, ids, context=None):
@@ -105,67 +104,67 @@ class holiday_period(osv.osv):
 
 holiday_period()
 
-class holiday_year_wizard(osv.osv):
-    _name = 'training.holiday.year.wizard'
+#class holiday_year_wizard(osv.osv):
+#    _name = 'training.holiday.year.wizard'
 
-    _columns = {
-        'year' : fields.integer('Year', required=True),
-    }
+#    _columns = {
+#        'year' : fields.integer('Year', required=True),
+#    }
 
-    _defaults = {
-        'year' : lambda *a: int(time.strftime('%Y')),
-    }
+#    _defaults = {
+#        'year' : lambda *a: int(time.strftime('%Y')),
+#    }
 
-    def _check_date(self, cr, uid, ids, context=None):
-        return self.browse(cr, uid, ids[0], context=context).year >= int(time.strftime('%Y'))
+#    def _check_date(self, cr, uid, ids, context=None):
+#        return self.browse(cr, uid, ids[0], context=context).year >= int(time.strftime('%Y'))
 
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type': 'ir.actions.act_window_close'}
+#    def action_cancel(self, cr, uid, ids, context=None):
+#        return {'type': 'ir.actions.act_window_close'}
 
-    def action_apply(self, cr, uid, ids, context=None):
-        this = self.browse(cr, uid, ids[0], context=context)
+#    def action_apply(self, cr, uid, ids, context=None):
+#        this = self.browse(cr, uid, ids[0], context=context)
 
-        first_day = mx.DateTime.strptime('%04s-01-01' % (this.year,), '%Y-%m-%d')
-        last_day = mx.DateTime.strptime('%04s-12-31' % (this.year,), '%Y-%m-%d')
+#        first_day = mx.DateTime.strptime('%04s-01-01' % (this.year,), '%Y-%m-%d')
+#        last_day = mx.DateTime.strptime('%04s-12-31' % (this.year,), '%Y-%m-%d')
 
-        tmp_day = first_day
+#        tmp_day = first_day
 
-        proxy = self.pool.get('training.holiday.year')
-        year_id = proxy.create(cr, uid, {'year' : this.year}, context=context)
+#        proxy = self.pool.get('training.holiday.year')
+#        year_id = proxy.create(cr, uid, {'year' : this.year}, context=context)
 
-        proxy = self.pool.get('training.holiday.period')
+#        proxy = self.pool.get('training.holiday.period')
 
-        counter = 1
-        while tmp_day <= last_day:
+#        counter = 1
+#        while tmp_day <= last_day:
 
-            if tmp_day.day_of_week == mx.DateTime.Saturday:
-                saturday = tmp_day.strftime('%Y-%m-%d')
-                tmp_day = tmp_day + mx.DateTime.RelativeDate(days=1)
-                sunday = tmp_day.strftime('%Y-%m-%d')
+#            if tmp_day.day_of_week == mx.DateTime.Saturday:
+#                saturday = tmp_day.strftime('%Y-%m-%d')
+#                tmp_day = tmp_day + mx.DateTime.RelativeDate(days=1)
+#                sunday = tmp_day.strftime('%Y-%m-%d')
 
-                proxy.create(cr, uid, {
-                    'year_id' : year_id,
-                    'date_start' : saturday,
-                    'date_stop' : sunday,
-                    'name' : _('Weekend %02d') % (counter,)
-                }, context=context),
+#                proxy.create(cr, uid, {
+#                    'year_id' : year_id,
+#                    'date_start' : saturday,
+#                    'date_stop' : sunday,
+#                    'name' : _('Weekend %02d') % (counter,)
+#                }, context=context),
 
-                counter = counter + 1
-            tmp_day = tmp_day + mx.DateTime.RelativeDate(days=1)
+#                counter = counter + 1
+#            tmp_day = tmp_day + mx.DateTime.RelativeDate(days=1)
 
-        return {
-            'view_type': 'form',
-            "view_mode": 'form',
-            'res_model': 'training.holiday.year',
-            'view_id':self.pool.get('ir.ui.view').search(cr,uid,[('name','=','training.holiday.year.form')]),
-            'type': 'ir.actions.act_window',
-            'target': 'current',
-            'res_id' : year_id,
-        }
+#        return {
+#            'view_type': 'form',
+#            "view_mode": 'form',
+#            'res_model': 'training.holiday.year',
+#            'view_id':self.pool.get('ir.ui.view').search(cr,uid,[('name','=','training.holiday.year.form')]),
+#            'type': 'ir.actions.act_window',
+#            'target': 'current',
+#            'res_id' : year_id,
+#        }
 
-    _constraints = [
-        (_check_date, "Can you check the year", ['year']),
-    ]
+#    _constraints = [
+#        (_check_date, "Can you check the year", ['year']),
+#    ]
 
-holiday_year_wizard()
+#holiday_year_wizard()
 

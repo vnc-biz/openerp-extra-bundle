@@ -3025,7 +3025,6 @@ class training_subscription(osv.osv):
                                                   'training.subscription' : (lambda self, cr, uid, ids, context=None: ids, None, 10),
                                               },
                                               size=64),
-        'is_from_web': fields.boolean('Is from Web?', help='Is this subscription come from an online order.', readonly=True),
     }
 
     def create(self, cr, uid, vals, context):

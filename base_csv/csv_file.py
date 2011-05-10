@@ -71,7 +71,86 @@ class csv_file(osv.osv):
         return super(csv_file, self).create(cr, uid, vals, context)
 
     """
+    Lines CSV
+    """
+    def lines_csv(self, cr, uid, id, context=None):
+
+        num_lines = False
+
+        csv_file = self.browse(cr, uid, id)
+        if csv_file:
+            csvpath = csv_file.path
+            if not csvpath[-1] == '/':
+                csvpath += '/'
+
+            csvfile = open(csvpath+csv_file.file, "r")
+
+            num_lines = sum(1 for line in open(csvpath+csv_file.file))
+
+            if csv_file.header:
+                num_lines = num_lines-1
+
+        return num_lines
+
+    """
+    Import CSV list from line file
+    If you have a big CSV file, we recomended use mincalls in this function and use number line
+    """
+    def import_line_csv(self, cr, uid, ids, line, context=None):
+        self.logger = netsvc.Logger()
+        csv_file_field_obj = self.pool.get('csv.file.field')
+
+        for csv_file in self.browse(cr, uid, ids):
+            csvpath = csv_file.path
+            if not csvpath[-1] == '/':
+                csvpath += '/'
+
+            csvfile = open(csvpath+csv_file.file, "r")
+
+            separator = csv_file.file_csv_separator
+            if separator == "tab":
+                separator = '\t'
+
+            csv_values = []
+
+            #if you have a big CSV file, we recomended use mincalls in this function and use number line
+            if line:
+                csvfile_lines = csvfile.readlines()
+
+                try:
+                    csvfile_values = csvfile_lines[line].split(separator)
+                except:
+                    csvfile_values = []
+
+                values = []
+
+                for cell, value in enumerate(csvfile_values):
+                    field_ids = csv_file_field_obj.search(cr, uid, [('file_id','=',csv_file.id), ('sequence','=',cell)])
+                    if len(field_ids):
+                        csv_file_value = csv_file_field_obj.browse(cr, uid, field_ids[0])
+
+                        if csv_file_value.import_expression:
+                            localspace = {"self":self,"cr":cr,"uid":uid,"ids":ids,"re":re,"context":context,"incsv":value}
+                            exec csv_file_value.import_expression in localspace
+                            if 'value' in localspace:
+                                value = localspace['value']
+                            else:
+                                value = ''
+
+                        values.append({'field':csv_file_value.field_id.name, 'value':value})
+
+                self.logger.notifyChannel(_("CSV File"), netsvc.LOG_INFO, _("Add dicc row line %s") % line)
+                csv_values.append(values)
+            else:
+                self.logger.notifyChannel(_("CSV File"), netsvc.LOG_ERROR, _("Not line specified"))
+
+            csvfile.close()
+
+        return csv_values
+
+    """
     Import CSV
+    return all rows in list
     """
     def import_csv(self, cr, uid, ids, context=None):
         self.logger = netsvc.Logger()
@@ -88,9 +167,9 @@ class csv_file(osv.osv):
             if separator == "tab":
                 separator = '\t'
 
-            rows = csv.reader(csvfile, delimiter="%s" % str(separator))
-
             csv_values = []
+
+            rows = csv.reader(csvfile, delimiter="%s" % str(separator))
 
             for row in rows:
                 values = []
@@ -111,8 +190,9 @@ class csv_file(osv.osv):
                                 value = ''
 
                         values.append({'field':csv_file_value.field_id.name, 'value':value})
+
                         self.logger.notifyChannel(_("CSV File"), netsvc.LOG_INFO, _("Add dicc row line %s") % rows.line_num)
-                csv_values.append(values)
+                        csv_values.append(values)
 
             csvfile.close()
 
@@ -122,7 +202,7 @@ class csv_file(osv.osv):
     Export CSV
     """
     def export_csv(self, cr, uid, ids, context=None):
-        #TODO. Design this function. You can inspired code nan_file_format module
+        #TODO. Design this function. You can inspire code in nan_file_format module
 
         return False
 

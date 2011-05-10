@@ -31,7 +31,7 @@ This module allows you to use the classical environment file pattern by reading
 a directive call running_env in config file or openerpc.
 
 [options]
-runing_env=dev / prod / etc.
+running_env=dev / prod / etc.
 
 We intended to add a server command line but there is no correct way to do it.
 

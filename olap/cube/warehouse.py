@@ -88,8 +88,8 @@ class warehouse(object):
                             result.append(res)
                         table_name = cube.name+'_'+str(count.id)+'_'+str(counter)
                         self.create_table(connection,table_name, result)
-                    elif len(data[0]) == 3:
-                        pooler.get_pool(cr.dbname).get('olap.query.logs').write(cr, uid, log_ids, {'count':counter, 'table_name': table_name})
+#                    elif len(data[0]) == 3:
+                pooler.get_pool(cr.dbname).get('olap.query.logs').write(cr, uid, log_ids, {'count':counter, 'table_name': table_name})
                 return True
             else:
                 logentry={}

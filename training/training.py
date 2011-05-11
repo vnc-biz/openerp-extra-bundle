@@ -3025,6 +3025,7 @@ class training_subscription(osv.osv):
                                                   'training.subscription' : (lambda self, cr, uid, ids, context=None: ids, None, 10),
                                               },
                                               size=64),
+        'comment': fields.text('Additional Information'),
     }
 
     def create(self, cr, uid, vals, context):

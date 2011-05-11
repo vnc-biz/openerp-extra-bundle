@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-05-02 16:10+0000\n"
-"PO-Revision-Date: 2011-05-02 18:12+0100\n"
+"POT-Creation-Date: 2011-05-11 14:09+0000\n"
+"PO-Revision-Date: 2011-05-11 16:12+0100\n"
 "Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,9 +120,9 @@ msgid "Title"
 msgstr "Títol"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.training_create_groups_act
-msgid "Groups Generator"
-msgstr "Generador de grups"
+#: model:ir.actions.act_window,name:training.training_seance_purchase_line_act
+msgid "Seances Procurements"
+msgstr "Proveïments de sessions"
 
 #. module: training
 #: model:ir.model,name:training.model_training_offer_format
@@ -531,7 +531,7 @@ msgid "Session Search"
 msgstr "Cerca edicions"
 
 #. module: training
-#: code:addons/training/training_holiday.py:94
+#: code:addons/training/training_holiday.py:93
 #, python-format
 msgid "Can you give a right date ?"
 msgstr "Heu introduït una data correcta?"
@@ -540,12 +540,6 @@ msgstr "Heu introduït una data correcta?"
 #: help:training.offer,management:0
 msgid "Allows to write the management of the course."
 msgstr "Permet descriure la gestió de la matèria."
-
-#. module: training
-#: code:addons/training/training.py:3423
-#, python-format
-msgid "Please, Could you check the subscription of your contact(s)"
-msgstr "Podeu comprovar la inscripció del(s) vostre(s) contacte(s)?"
 
 #. module: training
 #: view:training.subscription.second.line:0
@@ -677,12 +671,13 @@ msgid "Email Notifcation Extra Text"
 msgstr "Text extra de la notificació de correu"
 
 #. module: training
-#: view:res.partner.job:0
-msgid "Birth Date"
-msgstr "Data naixement"
+#: model:ir.actions.act_window,name:training.course_linked_course
+msgid "Linked Courses"
+msgstr "Matèries associades"
 
 #. module: training
 #: report:training.seance.support.delivery.report:0
+#: view:training.subscription:0
 msgid "Additional Information"
 msgstr "Informació addicional"
 
@@ -714,11 +709,6 @@ msgstr "S'ha especificat una directiva de format data/hora no vàlida. Consulteu
 #: field:ir.attachment,is_support:0
 msgid "Support"
 msgstr "Suport"
-
-#. module: training
-#: report:training.seance.presence.report:0
-msgid "Signature"
-msgstr "Signatura"
 
 #. module: training
 #: help:training.course,sequence:0
@@ -1067,11 +1057,6 @@ msgid "Library"
 msgstr "Biblioteca"
 
 #. module: training
-#: view:training.create.groups.wizard:0
-msgid "Generate"
-msgstr "Genera"
-
-#. module: training
 #: field:training.course.purchase_line,attachment_price:0
 #: field:training.offer.purchase.line,attachment_price:0
 msgid "Attachment Price"
@@ -1299,7 +1284,7 @@ msgstr "Voleu tancar la inscripció per aquesta edició?"
 #. module: training
 #: model:ir.model,name:training.model_training_create_block_offer
 msgid "training.create.block.offer"
-msgstr "formació.matèria.curs.rel"
+msgstr "training.create.block.offer"
 
 #. module: training
 #: view:training.catalog:0
@@ -1329,9 +1314,9 @@ msgid "training.subscription.session"
 msgstr "formació.inscripció.línia"
 
 #. module: training
-#: constraint:account.invoice:0
-msgid "Invoice date is previous to an existing invoice."
-msgstr "Invoice date is previous to an existing invoice."
+#: constraint:training.email:0
+msgid "You can not have two validated emails for the same trigger, target and style group."
+msgstr "No podeu tenir dos emails validats pel mateix disparador, destinatari i grup d'estil."
 
 #. module: training
 #: view:training.participation.stakeholder.request:0
@@ -1811,7 +1796,8 @@ msgid "Plannify Session"
 msgstr "Planifica edició"
 
 #. module: training
-#: code:addons/training/training_holiday.py:150
+#: code:addons/training/training_holiday.py:149
+#: code:addons/training/wizard/create_holiday_year.py:73
 #, python-format
 msgid "Weekend %02d"
 msgstr "Fin de semana %02d"
@@ -2174,11 +2160,6 @@ msgid "Deprecated"
 msgstr "Descatalogat"
 
 #. module: training
-#: help:training.subscription,is_from_web:0
-msgid "Is this subscription come from an online order."
-msgstr "Indica si aquesta inscripció prové d'una comanda online."
-
-#. module: training
 #: model:ir.ui.menu,name:training.menu_address_book
 msgid "Address Book"
 msgstr "Llibreta d'adreces"
@@ -2197,11 +2178,6 @@ msgstr "formació.participació.organitzador"
 #: view:training.offer:0
 msgid "Are you sure to reset to Draft (Check the sessions for this offer)?"
 msgstr "Esteu segur de canviar a esborrany (comprova les edicions d'aquest curs)?"
-
-#. module: training
-#: constraint:training.email:0
-msgid "You can not have two validated emails for the same trigger, target and style group."
-msgstr "No podeu tenir dos emails validats pel mateix disparador, destinatari i grup d'estil."
 
 #. module: training
 #: view:res.partner.contact:0
@@ -2300,7 +2276,6 @@ msgstr "Informació de contacte"
 #: view:training.catalog:0
 #: view:training.course.pending.wizard:0
 #: view:training.create.block.offer:0
-#: view:training.create.groups.wizard:0
 #: view:training.create.offer:0
 #: view:training.offer.purchase.line.update.wizard:0
 #: view:training.participation.reassign.wizard:0
@@ -2376,9 +2351,9 @@ msgid "You can not select this date because it is a public holiday"
 msgstr "No podeu seleccionar aquesta data perquè és un dia festiu"
 
 #. module: training
-#: field:training.subscription,is_from_web:0
-msgid "Is from Web?"
-msgstr "És des de Web?"
+#: model:ir.model,name:training.model_training_offer_purchase_line_update_wizard
+msgid "training.offer.purchase.line.update.wizard"
+msgstr "formació.curs.compra.línia.actualitza.assistent"
 
 #. module: training
 #: selection:training.participation.stakeholder.request,state:0
@@ -2466,9 +2441,10 @@ msgid "Has Support"
 msgstr "Té suport"
 
 #. module: training
-#: view:training.participation:0
-msgid "Absent"
-msgstr "Absent"
+#: model:ir.actions.act_window,name:training.seance_sessions
+#: view:training.seance:0
+msgid "Linked Sessions"
+msgstr "Edicions relacionades"
 
 #. module: training
 #: model:ir.model,name:training.model_training_offer_purchase_line
@@ -2536,12 +2512,9 @@ msgid "Allows to select a published catalog."
 msgstr "Permet seleccionar un catàleg publicat."
 
 #. module: training
-#: view:training.course.pending:0
-#: view:training.offer:0
-#: view:training.participation.stakeholder:0
-#: view:training.seance:0
-msgid "Course Information"
-msgstr "Informació de la matèria"
+#: view:res.partner.job:0
+msgid "Birth Date"
+msgstr "Data naixement"
 
 #. module: training
 #: view:training.session:0
@@ -2667,6 +2640,11 @@ msgstr "Document"
 #: view:training.course:0
 msgid "Support of Courses"
 msgstr "Suport de matèries"
+
+#. module: training
+#: help:training.session,state:0
+msgid "The status of the session."
+msgstr "L'estat de l'edició de curs."
 
 #. module: training
 #: view:training.catalog:0
@@ -3549,9 +3527,10 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.course_linked_course
-msgid "Linked Courses"
-msgstr "Matèries associades"
+#: code:addons/training/training.py:3423
+#, python-format
+msgid "Please, Could you check the subscription of your contact(s)"
+msgstr "Podeu comprovar la inscripció del(s) vostre(s) contacte(s)?"
 
 #. module: training
 #: selection:training.course,splitted_by:0
@@ -3583,12 +3562,6 @@ msgstr "Examinadors"
 #: help:training.course.theme,description:0
 msgid "Allows to write the description of the theme."
 msgstr "Permet escriure la descripció del tema."
-
-#. module: training
-#: model:ir.actions.act_window,name:training.seance_sessions
-#: view:training.seance:0
-msgid "Linked Sessions"
-msgstr "Edicions relacionades"
 
 #. module: training
 #: field:training.seance,original_offer_kind:0
@@ -3652,11 +3625,6 @@ msgid "Procurements Logs"
 msgstr "Historial proveïments"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.training_seance_purchase_line_act
-msgid "Seances Procurements"
-msgstr "Proveïments de sessions"
-
-#. module: training
 #: code:addons/training/training.py:1627
 #: code:addons/training/training.py:2478
 #, python-format
@@ -3708,11 +3676,6 @@ msgstr "Permet seleccionar un curs validat per a l'edició. "
 #: view:training.subscription.mass.wizard:0
 msgid "_Cancel"
 msgstr "_Cancel·la"
-
-#. module: training
-#: model:ir.model,name:training.model_training_offer_purchase_line_update_wizard
-msgid "training.offer.purchase.line.update.wizard"
-msgstr "formació.curs.compra.línia.actualitza.assistent"
 
 #. module: training
 #: selection:training.email,target:0
@@ -4195,7 +4158,7 @@ msgstr "Heu seleccionat una matèria amb un idioma diferent"
 #: code:addons/training/training.py:4875
 #: code:addons/training/training.py:4886
 #: code:addons/training/training.py:5039
-#: code:addons/training/training_holiday.py:93
+#: code:addons/training/training_holiday.py:92
 #: code:addons/training/wizard/create_block_offer.py:50
 #: code:addons/training/wizard/create_block_offer.py:59
 #: code:addons/training/wizard/create_block_offer.py:85
@@ -4451,14 +4414,9 @@ msgid "The name of the subscription must be unique !"
 msgstr "El nom de la inscripció ha de ser únic!"
 
 #. module: training
-#: view:training.create.groups.wizard:0
-msgid "If prefix is 1,2,3 and suffix is A,B the groups 1A,1B,2A,2B,3A,3B will be created."
-msgstr "Si el prefix és 1,2,3 i sufix és A,B, es crearan els grups 1A,1B,2A,2B,3A,3B."
-
-#. module: training
-#: field:training.course,reference_lang_id:0
-msgid "Master Course's Language"
-msgstr "Idioma matèria principal"
+#: report:training.seance.presence.report:0
+msgid "Signature"
+msgstr "Signatura"
 
 #. module: training
 #: field:training.course_category,complete_name:0
@@ -4513,9 +4471,12 @@ msgid "Cost Prices"
 msgstr "Preus cost"
 
 #. module: training
-#: help:training.session,state:0
-msgid "The status of the session."
-msgstr "L'estat de l'edició de curs."
+#: view:training.course.pending:0
+#: view:training.offer:0
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "Course Information"
+msgstr "Informació de la matèria"
 
 #. module: training
 #: help:training.seance.generate.zip.wizard,remuneration_form_report:0
@@ -4695,6 +4656,12 @@ msgstr "No existeix factura per a la comanda de compra per aquesta sol·licitud"
 #: model:ir.model,name:training.model_training_course_kind
 msgid "training.course.kind"
 msgstr "formació.matèria.mode"
+
+#. module: training
+#: selection:training.participation,kind:0
+#: selection:training.participation.stakeholder,kind:0
+msgid "Exam"
+msgstr "Examen"
 
 #. module: training
 #: help:training.offer,notification_note:0
@@ -4896,7 +4863,6 @@ msgid "Voucher"
 msgstr "Comprovant"
 
 #. module: training
-#: view:training.create.groups.wizard:0
 #: view:training.seance:0
 #: view:training.seance.generate.zip.wizard:0
 #: view:training.session:0
@@ -5041,7 +5007,6 @@ msgstr "Descripció"
 #: model:ir.ui.menu,name:training.training_planning_session_future_all_mi
 #: view:training.catalog:0
 #: field:training.catalog,session_ids:0
-#: view:training.create.groups.wizard:0
 #: field:training.create.groups.wizard,session_ids:0
 #: field:training.seance,session_ids:0
 #: view:training.session:0
@@ -5126,6 +5091,11 @@ msgid "Update Course"
 msgstr "Actualitza matèria"
 
 #. module: training
+#: view:training.participation:0
+msgid "Absent"
+msgstr "Absent"
+
+#. module: training
 #: model:ir.ui.menu,name:training.training_planning_seances_planning_mi
 msgid "Seances Calendar"
 msgstr "Calendari de sessions"
@@ -5142,11 +5112,9 @@ msgid "Duplicate Session"
 msgstr "Duplica edició"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.training_create_groups_wizard_action
-#: model:ir.ui.menu,name:training.training_create_groups_groups_wizard_menu
-#: view:training.create.groups.wizard:0
-msgid "Groups Generator Wizard"
-msgstr "Assistent generador de grups"
+#: field:training.course,reference_lang_id:0
+msgid "Master Course's Language"
+msgstr "Idioma matèria principal"
 
 #. module: training
 #: model:ir.model,name:training.model_product_template
@@ -5255,6 +5223,8 @@ msgstr "assistent.matèria.pendent"
 msgid "Deposit price for this product."
 msgstr "Preu de reserva per a aquest producte."
 
+#~ msgid "Groups Generator"
+#~ msgstr "Generador de grups"
 #~ msgid "The name's offer."
 #~ msgstr "El nom del curs."
 #~ msgid "You have selected a partner that has no address."
@@ -5264,8 +5234,14 @@ msgstr "Preu de reserva per a aquest producte."
 #~ msgid ""
 #~ "The offer has not a product, so it is not possible to compute the price."
 #~ msgstr "El curs no té assignat cap producte i no es pot calcular el preu."
+#~ msgid "Is this subscription come from an online order."
+#~ msgstr "Indica si aquesta inscripció prové d'una comanda online."
 #~ msgid "Training Management"
 #~ msgstr "Formació"
+#~ msgid "Is from Web?"
+#~ msgstr "És des de Web?"
+#~ msgid "Generate"
+#~ msgstr "Genera"
 #~ msgid "Please, you can create a session with a validated offer"
 #~ msgstr "Podeu crear una edició a partir d'un curs validat"
 #~ msgid "Create a Block Offer"
@@ -5298,8 +5274,16 @@ msgstr "Preu de reserva per a aquest producte."
 #~ "* Gestió de suports del curs\n"
 #~ msgid "Create the Block Offer"
 #~ msgstr "Crea curs bloc"
+#~ msgid ""
+#~ "If prefix is 1,2,3 and suffix is A,B the groups 1A,1B,2A,2B,3A,3B will be "
+#~ "created."
+#~ msgstr ""
+#~ "Si el prefix és 1,2,3 i sufix és A,B, es crearan els grups "
+#~ "1A,1B,2A,2B,3A,3B."
 #~ msgid "Access Groups"
 #~ msgstr "Grups d'accés"
+#~ msgid "Groups Generator Wizard"
+#~ msgstr "Assistent generador de grups"
 #~ msgid "subscription"
 #~ msgstr "Inscripció"
 #~ msgid "The year for the school must be unique!"
@@ -5393,8 +5377,6 @@ msgstr "Preu de reserva per a aquest producte."
 #~ msgstr "Cursos descatalogats"
 #~ msgid "Confirmed Sessions"
 #~ msgstr "Edicions confirmades"
-#~ msgid "Exam"
-#~ msgstr "Examen"
 #~ msgid "Error: UOS must be in a different category than the UOM"
 #~ msgstr "Error: La UdV ha d'estar en una categoria diferent que la UdM"
 #~ msgid "Error: Invalid ean code"

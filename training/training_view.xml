@@ -1278,6 +1278,8 @@
                         <page string="Other Data" groups="base.group_user">
                             <field name="responsible_id"/>
                             <field name="origin" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
+                            <separator string="Additional Information" colspan="4"/>
+                            <field name="comment" nolabel="1" colspan="4"/>
                         </page>
                     </notebook>
                     <group colspan="4" col="6">

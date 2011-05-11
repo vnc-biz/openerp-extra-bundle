@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-05-02 16:10+0000\n"
-"PO-Revision-Date: 2011-05-02 16:10+0000\n"
+"POT-Creation-Date: 2011-05-11 14:09+0000\n"
+"PO-Revision-Date: 2011-05-11 14:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,9 +120,9 @@ msgid "Title"
 msgstr "Title"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.training_create_groups_act
-msgid "Groups Generator"
-msgstr "Groups Generator"
+#: model:ir.actions.act_window,name:training.training_seance_purchase_line_act
+msgid "Seances Procurements"
+msgstr "Seances Procurements"
 
 #. module: training
 #: model:ir.model,name:training.model_training_offer_format
@@ -531,7 +531,7 @@ msgid "Session Search"
 msgstr "Session Search"
 
 #. module: training
-#: code:addons/training/training_holiday.py:94
+#: code:addons/training/training_holiday.py:93
 #, python-format
 msgid "Can you give a right date ?"
 msgstr "Can you give a right date ?"
@@ -540,12 +540,6 @@ msgstr "Can you give a right date ?"
 #: help:training.offer,management:0
 msgid "Allows to write the management of the course."
 msgstr "Allows to write the management of the course."
-
-#. module: training
-#: code:addons/training/training.py:3423
-#, python-format
-msgid "Please, Could you check the subscription of your contact(s)"
-msgstr "Please, Could you check the subscription of your contact(s)"
 
 #. module: training
 #: view:training.subscription.second.line:0
@@ -677,12 +671,13 @@ msgid "Email Notifcation Extra Text"
 msgstr "Email Notifcation Extra Text"
 
 #. module: training
-#: view:res.partner.job:0
-msgid "Birth Date"
-msgstr "Birth Date"
+#: model:ir.actions.act_window,name:training.course_linked_course
+msgid "Linked Courses"
+msgstr "Linked Courses"
 
 #. module: training
 #: report:training.seance.support.delivery.report:0
+#: view:training.subscription:0
 msgid "Additional Information"
 msgstr "Additional Information"
 
@@ -714,11 +709,6 @@ msgstr "Invalid date/time format directive specified. Please refer to the list o
 #: field:ir.attachment,is_support:0
 msgid "Support"
 msgstr "Support"
-
-#. module: training
-#: report:training.seance.presence.report:0
-msgid "Signature"
-msgstr "Signature"
 
 #. module: training
 #: help:training.course,sequence:0
@@ -1065,11 +1055,6 @@ msgid "Library"
 msgstr "Library"
 
 #. module: training
-#: view:training.create.groups.wizard:0
-msgid "Generate"
-msgstr "Generate"
-
-#. module: training
 #: field:training.course.purchase_line,attachment_price:0
 #: field:training.offer.purchase.line,attachment_price:0
 msgid "Attachment Price"
@@ -1327,9 +1312,9 @@ msgid "training.subscription.session"
 msgstr "training.subscription.session"
 
 #. module: training
-#: constraint:account.invoice:0
-msgid "Invoice date is previous to an existing invoice."
-msgstr "Invoice date is previous to an existing invoice."
+#: constraint:training.email:0
+msgid "You can not have two validated emails for the same trigger, target and style group."
+msgstr "You can not have two validated emails for the same trigger, target and style group."
 
 #. module: training
 #: view:training.participation.stakeholder.request:0
@@ -1807,7 +1792,8 @@ msgid "Plannify Session"
 msgstr "Plannify Session"
 
 #. module: training
-#: code:addons/training/training_holiday.py:150
+#: code:addons/training/training_holiday.py:149
+#: code:addons/training/wizard/create_holiday_year.py:73
 #, python-format
 msgid "Weekend %02d"
 msgstr "Weekend %02d"
@@ -2170,11 +2156,6 @@ msgid "Deprecated"
 msgstr "Deprecated"
 
 #. module: training
-#: help:training.subscription,is_from_web:0
-msgid "Is this subscription come from an online order."
-msgstr "Is this subscription come from an online order."
-
-#. module: training
 #: model:ir.ui.menu,name:training.menu_address_book
 msgid "Address Book"
 msgstr "Address Book"
@@ -2193,11 +2174,6 @@ msgstr "training.participation.stakeholder"
 #: view:training.offer:0
 msgid "Are you sure to reset to Draft (Check the sessions for this offer)?"
 msgstr "Are you sure to reset to Draft (Check the sessions for this offer)?"
-
-#. module: training
-#: constraint:training.email:0
-msgid "You can not have two validated emails for the same trigger, target and style group."
-msgstr "You can not have two validated emails for the same trigger, target and style group."
 
 #. module: training
 #: view:res.partner.contact:0
@@ -2296,7 +2272,6 @@ msgstr "Contact Information"
 #: view:training.catalog:0
 #: view:training.course.pending.wizard:0
 #: view:training.create.block.offer:0
-#: view:training.create.groups.wizard:0
 #: view:training.create.offer:0
 #: view:training.offer.purchase.line.update.wizard:0
 #: view:training.participation.reassign.wizard:0
@@ -2372,9 +2347,9 @@ msgid "You can not select this date because it is a public holiday"
 msgstr "You can not select this date because it is a public holiday"
 
 #. module: training
-#: field:training.subscription,is_from_web:0
-msgid "Is from Web?"
-msgstr "Is from Web?"
+#: model:ir.model,name:training.model_training_offer_purchase_line_update_wizard
+msgid "training.offer.purchase.line.update.wizard"
+msgstr "training.offer.purchase.line.update.wizard"
 
 #. module: training
 #: selection:training.participation.stakeholder.request,state:0
@@ -2462,9 +2437,10 @@ msgid "Has Support"
 msgstr "Has Support"
 
 #. module: training
-#: view:training.participation:0
-msgid "Absent"
-msgstr "Absent"
+#: model:ir.actions.act_window,name:training.seance_sessions
+#: view:training.seance:0
+msgid "Linked Sessions"
+msgstr "Linked Sessions"
 
 #. module: training
 #: model:ir.model,name:training.model_training_offer_purchase_line
@@ -2532,12 +2508,9 @@ msgid "Allows to select a published catalog."
 msgstr "Allows to select a published catalog."
 
 #. module: training
-#: view:training.course.pending:0
-#: view:training.offer:0
-#: view:training.participation.stakeholder:0
-#: view:training.seance:0
-msgid "Course Information"
-msgstr "Course Information"
+#: view:res.partner.job:0
+msgid "Birth Date"
+msgstr "Birth Date"
 
 #. module: training
 #: view:training.session:0
@@ -2663,6 +2636,11 @@ msgstr "Document"
 #: view:training.course:0
 msgid "Support of Courses"
 msgstr "Support of Courses"
+
+#. module: training
+#: help:training.session,state:0
+msgid "The status of the session."
+msgstr "The status of the session."
 
 #. module: training
 #: view:training.catalog:0
@@ -3545,9 +3523,10 @@ msgid "Invoice"
 msgstr "Invoice"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.course_linked_course
-msgid "Linked Courses"
-msgstr "Linked Courses"
+#: code:addons/training/training.py:3423
+#, python-format
+msgid "Please, Could you check the subscription of your contact(s)"
+msgstr "Please, Could you check the subscription of your contact(s)"
 
 #. module: training
 #: selection:training.course,splitted_by:0
@@ -3579,12 +3558,6 @@ msgstr "Examiners"
 #: help:training.course.theme,description:0
 msgid "Allows to write the description of the theme."
 msgstr "Allows to write the description of the theme."
-
-#. module: training
-#: model:ir.actions.act_window,name:training.seance_sessions
-#: view:training.seance:0
-msgid "Linked Sessions"
-msgstr "Linked Sessions"
 
 #. module: training
 #: field:training.seance,original_offer_kind:0
@@ -3648,11 +3621,6 @@ msgid "Procurements Logs"
 msgstr "Procurements Logs"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.training_seance_purchase_line_act
-msgid "Seances Procurements"
-msgstr "Seances Procurements"
-
-#. module: training
 #: code:addons/training/training.py:1627
 #: code:addons/training/training.py:2478
 #, python-format
@@ -3704,11 +3672,6 @@ msgstr "Allows to select a validated offer for the session."
 #: view:training.subscription.mass.wizard:0
 msgid "_Cancel"
 msgstr "_Cancel"
-
-#. module: training
-#: model:ir.model,name:training.model_training_offer_purchase_line_update_wizard
-msgid "training.offer.purchase.line.update.wizard"
-msgstr "training.offer.purchase.line.update.wizard"
 
 #. module: training
 #: selection:training.email,target:0
@@ -4189,7 +4152,7 @@ msgstr "Please, You have selected a course with a different language"
 #: code:addons/training/training.py:4875
 #: code:addons/training/training.py:4886
 #: code:addons/training/training.py:5039
-#: code:addons/training/training_holiday.py:93
+#: code:addons/training/training_holiday.py:92
 #: code:addons/training/wizard/create_block_offer.py:50
 #: code:addons/training/wizard/create_block_offer.py:59
 #: code:addons/training/wizard/create_block_offer.py:85
@@ -4445,14 +4408,9 @@ msgid "The name of the subscription must be unique !"
 msgstr "The name of the subscription must be unique !"
 
 #. module: training
-#: view:training.create.groups.wizard:0
-msgid "If prefix is 1,2,3 and suffix is A,B the groups 1A,1B,2A,2B,3A,3B will be created."
-msgstr "If prefix is 1,2,3 and suffix is A,B the groups 1A,1B,2A,2B,3A,3B will be created."
-
-#. module: training
-#: field:training.course,reference_lang_id:0
-msgid "Master Course's Language"
-msgstr "Master Course's Language"
+#: report:training.seance.presence.report:0
+msgid "Signature"
+msgstr "Signature"
 
 #. module: training
 #: field:training.course_category,complete_name:0
@@ -4507,9 +4465,12 @@ msgid "Cost Prices"
 msgstr "Cost Prices"
 
 #. module: training
-#: help:training.session,state:0
-msgid "The status of the session."
-msgstr "The status of the session."
+#: view:training.course.pending:0
+#: view:training.offer:0
+#: view:training.participation.stakeholder:0
+#: view:training.seance:0
+msgid "Course Information"
+msgstr "Course Information"
 
 #. module: training
 #: help:training.seance.generate.zip.wizard,remuneration_form_report:0
@@ -4689,6 +4650,12 @@ msgstr "There is no Invoice for the Purchase Order for this request"
 #: model:ir.model,name:training.model_training_course_kind
 msgid "training.course.kind"
 msgstr "training.course.kind"
+
+#. module: training
+#: selection:training.participation,kind:0
+#: selection:training.participation.stakeholder,kind:0
+msgid "Exam"
+msgstr "Exam"
 
 #. module: training
 #: help:training.offer,notification_note:0
@@ -4890,7 +4857,6 @@ msgid "Voucher"
 msgstr "Voucher"
 
 #. module: training
-#: view:training.create.groups.wizard:0
 #: view:training.seance:0
 #: view:training.seance.generate.zip.wizard:0
 #: view:training.session:0
@@ -5035,7 +5001,6 @@ msgstr "Description"
 #: model:ir.ui.menu,name:training.training_planning_session_future_all_mi
 #: view:training.catalog:0
 #: field:training.catalog,session_ids:0
-#: view:training.create.groups.wizard:0
 #: field:training.create.groups.wizard,session_ids:0
 #: field:training.seance,session_ids:0
 #: view:training.session:0
@@ -5120,6 +5085,11 @@ msgid "Update Course"
 msgstr "Update Course"
 
 #. module: training
+#: view:training.participation:0
+msgid "Absent"
+msgstr "Absent"
+
+#. module: training
 #: model:ir.ui.menu,name:training.training_planning_seances_planning_mi
 msgid "Seances Calendar"
 msgstr "Seances Calendar"
@@ -5136,11 +5106,9 @@ msgid "Duplicate Session"
 msgstr "Duplicate Session"
 
 #. module: training
-#: model:ir.actions.act_window,name:training.training_create_groups_wizard_action
-#: model:ir.ui.menu,name:training.training_create_groups_groups_wizard_menu
-#: view:training.create.groups.wizard:0
-msgid "Groups Generator Wizard"
-msgstr "Groups Generator Wizard"
+#: field:training.course,reference_lang_id:0
+msgid "Master Course's Language"
+msgstr "Master Course's Language"
 
 #. module: training
 #: model:ir.model,name:training.model_product_template

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<!--Training Payment-->
+	<record model="ir.ui.view" id="view_training_payment_form">
+		<field name="name">training.payment.form</field>
+		<field name="model">training.payment</field>
+		<field name="type">form</field>
+		<field name="priority" eval="5"/>
+		<field name="arch" type="xml">
+		    <form string="Training Payments">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="payment_id"/>
+                <field name="payment_term_id"/>
+		    </form>
+		</field>
+	</record>
+	
+	<record model="ir.ui.view" id="view_training_payment_tree">
+		<field name="name">training.payment.tree</field>
+		<field name="model">training.payment</field>
+		<field name="type">tree</field>
+		<field name="priority" eval="5"/>
+		<field name="arch" type="xml">
+			<tree string="External Referentials">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="payment_id"/>
+                <field name="payment_term_id"/>
+			</tree>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_training_payment_action">
+        <field name="name">Training Payment</field>
+        <field name="res_model">training.payment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_training_payment" name="e-sale Payments" parent="training.training_config_mi" action="action_training_payment_action" />
+</data>
+</openerp>

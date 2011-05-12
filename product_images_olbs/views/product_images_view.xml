@@ -57,7 +57,7 @@
 
        <act_window name="Images"
             domain="[('product_id', '=', active_id)]"
-            context="{'product_id': active_id}"
+            context="{'default_product_id': active_id}"
             res_model="product.images"
             src_model="product.product"
             id="act_product_2_images"/>

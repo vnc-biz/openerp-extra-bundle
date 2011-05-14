@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-05-09 10:53+0000\n"
-"PO-Revision-Date: 2011-05-14 00:22+0000\n"
+"PO-Revision-Date: 2011-05-14 00:14+0000\n"
 "Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
 "<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: csv_file
 #: field:csv.file.field,export_expression:0
 msgid "Export Expression"
-msgstr "Expresión exportación"
+msgstr "Expressió exportació"
 
 #. module: csv_file
 #: selection:csv.file.field,type:0
@@ -45,12 +45,12 @@ msgstr "Tabulador"
 #. module: csv_file
 #: help:csv.file,name:0
 msgid "Code Name of this file. Use lowcase and az09 characters."
-msgstr "Código del nombre del fichero. Utiliza minúsculas y caracteres az09."
+msgstr "Code Name of this file. Use lowcase and az09 characters."
 
 #. module: csv_file
 #: field:csv.file,state:0
 msgid "State"
-msgstr "Estado"
+msgstr "Estat"
 
 #. module: csv_file
 #: selection:csv.file,state:0
@@ -65,22 +65,22 @@ msgstr "self - objects pointer"
 #. module: csv_file
 #: field:csv.file.field,type:0
 msgid "Type"
-msgstr "Tipo"
+msgstr "Tipus"
 
 #. module: csv_file
 #: field:csv.file.field,field_id:0
 msgid "OpenERP Field"
-msgstr "Campo OpenERP"
+msgstr "Camp OpenERP"
 
 #. module: csv_file
 #: view:csv.file:0
 msgid "Files"
-msgstr "Fichero"
+msgstr "Fitxer"
 
 #. module: csv_file
 #: help:csv.file,file:0
 msgid "CSV Filename"
-msgstr "Nombre CSV"
+msgstr "Nom CSV"
 
 #. module: csv_file
 #: selection:csv.file.field,type:0
@@ -105,7 +105,7 @@ msgstr "Available global variables:"
 #. module: csv_file
 #: field:csv.file.field,sequence:0
 msgid "Sequence"
-msgstr "Secuencia"
+msgstr "Seqüència"
 
 #. module: csv_file
 #: help:csv.file,file_csv_separator:0
@@ -130,27 +130,27 @@ msgstr "value - value return"
 #. module: csv_file
 #: selection:csv.file,state:0
 msgid "Done"
-msgstr "Aprobado"
+msgstr "Aprobat"
 
 #. module: csv_file
 #: view:csv.file.field:0
 msgid "Import CSV Expression"
-msgstr "Expresión importación"
+msgstr "Expressió importació"
 
 #. module: csv_file
 #: field:csv.file.field,name:0
 msgid "Name"
-msgstr "Nombre"
+msgstr "Nom"
 
 #. module: csv_file
 #: field:csv.file,file_csv_separator:0
 msgid "CSV Separator"
-msgstr "Separado CSV"
+msgstr "Separació CSV"
 
 #. module: csv_file
 #: field:csv.file,field_ids:0
 msgid "Fields"
-msgstr "Campo"
+msgstr "Camp"
 
 #. module: csv_file
 #: code:addons/csv_file/csv_file.py:67
@@ -198,12 +198,12 @@ msgstr "OpenERP Model"
 #. module: csv_file
 #: field:csv.file.field,import_expression:0
 msgid "Import Expression"
-msgstr "Expresión importación"
+msgstr "Expressió importació"
 
 #. module: csv_file
 #: field:csv.file,name:0
 msgid "Code"
-msgstr "Código"
+msgstr "Codi"
 
 #. module: csv_file
 #: selection:csv.file,file_csv_separator:0
@@ -214,7 +214,7 @@ msgstr "Semicolon"
 #: code:addons/csv_file/csv_file.py:67
 #, python-format
 msgid "Another External Mapping have the same code!"
-msgstr "Otro CSV Mapeo contiene el mismo código!"
+msgstr "Un altre CSV de Mapeig conté el mateix codi!"
 
 #. module: csv_file
 #: help:csv.file.field,export_expression:0

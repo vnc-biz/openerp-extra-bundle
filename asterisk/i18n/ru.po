@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-24 13:47+0000\n"
-"PO-Revision-Date: 2011-05-12 22:02+0000\n"
+"PO-Revision-Date: 2011-05-13 11:16+0000\n"
 "Last-Translator: Stanislav Hanzhin <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-05-13 05:49+0000\n"
+"X-Launchpad-Export-Date: 2011-05-14 05:53+0000\n"
 "X-Generator: Launchpad (build 12959)\n"
 
 #. module: asterisk
@@ -131,33 +131,33 @@ msgstr "Создать партнёра из звонка"
 #. module: asterisk
 #: field:asterisk.server,login:0
 msgid "Login"
-msgstr ""
+msgstr "Имя пользователя"
 
 #. module: asterisk
 #: model:ir.ui.menu,name:asterisk.menu_asterisk_phone
 msgid "IP Phones"
-msgstr ""
+msgstr "IP-телефоны"
 
 #. module: asterisk
 #: field:asterisk.phone,current_callerid:0
 msgid "Current Caller"
-msgstr ""
+msgstr "Вызывающий"
 
 #. module: asterisk
 #: wizard_view:asterisk.partner.get,no_call:0
 #: wizard_view:asterisk.partner.get,no_partner:0
 msgid "Open Partner Info"
-msgstr ""
+msgstr "Открыть информацию о контрагенте"
 
 #. module: asterisk
 #: model:ir.ui.menu,name:asterisk.menu_asterisk_server_config
 msgid "Configuration"
-msgstr ""
+msgstr "Конфигурация"
 
 #. module: asterisk
 #: model:ir.ui.menu,name:asterisk.menu_asterisk_server_main
 msgid "Sys Admin"
-msgstr ""
+msgstr "Системный администратор"
 
 #. module: asterisk
 #: model:ir.module.module,description:asterisk.module_meta_information
@@ -168,18 +168,23 @@ msgid ""
 "This is still a proof of concept, that have been made during Tiny ERP's\n"
 "technical training session."
 msgstr ""
+"Управление списков серверов Asterisk и IP-телефонов.\n"
+"Этот модуль реализует систему всплывающих форм для контрагентов на основе "
+"телефонных звонков.\n"
+"Это всего лишь концепция решения, сделанная в период технического \n"
+"обучения TinyERP."
 
 #. module: asterisk
 #: field:asterisk.phone,name:0
 msgid "Phone Name"
-msgstr ""
+msgstr "Название телефона"
 
 #. module: asterisk
 #: model:ir.model,name:asterisk.model_asterisk_server
 msgid "asterisk.server"
-msgstr ""
+msgstr "asterisk.server"
 
 #. module: asterisk
 #: field:asterisk.phone,phoneid:0
 msgid "Phone ID"
-msgstr ""
+msgstr "Идентификатор телефона"

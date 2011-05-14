@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-05-09 10:53+0000\n"
-"PO-Revision-Date: 2011-05-09 13:01+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-05-14 00:23+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-05-14 05:53+0000\n"
+"X-Generator: Launchpad (build 12959)\n"
 
 #. module: csv_file
 #: field:csv.file.field,export_expression:0
@@ -217,8 +219,12 @@ msgstr "Un altre CSV de Mapeig conté el mateix codi!"
 #. module: csv_file
 #: help:csv.file.field,export_expression:0
 #: help:csv.file.field,import_expression:0
-msgid "Where we put the python code. The fields are called like '$name_of_field' (without the simple quotes)"
-msgstr "Where we put the python code. The fields are called like '$name_of_field' (without the simple quotes)"
+msgid ""
+"Where we put the python code. The fields are called like '$name_of_field' "
+"(without the simple quotes)"
+msgstr ""
+"Where we put the python code. The fields are called like '$name_of_field' "
+"(without the simple quotes)"
 
 #. module: csv_file
 #: view:csv.file.field:0
@@ -267,12 +273,13 @@ msgstr "outcsv - value OpenERP to CSV"
 
 #. module: csv_file
 #: help:csv.file.field,name:0
-msgid "The name of the field. It's used if you have selected the Header checkbox"
-msgstr "The name of the field. It's used if you have selected the Header checkbox"
+msgid ""
+"The name of the field. It's used if you have selected the Header checkbox"
+msgstr ""
+"The name of the field. It's used if you have selected the Header checkbox"
 
 #. module: csv_file
 #: view:csv.file:0
 #: view:csv.file.field:0
 msgid "External Referentials"
 msgstr "External Referentials"
-

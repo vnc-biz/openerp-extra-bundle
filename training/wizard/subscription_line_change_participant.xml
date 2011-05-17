@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>  
-<!-- training.course.theme -->
+
         <record model="ir.ui.view" id="change_participant_form">
             <field name="name">change.participant.form</field>
             <field name="model">change.participant</field>

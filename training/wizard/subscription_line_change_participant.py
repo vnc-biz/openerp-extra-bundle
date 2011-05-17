@@ -42,8 +42,8 @@ class change_participant(osv.osv_memory):
             subscription_line = self.pool.get('training.subscription_line').browse(cr, uid, data['id'], context=context)
             if subscription_line:
                 if subscription_line.state in ('done', 'cancelled'):
-                    raise wizard.except_wizard(_('Warning'),
-                        _("You can not select a subscription with the following state: Done or Cancelled"))
+                    raise osv.except_osv(_('Warning'), _("You can not select a subscription with the following state: Done or Cancelled") )
+
                 return {
                     'subscription_id' : subscription_line.subscription_id.id,
                     'subscription_line_id' : subscription_line.id,
@@ -61,8 +61,8 @@ class change_participant(osv.osv_memory):
             return {}
         subscription_line = self.pool.get('training.subscription_line').browse(cr, uid, data['id'], context=context)
         if subscription_line.state in ('done', 'cancelled'):
-            raise wizard.except_wizard(_('Warning'),
-                                       _("You can not select a subscription with the following state: Done or Cancelled"))
+            raise osv.except_osv(_('Warning'), _("You can not select a subscription with the following state: Done or Cancelled") )
+
         subscription_line.write({'job_id' : new_job_id, 'job_email' : data['form']['new_job_email']})
         return {}
 

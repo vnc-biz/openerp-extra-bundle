@@ -56,7 +56,7 @@
             <field name="name">view.product.template.variant.multi.advanced.product.variant.form</field>
             <field name="model">product.template</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="product_variant_multi.product_template_form_view" />
+            <field name="inherit_id" ref="product_variant_multi.product_variant_multi_product_template_form_view" />
             <field name="arch" type="xml">
                 <button name="button_generate_product_code" position="after">
                     <button name="button_generate_product_sale_description" string="Build Sale Description ->" type="object" colspan="4"/>

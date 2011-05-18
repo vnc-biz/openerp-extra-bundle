@@ -27,3 +27,7 @@ class product_product(json_osv.json_osv):
     _inherit = "product.product"
 product_product()
 
+class product_template(json_osv.json_osv):
+    _inherit = "product.template"
+product_template()
+

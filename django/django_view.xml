@@ -14,6 +14,7 @@
             <field name="type"/>
             <field name="external_type"/>
             <field name="translate"/>
+            <field name="active"/>
             <group attrs="{'invisible':[('translate', '=', True)]}" colspan="4">
                 <separator string="Import in OpenERP Mapping Python Function" colspan="4"/>
                 <field name="in_function" colspan="4" nolabel="1"/>
@@ -35,6 +36,8 @@
 			    <field name="external_field" />
 			    <field name="type" />
 			    <field name="external_type" />
+                <field name="translate"/>
+                <field name="active"/>
 			</tree>
 		</field>
 	</record>
@@ -74,6 +77,13 @@
         <field name="view_mode">tree,form</field>
         <field name="help">Remember if you add new field in this mapping, you will export Django Model (Administration/Customization/Database Structure/Create Django Model) and update Django Model. Also, you will update SQL Database Django (use wizard SQL Update).</field>
     </record>
+
+   <act_window name="Fields"
+        domain="[('mapping_id', '=', active_id)]"
+        context="{'mapping_id': active_id}"
+        res_model="django.external.mapping.line"
+        src_model="django.external.mapping"
+        id="act_django_fields"/>
 
     <menuitem id="menu_django_external_referentials" name="Django External Referentials" parent="base.next_id_9" action="action_django_external_referentials_action" />
 </data>

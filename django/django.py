@@ -77,7 +77,7 @@ class django_external_mapping(osv.osv):
         langs = self.pool.get('res.lang').search(cr, uid, [])
         dj_mappline = self.browse(cr, uid, dj_mappline_ids[0])
 
-        dj_mappline_line_ids = self.pool.get('django.external.mapping.line').search(cr, uid, [('mapping_id','=',dj_mappline_ids[0])])
+        dj_mappline_line_ids = self.pool.get('django.external.mapping.line').search(cr, uid, [('mapping_id','=',dj_mappline_ids[0]),('active','=',True)])
 
         mappline_rules = []
         for dj_mappline_line_id in dj_mappline_line_ids:
@@ -186,12 +186,14 @@ class django_external_mapping_line(osv.osv):
         'type': fields.selection([('in_out', 'External <-> OpenERP'), ('in', 'External -> OpenERP'), ('out', 'External <- OpenERP')], 'Type', required=True),
         'external_type': fields.selection([('str', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float')], 'External Type', required=True),
         'translate': fields.boolean('Translate'),
+        'active': fields.boolean('Active'),
         'in_function': fields.text('Import in OpenERP Mapping Python Function'),
         'out_function': fields.text('Export from OpenERP Mapping Python Function'),
     }
     
     _default = {
-         'type' : lambda * a: 'in_out',
+        'type' : lambda * a: 'in_out',
+        'active': 1,
     }
     
     _constraints = [

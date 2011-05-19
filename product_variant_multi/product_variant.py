@@ -40,8 +40,8 @@ class product_variant_dimension_type(osv.osv):
         'description': fields.char('Description', size=64, translate=True),
         'name' : fields.char('Dimension', size=64, required=True),
         'sequence' : fields.integer('Sequence', help="The product 'variants' code will use this to order the dimension values"),
-        'value_ids' : fields.one2many('product.variant.dimension.value', 'dimension_id', 'Dimension Values'),
-        'product_tmpl_id': fields.many2one('product.template', 'Product Template', ondelete='cascade'),
+        'option_ids' : fields.one2many('product.variant.dimension.option', 'dimension_id', 'Dimension Option'),
+        'product_tmpl_id': fields.many2many('product.template', 'product_template_dimension_rel', 'dimension_id', 'template_id', 'Product Template'),
         'allow_custom_value': fields.boolean('Allow Custom Value', help="If true, custom values can be entered in the product configurator"),
         'mandatory_dimension': fields.boolean('Mandatory Dimension', help="If false, variant products will be created with and without this dimension"),
     }
@@ -69,13 +69,13 @@ class product_variant_dimension_value(osv.osv):
         return self.pool.get('product.variant.dimension.value').search(cr, uid, [('dimension_id', 'in', ids)], context=context)
 
     _columns = {
-        'name' : fields.char('Dimension Value', size=64, required=True),
+        'name' : fields.many2one('product.variant.dimension.option', 'Dimension Value', required=True),
         'sequence' : fields.integer('Sequence'),
         'price_extra' : fields.float('Sale Price Extra', digits_compute=dp.get_precision('Sale Price')),
         'price_margin' : fields.float('Sale Price Margin', digits_compute=dp.get_precision('Sale Price')),
         'cost_price_extra' : fields.float('Cost Price Extra', digits_compute=dp.get_precision('Purchase Price')),
-        'dimension_id' : fields.many2one('product.variant.dimension.type', 'Dimension Type', ondelete='cascade'),
-        'product_tmpl_id': fields.related('dimension_id', 'product_tmpl_id', type="many2one", relation="product.template", string="Product Template", store=True),
+        'dimension_id' : fields.related('name', 'dimension_id', type="many2one", relation="product.variant.dimension.type", string="Dimension Type", store=True),
+        'product_tmpl_id': fields.many2one('product.template', 'Product Template', ondelete='cascade'),
         'dimension_sequence': fields.related('dimension_id', 'sequence', string="Related Dimension Sequence",#used for ordering purposes in the "variants"
              store={
                 'product.variant.dimension.type': (_get_dimension_values, ['sequence'], 10),
@@ -85,12 +85,31 @@ class product_variant_dimension_value(osv.osv):
 
 product_variant_dimension_value()
 
+class product_variant_dimension_option(osv.osv):
+    _name = "product.variant.dimension.option"
+    _description = "Dimension Option"
+
+    def _get_dimension_values(self, cr, uid, ids, context={}):
+        return self.pool.get('product.variant.dimension.value').search(cr, uid, [('dimension_id', 'in', ids)], context=context)
+
+    _columns = {
+        'name' : fields.char('Dimension Value', size=64, required=True),
+        'sequence' : fields.integer('Sequence'),
+        'dimension_id' : fields.many2one('product.variant.dimension.type', 'Dimension Type', ondelete='cascade'),
+    }
+
+    _order = "dimension_id, sequence, name"
+
+product_variant_dimension_option()
+
+
 
 class product_template(osv.osv):
     _inherit = "product.template"
 
     _columns = {
-        'dimension_type_ids':fields.one2many('product.variant.dimension.type', 'product_tmpl_id', 'Dimension Types'),
+        'dimension_type_ids':fields.many2many('product.variant.dimension.type', 'product_template_dimension_rel', 'template_id', 'dimension_id', 'Dimension Types'),
+        'value_ids': fields.one2many('product.variant.dimension.value', 'product_tmpl_id', 'Dimension Values'),
         'variant_ids':fields.one2many('product.product', 'product_tmpl_id', 'Variants'),
         'variant_model_name':fields.char('Variant Model Name', size=64, required=True, help='[NAME] will be replaced by the name of the dimension and [VALUE] by is value. Example of Variant Model Name : "[NAME] - [VALUE]"'),
         'variant_model_name_separator':fields.char('Variant Model Name Separator', size=64, help= 'Add a separator between the elements of the variant name'),
@@ -106,6 +125,23 @@ class product_template(osv.osv):
         'variant_model_name_separator': lambda *a: ' - ',
         'is_multi_variants' : lambda *a: False,
                 }
+
+    def add_all_option(self, cr, uid, ids, context=None):
+        for template in self.browse(cr, uid, ids, context=context):
+            existing_dim = [x.dimension_id.id for x in template.value_ids]
+            vals = {'value_ids' : []}
+            print 'template', template.name
+            for dim in template.dimension_type_ids:
+                if not dim.id in existing_dim:
+                    for option in dim.option_ids:
+                        print 'option', option.name
+                        vals['value_ids'] += [[0, 0, {'name': option.id}]]
+            print 'vals', vals
+            self.write(cr, uid, template.id, vals, context=context)
+                    
+        print 'context', context, ids
+        return True
+
     def get_products_from_product_template(self, cr, uid, ids, context={}):
         product_tmpl = self.read(cr, uid, ids, ['variant_ids'], context=context)
         return [id for vals in product_tmpl for id in vals['variant_ids']]
@@ -141,11 +177,20 @@ class product_template(osv.osv):
         temp_val_list=[]
 
         for product_temp in self.browse(cr, uid, ids, context):
-            for temp_type in product_temp.dimension_type_ids:
-                temp_val_list.append([temp_type_value.id for temp_type_value in temp_type.value_ids] + (not temp_type.mandatory_dimension and [None] or []))
+            #for temp_type in product_temp.dimension_type_ids:
+            #    temp_val_list.append([temp_type_value.id for temp_type_value in temp_type.value_ids] + (not temp_type.mandatory_dimension and [None] or []))
+                #TODO c'est quoi ça??
                 # if last dimension_type has no dimension_value, we ignore it
-                if not temp_val_list[-1]:
-                    temp_val_list.pop()
+            #    if not temp_val_list[-1]:
+            #        temp_val_list.pop()
+            res = {}
+            for value in product_temp.value_ids:
+                if res.get(value.dimension_id, False):
+                    res[value.dimension_id] += [value.id]
+                else:
+                    res[value.dimension_id] = [value.id]
+            for dim in res:
+                temp_val_list += [res[dim] + (not dim.mandatory_dimension and [None] or [])]
 
             if temp_val_list:
                 list_of_variants = self._create_variant_list(cr, uid, ids, temp_val_list, context)
@@ -240,7 +285,7 @@ class product_product(osv.osv):
         inherit this function to hack the code generation'''
         product = self.browse(cr, uid, product_id, context=context)
         model = product.variant_model_name
-        r = map(lambda dim: [dim.dimension_id.sequence, model.replace('[NAME]', (dim.dimension_id.name or '')).replace('[VALUE]', dim.name or '-')], product.dimension_value_ids)
+        r = map(lambda dim: [dim.dimension_id.sequence, model.replace('[NAME]', (dim.dimension_id.name or '')).replace('[VALUE]', dim.name.name or '-')], product.dimension_value_ids)
         r.sort()
         r = [x[1] for x in r]
         new_variant_name = (product.variant_model_name_separator or '').join(r)

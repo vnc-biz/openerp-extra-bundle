@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="holiday_year_wizard">
+            <field name="name">training.holiday.year.wizard</field>
+            <field name="model">training.holiday.year.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Generate Year" col="2">
+                    <field name="year" />
+                    <separator colspan="2" />
+                    <group colspan="2" col="2" >
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel" />
+                        <button name="action_apply" type="object" string="_Apply" icon="gtk-apply" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="holiday_year_wizard_act">
+            <field name="name">Year Generator</field>
+            <field name="res_model">training.holiday.year.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="holiday_year_wizard" />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="holiday_year_wizard_mi"
+            parent="holiday_mi" 
+            action="holiday_year_wizard_act" icon="STOCK_EXECUTE"/>
+    </data>
+</openerp>

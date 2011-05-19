@@ -754,24 +754,6 @@ class training_offer(osv.osv):
     _name = 'training.offer'
     _description = 'Offer'
 
-    def on_change_course_ids(self, cr, uid, ids, course_ids, context=None):
-        values = {
-            'type_id' : 0,
-            'product_line_id' : 0,
-        }
-
-        if len(course_ids) == 1:
-            course = self.pool.get('training.course').browse(cr, uid, course_ids[0][2]['course_id'])
-
-            values.update({
-                'name' : course.name,
-                'type_id' : course.course_type_id.id,
-                'product_line_id' : course.category_id.id,
-            })
-
-        # Creer un bouton 'draft' qui rebalance en draft quand une offre est deja deprecated
-        return {'value' : values}
-
     def _is_standalone_compute(self, cr, uid, ids, fieldnames, args, context=None):
         res = dict.fromkeys(ids, 0)
         for offer in self.browse(cr, uid, ids, context=context):

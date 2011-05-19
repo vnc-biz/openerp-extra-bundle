@@ -1559,12 +1559,7 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Courses">
-                            <field name="course_ids"
-                                colspan="4"
-                                nolabel="1"
-                                attrs="{'readonly' : [('state', '!=', 'draft')]}"
-                                context="{'default_lang_id' : lang_id}"
-                                on_change="on_change_course_ids(course_ids)">
+                            <field name="course_ids" colspan="4" nolabel="1" attrs="{'readonly' : [('state', '!=', 'draft')]}" context="{'default_lang_id' : lang_id}">
                                 <tree string="Courses">
                                     <field name="course_id" domain="[('lang_id', '=', lang_id),('state_course', '=', 'validated')]" on_change="on_change_course(course_id)"/>
                                     <field name="category_id"/>

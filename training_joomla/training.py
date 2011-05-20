@@ -289,7 +289,6 @@ class training_subscription(osv.osv):
                 'name' : name,
                 'partner_id': subscription_order['partner_id'],
                 'address_id': subscription_order['address_id'],
-		        'is_from_web': 1,
                 'state': 'draft',
             },context)
 
@@ -303,9 +302,12 @@ class training_subscription(osv.osv):
                     'session_id': line['session_id'],
                     'price_list_id': price_list_id,
                     'price': line['price_unit'],
-                    'session_state': 'draft',
+#                    'session_state': 'draft',
                     'state': 'draft',
                 }
+
+                if line['internal_note']:
+                    values['internal_note'] = line['internal_note']
 
                 self.pool.get('training.subscription.line').create(cr, uid, values ,context)
 
@@ -337,17 +339,17 @@ class training_subscription(osv.osv):
         if context == None:
             context = {}
 
+        self.logger = netsvc.Logger()
+
         # values = refence / payment
         subscription_id = self.search(cr, uid, [('name','=',values['reference']),('state','=','draft')])
 
         if subscription_id:
-            # TODO: by payment type
-            # 1. Subscription lines: if payment is X, Draf -> Confirmed
-            # 3. Subscription Lines: if payment is X, Confirmed -> Done
-            # 4. Subscription: if payment is X, Draf -> Request Send
-            # 5. Subscription: if payment is X, Request Send -> Done
-            # 4. Create invoice: if payment is X, Create invoice & confirm
+            self.pool.get('training.payment').check_payment(cr, uid, values, context)
+            self.logger.notifyChannel(_("Training Payment"), netsvc.LOG_INFO, _("Payment succesfully: %s") % values['reference'])
             return True
+        else:
+            return False
  
 training_subscription()
 
@@ -370,8 +372,6 @@ class training_subscription_line(osv.osv):
                 if ids:
                     website = self.pool.get('training.joomla').browse(cr, uid, ids[0], context)
                     if website.duplicate_subscription:
-                        print "AQUI"
-                        print sl_ids[0]
                         subscription_order = {'reference':sl_ids[0]}
                         cancel = self.pool.get('training.subscription').cancel_subscription(cr, uid, subscription_order, context=None)
                         if cancel: #it's avaible generate other subscription

@@ -4,21 +4,25 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.15\n"
+"Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-22 16:41:53+0000\n"
-"PO-Revision-Date: 2011-03-22 17:43+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-03-22 16:41+0000\n"
+"PO-Revision-Date: 2011-05-20 03:21+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-05-20 05:52+0000\n"
+"X-Generator: Launchpad (build 12959)\n"
 
 #. module: django
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "The Object name must start with x_ and not contain any special character !"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"The Object name must start with x_ and not contain any special character !"
 
 #. module: django
 #: field:django.create.model.wizard,state:0
@@ -68,13 +72,6 @@ msgid "Create Django Model"
 msgstr "Crear modelo Django"
 
 #. module: django
-#: model:ir.actions.act_window,name:django.act_django_sql_update
-#: model:ir.actions.act_window,name:django.action_django_model_wizard
-#: model:ir.ui.menu,name:django.django_wizard_model
-msgid "Create SQL Update"
-msgstr "Crear SQL"
-
-#. module: django
 #: view:django.create.model.wizard:0
 msgid "Django Model"
 msgstr "Modelo Django"
@@ -106,13 +103,15 @@ msgid ""
 "\n"
 "OpenERP integration to Django.\n"
 "Create OpenObject Model to Django Model\n"
-"This module was built generically but in focus of the zzsaas service of Zikzakmedia and Zoook e-sale for OpenERP\n"
+"This module was built generically but in focus of the zzsaas service of "
+"Zikzakmedia and Zoook e-sale for OpenERP\n"
 "    "
 msgstr ""
 "\n"
 "Integración Django con OpenERP.\n"
 "Crea modelo OpenObject a modelo Django.\n"
-"Nota: Este módulo se ha diseñado de forma genérica pero pensando con el servicio ZZSaaS y comercio electrónico Zoook\n"
+"Nota: Este módulo se ha diseñado de forma genérica pero pensando con el "
+"servicio ZZSaaS y comercio electrónico Zoook\n"
 "    "
 
 #. module: django
@@ -145,3 +144,147 @@ msgstr "Cancelar"
 msgid "Close"
 msgstr "Cerrar"
 
+#~ msgid "Translate"
+#~ msgstr "Traducción"
+
+#~ msgid "django.external.mapping.line"
+#~ msgstr "django.external.mapping.line"
+
+#~ msgid "Mappings"
+#~ msgstr "Mapeo"
+
+#~ msgid "Django External Referentials"
+#~ msgstr "Referencias externas de Django"
+
+#, python-format
+#~ msgid "Code or ids without value"
+#~ msgstr "Código o ids sin valor"
+
+#~ msgid "External Field"
+#~ msgstr "Campo externo"
+
+#~ msgid "Draft"
+#~ msgstr "Borrador"
+
+#~ msgid "External <- OpenERP"
+#~ msgstr "Externo <- OpenERP"
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "OpenERP Field"
+#~ msgstr "Campo OpenERP"
+
+#~ msgid "External -> OpenERP"
+#~ msgstr "Externo -> OpenERP"
+
+#, python-format
+#~ msgid "Django call %s"
+#~ msgstr "Llamada Django %s"
+
+#, python-format
+#~ msgid "Error !"
+#~ msgstr "Error !"
+
+#~ msgid "String"
+#~ msgstr "String"
+
+#~ msgid "External Referentials"
+#~ msgstr "Referencias externas"
+
+#~ msgid "Model Name"
+#~ msgstr "Nombre del modelo"
+
+#~ msgid "Integer"
+#~ msgstr "Integer"
+
+#, python-format
+#~ msgid "Another External Mapping have same code!"
+#~ msgstr "Otro mapeo tiene el mismo código!"
+
+#~ msgid "Django External Mapping"
+#~ msgstr "Django External Mapping"
+
+#~ msgid "External Type"
+#~ msgstr "Tipo externo"
+
+#~ msgid "Import in OpenERP Mapping Python Function"
+#~ msgstr "Función Python de importación a OpenERP"
+
+#~ msgid "Mappings Lines"
+#~ msgstr "Mappings Lines"
+
+#~ msgid ""
+#~ "Remember if you add new field in this mapping, you will export Django Model "
+#~ "(Administration/Customization/Database Structure/Create Django Model) and "
+#~ "update Django Model. Also, you will update SQL Database Django (use wizard "
+#~ "SQL Update)."
+#~ msgstr ""
+#~ "Recuerda si añade algún nuevo campo debe exportar el modelo a Django "
+#~ "(Administración/Personalización/Estructura de las bases de datos/Crear "
+#~ "modelo Django) y actualizar el model de Django. También, debe actualizar su "
+#~ "SQL de la base de datos de Django (o utilice el asistente de SQL)"
+
+#, python-format
+#~ msgid "Mappline Code %s not found"
+#~ msgstr "No se ha encontrado el código de mapeo %s"
+
+#~ msgid "Partner"
+#~ msgstr "Empresa"
+
+#~ msgid "Full Name"
+#~ msgstr "Nombre completo"
+
+#~ msgid "OpenERP Model"
+#~ msgstr "Modelo OpenERP"
+
+#~ msgid "Export from OpenERP Mapping Python Function"
+#~ msgstr "Función Python de exportación de OpenERP"
+
+#~ msgid "Code"
+#~ msgstr "Código"
+
+#~ msgid "External Mapping"
+#~ msgstr "Mapeo externo"
+
+#~ msgid "Float"
+#~ msgstr "Float"
+
+#~ msgid "Boolean"
+#~ msgstr "Boolean"
+
+#~ msgid ""
+#~ "\n"
+#~ "OpenERP integration to Django.\n"
+#~ "- Create OpenObject Model to Django Model. Select model and copy-paste "
+#~ "Django Model (wizard)\n"
+#~ "- OpenERP to Django Mapping Fields. Export OpenERP data to Django Models\n"
+#~ "- Update SQL Django. Update Django models when already been created "
+#~ "previously in Django (wizard)\n"
+#~ "This module was built generically but in focus of the ZZSaaS service of "
+#~ "Zikzakmedia and Zoook e-sale for OpenERP\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Integración OpenERP con Django.\n"
+#~ "- Crea un modelo OpenObject a modelo Django. Seleccione el modelo y copie al "
+#~ "modelo de Django (asistente)\n"
+#~ "- Mapeo de campos OpenERP a Django. Exporta datos de OpenERP a Django\n"
+#~ "- Actualice el SQL de Django. Actualice los modelos de Django cuando ya se "
+#~ "ha creado los modelos de Django previamente (asistente)\n"
+#~ "Este módulo ha estado diseñado globalmente pero enfocado a los servicios "
+#~ "SaaS de ZZSaaS de Zikzakmedia y la tienda online  Zoook para OpenERP\n"
+#~ "    "
+
+#~ msgid ""
+#~ "Error ! Invalid Mapping Line Name: Field and External Field cannot be both "
+#~ "null"
+#~ msgstr ""
+#~ "Error ! Invalid Mapping Line Name: Field and External Field cannot be both "
+#~ "null"
+
+#~ msgid "External <-> OpenERP"
+#~ msgstr "Externo <-> OpenERP"
+
+#~ msgid "Create SQL Update"
+#~ msgstr "Crear SQL"

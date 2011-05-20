@@ -1,0 +1,856 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="training_holiday_year_0" model="training.holiday.year">
+			<field eval="2011" name="year"/>
+		</record>
+		<record id="training_holiday_period_weekend0" model="training.holiday.period">
+			<field name="date_stop">2011-01-02</field>
+			<field name="name">Weekend 01</field>
+			<field name="date_start">2011-01-01</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend1" model="training.holiday.period">
+			<field name="date_stop">2011-01-09</field>
+			<field name="name">Weekend 02</field>
+			<field name="date_start">2011-01-08</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend2" model="training.holiday.period">
+			<field name="date_stop">2011-01-16</field>
+			<field name="name">Weekend 03</field>
+			<field name="date_start">2011-01-15</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend3" model="training.holiday.period">
+			<field name="date_stop">2011-01-23</field>
+			<field name="name">Weekend 04</field>
+			<field name="date_start">2011-01-22</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend4" model="training.holiday.period">
+			<field name="date_stop">2011-01-30</field>
+			<field name="name">Weekend 05</field>
+			<field name="date_start">2011-01-29</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend5" model="training.holiday.period">
+			<field name="date_stop">2011-02-06</field>
+			<field name="name">Weekend 06</field>
+			<field name="date_start">2011-02-05</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend6" model="training.holiday.period">
+			<field name="date_stop">2011-02-13</field>
+			<field name="name">Weekend 07</field>
+			<field name="date_start">2011-02-12</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend7" model="training.holiday.period">
+			<field name="date_stop">2011-02-20</field>
+			<field name="name">Weekend 08</field>
+			<field name="date_start">2011-02-19</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend8" model="training.holiday.period">
+			<field name="date_stop">2011-02-27</field>
+			<field name="name">Weekend 09</field>
+			<field name="date_start">2011-02-26</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend9" model="training.holiday.period">
+			<field name="date_stop">2011-03-06</field>
+			<field name="name">Weekend 10</field>
+			<field name="date_start">2011-03-05</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend10" model="training.holiday.period">
+			<field name="date_stop">2011-03-13</field>
+			<field name="name">Weekend 11</field>
+			<field name="date_start">2011-03-12</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend11" model="training.holiday.period">
+			<field name="date_stop">2011-03-20</field>
+			<field name="name">Weekend 12</field>
+			<field name="date_start">2011-03-19</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend12" model="training.holiday.period">
+			<field name="date_stop">2011-03-27</field>
+			<field name="name">Weekend 13</field>
+			<field name="date_start">2011-03-26</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend13" model="training.holiday.period">
+			<field name="date_stop">2011-04-03</field>
+			<field name="name">Weekend 14</field>
+			<field name="date_start">2011-04-02</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend14" model="training.holiday.period">
+			<field name="date_stop">2011-04-10</field>
+			<field name="name">Weekend 15</field>
+			<field name="date_start">2011-04-09</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend15" model="training.holiday.period">
+			<field name="date_stop">2011-04-17</field>
+			<field name="name">Weekend 16</field>
+			<field name="date_start">2011-04-16</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend16" model="training.holiday.period">
+			<field name="date_stop">2011-04-24</field>
+			<field name="name">Weekend 17</field>
+			<field name="date_start">2011-04-23</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend17" model="training.holiday.period">
+			<field name="date_stop">2011-05-01</field>
+			<field name="name">Weekend 18</field>
+			<field name="date_start">2011-04-30</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend18" model="training.holiday.period">
+			<field name="date_stop">2011-05-08</field>
+			<field name="name">Weekend 19</field>
+			<field name="date_start">2011-05-07</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend19" model="training.holiday.period">
+			<field name="date_stop">2011-05-15</field>
+			<field name="name">Weekend 20</field>
+			<field name="date_start">2011-05-14</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend20" model="training.holiday.period">
+			<field name="date_stop">2011-05-22</field>
+			<field name="name">Weekend 21</field>
+			<field name="date_start">2011-05-21</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend21" model="training.holiday.period">
+			<field name="date_stop">2011-05-29</field>
+			<field name="name">Weekend 22</field>
+			<field name="date_start">2011-05-28</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend22" model="training.holiday.period">
+			<field name="date_stop">2011-06-05</field>
+			<field name="name">Weekend 23</field>
+			<field name="date_start">2011-06-04</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend23" model="training.holiday.period">
+			<field name="date_stop">2011-06-12</field>
+			<field name="name">Weekend 24</field>
+			<field name="date_start">2011-06-11</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend24" model="training.holiday.period">
+			<field name="date_stop">2011-06-19</field>
+			<field name="name">Weekend 25</field>
+			<field name="date_start">2011-06-18</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend25" model="training.holiday.period">
+			<field name="date_stop">2011-06-26</field>
+			<field name="name">Weekend 26</field>
+			<field name="date_start">2011-06-25</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend26" model="training.holiday.period">
+			<field name="date_stop">2011-07-03</field>
+			<field name="name">Weekend 27</field>
+			<field name="date_start">2011-07-02</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend27" model="training.holiday.period">
+			<field name="date_stop">2011-07-10</field>
+			<field name="name">Weekend 28</field>
+			<field name="date_start">2011-07-09</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend28" model="training.holiday.period">
+			<field name="date_stop">2011-07-17</field>
+			<field name="name">Weekend 29</field>
+			<field name="date_start">2011-07-16</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend29" model="training.holiday.period">
+			<field name="date_stop">2011-07-24</field>
+			<field name="name">Weekend 30</field>
+			<field name="date_start">2011-07-23</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend30" model="training.holiday.period">
+			<field name="date_stop">2011-07-31</field>
+			<field name="name">Weekend 31</field>
+			<field name="date_start">2011-07-30</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend31" model="training.holiday.period">
+			<field name="date_stop">2011-08-07</field>
+			<field name="name">Weekend 32</field>
+			<field name="date_start">2011-08-06</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend32" model="training.holiday.period">
+			<field name="date_stop">2011-08-14</field>
+			<field name="name">Weekend 33</field>
+			<field name="date_start">2011-08-13</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend33" model="training.holiday.period">
+			<field name="date_stop">2011-08-21</field>
+			<field name="name">Weekend 34</field>
+			<field name="date_start">2011-08-20</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend34" model="training.holiday.period">
+			<field name="date_stop">2011-08-28</field>
+			<field name="name">Weekend 35</field>
+			<field name="date_start">2011-08-27</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend35" model="training.holiday.period">
+			<field name="date_stop">2011-09-04</field>
+			<field name="name">Weekend 36</field>
+			<field name="date_start">2011-09-03</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend36" model="training.holiday.period">
+			<field name="date_stop">2011-09-11</field>
+			<field name="name">Weekend 37</field>
+			<field name="date_start">2011-09-10</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend37" model="training.holiday.period">
+			<field name="date_stop">2011-09-18</field>
+			<field name="name">Weekend 38</field>
+			<field name="date_start">2011-09-17</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend38" model="training.holiday.period">
+			<field name="date_stop">2011-09-25</field>
+			<field name="name">Weekend 39</field>
+			<field name="date_start">2011-09-24</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend39" model="training.holiday.period">
+			<field name="date_stop">2011-10-02</field>
+			<field name="name">Weekend 40</field>
+			<field name="date_start">2011-10-01</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend40" model="training.holiday.period">
+			<field name="date_stop">2011-10-09</field>
+			<field name="name">Weekend 41</field>
+			<field name="date_start">2011-10-08</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend41" model="training.holiday.period">
+			<field name="date_stop">2011-10-16</field>
+			<field name="name">Weekend 42</field>
+			<field name="date_start">2011-10-15</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend42" model="training.holiday.period">
+			<field name="date_stop">2011-10-23</field>
+			<field name="name">Weekend 43</field>
+			<field name="date_start">2011-10-22</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend43" model="training.holiday.period">
+			<field name="date_stop">2011-10-30</field>
+			<field name="name">Weekend 44</field>
+			<field name="date_start">2011-10-29</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend44" model="training.holiday.period">
+			<field name="date_stop">2011-11-06</field>
+			<field name="name">Weekend 45</field>
+			<field name="date_start">2011-11-05</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend45" model="training.holiday.period">
+			<field name="date_stop">2011-11-13</field>
+			<field name="name">Weekend 46</field>
+			<field name="date_start">2011-11-12</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend46" model="training.holiday.period">
+			<field name="date_stop">2011-11-20</field>
+			<field name="name">Weekend 47</field>
+			<field name="date_start">2011-11-19</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend47" model="training.holiday.period">
+			<field name="date_stop">2011-11-27</field>
+			<field name="name">Weekend 48</field>
+			<field name="date_start">2011-11-26</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend48" model="training.holiday.period">
+			<field name="date_stop">2011-12-04</field>
+			<field name="name">Weekend 49</field>
+			<field name="date_start">2011-12-03</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend49" model="training.holiday.period">
+			<field name="date_stop">2011-12-11</field>
+			<field name="name">Weekend 50</field>
+			<field name="date_start">2011-12-10</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend50" model="training.holiday.period">
+			<field name="date_stop">2011-12-18</field>
+			<field name="name">Weekend 51</field>
+			<field name="date_start">2011-12-17</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend51" model="training.holiday.period">
+			<field name="date_stop">2011-12-25</field>
+			<field name="name">Weekend 52</field>
+			<field name="date_start">2011-12-24</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+		<record id="training_holiday_period_weekend52" model="training.holiday.period">
+			<field name="date_stop">2012-01-01</field>
+			<field name="name">Weekend 53</field>
+			<field name="date_start">2011-12-31</field>
+			<field model="training.holiday.year" name="year_id" search="[('year', '=', 2011)]"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend53" model="training.holiday.period">
+			<field name="date_stop">2011-01-02</field>
+			<field name="name">Weekend 01</field>
+			<field name="date_start">2011-01-01</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend54" model="training.holiday.period">
+			<field name="date_stop">2011-01-09</field>
+			<field name="name">Weekend 02</field>
+			<field name="date_start">2011-01-08</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend55" model="training.holiday.period">
+			<field name="date_stop">2011-01-16</field>
+			<field name="name">Weekend 03</field>
+			<field name="date_start">2011-01-15</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend56" model="training.holiday.period">
+			<field name="date_stop">2011-01-23</field>
+			<field name="name">Weekend 04</field>
+			<field name="date_start">2011-01-22</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend57" model="training.holiday.period">
+			<field name="date_stop">2011-01-30</field>
+			<field name="name">Weekend 05</field>
+			<field name="date_start">2011-01-29</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend58" model="training.holiday.period">
+			<field name="date_stop">2011-02-06</field>
+			<field name="name">Weekend 06</field>
+			<field name="date_start">2011-02-05</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend59" model="training.holiday.period">
+			<field name="date_stop">2011-02-13</field>
+			<field name="name">Weekend 07</field>
+			<field name="date_start">2011-02-12</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend60" model="training.holiday.period">
+			<field name="date_stop">2011-02-20</field>
+			<field name="name">Weekend 08</field>
+			<field name="date_start">2011-02-19</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend61" model="training.holiday.period">
+			<field name="date_stop">2011-02-27</field>
+			<field name="name">Weekend 09</field>
+			<field name="date_start">2011-02-26</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend62" model="training.holiday.period">
+			<field name="date_stop">2011-03-06</field>
+			<field name="name">Weekend 10</field>
+			<field name="date_start">2011-03-05</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend63" model="training.holiday.period">
+			<field name="date_stop">2011-03-13</field>
+			<field name="name">Weekend 11</field>
+			<field name="date_start">2011-03-12</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend64" model="training.holiday.period">
+			<field name="date_stop">2011-03-20</field>
+			<field name="name">Weekend 12</field>
+			<field name="date_start">2011-03-19</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend65" model="training.holiday.period">
+			<field name="date_stop">2011-03-27</field>
+			<field name="name">Weekend 13</field>
+			<field name="date_start">2011-03-26</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend66" model="training.holiday.period">
+			<field name="date_stop">2011-04-03</field>
+			<field name="name">Weekend 14</field>
+			<field name="date_start">2011-04-02</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend67" model="training.holiday.period">
+			<field name="date_stop">2011-04-10</field>
+			<field name="name">Weekend 15</field>
+			<field name="date_start">2011-04-09</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend68" model="training.holiday.period">
+			<field name="date_stop">2011-04-17</field>
+			<field name="name">Weekend 16</field>
+			<field name="date_start">2011-04-16</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend69" model="training.holiday.period">
+			<field name="date_stop">2011-04-24</field>
+			<field name="name">Weekend 17</field>
+			<field name="date_start">2011-04-23</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend70" model="training.holiday.period">
+			<field name="date_stop">2011-05-01</field>
+			<field name="name">Weekend 18</field>
+			<field name="date_start">2011-04-30</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend71" model="training.holiday.period">
+			<field name="date_stop">2011-05-08</field>
+			<field name="name">Weekend 19</field>
+			<field name="date_start">2011-05-07</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend72" model="training.holiday.period">
+			<field name="date_stop">2011-05-15</field>
+			<field name="name">Weekend 20</field>
+			<field name="date_start">2011-05-14</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend73" model="training.holiday.period">
+			<field name="date_stop">2011-05-22</field>
+			<field name="name">Weekend 21</field>
+			<field name="date_start">2011-05-21</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend74" model="training.holiday.period">
+			<field name="date_stop">2011-05-29</field>
+			<field name="name">Weekend 22</field>
+			<field name="date_start">2011-05-28</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend75" model="training.holiday.period">
+			<field name="date_stop">2011-06-05</field>
+			<field name="name">Weekend 23</field>
+			<field name="date_start">2011-06-04</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend76" model="training.holiday.period">
+			<field name="date_stop">2011-06-12</field>
+			<field name="name">Weekend 24</field>
+			<field name="date_start">2011-06-11</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend77" model="training.holiday.period">
+			<field name="date_stop">2011-06-19</field>
+			<field name="name">Weekend 25</field>
+			<field name="date_start">2011-06-18</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend78" model="training.holiday.period">
+			<field name="date_stop">2011-06-26</field>
+			<field name="name">Weekend 26</field>
+			<field name="date_start">2011-06-25</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend79" model="training.holiday.period">
+			<field name="date_stop">2011-07-03</field>
+			<field name="name">Weekend 27</field>
+			<field name="date_start">2011-07-02</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend80" model="training.holiday.period">
+			<field name="date_stop">2011-07-10</field>
+			<field name="name">Weekend 28</field>
+			<field name="date_start">2011-07-09</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend81" model="training.holiday.period">
+			<field name="date_stop">2011-07-17</field>
+			<field name="name">Weekend 29</field>
+			<field name="date_start">2011-07-16</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend82" model="training.holiday.period">
+			<field name="date_stop">2011-07-24</field>
+			<field name="name">Weekend 30</field>
+			<field name="date_start">2011-07-23</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend83" model="training.holiday.period">
+			<field name="date_stop">2011-07-31</field>
+			<field name="name">Weekend 31</field>
+			<field name="date_start">2011-07-30</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend84" model="training.holiday.period">
+			<field name="date_stop">2011-08-07</field>
+			<field name="name">Weekend 32</field>
+			<field name="date_start">2011-08-06</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend85" model="training.holiday.period">
+			<field name="date_stop">2011-08-14</field>
+			<field name="name">Weekend 33</field>
+			<field name="date_start">2011-08-13</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend86" model="training.holiday.period">
+			<field name="date_stop">2011-08-21</field>
+			<field name="name">Weekend 34</field>
+			<field name="date_start">2011-08-20</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend87" model="training.holiday.period">
+			<field name="date_stop">2011-08-28</field>
+			<field name="name">Weekend 35</field>
+			<field name="date_start">2011-08-27</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend88" model="training.holiday.period">
+			<field name="date_stop">2011-09-04</field>
+			<field name="name">Weekend 36</field>
+			<field name="date_start">2011-09-03</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend89" model="training.holiday.period">
+			<field name="date_stop">2011-09-11</field>
+			<field name="name">Weekend 37</field>
+			<field name="date_start">2011-09-10</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend90" model="training.holiday.period">
+			<field name="date_stop">2011-09-18</field>
+			<field name="name">Weekend 38</field>
+			<field name="date_start">2011-09-17</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend91" model="training.holiday.period">
+			<field name="date_stop">2011-09-25</field>
+			<field name="name">Weekend 39</field>
+			<field name="date_start">2011-09-24</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend92" model="training.holiday.period">
+			<field name="date_stop">2011-10-02</field>
+			<field name="name">Weekend 40</field>
+			<field name="date_start">2011-10-01</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend93" model="training.holiday.period">
+			<field name="date_stop">2011-10-09</field>
+			<field name="name">Weekend 41</field>
+			<field name="date_start">2011-10-08</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend94" model="training.holiday.period">
+			<field name="date_stop">2011-10-16</field>
+			<field name="name">Weekend 42</field>
+			<field name="date_start">2011-10-15</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend95" model="training.holiday.period">
+			<field name="date_stop">2011-10-23</field>
+			<field name="name">Weekend 43</field>
+			<field name="date_start">2011-10-22</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend96" model="training.holiday.period">
+			<field name="date_stop">2011-10-30</field>
+			<field name="name">Weekend 44</field>
+			<field name="date_start">2011-10-29</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend97" model="training.holiday.period">
+			<field name="date_stop">2011-11-06</field>
+			<field name="name">Weekend 45</field>
+			<field name="date_start">2011-11-05</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend98" model="training.holiday.period">
+			<field name="date_stop">2011-11-13</field>
+			<field name="name">Weekend 46</field>
+			<field name="date_start">2011-11-12</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend99" model="training.holiday.period">
+			<field name="date_stop">2011-11-20</field>
+			<field name="name">Weekend 47</field>
+			<field name="date_start">2011-11-19</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend100" model="training.holiday.period">
+			<field name="date_stop">2011-11-27</field>
+			<field name="name">Weekend 48</field>
+			<field name="date_start">2011-11-26</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend101" model="training.holiday.period">
+			<field name="date_stop">2011-12-04</field>
+			<field name="name">Weekend 49</field>
+			<field name="date_start">2011-12-03</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend102" model="training.holiday.period">
+			<field name="date_stop">2011-12-11</field>
+			<field name="name">Weekend 50</field>
+			<field name="date_start">2011-12-10</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend103" model="training.holiday.period">
+			<field name="date_stop">2011-12-18</field>
+			<field name="name">Weekend 51</field>
+			<field name="date_start">2011-12-17</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend104" model="training.holiday.period">
+			<field name="date_stop">2011-12-25</field>
+			<field name="name">Weekend 52</field>
+			<field name="date_start">2011-12-24</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+	<data>
+		<record id="training_holiday_period_weekend105" model="training.holiday.period">
+			<field name="date_stop">2012-01-01</field>
+			<field name="name">Weekend 53</field>
+			<field name="date_start">2011-12-31</field>
+			<field name="year_id" ref="training_holiday_year_0"/>
+			<field eval="1" name="active"/>
+		</record>
+	</data>
+</openerp>

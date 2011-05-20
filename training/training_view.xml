@@ -2450,7 +2450,7 @@
 
 
 <!-- menus -->
-        <menuitem id="training_mi" name="Training" icon="terp-go-home"/>
+        <menuitem id="training_mi" name="Training" icon="terp-go-home" web_icon="images/training.png" web_icon_hover="images/training-hover.png"/>
         <!--Address Book-->
         <menuitem id="training.menu_address_book" name="Address Book" parent="training_mi" sequence="5"/>
         <menuitem id="training.menu_partner_form" action="base.action_partner_form" parent="training.menu_address_book"/>

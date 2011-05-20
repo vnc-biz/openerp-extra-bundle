@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
+
+<!-- training.course_type -->
         <record model="ir.ui.view" id="course_type_form_inherited">
             <field name="name">training.course_type.form.inherited</field>
             <field name="model">training.course_type</field>
@@ -13,13 +16,38 @@
             </field>
         </record>
 
-        <act_window id="link_question_to_questionnaire"
-                name="Questionnaires"
-                src_model="training.exam.question"
-                res_model="training.exam.questionnaire"
-                view_type="form"
-                view_mode="tree,form"
-                domain="[('id','in', questionnaire_ids[0][2])]"/>
+
+<!-- training.exam.question -->
+
+<!--        <record model="ir.actions.act_window" id="exam_question_without_act">-->
+<!--            <field name="name">Questions Without Course</field>-->
+<!--            <field name="res_model">training.exam.question</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="context">{'course':'cid'}</field>-->
+<!--        </record>-->
+
+<!--       <record model="ir.ui.view" id="training_exam_question_search">-->
+<!--            <field name="name">training.exam.question.search</field>-->
+<!--            <field name="model">training.exam.question</field>-->
+<!--            <field name="type">search</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Search Subscription">-->
+<!--                   <group col='15' colspan='4'>-->
+<!--                        <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft State Questions."/>-->
+<!--                        <filter icon="terp-camera_test" string="Validated" domain="[('state','=','validated')]" help="Validated State Questions."/>-->
+<!--                        <filter icon="terp-gtk-stop" string="Deprecated" domain="[('state','=','deprecated')]" help="Deprecated State Requests."/>-->
+<!--                        <separator orientation="vertical"/>-->
+<!--                        <filter icon="terp-emblem-important" string="Without Course" context="[]" context="{'course':'cid'}" help="Questions Without Course."/>-->
+<!--                        <separator orientation="vertical"/>-->
+<!--                        <field name="name" string="Reference"/>-->
+<!--                        <field name="question" string="Question"/>-->
+<!--                        <field name="type" string="Type"/>-->
+<!--                        <field name="course_ids" string="Courses"/>-->
+<!--                   </group>-->
+<!--               </search>-->
+<!--            </field>-->
+<!--        </record>-->
 
         <record model="ir.ui.view" id="exam_question_form">
             <field name="name">training.exam.question.form</field>
@@ -115,21 +143,22 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="exam_question_new_act">
-            <field name="name">New Question</field>
-            <field name="res_model">training.exam.question</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-        </record>
+<!--        <record model="ir.actions.act_window" id="exam_question_new_act">-->
+<!--            <field name="name">New Question</field>-->
+<!--            <field name="res_model">training.exam.question</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">form,tree</field>-->
+<!--        </record>-->
 
-        <record model="ir.actions.act_window" id="exam_question_without_act">
-            <field name="name">Questions Without Course</field>
-            <field name="res_model">training.exam.question</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'course':'cid'}</field>
-        </record>
+        <act_window id="link_question_to_questionnaire"
+                name="Questionnaires"
+                src_model="training.exam.question"
+                res_model="training.exam.questionnaire"
+                view_type="form"
+                view_mode="tree,form"
+                domain="[('id','in', questionnaire_ids[0][2])]"/>
 
+<!-- training.exam.wizard.helper -->
         <record model="ir.ui.view" id="exam_questionnaire_wizard_helper_form">
             <field name="name">Add Questions (helper)</field>
             <field name="model">training.exam.wizard.helper</field>
@@ -157,6 +186,8 @@
             <field name="target">new</field>
         </record>
 
+
+<!-- training.exam.questionnaire.course -->
         <record model="ir.ui.view" id="training_exam_questionnaire_course_tree">
             <field name="name">training.exam.questionnaire.course.tree</field>
             <field name="model">training.exam.questionnaire.course</field>
@@ -186,6 +217,37 @@
                     <field name="passing_score"/>
                     <field name="total_point"/>
                 </form>
+            </field>
+        </record>
+
+
+<!-- training.exam.questionnaire -->
+       <record id="training_course_filter" model="ir.ui.view">
+            <field name="name">training.course.search</field>
+            <field name="model">training.course</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Course">
+                   <group col='15' colspan='4'>
+                        <filter icon="terp-document-new" string="Draft" domain="[('state_course','=', 'draft')]"/>
+                        <filter icon="terp-camera_test" string="Validated" domain="[('state_course','=', 'validated')]"/>
+                        <filter icon="terp-tools" string="Ask Reviews" domain="[('pending_ids.state','=','pending')]" help="Course Pending Reviews."/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-personal+" string="My Courses" domain="['|',('create_uid', '=', uid)]" help="Courses in which I create." default="1"/>
+                        <separator orientation="vertical"/>
+                        <field name="name" string="Name"/>
+                        <field name="long_name" string="Long Name"/>
+                   </group>
+                   <newline/>
+                   <group expand="0" string="Group By...">
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'state_course'}"/>
+                        <filter string="Type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'course_type_id'}"/>
+                        <filter string="Product Line" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'category_id'}"/>
+                        <filter string="Kind" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by' : 'kind'}"/>
+                        <filter string="Language" icon="terp-stage" domain="[]" context="{'group_by' : 'lang_id'}"/>
+                        <filter string="Master Course" icon="terp-report" domain="[]" context="{'group_by' : 'reference_id'}"/>
+                   </group>
+               </search>
             </field>
         </record>
 
@@ -250,20 +312,6 @@
             </field>
         </record>
 
-        <act_window id="show_question_from_questionnaire"
-            name="Questions"
-            src_model="training.exam.questionnaire"
-            res_model="training.exam.question"
-            domain="[('id','in', [ x[2]['question_id'] for x in question_ids ])]" 
-            />
-
-        <act_window id="show_questionnaire_from_course"
-            name="Questionnaires"
-            src_model="training.course"
-            res_model="training.exam.questionnaire"
-            domain="[('main_course_id', '=', active_id)]" />
-
-
         <record model="ir.ui.view" id="exam_questionnaire_tree">
             <field name="name">training.exam.questionnaire.tree</field>
             <field name="model">training.exam.questionnaire</field>
@@ -287,21 +335,37 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="exam_questionnaire_current_act">
-            <field name="name">Current Questionnaires</field>
-            <field name="res_model">training.exam.questionnaire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('state', '=', 'validated')]</field>
-        </record>
+<!--        <record model="ir.actions.act_window" id="exam_questionnaire_current_act">-->
+<!--            <field name="name">Current Questionnaires</field>-->
+<!--            <field name="res_model">training.exam.questionnaire</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="domain">[('state', '=', 'validated')]</field>-->
+<!--        </record>-->
 
-        <record model="ir.actions.act_window" id="exam_questionnaire_new_act">
-            <field name="name">New Questionnaire</field>
-            <field name="res_model">training.exam.questionnaire</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form,tree</field>
-        </record>
+<!--        <record model="ir.actions.act_window" id="exam_questionnaire_new_act">-->
+<!--            <field name="name">New Questionnaire</field>-->
+<!--            <field name="res_model">training.exam.questionnaire</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">form,tree</field>-->
+<!--        </record>-->
 
+
+        <act_window id="show_question_from_questionnaire"
+            name="Questions"
+            src_model="training.exam.questionnaire"
+            res_model="training.exam.question"
+            domain="[('id','in', [ x[2]['question_id'] for x in question_ids ])]" 
+            />
+
+        <act_window id="show_questionnaire_from_course"
+            name="Questionnaires"
+            src_model="training.course"
+            res_model="training.exam.questionnaire"
+            domain="[('main_course_id', '=', active_id)]" />
+
+
+<!-- training.exam.question.answer -->
         <record id="exam_question_answer_form" model="ir.ui.view">
             <field name="name">training.exam.question.answer.form</field>
             <field name="model">training.exam.question.answer</field>
@@ -326,6 +390,9 @@
                 </tree>
             </field>
         </record>
+
+
+<!-- training.seance -->
         <record model="ir.ui.view" id="exam_seance_form_inherited">
             <field name="name">training.seance.form.inherited</field>
             <field name="model">training.seance</field>
@@ -338,6 +405,8 @@
             </field>
         </record>
 
+
+<!-- training.session -->
         <record model="ir.ui.view" id="session_form_inherited">
             <field name="name">training.session.form.inherited</field>
             <field name="model">training.session</field>
@@ -350,6 +419,8 @@
             </field>
         </record>
 
+
+<!-- training.course -->
         <record model="ir.ui.view" id="course_form_with_questionnaires">
             <field name="name">training.course.form.with.questionnaires</field>
             <field name="model">training.course</field>
@@ -382,6 +453,8 @@
             res_model="training.exam.question"
             domain="[('course_ids', '=', [active_id])]" />
 
+
+<!-- training.exam.question.wizard -->
         <record model="ir.ui.view" id="question_wizard_form">
             <field name="name">training.exam.question.wizard.form</field>
             <field name="model">training.exam.question.wizard</field>
@@ -406,6 +479,8 @@
             <field name="target">new</field>
         </record>
 
+
+<!-- training.exam.questionnaire.wizard -->
         <record model="ir.ui.view" id="exam_questionnaire_wizard_form">
             <field name="name">training.exam.questionnaire.wizard.form</field>
             <field name="model">training.exam.questionnaire.wizard</field>
@@ -435,6 +510,8 @@
             <field name="target">new</field>
         </record>
 
+
+<!-- training.offer -->
         <record model="ir.ui.view" id="offer_form_with_questionnaires">
             <field name="name">training.offer.form.with.questionnaires</field>
             <field name="model">training.offer</field>
@@ -452,6 +529,8 @@
             </field>
         </record>
 
+
+<!-- training.subscription.line -->
         <record model="ir.ui.view" id="subscription_line_form_inherited">
             <field name="name">training.subscription.line.form.inherited</field>
             <field name="model">training.subscription.line</field>
@@ -488,6 +567,19 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="subscription_line_tree2_inherited">
+            <field name="name">training.subscription.line.tree2.inherited</field>
+            <field name="model">training.subscription.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training.training_subscription_line_tree" />
+            <field name="arch" type="xml">
+                <field name="session_id" position="after">
+                    <field name="course_id" select="1" /> <!--link="0"-->
+                </field>
+            </field>
+        </record>
+
+<!-- training.subscription -->
         <record model="ir.ui.view" id="subscription_form_inherit">
             <field name="name">training.subscription.form.inherited</field>
             <field name="model">training.subscription</field>
@@ -518,6 +610,8 @@
             </field>
         </record>
 
+
+<!-- training.seance -->
         <record model="ir.ui.view" id="seance_form_inherit">
             <field name="name">training_exam.seance.form.inherit</field>
             <field name="model">training.seance</field>
@@ -530,6 +624,8 @@
             </field>
         </record>
 
+
+<!-- training.participation -->
         <record model="ir.ui.view" id="participation_form_inherited">
             <field name="name">training.participation.form.inherited</field>
             <field name="model">training.participation</field>
@@ -587,6 +683,8 @@
             </field>
         </record>
 
+
+<!-- training.participation.line -->
         <record model="ir.ui.view" id="participation_line_tree">
             <field name="name">training.participation.line.tree</field>
             <field name="model">training.participation.line</field>
@@ -651,61 +749,8 @@
             </field>
         </record>
 
-        <!-- Training/ Library/ Exams/ -->
-        <menuitem
-            id="library_exam_mi"
-            parent="training.training_library_mi"
-            name="Exams" />
-        <!-- Training/ Library/ Exams/ Exams-->
-        <menuitem
-            id="library_exam_questionnaire_all_mi"
-            parent="library_exam_mi"
-            action="exam_questionnaire_all_act" />
-        <!-- Training/ Library/ Exams/ Questionnaires/ Current Exams-->
-        <menuitem
-            id="library_exam_current_mi"
-            parent="library_exam_questionnaire_all_mi"
-            action="exam_questionnaire_current_act" />
 
-        <!-- Training/ Library/ Exams/ Questionnaires/ Generate Questionnaire -->
-        <menuitem
-            id="library_exam_questionnaire_generate_mi"
-            parent="library_exam_questionnaire_all_mi"
-            action="exam_questionnaire_wizard_act" />
-
-        <!-- Training/ Library/ Exams/ Questionnaires/ New Exam-->
-        <menuitem
-            id="library_exam_new_mi"
-            parent="library_exam_questionnaire_all_mi"
-            action="exam_questionnaire_new_act" />
-
-        <!-- Training/ Library/ Exams/ Questions -->
-        <menuitem
-            id="library_exam_question_mi"
-            parent="library_exam_mi"
-            action="exam_question_all_act"/>
-
-        <!-- Training/ Library/ Exams/ Without Couser Question -->
-        <menuitem
-            id="library_exam_question_mi1"
-            parent="library_exam_question_mi"
-            action="exam_question_without_act" />
-
-        <!-- Training/ Library/ Exams/ Questions By Course -->
-        <menuitem
-            id="library_exam_question_course_wizard_mi"
-            parent="library_exam_question_mi"
-            action="question_wizard_act" />
-
-        <!-- Training/ Library/ Exams/ New Question -->
-        <menuitem
-            id="library_exam_question_new_mi"
-            parent="library_exam_question_mi"
-            action="exam_question_new_act" />
-
-    </data>
-
-    <data>
+<!-- training.subscription.mass.line -->
         <record model="ir.ui.view" id="subscription_mass_line_form">
             <field name="name">training.subscription.mass.line.form</field>
             <field name="model">training.subscription.mass.line</field>
@@ -749,9 +794,9 @@
                 </data>
             </field>
         </record>
-    </data>
 
-    <data>
+
+<!-- training.seance.generate.zip.wizard -->
         <record model="ir.ui.view" id="exam_seance_generate_zip_wizard_form">
             <field name="name">training.exam.seance.generate.zip.wizard.form</field>
             <field name="model">training.seance.generate.zip.wizard</field>
@@ -764,9 +809,9 @@
                 </field>
             </field>
         </record>
-    </data>
 
-    <data>
+
+<!-- training.exam.questionnaire.attachment -->
         <record model="ir.ui.view" id="exam_questionnaire_attachments_tree">
             <field name="name">training.exam.questionnaire.attachment.tree</field>
             <field name="model">training.exam.questionnaire.attachment</field>
@@ -780,5 +825,59 @@
                 </tree>
             </field>
         </record>
+
+
+        <!-- Training/ Library/ Exams/ -->
+        <menuitem
+            id="library_exam_mi"
+            parent="training.training_library_mi"
+            name="Exams" />
+        <!-- Training/ Library/ Exams/ Exams-->
+        <menuitem
+            id="library_exam_questionnaire_all_mi"
+            parent="library_exam_mi"
+            action="exam_questionnaire_all_act" />
+        <!-- Training/ Library/ Exams/ Questionnaires/ Current Exams-->
+<!--        <menuitem-->
+<!--            id="library_exam_current_mi"-->
+<!--            parent="library_exam_questionnaire_all_mi"-->
+<!--            action="exam_questionnaire_current_act" />-->
+
+        <!-- Training/ Library/ Exams/ Questionnaires/ Generate Questionnaire -->
+        <menuitem
+            id="library_exam_questionnaire_generate_mi"
+            parent="library_exam_questionnaire_all_mi"
+            action="exam_questionnaire_wizard_act" />
+
+        <!-- Training/ Library/ Exams/ Questionnaires/ New Exam-->
+<!--        <menuitem-->
+<!--            id="library_exam_new_mi"-->
+<!--            parent="library_exam_questionnaire_all_mi"-->
+<!--            action="exam_questionnaire_new_act" />-->
+
+        <!-- Training/ Library/ Exams/ Questions -->
+        <menuitem
+            id="library_exam_question_mi"
+            parent="library_exam_mi"
+            action="exam_question_all_act"/>
+
+        <!-- Training/ Library/ Exams/ Without Couser Question -->
+<!--        <menuitem-->
+<!--            id="library_exam_question_mi1"-->
+<!--            parent="library_exam_question_mi"-->
+<!--            action="exam_question_without_act" />-->
+
+        <!-- Training/ Library/ Exams/ Questions By Course -->
+        <menuitem
+            id="library_exam_question_course_wizard_mi"
+            parent="library_exam_question_mi"
+            action="question_wizard_act" />
+
+        <!-- Training/ Library/ Exams/ New Question -->
+<!--        <menuitem-->
+<!--            id="library_exam_question_new_mi"-->
+<!--            parent="library_exam_question_mi"-->
+<!--            action="exam_question_new_act" />-->
+
     </data>
 </openerp>

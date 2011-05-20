@@ -26,7 +26,8 @@
 
         <menuitem id="menu_tools" 
             name="Tools" 
-            icon="STOCK_PREFERENCES"/>
+            icon="STOCK_PREFERENCES"
+            web_icon="images/tools.png" web_icon_hover="images/tools-hover.png"/>
 
         <menuitem id="menu_network" 
             name="Network" 

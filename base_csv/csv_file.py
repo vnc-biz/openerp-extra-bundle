@@ -156,6 +156,8 @@ class csv_file(osv.osv):
         self.logger = netsvc.Logger()
         csv_file_field_obj = self.pool.get('csv.file.field')
 
+        csv_values = []
+
         for csv_file in self.browse(cr, uid, ids):
             csvpath = csv_file.path
             if not csvpath[-1] == '/':
@@ -166,8 +168,6 @@ class csv_file(osv.osv):
             separator = csv_file.file_csv_separator
             if separator == "tab":
                 separator = '\t'
-
-            csv_values = []
 
             rows = csv.reader(csvfile, delimiter="%s" % str(separator))
 
@@ -191,8 +191,8 @@ class csv_file(osv.osv):
 
                         values.append({'field':csv_file_value.field_id.name, 'value':value})
 
-                        self.logger.notifyChannel(_("CSV File"), netsvc.LOG_INFO, _("Add dicc row line %s") % rows.line_num)
-                        csv_values.append(values)
+                self.logger.notifyChannel(_("CSV File"), netsvc.LOG_INFO, _("Add dicc row line %s") % rows.line_num)
+                csv_values.append(values)
 
             csvfile.close()
 

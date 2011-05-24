@@ -25,12 +25,12 @@ from osv import fields, osv
 class sale_order(osv.osv):
     _inherit = "sale.order"
 
-    def onchange_partner_id(self, cr, uid, ids, part, shop_id):
+    def onchange_partner_id(self, cr, uid, ids, part, shop_id=False):
 
         result = super(sale_order, self).onchange_partner_id(cr, uid, ids, part)
 
-        if not part:
-            return {'value': {'partner_invoice_id': False, 'partner_shipping_id': False, 'partner_order_id': False, 'payment_term': False, 'fiscal_position': False}}
+        if not part or not shop_id:
+            return result
 
         if result['value']['fiscal_position']:
             return result

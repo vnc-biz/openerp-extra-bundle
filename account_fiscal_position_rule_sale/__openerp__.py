@@ -28,7 +28,10 @@
     'description': """Include a rule to decide the correct fiscal position for Sale""",
     'author': 'Akretion',
     'website': 'http://www.akretion.com',
-    'depends': ['account_fiscal_position_rule', 'sale'],
+    'depends': [
+                'account_fiscal_position_rule', 
+                'sale'
+                ],
     'init_xml': [],
     'update_xml': 
                 [

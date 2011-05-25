@@ -189,7 +189,7 @@ class csv_file(osv.osv):
                             else:
                                 value = ''
 
-                        values.append({'field':csv_file_value.field_id.name, 'value':value})
+                        values.append({csv_file_value.field_id.name:value})
 
                 self.logger.notifyChannel(_("CSV File"), netsvc.LOG_INFO, _("Add dicc row line %s") % rows.line_num)
                 csv_values.append(values)

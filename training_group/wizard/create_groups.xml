@@ -11,9 +11,14 @@
             <form string="Groups Generator Wizard">
                 <group colspan="4" col="4" attrs="{'invisible':[('state','=','done')]}">
                     <group colspan="4">
-                        <label string="If prefix is 1,2,3 and suffix is A,B the groups 1A,1B,2A,2B,3A,3B will be created." colspan="4"/>
-                        <field name="prefix" colspan="4"/>
-                        <field name="suffix" colspan="4"/>
+                        <label string="If level 1 is SchoolName, level 2 is 1,2 and level 3 is A,B the groups generated will be: SchoolName, SchoolName-1, SchoolName-2, SchoolName-1-A, SchoolName-1-B, SchoolName-2-A, SchoolName-2-B." colspan="4"/>
+                        <field name="level1"/>
+                        <newline/>
+                        <field name="level2"/>
+                        <newline/>
+                        <field name="level3"/>
+                        <newline/>
+                        <field name="level_generate_seances"/>
                     </group>
                     <group colspan="4">
                         <label string="Sessions" colspan="4"/>
@@ -54,7 +59,7 @@
             name="Groups Generator Wizard"
             id="training_create_groups_groups_wizard_menu"
             action="training_create_groups_wizard_action"
-            parent="group_all_mi"/>
+            parent="training.group_all_mi"/>
 
     </data>
 </openerp>

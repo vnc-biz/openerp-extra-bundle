@@ -21,8 +21,7 @@
 from osv import fields, osv
 from base_external_referentials import external_osv
 
-
-class product_link(osv.osv):
+class product_link(external_osv.external_osv):
     _name = 'product.link'
     _rec_name = 'linked_product_id'
 
@@ -38,7 +37,6 @@ class product_link(osv.osv):
 
 product_link()
 
-
 class product(osv.osv):
     """Inherit product in order to manage product links"""
     _inherit = 'product.product'
@@ -53,4 +51,3 @@ class product(osv.osv):
         }
 
 product()
-

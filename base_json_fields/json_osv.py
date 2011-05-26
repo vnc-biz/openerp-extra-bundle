@@ -63,29 +63,27 @@ class json_osv(osv.osv):
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         if not fields:
-            fields = [x for x in self._columns.keys() if not 'x_js' in x]
+            fields = [x for x in self._columns.keys()] + [x for x in self.pool.get('product.template')._columns.keys()]
+        if not 'x_js_' in '/'.join(fields):
             return super(json_osv, self).read(cr, uid, ids, fields, context, load)
-        elif not 'x_js_' in '/'.join(fields):
-            return super(json_osv, self).read(cr, uid, ids, fields, context, load)
-        else:
-            js_store_fields, js_fields = self._get_js_fields(fields)
-            fields_to_read = list(set(fields + js_store_fields.keys()) - set(js_fields))
-            res = super(json_osv, self).read(cr, uid, ids, fields_to_read, context, load)
-            if js_store_fields:
-                for object in res:
-                    if type(object) == dict:
-                        for store_field in js_store_fields:
-                            if object[store_field]:
-                                values = json.loads(object[store_field])
-                            else:
-                                values = {}
-                            for field in js_store_fields[store_field]:
-                                if ('x_js_'+ store_field +'_x_') in field:
-                                    object[field] = values.get(field, False)
-                        for field in js_store_fields:
-                            if not field in fields: 
-                                del object[field] 
-            return res
+        js_store_fields, js_fields = self._get_js_fields(fields)
+        fields_to_read = list(set(fields + js_store_fields.keys()) - set(js_fields))
+        res = super(json_osv, self).read(cr, uid, ids, fields_to_read, context, load)
+        if js_store_fields:
+            for object in res:
+                if type(object) == dict:
+                    for store_field in js_store_fields:
+                        if object[store_field]:
+                            values = json.loads(object[store_field])
+                        else:
+                            values = {}
+                        for field in js_store_fields[store_field]:
+                            if ('x_js_'+ store_field +'_x_') in field:
+                                object[field] = values.get(field, False)
+                    for field in js_store_fields:
+                        if not field in fields: 
+                            del object[field]
+        return res
 
     def create(self, cr, uid, vals, context=None):
         if 'x_js_' in '/'.join(vals.keys()):

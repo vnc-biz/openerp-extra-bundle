@@ -26,6 +26,7 @@ import base64
 from installer import installer
 import tools
 from tools import config
+from tools.translate import _
 
 class kettle_server(osv.osv):
     _name = 'kettle.server'
@@ -61,10 +62,11 @@ class kettle_transformation(osv.osv):
     _description = 'kettle transformation'
     
     _columns = {
-        'name': fields.char('Transformation Name', size=64, required=True),
+        'name': fields.char('Transformation name', size=64, required=True),
         'server_id': fields.many2one('kettle.server', 'Server', required=True),
         'file': fields.binary('File'),
-        'filename': fields.char('File Name', size=64),
+        'read_from_filesystem': fields.boolean('Read from filesystem', help="If active, OpenERP will read the file from the filesystem. Otherwise, it will read the file from the 'File' field."),
+        'filename': fields.char('Filename', size=128, help="If the Kettle file is attached, enter the filename. If the Kettle file is read from the filesystem, enter the relative or absolute path to the file."),
         }
     
     def error_wizard(self, cr, uid, id, context):
@@ -77,19 +79,46 @@ class kettle_transformation(osv.osv):
     def execute_transformation(self, cr, uid, id, log_file_name, attachment_id, context):
         transfo = self.browse(cr, uid, id, context)
         kettle_dir = transfo.server_id.kettle_dir
-        filename = transfo.filename
+        filename = cr.dbname + '_' + str(config['port']) + '_' + str(context['default_res_id']) + '_' + str(id) + '_' + '_DATE_' + context['start_date'].replace(' ', '_') + os.path.split(transfo.filename)[1]
         logger = netsvc.Logger()
-        transformation_temp = open(kettle_dir + '/openerp_tmp/'+ filename, 'w')
-        
-        file_temp = base64.decodestring(transfo.file)
+        if transfo.read_from_filesystem:
+            if os.path.exists(transfo.filename):
+                path = transfo.filename
+            elif os.path.exists(config['addons_path'] + os.path.sep + transfo.filename):
+                path = config['addons_path'] + os.path.sep + transfo.filename
+            else:
+                raise osv.except_osv(_('Error :'), _("The filename '%s' is not an absolute path nor a relative path that can be accessed from the addons directory.") % transfo.filename)
+            try:
+                kettle_fd = open(path, 'r')
+            except Exception, e:
+                logger.notifyChannel('kettle-connector', netsvc.LOG_WARNING, "File not found for the Kettle transformation %s" % transfo.name)
+                logger.notifyChannel('kettle-connector', netsvc.LOG_WARNING, str(e))
+                raise osv.except_osv(_('Error :'), _("File not found for the Kettle transformation %s.") % transfo.name)
+            try:
+                file_temp = kettle_fd.read()
+            finally:
+                kettle_fd.close()
+
+        else:
+            file_temp = base64.decodestring(transfo.file)
+
+        # Do the replacement in the file
         if context.get('filter', False):
             for key in context['filter']:
                 file_temp = file_temp.replace(key, context['filter'][key])
-        transformation_temp.write(file_temp)
-        transformation_temp.close()
+        transformation_temp = open(kettle_dir + '/openerp_tmp/'+ filename, 'w')
+        try:
+            transformation_temp.write(file_temp)
+        finally:
+            transformation_temp.close()
+
+        if len(transfo.filename) > 4 and transfo.filename[-3:].lower() == 'kjb':
+            kettle_exec = 'kitchen.sh'
+        else:
+            kettle_exec = 'pan.sh'
         
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : open kettle log with tail -f " + kettle_dir +'/openerp_tmp/' + log_file_name)
-        cmd = "cd " + kettle_dir + "; nohup sh pan.sh -file=openerp_tmp/" + filename + " > openerp_tmp/" + log_file_name
+        cmd = "cd " + kettle_dir + "; nohup sh " + kettle_exec + " -file=openerp_tmp/" + filename + " > openerp_tmp/" + log_file_name
         os_result = os.system(cmd)
         
         if os_result != 0:

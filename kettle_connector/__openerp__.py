@@ -20,7 +20,7 @@
     "name" : "Kettle connector",
     "version" : "1.0",
     "depends" : ['base_scheduler_creator'],
-    "author" : "Sébastien Beau",
+    "author" : "Akretion",
     "description": """Kettle connector
 """,
     "website" : "http://www.akretion.com/",

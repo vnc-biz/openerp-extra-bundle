@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
+#################################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    Copyright (C) 2010  Renato Lima - Akretion
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#################################################################################
 
 from osv import fields, osv
 
@@ -51,11 +49,12 @@ class sale_order(osv.osv):
         to_country = partner_addr_default.country_id.id
         to_state = partner_addr_default.state_id.id
 
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=', obj_shop.company_id.id),('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=', obj_shop.company_id.id),('from_country','=',from_country),('to_country','=',to_country),('use_sale','=',True),'|',('to_state','=',to_country),('to_state','=',False),'|',('from_state','=',to_state),('from_state','=',False)])
+        
         if fsc_pos_id:
-            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
-            result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
-
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').read(cr, uid, fsc_pos_id,['fiscal_position_id'])
+            result['value']['fiscal_position'] = obj_fpo_rule[0]['fiscal_position_id']
+            
         return result
 
     def onchange_partner_invoice_id(self, cr, uid, ids, ptn_invoice_id, ptn_id, shop_id):
@@ -85,11 +84,11 @@ class sale_order(osv.osv):
         to_country = partner_addr_invoice.country_id.id
         to_state = partner_addr_invoice.state_id.id
         
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=',obj_company.id), ('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=',obj_company.id), ('from_country','=',from_country),('to_country','=',to_country),('use_sale','=',True),'|',('from_state','=',from_state),('from_state','=',False),'|',('to_state','=',to_state),('to_state','=',False)])
         
         if fsc_pos_id:
-            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
-            result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').read(cr, uid, fsc_pos_id, ['fiscal_position_id'])
+            result['value']['fiscal_position'] = obj_fpo_rule[0]['fiscal_position_id']
 
         return result
 
@@ -122,11 +121,11 @@ class sale_order(osv.osv):
         to_country = partner_addr_invoice.country_id.id
         to_state = partner_addr_invoice.state_id.id
         
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, [('company_id','=',obj_company.id), ('from_country','=',from_country),('from_state','=',from_state),('to_country','=',to_country),('to_state','=',to_state),('use_sale','=',True)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=',obj_company.id),('from_country','=',from_country),('to_country','=',to_country),('use_sale','=',True),'|',('from_state','=',False),('from_state','=',from_state),'|',('to_state','=',False),('to_state','=',to_state)])
         
         if fsc_pos_id:
-            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').browse(cr, uid, fsc_pos_id)[0]
-            result['value']['fiscal_position'] = obj_fpo_rule.fiscal_position_id.id
+            obj_fpo_rule = self.pool.get('account.fiscal.position.rule').read(cr, uid, fsc_pos_id, ['fiscal_position_id'])
+            result['value']['fiscal_position'] = obj_fpo_rule[0]['fiscal_position_id']
 
         return result
 

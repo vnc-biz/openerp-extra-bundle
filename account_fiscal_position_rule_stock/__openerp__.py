@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
+#################################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    Copyright (C) 2010  Renato Lima - Akretion
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,8 +16,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
-
+#################################################################################
 
 {
     'name': 'Account Fiscal Position Rule Stock',
@@ -28,7 +25,11 @@
     'description': """Include a rule to decide the correct fiscal position for Stock""",
     'author': 'Akretion',
     'website': 'http://www.akretion.com',
-    'depends': ['account', 'sale','purchase'],
+    'depends': [
+                'account', 
+                'sale',
+                'purchase'
+                ],
     'init_xml': [],
     'update_xml': 
                 [

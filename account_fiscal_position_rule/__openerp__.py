@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
+#################################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    Copyright (C) 2010  Renato Lima - Akretion
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,8 +16,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
-
+#################################################################################
 
 {
     'name': 'Account Fiscal Position Rule',
@@ -36,9 +33,9 @@
                 'account_fiscal_position_rule_view.xml',
                 'security/account_fiscal_position_rule_security.xml',
                 'security/ir.model.access.csv',
-                
                 ],
     'demo_xml': [],
     'installable': True,
 }
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

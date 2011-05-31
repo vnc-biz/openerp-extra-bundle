@@ -130,8 +130,9 @@ class csv_file(osv.osv):
                         csv_file_value = csv_file_field_obj.browse(cr, uid, field_ids[0])
 
                         if csv_file_value.import_expression:
-                            localspace = {"self":self,"cr":cr,"uid":uid,"ids":ids,"re":re,"context":context,"incsv":value}
-                            exec csv_file_value.import_expression in localspace
+                            localspace = {"self":self, "cr":cr, "uid":uid, "ids":ids, "re":re, "context":context, "incsv":value, "row":row}
+                            code = csv_file_value.import_expression.replace('\r\n', '\n')
+                            exec code in localspace
                             if 'value' in localspace:
                                 value = localspace['value']
                             else:
@@ -182,8 +183,9 @@ class csv_file(osv.osv):
                         csv_file_value = csv_file_field_obj.browse(cr, uid, field_ids[0])
 
                         if csv_file_value.import_expression:
-                            localspace = {"self":self,"cr":cr,"uid":uid,"ids":ids,"re":re,"context":context,"incsv":value}
-                            exec csv_file_value.import_expression in localspace
+                            localspace = {"self":self, "cr":cr, "uid":uid, "ids":ids, "re":re, "context":context, "incsv":value, "row":row}
+                            code = csv_file_value.import_expression.replace('\r\n', '\n')
+                            exec code in localspace
                             if 'value' in localspace:
                                 value = localspace['value']
                             else:

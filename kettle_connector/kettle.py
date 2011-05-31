@@ -1,24 +1,34 @@
 # -*- encoding: utf-8 -*-
 #########################################################################
-#                                                                       #
-# Copyright (C) 2010   Sébastien Beau                                   #
-#                                                                       #
-#This program is free software: you can redistribute it and/or modify   #
-#it under the terms of the GNU General Public License as published by   #
-#the Free Software Foundation, either version 3 of the License, or      #
-#(at your option) any later version.                                    #
-#                                                                       #
-#This program is distributed in the hope that it will be useful,        #
-#but WITHOUT ANY WARRANTY; without even the implied warranty of         #
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          #
-#GNU General Public License for more details.                           #
-#                                                                       #
-#You should have received a copy of the GNU General Public License      #
-#along with this program.  If not, see <http://www.gnu.org/licenses/>.  #
+#
+#    Kettle connector for OpenERP
+#    Copyright (C) 2010 Sébastien Beau <sebastien.beau@akretion.com>
+#    Copyright (C) 2011 Akretion (http://www.akretion.com). All Rights Reserved
+#    @author Alexis de Lattre <alexis.delattre@akretion.com> : some enhancements
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 #########################################################################
+
+# TODO :
+# Use this to create KTR temp file http://docs.python.org/dev/library/tempfile.html
+# When starting the transfo by the wizard, switch to a scroll bar, like when we do an "update modules" in the administration menu
+# Can we avoid the "Read from filesystem" bool on the kettle.transfo obj ?
 
 from osv import fields,osv
 import os
+import sys
 import netsvc
 import time
 import datetime
@@ -31,131 +41,65 @@ from tools.translate import _
 class kettle_server(osv.osv):
     _name = 'kettle.server'
     _description = 'kettle server'
-    
+
     def button_install(self, cr, uid, ids, context=None):
         inst = installer()
         inst.install(self.read(cr, uid, ids, ['kettle_dir'])[0]['kettle_dir'].replace('data-integration', ''))
         return True
-    
+
     def button_update_terminatooor(self, cr, uid, ids, context=None):
         inst = installer()
         inst.update_terminatoor(self.read(cr, uid, ids, ['kettle_dir'])[0]['kettle_dir'].replace('data-integration', ''))
         return True
 
     _columns = {
-        'name': fields.char('Server Name', size=64, required=True),
-        'kettle_dir': fields.char('Kettle Directory', size=255, required=True),
+        'name': fields.char('Server name', size=64, required=True),
+        'kettle_dir': fields.char('Kettle installation directory', size=256, required=True),
         'url': fields.char('Kettle URL', size=64, required=True, help='URL of Kettle server if any (can be localhost)'),
-        'transformation': fields.one2many('kettle.transformation', 'server_id', 'Transformation'),
-        'user': fields.char('Kettle Server User', size=32),
-        'password': fields.char('Kettle Server Password', size=32),
+        'user': fields.char('Kettle server user', size=32),
+        'password': fields.char('Kettle server password', size=32),
         }
-    
+
     _defaults = {
         'kettle_dir': lambda *a: tools.config['addons_path'].replace('/addons', '/data-integration'),
         }
-    
+
 kettle_server()
+
+
 
 class kettle_transformation(osv.osv):
     _name = 'kettle.transformation'
     _description = 'kettle transformation'
-    
+
     _columns = {
-        'name': fields.char('Transformation name', size=64, required=True),
-        'server_id': fields.many2one('kettle.server', 'Server', required=True),
+        'name': fields.char('Transformation / Job name', size=64, required=True),
         'file': fields.binary('File'),
         'read_from_filesystem': fields.boolean('Read from filesystem', help="If active, OpenERP will read the file from the filesystem. Otherwise, it will read the file from the 'File' field."),
         'filename': fields.char('Filename', size=128, help="If the Kettle file is attached, enter the filename. If the Kettle file is read from the filesystem, enter the relative or absolute path to the file."),
         }
-    
-    def error_wizard(self, cr, uid, id, context):
-        error_description = self.pool.get('ir.attachment').read(cr, uid, id, ['description'], context)['description']
-        if error_description and "USER_ERROR" in error_description:
-            raise osv.except_osv('USER_ERROR', error_description)
-        else:
-            raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
-    
-    def execute_transformation(self, cr, uid, id, log_file_name, attachment_id, context):
-        transfo = self.browse(cr, uid, id, context)
-        kettle_dir = transfo.server_id.kettle_dir
-        filename = cr.dbname + '_' + str(config['port']) + '_' + str(context['default_res_id']) + '_' + str(id) + '_' + '_DATE_' + context['start_date'].replace(' ', '_') + os.path.split(transfo.filename)[1]
-        logger = netsvc.Logger()
-        if transfo.read_from_filesystem:
-            if os.path.exists(transfo.filename):
-                path = transfo.filename
-            elif os.path.exists(config['addons_path'] + os.path.sep + transfo.filename):
-                path = config['addons_path'] + os.path.sep + transfo.filename
-            else:
-                raise osv.except_osv(_('Error :'), _("The filename '%s' is not an absolute path nor a relative path that can be accessed from the addons directory.") % transfo.filename)
-            try:
-                kettle_fd = open(path, 'r')
-            except Exception, e:
-                logger.notifyChannel('kettle-connector', netsvc.LOG_WARNING, "File not found for the Kettle transformation %s" % transfo.name)
-                logger.notifyChannel('kettle-connector', netsvc.LOG_WARNING, str(e))
-                raise osv.except_osv(_('Error :'), _("File not found for the Kettle transformation %s.") % transfo.name)
-            try:
-                file_temp = kettle_fd.read()
-            finally:
-                kettle_fd.close()
 
-        else:
-            file_temp = base64.decodestring(transfo.file)
-
-        # Do the replacement in the file
-        if context.get('filter', False):
-            for key in context['filter']:
-                file_temp = file_temp.replace(key, context['filter'][key])
-        transformation_temp = open(kettle_dir + '/openerp_tmp/'+ filename, 'w')
-        try:
-            transformation_temp.write(file_temp)
-        finally:
-            transformation_temp.close()
-
-        if len(transfo.filename) > 4 and transfo.filename[-3:].lower() == 'kjb':
-            kettle_exec = 'kitchen.sh'
-        else:
-            kettle_exec = 'pan.sh'
-        
-        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "start kettle task : open kettle log with tail -f " + kettle_dir +'/openerp_tmp/' + log_file_name)
-        cmd = "cd " + kettle_dir + "; nohup sh " + kettle_exec + " -file=openerp_tmp/" + filename + " > openerp_tmp/" + log_file_name
-        os_result = os.system(cmd)
-        
-        if os_result != 0:
-            prefixe_log_name = "[ERROR]"
-        else:
-            note = self.pool.get('ir.attachment').read(cr, uid, attachment_id, ['description'], context)['description']
-            if note and 'WARNING' in note:
-                prefixe_log_name = "[WARNING]"
-            else:
-                prefixe_log_name = "[SUCCESS]"
-        
-        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(kettle_dir +"/openerp_tmp/" + log_file_name, 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG'}, context)
-        cr.commit()
-        os.remove(kettle_dir +"/openerp_tmp/" + log_file_name)
-        if os_result != 0:
-            self.error_wizard(cr, uid, attachment_id, context)
-        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "kettle task finish with success")
-     
 kettle_transformation()
+
 
 class kettle_task(osv.osv):
     _name = 'kettle.task'
-    _description = 'kettle task'    
-    
+    _description = 'kettle task'
+
     _columns = {
-        'name': fields.char('Task Name', size=64, required=True),
-        'transformation_id': fields.many2one('kettle.transformation', 'Transformation', required=True),
+        'name': fields.char('Task name', size=64, required=True),
+        'server_id': fields.many2one('kettle.server', 'Server', required=True),
+        'transformation_id': fields.many2one('kettle.transformation', 'Transformation / Job', required=True),
         'scheduler': fields.many2one('ir.cron', 'Scheduler', readonly=True),
-        'parameters': fields.text('Parameters'),
-        'upload_file': fields.boolean('Upload File'),
-        'output_file' : fields.boolean('Output File'),
-        'active_python_code' : fields.boolean('Active Python Code'),
-        'python_code_before' : fields.text('Python Code Executed Before Transformation'),
-        'python_code_after' : fields.text('Python Code Executed After Transformation'),
-        'last_date' : fields.datetime('Last Execution'),
+        'upload_file': fields.boolean('Upload file', help="If active, OpenERP will propose to give a file as input for the transformation/job when starting the task"),
+        'output_file' : fields.boolean('Output file', help="If active, OpenERP will store as an attachement the file that has been generated by the Kettle transformation/job"),
+        'active_python_code' : fields.boolean('Active Python code'),
+        'python_code_before' : fields.text('Python code executed before transformation'),
+        'python_code_after' : fields.text('Python code executed after transformation'),
+        'last_date' : fields.datetime('Last execution'),
+        'parameter_ids': fields.one2many('kettle.parameter', 'task_id'),
     }
-        
+
     def attach_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
         if not context:
             context = {}
@@ -164,7 +108,8 @@ class kettle_task(osv.osv):
         os.remove(context['kettle_dir'] + '/' + datas_fname)
         attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
         return attachment_id
-    
+
+
     def attach_output_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
         filename_completed = False
         filename = datas_fname.split('/').pop()
@@ -177,7 +122,8 @@ class kettle_task(osv.osv):
             self.attach_file_to_task(cr, uid, id, 'openerp_tmp/'+  filename_completed, attach_name, delete, context)
         else:
             raise osv.except_osv('USER ERROR', 'the output file was not found, are you sure that you transformation will give you an output file?')
-        
+
+
     def execute_python_code(self, cr, uid, id, position, context):
         logger = netsvc.Logger()
         task = self.read(cr, uid, id, ['active_python_code', 'python_code_' + position], context)
@@ -186,66 +132,163 @@ class kettle_task(osv.osv):
             exec(task['python_code_' + position])
             logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "python code executed")
         return context
-    
+
+
+    def error_wizard(self, cr, uid, id, context):
+        error_description = self.pool.get('ir.attachment').read(cr, uid, id, ['description'], context)['description']
+        if error_description and "USER_ERROR" in error_description:
+            raise osv.except_osv('USER_ERROR', error_description)
+        else:
+            raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
+
+
+    def run_kettle_task(self, cr, uid, task, parameters, log_file_name, attachment_id, context):
+        '''Execute the Kettle transfo/job'''
+        kettle_dir = task.server_id.kettle_dir
+        if not os.path.exists(kettle_dir):
+            raise osv.except_osv(_('Error :'), _("The directory for Kettle '%s' doesn't exist on the filesystem.") % kettle_dir)
+        if not os.path.isfile(os.path.join(kettle_dir, u'pan.sh')) or not os.path.isfile(os.path.join(kettle_dir, u'kitchen.sh')):
+            raise osv.except_osv(_('Error :'), _("The directory for Kettle '%s' should contain at least the files kitchen.sh and pan.sh.") % kettle_dir)
+        transfo = task.transformation_id
+        logger = netsvc.Logger()
+
+        if transfo.read_from_filesystem:
+            if os.path.exists(transfo.filename):
+                path_to_file = transfo.filename
+            elif os.path.exists(config['addons_path'] + os.path.sep + transfo.filename):
+                path_to_file = config['addons_path'] + os.path.sep + transfo.filename
+            else:
+                raise osv.except_osv(_('Error :'), _("The filename '%s' is not an absolute path nor a relative path that can be accessed from the addons directory.") % transfo.filename)
+
+        else:
+            file_temp = base64.decodestring(transfo.file)
+            filename = cr.dbname + '_' + str(config['port']) + '_' + str(context['default_res_id']) + '_' + str(task.id) + '_' + '_DATE_' + context['start_date'].replace(' ', '_') + os.path.split(transfo.filename)[1]
+            path_to_file = os.path.join(kettle_dir, 'openerp_tmp', filename)
+            file_temp_fd = open(path_to_file, 'w')
+            try:
+                file_temp_fd.write(file_temp)
+            except Exception, e:
+                logger.notifyChannel('kettle-connector', netsvc.LOG_WARNING, "Can't write Kettle job/transformation '%s' in temporary file '%s'" % (transfo.name, path_to_file))
+                logger.notifyChannel('kettle-connector', netsvc.LOG_WARNING, str(e))
+                raise osv.except_osv(_('Error :'), _("Can't write Kettle job/transformation '%s' in temporary file '%s'" % (transfo.name, path_to_file)))
+            finally:
+                file_temp_fd.close()
+
+        cmd_params = ''
+        if parameters:
+            for key, value in parameters.items():
+                cmd_params += u' -param:' + key + u'=' + value
+
+
+        if len(transfo.filename) > 4 and transfo.filename[-3:].lower() == 'kjb':
+            kettle_exec = u'kitchen.sh'
+        else:
+            kettle_exec = u'pan.sh'
+        logfilename = os.path.join(kettle_dir, 'openerp_tmp', log_file_name)
+        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Starting Kettle task : you can open Kettle logs with 'tail -f %s'" % logfilename)
+        # We need to 'cd' to the install dir of Kettle until PDI 4.1.1
+        # cf http://jira.pentaho.com/browse/PDI-5076
+        cmd = u'cd ' + kettle_dir + u'; nohup sh ' + kettle_exec + u" -file=" + path_to_file + cmd_params  + u" > " + logfilename + u" 2>&1"
+
+        os_result = os.system(cmd.encode(sys.stdout.encoding, 'replace'))
+
+        if os_result != 0:
+            prefixe_log_name = "[ERROR]"
+        else:
+            note = self.pool.get('ir.attachment').read(cr, uid, attachment_id, ['description'], context)['description']
+            if note and 'WARNING' in note:
+                prefixe_log_name = "[WARNING]"
+            else:
+                prefixe_log_name = "[SUCCESS]"
+
+        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(logfilename, 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG'}, context)
+        cr.commit()
+        os.remove(logfilename)
+        if os_result != 0:
+            self.error_wizard(cr, uid, attachment_id, context)
+        logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Kettle task successfully executed")
+        return True
+
+
     def start_kettle_task(self, cr, uid, ids, context=None):
         if context == None:
             context = {}
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
-        for id in ids:
-            context.update({'default_res_id' : id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
-            log_file_name = 'TASK_LOG_ID' + str(id) + '_DATE_' + context['start_date'].replace(' ', '_') + ".log"
+        for task in self.browse(cr, uid, ids, context=context):
+            context.update({'default_res_id' : task.id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
+            log_file_name = 'TASK_LOG_ID' + str(task.id) + '_DATE_' + context['start_date'].replace(' ', '_') + ".log"
             attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
             cr.commit()
-            
-            context['filter'] = {
-                      'AUTO_REP_db_erp': str(cr.dbname),
-                      'AUTO_REP_user_erp': str(user.login),
-                      'AUTO_REP_db_pass_erp': str(user.password),
-                      'AUTO_REP_kettle_task_id' : str(id),
-                      'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
-                      'AUTO_REP_erp_url' : "http://localhost:" + str(config['xmlrpc_port']) + "/xmlrpc"
-                      }
-            task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'last_date'], context)
-            server_id = self.pool.get('kettle.transformation').read(cr, uid, task['transformation_id'][0], ['server_id'])['server_id'][0]
-            context['kettle_dir'] = self.pool.get('kettle.server').read(cr, uid, server_id, ['kettle_dir'], context)['kettle_dir']
-            
-            if task['last_date']:
-                context['filter']['AUTO_REP_last_date'] = task['last_date']
-                
-            if task['output_file']:
-                context['filter'].update({'AUTO_REP_file_out' : str('openerp_tmp/output_'+ task['name'] + context['start_date'])})
-                
-            if task['upload_file']: 
-                if not (context and context.get('input_filename',False)):
-                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "the task " + task['name'] + " can't be executed because the anyone File was uploaded")
+
+            parameters = {}
+            parameters['oerp_db'] = cr.dbname
+            parameters['oerp_user'] = user.login
+            parameters['oerp_pwd'] = user.password
+            parameters['oerp_host'] = 'localhost'
+            parameters['oerp_port'] = str(config['port'])
+
+            parameters['kettle_task_id'] = str(task.id)
+            parameters['task_attachment_id'] = str(attachment_id)
+
+            context['kettle_dir'] = task.server_id.kettle_dir
+
+            if task.last_date:
+                parameters['last_date'] = task.last_date
+
+            if task.output_file:
+                context['file_out'] = 'openerp_tmp/output_' + task.name + context['start_date']
+
+            if task.upload_file:
+                if not (context and context.get('input_filename', False)):
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "The task %s can't be executed because the anyone File was uploaded" % task.name)
                     continue
                 else:
-                    context['filter'].update({'AUTO_REP_file_in' : str(context['input_filename']), 'AUTO_REP_file_in_name' : str(context['input_filename'])})
-            
-            context = self.execute_python_code(cr, uid, id, 'before', context)
-            
-            context['filter'].update(eval('{' + str(task['parameters'] or '')+ '}'))
-            self.pool.get('kettle.transformation').execute_transformation(cr, uid, task['transformation_id'][0], log_file_name, attachment_id, context)
+                    parameters['file_in'] = context['input_filename']
 
-            context = self.execute_python_code(cr, uid, id, 'after', context)
-            
-            if context.get('input_filename',False):
-                self.attach_file_to_task(cr, uid, id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
-        
+            context = self.execute_python_code(cr, uid, task.id, 'before', context)
+
+            # Add the params defined on the task. Note that it may override default params
+            # defined above
+            for parameter in task.parameter_ids:
+                parameters[parameter.name] = parameter.value
+
+            self.run_kettle_task(cr, uid, task, parameters, log_file_name, attachment_id, context)
+
+            context = self.execute_python_code(cr, uid, task.id, 'after', context)
+
+            if context.get('input_filename', False):
+                self.attach_file_to_task(cr, uid, task.id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
+
             if task['output_file']:
-                self.attach_output_file_to_task(cr, uid, id, context['filter']['AUTO_REP_file_out'], '[FILE OUT] FILE IMPORTED ' + context['start_date'], True, context)            
-            
-            self.write(cr, uid, [id], {'last_date' : context['start_date']})
+                self.attach_output_file_to_task(cr, uid, task.id, context['filter']['AUTO_REP_file_out'], '[FILE OUT] FILE IMPORTED ' + context['start_date'], True, context)
+
+            self.write(cr, uid, [task.id], {'last_date' : context['start_date']})
         return True
+
 kettle_task()
+
+
+class kettle_parameter(osv.osv):
+    _name = "kettle.parameter"
+    _description = "Kettle parameters"
+
+    _columns = {
+        'task_id': fields.many2one('kettle.task', 'Task'),
+        'name': fields.char('Name', size=128, required="True", help="Name of the parameter"),
+        'value': fields.char('Value', size=256, help="Value of the parameter."),
+        'user_id': fields.many2one('res.users', 'User', help="Only visible for this user. This can be usefull for password fields."),
+        }
+
+kettle_parameter()
+
 
 class kettle_wizard(osv.osv_memory):
     _name = 'kettle.wizard'
-    _description = 'kettle wizard'     
+    _description = 'kettle wizard'
 
     _columns = {
-        'upload_file': fields.boolean("Upload File?"),
+        'upload_file': fields.boolean("Upload file?"),
         'file': fields.binary('File'),
         'filename': fields.char('Filename', size=64),
     }
@@ -258,12 +301,13 @@ class kettle_wizard(osv.osv_memory):
     }
 
     def _save_file(self, cr, uid, id, vals, context):
+        # TODO : the "id" argument is never used !
         kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], context).transformation_id.server_id.kettle_dir
-        filename = kettle_dir + '/openerp_tmp/' + str(vals['filename'])
+        filename = os.path.join(kettle_dir, 'openerp_tmp', vals['filename'])
         fp = open(filename,'wb+')
         fp.write(base64.decodestring(vals['file']))
         fp.close()
-        return 'openerp_tmp/' + vals['filename']
+        return os.path.join('openerp_tmp', vals['filename'])
 
     def action_start_task(self, cr, uid, id, context):
         wizard = self.read(cr, uid, id,context=context)[0]

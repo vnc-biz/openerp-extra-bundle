@@ -29,5 +29,10 @@
 		<field eval="[(6,0,[ref('group_kettle_administrateur'), ref('group_kettle_user')])]" name="groups_id"/>
 	</record>
 
+	<record id="menu_kettle_parameter" model="ir.ui.menu">
+		<field eval="[(6,0,[ref('group_kettle_administrateur')])]" name="groups_id"/>
+	</record>
+
+
 
 </data></openerp>

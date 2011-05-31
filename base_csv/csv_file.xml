@@ -67,6 +67,7 @@
 			        <label string="re - regular expression" align="0.0" colspan="2"/>
 			        <label string="incsv - value csv to OpenERP" align="0.0" colspan="2"/>
 			        <label string="outcsv - value OpenERP to CSV" align="0.0" colspan="2"/>
+                    <label string="row - current csv row" align="0.0" colspan="2"/>
 			        <label string="value - value return" align="0.0" colspan="2"/>
 		        </form>
 		    </field>

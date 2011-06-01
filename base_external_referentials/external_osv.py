@@ -191,6 +191,20 @@ def get_external_data(self, cr, uid, conn, external_referential_id, defaults=Non
 	"""Constructs data using WS or other synch protocols and then call ext_import on it"""
 	return {'create_ids': [], 'write_ids': []}
 
+def add_external_reference(self, cr, uid, id, external_id, external_referential_id, context=None):
+    '''Add an external id on an existing object'''
+    if type(id) == list:
+        id=id[0]
+    ir_model_data_vals = {
+        'name': self.prefixed_id(external_id),
+        'model': self._name,
+        'res_id': id,
+        'external_referential_id': external_referential_id,
+        'module': 'extref/' + self.pool.get('external.referential').read(cr, uid, external_referential_id, ['name'])['name']
+        }
+    self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals, context=context)
+    return True
+
 def ext_import(self, cr, uid, data, external_referential_id, defaults=None, context=None):
 	if defaults is None:
 		defaults = {}
@@ -421,6 +435,7 @@ osv.osv.extid_to_existing_oeid = extid_to_existing_oeid
 osv.osv.extid_to_oeid = extid_to_oeid
 osv.osv.oevals_from_extdata = oevals_from_extdata
 osv.osv.get_external_data = get_external_data
+osv.osv.add_external_reference = add_external_reference
 osv.osv.ext_import = ext_import
 osv.osv.oe_update = oe_update
 osv.osv.oe_create = oe_create

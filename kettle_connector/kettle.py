@@ -104,24 +104,24 @@ class kettle_task(osv.osv):
         if not context:
             context = {}
         context.update({'default_res_id' : id, 'default_res_model': 'kettle.task'})
-        datas = base64.encodestring(open(context['kettle_dir'] + '/' + datas_fname,'rb').read())
-        os.remove(context['kettle_dir'] + '/' + datas_fname)
-        attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': datas_fname.split("/").pop()}, context)
+        datas = base64.encodestring(open(os.path.join(context['kettle_dir'], datas_fname), 'rb').read())
+        os.remove(os.path.join(context['kettle_dir'], datas_fname))
+        attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': attach_name, 'datas': datas, 'datas_fname': os.path.basename(datas_fname)}, context)
         return attachment_id
 
 
     def attach_output_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
         filename_completed = False
-        filename = datas_fname.split('/').pop()
-        dir = context['kettle_dir']+'/openerp_tmp'
+        filename = os.path.basename(datas_fname)
+        dir = os.path.join(context['kettle_dir'], 'openerp_tmp')
         files = os.listdir(dir)
         for file in files:
             if filename in file:
                 filename_completed = file
         if filename_completed:
-            self.attach_file_to_task(cr, uid, id, 'openerp_tmp/'+  filename_completed, attach_name, delete, context)
+            self.attach_file_to_task(cr, uid, id, os.path.join('openerp_tmp', filename_completed), attach_name, delete, context)
         else:
-            raise osv.except_osv('USER ERROR', 'the output file was not found, are you sure that you transformation will give you an output file?')
+            raise osv.except_osv(_('Error'), _('The output file was not found. Are you sure that your transformation/job was supposed to generate an output file?'))
 
 
     def execute_python_code(self, cr, uid, id, position, context):
@@ -155,8 +155,8 @@ class kettle_task(osv.osv):
         if transfo.read_from_filesystem:
             if os.path.exists(transfo.filename):
                 path_to_file = transfo.filename
-            elif os.path.exists(config['addons_path'] + os.path.sep + transfo.filename):
-                path_to_file = config['addons_path'] + os.path.sep + transfo.filename
+            elif os.path.exists(os.path.join(config['addons_path'], transfo.filename)):
+                path_to_file = os.path.abspath(os.path.join(config['addons_path'], transfo.filename))
             else:
                 raise osv.except_osv(_('Error :'), _("The filename '%s' is not an absolute path nor a relative path that can be accessed from the addons directory.") % transfo.filename)
 
@@ -190,7 +190,7 @@ class kettle_task(osv.osv):
         # cf http://jira.pentaho.com/browse/PDI-5076
         cmd = u'cd ' + kettle_dir + u'; nohup sh ' + kettle_exec + u" -file=" + path_to_file + cmd_params  + u" > " + logfilename + u" 2>&1"
 
-        os_result = os.system(cmd.encode(sys.stdout.encoding, 'replace'))
+        os_result = os.system(cmd.encode(sys.stdout.encoding or 'UTF-8', 'replace'))
 
         if os_result != 0:
             prefixe_log_name = "[ERROR]"
@@ -216,7 +216,7 @@ class kettle_task(osv.osv):
         logger = netsvc.Logger()
         user = self.pool.get('res.users').browse(cr, uid, uid, context)
         for task in self.browse(cr, uid, ids, context=context):
-            context.update({'default_res_id' : task.id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
+            context.update({'default_res_id' : task.id, 'default_res_model': 'kettle.task', 'start_date' : time.strftime('%Y-%m-%d_%H:%M:%S')})
             log_file_name = 'TASK_LOG_ID' + str(task.id) + '_DATE_' + context['start_date'].replace(' ', '_') + ".log"
             attachment_id = self.pool.get('ir.attachment').create(cr, uid, {'name': log_file_name}, context)
             cr.commit()
@@ -237,7 +237,7 @@ class kettle_task(osv.osv):
                 parameters['last_date'] = task.last_date
 
             if task.output_file:
-                context['file_out'] = 'openerp_tmp/output_' + task.name + context['start_date']
+                parameters['file_out'] = os.path.join(task.server_id.kettle_dir, 'openerp_tmp/output_' + task.name + context['start_date'])
 
             if task.upload_file:
                 if not (context and context.get('input_filename', False)):
@@ -258,10 +258,10 @@ class kettle_task(osv.osv):
             context = self.execute_python_code(cr, uid, task.id, 'after', context)
 
             if context.get('input_filename', False):
-                self.attach_file_to_task(cr, uid, task.id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context)
+                self.attach_file_to_task(cr, uid, task.id, context['input_filename'], '[FILE IN] FILE IMPORTED ' + context['start_date'], True, context=context)
 
             if task['output_file']:
-                self.attach_output_file_to_task(cr, uid, task.id, context['filter']['AUTO_REP_file_out'], '[FILE OUT] FILE IMPORTED ' + context['start_date'], True, context)
+                self.attach_output_file_to_task(cr, uid, task.id, parameters['file_out'], '[FILE OUT] FILE IMPORTED ' + context['start_date'], True, context=context)
 
             self.write(cr, uid, [task.id], {'last_date' : context['start_date']})
         return True

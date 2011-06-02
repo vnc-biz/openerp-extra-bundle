@@ -82,7 +82,7 @@ class res_partner(osv.osv):
         else:
             return False
 
-    def dj_check_vat(self, cr, uid, vat, context=None):
+    def dj_check_vat(self, cr, uid, vat, shop_id, context=None):
         """
         Django Check VAT: check if VAT is valid or not
         vat: string
@@ -90,20 +90,23 @@ class res_partner(osv.osv):
         if context == None:
             context = {}
 
+        if not shop_id:
+            return False
+
         check_vat = True
         partner_obj = self.pool.get('res.partner')
 
         vat_country = vat[:2]
         vat = vat[2:]
-
+        #TODO: check if vat_country_ids field exist in sale.shop model
         if not hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
-            shop = self.pool.get('sale.shop').browse(cr, uid, res['shop_id'])
+            shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)
             for country_id in shop.vat_country_ids:
                 vat_country = country_id.code
                 if hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
                     check_vat = True
                     break
-
+        
         if check_vat and hasattr(partner_obj, 'check_vat_' + vat_country.lower()):
             check = getattr(partner_obj, 'check_vat_' + vat_country.lower())
             vat_ok = check(vat)

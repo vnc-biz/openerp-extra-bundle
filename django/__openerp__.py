@@ -30,6 +30,8 @@ OpenERP integration to Django.
 - OpenERP to Django Mapping Fields. Export OpenERP data to Django Models
 - Update SQL Django. Update Django models when already been created previously in Django (wizard)
 This module was built generically but in focus of the ZZSaaS service of Zikzakmedia and Zoook e-sale for OpenERP
+
+Base Vat module requiered if use dj_check_vat def
     """,
     "version" : "0.1",
     "depends" : ["base"],

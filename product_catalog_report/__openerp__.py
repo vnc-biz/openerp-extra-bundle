@@ -20,10 +20,17 @@
 {
     "name":"Product Catalog - Print Report of product catalog with product image",
     "version":"1.0",
-    "author":"Tiny",
+    "author":"OpenERP S,A",
     "category":"Generic Modules/Inventory Control",
     "description": """
     This module use to print report of product catalog with product image, list price
+    This module was ported to V6.0 by Vauxoo
+    You need to save an image as attachment with the word "catalog" on its name,
+    With this you will be able to see the image on report.
+    The report will print all information related to product and prices related to 
+    The partner selected to send the report.
+    Go to Sales > Customers > Print Product Catalog to see the result.
+    Try to save image with an square Npx X Npx resolution to avoid unspected redimension.
     """,
     "depends":["base","product"],
     "demo_xml":[],

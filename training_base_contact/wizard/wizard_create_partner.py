@@ -21,4 +21,21 @@
 #
 ##############################################################################
 
-import wizard_create_partner
+from osv import fields, osv
+from tools.translate import _
+
+class create_partner_wizard(osv.osv_memory):
+    _inherit = "base.contact.create.partner.wizard"
+
+    def create_partner(self, cr, uid, ids, data, context={}):
+        partner_id, partner_address_id, partner_contact_id, partner_job_id = super(create_partner_wizard,self).create_partner(cr, uid, ids, data, context)
+        
+        values = {}
+        values['notif_contact_id'] = partner_job_id
+        values['notif_invoicing_id'] = partner_job_id
+        
+        self.pool.get('res.partner').write(cr, uid, [partner_id], values)
+            
+        return partner_id, partner_address_id, partner_contact_id, partner_job_id
+
+create_partner_wizard()

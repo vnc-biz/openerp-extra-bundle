@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.15\n"
+"Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-06-01 13:56:16+0000\n"
-"PO-Revision-Date: 2011-06-01 13:56:16+0000\n"
+"POT-Creation-Date: 2011-06-06 17:56+0000\n"
+"PO-Revision-Date: 2011-06-06 17:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,city:0
-msgid "City"
-msgstr "City"
-
-#. module: base_contact_oneclick
-#: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "The Object name must start with x_ and not contain any special character !"
-
-#. module: base_contact_oneclick
-#: help:base.contact.create.partner.wizard,customer:0
-msgid "Check this box if the partner is a customer."
-msgstr "Check this box if the partner is a customer."
+#: model:ir.model,name:base_contact_oneclick.model_res_partner
+msgid "Partner"
+msgstr "Partner"
 
 #. module: base_contact_oneclick
 #: view:base.contact.create.partner.wizard:0
@@ -36,152 +26,32 @@ msgid "This wizard create Partner, Address, Contact and Job."
 msgstr "This wizard create Partner, Address, Contact and Job."
 
 #. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,state:0
-msgid "State"
-msgstr "State"
-
-#. module: base_contact_oneclick
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr "Invalid model name in the action definition."
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,supplier:0
-msgid "Supplier"
-msgstr "Supplier"
-
-#. module: base_contact_oneclick
-#: code:addons/base_contact_oneclick/wizard/wizard_create_partner.py:0
-#, python-format
-msgid "Alert"
-msgstr "Alert"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,fax:0
-msgid "Fax"
-msgstr "Fax"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,zip:0
-msgid "Zip"
-msgstr "Zip"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,phone:0
-msgid "Phone"
-msgstr "Phone"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,state_id:0
-msgid "Fed. State"
-msgstr "Fed. State"
-
-#. module: base_contact_oneclick
-#: model:ir.model,name:base_contact_oneclick.model_base_contact_create_partner_wizard
-msgid "base.contact.create.partner.wizard"
-msgstr "base.contact.create.partner.wizard"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,street2:0
-msgid "Street2"
-msgstr "Street2"
-
-#. module: base_contact_oneclick
-#: view:base.contact.create.partner.wizard:0
-msgid "Base Contact"
-msgstr "Base Contact"
-
-#. module: base_contact_oneclick
-#: view:base.contact.create.partner.wizard:0
-msgid "Create Model"
-msgstr "Create Model"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,email:0
-msgid "E-Mail"
-msgstr "E-Mail"
-
-#. module: base_contact_oneclick
-#: view:base.contact.create.partner.wizard:0
-msgid "Address"
-msgstr "Address"
-
-#. module: base_contact_oneclick
-#: model:ir.module.module,shortdesc:base_contact_oneclick.module_meta_information
-msgid "Base Contact OneClick"
-msgstr "Base Contact OneClick"
-
-#. module: base_contact_oneclick
-#: model:ir.actions.act_window,name:base_contact_oneclick.act_base_contact_create_partner
-msgid "Create Partner"
-msgstr "Create Partner"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,customer:0
-msgid "Customer"
-msgstr "Customer"
-
-#. module: base_contact_oneclick
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Invalid XML for View Architecture!"
-
-#. module: base_contact_oneclick
-#: model:ir.module.module,description:base_contact_oneclick.module_meta_information
-msgid "This module allows a little wizard to create new Partner, address, contact and job. One click."
-msgstr "This module allows a little wizard to create new Partner, address, contact and job. One click."
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,name:0
-msgid "Name"
-msgstr "Name"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,mobile:0
-msgid "Mobile"
-msgstr "Mobile"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,country_id:0
-msgid "Country"
-msgstr "Country"
-
-#. module: base_contact_oneclick
 #: view:base.contact.create.partner.wizard:0
 msgid "Others"
 msgstr "Others"
 
 #. module: base_contact_oneclick
-#: code:addons/base_contact_oneclick/wizard/wizard_create_partner.py:0
+#: code:addons/base_contact_oneclick/wizard/wizard_create_partner.py:112
+#, python-format
+msgid "Alert"
+msgstr "Alert"
+
+#. module: base_contact_oneclick
+#: code:addons/base_contact_oneclick/wizard/wizard_create_partner.py:112
 #, python-format
 msgid "This partner exists."
 msgstr "This partner exists."
 
 #. module: base_contact_oneclick
-#: code:addons/base_contact_oneclick/wizard/wizard_create_partner.py:0
+#: code:addons/base_contact_oneclick/wizard/wizard_create_partner.py:138
 #, python-format
 msgid "Partner %s created with ID %s, Address ID %s and Contact ID %s"
 msgstr "Partner %s created with ID %s, Address ID %s and Contact ID %s"
 
 #. module: base_contact_oneclick
-#: help:base.contact.create.partner.wizard,supplier:0
-msgid "Check this box if the partner is a supplier. If it's not checked, purchase people will not see it when encoding a purchase order."
-msgstr "Check this box if the partner is a supplier. If it's not checked, purchase people will not see it when encoding a purchase order."
-
-#. module: base_contact_oneclick
-#: selection:base.contact.create.partner.wizard,state:0
-msgid "First"
-msgstr "First"
-
-#. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,street:0
-msgid "Street"
-msgstr "Street"
-
-#. module: base_contact_oneclick
-#: selection:base.contact.create.partner.wizard,state:0
-msgid "Done"
-msgstr "Done"
+#: view:base.contact.create.partner.wizard:0
+msgid "Address"
+msgstr "Address"
 
 #. module: base_contact_oneclick
 #: view:base.contact.create.partner.wizard:0
@@ -194,7 +64,19 @@ msgid "Close"
 msgstr "Close"
 
 #. module: base_contact_oneclick
-#: field:base.contact.create.partner.wizard,message:0
-msgid "Message"
-msgstr "Message"
+#: model:ir.model,name:base_contact_oneclick.model_base_contact_create_partner_wizard
+msgid "base.contact.create.partner.wizard"
+msgstr "base.contact.create.partner.wizard"
+
+#. module: base_contact_oneclick
+#: view:base.contact.create.partner.wizard:0
+msgid "Base Contact"
+msgstr "Base Contact"
+
+#. module: base_contact_oneclick
+#: view:base.contact.create.partner.wizard:0
+#: model:ir.actions.act_window,name:base_contact_oneclick.act_base_contact_create_partner
+#: model:ir.ui.menu,name:base_contact_oneclick.base_create_partner
+msgid "Create Partner"
+msgstr "Create Partner"
 

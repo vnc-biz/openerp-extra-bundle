@@ -53,11 +53,58 @@ class create_partner_wizard(osv.osv_memory):
         'customer': True,
     }
 
+    def res_partner_values(self, form):
+        values = {}
+        values['name'] = form.name
+        if 'customer' in form: values['customer'] = form.customer
+        if 'supplier' in form: values['supplier'] = form.supplier
+        return values
+
+    def res_partner_address_values(self, form, partner_id):
+        values = {}
+        values['name'] = form.name
+        values['partner_id'] = partner_id
+        if 'street' in form: values['street'] = form.street
+        if 'street2' in form: values['street2'] = form.street2
+        if 'zip' in form: values['zip'] = form.zip
+        if 'city' in form: values['city'] = form.city
+        if 'state_id' in form: values['state_id'] = form.state_id.id
+        if 'country_id' in form: values['country_id'] = form.country_id.id
+        if 'email' in form: values['email'] = form.email
+        if 'phone' in form: values['phone'] = form.phone
+        if 'fax' in form: values['fax'] = form.fax
+        if 'mobile' in form: values['mobile'] = form.mobile
+        return values
+        
+    def res_partner_contact_values(self, form):
+        values = {}
+        # split name: first_name + name
+        name = form.name.split(' ')
+        if len(name) > 1:
+            values['first_name'] = name[0]
+            del name[0]
+            values['name'] = " ".join(name)
+        else:
+            values['first_name'] = ''
+            values['name'] = form.name
+        if 'mobile' in form: values['mobile'] = form.mobile
+        if 'country_id' in form: values['country_id'] = form.country_id.id
+        if 'email' in form: values['email'] = form.email
+        return values
+
+    def res_partner_job_values(self, form, partner_address_id, partner_contact_id):
+        values = {}
+        values['address_id'] = partner_address_id
+        values['contact_id'] = partner_contact_id
+        if 'email' in form: values['email'] = form.email
+        if 'phone' in form: values['phone'] = form.phone
+        if 'fax' in form: values['fax'] = form.fax
+        return values
+
     def create_partner(self, cr, uid, ids, data, context={}):
         """
         Create a new partner, address, contact and job from wizard. On click for crete this relation models
         """
-        values = {}
         form = self.browse(cr, uid, ids[0])
 
         partner_ids = self.pool.get('res.partner').search(cr, uid, [('name','=',form.name)])
@@ -65,41 +112,15 @@ class create_partner_wizard(osv.osv_memory):
             raise osv.except_osv(_("Alert"), _("This partner exists."))
         else:
             #create partner
-            values['name'] = form.name
-            if 'customer' in form: values['customer'] = form.customer
-            if 'supplier' in form: values['supplier'] = form.supplier
+            values = self.res_partner_values(form)
             partner_id = self.pool.get('res.partner').create(cr, uid, values)
 
             #create address
-            values = {}
-            values['name'] = form.name
-            values['partner_id'] = partner_id
-            if 'street' in form: values['street'] = form.street
-            if 'street2' in form: values['street2'] = form.street2
-            if 'zip' in form: values['zip'] = form.zip
-            if 'city' in form: values['city'] = form.city
-            if 'state_id' in form: values['state_id'] = form.state_id.id
-            if 'country_id' in form: values['country_id'] = form.country_id.id
-            if 'email' in form: values['email'] = form.email
-            if 'phone' in form: values['phone'] = form.phone
-            if 'fax' in form: values['fax'] = form.fax
-            if 'mobile' in form: values['mobile'] = form.mobile
+            values = self.res_partner_address_values(form, partner_id)
             partner_address_id = self.pool.get('res.partner.address').create(cr, uid, values)
 
             #create contact
-            values = {}
-            # split name: first_name + name
-            name = form.name.split(' ')
-            if len(name) > 1:
-                values['first_name'] = name[0]
-                del name[0]
-                values['name'] = " ".join(name)
-            else:
-                values['first_name'] = ''
-                values['name'] = form.name
-            if 'mobile' in form: values['mobile'] = form.mobile
-            if 'country_id' in form: values['country_id'] = form.country_id.id
-            if 'email' in form: values['email'] = form.email
+            values = self.res_partner_contact_values(form)
             #check if this contact exists... maybe
             partner_contact_ids = self.pool.get('res.partner.contact').search(cr, uid, [('first_name','=',values['first_name']),('name','=',values['name'])])
             
@@ -109,12 +130,7 @@ class create_partner_wizard(osv.osv_memory):
                 partner_contact_id = self.pool.get('res.partner.contact').create(cr, uid, values)
 
             #create job
-            values = {}
-            values['address_id'] = partner_address_id
-            values['contact_id'] = partner_contact_id
-            if 'email' in form: values['email'] = form.email
-            if 'phone' in form: values['phone'] = form.phone
-            if 'fax' in form: values['fax'] = form.fax
+            values = self.res_partner_job_values(form, partner_address_id, partner_contact_id)
             partner_job_id = self.pool.get('res.partner.job').create(cr, uid, values)
             
             #out wizard
@@ -123,6 +139,6 @@ class create_partner_wizard(osv.osv_memory):
                 'state':'done',
             }
             self.write(cr, uid, ids, values)
-            return True
+            return partner_id, partner_address_id, partner_contact_id, partner_job_id
 
 create_partner_wizard()

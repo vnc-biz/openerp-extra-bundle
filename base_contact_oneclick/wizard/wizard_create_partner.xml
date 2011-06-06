@@ -17,8 +17,8 @@
                     <field name="street2"/><newline/>
                     <field name="zip"/><newline/>
                     <field name="city"/><newline/>
-                    <field name="state_id"/><newline/>
-                    <field name="country_id"/>
+                    <field name="country_id"/><newline/>
+                    <field name="state_id"/>
                     <separator string="Others" colspan="4"/>
                     <field name="email"/><newline/>
                     <field name="phone"/><newline/>
@@ -31,7 +31,7 @@
                 <group col="2" colspan="4">
                     <field name="state" invisible="1" />
                     <button string="Cancel" special="cancel" icon="gtk-cancel" states="first" />
-                    <button string="Create Model" name="create_partner" type="object" icon="gtk-ok" states="first" />
+                    <button string="Create Partner" name="create_partner" type="object" icon="gtk-ok" states="first" />
                     <button string="Close" special="cancel" icon="gtk-ok" states="done" />
                 </group>
             </form>
@@ -46,5 +46,7 @@
             key2="client_action_multi"
             id="act_base_contact_create_partner"
             groups="base.group_extended"/>
+            
+            <menuitem name="Create Partner" action="act_base_contact_create_partner" id="base_create_partner" parent="base.menu_address_book" sequence="55" groups="base.group_extended" />
     </data>
 </openerp>

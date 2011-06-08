@@ -63,7 +63,7 @@ class json_osv(osv.osv):
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         if not fields:
-            fields = [x for x in self._columns.keys()] + [x for x in self.pool.get('product.template')._columns.keys()]
+            fields = [x for x in self._columns.keys()] + [x for x in self._columns.keys()]
         if not 'x_js_' in '/'.join(fields):
             return super(json_osv, self).read(cr, uid, ids, fields, context, load)
         js_store_fields, js_fields = self._get_js_fields(fields)

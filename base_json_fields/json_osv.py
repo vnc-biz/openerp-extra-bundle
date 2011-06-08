@@ -24,8 +24,6 @@ import netsvc
 import json
 
 class json_osv(osv.osv):
-    
-    #TODO : json in product.template and json in product.product
 
     def _get_js_fields(self, fields):
         self_fields = self._columns.keys()
@@ -40,6 +38,7 @@ class json_osv(osv.osv):
                     js_store_fields[store_field] = [field]
                 js_fields += [field]
         return js_store_fields, js_fields
+
 
     def convert_m2o_to_json(self, cr, uid, vals, fields, context=None):
         object_rel_list = {}
@@ -60,6 +59,7 @@ class json_osv(osv.osv):
             if self._columns[field]._type == 'many2one':
                 vals[field] = [vals[field] ,res[self._columns[field]._obj][vals[field]]]
         return vals
+
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         if not fields:
@@ -85,6 +85,7 @@ class json_osv(osv.osv):
                             del object[field]
         return res
 
+
     def create(self, cr, uid, vals, context=None):
         if 'x_js_' in '/'.join(vals.keys()):
             js_store_fields, js_fields = self._get_js_fields(vals.keys())
@@ -96,8 +97,8 @@ class json_osv(osv.osv):
                 vals[js_store_field] = json.dumps(res)
         return super(json_osv, self).create(cr, uid, vals, context)
 
+
     def write(self, cr, uid, ids, vals, context=None):
-        print "\n\nwrite\n\n", vals
         if 'x_js_' in '/'.join(vals.keys()):
             js_store_fields, js_fields = self._get_js_fields(vals.keys())
             wrid = []
@@ -115,9 +116,7 @@ class json_osv(osv.osv):
                         res[key] = tmp_vals[key]
                         del tmp_vals[key]
                     tmp_vals[js_store_field] = json.dumps(res)
-                print 'write in jsonnnnn', tmp_vals
                 wrid += [super(json_osv, self).write(cr, uid, object['id'], tmp_vals, context=context)]
             return wrid
         else:
-            print "\n\n\n pas decriture dans le json", self._name, "\n\n\n"
             return super(json_osv, self).write(cr, uid, ids, vals, context)

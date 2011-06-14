@@ -73,17 +73,9 @@ class purchase_order(osv.osv):
         return res
     
     def inv_line_create(self, cr, uid, a, ol):
-        return (0, False, {
-            'name': ol.name,
-            'account_id': a,
-            'price_unit': ol.price_unit or 0.0,
-            'quantity': ol.product_qty,
-            'product_id': ol.product_id.id or False,
-            'uos_id': ol.product_uom.id or False,
-            'discount': ol.discount or 0.0,
-            'invoice_line_tax_id': [(6, 0, [x.id for x in ol.taxes_id])],
-            'account_analytic_id': ol.account_analytic_id.id or False,
-        })
+        result = super(purchase_order, self).inv_line_create(cr, uid, a, ol)
+        result[2]['discount'] = ol.discount or 0.0
+        return result
 
 purchase_order()
 

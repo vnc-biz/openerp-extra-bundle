@@ -1,0 +1,28 @@
+{
+    "name" : "Remove Default Filters",
+    "version" : "1.0",
+    "description" : """This module removes default filters from several search views:
+- Invoices
+- Sale orders
+- Purchase orders
+- Purchase requisitions""",
+    "author" : "NaN Projectes de Programaril Lliure, S.L.",
+    "website" : "http://www.NaN-tic.com",
+    "depends" : [
+        'purchase_requisition',
+        'sale',
+     ],
+    "category" : "Useability",
+    "demo_xml" : [],
+    "init_xml" : [
+    ],
+    "update_xml" : [
+        'account_view.xml',
+        'purchase_view.xml',
+        'sale_view.xml',
+    ],
+    "active": False,
+    "installable": True
+}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

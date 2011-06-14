@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <openerp>
-    <data>
+    <!--<data>
         <record id="training_holiday_wizard_1" model="training.holiday.year.wizard">
             <field name="year" eval="int(time.strftime('%Y'))" />
         </record>
@@ -8,7 +8,7 @@
         <function model="training.holiday.year.wizard" name="action_apply">
             <value eval="[ref('training_holiday_wizard_1')]" />
         </function>
-    </data>
+    </data>-->
     <data noupdate="1">
         <record id="training_session_0" model="training.session">
             <field name="offer_id" ref="training.training_offer_openerpintegrator0"/>

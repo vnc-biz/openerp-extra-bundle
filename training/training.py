@@ -22,12 +22,14 @@
 #
 ############################################################################################
 
-from cStringIO import StringIO
 from osv import osv, fields
-import decimal_precision as dp
-from tools import config
 from tools.translate import _
+
+from cStringIO import StringIO
+from tools import config
 from zipfile import PyZipFile, ZIP_DEFLATED
+
+import decimal_precision as dp
 import base64
 import mx.DateTime
 import netsvc
@@ -652,36 +654,6 @@ class training_offer_format(osv.osv):
 
 training_offer_format()
 
-class training_offer_purchase_line_update_wizard(osv.osv_memory):
-    _name = 'training.offer.purchase.line.update.wizard'
-    _columns = {
-        'name': fields.char('Summary', size=256),
-        'log': fields.text('Log Text'),
-        'date': fields.datetime('Date'),
-        'state': fields.selection([('confirm','Confirm'),('update','Update')]),
-    }
-
-    _defaults = {
-        'state': lambda *a: 'confirm',
-    }
-
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type': 'ir.actions.act_window_close' }
-
-    def action_close(self, cr, uid, ids, context=None):
-        return {'type': 'ir.actions.act_window_close' }
-
-    def action_confirm(self, cr, uid, ids, context=None):
-        offer_proxy = self.pool.get('training.offer')
-        offer_id = context.get('active_id', False)
-        val = offer_proxy.action_update_seance_procurements(cr, uid, offer_id, context=context)
-        if val:
-            val['state'] = 'update'
-        else:
-            val = { 'name': _('FAILED')}
-        return self.write(cr, uid, ids, val, context=context)
-
-training_offer_purchase_line_update_wizard()
 
 class training_offer_purchase_line_log(osv.osv):
     _name = 'training.offer.purchase.line.log'
@@ -781,24 +753,6 @@ def training_offer_kind_compute(obj, cr, uid, context=None):
 class training_offer(osv.osv):
     _name = 'training.offer'
     _description = 'Offer'
-
-    def on_change_course_ids(self, cr, uid, ids, course_ids, context=None):
-        values = {
-            'type_id' : 0,
-            'product_line_id' : 0,
-        }
-
-        if len(course_ids) == 1:
-            course = self.pool.get('training.course').browse(cr, uid, course_ids[0][2]['course_id'])
-
-            values.update({
-                'name' : course.name,
-                'type_id' : course.course_type_id.id,
-                'product_line_id' : course.category_id.id,
-            })
-
-        # Creer un bouton 'draft' qui rebalance en draft quand une offre est deja deprecated
-        return {'value' : values}
 
     def _is_standalone_compute(self, cr, uid, ids, fieldnames, args, context=None):
         res = dict.fromkeys(ids, 0)
@@ -1162,121 +1116,6 @@ class training_catalog(osv.osv):
 
 training_catalog()
 
-def get_zip_from_directory(directory, b64enc=True):
-    RE_exclude = re.compile('(?:^\..+\.swp$)|(?:\.py[oc]$)|(?:\.bak$)|(?:\.~.~$)', re.I)
-
-    def _zippy(archive, path):
-        path = os.path.abspath(path)
-        base = os.path.basename(path)
-        for f in tools.osutil.listdir(path, True):
-            bf = os.path.basename(f)
-            if not RE_exclude.search(bf):
-                archive.write(os.path.join(path, f), os.path.join(base, f))
-
-    archname = StringIO()
-    archive = PyZipFile(archname, "w", ZIP_DEFLATED)
-    archive.writepy(directory)
-    _zippy(archive, directory)
-    archive.close()
-    val = archname.getvalue()
-    archname.close()
-
-    if b64enc:
-        val = base64.encodestring(val)
-
-    return val
-
-class training_seance_generate_pdf_wizard(osv.osv_memory):
-    _name = 'training.seance.generate.zip.wizard'
-
-    _columns = {
-        'presence_list_report' : fields.boolean('Presence List Report',
-                                                help="If you select this option you will print the report for the presence list. " \
-                                                "The file format is Presence_List_DATEOFSEANCE_SEANCEID.pdf."),
-        'remuneration_form_report' : fields.boolean('Remuneration Form',
-                                                    help="If you select this option, you will print the report for the remuneration " \
-                                                    "forms of all contacts. The file format is Request_REQUESTNAME_Invoice_INVOICEID.pdf."),
-        'zip_file' : fields.binary('Zip File', readonly=True),
-        'zip_file_name' : fields.char('File name', readonly=True, size=64),
-        'state' : fields.selection( [ ('selection', 'Selection'), ('result', 'Result') ], 'State', readonly=True, required=True),
-    }
-
-    _defaults = {
-        'presence_list_report' : lambda *a: 0,
-        'remuneration_form_report' : lambda *a: 0,
-        'state' : lambda *a: 'selection',
-    }
-
-    def action_close(self, cr, uid, ids, context=None):
-        return { 'type' : 'ir.actions.act_window.close' }
-
-    def action_generate_zip(self, cr, uid, ids, context=None):
-        try:
-            import tempfile
-            parent_directory = tempfile.mkdtemp(prefix='openerp_', suffix='_reports')
-            directory = os.path.join(parent_directory, 'Reports')
-            os.mkdir(directory)
-            self.add_selections(cr, uid, ids, directory, context=context)
-            result = get_zip_from_directory(directory, True)
-            fp = file(os.path.join(parent_directory, 'output.zip'), 'w')
-            fp.write(result)
-            fp.close()
-
-            active_id = context and context.get('active_id')
-            seance = self.pool.get('training.seance').browse(cr, uid, active_id, context=context)
-            ts = time.strptime(seance.date, '%Y-%m-%d %H:%M:%S')
-            date = time.strftime('%Y%m%d', ts)
-
-            values = {
-                'state' : 'result',
-                'zip_file' : result,
-                'zip_file_name' : 'Seance_Reports_%s_%06d.zip' % (date, seance.id),
-            }
-        finally:
-            import shutil
-            shutil.rmtree(parent_directory)
-        return self.write(cr, uid, ids, values, context=context)
-
-    def _get_report(self, cr, uid, oid, reportname, context=None):
-        srv = netsvc.LocalService(reportname)
-        pdf, _ = srv.create(cr, uid, [oid], {}, context=context)
-        return pdf
-
-    def add_selections(self, cr, uid, ids, directory, context=None):
-        active_id = context and context.get('active_id')
-        seance = self.pool.get('training.seance').browse(cr, uid, active_id, context=context)
-        ts = time.strptime(seance.date, '%Y-%m-%d %H:%M:%S')
-        date = time.strftime('%Y%m%d', ts)
-        for obj in self.browse(cr, uid, ids, context=context):
-            if obj.presence_list_report:
-                res = self._get_report(cr, uid, active_id, 'report.training.seance.presence.report', context=context)
-                filename = os.path.join(directory, 'Presence_List_%s_%06d.pdf' % (date, seance.id,))
-                fp = file(filename, 'w')
-                fp.write(res)
-                fp.close()
-
-            if obj.remuneration_form_report:
-                for contact in seance.contact_ids:
-                    if not contact.request_id:
-                        raise osv.except_osv(_('Error'),
-                                             _('The stakeholder %s %s has not a request') % (contact.job_id.fist_name, contact.job_id.name) )
-
-                    if not contact.request_id.purchase_order_id:
-                        raise osv.except_osv(_('Error'),
-                                             _('There is no Purchase Order for a request'))
-
-                    if not contact.request_id.purchase_order_id.invoice_id:
-                        raise osv.except_osv(_('Error'),
-                                             _('There is no Invoice for the Purchase Order for this request'))
-
-                    res = self._get_report(cr, uid, contact.request_id.purchase_order_id.invoice_id.id, 'report.account.invoice', context=context)
-                    filename = os.path.join(directory, 'Request_%s_Invoice_%06d.pdf' % (re.sub('/|-', '_', contact.request_id.reference),
-                                                                                        contact.request_id.purchase_order_id.invoice_id.id))
-                    fp = file(filename, 'w')
-                    fp.write(res)
-                    fp.close()
-
-training_seance_generate_pdf_wizard()
 
 class training_seance(osv.osv):
     _name = 'training.seance'
@@ -1579,13 +1418,20 @@ class training_session(osv.osv):
             for seance in session.seance_ids:
                 if seance.date < session.date:
                     return False
+        return True
 
+    def _check_date_end_of_seances(self, cr, uid, ids, context=None):
+        for session in self.browse(cr, uid, ids, context=context):
+            for seance in session.seance_ids:
+                if session.date_end and seance.date > session.date_end:
+                    return False
         return True
 
     _constraints = [
         #(_check_date_before_now, "You cannot create a date before now", ['date']),
         #(_check_date_holiday, "You cannot assign a date in a public holiday", ['date']),
-        (_check_date_of_seances, "You have a seance with a date inferior to the session's date", ['date']),
+        (_check_date_of_seances, "You have a seance with a date inferior to the session's date.", ['date']),
+        (_check_date_end_of_seances, "You have a seance with a later date to the session's end date.", ['date_end']),
     ]
 
     def _find_catalog_id(self, cr, uid, context=None):
@@ -2063,132 +1909,6 @@ class training_session(osv.osv):
 
 training_session()
 
-class training_subscription_mass_wizard(osv.osv_memory):
-    _name = 'training.subscription.mass.wizard'
-    _description = 'Mass Subscription Wizard'
-
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type':'ir.actions.act_window_close'}
-
-    def action_apply(self, cr, uid, ids, context=None):
-        subscription_form_view = context and context.get('subscription_form_view', False) or False
-        record_id = context and context.get('record_id', False) or False
-
-        this = self.browse(cr, uid, ids)[0]
-
-        subscription_proxy = self.pool.get('training.subscription')
-        subscription_line_proxy = self.pool.get('training.subscription.line')
-        subscription_line_second_proxy = self.pool.get('training.subscription.line.second')
-
-        subscriptions = {}
-
-        if record_id:
-            for job in this.job_ids:
-                for subscription_mass_line in this.session_ids:
-                    sl_id = subscription_line_proxy._create_from_wizard(cr, uid, this, record_id, job, subscription_mass_line, context=context)
-
-            return {
-                'type' : 'ir.actions.act_window_close',
-            }
-
-        for job in this.job_ids:
-            # if the job hasn't a partner, we put this subscription in waiting mode
-            if not job.name:
-                for subscription_mass_line in this.session_ids:
-                    subscription_line_second_proxy._create_from_wizard(cr, uid, this, job, subscription_mass_line, context=context)
-
-            else:
-                for subscription_mass_line in this.session_ids:
-                    subscriptions.setdefault(job.name.id, []).append((job, subscription_mass_line,))
-
-        subscription_ids = []
-
-        # We create all subscription where there is a partner associated to the job
-        for partner_id, lines in subscriptions.iteritems():
-            values = subscription_proxy.on_change_partner(cr, uid, [], partner_id)['value']
-            values.update({
-                'partner_id' : partner_id,
-            })
-
-            subscription_id = subscription_proxy.create(cr, uid, values, context=context)
-
-            for job, subscription_mass_line in lines:
-                subscription_line_proxy._create_from_wizard(cr, uid, this, subscription_id, job, subscription_mass_line, context=context)
-
-            subscription_ids.append(subscription_id)
-            
-        mod_id = self.pool.get('ir.model.data').search(cr, uid, [('name', '=', 'training_subscription_all_act')])[0]
-        res_id = self.pool.get('ir.model.data').read(cr, uid, mod_id, ['res_id'])['res_id']
-        act_win = self.pool.get('ir.actions.act_window').read(cr, uid, res_id, [])
-        act_win['domain'] = [('id','in',subscription_ids)]
-        act_win['name'] = _('Subscriptions')
-
-        return act_win
-
-    _columns = {
-        'partner_id' : fields.many2one('res.partner', 'Partner'),
-        'job_ids' : fields.many2many('res.partner.job',
-                                     'tms_contact_job_rel',
-                                     'ms_id',
-                                     'job_id',
-                                     'Contacts',
-                                    ),
-        'session_ids' : fields.one2many('training.subscription.mass.line', 'wizard_id', 'Sessions'),
-    }
-
-    def default_get(self, cr, uid, fields, context=None):
-        record_id = context and context.get('record_id', False) or False
-
-        res = super(training_subscription_mass_wizard, self).default_get(cr, uid, fields, context=context)
-
-        if record_id:
-            partner_id = self.pool.get('training.subscription').browse(cr, uid, record_id, context=context).partner_id.id
-            res['partner_id'] = partner_id
-
-        return res
-
-    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        record_id = context and context.get('record_id', False) or False
-
-        res = super(training_subscription_mass_wizard, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
-        if record_id:
-            if 'fields' in res and 'partner_id' in res['fields']:
-                res['fields']['partner_id']['readonly'] = True
-
-        return res
-
-training_subscription_mass_wizard()
-
-class mass_subscription_line(osv.osv_memory):
-    _name = 'training.subscription.mass.line'
-
-    _columns = {
-        'wizard_id' : fields.many2one('training.subscription.mass.wizard', 'Wizard'),
-        'session_id' : fields.many2one('training.session', 'Session',
-                                       domain="[('state', 'in', ('opened','opened_confirmed', 'closed_confirmed', 'inprogress'))]", required=True),
-        'allow_closed_session': fields.boolean('Allow Closed Session'),
-        'kind' : fields.related('session_id','offer_id', 'kind',
-                                type='selection',
-                                selection=training_offer_kind_compute,
-                                string='Kind',
-                                readonly=True),
-    }
-
-    def on_change_allow_closed_session(self, cr, uid, ids, new_allow, context=None):
-        if new_allow:
-            return {
-                'domain': {'session_id': []}
-            }
-        else:
-            return {
-                'domain': {'session_id': [('state', 'in', ('opened','opened_confirmed', 'closed_confirmed', 'inprogress'))]}
-            }
-
-
-    def on_change_session(self, cr, uid, ids, context=None):
-        return {}
-
-mass_subscription_line()
 
 class training_subscription_line_second(osv.osv):
     _name = 'training.subscription.line.second'
@@ -2268,12 +1988,12 @@ class training_participation(osv.osv):
                                           'training.subscription.line': (_store_get_sublines, None, 10),
                                       }
                                       ),
-        'contact_lastname': fields.related('contact_id', 'name', readonly=True, type='char', size=64, string='Contact Last Name',
+        'contact_lastname': fields.related('subscription_line_id', 'job_id', 'contact_id', 'name', readonly=True, type='char', size=64, string='Contact Last Name',
                                             store={
                                                 'training.subscription.line': (_store_get_sublines, None, 11),
                                             }
                                             ),
-        'contact_firstname': fields.related('contact_id', 'first_name', readonly=True, type='char', size=64, string='Contact First Name',
+        'contact_firstname': fields.related('subscription_line_id', 'job_id', 'contact_id', 'first_name', readonly=True, type='char', size=64, string='Contact First Name',
                                             store={
                                                 'training.subscription.line': (_store_get_sublines, None, 11),
                                             }
@@ -3025,7 +2745,7 @@ class training_subscription(osv.osv):
                                                   'training.subscription' : (lambda self, cr, uid, ids, context=None: ids, None, 10),
                                               },
                                               size=64),
-        'is_from_web': fields.boolean('Is from Web?', help='Is this subscription come from an online order.', readonly=True),
+        'comment': fields.text('Additional Information'),
     }
 
     def create(self, cr, uid, vals, context):
@@ -3282,8 +3002,10 @@ class training_subscription_line(osv.osv):
         'was_present': fields.function(_was_present_compute, method=True, type='boolean', string='Was Present'),
     }
 
-    def _default_name(self, cr, uid, context=None):
-        return self.pool.get('ir.sequence').get(cr, uid, 'training.subscription.line')
+    def create(self, cr, uid, vals, context):
+        if vals.get('name', '/')=='/':
+            vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'training.subscription.line')
+        return super(training_subscription_line, self).create(cr, uid, vals, context)
 
     def unlink(self, cr, uid, vals, context):
         subscription_lines = self.read(cr, uid, vals, ['state'])
@@ -3297,8 +3019,7 @@ class training_subscription_line(osv.osv):
 
     _defaults = {
         'state' : lambda *a: 'draft',
-        'name' : _default_name,
-        #lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'training.subscription.line'),
+        'name' : lambda *args: '/',
         'has_certificate' : lambda *a: 0,
     }
 
@@ -4523,57 +4244,6 @@ class training_course_pending(osv.osv):
 
 training_course_pending()
 
-class training_course_pending_wizard(osv.osv_memory):
-    _name = 'training.course.pending.wizard'
-
-    _columns = {
-        'course_id' : fields.many2one('training.course', 'Course'),
-        'type' : fields.selection(training_course_pending_reason_compute,
-                                    'Type',
-                                    size=32,
-                                    required=True),
-        'date' : fields.date('Planned Date'),
-        'reason' : fields.text('Reason'),
-        'job_id' : fields.many2one('res.partner.job', 'Contact', required=True),
-        'state' : fields.selection([('first_screen', 'First Screen'),
-                                    ('second_screen', 'Second Screen')],
-                                   'State')
-    }
-
-    _defaults = {
-        'type' : lambda *a: 'update_support',
-        'state' : lambda *a: 'first_screen',
-        'course_id' : lambda obj, cr, uid, context: context.get('active_id', 0)
-    }
-
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type' : 'ir.actions.act_window_close'}
-
-    def action_apply(self, cr, uid, ids, context=None):
-        course_id = context and context.get('active_id', False) or False
-
-        if not course_id:
-            return False
-
-        this = self.browse(cr, uid, ids)[0]
-
-        workflow = netsvc.LocalService('workflow')
-        workflow.trg_validate(uid, 'training.course', course_id, 'signal_pending', cr)
-
-        values = {
-            'course_id' : course_id,
-            'type' : this.type,
-            'date' : this.date,
-            'reason' : this.reason,
-            'job_id' : this.job_id and this.job_id.id,
-        }
-
-        self.pool.get('training.course.pending').create(cr, uid, values, context=context)
-
-        return {'res_id' : course_id}
-
-training_course_pending_wizard()
-
 
 class training_contact_course(osv.osv):
     _name = 'training.contact.course'
@@ -4603,118 +4273,6 @@ class res_partner_contact(osv.osv):
 
 res_partner_contact()
 
-class training_session_duplicate_wizard(osv.osv_memory):
-    _name = 'training.session.duplicate.wizard'
-
-    _columns = {
-        'session_id': fields.many2one('training.session', 'Session',
-                                      required=True,
-                                      readonly=True,
-                                      domain=[('state', 'in', ['opened', 'opened_confirmed'])]),
-        'group_id' : fields.many2one('training.group', 'Group',
-                                     domain="[('session_id', '=', session_id)]"),
-        'subscription_line_ids' : fields.many2many('training.subscription.line',
-                                                   'training_sdw_participation_rel',
-                                                   'wizard_id',
-                                                   'participation_id',
-                                                   'Participations',
-                                                   domain="[('session_id', '=', session_id),('state', '=', 'confirmed')]"),
-    }
-
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type' : 'ir.actions.act_window_close'}
-
-    def action_apply(self, cr, uid, ids, context=None):
-        this = self.browse(cr, uid, ids[0], context=context)
-
-        if len(this.subscription_line_ids) == 0:
-            raise osv.except_osv(_('Error'),
-                                 _('You have not selected a participant of this session'))
-
-        seances = []
-
-        if any(len(seance.session_ids) > 1 for seance in this.session_id.seance_ids):
-            raise osv.except_osv(_('Error'),
-                                 _('You have selected a session with a shared seance'))
-
-        #if not all(seance.state == 'opened' for seance in this.session_id.seance_ids):
-        #    raise osv.except_osv(_('Error'),
-        #                         _('You have to open all seances in this session'))
-
-        lengths = [len(group.seance_ids)
-                   for group in this.session_id.group_ids
-                   if group != this.group_id]
-
-        if len(lengths) == 0:
-            raise osv.except_osv(_('Error'),
-                                 _('There is no group in this session !'))
-
-        minimum, maximum = min(lengths), max(lengths)
-
-        if minimum != maximum:
-            raise osv.except_osv(_('Error'),
-                                 _('The defined groups for this session does not have the same number of seances !'))
-
-        group_id = this.session_id.group_ids[0]
-
-        seance_sisters = {}
-        for group in this.session_id.group_ids:
-            for seance in group.seance_ids:
-                seance_sisters.setdefault((seance.date, seance.duration, seance.course_id, seance.kind,), {})[seance.id] = None
-
-        seance_ids = []
-
-        if len(this.group_id.seance_ids) == 0:
-            proxy_seance = self.pool.get('training.seance')
-
-            for seance in group_id.seance_ids:
-                values = {
-                    'group_id' : this.group_id.id,
-                    'presence_form' : 'no',
-                    'manual' : 0,
-                    'participant_count_manual' : 0,
-                    'contact_ids' : [(6, 0, [])],
-                    'participant_ids' : [],
-                    'duplicata' : 1,
-                    'duplicated' : 1,
-                    'is_first_seance' : seance.is_first_seance,
-                }
-
-                seance_ids.append( proxy_seance.copy(cr, uid, seance.id, values, context=context) )
-        else:
-            # If the there are some seances in this group
-            seance_ids = [seance.id for seance in this.group_id.seance_ids]
-
-        for seance in self.pool.get('training.seance').browse(cr, uid, seance_ids, context=context):
-            key = (seance.date, seance.duration, seance.course_id, seance.kind,)
-            if key in seance_sisters:
-                for k, v in seance_sisters[key].items():
-                    seance_sisters[key][k] = seance.id
-            else:
-                seance_sisters[key][seance.id] = seance.id
-
-        final_mapping = {}
-        for key, values in seance_sisters.iteritems():
-            for old_seance_id, new_seance_id in values.iteritems():
-                final_mapping[old_seance_id] = new_seance_id
-
-        for sl in this.subscription_line_ids:
-            for part in sl.participation_ids:
-                part.write({'seance_id' : final_mapping[part.seance_id.id]})
-
-        return {'type' : 'ir.actions.act_window_close'}
-
-    def default_get(self, cr, uid, fields, context=None):
-        record_id = context and context.get('record_id', False) or False
-
-        res = super(training_session_duplicate_wizard, self).default_get(cr, uid, fields, context=context)
-
-        if record_id:
-            res['session_id'] = record_id
-
-        return res
-
-training_session_duplicate_wizard()
 
 class purchase_order(osv.osv):
     _inherit = 'purchase.order'
@@ -4979,70 +4537,3 @@ class training_config_invoice(osv.osv):
     ]
 
 training_config_invoice()
-
-class training_participation_reassign_wizard(osv.osv_memory):
-    _name = 'training.participation.reassign.wizard'
-
-    _columns = {
-        'participation_id' : fields.many2one('training.participation', 'Participation', required=True),
-        'participation_seance_id' : fields.related('participation_id', 'seance_id', type='many2one', relation='training.seance', readonly=True, string='Seance'),
-        'participation_seance_date' : fields.related('participation_id', 'seance_id', 'date', type='datetime', readonly=True, string='Date'),
-        'participation_sl' : fields.related('participation_id', 'subscription_line_id', type='many2one', relation='training.subscription.line', readonly=True, string='Subscription Line'),
-        'participation_session_id' : fields.related('participation_id', 'subscription_line_id', 'session_id', type='many2one', relation='training.session',
-                                                    readonly=True,
-                                                    string='Session'),
-        'seance_id' : fields.many2one('training.seance', 'Seance',
-                                      #domain="[('session_ids', 'in', [participation_session_id])]",
-                                      required=True),
-    }
-
-    def on_change_seance(self, cr, uid, ids, seance_id, context=None):
-        values = {
-            'domain' : {
-                'participation_id' : not seance_id and [] or [('seance_id', '=', seance_id)],
-            }
-        }
-
-        return values
-
-    def on_change_participation(self, cr, uid, ids, participation_id, context=None):
-        if not participation_id:
-            return {
-                'value' : {
-                    'seance_id' : 0,
-                },
-                'domain' : {
-                    'seance_id' : [],
-                },
-            }
-
-        p = self.pool.get('training.participation').browse(cr, uid, participation_id, context=context)
-        return {
-            'value' : {
-                'participation_seance_id' : p.seance_id.id,
-                'participation_seance_date' : p.seance_id.date,
-                'participation_sl' : p.subscription_line_id.id,
-                'participation_session_id' : p.subscription_line_id.session_id.id,
-            },
-            'domain' : {
-                'seance_id' : [('id', 'in', [seance.id for seance in p.subscription_line_id.session_id.seance_ids])],
-            }
-        }
-
-    def close_cb(self, cr, uid, ids, context=None):
-        return {'type' : 'ir.actions.act_window_close'}
-
-    def apply_cb(self, cr, uid, ids, context=None):
-        this = self.browse(cr, uid, ids[0], context=context)
-
-        if this.participation_id.seance_id == this.seance_id:
-            raise osv.except_osv(_('Warning'),
-                                 _('You have selected the same seance'))
-
-        this.participation_id.write({'seance_id' : this.seance_id.id})
-
-        return {'type' : 'ir.actions.act_window_close'}
-
-training_participation_reassign_wizard()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

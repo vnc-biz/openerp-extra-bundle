@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- training.subscription.mass.wizard -->
+        <record model="ir.ui.view" id="training_subscription_mass_wizard">
+            <field name="name">training.subscription.mass.wizard</field>
+            <field name="model">training.subscription.mass.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Mass Subscription" col="2">
+                    <group groups='base.group_user' colspan="2" col="2">
+                        <separator string="Partner" colspan="2"/>
+                        <field name="partner_id" string="Partner Filter"/>
+                    </group>
+                    <separator string="Participants" colspan="2"/>
+                    <field name="job_ids" nolabel="1" colspan="2" mode="tree" context="{'partner_id' : partner_id}">
+                        <tree string="Participants">
+                            <field name="contact_id"/>
+                            <field name="name" groups="base.group_user"/>
+                            <field name="email"/>
+                            <field name="pricelist_id" groups="base.group_user"/>
+                        </tree>
+                    </field>
+                    <separator string="Sessions" colspan="2"/>
+                    <field name="session_ids" nolabel="1" colspan="2"/>
+                    <separator colspan="2"/>
+                    <group colspan="2" col="2" >
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel"/>
+                        <button name="action_apply" type="object" string="_Apply" icon="gtk-apply"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="training_subscription_mass_act">
+            <field name="name">Mass Subscription</field>
+            <field name="res_model">training.subscription.mass.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="training_subscription_mass_wizard"/>
+            <field name="target">new</field>
+            <field name="context">{'record_id': False}</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="training_subscription_mass_from_subscription_act">
+            <field name="name">Mass Subscription</field>
+            <field name="res_model">training.subscription.mass.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="training_subscription_mass_wizard"/>
+            <field name="target">new</field>
+            <field name="context">{'record_id': active_id}</field>
+        </record>
+
+         <record model="ir.values" id="training_subscription_mass_related">
+            <field name="model_id" ref="training.model_training_subscription"/>
+            <field name="object" eval="1"/>
+            <field name="name">Mass Subscription</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('training_subscription_mass_from_subscription_act'))"/>
+            <field name="key">action</field>
+            <field name="model">training.subscription</field>
+        </record>
+
+<!-- training.subscription.mass.line -->
+        <record model="ir.ui.view" id="subscription_mass_line_form">
+            <field name="name">subscription_mass_line_form</field>
+            <field name="model">training.subscription.mass.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Session">
+                    <field name="session_id"/>
+                    <field name="kind" invisible="1"/>
+                    <field name="allow_closed_session" on_change="on_change_allow_closed_session(allow_closed_session)"/>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="subscription_mass_line_tree">
+            <field name="name">subscription.mass.line.tree</field>
+            <field name="model">training.subscription.mass.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Sessions">
+                    <field name="session_id"/>
+                    <field name="kind" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- menu items -->
+        <menuitem id="training_subscription_mass_mi" parent="training_subscription_management_mi" action="training_subscription_mass_act" icon="STOCK_EXECUTE" sequence="30"/>
+
+    </data>
+</openerp>

@@ -22,16 +22,20 @@
 #
 ##############################################################################
 
+import course_pending
 import create_block_offer
-import create_groups
+import create_holiday_year
 import create_offer
 import create_session
-#import subscription_line_change_participant
-import subscription_line_confirm
-import subscription_second_line
-import validate_course
-import subscription_session
+import offer_purchase_line_update
+import participation_reassign
+import seance_generate_pdf
+import session_duplicate
 import subscription_cancelation
-#import wizard_not_implemented
-#import wizard_spam
-#import wizard_subscription_line_invoice
+import subscription_line_change_participant
+import subscription_line_confirm
+import subscription_mass
+import subscription_second_line
+import subscription_session
+import validate_course
+

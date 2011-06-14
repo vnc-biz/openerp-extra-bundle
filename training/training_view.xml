@@ -195,33 +195,33 @@
 
 
 <!-- training.course.pending.wizard -->
-        <record model="ir.ui.view" id="wizard_course_pending_form">
-            <field name="name">wizard.course.pending.form</field>
-            <field name="model">training.course.pending.wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Course Pending" col="2">
-                    <field name="course_id" invisible="1"/>
-                    <field name="type" colspan="2"/>
-                    <field name="date"/>
-                    <field name="job_id"/>
-                    <field name="reason" colspan="2"/>
-                    <separator string="" colspan="2"/>
-                    <group col="2" colspan="2">
-                        <button name="action_cancel" type="object" special="cancel" string="Cancel" icon="gtk-cancel"/>
-                        <button name="action_apply" type="object" string="Apply" icon="gtk-apply"/>
-                    </group>
-                </form>
-            </field>
-        </record>
+<!--        <record model="ir.ui.view" id="wizard_course_pending_form">-->
+<!--            <field name="name">wizard.course.pending.form</field>-->
+<!--            <field name="model">training.course.pending.wizard</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Course Pending" col="2">-->
+<!--                    <field name="course_id" invisible="1"/>-->
+<!--                    <field name="type" colspan="2"/>-->
+<!--                    <field name="date"/>-->
+<!--                    <field name="job_id"/>-->
+<!--                    <field name="reason" colspan="2"/>-->
+<!--                    <separator string="" colspan="2"/>-->
+<!--                    <group col="2" colspan="2">-->
+<!--                        <button name="action_cancel" type="object" special="cancel" string="Cancel" icon="gtk-cancel"/>-->
+<!--                        <button name="action_apply" type="object" string="Apply" icon="gtk-apply"/>-->
+<!--                    </group>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
 
-        <record model="ir.actions.act_window" id="wizard_course_pending">
-            <field name="name">wizard.course.pending</field>
-            <field name="res_model">training.course.pending.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
+<!--        <record model="ir.actions.act_window" id="wizard_course_pending">-->
+<!--            <field name="name">wizard.course.pending</field>-->
+<!--            <field name="res_model">training.course.pending.wizard</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">new</field>-->
+<!--        </record>-->
 
 <!-- training.course views & actions -->
        <record id="training_course_filter" model="ir.ui.view">
@@ -757,7 +757,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
             <field name="domain">[('kind','in',['standard','exam'])]</field>
-<!--            <field name="context">{"search_default_futures":1}</field>-->
+            <field name="context">{"search_default_futures":1}</field>
         </record>
 
         <record model="ir.actions.act_window.view" id="action_training_session_form1">
@@ -810,42 +810,14 @@
             domain="[('session_ids', '=', [active_id])]"
             view_mode="tree,calendar,form"/>
 
-
-<!-- training.seance.generate.zip.wizard -->
-        <record model="ir.ui.view" id="seance_generate_zip_wizard_form">
-            <field name="name">training.seance.genereate.zip.wizard.form</field>
-            <field name="model">training.seance.generate.zip.wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Generate Reports" col="4">
-                    <group colspan="4" col="2" states="selection" >
-                        <separator string="Reports" colspan="2"/>
-                        <field name="presence_list_report"/>
-                        <field name="remuneration_form_report"/>
-                    </group>
-                    <group colspan="4" states="result">
-                        <field name="zip_file_name"/>
-                        <newline/>
-                        <field name="zip_file" filename="zip_file_name"/>
-                    </group>
-                    <separator string="" colspan="4"/>
-                    <group colspan="4" col="5">
-                        <field name="state" invisible="1"/>
-                        <button string="Cancel" type="object" special="cancel" name="action_close" states="selection"/>
-                        <button string="Close" type="object" special="cancel" name="action_close" states="result"/>
-                        <button string="Generate Reports" type="object" name="action_generate_zip" states="selection"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-      
-
-        <record model="ir.actions.act_window" id="seance_generate_zip_wizard_act">
-            <field name="name">Generate Reports</field>
-            <field name="res_model">training.seance.generate.zip.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
+         <record model="ir.values" id="training_session_duplicate_related">
+            <field name="model_id" ref="training.model_training_session"/>
+            <field name="object" eval="1"/>
+            <field name="name">Duplicate Session</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('session_duplicate_wizard_act'))"/>
+            <field name="key">action</field>
+            <field name="model">training.session</field>
         </record>
       
 
@@ -1107,7 +1079,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar</field>
             <field name="domain">[('kind','in',['standard','exam'])]</field>
-            <!--<field name="context">{"search_default_future":1}</field>-->
+            <field name="context">{"search_default_future":1}</field>
         </record>
 
         <record model="ir.actions.act_window" id="training_seance_planning_act">
@@ -1163,7 +1135,7 @@
             <field name="res_model">training.seance.purchase_line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-<!--            <field name="context">{"search_default_purchase":1}</field>-->
+            <field name="context">{"search_default_purchase":1}</field>
         </record>
 
 
@@ -1278,7 +1250,8 @@
                         <page string="Other Data" groups="base.group_user">
                             <field name="responsible_id"/>
                             <field name="origin" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
-                            <field name="is_from_web" groups="base.group_user"/>
+                            <separator string="Additional Information" colspan="4"/>
+                            <field name="comment" nolabel="1" colspan="4"/>
                         </page>
                     </notebook>
                     <group colspan="4" col="6">
@@ -1343,44 +1316,6 @@
             res_model="training.session"
             context="{'subscription_id' : active_id}"
             id="act_window_session_from_subscription"/>
-
-
-<!-- training.subscription.line -->
-<!--        <record model="ir.actions.act_window" id="training_subscription_line_all_act">-->
-<!--            <field name="name">Subscription Lines</field>-->
-<!--            <field name="res_model">training.subscription.line</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_id" ref="training_subscription_line_tree2" />-->
-<!--            <field name="domain"></field>-->
-<!--        </record>-->
-
-<!--        <record model="ir.actions.act_window" id="training_subscription_line_uninvoiced_act">-->
-<!--            <field name="name">All Subscription Lines to Invoice</field>-->
-<!--            <field name="res_model">training.subscription.line</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_id" ref="training_subscription_line_tree" />-->
-<!--            <field name="domain">[('invoice_line_id', '=', False),('state', 'in', ('done','confirmed')),('subscription_id.state', 'in', ('confirmed', 'done')), ('session_id.state', 'not in', ['cancelled', 'draft']),('price','!=',0)]</field>-->
-<!--        </record>-->
-
-<!--        <record model="ir.actions.act_window" id="training_subl_uninvoiced_to_fix_act">-->
-<!--            <field name="name">Subscription Lines to Invoice To Fix</field>-->
-<!--            <field name="res_model">training.subscription.line</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_id" ref="training_subscription_line_tree" />-->
-<!--            <field name="domain">[('invoice_line_id', '=', False),('state', 'in', ('done','confirmed')),('subscription_id.state', 'in', ('confirmed', 'done')), ('session_id.date', '&lt;', (datetime.datetime.today()+datetime.timedelta(days=1)).strftime('%Y-%m-%d 23:59:59')),('session_id.state','in',['inprogress','closed']),('price','!=',0)]</field>-->
-<!--        </record>-->
-
-<!--        <record model="ir.actions.act_window" id="training_subscription_line_draft_act">-->
-<!--            <field name="name">Subscription Lines to Validate</field>-->
-<!--            <field name="res_model">training.subscription.line</field>-->
-<!--            <field name="view_type">form</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="view_id" ref="training_subscription_line_tree" />-->
-<!--            <field name="domain">[('state', '=', 'draft'), ('subscription_id.state', '=', 'confirmed')]</field>-->
-<!--        </record>-->
 
 
 <!-- training.subscription.line -->
@@ -1578,38 +1513,6 @@
             domain="[('offer_id', '=', active_id)]"/>
 
 
-<!-- training.offer.purchase.line.update.wizard -->
-        <record model="ir.ui.view" id="training_offer_purchase_line_wizard_form">
-            <field name="name">training.offer.purchase.line.update.wizard</field>
-            <field name="model">training.offer.purchase.line.update.wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Procurements Update">
-                    <group colspan="4" col="2" states="confirm">
-                        <label string="Are you sure you want to update procurements all opened seance in all future session?" colspan="2"/>
-                        <button string="Cancel" special="cancel" name="action_close"/>
-                        <button string="Confirm" type="object" name="action_confirm"/>
-                    </group>
-                    <group colspan="4" col="4" states="update" expand="1">
-                        <field name="name"/>
-                        <field name="date"/>
-                        <separator string="Log Details" colspan="4"/>
-                        <field name="log" colspan="4" nolabel="1"/>
-                    </group>
-                    <field name="state" invisible="1"/>
-                </form>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_offer_purchase_line_wizard_act">
-            <field name="name">Procurements Update</field>
-            <field name="res_model">training.offer.purchase.line.update.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-
-
 <!-- training.offer -->
        <record id="training_offer_search" model="ir.ui.view">
             <field name="name">training.offer.search</field>
@@ -1656,12 +1559,7 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Courses">
-                            <field name="course_ids"
-                                colspan="4"
-                                nolabel="1"
-                                attrs="{'readonly' : [('state', '!=', 'draft')]}"
-                                context="{'default_lang_id' : lang_id}"
-                                on_change="on_change_course_ids(course_ids)">
+                            <field name="course_ids" colspan="4" nolabel="1" attrs="{'readonly' : [('state', '!=', 'draft')]}" context="{'default_lang_id' : lang_id}">
                                 <tree string="Courses">
                                     <field name="course_id" domain="[('lang_id', '=', lang_id),('state_course', '=', 'validated')]" on_change="on_change_course(course_id)"/>
                                     <field name="category_id"/>
@@ -1742,7 +1640,7 @@
                                 attrs="{'invisible' : [('state', '=', 'validated')]}"/>
                             <button name="%(training_offer_purchase_line_wizard_act)d"
                                 type="action"
-                                string="Update Seance Procurments" colspan="4"/>
+                                string="Update Seance Procurements" colspan="4"/>
                         </page>
                         <page string="Pedagogical Suggestion">
                             <separator string="Preliminary Offers (Internet)" colspan="4"/>
@@ -2168,33 +2066,6 @@
         </record>
 
 
-<!-- training.subscription.mass.line -->
-        <record model="ir.ui.view" id="subscription_mass_line_form">
-            <field name="name">subscription_mass_line_form</field>
-            <field name="model">training.subscription.mass.line</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Session">
-                    <field name="session_id"/>
-                    <field name="kind" invisible="1"/>
-                    <field name="allow_closed_session" on_change="on_change_allow_closed_session(allow_closed_session)"/>
-                </form>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="subscription_mass_line_tree">
-            <field name="name">subscription.mass.line.tree</field>
-            <field name="model">training.subscription.mass.line</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Sessions">
-                    <field name="session_id"/>
-                    <field name="kind" invisible="1"/>
-                </tree>
-            </field>
-        </record>
-
-
 <!-- training.subscription.line.second -->
        <record model="ir.ui.view" id="training_subscription_line_second_search">
             <field name="name">training.subscription.line.second.search</field>
@@ -2242,68 +2113,6 @@
             <field name="res_model">training.subscription.line.second</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-        </record>
-
-
-<!-- training.subscription.mass.wizard -->
-        <record model="ir.ui.view" id="training_subscription_mass_wizard">
-            <field name="name">training.subscription.mass.wizard</field>
-            <field name="model">training.subscription.mass.wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Mass Subscription" col="2">
-                    <group groups='base.group_user' colspan="2" col="2">
-                        <separator string="Partner" colspan="2"/>
-                        <field name="partner_id" string="Partner Filter"/>
-                    </group>
-                    <separator string="Participants" colspan="2"/>
-                    <field name="job_ids" nolabel="1" colspan="2" mode="tree" context="{'partner_id' : partner_id}">
-                        <tree string="Participants">
-                            <field name="contact_id"/>
-                            <field name="name" groups="base.group_user"/>
-                            <field name="email"/>
-                            <field name="pricelist_id" groups="base.group_user"/>
-                        </tree>
-                    </field>
-                    <separator string="Sessions" colspan="2"/>
-                    <field name="session_ids" nolabel="1" colspan="2"/>
-                    <separator colspan="2"/>
-                    <group colspan="2" col="2" >
-                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel"/>
-                        <button name="action_apply" type="object" string="_Apply" icon="gtk-apply"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_subscription_mass_act">
-            <field name="name">Mass Subscription</field>
-            <field name="res_model">training.subscription.mass.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="training_subscription_mass_wizard"/>
-            <field name="target">new</field>
-            <field name="context">{'record_id' : False}</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_subscription_mass_from_subscription_act">
-            <field name="name">Mass Subscription</field>
-            <field name="res_model">training.subscription.mass.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="training_subscription_mass_wizard"/>
-            <field name="target">new</field>
-            <field name="context">{'record_id' : active_id}</field>
-        </record>
-
-         <record model="ir.values" id="training_subscription_mass_related">
-            <field name="model_id" ref="training.model_training_subscription"/>
-            <field name="object" eval="1"/>
-            <field name="name">Mass Subscription</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' + str(ref('training_subscription_mass_from_subscription_act'))"/>
-            <field name="key">action</field>
-            <field name="model">training.subscription</field>
         </record>
 
 
@@ -2485,65 +2294,6 @@
         </record>
 
 
-<!-- training.session.duplicate.wizard -->
-        <record model="ir.ui.view" id="session_duplicate_wizard">
-            <field name="name">training.session.duplicate.wizard</field>
-            <field name="model">training.session.duplicate.wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Duplicate Session" col="2">
-                    <group colspan="2" col="2">
-                        <field name="session_id" colspan="2"/>
-                        <field name="group_id" colspan="2" context="{'default_session_id' : session_id}" attrs="{'readonly' : [('session_id', '=', False)],'required' : [('session_id', '!=', False)]}"/>
-                        <separator string="Participants" colspan="2"/>
-                        <field name="subscription_line_ids" colspan="2" height="250" nolabel="1" attrs="{'readonly' : [('group_id', '=', False)]}">
-                            <tree string="Participants">
-                                <field name="job_id"/>
-                                <field name="job_email"/>
-                                <field name="partner_id"/>
-                            </tree>
-                        </field>
-                    </group>
-                    <separator string="" colspan="2"/>
-                    <group col="2" colspan="2">
-                        <button name="action_cancel" type="object" special="cancel" string="Cancel" icon="gtk-cancel"/>
-                        <button name="action_apply" type="object" string="Duplicate" icon="gtk-apply"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="session_duplicate_wizard_act">
-            <field name="name">Duplicate Session</field>
-            <field name="res_model">training.session.duplicate.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="session_duplicate_wizard_act">
-            <field name="name">Duplicate Session</field>
-            <field name="res_model">training.session.duplicate.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="session_duplicate_wizard"/>
-            <field name="target">new</field>
-            <field name="context">{'record_id' : active_id}</field>
-        </record>
-
-
-<!-- training.session -->
-         <record model="ir.values" id="training_session_duplicate_related">
-            <field name="model_id" ref="training.model_training_session"/>
-            <field name="object" eval="1"/>
-            <field name="name">Duplicate Session</field>
-            <field name="key2">client_action_multi</field>
-            <field name="value" eval="'ir.actions.act_window,' + str(ref('session_duplicate_wizard_act'))"/>
-            <field name="key">action</field>
-            <field name="model">training.session</field>
-        </record>
-
-
 <!-- training.config.product -->
         <record model="ir.ui.view" id="training_config_product_form">
             <field name="name">training.config.product.form</field>
@@ -2699,42 +2449,8 @@
         </record>
 
 
-<!-- training.participation.reassign.wizard -->
-        <record model="ir.ui.view" id="training_participation_reassign_wiz_form">
-            <field name="name">training.participation.reassign.wizard.form</field>
-            <field name="model">training.participation.reassign.wizard</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Reassign Participation to Seance">
-                    <separator string="Participation Information" colspan="4"/>
-                    <field name="participation_id" on_change="on_change_participation(participation_id)" colspan="4"/>
-                    <separator string="Seance Information" colspan="4"/>
-                    <field name="participation_sl"/>
-                    <field name="participation_session_id"/>
-                    <field name="participation_seance_id"/>
-                    <field name="participation_seance_date"/>
-                    <separator string="Seance Destination" colspan="4"/>
-                    <field name="seance_id" colspan="4" on_change="on_change_seance(seance_id)"/>
-                    <group col="2" colspan="4">
-                        <button name="close_cb" string="Cancel" type="object" special="cancel" icon="gtk-cancel"/>
-                        <button name="apply_cb" string="Apply" type="object" icon="gtk-apply" 
-                            confirm="Are you sure to want to move this participation to this seance?"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="training_participation_reassign_wiz_act">
-            <field name="name">Participation Reassignation</field>
-            <field name="res_model">training.participation.reassign.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-
-
 <!-- menus -->
-        <menuitem id="training_mi" name="Training" icon="terp-go-home"/>
+        <menuitem id="training_mi" name="Training" icon="terp-go-home" web_icon="images/training.png" web_icon_hover="images/training-hover.png"/>
         <!--Address Book-->
         <menuitem id="training.menu_address_book" name="Address Book" parent="training_mi" sequence="5"/>
         <menuitem id="training.menu_partner_form" action="base.action_partner_form" parent="training.menu_address_book"/>
@@ -2758,13 +2474,11 @@
         <menuitem id="training_subscription_management_mi" name="Subscriptions" parent="training_mi" sequence="10"/>
         <menuitem id="training_subscription_management_subscription_mi" parent="training_subscription_management_mi" action="training_subscription_all_act" sequence="10"/>
         <menuitem id="training_subscription_management_subscription_new_mi" parent="training_subscription_management_mi" action="training_subscription_new_act" sequence="20"/>
-        <menuitem id="training_subscription_mass_mi" parent="training_subscription_management_mi" action="training_subscription_mass_act" icon="STOCK_EXECUTE" sequence="30"/>
         <menuitem id="training_subscription_management_subscription_line_all_mi" parent="training_subscription_management_mi" action="training_subscription_line_all_act" sequence="40"/>
         <menuitem id="subscription_line_second_all_mi" parent="training_subscription_management_mi" action="subscription_line_second_all_act" sequence="50"/>
         <!--Participation-->
         <menuitem id="training_participation_mi" name="Participations" parent="training_mi" sequence="10"/>
         <menuitem id="training_participation_all_mi" name="Participants" parent="training_participation_mi" action="action_training_participation_all" sequence="10"/>
-        <menuitem  id="training_participation_reassign_wiz_mi" name="Participation Reassignation" parent="training_participation_mi" action="training_participation_reassign_wiz_act" groups="base.group_erp_manager" sequence="20"/>
         <menuitem id="stakeholder_participation_requests_mi" name="Stakeholders Requests" parent="training_participation_mi" action="participation_stakeholder_request_act" sequence="30"/>
         <menuitem id="seance_stakeholder_participation_mi" name="Stakeholders Participations" parent="training_participation_mi" action="action_training_participation_stakeholder_all" sequence="40"/>
         <!--Configuration-->

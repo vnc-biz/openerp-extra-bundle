@@ -38,9 +38,9 @@ _boolean_states = {'1': True, 'yes': True, 'true': True, 'on': True,
 
 if not system_base_config.get('running_env', False):
     raise Exception(
-        ("The parameter 'running_env' has not be set neither in base config file option -c or in openerprc.\n")
-        ("We strongly recommand you not to use the rc file but instead use an explicite config file with this content : \n")
-        ("[options] \nrunning_env =  dev")
+        ("The parameter 'running_env' has not be set neither in base config file option -c or in openerprc.\n"
+         "We strongly recommand you not to use the rc file but instead use an explicite config file with this content : \n"
+         "[options] \nrunning_env =  dev")
     )
     
 ck_path = os.path.join(_dir, system_base_config['running_env'])

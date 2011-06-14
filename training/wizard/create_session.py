@@ -56,9 +56,7 @@ class training_session_create_wizard(osv.osv_memory):
         offer = proxy.browse(cr, uid, context['active_id'], context=context)
         for form in self.read(cr, uid, ids, [], context=context):
             if not offer.can_be_planned:
-                raise wizard.except_wizard(_('Warning'),
-                                           _("You can not create a session with a non-validated offer"))
-
+                raise osv.except_osv(_('Warning'), _("You can not create a session with a non-validated offer") )
 
             proxy = pool.get('training.session')
             session_id = proxy.create(cr, uid,

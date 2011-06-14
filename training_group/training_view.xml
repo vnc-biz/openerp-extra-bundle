@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- training.group -->
+        <record model="ir.ui.view" id="group_tree">
+            <field name="name">training.group.tree</field>
+            <field name="model">training.group</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="training.group_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='name']" position="after">
+                    <field name="parent_id"/>
+                </xpath>
+                <xpath expr="/tree/field[@name='session_id']" position="after">
+                    <field name="generate_seances"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="group_form">
+            <field name="name">training.group.form</field>
+            <field name="model">training.group</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.group_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/field[@name='name']" position="after">
+                    <field name="parent_id"/>
+                </xpath>
+                <xpath expr="/form/field[@name='session_id']" position="after">
+                    <field name="generate_seances"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

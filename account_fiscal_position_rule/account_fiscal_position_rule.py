@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
-##############################################################################
+#################################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    $Id$
+#    Copyright (C) 2010  Renato Lima - Akretion
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,7 +16,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#################################################################################
 
 from osv import fields, osv
 
@@ -27,13 +25,13 @@ class account_fiscal_position_rule(osv.osv):
     _columns = {
     	'name': fields.char('Name', size=64, required=True),
     	'description': fields.char('Description', size=128),
-    	'from_country': fields.many2one('res.country','Country Form'),
-    	'from_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',from_country)]"),
-    	'to_country': fields.many2one('res.country', 'Country To'),
-    	'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+    	'from_country': fields.many2one('res.country','Form Country'),
+    	'from_state': fields.many2one('res.country.state', 'From State', domain="[('country_id','=',from_country)]"),
+    	'to_country': fields.many2one('res.country', 'To Country'),
+    	'to_state': fields.many2one('res.country.state', 'To State', domain="[('country_id','=',to_country)]"),
         'company_id': fields.many2one('res.company', 'Company', required=True, select=True),
     	'fiscal_position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', domain="[('company_id','=',company_id)]", required=True, select=True),
-        'use_sale' : fields.boolean('Use in sales order'),
+        'use_sale' : fields.boolean('Use in sales Orders'),
         'use_invoice' : fields.boolean('Use in Invoices'),
         'use_purchase' : fields.boolean('Use in Purchases'),
         'use_picking' : fields.boolean('Use in Picking'),
@@ -45,12 +43,12 @@ class account_fiscal_position_rule_template(osv.osv):
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'description': fields.char('Description', size=128),
-        'from_country': fields.many2one('res.country','Country Form'),
-        'from_state': fields.many2one('res.country.state', 'State From', domain="[('country_id','=',from_country)]"),
-        'to_country': fields.many2one('res.country', 'Country To'),
-        'to_state': fields.many2one('res.country.state', 'State To', domain="[('country_id','=',to_country)]"),
+        'from_country': fields.many2one('res.country','Form Country'),
+        'from_state': fields.many2one('res.country.state', 'From State', domain="[('country_id','=',from_country)]"),
+        'to_country': fields.many2one('res.country', 'To Country'),
+        'to_state': fields.many2one('res.country.state', 'To State', domain="[('country_id','=',to_country)]"),
         'fiscal_position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Position', required=True),
-        'use_sale' : fields.boolean('Use in sales order'),
+        'use_sale' : fields.boolean('Use in sales Orders'),
         'use_invoice' : fields.boolean('Use in Invoices'),
         'use_purchase' : fields.boolean('Use in Purchases'),
         'use_picking' : fields.boolean('Use in Picking'),

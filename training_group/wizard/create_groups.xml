@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!-- training.create.groups.wizard -->
+        <record model="ir.ui.view" id="training_create_groups_wizard_view">
+            <field name="name">Groups Generator Wizard View</field>
+            <field name="model">training.create.groups.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Groups Generator Wizard">
+                <group colspan="4" col="4" attrs="{'invisible':[('state','=','done')]}">
+                    <group colspan="4">
+                        <label string="If level 1 is SchoolName, level 2 is 1,2 and level 3 is A,B the groups generated will be: SchoolName, SchoolName-1, SchoolName-2, SchoolName-1-A, SchoolName-1-B, SchoolName-2-A, SchoolName-2-B." colspan="4"/>
+                        <field name="level1"/>
+                        <newline/>
+                        <field name="level2"/>
+                        <newline/>
+                        <field name="level3"/>
+                        <newline/>
+                        <field name="level_generate_seances"/>
+                    </group>
+                    <group colspan="4">
+                        <label string="Sessions" colspan="4"/>
+                        <field name="session_ids" nolabel="1" colspan="4"/>
+                    </group>
+                    <group colspan="4">
+                        <button string="Cancel" special="cancel" icon="gtk-cancel" states="draft"/>
+                        <button string="Generate" name="generate_groups" context="{'prefix': prefix, 'suffix': suffix, 'session_ids': session_ids}" type="object" icon="gtk-ok" states="draft"/>
+                    </group>
+                </group>
+                <group colspan="4" col="4" attrs="{'invisible':[('state','=','done')]}">
+                    <field name="state" invisible="1"/>
+                    <button string="Close" special="cancel" icon="gtk-ok" states="done"/>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <act_window
+            name="Groups Generator"
+            id="training_create_groups_act"
+            src_model="training.session"
+            res_model="training.create.groups.wizard"
+            key2="client_action_multi"
+            view_type="form"
+            view_mode="form"
+            target="new"/>
+
+        <record model="ir.actions.act_window" id="training_create_groups_wizard_action">
+            <field name="name">Groups Generator Wizard</field>
+            <field name="res_model">training.create.groups.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Groups Generator Wizard"
+            id="training_create_groups_groups_wizard_menu"
+            action="training_create_groups_wizard_action"
+            parent="training.group_all_mi"/>
+
+    </data>
+</openerp>

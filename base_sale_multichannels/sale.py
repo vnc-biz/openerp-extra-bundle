@@ -26,7 +26,7 @@ import time
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-class external_shop_group(external_osv.external_osv):
+class external_shop_group(osv.osv):
     _name = 'external.shop.group'
     _description = 'External Referential Shop Group'
     
@@ -74,12 +74,7 @@ class product_category(osv.osv):
     
 product_category()
 
-class product_product(external_osv.external_osv):
-    _inherit = "product.product"
-    
-product_product()
-
-class sale_shop(external_osv.external_osv):
+class sale_shop(osv.osv):
     _inherit = "sale.shop"
 
     def _get_exportable_product_ids(self, cr, uid, ids, name, args, context=None):
@@ -145,12 +140,19 @@ class sale_shop(external_osv.external_osv):
     def export_catalog(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
+        report_obj = self.pool.get('external.report')
         for shop in self.browse(cr, uid, ids):
             context['shop_id'] = shop.id
+            report_id = report_obj.start_report(cr, uid,
+                                                ref='export_catalog',
+                                                external_referential_id=shop.referential_id.id,
+                                                context=context)
+            context['external_report_id'] = report_id
             context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             self.export_categories(cr, uid, shop, context)
             self.export_products(cr, uid, shop, context)
             shop.write({'last_products_export_date' : time.strftime('%Y-%m-%d %H:%M:%S')})
+            report_obj.end_report(cr, uid, report_id, context=context)
         self.export_inventory(cr, uid, ids, context)
         return False
             
@@ -162,7 +164,8 @@ class sale_shop(external_osv.external_osv):
             context['conn_obj'] = self.external_connection(cr, uid, shop.referential_id)
             product_ids = [product.id for product in shop.exportable_product_ids]
             if shop.last_inventory_export_date:
-                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('write_date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids), ('state', '!=', 'draft'), ('state', '!=', 'cancel')])
+                # we do not exclude canceled moves because it means some stock levels could have increased since last export
+                recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('write_date', '>', shop.last_inventory_export_date), ('product_id', 'in', product_ids), ('state', '!=', 'draft')])
             else:
                 recent_move_ids = self.pool.get('stock.move').search(cr, uid, [('product_id', 'in', product_ids)])
             product_ids = [move.product_id.id for move in self.pool.get('stock.move').browse(cr, uid, recent_move_ids) if move.product_id.state != 'obsolete']
@@ -273,6 +276,7 @@ class sale_shop(external_osv.external_osv):
                       }
                     self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result[0], ext_shipping_id))
+        return True
 
 sale_shop()
 
@@ -364,6 +368,10 @@ class sale_order(osv.osv):
                     
                     if payment_settings.validate_picking:
                         self.pool.get('stock.picking').validate_picking(cr, uid, order_id)
+                    
+                    cr.execute('select * from ir_module_module where name=%s and state=%s', ('mrp','installed'))
+                    if payment_settings.validate_manufactoring_order and cr.fetchone(): #if mrp module is installed
+                        self.pool.get('stock.picking').validate_manufactoring_order(cr, uid, order.name, context)
 
                     if order.order_policy == 'prepaid':
                         if payment_settings.validate_invoice:
@@ -444,6 +452,7 @@ class base_sale_payment_type(osv.osv):
         'create_invoice': fields.boolean('Create Invoice?'),
         'validate_invoice': fields.boolean('Validate Invoice?'),
         'validate_picking': fields.boolean('Validate Picking?'),
+        'validate_manufactoring_order': fields.boolean('Validate Manufactoring Order?'),
         'check_if_paid': fields.boolean('Check if Paid?'),
         'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
         'invoice_date_is_order_date' : fields.boolean('Force Invoice Date?', help="If it's check the invoice date will be the same as the order date"),
@@ -490,6 +499,22 @@ class stock_picking(osv.osv):
         for move in picking.move_lines:
             partial_data["move" + str(move.id)] = {'product_qty': move.product_qty}
         self.do_partial(cr, uid, [picking_id], partial_data)
+        return True
+        
+    def validate_manufactoring_order(self, cr, uid, origin, context=None): #we do not create class mrp.production to avoid dependence with the module mrp
+        if context == None:
+            context = {}
+        wf_service = netsvc.LocalService("workflow")
+        mrp_prod_obj = self.pool.get('mrp.production')
+        mrp_product_produce_obj = self.pool.get('mrp.product.produce')
+        production_ids = mrp_prod_obj.search(cr, uid, [('origin', 'ilike', origin)])
+        for production in mrp_prod_obj.browse(cr, uid, production_ids):
+            mrp_prod_obj.force_production(cr, uid, [production.id])
+            wf_service.trg_validate(uid, 'mrp.production', production.id, 'button_produce', cr)
+            context.update({'active_model': 'mrp.production', 'active_ids': [production.id], 'search_default_ready': 1, 'active_id': production.id})
+            produce = mrp_product_produce_obj.create(cr, uid, {'mode': 'consume_produce', 'product_qty': production.product_qty}, context)
+            mrp_product_produce_obj.do_produce(cr, uid, [produce], context)
+            self.validate_manufactoring_order(cr, uid, production.name, context)
         return True
         
 stock_picking()

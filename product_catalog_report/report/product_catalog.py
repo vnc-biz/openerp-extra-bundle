@@ -47,19 +47,26 @@ class product_catalog(report_sxw.rml_parse):
     def _get_imagepath(self,product):
         attach_ids = self.pool.get('ir.attachment').search(self.cr, self.uid, [('res_model','=','product.product'), ('res_id', '=',product)])
         datas = self.pool.get('ir.attachment').read(self.cr, self.uid, attach_ids)
+        
         if len(datas):
             # if there are several, pick first
-            try:
-                if datas[0]['link']:
-                    try:
-                        img_data =  base64.encodestring(urllib.urlopen(datas[0]['link']).read())
-                        return img_data
-                    except Exception,innerEx:
-                        print innerEx
-                elif datas[0]['datas']:
-                    return datas[0]['datas']
-            except Exception,e:
-                print e
+            # Imp. by Vauxoo.
+            # If Name of resource have in its first word the word "catalog" it 
+            # will be  the selected, if no there are any with this condition we take the first.
+            print len(datas)
+            datas = [i for i in datas if i['name'].find('catalog')<>-1]
+            if datas:
+                try:
+                    if datas[0].has_key('link'):
+                        try:
+                            img_data =  base64.encodestring(urllib.urlopen(datas[0]['datas']).read())
+                            return img_data
+                        except Exception,innerEx:
+                            print innerEx
+                    elif datas[0]['datas']:
+                        return datas[0]['datas']
+                except Exception,e:
+                    print e
         return None
 
     def setCat(self,cats):
@@ -83,11 +90,14 @@ class product_catalog(report_sxw.rml_parse):
                 tmpCat_ids.append(cat)
         cats = self.pool.get('product.category').read(self.cr,self.uid,tmpCat_ids)
         return cats
+
+
     def _getProducts(self,category,lang):
         prod_tmpIDs = self.pool.get('product.template').search(self.cr,self.uid,[('categ_id','=',category)])
         prod_ids = self.pool.get('product.product').search(self.cr,self.uid,[('product_tmpl_id','in',prod_tmpIDs)])
         prods = self.pool.get('product.product').read(self.cr,self.uid,prod_ids,context={'lang':lang})
         return prods
+
 
     def _get_currency(self):
         return self.pool.get('res.users').browse(self.cr, self.uid, [self.uid])[0].company_id.currency_id.name
@@ -105,6 +115,7 @@ class product_catalog(report_sxw.rml_parse):
                 return s
         return " "
 
+
     def _get_packaging_value(self,product,index):
         packaging_ids = self.pool.get('product.packaging').search(self.cr,self.uid,[('product_id','=',product)],limit=4)
         packs = self.pool.get('product.packaging').read(self.cr,self.uid,packaging_ids,['qty'])
@@ -112,11 +123,13 @@ class product_catalog(report_sxw.rml_parse):
             return str(packs[index]['qty'])
         return False
 
+
     def _get_price(self,product,pricelist):
         price = self.pool.get('product.pricelist').price_get(self.cr,self.uid,[pricelist], product, 1.0, None,{'uom': False})[pricelist]
         if not price:
             price = 0.0
         return price
+
 
     def _get_desc(self,tempate_id):
         if tempate_id:

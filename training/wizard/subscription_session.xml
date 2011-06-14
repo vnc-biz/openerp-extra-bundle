@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	    <record model="ir.ui.view" id="training_subscription_session_form">
+	        <field name="name">training.subscription.session.form</field>
+	        <field name="model">training.subscription.session</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Mass Subscription">
+	            	<separator string="Partner" colspan="4"/>
+	                <field name="partner_id" nolabel="1"  colspan="4" />
+	                <separator string="Contacts" colspan="4" />
+	                <field name="job_ids"  nolabel="1" colspan="4" domain="[('name', '=', partner_id),('state', '=', 'current')]" />
+	                <separator string="Sessions" colspan="2" />
+	                <field name="line_ids" nolabel="1" colspan="4" domain="[('state', 'in', ('opened','opened_confirmed'))]"/>
+	                <newline/>
+	                <separator colspan="4" string=""/>
+	                <group colspan="4">
+                        <label colspan="2"/>
+	                    <button type="special" special="cancel" string="Cancel" icon="gtk-cancel"/>
+	                    <button type="object" name="make_subscription" string="Create Subscription" icon="gtk-new"/>
+	                </group>
+	            </form>
+	        </field>
+	    </record>
+
+	    <act_window
+			    id="action_training_subscription_session"
+			    name="Create Subscriptions"
+			    res_model="training.subscription.session"
+			    src_model="training.session"
+			    view_mode="form"
+			    target="new"
+	            key2="client_action_multi"/>
+	</data>
+</openerp>

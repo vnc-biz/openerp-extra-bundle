@@ -7,21 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-02-25 14:39+0000\n"
+"POT-Creation-Date: 2011-03-29 11:10+0000\n"
 "PO-Revision-Date: 2011-02-15 15:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:17+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-16 06:58+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: internetdomain
 #: view:internetdomain.domain:0
 #: model:ir.actions.act_window,name:internetdomain.action_internetdomain_domain_action
 msgid "domain"
 msgstr "dominio"
+
+#. module: internetdomain
+#: model:ir.module.module,description:internetdomain.module_meta_information
+msgid ""
+"\n"
+"Organize your domains and services\n"
+"Tools -> Domain\n"
+"* Domains\n"
+"* Renewals\n"
+"* Products/Services\n"
+"* Network\n"
+"* Send email expiration domain with Schuddle Action and Power Email\n"
+"* Invoice renewal domain\n"
+"    "
+msgstr ""
 
 #. module: internetdomain
 #: constraint:ir.model:0
@@ -37,8 +52,10 @@ msgid "Network"
 msgstr "Network"
 
 #. module: internetdomain
+#: code:addons/internetdomain/internetdomain.py:0
 #: model:ir.module.module,shortdesc:internetdomain.module_meta_information
 #: view:res.company:0
+#, python-format
 msgid "Internet Domain"
 msgstr "Dominio de Internet"
 
@@ -54,33 +71,17 @@ msgid "Create invoices"
 msgstr "Facturas criados"
 
 #. module: internetdomain
-#: model:ir.module.module,description:internetdomain.module_meta_information
-msgid ""
-"\n"
-"Organize your domains and services\n"
-"* Domains\n"
-"* Renewals\n"
-"* Products/Services\n"
-"* Network\n"
-"* Send email expiration domain with Schuddle Action and Power Email\n"
-"    "
-msgstr ""
-"\n"
-"Organize os seus dominios e serviços\n"
-"* Dominios\n"
-"* Renovações\n"
-"* Produtos/Serviços\n"
-"* Rede\n"
-"* Enviar email de expiração do dominio com Ação Agendada e Power Email\n"
-"    "
-
-#. module: internetdomain
 #: view:internetdomain.domain:0
 #: field:internetdomain.domain,comments:0
 #: view:internetdomain.renewal:0
 #: field:internetdomain.renewal,comments:0
 msgid "Comments"
 msgstr "Comentários"
+
+#. module: internetdomain
+#: wizard_field:internetdomain.renewal.make_invoice,init,price:0
+msgid "Price"
+msgstr "Preço"
 
 #. module: internetdomain
 #: wizard_view:internetdomain.renewal.make_invoice,init:0
@@ -159,6 +160,17 @@ msgid "Configuration"
 msgstr "Configuração"
 
 #. module: internetdomain
+#: rml:internetdomain.domain:0
+msgid "Expired"
+msgstr ""
+
+#. module: internetdomain
+#: code:addons/internetdomain/internetdomain.py:0
+#, python-format
+msgid "Send email domain: %s"
+msgstr ""
+
+#. module: internetdomain
 #: constraint:ir.cron:0
 msgid "Invalid arguments"
 msgstr "Argumentos inválidos"
@@ -169,6 +181,7 @@ msgid "Invalid XML for View Architecture!"
 msgstr "XML Inválido para a Arquitectura de Vista!"
 
 #. module: internetdomain
+#: rml:internetdomain.domain:0
 #: field:internetdomain.domain,registrator_id:0
 #: field:internetdomain.renewal,registrator_id:0
 msgid "Registrator"
@@ -178,6 +191,11 @@ msgstr "Registrador"
 #: field:internetdomain.domain,name:0
 msgid "Name"
 msgstr "Nome"
+
+#. module: internetdomain
+#: rml:internetdomain.domain:0
+msgid "Created"
+msgstr ""
 
 #. module: internetdomain
 #: field:internetdomain.domain,IP:0
@@ -216,6 +234,7 @@ msgid "Make invoice"
 msgstr "Fazer factura"
 
 #. module: internetdomain
+#: rml:internetdomain.domain:0
 #: field:internetdomain.renewal,domain_id:0
 #: model:ir.ui.menu,name:internetdomain.menu_internetdomain
 #: model:ir.ui.menu,name:internetdomain.menu_internetdomain_domain
@@ -231,6 +250,12 @@ msgstr "DNS Secundário"
 #: field:internetdomain.domain,partner_address_id:0
 msgid "Partner Contact"
 msgstr "Contacto de Terceiro"
+
+#. module: internetdomain
+#: code:addons/internetdomain/wizard/make_invoice.py:0
+#, python-format
+msgid "Invoices"
+msgstr ""
 
 #. module: internetdomain
 #: view:internetdomain.domain:0
@@ -258,6 +283,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: internetdomain
+#: rml:internetdomain.domain:0
 #: field:internetdomain.domain,partner_id:0
 msgid "Partner"
 msgstr "Terceiro"
@@ -272,6 +298,28 @@ msgid "Renewals"
 msgstr "Renovações"
 
 #. module: internetdomain
-#: wizard_field:internetdomain.renewal.make_invoice,init,price:0
-msgid "Price"
-msgstr "Preço"
+#: code:addons/internetdomain/internetdomain.py:0
+#, python-format
+msgid ""
+"Not template configurated. Configure your company template or desactive "
+"Scheduled Actions"
+msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "Organize your domains and services\n"
+#~ "* Domains\n"
+#~ "* Renewals\n"
+#~ "* Products/Services\n"
+#~ "* Network\n"
+#~ "* Send email expiration domain with Schuddle Action and Power Email\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Organize os seus dominios e serviços\n"
+#~ "* Dominios\n"
+#~ "* Renovações\n"
+#~ "* Produtos/Serviços\n"
+#~ "* Rede\n"
+#~ "* Enviar email de expiração do dominio com Ação Agendada e Power Email\n"
+#~ "    "

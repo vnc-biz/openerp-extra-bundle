@@ -16,10 +16,11 @@
 			id="wizard_hotel_reservation_report_reservation"/>
 		
 		<menuitem
-			name="Hotel Management/Reports/Hotel Reservation Report" 
+			name="Hotel Reservation Report" 
 			action="wizard_hotel_reservation_report_reservation" 
 			type="wizard"
 			menu="False"
+			parent="hotel.hotel_report_menu"
 			id="wizard_res_menu"
 			sequence="28"/>
 	</data>

@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:15+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-16 06:55+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_category
@@ -53,12 +53,12 @@ msgstr "¿Seguro que desea cancelar este pedido?"
 #. module: lunch
 #: model:ir.module.module,shortdesc:lunch.module_meta_information
 msgid "Lunch Module"
-msgstr "Módulo de almuerzos"
+msgstr "Módulo de comidas"
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashmove_form
 msgid "Cash Moves"
-msgstr "Movimientos de Efectivo"
+msgstr "Movimientos de caja"
 
 #. module: lunch
 #: rml:lunch.order:0
@@ -152,7 +152,7 @@ msgstr ""
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch
 msgid "Lunch"
-msgstr "Almuerzo"
+msgstr "Comidas"
 
 #. module: lunch
 #: field:lunch.order,descript:0
@@ -271,7 +271,7 @@ msgstr "Importe disponible por usuario y caja"
 #. module: lunch
 #: view:lunch.category:0
 msgid "Category related to Products"
-msgstr "Categoría relacionada a productos"
+msgstr "Categoría relacionada con los productos"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_order

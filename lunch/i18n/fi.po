@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:15+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-16 06:55+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_category
@@ -318,7 +318,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.order:0
 msgid "Total price"
-msgstr ""
+msgstr "Hinta yhteensä"
 
 #. module: lunch
 #: wizard_button:lunch.cashbox.clean,init,end:0

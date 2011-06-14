@@ -1,22 +1,17 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    point_of_sale_extension module for OpenERP, profile for 2ed customer
+#    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Raimon Esteve <resteve@zikzakmedia.com>
+#    $Id$
 #
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    Copyright (c) 2009 Zikzakmedia S.L. (http://zikzakmedia.com) 
-#       All Rights Reserved, Jordi Esteve <jesteve@zikzakmedia.com>
-#    Copyright (c) 2009 SYLEAM (http://syleam.fr) 
-#       All Rights Reserved, Christophe Chauvet <christophe.chauvet@syleam.fr>
-#
-#    This file is a part of point_of_sale_extension
-#
-#    point_of_sale_extension is free software: you can redistribute it and/or modify
+#    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    point_of_sale_extension is distributed in the hope that it will be useful,
+#    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
@@ -37,5 +32,3 @@ class company(osv.osv):
     }
 
 company()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

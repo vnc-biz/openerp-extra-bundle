@@ -4,7 +4,8 @@
 #    OpenERP, Open Source Management Solution	
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    Copyright (C) 2008-2009 AJM Technologies S.A. (<http://www.ajm.lu>). All Rights Reserved
-#    Copyright (C) 2010 Zikzakmedia S.L. (<http://www.zikzakmedia.com>). All Rights Reserved
+#    Copyright (c) 2010-2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Jesús Martín <jmartin@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -67,11 +68,21 @@ With the analytic account support, you can know the costs of your trainings.
     'update_xml' : [
         'security/training_security.xml',
         'security/ir.model.access.csv',
+        
+        'wizard/create_block_offer.xml',
+        'wizard/create_groups.xml',
+        'wizard/create_offer.xml',
+        'wizard/create_session.xml',
+        'wizard/subscription_cancelation.xml',
+#        'wizard/subscription_line_change_participant.xml',
+        'wizard/subscription_line_confirm.xml',
+        'wizard/subscription_second_line.xml',
+        'wizard/subscription_session.xml',
+        'wizard/validate_course.xml',
 
         # TODO move this into the base_contact module
         'contact_security/groups.xml',
         'contact_security/ir.model.access.csv',
-
         'purchase_view.xml',
         'partner_view.xml',
         'base_contact_view.xml',

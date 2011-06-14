@@ -74,6 +74,10 @@ class product_category(osv.osv):
     
 product_category()
 
+class product_product(external_osv.external_osv):
+    _inherit = "product.product"
+    
+product_product()
 
 class sale_shop(external_osv.external_osv):
     _inherit = "sale.shop"
@@ -261,11 +265,11 @@ class sale_shop(external_osv.external_osv):
 
                 if ext_shipping_id:
                     ir_model_data_vals = {
-                        'name': "stock_picking_" + str(ext_shipping_id),
+                        'name': "stock_picking/" + str(ext_shipping_id),
                         'model': "stock.picking",
                         'res_id': result[0],
                         'external_referential_id': shop.referential_id.id,
-                        'module': 'extref.' + shop.referential_id.name
+                        'module': 'extref/' + shop.referential_id.name
                       }
                     self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
                     logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Successfully creating shipping with OpenERP id %s and ext id %s in external sale system" % (result[0], ext_shipping_id))
@@ -285,8 +289,13 @@ class sale_order(osv.osv):
     }
 
     def payment_code_to_payment_settings(self, cr, uid, payment_code, context=None):
-        payment_setting_ids = self.pool.get('base.sale.payment.type').search(cr, uid, [['name', 'ilike', payment_code]])
-        return payment_setting_ids and self.pool.get('base.sale.payment.type').browse(cr, uid, payment_setting_ids[0], context) or False
+        pay_type_obj = self.pool.get('base.sale.payment.type')
+        payment_setting_ids = pay_type_obj.search(cr, uid, [['name', 'like', payment_code]])
+        payment_setting_id = False
+        for type in pay_type_obj.read(cr, uid, payment_setting_ids, fields=['name'], context=context):
+            if payment_code in [x.strip() for x in type['name'].split(';')]:
+                payment_setting_id = type['id']
+        return payment_setting_id and pay_type_obj.browse(cr, uid, payment_setting_id, context) or False
 
     def generate_payment_with_pay_code(self, cr, uid, payment_code, partner_id, amount, payment_ref, entry_name, date, paid, context):
         payment_settings = self.payment_code_to_payment_settings(cr, uid, payment_code, context)
@@ -332,7 +341,10 @@ class sale_order(osv.osv):
         order = self.browse(cr, uid, order_id, context)
         payment_settings = self.payment_code_to_payment_settings(cr, uid, order.ext_payment_method, context)
                 
-        if payment_settings: 
+        if payment_settings:
+            if payment_settings.payment_term_id:
+                self.write(cr, uid, order.id, {'payment_term': payment_settings.payment_term_id.id})
+
             if payment_settings.check_if_paid and not paid:
                 if order.state == 'draft' and datetime.strptime(order.date_order, '%Y-%m-%d') < datetime.now() - relativedelta(days=payment_settings.days_before_order_cancel or 30):
                     wf_service.trg_validate(uid, 'sale.order', order.id, 'cancel', cr)
@@ -349,6 +361,9 @@ class sale_order(osv.osv):
                         self.write(cr, uid, order.id, {'need_to_update': False})
                     except Exception, e:
                         self.log(cr, uid, order.id, "ERROR could not valid order")
+                    
+                    if payment_settings.validate_picking:
+                        self.pool.get('stock.picking').validate_picking(cr, uid, order_id)
 
                     if order.order_policy == 'prepaid':
                         if payment_settings.validate_invoice:
@@ -428,9 +443,11 @@ class base_sale_payment_type(osv.osv):
         'validate_payment': fields.boolean('Validate Payment?'),
         'create_invoice': fields.boolean('Create Invoice?'),
         'validate_invoice': fields.boolean('Validate Invoice?'),
+        'validate_picking': fields.boolean('Validate Picking?'),
         'check_if_paid': fields.boolean('Check if Paid?'),
         'days_before_order_cancel': fields.integer('Days Delay before Cancel', help='number of days before an unpaid order will be cancelled at next status update from Magento'),
         'invoice_date_is_order_date' : fields.boolean('Force Invoice Date?', help="If it's check the invoice date will be the same as the order date"),
+        'payment_term_id': fields.many2one('account.payment.term', 'Payment Term'),
     }
     
     _defaults = {
@@ -460,4 +477,20 @@ class account_invoice(osv.osv):
         return True
 
 account_invoice()
+
+class stock_picking(osv.osv):
+    _inherit = "stock.picking"
+    
+    def validate_picking(self, cr, uid, order_id, context=None):
+        so_name = self.pool.get('sale.order').read(cr, uid, order_id, ['name'])['name']
+        picking_id = self.search(cr, uid, [('origin', '=', so_name)])[0]
+        picking = self.browse(cr, uid, picking_id)
+        self.force_assign(cr, uid, [picking_id])
+        partial_data = {}
+        for move in picking.move_lines:
+            partial_data["move" + str(move.id)] = {'product_qty': move.product_qty}
+        self.do_partial(cr, uid, [picking_id], partial_data)
+        return True
+        
+stock_picking()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

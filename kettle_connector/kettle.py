@@ -23,7 +23,7 @@ import netsvc
 import time
 import datetime
 import base64
-from terminator_install import installer
+from installer import installer
 import tools
 from tools import config
 
@@ -44,7 +44,10 @@ class kettle_server(osv.osv):
     _columns = {
         'name': fields.char('Server Name', size=64, required=True),
         'kettle_dir': fields.char('Kettle Directory', size=255, required=True),
+        'url': fields.char('Kettle URL', size=64, required=True, help='URL of Kettle server if any (can be localhost)'),
         'transformation': fields.one2many('kettle.transformation', 'server_id', 'Transformation'),
+        'user': fields.char('Kettle Server User', size=32),
+        'password': fields.char('Kettle Server Password', size=32),
         }
     
     _defaults = {
@@ -172,7 +175,7 @@ class kettle_task(osv.osv):
                       'AUTO_REP_db_pass_erp': str(user.password),
                       'AUTO_REP_kettle_task_id' : str(id),
                       'AUTO_REP_kettle_task_attachment_id' : str(attachment_id),
-                      'AUTO_REP_erp_url' : "http://localhost:" + config['xmlrpc_port'] + "/xmlrpc"
+                      'AUTO_REP_erp_url' : "http://localhost:" + str(config['xmlrpc_port']) + "/xmlrpc"
                       }
             task = self.read(cr, uid, id, ['upload_file', 'parameters', 'transformation_id', 'output_file', 'name', 'last_date'], context)
             server_id = self.pool.get('kettle.transformation').read(cr, uid, task['transformation_id'][0], ['server_id'])['server_id'][0]

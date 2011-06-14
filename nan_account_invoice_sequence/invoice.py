@@ -53,6 +53,8 @@ class account_invoice(osv.osv):
     }
 
     def action_number(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         for invoice in self.browse(cr, uid, ids, context):
             if invoice.invoice_number:
                 continue
@@ -60,7 +62,9 @@ class account_invoice(osv.osv):
             if not sequence:
                 raise osv.except_osv(_('Error!'), _('Journal %s has no sequence defined for invoices.') % invoice.journal_id.name)
 
-            number = self.pool.get('ir.sequence').get_id(cr, uid, sequence.id, context=context)
+            ctx = context.copy()
+            ctx['fiscalyear_id'] = self.pool.get('account.period').browse(cr, uid, invoice.period_id.id).fiscalyear_id.id
+            number = self.pool.get('ir.sequence').get_id(cr, uid, sequence.id, context=ctx)
             
             self.write(cr, uid, [invoice.id], {
                 #'number': number,

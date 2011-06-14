@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-23 15:14+0000\n"
-"PO-Revision-Date: 2011-03-23 16:19+0100\n"
-"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-03-31 12:06+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-04-16 07:04+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: contact_annotation
 #: field:contact.planning_change_states,permanent:0
@@ -204,8 +205,10 @@ msgstr "Permisos per crear"
 
 #. module: contact_annotation
 #: view:contact.state_range2_norm:0
-msgid "When the button is clicked, all the contact state ranges will be recomputed."
-msgstr "Quan es prem el botó, es re-calculen tots els intervals d'estat del contacte."
+msgid ""
+"When the button is clicked, all the contact state ranges will be recomputed."
+msgstr ""
+"Quan es prem el botó, es re-calculen tots els intervals d'estat del contacte."
 
 #. module: contact_annotation
 #: view:contact.annotation.state:0
@@ -279,7 +282,9 @@ msgstr "Interval de estats"
 #. module: contact_annotation
 #: help:contact.annotation.state,function_ids:0
 msgid "Partners can view the status over contact with these functions."
-msgstr "Els contactes poden veure l'estat sobre els altres contactes amb aquestes funcions."
+msgstr ""
+"Els contactes poden veure l'estat sobre els altres contactes amb aquestes "
+"funcions."
 
 #. module: contact_annotation
 #: sql_constraint:contact.annotation:0
@@ -290,10 +295,12 @@ msgstr "La data des de ha de ser anterior a la data fins a"
 #: model:ir.module.module,description:contact_annotation.module_meta_information
 msgid ""
 "\n"
-"Contact annotation management. Initialy created to support school_base module.\n"
+"Contact annotation management. Initialy created to support school_base "
+"module.\n"
 msgstr ""
 "\n"
-"Gestió d'anotació de contacte. Inicialment creat per suportar el mòdul school_base\n"
+"Gestió d'anotació de contacte. Inicialment creat per suportar el mòdul "
+"school_base\n"
 
 #. module: contact_annotation
 #: view:contact.planning_change_states:0
@@ -440,8 +447,11 @@ msgstr "Codi"
 
 #. module: contact_annotation
 #: help:contact.type_annotation,perms_functions:0
-msgid "Perms for informer function over contact to create that annotation type."
-msgstr "Permanents per a la funció d'informant sobre el contacte per crear aquest tipus d'anotació."
+msgid ""
+"Perms for informer function over contact to create that annotation type."
+msgstr ""
+"Permanents per a la funció d'informant sobre el contacte per crear aquest "
+"tipus d'anotació."
 
 #. module: contact_annotation
 #: view:contact.annotation:0
@@ -544,8 +554,12 @@ msgstr "Canvia la planificació dels estats"
 
 #. module: contact_annotation
 #: help:contact.type_annotation,states:0
-msgid "States (letters from A-Z, words separates with comas, prefix - if retire state of annotations superseded)."
-msgstr "Estats (lletres de l'A a la Z, paraules separades per comes, poseu el prefix '-' si substitueix l'estat de retirada de l'anotació)."
+msgid ""
+"States (letters from A-Z, words separates with comas, prefix - if retire "
+"state of annotations superseded)."
+msgstr ""
+"Estats (lletres de l'A a la Z, paraules separades per comes, poseu el prefix "
+"'-' si substitueix l'estat de retirada de l'anotació)."
 
 #. module: contact_annotation
 #: model:ir.model,name:contact_annotation.model_contact_type_annotation
@@ -574,19 +588,14 @@ msgstr "contact.subtype_annotation"
 msgid "Each annotation type must have only one function."
 msgstr "Cada tipus d'anotació ha de tenir només una funció."
 
-#, fuzzy
-#~ msgid "Only Flag state subs"
-#~ msgstr "Només marca subestats"
 #~ msgid "Annotations Management"
 #~ msgstr "Gestió d'anotacions"
 
-#, fuzzy
-#~ msgid "Flag state add and others"
-#~ msgstr "Afegeix estat de marca i altres"
 #~ msgid "General"
 #~ msgstr "General"
+
 #~ msgid "Flag State Ranges"
 #~ msgstr "Marca d'estats d'intervals"
+
 #~ msgid "Contact-Partner function"
 #~ msgstr "Funció contacte a l'empresa"
-

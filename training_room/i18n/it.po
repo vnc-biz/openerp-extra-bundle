@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-08-25 09:02+0000\n"
-"PO-Revision-Date: 2011-02-15 16:59+0000\n"
-"Last-Translator: <> <>\n"
+"PO-Revision-Date: 2011-04-24 21:38+0000\n"
+"Last-Translator: Matteo Manchi <Unknown>\n"
 "Language-Team: <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:17+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-25 05:44+0000\n"
+"X-Generator: Launchpad (build 12758)\n"
 
 #. module: training_room
 #: help:training.seance,reserved:0
@@ -130,7 +130,7 @@ msgstr "Partner"
 #: model:ir.actions.act_window,name:training_room.training_location_new_act
 #: model:ir.ui.menu,name:training_room.training_config_locations_new_mi
 msgid "New Location"
-msgstr ""
+msgstr "Nuovo luogo"
 
 #. module: training_room
 #: model:ir.module.module,shortdesc:training_room.module_meta_information

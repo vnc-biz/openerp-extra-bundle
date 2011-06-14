@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-	<data noupdate="1">
-		<record id="ir_cron_crm_action" model="ir.cron">
+    <data noupdate="1">
+        <record id="ir_cron_crm_action" model="ir.cron">
             <field name="name">Send SMS</field>
             <field name="interval_number">1</field>
             <field name="interval_type">minutes</field>
@@ -11,5 +11,5 @@
             <field eval="'_check_queue'" name="function"/>
             <field eval="'()'" name="args"/>
         </record>
-	</data>
+    </data>
 </openerp>

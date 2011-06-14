@@ -21,6 +21,7 @@
 
 from osv import fields, osv
 import time
+from lxml import etree
 
 class account_report_general_ledger(osv.osv_memory):
     _name = "account.report.general.ledger"

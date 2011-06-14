@@ -80,9 +80,10 @@
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="view_hotel_housekeeping_tree"/>
 		</record> 
-		<menuitem name="Hotel Management/Housekeeping"
+		<menuitem name="Housekeeping"
 		          id="menu_open_hotel_housekeeping_form_tree" 
 				  action="open_hotel_housekeeping_form_tree"
+				  parent="hotel.hotel_management_menu"
 				  sequence="4" />
 			
 		<!-- 

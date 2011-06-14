@@ -49,6 +49,15 @@ class sale_order(osv.osv):
         if except_id not in exceptions_list:
             exceptions_list.append(except_id)
 
+    def test_all_draft_orders(self, cr, uid, context=None):
+        ids = self.search(cr, uid, [('state', '=', 'draft')])
+        for id in ids:
+            try:
+                self.test_exceptions(cr, uid, [id])
+            except Exception:
+                pass
+        return True
+
     def test_exceptions(self, cr, uid, ids, *args):
         for order in self.browse(cr, uid, ids):
             new_exceptions = []
@@ -68,10 +77,11 @@ class sale_order(osv.osv):
         return exceptions
 
     def detect_invalid_destination(self, cr, uid, order, exceptions):
-        if order.partner_shipping_id.country_id and len(self.pool.get('delivery.grid').search(cr, uid, [('country_ids', 'ilike', "%%%s%%" % (order.partner_shipping_id.country_id.name,))])) > 0: #TODO may be add an extra condition on grid type/name
-            self.__add_exception(cr, uid, exceptions, 'excep_invalid_location')
-        elif order.partner_shipping_id.state_id and len(self.pool.get('delivery.grid').search(cr, uid, [('state_ids', 'ilike', "%%%s%%" % (order.partner_shipping_id.state_id.name,))])) > 0: #TODO may be add an extra condition on grid type/name
-            self.__add_exception(cr, uid, exceptions, 'excep_invalid_location')
+        no_delivery_carrier = self.pool.get('delivery.carrier').search(cr, uid, [('name', '=', 'No Delivery')])
+        if no_delivery_carrier:
+            no_delivery_carrier_grid = self.pool.get('delivery.carrier').grid_get(cr, uid, no_delivery_carrier, order.partner_shipping_id.id)
+            if no_delivery_carrier_grid:
+                self.__add_exception(cr, uid, exceptions, 'excep_invalid_location')
 
     def detect_no_zip(self, cr, uid, order, exceptions):
         if not order.partner_shipping_id.zip:

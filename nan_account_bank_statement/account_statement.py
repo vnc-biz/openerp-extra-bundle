@@ -197,6 +197,7 @@ class account_bank_statement_line(osv.osv):
                         account_type = 'supplier'
 
                 voucher_id = self.pool.get('account.voucher').create(cr, uid, {
+                    'date': line.date,
                     'type': line.amount < 0.0 and 'payment' or 'receipt',
                     'partner_id': reconcile_line.partner_id and reconcile_line.partner_id.id,
                     'journal_id': line.statement_id.journal_id.id,

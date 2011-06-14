@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Raimon Esteve <resteve@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,61 +21,51 @@
 #
 ##############################################################################
 
-import wizard
-import netsvc
-import pooler
-import time
-import locale
+from osv import fields,osv
 from tools.translate import _
 
-class make_invoice(wizard.interface):
-    invoice_form = """<?xml version="1.0"?>
-    <form string="Create invoices">
-        <separator colspan="4" string="Select product do you create invoice lines:" />
-        <field name="product_id" />
-        <field name="price" />
-        <field name="account_id" />
-    </form>
-    """
+import time
 
-    invoice_fields = {
-        'product_id': {
-            'string': 'Product',
-            'type': 'many2one',
-            'relation': 'product.product',
-            'required': True
-        },
-        'price': {
-            'string': 'Price',
-            'type': 'float',
-        },
-        'account_id': {
-            'string': 'Analytic Account',
-            'type': 'many2one',
-            'relation': 'account.analytic.account',
-        },
+class make_invoice(osv.osv_memory):
+    _name = 'internetdomain.make.invoice.wizard'
+
+    _columns = {
+        'product_id': fields.many2one('product.product', 'Product', required=True),
+        'price': fields.float('Price'),
+        'account_id': fields.many2one('account.analytic.account', 'Analytic Account', required=True),
+        'state':fields.selection([
+            ('first','First'),
+            ('done','Done'),
+        ],'State'),
     }
 
-    def _makeInvoices(self, cr, uid, data, context):
-        renewal_obj = pooler.get_pool(cr.dbname).get('internetdomain.renewal')
-        product_obj = pooler.get_pool(cr.dbname).get('product.product')
-        account_payment_term_obj = pooler.get_pool(cr.dbname).get('account.payment.term')
+    _defaults = {
+        'state': lambda *a: 'first',
+    }
 
-        renewals = renewal_obj.browse(cr, uid, data['ids'])
-        product = product_obj.browse(cr, uid, data['form']['product_id'])
+    def makeInvoices(self, cr, uid, ids, data, context={}):
+        """Create invoice from renowel"""
 
-        for renewal in renewals:
+        renewal_obj = self.pool.get('internetdomain.renewal')
+        account_payment_term_obj = self.pool.get('account.payment.term')
+        analytic_account_obj = self.pool.get('account.analytic.account')
+        res_partner_obj = self.pool.get('res.partner')
+        account_payment_term_obj = self.pool.get('account.payment.term')
+
+        form = self.browse(cr, uid, ids[0])
+        product = form.product_id
+
+        for id in ids:
+            renewal = renewal_obj.browse(cr, uid, id)
+
             partner = renewal.domain_id.partner_id.id
-
-            pool = pooler.get_pool(cr.dbname)
-            analytic_account_obj = pool.get('account.analytic.account')
-            res_partner_obj = pool.get('res.partner')
-            account_payment_term_obj = pool.get('account.payment.term')
-            lang_obj = pool.get('res.lang')
-
             invoices = []
 
-            date_due = ""
+            curr_invoice = {
+                'name': renewal.domain_id.name+' ('+renewal.date_renewal+' / '+renewal.date_expire+')',
+                'partner_id': renewal.domain_id.partner_id.id,
+            }
+
             if renewal.domain_id.partner_id.property_payment_term:
                 pterm_list= account_payment_term_obj.compute(cr, uid,
                     renewal.domain_id.partner_id.property_payment_term.id, value=1,
@@ -82,26 +73,20 @@ class make_invoice(wizard.interface):
                 if pterm_list:
                     pterm_list = [line[0] for line in pterm_list]
                     pterm_list.sort()
-                    date_due = pterm_list[-1]
-                    print "Aquí está el date_due: " + date_due
+                    curr_invoice['date_due'] = pterm_list[-1]
 
-            curr_invoice = {
-                'name': renewal.domain_id.name+' ('+renewal.date_renewal+' / '+renewal.date_expire+')',
-                'partner_id': renewal.domain_id.partner_id.id,
-                'date_due': date_due,
-            }
-            values = pool.get('account.invoice').onchange_partner_id(cr, uid, [], 'out_invoice', renewal.domain_id.partner_id.id)
+            values = self.pool.get('account.invoice').onchange_partner_id(cr, uid, [], 'out_invoice', renewal.domain_id.partner_id.id)
             curr_invoice.update(values['value'])
 
-            last_invoice = pool.get('account.invoice').create(cr, uid, curr_invoice)
+            last_invoice = self.pool.get('account.invoice').create(cr, uid, curr_invoice)
             invoices.append(last_invoice)
 
             taxes = product.taxes_id
-            tax = pool.get('account.fiscal.position').map_tax(cr, uid, renewal.domain_id.partner_id.property_account_position, taxes)
+            tax = self.pool.get('account.fiscal.position').map_tax(cr, uid, renewal.domain_id.partner_id.property_account_position, taxes)
             account_id = product.product_tmpl_id.property_account_income.id or product.categ_id.property_account_income_categ.id
 
             curr_line = {
-                'price_unit': data['form']['price'] or product.lst_price,
+                'price_unit': form.price or product.lst_price,
                 'quantity': 1,
                 'invoice_line_tax_id': [(6,0,tax)],
                 'invoice_id': last_invoice,
@@ -109,34 +94,20 @@ class make_invoice(wizard.interface):
                 'product_id': product.id,
                 'uos_id': product.uom_id.id,
                 'account_id': account_id,
-                'account_analytic_id': data['form']['account_id'],
+                'account_analytic_id': form.account_id.id,
             }
 
-            pool.get('account.invoice.line').create(cr, uid, curr_line)
+            self.pool.get('account.invoice.line').create(cr, uid, curr_line)
 
-        mod_obj = pooler.get_pool(cr.dbname).get('ir.model.data')
-        act_obj = pooler.get_pool(cr.dbname).get('ir.actions.act_window')
+        mod_obj = self.pool.get('ir.model.data')
+        act_obj = self.pool.get('ir.actions.act_window')
             
         mod_id = mod_obj.search(cr, uid, [('name', '=', 'action_invoice_tree1')])[0]
         res_id = mod_obj.read(cr, uid, mod_id, ['res_id'])['res_id']
         act_win = act_obj.read(cr, uid, res_id, [])
         act_win['domain'] = [('id','in',invoices),('type','=','out_invoice')]
         act_win['name'] = _('Invoices')
+
         return act_win
 
-    states = {
-        'init' : {
-            'actions' : [],
-            'result' : {'type' : 'form',
-                    'arch' : invoice_form,
-                    'fields' : invoice_fields,
-                    'state' : [('end', 'Cancel'),('invoice', 'Create invoices') ]}
-        },
-        'invoice' : {
-            'actions' : [],
-            'result' : {'type' : 'action',
-                    'action' : _makeInvoices,
-                    'state' : 'end'}
-        },
-    }
-make_invoice("internetdomain.renewal.make_invoice")
+make_invoice()

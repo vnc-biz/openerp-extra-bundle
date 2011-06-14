@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="forecast" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="848"/>
+	<property name="ireport.zoom" value="1.1289478601075547"/>
+	<property name="ireport.x" value="105"/>
 	<property name="ireport.y" value="0"/>
 	<style name="defecto" isDefault="true" forecolor="#000000" backcolor="#FFFFFF" fill="Solid" vAlign="Middle" markup="none" pattern="" isBlankWhenNull="true" fontName="SansSerif" fontSize="8" isBold="false" isItalic="true" isUnderline="false" pdfFontName="Helvetica-Bold"/>
 	<style name="textoscabecera" style="defecto" forecolor="#000000" backcolor="#FFFFFF" radius="10" isBold="true" pdfFontName="Helvetica-Bold">
@@ -53,9 +53,12 @@
 	<field name="ref" class="java.lang.String">
 		<fieldDescription><![CDATA[/data/record/ref]]></fieldDescription>
 	</field>
+	<field name="amount_to_pay" class="java.lang.Double">
+		<fieldDescription><![CDATA[/data/record/amount_to_pay]]></fieldDescription>
+	</field>
 	<sortField name="date_maturity"/>
-	<variable name="importe" class="java.lang.Double" resetType="None">
-		<variableExpression><![CDATA[($F{debit}==null ? 0.0 : $F{debit})-($F{credit}==null ? 0.0 : $F{credit})]]></variableExpression>
+	<variable name="importe" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[$F{amount_to_pay} < 0.0 ? -$F{amount_to_pay} : $F{amount_to_pay}]]></variableExpression>
 	</variable>
 	<variable name="total-vto" class="java.lang.Double" resetType="Group" resetGroup="FECVTO" calculation="Sum">
 		<variableExpression><![CDATA[$V{importe}]]></variableExpression>
@@ -67,6 +70,7 @@
 		<variableExpression><![CDATA[$F{lang} != null && $F{lang}.length() == 5 ? new Locale( $F{lang}.substring(0,2), $F{lang}.substring(3,5) ) : ( $F{lang} != null && $F{lang}.length() == 2 ? new Locale( $F{lang}.substring(0,2) ) : $P{REPORT_LOCALE} )]]></variableExpression>
 		<initialValueExpression><![CDATA[$F{lang} != null && $F{lang}.length() == 5 ? new Locale( $F{lang}.substring(0,2), $F{lang}.substring(3,5) ) : ( $F{lang} != null && $F{lang}.length() == 2 ? new Locale( $F{lang}.substring(0,2) ) : $P{REPORT_LOCALE} )]]></initialValueExpression>
 	</variable>
+	<filterExpression><![CDATA[$V{importe} != 0.0 && $V{importe} != null]]></filterExpression>
 	<group name="FECVTO">
 		<groupExpression><![CDATA[$F{date_maturity}]]></groupExpression>
 		<groupHeader>

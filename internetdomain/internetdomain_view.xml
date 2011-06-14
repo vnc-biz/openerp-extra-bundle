@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
+    <record id="view_internetdomain_domain_filter" model="ir.ui.view">
+        <field name="name">Domain - Search</field>
+        <field name="model">internetdomain.domain</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search Domain">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="registrator_id"/>
+                <newline/>
+
+                <group expand="0" string="Extended Filters..." groups="base.group_extended">
+                      <field name="date_create"/>
+                      <separator orientation="vertical"/>
+                      <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
 	<record model="ir.ui.view" id="view_internetdomain_domain_form">
 		<field name="name">internetdomain.domain.form</field>
 		<field name="model">internetdomain.domain</field>
@@ -8,14 +28,14 @@
 		<field name="priority" eval="5"/>
 		<field name="arch" type="xml">
 		<form string="domain">
-				<field name="name" select="1" colspan="4"/>
+				<field name="name" colspan="4"/>
 		        <field name="partner_id" on_change="onchange_partner_id(partner_id)"/>
 		        <field name="partner_address_id"/>
 		        <field name="registrator_id"/>
 		        <field name="registrator_website" widget="url"/>
 		        <field name="date_create"/>
 		        <field name="date_expire"/>
-		        <field name="company_id" select="2"/>
+		        <field name="company_id" widget='selection' groups="base.group_multi_company"/>
 				<field name="active" select="2"/>
 				<notebook colspan="4">
 				    <page string="General">
@@ -30,7 +50,20 @@
 				    </page>
 		
 				    <page string="Renewals">
-					    <field name="renewal_ids" nolabel="1"/>
+                        <field colspan="4" mode="tree,form" name="renewal_ids" nolabel="1">
+                            <form string="Renewals">
+                                <field name="registrator_id"/>
+			                    <field name="price_unit"/>
+			                    <field name="date_renewal"/>
+			                    <field name="date_expire"/>		
+                            </form>
+                            <tree string="Renewals">
+                                <field name="registrator_id"/>
+			                    <field name="price_unit"/>
+			                    <field name="date_renewal"/>
+			                    <field name="date_expire"/>	
+                            </tree>
+                        </field>
 				    </page>
 
 				    <page string="Products">
@@ -48,12 +81,13 @@
 		<field name="priority" eval="5"/>
 		<field name="arch" type="xml">
 			<tree string="domain" colors="red:warning_expire==True">
-				<field name="name" select="1"/>
-		        <field name="partner_id" select="1" />
-		        <field name="registrator_id" select="1" />
-				<field name="date_create"  />
-				<field name="date_expire"  />
-				<field name="warning_expire" invisible="1" />
+				<field name="name"/>
+		        <field name="partner_id"/>
+		        <field name="registrator_id"/>
+				<field name="date_create"/>
+				<field name="date_expire"/>
+				<field name="warning_expire" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
 			</tree>
 		</field>
 	</record>
@@ -63,6 +97,24 @@
         <field name="res_model">internetdomain.domain</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <record id="view_internetdomain_renewal_filter" model="ir.ui.view">
+        <field name="name">Renewal - Search</field>
+        <field name="model">internetdomain.renewal</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Search Renewal">
+                <field name="domain_id"/>
+                <field name="registrator_id"/>
+                <newline/>
+
+                <group expand="0" string="Extended Filters..." groups="base.group_extended">
+                      <field name="date_renewal"/>
+                      <field name="date_expire"/>
+                </group>
+           </search>
+        </field>
+    </record>
     
 	<record model="ir.ui.view" id="view_internetdomain_renewal_form">
 		<field name="name">internetdomain.renewal.form</field>
@@ -71,14 +123,14 @@
 		<field name="priority" eval="5"/>
 		<field name="arch" type="xml">
 		<form string="renewals">
-				<field name="domain_id" select="1" on_change="onchange_registrator_id(domain_id)"/>
-				<field name="registrator_id" select="1"/>			
-				<field name="date_renewal" select="1"/>
-				<field name="date_expire" select="1"/>		
+				<field name="domain_id" on_change="onchange_registrator_id(domain_id)"/>
+				<field name="registrator_id"/>			
+				<field name="date_renewal"/>
+				<field name="date_expire"/>		
 				<field name="price_unit"/>
 				<newline/>
 				<separator string="Comments" colspan="4"/>
-                <field name="comments" colspan="4" nolabel="1"  />
+                <field name="comments" colspan="4" nolabel="1" />
 		</form>
 		</field>
 	</record>
@@ -90,10 +142,10 @@
 		<field name="priority" eval="5"/>
 		<field name="arch" type="xml">
 			<tree string="renewals">
-				<field name="domain_id" select="1"/>
-				<field name="registrator_id" select="1"/>	
-				<field name="date_renewal" select="1"/>
-				<field name="date_expire" select="1"/>				
+				<field name="domain_id"/>
+				<field name="registrator_id"/>	
+				<field name="date_renewal"/>
+				<field name="date_expire"/>				
 			</tree>
 		</field>
 	</record>
@@ -112,8 +164,6 @@
         id="act_domain_2_renewals"/>
         
     <menuitem name="Domain" parent="network.menu_tools" groups="internetdomain.group_internetdomain_user" id="menu_internetdomain"/>
-
-<!--    <menuitem name="Internet Domain" id="menu_internetdomain"/>-->
     <menuitem name="Domain" id="menu_internetdomain_domain" parent="menu_internetdomain" action="action_internetdomain_domain_action"/>
     <menuitem name="Renewals" id="menu_internetdomain_renewal" parent="menu_internetdomain" action="action_internetdomain_renewal_action"/>
   

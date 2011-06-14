@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2009-09-13 16:12+0000\n"
+"POT-Creation-Date: 2011-04-15 07:36+0000\n"
 "PO-Revision-Date: 2011-02-15 15:15+0000\n"
 "Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-16 06:16+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-17 06:13+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: network
 #: field:network.hardware.type,networkable:0
@@ -34,14 +34,12 @@ msgid ""
 msgstr ""
 
 #. module: network
-#: constraint:ir.model:0
-msgid ""
-"The Object name must start with x_ and not contain any special character !"
-msgstr ""
-
-#. module: network
-#: model:ir.actions.act_window,name:network.tree_by_network
-msgid "Material in this network"
+#: model:ir.actions.act_window,name:network.add_new_network
+#: model:ir.model,name:network.model_network_network
+#: model:ir.ui.menu,name:network.menu_network
+#: model:ir.ui.menu,name:network.menu_tools_configuration_network
+#: field:network.material,network_id:0
+msgid "Network"
 msgstr ""
 
 #. module: network
@@ -55,8 +53,9 @@ msgid "Childs Materials"
 msgstr ""
 
 #. module: network
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
+#: view:network.material:0
+#: view:network.network:0
+msgid "Network Material"
 msgstr ""
 
 #. module: network
@@ -81,19 +80,13 @@ msgid "Top Materials"
 msgstr ""
 
 #. module: network
-#: field:network.material,warranty:0
-msgid "Warranty deadline"
+#: view:network.hardware.type:0
+msgid "Networkable"
 msgstr ""
 
 #. module: network
-#: constraint:ir.actions.act_window:0
-msgid "Invalid model name in the action definition."
-msgstr ""
-
-#. module: network
-#: view:network.material:0
-#: view:network.network:0
-msgid "Network Material"
+#: model:ir.actions.act_window,name:network.tree_by_network
+msgid "Material in this network"
 msgstr ""
 
 #. module: network
@@ -102,7 +95,6 @@ msgid "Supplier"
 msgstr ""
 
 #. module: network
-#: view:network.software:0
 #: field:network.software,logpass:0
 msgid "Login / Password"
 msgstr ""
@@ -111,14 +103,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:network.add_view_material
 #: model:ir.ui.menu,name:network.menu_add_view_material
 msgid "Material List"
-msgstr ""
-
-#. module: network
-#: model:ir.actions.act_window,name:network.add_new_network
-#: model:ir.model,name:network.model_network_network
-#: model:ir.ui.menu,name:network.menu_network
-#: field:network.material,network_id:0
-msgid "Network"
 msgstr ""
 
 #. module: network
@@ -153,8 +137,9 @@ msgid "Network changes"
 msgstr ""
 
 #. module: network
-#: model:network.hardware.type,name:network.demo_hard_type3
-msgid "Screen"
+#: model:ir.model,name:network.model_network_hardware_type
+#: field:network.material,type:0
+msgid "Hardware type"
 msgstr ""
 
 #. module: network
@@ -165,6 +150,11 @@ msgid "Material"
 msgstr ""
 
 #. module: network
+#: view:network.software.type:0
+msgid "Sortware Type"
+msgstr ""
+
+#. module: network
 #: model:network.hardware.type,name:network.demo_hard_type4
 msgid "Network Printer"
 msgstr ""
@@ -172,6 +162,11 @@ msgstr ""
 #. module: network
 #: model:ir.model,name:network.model_network_software_type
 msgid "Software type"
+msgstr ""
+
+#. module: network
+#: field:network.material,warranty:0
+msgid "Warranty deadline"
 msgstr ""
 
 #. module: network
@@ -201,7 +196,7 @@ msgid "Enter a diary entry"
 msgstr ""
 
 #. module: network
-#: model:ir.ui.menu,name:network.menu_network_definition
+#: model:ir.ui.menu,name:network.menu_tools_configuration
 msgid "Configuration"
 msgstr ""
 
@@ -213,12 +208,6 @@ msgstr ""
 #. module: network
 #: field:network.network,user_id:0
 msgid "Onsite Contact person"
-msgstr ""
-
-#. module: network
-#: model:ir.ui.menu,name:network.menu_action_hard_type
-#: model:ir.ui.menu,name:network.menu_action_software_type
-msgid "Types"
 msgstr ""
 
 #. module: network
@@ -268,6 +257,16 @@ msgid "Notes"
 msgstr ""
 
 #. module: network
+#: model:network.hardware.type,name:network.demo_hard_type3
+msgid "Screen"
+msgstr ""
+
+#. module: network
+#: view:network.software.type:0
+msgid "Note"
+msgstr ""
+
+#. module: network
 #: field:network.material,date:0
 #: field:network.software,date:0
 msgid "Installation Date"
@@ -275,6 +274,7 @@ msgstr ""
 
 #. module: network
 #: model:ir.actions.act_window,name:network.action_software_type
+#: model:ir.ui.menu,name:network.menu_action_software_type
 #: field:network.software,type:0
 #: view:network.software.type:0
 msgid "Software Type"
@@ -287,7 +287,6 @@ msgstr ""
 
 #. module: network
 #: model:ir.model,name:network.model_network_software
-#: model:ir.ui.menu,name:network.menu_software
 #: field:network.software.logpass,software_id:0
 msgid "Software"
 msgstr ""
@@ -303,8 +302,13 @@ msgid "Type of material"
 msgstr ""
 
 #. module: network
-#: model:ir.actions.act_window,name:network.add_view_network
-msgid "Netwok List"
+#: model:network.hardware.type,name:network.demo_hard_webcam
+msgid "Webcam"
+msgstr ""
+
+#. module: network
+#: model:network.hardware.type,name:network.demo_hard_router
+msgid "Router"
 msgstr ""
 
 #. module: network
@@ -314,6 +318,7 @@ msgstr ""
 
 #. module: network
 #: model:ir.actions.act_window,name:network.action_hard_type
+#: model:ir.ui.menu,name:network.menu_action_hard_type
 #: view:network.hardware.type:0
 msgid "Hardware Type"
 msgstr ""
@@ -366,6 +371,7 @@ msgid "All Materials"
 msgstr ""
 
 #. module: network
+#: model:ir.actions.act_window,name:network.add_view_network
 #: model:ir.ui.menu,name:network.menu_add_view_network
 msgid "Network List"
 msgstr ""
@@ -381,14 +387,10 @@ msgid "Switch"
 msgstr ""
 
 #. module: network
-#: model:ir.model,name:network.model_network_hardware_type
-#: field:network.material,type:0
-msgid "Hardware type"
-msgstr ""
-
-#. module: network
-#: model:ir.ui.menu,name:network.menu_hardware
-msgid "Hardware"
+#: view:network.hardware.type:0
+#: view:network.network:0
+#: view:network.software:0
+msgid "General"
 msgstr ""
 
 #. module: network

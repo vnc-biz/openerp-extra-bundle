@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <openerp>
 	<data>
-	<menuitem  id="hotel_restaurant_menu" name="Hotel Management/Restaurant" sequence="3"/>
+	<menuitem  id="hotel_restaurant_menu" name="Restaurant" parent="hotel.hotel_management_menu" sequence="3"/>
 		<!-- ==============================
 			Table Master
 		============================== -->

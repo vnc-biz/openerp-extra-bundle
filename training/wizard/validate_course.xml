@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    <record model="ir.ui.view" id="validate_courses_form">
+	        <field name="name">validate.courses.form</field>
+	        <field name="model">validate.courses</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Validate Courses">
+	            	<label string="Do you want to validate the selected courses?" />
+	                <newline/>
+	                <separator colspan="4"/>
+	                <group colspan="4">
+                        <label colspan="2"/>
+	                    <button type="special" special="cancel" string="Cancel" icon="gtk-cancel"/>
+	                    <button type="object" name="validate_courses" string="Validate Courses" icon="gtk-apply"/>
+	                </group>
+	            </form>
+	        </field>
+	    </record>
+
+	    <act_window
+			    id="action_validate_courses"
+                name="Validate Course(s)"
+			    res_model="validate.courses"
+			    src_model="training.course"
+			    view_mode="form"
+			    target="new"
+	            key2="client_action_multi"/>
+	</data>
+</openerp>

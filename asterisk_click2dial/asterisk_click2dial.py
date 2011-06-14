@@ -68,7 +68,7 @@ class asterisk_server(osv.osv):
             prefix_to_check = self.read(cr, uid, i, [prefix])[prefix]
             if not prefix_to_check:
                 if can_be_empty:
-                    return True
+                    continue
                 else:
                     return False
             else:
@@ -100,7 +100,7 @@ class asterisk_server(osv.osv):
             extension_priority_to_check = self.read(cr, uid, i, ['extension_priority'])['extension_priority']
             if extension_priority_to_check < 1:
                 return False
-            return True
+        return True
 
     def _check_port(self, cr, uid, ids):
         for i in ids:
@@ -251,7 +251,7 @@ class asterisk_server(osv.osv):
                 sock.send('CallerId: '+str(user.callerid)+'\r\n')
                 sock.send('Exten: '+str(ast_number)+'\r\n')
                 sock.send('Context: '+str(ast_server.context)+'\r\n')
-                if not ast_server.alert_info and user.asterisk_chan_type == 'SIP':
+                if ast_server.alert_info and user.asterisk_chan_type == 'SIP':
                     sock.send('Variable: SIPAddHeader=Alert-Info: '+str(ast_server.alert_info)+'\r\n')
                 sock.send('Priority: '+str(ast_server.extension_priority)+'\r\n\r\n')
                 sock.send('Action: Logoff\r\n\r\n')

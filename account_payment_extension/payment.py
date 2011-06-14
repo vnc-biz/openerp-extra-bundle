@@ -237,7 +237,11 @@ class payment_order(osv.osv):
 
                 currency_id = order.mode.journal.currency and order.mode.journal.currency.id or company_currency_id
 
-                line_amount = line.type == 'payment' and amount or -amount
+                if line.type == 'payable':
+                    line_amount = line.amount_currency or line.amount
+                else:
+                    line_amount = -line.amount_currency or -line.amount
+                    
                 if line_amount >= 0:
                     account_id = order.mode.journal.default_credit_account_id.id
                 else:
@@ -281,7 +285,7 @@ class payment_order(osv.osv):
                 # if currency is not the same than the company
                 if currency_id <> company_currency_id:
                     amount_currency = line_amount
-                    move_currency_id = currencty_id
+                    move_currency_id = currency_id
                 else:
                     amount_currency = False
                     move_currency_id = False

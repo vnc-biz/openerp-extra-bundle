@@ -7,19 +7,19 @@
             <field name="type">form</field>
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
-                <field name="discount" position="replace">
+		<xpath expr="/form/notebook/page/field[@name='order_line']/tree/field[@name='discount']" position="replace">
                     <field name="discount1"  on_change="onchange_discount( discount1,discount2,discount3)" />
                     <field name="discount2" on_change="onchange_discount( discount1,discount2,discount3)" />
                     <field name="discount3" on_change="onchange_discount( discount1,discount2,discount3)" />
                      <field name="discount" on_change="onchange_discount( discount1,discount2,discount3)" />
-                </field>
+                </xpath>
             </field>
         </record>
         <record id="view_order_form_discounts" model="ir.ui.view">
             <field name="name">sale.order.form.discounts</field>
             <field name="model">sale.order</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="view_order_form_discounts" />
+            <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
                 <field name="discount" position="replace">
                     <field name="discount1"  on_change="onchange_discount( discount1,discount2,discount3)" />

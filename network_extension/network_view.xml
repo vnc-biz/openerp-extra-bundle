@@ -26,16 +26,19 @@
         #
         ##############################################################################
 
-        <!-- NETWORK -->
+        <!-- ************************************************************** -->
+        <!-- ** Network *************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="view_network_ext1">
             <field name="name">network.network.tree.ext1</field>
             <field name="model">network.network</field>
             <field name="inherit_id" ref="network.view_network"/>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
-                <field name="name" position="after">
+                <xpath expr="//field[@name='name']" position="after">
                     <field name="public_ip_address" select="2"/>
                     <field name="public_domain" select="2"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -43,13 +46,14 @@
             <field name="name">network.network.form.ext1</field>
             <field name="model">network.network</field>
             <field name="inherit_id" ref="network.add_network_view"/>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
-                <field name="range" position="after">
+                <xpath expr="//field[@name='name']" position="after">
                     <field name="gateway" />
                     <field name="dns" />
                     <field name="public_ip_address"/>
                     <field name="public_domain"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -57,8 +61,9 @@
             <field name="name">network.network.form.ext2</field>
             <field name="model">network.network</field>
             <field name="inherit_id" ref="network.add_network_view"/>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
-                <field name="user_id" position="replace"/>
+                <xpath expr="//field[@name='user_id']" position="replace"/>
             </field>
         </record>
 
@@ -66,11 +71,12 @@
             <field name="name">network.network.form.ext3</field>
             <field name="model">network.network</field>
             <field name="inherit_id" ref="network.add_network_view"/>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
-                <field name="contact_id" position="replace">
+                <xpath expr="//field[@name='contact_id']" position="replace">
                     <field name="contact_id" select="1"/>
                     <field name="user_id" select="1"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -79,9 +85,9 @@
             <field name="model">network.network</field>
             <field name="inherit_id" ref="network.add_network_view"/>
             <field name="arch" type="xml">
-                <field name="parent_id" position="after">
+                <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="ip_addr"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -90,22 +96,24 @@
             <field name="model">network.network</field>
             <field name="inherit_id" ref="network.add_network_view"/>
             <field name="arch" type="xml">
-                <field name="software_id" position="replace">
-                    <field name="software_id" context="material_id=active_id" nolabel="1" colspan="4" widget="one2many_list"/>
-                </field>
+                <xpath expr="//field[@name='software_id']" position="replace">
+                    <field name="software_id" context="material_id=active_id" nolabel="1" colspan="4"/>
+                </xpath>
             </field>
         </record>
 
-        <!-- MATERIAL -->
+        <!-- ************************************************************** -->
+        <!-- ** Material ************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="edit_network_tree_ext1">
             <field name="name">network.material.tree.ext1</field>
             <field name="model">network.material</field>
             <field name="inherit_id" ref="network.material_view"/>
             <field name="arch" type="xml">
-                <field name="name" position="before">
+                <xpath expr="//field[@name='name']" position="before">
                     <field name="partner_id" select="2"/>
                     <field name="network_id" select="2"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -114,9 +122,9 @@
             <field name="model">network.material</field>
             <field name="inherit_id" ref="network.edit_network"/>
             <field name="arch" type="xml">
-                <field name="software_id" position="replace">
+                <xpath expr="//field[@name='software_id']" position="replace">
                     <field name="software_id" context="material_id=active_id" nolabel="1" colspan="4" widget="one2many_list"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -125,27 +133,29 @@
             <field name="model">network.material</field>
             <field name="inherit_id" ref="network.edit_network"/>
             <field name="arch" type="xml">
-                <field name="network_id" position="replace">
+                <xpath expr="//field[@name='network_id']" position="replace">
                     <newline/>
                     <field name="partner_id"/>
                     <field name="network_id"/>
                     <field name="ip_addr"/>
                     <field name="mac_addr"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
-        <!-- SOFTWARE -->
+        <!-- ************************************************************** -->
+        <!-- ** Software ************************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="view_software_tree_ext1">
             <field name="name">network.view.software.tree.ext1</field>
             <field name="model">network.software</field>
             <field name="inherit_id" ref="network.view_software_tree"/>
             <field name="arch" type="xml">
-                <field name="name" position="before">
+                <xpath expr="//field[@name='name']" position="before">
                     <field name="partner_id" select="2"/>
                     <field name="network_id" select="2"/>
                     <field name="material_id" select="2"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -154,8 +164,8 @@
             <field name="model">network.software</field>
             <field name="inherit_id" ref="network.software_form"/>
             <field name="arch" type="xml">
-                <field name="logpass" position="replace">
-                    <field name="logpass" nolabel="1" colspan="4" widget="one2many_list">
+                <xpath expr="//field[@name='logpass']" position="replace">
+                    <field name="logpass" nolabel="1" colspan="4">
                         <tree string="Login/Password">
                             <field name="name"/>
                             <field name="login"/>
@@ -174,7 +184,7 @@
                             <field name="encrypted" invisible="True"/>
                         </form>
                     </field>
-                    <field name="service_ids" nolabel="1" colspan="4" widget="one2many_list">
+                    <field name="service_ids" nolabel="1" colspan="4">
                         <tree string="Service">
                             <field name="name"/>
                             <field name="protocol_id"/>
@@ -195,7 +205,7 @@
                             <button name="_compute_public_url" type="object" string="Compute URL" colspan="3"/>
                         </form>
                     </field>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -204,11 +214,11 @@
             <field name="model">network.software</field>
             <field name="inherit_id" ref="network.software_form"/>
             <field name="arch" type="xml">
-                <field name="type" position="after">
+                <xpath expr="//field[@name='type']" position="after">
                     <field name="partner_id"/>
                     <field name="network_id"/>
                     <field name="material_id" required="True"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -216,21 +226,27 @@
             <field name="name">Software</field>
             <field name="res_model">network.software</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
         </record>
-        <menuitem name="Software" parent="network.menu_network" id="menu_action_software_tree" action="action_network_software" groups="network.group_network_manager"/>
 
-        <!-- LOGIN/PASSWORD -->
+        <menuitem id="menu_action_software_tree" 
+            name="Software" parent="network.menu_network" 
+            action="action_network_software" groups="network.group_network_manager"/>
+
+        <!-- ************************************************************** -->
+        <!-- ** Login / Password******************************************* -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="password_tree_ext1">
             <field name="name">network.password.tree.ext1</field>
             <field name="model">network.software.logpass</field>
             <field name="inherit_id" ref="network.password_tree"/>
             <field name="arch" type="xml">
-                <field name="login" position="replace">
+                <xpath expr="//field[@name='login']" position="replace">
                     <field name="material" select="1"/>
                     <field name="software_id" select="1"/>
                     <field name="name" select="1" />
                     <field name="login" select="1" />
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -239,7 +255,7 @@
             <field name="model">network.software.logpass</field>
             <field name="inherit_id" ref="network.password_tree"/>
             <field name="arch" type="xml">
-                <field name="password" position="replace"/>
+                <xpath expr="//field[@name='password']" position="replace"/>
             </field>
         </record>
 
@@ -248,7 +264,7 @@
             <field name="model">network.software.logpass</field>
             <field name="inherit_id" ref="network.password_form"/>
             <field name="arch" type="xml">
-                <field name="login" position="replace"/>
+                <xpath expr="//field[@name='login']" position="replace"/>
             </field>
         </record>
 
@@ -257,7 +273,7 @@
             <field name="model">network.software.logpass</field>
             <field name="inherit_id" ref="network.password_form"/>
             <field name="arch" type="xml">
-                <field name="password" position="replace">
+                <xpath expr="//field[@name='password']" position="replace">
                     <field name="name"/>
                     <newline/>
                     <field name="login"/>
@@ -271,7 +287,7 @@
                     <separator string="Note" colspan="4"/>
                     <field name="note" colspan="4" nolabel="1"/>
                     <field name="encrypted" invisible="True"/>
-                </field>
+                </xpath>
             </field>
         </record>
 
@@ -288,15 +304,35 @@
             action="action_network_logpass" 
             groups="network.group_network_manager"/>
 
-        <!-- SERVICE -->
+        <!-- ************************************************************** -->
+        <!-- ** Services ************************************************** -->
+        <!-- ************************************************************** -->
+        <record id="view_service_search" model="ir.ui.view">
+            <field name="name">network.service.search</field>
+            <field name="model">network.service</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Service">
+                    <field name="material" select="True"/>
+                    <field name="software_id"/>
+                   <newline/>
+                   <group expand="0" string="Group By...">
+                       <filter string="Material" icon="terp-personal" domain="[]" context="{'group_by': 'material'}"/>
+                       <separator orientation="vertical"/>
+                       <filter string="Protocol" icon="terp-personal" domain="[]" context="{'group_by': 'protocol_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="service_tree">
             <field name="name">network.service.tree</field>
             <field name="model">network.service</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Service">
-                    <field name="material" select="1"/>
-                    <field name="software_id" select="1"/>
+                    <field name="material"/>
                     <field name="name"/>
                     <field name="protocol_id"/>
                     <field name="port"/>
@@ -332,6 +368,7 @@
             <field name="name">Service</field>
             <field name="res_model">network.service</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
         </record>
 
         <menuitem 
@@ -341,7 +378,27 @@
             action="action_network_service" 
             groups="network.group_network_manager"/>
 
-        <!-- PROTOCOL -->
+        <!-- ************************************************************** -->
+        <!-- ** Protocol ************************************************** -->
+        <!-- ************************************************************** -->
+        <record id="view_network_protocol_search" model="ir.ui.view">
+            <field name="name">network.protocol.search</field>
+            <field name="model">network.protocol</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Protocol">
+                    <field name="name" select="True"/>
+                    <field name="port"/>
+                    <field name="protocol"/>
+                   <newline/>
+                   <group expand="0" string="Group By...">
+                       <filter string="Protocol" icon="terp-personal" domain="[]" context="{'group_by' : 'protocol'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="protocol_tree">
             <field name="name">network.protocol.tree</field>
             <field name="model">network.protocol</field>
@@ -376,16 +433,20 @@
             <field name="name">Protocol</field>
             <field name="res_model">network.protocol</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_network_protocol_search"/>
         </record>
 
         <menuitem 
             id="menu_action_protocol_tree" 
             name="Protocol" 
-            parent="network.menu_network_definition"  
+            parent="network.menu_tools_configuration_network"
             action="action_network_protocol" 
             groups="network.group_network_manager"/>
 
-        <!-- ENCRYPT_PASSWORD -->
+        <!-- ************************************************************** -->
+        <!-- ** Password encryption *************************************** -->
+        <!-- ************************************************************** -->
         <record model="ir.ui.view" id="encrypt_password_tree">
             <field name="name">network.encrypt.password.tree</field>
             <field name="model">network.encrypt.password</field>
@@ -417,30 +478,30 @@
         <menuitem 
             id="menu_action_encrypt_password_tree"
             name="Encrypt/Decrypt password"
-            parent="network.menu_network_definition"
+            parent="network.menu_tools_configuration_network"
             action="action_network_encrypt_password"
             groups="network.group_network_manager"/>
 
 
         <!-- Shortcuts -->
         <act_window name="Networks"
-                    domain="[('contact_id', '=', active_id)]"
-                    context="{'contact_id': active_id}"
-                    res_model="network.network"
-                    src_model="res.partner"
-                    id="act_partner_2_networks"/>
+            domain="[('contact_id', '=', active_id)]"
+            context="{'contact_id': active_id}"
+            res_model="network.network"
+            src_model="res.partner"
+            id="act_partner_2_networks"/>
         <act_window name="Materials"
-                    domain="[('partner_id', '=', active_id)]"
-                    context="{'partner_id': active_id}"
-                    res_model="network.material"
-                    src_model="res.partner"
-                    id="act_partner_2_materials"/>
+            domain="[('partner_id', '=', active_id)]"
+            context="{'partner_id': active_id}"
+            res_model="network.material"
+            src_model="res.partner"
+            id="act_partner_2_materials"/>
         <act_window name="Softwares"
-                    domain="[('partner_id', '=', active_id)]"
-                    context="{'partner_id': active_id}"
-                    res_model="network.software"
-                    src_model="res.partner"
-                    id="act_partner_2_softwares"/>
+            domain="[('partner_id', '=', active_id)]"
+            context="{'partner_id': active_id}"
+            res_model="network.software"
+            src_model="res.partner"
+            id="act_partner_2_softwares"/>
 
     </data>
 </openerp>

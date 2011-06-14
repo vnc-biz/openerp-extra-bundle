@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+	    <record model="ir.ui.view" id="training_subscription_second_line_form">
+	        <field name="name">training.subscription.second.line.form</field>
+	        <field name="model">training.subscription.second.line</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Mass Subscription Second Line">
+	            	<label string="This wizard will generate the subscription!" />
+	                <newline/>
+	                <separator colspan="4"/>
+	                <group colspan="4">
+                        <label colspan="2"/>
+	                    <button type="special" special="cancel" string="Cancel" icon="gtk-cancel"/>
+	                    <button type="object" name="make_subscription" string="Make Subscription" icon="gtk-apply"/>
+	                </group>
+	            </form>
+	        </field>
+	    </record>
+
+	    <act_window
+			    id="training_subscription_second_line_action_wizard"
+			    name="Subscription Second Line"
+			    res_model="training.subscription.second.line"
+			    src_model="training.subscription.line.second"
+			    view_mode="form"
+			    multi="True"
+			    target="new"
+	            key2="client_action_multi"/>
+	</data>
+</openerp>

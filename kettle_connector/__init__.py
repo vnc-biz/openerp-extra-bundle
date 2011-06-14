@@ -18,4 +18,4 @@
 #########################################################################
 
 import kettle
-import terminator_install
+import installer

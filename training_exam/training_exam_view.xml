@@ -488,18 +488,6 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="subscription_line_tree2_inherited">
-            <field name="name">training.subscription.line.tree2.inherited</field>
-            <field name="model">training.subscription.line</field>
-            <field name="type">tree</field>
-            <field name="inherit_id" ref="training.training_subscription_line_tree2" />
-            <field name="arch" type="xml">
-                <field name="session_id" position="after">
-                    <field name="course_id" select="1" /> <!--link="0"-->
-                </field>
-            </field>
-        </record>
-
         <record model="ir.ui.view" id="subscription_form_inherit">
             <field name="name">training.subscription.form.inherited</field>
             <field name="model">training.subscription</field>

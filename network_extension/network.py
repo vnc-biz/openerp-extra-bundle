@@ -4,7 +4,7 @@
 #    network_extension module for OpenERP
 #    Copyright (C) 2008 Zikzakmedia S.L. (http://zikzakmedia.com)
 #       Jordi Esteve <jesteve@zikzakmedia.com> All Rights Reserved.
-#    Copyright (C) 2009 SYLEAM (http://syleam.fr)
+#    Copyright (C) 2009-2011 SYLEAM (http://syleam.fr)
 #       Christophe Chauvet <christophe.chauvet@syleam.fr> All Rights Reserved.
 #
 #    This file is a part of network_extension
@@ -31,9 +31,7 @@ from tools.translate import _
 import base64
 import time
 
-#--------------------------------------------------------------
-# A network is composed of all kind of networkable materials
-#--------------------------------------------------------------
+
 class network_network(osv.osv):
     """
     A network is composed of all kind of networkable materials
@@ -56,7 +54,7 @@ class network_material(osv.osv):
     _inherit = "network.material"
     _columns = {
         'mac_addr': fields.char('MAC addresss', size=17),
-        'partner_id': fields.related('network_id', 'contact_id', type='many2one', relation='res.partner', string='Partner', readonly=True),
+        'partner_id': fields.related('network_id', 'contact_id', type='many2one', relation='res.partner', string='Partner', readonly=True, store=True),
     }
     # TODO: Add On Changeon the mac adress, to check if it correct
     #       regexp: /^([0-9a-f]{2}([:-]|$)){6}$/i
@@ -76,8 +74,8 @@ class network_software(osv.osv):
         'type': fields.many2one('network.software.type',
                                 'Software Type', required=True, select=1),
         'service_ids': fields.one2many('network.service', 'software_id', string='Service'),
-        'network_id': fields.related('material_id', 'network_id', type='many2one', relation='network.network', string='Network', readonly=True),
-        'partner_id': fields.related('material_id', 'partner_id', type='many2one', relation='res.partner', string='Partner', readonly=True),
+        'network_id': fields.related('material_id', 'network_id', type='many2one', relation='network.network', string='Network', readonly=True, store=True),
+        'partner_id': fields.related('material_id', 'partner_id', type='many2one', relation='res.partner', string='Partner', readonly=True, store=True),
     }
 
     def _default_material(self, cursor, user, context=None):
@@ -104,7 +102,7 @@ class network_software_logpass(osv.osv):
     _columns = {
         'name': fields.char('Name', size=100),
         'note': fields.text('Note'),
-        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True),
+        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True, store=True),
         'encrypted': fields.boolean('Encrypted'),
         'superuser': fields.boolean('Super User'),
     }
@@ -114,8 +112,7 @@ class network_software_logpass(osv.osv):
     }
 
     def onchange_password(self, cr, uid, ids, encrypted, context={}):
-        return {'value':{'encrypted': False}}
-
+        return {'value': {'encrypted': False}}
 
     def _encrypt_password(self, cr, uid, ids, *args):
         for rec in self.browse(cr, uid, ids):
@@ -126,7 +123,7 @@ class network_software_logpass(osv.osv):
 
             if not rec.encrypted:
                 obj_encrypt_password = self.pool.get('network.encrypt.password')
-                encrypt_password_ids = obj_encrypt_password.search(cr, uid, [('create_uid','=',uid),('write_uid','=',uid)])
+                encrypt_password_ids = obj_encrypt_password.search(cr, uid, [('create_uid', '=', uid), ('write_uid', '=', uid)])
                 encrypt_password_id = encrypt_password_ids and encrypt_password_ids[0] or False
                 if encrypt_password_id:
                     passwordkey = obj_encrypt_password.browse(cr, uid, encrypt_password_id).name
@@ -140,7 +137,6 @@ class network_software_logpass(osv.osv):
                     raise osv.except_osv(_('Error !'), _('Not encrypt/decrypt password has given.'))
         return True
 
-
     def _decrypt_password(self, cr, uid, ids, *args):
         for rec in self.browse(cr, uid, ids):
             try:
@@ -150,7 +146,7 @@ class network_software_logpass(osv.osv):
 
             if rec.encrypted:
                 obj_encrypt_password = self.pool.get('network.encrypt.password')
-                encrypt_password_ids = obj_encrypt_password.search(cr, uid, [('create_uid','=',uid),('write_uid','=',uid)])
+                encrypt_password_ids = obj_encrypt_password.search(cr, uid, [('create_uid', '=', uid), ('write_uid', '=', uid)])
                 encrypt_password_id = encrypt_password_ids and encrypt_password_ids[0] or False
                 if encrypt_password_id:
                     passwordkey = obj_encrypt_password.browse(cr, uid, encrypt_password_id).name
@@ -158,7 +154,7 @@ class network_software_logpass(osv.osv):
                     try:
                         desencripted = dec.decrypt(base64.b64decode(rec.password))
                         unicode(desencripted, 'ascii')
-                        raise osv.except_osv(rec.login+_(' password:'), desencripted)
+                        raise osv.except_osv(rec.login + _(' password:'), desencripted)
                     except UnicodeDecodeError:
                         raise osv.except_osv(_('Error !'), _('Wrong encrypt/decrypt password.'))
                 else:
@@ -182,7 +178,7 @@ class network_protocol(osv.osv):
         'name': fields.char('Name', size=64, required=True, select=1),
         'description': fields.char('Description', size=256, translate=True),
         'port': fields.integer('Port', help='Default port defined see(http://www.iana.org/assignments/port-numbers)', required=True),
-        'protocol': fields.selection([('tcp', 'TCP'),('udp', 'UDP'), ('both', 'Both'), ('other', 'Other')], 'Protocol', required=True),
+        'protocol': fields.selection([('tcp', 'TCP'), ('udp', 'UDP'), ('both', 'Both'), ('other', 'Other')], 'Protocol', required=True),
     }
 
 network_protocol()
@@ -201,7 +197,7 @@ class network_service(osv.osv):
     _columns = {
         'name': fields.char('Name', size=64, select=1),
         'software_id': fields.many2one('network.software', 'Software', required=True),
-        'material':fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True),
+        'material': fields.related('software_id', 'material_id', type='many2one', relation='network.material', string='Material', readonly=True, store=True),
         'protocol_id': fields.many2one('network.protocol', 'Protocol', select=1),
         'path': fields.char('Path', size=100),
         'port': fields.integer('Port', required=True, select=2),
@@ -214,16 +210,16 @@ class network_service(osv.osv):
         for rec in self.browse(cr, uid, ids):
             if not rec.protocol_id or not rec.software_id:
                 continue
-            protocol = rec.protocol_id.name+"://"
-            port = rec.port and ":"+str(rec.port) or ""
-            public_port = rec.public_port and ":"+str(rec.public_port) or ""
+            protocol = rec.protocol_id.name + "://"
+            port = rec.port and ":" + str(rec.port) or ""
+            public_port = rec.public_port and ":" + str(rec.public_port) or ""
             path = rec.path and rec.path or ""
 
             # Compute Private URL from Material IP
             ip_address = rec.software_id.material_id.ip_addr
             if ip_address:
-                service2 = protocol+ip_address+port+path
-                self.write(cr, uid, [rec.id], {'private_url' : service2})
+                service2 = protocol + ip_address + port + path
+                self.write(cr, uid, [rec.id], {'private_url': service2})
 
             # Compute Public URL from Network IP
             if not rec.software_id.material_id.network_id:
@@ -231,14 +227,13 @@ class network_service(osv.osv):
             public_ip_address = rec.software_id.material_id.network_id.public_ip_address
             public_domain = rec.software_id.material_id.network_id.public_domain
             if public_domain:
-                service1 = protocol+public_domain+public_port+path
-                self.write(cr, uid, [rec.id], {'public_url' : service1})
+                service1 = protocol + public_domain + public_port + path
+                self.write(cr, uid, [rec.id], {'public_url': service1})
             elif public_ip_address:
-                service1 = protocol+public_ip_address+public_port+path
-                self.write(cr, uid, [rec.id], {'public_url' : service1})
+                service1 = protocol + public_ip_address + public_port + path
+                self.write(cr, uid, [rec.id], {'public_url': service1})
 
         return True
-
 
     def onchange_port(self, cr, uid, ids, port, context={}):
         if not port:
@@ -260,12 +255,10 @@ class network_encrypt_password(osv.osv_memory):
     }
 
     def create(self, cr, uid, vals, context=None):
-        encrypt_password_ids = self.search(cr, uid, [('create_uid','=',uid),('write_uid','=',uid)], context=context)
+        encrypt_password_ids = self.search(cr, uid, [('create_uid', '=', uid), ('write_uid', '=', uid)], context=context)
         self.unlink(cr, uid, encrypt_password_ids, context=context)
         return super(osv.osv_memory, self).create(cr, uid, vals, context=context)
 
 network_encrypt_password()
-
-
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

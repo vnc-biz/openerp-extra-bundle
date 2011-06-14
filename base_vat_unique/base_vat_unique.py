@@ -20,13 +20,14 @@
 ##############################################################################
 from osv import osv
 from osv import fields
+from tools.translate import _
 
 class res_partner(osv.osv):
     _name = "res.partner"
     _inherit = "res.partner"
 
     _sql_constraints = [
-        ('vat_uniq', 'unique (vat)', 'Error! Specified VAT Number already exists for any other registered partner.')
+        ('vat_uniq', 'unique (vat)', _('Error! Specified VAT Number already exists for any other registered partner.'))
     ]
 
 res_partner()

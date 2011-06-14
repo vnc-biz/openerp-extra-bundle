@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:21+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-16 07:03+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: stock_location
 #: help:stock.location.path,delay:0
@@ -42,13 +42,15 @@ msgstr ""
 #. module: stock_location
 #: selection:stock.location.path,auto:0
 msgid "Automatic No Step Added"
-msgstr ""
+msgstr "Automático sem Passo Adicional"
 
 #. module: stock_location
 #: help:product.product,path_ids:0
 msgid ""
 "These rules set the right path of the product in the whole location tree."
 msgstr ""
+"Estas regras determinam o caminho correto do produto na árvore de "
+"localização completa."
 
 #. module: stock_location
 #: field:stock.location.path,location_from_id:0
@@ -91,6 +93,12 @@ msgid ""
 "move has to be validated by a worker. With 'Automatic No Step Added', the "
 "location is replaced in the original move."
 msgstr ""
+"Isto é usado para definir o caminho que o produto tem que seguir dentro da  "
+"árvore de localização. \n"
+"O valor do 'Movimento Automático' criará um movimento após o atual que será "
+"validado automaticamente. Com a 'Operação  Manual', o movimento de estoque "
+"terá de ser validado por um operador. Com 'Automático Sem Passo Adicional', "
+"a localização é substituida no movimento original."
 
 #. module: stock_location
 #: field:stock.location.path,name:0

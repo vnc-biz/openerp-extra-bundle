@@ -26,16 +26,21 @@
     "website" : "http://www.zikzakmedia.com",
     "description" : """
 OpenERP integration to Django.
-Create OpenObject Model to Django Model
-This module was built generically but in focus of the zzsaas service of Zikzakmedia and Zoook e-sale for OpenERP
+- Create OpenObject Model to Django Model. Select model and copy-paste Django Model (wizard)
+- OpenERP to Django Mapping Fields. Export OpenERP data to Django Models
+- Update SQL Django. Update Django models when already been created previously in Django (wizard)
+This module was built generically but in focus of the ZZSaaS service of Zikzakmedia and Zoook e-sale for OpenERP
     """,
     "version" : "0.1",
     "depends" : ["base"],
     "init_xml" : [],
     "update_xml" : [
+        "security/ir.model.access.csv",
         "django_view.xml",
+        "partner_view.xml",
         "django_wizard.xml",
         "wizard/wizard_create_model.xml",
+        "wizard/wizard_sql_update.xml",
     ],
     "category" : "Generic Modules",
     "active": False,

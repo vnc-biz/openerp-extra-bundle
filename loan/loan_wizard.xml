@@ -10,10 +10,11 @@
 			name="account.partner.loan"
 			menu="False"
 			id="wizard_partner_loan"/>
-		<menuitem name="Financial Management/Loan/Report Of Partner Loan"
+		<menuitem name="Report Of Partner Loan"
 			action="wizard_partner_loan"
 			type="wizard"
-			id="menu_partner_loan"/>
+			id="menu_partner_loan"
+			parent="menu_loan"/>
 			
 		<wizard
 			string="Create Account"

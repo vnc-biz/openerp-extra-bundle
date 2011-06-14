@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Raimon Esteve <resteve@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,6 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     "name" : "Internet Domain",
     "author" : "Zikzakmedia SL",
@@ -34,14 +36,20 @@ Tools -> Domain
 * Invoice renewal domain
     """,
     "version" : "0.1",
-    "depends" : ["base","product","account","network","poweremail"],
+    "depends" : [
+        "base",
+        "product",
+        "account",
+        "network",
+        "poweremail"
+    ],
     "init_xml" : [],
     "update_xml" : [
         "security/internetdomain_security.xml",
         "security/ir.model.access.csv",
         "internetdomain_view.xml",
         "internetdomain_report.xml",
-        "internetdomain_wizard.xml",
+        "wizard/make_invoice_view.xml",
         "internetdomain_data.xml",
         "company_view.xml",
     ],

@@ -10,11 +10,12 @@
 			id="wizard_hotel_housekeeping_activity_report"/>
 		
 		<menuitem
-			name="Hotel Management/Reports/Activity Report" 
+			name="Activity Report" 
 			action="wizard_hotel_housekeeping_activity_report" 
 			type="wizard"
 			menu="False"
 			id="wizard_activity_menu"
+			parent="hotel.hotel_report_menu"
 			sequence="29"/>
 	</data>
 </openerp>

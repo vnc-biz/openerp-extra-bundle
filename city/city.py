@@ -43,7 +43,7 @@ class city(osv.osv):
             args = []
         if context is None:
             context = {}
-            ids = []
+        ids = []
         if name:
             ids = self.search(cr, uid, [('zipcode', 'ilike', name)]+ args, limit=limit)
         if not ids:

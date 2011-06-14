@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-24 06:20+0000\n"
-"X-Generator: Launchpad (build 12351)\n"
+"X-Launchpad-Export-Date: 2011-04-16 07:03+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -36,7 +36,7 @@ msgstr "Ajustar para Esboçar"
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_transaction_pos
 msgid "transaction for the pos"
-msgstr ""
+msgstr "transação para o PDV"
 
 #. module: point_of_sale
 #: wizard_view:pos.discount,init:0
@@ -670,7 +670,7 @@ msgstr "Separação"
 #: code:addons/point_of_sale/wizard/wizard_get_sale.py:0
 #, python-format
 msgid "You can't modify this order. It has already been paid"
-msgstr ""
+msgstr "Você não pode modificar este pedido, pois ele já foi pago"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/pos.py:0

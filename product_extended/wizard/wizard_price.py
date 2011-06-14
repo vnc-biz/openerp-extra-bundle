@@ -2,7 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2010-2011 OpenERP S.A. (<http://www.openerp.com>).
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -25,7 +26,6 @@ import pooler
 
 def _compute_price(self, cr, uid, data, context):
     bom_obj = pooler.get_pool(cr.dbname).get('mrp.bom')
-    #product_obj = pooler.get_pool(cr.dbname).get('product.product')
 
     for bom in bom_obj.browse(cr, uid, data['ids'], context=context):
         bom.product_id.compute_price(cr, uid, bom.product_id.id)
@@ -36,9 +36,11 @@ class wizard_price(wizard.interface):
     states = {
         'init' : {
             'actions' : [],
-            'result' : {'type' : 'action',
-                    'action' : _compute_price,
-                    'state' : 'end'}
+            'result' : {
+                'type' : 'action',
+                'action' : _compute_price,
+                'state' : 'end'
+            }
         },
     }
 wizard_price('product_extended.compute_price')

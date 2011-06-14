@@ -9,6 +9,7 @@
     "author" : "NaN Projectes de Programaril Lliure, S.L.",
     "website" : "http://www.NaN-tic.com",
     "depends" : [
+        'crm',
         'purchase_requisition',
         'sale',
      ],
@@ -20,6 +21,7 @@
         'account_view.xml',
         'purchase_view.xml',
         'sale_view.xml',
+        'crm_view.xml',
     ],
     "active": False,
     "installable": True

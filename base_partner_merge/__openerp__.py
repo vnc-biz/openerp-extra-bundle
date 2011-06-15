@@ -19,6 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# Fixed by Guewen Baconnier - Camptocamp
 
 {
     'name': 'Partner Merger',
@@ -27,8 +28,8 @@
     'description': """
 
     This Module creates two wizard on:
-    1. partners\configuration\merge partners => It merge two partners and create new third partner, and deactivate old two partners
-    2. partners\configuration\merge addresses => It merge two partner addresses and create new third address, and deactivate old two addresses
+    1. Select 2 partners in tree view => It merge the two partners and create new third partner, and deactivate old two partners
+    3. partners\configuration\merge addresses (or select 2 addresses) => It merge the two partner addresses and create new third address, and deactivate old two addresses
 
     """,
     'author': 'Tiny',

@@ -18,6 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# Fixed by Guewen Baconnier - Camptocamp
+
 from osv import fields, osv
 from tools.translate import _
 import tools
@@ -30,8 +32,6 @@ class base_partner_merge(osv.osv_memory):
     _description = 'Merges two partners'
 
     _columns = {
-     #   'partner_id1':fields.many2one('res.partner', 'Partner1'), 
-     #   'partner_id2':fields.many2one('res.partner', 'Partner2'), 
     }
     
     _values = {}
@@ -61,12 +61,21 @@ class base_partner_merge(osv.osv_memory):
         update_fields = {}
         columns = {}
 
-        for fid, fname, fdescription, ttype, required, relation in field_datas:
+        for fid, fname, fdescription, ttype, required, relation, readonly in field_datas:
             val1 = value1[fname]
             val2 = value2[fname]
             my_selection = []
             size = 24
-            if (val1 and val2) and (val1 != val2):
+
+            if (val1 and val2) and (val1 == val2):
+                if ttype in ('many2one'):
+                    update_values.update({fname: val1.id})
+                elif ttype in ('many2many'):
+                    update_values.update({fname: [(6, 0, map(lambda x: x.id, val1))]})
+                else:
+                    update_values.update({fname: val1})
+
+            if (val1 and val2) and (val1 != val2) and not readonly:
                 if ttype in ('char', 'text', 'selection'):
                     my_selection = [(val1, val1), (val2, val2)]
                     size = max(len(val1), len(val2))
@@ -81,10 +90,10 @@ class base_partner_merge(osv.osv_memory):
                         my_selection.append((False, ''))
                     columns.update({fname: fields.selection(my_selection, fdescription, required=required, size=size)})
                     update_fields.update({fname: {'string': fdescription, 'type': 'selection', 'selection': my_selection, 'required': required}})
-                    formxml += '\n<field name="%s"/><newline/>' % (fname)
+                    formxml += '\n<field name="%s"/><newline/>' % (fname,)
             if (val1 and not val2) or (not val1 and val2):
                 if ttype == 'many2one':
-                    update_values.update({fname: False})
+                    update_values.update({fname: val1 and val1.id or val2 and val2.id})
                 elif ttype == 'many2many':
                     update_values.update({fname: [(6, 0, map(lambda x: x.id, val1 or val2))]})
                 elif ttype == 'one2many':
@@ -104,13 +113,13 @@ class base_partner_merge(osv.osv_memory):
         return formxml, update_fields, update_values, columns
 
 
-    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False):
-        res = super(base_partner_merge, self).fields_view_get(cr, uid, view_id, view_type, context=context, toolbar=toolbar)
+    def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
+        res = super(base_partner_merge, self).fields_view_get(cr, uid, view_id, view_type, context=context, toolbar=toolbar, submenu=submenu)
         partner_ids = context.get('active_ids') or []
         if not len(partner_ids) == 2:
             return res
         partner_obj = self.pool.get('res.partner')
-        cr.execute("SELECT id, name, field_description, ttype, required, relation from ir_model_fields where model='res.partner'")
+        cr.execute("SELECT id, name, field_description, ttype, required, relation, readonly from ir_model_fields where model='res.partner'")
         field_datas = cr.fetchall()
         partner1 = partner_obj.browse(cr, uid, partner_ids[0], context=context)
         partner2 = partner_obj.browse(cr, uid, partner_ids[1], context=context)
@@ -119,6 +128,23 @@ class base_partner_merge(osv.osv_memory):
         res['arch'] = myxml
         res['fields'] = merge_fields
         return res
+
+    def cast_fields(self, cr, uid, data_record, context=None):
+        """ We got an exception if the many2one fields are in string
+         so we cast the values to their good type (as we use selection they are strings)
+        """
+        cr.execute("SELECT name, ttype from ir_model_fields where model='res.partner'")
+        cast_mapping = {
+            'float': float,
+            'integer': int,
+            'many2one': long,
+        }
+        field_datas = cr.fetchall()
+        for field in field_datas:
+            if cast_mapping.get(field[1], False) and \
+               data_record.get(field[0], False):
+                data_record[field[0]] = cast_mapping[field[1]](data_record[field[0]])
+        return data_record
 
     def action_merge(self, cr, uid, ids, context=None):
         """
@@ -191,7 +217,12 @@ class base_partner_merge(osv.osv_memory):
         except:
             raise osv.except_osv(_('Error!'), _('You should change the type of the address to avoid having two default addresses'))
 
+        res = self.cast_fields(cr, uid, res, context)
+
         part_id = partner_pool.create(cr, uid, res, context=context)
+
+        self.custom_updates(cr, uid, part_id, [part1, part2], context)
+
         # For one2many fields on res.partner
         cr.execute("select name, model from ir_model_fields where relation='res.partner' and ttype not in ('many2many', 'one2many');")
         for name, model_raw in cr.fetchall():
@@ -209,6 +240,11 @@ class base_partner_merge(osv.osv_memory):
                             cr.execute("update "+model+" set "+name+"="+str(part_id)+" where "+ tools.ustr(name) +" in ("+ tools.ustr(part1) +", "+tools.ustr(part2)+")")
 
         return {}
+
+    def custom_updates(self, cr, uid, partner_id, old_partner_ids, context):
+        """Hook for special updates on old partners and new partner
+        """
+        pass
 
 base_partner_merge()
 

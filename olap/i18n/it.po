@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-16 06:56+0000\n"
-"X-Generator: Launchpad (build 12735)\n"
+"X-Launchpad-Export-Date: 2011-06-15 05:53+0000\n"
+"X-Generator: Launchpad (build 13168)\n"
 
 #. module: olap
 #: view:olap.database.columns:0
@@ -677,7 +677,7 @@ msgstr "Schemi OLAP"
 #. module: olap
 #: field:olap.cube,table_id:0
 msgid "Fact table"
-msgstr ""
+msgstr "Tabella avvenimento"
 
 #. module: olap
 #: view:bi.auto.configure.wizard:0
@@ -777,7 +777,7 @@ msgstr "Parametri di connessione"
 #: field:bi.load.db.wizard,fact_table:0
 #: wizard_field:olap.load.table,init,fact_table:0
 msgid "Fact Name"
-msgstr ""
+msgstr "Nome Avvenimento"
 
 #. module: olap
 #: view:olap.database.columns:0
@@ -1098,7 +1098,7 @@ msgstr "Seleziona il cubo"
 #. module: olap
 #: field:olap.hierarchy,table_id:0
 msgid "Fact table(s)"
-msgstr ""
+msgstr "Tabella(e) avvenimento"
 
 #. module: olap
 #: model:ir.actions.url,name:olap.menu_url_cube_designer
@@ -1219,7 +1219,7 @@ msgstr "Log Query OLAP"
 #. module: olap
 #: field:olap.fact.database,name:0
 msgid "Fact name"
-msgstr ""
+msgstr "Nome avvenimento"
 
 #. module: olap
 #: help:olap.measure,formatstring:0
@@ -1401,17 +1401,17 @@ msgstr "OLAP"
 #. module: olap
 #: field:olap.database.columns,name:0
 msgid "Column Name"
-msgstr ""
+msgstr "Nome Colonna"
 
 #. module: olap
 #: field:olap.database.tables,table_db_name:0
 msgid "Table Name"
-msgstr ""
+msgstr "Nome Tabella"
 
 #. module: olap
 #: wizard_view:olap.application.configuration,configure:0
 msgid "Auto Configure"
-msgstr ""
+msgstr "Configurazione Automatica"
 
 #. module: olap
 #: field:olap.schema,configure:0
@@ -1421,12 +1421,12 @@ msgstr ""
 #. module: olap
 #: model:ir.actions.wizard,name:olap.bi_load_configuration_table
 msgid "Open Configuration"
-msgstr ""
+msgstr "Apri Configurazione"
 
 #. module: olap
 #: view:olap.schema:0
 msgid "Configure Automatically "
-msgstr ""
+msgstr "Configura Automaticamente "
 
 #. module: olap
 #: model:ir.actions.wizard,name:olap.bi_clear_logs

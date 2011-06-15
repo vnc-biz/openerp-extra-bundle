@@ -14,23 +14,23 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-24 05:52+0000\n"
-"X-Generator: Launchpad (build 12758)\n"
+"X-Launchpad-Export-Date: 2011-06-15 05:50+0000\n"
+"X-Generator: Launchpad (build 13168)\n"
 
 #. module: board_frontdesk
 #: model:ir.ui.menu,name:board_frontdesk.menu_board_frontdesk
 msgid "Hotel FrontDesk Board"
-msgstr ""
+msgstr "Tablón del mostrador del hotel"
 
 #. module: board_frontdesk
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "¡XML inválido para la arquitectura de la vista!"
 
 #. module: board_frontdesk
 #: model:ir.actions.act_window,name:board_frontdesk.open_board_frontdesk
 msgid "FrontDesk Dashboard"
-msgstr ""
+msgstr "Pizarra de mostrador"
 
 #. module: board_frontdesk
 #: model:ir.module.module,description:board_frontdesk.module_meta_information
@@ -42,28 +42,35 @@ msgid ""
 "    * Calendar view of Monthly Check-In and Check-Out\n"
 "    "
 msgstr ""
+"\n"
+"Este módulo implementa el tablón de mandos del mostrador del hotel que "
+"incluye:\n"
+"    * Vista de calendario de las entradas y salidas de hoy\n"
+"    * Vista de calendario de las entradas y salidas semanalmente\n"
+"    * Vista de calendario de las entradas y salidas mensualmente\n"
+"    "
 
 #. module: board_frontdesk
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nombre del módulo inválido en la definición de la acción."
 
 #. module: board_frontdesk
 #: model:ir.actions.act_window,name:board_frontdesk.action_view_frontdesk_cal
 msgid "FrontDesk"
-msgstr ""
+msgstr "Mostrador"
 
 #. module: board_frontdesk
 #: view:board.board:0
 msgid "Reservation"
-msgstr ""
+msgstr "Reserva"
 
 #. module: board_frontdesk
 #: model:ir.module.module,shortdesc:board_frontdesk.module_meta_information
 msgid "Board for Hotel FrontDesk"
-msgstr ""
+msgstr "Tablón del mostrador del hotel"
 
 #. module: board_frontdesk
 #: view:board.board:0
 msgid "FrontDesk board"
-msgstr ""
+msgstr "Tablón de mostrador"

@@ -26,7 +26,7 @@
     'version': '0.1',
     'category': 'Generic Modules/Accounting',
     'license': 'AGPL-3',
-    'description': """This module adds an action "Reversal" on account moves, to allow the accoutant to create reversal account moves in 2 clicks.".
+    'description': """This module adds an action "Reversal" on account moves, to allow the accountant to create reversal account moves in 2 clicks.".
 
 Module developped by Alexis de Lattre <alexis.delattre@akretion.com> during the Akretion-Camptocamp code sprint of June 2011.
 """,

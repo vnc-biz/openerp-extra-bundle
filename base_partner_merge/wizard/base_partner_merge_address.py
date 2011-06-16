@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# Fixes, improvements and V6 adaptation by Guewen Baconnier - Camptocamp 2011
 
 from osv import fields, osv
 from tools.translate import _
@@ -137,6 +138,18 @@ class base_partner_merge_address_values(osv.osv_memory):
         res['fields'] = merge_fields
         return res
 
+    def cast_many2one_fields(self, cr, uid, data_record, context=None):
+        """ Some fields are many2one and the ORM expect them to be integer or in the form
+        'relation,1' wher id is the id.
+         As some fields are displayed as selection in the view, we cast them in integer.
+        """
+        cr.execute("SELECT name from ir_model_fields where model='res.partner.address' and ttype='many2one'")
+        fields = cr.fetchall()
+        for field in fields:
+            if data_record.get(field[0], False):
+                data_record[field[0]] = int(data_record[field[0]])
+        return data_record
+
     def action_merge(self, cr, uid, ids, context=None):
         pool = self.pool
         address_obj = pool.get('res.partner.address')
@@ -169,7 +182,7 @@ class base_partner_merge_address_values(osv.osv_memory):
         remove_field.update({'active': False})
         address_obj.write(cr, uid, [add1, add2], remove_field, context=context)
 
-        res = self.pool.get('base.partner.merge').cast_fields(cr, uid, res, context)
+        res = self.cast_many2one_fields(cr, uid, res, context)
 
         add_id = address_obj.create(cr, uid, res, context=context)
 

@@ -18,11 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-# Fixed by Guewen Baconnier - Camptocamp
+# Fixes, improvements and V6 adaptation by Guewen Baconnier - Camptocamp 2011
 
 from osv import fields, osv
 from tools.translate import _
 import tools
+
 
 class base_partner_merge(osv.osv_memory):
     '''
@@ -35,23 +36,6 @@ class base_partner_merge(osv.osv_memory):
     }
     
     _values = {}
-
-    def view_init(self, cr, uid, fields, context=None):
-        """
-        This function checks for precondition before wizard executes
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param fields: List of fields for default value
-        @param context: A standard dictionary for contextual values
-
-        """
-        if not context:
-            context = {}
-        ids = context.get('active_ids')
-        if not len(ids) == 2:
-            raise osv.except_osv(_('Warning!'), _('You must select only two partners'))
-        return False
 
     def _build_form(self, cr, uid, field_datas, value1, value2):
         formxml = '''<?xml version="1.0"?>
@@ -82,9 +66,10 @@ class base_partner_merge(osv.osv_memory):
                 if ttype in ('float', 'integer'):
                     my_selection = [(str(val1), str(val1)), (str(val2), str(val2))]
                 if ttype in ('many2one'):
-                    my_selection = [(str(val1.id), val1.name), (str(val2.id), val2.name)]
+                    my_selection = [(str(val1.id), val1.name),
+                                    (str(val2.id), val2.name)]
                 if ttype in ('many2many'):
-                    update_values.update({fname: [(6, 0, map(lambda x: x.id, val1 + val2))]})
+                    update_values.update({fname: [(6, 0, list(set(map(lambda x: x.id, val1 + val2))))]})
                 if my_selection:
                     if not required:
                         my_selection.append((False, ''))
@@ -112,10 +97,20 @@ class base_partner_merge(osv.osv_memory):
         </form>"""
         return formxml, update_fields, update_values, columns
 
+    def check_partners(self, cr, uid, partner_ids, context):
+        """ Check validity of selected addresses.
+         Hook for other checks
+        """
+        if not len(partner_ids) == 2:
+            raise osv.except_osv(_('Error!'), _('You must select only two partners'))
+        return True
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         res = super(base_partner_merge, self).fields_view_get(cr, uid, view_id, view_type, context=context, toolbar=toolbar, submenu=submenu)
         partner_ids = context.get('active_ids') or []
+
+        self.check_partners(cr, uid, partner_ids, context)
+
         if not len(partner_ids) == 2:
             return res
         partner_obj = self.pool.get('res.partner')
@@ -129,21 +124,16 @@ class base_partner_merge(osv.osv_memory):
         res['fields'] = merge_fields
         return res
 
-    def cast_fields(self, cr, uid, data_record, context=None):
-        """ We got an exception if the many2one fields are in string
-         so we cast the values to their good type (as we use selection they are strings)
+    def cast_many2one_fields(self, cr, uid, data_record, context=None):
+        """ Some fields are many2one and the ORM expect them to be integer or in the form
+        'relation,1' wher id is the id.
+         As some fields are displayed as selection in the view, we cast them in integer.
         """
-        cr.execute("SELECT name, ttype from ir_model_fields where model='res.partner'")
-        cast_mapping = {
-            'float': float,
-            'integer': int,
-            'many2one': long,
-        }
-        field_datas = cr.fetchall()
-        for field in field_datas:
-            if cast_mapping.get(field[1], False) and \
-               data_record.get(field[0], False):
-                data_record[field[0]] = cast_mapping[field[1]](data_record[field[0]])
+        cr.execute("SELECT name from ir_model_fields where model='res.partner' and ttype='many2one'")
+        fields = cr.fetchall()
+        for field in fields:
+            if data_record.get(field[0], False):
+                data_record[field[0]] = int(data_record[field[0]])
         return data_record
 
     def action_merge(self, cr, uid, ids, context=None):
@@ -152,10 +142,10 @@ class base_partner_merge(osv.osv_memory):
         @param self: The object pointer
         @param cr: the current row, from the database cursor,
         @param uid: the current user’s ID for security checks,
-        @param ids: List of Lead to Opportunity IDs
+        @param ids: id of the wizard
         @param context: A standard dictionary for contextual values
 
-        @return : Dictionary value for created Opportunity form
+        @return : nothing
         """
         record_id = context and context.get('active_id', False) or False
         pool = self.pool
@@ -167,10 +157,13 @@ class base_partner_merge(osv.osv_memory):
         partner_pool = pool.get('res.partner')
         partner_ids = context.get('active_ids') or []
         if not len(partner_ids) == 2:
-            raise osv.except_osv(_('Warning!'), _('You must select only two partners'))
+            raise osv.except_osv(_('Error!'), _('You must select only two partners'))
+
+        self.check_partners(cr, uid, partner_ids, context)
+
         part1 = partner_ids[0]
         part2 = partner_ids[1]
-        
+
         if hasattr(partner_pool, '_sql_constraints'):
             #for uniqueness constraint (vat number for example)...
             c_names = []
@@ -215,9 +208,9 @@ class base_partner_merge(osv.osv_memory):
         try:
             partner_pool.write(cr, uid, [part1, part2], remove_field, context=context)
         except:
-            raise osv.except_osv(_('Error!'), _('You should change the type of the address to avoid having two default addresses'))
+            raise osv.except_osv(_('Error!'), _('You have to change the type of the default address of one of the partner to avoid having two default addresses'))
 
-        res = self.cast_fields(cr, uid, res, context)
+        res = self.cast_many2one_fields(cr, uid, res, context)
 
         part_id = partner_pool.create(cr, uid, res, context=context)
 
@@ -232,6 +225,7 @@ class base_partner_merge(osv.osv_memory):
             elif hasattr(pool.get(model_raw), '_check_time'):
                 continue
             else:
+                import pdb; pdb.set_trace()
                 if hasattr(pool.get(model_raw), '_columns'):
                     from osv import fields
                     if pool.get(model_raw)._columns.get(name, False) and isinstance(pool.get(model_raw)._columns[name], fields.many2one):

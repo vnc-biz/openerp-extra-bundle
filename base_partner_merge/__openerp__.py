@@ -19,20 +19,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-# Fixed by Guewen Baconnier - Camptocamp
+# Fixes, improvements and V6 adaptation by Guewen Baconnier - Camptocamp 2011
 
 {
     'name': 'Partner Merger',
     'version': '1.0',
     'category': 'Generic Modules/Base',
     'description': """
+To merge 2 partners, select them in the list view and execute the Action "Merge Partners".
+To merge 2 addresses, select them in the list view and execute the Action "Merge Partner Addresses" or use the menu item :
+ Partners / Configuration / Merge Partner Addresses
 
-    This Module creates two wizard on:
-    1. Select 2 partners in tree view => It merge the two partners and create new third partner, and deactivate old two partners
-    3. partners\configuration\merge addresses (or select 2 addresses) => It merge the two partner addresses and create new third address, and deactivate old two addresses
+The selected addresses/partners are deactivated and a new one is created with :
+ - When a value is the same on each resources : the value
+ - When a value is different between the resources : you can choose the value to keep in a selection list
+ - When a value is set on a resource and is empty on the second one : the value set on the resource
+ - All many2many relations of the 2 resources are created on the new resource.
+ - All the one2many relations (invoices, sale_orders, ...) are updated in order to link to the new resource.
 
     """,
-    'author': 'Tiny',
+    'author': 'OpenERP',
     'website': 'http://www.openerp.com',
     'depends': ['base'],
     'init_xml': [],

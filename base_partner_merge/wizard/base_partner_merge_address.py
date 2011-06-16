@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# Fixes, improvements and V6 adaptation by Guewen Baconnier - Camptocamp 2011
 
 from osv import fields, osv
 from tools.translate import _
@@ -34,6 +35,7 @@ class res_partner_address(osv.osv):
             partner_address_obj = self.pool.get('res.partner.address')
             add2 = partner_address_obj.browse(cr, uid, context['merge'], context=context).partner_id.id
             args.append(('partner_id', '=', add2))
+            args.append(('id', '!=', context['merge']))
         return super(res_partner_address, self).search(cr, uid, args, offset, limit, 
                 order, context=context, count=count)
 res_partner_address()
@@ -49,6 +51,35 @@ class base_partner_merge_address(osv.osv_memory):
     _columns = {
         'address_id1':fields.many2one('res.partner.address', 'Address1', required=True), 
         'address_id2':fields.many2one('res.partner.address', 'Address2', required=True), 
+    }
+
+    def get_addresses(self, cr, uid, context=None):
+        # wizard is launched from an address and not from the menu
+        if context.get('active_model', False) != 'res.partner.address':
+            return False
+        ids = context.get('active_ids', False)
+        if ids and not len(ids) == 2:
+            raise osv.except_osv(_('Warning!'), _('You must select only two addresses'))
+        return ids or False
+
+    def _get_address1(self, cr, uid, context=None):
+        ids = self.get_addresses(cr, uid, context)
+        return ids and ids[0] or False
+
+    def _get_address2(self, cr, uid, context=None):
+        ids = self.get_addresses(cr, uid, context)
+        if ids:
+            addresses = self.pool.get('res.partner.address').\
+            browse(cr, uid, ids, context=context)
+            partners = []
+            [partners.append(address.partner_id.id) for address in addresses]
+            if len(set(partners)) > 1:
+                raise osv.except_osv(_('Error'), _('Selected addresses do not belong to the same partner!'))
+        return ids and ids[1] or False
+
+    _defaults = {
+            'address_id1': _get_address1,
+            'address_id2': _get_address2,
     }
 
     def action_next(self, cr, uid, ids, context=None):
@@ -79,9 +110,17 @@ class base_partner_merge_address_values(osv.osv_memory):
 
     _values = {}
 
+    def check_addresses(self, cr, uid, add_data, context):
+        """ Check validity of selected addresses.
+         Hook for other checks
+        """
+        if add_data.address_id1 == add_data.address_id2:
+            raise osv.except_osv(_("Error!"), _("The same address is selected in both fields."))
+        return True
+
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         res = super(base_partner_merge_address_values, self).fields_view_get(cr, uid, view_id, view_type, context=context, toolbar=toolbar, submenu=submenu)
-        cr.execute("SELECT id, name, field_description, ttype, required, relation from ir_model_fields where model='res.partner.address'")
+        cr.execute("SELECT id, name, field_description, ttype, required, relation, readonly from ir_model_fields where model='res.partner.address'")
         field_datas = cr.fetchall()
         
         #get address data
@@ -90,13 +129,26 @@ class base_partner_merge_address_values(osv.osv_memory):
         if not add_ids:
             return res
         add_data = merge_obj.browse(cr, uid, add_ids[-1], context=context)
-        if add_data.address_id1 == add_data.address_id2:
-            raise osv.except_osv(_("Warning!"), _("There is no difference in selected addresses."))
+
+        self.check_addresses(cr, uid, add_data, context)
+
         myxml, merge_fields, self._values, columns = self.pool.get('base.partner.merge')._build_form(cr, uid, field_datas, add_data.address_id1, add_data.address_id2)
         self._columns.update(columns)
         res['arch'] = myxml
         res['fields'] = merge_fields
         return res
+
+    def cast_many2one_fields(self, cr, uid, data_record, context=None):
+        """ Some fields are many2one and the ORM expect them to be integer or in the form
+        'relation,1' wher id is the id.
+         As some fields are displayed as selection in the view, we cast them in integer.
+        """
+        cr.execute("SELECT name from ir_model_fields where model='res.partner.address' and ttype='many2one'")
+        fields = cr.fetchall()
+        for field in fields:
+            if data_record.get(field[0], False):
+                data_record[field[0]] = int(data_record[field[0]])
+        return data_record
 
     def action_merge(self, cr, uid, ids, context=None):
         pool = self.pool
@@ -129,7 +181,12 @@ class base_partner_merge_address_values(osv.osv_memory):
 
         remove_field.update({'active': False})
         address_obj.write(cr, uid, [add1, add2], remove_field, context=context)
+
+        res = self.cast_many2one_fields(cr, uid, res, context)
+
         add_id = address_obj.create(cr, uid, res, context=context)
+
+        self.custom_updates(cr, uid, add_id, [add1, add2], context)
 
         # For one2many fields on res.partner.address
         cr.execute("select name, model from ir_model_fields where relation='res.partner.address' and ttype not in ('many2many', 'one2many');")
@@ -146,6 +203,11 @@ class base_partner_merge_address_values(osv.osv_memory):
                         model = model_raw.replace('.', '_')
                         cr.execute("update "+model+" set "+name+"="+str(add_id)+" where "+str(name)+" in ("+str(add1)+", "+str(add2)+")")
         return {}
+
+    def custom_updates(self, cr, uid, address_id, old_address_ids, context):
+        """Hook for special updates on old addresses and new address
+        """
+        pass
 
 base_partner_merge_address_values()
 

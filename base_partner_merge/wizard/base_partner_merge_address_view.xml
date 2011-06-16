@@ -35,5 +35,18 @@
 
        <menuitem action="action_base_partner_merge_address_form" id="menu_base_partner_address_merge" parent="base.menu_base_config"/>
 
+        <record id="action_base_partner_address_merge_form_values" model="ir.values">
+            <field name="model_id" ref="base.model_res_partner_address" />
+            <field name="object" eval="1" />
+            <field name="name">Merge Partner Addresses</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_base_partner_merge_address_form'))"/>
+            <field name="key">action</field>
+            <field name="model">res.partner.address</field>
+        </record>
+
+        <!-- Add a link to the addresses on the partners: useful to merge addresses right after a partner merge -->
+        <act_window domain="[('partner_id', '=', active_id)]" id="act_base_partner_merge_addresses_link" name="Addresses" res_model="res.partner.address" src_model="res.partner"/>
+
     </data>
 </openerp>

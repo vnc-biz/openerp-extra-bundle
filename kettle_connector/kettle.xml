@@ -24,7 +24,7 @@
     <field name="model">kettle.parameter</field>
     <field name="type">tree</field>
     <field name="arch" type="xml">
-        <tree string="Kettle parameters">
+        <tree string="Kettle parameters" editable="bottom">
             <field name="task_id" invisible="not context.get('kettle_parameter_main_view', False)" />
             <field name="name" />
             <field name="value" />
@@ -59,7 +59,8 @@
 				        <field name="active_python_code" groups="base.group_extended"/>
 				        <field name="last_date"/>
 				        <separator colspan="4" string="Parameters" />
-                        <field name="parameter_ids" nolabel="1" colspan="4" />
+                                        <field name="parameter_ids" nolabel="1" colspan="4" />
+                                        <field name="carte_id"/>
 			        </group>
 			        <group attrs="{'invisible':[('active_python_code','!=',1)]}"  colspan="4" groups="base.group_extended">
 				        <separator colspan="4" string="Python code executed before transformation/job" />
@@ -109,8 +110,11 @@
 				        <button name="button_install" string="Install Kettle" type="object" icon="gtk-execute" colspan="1"/>
                         <button name="button_update_terminatooor" string="Update Terminatooor" type="object" icon="gtk-execute" colspan="1"/>
 			        </group>
-                    <field name="url"/>
-                    <field name="user"/>
+				<group col="6" colspan="6">
+                                        <field name="url" colspan="2"/>
+                                        <field name="user" colspan="2" attrs="{'invisible':[('url','=',False)], 'required':[('url','!=',False)]}"/>
+				        <field name="password" password="True" colspan="2" attrs="{'invisible':[('url','=',False)], 'required':[('url','!=',False)]}"/>
+				</group>
 				</form>
 			</field>
 		</record>

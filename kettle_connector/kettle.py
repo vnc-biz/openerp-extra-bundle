@@ -37,6 +37,13 @@ from installer import installer
 import tools
 from tools import config
 from tools.translate import _
+import zipfile
+from mako.template import Template
+import httplib
+import urllib
+from lxml import etree
+import socket
+import subprocess 
 
 class kettle_server(osv.osv):
     _name = 'kettle.server'
@@ -98,6 +105,7 @@ class kettle_task(osv.osv):
         'python_code_after' : fields.text('Python code executed after transformation'),
         'last_date' : fields.datetime('Last execution'),
         'parameter_ids': fields.one2many('kettle.parameter', 'task_id'),
+        'carte_id': fields.char('Carte ID', size=64)
     }
 
     def attach_file_to_task(self, cr, uid, id, datas_fname, attach_name, delete = False, context = None):
@@ -141,6 +149,41 @@ class kettle_task(osv.osv):
         else:
             raise osv.except_osv('KETTLE ERROR', 'An error occurred, please look in the kettle log')
 
+    def transfo_execution_configuration(self, cr, uid, id, transfo_name, params, context):
+        conf_template = Template("""<transformation_execution_configuration>
+    <exec_local>N</exec_local>
+    <variables>
+    % for key, value in params.items():
+        <variable><name>${key}</name><value>${value}</value></variable>
+    % endfor
+    </variables>
+    <parameters>
+    % for key, value in params.items():
+        <parameter><name>${key}</name><value>${value}</value></parameter>
+    % endfor
+    </parameters>
+    <replay_date/>
+    <safe_mode>N</safe_mode>
+    <log_level>Debug</log_level>
+    <clear_log>Y</clear_log>
+</transformation_execution_configuration>""")
+        return conf_template.render(name=transfo_name, params=params)
+
+    def job_execution_configuration(self, cr, uid, id, job_name, params, context):
+        conf_template = Template("""<job_execution_configuration>
+    <exec_local>N</exec_local>
+    <parameters>
+    % for key, value in params.items():
+        <parameter><name>${key}</name><value>${value}</value></parameter>
+    % endfor
+    </parameters>
+    <replay_date/>
+    <safe_mode>N</safe_mode>
+    <log_level>Debug</log_level>
+    <clear_log>Y</clear_log>
+</job_execution_configuration>""")
+        return conf_template.render(name=job_name, params=params)
+
 
     def run_kettle_task(self, cr, uid, task, parameters, log_file_name, attachment_id, context):
         '''Execute the Kettle transfo/job'''
@@ -162,7 +205,7 @@ class kettle_task(osv.osv):
 
         else:
             file_temp = base64.decodestring(transfo.file)
-            filename = cr.dbname + '_' + str(config['port']) + '_' + str(context['default_res_id']) + '_' + str(task.id) + '_' + '_DATE_' + context['start_date'].replace(' ', '_') + os.path.split(transfo.filename)[1]
+            filename = cr.dbname + '_' + str(config['xmlrpc_port']) + '_' + str(context['default_res_id']) + '_' + str(task.id) + '_' + '_DATE_' + context['start_date'].replace(' ', '_') + os.path.split(transfo.filename)[1]
             path_to_file = os.path.join(kettle_dir, 'openerp_tmp', filename)
             file_temp_fd = open(path_to_file, 'w')
             try:
@@ -180,10 +223,101 @@ class kettle_task(osv.osv):
                 cmd_params += u' -param:' + key + u'=' + value
 
 
-        if len(transfo.filename) > 4 and transfo.filename[-3:].lower() == 'kjb':
-            kettle_exec = u'kitchen.sh'
-        else:
+        if len(transfo.filename) > 4 and transfo.filename[-3:].lower() == 'ktr':
             kettle_exec = u'pan.sh'
+        else:
+            kettle_exec = u'kitchen.sh'
+
+
+        if task.server_id.url: #then Carte Server mode execution
+
+            logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Assuming a Carte Kettle server execution")
+            username = task.server_id.user or 'cluster'
+            password = task.server_id.password or 'cluster'
+            base64string = base64.encodestring('%s:%s' % (username, password))[:-1]
+            conn = httplib.HTTPConnection(task.server_id.url.replace('http://', ''))
+
+            carte_id = task.carte_id
+
+            if context.get('restart_carte', False) and not context.get('tried_restarting_carte', False):
+                logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Trying to restart the Carte server...")
+                args = ['sh', 'carte.sh', '127.0.0.1', '8080']
+                p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=kettle_dir)
+                time.sleep(6)
+                context.update({'tried_restarting_carte': True})
+
+            try:
+#                import pdb; pdb.set_trace()
+
+                #FIXME we force a flush due to what seems to be a Kettle bug
+                if carte_id and kettle_exec == u'kitchen.sh': # it's a job
+                    headers = {"Content-type": "text/xml;charset=UTF-8", "Authorization": "Basic %s" % base64string}
+                    conn.request("GET", str("%s/kettle/removeJob/?name=%s&xml=Y&id=%s" % (task.server_id.url, task.transformation_id.name, carte_id,)), "", headers)
+                    conn.close()
+                    carte_id == False
+                
+
+                if context.get('force_upload', False) or not carte_id:
+
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "uploading job %s to Carte" % task.transformation_id.name)
+                    zipFile = zipfile.ZipFile(kettle_dir + '/openerp_tmp/'+ filename, "a" )#TODO job/trans
+
+                    if kettle_exec == u'kitchen.sh': # it's a job
+                        zipFile.writestr("__job_execution_configuration__.xml", self.job_execution_configuration(cr, uid, id, task.transformation_id.filename.replace('.ktr', ''), parameters, context), zipfile.ZIP_DEFLATED)
+                    else: # it's a task
+                        zipFile.writestr("__job_execution_configuration__.xml", self.transfo_execution_configuration(cr, uid, id, task.transformation_id.filename.replace('.ktr', ''), parameters, context), zipfile.ZIP_DEFLATED)
+                    zipFile.close()
+
+                    f = open(kettle_dir + '/openerp_tmp/'+ filename, 'r')
+                    params = f.read()
+                    headers = {"Content-Type": "binary/zip", "Authorization": "Basic %s" % base64string}
+
+                    if kettle_exec == u'kitchen.sh': # it's a job
+                        conn.request("POST", str("%s/kettle/addExport/?type=job&load=%s.kjb" % (task.server_id.url, task.transformation_id.name)), params, headers)
+                    else: # it's a task
+                        #print "trans", str("%s/kettle/addExport/?type=trans&load=%s" % (task.server_id.url, urllib.urlencode({'key': task.transformation_id.filename}).replace('key=', '')))
+                        conn.request("POST", str("%s/kettle/addExport/?type=trans&load=%s" % (task.server_id.url, urllib.urlencode({'key': task.transformation_id.filename}).replace('key=', ''))), params, headers)
+
+                    response = conn.getresponse()
+                    data = response.read()
+                    #print "data", data
+                    xml = etree.fromstring(data)
+                    carte_id = xml.xpath("//id")[0].text
+                    self.write(cr, uid, task.id, {'carte_id': carte_id})
+                    conn.close()
+
+                headers = {"Content-type": "text/xml;charset=UTF-8", "Authorization": "Basic %s" % base64string}
+                if kettle_exec == u'kitchen.sh': # it's a job
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Starting %s job execution on Carte server" % task.transformation_id.name)
+                    conn.request("GET", str("%s/kettle/startJob/?name=%s&xml=Y&id=%s" % (task.server_id.url, task.transformation_id.name, carte_id,)), "", headers)
+                else: # it's a task
+                    logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Starting %s transformation execution on Carte server" % task.transformation_id.name)
+                    #TODO Spoon does this 'prepareExec' request, but is it really useful?
+                    conn.request("GET", str("%s/kettle/prepareExec/?name=%s&xml=Y&id=%s" % (task.server_id.url, urllib.urlencode({'key': task.transformation_id.name.replace('.ktr', '')}).replace('key=', ''), carte_id,)), "", headers)
+                    response = conn.getresponse()
+                    data = response.read()
+                    #print "response", response
+                    #print "data", data
+                    conn.close()
+                    conn.request("GET", str("%s/kettle/startExec/?name=%s&xml=Y&id=%s" % (task.server_id.url, urllib.urlencode({'key': task.transformation_id.name.replace('.ktr', '')}).replace('key=', ''), carte_id,)), "", headers)
+                response = conn.getresponse()
+                #print "response", response
+                data = response.read()
+                #print "data", data
+                conn.close()
+                if 'could not be found' in data: #hacky way to detect the job/transfo has not been found on the server
+                     self.write(cr, uid, task.id, {'carte_id': False})
+                     context.update({'force_upload': True})
+                     return self.run_kettle_task(cr, uid, task, parameters, log_file_name, attachment_id, context)
+
+            except socket.error as e:
+                if not context.get('restart_carte', False):
+                    context.update({'restart_carte': True})
+                    return self.run_kettle_task(cr, uid, task, parameters, log_file_name, attachment_id, context)
+
+            return True
+
+
         logfilename = os.path.join(kettle_dir, 'openerp_tmp', log_file_name)
         logger.notifyChannel('kettle-connector', netsvc.LOG_INFO, "Starting Kettle task : you can open Kettle logs with 'tail -f %s'" % logfilename)
         # We need to 'cd' to the install dir of Kettle until PDI 4.1.1
@@ -226,7 +360,7 @@ class kettle_task(osv.osv):
             parameters['oerp_user'] = user.login
             parameters['oerp_pwd'] = user.password
             parameters['oerp_host'] = 'localhost'
-            parameters['oerp_port'] = str(config['port'])
+            parameters['oerp_port'] = str(config['xmlrpc_port'])
 
             parameters['kettle_task_id'] = str(task.id)
             parameters['task_attachment_id'] = str(attachment_id)

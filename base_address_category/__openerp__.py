@@ -46,6 +46,7 @@
                  ],
     "update_xml" : [
                     "base_address_view.xml",
+                    'security/ir.model.access.csv',
                    ],
     "active": False,
     "installable": True

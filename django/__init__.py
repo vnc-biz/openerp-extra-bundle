@@ -21,6 +21,7 @@
 #
 ##############################################################################
 
+import django_connect
 import django
 import partner
 import wizard

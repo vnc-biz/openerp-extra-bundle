@@ -3,6 +3,8 @@
 #
 #    OpenERP, Open Source Management Solution	
 #    Copyright (C) 2008-2009 Syleam Info Services (<http://www.syleam.fr>). All Rights Reserved
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
+#                       Jesús Martín <jmartin@zikzakmedia.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,7 +20,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 
 {
     "name" : "Project Contact Management",

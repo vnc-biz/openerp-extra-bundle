@@ -6,81 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.7\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-06-10 15:41+0000\n"
-"PO-Revision-Date: 2011-02-15 19:33+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2010-06-22 16:13:02+0000\n"
+"PO-Revision-Date: 2010-06-22 18:19+0100\n"
+"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-06-15 05:49+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
-
-#. module: account_chart_update
-#: field:wizard.update.charts.accounts,lang:0
-msgid "Language"
-msgstr "Idioma"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Created or updated fiscal position %s.\n"
-msgstr "Creada o actualitzada posició fiscal %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Exception creating account %s: %s - %s.\n"
-msgstr "Excepció creant compte %s: %s - %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Exception writing account %s: %s - %s.\n"
-msgstr "Excepció escrivint compte %s: %s - %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Exception setting the parent of account %s children: %s - %s.\n"
-msgstr "Excepció establint el pare dels fills del compte %s: %s - %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Updated account %s.\n"
-msgstr "Actualitzat compte %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Created account %s.\n"
-msgstr "Creat compte %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Created tax %s.\n"
-msgstr "Creat impost %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Updated tax %s.\n"
-msgstr "Actualitzat impost %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Created tax code %s.\n"
-msgstr "Creat codi d'impost %s.\n"
-
-#. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Updated tax code %s.\n"
-msgstr "Actualitzat codi d'impost %s.\n"
+"X-Poedit-Language: Catalan\n"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -128,8 +61,7 @@ msgstr "El camp impost en fills és diferent.\n"
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
 msgid "Note: Not all the fields are tested for changes, just the main ones."
-msgstr ""
-"Nota: No es busquen canvis en tots els camps, només en els principals."
+msgstr "Nota: No es busquen canvis en tots els camps, només en els principals."
 
 #. module: account_chart_update
 #: selection:wizard.update.charts.accounts.account,type:0
@@ -145,13 +77,9 @@ msgid "Company"
 msgstr "Companyia"
 
 #. module: account_chart_update
-#: help:wizard.update.charts.accounts,code_digits:0
-msgid ""
-"No. of Digits to use for account code. Make sure it is the same number as "
-"existing accounts."
-msgstr ""
-"Número de dígits a utilitzar en el codi de compte. Assegureu-vos que sigui "
-"el mateix número de dígits que el dels comptes existents."
+#: help:wizard.update.charts.accounts,update_account:0
+msgid "Existing accounts are updated. Accounts are searched by code."
+msgstr "Els comptes comptables existents seran actualitzats. Els comptes es cercaran per codi."
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts,update_account:0
@@ -203,8 +131,8 @@ msgstr "Impostos"
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
 #, python-format
-msgid "Tax %s: The paid account can not be set.\n"
-msgstr "Impost %s: No s'ha pogut establir el compte a pagar.\n"
+msgid "Created or updated fiscal position %s.\n"
+msgstr "Creada o actualitzada posició fiscal %s.\n"
 
 #. module: account_chart_update
 #: selection:wizard.update.charts.accounts,state:0
@@ -215,8 +143,7 @@ msgstr "Assistent completat"
 #: code:addons/account_chart_update/account.py:0
 #, python-format
 msgid "Tax %s: The tax code for the tax %s can not be set.\n"
-msgstr ""
-"Impost %s: No s'ha pogut establir el codi d'impost per a l'impost %s.\n"
+msgstr "Impost %s: No s'ha pogut establir el codi d'impost per a l'impost %s.\n"
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts,new_taxes:0
@@ -281,9 +208,7 @@ msgstr "El nom és diferent.\n"
 #. module: account_chart_update
 #: help:wizard.update.charts.accounts,update_tax_code:0
 msgid "Existing tax codes are updated. Tax codes are searched by name."
-msgstr ""
-"Els codis d'impostos existents seran actualitzats. Els codis d'impostos es "
-"cercaran per nom."
+msgstr "Els codis d'impostos existents seran actualitzats. Els codis d'impostos es cercaran per nom."
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -294,17 +219,14 @@ msgstr "El camp codi és diferent.\n"
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
 #, python-format
-msgid "Tax %s: The tax code for the base %s can not be set.\n"
-msgstr ""
-"Impost %s: No s'ha pogut establir el codi d'impost per a la base %s.\n"
+msgid "Exception creating account %s: %s - %s.\n"
+msgstr "Excepció creant compte %s: %s - %s.\n"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
 #, python-format
 msgid "Tax %s: The tax code for the tax refund %s can not be set.\n"
-msgstr ""
-"Impost %s: No s'ha pogut establir el codi d'impost per a la devolució "
-"d'impost %s.\n"
+msgstr "Impost %s: No s'ha pogut establir el codi d'impost per a la devolució d'impost %s.\n"
 
 #. module: account_chart_update
 #: selection:wizard.update.charts.accounts.account,type:0
@@ -328,9 +250,15 @@ msgid "Type"
 msgstr "Tipus"
 
 #. module: account_chart_update
-#: view:wizard.update.charts.accounts:0
-msgid "Chart of Accounts"
-msgstr "Pla comptable"
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Exception setting the parent of account %s children: %s - %s.\n"
+msgstr "Excepció establint el pare dels fills del compte %s: %s - %s.\n"
+
+#. module: account_chart_update
+#: field:wizard.update.charts.accounts,new_fps:0
+msgid "New fiscal positions"
+msgstr "Noves posicions fiscals"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -375,6 +303,11 @@ msgid "# of Digits"
 msgstr "Núm. de dígits"
 
 #. module: account_chart_update
+#: help:wizard.update.charts.accounts,code_digits:0
+msgid "No. of Digits to use for account code. Make sure it is the same number as existing accounts."
+msgstr "Número de dígits a utilitzar en el codi de compte. Assegureu-vos que sigui el mateix número de dígits que el dels comptes existents."
+
+#. module: account_chart_update
 #: field:wizard.update.charts.accounts,update_fiscal_position:0
 msgid "Update fiscal positions"
 msgstr "Actualitza posicions fiscals"
@@ -383,9 +316,7 @@ msgstr "Actualitza posicions fiscals"
 #: code:addons/account_chart_update/account.py:0
 #, python-format
 msgid "Tax %s: The tax code for the base refund %s can not be set.\n"
-msgstr ""
-"Impost %s: No s'ha pogut establir el codi d'impost per a la base de "
-"devolució %s.\n"
+msgstr "Impost %s: No s'ha pogut establir el codi d'impost per a la base de devolució %s.\n"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -422,6 +353,12 @@ msgid "The tax sign field is different.\n"
 msgstr "El camp signe d'impost és diferent.\n"
 
 #. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Tax %s: The tax code for the base %s can not be set.\n"
+msgstr "Impost %s: No s'ha pogut establir el codi d'impost per a la base %s.\n"
+
+#. module: account_chart_update
 #: field:wizard.update.charts.accounts,updated_tax_codes:0
 msgid "Updated tax codes"
 msgstr "Codis d'impostos actualitzats"
@@ -439,24 +376,24 @@ msgstr "Missatges i errors"
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
 #, python-format
+msgid "Updated account %s.\n"
+msgstr "Actualitzat compte %s.\n"
+
+#. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
 msgid "The user type is different.\n"
 msgstr "El tipus d'usuari és diferent.\n"
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
-msgid ""
-"If you leave these options set, the wizard will not just create new records, "
-"but also update records with changes (i.e. different tax amount)."
-msgstr ""
-"Si deixeu marcades aquestes opcions, l'assistent no només crearà nous "
-"registres, si no que també actualitzarà registres amb canvis (p.ex. diferent "
-"import d'impost)"
+msgid "If you leave these options set, the wizard will not just create new records, but also update records with changes (i.e. different tax amount)."
+msgstr "Si deixeu marcades aquestes opcions, l'assistent no només crearà nous registres, si no que també actualitzarà registres amb canvis (p.ex. diferent import d'impost)"
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
-#: field:wizard.update.charts.accounts,tax_code_ids:0
-msgid "Tax codes"
-msgstr "Codis d'impostos"
+msgid "Chart of Accounts"
+msgstr "Pla comptable"
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts,state:0
@@ -467,8 +404,7 @@ msgstr "Estat"
 #: code:addons/account_chart_update/account.py:0
 #, python-format
 msgid "Tax mapping not found on the fiscal position instance: %s -> %s.\n"
-msgstr ""
-"Mapeig de compte no trobat en la instància de la posició fiscal: %s -> %s.\n"
+msgstr "Mapeig de compte no trobat en la instància de la posició fiscal: %s -> %s.\n"
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts.fiscal.position,fiscal_position_id:0
@@ -483,15 +419,20 @@ msgstr "Resum d'objectes actualitzats"
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
 #, python-format
+msgid "Created account %s.\n"
+msgstr "Creat compte %s.\n"
+
+#. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
 msgid "Account %s: The parent account %s can not be set.\n"
 msgstr "Compte %s: No s'ha pogut establir el compte pare %s.\n"
 
 #. module: account_chart_update
-#: help:wizard.update.charts.accounts,update_account:0
-msgid "Existing accounts are updated. Accounts are searched by code."
-msgstr ""
-"Els comptes comptables existents seran actualitzats. Els comptes es cercaran "
-"per codi."
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Created tax %s.\n"
+msgstr "Creat impost %s.\n"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -500,13 +441,18 @@ msgid "Tax code %s: The parent tax code %s can not be set.\n"
 msgstr "Codi d'impost %s: No s'ha pogut establir el codi d'impost pare %s.\n"
 
 #. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Updated tax %s.\n"
+msgstr "Actualitzat impost %s.\n"
+
+#. module: account_chart_update
 #: model:ir.module.module,description:account_chart_update.module_meta_information
 msgid ""
 "\n"
 "Adds a wizard to update a company account chart from a chart template.\n"
 "\n"
-"This is a pretty useful tool to update OpenERP instalations after tax "
-"reforms\n"
+"This is a pretty useful tool to update OpenERP instalations after tax reforms\n"
 "on the oficial charts of accounts, or to apply fixes performed on the chart\n"
 "template.\n"
 "\n"
@@ -514,17 +460,14 @@ msgid ""
 "\n"
 "- Allows the user to compare a chart and a template showing differences\n"
 "    on accounts, taxes, tax codes and fiscal positions.\n"
-"- It may create the new account, taxes, tax codes and fiscal positions "
-"detected\n"
+"- It may create the new account, taxes, tax codes and fiscal positions detected\n"
 "    on the template.\n"
 "- It can also update (overwrite) the accounts, taxes, tax codes and fiscal\n"
 "    positions that got modified on the template.\n"
 "\n"
-"The wizard lets the user select what kind of objects must be "
-"checked/updated,\n"
+"The wizard lets the user select what kind of objects must be checked/updated,\n"
 "and whether old records must be checked for changes and updated.\n"
-"It will display all the accounts to be created / updated with some "
-"information\n"
+"It will display all the accounts to be created / updated with some information\n"
 "about the detected differences, and allow the user to exclude records\n"
 "individually.\n"
 "Any problem found while updating will be shown on the last step.\n"
@@ -534,31 +477,23 @@ msgid ""
 "    Borja López Soilán (Pexego) <borjals@pexego.es>\n"
 msgstr ""
 "\n"
-"Afegeix un assistent per actualitzar el pla de comptes d'una companyia des "
-"d'una plantilla.\n"
+"Afegeix un assistent per actualitzar el pla de comptes d'una companyia des d'una plantilla.\n"
 "\n"
-"És una eina força útil per actualitzar instal·lacions d'OpenERP desprès de "
-"reformes d'impostos\n"
-"en els plans comptables oficials, o per aplicar correccions realitzades a la "
-"plantilla del\n"
+"És una eina força útil per actualitzar instal·lacions d'OpenERP desprès de reformes d'impostos\n"
+"en els plans comptables oficials, o per aplicar correccions realitzades a la plantilla del\n"
 "pla comptable.\n"
 "\n"
 "L'assistent:\n"
 "\n"
-"- Permet a l'usuari comparar un pla i una plantilla mostrant les "
-"diferències\n"
+"- Permet a l'usuari comparar un pla i una plantilla mostrant les diferències\n"
 "    en comptes, impostos, codis d'impostos i posicions fiscals.\n"
-"- Pot crear els nous comptes, impostos, codis d'impostos i posicions "
-"fiscals\n"
+"- Pot crear els nous comptes, impostos, codis d'impostos i posicions fiscals\n"
 "    detectades a la plantilla.\n"
-"- També pot actualitzar (sobreescriure) els comptes, impostos, codis "
-"d'impostos i posicions\n"
+"- També pot actualitzar (sobreescriure) els comptes, impostos, codis d'impostos i posicions\n"
 "    fiscals que s'han modificat a la plantilla.\n"
 "\n"
-"L'assistent permet a l'usuari seleccionar quina classe d'objectes han de "
-"ser\n"
-"comprovats/actualitzats, i si s'han de buscar canvis als registres existents "
-"i actualitzar-los.\n"
+"L'assistent permet a l'usuari seleccionar quina classe d'objectes han de ser\n"
+"comprovats/actualitzats, i si s'han de buscar canvis als registres existents i actualitzar-los.\n"
 "Mostrarà tots els comptes a crear / actualitzar amb alguna informació\n"
 "sobre les diferències detectades, permetent a l'usuari excloure registres\n"
 "individualment.\n"
@@ -578,8 +513,7 @@ msgstr "El camp reconciliar és diferent.\n"
 #: code:addons/account_chart_update/account.py:0
 #, python-format
 msgid "Tax mapping not found on the fiscal position instance: %s -> None.\n"
-msgstr ""
-"Mapeig de comptes no trobat a la instància de posició fiscal: %s -> Cap.\n"
+msgstr "Mapeig de comptes no trobat a la instància de posició fiscal: %s -> Cap.\n"
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts,update_tax_code:0
@@ -587,14 +521,15 @@ msgid "Update tax codes"
 msgstr "Actualitza codis d'impostos"
 
 #. module: account_chart_update
-#: field:wizard.update.charts.accounts.account,update_account_id:0
-msgid "Account to update"
-msgstr "Compte a actualitzar"
+#: field:wizard.update.charts.accounts,lang:0
+msgid "Language"
+msgstr "Idioma"
 
 #. module: account_chart_update
-#: field:wizard.update.charts.accounts.account,account_id:0
-msgid "Account template"
-msgstr "Plantilla de comptes"
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Fiscal position %s: The destination tax %s can not be set.\n"
+msgstr "Posició fiscal %s: No s'ha pogut establir el compte destinació %s.\n"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -617,8 +552,7 @@ msgstr "La plantilla té impostos que la instància de posició fiscal no té.\n
 #: code:addons/account_chart_update/account.py:0
 #, python-format
 msgid "Fiscal position %s: The destination account %s can not be set.\n"
-msgstr ""
-"Posició fiscal %s: No s'ha pogut establir el compte de destinació %s.\n"
+msgstr "Posició fiscal %s: No s'ha pogut establir el compte de destinació %s.\n"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -627,9 +561,21 @@ msgid "The type field is different.\n"
 msgstr "El camp tipus és diferent.\n"
 
 #. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Exception writing account %s: %s - %s.\n"
+msgstr "Excepció escrivint compte %s: %s - %s.\n"
+
+#. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
 msgid "Summary of created objects"
 msgstr "Resum d'objectes creats"
+
+#. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Created tax code %s.\n"
+msgstr "Creat codi d'impost %s.\n"
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
@@ -641,6 +587,12 @@ msgstr "Posicions fiscals"
 #: field:wizard.update.charts.accounts,update_tax:0
 msgid "Update taxes"
 msgstr "Actualitza impostos"
+
+#. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Tax %s: The paid account can not be set.\n"
+msgstr "Impost %s: No s'ha pogut establir el compte a pagar.\n"
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
@@ -661,15 +613,12 @@ msgstr "El camp info és diferent.\n"
 #. module: account_chart_update
 #: help:wizard.update.charts.accounts,update_tax:0
 msgid "Existing taxes are updated. Taxes are searched by name."
-msgstr ""
-"Els impostos existents seran actualitzats. Els impostos es cercaran per nom."
+msgstr "Els impostos existents seran actualitzats. Els impostos es cercaran per nom."
 
 #. module: account_chart_update
 #: constraint:ir.model:0
-msgid ""
-"The Object name must start with x_ and not contain any special character !"
-msgstr ""
-"L'objecte ha de començar amb x_ i no pot tenir cap caràcter especial!"
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "L'objecte ha de començar amb x_ i no pot tenir cap caràcter especial!"
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -702,28 +651,25 @@ msgid "The include base amount field is different.\n"
 msgstr "El camp incloure en import base és diferent.\n"
 
 #. module: account_chart_update
+#: view:wizard.update.charts.accounts:0
+#: field:wizard.update.charts.accounts,tax_code_ids:0
+msgid "Tax codes"
+msgstr "Codis d'impostos"
+
+#. module: account_chart_update
 #: field:wizard.update.charts.accounts,chart_template_id:0
 msgid "Chart Template"
 msgstr "Plantilla pla comptable"
 
 #. module: account_chart_update
-#: view:wizard.update.charts.accounts:0
-msgid "Other options"
-msgstr "Altres opcions"
-
-#. module: account_chart_update
-#: field:wizard.update.charts.accounts,new_fps:0
-msgid "New fiscal positions"
-msgstr "Noves posicions fiscals"
+#: field:wizard.update.charts.accounts.account,update_account_id:0
+msgid "Account to update"
+msgstr "Compte a actualitzar"
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
-msgid ""
-"This wizard will update your accounts, taxes and fiscal positions according "
-"to the selected chart template."
-msgstr ""
-"Aquest assistent actualitzarà els vostres comptes comptables, impostos i "
-"posicions fiscals segons la plantilla de plan comptable seleccionada."
+msgid "This wizard will update your accounts, taxes and fiscal positions according to the selected chart template."
+msgstr "Aquest assistent actualitzarà els vostres comptes comptables, impostos i posicions fiscals segons la plantilla de plan comptable seleccionada."
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts,new_accounts:0
@@ -742,11 +688,8 @@ msgstr "Actualitza registres?"
 
 #. module: account_chart_update
 #: help:wizard.update.charts.accounts,update_fiscal_position:0
-msgid ""
-"Existing fiscal positions are updated. Fiscal positions are searched by name."
-msgstr ""
-"Les posicions fiscals existents seran actualitzades. Les posicions fiscals "
-"es cercaran per nom."
+msgid "Existing fiscal positions are updated. Fiscal positions are searched by name."
+msgstr "Les posicions fiscals existents seran actualitzades. Les posicions fiscals es cercaran per nom."
 
 #. module: account_chart_update
 #: field:wizard.update.charts.accounts.account,update_chart_wizard_id:0
@@ -755,6 +698,17 @@ msgstr ""
 #: field:wizard.update.charts.accounts.tax.code,update_chart_wizard_id:0
 msgid "Update chart wizard"
 msgstr "Assistent per a actualitzar el pla comptable"
+
+#. module: account_chart_update
+#: code:addons/account_chart_update/account.py:0
+#, python-format
+msgid "Updated tax code %s.\n"
+msgstr "Actualitzat codi d'impost %s.\n"
+
+#. module: account_chart_update
+#: view:wizard.update.charts.accounts:0
+msgid "Other options"
+msgstr "Altres opcions"
 
 #. module: account_chart_update
 #: model:ir.model,name:account_chart_update.model_wizard_update_charts_accounts_fiscal_position
@@ -768,10 +722,9 @@ msgid "The type is different.\n"
 msgstr "El tipus és diferent.\n"
 
 #. module: account_chart_update
-#: code:addons/account_chart_update/account.py:0
-#, python-format
-msgid "Fiscal position %s: The destination tax %s can not be set.\n"
-msgstr "Posició fiscal %s: No s'ha pogut establir el compte destinació %s.\n"
+#: field:wizard.update.charts.accounts.account,account_id:0
+msgid "Account template"
+msgstr "Plantilla de comptes"
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
@@ -789,23 +742,20 @@ msgid "Tax code template"
 msgstr "Plantilla de codi d'impost"
 
 #. module: account_chart_update
+#: help:wizard.update.charts.accounts,lang:0
+msgid "For records searched by name (taxes, tax codes, fiscal positions), the template name will be matched against the record name on this language."
+msgstr "Per als registres buscats per nom (impostos, codis d'impostos, posicions fiscals), el nom de la plantilla es compararà amb el nom del registre en aquest idioma."
+
+#. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
 #, python-format
-msgid ""
-"Account mapping not found on the fiscal position instance: %s -> %s.\n"
-msgstr ""
-"Mapeig de compte no trobat en la instància de posició fiscal: %s -> %s.\n"
+msgid "Account mapping not found on the fiscal position instance: %s -> %s.\n"
+msgstr "Mapeig de compte no trobat en la instància de posició fiscal: %s -> %s.\n"
 
 #. module: account_chart_update
 #: help:wizard.update.charts.accounts,update_children_accounts_parent:0
-msgid ""
-"Update the parent of accounts that seem (based on the code) to be children "
-"of the newly created ones. If you had an account 430 with a child 4300000, "
-"and a 4300 account is created, the 4300000 parent will be set to 4300."
-msgstr ""
-"Actualitza el pare dels comptes que semblen (basant-se en el codi) ser fills "
-"dels comptes acabats de crear. Si teniu un compte 430 amb un fill 4300000 i "
-"es crea un compte 4300, el compte 4300 serà el nou pare del compte 4300000."
+msgid "Update the parent of accounts that seem (based on the code) to be children of the newly created ones. If you had an account 430 with a child 4300000, and a 4300 account is created, the 4300000 parent will be set to 4300."
+msgstr "Actualitza el pare dels comptes que semblen (basant-se en el codi) ser fills dels comptes acabats de crear. Si teniu un compte 430 amb un fill 4300000 i es crea un compte 4300, el compte 4300 serà el nou pare del compte 4300000."
 
 #. module: account_chart_update
 #: code:addons/account_chart_update/account.py:0
@@ -821,15 +771,87 @@ msgstr "El camp aplicació impost és diferent.\n"
 
 #. module: account_chart_update
 #: help:wizard.update.charts.accounts,continue_on_errors:0
-msgid ""
-"If set, the wizard will continue to the next step even if there are minor "
-"errors (for example the parent account of a new account couldn't be set)."
-msgstr ""
-"Si ho marqueu, l'assistent continuarà al pas següent fins i tot si hi ha "
-"errors menors (per exemple no s'ha pogut establir el compte pare d'un nou "
-"compte)."
+msgid "If set, the wizard will continue to the next step even if there are minor errors (for example the parent account of a new account couldn't be set)."
+msgstr "Si ho marqueu, l'assistent continuarà al pas següent fins i tot si hi ha errors menors (per exemple no s'ha pogut establir el compte pare d'un nou compte)."
 
 #. module: account_chart_update
 #: view:wizard.update.charts.accounts:0
 msgid "Tax code"
 msgstr "Codi d'impost"
+
+#~ msgid ""
+#~ "\n"
+#~ "Adds a wizard to update a company account chart from a template:\n"
+#~ "  * Generates the new accounts from the template and assigns them to the "
+#~ "right company\n"
+#~ "  * Generates the new taxes and tax codes, changing account assignations\n"
+#~ "  * Generates the new fiscal positions, changing account and taxes "
+#~ "assignations\n"
+#~ "\n"
+#~ "Before creating the new accounts, taxes, tax codes and fiscal positions, "
+#~ "the user can select\n"
+#~ "which ones must be created.\n"
+#~ "\n"
+#~ "The user can also choose to update the existing accounts, taxes, tax "
+#~ "codes and fiscal positions\n"
+#~ "from a template.\n"
+#~ "\n"
+#~ "The problems occurred during the creation/updating of the account chart "
+#~ "are shown in the last step.\n"
+#~ "\n"
+#~ "It is useful when the account law has changed and you want to transfer "
+#~ "the new accounts, taxes and\n"
+#~ "fiscal positions included in the account chart template to an existing "
+#~ "company account chart.\n"
+#~ "\n"
+#~ "Note: Due to the memory limitation of the osv_memory OpenERP objects, "
+#~ "only a maximum number of \n"
+#~ "objects can be created each time. If a lot of new accounts, taxes, tax "
+#~ "codes or fiscal positions\n"
+#~ "must be created, the wizard should be run several times.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Afegeix un assistent per a actualitzar el pla comptable d'una companyia a "
+#~ "partir d'una plantilla:\n"
+#~ " * Genera nous comptes comptables des de la plantilla assignant-los la "
+#~ "companyia corresponent.\n"
+#~ " * Genera nous impostos i codis d'impostos, canviant les assignacions de "
+#~ "comptes comptables.\n"
+#~ " * Genera noves posicions fiscals, canviant les assignacions de comptes "
+#~ "comptables i impostos.\n"
+#~ "\n"
+#~ "Abans de crear els nous comptes, impostos i codis d'impostos, l'usuari "
+#~ "pot seleccionar\n"
+#~ "quins seran creats.\n"
+#~ "\n"
+#~ "L'usuari pot seleccionar l'actualització dels comptes, impostos, codis "
+#~ "d'impostos i\n"
+#~ "posicions fiscals existents a partir de la plantilla.\n"
+#~ "\n"
+#~ "Els problemes que apareguin durant la creació i actualització del pla "
+#~ "comptable es mostren en l'últim pas.\n"
+#~ "\n"
+#~ "Aquest mòdul és útil quan la llei fiscal ha canviat i voleu transferir "
+#~ "els nous comptes, impostos i\n"
+#~ "posicions fiscals incloses en la plantilla de pla comptable cap un pla "
+#~ "comptable existent d'una companyia.\n"
+#~ "\n"
+#~ msgid "Update of account chart objects"
+#~ msgstr "Actualització d'entitats del pla comptable"
+#~ msgid "Existing records are updated? (by default only new ones are created)"
+#~ msgstr ""
+#~ "Els registres existents s'actualitzaran? (per defecte només els nous es "
+#~ "crearan)"
+#~ msgid "Creation of account chart objects"
+#~ msgstr "Creació d'entitats del pla comptable"
+#~ msgid "Generate Chart of Accounts from a Chart Template"
+#~ msgstr "Genera comptes comptables a partir d'una plantilla de pla comptable"
+#~ msgid "Update - Accounts"
+#~ msgstr "Actualitza - Comptes"
+#~ msgid "Update - Taxes"
+#~ msgstr "Actualitza - Impostos"
+#~ msgid "Update - Fiscal positions"
+#~ msgstr "Actualitza - Posicions fiscals"
+#~ msgid "Update - Tax codes"
+#~ msgstr "Actualitza - Codis d'impostos"
+

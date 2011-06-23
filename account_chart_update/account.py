@@ -175,16 +175,16 @@ class wizard_update_charts_accounts(osv.osv_memory):
         if not company_id:
             user = self.pool.get('res.users').browse(cr, uid, uid, context)
             company_id = user.company_id.id
-        property_ids = property_obj.search(cr, uid, [('name', '=', 'property_account_receivable' ), ('company_id', '=', company_id), ('res_id', '=', False), ('value', '!=', False)])
+        property_ids = property_obj.search(cr, uid, [('name', '=', 'property_account_receivable' ), ('company_id', '=', company_id), ('res_id', '=', False), ('value_reference', '!=', False)])
         if not property_ids:
             # Try to get a generic (no-company) property
-            property_ids = property_obj.search(cr, uid, [('name', '=', 'property_account_receivable' ), ('res_id', '=', False), ('value', '!=', False)])
+            property_ids = property_obj.search(cr, uid, [('name', '=', 'property_account_receivable' ), ('res_id', '=', False), ('value_reference', '!=', False)])
         number_digits = 6
         if property_ids:
             prop = property_obj.browse(cr, uid, property_ids[0], context=context)
             try:
                 # OpenERP 5.0 and 5.2/6.0 revno <= 2236
-                account_id = int(prop.value.split(',')[1])
+                account_id = int(prop.value_reference.split(',')[1])
             except AttributeError:
                 # OpenERP 6.0 revno >= 2236
                 account_id = prop.value_reference.id
@@ -241,8 +241,8 @@ class wizard_update_charts_accounts(osv.osv_memory):
         Adds a tax template -> tax id to the mapping.
         """
         if tax_template and not tax_template_mapping.get(tax_template.id):
-            tax_facade = self.pool.get('account.tax')
-            tax_ids = tax_facade.search(cr, uid, [
+            tax_obj = self.pool.get('account.tax')
+            tax_ids = tax_obj.search(cr, uid, [
                         ('name', '=', tax_template.name),
                         ('company_id', '=', wizard.company_id.id)
                     ], context=context)
@@ -254,10 +254,10 @@ class wizard_update_charts_accounts(osv.osv_memory):
         Adds a tax code template -> tax code id to the mapping.
         """
         if tax_code_template and not tax_code_template_mapping.get(tax_code_template.id):
-            tax_code_facade = self.pool.get('account.tax.code')
+            tax_code_obj = self.pool.get('account.tax.code')
             root_tax_code_id = wizard.chart_template_id.tax_code_root_id.id
             tax_code_name = (tax_code_template.id == root_tax_code_id) and wizard.company_id.name or tax_code_template.name
-            tax_code_ids = tax_code_facade.search(cr, uid, [
+            tax_code_ids = tax_code_obj.search(cr, uid, [
                         ('name', '=', tax_code_name),
                         ('company_id', '=', wizard.company_id.id)
                     ])
@@ -269,12 +269,12 @@ class wizard_update_charts_accounts(osv.osv_memory):
         Adds an account template -> account id to the mapping
         """
         if account_template and not account_template_mapping.get(account_template.id):
-            account_facade = self.pool.get('account.account')
+            account_obj = self.pool.get('account.account')
             code = account_template.code or ''
             if account_template.type != 'view':
                 if len(code) > 0 and len(code) <= wizard.code_digits:
                     code = '%s%s' % (code, '0' * (wizard.code_digits - len(code)))
-            account_ids = account_facade.search(cr, uid, [
+            account_ids = account_obj.search(cr, uid, [
                         ('code', '=', code),
                         ('company_id', '=', wizard.company_id.id)
                     ], context=context)
@@ -286,8 +286,8 @@ class wizard_update_charts_accounts(osv.osv_memory):
         Adds a fiscal position template -> fiscal position id to the mapping.
         """
         if fp_template and not fp_template_mapping.get(fp_template.id):
-            fp_facade = self.pool.get('account.fiscal.position')
-            fp_ids = fp_facade.search(cr, uid, [
+            fp_obj = self.pool.get('account.fiscal.position')
+            fp_ids = fp_obj.search(cr, uid, [
                         ('name', '=', fp_template.name),
                         ('company_id', '=', wizard.company_id.id)
                     ], context=context)
@@ -308,26 +308,26 @@ class wizard_update_charts_accounts(osv.osv_memory):
         updated_tax_codes = 0
         tax_code_template_mapping = {}
         
-        tax_code_templ_facade = self.pool.get('account.tax.code.template')
-        tax_code_facade = self.pool.get('account.tax.code')
-        wiz_tax_code_facade = self.pool.get('wizard.update.charts.accounts.tax.code')
+        tax_code_templ_obj = self.pool.get('account.tax.code.template')
+        tax_code_obj = self.pool.get('account.tax.code')
+        wiz_tax_code_obj = self.pool.get('wizard.update.charts.accounts.tax.code')
         
         # Remove previous tax codes
-        wiz_tax_code_facade.unlink(cr, uid, wiz_tax_code_facade.search(cr, uid, []))
+        wiz_tax_code_obj.unlink(cr, uid, wiz_tax_code_obj.search(cr, uid, []))
         
         #
         # Search for new / updated tax codes
         #
         root_tax_code_id = wizard.chart_template_id.tax_code_root_id.id
-        children_tax_code_template = tax_code_templ_facade.search(cr, uid, [('parent_id', 'child_of', [root_tax_code_id])], order='id')
-        for tax_code_template in tax_code_templ_facade.browse(cr, uid, children_tax_code_template):
+        children_tax_code_template = tax_code_templ_obj.search(cr, uid, [('parent_id', 'child_of', [root_tax_code_id])], order='id')
+        for tax_code_template in tax_code_templ_obj.browse(cr, uid, children_tax_code_template):
             # Ensure the tax code template is on the map (search for the mapped tax code id).
             self._map_tax_code_template(cr, uid, wizard, tax_code_template_mapping, tax_code_template, context)
 
             tax_code_id = tax_code_template_mapping.get(tax_code_template.id)
             if not tax_code_id:
                 new_tax_codes += 1
-                wiz_tax_code_facade.create(cr, uid, {
+                wiz_tax_code_obj.create(cr, uid, {
                         'tax_code_id': tax_code_template.id,
                         'update_chart_wizard_id': wizard.id,
                         'type': 'new',
@@ -338,7 +338,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 modified = False
                 notes = ""
-                tax_code = tax_code_facade.browse(cr, uid, tax_code_id, context=context)
+                tax_code = tax_code_obj.browse(cr, uid, tax_code_id, context=context)
 
                 if tax_code.code != tax_code_template.code:
                     notes += _("The code field is different.\n")
@@ -357,7 +357,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                     # Tax code to update.
                     #
                     updated_tax_codes += 1
-                    wiz_tax_code_facade.create(cr, uid, {
+                    wiz_tax_code_obj.create(cr, uid, {
                             'tax_code_id': tax_code_template.id,
                             'update_chart_wizard_id': wizard.id,
                             'type': 'updated',
@@ -377,11 +377,11 @@ class wizard_update_charts_accounts(osv.osv_memory):
         updated_taxes = 0
         tax_template_mapping = {}
         
-        tax_facade = self.pool.get('account.tax')
-        wiz_tax_facade = self.pool.get('wizard.update.charts.accounts.tax')
+        tax_obj = self.pool.get('account.tax')
+        wiz_tax_obj = self.pool.get('wizard.update.charts.accounts.tax')
         
         # Remove previous taxes
-        wiz_tax_facade.unlink(cr, uid, wiz_tax_facade.search(cr, uid, []))
+        wiz_tax_obj.unlink(cr, uid, wiz_tax_obj.search(cr, uid, []))
     
         #
         # Search for new / updated taxes
@@ -393,7 +393,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
             tax_id = tax_template_mapping.get(tax_template.id)
             if not tax_id:
                 new_taxes += 1
-                wiz_tax_facade.create(cr, uid, {
+                wiz_tax_obj.create(cr, uid, {
                         'tax_id': tax_template.id,
                         'update_chart_wizard_id': wizard.id,
                         'type': 'new',
@@ -404,7 +404,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 modified = False
                 notes = ""
-                tax = tax_facade.browse(cr, uid, tax_id, context=context)
+                tax = tax_obj.browse(cr, uid, tax_id, context=context)
 
                 if tax.sequence != tax_template.sequence:
                     notes += _("The sequence field is different.\n")
@@ -427,9 +427,9 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 if tax.python_compute != tax_template.python_compute:
                     notes += _("The python compute field is different.\n")
                     modified = True
-                if tax.tax_group != tax_template.tax_group:
-                    notes += _("The tax group field is different.\n")
-                    modified = True
+#                if tax.tax_group != tax_template.tax_group:
+#                    notes += _("The tax group field is different.\n")
+#                    modified = True
                 if tax.base_sign != tax_template.base_sign:
                     notes += _("The base sign field is different.\n")
                     modified = True
@@ -449,7 +449,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                     # Tax code to update.
                     #
                     updated_taxes += 1
-                    wiz_tax_facade.create(cr, uid, {
+                    wiz_tax_obj.create(cr, uid, {
                             'tax_id': tax_template.id,
                             'update_chart_wizard_id': wizard.id,
                             'type': 'updated',
@@ -469,27 +469,27 @@ class wizard_update_charts_accounts(osv.osv_memory):
         updated_accounts = 0
         account_template_mapping = {}
         
-        account_facade = self.pool.get('account.account')
-        account_template_facade = self.pool.get('account.account.template')
-        wiz_account_facade = self.pool.get('wizard.update.charts.accounts.account')
+        account_obj = self.pool.get('account.account')
+        account_template_obj = self.pool.get('account.account.template')
+        wiz_account_obj = self.pool.get('wizard.update.charts.accounts.account')
         
         # Remove previous accounts
-        wiz_account_facade.unlink(cr, uid, wiz_account_facade.search(cr, uid, []))
+        wiz_account_obj.unlink(cr, uid, wiz_account_obj.search(cr, uid, []))
     
         #
         # Search for new / updated accounts
         #
         root_account_id = wizard.chart_template_id.account_root_id.id
-        children_acc_template = account_template_facade.search(cr, uid, [('parent_id', 'child_of', [root_account_id])], context=context)
+        children_acc_template = account_template_obj.search(cr, uid, [('parent_id', 'child_of', [root_account_id])], context=context)
         children_acc_template.sort()
-        for account_template in account_template_facade.browse(cr, uid, children_acc_template, context=context):
+        for account_template in account_template_obj.browse(cr, uid, children_acc_template, context=context):
             # Ensure the account template is on the map (search for the mapped account id).
             self._map_account_template(cr, uid, wizard, account_template_mapping, account_template, context)
 
             account_id = account_template_mapping.get(account_template.id)
             if not account_id:
                 new_accounts += 1
-                wiz_account_facade.create(cr, uid, {
+                wiz_account_obj.create(cr, uid, {
                         'account_id': account_template.id,
                         'update_chart_wizard_id': wizard.id,
                         'type': 'new',
@@ -500,7 +500,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 modified = False
                 notes = ""
-                account = account_facade.browse(cr, uid, account_id, context=context)
+                account = account_obj.browse(cr, uid, account_id, context=context)
 
                 if account.name != account_template.name and account.name != wizard.company_id.name:
                     notes += _("The name is different.\n")
@@ -522,7 +522,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                     # Account to update.
                     #
                     updated_accounts += 1
-                    wiz_account_facade.create(cr, uid, {
+                    wiz_account_obj.create(cr, uid, {
                             'account_id': account_template.id,
                             'update_chart_wizard_id': wizard.id,
                             'type': 'updated',
@@ -541,18 +541,18 @@ class wizard_update_charts_accounts(osv.osv_memory):
         updated_fps = 0
         fp_template_mapping = {}
         
-        fp_template_facade = self.pool.get('account.fiscal.position.template')
-        fp_facade = self.pool.get('account.fiscal.position')
-        wiz_fp_facade = self.pool.get('wizard.update.charts.accounts.fiscal.position')
+        fp_template_obj = self.pool.get('account.fiscal.position.template')
+        fp_obj = self.pool.get('account.fiscal.position')
+        wiz_fp_obj = self.pool.get('wizard.update.charts.accounts.fiscal.position')
         
         # Remove previous fiscal positions
-        wiz_fp_facade.unlink(cr, uid, wiz_fp_facade.search(cr, uid, []))
+        wiz_fp_obj.unlink(cr, uid, wiz_fp_obj.search(cr, uid, []))
     
         #
         # Search for new / updated fiscal positions
         #
-        fp_template_ids = fp_template_facade.search(cr, uid, [('chart_template_id', '=', wizard.chart_template_id.id)], context=context)
-        for fp_template in fp_template_facade.browse(cr, uid, fp_template_ids, context=context):
+        fp_template_ids = fp_template_obj.search(cr, uid, [('chart_template_id', '=', wizard.chart_template_id.id)], context=context)
+        for fp_template in fp_template_obj.browse(cr, uid, fp_template_ids, context=context):
             # Ensure the fiscal position template is on the map (search for the mapped fiscal position id).
             self._map_fp_template(cr, uid, wizard, fp_template_mapping, fp_template, context)
 
@@ -562,7 +562,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 # New fiscal position template.
                 #
                 new_fps += 1
-                wiz_fp_facade.create(cr, uid, {
+                wiz_fp_obj.create(cr, uid, {
                         'fiscal_position_id': fp_template.id,
                         'update_chart_wizard_id': wizard.id,
                         'type': 'new',
@@ -573,7 +573,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 modified = False
                 notes = ""
-                fp = fp_facade.browse(cr, uid, fp_id, context=context)
+                fp = fp_obj.browse(cr, uid, fp_id, context=context)
 
                 #
                 # Check fiscal position taxes for changes.
@@ -624,7 +624,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                     # Fiscal position template to update.
                     #
                     updated_fps += 1
-                    wiz_fp_facade.create(cr, uid, {
+                    wiz_fp_obj.create(cr, uid, {
                             'fiscal_position_id': fp_template.id,
                             'update_chart_wizard_id': wizard.id,
                             'type': 'updated',
@@ -684,7 +684,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
         """
         Search for, and load, tax code templates to create/update.
         """
-        tax_code_facade = self.pool.get('account.tax.code')
+        tax_code_obj = self.pool.get('account.tax.code')
 
         root_tax_code_id = wizard.chart_template_id.tax_code_root_id.id
 
@@ -718,7 +718,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 # Create the tax code
                 #
-                tax_code_id = tax_code_facade.create(cr, uid, vals)
+                tax_code_id = tax_code_obj.create(cr, uid, vals)
                 log.add(_("Created tax code %s.\n") % tax_code_name)
                 new_tax_codes += 1
                 modified = True
@@ -727,7 +727,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 # Update the tax code
                 #
                 tax_code_id = wiz_tax_code.update_tax_code_id.id
-                tax_code_facade.write(cr, uid, [tax_code_id], vals)
+                tax_code_obj.write(cr, uid, [tax_code_id], vals)
                 log.add(_("Updated tax code %s.\n") % tax_code_name)
                 updated_tax_codes += 1
                 modified = True
@@ -757,7 +757,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
         """
         Search for, and load, tax templates to create/update.
         """
-        tax_facade = self.pool.get('account.tax')
+        tax_obj = self.pool.get('account.tax')
 
         new_taxes = 0
         updated_taxes = 0
@@ -797,7 +797,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 'python_compute': tax_template.python_compute,
                 'python_compute_inv': tax_template.python_compute_inv,
                 'python_applicable': tax_template.python_applicable,
-                'tax_group': tax_template.tax_group,
+#                'tax_group': tax_template.tax_group,
                 'base_code_id': tax_template.base_code_id and tax_code_template_mapping.get(tax_template.base_code_id.id),
                 'tax_code_id': tax_template.tax_code_id and tax_code_template_mapping.get(tax_template.tax_code_id.id),
                 'base_sign': tax_template.base_sign,
@@ -819,7 +819,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 # Create a new tax.
                 #
-                tax_id = tax_facade.create(cr, uid, vals_tax)
+                tax_id = tax_obj.create(cr, uid, vals_tax)
                 log.add(_("Created tax %s.\n") % tax_template.name)
                 new_taxes += 1
                 modified = True
@@ -828,7 +828,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 # Update a tax.
                 #
                 tax_id = wiz_tax.update_tax_id.id
-                tax_facade.write(cr, uid, [tax_id], vals_tax)
+                tax_obj.write(cr, uid, [tax_id], vals_tax)
                 log.add(_("Updated tax %s.\n") % tax_template.name)
                 updated_taxes += 1
                 modified = True
@@ -876,13 +876,13 @@ class wizard_update_charts_accounts(osv.osv_memory):
         given account (accounts that start with the same code and are brothers
         of the first account).
         """
-        account_facade = self.pool.get('account.account')
-        parent_account = account_facade.browse(cr, uid, parent_account_id, context=context)
+        account_obj = self.pool.get('account.account')
+        parent_account = account_obj.browse(cr, uid, parent_account_id, context=context)
 
         if not parent_account.parent_id or not parent_account.code:
             return False
 
-        children_ids = account_facade.search(cr, uid, [
+        children_ids = account_obj.search(cr, uid, [
                     ('company_id', '=', parent_account.company_id and parent_account.company_id.id),
                     ('parent_id', '=', parent_account.parent_id.id),
                     ('code', '=like', "%s%%" % parent_account.code),
@@ -891,7 +891,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
 
         if children_ids:
             try:
-                account_facade.write(cr, uid, children_ids, { 'parent_id': parent_account.id }, context=context)
+                account_obj.write(cr, uid, children_ids, { 'parent_id': parent_account.id }, context=context)
             except osv.except_osv, ex:
                 log.add(_("Exception setting the parent of account %s children: %s - %s.\n") % (parent_account.code, ex.name, ex.value), True)
 
@@ -902,7 +902,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
         """
         Search for, and load, account templates to create/update.
         """
-        account_facade = self.pool.get('account.account')
+        account_obj = self.pool.get('account.account')
 
         root_account_id = wizard.chart_template_id.account_root_id.id
 
@@ -965,7 +965,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 # Create the account
                 #
                 try:
-                    account_id = account_facade.create(cr, uid, vals)
+                    account_id = account_obj.create(cr, uid, vals)
                     log.add(_("Created account %s.\n") % code)
                     new_accounts += 1
                     modified = True
@@ -977,7 +977,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 #
                 account_id = wiz_account.update_account_id.id
                 try:
-                    account_facade.write(cr, uid, [account_id], vals)
+                    account_obj.write(cr, uid, [account_id], vals)
                     log.add(_("Updated account %s.\n") % code)
                     updated_accounts += 1
                     modified = True
@@ -1023,18 +1023,18 @@ class wizard_update_charts_accounts(osv.osv_memory):
         the references to the accounts (the taxes where created/updated first,
         when the referenced accounts where still not available).
         """
-        tax_facade = self.pool.get('account.tax')
-        account_template_facade = self.pool.get('account.account.template')
+        tax_obj = self.pool.get('account.tax')
+        account_template_obj = self.pool.get('account.account.template')
 
         for key, value in taxes_pending_for_accounts.items():
             #
             # Ensure the related account templates are on the map.
             #
             if value['account_collected_id']:
-                account_template = account_template_facade.browse(cr, uid, value['account_collected_id'], context=context)
+                account_template = account_template_obj.browse(cr, uid, value['account_collected_id'], context=context)
                 self._map_account_template(cr, uid, wizard, account_template_mapping, account_template, context)
             if value['account_paid_id']:
-                account_template = account_template_facade.browse(cr, uid, value['account_paid_id'], context=context)
+                account_template = account_template_obj.browse(cr, uid, value['account_paid_id'], context=context)
                 self._map_account_template(cr, uid, wizard, account_template_mapping, account_template, context)
 
 
@@ -1044,9 +1044,9 @@ class wizard_update_charts_accounts(osv.osv_memory):
                         'account_collected_id': account_template_mapping[value['account_collected_id']],
                         'account_paid_id': account_template_mapping[value['account_paid_id']],
                     }
-                    tax_facade.write(cr, uid, [key], vals)
+                    tax_obj.write(cr, uid, [key], vals)
                 else:
-                    tax = tax_facade.browse(cr, uid, key)
+                    tax = tax_obj.browse(cr, uid, key)
                     if not account_template_mapping.get(value['account_collected_id']):
                         log.add(_("Tax %s: The collected account can not be set.\n") % (tax.name), True)
                     if not account_template_mapping.get(value['account_paid_id']):
@@ -1057,9 +1057,9 @@ class wizard_update_charts_accounts(osv.osv_memory):
         """
         Search for, and load, fiscal position templates to create/update.
         """        
-        fp_facade = self.pool.get('account.fiscal.position')
-        fp_tax_facade = self.pool.get('account.fiscal.position.tax')
-        fp_account_facade = self.pool.get('account.fiscal.position.account')
+        fp_obj = self.pool.get('account.fiscal.position')
+        fp_tax_obj = self.pool.get('account.fiscal.position.tax')
+        fp_account_obj = self.pool.get('account.fiscal.position.account')
 
         new_fps = 0
         updated_fps = 0
@@ -1077,7 +1077,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                    'company_id': wizard.company_id.id,
                    'name': fp_template.name,
                 }
-                fp_id = fp_facade.create(cr, uid, vals_fp)
+                fp_id = fp_obj.create(cr, uid, vals_fp)
                 new_fps += 1
                 modified = True
             elif wizard.update_fiscal_position and wiz_fp.update_fiscal_position_id:
@@ -1089,11 +1089,11 @@ class wizard_update_charts_accounts(osv.osv_memory):
                 updated_fps += 1
                 modified = True
                 # Remove the tax mappings
-                fp_tax_ids = fp_tax_facade.search(cr, uid, [('position_id', '=', fp_id)])
-                fp_tax_facade.unlink(cr, uid, fp_tax_ids)
+                fp_tax_ids = fp_tax_obj.search(cr, uid, [('position_id', '=', fp_id)])
+                fp_tax_obj.unlink(cr, uid, fp_tax_ids)
                 # Remove the account mappings
-                fp_account_ids = fp_account_facade.search(cr, uid, [('position_id', '=', fp_id)])
-                fp_account_facade.unlink(cr, uid, fp_account_ids)
+                fp_account_ids = fp_account_obj.search(cr, uid, [('position_id', '=', fp_id)])
+                fp_account_obj.unlink(cr, uid, fp_account_ids)
             else:
                 fp_id = wiz_fp.update_fiscal_position_id and wiz_fp.update_fiscal_position_id.id
 
@@ -1117,7 +1117,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                         'tax_dest_id': fp_tax.tax_dest_id and tax_template_mapping.get(fp_tax.tax_dest_id.id),
                         'position_id': fp_id,
                     }
-                    fp_tax_facade.create(cr, uid, vals_tax)
+                    fp_tax_obj.create(cr, uid, vals_tax)
 
                     #
                     # Check for errors
@@ -1145,7 +1145,7 @@ class wizard_update_charts_accounts(osv.osv_memory):
                         'account_dest_id': fp_account.account_dest_id and account_template_mapping.get(fp_account.account_dest_id.id),
                         'position_id': fp_id,
                     }
-                    fp_account_facade.create(cr, uid, vals_account)
+                    fp_account_obj.create(cr, uid, vals_account)
 
                     #
                     # Check for errors

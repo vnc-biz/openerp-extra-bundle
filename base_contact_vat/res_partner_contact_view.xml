@@ -10,7 +10,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <xpath expr="/form/notebook/page[@string='Extra Information']" position="inside">
-                    <field name="vat"/>
+                    <field name="vat" on_change="on_change_vat(vat)"/>
                 </xpath>
             </field>
         </record>

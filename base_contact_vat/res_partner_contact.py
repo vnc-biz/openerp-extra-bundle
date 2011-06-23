@@ -38,6 +38,11 @@ class res_partner_contact(osv.osv):
         vat_country, vat_number = vat[:2].lower(), vat[2:].replace(' ', '')
         return vat_country, vat_number
 
+    def on_change_vat(self, cr, uid, ids, vat, context=None):
+        if vat:
+            return {'value': {'vat': vat.upper()}}
+        return False
+
     def check_vat(self, cr, uid, ids, context=None):
         '''
         Check the VAT number depending of the country.

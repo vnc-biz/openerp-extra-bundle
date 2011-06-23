@@ -31,8 +31,7 @@ import sys
 import re
 import xmlrpclib
 import socket
-import netsvc
-logger = netsvc.Logger()
+
 
 def create_lots_of_account_moves(dbname, user, passwd, howmany):
     """
@@ -52,6 +51,7 @@ def create_lots_of_account_moves(dbname, user, passwd, howmany):
         
         
     for i in range(1, howmany):
+        print "%s/%s" % (i, howmany)
         #
         # Create one account move
         #
@@ -106,7 +106,7 @@ def create_lots_of_account_moves(dbname, user, passwd, howmany):
     
 if __name__ == "__main__":
     if len(sys.argv) < 5:
-        logger.notifyChannel(u"Usage: %s <dbname> <user> <password> <howmany>" % sys.argv[0])
+        print u"Usage: %s <dbname> <user> <password> <howmany>" % sys.argv[0]
     else:
         create_lots_of_account_moves(sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]))
     

@@ -6,10 +6,12 @@
         <field name="name">res.partner.form.v1</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="sequence">20</field>
         <field name="arch" type="xml">
-            <field name="email" select="2" widget="email" position="after">
+            <xpath expr="/form/notebook/page[@string='General']/field[@name='address']/form/group/field[@name='email']" position="after">
+                <separator string="Vehicle" colspan="2"/>
                 <field name="plate"/>
-            </field>
+            </xpath>
         </field>
     </record>
     
@@ -18,9 +20,10 @@
         <field name="model">res.partner.address</field>
         <field name="inherit_id" ref="base.view_partner_address_form1"/>
         <field name="arch" type="xml">
-            <field name="email" select="2" widget="email" position="after">
+            <xpath expr="/form/group/field[@name='email']" position="after">
+                <separator string="Vehicle" colspan="2"/>
                 <field name="plate"/>
-            </field>
+            </xpath>
         </field>
     </record>
 

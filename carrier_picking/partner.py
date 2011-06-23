@@ -20,13 +20,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from osv import osv
 from osv import fields
 
 class res_partner_address(osv.osv):
     _inherit = 'res.partner.address'
     _columns = {
-        'plate': fields.char('Plate', size=20, help="Vehicle's plate"),
+        'plate': fields.char('Plate', size=20, help="Vehicle's plate."),
     }
 res_partner_address()
 

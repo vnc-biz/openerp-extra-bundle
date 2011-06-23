@@ -14,11 +14,11 @@
                 </field>
             </field>
         </record>
-        <record id="view_picking_delivery_form_v1" model="ir.ui.view">
-            <field name="name">stock.picking.delivery.form.v1</field>
+        <record id="view_picking_out_form_v1" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.v1</field>
             <field name="model">stock.picking</field>
             <field name="type">form</field>
-            <field name="inherit_id" ref="stock.view_picking_delivery_form"/>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
             <field name="arch" type="xml">
                 <field name="origin" position="after">
                     <newline/>
@@ -63,11 +63,11 @@
                 </field>
             </field>
         </record>
-        <record id="view_picking_delivery_tree_v1" model="ir.ui.view">
-            <field name="name">stock.picking.delivery.tree.v1</field>
+        <record id="view_picking_out_tree_v1" model="ir.ui.view">
+            <field name="name">stock.picking.out.tree.v1</field>
             <field name="model">stock.picking</field>
             <field name="type">tree</field>
-            <field name="inherit_id" ref="stock.view_picking_delivery_tree"/>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
             <field name="arch" type="xml">
                 <field name="state" position="after">
                     <field name="carrier_name" select="2"/>

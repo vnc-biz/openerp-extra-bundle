@@ -7,12 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-05-31 09:36+0000\n"
-"PO-Revision-Date: 2011-05-31 11:37+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-06-24 19:43+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-06-25 06:20+0000\n"
+"X-Generator: Launchpad (build 13168)\n"
 "X-Poedit-Language: Catalan\n"
 
 #. module: civil_engineering
@@ -246,8 +249,12 @@ msgstr "Emplaçament"
 
 #. module: civil_engineering
 #: help:civil_engineering.modelabstraction,active:0
-msgid "The active field allows you to hide the Structural Model Abstraction without removing it."
-msgstr "El camp actiu permet ocultar l'abstracció del model estructural sense eliminar-la."
+msgid ""
+"The active field allows you to hide the Structural Model Abstraction without "
+"removing it."
+msgstr ""
+"El camp actiu permet ocultar l'abstracció del model estructural sense "
+"eliminar-la."
 
 #. module: civil_engineering
 #: model:ir.model,name:civil_engineering.model_civil_engineering_foundationtype
@@ -262,8 +269,10 @@ msgstr "Assignacions de projectes a obres"
 
 #. module: civil_engineering
 #: help:civil_engineering.foundationtype,active:0
-msgid "The active field allows you to hide the Foundation Type without removing it."
-msgstr "El camp actiu permet ocultar el tipus de cimentació sense eliminar-lo."
+msgid ""
+"The active field allows you to hide the Foundation Type without removing it."
+msgstr ""
+"El camp actiu permet ocultar el tipus de cimentació sense eliminar-lo."
 
 #. module: civil_engineering
 #: view:civil_engineering.work:0
@@ -412,8 +421,10 @@ msgstr "Actiu"
 
 #. module: civil_engineering
 #: help:civil_engineering.structuretype,active:0
-msgid "The active field allows you to hide the Structure Type without removing it."
-msgstr "El camp actiu permet ocultar el tipus d'estructura sense eliminar-lo."
+msgid ""
+"The active field allows you to hide the Structure Type without removing it."
+msgstr ""
+"El camp actiu permet ocultar el tipus d'estructura sense eliminar-lo."
 
 #. module: civil_engineering
 #: model:ir.ui.menu,name:civil_engineering.menu_civilengineering_configuration_modelingsoftware
@@ -481,8 +492,11 @@ msgstr "Enginyeria civil. Programari de modelitzat"
 
 #. module: civil_engineering
 #: help:civil_engineering.modelingsoftware,active:0
-msgid "The active field allows you to hide the Modeling Software without removing it."
-msgstr "El camp actiu permet ocultar el programari de modelitzat sense eliminar-lo."
+msgid ""
+"The active field allows you to hide the Modeling Software without removing "
+"it."
+msgstr ""
+"El camp actiu permet ocultar el programari de modelitzat sense eliminar-lo."
 
 #. module: civil_engineering
 #: field:civil_engineering.modelingsoftware,parent_id:0
@@ -494,9 +508,12 @@ msgstr "Pare Programari de modelitzat"
 msgid ""
 "Civil Engineering Works:\n"
 "\n"
-"* Adds a new menu to manage civil engineering works: Location, agents and other consultancies, work data, structure data and assignments to projects.\n"
+"* Adds a new menu to manage civil engineering works: Location, agents and "
+"other consultancies, work data, structure data and assignments to projects.\n"
 "\n"
-"* New entities for civil engineering works (all these entities have an hierarchical structure and a tree view, civil engineering works can be filtered from the tree view):\n"
+"* New entities for civil engineering works (all these entities have an "
+"hierarchical structure and a tree view, civil engineering works can be "
+"filtered from the tree view):\n"
 "    * Work Class\n"
 "    * Work Use\n"
 "    * Structure Type\n"
@@ -504,13 +521,18 @@ msgid ""
 "    * Structural Model Abstraction\n"
 "    * Structural Modeling Software. \n"
 "\n"
-"* Adds a new tab in the project form, sale form and purchase form to relate these objects to civil engineering works\n"
+"* Adds a new tab in the project form, sale form and purchase form to relate "
+"these objects to civil engineering works\n"
 msgstr ""
 "Obres d'enginyeria civil:\n"
 "\n"
-"* Afegeix un nou menú per a gestionar obres d'enginyeria civil: Localització, agents i altres consultors, dades de l'obra, dades estructurals i assignacions a projectes.\n"
+"* Afegeix un nou menú per a gestionar obres d'enginyeria civil: "
+"Localització, agents i altres consultors, dades de l'obra, dades "
+"estructurals i assignacions a projectes.\n"
 "\n"
-"* Noves entitats per a les obres d'enginyeria civil (totes aquestes entitats tenen una estructura jeràrquica i una vista en arbre, les obres d'enginyeria civil poden ser filtrades des de la vista en arbre):\n"
+"* Noves entitats per a les obres d'enginyeria civil (totes aquestes entitats "
+"tenen una estructura jeràrquica i una vista en arbre, les obres d'enginyeria "
+"civil poden ser filtrades des de la vista en arbre):\n"
 "    * Classe d'encàrrec\n"
 "    * Ús de l'obra\n"
 "    * Tipus d'estructura\n"
@@ -518,7 +540,8 @@ msgstr ""
 "    * Abstracció del modelo estructural\n"
 "    * Programari de modelitzat estructural\n"
 "\n"
-"* Afegeix una nova pestanya en els formularis de projectes, vendes i compres per a relacionar-los amb les obres d'enginyeria civil\n"
+"* Afegeix una nova pestanya en els formularis de projectes, vendes i compres "
+"per a relacionar-los amb les obres d'enginyeria civil\n"
 
 #. module: civil_engineering
 #: view:civil_engineering.modelingsoftware:0
@@ -666,8 +689,10 @@ msgstr "Geotècnia"
 
 #. module: civil_engineering
 #: help:civil_engineering.workclass,active:0
-msgid "The active field allows you to hide the work class without removing it."
-msgstr "El camp actiu permet ocultar la classe de encàrrec sense eliminar-la."
+msgid ""
+"The active field allows you to hide the work class without removing it."
+msgstr ""
+"El camp actiu permet ocultar la classe de encàrrec sense eliminar-la."
 
 #. module: civil_engineering
 #: field:civil_engineering.workclass,child_ids:0
@@ -679,32 +704,3 @@ msgstr "Fill Classe d'encàrrec"
 #: field:civil_engineering.work,project_manager:0
 msgid "Project manager"
 msgstr "Project manager"
-
-#~ msgid "Invalid model name in the action definition."
-#~ msgstr "Nom de model no vàlid en la definició de l'acció."
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "XML no vàlid per a l'estructura de la vista!"
-#~ msgid ""
-#~ "The Object name must start with x_ and not contain any special character !"
-#~ msgstr ""
-#~ "El nom de l'objecte ha de començar amb x_ i no contenir cap caràcter "
-#~ "especial!"
-#~ msgid "Works"
-#~ msgstr "Obres"
-#~ msgid "CE Works"
-#~ msgstr "Obres Enginyeria Civil"
-#~ msgid "Work Class Project"
-#~ msgstr "Proyecto Clase encargo"
-#~ msgid "Structure Type Project"
-#~ msgstr "Proyecto tipo estructura"
-#~ msgid "Foundation Type Project"
-#~ msgstr "Proyecto tipo cimentación"
-#~ msgid "Civil engineering work"
-#~ msgstr "Obra de ingeniería civil"
-#~ msgid "Modeling Software Project"
-#~ msgstr "Proyecto software de modelizado"
-#~ msgid "Model Structural Abstraction Project"
-#~ msgstr "Proyecto Abstracción del modelo estructural"
-#~ msgid "Building Use Project"
-#~ msgstr "Proyecto Uso del edificio"
-

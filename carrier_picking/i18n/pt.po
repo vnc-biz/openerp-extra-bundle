@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-05-08 18:56+0000\n"
+"POT-Creation-Date: 2011-06-22 12:46+0000\n"
 "PO-Revision-Date: 2011-02-15 15:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-06-15 05:50+0000\n"
+"X-Launchpad-Export-Date: 2011-06-25 06:20+0000\n"
 "X-Generator: Launchpad (build 13168)\n"
 
 #. module: carrier_picking
@@ -23,12 +23,27 @@ msgid "Plate"
 msgstr "Matrícula"
 
 #. module: carrier_picking
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "XML Inválido para a Arquitectura de Vista!"
+#: field:stock.picking,address_carrier_id:0
+msgid "Carrier Address"
+msgstr "Endereço de Transportadora"
 
 #. module: carrier_picking
-#: model:ir.module.module,description:carrier_picking.module_name_translation
+#: field:stock.picking,carrier_name:0
+msgid "Carrier Info"
+msgstr "Info. da Transportadora"
+
+#. module: carrier_picking
+#: model:ir.model,name:carrier_picking.model_stock_picking
+msgid "Picking List"
+msgstr ""
+
+#. module: carrier_picking
+#: model:ir.module.module,shortdesc:carrier_picking.module_meta_information
+msgid "Carrier picking adds carrier contact information"
+msgstr ""
+
+#. module: carrier_picking
+#: model:ir.module.module,description:carrier_picking.module_meta_information
 msgid ""
 "Carrier picking module:\n"
 "\n"
@@ -43,25 +58,30 @@ msgstr ""
 
 #. module: carrier_picking
 #: help:res.partner.address,plate:0
-msgid "Vehicle's plate"
-msgstr "Matrícula do veículo"
+msgid "Vehicle's plate."
+msgstr ""
 
 #. module: carrier_picking
-#: model:ir.module.module,shortdesc:carrier_picking.module_name_translation
-msgid "Carrier picking"
-msgstr "Transportadora de Recolha"
+#: model:ir.model,name:carrier_picking.model_res_partner_address
+msgid "Partner Addresses"
+msgstr ""
 
 #. module: carrier_picking
-#: field:stock.picking,address_carrier_id:0
-msgid "Carrier Address"
-msgstr "Endereço de Transportadora"
-
-#. module: carrier_picking
-#: field:stock.picking,carrier_name:0
-msgid "Carrier Info"
-msgstr "Info. da Transportadora"
+#: view:res.partner:0
+#: view:res.partner.address:0
+msgid "Vehicle"
+msgstr ""
 
 #. module: carrier_picking
 #: help:stock.picking,carrier_name:0
 msgid "Additional carrier information (vehicle's plate, ...)"
 msgstr "Informação adicional da transportadora (Matricula do veículo,...)"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "XML Inválido para a Arquitectura de Vista!"
+
+#~ msgid "Vehicle's plate"
+#~ msgstr "Matrícula do veículo"
+
+#~ msgid "Carrier picking"
+#~ msgstr "Transportadora de Recolha"

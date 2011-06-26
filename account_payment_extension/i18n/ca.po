@@ -8,14 +8,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-rc1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-12-17 20:52+0000\n"
-"PO-Revision-Date: 2011-02-15 15:01+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-06-25 07:43+0000\n"
+"Last-Translator: cubells <vicent@vcubells.net>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-06-15 05:50+0000\n"
+"X-Launchpad-Export-Date: 2011-06-26 05:16+0000\n"
 "X-Generator: Launchpad (build 13168)\n"
 "Language: ca\n"
 
@@ -411,7 +410,7 @@ msgstr ""
 #. module: account_payment_extension
 #: model:ir.model,name:account_payment_extension.model_account_move_line
 msgid "Journal Items"
-msgstr "Apunts"
+msgstr "Anotacions comptables"
 
 #. module: account_payment_extension
 #: help:account.move.line,received_check:0

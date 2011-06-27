@@ -220,7 +220,7 @@ class PromotionsRules(osv.osv):
                     raise Exception("Customer already used coupon")
         #if a start date has been specified
         if promotion_rule.from_date and \
-            not (self._date(
+            not (self.promotion_date(
                 order.date_order) >= self.promotion_date(promotion_rule.from_date)):
             raise Exception("Order before start of promotion")
         #If an end date has been specified

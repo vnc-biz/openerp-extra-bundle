@@ -58,16 +58,19 @@
 				        <field name="output_file" groups="base.group_extended"/>
 				        <field name="active_python_code" groups="base.group_extended"/>
 				        <field name="last_date"/>
-				        <separator colspan="4" string="Parameters" />
-                                        <field name="parameter_ids" nolabel="1" colspan="4" />
-                                        <field name="carte_id"/>
 			        </group>
-			        <group attrs="{'invisible':[('active_python_code','!=',1)]}"  colspan="4" groups="base.group_extended">
-				        <separator colspan="4" string="Python code executed before transformation/job" />
-				        <field name="python_code_before" colspan = "4" nolabel="1"/>
-				        <separator colspan="4" string="Python code executed after transformation/job" />
-				        <field name="python_code_after" colspan = "4" nolabel="1"/>
-			        </group>
+                    <notebook colspan="4">
+                        <page string="Parameters">
+                            <field name="parameter_ids" nolabel="1" colspan="4" />
+                            <field name="carte_id"/>
+                        </page>
+                        <page attrs="{'invisible':[('active_python_code','!=',1)]}"  string="Python code" groups="base.group_extended">
+                            <separator colspan="4" string="Python code executed before transformation/job" />
+                            <field name="python_code_before" colspan = "4" nolabel="1"/>
+                            <separator colspan="4" string="Python code executed after transformation/job" />
+                            <field name="python_code_after" colspan = "4" nolabel="1"/>
+                        </page>
+                    </notebook>
 				</form>
 			</field>
 		</record>

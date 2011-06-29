@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="training_exam_form_django">
+            <field name="name">training.exam.form.django</field>
+            <field name="model">training.exam.questionnaire</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training_exam.exam_questionnaire_form" />
+            <field name="arch" type="xml">
+                <page string="Attachments" position="after">
+                    <page string="SEO">
+                        <field name="alias" colspan="4" />
+                        <separator string="Metakey" colspan="4" />
+                        <field name="metakey" nolabel="1" colspan="4" />
+                        <separator string="MetaDescription" colspan="4" />
+                        <field name="metadescription" nolabel="1" colspan="4" />
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>
+

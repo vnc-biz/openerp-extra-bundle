@@ -3181,8 +3181,9 @@ class training_subscription_line(osv.osv):
 
     # training.subscription.line
     def action_workflow_confirm(self, cr, uid, ids, context=None):
-        self.write(cr, uid, ids, {'state': 'confirmed', 'validation_date': time.strftime('%Y-%m-%d %H:%M:%S'), 'validation_uid': uid}, context=context)
-        return True
+        if context is None:
+            context = {}
+        return self.write(cr, uid, ids, {'state': 'confirmed', 'validation_date': time.strftime('%Y-%m-%d %H:%M:%S'), 'validation_uid': uid}, context=context)
 
     def action_create_refund(self, cr, uid, ids, context=None):
         if not context:

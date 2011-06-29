@@ -24,6 +24,7 @@
     "name" : "Training Payment",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
+    "license" : "GPL-3",
     "description" : """
 Mapping Training e-sale payments to OpenERP payments
     """,

@@ -26,6 +26,7 @@
     'version' : '0.1',
     'author' : 'Tiny SPRL - AJM Technologies S.A',
     'website' : 'http://www.openerp.com',
+    "license" : "GPL-3",
     'category' : 'Enterprise Specific Modules/Training',
     'description' : """The module training_room helps the user to manage the training's location""",
     'depends' : [
@@ -40,5 +41,3 @@
     'active' : False,
     'installable' : True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

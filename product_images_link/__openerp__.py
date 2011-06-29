@@ -27,6 +27,7 @@
     "version" : "0.1 ",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
+    "license" : "GPL-3",
     "category" : "Added functionality - Product Extension",
     "depends" : ['base','product_images_olbs'],
     "description": """

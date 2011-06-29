@@ -25,6 +25,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
+    "license" : "GPL-3",
     "category" : "Enterprise Specific Modules/Manufacturer Industries",
     "depends" : [
         "product_manufacturer",

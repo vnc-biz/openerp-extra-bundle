@@ -25,6 +25,7 @@
     "version" : "0.1 ",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
+    "license" : "GPL-3",
     "category" : "Enterprise Specific Modules/Training",
     "depends" : [
         'base',

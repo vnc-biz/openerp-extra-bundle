@@ -26,6 +26,7 @@
     "version": "0.1",
     "author": "Zikzakmedia SL",
     "website": "http://www.zikzakmedia.com",
+    "license" : "GPL-3",
     "category": "Training",
     "description": "Management of wiki documentation content",
     "depends": [

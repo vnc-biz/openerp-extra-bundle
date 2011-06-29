@@ -28,6 +28,7 @@
     'version' : '0.5',
     'author' : 'Tiny SPRL - AJM Technologies S.A',
     'website' : 'http://www.openerp.com',
+    "license" : "GPL-3",
     'category' : 'Enterprise Specific Modules/Training',
     'description' : """
 From the conception of a project to the elaboration of your catalog, our training management allows you to create easily courses and to organize the sessions.

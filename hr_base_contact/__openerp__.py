@@ -22,11 +22,12 @@
 ##############################################################################
 
 {
-    "name": "Human Resources",
+    "name": "Human Resources Base Contact",
     "version": "0.1",
     "author": "Zikzakmedia SL",
     "website": "http://www.zikzakmedia.com",
     "category": "Generic Modules/Human Resources",
+    "license" : "GPL-3",
     "description": """
     Module for link employees of the human resource module with contact of the base contact module.
     """,

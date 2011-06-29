@@ -25,6 +25,7 @@
     "name" : "Internet Domain",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
+    "license" : "GPL-3",
     "description" : """
 Organize your domains and services
 Tools -> Domain

@@ -49,8 +49,8 @@ def check_cycle(self, cr, uid, ids, context=None):
 class training_group(osv.osv):
     _inherit = 'training.group'
     _columns = {
-        'parent_id' : fields.many2one('training.group', 'Parent Group'),
-        'generate_seances' : fields.boolean('Generate Seances'),
+        'parent_id': fields.many2one('training.group', 'Parent Group'),
+        'generate_seances': fields.boolean('Generate Seances'),
     }
     
     _check_recursion = check_cycle

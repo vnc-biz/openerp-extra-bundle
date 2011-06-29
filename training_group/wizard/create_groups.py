@@ -44,10 +44,11 @@ class training_create_groups_wizard(osv.osv_memory):
     def _get_default_level1 (self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        for training_session in self.pool.get('training.session').browse(cr, uid, ids, context=context):
-            return training_session.name
+        if context['active_model'] == 'training.session':
+            for training_session in self.pool.get('training.session').browse(cr, uid, ids, context=context):
+                return training_session.name
         return False
-    
+
     _defaults = {
         'state' : lambda *a: 'draft',
         'session_ids': lambda cr, uid, ids, context: context['active_model'] != 'ir.ui.menu' and context['active_ids'] or [],

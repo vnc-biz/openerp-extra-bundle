@@ -1,0 +1,1615 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* training_dining_hall
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.1\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-05-16 09:31+0000\n"
+"PO-Revision-Date: 2011-06-09 20:54+0100\n"
+"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_participation_generator
+msgid "training.participation.generator"
+msgstr "formació.participació.generador"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,monday:0
+msgid "Select it if the contact goes to the dining hall on Monday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els dilluns."
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Lecturers"
+msgstr "Professors"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_seance_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_seance_menu
+#: view:training.group:0
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Seances"
+msgstr "Sessions"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_menu_type_action
+#: field:training.dining_hall.rule.line,menu_type_ids:0
+msgid "Menu Types"
+msgstr "Tipus de menú"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Validated by"
+msgstr "Validat per"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: selection:training.dining_hall.rule.line.product,type:0
+msgid "Eventual"
+msgstr "Eventual"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule,num_unit_time:0
+msgid "Unit Time Number"
+msgstr "Número d'unitats de temps"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,name:0
+msgid "The name of the rule."
+msgstr "El nom de regla."
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,sunday:0
+msgid "Sunday"
+msgstr "Diumenge"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:321
+#, python-format
+msgid "The end date is before to the start date!"
+msgstr "La data final és anterior a la data inicial!"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Search Subscription"
+msgstr "Cerca inscripció"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,stable_ids:0
+msgid "Stable rule lines"
+msgstr "Línies de regla estables"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,friday:0
+msgid "Select it if the contact goes to the dining hall on Friday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els divendres."
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,group_ids:0
+msgid "The groups related with this dining hall rule."
+msgstr "El grup relacionat amb aquesta regla de menjador."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "My Subscriptions"
+msgstr "Les meves inscripcions"
+
+#. module: training_dining_hall
+#: model:training.course.kind,name:training_dining_hall.training_course_kind_dining
+#: model:training.offer.kind,name:training_dining_hall.training_offer_kind_dining
+msgid "Dining"
+msgstr "Menjar"
+
+#. module: training_dining_hall
+#: sql_constraint:training.group:0
+msgid "It already exists a group with this name"
+msgstr "Ja existeix un grup amb aquest nom"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/wizard/generate_participations.py:87
+#, python-format
+msgid "The contact %s haven't got a partner relationship!"
+msgstr "El contacte %s no té una relació amb una empresa!"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Seance Description"
+msgstr "Descripció de sessió"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Today+1"
+msgstr "Demà"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_participation_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_participation_menu
+#: view:training.participation:0
+msgid "Participations"
+msgstr "Participacions"
+
+#. module: training_dining_hall
+#: selection:training.dining_hall.rule,unit_time:0
+msgid "Weeks"
+msgstr "Setmanes"
+
+#. module: training_dining_hall
+#: help:training.group,dining_rule_id:0
+msgid "Determine the rule of the group."
+msgstr "Determina la regla del grup."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "To Invoice"
+msgstr "A facturar"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Today"
+msgstr "Avui"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Do you want to cancel this subscription line ?"
+msgstr "Voleu cancel·lar aquesta línia d'inscripció?"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/wizard/generate_participations.py:83
+#, python-format
+msgid "The school %s haven't got any default pricelist assigned!"
+msgstr "El centre de formació %s no té assignat cap tarifa per defecte!"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule,line_ids:0
+msgid "Rule Lines"
+msgstr "Línies de regla"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: field:training.group,special_days_ids:0
+msgid "Special Days"
+msgstr "Dies especials"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.subscription.line:0
+msgid "Offer"
+msgstr "Curs"
+
+#. module: training_dining_hall
+#: field:training.multi.school,rule_ids:0
+msgid "Rules"
+msgstr "Regles"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,friday:0
+msgid "Friday"
+msgstr "Divendres"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Automatic Declaration"
+msgstr "Declaració automàtica"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Catalog"
+msgstr "Catàleg"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Postponement"
+msgstr "Ajornament"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,date_to:0
+#: field:training.group.special_day,date_to:0
+msgid "Date to"
+msgstr "Data fins a"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.special_day.rule,policy_not_used:0
+msgid "Policy Not Used"
+msgstr "Política de no s'utilitza"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_seance
+msgid "training.seance"
+msgstr "formació.convocatòria"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Created by"
+msgstr "Creat per"
+
+#. module: training_dining_hall
+#: field:res.partner.contact,menu_type_id:0
+#: view:training.dining_hall.menu_type:0
+#: field:training.dining_hall.menu_type,name:0
+msgid "Menu Type"
+msgstr "Tipus de menú"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:437
+#, python-format
+msgid "You cannot modify weekday lines before today!"
+msgstr "No podeu modificar línies de dies de la setmana anteriors a avui! "
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Replacement"
+msgstr "Reemplaçament"
+
+#. module: training_dining_hall
+#: view:training.create.seances.wizard:0
+msgid "Generate"
+msgstr "Genera"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Present"
+msgstr "Assistència"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:321
+#: code:addons/training_dining_hall/training_dining_hall.py:324
+#: code:addons/training_dining_hall/training_dining_hall.py:334
+#: code:addons/training_dining_hall/training_dining_hall.py:387
+#: code:addons/training_dining_hall/training_dining_hall.py:453
+#: code:addons/training_dining_hall/training_dining_hall.py:554
+#: code:addons/training_dining_hall/training_dining_hall.py:559
+#: code:addons/training_dining_hall/training_dining_hall.py:565
+#, python-format
+msgid "User Error"
+msgstr "Error d'usuari"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_rule_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_rule_menu
+#: view:training.dining_hall.rule:0
+msgid "Dining Hall Rules"
+msgstr "Regles de menjador"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,school_id:0
+msgid "The school related with this rule."
+msgstr "El centre de formació relacionat amb aquesta regla."
+
+#. module: training_dining_hall
+#: sql_constraint:training.dining_hall.menu_type:0
+msgid "The name of the Menu Type must be unique!"
+msgstr "El nom de tipus de menú ha de ser únic!"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_rule_line_product
+msgid "training.dining_hall.rule.line.product"
+msgstr "formació.menjador.regla.línia.producte"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Do you want to start this seance ?"
+msgstr "Voleu iniciar aquesta sessió?"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Month+1"
+msgstr "Mes+1"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:555
+#, python-format
+msgid "In order to create seances, you must first enter a session end date for the %s school."
+msgstr "Per poder crear sessions, primer heu d'introduir la data final de l'edició per al centre %s."
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:625
+#, python-format
+msgid "The job for the subscription line %s not correctly defined!"
+msgstr "El treball per la línia d'inscripció %s no s'ha definit correctament!"
+
+#. module: training_dining_hall
+#: selection:training.dining_hall.rule,unit_time:0
+msgid "Days"
+msgstr "Dies"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Closed Subscription"
+msgstr "Inscripcions tancades"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:434
+#: code:addons/training_dining_hall/training_dining_hall.py:437
+#: code:addons/training_dining_hall/training_dining_hall.py:440
+#: code:addons/training_dining_hall/training_dining_hall.py:621
+#: code:addons/training_dining_hall/training_dining_hall.py:624
+#: code:addons/training_dining_hall/training_dining_hall.py:627
+#: code:addons/training_dining_hall/wizard/generate_participations.py:76
+#: code:addons/training_dining_hall/wizard/generate_participations.py:81
+#: code:addons/training_dining_hall/wizard/generate_participations.py:83
+#: code:addons/training_dining_hall/wizard/generate_participations.py:87
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,line_ids:0
+msgid "The rule lines related with  this dining hall rule."
+msgstr "La línia de regla relacionada amb aquesta regla de menjador."
+
+#. module: training_dining_hall
+#: view:res.partner.contact:0
+msgid "The weekdays that the pupil will come to the dining hall"
+msgstr "Defineix els dies de la setmana que els contactes van al menjador."
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Week-1"
+msgstr "Setmana-1"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Cancelled"
+msgstr "Cancel·lat"
+
+#. module: training_dining_hall
+#: view:training.participation.generator:0
+msgid "This wizard create one participation for each seance of the session for each contact you select here."
+msgstr "Aquest assistent crearà una participació per cada sessió de l'edició per cada contacte que seleccioneu aquí."
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_weekdays
+msgid "Define the weekdays that the contact goes to the dining hall."
+msgstr "Defineix els dies de la setmana que els contactes van al menjador."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Invoice Address"
+msgstr "Adreça de factura"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,min_days:0
+msgid "The minimum threshold for this rule."
+msgstr "El llindar mínim per aquesta regla."
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:434
+#, python-format
+msgid "The end date is prior to the start date!"
+msgstr "La data final és anterior a la data inicial!"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Reference"
+msgstr "Referència"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Group By..."
+msgstr "Agrupa per"
+
+#. module: training_dining_hall
+#: view:training.participation.generator:0
+msgid "Generate Participations"
+msgstr "Genera participacions"
+
+#. module: training_dining_hall
+#: help:res.partner.contact,menu_type_id:0
+msgid "The menu type related with this contact."
+msgstr "El tipus de menú relacionat amb aquest contacte."
+
+#. module: training_dining_hall
+#: selection:training.dining_hall.special_day.rule,policy_not_used:0
+msgid "Not Invoiced"
+msgstr "No facturat"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:334
+#, python-format
+msgid "A weekdays line already exists with a period that overlaps with the current one!"
+msgstr "Ja existeix una línia de dies de la setmana amb un període que es superposa amb aquesta!"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line.product,type:0
+msgid "Type"
+msgstr "Tipus"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:453
+#, python-format
+msgid "A dh_weekdays line already exists with a period that overlaps with the current one!"
+msgstr "Ja existeix una línia de dies de la setmana amb un període que es superposa amb aquesta!"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Course"
+msgstr "Matèria"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Email Style"
+msgstr "Estil d'email"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,date_from:0
+#: field:training.group.special_day,date_from:0
+msgid "Date from"
+msgstr "Data des de"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_participation_generator_act
+msgid "Participation Generator"
+msgstr "Genera participacions"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,wednesday:0
+msgid "Select it if the contact goes to the dining hall on Wednesday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els dimecres."
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Subscription"
+msgstr "Inscripció"
+
+#. module: training_dining_hall
+#: help:training.group.special_day,group_id:0
+msgid "The group related with this special day."
+msgstr "El grup relacionat amb aquest grup especial."
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Thresholds"
+msgstr "Límits"
+
+#. module: training_dining_hall
+#: help:training.group.special_day,date_to:0
+msgid "The end date of the special day."
+msgstr "La data de finalització de dia especial."
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_subscription_line_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_subscription_line_menui
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Subscription Lines"
+msgstr "Línies d'inscripció"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.subscription.line:0
+msgid "Confirmed"
+msgstr "Confirmat"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.subscription.line:0
+msgid "Participant"
+msgstr "Participant"
+
+#. module: training_dining_hall
+#: constraint:training.dining_hall.rule.line:0
+msgid ""
+"Configuration Error! \n"
+"You can't define more than one rule line for the same menu types!"
+msgstr ""
+"Error de configuració!\n"
+"No podeu definir més d'una regla per al mateix tipus de menú!"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.subscription.line:0
+msgid "Confirm"
+msgstr "Confirma"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Other Data"
+msgstr "Altres dades"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/wizard/generate_participations.py:81
+#, python-format
+msgid "The group %s is not assignet to any school!"
+msgstr "El grup %s no està assignat a cap centre de formació!"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: field:training.dining_hall.rule,school_id:0
+msgid "School"
+msgstr "Centre de formació"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Seance Date"
+msgstr "Data de sessió"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Cancel (Penalities)"
+msgstr "Cancel·la (penalització)"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_offers_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_offers_menu
+msgid "Offers"
+msgstr "Cursos"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,picnic_price:0
+msgid "Total Picnic"
+msgstr "Total pícnic"
+
+#. module: training_dining_hall
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_config_menu
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_menu
+#: view:res.partner.contact:0
+msgid "Dining Hall"
+msgstr "Menjador"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule,special_day_ids:0
+msgid "Special Day"
+msgstr "Dia especial"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Reason of Cancellation"
+msgstr "Motiu de cancel·lació"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule,min_days:0
+msgid "Minimum Threshold"
+msgstr "Llindar mínim"
+
+#. module: training_dining_hall
+#: model:product.template,name:training_dining_hall.product_product_dining_product_template
+msgid "Dining Session"
+msgstr "Edició de menjar"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_participation
+#: view:training.participation:0
+#: view:training.seance:0
+msgid "Participation"
+msgstr "Participació"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.seance_participation_stakeholders
+msgid "Lecturer Participations"
+msgstr "Participacions professor"
+
+#. module: training_dining_hall
+#: selection:training.dining_hall.special_day.rule,policy_not_used:0
+msgid "Eventually"
+msgstr "Eventualment"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,eventual_ids:0
+msgid "Eventual rule lines"
+msgstr "Línies de regla eventuals"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Extended filters..."
+msgstr "Filtres extensos..."
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Manual Description"
+msgstr "Descripció manual"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_subscription_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_subscription_menu
+#: view:training.session:0
+#: view:training.subscription:0
+msgid "Subscriptions"
+msgstr "Inscripcions"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Do you want to close this session ?"
+msgstr "Voleu tancar aquesta sessió?"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_create_seances_act
+msgid "Seances Generator"
+msgstr "Genera sessions"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Do you want to close the subscription for this session ?"
+msgstr "Voleu tancar la inscripció per aquesta edició?"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_menu_type
+msgid "Define a type of dining hall menu."
+msgstr "Definiu un tipus de menú de menjador."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Do you want to confirm the request for this subscription ?"
+msgstr "Voleu confirmar la sol·licitud d'aquesta inscripció?"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Session State"
+msgstr "Estat d'edició"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Do you want to open this session ?"
+msgstr "Voleu obrir aquesta sessió?"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_session
+msgid "training.session"
+msgstr "formació.edició"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_special_day_type_action
+#: model:ir.ui.menu,name:training_dining_hall.training_special_day_type_menu
+msgid "Special Day Types"
+msgstr "Tipus de dies especials"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+msgid "Threshold for stable price"
+msgstr "Llindar per al preu estable"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Close Subscriptions"
+msgstr "Tanca inscripció"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,name:0
+#: field:training.dining_hall.rule.line.product,dining_rule_line_id:0
+msgid "Rule Line"
+msgstr "Línia de regla"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+#: view:training.subscription.line:0
+msgid "Kind"
+msgstr "Mode"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Session"
+msgstr "Edició"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_multi_school
+msgid "Manage Training Multi Schools"
+msgstr "Gestiona múltiples centres de formació"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Futures"
+msgstr "Futurs"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,thursday:0
+msgid "Select it if the contact goes to the dining hall on Thursday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els dijous."
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Procurement"
+msgstr "Proveïment"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Do you want to cancel this session ?"
+msgstr "Voleu cancel·lar aquesta edició?"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_res_partner_contact
+#: field:training.dining_hall.weekdays,contact_id:0
+#: view:training.participation:0
+#: field:training.participation.generator,contact_ids:0
+#: view:training.subscription.line:0
+msgid "Contact"
+msgstr "Contacte"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "To Fix"
+msgstr "Per corregir"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Training place"
+msgstr "Lloc de formació"
+
+#. module: training_dining_hall
+#: model:ir.ui.menu,name:training_dining_hall.training_menu_type_menu
+msgid "Menu types"
+msgstr "Tipus de menú"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Do you want to cancel this seance ?"
+msgstr "Voleu cancel·lar aquesta sessió?"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Cancel (Free)"
+msgstr "Cancel·la (gratis)"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule.line,menu_type_ids:0
+msgid "The menu types related with this rule line."
+msgstr "El tipus de menú relacionat amb aquesta línia de regla."
+
+#. module: training_dining_hall
+#: help:training.dining_hall.special_day.rule,dining_rule_id:0
+msgid "Determine the rule of the special day."
+msgstr "Determina la regla del dia especial."
+
+#. module: training_dining_hall
+#: help:training.group,special_days_ids:0
+msgid "The special days related with this group."
+msgstr "El dia especial relacionat amb aquest grup."
+
+#. module: training_dining_hall
+#: field:res.partner.contact,picnic:0
+#: view:training.dining_hall.rule:0
+#: selection:training.dining_hall.rule.line.product,type:0
+#: selection:training.dining_hall.special_day.rule,policy_not_used:0
+msgid "Picnic"
+msgstr "Pícnic"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Seance Search"
+msgstr "Cerca sessió"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule.line,name:0
+msgid "The name of the rule line."
+msgstr "El nom de la línia de regla."
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+msgid "Search Courses"
+msgstr "Cerca matèries"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,tuesday:0
+msgid "Tuesday"
+msgstr "Dimarts"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: selection:training.dining_hall.rule.line.product,type:0
+#: selection:training.dining_hall.special_day.rule,policy_not_used:0
+msgid "Stable"
+msgstr "Estable"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_rule_shortcut
+msgid "Dining Rules"
+msgstr "Regles de menjador"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Month"
+msgstr "Mes"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Generate Reports"
+msgstr "Genera informe"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Group by..."
+msgstr "Agrupa per"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Course Information"
+msgstr "Informació de la matèria"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_subscription_new_act
+msgid "New Subscription"
+msgstr "Nova inscripció"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Email Notifcation Extra Text"
+msgstr "Text extra per l'email de notificació"
+
+#. module: training_dining_hall
+#: view:training.session:0
+#: view:training.subscription.line:0
+msgid "Product Line"
+msgstr "Línia de producte"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Do you want to confirm this subscription line ?"
+msgstr "Voleu confirmar aquesta línia d'inscripció?"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Invoiced"
+msgstr "Facturat"
+
+#. module: training_dining_hall
+#: constraint:training.session:0
+msgid "You have a seance with a date inferior to the session's date."
+msgstr "Teniu una sessió amb una data anterior a la data de l'edició."
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_group
+#: field:res.partner.contact,group_id:0
+#: view:training.group:0
+#: field:training.group.special_day,group_id:0
+#: view:training.seance:0
+msgid "Group"
+msgstr "Grup"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Opened"
+msgstr "Obert"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Session Search"
+msgstr "Cercar d'edicions"
+
+#. module: training_dining_hall
+#: view:training.group:0
+msgid "Information"
+msgstr "Informació"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,unit_time:0
+msgid "The unit time for the minimum threshold rule"
+msgstr "La unitat de temps per a la regla de llindar mínim"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_special_day_type
+msgid "training.dining_hall.special_day.type"
+msgstr "formació.menjador.dia_especial.tipus"
+
+#. module: training_dining_hall
+#: constraint:training.session:0
+msgid "You have a seance with a later date to the session's end date."
+msgstr "Teniu una sessió amb una data posterior a la data de finalització de l'edició"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Today-1"
+msgstr "Ahir"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Search Subscription Line"
+msgstr "Cerca línia d'inscripció"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,tuesday:0
+msgid "Select it if the contact goes to the dining hall on Tuesday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els dimarts."
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.seance_participations
+#: view:training.seance:0
+msgid "Participants"
+msgstr "Participants"
+
+#. module: training_dining_hall
+#: view:training.participation.generator:0
+msgid "Participation Generator Wizard"
+msgstr "Assistent per generar participacions"
+
+#. module: training_dining_hall
+#: selection:training.create.seances.wizard,state:0
+#: view:training.session:0
+#: view:training.subscription.line:0
+msgid "Draft"
+msgstr "Esborrany"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Closed"
+msgstr "Tancat"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_group_special_day
+msgid "training.group.special_day"
+msgstr "formació.grup.dia_especial"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_rule
+msgid "training.dining_hall.rule"
+msgstr "formació.menjador.regla"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_special_day_rule
+msgid "training.dining_hall.special_day.rule"
+msgstr "formació.menjador.dia_especial.regla"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Session Date"
+msgstr "Data d'edició"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:560
+#, python-format
+msgid "The session end date is before to the start date for the %s school."
+msgstr "La data final de la edició és anterior a la data d'inici, per al centre %s."
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:566
+#, python-format
+msgid "In order to create seances, you must create the %s holiday year for the %s school first."
+msgstr "Per a poder crear sessions, primer heu de crear el calendari de festius de l'any %s per al centre %s."
+
+#. module: training_dining_hall
+#: help:training.multi.school,rule_ids:0
+msgid "Determine the rules of the dining hall."
+msgstr "Determineu les regles de menjador."
+
+#. module: training_dining_hall
+#: help:training.dining_hall.special_day.rule,special_day_type_id:0
+#: help:training.group.special_day,special_day_type_id:0
+msgid "The type of this special day."
+msgstr "El tipus d'aquest dia especial."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Confirm Request"
+msgstr "Confirma sol·licitud"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+msgid "Seance"
+msgstr "Sessió"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,monday:0
+msgid "Monday"
+msgstr "Dilluns"
+
+#. module: training_dining_hall
+#: help:training.create.seances.wizard,session_ids:0
+msgid "The session related with the seances."
+msgstr "Les edicions relacionades amb la sessió."
+
+#. module: training_dining_hall
+#: help:res.partner.contact,group_id:0
+msgid "The group that owns this contact."
+msgstr "El grup al que pertany aquest contacte."
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,stable_price:0
+msgid "Total Stable"
+msgstr "Total estable"
+
+#. module: training_dining_hall
+#: model:ir.module.module,shortdesc:training_dining_hall.module_meta_information
+msgid "training_dining_hall"
+msgstr "formació_menjador"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:622
+#, python-format
+msgid "The contact for the job %s not correctly defined!"
+msgstr "El contacte pel treball %s no està definit correctament!"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Do you want to confirm this session ?"
+msgstr "Voleu confirmar aquesta sessió?"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Overall seats"
+msgstr "Places generals"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_group_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_group_menu
+#: view:training.dining_hall.rule:0
+#: field:training.dining_hall.rule,group_ids:0
+#: view:training.group:0
+#: view:training.session:0
+msgid "Groups"
+msgstr "Grups"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,special_day_ids:0
+msgid "The special days related with this dining hall rule."
+msgstr "Els dies especials relacionats amb aquesta regla de menjador."
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: field:training.dining_hall.rule,active:0
+msgid "Active"
+msgstr "Actiu"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: field:training.participation,expected_present:0
+msgid "Expected Present"
+msgstr "Assistència prevista"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Extended Filters..."
+msgstr "Filtres extensos..."
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Internal Note"
+msgstr "Nota interna"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule.line.product,product_id:0
+msgid "The product related with this rule line."
+msgstr "El producte relacionat amb aquesta línia de regla."
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,absent_ids:0
+msgid "Absent rule lines"
+msgstr "Línies de regla d'absència"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,wednesday:0
+msgid "Wednesday"
+msgstr "Dimecres"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule,name:0
+#: field:training.dining_hall.rule.line,dining_rule_id:0
+#: field:training.dining_hall.special_day.rule,dining_rule_id:0
+#: field:training.group,dining_rule_id:0
+msgid "Rule"
+msgstr "Regla"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+msgid "Summary"
+msgstr "Resum"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_courses_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_courses_menu
+msgid "Courses"
+msgstr "Matèries"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,thursday:0
+msgid "Thursday"
+msgstr "Dijous"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.menu_type,name:0
+msgid "The name of the type of the menu."
+msgstr "El nom del tipus de menú."
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,date_to:0
+msgid "The end date of period."
+msgstr "La data final del període."
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Do you want to postpone this subscription line ?"
+msgstr "Voleu posposar aquesta línia d'inscripció?"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule,num_unit_time:0
+msgid "The unit time number for the minimum threshold rule."
+msgstr "El número de unitats de temps per a la regla de llindar mínim."
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Start"
+msgstr "Inicia"
+
+#. module: training_dining_hall
+#: constraint:training.seance:0
+msgid "You have a session with a date inferior to the seance's date"
+msgstr "Teniu una edició amb una data anterior a una data d'una sessió."
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "History"
+msgstr "Historial"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "_Create Seances"
+msgstr "_Crea sessions"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: field:training.dining_hall.special_day.rule,special_day_type_id:0
+#: view:training.dining_hall.special_day.type:0
+#: field:training.dining_hall.special_day.type,name:0
+#: field:training.group.special_day,special_day_type_id:0
+msgid "Special Day Type"
+msgstr "Tipus de dia especial"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Do you want to do a replacement for this subscription line ?"
+msgstr "Voleu reemplaçar aquesta línia d'inscripció?"
+
+#. module: training_dining_hall
+#: view:training.create.seances.wizard:0
+msgid "This wizard will generate one seance for each day between the start date and end date of the session (the holidays of the school calendar will be excluded)."
+msgstr "Aquest assistent generarà una sessió per cada dia entre la data inicial i la data final de l'edició (s'exclouran els dies de vacances del calendari del centre de formació)."
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_seance_attachment
+msgid "Attachments"
+msgstr "Adjunts"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Search Course"
+msgstr "Cerca de matèries"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Creator"
+msgstr "Creador"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "To Validate"
+msgstr "Per validar"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Has Certificate"
+msgstr "Té certificat"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+msgid "Participation Description"
+msgstr "Descripció de la participació"
+
+#. module: training_dining_hall
+#: field:training.create.seances.wizard,state:0
+#: view:training.seance:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "State"
+msgstr "Estat"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,sunday:0
+msgid "Select it if the contact goes to the dining hall on Sunday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els diumenges."
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "General"
+msgstr "General"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+msgid "Procurements"
+msgstr "Proveïments"
+
+#. module: training_dining_hall
+#: selection:training.create.seances.wizard,state:0
+#: view:training.seance:0
+#: view:training.subscription.line:0
+msgid "Done"
+msgstr "Fet"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Do you want to cancel this subscription ?"
+msgstr "Voleu cancel·lar aquesta inscripció?"
+
+#. module: training_dining_hall
+#: view:training.create.seances.wizard:0
+#: view:training.participation.generator:0
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#. module: training_dining_hall
+#: view:training.create.seances.wizard:0
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Close"
+msgstr "Tanca"
+
+#. module: training_dining_hall
+#: sql_constraint:training.participation:0
+msgid "The subscription and the seance must be unique !"
+msgstr "La inscripció i la sessió han de ser úniques!"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Open"
+msgstr "Obert"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:628
+#, python-format
+msgid "The subscription line for the participation not correctly defined!"
+msgstr "La línia d'inscripció per la participació no està definida correctament!"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.seance_purchase_orders_rel
+msgid "Purchase Orders"
+msgstr "Comandes de compra"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+msgid "In Progress"
+msgstr "En procés"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.seance_sessions
+#: view:training.seance:0
+msgid "Linked Sessions"
+msgstr "Edicions relacionades"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.special_day.type,name:0
+msgid "The name of the special day type."
+msgstr "El nom del tipus de dia especial."
+
+#. module: training_dining_hall
+#: view:training.seance:0
+#: view:training.session:0
+#: view:training.subscription:0
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,date_from:0
+msgid "The start date of period."
+msgstr "La data d'inici de període."
+
+#. module: training_dining_hall
+#: constraint:training.seance:0
+msgid "The minimum limit is greater than the maximum limit"
+msgstr "El límit mínim és major que el límit màxim"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Create Invoice"
+msgstr "Crea factura"
+
+#. module: training_dining_hall
+#: model:ir.module.module,description:training_dining_hall.module_meta_information
+msgid "Management of a training dining hall"
+msgstr "Gestió d'un menjador d'un centre educatiu"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule.line,dining_rule_id:0
+msgid "The rule related with this rule line."
+msgstr "La regla relacionada amb aquesta línia de regla."
+
+#. module: training_dining_hall
+#: help:training.participation.generator,contact_ids:0
+msgid "Select the Participant."
+msgstr "Seleccioneu el participant."
+
+#. module: training_dining_hall
+#: help:res.partner.contact,picnic:0
+msgid "If checked, the contact menu when go out for an excursion is payed as a picnic."
+msgstr "Si està activat, el menú del contacte quan va d'excursió es paga com a pícnic."
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line.product,product_id:0
+msgid "Product"
+msgstr "Producte"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "First Seance"
+msgstr "Primera sessió"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:387
+#, python-format
+msgid "You cannot delete weekday lines before today."
+msgstr "No podeu eliminar línies de dies de la setmana anteriors a avui."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Invoicing"
+msgstr "Facturació"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_session_action
+#: model:ir.ui.menu,name:training_dining_hall.training_dining_hall_session_menu
+#: view:training.create.seances.wizard:0
+#: field:training.create.seances.wizard,session_ids:0
+#: view:training.session:0
+msgid "Sessions"
+msgstr "Edicions"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,absent_price:0
+msgid "Total Absent"
+msgstr "Total absents"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,picnic_ids:0
+msgid "Picnic rule lines"
+msgstr "Línies de regla de pícnic"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line.product,price:0
+#: view:training.subscription:0
+msgid "Price"
+msgstr "Preu"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Email"
+msgstr "Email"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Confirmed Lecturer"
+msgstr "Professor confirmat"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.rule.line.product,dining_rule_line_id:0
+msgid "The rule line related with this product."
+msgstr "La línia de regla relacionada amb aquest producte."
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:324
+#, python-format
+msgid "The start date is before today!"
+msgstr "La data d'inici és anterior a avui!"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_dining_hall_seance_planning_act
+msgid "Calendar of Seances"
+msgstr "Calendari de sessions"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+msgid "Before you can insert any product, first you should save this rule line."
+msgstr "Abans d'introduir un producte, teniu que desar aquesta línia de regla."
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_dining_hall_rule_line
+msgid "training.dining_hall.rule.line"
+msgstr "formació.menjador.regla.línia"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: selection:training.dining_hall.rule.line.product,type:0
+#: selection:training.dining_hall.special_day.rule,policy_not_used:0
+#: view:training.participation:0
+msgid "Absent"
+msgstr "Absent"
+
+#. module: training_dining_hall
+#: selection:training.dining_hall.rule,unit_time:0
+msgid "Months"
+msgstr "Mesos"
+
+#. module: training_dining_hall
+#: help:training.group.special_day,date_from:0
+msgid "The start date of the special day."
+msgstr "La data d'inici del dia especial."
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+#: view:training.participation:0
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Do you want to close this seance ?"
+msgstr "Voleu tancar aquesta sessió?"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule,unit_time:0
+msgid "Unit Time"
+msgstr "Unitat de temps"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Week+1"
+msgstr "Setmana+1"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Seats"
+msgstr "Places"
+
+#. module: training_dining_hall
+#: view:training.dining_hall.rule:0
+msgid "Lines"
+msgstr "Línies"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "Subscription Description"
+msgstr "Descripció de la inscripció"
+
+#. module: training_dining_hall
+#: model:ir.actions.act_window,name:training_dining_hall.training_create_seances_wizard_action
+#: model:ir.ui.menu,name:training_dining_hall.training_create_seances_wizard_menu
+#: view:training.create.seances.wizard:0
+msgid "Seances Generator Wizard"
+msgstr "Assistent de generació de sessions"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Month-1"
+msgstr "Mes-1"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Future"
+msgstr "Futur"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Do you want to close this session for the subscription ?"
+msgstr "Voleu tancar aquesta sessió per a la inscripció?"
+
+#. module: training_dining_hall
+#: help:training.dining_hall.weekdays,saturday:0
+msgid "Select it if the contact goes to the dining hall on Saturday."
+msgstr "Seleccioneu-lo si el contacte va al menjador els dissabtes."
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Subscription Line"
+msgstr "Línia d'inscripció"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Do you want to confirm this seance (procurements, ...) ?"
+msgstr "Voleu confirmar aquesta sessió (proveïments,...)?"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/training_dining_hall.py:440
+#, python-format
+msgid "You cannot modify the begining date of a weekday line when this is prior to today!"
+msgstr "No podeu modificar la data de començament d'una línia de dies de la setmana quan aquesta és anterior a avui!"
+
+#. module: training_dining_hall
+#: view:training.subscription.line:0
+msgid "Cancelled by"
+msgstr "Cancel·lat per"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.rule.line,eventual_price:0
+msgid "Total Eventual"
+msgstr "Total d'eventuals"
+
+#. module: training_dining_hall
+#: model:ir.model,name:training_dining_hall.model_training_create_seances_wizard
+msgid "training.create.seances.wizard"
+msgstr "formació.creació.sessions.assistent"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+msgid "Week"
+msgstr "Setmana"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Total Duration"
+msgstr "Durada total"
+
+#. module: training_dining_hall
+#: code:addons/training_dining_hall/wizard/generate_participations.py:76
+#, python-format
+msgid "The contact %s %s haven't got a group relationship!"
+msgstr "El contacte %s %s no té una relació amb un grup!"
+
+#. module: training_dining_hall
+#: view:training.participation:0
+#: view:training.seance:0
+#: view:training.session:0
+msgid "Date"
+msgstr "Data"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+msgid "subscription"
+msgstr "inscripció"
+
+#. module: training_dining_hall
+#: view:training.subscription:0
+#: view:training.subscription.line:0
+msgid "Create Date"
+msgstr "Data de creació"
+
+#. module: training_dining_hall
+#: field:res.partner.contact,weekdays_ids:0
+msgid "Weekdays"
+msgstr "Dies de la setmana"
+
+#. module: training_dining_hall
+#: view:training.seance:0
+msgid "Duration"
+msgstr "Durada"
+
+#. module: training_dining_hall
+#: view:training.session:0
+msgid "Session Description"
+msgstr "Descripció de l'edició"
+
+#. module: training_dining_hall
+#: field:training.dining_hall.weekdays,saturday:0
+msgid "Saturday"
+msgstr "Dissabte"
+

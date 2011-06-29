@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+<!-- promote.group.contacts.wizard -->
+        <record model="ir.ui.view" id="promote_group_contacts_wizard_view">
+            <field name="name">Promote Students Wizard</field>
+            <field name="model">promote.group.contacts.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Promote Students Wizard">
+                    <group string="Select the Session and the Main Group from you want to Promote" colspan="2" col="2">
+                        <field name="from_session_id" required="1"/>
+                        <field name="from_group_id" domain="[('parent_id', '=', False), ('session_id', '=', from_session_id)]" required="1"/>
+                    </group>
+                    <group string="Select the Session and the Main Group to you want to Promote" colspan="2" col="2">
+                        <field name="to_session_id" required="1"/>
+                        <field name="to_group_id" domain="[('parent_id', '=', False), ('session_id', '=', to_session_id)]" required="1"/>
+                    </group>
+                    <button icon="gtk-ok" string="Fill From Group Lines" name="search_from_group_childs" type="object" colspan="2"/>
+                    <field name="line_ids" nolabel="1" colspan="4">
+                        <tree string="Select the origin and destination groups" editable="bottom">
+                            <field name="parent_id" invisible="1"/>
+                            <field name="from_group_id" domain="['|', ('parent_id', '=', parent.to_group_id), ('parent_id.parent_id', '=', parent.to_group_id)]"/>
+                            <field name="to_group_id" domain="['|', ('parent_id', '=', parent.to_group_id), ('parent_id.parent_id', '=', parent.to_group_id)]"/>
+                        </tree>
+                    </field>
+                    <field name="create_participations"/>
+                    <group colspan="4">
+                        <button icon='gtk-cancel' string="Cancel" special="cancel" colspan="2"/>
+                        <button icon="gtk-ok" string="Next" name="promote_contacts" type="object" colspan="2"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+            name="Promote Students"
+            id="training_update_groups_act"
+            src_model="training.session"
+            res_model="promote.group.contacts.wizard"
+            key2="client_action_multi"
+            view_type="form"
+            view_mode="form"
+            target="new"/>
+
+        <record model="ir.actions.act_window" id="promote_group_contacts_wizard_action">
+            <field name="name">Promote Students Wizard</field>
+            <field name="res_model">promote.group.contacts.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem
+            name="Promote Students Wizard"
+            id="promote_group_contacts_wizard_menu"
+            action="promote_group_contacts_wizard_action"
+            parent="training_dining_hall_group_menu"/>
+
+    </data>
+</openerp>

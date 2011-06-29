@@ -57,12 +57,12 @@
 				        <field name="upload_file" groups="base.group_extended"/>
 				        <field name="output_file" groups="base.group_extended"/>
 				        <field name="active_python_code" groups="base.group_extended"/>
+                        <field name="carte_id"/>
 				        <field name="last_date"/>
 			        </group>
                     <notebook colspan="4">
                         <page string="Parameters">
                             <field name="parameter_ids" nolabel="1" colspan="4" />
-                            <field name="carte_id"/>
                         </page>
                         <page attrs="{'invisible':[('active_python_code','!=',1)]}"  string="Python code" groups="base.group_extended">
                             <separator colspan="4" string="Python code executed before transformation/job" />

@@ -62,7 +62,7 @@ class kettle_server(osv.osv):
     _columns = {
         'name': fields.char('Server name', size=64, required=True),
         'kettle_dir': fields.char('Kettle installation directory', size=256, required=True),
-        'url': fields.char('Kettle URL', size=64, required=True, help='URL of Kettle server if any (can be localhost)'),
+        'url': fields.char('Kettle URL', size=64, help='URL of Kettle server if any (can be localhost)'),
         'user': fields.char('Kettle server user', size=32),
         'password': fields.char('Kettle server password', size=32),
         }

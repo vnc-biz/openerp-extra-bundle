@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--course-->
+        <record model="ir.ui.view" id="training_course_form_elearning_alias">
+            <field name="name">training.course.form.elearning.alias</field>
+            <field name="model">training.course</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_course_form" />
+            <field name="arch" type="xml">
+                <field name="long_name" position="replace">
+                    <field name="long_name" attrs="{'readonly' : [('p_id', '!=', False)]}" colspan="4" on_change="onchange_longName(long_name, alias)"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_course_form_elearning">
+            <field name="name">training.course.form.elearning</field>
+            <field name="model">training.course</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_course_form" />
+            <field name="arch" type="xml">
+                <page string="History" position="after">
+                    <page string="SEO">
+                        <field name="alias" colspan="4" />
+                        <separator string="Metakey" colspan="4" />
+                        <field name="metakey" nolabel="1" colspan="4" />
+                        <separator string="MetaDescription" colspan="4" />
+                        <field name="metadescription" nolabel="1" colspan="4" />
+                    </page>
+                </page>
+            </field>
+        </record>
+
+        <!--offer-->
+        <record model="ir.ui.view" id="training_offer_form_elearning_alias">
+            <field name="name">training.offer.form.elearning.alias</field>
+            <field name="model">training.offer</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_offer_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" on_change="onchange_name(name, alias)"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_offer_form_elearning">
+            <field name="name">training.offer.form.elearning</field>
+            <field name="model">training.offer</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_offer_form" />
+            <field name="arch" type="xml">
+                <page string="Notification Note" position="after">
+                    <page string="SEO">
+                        <field name="alias" />
+                        <field name="active" />
+                        <field name="frontpage" />
+                        <separator string="Metakey" colspan="4" />
+                        <field name="metakey" nolabel="1" colspan="4" />
+                        <separator string="MetaDescription" colspan="4" />
+                        <field name="metadescription" nolabel="1" colspan="4" />
+                    </page>
+                </page>
+            </field>
+        </record>
+
+        <!--session-->
+        <record model="ir.ui.view" id="training_session_form_elearning_alias">
+            <field name="name">training.session.form.elearning.alias</field>
+            <field name="model">training.session</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_session_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" on_change="onchange_name(name, alias)"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="training_session_form_elearning">
+            <field name="name">training.session.form.elearning</field>
+            <field name="model">training.session</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="training.training_session_form" />
+            <field name="arch" type="xml">
+                <page string="Groups" position="after">
+                    <page string="SEO">
+                        <field name="alias" colspan="4" />
+                        <separator string="Metakey" colspan="4" />
+                        <field name="metakey" nolabel="1" colspan="4" />
+                        <separator string="MetaDescription" colspan="4" />
+                        <field name="metadescription" nolabel="1" colspan="4" />
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

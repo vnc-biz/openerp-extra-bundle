@@ -1,14 +1,14 @@
 # Finnish translation for openobject-addons
-# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
 # This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-07 13:39+0000\n"
-"PO-Revision-Date: 2011-06-28 06:49+0000\n"
+"POT-Creation-Date: 2011-03-02 12:04+0000\n"
+"PO-Revision-Date: 2011-06-28 06:56+0000\n"
 "Last-Translator: Juha Kotamäki <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,10 @@ msgstr ""
 "X-Launchpad-Export-Date: 2011-06-29 05:32+0000\n"
 "X-Generator: Launchpad (build 13168)\n"
 
-#. module: multi_company
-#: model:ir.module.module,shortdesc:multi_company.module_meta_information
-msgid "Multi company base module"
-msgstr "Moniyrityskäytön perusmoduuli"
+#. module: analytic_department
+#: field:account.analytic.account,department_id:0
+#: view:account.analytic.account:0
+#: field:account.analytic.line,department_id:0
+#: view:account.analytic.line:0
+msgid "Department"
+msgstr "Osasto"

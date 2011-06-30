@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 14:28+0000\n"
-"PO-Revision-Date: 2011-06-09 05:46+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-06-29 05:36+0000\n"
+"Last-Translator: Juha Kotamäki <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-06-15 05:54+0000\n"
+"X-Launchpad-Export-Date: 2011-06-30 05:20+0000\n"
 "X-Generator: Launchpad (build 13168)\n"
 
 #. module: sale_margin
@@ -36,12 +36,13 @@ msgstr ""
 msgid ""
 "The Object name must start with x_ and not contain any special character !"
 msgstr ""
+"Objektin nimi täytyy alkaa X_ eikä se saa sisältää mitää erikoismerkkejä!"
 
 #. module: sale_margin
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_all_invoice_by_product
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_invoice_by_product
 msgid "Invoices by Product"
-msgstr ""
+msgstr "Laskut tuotteittain"
 
 #. module: sale_margin
 #: selection:report.account.invoice,type:0
@@ -55,12 +56,12 @@ msgstr "Asiakaslasku"
 #. module: sale_margin
 #: wizard_view:stock.invoice_onshipping,init:0
 msgid "Create invoices"
-msgstr ""
+msgstr "Muodosta laskut"
 
 #. module: sale_margin
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "Virheellinen XML näkymä-arkkitehtuurille!"
 
 #. module: sale_margin
 #: model:ir.model,name:sale_margin.model_report_account_invoice_partner_product
@@ -88,7 +89,7 @@ msgstr "Tila"
 #. module: sale_margin
 #: view:stock.picking:0
 msgid "Create Invoice"
-msgstr ""
+msgstr "Luo lasku"
 
 #. module: sale_margin
 #: selection:report.account.invoice,state:0
@@ -102,12 +103,12 @@ msgstr "Luonnos"
 #. module: sale_margin
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Virheellinen mallin nimi toiminnon määrittelyssä."
 
 #. module: sale_margin
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_all_month_product
 msgid "All Months"
-msgstr ""
+msgstr "Kaikki kuukaudet"
 
 #. module: sale_margin
 #: model:ir.actions.act_window,name:sale_margin.action_report_account_invoice_partner_product_tree
@@ -128,12 +129,12 @@ msgstr "Tyyppi"
 #. module: sale_margin
 #: wizard_field:stock.invoice_onshipping,init,journal_id:0
 msgid "Destination Journal"
-msgstr ""
+msgstr "Kohde päiväkirja"
 
 #. module: sale_margin
 #: view:stock.picking:0
 msgid "Supplier Invoices"
-msgstr ""
+msgstr "Toimittajan Laskut"
 
 #. module: sale_margin
 #: field:report.account.invoice.partner.product,product_id:0
@@ -149,7 +150,7 @@ msgstr ""
 #. module: sale_margin
 #: view:report.account.invoice.category:0
 msgid "Invoices by category"
-msgstr ""
+msgstr "Laskut kategorioittain"
 
 #. module: sale_margin
 #: selection:report.account.invoice,state:0
@@ -164,7 +165,7 @@ msgstr "Maksettu"
 #: model:ir.actions.wizard,name:sale_margin.wizard_picking_invoice_create
 #: wizard_button:stock.invoice_onshipping,init,create_invoice:0
 msgid "Create invoice"
-msgstr ""
+msgstr "Luo lasku"
 
 #. module: sale_margin
 #: model:ir.actions.act_window,name:sale_margin.action_report_account_invoice_category_tree
@@ -176,7 +177,7 @@ msgstr ""
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_all_invoice_by_partner_product
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_invoice_by_partner_product
 msgid "Invoices by Partner and Product"
-msgstr ""
+msgstr "Laskut kumppaneittain ja tuotteittain"
 
 #. module: sale_margin
 #: model:ir.model,name:sale_margin.model_report_account_invoice_category
@@ -207,7 +208,7 @@ msgstr "Hankintahinta"
 #. module: sale_margin
 #: wizard_field:stock.invoice_onshipping,init,group:0
 msgid "Group by partner"
-msgstr ""
+msgstr "Ryhmittele kumppanittain"
 
 #. module: sale_margin
 #: model:ir.model,name:sale_margin.model_report_account_invoice_partner
@@ -218,18 +219,18 @@ msgstr ""
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_all_invoice_by_partner
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_invoice_by_partner
 msgid "Invoices by Partner"
-msgstr ""
+msgstr "Laskut kumppaneittain"
 
 #. module: sale_margin
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_all_invoice_by_category
 #: model:ir.ui.menu,name:sale_margin.menu_report_account_invoice_by_category
 msgid "Invoices by Category"
-msgstr ""
+msgstr "Laskut kategorioittain"
 
 #. module: sale_margin
 #: view:report.account.invoice.partner.product:0
 msgid "Invoices by partner and product"
-msgstr ""
+msgstr "Laskut kumppaneittain ja tuotteittain"
 
 #. module: sale_margin
 #: field:report.account.invoice,amount:0
@@ -243,7 +244,7 @@ msgstr "Määrä"
 #. module: sale_margin
 #: wizard_field:stock.invoice_onshipping,init,invoice_date:0
 msgid "Invoiced date"
-msgstr ""
+msgstr "Laskutuspäivä"
 
 #. module: sale_margin
 #: selection:report.account.invoice,type:0
@@ -288,7 +289,7 @@ msgstr "Laskut tuotteittain"
 #. module: sale_margin
 #: model:ir.module.module,shortdesc:sale_margin.module_meta_information
 msgid "Margins in Sale Orders"
-msgstr ""
+msgstr "Myyntitilauksen kate"
 
 #. module: sale_margin
 #: model:ir.model,name:sale_margin.model_report_account_invoice
@@ -339,7 +340,7 @@ msgstr "Lasku"
 #. module: sale_margin
 #: wizard_button:stock.invoice_onshipping,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Peruuta"
 
 #. module: sale_margin
 #: field:report.account.invoice.partner,partner_id:0

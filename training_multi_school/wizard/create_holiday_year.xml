@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="training_calendar_school_year_form_view">
+            <field name="name">School Calendar Year Generator</field>
+            <field name="model">training.calendar.school.year</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="School Calendar Year Generator" col="2">
+                    <separator string="Create or update the calendars of several schools from a base calendar." colspan="2"/>
+                    <field name="year_id"/>
+                    <field name="school_ids"/>
+                    <separator colspan="2"/>
+                    <group colspan="2" col="2" >
+                        <button name="action_cancel" string="_Cancel" icon="gtk-cancel" special="cancel"/>
+                        <button name="action_apply" type="object" string="_Apply" icon="gtk-apply"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="training_calendar_school_year_action">
+            <field name="name">School Calendar Year Generator</field>
+            <field name="res_model">training.calendar.school.year</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="training_calendar_school_year_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            id="training_calendar_school_year_menu"
+            name="School Calendar Year Generator"
+            parent="training.holiday_mi" 
+            action="training_calendar_school_year_action"
+            icon="STOCK_EXECUTE"/>
+    </data>
+</openerp>

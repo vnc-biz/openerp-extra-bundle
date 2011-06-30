@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- "Training" Group -->
+        <record id="res_groups_multi_school_group" model="res.groups">
+            <field name="name">Training / School Administrator group</field>
+        </record>
+
+         <record id="school_useability_multi_school" model="res.groups">
+            <field name="name">Useability / Multi School</field>
+        </record>
+
+    </data>
+</openerp>

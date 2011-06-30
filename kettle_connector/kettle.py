@@ -335,7 +335,7 @@ class kettle_task(osv.osv):
             else:
                 prefixe_log_name = "[SUCCESS]"
 
-        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(logfilename, 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG'}, context)
+        self.pool.get('ir.attachment').write(cr, uid, [attachment_id], {'datas': base64.encodestring(open(logfilename, 'rb').read()), 'datas_fname': 'Task.log', 'name' : prefixe_log_name + 'TASK_LOG '+context['start_date']}, context)
         cr.commit()
         os.remove(logfilename)
         if os_result != 0:

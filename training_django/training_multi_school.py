@@ -26,8 +26,8 @@ import re
 import unicodedata
 import netsvc
 
-class training_multi_school(osv.osv):
-    _inherit = 'training.multi.school'
+class training_school(osv.osv):
+    _inherit = 'training.school'
 
     _columns = {
         'django': fields.boolean('Django App'),
@@ -71,4 +71,4 @@ class training_multi_school(osv.osv):
                 raise osv.except_osv(_('Error!'), _('Error connection to server.'))
                 return False
 
-training_multi_school()
+training_school()

@@ -3,7 +3,7 @@
     <data>
         <record model="ir.ui.view" id="training_django_multischool_form">
             <field name="name">training.django.multischool.form</field>
-            <field name="model">training.multi.school</field>
+            <field name="model">training.school</field>
             <field name="type">form</field>
             <field name="inherit_id" ref="training_multi_school.multi_school_form_view" />
             <field name="arch" type="xml">

@@ -94,12 +94,12 @@ class create_user_wizard(osv.osv_memory):
             password = ''.join(random.sample(char_set,6))
 
             res = []
-            school_ids = self.pool.get('training.multi.school').search(cr, uid, [('django','=',True)])
+            school_ids = self.pool.get('training.school').search(cr, uid, [('django','=',True)])
 
             if len(school_ids) == 0:
                 result = _('Error: Multi School not active')
 
-            for school in self.pool.get('training.multi.school').browse(cr, uid, school_ids):
+            for school in self.pool.get('training.school').browse(cr, uid, school_ids):
                 values = {
                     'ip': school.django_ip,
                     'port': school.django_port,

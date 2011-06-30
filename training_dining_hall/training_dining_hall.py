@@ -258,15 +258,15 @@ class training_group_special_day(osv.osv):
 training_group_special_day()
 
 
-class training_multi_school(osv.osv):
-    _name = 'training.multi.school'
-    _inherit  =  "training.multi.school"
+class training_school(osv.osv):
+    _name = 'training.school'
+    _inherit  =  "training.school"
 
     _columns = {
         'rule_ids': fields.one2many('training.dining_hall.rule', 'school_id', string = 'Rules', help = 'Determine the rules of the dining hall.'),
     }
 
-training_multi_school()
+training_school()
 
 
 class training_dining_hall_rule(osv.osv):
@@ -275,7 +275,7 @@ class training_dining_hall_rule(osv.osv):
     _columns = {
         'name':fields.char('Rule', size=64, help="The name of the rule."),
         'active' : fields.boolean('Active'),
-        'school_id': fields.many2one('training.multi.school', 'School', required = True, help = 'The school related with this rule.'),
+        'school_id': fields.many2one('training.school', 'School', required = True, help = 'The school related with this rule.'),
         'group_ids': fields.one2many('training.group', 'dining_rule_id', string = 'Groups', required = True, help = 'The groups related with this dining hall rule.'),
         'min_days' : fields.integer('Minimum Threshold', help="The minimum threshold for this rule."),
         'num_unit_time' : fields.integer('Unit Time Number', help="The unit time number for the minimum threshold rule."),

@@ -49,11 +49,11 @@
 <!--    </record>-->
 
 
-<!-- training.multi.school -->
+<!-- training.school -->
         <act_window
             id="training_dining_hall_rule_shortcut"
             name="Dining Rules"
-            src_model='training.multi.school'
+            src_model='training.school'
             res_model='training.dining_hall.rule'
             context='{"active": True}'/>
 

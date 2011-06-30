@@ -436,7 +436,7 @@ class kettle_wizard(osv.osv_memory):
 
     def _save_file(self, cr, uid, id, vals, context):
         # TODO : the "id" argument is never used !
-        kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], context).transformation_id.server_id.kettle_dir
+        kettle_dir = self.pool.get('kettle.task').browse(cr, uid, context['active_id'], context).server_id.kettle_dir
         filename = os.path.join(kettle_dir, 'openerp_tmp', vals['filename'])
         fp = open(filename,'wb+')
         fp.write(base64.decodestring(vals['file']))

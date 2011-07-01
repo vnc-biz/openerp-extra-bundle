@@ -34,8 +34,7 @@
     "version" : "1.0",
     "author" : "Camptocamp",
     "category" : "Generic Modules/Base",
-    "module":
-"""
+    "description": """
 To merge 2 products, select them in the list view and execute the Action "Merge Products".
 
 The selected products are deactivated and a new one is created with :

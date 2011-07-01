@@ -50,27 +50,31 @@
 			<field name="arch" type="xml">
 				<form string="kettle task">
 					<group colspan="4" >
-				        <field name="name" select="1"/>
-                        <field name="server_id" groups="base.group_extended" select="1"/>
+	 			        <field name="name" select="1"/>
+                                        <field name="server_id" groups="base.group_extended" select="1"/>
 				        <field name="transformation_id" groups="base.group_extended" select="1"/>
 				        <field name="scheduler" groups="base.group_extended"/>
 				        <field name="upload_file" groups="base.group_extended"/>
 				        <field name="output_file" groups="base.group_extended"/>
 				        <field name="active_python_code" groups="base.group_extended"/>
-                        <field name="carte_id"/>
-				        <field name="last_date"/>
-			        </group>
+                                        </group>
                     <notebook colspan="4">
-                        <page string="Parameters">
-                            <field name="parameter_ids" nolabel="1" colspan="4" />
+                        <page string="Main information">
+				        <separator colspan="4" string="Parameters" />
+                                        <field name="parameter_ids" nolabel="1" colspan="4" />
+                                        <separator colspan="4" string="Execution logs" />
+                                        <field name="carte_id"/>
+                                        <field name="url"  widget="url"/>
+                                        <field name="last_date"/>
                         </page>
                         <page attrs="{'invisible':[('active_python_code','!=',1)]}"  string="Python code" groups="base.group_extended">
-                            <separator colspan="4" string="Python code executed before transformation/job" />
-                            <field name="python_code_before" colspan = "4" nolabel="1"/>
-                            <separator colspan="4" string="Python code executed after transformation/job" />
-                            <field name="python_code_after" colspan = "4" nolabel="1"/>
+				        <separator colspan="4" string="Python code executed before transformation/job" />
+				        <field name="python_code_before" colspan = "4" nolabel="1"/>
+				        <separator colspan="4" string="Python code executed after transformation/job" />
+				        <field name="python_code_after" colspan = "4" nolabel="1"/>
                         </page>
                     </notebook>
+
 				</form>
 			</field>
 		</record>
@@ -114,7 +118,7 @@
                         <button name="button_update_terminatooor" string="Update Terminatooor" type="object" icon="gtk-execute" colspan="1"/>
 			        </group>
 				<group col="6" colspan="6">
-                                        <field name="url" colspan="2"/>
+                                        <field name="url" widget="url" colspan="2"/>
                                         <field name="user" colspan="2" attrs="{'invisible':[('url','=',False)], 'required':[('url','!=',False)]}"/>
 				        <field name="password" password="True" colspan="2" attrs="{'invisible':[('url','=',False)], 'required':[('url','!=',False)]}"/>
 				</group>
@@ -153,8 +157,9 @@
 					<group colspan="4">
 				        <field name="name" select="1"/>
 				        <field name="read_from_filesystem" select="2"/>
-                        <field name="file" filename="filename" colspan="2"/>
-                        <field name="filename" colspan="2" select="1"/>
+                                        <field name="file" filename="filename" colspan="2"/>
+                                        <field name="filename" colspan="2" select="1"/>
+                                        <field name="type" select="1"/>
 			        </group> 
 				</form>
 			</field>

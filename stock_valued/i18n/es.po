@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.15\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-06-28 11:00:50+0000\n"
-"PO-Revision-Date: 2011-06-28 13:17+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-06-28 11:00+0000\n"
+"PO-Revision-Date: 2011-06-30 15:19+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-07-01 05:31+0000\n"
+"X-Generator: Launchpad (build 13168)\n"
 
 #. module: stock_valued
 #: rml:stock_valued.stock_valued_rml:0
@@ -198,4 +200,3 @@ msgstr "Base"
 #: rml:stock_valued.stock_valued_rml:0
 msgid "Importe"
 msgstr "Importe"
-

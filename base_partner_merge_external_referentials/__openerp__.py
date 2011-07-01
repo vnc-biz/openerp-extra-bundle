@@ -33,8 +33,8 @@ To merge 2 addresses, select them in the list view and execute the Action "Merge
  Partners / Configuration / Merge Partner Addresses
 
     """,
-    'author': 'Tiny',
-    'website': 'http://www.openerp.com',
+    'author': 'Camptocamp',
+    'website': 'http://www.camptocamp.com',
     'depends': ['base', 'base_partner_merge', 'base_external_referentials'],
     'init_xml': [],
     'update_xml': [

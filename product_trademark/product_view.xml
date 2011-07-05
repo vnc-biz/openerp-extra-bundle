@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+       <record model="ir.ui.view" id="view_product_product_trademark_field_select">
+            <field name="name">product.product.trademark.field.search</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="manufacturer" string="Manufacturer"/>
+                </field>
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="view_product_product_trademark_group_select">
+            <field name="name">product.product.trademark.group.search</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/search/group/filter[@string='Type']" position="before">
+                    <filter string='Manufacturer' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'manufacturer'}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_product_trademark_form">
+            <field name="name">product.product.trademark.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Manufacturer">
+                        <separator string="Manufacturer" colspan="4" />
+                        <field name="manufacturer" />
+                        <newline/>
+                        <field name="manufacturer_pname"/>
+                        <field name="manufacturer_pref"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_product_trademark_tree">
+            <field name="name">product.product.trademark.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="name" position="after" >
+                    <field name="manufacturer" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_template_trademark_tree">
+            <field name="name">product.template.trademark.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Manufacturer">
+                        <separator string="Manufacturer" colspan="4" />
+                        <field name="manufacturer" />
+                        <newline/>
+                        <field name="manufacturer_pname"/>
+                        <field name="manufacturer_pref"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 #################################################################################
 #                                                                               #
-#    sale_bundle_product for OpenERP                                          #
-# Copyright (c) 2011 CamptoCamp. All rights reserved. @author Joel Grand-Guillaume #
+#    sale_bundle_product for OpenERP                                            #
 # Copyright (c) 2011 Akretion. All rights reserved. @author Sébastien BEAU      #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
@@ -21,34 +20,28 @@
 #################################################################################
 
 
-{
-    'name': 'Bundle product (dynamic choice on sale order)',
-    'version': '0.1',
-    'category': 'Generic Modules/Sales & Purchases',
-    'license': 'AGPL-3',
-    'description': """This allow you to make a sale order on bundle product, which is a product with dynamical options
-    choosen for each SO by the customer.
+from osv import osv, fields
+from tools.translate import _
+import netsvc
 
-    Example: 
+class procurement_order(osv.osv):
 
-    Basic PC
-      - Cpu 1
-      - Ram 4Gb
-      - HD 200 Gb""",
-    'author': 'Akretion Camptocamp',
-    'website': 'http://www.camptocamp.com/ http://www.akretion.com',
-    'depends': ['sale'], 
-    'init_xml': [],
-    'update_xml': [ 
-           'wizard/product_configurator_view.xml',
-           'sale_bundle_product_view.xml',
-           'product_view.xml',
-           'sale_view.xml',
-           'procurement_view.xml',
-      
-    ],
-    'demo_xml': [],
-    'installable': True,
-    'active': False,
-}
-
+    _inherit = "procurement.order"
+    
+    def _get_sale_order_line_id(self, cr, uid, ids, field_name, arg, context=None):
+        res = {}
+        sale_order_line_obj = self.pool.get('sale.order.line')
+        for id in ids:
+            sale_order_line_ids = sale_order_line_obj.search(cr, uid, [['procurement_id', '=', id]], context=context)
+            if sale_order_line_ids:
+                res[id] = sale_order_line_ids[0]
+            else:
+                res[id] = False
+        return res
+    
+    _columns = {
+        'sale_order_line_id': fields.function(_get_sale_order_line_id, type="many2one", relation='sale.order.line', string='Sale Order Line', readonly=True, method=True),
+        'so_line_item_set_ids': fields.related('sale_order_line_id', 'so_line_item_set_ids', type='many2many', relation='sale.order.line.item.set', string='Choosen configuration'),
+    }
+    
+procurement_order()

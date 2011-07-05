@@ -77,9 +77,13 @@ class sale_order_line(osv.osv):
         return res
     
     def create(self, cr, uid, vals, context=None):
-        vals['order_id']= context['order_id']
+        if not context:
+            context={}
+        if context.get('order_id', False):
+            vals['order_id']= context['order_id']
         res = super(sale_order_line, self).create(cr, uid, vals, context=context)
-        context['create_sale_order_line_id']=res
+        if context.get('order_id', False):
+            context['create_sale_order_line_id']=res
         return res
     
     def action_configure_product(self, cr, uid, ids, context=None):

@@ -2,7 +2,7 @@
 #################################################################################
 #                                                                               #
 #    sale_bundle_product for OpenERP                                            #
-# Copyright (c) 2011 Akretion. All rights reserved. @author Sébastien BEAU      #
+#    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
 #    it under the terms of the GNU Affero General Public License as             #
@@ -19,37 +19,43 @@
 #                                                                               #
 #################################################################################
 
-
 from osv import osv, fields
-from tools.translate import _
 import netsvc
 
-class procurement_order(osv.osv):
 
-    _inherit = "procurement.order"
+class purchase_order_line(osv.osv):
     
+    _inherit = "purchase.order.line"
+    
+
+    _columns = {
+        'so_line_item_set_ids':fields.many2many('sale.order.line.item.set','po_line_so_item_set_rel','purchase_line_id', 'so_item_set_id','Choosen configurtion'),
+
+    }
+
+purchase_order_line()
+
+class purchase_order(osv.osv):
+    
+    _inherit = "purchase.order"
     
     #TODO propose to OpenERP SA a hook in the module purchase, it will be cleaner
-    def make_po(self, cr, uid, ids, context=None):
+    def create(self, cr, uid, vals, context=None):
         if not context:
             context={}
-        context['purchase_order_from_procurement'] = ids
-        return super(procurement_order, self).make_po(cr, uid, ids, context=context)
+        if context.get('purchase_order_from_procurement', False):
+            procurement_obj = self.pool.get('procurement.order')
+            procurement_id = procurement_obj.search(cr, uid, [['origin', '=', vals['origin']], ['id', 'in', context['purchase_order_from_procurement']]], context=context)
+            if procurement_id:
+                procurement = procurement_obj.browse(cr, uid, procurement_id[0], context=context)
+                if procurement.so_line_item_set_ids:
+                    print 'get item line'
+                    line = list(vals['order_line'][0])[2]
+                    line['so_line_item_set_ids'] = [(6,0, [x.id for x in procurement.so_line_item_set_ids])]
+                    vals['order_line'] = [(0,0,line)]
+        return super(purchase_order, self).create(cr, uid, vals, context=context)
+            
     
-    def _get_sale_order_line_id(self, cr, uid, ids, field_name, arg, context=None):
-        res = {}
-        sale_order_line_obj = self.pool.get('sale.order.line')
-        for id in ids:
-            sale_order_line_ids = sale_order_line_obj.search(cr, uid, [['procurement_id', '=', id]], context=context)
-            if sale_order_line_ids:
-                res[id] = sale_order_line_ids[0]
-            else:
-                res[id] = False
-        return res
-    
-    _columns = {
-        'sale_order_line_id': fields.function(_get_sale_order_line_id, type="many2one", relation='sale.order.line', string='Sale Order Line', readonly=True, method=True),
-        'so_line_item_set_ids': fields.related('sale_order_line_id', 'so_line_item_set_ids', type='many2many', relation='sale.order.line.item.set', string='Choosen configuration'),
-    }
-    
-procurement_order()
+
+purchase_order()
+

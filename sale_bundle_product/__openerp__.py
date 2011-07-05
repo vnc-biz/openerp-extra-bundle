@@ -45,6 +45,7 @@
            'product_view.xml',
            'sale_view.xml',
            'procurement_view.xml',
+           'purchase_view.xml',
       
     ],
     'demo_xml': [],

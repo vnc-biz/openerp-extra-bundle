@@ -3,6 +3,7 @@
 #                                                                               #
 #    sale_bundle_product for OpenERP                                          #
 # Copyright (c) 2011 CamptoCamp. All rights reserved. @author Joel Grand-Guillaume #
+# Copyright (c) 2011 Akretion. All rights reserved. @author Sébastien BEAU      #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
 #    it under the terms of the GNU Affero General Public License as             #
@@ -22,138 +23,112 @@
 
 from osv import fields, osv
 from tools.translate import _
-import time
 
 class product_configurator(osv.osv_memory):
     _name = "product.item.set.configurator"
     _description = "Product Configurator"
     _columns = {
-        'date': fields.datetime('Date', required=True),
-        'product_moves_out' : fields.one2many('stock.move.memory.out', 'wizard_id', 'Moves'),
-        'product_moves_in' : fields.one2many('stock.move.memory.in', 'wizard_id', 'Moves'),
      }
-    
-    
+     
     def default_get(self, cr, uid, fields, context=None):
-        """ To get default values for the object.
-         @param self: The object pointer.
-         @param cr: A database cursor
-         @param uid: ID of the user currently logged in
-         @param fields: List of fields for which we want default values
-         @param context: A standard dictionary
-         @return: A dictionary which of fields with values.
         """
-        if context is None:
-            context = {}
-            
-        so_line_obj = self.pool.get('sale.order.line')
+        This function gets default values
+        @param self: The object pointer
+        @param cr: the current row, from the database cursor,
+        @param uid: the current user’s ID for security checks,
+        @param fields: List of fields for default value
+        @param context: A standard dictionary for contextual values
+
+        @return : default values of fields.
+        """
+        sale_item_line_obj = self.pool.get('sale.order.line.item.set')
+        product_item_obj = self.pool.get('product.item.set')
         res = super(product_configurator, self).default_get(cr, uid, fields, context=context)
-        so_line_ids_ids = context.get('active_ids', [])
-        if not picking_ids:
-            return res
-
-        result = []
-        for pick in pick_obj.browse(cr, uid, picking_ids, context=context):
-            pick_type = self.get_picking_type(cr, uid, pick, context=context)
-            for m in pick.move_lines:
-                if m.state in ('done', 'cancel'):
-                    continue
-                result.append(self.__create_partial_picking_memory(m, pick_type))
-
+        so_line_item_set_ids = self.pool.get('sale.order.line').read(cr, uid, context['order_line_id'], ['so_line_item_set_ids'], context=context)['so_line_item_set_ids']
+        item_set_ids = product_item_obj.search(cr, uid, [['name', 'in', fields]], context=context)
+        for item_set in product_item_obj.browse(cr, uid, item_set_ids, context):
+            if item_set.multi_select:
+                res[item_set.name]=[]
+            else:
+                res[item_set.name]=False
+            for item_line in item_set.item_set_line_ids:
+                sale_line_ids = sale_item_line_obj.search(cr, uid, [
+                        ['id', 'in', so_line_item_set_ids],
+                        ['product_id', '=', item_line.product_id.id],
+                        ['uom_id', '=', item_line.uom_id.id],
+                        ['qty_uom', '=', item_line.qty_uom]
+                    ], context=context)
+                #if a sale item line is found it's mean that the product item was choosen with the configurator
+                if sale_line_ids:
+                    if item_set.multi_select:
+                        res[item_set.name].append(item_line.id)
+                    else:
+                        res[item_set.name]=item_line.id
+                        break
         return res
+        
+    def set_configuration(self, cr, uid, *args):
+        '''empty function'''
+        return {}
+    
+    def create(self, cr, uid, vals, context=None):
+        item_line_ids=[]
+        for key in vals:
+            if type(vals[key]) == list:
+                item_line_ids += vals[key][0][2]
+            else:
+                item_line_ids += [vals[key]]
+        sale_item_ids = self.pool.get('product.item.set.line').get_sale_items_lines(cr, uid, item_line_ids, context)
+        self.pool.get('sale.order.line').write(cr, uid, context['order_line_id'], {'so_line_item_set_ids': [(6, 0, sale_item_ids)]}, context=context)
+        return 1
     
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
-        result = super(stock_partial_picking, self).fields_view_get(cr, uid, view_id, view_type, context, toolbar, submenu)
-       
-        pick_obj = self.pool.get('stock.picking')
-        picking_ids = context.get('active_ids', False)
-
-        if not picking_ids:
-            # not called through an action (e.g. buildbot), return the default.
-            return result
-
-        for pick in pick_obj.browse(cr, uid, picking_ids, context=context):
-            picking_type = self.get_picking_type(cr, uid, pick, context=context)
+        order_line = self.pool.get('sale.order.line').browse(cr, uid, context['order_line_id'], context)
         
-        _moves_arch_lst = """<form string="%s">
-                        <field name="date" invisible="1"/>
-                        <separator colspan="4" string="%s"/>
-                        <field name="%s" colspan="4" nolabel="1" mode="tree,form" width="550" height="200" ></field>
-                        """ % (_('Process Document'), _('Products'), "product_moves_" + picking_type)
-        _moves_fields = result['fields']
-
-        # add field related to picking type only
-        _moves_fields.update({
-                            'product_moves_' + picking_type: {'relation': 'stock.move.memory.'+picking_type, 'type' : 'one2many', 'string' : 'Product Moves'}, 
+        fields_list = {}
+        arch = """<form string="Choose your Configuration">"""
+        for item_set in order_line.product_id.item_set_ids:
+            field_name = item_set.name.replace(' ', '_')
+            arch += """<separator colspan="4" string="%s"/>
+                       <field name="%s" nolabel="1" colspan="4"/> """ % (item_set.name, field_name)
+            if item_set.multi_select:
+                fields_list.update({field_name:{
+                                'domain': [['item_set_id', '=', item_set.id]],
+                                'string' : item_set.name,
+                                'type' : 'many2many',
+                                'relation': 'product.item.set.line',
+                                'related_columns': ['test_id', 'item_id'],
+                                'third_table': '%s_item_rel' % field_name,
+                                'selectable': True,
+                                }
                             })
-
-        _moves_arch_lst += """
-                <separator string="" colspan="4" />
-                <label string="" colspan="2"/>
+            else:
+                fields_list.update({field_name:{
+                                'domain': [['item_set_id', '=', item_set.id]],
+                                'string': 'Attribute Set',
+                                'type': 'many2one',
+                                'relation': 'product.item.set.line',
+                                'selectable': True,
+                                }
+                            })
+        
+        arch += """
                 <group col="2" colspan="2">
                 <button icon='gtk-cancel' special="cancel"
                     string="_Cancel" />
-                <button name="do_partial" string="_Validate"
+                <button name="set_configuration" string="Validate"
                     colspan="1" type="object" icon="gtk-go-forward" />
-            </group>
+                </group>
         </form>"""
-        result['arch'] = _moves_arch_lst
-        result['fields'] = _moves_fields
-        return result
-
-    def __create_partial_picking_memory(self, picking, pick_type):
-        move_memory = {
-            'product_id' : picking.product_id.id, 
-            'quantity' : picking.product_qty, 
-            'product_uom' : picking.product_uom.id, 
-            'prodlot_id' : picking.prodlot_id.id, 
-            'move_id' : picking.id, 
-        }
-    
-        if pick_type == 'in':
-            move_memory.update({
-                'cost' : picking.product_id.standard_price, 
-                'currency' : picking.product_id.company_id.currency_id.id, 
-            })
-        return move_memory
-
-    def do_partial(self, cr, uid, ids, context=None):
-        """ Makes partial moves and pickings done.
-        @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param fields: List of fields for which we want default values
-        @param context: A standard dictionary
-        @return: A dictionary which of fields with values.
-        """
-        pick_obj = self.pool.get('stock.picking')
-        move_obj = self.pool.get('stock.move')
-        location_obj = self.pool.get('stock.location')
         
-        picking_ids = context.get('active_ids', False)
-        partial = self.browse(cr, uid, ids[0], context=context)
-        partial_datas = {
-            'delivery_date' : partial.date
-        }
+        return {
+            'name': 'Choose Your Configuration',
+            'type': 'form',
+            'fields': fields_list,
+            'model': 'stock.partial.picking',
+            'arch': arch,
+            'field_parent': False}
 
-        for pick in pick_obj.browse(cr, uid, picking_ids, context=context):
-            picking_type = self.get_picking_type(cr, uid, pick, context=context)
-            moves_list = picking_type == 'in' and partial.product_moves_in or partial.product_moves_out
-
-            for move in moves_list:
-                partial_datas['move%s' % (move.move_id.id)] = {
-                    'product_id': move.id, 
-                    'product_qty': move.quantity, 
-                    'product_uom': move.product_uom.id, 
-                    'prodlot_id': move.prodlot_id.id, 
-                }
-                if (picking_type == 'in') and (move.product_id.cost_method == 'average'):
-                    partial_datas['move%s' % (move.move_id.id)].update({
-                                                    'product_price' : move.cost, 
-                                                    'product_currency': move.currency.id, 
-                                                    })
-        pick_obj.do_partial(cr, uid, picking_ids, partial_datas, context=context)
-        return {}
 
 product_configurator()
 

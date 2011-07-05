@@ -3,6 +3,7 @@
 #                                                                               #
 #    sale_bundle_product for OpenERP                                          #
 # Copyright (c) 2011 CamptoCamp. All rights reserved. @author Joel Grand-Guillaume #
+# Copyright (c) 2011 Akretion. All rights reserved. @author Sébastien BEAU      #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
 #    it under the terms of the GNU Affero General Public License as             #
@@ -34,8 +35,8 @@
       - Cpu 1
       - Ram 4Gb
       - HD 200 Gb""",
-    'author': 'Camptocamp',
-    'website': 'http://www.camptocamp.com/',
+    'author': 'Akretion Camptocamp',
+    'website': 'http://www.camptocamp.com/ http://www.akretion.com',
     'depends': ['sale'], 
     'init_xml': [],
     'update_xml': [ 

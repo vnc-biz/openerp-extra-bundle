@@ -3,6 +3,7 @@
 #                                                                               #
 #    sale_bundle_product for OpenERP                                          #
 # Copyright (c) 2011 CamptoCamp. All rights reserved. @author Joel Grand-Guillaume #
+# Copyright (c) 2011 Akretion. All rights reserved. @author Sébastien BEAU      #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
 #    it under the terms of the GNU Affero General Public License as             #
@@ -21,29 +22,6 @@
 
 from osv import osv, fields
 import netsvc
-
-class product_item_set_line(osv.osv):
-    
-    _name = "product.item.set.line"
-    _description = "Product Item Set Line"
-    _rec_name = "product_id"
-    
-    _columns = {
-        'product_id': fields.many2one('product.product', 'Product', required=True),
-        'item_set_id': fields.many2one('product.item.set', 'Item Set'),
-        'uom_id': fields.many2one('product.uom', 'Product UoM', required=True),
-        'is_default': fields.boolean('Is default ?'),
-        'allow_chg_qty': fields.boolean('Allow change quantity ?', help="Allow the user to change the quantity."),
-        'sequence': fields.integer('Sequence'),
-        'qty_uom': fields.integer('Quantity', required=True),
-    }
-
-    _defaults = {
-        'is_default' : lambda *a: False,
-        'allow_chg_qty' : lambda *a: False,
-    }
-
-product_item_set_line()
 
 class product_item_set(osv.osv):
     
@@ -65,13 +43,49 @@ class product_item_set(osv.osv):
 
 product_item_set()
 
+
+class product_item_set_line(osv.osv):
+    
+    _name = "product.item.set.line"
+    _description = "Product Item Set Line"
+    _rec_name = "product_id"
+    
+    def get_sale_items_lines(self, cr, uid, ids, context=None):
+        sale_item_line_obj = self.pool.get('sale.order.line.item.set')
+        res=[]
+        for item in self.browse(cr, uid, ids, context=context):
+            sale_item_ids = sale_item_line_obj.search(cr, uid, [['product_id', '=', item.product_id.id], ['qty_uom', '=', item.qty_uom], ['uom_id', '=', item.uom_id.id]], context=context)
+            if sale_item_ids:
+                res.append(sale_item_ids[0])
+            else:
+                res.append(sale_item_line_obj.create(cr, uid, {'product_id': item.product_id.id, 'qty_uom': item.qty_uom, 'uom_id': item.uom_id.id}, context=context))
+        return res
+        
+    _columns = {
+        'product_id': fields.many2one('product.product', 'Product', required=True),
+        'item_set_id': fields.many2one('product.item.set', 'Item Set'),
+        'uom_id': fields.many2one('product.uom', 'Product UoM', required=True),
+        'is_default': fields.boolean('Is default ?'),
+        'allow_chg_qty': fields.boolean('Allow change quantity ?', help="Allow the user to change the quantity."),
+        'sequence': fields.integer('Sequence'),
+        'qty_uom': fields.integer('Quantity', required=True),
+    }
+
+    _defaults = {
+        'is_default' : lambda *a: False,
+        'allow_chg_qty' : lambda *a: False,
+    }
+
+product_item_set_line()
+
+
 class sale_order_line_item_set(osv.osv):
     
     _name = "sale.order.line.item.set"
     _description = "sale order line item set"
     _rec_name = "product_id"
     
-
+    
     _columns = {
         'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
         'uom_id': fields.many2one('product.uom', 'UoM', required=True, select=True),

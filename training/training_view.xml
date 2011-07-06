@@ -721,7 +721,7 @@
             <field name="priority">0</field>
             <field name="arch" type="xml">
                 <tree string="Sessions" colors="red:state=='draft';gray:state=='cancelled'">
-                    <field name="name"/>
+                    <field name="name_session" string="Name"/>
                     <field name="state"/>
                     <field name="date"/>
                     <field name="offer_id"/>

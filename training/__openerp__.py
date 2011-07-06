@@ -94,6 +94,7 @@ With the analytic account support, you can know the costs of your trainings.
         'product_view.xml',
         'training_view.xml',
         'invoice_view.xml',
+        'company_view.xml',
         'training_report.xml',
         'workflow/catalog.xml',
         'workflow/course.xml',

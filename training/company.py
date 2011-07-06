@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
-############################################################################################
+##############################################################################
 #
-#    OpenERP, Open Source Management Solution	
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
-#    Copyright (C) 2008-2009 AJM Technologies S.A. (<http://www.ajm.lu>). All Rights Reserved
-#    Copyright (C) 2010 Zikzakmedia S.L. (<http://www.zikzakmedia.com>). All Rights Reserved
+#    OpenERP, Open Source Management Solution
+#    Copyright (c) 2011 Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -20,17 +18,19 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-############################################################################################
+##############################################################################
 
-import partner
-import res_groups
-import invoice
-import product
-import training_email
-import training
-import training_holiday
-import report
-import wizard
-import company
+from osv import osv, fields
 
-import document_price
+class res_company(osv.osv):
+    _inherit = "res.company"
+
+    _columns = {
+        'training_name':fields.boolean('Name'),
+        'training_date':fields.boolean('Date'),
+        'training_address_street':fields.boolean('Street'),
+        'training_address_zip':fields.boolean('Zip'),
+        'training_address_city':fields.boolean('City'),
+    }
+
+res_company()

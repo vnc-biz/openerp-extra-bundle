@@ -1149,17 +1149,31 @@ class training_session(osv.osv):
 
         return res
 
-    # training.session
-    #def _name_compute(self, cr, uid, ids, name, args, context=None):
-    #    res = dict.fromkeys(ids, '')
+    def _get_name(self, cr, uid, ids, name, args, context=None):
+        res = dict.fromkeys(ids, '')
+        user = self.pool.get('res.users').browse(cr, uid, uid)
 
-    #    for obj in self.browse(cr, uid, ids):
-    #        date = time.strftime('%Y-%m-%d', time.strptime(obj.date, '%Y-%m-%d %H:%M:%S'))
-    #        res[obj.id] = "[%s] %s (%s)" % (obj.kind[0].upper(),
-    #                                        obj.offer_id.name,
-    #                                        date,)
+        for obj in self.browse(cr, uid, ids):
+            name_session = []
+            if user.company_id.training_name:
+                name_session.append(obj.name)
+            if user.company_id.training_date:
+                name_session.append(obj.date[:10])
+            if user.company_id.training_address_street and obj.address_id.street:
+                name_session.append(obj.address_id.street)
+            if user.company_id.training_address_zip and obj.address_id.zip:
+                name_session.append(obj.address_id.zip)
+            if user.company_id.training_address_city and obj.address_id.city:
+                name_session.append(obj.address_id.city)
 
-    #    return res
+            if len(name_session)>0:
+                name = "/".join(name_session) #ej: edition/date/place
+            else:
+                name = obj.name
+
+            res[obj.id] = "%s" % (name)
+
+        return res
 
     # training.session
     def _store_get_participation(self, cr, uid, ids, context=None):
@@ -1281,14 +1295,7 @@ class training_session(osv.osv):
                                                help="Allows to know if the session has a shared seance."
                                               ),
         'name' : fields.char('Name', size=64, required=True),
-        #'name' : fields.function(_name_compute,
-        #                         method=True,
-        #                         type="char",
-        #                         size=64,
-        #                         select=1,
-        #                         store=True,
-        #                         string='Name',
-        #                         help="The session's name."),
+        'name_session': fields.function(_get_name, method=True, string='Name Session', type='char', size=128),
         'state' : fields.selection([('draft', 'Draft'),
                                     ('opened', 'Opened'),
                                     ('opened_confirmed', 'Confirmed'),

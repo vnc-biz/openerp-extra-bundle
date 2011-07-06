@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_multi_company_blank_form" model="ir.ui.view">
+        <field name="name">res.company.blank.form</field>
+        <field name="model">res.company</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <page string="Configuration" position="inside">
+                <separator string="Training" colspan="4"/>
+                <label string="Edition Name View:" align="0.0" colspan="4"/>
+                <group col='12' colspan='4'>
+                    <field name="training_name"/>
+                    <field name="training_date"/>
+                    <field name="training_address_street"/>
+                    <field name="training_address_zip"/>
+                    <field name="training_address_city"/>
+                </group>
+            </page>
+        </field>
+    </record>
+</data>
+</openerp>

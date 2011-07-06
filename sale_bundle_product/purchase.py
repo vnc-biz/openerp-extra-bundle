@@ -35,27 +35,3 @@ class purchase_order_line(osv.osv):
 
 purchase_order_line()
 
-class purchase_order(osv.osv):
-    
-    _inherit = "purchase.order"
-    
-    #TODO propose to OpenERP SA a hook in the module purchase, it will be cleaner
-    def create(self, cr, uid, vals, context=None):
-        if not context:
-            context={}
-        if context.get('purchase_order_from_procurement', False):
-            procurement_obj = self.pool.get('procurement.order')
-            procurement_id = procurement_obj.search(cr, uid, [['origin', '=', vals['origin']], ['id', 'in', context['purchase_order_from_procurement']]], context=context)
-            if procurement_id:
-                procurement = procurement_obj.browse(cr, uid, procurement_id[0], context=context)
-                if procurement.so_line_item_set_ids:
-                    print 'get item line'
-                    line = list(vals['order_line'][0])[2]
-                    line['so_line_item_set_ids'] = [(6,0, [x.id for x in procurement.so_line_item_set_ids])]
-                    vals['order_line'] = [(0,0,line)]
-        return super(purchase_order, self).create(cr, uid, vals, context=context)
-            
-    
-
-purchase_order()
-

@@ -117,6 +117,8 @@ class sale_order(osv.osv):
         return result
 
     def expand_packs(self, cr, uid, ids, context={}, depth=1):
+        if type(ids) in [int, long]:
+            ids = [ids]
         if depth == 10:
             return
         updated_orders = []

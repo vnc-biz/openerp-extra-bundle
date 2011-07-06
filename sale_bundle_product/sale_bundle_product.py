@@ -54,11 +54,7 @@ class product_item_set_line(osv.osv):
         sale_item_line_obj = self.pool.get('sale.order.line.item.set')
         res=[]
         for item in self.browse(cr, uid, ids, context=context):
-            sale_item_ids = sale_item_line_obj.search(cr, uid, [['product_id', '=', item.product_id.id], ['qty_uom', '=', item.qty_uom], ['uom_id', '=', item.uom_id.id]], context=context)
-            if sale_item_ids:
-                res.append(sale_item_ids[0])
-            else:
-                res.append(sale_item_line_obj.create(cr, uid, {'product_id': item.product_id.id, 'qty_uom': item.qty_uom, 'uom_id': item.uom_id.id}, context=context))
+            res.append(sale_item_line_obj.get_create_items_lines(cr, uid, item.product_id.id, item.qty_uom, item.uom_id.id, context=False))
         return res
         
     _columns = {
@@ -85,6 +81,16 @@ class sale_order_line_item_set(osv.osv):
     _description = "sale order line item set"
     _rec_name = "product_id"
     
+    
+    def get_create_items_lines(self, cr, uid, product_id, qty_uom, uom_id=False, context=False):
+        '''this function will return the id of the configuration line if the line already exist, if not it will create the line automatically'''
+        if not uom_id:
+            uom_id = self.pool.get('product.product').read(cr, uid, product_id, ['uom_id'], context=context)['uom_id'][0]
+        sale_item_ids = self.search(cr, uid, [['product_id', '=', product_id], ['qty_uom', '=', qty_uom], ['uom_id', '=', uom_id]], context=context)
+        if sale_item_ids:
+            return sale_item_ids[0]
+        else:
+            return self.create(cr, uid, {'product_id': product_id, 'qty_uom': qty_uom, 'uom_id': uom_id}, context=context)
     
     _columns = {
         'product_id': fields.many2one('product.product', 'Product', required=True, select=True),

@@ -53,7 +53,7 @@
             <field name="arch" type="xml">
                 <page string="Notification Note" position="after">
                     <page string="SEO">
-                        <field name="alias" />
+                        <field name="alias" required="True" />
                         <field name="active" />
                         <field name="frontpage" />
                         <separator string="Metakey" colspan="4" />

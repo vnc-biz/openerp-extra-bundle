@@ -41,10 +41,10 @@ class create_user_wizard(osv.osv_memory):
     _name = 'training.create.user.wizard'
 
     _columns = {
-        'email_create_user': fields.many2one('poweremail.templates', 'Email', required=True, help='Template Email Create User'),
+        'email_create_user': fields.many2one('poweremail.templates', 'Email Template', required=True, help='Template Email Create User'),
         'username': fields.char('Username', size=64, readonly=True),
         'password': fields.char('Password', size=64, readonly=True),
-        'email': fields.char('Last Name', size=255, readonly=True),
+        'email': fields.char('e-Mail', size=255, readonly=True),
         'first_name': fields.char('First Name', size=255, readonly=True),
         'last_name': fields.char('Last Name', size=255, readonly=True),
         'result': fields.text('Result', readonly=True),
@@ -130,8 +130,10 @@ class create_user_wizard(osv.osv_memory):
         res_values['result'] = result
         #write result values
         self.write(cr, uid, ids, res_values)
-        
-        self.pool.get('poweremail.templates').generate_mail(cr, uid, form.email_create_user.id, [form.id])
+
+        #send email
+        if 'email' in res_values:
+            self.pool.get('poweremail.templates').generate_mail(cr, uid, form.email_create_user.id, [form.id])
 
         return True
 

@@ -58,12 +58,27 @@ class training_offer(osv.osv):
     _inherit = 'training.offer'
 
     _columns = {
-        'alias': fields.char('Alias', size=64, required=True),
+        'alias': fields.char('Alias', size=64),
         'metakey' : fields.text('MetaKey'),
-        'metadescription' : fields.text('MetaDescription', required=True),
+        'metadescription' : fields.text('MetaDescription'),
         'frontpage' : fields.boolean('Front Page', help='Show this offer at Front Page'),
         'active' : fields.boolean('Active'),
     }
+
+    def create(self, cr, uid, vals, context=None):
+        if context is None:
+            context = {}
+
+        result = super(training_offer, self).create(cr, uid, vals, context)
+
+        if 'alias' not in vals:
+            alias = slugify(unicode(vals['name']))
+            slugs = self.search(cr, uid, [('alias','=', alias)])
+            if len(slugs)>0:
+                alias = alias+'-%s' % (len(slugs))
+            self.write(cr, uid, result, {'alias':alias})
+
+        return result
 
     def onchange_name(self, cr, uid, ids, name, alias):
         value = {}

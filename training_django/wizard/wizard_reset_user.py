@@ -32,9 +32,10 @@ class reset_user_wizard(osv.osv_memory):
     _name = 'training.reset.user.wizard'
 
     _columns = {
-        'email_reset_user': fields.many2one('poweremail.templates', 'Email', required=True, help='Template Email Reset User'),
+        'email_reset_user': fields.many2one('poweremail.templates', 'Email Template', required=True, help='Template Email Reset User'),
         'username': fields.char('Username', size=64, readonly=True),
         'password': fields.char('Password', size=64, readonly=True),
+        'email': fields.char('e-Mail', size=255, readonly=True),
         'result': fields.text('Result', readonly=True),
         'state':fields.selection([
             ('first','First'),
@@ -85,13 +86,16 @@ class reset_user_wizard(osv.osv_memory):
             
             res_values['username'] = partner_contact.dj_username
             res_values['password'] = password
+            res_values['email'] = partner_contact.dj_email
 
         res_values['state'] = 'done'
         res_values['result'] = result
         #write result values
         self.write(cr, uid, ids, res_values)
-        
-        self.pool.get('poweremail.templates').generate_mail(cr, uid, form.email_reset_user.id, [form.id])
+
+        #send email
+        if 'email' in res_values:
+          self.pool.get('poweremail.templates').generate_mail(cr, uid, form.email_reset_user.id, [form.id])
 
         return True
 

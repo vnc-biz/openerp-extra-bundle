@@ -15,6 +15,7 @@
                     <field name="result"/><newline/>
                     <field name="username"/><newline/>
                     <field name="password"/><newline/>
+                    <field name="email"/>
                 </group>
                 <group col="2" colspan="4">
                     <field name="state" invisible="1" />

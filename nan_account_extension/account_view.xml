@@ -16,5 +16,17 @@
 		</field>
 	    </field>
 	</record>
+
+        <record id="view_account_form_partner_required" model="ir.ui.view">
+            <field name="name">account.account.form.parnter_required</field>
+            <field name="model">account.account</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+            	<field name="reconcile" position="after">
+            		<field name="partner_required"/>
+            	</field>
+            </field>
+        </record>
 </data>
 </openerp>

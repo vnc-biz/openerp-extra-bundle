@@ -43,6 +43,7 @@ This module adds some new features to account module, including:
 - Allows grouping invoice lines that have different products into the same account move line. (Configurable per journal).
 - Allows ensuring new invoices do not have a date previous to the latest invoice in the journal, as required by the law of some countries such as Spain. (Configurable per journal).
 - Ensures account moves created from bank statements use the sequence of the journal instead of keeping statement's numbering.
+- Allows ensuring all moves of a given account have a partner associated with them.
 """,
     "depends" : [
         'account',

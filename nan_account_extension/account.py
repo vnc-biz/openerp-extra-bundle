@@ -111,6 +111,21 @@ class account_move_line(osv.osv):
                 self.pool.get('account.move').write(cr, uid, list(move_ids), move_values, context)
         return super(account_move_line, self).write(cr, uid, ids, vals, context, check, update_check)
 
+    def _check_partner(self, cr, uid, ids, context=None):
+        for line in self.browse(cr, uid, ids, context):
+            if line.account_id.partner_required and not line.partner_id:
+                raise osv.except_osv(_('Partner Check'), _("Account %(account_code)s requires a partner but you're trying to store a move with debit %(debit).2f and credit %(credit).2f without one.") % {
+                    'account_code': line.account_id.code,
+                    'debit': line.debit or 0.0,
+                    'credit': line.credit or 0.0,
+                })
+                return False
+        return True
+
+    _constraints = [
+        (_check_partner, 'Account requires a partner in all its moves.', ['account_id','partner_id']),
+    ]
+
 account_move_line()
     
 
@@ -131,6 +146,10 @@ class account_account(osv.osv):
         done_list.append(account.id)
         default['child_parent_ids'] = [(6, 0, [])]
         return super(account_account, self).copy(cr, uid, id, default, context=context)
+
+    _columns = {
+        'partner_required': fields.boolean('Partner Required', help='If checked, the system will ensure that all moves of this account have a partner associated with them.'),
+    }
 account_account()
 
 class account_journal(osv.osv):

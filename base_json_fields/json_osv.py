@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #################################################################################
 #                                                                               #
-#    base_json_field for OpenERP                                          #
+#    base_json_field for OpenERP                                                #
 #    Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>   #
 #                                                                               #
 #    This program is free software: you can redistribute it and/or modify       #
@@ -19,12 +19,17 @@
 #                                                                               #
 #################################################################################
 
-from osv import fields, osv
+from osv import osv, orm
 import netsvc
 import json
 
 class json_osv(osv.osv):
-
+    
+#    def _check_need_to_update_fields(cr, uid, k, context=None):
+#        if k.startswith('x_js_'):
+#            return False
+#        return super(orm_template, self)._check_need_to_update_fields(cr, uid, k, context)
+    
     def _get_js_fields(self, fields):
         self_fields = self._columns.keys()
         js_store_fields = {}
@@ -60,12 +65,33 @@ class json_osv(osv.osv):
                 vals[field] = [vals[field] ,res[self._columns[field]._obj][vals[field]]]
         return vals
 
+    def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None):
+        context['read_from_browse'] = True
+        return super(json_osv, self).browse(cr, uid, select, context=context, list_class=list_class, fields_process=fields_process)
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        if context.get('read_from_browse', False) and not context.get('browse_js', False):
+            fields_to_read = []
+            js_fields = {}
+            for field in fields:
+                if 'x_js' in field:
+                    js_fields.update({field : False})
+                else:
+                    fields_to_read.append(field)
+            res = super(json_osv, self).read(cr, uid, ids, fields_to_read, context, load)
+            for object in res:
+                object.update(js_fields)
+            return res
+
         if not fields:
-            fields = [x for x in self._columns.keys()] + [x for x in self._columns.keys()]
+            #TODO FIX ME it should work for all inherit
+            fields = [x for x in self._columns.keys()] + [x for x in self.pool.get('product.template')._columns.keys()]
         if not 'x_js_' in '/'.join(fields):
-            return super(json_osv, self).read(cr, uid, ids, fields, context, load)
+            res = super(json_osv, self).read(cr, uid, ids, fields, context, load)
+            return res
+        only_one_id = type(ids) != list
+        if only_one_id:
+            ids = [ids]
         js_store_fields, js_fields = self._get_js_fields(fields)
         fields_to_read = list(set(fields + js_store_fields.keys()) - set(js_fields))
         res = super(json_osv, self).read(cr, uid, ids, fields_to_read, context, load)
@@ -83,6 +109,8 @@ class json_osv(osv.osv):
                     for field in js_store_fields:
                         if not field in fields: 
                             del object[field]
+        if only_one_id:
+            res = res[0]
         return res
 
 
@@ -99,6 +127,10 @@ class json_osv(osv.osv):
 
 
     def write(self, cr, uid, ids, vals, context=None):
+        only_one_id = False
+        if type(ids) != list:
+            only_one_id = True
+            ids = [ids]
         if 'x_js_' in '/'.join(vals.keys()):
             js_store_fields, js_fields = self._get_js_fields(vals.keys())
             wrid = []
@@ -116,7 +148,8 @@ class json_osv(osv.osv):
                         res[key] = tmp_vals[key]
                         del tmp_vals[key]
                     tmp_vals[js_store_field] = json.dumps(res)
+                    
                 wrid += [super(json_osv, self).write(cr, uid, object['id'], tmp_vals, context=context)]
-            return wrid
+            return only_one_id and wrid[0] or wrid
         else:
             return super(json_osv, self).write(cr, uid, ids, vals, context)

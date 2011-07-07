@@ -66,10 +66,14 @@ class json_osv(osv.osv):
         return vals
 
     def browse(self, cr, uid, select, context=None, list_class=None, fields_process=None):
+        if not context:
+            context={}
         context['read_from_browse'] = True
         return super(json_osv, self).browse(cr, uid, select, context=context, list_class=list_class, fields_process=fields_process)
 
     def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        if not context:
+            context={}
         if context.get('read_from_browse', False) and not context.get('browse_js', False):
             fields_to_read = []
             js_fields = {}

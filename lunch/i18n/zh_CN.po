@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-06-15 05:52+0000\n"
+"X-Launchpad-Export-Date: 2011-07-08 05:57+0000\n"
 "X-Generator: Launchpad (build 13168)\n"
 
 #. module: lunch
@@ -27,7 +27,7 @@ msgstr "分类"
 #. module: lunch
 #: wizard_view:lunch.cashbox.clean,init:0
 msgid "Reset cashbox"
-msgstr "复位现金箱"
+msgstr "重设外卖现金"
 
 #. module: lunch
 #: selection:lunch.order,state:0
@@ -58,7 +58,7 @@ msgstr "午餐管理模块"
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_cashmove_form
 msgid "Cash Moves"
-msgstr ""
+msgstr "现金划拨"
 
 #. module: lunch
 #: rml:lunch.order:0
@@ -73,7 +73,7 @@ msgstr ""
 #. module: lunch
 #: wizard_view:lunch.cashbox.clean,init:0
 msgid "Are you sure you want to reset this cashbox ?"
-msgstr ""
+msgstr "你确定要重置这外卖现金？"
 
 #. module: lunch
 #: field:lunch.order,state:0
@@ -107,18 +107,18 @@ msgstr "用户名"
 #: model:ir.ui.menu,name:lunch.menu_lunch_report_amount_tree
 #: view:report.lunch.amount:0
 msgid "Box Amount by User"
-msgstr ""
+msgstr "用户的外卖现金金额"
 
 #. module: lunch
 #: view:report.lunch.amount:0
 msgid "Total box"
-msgstr ""
+msgstr "总外卖现金"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_product_form
 #: field:lunch.order,product:0
 msgid "Product"
-msgstr "货品"
+msgstr "品种"
 
 #. module: lunch
 #: rml:lunch.order:0
@@ -157,7 +157,7 @@ msgstr "午餐管理"
 #. module: lunch
 #: field:lunch.order,descript:0
 msgid "Description Order"
-msgstr "说明"
+msgstr "订单说明"
 
 #. module: lunch
 #: model:ir.actions.wizard,name:lunch.lunch_order_confirm
@@ -174,7 +174,7 @@ msgstr "订单确认"
 #: field:lunch.cashmove,active:0
 #: field:lunch.product,active:0
 msgid "Active"
-msgstr "激活"
+msgstr "生效"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_order_day_form
@@ -214,7 +214,7 @@ msgstr ""
 #: rml:lunch.order:0
 #: field:lunch.product,name:0
 msgid "Name"
-msgstr "品名"
+msgstr "名称"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_category_form
@@ -246,7 +246,7 @@ msgstr "金额"
 #: model:ir.ui.menu,name:lunch.menu_lunch_product_form
 #: view:lunch.product:0
 msgid "Products"
-msgstr "产品列表"
+msgstr "品种列表"
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_category_form
@@ -266,12 +266,12 @@ msgstr ""
 #. module: lunch
 #: model:ir.model,name:lunch.model_report_lunch_amount
 msgid "Amount available by user and box"
-msgstr ""
+msgstr "用户和外卖现金的可用金额"
 
 #. module: lunch
 #: view:lunch.category:0
 msgid "Category related to Products"
-msgstr ""
+msgstr "该分类的品种"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_order
@@ -292,13 +292,13 @@ msgstr ""
 #. module: lunch
 #: model:ir.actions.wizard,name:lunch.wizard_clean_cashbox
 msgid "Set CashBox to Zero"
-msgstr ""
+msgstr "设置外卖现金为0"
 
 #. module: lunch
 #: field:lunch.cashmove,box:0
 #: field:report.lunch.amount,box:0
 msgid "Box Name"
-msgstr ""
+msgstr "外卖现金的名称"
 
 #. module: lunch
 #: field:lunch.cashbox,manager:0
@@ -313,7 +313,7 @@ msgstr "单价"
 #. module: lunch
 #: wizard_field:lunch.order.confirm,init,confirm_cashbox:0
 msgid "Name of box"
-msgstr ""
+msgstr "外卖现金名称"
 
 #. module: lunch
 #: view:lunch.order:0
@@ -346,4 +346,4 @@ msgstr ""
 #: view:lunch.cashmove:0
 #: field:lunch.order,cashmove:0
 msgid "CashMove"
-msgstr ""
+msgstr "现金划拨"

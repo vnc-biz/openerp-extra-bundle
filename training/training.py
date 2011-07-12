@@ -404,33 +404,28 @@ class training_course(osv.osv):
         return list(res)
 
     _columns = {
-        'splitted_by' : fields.selection([('2', '2 Hours'),
-                                          ('4', '4 Hours'),
-                                          ('8', '8 Hours')
-                                         ],
-                                         'Splitted By',
-                                         required=True),
-        'price' : fields.function(_price_compute,
+        'splitted_by': fields.float('Splitted By', required=True),
+        'price': fields.function(_price_compute,
                                   method=True,
                                   string='Price',
                                   type='float',
                                   digits_compute=dp.get_precision('Account'),
                                   help='The price of the support of the courses.'),
-        'theme_ids' : fields.many2many('training.course.theme', 'training_course_theme_rel', 'course_id',
+        'theme_ids': fields.many2many('training.course.theme', 'training_course_theme_rel', 'course_id',
                                       'theme_id', 'Theme'),
-        'duration' : fields.function(_duration_compute,
+        'duration': fields.function(_duration_compute,
                                      method=True,
                                      string='Duration',
                                      type='float',
                                      store=True,
                                      help='The duration of the course.'),
-        'duration_with_children':fields.function(_total_duration_compute,
+        'duration_with_children': fields.function(_total_duration_compute,
                                                  method=True,
                                                  string='Duration',
                                                  type='float',
                                                  store=True,
                                                  help='The duration of the course.'),
-        'duration_without_children':fields.float('Duration',
+        'duration_without_children': fields.float('Duration',
                                                  help="The duration of the course."),
         'with_children': fields.function(_with_children_compute,
                                          method=True,
@@ -438,34 +433,34 @@ class training_course(osv.osv):
                                          store=True,
                                          type='boolean',
                                          help='Allows to know if the course contains some subcourses or not.'),
-        'p_id' : fields.many2one('training.course',
+        'p_id': fields.many2one('training.course',
                                  'Parent Course',
                                  help="The parent course.",
                                  readonly=True,
                                  domain="[('state_course', '=', 'validated')]"),
-        'course_ids' : fields.one2many('training.course',
+        'course_ids': fields.one2many('training.course',
                                        'p_id',
                                        "Sub Courses",
                                        help="A course can be completed with some subcourses."),
-        'sequence' : fields.integer('Sequence',
+        'sequence': fields.integer('Sequence',
                                     help="The sequence can help the user to reorganize the order of the courses."),
-        'reference_id' : fields.many2one('training.course',
+        'reference_id': fields.many2one('training.course',
                                          'Master Course',
                                          help="The master course is necessary if the user wants to link certain courses together to easy the managment.",
                                         ),
-        'child_reference_id' : fields.one2many('training.course', 'reference_id', 'Children'),
-        'reference_lang_id' : fields.related('reference_id', 'lang_id', type='many2one', relation='res.lang', string="Master Course's Language", readonly=True),
-        'reference_type' : fields.related('reference_id', 'course_type_id', type='many2one', relation='training.course_type', string="Master Course's Type", readonly=True),
-        'analytic_account_id' : fields.many2one('account.analytic.account', 'Account'),
-        'course_type_id' : fields.many2one('training.course_type', 'Type', select=1),
+        'child_reference_id': fields.one2many('training.course', 'reference_id', 'Children'),
+        'reference_lang_id': fields.related('reference_id', 'lang_id', type='many2one', relation='res.lang', string="Master Course's Language", readonly=True),
+        'reference_type': fields.related('reference_id', 'course_type_id', type='many2one', relation='training.course_type', string="Master Course's Type", readonly=True),
+        'analytic_account_id': fields.many2one('account.analytic.account', 'Account'),
+        'course_type_id': fields.many2one('training.course_type', 'Type', select=1),
         'category_id': fields.many2one('training.course_category', 'Product Line', select=1),
-        'lecturer_ids' : fields.many2many('res.partner.job', 'training_course_job_rel', 'course_id', 'job_id', 'Lecturers',
+        'lecturer_ids': fields.many2many('res.partner.job', 'training_course_job_rel', 'course_id', 'job_id', 'Lecturers',
                                           select=1,
                                           help="The lecturers who give the course."),
-        'internal_note' : fields.text('Note',
+        'internal_note': fields.text('Note',
                                       translate=True,
                                       help="The user can write some internal note for this course."),
-        'lang_id' : fields.many2one('res.lang',
+        'lang_id': fields.many2one('res.lang',
                                     'Language',
                                     required=True,
                                     select=1,
@@ -476,7 +471,7 @@ class training_course(osv.osv):
                                  required=True,
                                  select=2,
                                  help="The kind of course."),
-        'state_course' : fields.selection([('draft', 'Draft'),
+        'state_course': fields.selection([('draft', 'Draft'),
                                            ('pending', 'Ask Review'),
                                            ('deprecated', 'Deprecated'),
                                            ('validated', 'Validated'),
@@ -487,10 +482,10 @@ class training_course(osv.osv):
                                           select=1,
                                           help="The state of the course."
                                          ),
-        'purchase_line_ids' : fields.one2many('training.course.purchase_line', 'course_id',
+        'purchase_line_ids': fields.one2many('training.course.purchase_line', 'course_id',
                                               'Supplier Commands',
                                               help="The purchase line helps to create a purchase order for the seance."),
-        'has_support' : fields.function(_has_support,
+        'has_support': fields.function(_has_support,
                                         method=True,
                                         type="boolean",
                                         store={
@@ -498,7 +493,7 @@ class training_course(osv.osv):
                                         },
                                         select=2,
                                         string="Has Support"),
-        'long_name' : fields.char('Long Name',
+        'long_name': fields.char('Long Name',
                                      size=256,
                                      select=1,
                                      help='Allows to show the long name of the course for the external view.'),
@@ -507,14 +502,14 @@ class training_course(osv.osv):
                                            string='Supports of Course',
                                            type='one2many',
                                            relation='ir.attachment'),
-        'pending_ids' : fields.one2many('training.course.pending', 'course_id', 'Pendings'),
+        'pending_ids': fields.one2many('training.course.pending', 'course_id', 'Pendings'),
     }
 
     _defaults = {
         'state_course' : lambda *a: 'draft',
         'duration' : lambda *a: 1.0,
         'duration_without_children' : lambda *a: 1.0,
-        'splitted_by' : lambda *a: '8',
+        'splitted_by' : lambda *a: 1.0,
         'kind': lambda *a: 'standard',
     }
 
@@ -1142,36 +1137,52 @@ class training_session(osv.osv):
     _description = 'Session'
     _order = 'date desc, name'
 
-    def _has_shared_seances_compute(self, cr, uid, ids, fieldnames, args, context=None):
-        res = dict.fromkeys(ids, False)
-        for session in self.browse(cr, uid, ids, context=context):
-            res[session.id] = any(seance.shared for seance in session.seance_ids)
+    def _name_session(self, cr, uid, user, obj):
+        name_session = []
+        if user.company_id.training_name:
+            name_session.append(obj.name)
+        if user.company_id.training_date:
+            name_session.append(obj.date[:10])
+        if user.company_id.training_address_street and obj.address_id.street:
+            name_session.append(obj.address_id.street)
+        if user.company_id.training_address_zip and obj.address_id.zip:
+            name_session.append(obj.address_id.zip)
+        if user.company_id.training_address_city and obj.address_id.city:
+            name_session.append(obj.address_id.city)
 
-        return res
+        if len(name_session)>0:
+            name = "/".join(name_session) #ej: edition/date/place
+        else:
+            name = obj.name
 
-    def _get_name(self, cr, uid, ids, name, args, context=None):
+        return name
+
+    def _name_get(self, cr, uid, ids, name, args, context=None):
         res = dict.fromkeys(ids, '')
         user = self.pool.get('res.users').browse(cr, uid, uid)
 
         for obj in self.browse(cr, uid, ids):
-            name_session = []
-            if user.company_id.training_name:
-                name_session.append(obj.name)
-            if user.company_id.training_date:
-                name_session.append(obj.date[:10])
-            if user.company_id.training_address_street and obj.address_id.street:
-                name_session.append(obj.address_id.street)
-            if user.company_id.training_address_zip and obj.address_id.zip:
-                name_session.append(obj.address_id.zip)
-            if user.company_id.training_address_city and obj.address_id.city:
-                name_session.append(obj.address_id.city)
-
-            if len(name_session)>0:
-                name = "/".join(name_session) #ej: edition/date/place
-            else:
-                name = obj.name
-
+            name = self._name_session(cr, uid, user, obj)
             res[obj.id] = "%s" % (name)
+
+        return res
+
+    def name_get(self, cr, uid, ids, context=None):
+        res = []
+        if not len(ids):
+            return []
+
+        user = self.pool.get('res.users').browse(cr, uid, uid)
+        for obj in self.browse(cr, uid, ids):
+            name = self._name_session(cr, uid, user, obj)
+            res.append((obj['id'], name))
+
+        return res
+
+    def _has_shared_seances_compute(self, cr, uid, ids, fieldnames, args, context=None):
+        res = dict.fromkeys(ids, False)
+        for session in self.browse(cr, uid, ids, context=context):
+            res[session.id] = any(seance.shared for seance in session.seance_ids)
 
         return res
 
@@ -1295,7 +1306,7 @@ class training_session(osv.osv):
                                                help="Allows to know if the session has a shared seance."
                                               ),
         'name' : fields.char('Name', size=64, required=True),
-        'name_session': fields.function(_get_name, method=True, string='Name Session', type='char', size=128),
+        'name_session': fields.function(_name_get, method=True, string='Name Session', type='char', size=128),
         'state' : fields.selection([('draft', 'Draft'),
                                     ('opened', 'Opened'),
                                     ('opened_confirmed', 'Confirmed'),
@@ -1403,7 +1414,6 @@ class training_session(osv.osv):
                                              ),
 
         'request_ids': fields.one2many('training.participation.stakeholder.request', 'session_id', 'Requests'),
-        'stylegroup_id': fields.many2one('training.email.stylegroup', 'Style Group'),
     }
 
     _order = "date asc"
@@ -1524,8 +1534,7 @@ class training_session(osv.osv):
                 continue
             tmp_lst = []
             get_list_of_courses(tmp_lst, course.course_id)
-
-            splitted_by = int(course.course_id.splitted_by) or 8
+            splitted_by =  course.course_id.splitted_by
             for item in tmp_lst:
                 duration = item.duration
                 while duration > 0:
@@ -1601,8 +1610,7 @@ class training_session(osv.osv):
         first_seance_id = None
         for item in lst:
             duration = item.duration
-            splitted_by = int(item.splitted_by) or 8
-
+            splitted_by = item.splitted_by
             master_seance_id = None
             counter_part = 0
             while duration > 0:
@@ -1725,7 +1733,6 @@ class training_session(osv.osv):
             }
         return {}
 
-
     # training.session
     def _create_participation(self, cr, uid, ids, subscription_line, context=None):
         proxy = self.pool.get('training.participation')
@@ -1773,21 +1780,6 @@ class training_session(osv.osv):
 
     # training.session
     def action_workflow_open_confirm(self, cr, uid, ids, context=None):
-
-        proxy = self.pool.get('training.subscription.line')
-        subscription_line_ids = proxy.search(cr, uid, [('session_id', 'in', ids), ('state', '=', 'confirmed')], context=context)
-        proxy.send_email(cr, uid, subscription_line_ids, 'session_open_confirmed', context)
-
-        proxy = self.pool.get('training.participation.stakeholder')
-        for session in self.browse(cr, uid, ids, context=context):
-            objs = {}
-            for seance in session.seance_ids:
-                for contact in seance.contact_ids:
-                    if contact.state == 'accepted':
-                        objs.setdefault(contact.id, {}).setdefault('seances', []).append(seance)
-
-            proxy.send_email(cr, uid, objs.keys(), 'session_open_confirmed', session, context, objs)
-
         return self.write(cr, uid, ids, {'state' : 'opened_confirmed'}, context=context)
 
     # training.session
@@ -1795,7 +1787,6 @@ class training_session(osv.osv):
         return True
 
         # Disabled code
-
         for obj in self.browse(cr, uid, ids, context=context):
             # Check the minimum for this session
             number_of_participants = proxy.search_count(cr, uid, [('session_id', '=', obj.id)], context=context)
@@ -1815,16 +1806,6 @@ class training_session(osv.osv):
 
     # training.session
     def action_workflow_close_confirm(self, cr, uid, ids, context=None):
-        #proxy = self.pool.get('training.participation.stakeholder')
-        #for session in self.browse(cr, uid, ids, context):
-        #    objs = {}
-        #    for seance in session.seance_ids:
-        #        for contact in seance.contact_ids:
-        #            if contact.state == 'confirmed':
-        #                objs.setdefault(contact.id, {}).setdefault('seances', []).append(seance)
-
-        #    proxy.send_email(cr, uid, objs.keys(), '???', session, context, objs)
-
         return self.write(cr, uid, ids, {'state' : 'closed_confirmed'}, context=context)
 
     # training.session
@@ -1859,22 +1840,7 @@ class training_session(osv.osv):
 
     # training.session
     def action_cancellation_session(self, cr, uid, ids, context=None):
-
-        # just send emails...
-
-        proxy = self.pool.get('training.subscription.line')
-        subscription_line_ids = proxy.search(cr, uid, [('session_id', 'in', ids), ('state', '=', 'confirmed')], context=context)
-        proxy.send_email(cr, uid, subscription_line_ids, 'session_confirm_cancelled', context)
-
-        proxy = self.pool.get('training.participation.stakeholder')
-        for session in self.browse(cr, uid, ids, context=context):
-            objs = {}
-            for seance in session.seance_ids:
-                for contact in seance.contact_ids:
-                    if contact.state == 'accepted':
-                        objs.setdefault(contact.id, {}).setdefault('seances', []).append(seance)
-
-            proxy.send_email(cr, uid, objs.keys(), 'session_confirm_cancelled', session, context, objs)
+        return True
 
     # training.session
     def action_workflow_cancel(self, cr, uid, ids, context=None):
@@ -2397,45 +2363,15 @@ class training_seance(osv.osv):
     # training.seance
     def action_workflow_confirm(self, cr, uid, ids, context=None):
         proxy = self.pool.get('training.participation')
-        emails = self.pool.get('training.email')
         report = netsvc.LocalService('report.training.seance.support.delivery.report')
-
         if not context:
             context = {}
         report_ctx = context.copy()
-
         for seance in self.browse(cr, uid, ids, context=context):
             if not seance.manual:
                 proxy.create_procurements(cr, uid, [x.id for x in seance.participant_ids], context=context)
             else:
                 self.create_procurements(cr, uid, [seance.id], context=context)
-
-            # send email to suppliers
-            partners = set()
-            for po_line in seance.purchase_line_ids:
-                for seller in po_line.product_id.seller_ids:
-                    partners.add(seller.name)
-
-
-            for partner in partners:
-                to = None
-                for address in partner.address:
-                    if not address.email:
-                        continue
-                    if address.type == 'delivery':
-                        to = address.email
-                        break
-                    elif address.type == 'default':
-                        to = address.email
-
-                if to is None:
-                    continue
-
-                report_ctx['partner'] = partner
-                pdf, _ = report.create(cr, uid, [seance.id], {}, context=report_ctx)
-                filename = seance.name.replace('/', ' ') + '.pdf'
-                emails.send_email(cr, uid, 'procurements', 's', to=to, attachments=[(filename, pdf),], context=context, seance=seance, partner=partner)
-
         return self.write(cr, uid, ids, {'state' : 'confirmed'}, context=context)
 
     # training.seance
@@ -2709,13 +2645,6 @@ class training_subscription(osv.osv):
     _name = 'training.subscription'
     _description = 'Subscription'
 
-    def check_notification_mode(self, cr, uid, ids, context=None):
-        for subr in self.browse(cr, uid, ids, context=context):
-            if not subr.partner_id.notif_contact_id \
-                and not subr.partner_id.notif_participant:
-                raise osv.except_osv(_('Error'),
-                        _('No notification mode (HR and/or Participant) for this partner "%s", please choose at least one') % (subr.partner_id.name))
-
     def _notification_text_compute(self, cr, uid, ids, name, args, context=None):
         res = dict.fromkeys(ids, '')
 
@@ -2744,7 +2673,6 @@ class training_subscription(osv.osv):
         'payment_term_id' : fields.many2one('account.payment.term', 'Payment Term'),
         'responsible_id' : fields.many2one('res.users', 'Creator', required=True, readonly=True),
         'origin' : fields.char('Origin', size=64),
-        'notification_active' : fields.boolean('Notification Active'),
         'notification_text' : fields.function(_notification_text_compute, method=True,
                                               string='Kind', type='char',
                                               store={
@@ -2774,7 +2702,6 @@ class training_subscription(osv.osv):
         'state' : lambda *a: 'draft',
         'name' : lambda *args: '/',
         'responsible_id' : lambda obj, cr, uid, context: uid,
-        'notification_active' : lambda *a: 1,
     }
 
     def copy(self, cr, uid, subscription_id, default_values, context=None):
@@ -2860,11 +2787,9 @@ class training_subscription(osv.osv):
                         for contact in seance.contact_ids:
                             if contact.state == 'confirmed':
                                 objs.setdefault(contact.id, {}).setdefault('seances', []).append(seance)
-
-                    sh.send_email(cr, uid, objs.keys(), 'sub_cancelled', sl.session_id, context, objs)
                     sl_ids.append(sl.id)
 
-        sl_proxy.action_workflow_invoice_and_send_emails(cr, uid, sl_ids, context)
+        sl_proxy.action_workflow_invoice(cr, uid, sl_ids, context)
         workflow = netsvc.LocalService('workflow')
         for oid in sl_ids:
             workflow.trg_validate(uid, 'training.subscription.line', oid, 'signal_cancel', cr)
@@ -2873,7 +2798,6 @@ class training_subscription(osv.osv):
 
     # training.subscription
     def action_workflow_confirm(self, cr, uid, ids, context=None):
-        self.check_notification_mode(cr, uid, ids, context=context)
         return self.write(cr, uid, ids, {'state' : 'confirmed'}, context=context)
 
     # training.subscription
@@ -3034,7 +2958,7 @@ class training_subscription_line(osv.osv):
 
     def copy(self, cr, uid, object_id, values, context=None):
         if 'name' not in values:
-            values['name'] = self._default_name(cr, uid, context=context)
+            values['name'] = '/'
         if 'participation_ids' not in values:
             values['participation_ids'] = []
         if 'session_id' in values:
@@ -3157,7 +3081,6 @@ class training_subscription_line(osv.osv):
         for subl in self.read(cr, uid, ids, ['subscription_id'], context=context):
                 if subl['subscription_id']:
                     subs.add(subl['subscription_id'][0])
-        self.pool.get('training.subscription').check_notification_mode(cr, uid, list(subs), context=context)
         return True
 
     # training.subscription.line
@@ -3168,22 +3091,10 @@ class training_subscription_line(osv.osv):
         return True
 
     # training.subscription.line
-    def action_workflow_send_confirm_emails(self, cr, uid, ids, context=None):
-        # the confirm function will send an email to the participant and/or the HR Manager
+    def action_workflow_send_confirm(self, cr, uid, ids, context=None):
         lines = {}
         for sl in self.browse(cr, uid, ids, context=context):
             sl.session_id._create_participation(sl, context=context)
-            # opened -> opened; opened_confirmed and closed_confirmed -> confirmed
-            state = sl.session_id.state.rsplit('_', 1)[-1]
-            if state in ('opened', 'confirmed', 'inprogress'):
-                lines.setdefault(state, []).append(sl.id)
-        if 'opened' in lines:
-            self.send_email(cr, uid, lines['opened'], 'sub_confirm_open', context)
-        if 'confirmed' in lines:
-            # TODO: change signal name (as closed confirmed sessions are also possible)
-            self.send_email(cr, uid, lines['confirmed'], 'sub_confirm_openconf', context)
-        if 'inprogress' in lines:
-            self.send_email(cr, uid, lines['inprogress'], 'sub_confirm_openconf', context)
         return True
 
     # training.subscription.line
@@ -3268,9 +3179,9 @@ class training_subscription_line(osv.osv):
 
 
     # training.subscription.line
-    def action_workflow_invoice_and_send_emails(self, cr, uid, ids, context=None):
+    def action_workflow_invoice(self, cr, uid, ids, context=None):
         self.action_create_invoice_and_refund(cr, uid, ids, context)
-        self.send_email(cr, uid, ids, 'sub_cancelled', context)
+        return True
 
     # training.subscription.line
     def _delete_participations(self, cr, uid, ids, context=None):
@@ -3574,30 +3485,6 @@ class training_subscription_line(osv.osv):
             workflow.trg_validate(uid, 'training.subscription', line.subscription_id.id, 'signal_done_cancel', cr)
         return True
 
-
-    def send_email(self, cr, uid, ids, trigger, context=None, **objects):
-        """Send email to participant and to HR (grouped by session)"""
-        email_proxy = self.pool.get('training.email')
-        groups = {}
-        email_to_subs = {}
-        for sl in self.browse(cr, uid, ids, context=context):
-            if sl.subscription_id.notification_active:
-                partner = sl.job_id.name
-                if partner.notif_participant:
-                    email_proxy.send_email(cr, uid, trigger, 'p', sl.job_email, session=sl.session_id, stylegroup=sl.session_id.stylegroup_id, context=context, partner=partner, subline=sl, **objects)
-
-                hremail = sl.partner_hr_email
-                # do not group HR emails...
-                email_proxy.send_email(cr, uid, trigger, 'hr', hremail, session=sl.session_id, stylegroup=sl.session_id.stylegroup_id, context=context, subline=sl, **objects)
-
-#                key = hremail, sl.session_id
-#                email_to_subs.setdefault(hremail, set()).add(sl.subscription_id)
-#                groups.setdefault(key, []).append(sl)
-#
-#        for (hremail, session), sublines in groups.iteritems():
-#            subs = list(email_to_subs[hremail])
-#            email_proxy.send_email(cr, uid, trigger, 'hr', hremail, session=session, context=context, sublines=sublines, **objects)
-
 training_subscription_line()
 
 class training_participation_stakeholder(osv.osv):
@@ -3820,45 +3707,18 @@ class training_participation_stakeholder_request(osv.osv):
         self.write(cr, uid, ids, {'state': 'accepted'}, context=context)
         self._approve_PO(cr, uid, ids, context=context)
         self._spread_wkf_signal(cr, uid, ids, 'signal_accept', context)
-
-        email_proxy = self.pool.get('training.email')
-        for this in self.browse(cr, uid, ids, context=context):
-            seances = list(sh.seance_id for sh in this.participation_ids)
-            seances.sort(cmp=self.sh_sort_by_date)
-            email_proxy.send_email(cr, uid, 'sh_accept', 'sh', this.email, session=this.session_id, context=context, seances=seances, request=this)
-
         return True
 
-    def action_wkf_send_request_email(self, cr, uid, ids, context=None):
-        email_proxy = self.pool.get('training.email')
-        for this in self.browse(cr, uid, ids, context=context):
-            seances = list(sh.seance_id for sh in this.participation_ids)
-            seances.sort(cmp=self.sh_sort_by_date)
-            email_proxy.send_email(cr, uid, 'sh_request', 'sh', this.email, session=this.session_id, context=context, seances=seances, request=this)
-
+    def action_wkf_send_request(self, cr, uid, ids, context=None):
         return True
 
-    def action_wkf_send_cancellation_email(self, cr, uid, ids, context=None):
-        email_proxy = self.pool.get('training.email')
-        for this in self.browse(cr, uid, ids, context=context):
-            seances = list(sh.seance_id for sh in this.participation_ids)
-            seances.sort(cmp=self.sh_sort_by_date)
-            email_proxy.send_email(cr, uid, 'sh_cancel', 'sh', this.email, session=this.session_id, context=context, seances=seances, request=this)
-
+    def action_wkf_send_cancellation(self, cr, uid, ids, context=None):
         return True
 
     def action_wkf_refuse(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'refused'}, context=context)
         self._cancel_PO(cr, uid, ids, context)
         self._spread_wkf_signal(cr, uid, ids, 'signal_refuse', context)
-
-        email_proxy = self.pool.get('training.email')
-
-        for this in self.browse(cr, uid, ids, context=context):
-            seances = list(sh.seance_id for sh in this.participation_ids)
-            seances.sort(cmp=self.sh_sort_by_date)
-            email_proxy.send_email(cr, uid, 'sh_refuse', 'sh', this.email, session=this.session_id, context=context, seances=seances, request=this)
-
         return True
 
     def test_wkf_done(self, cr, uid, ids, context=None):
@@ -4064,13 +3924,6 @@ class training_participation_stakeholder(osv.osv):
                 raise osv.except_osv(_('Error'), _('%(stakeholder)s is not available for seance "%(this_seance)s" because (s)he is already requested or confirmed for the seance "%(other_seance)s"') % {'stakeholder':name, 'this_seance': this.seance_id.name, 'other_seance': other_seance.name})
         return True
 
-    def send_email(self, cr, uid, ids, trigger, session, context=None, objects_by_ids=None):
-        if objects_by_ids is None:
-            objects_by_ids = {}
-        email_proxy = self.pool.get('training.email')
-        for sh in self.browse(cr, uid, ids, context=context):
-            if sh.request_id and sh.request_id.email:
-                email_proxy.send_email(cr, uid, trigger, 'sh', sh.request_id.email, session=session, context=context, sh=sh, **objects_by_ids.get(sh.id, {}))
     def _test_wkf(self, cr, uid, ids, state, context=None):
         for this in self.browse(cr, uid, ids, context):
             if this.request_id:

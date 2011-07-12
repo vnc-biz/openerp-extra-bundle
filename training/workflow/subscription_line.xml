@@ -22,18 +22,18 @@
             <field name="action">action_workflow_confirm()</field>
         </record>
 
-        <record model="workflow.activity" id="activity_subscription_line_invoice_and_send_emails">
+        <record model="workflow.activity" id="activity_subscription_line_invoice">
             <field name="wkf_id" ref="workflow_subscription_line" />
-            <field name="name">invoice and send emails</field>
+            <field name="name">invoice</field>
             <field name="kind">function</field>
-            <field name="action">action_workflow_invoice_and_send_emails()</field>
+            <field name="action">action_workflow_invoice()</field>
         </record>
 
-        <record model="workflow.activity" id="activity_subscription_line_send_confirm_emails">
+        <record model="workflow.activity" id="activity_subscription_line_send_confirm">
             <field name="wkf_id" ref="workflow_subscription_line" />
-            <field name="name">send confirm emails</field>
+            <field name="name">send confirm</field>
             <field name="kind">function</field>
-            <field name="action">action_workflow_send_confirm_emails()</field>
+            <field name="action">action_workflow_send_confirm()</field>
         </record>
 
         <record model="workflow.activity" id="activity_subscription_line_cancel">
@@ -54,28 +54,28 @@
 
         <record model="workflow.transition" id="transition_subscription_line_send_confirm_emails">
             <field name="act_from" ref="activity_subscription_line_draft" />
-            <field name="act_to" ref="activity_subscription_line_send_confirm_emails" />
+            <field name="act_to" ref="activity_subscription_line_send_confirm" />
             <field name="signal">signal_confirm</field>
             <field name="condition">test_workflow_confirm()</field>
             <!--<field name="role_id" ref="role_subscription_manager" />-->
         </record>
         
         <record model="workflow.transition" id="transition_subscription_line_confirm2">
-            <field name="act_from" ref="activity_subscription_line_send_confirm_emails" />
+            <field name="act_from" ref="activity_subscription_line_send_confirm" />
             <field name="act_to" ref="activity_subscription_line_confirm" />
             <field name="signal" eval="False"/>
             <!--<field name="role_id" ref="role_subscription_manager" />-->
         </record>
 
-        <record model="workflow.transition" id="transition_subscription_line_invoice_and_send_emails">
+        <record model="workflow.transition" id="transition_subscription_line_invoice">
             <field name="act_from" ref="activity_subscription_line_confirm" />
-            <field name="act_to" ref="activity_subscription_line_invoice_and_send_emails" />
-            <field name="signal">signal_invoice_and_send_emails</field>
+            <field name="act_to" ref="activity_subscription_line_invoice" />
+            <field name="signal">signal_invoice</field>
             <!--<field name="role_id" ref="role_subscription_manager" />-->
         </record>
 
         <record model="workflow.transition" id="transition_subscription_line_invoice_to_cancel">
-            <field name="act_from" ref="activity_subscription_line_invoice_and_send_emails" />
+            <field name="act_from" ref="activity_subscription_line_invoice" />
             <field name="act_to" ref="activity_subscription_line_cancel" />
             <field name="signal" eval="False"/>
             <!--<field name="role_id" ref="role_subscription_manager" />-->

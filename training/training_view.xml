@@ -279,7 +279,7 @@
                                     <field name="duration_with_children" widget="float_time"/>
                                 </group>
                             </group>
-                            <field name="splitted_by" attrs="{'readonly' : [('p_id', '!=', False)]}"/>
+                            <field name="splitted_by" attrs="{'readonly' : [('p_id', '!=', False)]}" widget="float_time"/>
                             <separator string="Note" colspan="4"/>
                             <field name="internal_note" nolabel="1" colspan="4"/>
                             <separator string="Themes" colspan="4"/>
@@ -624,7 +624,6 @@
                             <field name="format_id"/>
                             <field name="catalog_id" groups="training.group_session_user"/>
                             <field name="user_id" groups="training.group_session_user"/>
-                            <field name="stylegroup_id" groups="training.group_session_manager" string="Email Style"/>
                             <field name="address_id" select="2"/>
                             <field name="date_end" select="2"/>
                             <newline/>
@@ -1189,10 +1188,7 @@
                             <field name="pricelist_id" invisible="1"/>
                             <field name="partner_rh_email"/>
                             <field name="address_id" domain="[('partner_id','=', partner_id)]" attrs="{'readonly' : [('state', '!=', 'draft')]}" groups="base.group_user"/>
-                            <group colspan="2" col="4" groups="base.group_user">
-                                <field name="notification_active" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
-                                <field name="notification_text"/>
-                            </group>
+                            <field name="notification_text" groups="base.group_user"/>
                             <field name="payment_term_id" attrs="{'readonly' : [('state', '!=', 'draft')]}" groups="base.group_user"/>
                             <field name="subscription_line_ids" colspan="4" nolabel="1"
                                 default_get="{'price_list_id': pricelist_id, 'partner_hr_email': partner_rh_email}"
@@ -1426,7 +1422,7 @@
                         <field name="state"/>
                         <button name="signal_confirm" string="Confirm" type="workflow" states="draft" confirm="Do you want to confirm this subscription line?" icon="terp-camera_test"/>
                         <button name="signal_cancel" string="Cancel" type="workflow" states="draft" confirm="Do you want to cancel this subscription line?" icon="gtk-cancel"/>
-                        <button name="signal_invoice_and_send_emails" string="Cancel (Penalities)" type="workflow" states="confirmed" confirm="Do you want to cancel this subscription line?" icon="gtk-cancel"/>
+                        <button name="signal_invoice" string="Cancel (Penalities)" type="workflow" states="confirmed" confirm="Do you want to cancel this subscription line?" icon="gtk-cancel"/>
                         <button name="%(training.subscription_cancellation_wizard_act)d" string="Cancel (Free)" type="action" groups="training.group_subscription_manager" states="confirmed" context="{'default_state':'cancellation'}" confirm="Do you want to cancel this subscription line?" icon="gtk-cancel"/>
                         <button name="%(training.subscription_cancellation_wizard_act)d" string="Replacement" type="action" states="confirmed" groups="training.group_subscription_manager" context="{'default_state':'replacement'}" confirm="Do you want to do a replacement for this subscription line?" icon="terp-stock_effects-object-colorize"/>
                         <button name="%(training.subscription_cancellation_wizard_act)d" string="Postponement" type="action" states="confirmed" groups="training.group_subscription_manager" context="{'default_state':'postponement'}" confirm="Do you want to postpone this subscription line?" icon="terp-stock_effects-object-colorize"/>
@@ -2205,11 +2201,6 @@
                     <field name="followup_by"/>
                     <separator string="Reason" colspan="4"/>
                     <field name="reason" colspan="4" nolabel="1"/>
-                    <!--
-                    <separator string="Actions" colspan="4"/>
-                    <button name="action_open_course" colspan="2" type="object" string="Open Course"/>
-                    <button name="action_validate_course" colspan="2" type="object" string="Validate Course"/>
-                    -->
                 </form>
             </field>
         </record>
@@ -2450,7 +2441,8 @@
 
 
 <!-- menus -->
-        <menuitem id="training_mi" name="Training" icon="terp-go-home" web_icon="images/training.png" web_icon_hover="images/training-hover.png"/>
+        <menuitem id="training_mi" name="Training" icon="terp-go-home" web_icon="images/training.png" web_icon_hover="images/training-hover.png"
+        groups="group_training,group_course_manager,group_course_user,group_support_course_manager,group_offer_manager,group_offer_user,group_session_manager,group_session_user,group_seance_manager,group_seance_user,group_library_consultant,group_subscription_manager,group_subscription_user,group_holiday_manager,group_request_manager,group_request_user"/>
         <!--Address Book-->
         <menuitem id="training.menu_address_book" name="Address Book" parent="training_mi" sequence="5"/>
         <menuitem id="training.menu_partner_form" action="base.action_partner_form" parent="training.menu_address_book"/>
@@ -2482,7 +2474,7 @@
         <menuitem id="stakeholder_participation_requests_mi" name="Stakeholders Requests" parent="training_participation_mi" action="participation_stakeholder_request_act" sequence="30"/>
         <menuitem id="seance_stakeholder_participation_mi" name="Stakeholders Participations" parent="training_participation_mi" action="action_training_participation_stakeholder_all" sequence="40"/>
         <!--Configuration-->
-        <menuitem id="training_config_mi" name="Configuration" parent="training_mi" sequence="30"/>
+        <menuitem id="training_config_mi" name="Configuration" parent="training_mi" sequence="30" groups="group_course_manager,group_support_course_manager,group_offer_manager,group_session_manager,group_seance_manager,group_subscription_manager,group_holiday_manager,group_request_manager"/>
         <menuitem id="training_config_library_mi" parent="training_config_mi" name="Library"/>
         <menuitem id="training_config_library_categ_mi" parent="training_config_library_mi" name="Categorisation"/>
         <menuitem id="course_theme_all_mi" parent="training_config_library_categ_mi" action="course_theme_all_act"/>

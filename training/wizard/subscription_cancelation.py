@@ -35,36 +35,36 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
         'subscription_line_id' : fields.many2one('training.subscription.line', 'Subscription Line',
              domain="[('state', 'in', ['draft', 'confirmed']),('session_id.state', 'in', ('opened', 'opened_confirmed', 'closed_confirmed'))]",
              required=True),
-        'subscription_id' : fields.related('subscription_line_id', 'subscription_id',
+        'subscription_id': fields.related('subscription_line_id', 'subscription_id',
                                            type='many2one',
                                            relation='training.subscription',
                                            string='Subscription',
                                            readonly=True),
-        'partner_id' : fields.related('subscription_line_id', 'subscription_id', 'partner_id',
+        'partner_subscription_id': fields.related('subscription_line_id', 'subscription_id', 'partner_id',
                                       type='many2one',
                                       relation='res.partner',
                                       string='Partner',
                                       readonly=True),
-        'participant_id' : fields.related('subscription_line_id', 'job_id',
+        'participant_id': fields.related('subscription_line_id', 'job_id',
                                           type='many2one',
                                           relation='res.partner.job',
                                           string='Participant',
                                           readonly=True),
-        'session_id' : fields.related('subscription_line_id', 'session_id',
+        'session_id': fields.related('subscription_line_id', 'session_id',
                                       type='many2one',
                                       relation='training.session',
                                       string='Session',
                                       readonly=True),
-        'session_offer_id' : fields.related('subscription_line_id', 'session_id', 'offer_id',
+        'session_offer_id': fields.related('subscription_line_id', 'session_id', 'offer_id',
                                             type='many2one',
                                             relation='training.session',
                                             string='Session Offer',
                                             readonly=True),
-        'session_date' : fields.related('subscription_line_id', 'session_id', 'date',
+        'session_date': fields.related('subscription_line_id', 'session_id', 'date',
                                         type='datetime',
                                         string='Session Date',
                                         readonly=True),
-        'session_state' : fields.related('subscription_line_id', 'session_id', 'state',
+        'session_state': fields.related('subscription_line_id', 'session_id', 'state',
                                          type='selection',
                                          selection=[
                                              ('draft', 'Draft'),
@@ -77,18 +77,18 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
                                          ],
                                          string='Session State',
                                          readonly=True),
-        'new_participant_id' : fields.many2one('res.partner.job', 'Participant',
+        'new_participant_id': fields.many2one('res.partner.job', 'Participant',
                                                domain="[('name', '=', partner_id),('id', '!=', participant_id),('state', '=', 'current')]"),
-        'new_participant_email' : fields.char('Email', size=128),
-        'new_session_id' : fields.many2one('training.session', 'Session',
+        'new_participant_email': fields.char('Email', size=128),
+        'new_session_id': fields.many2one('training.session', 'Session',
                                            domain="[('state', 'in', ('opened', 'opened_confirmed')),('date', '>', time.strftime('%Y-%m-%d')),('date', '>', session_date),('offer_id', '=', session_offer_id)]"
                                           ),
-        'new_session_date' : fields.related('new_session_id', 'date', type='datetime', string='Session Date', readonly=True),
-        'cancellation_reason' : fields.text('Reason'),
-        'cancellation_medical_certificate_toggle' : fields.boolean('Has Justification'),
-        'cancellation_medical_certificate_name' : fields.char('Filename', size=128),
-        'cancellation_medical_certificate' : fields.binary('Justification'),
-        'state' : fields.selection([('init', 'Init'),
+        'new_session_date': fields.related('new_session_id', 'date', type='datetime', string='Session Date', readonly=True),
+        'cancellation_reason': fields.text('Reason'),
+        'cancellation_medical_certificate_toggle': fields.boolean('Has Justification'),
+        'cancellation_medical_certificate_name': fields.char('Filename', size=128),
+        'cancellation_medical_certificate': fields.binary('Justification'),
+        'state': fields.selection([('init', 'Init'),
                                     ('replacement', 'Replacement'),
                                     ('postponement', 'Postponement'),
                                     ('cancellation', 'Cancellation'),
@@ -100,8 +100,8 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
     }
 
     _defaults = {
-        'subscription_line_id' : lambda obj, cr, uid, context: context['active_id'],
-        'state' : lambda *a: 'init',
+        'subscription_line_id': lambda obj, cr, uid, context: context['active_id'],
+        'state': lambda *a: 'init',
     }
 
     def on_change_subscription_line(self, cr, uid, ids, subscription_line_id, context=None):
@@ -115,7 +115,7 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
                 'session_id' : subscription_line.session_id.id,
                 'session_date' : subscription_line.session_id.date,
                 'session_state' : subscription_line.session_id.state,
-                'partner_id' : subscription_line.subscription_id.partner_id.id,
+                'partner_subscription_id' : subscription_line.subscription_id.partner_id.id,
                 'participant_id' : subscription_line.job_id.id,
                 'session_offer_id' : subscription_line.session_id.offer_id.id,
             }
@@ -136,7 +136,6 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
                 'new_session_date' : session.date,
             }
         }
-
 
     def action_cancel(self, cr, uid, ids, context=None):
         return {'type':'ir.actions.act_window_close'}
@@ -179,10 +178,7 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
                 context=context2
             )
             workflow.trg_validate(uid, 'training.subscription.line', this.subscription_line_id.id, 'signal_cancel', cr)
-            sl_proxy = self.pool.get('training.subscription.line')
-            sl_proxy.send_email(cr, uid, [ this.subscription_line_id.id ], 'sub_cancelled', context=context)
         elif this.state == 'replacement':
-            email_proxy = self.pool.get('training.email')
             objects = {
                 'new_participant_id' : this.new_participant_id,
                 'old_participant_id' : old_participant_id,
@@ -196,23 +192,6 @@ class training_subscription_cancellation_wizard(osv.osv_memory):
                                                                      this.new_participant_id.contact_id.first_name,
                                                                      this.new_participant_id.contact_id.name))
             this.subscription_line_id.write({'internal_note' : "\n----\n".join(internal_note)})
-            email_proxy.send_email(cr, uid,
-                             'sub_replacement',
-                             'hr',
-                             this.subscription_line_id.partner_hr_email,
-                             session=this.subscription_line_id.session_id,
-                             context=context2,
-                             subline=this.subscription_line_id,
-                             **objects)
-            #if this.subscription_line_id.job_id.name.notif_participant and this.new_participant_email:
-            #    email_proxy.send(cr, uid,
-            #                     'sub_replacement',
-            #                     'p',
-            #                     this.new_participant_email,
-            #                     session=sl.session_id,
-            #                     context=context,
-            #                     subline=this.subscription_line_id,
-            #                     **objects)
         elif this.state == 'postponement':
             values = {
                 'session_id' : this.new_session_id.id,

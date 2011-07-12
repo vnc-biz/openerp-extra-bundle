@@ -45,12 +45,13 @@
             <field name="kind">function</field>
             <field name="action">action_wkf_request()</field>
         </record>
-        
+
+<!-- It should be deleted -->
         <record model="workflow.activity" id="wkf_act_pshr_send_request_email">
             <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
             <field name="name">[send request email]</field>
             <field name="kind">function</field>
-            <field name="action">action_wkf_send_request_email()</field>
+            <field name="action">action_wkf_send_request()</field>
         </record>
         
         <record model="workflow.activity" id="wkf_act_pshr_refused">
@@ -67,12 +68,13 @@
             <field name="kind">function</field>
             <field name="action">action_wkf_accept()</field>
         </record>
-        
+
+<!-- It should be deleted -->
         <record model="workflow.activity" id="wkf_act_pshr_send_cancellation_email">
             <field name="wkf_id" ref="wkf_participation_stakeholder_request" />
             <field name="name">[send cancellation email]</field>
             <field name="kind">function</field>
-            <field name="action">action_wkf_send_cancellation_email()</field>
+            <field name="action">action_wkf_send_cancellation()</field>
         </record>
 
 

@@ -172,6 +172,11 @@ class res_partner_job(osv.osv):
         return self.name_get(cr, uid, self.search(cr, uid, domain, context=context, limit=limit), context=context)
 
     def search(self, cr, uid, domain, offset = 0, limit = None, order = None, context = None, count = False):
+        """
+        Add new Stakeholder at Training->Configuration->Stakeholder funtions. 
+        Copy the Stakeholder name, and paste into Partner Funtion field (Partner->General->Contact)
+        Now, into Course, there are available all contacts to add at Lecturers field (m2m)
+        """
         partner_id = context and context.get('partner_id', False) or False
         if partner_id:
             domain.extend([('name','=', partner_id)])
@@ -187,13 +192,11 @@ class res_partner_job(osv.osv):
             functions = [x.function for x in proxy.browse(cr, uid, ids, context=context)]
 
             proxy = self.pool.get('res.partner.job')
-            job_ids = proxy.search(cr, uid,
-                                   domain + [('function', 'in', functions),('state', '=', 'current')])
+            job_ids = proxy.search(cr, uid, domain + [('function', 'in', functions),('state', '=', 'current')])
 
             if not job_ids:
                 raise osv.except_osv(_('Warning'),
                                      _("Please, Could you check the functions because the system does not find any function with the status 'current'"))
-
 
             course_ids = []
 
@@ -206,7 +209,6 @@ class res_partner_job(osv.osv):
                 course_id = context and context.get('course_id', False) or False
                 if course_id:
                     course_ids = [course_id]
-
 
             if course_ids:
                 cr.execute("SELECT job_id "

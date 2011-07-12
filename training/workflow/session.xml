@@ -51,8 +51,9 @@
             <field name="flow_stop">True</field>
         </record>
 
+<!-- It should be deleted -->
         <record model="workflow.activity" id="activity_session_cancelled2">
-            <field name="wkf_id" ref="workflow_session" />
+            <field name="wkf_id" ref="workflow_session"/>
             <field name="name">cancelled2</field>
             <field name="kind">function</field>
             <field name="action">action_cancellation_session()</field>

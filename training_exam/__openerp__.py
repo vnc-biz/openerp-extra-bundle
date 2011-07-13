@@ -4,6 +4,7 @@
 #    OpenERP, Open Source Management Solution	
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    Copyright (C) 2008-2009 AJM Technologies S.A. (<http://www.ajm.lu). All Rights Reserved
+#    Copyright (C) 2011 Zikzakmedia S.L. (<http://www.zikzakmedia.com>). All Rights Reserved
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -24,7 +25,8 @@
 {
     'name' : 'Training Exam',
     'version' : '0.5',
-    'author' : 'Tiny SPRL - AJM Technologies S.A',
+    'author' : 'Tiny SPRL - AJM Technologies S.A - Zikzakmedia SL',
+    "license" : "GPL-3",
     'website' : 'http://www.openerp.com',
     'category' : 'Enterprise Specific Modules/Training',
     'description' : """This module adds the exam management for the training management""",
@@ -35,8 +37,8 @@
         'training_exam_data.xml',
     ],
     'demo_xml' : [
-        'data/training.exam.question.csv',
-        'data/training.exam.question.answer.csv',
+        #~ 'data/training.exam.question.csv', #TODO: Review demo questions values
+        #~ 'data/training.exam.question.answer.csv', #TODO: Review demo answer values
         #'training_exam_demo.xml',
     ],
     'update_xml' : [
@@ -47,6 +49,7 @@
         'workflow/questionnaire_workflow.xml',
         'training_exam_sequence.xml',
         'training_exam_wizard.xml',
+        'wizard/training_exam_questionnaire_view.xml',
     ],
     'active' : False,
     'installable' : True,

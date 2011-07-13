@@ -21,6 +21,4 @@
 #
 ############################################################################################
 
-import wizard_question_assign_course
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+import training_exam_questionnaire

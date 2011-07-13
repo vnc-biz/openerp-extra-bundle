@@ -4,6 +4,7 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    Copyright (C) 2008-2009 AJM Technologies S.A. (<http://www.ajm.lu). All Rights Reserved
+#    Copyright (C) 2011 Zikzakmedia S.L. (<http://www.zikzakmedia.com>). All Rights Reserved
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -39,7 +40,7 @@ class training_course_type(osv.osv):
     _inherit = 'training.course_type'
 
     _columns = {
-        'exam_product_id' : fields.many2one('product.product', 'Exam'),
+        'exam_product_id': fields.many2one('product.product', 'Exam'),
     }
 training_course_type()
 
@@ -61,19 +62,19 @@ class training_session(osv.osv):
             if group_ids:
                 group_id = group_ids[0]
             else:
-                group_id = group_proxy.create(cr, uid, {'name' : _('Class %d') % (1,), 'session_id': session.id}, context=context)
+                group_id = group_proxy.create(cr, uid, {'name': _('Class %d') % (1,), 'session_id': session.id}, context=context)
 
             seance_proxy = self.pool.get('training.seance')
             seance_id = seance_proxy.create(cr, uid, {
-                'name' : _("Exam"),
-                'original_session_id' : session.id,
-                'min_limit' : 1,
-                'max_limit' : 100,
-                'user_id' : session.user_id.id,
-                'date' : session.date,
-                'kind' : 'exam',
-                'group_id' : group_id,
-                'duration' : 3.0,
+                'name': _("Exam"),
+                'original_session_id': session.id,
+                'min_limit': 1,
+                'max_limit': 100,
+                'user_id': session.user_id.id,
+                'date': session.date,
+                'kind': 'exam',
+                'group_id': group_id,
+                'duration': 3.0,
             })
             return [seance_id]
         else:
@@ -85,7 +86,7 @@ class training_seance(osv.osv):
     _inherit = 'training.seance'
 
     _columns = {
-        'kind' : fields.selection(
+        'kind': fields.selection(
             training_course_kind_compute,
             'Kind',
             required=True,
@@ -222,16 +223,16 @@ class training_course(osv.osv):
 
 
     _columns = {
-        'questionnaire_ids' : fields.many2many('training.exam.questionnaire',
+        'questionnaire_ids': fields.many2many('training.exam.questionnaire',
                                               'training_exam_questionnaire_courses_rel',
                                               'course_id',
                                               'questionnaire_id',
                                               string='Questionnaire'),
-        'has_questionnaire' : fields.function(_has_questionnaire_compute,
+        'has_questionnaire': fields.function(_has_questionnaire_compute,
                                               method=True,
                                               string='Has Questionnaires',
                                               type='boolean',
-                                              store= { 'training.exam.questionnaire' : (_get_questionnaires, None, 10) }
+                                              store= { 'training.exam.questionnaire': (_get_questionnaires, None, 10) }
                                              ),
     }
 
@@ -241,7 +242,7 @@ class training_offer(osv.osv):
     _inherit = 'training.offer'
 
     _columns = {
-        'questionnaire_ids' : fields.many2many('training.course',
+        'questionnaire_ids': fields.many2many('training.course',
                                                'training_questionnaire_offer_rel',
                                                'offer_id',
                                                'questionnaire_id',
@@ -260,10 +261,10 @@ class training_exam_questionnaire_question(osv.osv):
     _name = 'training.exam.questionnaire.question'
 
     _columns = {
-        'sequence' : fields.integer('Sequence'),
+        'sequence': fields.integer('Sequence'),
 
-        'question_id' : fields.many2one('training.exam.question', 'Question', required=True),
-        'question_type' : fields.related('question_id', 'type',
+        'question_id': fields.many2one('training.exam.question', 'Question', required=True),
+        'question_type': fields.related('question_id', 'type',
                                          type='selection',
                                          selection=[('qcm', 'QCM'),
                                                     ('qcu', 'QCU'),
@@ -272,12 +273,12 @@ class training_exam_questionnaire_question(osv.osv):
                                          string='Type',
                                          readonly=True,
                                         ),
-        'question_exposition' : fields.related('question_id', 'question',
+        'question_exposition': fields.related('question_id', 'question',
                                                type='text',
                                                string='Exposition',
                                                readonly=True),
 
-        'questionnaire_id' : fields.many2one('training.exam.questionnaire', 'Questionnaire', required=True, ondelete='cascade'),
+        'questionnaire_id': fields.many2one('training.exam.questionnaire', 'Questionnaire', required=True, ondelete='cascade'),
     }
 
     _order = 'sequence asc'
@@ -300,17 +301,17 @@ class training_question(osv.osv):
         return values
 
     _columns = {
-        'name' : fields.char('Name',
+        'name': fields.char('Name',
                              size=128,
                              required=True,
                              help='Name of Question'),
-        'question' : fields.text('Question',
+        'question': fields.text('Question',
                                  required=True),
-        'is_mandatory' : fields.boolean('Mandatory',
+        'is_mandatory': fields.boolean('Mandatory',
                                         help='Question is mandatory or not'),
-        'is_eliminatory' : fields.boolean('Eliminatory'),
-        'note' : fields.text('Note'),
-        'type' : fields.selection(
+        'is_eliminatory': fields.boolean('Eliminatory'),
+        'note': fields.text('Note'),
+        'type': fields.selection(
             [('qcm', 'QCM'),
              ('qcu', 'QCU'),
              ('plain', 'Plain'),
@@ -318,23 +319,23 @@ class training_question(osv.osv):
             'Type',
             required=True,
             help='Question type'),
-        'number_of_good_answers' : fields.function(_number_of_good_answer, method=True,
+        'number_of_good_answers': fields.function(_number_of_good_answer, method=True,
                                                    string='Number of Good Answers',
                                                    type='integer'),
-        'response_plain' : fields.text('Solution'),
-        'response_yesno' : fields.selection([('yes', 'Yes'),('no', 'No')], 'Solution'),
-        'question_answer_ids' : fields.one2many('training.exam.question.answer', 'question_id', 'Solution'),
+        'response_plain': fields.text('Solution'),
+        'response_yesno': fields.selection([('yes', 'Yes'),('no', 'No')], 'Solution'),
+        'question_answer_ids': fields.one2many('training.exam.question.answer', 'question_id', 'Solution'),
         'questionnaire_ids': fields.many2many('training.exam.questionnaire',
                                               'training_exam_questionnaire_question',
                                               'question_id',
                                               'questionnaire_id',
                                               'Questionnaire', readonly=True),
-        'course_ids' : fields.many2many('training.course',
+        'course_ids': fields.many2many('training.course',
                                         'training_question_course_rel',
                                         'question_id',
                                         'course_id',
                                         'Courses'),
-        'point' : fields.float('Point', digits=(12,2),
+        'point': fields.float('Point', digits=(12,2),
                                  required=True,
                                  help='Point related to question'),
         'duration': fields.float('Duration',
@@ -414,12 +415,12 @@ class training_question(osv.osv):
         return self.pool.get('ir.sequence').get(cr, uid, 'training.exam.questionnaire')
 
     _defaults = {
-        'name' : _name_default,
-        'is_mandatory' : lambda *a: 0,
-        'is_eliminatory' : lambda *a: 0,
-        'type' : lambda *a: 'plain',
-        'response_yesno' : lambda *a: 0,
-        'point' : lambda *a: 0,
+        'name': _name_default,
+        'is_mandatory': lambda *a: 0,
+        'is_eliminatory': lambda *a: 0,
+        'type': lambda *a: 'plain',
+        'response_yesno': lambda *a: 0,
+        'point': lambda *a: 0,
         'duration':lambda *a: 1.0,
         'free_lines_count': lambda *a: 10,
         'state': lambda *a: 'draft',
@@ -431,14 +432,11 @@ class training_question(osv.osv):
 
     def _check_answer(self, cr, uid, ids, context=None):
         obj = self.browse(cr, uid, ids[0], context=context)
-
-        if obj.type == 'qcm' and obj.number_of_good_answers:
-            return  obj.number_of_good_answers >=1
-
-        elif obj.type =='qcu':
-            return  obj.number_of_good_answers == 1
-
-        return  True
+        if obj.type == 'qcm' or obj.type =='qcu' and obj.number_of_good_answers:
+            return obj.question_answer_ids
+        elif obj.type == 'yesno':
+            return obj.response_yesno
+        return True
 
     _constraints = [
         (_check_point, "Can you check the point of your question ?", ['point']),
@@ -477,7 +475,7 @@ class training_question(osv.osv):
 
         questionnaire_id = context and context.get('questionnaire_id', False) or False
         if questionnaire_id:
-            course_id = self.pool.get('training.exam.questionnaire').browse(cr, uid, questionnaire_id).course_id.id
+            course_id = self.pool.get('training.exam.questionnaire').browse(cr, uid, questionnaire_id).main_course_id.id
 
         if course_id:
             cr.execute("SELECT question_id FROM training_question_course_rel WHERE course_id = %s",
@@ -500,9 +498,9 @@ class training_question_answer(osv.osv):
     _name = 'training.exam.question.answer'
     _description = 'Training Question Answer'
     _columns = {
-        'name' : fields.text('Solution', required=True, select=1),
-        'is_solution' : fields.selection([('yes', 'Yes'),('no', 'No')], 'Acceptable Solution', required=True),
-        'question_id' : fields.many2one('training.exam.question',
+        'name': fields.text('Solution', required=True, select=1),
+        'is_solution': fields.selection([('yes', 'Yes'),('no', 'No')], 'Acceptable Solution', required=True),
+        'question_id': fields.many2one('training.exam.question',
                                         'Question',
                                         select=True,
                                         required=True,
@@ -577,10 +575,10 @@ class training_exam_questionnaire_course(osv.osv):
 
     def on_change_course(self, cr, uid, ids, course_id, context=None):
         if not course_id:
-            return {'value' : {'category_id':''}}
+            return {'value': {'category_id':''}}
         course = self.pool.get('training.course').browse(cr,uid,course_id)
         result = self.pool.get('training.course_category').search(cr, uid, [('analytic_account_id','=',course.parent_id.id)], context=context)
-        return {'value' : {'category_id' :  result[0]}}
+        return {'value': {'category_id':  result[0]}}
 
 training_exam_questionnaire_course()
 
@@ -676,8 +674,8 @@ class exam_questionnaire(osv.osv):
         return res or 0.0
 
     _columns = {
-        'name' : fields.char( 'Name', size=128, required=True, select=1, help='Name of questionnaire'),
-        'state' : fields.selection([('draft', 'Draft'),
+        'name': fields.char( 'Name', size=128, required=True, select=1, help='Name of questionnaire'),
+        'state': fields.selection([('draft', 'Draft'),
                                     ('validated', 'Validated'),
                                     ('pending', 'Pending'),
                                     ('inprogress', 'In Progress'),
@@ -703,17 +701,17 @@ class exam_questionnaire(osv.osv):
                                 'Type',
                                 required=True,
                                 select=2),
-        'objective' : fields.text('Objective'),
-        'description' : fields.text('Description'),
+        'objective': fields.text('Objective'),
+        'description': fields.text('Description'),
         'remark_firstpage': fields.text('Remark First Page'),
 
-        'main_course_id' : fields.many2one('training.course',
+        'main_course_id': fields.many2one('training.course',
                                       'Main Course',
                                       required=True,
                                       select=1,
                                       domain="[('state_course', 'in', ('draft', 'validated', 'pending'))]"),
 
-#        'course_ids' : fields.many2many('training.course',
+#        'course_ids': fields.many2many('training.course',
 #                                        'training_exam_questionnaire_courses_rel',
 #                                        'questionnaire_id',
 #                                        'course_id',
@@ -723,16 +721,16 @@ class exam_questionnaire(osv.osv):
                                     'questionnaire_id',
                                     string='Courses'),
 
-        'total_point' : fields.function(point_compute,method=True,
+        'total_point': fields.function(point_compute,method=True,
                                         type='float',
                                         string='Total Point',
                                         help='Total point for the questionnaire'),
-        'duration' : fields.function(duration_compute,method=True,
+        'duration': fields.function(duration_compute,method=True,
                                              type='float',
                                              string='Duration',
                                   help='Duration for the exam'),
-        'question_ids' : fields.one2many('training.exam.questionnaire.question', 'questionnaire_id', 'Questions'),
-        'len_question_ids' : fields.function(_len_question_ids,
+        'question_ids': fields.one2many('training.exam.questionnaire.question', 'questionnaire_id', 'Questions'),
+        'len_question_ids': fields.function(_len_question_ids,
                                              method=True,
                                              type='integer',
                                              string='Number of Questions',
@@ -743,7 +741,7 @@ class exam_questionnaire(osv.osv):
                                         string='Global Passing Score',
                                         help='The global passing score of the questionnaire'),
 
-        'category' : fields.function(course_category,
+        'category': fields.function(course_category,
                                      method=True,
                                      type='many2one',
                                      relation='training.course_category',
@@ -757,11 +755,11 @@ class exam_questionnaire(osv.osv):
         return self.pool.get('ir.sequence').get(cr, uid, 'training.exam.questionnaire')
 
     _defaults = {
-        'name' : _name_default,
-        'state' : lambda *a: 'draft',
-        'kind' : lambda *a: 'manual',
-        'duration' : lambda *a: 2.0,
-        'passing_score' : lambda *a: 1.0,
+        'name': _name_default,
+        'state': lambda *a: 'draft',
+        'kind': lambda *a: 'manual',
+        'duration': lambda *a: 2.0,
+        'passing_score': lambda *a: 1.0,
         'type': lambda *a: 'examen',
     }
 
@@ -788,7 +786,7 @@ class exam_questionnaire(osv.osv):
             workflow.trg_create(uid, self._name, oid, cr)
             workflow.trg_validate(uid, self._name, oid, 'signal_teq_pending', cr)
 
-        return self.write(cr, uid, ids, {'state' : 'pending'}, context=context)
+        return self.write(cr, uid, ids, {'state': 'pending'}, context=context)
 
     def reset_to_draft_cb(self, cr, uid, ids, context=None):
         workflow = netsvc.LocalService('workflow')
@@ -796,102 +794,102 @@ class exam_questionnaire(osv.osv):
         for oid in ids:
             workflow.trg_create(uid, self._name, oid, cr)
 
-        return self.write(cr, uid, ids, {'state' : 'draft'}, context=context)
+        return self.write(cr, uid, ids, {'state': 'draft'}, context=context)
 
 exam_questionnaire()
 
-class exam_questionnaire_wizard(osv.osv_memory):
-    _name = 'training.exam.questionnaire.wizard'
-    _description = 'Questionnaire Wizard'
+#class exam_questionnaire_wizard(osv.osv_memory):
+#    _name = 'training.exam.questionnaire.wizard'
+#    _description = 'Questionnaire Wizard'
 
-    _columns = {
-        'name' : fields.char('Name', size=64, required=True),
-        'course_id' : fields.many2one('training.course', 'Course',
-                                      required=True,
-                                      domain="[('state_course', '=', 'validated')]"),
-        'number_of_question' : fields.integer('Number of Questions'),
-        'kind' : fields.selection(
-            [
-                ('automatic', 'Automatic'),
-                ('manual', 'At Least one open-ended question')
-            ],
-            'Type'),
-    }
+#    _columns = {
+#        'name': fields.char('Name', size=64, required=True),
+#        'course_id': fields.many2one('training.course', 'Course',
+#                                      required=True,
+#                                      domain="[('state_course', '=', 'validated')]"),
+#        'number_of_question': fields.integer('Number of Questions'),
+#        'kind': fields.selection(
+#            [
+#                ('automatic', 'Automatic'),
+#                ('manual', 'At Least one open-ended question')
+#            ],
+#            'Type'),
+#    }
 
-    _defaults = {
-        'kind' : lambda *a: 'automatic',
-        'number_of_question' : lambda *a: 20,
-    }
+#    _defaults = {
+#        'kind': lambda *a: 'automatic',
+#        'number_of_question': lambda *a: 20,
+#    }
 
-    def action_cancel(self, cr, uid, ids, context=None):
-        return {'type':'ir.actions.act_window_close'}
+#    def action_cancel(self, cr, uid, ids, context=None):
+#        return {'type':'ir.actions.act_window_close'}
 
-    def action_generate_questionnaire(self, cr, uid, ids, context=None):
-        this = self.browse(cr, uid, ids, context=context)[0]
+#    def action_generate_questionnaire(self, cr, uid, ids, context=None):
+#        this = self.browse(cr, uid, ids, context=context)[0]
 
-        question_proxy = self.pool.get('training.exam.question')
+#        question_proxy = self.pool.get('training.exam.question')
 
-        all_question_ids = question_proxy.search(cr, uid, [], context=context)
+#        all_question_ids = question_proxy.search(cr, uid, [], context=context)
 
-        mandatory_question_ids = []
-        question_ids = []
+#        mandatory_question_ids = []
+#        question_ids = []
 
-        for question in question_proxy.browse(cr, uid, all_question_ids, context=context):
-            if this.course_id in question.course_ids:
-                if question.is_mandatory:
-                    mandatory_question_ids.append(question.id)
-                else:
-                    question_ids.append(question.id)
+#        for question in question_proxy.browse(cr, uid, all_question_ids, context=context):
+#            if this.course_id in question.course_ids:
+#                if question.is_mandatory:
+#                    mandatory_question_ids.append(question.id)
+#                else:
+#                    question_ids.append(question.id)
 
-        mqids = []
-        qids = []
+#        mqids = []
+#        qids = []
 
-        import random
+#        import random
 
-        number_of_mandatory_questions = random.randint(0, 3)
-        number_of_questions = min(max(20, this.number_of_question) - number_of_mandatory_questions,len(question_ids))
+#        number_of_mandatory_questions = random.randint(0, 3)
+#        number_of_questions = min(max(20, this.number_of_question) - number_of_mandatory_questions,len(question_ids))
 
-        while number_of_mandatory_questions:
-            try:
-                idx = random.randint(0, len(mandatory_question_ids))
-                mqids.append(mandatory_question_ids[idx])
-                del mandatory_question_ids[idx]
-            except:
-                pass
-            number_of_mandatory_questions -= 1
+#        while number_of_mandatory_questions:
+#            try:
+#                idx = random.randint(0, len(mandatory_question_ids))
+#                mqids.append(mandatory_question_ids[idx])
+#                del mandatory_question_ids[idx]
+#            except:
+#                pass
+#            number_of_mandatory_questions -= 1
 
-        while number_of_questions:
-            try:
-                idx = random.randint(0, len(question_ids))
-                qids.append(question_ids[idx])
-                del question_ids[idx]
-                number_of_questions -= 1
-            except:
-                pass
+#        while number_of_questions:
+#            try:
+#                idx = random.randint(0, len(question_ids))
+#                qids.append(question_ids[idx])
+#                del question_ids[idx]
+#                number_of_questions -= 1
+#            except:
+#                pass
 
-        return {
-            'view_type': 'form',
-            "view_mode": 'form',
-            'res_model': 'training.exam.questionnaire',
-            'view_id':self.pool.get('ir.ui.view').search(cr,uid,[('name','=','training.exam.questionnaire.form')]),
-            'type': 'ir.actions.act_window',
-            'target':'current',
-            'context' : {
-                'default_name' : this.name,
-                'default_course_id' : this.course_id.id,
-                'default_question_ids' : mqids + qids,
-                'default_kind' : this.kind,
-            }
-        }
+#        return {
+#            'view_type': 'form',
+#            "view_mode": 'form',
+#            'res_model': 'training.exam.questionnaire',
+#            'view_id':self.pool.get('ir.ui.view').search(cr,uid,[('name','=','training.exam.questionnaire.form')]),
+#            'type': 'ir.actions.act_window',
+#            'target':'current',
+#            'context': {
+#                'default_name': this.name,
+#                'default_course_id': this.course_id.id,
+#                'default_question_ids': mqids + qids,
+#                'default_kind': this.kind,
+#            }
+#        }
 
-exam_questionnaire_wizard()
+#exam_questionnaire_wizard()
 
 class training_question_wizard(osv.osv_memory):
     _name = 'training.exam.question.wizard'
     _description = 'Question Wizard'
 
     _columns = {
-        'course_id' : fields.many2one('training.course', 'Course', required=True,
+        'course_id': fields.many2one('training.course', 'Course', required=True,
                                       domain="[('state_course', '=', 'validated')]"),
     }
 
@@ -949,17 +947,17 @@ class training_subscription(osv.osv):
                                                                                  subscription.partner_id.id,
                                                                                  1.0)[sl.price_list_id.id]
                         values = {
-                                'job_id' : sl.job_id.id,
-                                'job_email' : sl.job_id.email or '',
-                                'subscription_id' : sl.subscription_id.id,
-                                'session_id' : sl.exam_session_id.id,
-                                'parent_id' : sl.id,
-                                'course_id' : course.id,
-                                'price_list_id' : sl.price_list_id.id,
-                                'price' : price,
+                                'job_id': sl.job_id.id,
+                                'job_email': sl.job_id.email or '',
+                                'subscription_id': sl.subscription_id.id,
+                                'session_id': sl.exam_session_id.id,
+                                'parent_id': sl.id,
+                                'course_id': course.id,
+                                'price_list_id': sl.price_list_id.id,
+                                'price': price,
                         }
                         sl_proxy.create(cr, uid, values, context=context)
-                        sl.write({'computed' : 1})
+                        sl.write({'computed': 1})
 
         return True
 
@@ -969,15 +967,15 @@ training_subscription()
 class training_subscription_line(osv.osv):
     _inherit = 'training.subscription.line'
     _columns = {
-        'exam_session_id' : fields.many2one('training.session', 'Exam Session', domain=[('kind', '=', 'exam')]),
-        'course_id' : fields.many2one('training.course', 'Exam',
+        'exam_session_id': fields.many2one('training.session', 'Exam Session', domain=[('kind', '=', 'exam')]),
+        'course_id': fields.many2one('training.course', 'Exam',
                                       domain=[('state_course', 'in', ['validated', 'pending'])]),
-        'parent_id' : fields.many2one('training.subscription.line', 'Parent', ondelete='set null'),
-        'computed' : fields.boolean('Computed'),
+        'parent_id': fields.many2one('training.subscription.line', 'Parent', ondelete='set null'),
+        'computed': fields.boolean('Computed'),
     }
 
     _defaults = {
-        'computed' : lambda *a: 0,
+        'computed': lambda *a: 0,
     }
 
     def _check_subscription(self, cr, uid, ids, context=None):
@@ -1022,7 +1020,7 @@ class training_subscription_line(osv.osv):
             ocv['value'].update(ocv_p['value'])
         return ocv
 
-    def on_change_price_list(self, cr, uid, ids, session_id, price_list_id, course_id, context=None):
+    def on_change_price_list(self, cr, uid, ids, session_id, price_list_id, course_id=False, context=None):
         if not session_id or not price_list_id:
             return False
         session = self.pool.get('training.session').browse(cr, uid, session_id, context=context)
@@ -1040,36 +1038,24 @@ class training_subscription_line(osv.osv):
                                  _("Can you check the product on the course type of the course %s") % course.name)
 
         return {
-            'value' : {
-                'price' : pricelist_proxy.price_get(cr, uid, [price_list_id], course.course_type_id.exam_product_id.id, 1.0)[price_list_id]
+            'value': {
+                'price': pricelist_proxy.price_get(cr, uid, [price_list_id], course.course_type_id.exam_product_id.id, 1.0)[price_list_id]
             }
         }
 
     def _get_values_from_wizard(self, cr, uid, subscription_id, job, subscription_mass_line, context=None):
-        subscription = self.pool.get('training.subscription').browse(cr, uid, subscription_id, context=context)
-        session = subscription_mass_line.session_id
+        if context == None:
+            context = {}
+        values = super(training_subscription_line, self)._get_values_from_wizard(cr, uid, subscription_id, job, subscription_mass_line, context=context)
 
-        def_pricelist_id = job.name.property_product_pricelist.id
-
-        values = {
-            'subscription_id' : subscription_id,
-            'job_id' : job.id,
-            'job_email': job.email,
-            'session_id' : session.id,
-        }
-        ocv = self.on_change_session(cr, uid, [], session.id, def_pricelist_id, job.name.id, context=context)
-        if ocv and 'value' in ocv:
-            values.update(ocv['value'])
-
-        ocv = super(training_subscription_line, self).on_change_price_list(cr, uid, [], values['session_id'], values.get('price_list_id', False), context=context)
         course_id = subscription_mass_line.course_id and subscription_mass_line.course_id.id
         ocv = self.on_change_exam(cr, uid, [], values['session_id'], values.get('price_list_id', False), course_id, job.name.id, context=context)
         if ocv and 'value' in ocv:
             values.update(ocv['value'])
 
         values.update({
-            'exam_session_id' : getattr(subscription_mass_line.exam_session_id, 'id'),
-            'course_id' : course_id,
+            'exam_session_id': getattr(subscription_mass_line.exam_session_id, 'id'),
+            'course_id': course_id,
         })
         return values
 
@@ -1116,7 +1102,9 @@ class training_subscription_line(osv.osv):
     # training.subscription.line
     def action_create_invoice(self, cr, uid, ids, context=None):
         # Creation des factures
+        
         account_id = self.pool.get('account.account').search(cr, uid, [('code', '=', '70828')])[0]
+        
         # Get journal
         journal_proxy = self.pool.get('account.journal')
         journal_sales_srch = journal_proxy.search(cr, uid, [('type','=','sale'),('refund_journal','=',False)])
@@ -1161,18 +1149,18 @@ class training_subscription_line(osv.osv):
                 name += ' - ' + _('Cancellation')
 
             invoice_values = {
-                'name' : name,
-                'origin' : "%s - %s" % (session.name, course.name),
-                'type' : 'out_invoice',
-                'reference' : "%s - %s - %s" % (partner.name, session.name, course.name),
-                'partner_id' : partner.id,
-                'address_contact_id' : partner.notif_contact_id and partner.notif_contact_id.address_id.id,
-                'address_invoice_id' : subscription_lines[0].subscription_id.address_id.id,
+                'name': name,
+                'origin': "%s - %s" % (session.name, course.name),
+                'type': 'out_invoice',
+                'reference': "%s - %s - %s" % (partner.name, session.name, course.name),
+                'partner_id': partner.id,
+                'address_contact_id': partner.notif_contact_id and partner.notif_contact_id.address_id.id,
+                'address_invoice_id': subscription_lines[0].subscription_id.address_id.id,
                 'journal_id': journal_sales.id,
-                'account_id' : partner.property_account_receivable.id,
-                'fiscal_position' : partner.property_account_position.id,
-                'date_invoice' : time.strftime('%Y-%m-%d'),
-                'payment_term' : payment_term,
+                'account_id': partner.property_account_receivable.id,
+                'fiscal_position': partner.property_account_position.id,
+                'date_invoice': time.strftime('%Y-%m-%d'),
+                'payment_term': payment_term,
             }
             invoice_values.update(self._get_invoice_data(cr, uid, name, partner, session, subscription_lines, context=context))
 
@@ -1188,14 +1176,14 @@ class training_subscription_line(osv.osv):
                 courses = global_courses[sl.id]
 
                 values = {
-                    'invoice_id' : invoice_id,
-                    'product_id' : session.offer_id.product_id.id,
-                    'quantity' : 1,
-                    'name' : session.name + u' ' + name,
-                    'account_id' : session.offer_id.product_id.property_account_income and session.offer_id.product_id.property_account_income.id or account_id,
-                    'origin' : sl.name,
-                    'price_unit' : sl.price,
-                    'discount' : context and context.get('discount', 0.0) or 0.0,
+                    'invoice_id': invoice_id,
+                    'product_id': session.offer_id.product_id.id,
+                    'quantity': 1,
+                    'name': session.name + u' ' + name,
+                    'account_id': session.offer_id.product_id.property_account_income and session.offer_id.product_id.property_account_income.id or account_id,
+                    'origin': sl.name,
+                    'price_unit': sl.price,
+                    'discount': context and context.get('discount', 0.0) or 0.0,
                     'invoice_line_tax_id': self._get_invoice_line_taxes(cr, uid, sl, fpos, partner, session, context=context),
                     'account_analytic_id': '',
                     'analytics_id': '',  # Analytic Distribution
@@ -1228,7 +1216,7 @@ class training_subscription_line(osv.osv):
 
                 values['analytics_id'] = adist_id
                 invoice_line_id = proxy_invoice_line.create(cr, uid, values, context=context)
-                sl.write({'invoice_line_id' : invoice_line_id})
+                sl.write({'invoice_line_id': invoice_line_id})
 
             proxy_invoice.button_compute(cr, uid, [invoice_id])
             invoice_ids.append(invoice_id)
@@ -1286,6 +1274,7 @@ class training_participation_exam(osv.osv):
             else:
                 # Result is forced, return that value
                 res[p.id] = p.forced_result
+
         return res
 
     def _result_pourcentage_compute(self, cr, uid, ids, fieldnames, args, context=None):
@@ -1348,9 +1337,6 @@ class training_participation_exam(osv.osv):
             res.add(attach.res_id)
         return list(res)
 
-    def _check_self_particip(self, cr, uid, ids, context=None):
-        return ids
-
     def on_change_forced_result(self, cr, uid, ids, result, context=None):
         if not len(ids):
             return {'value':{}}
@@ -1394,37 +1380,37 @@ class training_participation_exam(osv.osv):
             self.write(cr, uid, [p.id], {'questionnaire_id': final_quizz_id})
 
     _columns = {
-        'exam_id': fields.related('subscription_line_id', 'course_id', type='many2one', relation='training.course', readonly=True, string="Exam"),
-        'questionnaire_id' : fields.many2one('training.exam.questionnaire', 'Questionnaire',
+#        'exam_id': fields.related('subscription_line_id', 'course_id', type='many2one', relation='training.course', readonly=True, string="Exam"),
+        'questionnaire_id': fields.many2one('training.exam.questionnaire', 'Questionnaire',
                                              help='Select the Questionnaire for participant'),
-#        'course_questionnaire_id' : fields.related('questionnaire_id', 'course_id', type='many2one', relation='training.course', string='Exam', readonly=True, store=True, select=1),
+#        'course_questionnaire_id': fields.related('questionnaire_id', 'main_course_id', type='many2one', relation='training.course', string='Exam', readonly=True, store=True, select=1),
         'course_questionnaire_id': fields.many2one('training.course', string='Exam', select=1),
-        'duration_questionnaire_id' : fields.related('questionnaire_id',
+        'duration_questionnaire_id': fields.related('questionnaire_id',
                                                      'duration',
                                                      type='float',
                                                      string='Duration',
                                                      store=True,
                                                      readonly=True, help='Duration of selected  Questionnaire'),
-        'participation_line_ids' : fields.one2many('training.participation.line',
+        'participation_line_ids': fields.one2many('training.participation.line',
                                                    'participation_id',
                                                    'Participation Lines'),
         'result_received': fields.boolean('Result received', select="2"),
         'forced_result': fields.float('Forced Result', digits=(12,2),
                                 help='If not zero, this is the score that will be forced'),
         'forced_noresult': fields.boolean('Forced No Result', help='Check if this participation won\'t have any result, and that is normal. This particaption will not be taken anymore in account for correction request, exam certificate'),
-        'result' : fields.function(_result_compute, method=True, string='Result', type='float',
-                                   store={
-                                        'training.participation': (
-                                            _check_self_particip,
-                                            ['forced_result','result_received','questionnaire_id','course_questionnaire_id','participation_line_ids','passing_score'],
-                                            1,
-                                        )
-                                    },
+        'result': fields.function(_result_compute, method=True, string='Result', type='float',
+                                   #~ store={ #TODO: webservice not refresh this field. Tested 6.0.2
+                                        #~ 'training.participation': (
+                                            #~ lambda self, cr, uid, ids, c={}: ids,
+                                            #~ ['forced_result','result_received','questionnaire_id','course_questionnaire_id','participation_line_ids','passing_score'],
+                                            #~ 1,
+                                        #~ )
+                                    #~ },
                                    help='Exam Result of participate'),
         'total_points': fields.function(_total_points_compute, method=True, string='Total Points', type='float',
                                         store = {
                                             'training.participation': (
-                                                _check_self_particip,
+                                                lambda self, cr, uid, ids, c={}: ids,
                                                 ['id', 'course_questionnaire_id', 'participation_line_ids', 'questionnaire_id'],
                                                 1,
                                             ),
@@ -1436,7 +1422,7 @@ class training_participation_exam(osv.osv):
         'passing_score': fields.float('Passing Score',
                                     help='The minimum score needed to succueed to this exam, assigned when questionnaire is affected to the participation (on "Exam Sheet" generation) and not updated after'),
 
-        'kind' : fields.related('seance_id', 'kind', type='selection', selection=[('standard', 'Course'),('exam', 'Exam')], string='Kind', select=1),
+        'kind': fields.related('seance_id', 'kind', type='selection', selection=[('standard', 'Course'),('exam', 'Exam')], string='Kind', select=1),
         'succeeded': fields.function(_succeeded,
                                      method=True,
                                      type='selection',
@@ -1445,16 +1431,14 @@ class training_participation_exam(osv.osv):
                                                 ('yes', 'Yes')],
                                      select=2,
                                      string='Succeeded'),
-
-        'certif_printed' : fields.function(_certif_printed,
+        'certif_printed': fields.function(_certif_printed,
                                         method=True,
                                         type="boolean",
                                         store={
-                                            'ir.attachment' : (_checkstore_update_certif, None, 10),
+                                            'ir.attachment': (_checkstore_update_certif, None, 10),
                                         },
                                         select=2,
                                         string="Certificate Printed"),
-
     }
 
     _defaults = {
@@ -1471,49 +1455,70 @@ class training_participation_line(osv.osv):
     _columns = {
         'sequence': fields.integer('Question N°'),
         'page_num': fields.integer('Page N°'),
-        'participation_id' : fields.many2one('training.participation', 'Participation',
-                                             required=True,
-                                             ondelete="cascade"),
-        'question_id' : fields.many2one('training.exam.question', 'Question', ondelete='restrict'),
-        'point_question_id' : fields.related('question_id', 'point', type='integer', string='Max Point', readonly=True, help='Point of question'),
-        'type_question_id' : fields.related('question_id', 'type',
+        'participation_id': fields.many2one('training.participation', 'Participation', required=True, ondelete="cascade"),
+        'question_id': fields.many2one('training.exam.question', 'Question', ondelete='restrict'),
+        'point_question': fields.related('question_id', 'point', type='float', string='Max Point', readonly=True, help='Point of question'),
+        'type_question': fields.related('question_id', 'type',
                                             type='selection',
                                             selection = [('qcm', 'QCM'),
                                                          ('qcu', 'QCU'),
                                                          ('plain', 'Plain'),
                                                          ('yesno', 'Yes/No') ],
                                             string='Type', readonly=True),
-        'yesno_question_id' : fields.related('question_id', 'response_yesno', type='char',
-                                             string='Solution YesNo', readonly=True, help='Question type'),
-        'plain_question_id' : fields.related('question_id', 'response_plain', type='text',
-                                             string='Solution Plain', readonly=True),
-        'qcm_question_id' : fields.related('question_id', 'question_answer_ids', type='one2many',
-                                           relation='training.exam.question.answer', readonly=True,
-                                           string='Solution QCM'),
+        'yesno_question': fields.related('question_id', 'response_yesno', type='char', string='Solution YesNo', readonly=True, help='Question type'),
+        'plain_question': fields.related('question_id', 'response_plain', type='text', string='Solution Plain', readonly=True),
+        'qcm_question': fields.related('question_id', 'question_answer_ids', type='one2many', relation='training.exam.question.answer', readonly=True, string='Solution QCM'),
         'graded': fields.boolean('Is Graded'),
-
         # Response from the user
-        'response_qcm_ids' : fields.many2many('training.exam.question.answer', 'training_result_line_answer_rel',
-                                        'exam_line_id', 'question_answer_id', 'Solutions', domain="[('question_id', '=', question_id)]"),
-        'response_plain' : fields.text('Solution'),
-        'response_yesno' : fields.selection([('yes', 'Yes'),('no', 'No')], 'Solution'),
-
-        'point' : fields.float('Point', digits=(12,2),
-                                help='Number of point get from question'),
-
-        'note' : fields.text('Note'),
-
+        'response_qcm_ids': fields.many2many('training.exam.question.answer', 'training_result_line_answer_rel', 'exam_line_id', 'question_answer_id', 'Solutions', domain="[('question_id', '=', question_id)]"),
+        'response_plain': fields.text('Solution'),
+        'response_yesno': fields.selection([('yes', 'Yes'),('no', 'No')], 'Solution'),
+        'point': fields.float('Point', digits=(12,2), help='Number of point get from question'),
+        'note': fields.text('Note'),
     }
 
     _defaults = {
         'sequence': lambda *a: 0,
-        'page_num': lambda *a: 0,
+        'page_num': lambda *a: 1,
     }
 
     def _check_score(self, cr, uid, ids, context=None):
+        """ 
+        Constraint to not allow a puntuation higher than the question point
+        """
         obj = self.browse(cr, uid, ids[0], context=context)
         question = self.pool.get('training.exam.question').browse(cr, uid, obj.question_id.id)
-        return obj.point <=question.point or 0.0
+        return obj.point <= question.point
+    
+    def check_point(self, cr, uid, ids, context=None):
+        """ 
+        Check Points total of Participation line
+        Rewrite point value of point question total (Max Point)
+        """
+        for participation_line in self.browse(cr, uid, ids, context=context):
+            points = 0
+            check_point = True
+            check_answer = self.pool.get('training.exam.question')._check_answer(cr, uid, [participation_line.question_id.id])
+
+            if participation_line.type_question == 'yesno' and participation_line.response_yesno != check_answer:
+                check_point = False
+
+            if participation_line.type_question == 'plain':
+                check_point = True
+
+            if participation_line.type_question in ['qcm','qcu']:
+                answer_availables = participation_line.response_qcm_ids
+                answer_ids = [x.id for x in answer_availables]
+                for answer in check_answer:
+                    if answer.is_solution == 'yes' and answer.id not in answer_ids or answer.is_solution == 'no' and answer.id in answer_ids:
+                        check_point = False
+                        break
+            if check_point:
+                points = participation_line.point_question
+
+            self.write(cr, uid, [participation_line.id], {'point':points})
+        return True
+
     def on_change_question(self, cr, uid, ids, question_id, context=None):
         if not question_id:
             return False
@@ -1522,23 +1527,77 @@ class training_participation_line(osv.osv):
 
         return {
             'value': {
-                'point_question_id': question.point,
-                'type_question_id' : question.type,
+                'point_question': question.point,
+                'type_question': question.type,
             }
         }
+
+    def question_answer(self, cr, uid, values=None):
+        ''' Create or update one training.participation.line with the given dictionary values.
+            Input:
+                'participation_id':         # Required
+                'question_id':              # Required
+                'response_qcm_ids' :        # List of response_qcm_ids.             Only one is required
+                'response_qcu_ids' :        # List of response_qcm_ids.             Only one is required
+                'response_plain' :          # Plain text.                           Only one is required
+                'response_yesno' :          # Possible solution: 'yes' or 'no'.     Only one is required
+            Output:
+                id of the training.participation.line object created or updated
+                False in error case
+        '''
+        if values is None:
+            values = {}
+
+        logger = netsvc.Logger()
+        if not 'question_id' in values:
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG, 'question_id not received. Please, make sure you sent it!')
+            return False
+        if not 'participation_id' in values:
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG, 'participation_id not received. Please, make sure you sent it!')
+            return False
+        if not 'response_qcm_ids' in values and not 'response_qcu_ids' in values and not 'response_plain' in values and not 'response_yesno' in values:
+            logger.notifyChannel('addons.'+self._name, netsvc.LOG_DEBUG, 'Response not available question %s - participation %s' % (values['question_id'], values['participation_id']))
+            return False
+
+        args = [
+            ('participation_id', '=', values['participation_id']),
+            ('question_id', '=', values['question_id']),
+        ]
+
+        if 'response_qcm_ids' in values and len(values['response_qcm_ids']) > 0:
+            values['response_qcm_ids'] = [(6, 0, values['response_qcm_ids'])]
+        if 'response_qcu_ids' in values and len(values['response_qcu_ids']) > 0:
+            values['response_qcm_ids'] = [(6, 0, values['response_qcu_ids'])]
+
+        participation_line_ids = self.search(cr, uid, args, context=None)
+        participation_line_id = participation_line_ids and participation_line_ids[0] or False
+
+        if participation_line_id:
+            self.write(cr, uid, participation_line_id, values, context=None)
+            return participation_line_id
+        if not 'sequence' in values:
+            values['sequence'] = 1
+        if not 'page_num' in values:
+            values['page_num'] = 1
+
+        participation_line_id = self.create(cr, uid, values) #create question participation line
+        self.check_point(cr, uid, [participation_line_id]) # check point this participation line
+
+        return participation_line_id
+
     _constraints = [
-        (_check_score, "Can you check the give point  ?", ['point']),
+        (_check_score, "Can you check the give point?", ['point']),
     ]
+
 training_participation_line()
 
 class mass_subscription_line(osv.osv_memory):
     _inherit = 'training.subscription.mass.line'
 
     _columns = {
-        'date_session' : fields.related('session_id', 'date', type='datetime', string='Date', readonly=True),
-        'exam_session_id' : fields.many2one('training.session', 'Exam Session'),
-        'course_id' : fields.many2one('training.course', 'Exam',
-                                      domain="[('state_course', '=', 'validated')]"),
+        'date_session': fields.related('session_id', 'date', type='datetime', string='Date', readonly=True),
+        'exam_session_id': fields.many2one('training.session', 'Exam Session'),
+        'course_id': fields.many2one('training.course', 'Exam', domain="[('state_course', '=', 'validated')]"),
     }
 
     def on_change_session(self, cr, uid, ids, session_id, context=None):
@@ -1549,12 +1608,12 @@ class mass_subscription_line(osv.osv_memory):
         dates = [seance.date for seance in session.seance_ids]
 
         return {
-            'value' : {
-                'kind' : session.kind,
-                'date_session' : session.date,
+            'value': {
+                'kind': session.kind,
+                'date_session': session.date,
             },
-            'domain' : {
-                'exam_session_id' :
+            'domain': {
+                'exam_session_id':
                 [('state', 'in', ('opened_confirmed', 'opened', 'closed_confirmed')),
                  ('kind', '=', 'exam'),
                  ('date', '>', len(dates) and max(dates) or session.date),
@@ -1567,7 +1626,7 @@ mass_subscription_line()
 class training_participation_stakeholder(osv.osv):
     _inherit = 'training.participation.stakeholder'
     _columns = {
-        'kind' : fields.related('seance_id', 'kind',
+        'kind': fields.related('seance_id', 'kind',
                                 type='selection',
                                 selection=[ ('standard', 'Course'), ('exam', 'Exam')],
                                 string='Kind',
@@ -1603,19 +1662,18 @@ class training_subscription_line_second(osv.osv):
     _inherit = 'training.subscription.line.second'
 
     _columns = {
-        'exam_session_id' : fields.many2one('training.session', 'Exam Session'),
-        'course_id' : fields.many2one('training.course', 'Exam',
-                                      domain="[('state_course', '=', 'validated')]"),
+        'exam_session_id': fields.many2one('training.session', 'Exam Session'),
+        'course_id': fields.many2one('training.course', 'Exam', domain="[('state_course', '=', 'validated')]"),
     }
 
     def _create_from_wizard(self, cr, uid, the_wizard, job, subscription_line_mass, context=None):
         proxy = self.pool.get('training.subscription.line.second')
         return proxy.create(cr, uid,
                             {
-                                'job_id' : job.id,
-                                'session_id' : subscription_line_mass.session_id.id,
-                                'exam_session_id' : subscription_line_mass.exam_session_id.id,
-                                'course_id' : subscription_line_mass.course_id and subscription_line_mass.course_id.id,
+                                'job_id': job.id,
+                                'session_id': subscription_line_mass.session_id.id,
+                                'exam_session_id': subscription_line_mass.exam_session_id.id,
+                                'course_id': subscription_line_mass.course_id and subscription_line_mass.course_id.id,
                             },
                             context=context)
 
@@ -1626,31 +1684,15 @@ class training_participation(osv.osv):
 
 training_participation()
 
-
-class training_email(osv.osv):
-    _inherit = 'training.email'
-
-    def _get_lang(self, session, seance, **objects):
-        DEFAULT_LANG = 'fr_FR'
-        lng = None
-        subline = objects.get('subline', None)
-        if (session and session.kind == 'exam') or (seance and seance.kind == 'exam'):
-            if not subline:
-                return DEFAULT_LANG
-            return subline.course_id.lang_id.code
-        return super(training_email, self)._get_lang(session, seance, **objects)
-training_email()
-
 class training_seance_generate_pdf_wizard(osv.osv_memory):
     _inherit = 'training.seance.generate.zip.wizard'
 
     _columns = {
-        'exams_report' : fields.boolean('Exams',
-                                        help="If you select this option, you will print the exams. The filename format is Exam_DATE_PARTICIPATIONID.pdf"),
+        'exams_report': fields.boolean('Exams', help="If you select this option, you will print the exams. The filename format is Exam_DATE_PARTICIPATIONID.pdf"),
     }
 
     _defaults = {
-        'exams_report' : lambda *a: False,
+        'exams_report': lambda *a: False,
     }
 
     def add_selections(self, cr, uid, ids, directory, context=None):
@@ -1682,10 +1724,10 @@ class exam_wizard_helper(osv.osv_memory):
     _name = 'training.exam.wizard.helper'
 
     _columns = {
-        'questionnaire_id' : fields.many2one('training.exam.questionnaire', 'Questionnaire', required=True, select=1),
-        'question_ids' : fields.many2many('training.exam.question', 'training_exam_wizard_helper_rel', 'helper_id', 'question_id', 'Questions', ),
-        'course_id' : fields.many2one('training.course', 'Course', context={'quizz_search': 1}),
-        'kind' : fields.char('Kind', size=32),
+        'questionnaire_id': fields.many2one('training.exam.questionnaire', 'Questionnaire', required=True, select=1),
+        'question_ids': fields.many2many('training.exam.question', 'training_exam_wizard_helper_rel', 'helper_id', 'question_id', 'Questions', ),
+        'course_id': fields.many2one('training.course', 'Course', context={'quizz_search': 1}),
+        'kind': fields.char('Kind', size=32),
     }
 
     def _default_questionnaire_id(self, cr, uid, context=None):
@@ -1702,12 +1744,12 @@ class exam_wizard_helper(osv.osv_memory):
         return r
 
     _defaults = {
-        'questionnaire_id' : _default_questionnaire_id,
-        'course_id' : _default_course_id,
+        'questionnaire_id': _default_questionnaire_id,
+        'course_id': _default_course_id,
     }
 
     def cancel_cb(self, cr, uid, ids, context=None):
-        return {'type' : 'ir.actions.act_window_close'}
+        return {'type': 'ir.actions.act_window_close'}
 
     def add_questions_cb(self, cr, uid, ids, context=None):
 
@@ -1718,11 +1760,11 @@ class exam_wizard_helper(osv.osv_memory):
         for question in this.question_ids:
             proxy.create(cr, uid,
                          {
-                             'question_id' : question.id,
-                             'questionnaire_id' : this.questionnaire_id.id,
+                             'question_id': question.id,
+                             'questionnaire_id': this.questionnaire_id.id,
                          }, context=context)
 
-        return {'type' : 'ir.actions.act_window_close'}
+        return {'type': 'ir.actions.act_window_close'}
 
 exam_wizard_helper()
 
@@ -1746,6 +1788,3 @@ class training_exam_questionnaire_attachment(osv.osv):
     }
 
 training_exam_questionnaire_attachment()
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

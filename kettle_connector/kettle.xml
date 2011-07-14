@@ -33,6 +33,55 @@
     </field>
 </record>
 
+<record id="kettle_trans_log_table" model="ir.ui.view">
+    <field name="name">kettle_trans_log_table</field>
+    <field name="model">kettle.trans.log.table</field>
+    <field name="type">tree</field>
+    <field name="arch" type="xml">
+        <tree string="Logs" colors="red:errors!=0">
+            <field name="transname" />
+            <field name="jobname" />
+            <field name="id_batch" />
+            <field name="enddate" />
+            <field name="status" />
+            <field name="errors" />
+            <field name="lines_read" />
+        </tree>
+    </field>
+</record>
+
+
+<record id="kettle_trans_log_table_form" model="ir.ui.view">
+    <field name="name">kettle_trans_log_table_form</field>
+    <field name="model">kettle.trans.log.table</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+        <form string="Logs">
+            <field name="transname" />
+            <field name="jobname" />
+            <field name="id_batch" />
+            <field name="status" />
+            <field name="errors" />
+            <field name="lines_read" />
+            <field name="startdate" />
+            <field name="enddate" />
+            <field name="step_log_ids">
+                <tree>
+                    <field name="stepname"/>
+                    <field name="lines_read"/>
+                    <field name="lines_written"/>
+                    <field name="lines_input"/>
+                    <field name="lines_output"/>
+                    <field name="lines_rejected"/>
+                    <field name="errors"/>
+                </tree>
+            </field>
+            <field name="log_field" />
+        </form>
+    </field>
+</record>
+
+
 <record id="action_kettle_parameter" model="ir.actions.act_window">
     <field name="name">Parameter</field>
     <field name="res_model">kettle.parameter</field>
@@ -66,6 +115,14 @@
                                         <field name="carte_id"/>
                                         <field name="url"  widget="url"/>
                                         <field name="last_date"/>
+                                        <field name="related_logs">
+                                            <tree colors="red:errors!=0">
+                                                <field name="enddate" />
+                                                <field name="status" />
+                                                <field name="errors" />
+                                                <field name="lines_read" />
+                                            </tree>
+                                        </field>
                         </page>
                         <page attrs="{'invisible':[('active_python_code','!=',1)]}"  string="Python code" groups="base.group_extended">
 				        <separator colspan="4" string="Python code executed before transformation/job" />
@@ -185,6 +242,15 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 
+
+                <record id="action_kettle_transformation_logs" model="ir.actions.act_window">
+                        <field name="name">Execution Logs</field>
+                        <field name="type">ir.actions.act_window</field>
+                        <field name="res_model">kettle.trans.log.table</field>
+                        <field name="view_type">form</field>
+                        <field name="view_mode">tree,form</field>
+                </record>
+
 <!-- KETTLE  WIZARD START TASK -->
 		<record id="kettle_wizard" model="ir.ui.view">
 			<field name="name">kettle.wizard.form</field>
@@ -249,5 +315,6 @@
 		<menuitem action="action_kettle_transformation" id="menu_kettle_transformation" parent="menu_kettle_connection"/>
 		<menuitem action="action_kettle_task" id="menu_kettle_task" parent="menu_kettle_connection"/>
 		<menuitem action="action_kettle_parameter" id="menu_kettle_parameter" parent="menu_kettle_connection"/>
+                <menuitem action="action_kettle_transformation_logs" id="menu_kettle_transformation_logs" parent="menu_kettle_connection"/>
     </data>
 </openerp>

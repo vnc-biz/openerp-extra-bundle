@@ -101,21 +101,21 @@ class unzip:
 class installer:
 
     def install_terminatooor(self, kettle_root_directory):
-        print "installing the T800 generation..."
-        print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.1.zip', tmp_directory + 'terminatooor.zip')
-        unzipper = unzip()
-        unzipper.extract(tmp_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
+        #print "installing the T800 generation..."
+        #print "getting TerminatOOOR plugin from the Internet, this can take a while (>10Mo)..."
+        #urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor1.3.1.zip', tmp_directory + 'terminatooor.zip')
+        #unzipper = unzip()
+        #unzipper.extract(tmp_directory + 'terminatooor.zip', kettle_root_directory + 'data-integration/plugins/steps/terminatooor')
         #shutil.move(kettle_root_directory + 'data-integration/plugins/steps/terminatooor/jruby-ooor.jar', kettle_root_directory + 'data-integration/libext/jruby-ooor.jar')
 
         print "installing TerminatOOOR 2 generation"
-        print "getting Ruby-Scripting-for-Kettle ffrom the Internet, this can take a while (>10Mo)..."
-        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.0_Kettle_4.zip', tmp_directory + 'RubyPlugin.zip')
+        print "getting Ruby-Scripting-for-Kettle from the Internet, this can take a while (>10Mo)..."
+        urllib.urlretrieve('https://github.com/downloads/type-exit/Ruby-Scripting-for-Kettle/RubyPlugin_1.1_Kettle_4.2.zip', tmp_directory + 'RubyPlugin.zip')
         unzipper = unzip()
         unzipper.extract(tmp_directory + 'RubyPlugin.zip', kettle_root_directory + 'RubyPlugin')
-        shutil.move(kettle_root_directory + 'RubyPlugin/Ruby', kettle_root_directory + 'data-integration/plugins/steps/Ruby')
+        shutil.move(kettle_root_directory + 'RubyPlugin/Ruby/steps/Ruby', kettle_root_directory + 'data-integration/plugins/steps/Ruby')
         print "Loading Akretion shield..."
-        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor2.0.zip', tmp_directory + 'TerminatOOOOR2.zip')
+        urllib.urlretrieve('https://github.com/downloads/rvalyi/terminatooor/terminatooor2.1.zip', tmp_directory + 'TerminatOOOOR2.zip')
         unzipper = unzip()
         unzipper.extract(tmp_directory + 'TerminatOOOOR2.zip', tmp_directory + 'TerminatOOOOR2')
         shutil.rmtree(kettle_root_directory + 'data-integration/plugins/steps/Ruby/gems/gems')
@@ -145,7 +145,7 @@ class installer:
 	        raise Exception("looks like you don't have Java installed! Please install Java (1.6 or superior) first!")
 
         print "getting Pentaho Data Integration (Kettle) from the Internet, this can take a while (>80Mo)..."
-        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.1.0-stable/pdi-ce-4.1.0-stable.tar.gz/download', tmp_directory + 'kettle.tar.gz')
+        urllib.urlretrieve('http://sourceforge.net/projects/pentaho/files/Data%20Integration/4.2.0-RC1/pdi-ce-4.2.0-RC1.tar.gz/download', tmp_directory + 'kettle.tar.gz')
         try:
             tar = tarfile.open(tmp_directory + 'kettle.tar.gz', 'r:gz')
             for item in tar:
@@ -156,7 +156,7 @@ class installer:
 
         self.install_terminatooor(kettle_root_directory)
 
-        if install_agilebi:
+        if False:#install_agilebi:
 	        print "getting the AgileBI plugin from the Internet, this can take a while (>80Mo)..."
 	        urllib.urlretrieve('ftp://download.pentaho.org/client/agile-bi/pmv-1.0.2-stable.zip', tmp_directory + 'agilebi.zip')
 	        unzipper.extract(tmp_directory + 'agilebi.zip', kettle_root_directory + 'data-integration/plugins/spoon')

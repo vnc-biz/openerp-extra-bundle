@@ -160,12 +160,7 @@ class HolidaysImport(osv.osv_memory):
                 if not existing_ts_ids:
                     unit_id = al_ts_obj._getEmployeeUnit(cr, uid, context)
                     product_id = al_ts_obj._getEmployeeProduct(cr, uid, context)
-                    general_account_id = al_ts_obj._getGeneralAccount(cr, uid, context)
-                    if not general_account_id:
-                        raise osv.except_osv(_('Error'), _('No General Account defined on the employee.'))
                     journal_id = al_ts_obj._getAnalyticJournal(cr, uid, context)
-                    if not journal_id:
-                        raise osv.except_osv(_('Error'), _('No Analytic Journal defined on the employee.'))
 
                     holiday_day = {
                         'name': holiday.name or _('Holidays'),
@@ -173,14 +168,20 @@ class HolidaysImport(osv.osv_memory):
                         'unit_amount': hours_per_day,
                         'product_uom_id': unit_id,
                         'product_id': product_id,
-                        'amount': hours_per_day,
                         'account_id': anl_account.id,
                         'to_invoice': anl_account.to_invoice.id,
                         'sheet_id': timesheet.id,
-                        'general_account_id': general_account_id,
                         'journal_id':  journal_id,
                     }
-                    al_ts_obj.create(cr, uid, holiday_day, context)
+
+                    on_change_values = al_ts_obj.\
+                        on_change_unit_amount(cr, uid, False, product_id,
+                                              hours_per_day, employee.company_id.id,
+                                              unit=unit_id, journal_id=journal_id,
+                                              context=context)
+                    if on_change_values:
+                        holiday_day.update(on_change_values['value'])
+                        al_ts_obj.create(cr, uid, holiday_day, context)
                 else:
                     errors.append('%s: There already is an analytic line.' % (str(datetime_current)))
 

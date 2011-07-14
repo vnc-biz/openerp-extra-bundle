@@ -248,6 +248,9 @@ def parser( cr, uid, ids, data, context ):
 
         if accounts:
             accounts = [('id','in',accounts)]
+        else:
+            accounts = []
+        accounts.append( ('parent_id','!=',False) )
         name = 'report.account.trial.balance'
         model = ''
         data_source = 'records'
@@ -281,8 +284,9 @@ def parser( cr, uid, ids, data, context ):
                 continue
             accumulated_values = accumulated_dict[account.id]
             record = {
-                'code': account['code'],
-                'name': account['name'],
+                'code': account.code,
+                'name': account.name,
+                'type': account.type, # Useful for the report designer so accounts of type 'view' may be discarded in aggregation.
                 'period_credit': account.credit,
                 'period_debit': account.debit,
                 'period_balance': account.balance,

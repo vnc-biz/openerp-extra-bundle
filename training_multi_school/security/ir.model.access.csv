@@ -1,3 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_multi_school","training.school","model_training_school","base.group_user",1,0,0,0
-"access_multi_school_admin","training.school.admin","model_training_school","res_groups_multi_school_group",1,1,1,1

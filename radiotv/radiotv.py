@@ -26,6 +26,8 @@ import time
 import xmlrpclib
 import wizard.export_table
 
+import unicodedata
+
 
 def day_week(self, last=0, nweek=0):
     # Computes the first day (last=0) of the current week (nweek=0) or the last day (last=1) of the current week (nweek=0). It is added nweek weeks from the current week (nweek can be negative)
@@ -262,7 +264,7 @@ class radiotv_broadcast(osv.osv):
             return []
         res = []
         for r in self.browse(cr, uid, ids):
-            name = str(r.program_id.name or '') + ". " + str(r.dt_start)
+            name = (r.program_id.name or u'').encode('utf-8') + ". " + str(r.dt_start)
             res.append((r.id, name))
         return res
 

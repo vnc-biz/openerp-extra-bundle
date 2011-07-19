@@ -24,7 +24,7 @@
 {
     "name" : "Tiny ERP TV & Radio Program Grid Module",
     "version" : "1.1",
-    "author" : "Zikzakmedia",
+    "author" : "Zikzakmedia SL",
     "website": "www.zikzakmedia.com",
     "license" : "GPL-3",
     "category" : "Generic Modules/Others",

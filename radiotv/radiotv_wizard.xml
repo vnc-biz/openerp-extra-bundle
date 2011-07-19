@@ -8,10 +8,11 @@
             id="wizard_copy_broadcast"/>
 
         <menuitem
-            name="Radio TV/Copy broadcasts from a day to other"
+            name="Copy broadcasts from a day to other"
             action="wizard_copy_broadcast"
             type="wizard"
-            id="menu_wizard_copy_broadcast"/>
+            id="menu_wizard_copy_broadcast"
+            parent="radiotv_main_menu"/>
 
         <wizard
             string="Export channels and programs"
@@ -19,10 +20,11 @@
             id="wizard_export_channel_program"/>
 
         <menuitem
-            name="Radio TV/Export channels and programs"
+            name="Export channels and programs"
             action="wizard_export_channel_program"
             type="wizard"
-            id="menu_wizard_export_channel_program"/>
+            id="menu_wizard_export_channel_program"
+            parent="radiotv_main_menu"/>
 
         <wizard
             string="Export broadcasts"
@@ -30,10 +32,11 @@
             id="wizard_export_broadcast"/>
 
         <menuitem
-            name="Radio TV/Export broadcasts"
+            name="Export broadcasts"
             action="wizard_export_broadcast"
             type="wizard"
-            id="menu_wizard_export_broadcast"/>
+            id="menu_wizard_export_broadcast"
+            parent="radiotv_main_menu"/>
 
         <wizard
             string="Export podcasts"
@@ -41,10 +44,11 @@
             id="wizard_export_podcast"/>
 
         <menuitem
-            name="Radio TV/Export podcasts"
+            name="Export podcasts"
             action="wizard_export_podcast"
             type="wizard"
-            id="menu_wizard_export_podcast"/>
+            id="menu_wizard_export_podcast"
+            parent="radiotv_main_menu"/>
 
         <wizard
             string="Broadcasts compact report"
@@ -53,10 +57,11 @@
             id="wizard_broadcast_compact_report"/>
 
         <menuitem
-            name="Radio TV/Broadcasts compact report"
+            name="Broadcasts compact report"
             action="wizard_broadcast_compact_report"
             type="wizard"
-            id="menu_wizard_broadcast_compact_report"/>
+            id="menu_wizard_broadcast_compact_report"
+            parent="radiotv_main_menu"/>
 
         <wizard
             string="Broadcasts declaration report"
@@ -65,10 +70,11 @@
             id="wizard_broadcast_declaration_report"/>
 
         <menuitem
-            name="Radio TV/Broadcasts declaration report"
+            name="Broadcasts declaration report"
             action="wizard_broadcast_declaration_report"
             type="wizard"
-            id="menu_wizard_broadcast_declaration_report"/>
+            id="menu_wizard_broadcast_declaration_report"
+            parent="radiotv_main_menu"/>
 
     </data>
 </openerp>

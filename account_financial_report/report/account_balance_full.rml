@@ -202,62 +202,62 @@
             <tr>
                 <td>
                     <para style="P14">[[ repeatIn(lines(data['form']), 'a') ]]
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <i>[[ a['code'] or removeParentNode('tr')  ]]</i>
                     </para>
                 </td>
                 <td>
                     <para style="P14">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font color="white">[[ '..'*(a['level']) ]]</font>
                         <font>[[ a['name'] ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['balanceinit']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['debit']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['credit']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['balance']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['balanceinit_fy']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['debit_fy']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['credit_fy']) ]]</font>
                     </para>
                 </td>
                 <td>
                     <para style="P3">
-                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) ]]</font>
+                        <font>[[ a['type']&lt;&gt;'view' and setTag('para','para',{'fontName':"Helvetica"}) or removeParentNode('font') ]]</font>
                         <font>[[ formatLang(a['balance_fy']) ]]</font>
                     </para>
                 </td>

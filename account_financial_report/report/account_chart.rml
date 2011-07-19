@@ -119,10 +119,10 @@
       </tr>      
       <tr>[[ repeatIn(lines(),'a') ]]
 	<td>
-	  <para style="P2">[[a['type_gd']==2 and ( setTag('para','para',{'fontName':'Helvetica-Bold'}))]] [[ strip_name(a['code'],20) ]] </para>
+	  <para style="P2">[[a['type_gd']==2 and ( setTag('para','para',{'fontName':'Helvetica-Bold'})) or removeParentNode('font')]] [[ strip_name(a['code'],20) ]] </para>
         </td>
         <td>
-          <para style="P2">[[a['type_gd']==2 and ( setTag('para','para',{'fontName':'Helvetica-Bold'}))]] [[ strip_name(a['name'],83) ]] </para>
+          <para style="P2">[[a['type_gd']==2 and ( setTag('para','para',{'fontName':'Helvetica-Bold'})) or removeParentNode('font')]] [[ strip_name(a['name'],83) ]] </para>
         </td>
       </tr>
     </blockTable>

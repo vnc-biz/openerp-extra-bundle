@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-alpha\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-07-14 10:44+0000\n"
-"PO-Revision-Date: 2011-07-14 15:11+0100\n"
-"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-07-20 04:47+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-07-20 05:35+0000\n"
+"X-Generator: Launchpad (build 13405)\n"
 
 #. module: radiotv
 #: report:radiotv.broadcast.declaration.report:0
@@ -80,8 +81,13 @@ msgstr "Emisiones nuevas"
 
 #. module: radiotv
 #: wizard_view:radiotv.broadcast.copy,init:0
-msgid "Copy the broadcasts from a range of days (or one day) to another range of days. The previous broadcasts in the destination range of days are deleted."
-msgstr "Copia las emisiones desde un intervalo de días (o un día) origen hacia otro intervalo de días destino. Las emisiones anteriores en el intervalo de días destino serán eliminadas."
+msgid ""
+"Copy the broadcasts from a range of days (or one day) to another range of "
+"days. The previous broadcasts in the destination range of days are deleted."
+msgstr ""
+"Copia las emisiones desde un intervalo de días (o un día) origen hacia otro "
+"intervalo de días destino. Las emisiones anteriores en el intervalo de días "
+"destino serán eliminadas."
 
 #. module: radiotv
 #: report:radiotv.broadcast.declaration.report:0
@@ -415,7 +421,8 @@ msgstr "Duración aproximada en minutos"
 #. module: radiotv
 #: model:ir.module.module,description:radiotv.module_meta_information
 msgid ""
-"This module allows to control TV & Radio channels, programs, grid of date/time of broadcasting and podcasts\n"
+"This module allows to control TV & Radio channels, programs, grid of "
+"date/time of broadcasting and podcasts\n"
 "\n"
 "channel <--n---m--> program <--1---n--> broadcast <--1---n--> podcast\n"
 "\n"
@@ -425,21 +432,27 @@ msgid ""
 "    * The broadcasts can be copied from a range of days to other\n"
 "    * A TinyERP cron is provided to copy broadcasts every day\n"
 "    * Several broadcasting reports are included\n"
-"    * Several wizards to synchronize the channels, programs and broadcasts to a\n"
-"      mysql-php web site are included. They can be also synchronized automatically."
+"    * Several wizards to synchronize the channels, programs and broadcasts "
+"to a\n"
+"      mysql-php web site are included. They can be also synchronized "
+"automatically."
 msgstr ""
-"Este módulo permite controlar canales de televisión y radio, programas, parrillas de fecha y hora de emisión y podcasts\n"
+"Este módulo permite controlar canales de televisión y radio, programas, "
+"parrillas de fecha y hora de emisión y podcasts\n"
 "\n"
 "canal <-many2many-> programa <-one2many-> emisión <-one2many-> podcast\n"
 "\n"
 "Características:\n"
 "    * Entradas de menú para ver la emisión diaria y semanal\n"
-"    * La fecha y hora de finalización de cada emisión se calcula automáticamente\n"
+"    * La fecha y hora de finalización de cada emisión se calcula "
+"automáticamente\n"
 "    * Se pueden copiar las emisiones desde un rango de días a otro\n"
 "    * Provee un cron para copiar emisiones todos los días\n"
 "    * Incluye varios informes de difusión\n"
-"    * Incluye varios asistentes para sincronizar los canales, programas y emisiones\n"
-"       con sitios web mysqp-php. También pueden sincronizarse automáticamente."
+"    * Incluye varios asistentes para sincronizar los canales, programas y "
+"emisiones\n"
+"       con sitios web mysqp-php. También pueden sincronizarse "
+"automáticamente."
 
 #. module: radiotv
 #: report:radiotv.broadcast.declaration.report:0
@@ -483,8 +496,12 @@ msgstr "Nombre del operador:"
 
 #. module: radiotv
 #: help:radiotv.web,sync:0
-msgid "The changes in channels, programs and broadcasts are synchronized automatically to the website"
-msgstr "Los cambios en los canales, programas, emisiones y podcasts son sincronizados automáticamente al sitio web"
+msgid ""
+"The changes in channels, programs and broadcasts are synchronized "
+"automatically to the website"
+msgstr ""
+"Los cambios en los canales, programas, emisiones y podcasts son "
+"sincronizados automáticamente al sitio web"
 
 #. module: radiotv
 #: model:ir.actions.wizard,name:radiotv.wizard_broadcast_declaration_report
@@ -640,7 +657,7 @@ msgstr "Introducción"
 #: report:radiotv.broadcast.declaration.report:0
 #: field:radiotv.program,broadcast_language:0
 msgid "Broadcast language"
-msgstr "Idioma de emisión "
+msgstr "Idioma de emisión"
 
 #. module: radiotv
 #: wizard_field:radiotv.podcast.export,export,podcast_new:0
@@ -818,13 +835,18 @@ msgstr "Semana anterior"
 
 #~ msgid "to"
 #~ msgstr "hasta"
+
+#~ msgid "Website configuration"
+#~ msgstr "Configuración del sitio web"
+
 #~ msgid "Invalid XML for View Architecture!"
 #~ msgstr "¡XML inválido para la definición de la vista!"
+
 #~ msgid "."
 #~ msgstr "."
+
 #~ msgid ""
 #~ "The Object name must start with x_ and not contain any special character !"
 #~ msgstr ""
 #~ "¡El nombre del objeto debe empezar con x_ y no contener ningún carácter "
 #~ "especial!"
-

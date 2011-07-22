@@ -30,6 +30,7 @@ import time
 class product_price_history(osv.osv):
     _name = 'product.price.history'
     _rec_name = 'product_id'
+    _order = 'date_to desc'
 
     _columns = {
         'date_to': fields.datetime('Date To', readonly=True, required=True),

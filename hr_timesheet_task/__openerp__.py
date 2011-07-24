@@ -34,7 +34,7 @@
 	"version" : "1.0",
 	"author" : "Camptocamp",
 	"category" : "Generic Modules/Human Resources",
-	"module":
+	"description":
 """
 This module allow you to enter your timesheet for a specific task and will automatically create a 'work done' entry
 in the concerned task. Unless the project_timesheet module, this module base the work done of task on timesheet line 

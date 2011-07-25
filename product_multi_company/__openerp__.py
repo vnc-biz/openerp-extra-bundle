@@ -24,13 +24,13 @@
     "version" : "1.1",
     "author" : "OpenERP SA",
     "category" : "Generic Modules/Inventory Control",
-    "depends" : [ "product"],
+    "depends" : [ "product","stock","hr_timesheet_invoice","account"],
     "init_xml" : [],
     "demo_xml" : [],
     "description": """
         This module updates the definitions of standard price, public price and seller price with property fields.
     """,
-    'update_xml': [],
+    'update_xml': ['board_warehouse_view.xml'],
     'test':[],
     'installable': True,
     'active': False,

@@ -28,9 +28,19 @@ class account_move(osv.osv):
     _inherit = "account.move"
 
     def create_reversal(self, cr, uid, ids, reversal_date, reversal_ref_prefix=False, reversal_line_prefix=False, reconcile=True, context=None):
+        if context is None:
+            context = {}
         move_line_obj = self.pool.get('account.move.line')
         reversed_move_ids = []
         for src_move in self.browse(cr, uid, ids, context=context):
+            # since OpenERP v6, we have company_id on account.move
+            if self.pool.get('ir.model.fields').search(cr, uid, [('name', '=', 'company_id'), ('model', '=', 'account.move')], context=context) != []:
+                context['company_id'] = src_move.company_id.id
+            # With the additions in this branch
+            # https://code.launchpad.net/~openerp-dev/openobject-addons/6.0-opw-5852-pso/+merge/66682
+            # which is not merged yet into openobject-addons as of 27/7/2011
+            # calling find() on accout.period will take the company into account if
+            # company_id is in the context
             reversal_move_id = self.copy(cr, uid, src_move.id,
                 default={
                     'date': reversal_date,

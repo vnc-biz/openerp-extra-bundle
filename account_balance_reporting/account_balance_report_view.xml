@@ -31,9 +31,9 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
         <!--**** Report views ***********************************************-->
 
         <!-- Report form view -->
-        <record model="ir.ui.view" id="view_account_balance_report_form">
-            <field name="name">account.balance.report.form</field>
-            <field name="model">account.balance.report</field>
+        <record model="ir.ui.view" id="view_account_balance_reporting_form">
+            <field name="name">account.balance.reporting.form</field>
+            <field name="model">account.balance.reporting</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Account balance report">
@@ -62,7 +62,7 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
                             </group>
                             <group colspan="4">
                                 <!-- <button name="calculate" string="Calculate" states="draft"/> -->
-                                <button name="%(wiz_account_balance_report_calculate)d" type="action" string="Calculate" states="draft" icon="gtk-execute"/>
+                                <button name="%(wiz_account_balance_reporting_calculate)d" type="action" string="Calculate" states="draft" icon="gtk-execute"/>
                                 <button name="confirm" string="Confirm" states="calc_done" icon="gtk-apply"/>
                                 <button name="cancel" string="Cancel" states="calc_done,done" icon="gtk-cancel"/>
 								<button name="action_recover" string="Draft" type="object" states="canceled" icon="gtk-undo"/>
@@ -109,9 +109,9 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
         </record>
 
         <!-- Report tree view -->
-        <record model="ir.ui.view" id="view_account_balance_report_tree">
-            <field name="name">account.balance.report.tree</field>
-            <field name="model">account.balance.report</field>
+        <record model="ir.ui.view" id="view_account_balance_reporting_tree">
+            <field name="name">account.balance.reporting.tree</field>
+            <field name="model">account.balance.reporting</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Account balance reports">
@@ -129,9 +129,9 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
         <!--*** Report lines views ******************************************-->
 
         <!-- Report line form view -->
-        <record model="ir.ui.view" id="view_account_balance_report_line_form">
-            <field name="name">account.balance.report.line.form</field>
-            <field name="model">account.balance.report.line</field>
+        <record model="ir.ui.view" id="view_account_balance_reporting_line_form">
+            <field name="name">account.balance.reporting.line.form</field>
+            <field name="model">account.balance.reporting.line</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Account balance report line">
@@ -156,9 +156,9 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
         </record>
 
         <!-- Line tree view -->
-        <record model="ir.ui.view" id="view_account_balance_report_line_tree">
-            <field name="name">account.balance.report.line.tree</field>
-            <field name="model">account.balance.report.line</field>
+        <record model="ir.ui.view" id="view_account_balance_reporting_line_tree">
+            <field name="name">account.balance.reporting.line.tree</field>
+            <field name="model">account.balance.reporting.line</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Account balance report lines">
@@ -176,23 +176,23 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
 
         <!--*** Menus and windows *******************************************-->
 
-        <record model="ir.actions.act_window" id="action_view_account_balance_report">
+        <record model="ir.actions.act_window" id="action_view_account_balance_reporting">
             <field name="name">Account balance reports</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">account.balance.report</field>
+            <field name="res_model">account.balance.reporting</field>
             <field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_account_balance_report_tree"/>
+            <field name="view_id" ref="view_account_balance_reporting_tree"/>
         </record>
 
-        <menuitem id="menu_account_balance_report"
+        <menuitem id="menu_account_balance_reporting"
                 name="Account balance reports"
                 parent="account.menu_finance_legal_statement"/>
         
-        <menuitem id="menu_account_balance_report_reports"
+        <menuitem id="menu_account_balance_reporting_reports"
                 name="Reports"
-                parent="menu_account_balance_report"
-                action="action_view_account_balance_report"/>
+                parent="menu_account_balance_reporting"
+                action="action_view_account_balance_reporting"/>
 
     </data>
 </openerp>

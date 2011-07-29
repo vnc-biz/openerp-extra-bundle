@@ -28,16 +28,16 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
     <data>
 
         <!-- Print wizard -->
-        <wizard id="wiz_account_balance_report_print"
-                model="account.balance.report"
+        <wizard id="wiz_account_balance_reporting_print"
+                model="account.balance.reporting"
                 string="Print report"
-                name="account_balance_report.print_wizard"/>
+                name="account_balance_reporting.print_wizard"/>
 
         <!-- Calculate wizard -->
-        <wizard id="wiz_account_balance_report_calculate"
-                model="account.balance.report"
+        <wizard id="wiz_account_balance_reporting_calculate"
+                model="account.balance.reporting"
                 string="Calculate report"
-                name="account_balance_report.calculate_wizard"
+                name="account_balance_reporting.calculate_wizard"
                 menu="False"/>
     </data>
 </openerp>

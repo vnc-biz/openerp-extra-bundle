@@ -26,7 +26,7 @@ Account balance reporting engine
 """
 __author__ = "Borja López Soilán (Pexego) - borjals@pexego.es"
 
-import account_balance_report_template
-import account_balance_report
+import account_balance_reporting_template
+import account_balance_reporting
 import report
 import wizard

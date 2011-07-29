@@ -40,7 +40,7 @@ class wizard_print(wizard.interface):
     """
 
     init_fields = {
-        'report_id' : {'type':'many2one', 'relation': 'account.balance.report', 'required': True},
+        'report_id' : {'type':'many2one', 'relation': 'account.balance.reporting', 'required': True},
         'report_xml_id' : {'type':'many2one', 'relation': 'ir.actions.report.xml', 'required': True},
     }
 
@@ -49,7 +49,7 @@ class wizard_print(wizard.interface):
     <form string="Print report" colspan="4">
         <field string="Report data" name="report_id"/>
         <newline/>
-        <field string="Report design" name="report_xml_id" domain="[('model','=','account.balance.report')]"/>
+        <field string="Report design" name="report_xml_id" domain="[('model','=','account.balance.reporting')]"/>
     </form>"""
 
 
@@ -58,10 +58,10 @@ class wizard_print(wizard.interface):
         Gets the currently selected balance report to use it as the
         default value for the wizard form.
         """
-        rpt_facade = pooler.get_pool(cr.dbname).get('account.balance.report')
+        rpt_facade = pooler.get_pool(cr.dbname).get('account.balance.reporting')
         report_id = None
         report_xml_id = None
-        if data.get('model') == 'account.balance.report':
+        if data.get('model') == 'account.balance.reporting':
             report_id = data.get('id')
             report_ids = rpt_facade.search(cr, uid, [('id', '=', report_id)])
             report_id = report_ids and report_ids[0] or None
@@ -98,5 +98,5 @@ class wizard_print(wizard.interface):
             'result': {'type':'print', 'report': 'NOTFOUND', 'state':'end'}
         }
     }
-wizard_print('account_balance_report.print_wizard')
+wizard_print('account_balance_reporting.print_wizard')
 

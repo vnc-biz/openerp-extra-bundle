@@ -30,7 +30,7 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
 		<!-- Generic report -->
 		<report id="report_account_balance_reporting_generic"
 			string="Generic balance report"
-			model="account.balance.report"
+			model="account.balance.reporting"
 			name="report_account_balance_reporting.generic"
 			rml="addons/account_balance_reporting/report/generic_report.rml"
 			auto="True"
@@ -40,7 +40,7 @@ Author: Borja López Soilán (Pexego) - borjals@pexego.es
 		<!-- Generic report without zero lines -->
 		<report id="report_account_balance_reporting_default_non_zero"
 			string="Generic balance report (non zero lines)"
-			model="account.balance.report"
+			model="account.balance.reporting"
 			name="report_account_balance_reporting.generic_non_zero"
 			rml="addons/account_balance_reporting/report/generic_non_zero_report.rml"
 			auto="True"

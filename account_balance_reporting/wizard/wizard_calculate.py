@@ -35,7 +35,7 @@ class wizard_calculate(wizard.interface):
     """
     Account balance report calculate wizard.
     This wizard just acts as a wrapper around the action_calculate
-    of account_balance_report, so the user gets some feedback about the
+    of account_balance_reporting, so the user gets some feedback about the
     processing taking long time.
     """
 
@@ -44,7 +44,7 @@ class wizard_calculate(wizard.interface):
         Calculate the selected balance report data.
         """
         report_id = None
-        if data.get('model') == 'account.balance.report':
+        if data.get('model') == 'account.balance.reporting':
             report_id = data.get('id')
             if report_id:
                 #
@@ -52,7 +52,7 @@ class wizard_calculate(wizard.interface):
                 # to trigger action_calculate.
                 #
                 wf_service = netsvc.LocalService('workflow')
-                wf_service.trg_validate(uid, 'account.balance.report', report_id, 'calculate', cr)
+                wf_service.trg_validate(uid, 'account.balance.reporting', report_id, 'calculate', cr)
         return 'close'
 
 
@@ -66,5 +66,5 @@ class wizard_calculate(wizard.interface):
             'result': {'type': 'state', 'state':'end'}
         }
     }
-wizard_calculate('account_balance_report.calculate_wizard')
+wizard_calculate('account_balance_reporting.calculate_wizard')
 

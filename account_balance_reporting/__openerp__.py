@@ -23,7 +23,7 @@
 
 {
         "name" : "Account balance reporting engine",
-        "version" : "0.1",
+        "version" : "0.2",
         "author" : "Pexego",
         "website" : "http://www.pexego.es",
         "category" : "Enterprise Specific Modules",
@@ -58,11 +58,11 @@ but it might be used as a generic accounting report engine.
         "demo_xml" : [ ],
         "update_xml" : [
                 'security/ir.model.access.csv',
-                'account_balance_report_wizard.xml',
-                'account_balance_report_template_view.xml',
-                'account_balance_report_view.xml',
-                'account_balance_report_workflow.xml',
-                'account_balance_report_reports.xml',
+                'account_balance_reporting_wizard.xml',
+                'account_balance_reporting_template_view.xml',
+                'account_balance_reporting_view.xml',
+                'account_balance_reporting_workflow.xml',
+                'account_balance_reporting_reports.xml',
             ],
         "installable": True
 }

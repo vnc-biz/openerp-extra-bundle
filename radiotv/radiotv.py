@@ -37,12 +37,12 @@ def day_week(self, last=0, nweek=0):
     if not last:
         offset = datetime.timedelta(days = -wd + nweek*7)
         day = day + offset
-        print "%04i-%02i-%02i 00:00:00" % (day.year, day.month, day.day)
+        #print "%04i-%02i-%02i 00:00:00" % (day.year, day.month, day.day)
         return "%04i-%02i-%02i 00:00:00" % (day.year, day.month, day.day)
     else:
         offset = datetime.timedelta(days = -wd + nweek*7 + 6)
         day = day + offset
-        print "%04i-%02i-%02i 23:59:59" % (day.year, day.month, day.day)
+        #print "%04i-%02i-%02i 23:59:59" % (day.year, day.month, day.day)
         return "%04i-%02i-%02i 23:59:59" % (day.year, day.month, day.day)
 
 

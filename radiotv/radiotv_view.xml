@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-    <menuitem name="Radio TV" id="radiotv_main_menu"/>
+    <menuitem name="Radio TV" id="radiotv_main_menu" web_icon="images/radiotv.png" web_icon_hover="images/radiotv-hover.png"/>
     <record model="ir.actions.act_window" id="action_radiotv_channel_form">
         <field name="name">Channel</field>
         <field name="res_model">radiotv.channel</field>
@@ -251,6 +251,18 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="radiotv_broadcast_calendar_view">
+        <field name="name">radiotv.broadcast.calendar.view</field>
+        <field name="model">radiotv.broadcast</field>
+        <field name="type">calendar</field>
+        <field name="arch" type="xml">
+            <calendar string="Broadcasts" date_start="dt_start" date_stop="dt_end" color="program_id">
+                <field name="program_id"/>
+            </calendar>
+        </field>
+    </record>
+
+
     <record model="ir.ui.view" id="view_radiotv_podcast_view">
         <field name="name">radiotv.podcast.tree</field>
         <field name="model">radiotv.podcast</field>
@@ -260,7 +272,6 @@
                 <field name="name"/>
                 <field name="file_name"/>
                 <field name="broadcast_id"/>
-                <field name="description"/>
                 <field name='block'/>
                 <field name='explicit'/>
                 <field name='pub_date'/>

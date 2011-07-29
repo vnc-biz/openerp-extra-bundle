@@ -41,7 +41,6 @@ def export_table(self, cr, uid, data, context, server, table, fields, filter = [
     server.reset_table(tbl)
     elem_ids = pool.get(obj).search(cr, uid, filter)
     for elem in pool.get(obj).browse(cr, uid, elem_ids, context):
-
         vals = {}
         for field in fields:
             if field[-3:] == "_id":
@@ -54,30 +53,35 @@ def export_table(self, cr, uid, data, context, server, table, fields, filter = [
         attach_ids = pool.get('ir.attachment').search(cr, uid, [('res_model','=',obj), ('res_id', '=',elem.id)])
         cont = 0
         for data in pool.get('ir.attachment').browse(cr, uid, attach_ids, context):
-            s = data['datas_fname'].split('.')
-            extension = s[-1].lower()
-            s.pop()
-            name = ".".join(s)
-            #print name + " " + extension
-            if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
-                if extension in ['jpeg', 'jpe', 'jpg']:
-                    extension='jpeg'
-                if not data['link']:
+            if data['type'] == 'binary':
+                s = data['datas_fname'].split('.')
+                extension = s[-1].lower()
+                s.pop()
+                name = ".".join(s)
+                if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
+                    if extension in ['jpeg', 'jpe', 'jpg']:
+                        extension='jpeg'
                     vals['picture'+str(cont)] = data['datas']
-                else:
+                    vals['fname'+str(cont)] = name + '.' + extension
+            else:
+                all_url = data['url'].split('/')
+                s = all_url[-1].split('.')
+                extension = s[-1].lower()
+                s.pop()
+                name = ".".join(s)
+                if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
+                    if extension in ['jpeg', 'jpe', 'jpg']:
+                        extension='jpeg'
                     try:
-                        vals['picture'+str(cont)] = base64.encodestring(urllib.urlopen(data['link']).read())
+                        vals['picture'+str(cont)] = base64.encodestring(urllib.urlopen(data['url']).read())
                     except:
                         continue
-                vals['fname'+str(cont)] = name + '.' + extension
-                cont = cont + 1
-        #print vals
-
+                    vals['fname'+str(cont)] = name + '.' + extension
+            cont = cont + 1
         if server.set_table(tbl, vals):
             new += 1
         else:
             update += 1
-
     delete = server.delete_table(tbl, filterphp)
     return (new, update, delete)
 
@@ -96,29 +100,34 @@ def export_write(self, cr, uid, server, table, ids, vals, context):
             vals[field] = vals[field][0][2]
     for id in ids:
         vals['id'] = id
-
         attach_ids = pool.get('ir.attachment').search(cr, uid, [('res_model','=',obj), ('res_id', '=',id)])
         cont = 0
         for data in pool.get('ir.attachment').browse(cr, uid, attach_ids, context):
-            s = data['datas_fname'].split('.')
-            extension = s[-1].lower()
-            s.pop()
-            name = ".".join(s)
-            #print name + " " + extension
-            if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
-                if extension in ['jpeg', 'jpe', 'jpg']:
-                    extension='jpeg'
-                if not data['link']:
+            if data['type'] == 'binary':
+                s = data['datas_fname'].split('.')
+                extension = s[-1].lower()
+                s.pop()
+                name = ".".join(s)
+                if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
+                    if extension in ['jpeg', 'jpe', 'jpg']:
+                        extension='jpeg'
                     vals['picture'+str(cont)] = data['datas']
-                else:
+                vals['fname'+str(cont)] = name + '.' + extension
+            else:
+                all_url = data['url'].split('/')
+                s = all_url[-1].split('.')
+                extension = s[-1].lower()
+                s.pop()
+                name = ".".join(s)
+                if extension in ['jpeg', 'jpe', 'jpg', 'gif', 'png']:
+                    if extension in ['jpeg', 'jpe', 'jpg']:
+                        extension='jpeg'
                     try:
-                        vals['picture'+str(cont)] = base64.encodestring(urllib.urlopen(data['link']).read())
+                        vals['picture'+str(cont)] = base64.encodestring(urllib.urlopen(data['url']).read())
                     except:
                         continue
                 vals['fname'+str(cont)] = name + '.' + extension
-                cont = cont + 1
-        #print vals
-
+            cont = cont + 1
         if server.set_table(tbl, vals):
             new += 1
         else:

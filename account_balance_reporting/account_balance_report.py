@@ -48,7 +48,7 @@ CSS_CLASSES = [('default','Default'),('l1', 'Level 1'), ('l2', 'Level 2'),
 # Account balance report (document / header)
 ################################################################################
 
-class account_balance_report(osv.osv):
+class account_balance_reporting(osv.osv):
     """
     Account balance report.
     It stores the configuration/header fields of an account balance report,
@@ -56,13 +56,14 @@ class account_balance_report(osv.osv):
     (values generated from the selected template lines of detail formulas).
     """
 
-    _name = "account.balance.report"
+    #_inherit = "account.common.account.report"
+    _name = "account.balance.reporting"
 
     _columns = {
         # Name of this report
         'name': fields.char('Name', size=64, required=True, select=True),
         # Template used to calculate this report
-        'template_id': fields.many2one('account.balance.report.template', 'Template', ondelete='set null', required=True, select=True,
+        'template_id': fields.many2one('account.balance.reporting.template', 'Template', ondelete='set null', required=True, select=True,
                             states = {'calc_done': [('readonly', True)], 'done': [('readonly', True)]}),
         # Date of the last calculation
         'calc_date': fields.datetime("Calculation date"),
@@ -75,14 +76,14 @@ class account_balance_report(osv.osv):
         #
         'current_fiscalyear_id': fields.many2one('account.fiscalyear','Fiscal year 1', select=True, required=True,
                             states = {'calc_done': [('readonly', True)], 'done': [('readonly', True)]}),
-        'current_period_ids': fields.many2many('account.period', 'account_balance_report_account_period_current_rel', 'account_balance_report_id', 'period_id', 'Fiscal year 1 periods',
+        'current_period_ids': fields.many2many('account.period', 'account_balance_reporting_account_period_current_rel', 'account_balance_reporting_id', 'period_id', 'Fiscal year 1 periods',
                             states = {'calc_done': [('readonly', True)], 'done': [('readonly', True)]}),
         #
         # Previous fiscal year and it's (selected) periods
         #
         'previous_fiscalyear_id': fields.many2one('account.fiscalyear','Fiscal year 2', select=True,
                             states = {'calc_done': [('readonly', True)], 'done': [('readonly', True)]}),
-        'previous_period_ids': fields.many2many('account.period', 'account_balance_report_account_period_previous_rel', 'account_balance_report_id', 'period_id', 'Fiscal year 2 periods',
+        'previous_period_ids': fields.many2many('account.period', 'account_balance_reporting_account_period_previous_rel', 'account_balance_reporting_id', 'period_id', 'Fiscal year 2 periods',
                             states = {'calc_done': [('readonly', True)], 'done': [('readonly', True)]}),
     }
 
@@ -103,7 +104,7 @@ class account_balance_report(osv.osv):
         It will use the report template to generate lines of detail for the
         report with calculated values.
         """
-        report_line_facade = self.pool.get('account.balance.report.line')
+        report_line_facade = self.pool.get('account.balance.reporting.line')
 
         # Set the state to 'calculating'
         self.write(cr, uid, ids, {
@@ -153,7 +154,7 @@ class account_balance_report(osv.osv):
                         report_line_facade.write(cr, uid, line.id, {
                                 'parent_id': len(parent_line_id) and parent_line_id[0] or None,
                             }, context)
-                        
+
         #
         # Calculate the values of the lines
         # Note: We reload the reports objects to refresh the lines of detail.
@@ -198,11 +199,11 @@ class account_balance_report(osv.osv):
         self.write(cr, uid, ids, {'state': 'draft', 'calc_date': None})
         wf_service = netsvc.LocalService("workflow")
         for item_id in ids:
-            wf_service.trg_create(uid, 'account.balance.report', item_id, cr)
+            wf_service.trg_create(uid, 'account.balance.reporting', item_id, cr)
         return True
 
 
-account_balance_report()
+account_balance_reporting()
 
 
 
@@ -210,21 +211,21 @@ account_balance_report()
 # Account balance report line of detail (accounting concept)
 ################################################################################
 
-class account_balance_report_line(osv.osv):
+class account_balance_reporting_line(osv.osv):
     """
     Account balance report line / Accounting concept
     One line of detail of the balance report representing an accounting
     concept with its values.
-    The accounting concepts follow a parent-children hierarchy. 
+    The accounting concepts follow a parent-children hierarchy.
     Its values (current and previous) are calculated based on the 'value'
     formula of the linked template line.
     """
 
-    _name = "account.balance.report.line"
+    _name = "account.balance.reporting.line"
 
     _columns = {
         # Parent report of this line
-        'report_id': fields.many2one('account.balance.report', 'Report', ondelete='cascade'),
+        'report_id': fields.many2one('account.balance.reporting', 'Report', ondelete='cascade'),
 
         # Concept official code (as specified by normalized models, will be used when printing)
         'code': fields.char('Code', size=64, required=True, select=True),
@@ -245,11 +246,11 @@ class account_balance_report_line(osv.osv):
         'css_class': fields.selection(CSS_CLASSES, 'CSS Class', required=False),
 
         # Linked template line used to calculate this line values
-        'template_line_id': fields.many2one('account.balance.report.template.line', 'Line template', ondelete='set null'),
+        'template_line_id': fields.many2one('account.balance.reporting.template.line', 'Line template', ondelete='set null'),
         # Parent accounting concept
-        'parent_id': fields.many2one('account.balance.report.line', 'Parent', ondelete='cascade'),
+        'parent_id': fields.many2one('account.balance.reporting.line', 'Parent', ondelete='cascade'),
         # Children accounting concepts
-        'child_ids': fields.one2many('account.balance.report.line', 'parent_id', 'Children'),
+        'child_ids': fields.one2many('account.balance.reporting.line', 'parent_id', 'Children'),
     }
 
     _defaults = {
@@ -373,7 +374,7 @@ class account_balance_report_line(osv.osv):
                         # Get the mode of balance calculation from the template
                         balance_mode = line.template_line_id.report_id.balance_mode
 
-                        # Get the balance 
+                        # Get the balance
                         value = line._get_account_balance(template_value, balance_mode, ctx)
 
                     elif re.match(r'^[\+\-0-9a-zA-Z_\*]*$', template_value):
@@ -416,7 +417,7 @@ class account_balance_report_line(osv.osv):
                     current_value = value
                 elif fyear == 'previous':
                     previous_value = value
-                    
+
             # Write the values
             self.write(cr, uid, [line.id], {
                     'current_value': current_value,
@@ -522,28 +523,28 @@ class account_balance_report_line(osv.osv):
                     else:
                         res += acc_facade.browse(cr, uid, account_ids, context)[0].balance * sign
                 else:
-                    netsvc.Logger().notifyChannel('account_balance_report', netsvc.LOG_WARNING, "Account with code '%s' not found!" % account_code)
+                    netsvc.Logger().notifyChannel('account_balance_reporting', netsvc.LOG_WARNING, "Account with code '%s' not found!" % account_code)
 
         return res
 
 
-account_balance_report_line()
+account_balance_reporting_line()
 
 
-class account_balance_report_withlines(osv.osv):
+class account_balance_reporting_withlines(osv.osv):
     """
     Extend the 'account balance report' to add a link to its
     lines of detail.
     """
 
-    _inherit = "account.balance.report"
+    _inherit = "account.balance.reporting"
 
     _columns = {
-        'line_ids': fields.one2many('account.balance.report.line', 'report_id', 'Lines',
+        'line_ids': fields.one2many('account.balance.reporting.line', 'report_id', 'Lines',
                             states = {'done': [('readonly', True)]}),
     }
 
-account_balance_report_withlines()
+account_balance_reporting_withlines()
 
 
 

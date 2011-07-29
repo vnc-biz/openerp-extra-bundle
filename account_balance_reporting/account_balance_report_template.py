@@ -61,7 +61,7 @@ CSS_CLASSES = [('default','Default'),('l1', 'Level 1'), ('l2', 'Level 2'),
 # Account balance report template (document/header)
 ################################################################################
 
-class account_balance_report_template(osv.osv):
+class account_balance_reporting_template(osv.osv):
     """
     Account balance report template.
     It stores the header fields of an account balance report template,
@@ -69,7 +69,7 @@ class account_balance_report_template(osv.osv):
     the accounting concepts of the report.
     """
 
-    _name = "account.balance.report.template"
+    _name = "account.balance.reporting.template"
 
     _columns = {
         # Report template name
@@ -96,7 +96,7 @@ class account_balance_report_template(osv.osv):
         Redefine the copy method to perform it correctly as the line
         structure is a graph.
         """
-        line_facade = self.pool.get('account.balance.report.template.line')
+        line_facade = self.pool.get('account.balance.reporting.template.line')
 
         # Read the current item data:
         template = self.browse(cr, uid, id)
@@ -106,7 +106,7 @@ class account_balance_report_template(osv.osv):
                     'name': '%s*' % template.name, # We change the name to identify the copy
                     'type': 'user', # Copies are always user templates
                     'report_xml_id': template.report_xml_id.id,
-                    'description': template.description, 
+                    'description': template.description,
                     'balance_mode': template.balance_mode,
                     'line_ids': None,
                 }, context)
@@ -127,7 +127,7 @@ class account_balance_report_template(osv.osv):
                     'parent_id': None,
                     'child_ids': None,
                 }, context)
-        
+
         #
         # Now set the (lines) parents
         #
@@ -150,7 +150,7 @@ class account_balance_report_template(osv.osv):
 
         return new_id
 
-account_balance_report_template()
+account_balance_reporting_template()
 
 
 
@@ -158,7 +158,7 @@ account_balance_report_template()
 # Account balance report template line of detail (accounting concept template)
 ################################################################################
 
-class account_balance_report_template_line(osv.osv):
+class account_balance_reporting_template_line(osv.osv):
     """
     Account balance report template line / Accounting concept template
     One line of detail of the balance report representing an accounting
@@ -166,11 +166,11 @@ class account_balance_report_template_line(osv.osv):
     The accounting concepts follow a parent-children hierarchy.
     """
 
-    _name = "account.balance.report.template.line"
+    _name = "account.balance.reporting.template.line"
 
     _columns = {
         # Parent report of this line
-        'report_id': fields.many2one('account.balance.report.template', 'Template', ondelete='cascade'),
+        'report_id': fields.many2one('account.balance.reporting.template', 'Template', ondelete='cascade'),
 
         # Order sequence, it's also used for grouping into sections, that's why it is a char
         'sequence': fields.char('Sequence', size=32, required=False, help="Lines will be sorted/grouped by this field"),
@@ -189,9 +189,9 @@ class account_balance_report_template_line(osv.osv):
         'negate': fields.boolean('Negate', help="Negate the value (change the sign of the balance)"),
 
         # Parent accounting concept
-        'parent_id': fields.many2one('account.balance.report.template.line', 'Parent', ondelete='cascade'),
+        'parent_id': fields.many2one('account.balance.reporting.template.line', 'Parent', ondelete='cascade'),
         # Children accounting concepts
-        'child_ids': fields.one2many('account.balance.report.template.line', 'parent_id', 'Children'),
+        'child_ids': fields.one2many('account.balance.reporting.template.line', 'parent_id', 'Children'),
     }
 
     _defaults = {
@@ -237,22 +237,22 @@ class account_balance_report_template_line(osv.osv):
         return self.name_get(cr, uid, ids, context=context)
 
 
-account_balance_report_template_line()
+account_balance_reporting_template_line()
 
 
-class account_balance_report_template_withlines(osv.osv):
+class account_balance_reporting_template_withlines(osv.osv):
     """
     Extend the 'account balance report template' to add a link to its
     lines of detail.
     """
 
-    _inherit = "account.balance.report.template"
+    _inherit = "account.balance.reporting.template"
 
     _columns = {
-        'line_ids': fields.one2many('account.balance.report.template.line', 'report_id', 'Lines'),
+        'line_ids': fields.one2many('account.balance.reporting.template.line', 'report_id', 'Lines'),
     }
 
-account_balance_report_template_withlines()
+account_balance_reporting_template_withlines()
 
 
 

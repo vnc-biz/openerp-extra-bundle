@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-09-27 08:18+0000\n"
-"PO-Revision-Date: 2011-02-15 15:01+0000\n"
+"PO-Revision-Date: 2011-07-29 23:01+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 05:53+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-07-30 05:31+0000\n"
+"X-Generator: Launchpad (build 13405)\n"
 
 #. module: account_balance_reporting
 #: field:account.balance.reporting,current_period_ids:0
@@ -593,3 +593,15 @@ msgstr "Motor d'informes de balanços de comptes"
 #: selection:account.balance.reporting,state:0
 msgid "Canceled"
 msgstr "Cancel·lat"
+
+#~ msgid "account.balance.report"
+#~ msgstr "account.balance.report"
+
+#~ msgid "account.balance.report.template.line"
+#~ msgstr "account.balance.report.template.line"
+
+#~ msgid "account.balance.report.line"
+#~ msgstr "account.balance.report.line"
+
+#~ msgid "account.balance.report.template"
+#~ msgstr "account.balance.report.template"

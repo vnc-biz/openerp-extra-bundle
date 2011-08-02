@@ -22,6 +22,8 @@ from osv import fields, osv
 
 class sale_order(osv.osv):
     _inherit = "sale.order"
+    
+    
 
     def onchange_partner_id(self, cr, uid, ids, part, shop_id=False):
 
@@ -84,7 +86,7 @@ class sale_order(osv.osv):
         to_country = partner_addr_invoice.country_id.id
         to_state = partner_addr_invoice.state_id.id
         
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=',obj_company.id), ('from_country','=',from_country),('to_country','=',to_country),('use_sale','=',True),'|',('from_state','=',from_state),('from_state','=',False),'|',('to_state','=',to_state),('to_state','=',False)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=',obj_company.id), ('use_sale','=',True), '|', ('from_country','=',from_country),('from_country','=',False), '|', ('to_country','=',to_country), ('to_country','=',False),'|',('from_state','=',from_state),('from_state','=',False),'|',('to_state','=',to_state),('to_state','=',False)])
         
         if fsc_pos_id:
             obj_fpo_rule = self.pool.get('account.fiscal.position.rule').read(cr, uid, fsc_pos_id, ['fiscal_position_id'])
@@ -121,7 +123,7 @@ class sale_order(osv.osv):
         to_country = partner_addr_invoice.country_id.id
         to_state = partner_addr_invoice.state_id.id
         
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=',obj_company.id),('from_country','=',from_country),('to_country','=',to_country),('use_sale','=',True),'|',('from_state','=',False),('from_state','=',from_state),'|',('to_state','=',False),('to_state','=',to_state)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=',obj_company.id), ('use_sale','=',True), '|',('from_country','=',from_country), ('from_country','=',False), '|',('to_country','=',to_country),('to_country','=',False),'|',('from_state','=',False),('from_state','=',from_state),'|',('to_state','=',False),('to_state','=',to_state)])
         
         if fsc_pos_id:
             obj_fpo_rule = self.pool.get('account.fiscal.position.rule').read(cr, uid, fsc_pos_id, ['fiscal_position_id'])

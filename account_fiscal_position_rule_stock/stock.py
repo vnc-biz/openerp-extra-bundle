@@ -57,7 +57,7 @@ class stock_picking(osv.osv):
         from_country = company_addr_default.country_id.id
         from_state = company_addr_default.state_id.id
 
-        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=', company_id),('from_country','=',from_country),('to_country','=',to_country),('use_picking','=',True),'|',('from_state','=',from_state),('from_state','=',False),'|',('to_state','=',to_state),('to_state','=',False)])
+        fsc_pos_id = self.pool.get('account.fiscal.position.rule').search(cr, uid, ['&',('company_id','=', company_id),('use_picking','=',True),'|' , ('from_country','=',from_country),('from_country','=',False),'|' ,('to_country','=',to_country),('to_country','=',False),'|',('from_state','=',from_state),('from_state','=',False),'|',('to_state','=',to_state),('to_state','=',False)])
         if fsc_pos_id:
             obj_fpo_rule = self.pool.get('account.fiscal.position.rule').read(cr, uid, fsc_pos_id, ['fiscal_position_id'])
             result['value']['fiscal_position'] = obj_fpo_rule[0]['fiscal_position_id']

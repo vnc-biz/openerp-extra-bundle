@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 #########################################################################
 #                                                                       #
-# Copyright (C) 2009  Rapha�l Valyi                                     #
+# Copyright (C) 2009  Raphaël Valyi, Rentao Lima                        #
 #                                                                       #
 #This program is free software: you can redistribute it and/or modify   #
 #it under the terms of the GNU General Public License as published by   #
@@ -22,7 +22,7 @@ from osv import fields, osv
 class product_product(osv.osv):
     _inherit = 'product.product'
     _columns = {
-                'property_fiscal_classification': fields.property(
+                    'property_fiscal_classification': fields.property(
                     'account.product.fiscal.classification',
                     type='many2one',
                     relation='account.product.fiscal.classification',

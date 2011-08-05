@@ -23,6 +23,7 @@ from osv import osv
 from osv import fields
 import netsvc
 import time
+from tools.misc import ustr
 
 class ServerAction(osv.osv):
     """
@@ -56,24 +57,32 @@ class ServerAction(osv.osv):
                 continue
 
             if action.state == 'sms':
+                logger.notifyChannel('sms', netsvc.LOG_INFO, 'send SMS')
                 sms_pool = self.pool.get('sms.smsclient')
-                text = action.sms
                 mobile = str(action.mobile)
                 to = None
                 try:
+                    cxt = {
+                        'context':context,
+                        'object': obj,
+                        'gateway': action.sms_server,
+                        'time':time,
+                        'cr': cr,
+                        'pool' : self.pool,
+                        'uid' : uid
+                    }
                     if mobile:
-                        to =  eval(str(mobile), cxt)
+                        to =  eval(action.mobile, cxt)
                     else:
                         logger.notifyChannel('sms', netsvc.LOG_ERROR, 'Mobile number not specified !')
-                except:
+                    text = eval(action.sms, cxt)
+                    if sms_pool.send_message(cr, uid, action.sms_server.id, to, text) == True:
+                        logger.notifyChannel('sms', netsvc.LOG_INFO, 'SMS successfully send to : %s' % (to))
+                    else:
+                        logger.notifyChannel('sms', netsvc.LOG_ERROR, 'Failed to send SMS to : %s' % (to))
+                except Exception, e:
+                    logger.notifyChannel('sms', netsvc.LOG_ERROR, 'Failed to send SMS : %s' % repr(e))
                     pass
-
-                text = self.merge_message(cr, uid, str(action.sms), action, context)
-
-                if sms_pool.send_message(cr, uid, action.sms_server.id, to, text) == True:
-                    logger.notifyChannel('sms', netsvc.LOG_INFO, 'SMS successfully send to : %s' % (to))
-                else:
-                    logger.notifyChannel('sms', netsvc.LOG_ERROR, 'Failed to send SMS to : %s' % (to))
             else:
                 act_ids.append(action.id)
 

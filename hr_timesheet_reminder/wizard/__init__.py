@@ -1,2 +1,0 @@
-import reminder_config
-import reminder_status

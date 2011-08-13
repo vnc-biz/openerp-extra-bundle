@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 05:56+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:37+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -83,7 +83,7 @@ msgstr "Phòng/Ban"
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Deductions:"
-msgstr ""
+msgstr "Các khoản giảm trừ:"
 
 #. module: hr_payroll
 #: field:company.contribution,gratuity:0
@@ -154,7 +154,7 @@ msgstr ","
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Set to Draft"
-msgstr ""
+msgstr "Đặt thành Nháp"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -222,7 +222,7 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Leaves"
-msgstr ""
+msgstr "Ngày nghỉ"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,register_id:0
@@ -252,7 +252,7 @@ msgstr "Giá trị"
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Name of the Employee"
-msgstr ""
+msgstr "Tên của nhân viên"
 
 #. module: hr_payroll
 #: field:hr.contract,permit_no:0
@@ -296,7 +296,7 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Deduction"
-msgstr ""
+msgstr "Khấu trừ Khác"
 
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
@@ -332,12 +332,12 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Amount (in words) :"
-msgstr ""
+msgstr "Số tiền (bằng chữ) :"
 
 #. module: hr_payroll
 #: field:hr.holidays.status,type:0
 msgid "Payment"
-msgstr ""
+msgstr "Thanh toán"
 
 #. module: hr_payroll
 #: field:hr.employee,analytic_account:0
@@ -357,7 +357,7 @@ msgstr ""
 #: view:hr.allounce.deduction.categoty:0
 #: field:hr.allounce.deduction.categoty,base:0
 msgid "Based on"
-msgstr ""
+msgstr "Dựa trên"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -365,7 +365,7 @@ msgstr ""
 #: field:hr.payroll.register,bank_id:0
 #: report:salary.structure:0
 msgid "Bank"
-msgstr ""
+msgstr "Ngân hàng"
 
 #. module: hr_payroll
 #: field:hr.payslip,move_id:0
@@ -401,7 +401,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip.line,total:0
 msgid "Sub Total"
-msgstr ""
+msgstr "Tổng phụ"
 
 #. module: hr_payroll
 #: field:hr.contract,visa_no:0
@@ -414,7 +414,7 @@ msgstr ""
 #: field:hr.payslip.line.line,from_val:0
 #: report:year.salary:0
 msgid "From"
-msgstr ""
+msgstr "Từ"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,bysal:0
@@ -451,14 +451,14 @@ msgstr ""
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Notes:"
-msgstr ""
+msgstr "Ghi chú:"
 
 #. module: hr_payroll
 #: field:hr.payroll.employees.detail,date_to:0
 #: field:hr.payroll.year.salary,date_to:0
 #: report:salary.structure:0
 msgid "End Date"
-msgstr ""
+msgstr "Ngày Kết thúc"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -473,7 +473,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.passport:0
 msgid "Passport"
-msgstr ""
+msgstr "Hộ chiếu"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,employee_id:0
@@ -483,14 +483,14 @@ msgstr ""
 #: field:hr.payslip.line,employee_id:0
 #: model:ir.model,name:hr_payroll.model_hr_employee
 msgid "Employee"
-msgstr ""
+msgstr "Người lao động"
 
 #. module: hr_payroll
 #: field:hr.payroll.employees.detail,date_from:0
 #: field:hr.payroll.year.salary,date_from:0
 #: report:salary.structure:0
 msgid "Start Date"
-msgstr ""
+msgstr "Ngày bắt đầu"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice_line
@@ -504,12 +504,12 @@ msgstr ""
 #: field:hr.payslip.line,type:0
 #: report:salary.structure:0
 msgid "Type"
-msgstr ""
+msgstr "Loại"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -606,7 +606,7 @@ msgstr ""
 #: selection:hr.payslip.line,amount_type:0
 #: selection:hr.payslip.line.line,amount_type:0
 msgid "Fixed Amount"
-msgstr ""
+msgstr "Giá trị cố định"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
@@ -713,7 +713,7 @@ msgstr ""
 #: report:hr.payroll.register.sheet:0
 #: report:salary.structure:0
 msgid "Allowances"
-msgstr ""
+msgstr "Các khoản Phụ cấp"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -730,7 +730,7 @@ msgstr ""
 #: field:hr.payroll.register,state:0
 #: field:hr.payslip,state:0
 msgid "State"
-msgstr ""
+msgstr "Trạng thái"
 
 #. module: hr_payroll
 #: report:salary.structure:0
@@ -764,12 +764,12 @@ msgstr ""
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Others:"
-msgstr ""
+msgstr "Khác:"
 
 #. module: hr_payroll
 #: field:hr.passport,contracts_ids:0
 msgid "Contracts"
-msgstr ""
+msgstr "Các hợp đồng"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -852,7 +852,7 @@ msgstr ""
 #: report:employees.salary:0
 #: report:hr.payroll.register.sheet:0
 msgid "Employee Name"
-msgstr ""
+msgstr "Tên nhân viên"
 
 #. module: hr_payroll
 #: field:hr.employee,salary_account:0
@@ -943,7 +943,7 @@ msgstr ""
 #: field:company.contribution,active:0
 #: field:hr.payroll.register,active:0
 msgid "Active"
-msgstr ""
+msgstr "Hoạt động"
 
 #. module: hr_payroll
 #: field:hr.employee,employee_account:0
@@ -958,7 +958,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,condition:0
 msgid "Condition"
-msgstr ""
+msgstr "Điều kiện"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
@@ -974,7 +974,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Compute"
-msgstr ""
+msgstr "Tính toán"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
@@ -1000,7 +1000,7 @@ msgstr ""
 #: field:hr.payslip,basic_before_leaves:0
 #: report:payslip.pdf:0
 msgid "Basic Salary"
-msgstr ""
+msgstr "Lương Cơ bản"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,code:0
@@ -1010,7 +1010,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Salary Information"
-msgstr ""
+msgstr "Thông tin Lương"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_allounce_deduction_categoty
@@ -1039,7 +1039,7 @@ msgstr ""
 #: field:hr.payroll.register,date:0
 #: field:hr.payslip,date:0
 msgid "Date"
-msgstr ""
+msgstr "Ngày"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
@@ -1088,7 +1088,7 @@ msgstr ""
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Code"
-msgstr ""
+msgstr "Mã"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
@@ -1102,7 +1102,7 @@ msgstr ""
 #: field:hr.payslip.line.line,to_val:0
 #: report:year.salary:0
 msgid "To"
-msgstr ""
+msgstr "Đến"
 
 #. module: hr_payroll
 #: wizard_button:payroll.analysis,init,process:0
@@ -1121,7 +1121,7 @@ msgstr "Khoản vay"
 #: field:hr.payslip.line,sequence:0
 #: field:hr.payslip.line.line,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Trình tự"
 
 #. module: hr_payroll
 #: field:hr.payroll.year.salary,salary_on:0
@@ -1133,7 +1133,7 @@ msgstr ""
 #: field:hr.payroll.register,number:0
 #: field:hr.payslip,number:0
 msgid "Number"
-msgstr ""
+msgstr "Số"
 
 #. module: hr_payroll
 #: report:salary.structure:0
@@ -1168,7 +1168,7 @@ msgstr ""
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Cancel"
-msgstr ""
+msgstr "Hủy bỏ"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1199,7 +1199,7 @@ msgstr ""
 #: field:hr.contract,passport_id:0
 #: field:hr.passport,name:0
 msgid "Passport No"
-msgstr ""
+msgstr "Số Hộ chiếu"
 
 #. module: hr_payroll
 #: view:hr.employee.grade:0
@@ -1214,7 +1214,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "for period"
-msgstr ""
+msgstr "Cho giai đoạn"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -1224,7 +1224,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "E-mail"
-msgstr ""
+msgstr "Thư điện tử"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_payroll_register
@@ -1263,7 +1263,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,function_id:0
 msgid "Function"
-msgstr ""
+msgstr "Chức năng"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -1294,7 +1294,7 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,note:0
 msgid "Description"
-msgstr ""
+msgstr "Mô tả"
 
 #. module: hr_payroll
 #: field:hr.employee,pg_joining:0
@@ -1331,7 +1331,7 @@ msgstr ""
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Address"
-msgstr ""
+msgstr "Địa chỉ"
 
 #. module: hr_payroll
 #: help:hr.employee,property_bank_account:0
@@ -1384,7 +1384,7 @@ msgstr ""
 #: report:salary.structure:0
 #: report:year.salary:0
 msgid "Name"
-msgstr ""
+msgstr "Tên"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1409,12 +1409,12 @@ msgstr ""
 #: field:hr.payroll.year.salary,employee_ids:0
 #: view:hr.payslip:0
 msgid "Employees"
-msgstr ""
+msgstr "Các nhân viên"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Bank Account"
-msgstr ""
+msgstr "Tài khoản Ngân hàng"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,name:0
@@ -1431,7 +1431,7 @@ msgstr ""
 #: field:hr.payslip,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Contract"
-msgstr ""
+msgstr "Hợp đồng"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -1465,14 +1465,14 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Bank Details"
-msgstr ""
+msgstr "Chi tiết Ngân hàng"
 
 #. module: hr_payroll
 #: field:hr.employee,advantages_net:0
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Deductions"
-msgstr ""
+msgstr "Giảm trừ"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
@@ -1508,11 +1508,11 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Total Deductions"
-msgstr ""
+msgstr "Tổng Các khoản giảm trừ"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 #: field:hr.contibution.register.line,total:0
 #: report:year.salary:0
 msgid "Total"
-msgstr ""
+msgstr "Tổng cộng"

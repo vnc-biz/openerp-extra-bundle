@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-04 05:15+0000\n"
-"X-Generator: Launchpad (build 13573)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:46+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: base_contact_oneclick
 #: model:ir.model,name:base_contact_oneclick.model_res_partner
@@ -83,87 +83,3 @@ msgstr "Creació empresa-adreça-contacte"
 #: model:ir.ui.menu,name:base_contact_oneclick.base_create_partner
 msgid "Create Partner"
 msgstr "Crea empresa"
-
-#~ msgid "City"
-#~ msgstr "Ciutat"
-
-#~ msgid "State"
-#~ msgstr "Estat"
-
-#~ msgid "Supplier"
-#~ msgstr "Proveïdor"
-
-#~ msgid "Fax"
-#~ msgstr "Fax"
-
-#~ msgid "Zip"
-#~ msgstr "Codi postal"
-
-#~ msgid "Street2"
-#~ msgstr "Carrer2"
-
-#~ msgid "Customer"
-#~ msgstr "Client"
-
-#~ msgid "Name"
-#~ msgstr "Nom"
-
-#~ msgid "Mobile"
-#~ msgstr "Mòbil"
-
-#~ msgid "Country"
-#~ msgstr "País"
-
-#~ msgid "First"
-#~ msgstr "Primer"
-
-#~ msgid "Street"
-#~ msgstr "Carrer"
-
-#~ msgid "Done"
-#~ msgstr "Realitzat"
-
-#~ msgid "Message"
-#~ msgstr "Missatge"
-
-#~ msgid ""
-#~ "The Object name must start with x_ and not contain any special character !"
-#~ msgstr ""
-#~ "El nom de l'objecte ha de començar amb x_ i no contenir cap caràcter "
-#~ "especial!"
-
-#~ msgid "Check this box if the partner is a customer."
-#~ msgstr "Marqueu aquesta casella si l'empresa és client."
-
-#~ msgid "Invalid model name in the action definition."
-#~ msgstr "Nom de model no vàlid en la definició de l'acció."
-
-#~ msgid "Phone"
-#~ msgstr "Telèfon"
-
-#~ msgid "Fed. State"
-#~ msgstr "Província"
-
-#~ msgid "Create Model"
-#~ msgstr "Crea model"
-
-#~ msgid "E-Mail"
-#~ msgstr "Email"
-
-#~ msgid "Base Contact OneClick"
-#~ msgstr "Creació empresa-contacte en un clic."
-
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "XML no vàlid per l'estructura de la vista!"
-
-#~ msgid ""
-#~ "This module allows a little wizard to create new Partner, address, contact "
-#~ "and job. One click."
-#~ msgstr ""
-#~ "Aquest mòdul proporciona un petit assistent per afegir empreses, adreces i "
-#~ "contactes en un sol clic."
-
-#~ msgid ""
-#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
-#~ "people will not see it when encoding a purchase order."
-#~ msgstr "Marqueu aquesta casella si també és proveïdor."

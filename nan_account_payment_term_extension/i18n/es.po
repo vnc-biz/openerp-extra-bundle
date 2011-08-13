@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 06:06+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:46+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 "Language: ca\n"
 
 #. module: nan_account_payment_term_extension
@@ -52,24 +52,3 @@ msgstr "Número de meses a añadir respecto la fecha de la factura."
 #: field:account.payment.term.line,months:0
 msgid "Number of Months"
 msgstr "Número de meses"
-
-#~ msgid "Paydays"
-#~ msgstr "Días de pago"
-
-#~ msgid ""
-#~ "If a company has more than one payment days in a month you should fill them "
-#~ "in this field and set 'Day of the Month' field in line to zero. For example, "
-#~ "if a company pays the 5th and 20th days of the month you should write '5-20' "
-#~ "here."
-#~ msgstr ""
-#~ "Si una empresa tiene más de un día de pago al mes, debe rellenarlos en este "
-#~ "campo y establecer el campo 'Día del mes' a cero en las líneas. Por ejemplo, "
-#~ "si una empresa paga los días 5 y 20 de cada mes, debe introducir '5-20'."
-
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "¡XML no válido para la estructura de la vista!"
-
-#~ msgid ""
-#~ "This module allows setting more than one payment days in payment terms."
-#~ msgstr ""
-#~ "Éste módulo permite establecer más de un día de pago en los plazos de pago."

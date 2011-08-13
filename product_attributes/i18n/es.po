@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 06:05+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:46+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: product_attributes
 #: view:product.product:0
@@ -217,9 +217,3 @@ msgstr "Atributos de producto para el módulo product de OpenERP"
 #: field:product.attributes,selection:0
 msgid "Selection Options"
 msgstr "Opciones de selección"
-
-#~ msgid "You can't write this attribute"
-#~ msgstr "No puede modificar este atributo"
-
-#~ msgid "Partner Address Export"
-#~ msgstr "Exportar dirección de empresa"

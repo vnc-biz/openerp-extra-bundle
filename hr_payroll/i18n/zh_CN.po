@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 05:56+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:37+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -47,7 +47,7 @@ msgstr "工作天数"
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "New Slip"
-msgstr "新薪酬"
+msgstr "新工资单"
 
 #. module: hr_payroll
 #: rml:payroll.advice:0
@@ -88,7 +88,7 @@ msgstr "扣除："
 #. module: hr_payroll
 #: field:company.contribution,gratuity:0
 msgid "Use for Gratuity ?"
-msgstr "小费的用途?"
+msgstr "这钱用于?"
 
 #. module: hr_payroll
 #: rml:payslip.pdf:0
@@ -119,7 +119,7 @@ msgstr "支付薪酬"
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,flag:0
 msgid "D/C"
-msgstr ""
+msgstr "D/C"
 
 #. module: hr_payroll
 #: field:company.contribution,company_id:0
@@ -177,7 +177,7 @@ msgstr "其它"
 #: model:ir.model,name:hr_payroll.model_hr_payslip
 #: report:payslip.pdf:0
 msgid "Pay Slip"
-msgstr "工资表"
+msgstr "工资单"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -230,7 +230,7 @@ msgstr "不规则/ 法定的"
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Leaves"
-msgstr "假期"
+msgstr "准假"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,register_id:0
@@ -281,7 +281,7 @@ msgstr "金额"
 #: view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
 msgid "Payslip Line"
-msgstr "工资表明细"
+msgstr "工资单明细"
 
 #. module: hr_payroll
 #: field:hr.passport,country_id:0
@@ -314,7 +314,7 @@ msgstr "带薪假期"
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Employees Salary Details"
-msgstr "员工薪酬详细说明"
+msgstr "员工薪酬详情"
 
 #. module: hr_payroll
 #: field:hr.passport,date_expire:0
@@ -438,7 +438,7 @@ msgstr "员工年薪"
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.salary_payslip
 msgid "Employee PaySlip"
-msgstr "员工工资表"
+msgstr "员工工资单"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -534,7 +534,7 @@ msgstr "完整性错误！"
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Verify Sheet"
-msgstr "核实表"
+msgstr "核实"
 
 #. module: hr_payroll
 #: field:hr.employee,pan_no:0
@@ -575,7 +575,7 @@ msgstr "总收入"
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Payment"
-msgstr "其它付款"
+msgstr "其它的付款"
 
 #. module: hr_payroll
 #: field:hr.payslip,basic:0
@@ -585,7 +585,7 @@ msgstr "基本薪金 - 叶节点"
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "C/D"
-msgstr ""
+msgstr "C/D"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -658,7 +658,7 @@ msgstr "这月"
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Payslip"
-msgstr "工资表"
+msgstr "工资单"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -673,7 +673,7 @@ msgstr "扣除"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice
 msgid "Bank Advice Note"
-msgstr "银行通知单"
+msgstr "银行通知单备注"
 
 #. module: hr_payroll
 #: view:hr.passport:0
@@ -704,7 +704,7 @@ msgstr "固定值"
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Loan Installment"
-msgstr "分期贷款"
+msgstr "贷款的分期付款"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -714,7 +714,7 @@ msgstr "完成人力资源检查"
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Yours Sincerely"
-msgstr "谨启"
+msgstr "此致"
 
 #. module: hr_payroll
 #: field:hr.employee,advantages_gross:0
@@ -726,7 +726,7 @@ msgstr "补贴"
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "SI. No."
-msgstr ""
+msgstr "身份证号"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -761,7 +761,7 @@ msgstr "这员工职能"
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Confirm Sheet"
-msgstr "确认表"
+msgstr "确认"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
@@ -837,7 +837,7 @@ msgstr ""
 #: field:hr.payroll.register,line_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
-msgstr "工资表"
+msgstr "工资单"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -885,7 +885,7 @@ msgstr "工资表记录"
 #: report:hr.payroll.register.sheet:0
 #: report:payroll.advice:0
 msgid "For"
-msgstr ""
+msgstr "目的"
 
 #. module: hr_payroll
 #: field:hr.payroll.register,journal_id:0
@@ -945,7 +945,7 @@ msgstr "津贴/ 扣减"
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Compute Sheet"
-msgstr "计算表"
+msgstr "计算"
 
 #. module: hr_payroll
 #: field:company.contribution,active:0
@@ -1039,7 +1039,7 @@ msgstr "津贴/ 扣减 分类"
 #. module: hr_payroll
 #: selection:hr.payroll.advice,state:0
 msgid "Draft Sheet"
-msgstr "表草稿"
+msgstr "草稿"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,date:0
@@ -1073,7 +1073,7 @@ msgstr "包含在薪酬?"
 #. module: hr_payroll
 #: field:hr.holidays.status,head_id:0
 msgid "Payroll Head"
-msgstr "工资表头"
+msgstr "薪酬分类"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
@@ -1364,7 +1364,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Cancel Sheet"
-msgstr "取消表"
+msgstr "取消"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,type:0
@@ -1375,7 +1375,7 @@ msgstr "预支"
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Special Allowances and Deductions For Employee:"
-msgstr "特别津贴和员工的扣除"
+msgstr "特别的员工津贴和扣除"
 
 #. module: hr_payroll
 #: field:company.contribution,name:0
@@ -1397,7 +1397,7 @@ msgstr "名称"
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Leaved Deduction"
-msgstr "假期扣除"
+msgstr "准假扣除"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -1439,7 +1439,7 @@ msgstr "会计年度"
 #: field:hr.payslip,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Contract"
-msgstr "合约"
+msgstr "合同"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -1468,7 +1468,7 @@ msgstr "补贴"
 #. module: hr_payroll
 #: field:hr.payslip,holiday_days:0
 msgid "No of Leaves"
-msgstr "没假期"
+msgstr "准假天数"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1486,7 +1486,7 @@ msgstr "扣除"
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
 #: model:ir.ui.menu,name:hr_payroll.menu_department_tree
 msgid "Employee Payslip"
-msgstr "员工工资表"
+msgstr "员工工资单"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0

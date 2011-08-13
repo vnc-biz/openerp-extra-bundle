@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 06:00+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:40+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: tiny_purchase
 #: model:ir.model,name:tiny_purchase.model_tiny_purchase_order

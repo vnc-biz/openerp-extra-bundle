@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 05:56+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:37+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -88,7 +88,7 @@ msgstr "Удержания"
 #. module: hr_payroll
 #: field:company.contribution,gratuity:0
 msgid "Use for Gratuity ?"
-msgstr ""
+msgstr "Использовать для надбавки?"
 
 #. module: hr_payroll
 #: rml:payslip.pdf:0
@@ -141,7 +141,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Letter Details"
-msgstr ""
+msgstr "Подробности письма"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -257,7 +257,7 @@ msgstr "Имя работника"
 #. module: hr_payroll
 #: field:hr.contract,permit_no:0
 msgid "Work Permit No"
-msgstr ""
+msgstr "Номер разрешения на работу"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,amount:0
@@ -495,7 +495,7 @@ msgstr "Дата начала"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice_line
 msgid "Bank Advice Lines"
-msgstr ""
+msgstr "Строки банковского извещения"
 
 #. module: hr_payroll
 #: view:company.contribution:0
@@ -509,7 +509,7 @@ msgstr "Тип"
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "#"
-msgstr ""
+msgstr "№"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -577,7 +577,7 @@ msgstr "Базовая зарплата - Уходы"
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "C/D"
-msgstr ""
+msgstr "Н/О"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -665,7 +665,7 @@ msgstr "Удержания"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice
 msgid "Bank Advice Note"
-msgstr ""
+msgstr "Заметки к банковскому извещению"
 
 #. module: hr_payroll
 #: view:hr.passport:0
@@ -939,7 +939,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Compute Sheet"
-msgstr ""
+msgstr "Вычислить ведомость"
 
 #. module: hr_payroll
 #: field:company.contribution,active:0
@@ -955,7 +955,7 @@ msgstr "Счет работника"
 #. module: hr_payroll
 #: report:year.salary:0
 msgid "Yearly Salary Details"
-msgstr ""
+msgstr "Подробности годовых выплат"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,condition:0
@@ -966,7 +966,7 @@ msgstr "Состояние"
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Wating for HR Verification"
-msgstr ""
+msgstr "Ожидает проверки отделом кадров"
 
 #. module: hr_payroll
 #: field:hr.employee,pf_account:0
@@ -1033,7 +1033,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.payroll.advice,state:0
 msgid "Draft Sheet"
-msgstr ""
+msgstr "Черновик ведомости"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,date:0
@@ -1073,7 +1073,7 @@ msgstr "Заголовок ведомости по начислению зарп
 #: view:hr.payroll.advice:0
 #: field:hr.payroll.advice.line,advice_id:0
 msgid "Bank Advice"
-msgstr ""
+msgstr "Банковское извещение"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,account_id:0
@@ -1096,7 +1096,7 @@ msgstr "Код"
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
 #: model:ir.ui.menu,name:hr_payroll.hr_menu_payment_advice
 msgid "Payment Advice"
-msgstr ""
+msgstr "Платёжное извещение"
 
 #. module: hr_payroll
 #: field:company.contribution.line,to_val:0
@@ -1128,7 +1128,7 @@ msgstr "Последовательность"
 #. module: hr_payroll
 #: field:hr.payroll.year.salary,salary_on:0
 msgid "Salary On"
-msgstr ""
+msgstr "Выплата"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,number:0
@@ -1140,7 +1140,7 @@ msgstr "Номер"
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Contract Detail:"
-msgstr ""
+msgstr "Подробности о контакте:"
 
 #. module: hr_payroll
 #: view:hr.employee.grade:0
@@ -1175,7 +1175,7 @@ msgstr "Отмена"
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
 msgid "Amount / Percentage"
-msgstr ""
+msgstr "Объём / соотношение"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -1185,7 +1185,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.payroll.year.salary,salary_on:0
 msgid "Current Month Date"
-msgstr ""
+msgstr "Дата в текущем месяце"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -1231,7 +1231,7 @@ msgstr "Адрес эл. почты"
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_payroll_register
 msgid "Print Statement"
-msgstr ""
+msgstr "Распечатать"
 
 #. module: hr_payroll
 #: field:company.contribution,line_ids:0
@@ -1358,7 +1358,7 @@ msgstr "Настроить начисление зарплаты"
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Cancel Sheet"
-msgstr ""
+msgstr "Отменить ведомость"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,type:0
@@ -1369,7 +1369,7 @@ msgstr "Перенести"
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Special Allowances and Deductions For Employee:"
-msgstr ""
+msgstr "Специальные пособия и вычеты для сотрудника:"
 
 #. module: hr_payroll
 #: field:company.contribution,name:0
@@ -1443,12 +1443,12 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.holidays.status:0
 msgid "Payroll Configurtion"
-msgstr ""
+msgstr "Настройка платёжной системы"
 
 #. module: hr_payroll
 #: field:hr.passport,date_issue:0
 msgid "Passport Issue Date"
-msgstr ""
+msgstr "Дата выдачи паспорта"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -1457,12 +1457,12 @@ msgstr ""
 #: field:hr.payslip,allounce:0
 #: selection:hr.payslip.line,type:0
 msgid "Allowance"
-msgstr ""
+msgstr "Пособие"
 
 #. module: hr_payroll
 #: field:hr.payslip,holiday_days:0
 msgid "No of Leaves"
-msgstr ""
+msgstr "Кол-во пропусков"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1474,18 +1474,18 @@ msgstr "Банковская информация"
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Deductions"
-msgstr ""
+msgstr "Отчисления"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
 #: model:ir.ui.menu,name:hr_payroll.menu_department_tree
 msgid "Employee Payslip"
-msgstr ""
+msgstr "Расчётная ведомость сотрудника"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Letter Content"
-msgstr ""
+msgstr "Содержание письма"
 
 #. module: hr_payroll
 #: rml:payroll.advice:0
@@ -1500,7 +1500,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payroll_advice
 msgid "Bank Payment Advice"
-msgstr ""
+msgstr "Банковское платёжное извещение"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.salary_structure_register
@@ -1510,7 +1510,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Total Deductions"
-msgstr ""
+msgstr "Итого к вычету"
 
 #. module: hr_payroll
 #: report:employees.salary:0

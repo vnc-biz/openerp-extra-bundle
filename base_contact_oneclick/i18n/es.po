@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-04 05:15+0000\n"
-"X-Generator: Launchpad (build 13573)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:46+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: base_contact_oneclick
 #: model:ir.model,name:base_contact_oneclick.model_res_partner
@@ -84,87 +84,3 @@ msgstr "Creación empresa-dirección-contacto"
 #: model:ir.ui.menu,name:base_contact_oneclick.base_create_partner
 msgid "Create Partner"
 msgstr "Crear empresa"
-
-#~ msgid "City"
-#~ msgstr "Ciudad"
-
-#~ msgid "Check this box if the partner is a customer."
-#~ msgstr "Marque esta casilla si la empresa es cliente."
-
-#~ msgid "State"
-#~ msgstr "Estado"
-
-#~ msgid "Supplier"
-#~ msgstr "Proveedor"
-
-#~ msgid "Fax"
-#~ msgstr "Fax"
-
-#~ msgid "Zip"
-#~ msgstr "Código postal"
-
-#~ msgid "Phone"
-#~ msgstr "Teléfono"
-
-#~ msgid "Street2"
-#~ msgstr "Calle2"
-
-#~ msgid "Customer"
-#~ msgstr "Cliente"
-
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgid "Country"
-#~ msgstr "País"
-
-#~ msgid ""
-#~ "Check this box if the partner is a supplier. If it's not checked, purchase "
-#~ "people will not see it when encoding a purchase order."
-#~ msgstr "Marque esta casilla si la empresa también es proveedor."
-
-#~ msgid "First"
-#~ msgstr "Primero"
-
-#~ msgid "Street"
-#~ msgstr "Calle"
-
-#~ msgid "Done"
-#~ msgstr "Realizado"
-
-#~ msgid "Message"
-#~ msgstr "Mensaje"
-
-#~ msgid ""
-#~ "The Object name must start with x_ and not contain any special character !"
-#~ msgstr ""
-#~ "¡El nombre del objeto debe empezar con x_ y no contener ningún carácter "
-#~ "especial!"
-
-#~ msgid "Invalid model name in the action definition."
-#~ msgstr "Nombre de modelo no válido en la definición de la acción."
-
-#~ msgid "Fed. State"
-#~ msgstr "Província"
-
-#~ msgid "Create Model"
-#~ msgstr "Crear modelo"
-
-#~ msgid "E-Mail"
-#~ msgstr "Email"
-
-#~ msgid "Base Contact OneClick"
-#~ msgstr "Creación empresa-contacto en un clic."
-
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "¡XML no válido para la estructura de la vista!"
-
-#~ msgid ""
-#~ "This module allows a little wizard to create new Partner, address, contact "
-#~ "and job. One click."
-#~ msgstr ""
-#~ "Este módulo proporciona un pequeño asistente para añadir empresas, "
-#~ "direcciones y contactos en un sólo clic."
-
-#~ msgid "Mobile"
-#~ msgstr "Móvil"

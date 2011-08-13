@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 06:05+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:45+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 "Language: \n"
 
 #. module: nan_sale_discount
@@ -43,72 +43,3 @@ msgstr "Descompte 1"
 #: model:ir.model,name:nan_sale_discount.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línies de comanda de Venda"
-
-#~ msgid "Pending Production"
-#~ msgstr "Pending Production"
-
-#~ msgid "Dates"
-#~ msgstr "Dates"
-
-#~ msgid "Traceability"
-#~ msgstr "Traceability"
-
-#~ msgid ""
-#~ "All product quantities must be greater than 0.\n"
-#~ "You should install the mrp_subproduct module if you want to manage extra "
-#~ "products on BoMs !"
-#~ msgstr ""
-#~ "All product quantities must be greater than 0.\n"
-#~ "You should install the mrp_subproduct module if you want to manage extra "
-#~ "products on BoMs !"
-
-#~ msgid "You try to assign a lot which is not from the same product"
-#~ msgstr "You try to assign a lot which is not from the same product"
-
-#~ msgid "You must assign a production lot for this product"
-#~ msgstr "You must assign a production lot for this product"
-
-#~ msgid "Confirm"
-#~ msgstr "Confirm"
-
-#~ msgid "Cancel Availability"
-#~ msgstr "Cancel Availability"
-
-#~ msgid "New pack"
-#~ msgstr "New pack"
-
-#~ msgid "Scrap"
-#~ msgstr "Scrap"
-
-#~ msgid "Stock Move"
-#~ msgstr "Stock Move"
-
-#~ msgid "Locations"
-#~ msgstr "Locations"
-
-#~ msgid "General"
-#~ msgstr "General"
-
-#~ msgid "Bill of Material"
-#~ msgstr "Bill of Material"
-
-#~ msgid "Split"
-#~ msgstr "Split"
-
-#~ msgid "Error ! You can not create recursive BoM."
-#~ msgstr "Error ! You can not create recursive BoM."
-
-#~ msgid "_Cancel"
-#~ msgstr "_Cancel"
-
-#~ msgid "Move Information"
-#~ msgstr "Move Information"
-
-#~ msgid "Force Availability"
-#~ msgstr "Force Availability"
-
-#~ msgid "Unit Of Measure"
-#~ msgstr "Unit Of Measure"
-
-#~ msgid "Stock Moves Jordi"
-#~ msgstr "Stock Moves Jordi"

@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 06:06+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:46+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: contact_annotation
 #: field:contact.planning_change_states,permanent:0
@@ -587,15 +587,3 @@ msgstr "contact.subtype_annotation"
 #: sql_constraint:contact.annotation_type.function_access:0
 msgid "Each annotation type must have only one function."
 msgstr "Cada tipus d'anotació ha de tenir només una funció."
-
-#~ msgid "Annotations Management"
-#~ msgstr "Gestió d'anotacions"
-
-#~ msgid "General"
-#~ msgstr "General"
-
-#~ msgid "Flag State Ranges"
-#~ msgstr "Marca d'estats d'intervals"
-
-#~ msgid "Contact-Partner function"
-#~ msgstr "Funció contacte a l'empresa"

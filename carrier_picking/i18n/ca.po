@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-08 05:55+0000\n"
-"X-Generator: Launchpad (build 13168)\n"
+"X-Launchpad-Export-Date: 2011-08-13 05:36+0000\n"
+"X-Generator: Launchpad (build 13674)\n"
 
 #. module: carrier_picking
 #: field:res.partner.address,plate:0
@@ -24,12 +24,12 @@ msgstr "Matrícula"
 #. module: carrier_picking
 #: field:stock.picking,address_carrier_id:0
 msgid "Carrier Address"
-msgstr "Adreça transportista"
+msgstr "Dir. transportista"
 
 #. module: carrier_picking
 #: field:stock.picking,carrier_name:0
 msgid "Carrier Info"
-msgstr "Informació transportista"
+msgstr "Info. transportista"
 
 #. module: carrier_picking
 #: model:ir.model,name:carrier_picking.model_stock_picking
@@ -39,8 +39,7 @@ msgstr "Albarà"
 #. module: carrier_picking
 #: model:ir.module.module,shortdesc:carrier_picking.module_meta_information
 msgid "Carrier picking adds carrier contact information"
-msgstr ""
-"Albarà de transportista afegeix informació de contacte del transportista"
+msgstr "L'albarà del transportista afegeix la seva informació de contacte"
 
 #. module: carrier_picking
 #: model:ir.module.module,description:carrier_picking.module_meta_information
@@ -77,11 +76,11 @@ msgstr "Vehicle"
 msgid "Additional carrier information (vehicle's plate, ...)"
 msgstr "Informació addicional del transportista (matrícula del vehicle, ...)"
 
-#~ msgid "Vehicle's plate"
-#~ msgstr "Matrícula del vehículo"
-
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "¡XML inválido para la definición de la vista!"
-
 #~ msgid "Carrier picking"
 #~ msgstr "Transportista en los albaranes"
+
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "﻿XML invàlid per a la definició de la vista!"
+
+#~ msgid "Vehicle's plate"
+#~ msgstr "Matrícula del vehicle"

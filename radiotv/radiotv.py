@@ -111,9 +111,11 @@ class radiotv_channel(osv.osv):
         return id
 
 
-    def unlink(self, cr, uid, ids):
-        #print "ulink:", ids
-        result = super(radiotv_channel, self).unlink(cr, uid, ids)
+    def unlink(self, cr, uid, ids, context=None):
+        if not context:
+            context={}
+        #print "unlink:", ids
+        result = super(radiotv_channel, self).unlink(cr, uid, ids, context)
 
         # Synchronize to website
         server = get_server(self, cr, uid)
@@ -182,9 +184,11 @@ class radiotv_program(osv.osv):
         return id
 
 
-    def unlink(self, cr, uid, ids):
-        #print "ulink:", ids
-        result = super(radiotv_program, self).unlink(cr, uid, ids)
+    def unlink(self, cr, uid, ids, context=None):
+        if not context:
+            context={}
+        #print "unlink:", ids
+        result = super(radiotv_program, self).unlink(cr, uid, ids, context)
 
         # Synchronize to website
         server = get_server(self, cr, uid)
@@ -230,9 +234,11 @@ class radiotv_category(osv.osv):
         return id
 
 
-    def unlink(self, cr, uid, ids):
-        #print "ulink:", ids
-        result = super(radiotv_category, self).unlink(cr, uid, ids)
+    def unlink(self, cr, uid, ids, context=None):
+        if not context:
+            context={}
+        #print "unlink:", ids
+        result = super(radiotv_category, self).unlink(cr, uid, ids, context)
 
         # Synchronize to website
         server = get_server(self, cr, uid)
@@ -363,7 +369,9 @@ class radiotv_broadcast(osv.osv):
         return id
 
 
-    def unlink(self, cr, uid, ids):
+    def unlink(self, cr, uid, ids, context=None):
+        if not context:
+            context={}
         for id in ids:
             bc = self.browse(cr, uid, id)
             # Change the dt_end field of the previous record
@@ -377,21 +385,23 @@ class radiotv_broadcast(osv.osv):
                 vals2['previous'] = 1
                 self.write(cr, uid, id_prev, vals2)
 
-        #print "ulink:", ids
-        result = super(radiotv_broadcast, self).unlink(cr, uid, ids)
+        #print "unlink:", ids
+        result = super(radiotv_broadcast, self).unlink(cr, uid, ids, context)
 
         # Synchronize to website
         server = get_server(self, cr, uid)
         if callable(server):
-            delete = wizard.export_table.export_ulink(self, cr, uid, server, 'broadcast', ids)
+            delete = wizard.export_table.export_ulink(self, cr, uid, server, 'broadcast', ids)   
         return result
 
 
-    def _copy_broadcasts(self, cr, uid, data=False, context={}):
+    def _copy_broadcasts(self, cr, uid, data=False, context=None):
         '''
         Function called by the scheduler to copy broadcasts from the last day wich contain broadcasts to [data] days after
         '''
         import datetime
+        if not context:
+            context={}
         #print data
         b = self.pool.get('radiotv.broadcast')
         cr.execute('SELECT max(dt_start) FROM radiotv_broadcast')
@@ -413,7 +423,7 @@ class radiotv_broadcast(osv.osv):
         
         # deletes previous broadcasts
         broadcast_ids = b.search(cr, uid, [('dt_start','>=','%s 00:00:00' % d_to),('dt_start','<=','%s 23:59:59' % d_to)])
-        b.unlink(cr, uid, broadcast_ids)
+        b.unlink(cr, uid, broadcast_ids, context)
         
         # copies new broadcasts
         broadcast_ids = b.search(cr, uid, [('dt_start','>=','%s 00:00:00' % d_from),('dt_start','<=','%s 23:59:59' % d_from)])
@@ -496,9 +506,11 @@ class radiotv_podcast(osv.osv):
         return id
 
 
-    def unlink(self, cr, uid, ids):
-        #print "ulink:", ids
-        result = super(radiotv_podcast, self).unlink(cr, uid, ids)
+    def unlink(self, cr, uid, ids, context=None):
+        if not context:
+            context={}
+        #print "unlink:", ids
+        result = super(radiotv_podcast, self).unlink(cr, uid, ids, context)
 
         # Synchronize to website
         server = get_server(self, cr, uid)

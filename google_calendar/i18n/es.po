@@ -7,149 +7,149 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-12-30 06:21+0000\n"
-"PO-Revision-Date: 2011-02-23 16:32+0000\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2011-08-17 00:46+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:43+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-17 05:20+0000\n"
+"X-Generator: Launchpad (build 13697)\n"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Atlantic/Canary"
-msgstr ""
+msgstr "Atlántico/Canarias"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/Melbourne"
-msgstr ""
+msgstr "Australia/Melbourne"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+9"
-msgstr ""
+msgstr "Etc/GMT+9"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+8"
-msgstr ""
+msgstr "Etc/GMT+8"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Lisbon"
-msgstr ""
+msgstr "Europa/Lisboa"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+3"
-msgstr ""
+msgstr "Etc/GMT+3"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+2"
-msgstr ""
+msgstr "Etc/GMT+2"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+1"
-msgstr ""
+msgstr "Etc/GMT+1"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+0"
-msgstr ""
+msgstr "Etc/GMT+0"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Nipigon"
-msgstr ""
+msgstr "América/Nipigon"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+6"
-msgstr ""
+msgstr "Etc/GMT+6"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+5"
-msgstr ""
+msgstr "Etc/GMT+5"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Miquelon"
-msgstr ""
+msgstr "América/Miquelon"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Wallis"
-msgstr ""
+msgstr "Pacífico/Wallis"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Antarctica/Davis"
-msgstr ""
+msgstr "Antártida/Davis"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Coral_Harbour"
-msgstr ""
+msgstr "América/Puerto_coral"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Dhaka"
-msgstr ""
+msgstr "Asia/Dhaka"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/St_Lucia"
-msgstr ""
+msgstr "América/St. Lucía"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Canada/Newfoundland"
-msgstr ""
+msgstr "Canadá/Newfoundland"
 
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
 msgid "Monthly"
-msgstr ""
+msgstr "Mensual"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Kashgar"
-msgstr ""
+msgstr "Asia/Kashgar"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Phoenix"
-msgstr ""
+msgstr "América/Phoenix"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Kaliningrad"
-msgstr ""
+msgstr "Europa/Kaliningrado"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+7"
-msgstr ""
+msgstr "Etc/GMT+7"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Mazatlan"
-msgstr ""
+msgstr "América/Mazatlán"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Arctic/Longyearbyen"
-msgstr ""
+msgstr "Ártico/Longyearbyen"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Guernsey"
-msgstr ""
+msgstr "Europa/Guernsey"
 
 #. module: google_calendar
 #: help:event.event,write_date:0
@@ -159,212 +159,212 @@ msgstr ""
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Antarctica/Rothera"
-msgstr ""
+msgstr "Antártida/Rothera"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Stockholm"
-msgstr ""
+msgstr "Europa/Estocolmo"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Fiji"
-msgstr ""
+msgstr "Pacífico/Fiji"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Apia"
-msgstr ""
+msgstr "Pacífico/Apia"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT+4"
-msgstr ""
+msgstr "Etc/GMT+4"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Pago_Pago"
-msgstr ""
+msgstr "Pacífico/Pago_Pago"
 
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
 msgid "Yearly"
-msgstr ""
+msgstr "Anual"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Rangoon"
-msgstr ""
+msgstr "Asia/Rangún"
 
 #. module: google_calendar
 #: field:res.users,google_password:0
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Mexico_City"
-msgstr ""
+msgstr "América/Ciudad_Méjico"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Ensenada"
-msgstr ""
+msgstr "America/Ensenada"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Puerto_Rico"
-msgstr ""
+msgstr "América/Puerto Rico"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Indian/Mauritius"
-msgstr ""
+msgstr "Índico/Mauricio"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Berlin"
-msgstr ""
+msgstr "Europa/Berlín"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Zurich"
-msgstr ""
+msgstr "Europa/Zúrich"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Africa/Casablanca"
-msgstr ""
+msgstr "África/Casablanca"
 
 #. module: google_calendar
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr ""
+msgstr "¡XML inválido para la definición de la vista!"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Kuching"
-msgstr ""
+msgstr "Asia/Kuching"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Warsaw"
-msgstr ""
+msgstr "Europa/Varsovia"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Krasnoyarsk"
-msgstr ""
+msgstr "Asia/Krasnoyarsk"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/Canberra"
-msgstr ""
+msgstr "Australia/Canberra"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Atlantic/Bermuda"
-msgstr ""
+msgstr "Atlántico/Bermudas"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Ujung_Pandang"
-msgstr ""
+msgstr "Asia/Ujung Pandang"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/Currie"
-msgstr ""
+msgstr "Australia/Currie"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Tehran"
-msgstr ""
+msgstr "Asia/Teherán"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Saigon"
-msgstr ""
+msgstr "Asia/Saigón"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Baku"
-msgstr ""
+msgstr "Asia/Baku"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Porto_Acre"
-msgstr ""
+msgstr "América/Porto_Acre"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Argentina/Cordoba"
-msgstr ""
+msgstr "América/Argentina/Córdoba"
 
 #. module: google_calendar
 #: constraint:product.template:0
 msgid "Error: UOS must be in a different category than the UOM"
-msgstr ""
+msgstr "Error: La UdV debe estar en una categoría diferente que la UdM"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Danmarkshavn"
-msgstr ""
+msgstr "América/Danmarkshavn"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Scoresbysund"
-msgstr ""
+msgstr "América/Scoresbysund"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Eirunepe"
-msgstr ""
+msgstr "América/Eirunepe"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Caracas"
-msgstr ""
+msgstr "América/Caracas"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Baghdad"
-msgstr ""
+msgstr "Asia/Bagdad"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Africa/Monrovia"
-msgstr ""
+msgstr "África/Monrovia"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/St_Vincent"
-msgstr ""
+msgstr "América/San Vincente"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Portugal"
-msgstr ""
+msgstr "Portugal"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Tiraspol"
-msgstr ""
+msgstr "Europa/Tiraspol"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Vancouver"
-msgstr ""
+msgstr "América/Vancouver"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Etc/GMT0"
-msgstr ""
+msgstr "Etc/GMT0"
 
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
@@ -379,7 +379,7 @@ msgstr ""
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Thimphu"
-msgstr ""
+msgstr "Asia/Thimphu"
 
 #. module: google_calendar
 #: field:event.event,event_modify_date:0
@@ -389,102 +389,102 @@ msgstr ""
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Africa/Ouagadougou"
-msgstr ""
+msgstr "África/Ouagadougou"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Belize"
-msgstr ""
+msgstr "América/Belice"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Port_of_Spain"
-msgstr ""
+msgstr "América/Puerto de España"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Greenwich"
-msgstr ""
+msgstr "Greenwich"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Tashkent"
-msgstr ""
+msgstr "Asia/Tashkent"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Tokyo"
-msgstr ""
+msgstr "Asia/Tokio"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Kiritimati"
-msgstr ""
+msgstr "Pacífico/Kiritimati"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/Sydney"
-msgstr ""
+msgstr "Australia/Sydney"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Riga"
-msgstr ""
+msgstr "Europa/Riga"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Dili"
-msgstr ""
+msgstr "Asia/Dili"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Africa/Mbabane"
-msgstr ""
+msgstr "África/Mbabane"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Oral"
-msgstr ""
+msgstr "Asia/Oral"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Aden"
-msgstr ""
+msgstr "Asia/Aden"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Isle_of_Man"
-msgstr ""
+msgstr "Europa/Isla_de_Man"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Istanbul"
-msgstr ""
+msgstr "Europa/Estanbul"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Magadan"
-msgstr ""
+msgstr "Asia/Magadán"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/Lindeman"
-msgstr ""
+msgstr "Australia/Lindeman"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "US/Michigan"
-msgstr ""
+msgstr "EEUU/Michigan"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Galapagos"
-msgstr ""
+msgstr "Pacífico/Galápagos"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Bogota"
-msgstr ""
+msgstr "América/Bogotá"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -494,68 +494,68 @@ msgstr ""
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Chicago"
-msgstr ""
+msgstr "América/Chicago"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Pacific/Kwajalein"
-msgstr ""
+msgstr "Pacífico/Kwajalein"
 
 #. module: google_calendar
 #: selection:event.event,privacy:0
 msgid "Default"
-msgstr ""
+msgstr "Predeterminado"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/Broken_Hill"
-msgstr ""
+msgstr "Australia/Broken Hill"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Cuiaba"
-msgstr ""
+msgstr "América/Cuiaba"
 
 #. module: google_calendar
 #: wizard_view:google.calendar.synch,synch:0
 #: wizard_field:google.calendar.synch,synch,summary:0
 msgid "Summary"
-msgstr ""
+msgstr "Sumario"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Indian/Christmas"
-msgstr ""
+msgstr "Índico/Christmas"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Jayapura"
-msgstr ""
+msgstr "Asia/Jayapura"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Europe/Brussels"
-msgstr ""
+msgstr "Europa/Bruselas"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Iceland"
-msgstr ""
+msgstr "Islandia"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Asia/Chongqing"
-msgstr ""
+msgstr "Asia/Chongqing"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Australia/NSW"
-msgstr ""
+msgstr "Australia/NSW"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Canada/Pacific"
-msgstr ""
+msgstr "Canadá/Pacífico"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0

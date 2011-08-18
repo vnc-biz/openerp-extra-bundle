@@ -170,7 +170,7 @@ class component(signal):
                 data, chan = gen.next()
 #                row_count += 1
                 self.row_count += 1
-                if self.row_limit and row_count > self.row_limit:
+                if self.row_limit and self.row_count > self.row_limit:
                      raise StopIteration
                 if data is None:
                     self.signal('no_input')

@@ -38,13 +38,15 @@ class account_product_fiscal_classification(osv.osv):
         result = True        
         if not context:
             context = {}
-
+        
         for fiscal_classification in self.browse(cr, uid, ids):
             current_company_id = self.pool.get('res.users').browse(cr, uid, uid).company_id.id
             
-            product_ids = obj_product.search(cr, uid, [('property_fiscal_classification','=',fiscal_classification.id)])
-            for product in obj_product.browse(cr, uid, product_ids, context):
-                
+            product_ids = obj_product.search(cr, uid, [])
+            product_read = obj_product.read(cr, uid, product_ids, ['property_fiscal_classification'])
+            product_ids_new = [x['id'] for x in product_read if x['property_fiscal_classification'] and x['property_fiscal_classification'][0] == fiscal_classification.id]
+            
+            for product in obj_product.browse(cr, uid, product_ids_new, context):
                 to_keep_sale_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in', [x.id for x in product.taxes_id]), ('company_id', '!=', current_company_id)])
                 to_keep_purchase_tax_ids = self.pool.get('account.tax').search(cr, uid, [('id', 'in',[x.id for x in product.supplier_taxes_id]), ('company_id', '!=', current_company_id)])
             

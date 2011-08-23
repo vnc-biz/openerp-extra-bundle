@@ -9,7 +9,7 @@
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
 			<field name="arch" type="xml">
 				<field name="partner_id" position="replace" >
-                			<field name="partner_id" on_change="onchange_partner_id(partner_id, company_id)" context="{'search_default_supplier':1}"/>
+       				<field name="partner_id" on_change="onchange_partner_id(partner_id, company_id)" context="{'search_default_supplier':1}"/>
 				</field>
 			</field>
 		</record>
@@ -20,7 +20,7 @@
 			<field name="inherit_id" ref="purchase.purchase_order_form"/>
 			<field name="arch" type="xml">
 				<field name="partner_address_id" position="replace" >
-	               			<field name="partner_address_id" on_change="onchange_partner_address_id(partner_address_id, company_id)"/>
+	               	<field name="partner_address_id" on_change="onchange_partner_address_id(partner_address_id, company_id)"/>
 				</field>
 			</field>
 		</record>

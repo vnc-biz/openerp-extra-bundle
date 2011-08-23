@@ -21,7 +21,8 @@
 {
     "name" : "Invoices and prices with taxes included",
     "version" : "1.0",
-    "depends" : ["sale","account_tax_include"],
+#    "depends" : ["sale","account_tax_include"],
+    "depends" : ["sale","account"],
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules/Sales & Purchases",

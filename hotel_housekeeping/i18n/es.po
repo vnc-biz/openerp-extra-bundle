@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 07:34+0000\n"
-"PO-Revision-Date: 2011-02-15 18:06+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-08-23 21:05+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:36+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
+"X-Generator: Launchpad (build 13697)\n"
 
 #. module: hotel_housekeeping
 #: rml:activity.detail:0
@@ -312,7 +312,7 @@ msgstr "Habitación No."
 #. module: hotel_housekeeping
 #: constraint:product.category:0
 msgid "Error ! You can not create recursive categories."
-msgstr ""
+msgstr "Error! No se pueden crear categorías recursivas."
 
 #. module: hotel_housekeeping
 #: field:product.category,isactivitytype:0

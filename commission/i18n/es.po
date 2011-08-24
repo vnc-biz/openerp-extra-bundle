@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 06:36+0000\n"
-"PO-Revision-Date: 2011-02-15 15:02+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-08-23 12:04+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:36+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-24 05:11+0000\n"
+"X-Generator: Launchpad (build 13697)\n"
 
 #. module: commission
 #: view:report.commission.month:0
@@ -144,7 +144,7 @@ msgstr "Agente comercial"
 #. module: commission
 #: model:ir.actions.act_window,name:commission.action_sales agent commission_tree_month
 msgid "commission.month.form.tree"
-msgstr ""
+msgstr "comision.mes.formulario.arbol"
 
 #. module: commission
 #: view:sale.agent:0
@@ -178,7 +178,7 @@ msgstr "Pagado"
 #: model:ir.actions.act_window,name:commission.action_saleagent_form
 #: model:ir.actions.act_window,name:commission.action_saleagent_tree
 msgid "saleagent.info.form"
-msgstr ""
+msgstr "vendedor.info.formulario"
 
 #. module: commission
 #: view:sale.agent:0
@@ -196,7 +196,7 @@ msgstr "Número factura"
 #: model:ir.actions.act_window,name:commission.action_sales_agent_commission_tree_all_open
 #: model:ir.actions.act_window,name:commission.action_sales_agent_commission_tree_all_paid
 msgid "commission.all.rate.form.tree"
-msgstr ""
+msgstr "comisión.todos.tipodecambio.formulario.árbol"
 
 #. module: commission
 #: field:report.commission.month,pdate:0
@@ -235,7 +235,7 @@ msgstr "Este Mes"
 #: model:ir.actions.act_window,name:commission.action_sales_agent_commission_tree_open
 #: model:ir.actions.act_window,name:commission.action_sales_agent_commission_tree_paid
 msgid "commission.month.rate.form.tree"
-msgstr ""
+msgstr "comisión.mes.tipodecambio.formulario.árbo"
 
 #. module: commission
 #: field:sale.agent,customer:0
@@ -319,7 +319,7 @@ msgstr "Ratio comisión"
 #. module: commission
 #: model:ir.actions.act_window,name:commission.action_sales_agent_commission_tree_all
 msgid "commission.all.form.tree"
-msgstr ""
+msgstr "comisión.todos.formulario.árbol"
 
 #. module: commission
 #: rml:commission.sale.agent:0

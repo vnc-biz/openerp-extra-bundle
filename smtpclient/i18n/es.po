@@ -7,15 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0-rc1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-11-26 06:00+0000\n"
-"PO-Revision-Date: 2011-03-12 15:15+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-08-23 20:45+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:41+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
+"X-Generator: Launchpad (build 13697)\n"
 
 #. module: smtpclient
 #: field:email.smtpclient.queue,bcc:0
@@ -35,7 +34,7 @@ msgstr "Utilizar SSL"
 #. module: smtpclient
 #: view:email.smtpclient:0
 msgid "Start Server"
-msgstr ""
+msgstr "Iniciar servidor"
 
 #. module: smtpclient
 #: model:ir.actions.wizard,name:smtpclient.wizard_email_verifycode
@@ -45,27 +44,28 @@ msgstr "Verificar servidor"
 #. module: smtpclient
 #: field:email.smtpclient,priority:0
 msgid "Server Priority"
-msgstr ""
+msgstr "Prioridad servidor"
 
 #. module: smtpclient
 #: help:email.sendcode,init,emailto:0
 msgid "Enter the address Email where you want to get the Verification Code"
 msgstr ""
+"Introduzca la dirección en la que desea obtener el código de verificación"
 
 #. module: smtpclient
 #: selection:email.smtpclient,auth_type:0
 msgid "Other Mail Servers"
-msgstr ""
+msgstr "Otros servidores de correo"
 
 #. module: smtpclient
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "Nombre del modelo inválido en la definición de acción."
 
 #. module: smtpclient
 #: field:email.smtpclient.queue,to:0
 msgid "Mail to"
-msgstr ""
+msgstr "Enviar a"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -81,7 +81,7 @@ msgstr "Nombre servidor"
 #. module: smtpclient
 #: field:email.smtpclient,header_ids:0
 msgid "Default Headers"
-msgstr ""
+msgstr "Cabeceras por defecto"
 
 #. module: smtpclient
 #: wizard_button:email.testemail,init,send:0
@@ -96,7 +96,7 @@ msgstr "Compañía"
 #. module: smtpclient
 #: view:email.smtpclient:0
 msgid "Set to Draft"
-msgstr ""
+msgstr "Cambiar a borrador"
 
 #. module: smtpclient
 #: code:addons/smtpclient/wizard/verifycode.py:0
@@ -160,7 +160,7 @@ msgstr "Ventas"
 #. module: smtpclient
 #: field:email.headers,value:0
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
@@ -170,12 +170,12 @@ msgstr "Permiso de acceso"
 #. module: smtpclient
 #: model:ir.model,name:smtpclient.model_email_headers
 msgid "Email Headers"
-msgstr ""
+msgstr "Cabeceras de email"
 
 #. module: smtpclient
 #: field:email.smtpclient,delete_queue:0
 msgid "Queue Option"
-msgstr ""
+msgstr "Opciones de cola"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -194,7 +194,7 @@ msgstr "Ha fallado la verificación. ¡Código de verificación inválido!"
 #. module: smtpclient
 #: model:ir.actions.act_window,name:smtpclient.act_mail_server_2_mail_history
 msgid "Email History"
-msgstr ""
+msgstr "Historial email"
 
 #. module: smtpclient
 #: view:email.smtpclient.history:0
@@ -204,7 +204,7 @@ msgstr "Historial servidor"
 #. module: smtpclient
 #: selection:email.smtpclient,auth_type:0
 msgid "Yahoo!!! Server"
-msgstr ""
+msgstr "Servidor Yahoo!!!"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
@@ -221,6 +221,8 @@ msgstr "ID servidor"
 #: help:email.smtpclient,delete_queue_period:0
 msgid "delete emails/contents from email queue after specified no of days"
 msgstr ""
+"borrar mensajes de correo electrónico/contenido de la cola de correo "
+"electrónico después de núm especificado de días"
 
 #. module: smtpclient
 #: field:report.smtp.server,no:0
@@ -250,7 +252,7 @@ msgstr "Estado servidor"
 #. module: smtpclient
 #: field:email.smtpclient.queue,error:0
 msgid "Last Error"
-msgstr ""
+msgstr "Último Error"
 
 #. module: smtpclient
 #: wizard_view:email.sendcode,init:0
@@ -261,7 +263,7 @@ msgstr "Enviar código"
 #. module: smtpclient
 #: field:email.smtpclient.queue,name:0
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -299,17 +301,19 @@ msgstr "Dirección de Email"
 #: model:ir.actions.act_window,name:smtpclient.action_email_smtpclient_history_tree
 #: model:ir.ui.menu,name:smtpclient.menu_smtpclient_administration_server_history
 msgid "Email Server History"
-msgstr ""
+msgstr "Historial del servidor de correo electrónico"
 
 #. module: smtpclient
 #: selection:email.smtpclient.queue,state:0
 msgid "Waiting"
-msgstr ""
+msgstr "Esperando"
 
 #. module: smtpclient
 #: help:email.testemail,init,emailto:0
 msgid "Enter the address Email where you want to get the Test Email"
 msgstr ""
+"Introduzca la dirección en la que desea obtener el correo electrónico de "
+"prueba"
 
 #. module: smtpclient
 #: selection:email.smtpclient,state:0
@@ -324,7 +328,7 @@ msgstr "Email"
 #. module: smtpclient
 #: selection:email.smtpclient.queue,state:0
 msgid "Sent"
-msgstr ""
+msgstr "Enviado"
 
 #. module: smtpclient
 #: field:email.smtpclient.history,user_id:0
@@ -354,12 +358,12 @@ msgstr ""
 #. module: smtpclient
 #: field:ir.actions.server,report_id:0
 msgid "Report"
-msgstr ""
+msgstr "Informar"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
 msgid "Other Information"
-msgstr ""
+msgstr "Otra información"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
@@ -369,7 +373,7 @@ msgstr "Configuración"
 #. module: smtpclient
 #: constraint:ir.cron:0
 msgid "Invalid arguments"
-msgstr ""
+msgstr "Argumentos inválidos"
 
 #. module: smtpclient
 #: constraint:ir.ui.view:0
@@ -380,7 +384,7 @@ msgstr "¡XML inválido para la definición de la vista!"
 #: view:email.smtpclient:0
 #: field:email.smtpclient,disclaimers:0
 msgid "Disclaimers"
-msgstr ""
+msgstr "Aviso legal"
 
 #. module: smtpclient
 #: field:report.smtp.server,name:0
@@ -390,7 +394,7 @@ msgstr "Servidor"
 #. module: smtpclient
 #: view:res.company:0
 msgid "SMTP Settings"
-msgstr ""
+msgstr "Preferencias SMTP"
 
 #. module: smtpclient
 #: help:email.smtpclient,body:0
@@ -409,7 +413,7 @@ msgstr "Enviar Email de prueba"
 #. module: smtpclient
 #: model:ir.model,name:smtpclient.model_email_smtpclient_queue
 msgid "Email Queue"
-msgstr ""
+msgstr "Cola del correo"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
@@ -420,6 +424,8 @@ msgstr "Información del servidor"
 #: help:email.verifycode,init,code:0
 msgid "Enter the verification code thay you get in your verification Email"
 msgstr ""
+"Introduzca el código de verificación que ha recibido en su correo "
+"electrónico de verificación"
 
 #. module: smtpclient
 #: model:ir.model,name:smtpclient.model_email_smtpclient_history
@@ -429,7 +435,7 @@ msgstr "Historial del cliente de Email"
 #. module: smtpclient
 #: selection:email.smtpclient,delete_queue:0
 msgid "Never Delete Message"
-msgstr ""
+msgstr "Nunca eliminar mensaje"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -448,7 +454,7 @@ msgstr "Mensaje"
 #. module: smtpclient
 #: field:email.smtpclient,process_id:0
 msgid "MTA Process"
-msgstr ""
+msgstr "Proceso MTA"
 
 #. module: smtpclient
 #: field:email.headers,server_id:0
@@ -462,7 +468,7 @@ msgstr "Servidor SMTP"
 #. module: smtpclient
 #: selection:email.smtpclient,auth_type:0
 msgid "Google Server"
-msgstr ""
+msgstr "Servidor Google"
 
 #. module: smtpclient
 #: selection:email.smtpclient,state:0
@@ -474,6 +480,7 @@ msgstr "Verificado"
 msgid ""
 "Priority between 0 to 10, will be used to define the MTA process priotiry"
 msgstr ""
+"Prioridad entre 0 y 10, se utiliza para definir la prioridad del proceso MTA"
 
 #. module: smtpclient
 #: field:email.smtpclient,port:0
@@ -490,17 +497,17 @@ msgstr ""
 #: code:addons/smtpclient/smtpclient.py:0
 #, python-format
 msgid "SMTP Server Error !"
-msgstr ""
+msgstr "¡Error servidor SMTP!"
 
 #. module: smtpclient
 #: field:email.smtpclient,auth:0
 msgid "Use Auth"
-msgstr ""
+msgstr "Utilice autenticación"
 
 #. module: smtpclient
 #: field:email.smtpclient,pstate:0
 msgid "Server Statue"
-msgstr ""
+msgstr "Estado del servidor"
 
 #. module: smtpclient
 #: field:email.smtpclient,user:0
@@ -521,7 +528,7 @@ msgstr "Cliente Email"
 #. module: smtpclient
 #: view:email.smtpclient:0
 msgid "Disclaimers Message"
-msgstr ""
+msgstr "Aviso legal mensaje"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
@@ -531,7 +538,7 @@ msgstr "__code__ para código de verificación"
 #. module: smtpclient
 #: selection:email.smtpclient.queue,state:0
 msgid "Queued"
-msgstr ""
+msgstr "En cola"
 
 #. module: smtpclient
 #: field:email.smtpclient.history,date_create:0
@@ -558,7 +565,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:smtpclient.action_email_smtpclient_queue_tree
 #: model:ir.ui.menu,name:smtpclient.menu_smtpclient_administration_smtp_server_queue
 msgid "Message Queue"
-msgstr ""
+msgstr "Cola de mensajes"
 
 #. module: smtpclient
 #: selection:email.smtpclient,type:0
@@ -569,7 +576,7 @@ msgstr "Por defecto"
 #. module: smtpclient
 #: selection:email.smtpclient,delete_queue:0
 msgid "Delete Content After"
-msgstr ""
+msgstr "Después de eliminar el contenido"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -585,7 +592,7 @@ msgstr "Activo"
 #. module: smtpclient
 #: model:ir.actions.act_window,name:smtpclient.act_mail_server_2_mail_queue
 msgid "Message Queus"
-msgstr ""
+msgstr "colas de mensajes"
 
 #. module: smtpclient
 #: code:addons/smtpclient/wizard/sendcode.py:0
@@ -606,7 +613,7 @@ msgstr "¡Error del servidor!"
 #. module: smtpclient
 #: selection:email.smtpclient,delete_queue:0
 msgid "Clear All After"
-msgstr ""
+msgstr "Después de borrar todos"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -626,12 +633,12 @@ msgstr "Historial"
 #. module: smtpclient
 #: field:email.smtpclient.queue,priority:0
 msgid "Message Priority"
-msgstr ""
+msgstr "mensaje de prioridad"
 
 #. module: smtpclient
 #: field:ir.actions.server,file_ids:0
 msgid "Attachments"
-msgstr ""
+msgstr "Archivos adjuntos"
 
 #. module: smtpclient
 #: view:email.smtpclient:0
@@ -641,12 +648,12 @@ msgstr "__name__ para nombre de cliente"
 #. module: smtpclient
 #: view:email.smtpclient.queue:0
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #. module: smtpclient
 #: field:email.headers,key:0
 msgid "Header"
-msgstr ""
+msgstr "Cabecera"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
@@ -690,13 +697,13 @@ msgstr "Cancelar"
 #. module: smtpclient
 #: field:email.smtpclient,delete_queue_period:0
 msgid "Delete after"
-msgstr ""
+msgstr "Eliminar después"
 
 #. module: smtpclient
 #: code:addons/smtpclient/smtpclient.py:0
 #, python-format
 msgid "Server is not Verified, Please Verify the Server !"
-msgstr ""
+msgstr "El servidor no está verificado, por favor verifique el servidor!"
 
 #. module: smtpclient
 #: field:email.smtpclient.history,resource_id:0
@@ -707,7 +714,7 @@ msgstr "ID del registro"
 #: code:addons/smtpclient/smtpclient.py:0
 #, python-format
 msgid "SMTP Data Error !"
-msgstr ""
+msgstr "Datos SMTP Error!"
 
 #. module: smtpclient
 #: constraint:ir.model:0
@@ -720,7 +727,7 @@ msgstr ""
 #. module: smtpclient
 #: selection:email.smtpclient,delete_queue:0
 msgid "Delete when Email Sent"
-msgstr ""
+msgstr "Eliminar el correo electrónico enviado"
 
 #. module: smtpclient
 #: selection:email.smtpclient,type:0
@@ -757,12 +764,12 @@ msgstr "Código de verificación"
 #. module: smtpclient
 #: selection:email.smtpclient,pstate:0
 msgid "Stop"
-msgstr ""
+msgstr "Detener"
 
 #. module: smtpclient
 #: field:email.smtpclient.queue,body:0
 msgid "Email Text"
-msgstr ""
+msgstr "Texto Email"
 
 #. module: smtpclient
 #: selection:res.company.address,name:0
@@ -772,12 +779,12 @@ msgstr "Envío"
 #. module: smtpclient
 #: selection:email.smtpclient,pstate:0
 msgid "Running"
-msgstr ""
+msgstr "Procesando"
 
 #. module: smtpclient
 #: view:email.smtpclient.queue:0
 msgid "Last Error occured"
-msgstr ""
+msgstr "Último error ocurrido"
 
 #. module: smtpclient
 #: selection:email.smtpclient,state:0
@@ -798,7 +805,7 @@ msgstr "Usuarios permitidos"
 #: code:addons/smtpclient/wizard/sendcode.py:0
 #, python-format
 msgid "Verification Code Already Generated !"
-msgstr ""
+msgstr "Código de verificación generado!"
 
 #. module: smtpclient
 #: wizard_field:email.sendcode,init,emailto:0
@@ -817,12 +824,12 @@ msgstr "Mensaje de verificación"
 #. module: smtpclient
 #: view:email.smtpclient:0
 msgid "Stop Server"
-msgstr ""
+msgstr "Parar servidor"
 
 #. module: smtpclient
 #: model:ir.ui.menu,name:smtpclient.menu_smtpclient_administration_server
 msgid "Email Servers"
-msgstr ""
+msgstr "Servidores de correo"
 
 #. module: smtpclient
 #: model:ir.actions.wizard,name:smtpclient.wizard_email_sendcode
@@ -854,4 +861,4 @@ msgstr "res.company.address"
 #. module: smtpclient
 #: field:email.smtpclient.queue,state:0
 msgid "Message Status"
-msgstr ""
+msgstr "Estado del mensaje"

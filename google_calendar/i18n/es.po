@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-12-30 06:21+0000\n"
-"PO-Revision-Date: 2011-08-17 20:32+0000\n"
+"PO-Revision-Date: 2011-08-23 16:02+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-18 05:11+0000\n"
+"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
 "X-Generator: Launchpad (build 13697)\n"
 
 #. module: google_calendar
@@ -369,12 +369,12 @@ msgstr "Etc/GMT0"
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
 msgid "Does not Repeat"
-msgstr ""
+msgstr "No se repite"
 
 #. module: google_calendar
 #: help:event.event,event_modify_date:0
 msgid "google event modify date"
-msgstr ""
+msgstr "modificar la fecha google event"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -384,7 +384,7 @@ msgstr "Asia/Thimphu"
 #. module: google_calendar
 #: field:event.event,event_modify_date:0
 msgid "Google Modify Date"
-msgstr ""
+msgstr "Google modificar la fecha"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -489,7 +489,7 @@ msgstr "América/Bogotá"
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Africa/Asmara"
-msgstr ""
+msgstr "Africa/Asmara"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -736,7 +736,7 @@ msgstr "Europa/París"
 #: model:ir.actions.wizard,name:google_calendar.wizard_google_calendar_synch
 #: model:ir.ui.menu,name:google_calendar.menu_tools_google_calendar_synch
 msgid "Synchronize Events"
-msgstr ""
+msgstr "Sincronizar eventos"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -771,7 +771,7 @@ msgstr "América/Argentina/Jujuy"
 #. module: google_calendar
 #: wizard_view:google.calendar.synch,init:0
 msgid "This wizard synchronize events between tiny and google calendar"
-msgstr ""
+msgstr "Este asistente sincroniza eventos entre OpenERP y Google Calendar"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -806,7 +806,7 @@ msgstr "América/Maceio"
 #. module: google_calendar
 #: view:event.event:0
 msgid "Google Event"
-msgstr ""
+msgstr "Evento Google"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -846,7 +846,7 @@ msgstr "EEUU/East-Indiana"
 #. module: google_calendar
 #: help:event.event,repeat_status:0
 msgid "Repeated status in google"
-msgstr ""
+msgstr "Situación repetida en google"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -866,7 +866,7 @@ msgstr "Australia/Adelaida"
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
 msgid "Every Mon-Wed-Fri"
-msgstr ""
+msgstr "Cada Lún-Mié-Vie"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -891,7 +891,7 @@ msgstr "Pacífico/Chatham"
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Indiana/Winamac"
-msgstr ""
+msgstr "America/Indiana/Winamac"
 
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
@@ -991,7 +991,7 @@ msgstr "América/Boa Vista"
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Eire"
-msgstr ""
+msgstr "Irlanda"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1016,7 +1016,7 @@ msgstr "CET"
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
 msgid "Every weekday(Mon-Fri)"
-msgstr ""
+msgstr "Todos los días laborables (de lun a vie)"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1380,6 +1380,9 @@ msgid ""
 "        Export events (crm) to google calendar\n"
 "    "
 msgstr ""
+"\n"
+"        Exportar eventos (crm) a google calendar\n"
+"    "
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1404,7 +1407,7 @@ msgstr "Australia/Queensland"
 #. module: google_calendar
 #: model:product.template,name:google_calendar.calendar_product_product_template
 msgid "Calendar Product"
-msgstr ""
+msgstr "Calendario del producto"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1606,7 +1609,7 @@ msgstr "América/Argentina/Buenos Aires"
 #. module: google_calendar
 #: field:event.event,google_event_id:0
 msgid "Google Event Id"
-msgstr ""
+msgstr "Id Google Event"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1691,7 +1694,7 @@ msgstr "América/Monterrey"
 #. module: google_calendar
 #: help:event.event,email:0
 msgid "Enter email addresses separated by commas"
-msgstr ""
+msgstr "Introduce dirección de correo electrónico separadas por comas"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1776,7 +1779,7 @@ msgstr "América/Halifax"
 #. module: google_calendar
 #: selection:event.event,repeat_status:0
 msgid "Every Tue-Thu"
-msgstr ""
+msgstr "Cada Mar-Jue"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -1806,7 +1809,7 @@ msgstr "Etc/UCT"
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "GB-Eire"
-msgstr ""
+msgstr "GB-Irlanda"
 
 #. module: google_calendar
 #: field:event.event,repeat_status:0
@@ -2344,7 +2347,7 @@ msgstr "América/Shiprock"
 #. module: google_calendar
 #: model:ir.ui.menu,name:google_calendar.menu_google
 msgid "Google Import-Export"
-msgstr ""
+msgstr "Google Importar-Exportar"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -2354,7 +2357,7 @@ msgstr "América/Granada"
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "Atlantic/Faroe"
-msgstr ""
+msgstr "Atlantic/Faroe"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -2874,7 +2877,7 @@ msgstr "Europa/Vaduz"
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
 msgid "America/Resolute"
-msgstr ""
+msgstr "America/Resolute"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0

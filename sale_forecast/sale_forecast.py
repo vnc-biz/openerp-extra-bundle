@@ -152,7 +152,7 @@ class sale_forecast_line(osv.osv):
         'note':fields.text('Note', size=64),
         'amount': fields.float('Value Forecasted'),
         'computed_amount': fields.function(_final_evolution, string='Real Value',method=True, store=True,),
-        'final_evolution' : fields.selection([('bad','Bad'),('to_be_improved','To Be Improved'),('normal','Noraml'),('good','Good'),('very_good','Very Good')],'Performance',),
+        'final_evolution' : fields.selection([('bad','Bad'),('to_be_improved','To Be Improved'),('normal','Normal'),('good','Good'),('very_good','Very Good')],'Performance',),
         'feedback' : fields.text('Feedback Comment'),
         'forecast_rate' : fields.function(_forecast_rate, method=True, string='Progress (%)',)
     }

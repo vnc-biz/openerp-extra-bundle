@@ -23,19 +23,16 @@
     "version" : "1.0",
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
-    "depends" : ["account", "account_invoice_salesman","crm","sale"],
+    "depends" : ["account", "crm","sale"],
     "category" : "Generic Modules/Accounting",
     "description": """This module allows manager to do their sales forecast.
 Different reports are set up for forecast and sales analysis.
     """,
-    "init_xml" : [],
-    "demo_xml" : [],
-    "update_xml" : [
+    "data" : [
         "security/ir.model.access.csv",
         "sale_forecast_view.xml",
         "sale_forecast_report.xml",
         "sale_forecast_wizard.xml",
-
     ],
     "active": False,
     "installable": True

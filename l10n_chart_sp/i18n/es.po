@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 15:48+0000\n"
-"PO-Revision-Date: 2011-08-23 18:11+0000\n"
+"PO-Revision-Date: 2011-08-26 21:30+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:28+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: l10n_chart_sp
 #: model:account.account.type,name:l10n_chart_sp.account_type_receivable
@@ -32,6 +32,7 @@ msgstr "¡ Error ! No puede crear plantillas de cuentas recursivas."
 msgid ""
 "This is the module to manage the accounting chart for Spain in Open ERP."
 msgstr ""
+"Este es el módulo para gestionar el Plan Contable de España de OpenERP."
 
 #. module: l10n_chart_sp
 #: model:account.account.type,name:l10n_chart_sp.account_type_tax
@@ -46,7 +47,7 @@ msgstr "Ingreso"
 #. module: l10n_chart_sp
 #: model:ir.module.module,shortdesc:l10n_chart_sp.module_meta_information
 msgid "Spain - Chart of Account"
-msgstr ""
+msgstr "España - Plan General de Contabilidad"
 
 #. module: l10n_chart_sp
 #: model:account.account.type,name:l10n_chart_sp.account_type_cash

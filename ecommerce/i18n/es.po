@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-01-04 10:40+0000\n"
-"PO-Revision-Date: 2011-08-23 14:24+0000\n"
+"PO-Revision-Date: 2011-08-26 21:01+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:27+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: ecommerce
 #: rml:account.invoice.ecom:0
@@ -256,7 +256,7 @@ msgstr "Número de cuenta"
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "Add Product Row,Column"
-msgstr ""
+msgstr "Añadir fila de productos, columna"
 
 #. module: ecommerce
 #: model:product.template,name:ecommerce.product_product_ecom1_product_template

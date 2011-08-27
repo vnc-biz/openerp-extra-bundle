@@ -8,26 +8,26 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 14:15+0000\n"
-"PO-Revision-Date: 2011-02-15 18:06+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-08-26 22:35+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:39+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:28+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,folio_id:0
 msgid "Folio"
-msgstr ""
+msgstr "Folio"
 
 #. module: hotel_reservation
 #: rml:checkout.detail:0
 #: field:hotel.reservation,partner_id:0
 #: rml:reservation.detail:0
 msgid "Guest Name"
-msgstr ""
+msgstr "Nombre del huesped"
 
 #. module: hotel_reservation
 #: constraint:ir.model:0
@@ -41,23 +41,23 @@ msgstr ""
 #: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_draft
 #: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_draft
 msgid "All Draft Reservation"
-msgstr ""
+msgstr "Todos los proyectos de reserva"
 
 #. module: hotel_reservation
 #: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_confirm
 #: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_confirm
 msgid "All Confirm Reservation"
-msgstr ""
+msgstr "Todas las confirmaciones de reserva"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,checkout:0
 msgid "Expected-Date-Departure"
-msgstr ""
+msgstr "Fecha-Salida-Prevista"
 
 #. module: hotel_reservation
 #: model:ir.ui.menu,name:hotel_reservation.menu_open_hotel_reservation_form_tree
 msgid "New Reservation"
-msgstr ""
+msgstr "Nueva reserva"
 
 #. module: hotel_reservation
 #: view:hotel.reservation:0
@@ -68,12 +68,12 @@ msgstr "Confirmar"
 #. module: hotel_reservation
 #: selection:hotel.reservation,state:0
 msgid "Cancle"
-msgstr ""
+msgstr "Cancle"
 
 #. module: hotel_reservation
 #: wizard_field:hotel.reservation.report_reservation,init,date_end:0
 msgid "End Date"
-msgstr ""
+msgstr "Fecha de finalización"
 
 #. module: hotel_reservation
 #: selection:hotel.reservation,state:0
@@ -89,24 +89,24 @@ msgstr "Nombre de modelo inválido en la definición de acción"
 #: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_all
 #: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_all
 msgid "All Reservation"
-msgstr ""
+msgstr "Todas las reservas"
 
 #. module: hotel_reservation
 #: rml:checkout.detail:0
 msgid "#No"
-msgstr ""
+msgstr "#No"
 
 #. module: hotel_reservation
 #: rml:checkout.detail:0
 #: rml:maxroom.detail:0
 #: rml:reservation.detail:0
 msgid "Room No"
-msgstr ""
+msgstr "Habitación No"
 
 #. module: hotel_reservation
 #: view:hotel.reservation:0
 msgid " Reservation"
-msgstr ""
+msgstr " Reserva"
 
 #. module: hotel_reservation
 #: rml:checkout.detail:0
@@ -114,12 +114,12 @@ msgstr ""
 #: field:hotel_reservation.line,categ_id:0
 #: rml:reservation.detail:0
 msgid "Room Type"
-msgstr ""
+msgstr "Tipo de habitación"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,partner_order_id:0
 msgid "Ordering Contact"
-msgstr ""
+msgstr "Contacto del pedido"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,reservation_no:0
@@ -129,44 +129,44 @@ msgstr "Número de reserva"
 #. module: hotel_reservation
 #: view:hotel.reservation:0
 msgid "Select Room "
-msgstr ""
+msgstr "Seleccionar habitación "
 
 #. module: hotel_reservation
 #: rml:checkout.detail:0
 msgid "CheckOut Guest List"
-msgstr ""
+msgstr "Lista de comprobación de salidas"
 
 #. module: hotel_reservation
 #: model:ir.actions.act_window,name:hotel_reservation.action_hotel_reservation_tree_done
 #: model:ir.ui.menu,name:hotel_reservation.menu_action_hotel_reservation_tree_done
 msgid "All Done Reservation"
-msgstr ""
+msgstr "Todas las reservas realizadas"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,partner_shipping_id:0
 msgid "Shipping Address"
-msgstr ""
+msgstr "Dirección de envío"
 
 #. module: hotel_reservation
 #: wizard_button:hotel.reservation.report_reservation,init,print_checkin:0
 msgid "CheckIn List"
-msgstr ""
+msgstr "Lista de facturaciones"
 
 #. module: hotel_reservation
 #: field:hotel_reservation.line,line_id:0
 #: field:hotel_reservation.line,reserve:0
 msgid "unknown"
-msgstr ""
+msgstr "desconocido"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,checkin:0
 msgid "Expected-Date-Arrival"
-msgstr ""
+msgstr "Fecha-Llegada-Prevista"
 
 #. module: hotel_reservation
 #: model:ir.actions.report.xml,name:hotel_reservation.hotel_checkin_details
 msgid "CheckOut Detail"
-msgstr ""
+msgstr "Detalles de salida"
 
 #. module: hotel_reservation
 #: view:hotel.reservation:0
@@ -178,22 +178,22 @@ msgstr "Reserva"
 #. module: hotel_reservation
 #: field:hotel.reservation,pricelist_id:0
 msgid "Pricelist"
-msgstr ""
+msgstr "Lista de precios"
 
 #. module: hotel_reservation
 #: view:hotel.reservation:0
 msgid "No Of Rooms"
-msgstr ""
+msgstr "Núm de habitaciones"
 
 #. module: hotel_reservation
 #: view:hotel.reservation:0
 msgid "Current Reservation"
-msgstr ""
+msgstr "Reserva actual"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,dummy:0
 msgid "Dummy"
-msgstr ""
+msgstr "Valor"
 
 #. module: hotel_reservation
 #: constraint:ir.ui.view:0
@@ -203,12 +203,12 @@ msgstr "¡XML inválido para la arquitectura de la vista!"
 #. module: hotel_reservation
 #: model:ir.actions.report.xml,name:hotel_reservation.hotel_reservation_details
 msgid "Reservation Detail"
-msgstr ""
+msgstr "Detalle de reserva"
 
 #. module: hotel_reservation
 #: wizard_button:hotel.folio.make_folio,init,folio:0
 msgid "Create Folios"
-msgstr ""
+msgstr "Crear detalles de los servicios ofrecidos"
 
 #. module: hotel_reservation
 #: model:ir.module.module,description:hotel_reservation.module_meta_information
@@ -220,21 +220,29 @@ msgid ""
 "      Different reports are also provided, mainly for hotel statistics.\n"
 "    "
 msgstr ""
+"\n"
+"    Módulo para gestión de hoteles/Complejos hoteleros/Propiedades. "
+"Permite:\n"
+"     * La reserva de huespedes\n"
+"    * Reserva a grupos\n"
+"      Se proporcionan diferentes informes, principalmente para la "
+"estadística de hotel.\n"
+"    "
 
 #. module: hotel_reservation
 #: field:hotel.reservation,shop_id:0
 msgid "Shop"
-msgstr ""
+msgstr "Tienda"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,date_order:0
 msgid "Date Ordered"
-msgstr ""
+msgstr "Fecha de pedido"
 
 #. module: hotel_reservation
 #: rml:reservation.detail:0
 msgid "Resevation No"
-msgstr ""
+msgstr "Reserva Núm"
 
 #. module: hotel_reservation
 #: model:ir.actions.report.xml,name:hotel_reservation.max_hotel_room
@@ -249,7 +257,7 @@ msgstr ""
 #. module: hotel_reservation
 #: rml:reservation.detail:0
 msgid "Check-In-Date"
-msgstr ""
+msgstr "Fecha de entrada"
 
 #. module: hotel_reservation
 #: model:ir.module.module,shortdesc:hotel_reservation.module_meta_information
@@ -259,47 +267,47 @@ msgstr ""
 #. module: hotel_reservation
 #: model:ir.ui.menu,name:hotel_reservation.wizard_res_menu
 msgid "Hotel Reservation Report"
-msgstr ""
+msgstr "Informe de reserva de hotel"
 
 #. module: hotel_reservation
 #: wizard_view:hotel.folio.make_folio,init:0
 #: view:hotel.reservation:0
 msgid "Create Folio"
-msgstr ""
+msgstr "Crear servicios ofrecidos"
 
 #. module: hotel_reservation
 #: view:hotel.reservation:0
 #: field:hotel.reservation,reservation_line:0
 #: model:ir.model,name:hotel_reservation.model_hotel_reservation_line
 msgid "Reservation Line"
-msgstr ""
+msgstr "Línea de reserva"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,partner_invoice_id:0
 msgid "Invoice Address"
-msgstr ""
+msgstr "Dirección de factura"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,childs:0
 msgid "Children"
-msgstr ""
+msgstr "Hijos"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,adults:0
 msgid "Adults"
-msgstr ""
+msgstr "Adultos"
 
 #. module: hotel_reservation
 #: wizard_button:hotel.reservation.report_reservation,init,print_checkout:0
 msgid "CheckOut List"
-msgstr ""
+msgstr "Lista de salidas"
 
 #. module: hotel_reservation
 #: wizard_view:hotel.reservation.report_reservation,init:0
 #: wizard_button:hotel.reservation.report_reservation,init,print_report:0
 #: rml:reservation.detail:0
 msgid "Reservation List"
-msgstr ""
+msgstr "Lista de reservas"
 
 #. module: hotel_reservation
 #: field:hotel.reservation,state:0
@@ -310,12 +318,12 @@ msgstr "Estado"
 #: rml:checkout.detail:0
 #: rml:reservation.detail:0
 msgid "Check-Out-Date"
-msgstr ""
+msgstr "Fecha de salida"
 
 #. module: hotel_reservation
 #: model:ir.actions.wizard,name:hotel_reservation.wizard_hotel_reservation_report_reservation
 msgid "Reservation Details"
-msgstr ""
+msgstr "Detalles de reserva"
 
 #. module: hotel_reservation
 #: selection:hotel.reservation,state:0
@@ -327,22 +335,23 @@ msgstr "Realizado"
 msgid ""
 "The name and address of the contact that requested the order or quotation."
 msgstr ""
+"El nombre y la dirección del contacto que solicita el pedido o presupuesto."
 
 #. module: hotel_reservation
 #: rml:maxroom.detail:0
 msgid "No of Times used"
-msgstr ""
+msgstr "Número de veces usado"
 
 #. module: hotel_reservation
 #: wizard_button:hotel.folio.make_folio,init,end:0
 #: wizard_button:hotel.reservation.report_reservation,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: hotel_reservation
 #: wizard_field:hotel.reservation.report_reservation,init,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Fecha inicial"
 
 #. module: hotel_reservation
 #: wizard_button:hotel.reservation.report_reservation,init,print_room_used:0
@@ -352,9 +361,9 @@ msgstr ""
 #. module: hotel_reservation
 #: wizard_field:hotel.folio.make_folio,init,grouped:0
 msgid "Group the Folios"
-msgstr ""
+msgstr "Grupo de detalles de los servicios ofrecidos"
 
 #. module: hotel_reservation
 #: wizard_view:hotel.folio.make_folio,init:0
 msgid "Do you really want to create the Folio ?"
-msgstr ""
+msgstr "¿Deseas realmente crear un detalle de los servicios ofrecidos?"

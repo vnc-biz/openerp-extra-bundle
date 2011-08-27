@@ -7,15 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-08-07 13:39+0000\n"
-"PO-Revision-Date: 2011-02-23 16:34+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-08-26 23:13+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:44+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:28+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: multi_company_account
 #: model:ir.module.module,description:multi_company_account.module_meta_information
@@ -80,7 +79,7 @@ msgstr "Nombre de modelo no válido en la definición de la acción."
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,rml_header2:0
 msgid "RML Internal Header"
-msgstr ""
+msgstr "Encabezado interno RML"
 
 #. module: multi_company_account
 #: field:wizard.company.header.footer.setup,rml_header:0

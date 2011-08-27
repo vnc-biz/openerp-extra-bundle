@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.0-rc1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-08 08:12+0000\n"
-"PO-Revision-Date: 2011-02-15 17:22+0000\n"
-"Last-Translator: Raimon Esteve Cusiné <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-08-26 23:17+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:39+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:28+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: product_icecat
 #: code:addons/product_icecat/wizard/wizard_product_icecat.py:159
@@ -25,7 +25,7 @@ msgstr "No"
 #. module: product_icecat
 #: field:product.manufacturer.attribute,icecat_category:0
 msgid "Icecat Category"
-msgstr ""
+msgstr "Categoría Icecat"
 
 #. module: product_icecat
 #: code:addons/product_icecat/product_icecat.py:72
@@ -88,7 +88,7 @@ msgstr "Usuario"
 #. module: product_icecat
 #: model:ir.model,name:product_icecat.model_product_product
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: product_icecat
 #: field:product.icecat.wizard,html:0
@@ -239,7 +239,7 @@ msgstr "No se ha podido conectar con FTP con la IP especificada!"
 #: code:addons/product_icecat/wizard/wizard_product_icecat.py:324
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Error!"
 
 #. module: product_icecat
 #: field:product.icecat,ftpdirectory:0
@@ -249,7 +249,7 @@ msgstr "Directorio"
 #. module: product_icecat
 #: field:product.icecat.wizard,attributes:0
 msgid "Attributes"
-msgstr ""
+msgstr "Atributos"
 
 #. module: product_icecat
 #: field:product.icecat.mapline,name:0
@@ -264,7 +264,7 @@ msgstr "Primero"
 #. module: product_icecat
 #: model:ir.model,name:product_icecat.model_product_icecat
 msgid "product.icecat"
-msgstr ""
+msgstr "product.icecat"
 
 #. module: product_icecat
 #: field:product.icecat.mapline,model_id:0
@@ -286,12 +286,12 @@ msgstr "Configuración Icecat"
 #. module: product_icecat
 #: model:ir.model,name:product_icecat.model_product_manufacturer_attribute
 msgid "Product attributes"
-msgstr ""
+msgstr "Atributos de producto"
 
 #. module: product_icecat
 #: field:product.manufacturer.attribute,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Secuencia"
 
 #. module: product_icecat
 #: field:product.icecat.wizard,image:0
@@ -312,7 +312,7 @@ msgstr "Importación XML icecat"
 #. module: product_icecat
 #: constraint:product.product:0
 msgid "Error: Invalid ean code"
-msgstr ""
+msgstr "Error: Código EAN inválido"
 
 #. module: product_icecat
 #: selection:product.icecat.wizard,state:0

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 15:45+0000\n"
-"PO-Revision-Date: 2011-08-23 18:04+0000\n"
+"PO-Revision-Date: 2011-08-26 21:25+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:28+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: l10n_chart_no
 #: model:account.account.type,name:l10n_chart_no.account_type_receivable
@@ -27,6 +27,7 @@ msgstr "A cobrar"
 msgid ""
 "This is the module to manage the accounting chart for Norway in Open ERP."
 msgstr ""
+"Este es el módulo para gestionar el Plan Contable de Noruega de OpenERP."
 
 #. module: l10n_chart_no
 #: constraint:account.account.template:0
@@ -46,7 +47,7 @@ msgstr "Ingreso"
 #. module: l10n_chart_no
 #: model:ir.module.module,shortdesc:l10n_chart_no.module_meta_information
 msgid "Norway - Chart of Accounts"
-msgstr ""
+msgstr "Noruega - Plan General de Contabilidad"
 
 #. module: l10n_chart_no
 #: model:account.account.type,name:l10n_chart_no.account_type_cash

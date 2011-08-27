@@ -7,20 +7,19 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-04-15 07:36+0000\n"
-"PO-Revision-Date: 2011-02-15 15:15+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-08-26 23:05+0000\n"
+"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:38+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-27 06:28+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: network_extension
 #: field:network.software.logpass,superuser:0
 msgid "Super User"
-msgstr ""
+msgstr "Super Usuario"
 
 #. module: network_extension
 #: model:ir.actions.act_window,name:network_extension.action_network_encrypt_password
@@ -83,7 +82,7 @@ msgstr "Nota"
 #: view:network.protocol:0
 #: view:network.service:0
 msgid "Group By..."
-msgstr ""
+msgstr "Agrupar por..."
 
 #. module: network_extension
 #: code:addons/network_extension/network.py:159
@@ -137,7 +136,7 @@ msgstr "Dominio"
 #. module: network_extension
 #: model:ir.model,name:network_extension.model_network_software_logpass
 msgid "Software login"
-msgstr ""
+msgstr "Identificación del software"
 
 #. module: network_extension
 #: code:addons/network_extension/network.py:122
@@ -147,7 +146,7 @@ msgstr ""
 #: code:addons/network_extension/network.py:161
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "¡Error!"
 
 #. module: network_extension
 #: field:network.protocol,description:0

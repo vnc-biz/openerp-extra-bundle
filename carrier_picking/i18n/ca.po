@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.0\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-06-22 12:46+0000\n"
-"PO-Revision-Date: 2011-06-24 10:17+0000\n"
+"PO-Revision-Date: 2011-08-27 06:38+0000\n"
 "Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:36+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:46+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: carrier_picking
 #: field:res.partner.address,plate:0
@@ -24,12 +24,12 @@ msgstr "Matrícula"
 #. module: carrier_picking
 #: field:stock.picking,address_carrier_id:0
 msgid "Carrier Address"
-msgstr "Dir. transportista"
+msgstr "Adreça transportista"
 
 #. module: carrier_picking
 #: field:stock.picking,carrier_name:0
 msgid "Carrier Info"
-msgstr "Info. transportista"
+msgstr "Informació transportista"
 
 #. module: carrier_picking
 #: model:ir.model,name:carrier_picking.model_stock_picking

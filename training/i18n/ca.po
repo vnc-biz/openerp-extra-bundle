@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-05-17 08:02+0000\n"
-"PO-Revision-Date: 2011-07-13 05:04+0000\n"
+"PO-Revision-Date: 2011-08-27 06:37+0000\n"
 "Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-13 05:40+0000\n"
-"X-Generator: Launchpad (build 13674)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:47+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 "X-Poedit-Language: Catalan\n"
 
 #. module: training
@@ -4695,6 +4695,16 @@ msgstr "Obert"
 #: field:training.subscription.session,job_ids:0
 msgid "Contacts"
 msgstr "Contactes"
+
+#. module: training
+#: code:addons/training/training.py:4073
+#, python-format
+msgid ""
+"%(stakeholder)s is not available for seance \"%(this_seance)s\" because "
+"(s)he is already requested or confirmed for the seance \"%(other_seance)s\""
+msgstr ""
+"\"%(stakeholder)s\" no està disponible per a la sessió \"%(this_seance)s\" "
+"perquè ja està sol·licitat o confirmat per a la sessió \"%(other_seance)s\""
 
 #. module: training
 #: view:training.offer:0

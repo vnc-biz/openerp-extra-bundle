@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-09-10 20:38+0000\n"
-"PO-Revision-Date: 2011-08-23 19:34+0000\n"
+"PO-Revision-Date: 2011-08-27 14:48+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:11+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:46+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: asterisk_click2dial
 #: constraint:asterisk.server:0
@@ -114,6 +114,10 @@ msgid ""
 "so that you can directly dial a phone number through Asterisk.\n"
 "Documentation is available on the Arkretion Web site http://[TODO]"
 msgstr ""
+"Este módulo agrega un botón de marcación en la dirección de la empresa\n"
+"de modo que puede llamar directamente un número de teléfono a través de "
+"Asterisk.\n"
+"La documentación está disponible en el sitio Web http:// Arkretion [TODO]"
 
 #. module: asterisk_click2dial
 #: help:asterisk.server,name:0
@@ -259,6 +263,8 @@ msgid ""
 "TCP port on which the Asterisk Manager Interface listens. Defined in "
 "/etc/asterisk/manager.conf on Asterisk."
 msgstr ""
+"Puerto TCP en el que la interfaz de Asterisk Manager escucha. Se define en "
+"/etc/asterisk/manager.conf en Asterisk."
 
 #. module: asterisk_click2dial
 #: help:asterisk.server,international_prefix:0
@@ -317,6 +323,9 @@ msgid ""
 "Password that Asterisk will use to communicate with the Asterisk Manager "
 "Interface. Refer to /etc/asterisk/manager.conf on your Asterisk server."
 msgstr ""
+"Contraseña que Asterisk va a utilizar para comunicarse con la interfaz de "
+"Asterisk Manager. Se refieren a /etc/asterisk/manager.conf en su servidor "
+"Asterisk."
 
 #. module: asterisk_click2dial
 #: constraint:asterisk.server:0
@@ -350,6 +359,9 @@ msgid ""
 "Login that OpenERP will use to communicate with the Asterisk Manager "
 "Interface. Refer to /etc/asterisk/manager.conf on your Asterisk server."
 msgstr ""
+"Inicio de sesión que OpenERP utilizará para comunicarse con la interfaz de "
+"Asterisk Manager. Se refieren a /etc/asterisk/manager.conf en su servidor "
+"Asterisk."
 
 #. module: asterisk_click2dial
 #: field:asterisk.server,name:0

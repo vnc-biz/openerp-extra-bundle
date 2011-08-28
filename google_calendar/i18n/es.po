@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-12-30 06:21+0000\n"
-"PO-Revision-Date: 2011-08-23 16:02+0000\n"
+"PO-Revision-Date: 2011-08-27 15:37+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:47+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -154,7 +154,7 @@ msgstr "Europa/Guernsey"
 #. module: google_calendar
 #: help:event.event,write_date:0
 msgid "tiny event modify date"
-msgstr ""
+msgstr "fecha de modificación eventos de tiny"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0
@@ -2622,7 +2622,7 @@ msgstr "Etc/GMT+10"
 #. module: google_calendar
 #: help:event.event,create_date:0
 msgid "tiny event create date"
-msgstr ""
+msgstr "fecha de creación eventos de tiny"
 
 #. module: google_calendar
 #: selection:google.calendar.synch,timezone,timezone_select:0

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-07-07 23:52+0000\n"
-"PO-Revision-Date: 2011-08-23 20:25+0000\n"
+"PO-Revision-Date: 2011-08-27 14:40+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:47+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: account_jasper_report
 #: report:account.trial.balance:0
@@ -436,7 +436,7 @@ msgstr "tr($V{L},\"Periodo Acumulado\")"
 #: model:ir.actions.wizard,name:account_jasper_report.account_report_taxes_by_invoice_print
 #: model:ir.ui.menu,name:account_jasper_report.account_report_taxes_by_invoice_print_menu
 msgid "Print Taxes by Invoice"
-msgstr "Impresión de impuestos por factura"
+msgstr "Imprimir impuestos por factura"
 
 #. module: account_jasper_report
 #: report:account.taxes.by.invoice:0
@@ -516,7 +516,7 @@ msgstr "tr($V{L},\"Total Factura\")"
 #: report:account.general.ledger:0
 #: report:account.journal:0
 msgid "$F{move_name}"
-msgstr "$F{move_name}"
+msgstr "$F{mover_nombre}"
 
 #. module: account_jasper_report
 #: report:account.general.ledger:0

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-01-04 10:40+0000\n"
-"PO-Revision-Date: 2011-08-26 21:01+0000\n"
+"PO-Revision-Date: 2011-08-27 15:36+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-27 06:27+0000\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:46+0000\n"
 "X-Generator: Launchpad (build 13794)\n"
 
 #. module: ecommerce
@@ -352,7 +352,7 @@ msgstr "Empresas"
 #. module: ecommerce
 #: view:ecommerce.shop:0
 msgid "Add Carriers"
-msgstr ""
+msgstr "Añadir transportistas"
 
 #. module: ecommerce
 #: help:ecommerce.shop,row_configuration:0
@@ -504,7 +504,7 @@ msgstr "Error: La UdV debe estar en una categoría diferente que la UdM"
 #. module: ecommerce
 #: field:ecommerce.category,parent_category_id:0
 msgid "Parent Category"
-msgstr "Categoría padre"
+msgstr "Categoría Superior"
 
 #. module: ecommerce
 #: field:ecommerce.partner.address,username:0
@@ -718,7 +718,7 @@ msgstr "Teléfono"
 #. module: ecommerce
 #: help:ecommerce.shop,delivery_ids:0
 msgid "Add the carriers which you use for the shipping."
-msgstr ""
+msgstr "Añadir los transportistas que se utilizan para el envío."
 
 #. module: ecommerce
 #: field:ecommerce.saleorder,epartner_shipping_id:0
@@ -766,7 +766,7 @@ msgstr ":"
 #. module: ecommerce
 #: wizard_view:ecommerce.customer.sendmail,finished:0
 msgid "Mail send"
-msgstr ""
+msgstr "Enviar correo electrónico"
 
 #. module: ecommerce
 #: model:ir.ui.menu,name:ecommerce.menu_ecommerce_product_category_action

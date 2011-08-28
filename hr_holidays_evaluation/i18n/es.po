@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-01-01 10:49+0000\n"
-"PO-Revision-Date: 2011-08-23 17:00+0000\n"
+"PO-Revision-Date: 2011-08-27 15:40+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:46+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: hr_holidays_evaluation
 #: constraint:ir.model:0
@@ -170,6 +170,9 @@ msgid ""
 "This time depicts the amount per day earned by an employee working a day.The "
 "computation is: total earned = time * number of working days"
 msgstr ""
+"Este tiempo representa la cantidad por día obtenido por un empleado que "
+"trabaja un día. El cálculo es: total obtenido = tiempo * número de días "
+"laborables"
 
 #. module: hr_holidays_evaluation
 #: model:ir.module.module,description:hr_holidays_evaluation.module_meta_information

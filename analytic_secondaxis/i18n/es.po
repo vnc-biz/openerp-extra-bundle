@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-03-17 21:54+0000\n"
-"PO-Revision-Date: 2011-08-23 19:40+0000\n"
+"PO-Revision-Date: 2011-08-27 15:33+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-24 05:12+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:47+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: analytic_secondaxis
 #: field:activities.analytic.chart,from_date:0
@@ -40,7 +40,7 @@ msgstr "Cuenta Analítica de actividades"
 #. module: analytic_secondaxis
 #: view:project.activity_al:0
 msgid "Amounts & Quantity"
-msgstr ""
+msgstr "Importes y Cantidad"
 
 #. module: analytic_secondaxis
 #: field:project.activity_al,debit:0
@@ -182,7 +182,7 @@ msgstr "Código"
 #. module: analytic_secondaxis
 #: model:ir.model,name:analytic_secondaxis.model_project_activity_al
 msgid "Second Analytical Axes"
-msgstr ""
+msgstr "Segundo eje analítico"
 
 #. module: analytic_secondaxis
 #: model:ir.actions.act_window,name:analytic_secondaxis.dblc_activitiy

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-24 13:29+0000\n"
-"PO-Revision-Date: 2011-08-17 23:50+0000\n"
+"PO-Revision-Date: 2011-08-27 14:56+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-19 05:14+0000\n"
-"X-Generator: Launchpad (build 13697)\n"
+"X-Launchpad-Export-Date: 2011-08-28 05:46+0000\n"
+"X-Generator: Launchpad (build 13794)\n"
 
 #. module: account_payment_export
 #: constraint:ir.model:0
@@ -34,12 +34,12 @@ msgstr "Registro"
 #: wizard_view:account.payment_create,init:0
 #: model:ir.ui.menu,name:account_payment_export.menu_action_action_account_pay
 msgid "Payment Export"
-msgstr ""
+msgstr "Exportar pago"
 
 #. module: account_payment_export
 #: field:account.pay,file:0
 msgid "Saved File"
-msgstr ""
+msgstr "Guardar fichero"
 
 #. module: account_payment_export
 #: selection:account.pay,state:0
@@ -49,12 +49,12 @@ msgstr "Fallido"
 #. module: account_payment_export
 #: model:ir.model,name:account_payment_export.model_charges_code
 msgid "Charges Codes For Export"
-msgstr ""
+msgstr "Códigos de los cargos para exportar"
 
 #. module: account_payment_export
 #: field:account.pay,note:0
 msgid "Creation Log"
-msgstr ""
+msgstr "Creación del registro"
 
 #. module: account_payment_export
 #: constraint:ir.actions.act_window:0
@@ -64,7 +64,7 @@ msgstr "Nombre del modelo inválido en la definición de acción."
 #. module: account_payment_export
 #: model:ir.model,name:account_payment_export.model_payment_method
 msgid "Payment Method For Export"
-msgstr ""
+msgstr "Exportar la forma de pago"
 
 #. module: account_payment_export
 #: field:account.pay,state:0
@@ -88,7 +88,7 @@ msgstr "Descripción"
 #. module: account_payment_export
 #: field:account.pay,payment_order_id:0
 msgid "Payment Order Reference"
-msgstr ""
+msgstr "Referencia de la orden de pago"
 
 #. module: account_payment_export
 #: field:account.pay,create_date:0
@@ -100,7 +100,7 @@ msgstr "Fecha de creación"
 #: model:ir.actions.act_window,name:account_payment_export.action_account_pay_tree
 #: model:ir.ui.menu,name:account_payment_export.menu_action_action_account_pay_tree
 msgid "Payment Export Logs"
-msgstr ""
+msgstr "Registros de exportación de pago"
 
 #. module: account_payment_export
 #: wizard_field:account.payment_create,init,charges_code:0
@@ -108,12 +108,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_payment_export.action_charges_code_tree
 #: model:ir.ui.menu,name:account_payment_export.menu_action_charges_code_tree
 msgid "Charges Code"
-msgstr ""
+msgstr "Código de los cargos"
 
 #. module: account_payment_export
 #: model:ir.actions.wizard,name:account_payment_export.wizard_account_payment_create
 msgid "Create Payment Export"
-msgstr ""
+msgstr "Crear exportación de pago"
 
 #. module: account_payment_export
 #: field:account.pay,create_uid:0
@@ -127,6 +127,9 @@ msgid ""
 "     This module allows to export payment orders.\n"
 "     "
 msgstr ""
+"\n"
+"     Este módulo permite exportar las órdenes de pago.\n"
+"     "
 
 #. module: account_payment_export
 #: constraint:ir.ui.view:0
@@ -151,17 +154,17 @@ msgstr "Exportar archivo"
 #. module: account_payment_export
 #: field:res.bank,bilateral:0
 msgid "Bilateral Relationship"
-msgstr ""
+msgstr "Relación bilateral"
 
 #. module: account_payment_export
 #: model:ir.model,name:account_payment_export.model_account_pay
 msgid "Payment Export History"
-msgstr ""
+msgstr "Histórico de exportaciónes de pagos"
 
 #. module: account_payment_export
 #: model:ir.module.module,shortdesc:account_payment_export.module_meta_information
 msgid "Payment Order Export"
-msgstr ""
+msgstr "Exportar orden de pago"
 
 #. module: account_payment_export
 #: field:charges.code,name:0
@@ -177,6 +180,10 @@ msgid ""
 "this field must be laid down on a bilateral basis between the bank and its "
 "client."
 msgstr ""
+"Este campo puede contener indicaciones sobre el tratamiento que debe "
+"aplicarse, por ejemplo, una indicación relativa a la globalización de estos "
+"pagos. El contenido de este campo debe ser establecido de forma bilateral "
+"entre el banco y su cliente."
 
 #. module: account_payment_export
 #: wizard_button:account.payment_create,init,export:0

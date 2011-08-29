@@ -53,7 +53,7 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="view_product_template_trademark_tree">
+        <record model="ir.ui.view" id="view_product_template_trademark_form">
             <field name="name">product.template.trademark.form</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view" />

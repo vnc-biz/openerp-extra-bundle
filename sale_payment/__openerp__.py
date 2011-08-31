@@ -26,7 +26,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website": "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : 'Generic Modules/Sales & Purchases',
     "description": """Adds payment type and bank account to sale process.
 

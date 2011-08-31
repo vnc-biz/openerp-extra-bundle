@@ -25,8 +25,8 @@
 {
     "name" : "Civil Engineering",
     "author" : "Zikzakmedia SL",
-	"website" : "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "website" : "www.zikzakmedia.com",
+    "license" : "AGPL-3",
     "category" : "Generic Modules/Projects & Services",
     "description" : """Civil Engineering Works:
 

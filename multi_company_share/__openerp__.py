@@ -23,7 +23,7 @@
     "name" : "Multi Company Share",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "description" : """
 By default the Partners, Partner Address and Products are created associated to the company that the user belongs at that moment.
 This module allow you to configure (in the company form) if Partner, Partner Address or Products must be shared between companies or must be linked to the company users.

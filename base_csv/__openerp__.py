@@ -26,7 +26,7 @@
     "name" : "CSV File",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "description" : """
         Module to import/export CSV files (mapping)
     """,

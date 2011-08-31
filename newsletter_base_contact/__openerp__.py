@@ -26,7 +26,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website" : "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Generic Modules",
     "description": """Creates the categorization of their contacts and then send newsletter with...""",
     "depends" : [

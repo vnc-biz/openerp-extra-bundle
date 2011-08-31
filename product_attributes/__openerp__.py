@@ -30,7 +30,7 @@
     "description": """
     This module adds a way to group OpenERP products  through their attributes.
     """,
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "depends" : [
         "base",
         "product"

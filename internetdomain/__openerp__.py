@@ -25,7 +25,7 @@
     "name" : "Internet Domain",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "description" : """
 Organize your domains and services
 Tools -> Domain

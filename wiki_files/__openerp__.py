@@ -34,7 +34,7 @@ If other type of document, it will be offered link tag to copy and paste
     """,
     "author": "Zikzakmedia SL",
     "website": "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     'depends': [
         'wiki',
     ],

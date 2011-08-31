@@ -26,7 +26,7 @@
     "version" : "1.1",
     "author" : "Zikzakmedia SL",
     "website": "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Generic Modules/Others",
     "description" : """This module allows to control TV & Radio channels, programs, grid of date/time of broadcasting and podcasts
 

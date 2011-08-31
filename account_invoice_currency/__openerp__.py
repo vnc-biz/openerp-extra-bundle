@@ -23,7 +23,7 @@
     "name" : "Company currency in invoices",
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category": "Localisation / Accounting",
     "description": """
     Adds functional fields to show Amount Untaxed, Amount Tax and Amount Total invoice fields in the company currency. These fields are shown in "Other information" tab in invoice form.

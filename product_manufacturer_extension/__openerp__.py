@@ -25,7 +25,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Enterprise Specific Modules/Manufacturer Industries",
     "depends" : [
         "product_manufacturer",

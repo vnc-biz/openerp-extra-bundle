@@ -26,7 +26,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website" : "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Generic Modules",
     "description": """This module allows a little wizard to create new Partner, address, contact and job. One click.""",
     "depends" : [

@@ -30,7 +30,7 @@
     "author": "Zikzakmedia SL, SYLEAM",
     "category": "Enterprise Specific Modules/Information Technology",
     "website": "www.zikzakmedia.com",
-    "license": "Affero GPL-3",
+    "license": "AGPL-3",
     "depends": ["network"],
     'init_xml': ['network_protocol_data.xml'],
     "demo_xml": [],

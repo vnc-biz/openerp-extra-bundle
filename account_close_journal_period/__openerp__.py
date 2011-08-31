@@ -27,7 +27,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website" : "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Generic Modules/Others",
     "description": """Module that allows to close a particular journal of a given period""",
     "depends" : ["account"],

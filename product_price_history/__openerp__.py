@@ -26,7 +26,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "website": "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Generic Modules/Inventory Control",
     "description": """Historial Price Products. List of historial Sale Price and Cost Price""",
     "depends" : [

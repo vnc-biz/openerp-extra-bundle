@@ -24,7 +24,7 @@
     "name" : "Django",
     "author" : "Zikzakmedia SL",
     "website" : "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "description" : """
 OpenERP integration to Django.
 - Create OpenObject Model to Django Model. Select model and copy-paste Django Model (wizard)

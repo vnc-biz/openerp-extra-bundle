@@ -27,7 +27,7 @@
     "author" : "Zikzakmedia SL",
     "category" : "Generic Modules/Accounting",
     "website" : "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "description": """Account payment extension.
 
 This module extends the account_payment module with a lot of features:

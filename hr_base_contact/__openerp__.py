@@ -27,7 +27,7 @@
     "author": "Zikzakmedia SL",
     "website": "http://www.zikzakmedia.com",
     "category": "Generic Modules/Human Resources",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "description": """
     Module for link employees of the human resource module with contact of the base contact module.
     """,

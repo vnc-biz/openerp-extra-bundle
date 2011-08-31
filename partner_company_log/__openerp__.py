@@ -26,7 +26,7 @@
     "version": "0.1",
     "author": "Zikzakmedia SL",
     "website": "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category": "Generic Modules/Base",
     "description": """Allows to track every user/company operation on all the objects of the system, saving this info in a partner computed from the object.
 

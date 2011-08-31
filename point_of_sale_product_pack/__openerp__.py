@@ -32,7 +32,7 @@ Allows adding product packs (collection of other products) in the point of sale.
         """,
 	"author" : "Zikzakmedia SL",
 	"website" : "http://www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
 	"depends" : [ 
 		'nan_product_pack',
 		'point_of_sale',

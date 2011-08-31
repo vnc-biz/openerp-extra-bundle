@@ -26,7 +26,7 @@
     "version" : "0.1",
     "author" : "Zikzakmedia",
     "website" : "www.zikzakmedia.com",
-    "license" : "Affero GPL-3",
+    "license" : "AGPL-3",
     "category" : "Generic Modules/Others",
     "description": """Carrier picking module:
 

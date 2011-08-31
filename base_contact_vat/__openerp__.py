@@ -25,7 +25,7 @@
     "name": "base_contact_vat",
     "version": "0.1",
     "author": "Zikzakmedia SL",
-    "license": "Affero GPL-3",
+    "license": "AGPL-3",
     "website": "http://www.zikzakmedia.com",
     "category": "Base",
     "description": "Add VAT field to contact",

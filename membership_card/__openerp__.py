@@ -27,7 +27,7 @@
   "author" : "Zikzakmedia SL",
   "category" : "Generic Modules/Association",
   "website": "www.zikzakmedia.com",
-  "license" : "Affero GPL-3",
+  "license" : "AGPL-3",
   "description": """Adds a photo field to partner contact.
 Prints membership cards with name, number, bar code and photo of contacts.
   """,

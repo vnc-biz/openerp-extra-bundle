@@ -185,7 +185,7 @@
         <field name="name">product.book.form.view</field>
         <field name="type">form</field>
         <field name="model">product.product</field>
-        <field name="priority" eval="1"/> <!-- ?? -->
+        <field name="priority" eval="30"/> 
         <field name="arch" type="xml">
         <form string="Books">
             <notebook>
@@ -201,7 +201,7 @@
                     <field name="collection" select="2"/>
                     <field name="num_pocket"/>
                     <newline/>
-                     <field name="author_om_ids" colspan="1" select="1">
+                     <field name="author_om_ids"  colspan="1" select="1">
                          <tree string="Authors" editable="bottom">
                             <field name="author_id"/>
                         </tree>
@@ -637,85 +637,5 @@
 
     <menuitem parent="menu_books_config" id="menu_price_category" action="action_price_category"/>
 
-        <record id="stock.view_picking_in_form" model="ir.ui.view">
-            <field name="name">stock.picking.in.form</field>
-            <field name="model">stock.picking</field>
-            <field name="type">form</field>
-            <field name="priority" eval="1"/>
-            <field name="arch" type="xml">
-                <form string="Input Packing List">
-                    <group colspan="4" col="6">
-                        <field name="address_id" on_change="onchange_partner_in(address_id)" select="2" context="{'contact_display':'partner'}"/>
-                        <field name="origin" select="2"/>
-                        <field name="invoice_state" select="2" string="Invoice Control"/>
-                        <field name="name" readonly="1" select="1"/>
-                        <field name="min_date" select="2" readonly="1"/>
-                        <field name="backorder_id" select="2" readonly="1"/>
-                         <field name="type" groups="base.group_extended"/>
-                    </group>
-                    <notebook colspan="4">
-                        <page string="General Information">
-                            <field colspan="4" name="move_lines" nolabel="1" widget="one2many_list" default_get="{'move_line':move_lines, 'address_in_id': address_id}">
-                                <tree string="Stock Moves">
-                                    <field name="product_id"/>
-                                    <field name="origin_ref"/>
-                                    <field name="product_qty"/>
-                                    <field name="product_uom"/>
-                                    <field name="location_dest_id"/>
-                                    <field name="prodlot_id"/>
-                                    <field name="state"/>
-                                </tree>
-                                <form string="Stock Moves">
-                                    <separator colspan="4" string="Move Information"/>
-                                    <field name="location_id" select="1" domain="[('usage','&lt;&gt;','view')]"/>
-                                    <field domain="[('usage','=','internal')]" name="location_dest_id" select="1"/>
-                                    <field colspan="4" context="location=location_id" name="product_id" on_change="onchange_product_id(product_id, location_id, location_dest_id)" select="1"/>
-                                    <field name="product_qty" select="1"/>
-                                    <field name="product_uom" select="1"/>
-                                    <field name="origin_ref" select="1"/>
-                                    <field groups="product.group_uos" name="product_uos"/>
-                                    <field groups="product.group_uos" name="product_uos_qty"/>
-                                    <field colspan="4" invisible="1" name="name" select="1"/>
-                                    <field groups="base.group_extended" name="date"/>
-                                    <newline/>
-                                    <newline/>
-                                    <field groups="base.group_extended" name="product_packaging"/>
-                                    <newline/>
-                                    <field name="prodlot_id" select="1"
-                                        context="{'location_id':location_id, 'product_id':product_id}"
-                                        domain="[('product_id','=',product_id)]"
-                                        on_change="onchange_lot_id(prodlot_id,product_qty, location_id)"/>
-                                    <field groups="base.group_extended" name="tracking_id" select="1"/>
-                                    <newline/>
-                                    <label/>
-                                    <button groups="base.group_extended" name="%(stock.track_line)d" string="Split in production lots" type="action"/>
-                                    <separator colspan="4" string="Move State"/>
-                                    <field name="state" select="1"/>
-                                    <group>
-                                        <button name="force_assign" states="confirmed" string="Force Availability" type="object"/>
-                                        <button name="cancel_assign" states="assigned" string="Cancel Availability" type="object"/>
-                                        <button name="action_cancel" states="assigned" string="Cancel" type="object"/>
-                                    </group>
-                                </form>
-                            </field>
-                            <group col="7" colspan="4">
-                                <label colspan="5"/>
-<!--                                <button name="%(stock.act_stock_return_picking)d" string="Unreceived Products" type="action" states="draft,confirmed,assigned"/>-->
-                            </group>
-                            <group col="10" colspan="4">
-                                <field name="state" readonly="1"/>
-                                <button name="draft_force_assign" states="draft" string="Process Later" type="object"/>
-                                <button name="draft_validate" states="draft" string="Process Now" type="object"/>
-                                <button name="action_assign" states="confirmed" string="Check Availability" type="object"/>
-                                <button name="force_assign" states="confirmed" string="Force Availability" type="object" groups="base.group_extended"/>
-                                <button name="button_cancel" states="assigned,confirmed,draft" string="Cancel"/>
-                            </group>
-                        </page>
-                        <page string="Notes">
-                            <field colspan="4" name="note" nolabel="1"/>
-                        </page>
-                    </notebook>
-                </form>
-            </field>
-        </record></data>
+        </data>
 </openerp>

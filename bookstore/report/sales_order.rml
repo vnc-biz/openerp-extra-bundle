@@ -246,9 +246,7 @@
     <para style="P24">
       <font color="white"> </font>
     </para>
-    <para style="P24">
-          <para style="P18">[[ o.note or '' ]] [[ setTag('para','xpre') ]]</para>
-    </para>
+    <para style="P18">[[ o.note or '' ]] [[ setTag('para','xpre') ]]</para>
     <para style="P24">
       <font color="white"> </font>
     </para>

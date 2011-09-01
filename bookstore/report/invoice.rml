@@ -238,7 +238,7 @@
                 <para style="P11">Total Vat:</para>
               </td>
               <td>
-                <para style="P17">[[ '%.2f' % o.amount_tax ]] [[o.currency_id.code ]]</para>
+                <para style="P17">[[ '%.2f' % o.amount_tax ]] [[o.currency_id.symbol ]]</para>
               </td>
             </tr>
             <tr>

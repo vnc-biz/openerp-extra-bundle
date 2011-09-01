@@ -109,18 +109,6 @@ class product_product(osv.osv):
 
         return res
 
-    def _get_partner_code_name(self, cr, uid, ids, product_id, partner_id, context={}):
-        product = self.browse(cr, uid, [product_id], context)[0]
-        for supinfo in product.seller_ids:
-            if supinfo.name.id == partner_id:
-                return {'code': supinfo.product_code, 'name': supinfo.product_name}
-        return {'code': product.default_code, 'name': product.name}
-
-    def _product_code(self, cr, uid, ids, name, arg, context={}):
-        res = {}
-        for p in self.browse(cr, uid, ids, context):
-            res[p.id] = self._get_partner_code_name(cr, uid, [], p.id, context.get('partner_id', None), context)['code']
-        return res
 
     def create(self, cr, uid, vals, context= None):
         def _uniq(seq):
@@ -154,7 +142,6 @@ class product_product(osv.osv):
         'author_om_ids': fields.one2many('author.book.rel', 'product_id', 'Authors'),
         'lang': fields.many2many('product.lang', 'lang_book_rel', 'product_id', 'lang_id', 'Language'),
         'editor': fields.many2one('res.partner', 'Editor', change_default=True),
-        'code': fields.function(_product_code, method=True, type='char', string='Acronym'),
         'catalog_num': fields.char('Catalog number', size=64),
         'date_parution': fields.date('Release date'),
         'creation_date': fields.datetime('Creation date', readonly=True),
@@ -183,10 +170,6 @@ class product_product(osv.osv):
         'date_retour': lambda *a: str(int(time.strftime("%Y"))+1) + time.strftime("-%m-%d"),
     }
 
-    _sql_constraints = [
-        ('unique_ean13', 'unique(ean13)', 'The ean13 field must be unique across all the products'),
-        ('code_uniq', 'unique (code)', 'The code of the product must be unique !')
-    ]
 
 product_product()
 

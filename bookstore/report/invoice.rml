@@ -194,7 +194,7 @@
             <para style="P12">[[ ', '.join([lt.name for lt in l.invoice_line_tax_id]) ]]</para>
           </td>
           <td>
-            <para style="P13">[[ '%.2f' %l.price_subtotal ]] [[o.currency_id.code ]]</para>
+            <para style="P13">[[ '%.2f' %l.price_subtotal ]] [[o.currency_id.symbol ]]</para>
           </td>
         </tr>
       </blockTable>
@@ -230,7 +230,7 @@
                 <para style="P11">Total excl. VAT:</para>
               </td>
               <td>
-                <para style="P15">[[ '%.2f' % o.amount_untaxed ]] [[o.currency_id.code ]]</para>
+                <para style="P15">[[ '%.2f' % o.amount_untaxed ]] [[o.currency_id.symbol ]]</para>
               </td>
             </tr>
             <tr>
@@ -246,7 +246,7 @@
                 <para style="P11"><font face="Times-Roman">Total </font>(incl. taxes):</para>
               </td>
               <td>
-                <para style="P16">[[ '%.2f' % o.amount_total ]] [[o.currency_id.code ]]</para>
+                <para style="P16">[[ '%.2f' % o.amount_total ]] [[o.currency_id.symbol ]]</para>
               </td>
             </tr>
           </blockTable>

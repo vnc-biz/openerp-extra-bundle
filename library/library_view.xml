@@ -32,9 +32,9 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-  <menuitem name="Books" id="menu_books_main"/>
+  <menuitem name="Books" sequence="7" id="menu_books_main"/>
 
-  <menuitem name="Configuration" parent="menu_books_main" id="menu_books_config" />
+  <menuitem name="Configuration" sequence="30" parent="menu_books_main" id="menu_books_config" />
 
   <menuitem parent="menu_books_config" id="menu_lang" action="action_lang"/>
 
@@ -300,7 +300,7 @@
       <field name="view_mode">tree</field>
       <field name="view_id" ref="view_product_book_tree"/>
       <field name="act_window_id" ref="action_product_book_list"/>
-    </record>
+    </record><!--
 
     <record model="ir.actions.act_window" id="action_product_book_30days">
         <field name="name">Books to return before 30 days</field>
@@ -314,6 +314,7 @@
 
     <menuitem id="menu_action_book_30days" parent="menu_book_products"
     action="action_product_book_30days" />
+    -->
 
     <record model="ir.ui.view" id="view_order_tree">
         <field name="name">sale.order.tree</field>
@@ -632,7 +633,7 @@
     <menuitem id="author_menu_main" name="Author" parent="menu_books_main"/>        
     <menuitem id="author_menu" action="action_author_list" parent="author_menu_main"/>
 
-    <menuitem id="menu_new_book" action="action_product_book_new_form" parent="menu_book_products" />
+<!--    <menuitem id="menu_new_book" action="action_product_book_new_form" parent="menu_book_products" />-->
 
     <menuitem parent="menu_books_config" id="menu_price_category" action="action_price_category"/>
 

@@ -28,7 +28,7 @@ class stock_move(osv.osv):
     _columns = {
         'customer_ref': fields.char('Customer reference', size=64),
         'origin_ref': fields.char('Origin', size=64),
-        'procurement_ids': fields.one2many('mrp.procurement','move_id', 'Procurements')
+        'procurement_ids': fields.one2many('procurement.order','move_id', 'Procurements')
         }
     # New function to manage the update of the quantities
     def onchange_qty(self, cr, uid, ids, qty, context=None):

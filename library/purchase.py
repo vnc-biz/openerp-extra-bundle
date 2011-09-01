@@ -37,53 +37,59 @@ class purchase_order(osv.osv):
     _inherit = 'purchase.order'
     _order = "create_date desc"
 
-    def action_picking_create(self, cr, uid, ids, *args):
-        picking_id = False
-        for order in self.browse(cr, uid, ids):
-            loc_id = order.partner_id.property_stock_supplier.id
-            istate = 'none'
-            if order.invoice_method == 'picking':
-                istate = '2binvoiced'
-            picking_id = self.pool.get('stock.picking').create(cr, uid, {
-                'origin': 'PO:%d:%s' % (order.id, order.name),
-                'type': 'in',
-                'address_id': order.dest_address_id.id or order.partner_address_id.id,
-                'invoice_state': istate,
-                'purchase_id': order.id,
-            })
-            for order_line in order.order_line:
-                if not order_line.product_id:
-                    continue
-                if order_line.product_id.product_tmpl_id.type in ('product', 'consu'):
-                    dest = order.location_id.id
-                    self.pool.get('stock.move').create(cr, uid, {
-                        'name': 'PO:' + order_line.name[:50],
-                        'product_id': order_line.product_id.id,
-                        'origin_ref': order.name,
-                        'product_qty': order_line.product_qty,
-                        'product_uos_qty': order_line.product_qty,
-                        'product_uom': order_line.product_uom.id,
-                        'product_uos': order_line.product_uom.id,
-                        'date_planned': order_line.date_planned,
-                        'location_id': loc_id,
-                        'location_dest_id': dest,
-                        'picking_id': picking_id,
-                        'move_dest_id': order_line.move_dest_id.id,
-                        'state': 'assigned',
-                        'prodlot_id': order_line.production_lot_id.id,
-                        'customer_ref': order_line.customer_ref,
-                        'purchase_line_id': order_line.id,
-                    })
-
-                    if order_line.move_dest_id:
-                        self.pool.get('stock.move').write(cr, uid, [order_line.move_dest_id.id], {'location_id': order.location_id.id})
-            purchase_order_dict = {
-                'picking_ids': [(0, 0, {'purchase_id': [picking_id]})]
-            }
-            self.write(cr, uid, [order.id], purchase_order_dict)
-            wf_service = netsvc.LocalService("workflow")
-            wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
-        return picking_id
+#    def action_picking_create(self, cr, uid, ids, *args):
+#                return super(purchase_order, self).copy(cr, uid, id, default, context)
+#        picking_id = False
+#        for order in self.browse(cr, uid, ids):
+#            loc_id = order.partner_id.property_stock_supplier.id
+#            istate = 'none'
+#            if order.invoice_method == 'picking':
+#                
+#                istate = '2binvoiced'
+#            pick_name = self.pool.get('ir.sequence').get(cr, uid, 'stock.picking.in')
+#            picking_id = self.pool.get('stock.picking').create(cr, uid, {
+#                'name': pick_name,
+#                'origin': order.name+((order.origin and (':'+order.origin)) or ''),
+#                'type': 'in',
+#                'address_id': order.dest_address_id.id or order.partner_address_id.id,
+#                'invoice_state': istate,
+#                'purchase_id': order.id,
+#                'company_id': order.company_id.id,
+#                'move_lines' : [],
+#            })
+#            for order_line in order.order_line:
+#                if not order_line.product_id:
+#                    continue
+#                if order_line.product_id.product_tmpl_id.type in ('product', 'consu'):
+#                    dest = order.location_id.id
+#                    self.pool.get('stock.move').create(cr, uid, {
+#                        'name': 'PO:' + order_line.name[:50],
+#                        'product_id': order_line.product_id.id,
+#                        'origin_ref': order.name,
+#                        'product_qty': order_line.product_qty,
+#                        'product_uos_qty': order_line.product_qty,
+#                        'product_uom': order_line.product_uom.id,
+#                        'product_uos': order_line.product_uom.id,
+#                        'date_planned': order_line.date_planned,
+#                        'location_id': loc_id,
+#                        'location_dest_id': dest,
+#                        'picking_id': picking_id,
+#                        'move_dest_id': order_line.move_dest_id.id,
+#                        'state': 'assigned',
+#                        'prodlot_id': order_line.production_lot_id.id,
+#                        'customer_ref': order_line.customer_ref,
+#                        'purchase_line_id': order_line.id,
+#                    })
+#
+#                    if order_line.move_dest_id:
+#                        self.pool.get('stock.move').write(cr, uid, [order_line.move_dest_id.id], {'location_id': order.location_id.id})
+#            purchase_order_dict = {
+#                'picking_ids': [(0, 0, {'purchase_id': [picking_id]})],
+#            }
+#            self.write(cr, uid, [order.id], purchase_order_dict)
+#            wf_service = netsvc.LocalService("workflow")
+#            wf_service.trg_validate(uid, 'stock.picking', picking_id, 'button_confirm', cr)
+#        return picking_id
 
     def wkf_confirm_order(self, cr, uid, ids, context={}):
         pol = self.pool.get('purchase.order').browse(cr, uid, ids)

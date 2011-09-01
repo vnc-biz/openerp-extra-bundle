@@ -29,7 +29,7 @@ class account_invoice(osv.osv):
         }
 
     _defaults = {
-        'price_type': lambda *a: 'tax_included',
+        #'price_type': lambda *a: 'tax_included',
     }
 
 

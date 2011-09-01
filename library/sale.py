@@ -118,7 +118,7 @@ class sale_order(osv.osv):
                         'prodlot_id': line.production_lot_id.id,
                         'customer_ref': line.customer_ref,
                     })
-                    proc_id = self.pool.get('mrp.procurement').create(cr, uid, {
+                    proc_id = self.pool.get('procurement.order').create(cr, uid, {
                         'name': order.name,
                         'origin': order.name,
                         'date_planned': date_planned,
@@ -132,10 +132,10 @@ class sale_order(osv.osv):
                         'customer_ref': line.customer_ref,
                     })
                     wf_service = netsvc.LocalService("workflow")
-                    wf_service.trg_validate(uid, 'mrp.procurement', proc_id, 'button_confirm', cr)
+                    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
                     self.pool.get('sale.order.line').write(cr, uid, [line.id], {'procurement_id': proc_id})
                 elif line.product_id and line.product_id.product_tmpl_id.type == 'service':
-                    proc_id = self.pool.get('mrp.procurement').create(cr, uid, {
+                    proc_id = self.pool.get('procurement.order').create(cr, uid, {
                         'name': line.name,
                         'origin': order.name,
                         'date_planned': date_planned,
@@ -146,7 +146,7 @@ class sale_order(osv.osv):
                         'procure_method': line.type,
                     })
                     wf_service = netsvc.LocalService("workflow")
-                    wf_service.trg_validate(uid, 'mrp.procurement', proc_id, 'button_confirm', cr)
+                    wf_service.trg_validate(uid, 'procurement.order', proc_id, 'button_confirm', cr)
                     self.pool.get('sale.order.line').write(cr, uid, [line.id], {'procurement_id': proc_id})
                 else:
                     #
@@ -174,7 +174,7 @@ class sale_order(osv.osv):
 #       mids=[]
 #       pids=[]
 #       move_obj = self.pool.get('stock.move')
-#       proc_obj = self.pool.get('mrp.procurement')
+#       proc_obj = self.pool.get('procurement.order')
 #       for order in self.browse(cr, uid, ids, context={}):
 #           for line in order.order_line:
 #               for move in line.move_ids :

@@ -23,7 +23,7 @@ from osv import fields, osv
 from mx import DateTime
 
 class mrp_procurement(osv.osv):
-    _inherit = "mrp.procurement"
+    _inherit = "procurement.order"
     _columns = {
         'production_lot_id': fields.many2one('stock.production.lot', 'Production Lot'),
         'customer_ref': fields.char('Customer reference', size=64),
@@ -46,8 +46,7 @@ class mrp_procurement(osv.osv):
                 qty = max(qty,procurement.product_id.seller_ids[0].qty)
 
             price = self.pool.get('product.pricelist').price_get(cr, uid, [pricelist_id], procurement.product_id.id, qty, False, {'uom': uom_id})[pricelist_id]
-
-            newdate = DateTime.ISO.ParseAny(procurement.date_planned) - DateTime.RelativeDateTime(days=procurement.product_id.product_tmpl_id.seller_delay or 0.0)
+            newdate = DateTime.ISO.ParseAny(procurement.date_planned) - DateTime.RelativeDateTime(days=int(procurement.product_id.product_tmpl_id.seller_delay) or 0.0)
             line = {
                 'name': procurement.product_id.name[:50],
                 'product_qty': qty,

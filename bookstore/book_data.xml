@@ -92,7 +92,7 @@ Having observed, suffered from and led several process implementation projects i
 	</data>
 	<data noupdate="1">
 		<record id="product.product_product_pc1" model="product.product">
-			<field eval="[(6,0,[ref('base.lang_en')])]" name="lang"/>
+<!--			<field eval="[(6,0,[ref('base.lang_en')])]" name="lang"/>-->
 			<field eval="35.0" name="list_price"/>
 			<field eval="&quot;Very good book.
 Buy it on Amazon.&quot;" name="description"/>
@@ -218,7 +218,7 @@ Buy it on Amazon.&quot;" name="description"/>
 	</data>
 	<data noupdate="1">
 		<record id="product.product_product_cpu3" model="product.product">
-			<field eval="[(6,0,[ref('base.lang_en')])]" name="lang"/>
+<!--			<field eval="[(6,0,[ref('base.lang_en')])]" name="lang"/>-->
 			<field eval="30.0" name="list_price"/>
 			<field eval="&quot;Cooking Chips&quot;" name="name"/>
 			<field eval="10.0" name="standard_price"/>

@@ -186,7 +186,7 @@
     <blockTable colWidths="510.0" style="Tableau4">
       <tr>
         <td>
-          <para style="P6">[[ o.notes or '' ]] [[ setTag('para','xpre') ]]</para>
+          <para style="P6">[[ format(o.notes or '') ]]</para>
         </td>
       </tr>
     </blockTable>

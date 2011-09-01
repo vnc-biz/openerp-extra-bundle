@@ -37,7 +37,7 @@ class purchase_order(report_sxw.rml_parse):
         })
 
     def editor(self,o_id):
-        self.cr.execute("select distinct p.editor from purchase_order_line pl left join product_product p on (pl.product_id=p.id) where pl.order_id=%d", (o_id,))
+        self.cr.execute("select distinct p.editor from purchase_order_line pl left join product_product p on (pl.product_id=p.id) where pl.order_id=%s", (o_id,))
         res = map(lambda x: x[0], self.cr.fetchall())
         editor = []
         for r in res:
@@ -50,9 +50,9 @@ class purchase_order(report_sxw.rml_parse):
 
     def purchase(self, editor_id, o_id):
         if editor_id:
-            self.cr.execute("SELECT PL.id  FROM purchase_order_line PL,product_product P   where P.product_tmpl_id=PL.product_id and PL.order_id=%d and P.editor=%d", (o_id,editor_id or None))
+            self.cr.execute("SELECT PL.id  FROM purchase_order_line PL,product_product P   where P.product_tmpl_id=PL.product_id and PL.order_id=%s and P.editor=%s", (o_id,editor_id or None))
         else:
-            self.cr.execute("SELECT PL.id  FROM purchase_order_line PL,product_product P   where P.product_tmpl_id=PL.product_id and PL.order_id=%d and P.editor is NULL", (o_id,))
+            self.cr.execute("SELECT PL.id  FROM purchase_order_line PL,product_product P   where P.product_tmpl_id=PL.product_id and PL.order_id=%s and P.editor is NULL", (o_id,))
         res = self.cr.fetchall()
         line_id = map(lambda x: x[0], res)
         line = self.pool.get('purchase.order.line').browse(self.cr,self.uid,line_id)
@@ -73,7 +73,7 @@ class purchase_order(report_sxw.rml_parse):
     # end def
 
     def _get_line_tax(self, line_obj):
-        self.cr.execute("SELECT tax_id FROM purchase_order_taxe WHERE order_line_id=%d" % (line_obj.id))
+        self.cr.execute("SELECT tax_id FROM purchase_order_taxe WHERE order_line_id=%s" % (line_obj.id))
         res = self.cr.fetchall() or None
         if not res:
             return ""
@@ -86,7 +86,7 @@ class purchase_order(report_sxw.rml_parse):
 
     def _get_tax(self, order_obj):
         self.cr.execute("SELECT DISTINCT tax_id FROM purchase_order_taxe, purchase_order_line, purchase_order \
-            WHERE (purchase_order_line.order_id=purchase_order.id) AND (purchase_order.id=%d)" % (order_obj.id))
+            WHERE (purchase_order_line.order_id=purchase_order.id) AND (purchase_order.id=%s)" % (order_obj.id))
         res = self.cr.fetchall() or None
         if not res:
             return []
@@ -98,7 +98,7 @@ class purchase_order(report_sxw.rml_parse):
         res = []
         for tax in tax_obj.browse(self.cr, self.uid, tax_ids):
             self.cr.execute("SELECT DISTINCT order_line_id FROM purchase_order_line, purchase_order_taxe \
-                WHERE (purchase_order_taxe.tax_id=%d) AND (purchase_order_line.order_id=%d)" % (tax.id, order_obj.id))
+                WHERE (purchase_order_taxe.tax_id=%d) AND (purchase_order_line.order_id=%s)" % (tax.id, order_obj.id))
             lines = self.cr.fetchall() or None
             if lines:
                 if isinstance(lines, list):

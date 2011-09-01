@@ -32,7 +32,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-  <menuitem name="Books" id="menu_books_main" />
+  <menuitem name="Books" id="menu_books_main"/>
 
   <menuitem name="Configuration" parent="menu_books_main" id="menu_books_config" />
 
@@ -276,7 +276,9 @@
         <field name="view_type">form</field>
     </record>
 
-   <menuitem parent="base.menu_product" id="menu_book_products" action="action_product_book_list" />
+
+    <menuitem name="Books" parent="menu_books_main" id="menu_book_detail" />
+   <menuitem parent="menu_book_detail" id="menu_book_products" action="action_product_book_list" />
 
     <record model="ir.actions.act_window" id="action_product_book_new_form">
         <field name="name">New Book</field>
@@ -589,7 +591,7 @@
         <field name="type">tree</field>
         <field name="inherit_id" ref="sale.view_order_line_tree"/>
         <field name="arch" type="xml">
-            <field name="discount" position="after">
+            <field name="price_subtotal" position="after">
                 <field name="customer_ref" select="1"/>
                 <field name="production_lot_id" select="1"/>
             </field>
@@ -626,9 +628,9 @@
         res_model="stock.picking"
         src_model="sale.order"
         id="act_sale_picking"/>
-
-    <menuitem id="author_menu" action="action_author_list" parent="base.menu_product"/>
-    <menuitem id="menu_new_author" action="action_author_new_form" parent="author_menu"/>
+        
+    <menuitem id="author_menu_main" name="Author" parent="menu_books_main"/>        
+    <menuitem id="author_menu" action="action_author_list" parent="author_menu_main"/>
 
     <menuitem id="menu_new_book" action="action_product_book_new_form" parent="menu_book_products" />
 

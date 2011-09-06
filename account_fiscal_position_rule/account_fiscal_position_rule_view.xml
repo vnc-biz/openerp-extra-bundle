@@ -17,11 +17,11 @@
                     <field name="from_country"/>
                     <field name="from_state"/>
                     <separator string="To" colspan="4"/>
-		    		<field name="to_country"/>
+		    <field name="to_country"/>
                     <field name="to_state"/>
                     <separator string="Configuration" colspan="4"/>
-		    		<field name="fiscal_position_id"/>
-		    		<newline/>
+		    <field name="fiscal_position_id"/>
+		    <newline/>
                     <field name="use_sale"/>
                     <field name="use_invoice"/>
                     <field name="use_purchase"/>
@@ -84,8 +84,7 @@
 
         <menuitem action="action_account_fiscal_position_rule_template_form" id="menu_action_account_fiscal_position_rule_template_form" parent="account.account_template_folder" sequence="21"/>
 
-		<!-- Fiscal Position Rule -->
-
+	<!-- Fiscal Position Rule -->
         <record id="view_account_fiscal_position_rule_form" model="ir.ui.view">
             <field name="name">account.fiscal.position.rule.form</field>
             <field name="model">account.fiscal.position.rule</field>

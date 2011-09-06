@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.2\n"
+"Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-05-28 04:46+0000\n"
-"PO-Revision-Date: 2011-05-28 04:46+0000\n"
+"POT-Creation-Date: 2011-09-06 17:38+0000\n"
+"PO-Revision-Date: 2011-09-06 17:38+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -184,7 +184,7 @@ msgstr "Posição Fiscal"
 #. module: account_fiscal_position_rule
 #: model:ir.model,name:account_fiscal_position_rule.model_account_invoice
 msgid "Invoice"
-msgstr "Nota Fiscal"
+msgstr "Fatura"
 
 #. module: account_fiscal_position_rule
 #: view:wizard.account.fiscal.position.rule:0

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2011 SYLEAM (<http://www.syleam.fr>).
@@ -16,7 +16,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -29,11 +29,13 @@ class res_partner_address(osv.osv):
 
     def _get_name_calc(self, cr, uid, ids, field_name, unknow_none, context):
         """
-        This is for overriding object 'name' property 
+        This is for overriding object 'name' property
         """
         ar_ctc = self.read(cr, uid, ids, ['id', 'first_name', 'last_name'], context)
         res={}
         for record in ar_ctc:
+            if not record['first_name'] and not record['last_name']:
+                continue
             _name = "%s %s" % (record['first_name'] or '', record['last_name'] or '')
             res[record['id']] = _name
         return res

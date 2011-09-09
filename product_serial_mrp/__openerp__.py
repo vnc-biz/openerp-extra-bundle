@@ -23,24 +23,14 @@
     "version" : "1.0.0",
     "author" : "Akretion, NaN",
     "website" : "http://www.akretion.com",
-    "depends" : ['mrp'],
+    "depends" : ['product_serial','mrp'],
     "category" : "Generic Modules/Inventory Control",
     "license": "AGPL-3",
-    "description":"""Turns production lot tracking numbers into unique per product instance code (serial number).
-    Moreover, it
-    1) adds a new checkbox on the product form to enable or disable this behavior (you should also enable in/out tracking)
-    2) then forbids to perform a move if a move involves more than one product instance
-    3) automagically splits up picking list movements into one movement per product instance
-    4) turns incoming pickings into an editable grid where you can directly type the code
-    of a new production number/code to create and associate to the move (it also checks it
-    doesn't exist yet)
-
-    We would also like to extend this module to split automatic production orders (from MRP engine) into several individual production orders in order
-    to make it easy to encode the serial numbers in the production. Let us know if you would like that simple extension to be made.
+    "description":"""Add mrp functions to product_serial (mrp part of the former mrp_prodlot_autosplit)
     """,
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : ["product_view.xml", "company_view.xml", "stock_view.xml"],
+    "update_xml" : [],
     "active": False,
     "installable": True
 }

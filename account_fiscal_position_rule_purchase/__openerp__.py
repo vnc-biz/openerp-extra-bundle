@@ -4,7 +4,7 @@
 #    Copyright (C) 2010  Renato Lima - Akretion
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
+#    it under the terms of the GNU Affero General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
@@ -24,6 +24,7 @@
     'category': 'Generic Modules/Accounting',
     'description': """Include a rule to decide the correct fiscal position for Purchase""",
     'author': 'Akretion',
+    'license': 'AGPL-3',
     'website': 'http://www.akretion.com',
     'depends': [
                 'account_fiscal_position_rule',

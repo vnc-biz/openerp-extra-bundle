@@ -24,13 +24,14 @@
     "name" : "SMS Client",
     "version" : "1.0",
     "depends" : ["base"],
-    "author" : "OpenERP SA,SYLEAM",
+    "author" : "SYLEAM,OpenERP SA",
     "description": """SMS Client module that provides:
     Sending SMS
     Use Multiple Gateways
+    To validate Gateway, code is send to a mobile phone, when received enter it to confirm SMS account
     """,
     "website" : "http://www.openerp.com",
-    "category" : "Generic Modules",
+    "category" : "Tools",
     "init_xml" : [],
     "demo_xml" : [],
     "update_xml" : [

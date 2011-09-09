@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="view_product_attributes_form">
             <field name="name">product.attributes.form</field>
             <field name="model">product.attributes</field>
@@ -47,7 +46,6 @@
         <menuitem name="Product Attributes" id="product_attributes_parent_menu" parent="product.prod_config_main"/>
         <menuitem name="Attributes" id="product_attributes_menu" action="action_product_attributes" parent="product_attributes_parent_menu"/>
 
-
         <record model="ir.ui.view" id="view_product_attributes_group_form">
             <field name="name">product.attributes.group.form</field>
             <field name="model">product.attributes.group</field>
@@ -55,7 +53,8 @@
             <field name="priority" eval="5"/>
             <field name="arch" type="xml">
                 <form string="Product Attributes Group">
-                    <field name="name" select="1" colspan="4"/>
+                    <field name="name" select="1"/>
+                    <field name="code" select="1"/>
                     <separator string="Attributes" colspan="4"/>
                     <field name="product_att_ids" colspan="4" nolabel="1"/>
                 </form>
@@ -70,6 +69,7 @@
             <field name="arch" type="xml">
                 <tree string="Product Attributes Group">
                     <field name="name"/>
+                    <field name="code"/>
                 </tree>
             </field>
         </record>

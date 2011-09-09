@@ -234,6 +234,7 @@ class product_attributes_group(osv.osv):
 
     _columns = {
         'name': fields.char('Name', size=64, required=True, translate=True),
+        'code': fields.char('Code', size=64, required=True, help='Attribute code, ex az09'),
         'product_att_ids': fields.many2many('product.attributes', 'product_attributes_rel', 'product_attributes_group_id', 'product_attributes_id', 'Products Attributes'),
         'menu_id': fields.many2one('ir.ui.menu', 'menu_id', readonly=True),
         'action_id': fields.many2one('ir.actions.act_window', 'action_id', readonly=True),

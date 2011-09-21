@@ -30,4 +30,9 @@ class hr_employee(osv.osv):
     _columns = {
         'cost_based_on':fields.selection([('contract', 'Contract'), ('product_cost', 'Product Cost')], 'Cost Based On',required=True)
     }
+    
+    _defaults = {
+        'cost_based_on':'contract'
+    }
+    
 hr_employee()

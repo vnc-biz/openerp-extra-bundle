@@ -27,7 +27,10 @@
     "category" : "Generic Modules/Others",
     "description": """Procedure Template
     """,
-    "depends" : ['wiki'],
+    "depends" : [
+        'wiki',
+        'mgmtsystem_manuals'
+    ],
     "init_xml" : [],
     "update_xml" : ['wiki_procedure.xml'],
     "demo_xml" : [],

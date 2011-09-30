@@ -27,8 +27,20 @@ class mgmtsystem_action(osv.osv):
     _description = "Action"
     _inherit = "crm.claim"
     _columns = {
+        'reference': fields.char('Reference', size=64, required=True, readonly=True),
 	'type_action': fields.selection([('immediate','Immediate Action'),('correction','Corrective Action'),('prevention','Preventive Action'),('improvement','Improvement Opportunity')], 'Action Type'),
+        'message_ids': fields.one2many('mailgate.message', 'res_id', 'Messages', domain=[('model','=',_name)]),
     }
+
+    _defaults = {
+        'reference': 'NEW',
+    }
+
+    def create(self, cr, uid, vals, context=None):
+        vals.update({
+            'reference': self.pool.get('ir.sequence').get(cr, uid, 'mgmtsystem.action')
+        })
+        return super(mgmtsystem_action, self).create(cr, uid, vals, context)
 
 mgmtsystem_action()
 

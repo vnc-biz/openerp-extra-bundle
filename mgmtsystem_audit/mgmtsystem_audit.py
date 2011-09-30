@@ -26,10 +26,9 @@ class mgmtsystem_audit(osv.osv):
     _name = "mgmtsystem.audit"
     _description = "Audit"
     _columns = {
-        'id': fields.integer('ID', readonly=True),
         'name': fields.char('Name', size=50),
         'reference': fields.char('Reference', size=64, required=True, readonly=True),
-        'date': fields.date('Date'),
+        'date': fields.datetime('Date'),
         'line_ids': fields.one2many('mgmtsystem.verification.line','audit_id','Verification List'),
 	'auditor_user_ids': fields.many2many('res.users','mgmtsystem_auditor_user_rel','user_id','mgmtsystem_audit_id','Auditors'),
 	'auditee_user_ids': fields.many2many('res.users','mgmtsystem_auditee_user_rel','user_id','mgmtsystem_audit_id','Auditees'),
@@ -60,12 +59,15 @@ class mgmtsystem_verification_line(osv.osv):
     _name = "mgmtsystem.verification.line"
     _description = "Verification Line"
     _columns = {
-        'id': fields.integer('ID', readonly=True),
 	'name': fields.char('Question',size=300, required=True),
         'audit_id': fields.many2one('mgmtsystem.audit', 'Audit', ondelete='cascade', select=True),
+        'procedure_id': fields.many2one('wiki.wiki', 'Procedure', ondelete='cascade', select=True),
 	'is_conformed': fields.boolean('Is conformed'),
 	'comments': fields.text('Comments'),
+	'seq': fields.integer('Sequence'),
     }
+
+    _order = "seq"
 
     _defaults = {
         'is_conformed': False

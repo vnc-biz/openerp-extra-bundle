@@ -1,27 +1,30 @@
-# French translation for openobject-addons
-# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* mgmtsystem_audit
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-12-02 23:48+0000\n"
-"PO-Revision-Date: 2011-02-22 22:19+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: French <fr@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-09-29 21:31+0000\n"
+"PO-Revision-Date: 2011-09-29 21:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-09-14 05:05+0000\n"
-"X-Generator: Launchpad (build 13921)\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: mgmtsystem_audit
 #: view:mgmtsystem.audit:0
 #: selection:mgmtsystem.audit,state:0
 msgid "Closed"
 msgstr "Fermé"
+
+#. module: mgmtsystem_audit
+#: field:copy.verification.lines,audit_src:0
+msgid "Choose audit"
+msgstr "Choisir un audit"
 
 #. module: mgmtsystem_audit
 #: report:mgmtsystem.audit.report:0
@@ -104,14 +107,31 @@ msgid "-"
 msgstr "-"
 
 #. module: mgmtsystem_audit
+#: view:copy.verification.lines:0
+#: model:ir.actions.act_window,name:mgmtsystem_audit.copy_verification_lines_act_window
+#: model:ir.model,name:mgmtsystem_audit.model_copy_verification_lines
+msgid "Copy Verification Lines"
+msgstr "Copier les lignes de vérification"
+
+#. module: mgmtsystem_audit
 #: report:mgmtsystem.audit.report:0
 msgid "."
 msgstr "."
 
 #. module: mgmtsystem_audit
+#: view:copy.verification.lines:0
+msgid "_Copy"
+msgstr "_Copier"
+
+#. module: mgmtsystem_audit
 #: field:mgmtsystem.audit,date:0
 msgid "Date"
 msgstr "Date"
+
+#. module: mgmtsystem_audit
+#: report:mgmtsystem.audit.verificationlist:0
+msgid ":"
+msgstr ":"
 
 #. module: mgmtsystem_audit
 #: report:mgmtsystem.audit.report:0
@@ -169,15 +189,9 @@ msgid "Strong points"
 msgstr "Points forts"
 
 #. module: mgmtsystem_audit
-#: field:mgmtsystem.audit,id:0
-#: field:mgmtsystem.verification.line,id:0
-msgid "ID"
-msgstr "ID"
-
-#. module: mgmtsystem_audit
-#: model:ir.module.module,shortdesc:mgmtsystem_audit.module_meta_information
-msgid "Management System - Audit"
-msgstr "Système de gestion - Audit"
+#: field:mgmtsystem.verification.line,procedure_id:0
+msgid "Procedure"
+msgstr "Procédure"
 
 #. module: mgmtsystem_audit
 #: field:mgmtsystem.audit,reference:0
@@ -189,6 +203,11 @@ msgstr "Référence"
 #: report:mgmtsystem.audit.verificationlist:0
 msgid "Confidentiality: Internal"
 msgstr "Confidentialité : Interne"
+
+#. module: mgmtsystem_audit
+#: field:mgmtsystem.verification.line,seq:0
+msgid "Sequence"
+msgstr "Séquence"
 
 #. module: mgmtsystem_audit
 #: view:mgmtsystem.audit:0
@@ -214,18 +233,9 @@ msgid "To Improve Points"
 msgstr "Points à améliorer"
 
 #. module: mgmtsystem_audit
-#: model:ir.module.module,description:mgmtsystem_audit.module_meta_information
-msgid ""
-"\n"
-"\tThis module enables you to manage audits and verifications lists of \n"
-"        your management system.\n"
-"    "
-msgstr ""
-"\n"
-"\tCe module vous permet de gérer les audits et les listes de vérifications "
-"de\n"
-"votre système de gestion.\n"
-"    "
+#: view:copy.verification.lines:0
+msgid "_Cancel"
+msgstr "_Cancel"
 
 #. module: mgmtsystem_audit
 #: model:ir.model,name:mgmtsystem_audit.model_mgmtsystem_verification_line
@@ -236,7 +246,7 @@ msgstr "Ligne de vérification"
 #. module: mgmtsystem_audit
 #: view:mgmtsystem.audit:0
 msgid "Close"
-msgstr "Fermer"
+msgstr "Archiver"
 
 #. module: mgmtsystem_audit
 #: model:ir.actions.act_window,name:mgmtsystem_audit.open_mgmtsystem_audit_list
@@ -250,3 +260,4 @@ msgstr "Audits"
 #: report:mgmtsystem.audit.verificationlist:0
 msgid "Auditors:"
 msgstr "Auditeurs :"
+

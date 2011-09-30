@@ -18,31 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-{
-    "name" : " Quality Management System",
-    "version" : "0.1",
-    "author" : "Savoir-faire Linux",
-    "website" : "http://www.savoirfairelinux.com",
-    "license" : "GPL-3",
-    "category" : "Management System",
-    "description": """
-	This module enables you to manage your quality management system, including :
-            * Quality Manual
-            * Audits
-            * Procedures
-            * Nonconformities
-            * Actions
-    """,
-    "depends" : [
-        'mgmtsystem_audit',
-        'wiki_quality_manual',
-        'mgmtsystem_manuals'
-    ],
-    "init_xml" : [],
-    "update_xml" : [],
-    "demo_xml" : [],
-    "installable" : True,
-    "certificate" : ''
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
+import copy_verification_lines
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

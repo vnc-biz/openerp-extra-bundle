@@ -34,10 +34,12 @@
 	'audit_sequence.xml',
     ],
     "update_xml" : [
+        'security/ir.model.access.csv',
 	'mgmtsystem_audit.xml',
 	'report/audit_report.xml',
 	'report/verification_list.xml',
 	'board_mgmtsystem_audit.xml',
+        'wizard/copy_verification_lines.xml',
     ],
     "demo_xml" : [
 	'demo_audit.xml',

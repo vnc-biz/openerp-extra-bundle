@@ -28,12 +28,16 @@
     "description": """
 	This module enables you to manage your environment management system, including :
             * Environment Manual
+            * Environmental Aspects
             * Audits
-            * Procedures
             * Nonconformities
             * Actions
     """,
-    "depends" : ['mgmtsystem_audit','wiki_environment_manual'],
+    "depends" : [
+        'mgmtsystem_audit',
+        'wiki_environment_manual',
+        'wiki_environmental_aspect'
+    ],
     "init_xml" : [],
     "update_xml" : [],
     "demo_xml" : [],

@@ -30,13 +30,17 @@
         system :
             * immediate actions
             * corrective actions
-            * preventive actions.
+            * preventive actions
+            * improvement opportunities.
     """,
     "depends" : ['mgmtsystem','crm_claim'],
     "init_xml" : [],
     "update_xml" : [
+        'security/ir.model.access.csv',
 	'mgmtsystem_action.xml',
+	'action_sequence.xml',
 	'board_mgmtsystem_action.xml',
+	'workflow_mgmtsystem_action.xml',
     ],
     "demo_xml" : [
 	'demo_action.xml',

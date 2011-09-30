@@ -1,21 +1,19 @@
-# French translation for openobject-addons
-# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* mgmtsystem
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-12-02 23:46+0000\n"
-"PO-Revision-Date: 2011-02-22 20:35+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: French <fr@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-09-30 20:24+0000\n"
+"PO-Revision-Date: 2011-09-30 20:24+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-09-14 05:05+0000\n"
-"X-Generator: Launchpad (build 13921)\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: mgmtsystem
 #: model:ir.module.module,shortdesc:mgmtsystem.module_meta_information
@@ -26,40 +24,43 @@ msgid "Management System"
 msgstr "Système de gestion"
 
 #. module: mgmtsystem
-#: view:board.board:0
-msgid "My Board"
-msgstr "Mon tableau de bord"
-
-#. module: mgmtsystem
-#: model:ir.ui.menu,name:mgmtsystem.menu_mgmtsystem_configuration
-msgid "Configuration"
-msgstr "Paramétrage"
-
-#. module: mgmtsystem
 #: model:ir.module.module,description:mgmtsystem.module_meta_information
-msgid ""
-"\n"
-"\tThis module is the basis of any management system applications:\n"
+msgid "\n"
+"	This module is the basis of any management system applications:\n"
 "         * audit reports,\n"
 "         * nonconformities,\n"
 "         * immediate actions,\n"
 "         * preventive actions,\n"
 "         * corrective actions,\n"
-"         * improvement opportunities.\t\n"
+"         * improvement opportunities.	\n"
 "    "
-msgstr ""
-"\n"
-"\tCe module est la base pour toutes les applications de système de gestion "
-":\n"
+msgstr "\n"
+"	Ce module est la base pour toutes les applications de système de gestion :\n"
 "         * rapport d'audit,\n"
-"         * nonconformités,\n"
-"         * actions immediates,\n"
+"         * non-conformités,\n"
+"         * actions immédiates,\n"
 "         * actions préventives,\n"
 "         * actions correctives,\n"
-"         * opportunités d'améliorations.\t\n"
+"         * opportunités d'amélioration.\n"
 "    "
+
+#. module: mgmtsystem
+#: model:ir.ui.menu,name:mgmtsystem.menu_mgmtsystem_manuals
+msgid "Manuals"
+msgstr "Manuels"
 
 #. module: mgmtsystem
 #: model:ir.actions.act_window,name:mgmtsystem.open_board_mgmtsystem
 msgid "Management System Dashboard"
 msgstr "Tableau de bord du système de gestion"
+
+#. module: mgmtsystem
+#: view:board.board:0
+msgid "My Board"
+msgstr "Mon tableau"
+
+#. module: mgmtsystem
+#: model:ir.ui.menu,name:mgmtsystem.menu_mgmtsystem_configuration
+msgid "Configuration"
+msgstr "Configuration"
+

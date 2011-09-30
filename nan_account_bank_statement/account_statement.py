@@ -3,6 +3,9 @@
 #
 # Copyright (c) 2010 - NaN Projectes de proramari lliure S.L.
 #                      (http://www.nan-tic.com) All Rights Reserved.
+# Copyright (c) 2011 - Acysos S.L. (http://www.acysos.com) All Rights Reserved.
+#                      Ignacio Ibeas (ignacio@acysos.com)
+#                      Updated payment order reconcile to OpenERP 6.0
 #   
 # Some code has refactored, original authors:
 #                       Zikzakmedia S.L. (http://zikzakmedia.com) All Rights Reserved.
@@ -317,15 +320,41 @@ class account_bank_statement_line(osv.osv):
             payment_order = self._find_payment_order_to_reconcile_by_line_amount(cr, uid, line, reconciled_move_line_ids, maturity_date, max_date_diff, context)
 
             if payment_order:
-                for line in payment_order.line_ids:
-                    reconcile_id = self.pool.get('account.bank.statement.reconcile').create(cr, uid, {
-                        'line_ids': [(6, 0, [line.move_line_id.id])],
+                for line_id in payment_order.line_ids:
+                    reconcile_line = line_id.move_line_id
+                    
+                    account_type = 'general'
+                    if reconcile_line.partner_id:
+                        if reconcile_line.partner_id.property_account_receivable == reconcile_line.account_id:
+                            account_type = 'customer'
+                        else:
+                            account_type = 'supplier'
+                    
+                    voucher_id = self.pool.get('account.voucher').create(cr, uid, {
+                        'date': line.date,
+                        'type': line_id.amount < 0.0 and 'payment' or 'receipt',
+                        'partner_id': reconcile_line.partner_id and reconcile_line.partner_id.id,
+                        'journal_id': line.statement_id.journal_id.id,
+                        'currency_id': line.statement_id.currency.id,
+                        'account_id': reconcile_line.credit > 0.0 and line.statement_id.journal_id.default_credit_account_id.id or line.statement_id.journal_id.default_debit_account_id.id,
+                        'period_id': line.statement_id.period_id.id,
+                        'company_id': line.statement_id.journal_id.company_id.id,
+                        'amount': abs(line_id.amount),
                     }, context)
-                    new_line_id = self.pool.get('account.bank.statement.line').copy(cr, uid, line.id, {
-                        'account_id': line.move_line_id.account.id,
-                        'partner_id': line.move_line_id.partner_id and line.move_line_id.partner_id.id or None,
-                        'amount': payment_order.type == 'receivable' and line.amount_currency or -line.amount_currency,
-                        'reconcile_id': reconcile_id,
+                    self.pool.get('account.voucher.line').create(cr, uid, {
+                        'voucher_id': voucher_id,
+                        'account_id': reconcile_line.account_id.id,
+                        'move_line_id': reconcile_line.id,
+                        'type': line_id.amount < 0.0 and 'dr' or 'cr',
+                        'amount': abs(reconcile_line.debit - reconcile_line.credit),
+                    }, context)
+
+                    new_line_id = self.copy(cr, uid, line.id, {
+                        'account_id': reconcile_line.account_id.id,
+                        'partner_id': reconcile_line.partner_id and reconcile_line.partner_id.id or False,
+                        'amount': payment_order.type == 'receivable' and line_id.amount or -line_id.amount,
+                        'voucher_id': voucher_id,
+                        'type': account_type,
                     }, context)
                 # Remove current line because all payment order lines have already been created
                 self.pool.get('account.bank.statement.line').unlink(cr, uid, [line.id], context)

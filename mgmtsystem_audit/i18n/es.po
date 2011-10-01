@@ -7,21 +7,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-12-02 23:48+0000\n"
+"POT-Creation-Date: 2011-09-29 21:30+0000\n"
 "PO-Revision-Date: 2011-08-27 13:29+0000\n"
 "Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-09-14 05:05+0000\n"
-"X-Generator: Launchpad (build 13921)\n"
+"X-Launchpad-Export-Date: 2011-10-01 05:22+0000\n"
+"X-Generator: Launchpad (build 14071)\n"
 
 #. module: mgmtsystem_audit
 #: view:mgmtsystem.audit:0
 #: selection:mgmtsystem.audit,state:0
 msgid "Closed"
 msgstr "Cerrado"
+
+#. module: mgmtsystem_audit
+#: field:copy.verification.lines,audit_src:0
+msgid "Choose audit"
+msgstr ""
 
 #. module: mgmtsystem_audit
 #: report:mgmtsystem.audit.report:0
@@ -104,14 +109,31 @@ msgid "-"
 msgstr "-"
 
 #. module: mgmtsystem_audit
+#: view:copy.verification.lines:0
+#: model:ir.actions.act_window,name:mgmtsystem_audit.copy_verification_lines_act_window
+#: model:ir.model,name:mgmtsystem_audit.model_copy_verification_lines
+msgid "Copy Verification Lines"
+msgstr ""
+
+#. module: mgmtsystem_audit
 #: report:mgmtsystem.audit.report:0
 msgid "."
 msgstr "."
 
 #. module: mgmtsystem_audit
+#: view:copy.verification.lines:0
+msgid "_Copy"
+msgstr ""
+
+#. module: mgmtsystem_audit
 #: field:mgmtsystem.audit,date:0
 msgid "Date"
 msgstr "Fecha"
+
+#. module: mgmtsystem_audit
+#: report:mgmtsystem.audit.verificationlist:0
+msgid ":"
+msgstr ""
 
 #. module: mgmtsystem_audit
 #: report:mgmtsystem.audit.report:0
@@ -169,14 +191,8 @@ msgid "Strong points"
 msgstr ""
 
 #. module: mgmtsystem_audit
-#: field:mgmtsystem.audit,id:0
-#: field:mgmtsystem.verification.line,id:0
-msgid "ID"
-msgstr "ID"
-
-#. module: mgmtsystem_audit
-#: model:ir.module.module,shortdesc:mgmtsystem_audit.module_meta_information
-msgid "Management System - Audit"
+#: field:mgmtsystem.verification.line,procedure_id:0
+msgid "Procedure"
 msgstr ""
 
 #. module: mgmtsystem_audit
@@ -188,6 +204,11 @@ msgstr "Referencia"
 #: report:mgmtsystem.audit.report:0
 #: report:mgmtsystem.audit.verificationlist:0
 msgid "Confidentiality: Internal"
+msgstr ""
+
+#. module: mgmtsystem_audit
+#: field:mgmtsystem.verification.line,seq:0
+msgid "Sequence"
 msgstr ""
 
 #. module: mgmtsystem_audit
@@ -214,12 +235,8 @@ msgid "To Improve Points"
 msgstr ""
 
 #. module: mgmtsystem_audit
-#: model:ir.module.module,description:mgmtsystem_audit.module_meta_information
-msgid ""
-"\n"
-"\tThis module enables you to manage audits and verifications lists of \n"
-"        your management system.\n"
-"    "
+#: view:copy.verification.lines:0
+msgid "_Cancel"
 msgstr ""
 
 #. module: mgmtsystem_audit
@@ -245,3 +262,6 @@ msgstr "Auditorías"
 #: report:mgmtsystem.audit.verificationlist:0
 msgid "Auditors:"
 msgstr "Auditores:"
+
+#~ msgid "ID"
+#~ msgstr "ID"

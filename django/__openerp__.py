@@ -27,19 +27,22 @@
     "license" : "AGPL-3",
     "description" : """
 OpenERP integration to Django.
-- Create OpenObject Model to Django Model. Select model and copy-paste Django Model (wizard)
+- Use Base External Mapping to define mapping values.
+- Select model and copy-paste Django Model (wizard)
 - OpenERP to Django Mapping Fields. Export OpenERP data to Django Models
 - Update SQL Django. Update Django models when already been created previously in Django (wizard)
-This module was built generically but in focus of the ZZSaaS service of Zikzakmedia and Zoook e-sale for OpenERP
+This module was built generically but in focus of the ZZSaaS service of Zikzakmedia and OpenERP e-sale Zoook modules
 
 Base Vat module requiered if use dj_check_vat def
     """,
     "version" : "0.1",
-    "depends" : ["base"],
+    "depends" : [
+        "base",
+        "base_external_mapping",
+    ],
     "init_xml" : [],
     "update_xml" : [
         "security/ir.model.access.csv",
-        "django_view.xml",
         "partner_view.xml",
         "django_wizard.xml",
         "wizard/wizard_create_model.xml",

@@ -1,6 +1,2 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_django_external_mapping_line","django_external_mapping_line","model_django_external_mapping_line","base.group_user",1,0,0,0
-"access_django_external_mapping","django_external_mapping","model_django_external_mapping","base.group_user",1,0,0,0
-"access_django_external_mapping_line","django_external_mapping_line","model_django_external_mapping_line","base.group_system",1,1,1,1
-"access_django_external_mapping","django_external_mapping","model_django_external_mapping","base.group_system",1,1,1,1
 "access_django_model_django_connect","model_django_connect","model_django_connect","base.group_system",1,0,0,0

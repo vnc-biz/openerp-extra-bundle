@@ -85,7 +85,7 @@ class res_partner(osv.osv):
     def dj_check_vat(self, cr, uid, vat, shop_id, context=None):
         """
         Django Check VAT: check if VAT is valid or not
-        vat: string
+        vat: string (remember need uppercase str)
         """
         if context == None:
             context = {}
@@ -96,6 +96,7 @@ class res_partner(osv.osv):
         check_vat = True
         partner_obj = self.pool.get('res.partner')
 
+        vat = vat.upper()
         vat_country = vat[:2]
         vat = vat[2:]
         #TODO: check if vat_country_ids field exist in sale.shop model

@@ -42,7 +42,7 @@ sock = xmlrpclib.ServerProxy('http://localhost:8051/xmlrpc/object')
 context = ()
 code = 'zoook.product.category'
 ids = [1,2]
-values = sock.execute(dbname, uid, pwd, 'django.external.mapping', 'get_oerp_to_dj', code, ids)
+values = sock.execute(dbname, uid, pwd, 'base.external.mapping', 'get_oerp_to_external', code, ids)
 
 for value in values:
     for val, key  in value.iteritems():

@@ -4,21 +4,25 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.15\n"
+"Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-22 16:41:53+0000\n"
-"PO-Revision-Date: 2011-03-22 17:43+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-03-22 16:41+0000\n"
+"PO-Revision-Date: 2011-10-03 10:28+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-10-04 05:15+0000\n"
+"X-Generator: Launchpad (build 14071)\n"
 
 #. module: django
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "The Object name must start with x_ and not contain any special character !"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"The Object name must start with x_ and not contain any special character !"
 
 #. module: django
 #: field:django.create.model.wizard,state:0
@@ -68,13 +72,6 @@ msgid "Create Django Model"
 msgstr "Crear modelo Django"
 
 #. module: django
-#: model:ir.actions.act_window,name:django.act_django_sql_update
-#: model:ir.actions.act_window,name:django.action_django_model_wizard
-#: model:ir.ui.menu,name:django.django_wizard_model
-msgid "Create SQL Update"
-msgstr "Crear SQL"
-
-#. module: django
 #: view:django.create.model.wizard:0
 msgid "Django Model"
 msgstr "Modelo Django"
@@ -106,13 +103,15 @@ msgid ""
 "\n"
 "OpenERP integration to Django.\n"
 "Create OpenObject Model to Django Model\n"
-"This module was built generically but in focus of the zzsaas service of Zikzakmedia and Zoook e-sale for OpenERP\n"
+"This module was built generically but in focus of the zzsaas service of "
+"Zikzakmedia and Zoook e-sale for OpenERP\n"
 "    "
 msgstr ""
 "\n"
 "Integración Django con OpenERP.\n"
 "Crea modelo OpenObject a modelo Django.\n"
-"Nota: Este módulo se ha diseñado de forma genérica pero pensando con el servicio ZZSaaS y comercio electrónico Zoook\n"
+"Nota: Este módulo se ha diseñado de forma genérica pero pensando con el "
+"servicio ZZSaaS y comercio electrónico Zoook\n"
 "    "
 
 #. module: django
@@ -144,4 +143,3 @@ msgstr "Cancelar"
 #: view:django.create.model.wizard:0
 msgid "Close"
 msgstr "Cerrar"
-

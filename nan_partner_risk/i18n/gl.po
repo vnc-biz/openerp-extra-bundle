@@ -34,7 +34,7 @@ msgstr "Débeda Total"
 #. module: nan_partner_risk
 #: view:sale.order:0
 msgid "Approve Order"
-msgstr "Aproba-lo pedido"
+msgstr "Aprobalo pedido"
 
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:240
@@ -108,7 +108,7 @@ msgstr "Pagos Non Satisfeitos Expirados"
 #: code:addons/nan_partner_risk/risk.py:97
 #, python-format
 msgid "Gives the state of the quotation or sale order. The exception state is automatically set when a cancel operation occurs in the invoice validation (Invoice Exception) or in the packing list process (Shipping Exception). The 'Waiting Schedule' state is set when the invoice is confirmed but waiting for the scheduler to run on the date 'Date Ordered'."
-msgstr "Amosa o estado do presuposto ou orde de venta. O estado de excepción dase automáticamente cando ocurre unha operación de cancelación na validación da factura (Excepción de Factura) ou no proceso de emiti-lo albarán (Excepción de Albarán)". O estado 'Agardando Planificación' dase cando a factura está confirmada pero agardando polo planificador para executarse na data 'Data de Pedido'."
+msgstr "Amosa o estado do presuposto ou orde de venta. O estado de excepción dase automáticamente cando ocurre unha operación de cancelación na validación da factura (Excepción de Factura) ou no proceso de emitilo albarán (Excepción de Albarán). O estado 'Agardando Planificación' dase cando a factura está confirmada pero agardando polo planificador para executarse na data 'Data de Pedido'."
 
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:242

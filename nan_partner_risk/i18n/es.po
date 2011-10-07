@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-04-19 14:12+0000\n"
-"PO-Revision-Date: 2011-04-19 16:17+0100\n"
-"Last-Translator: Alberto <alberto@pexego.es>\n"
+"PO-Revision-Date: 2011-10-06 08:09+0000\n"
+"Last-Translator: Alberto Luengo Cabanillas (Pexego) <alberto@pexego.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-10-07 05:04+0000\n"
+"X-Generator: Launchpad (build 14085)\n"
 
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:241
@@ -107,8 +108,19 @@ msgstr "Pagos No Satisfechos Expirados"
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:97
 #, python-format
-msgid "Gives the state of the quotation or sale order. The exception state is automatically set when a cancel operation occurs in the invoice validation (Invoice Exception) or in the packing list process (Shipping Exception). The 'Waiting Schedule' state is set when the invoice is confirmed but waiting for the scheduler to run on the date 'Date Ordered'."
-msgstr "Muestra el estado del presupuesto u orden de venta. El estado 'excepción' se da automáticamente cuando ocurre una operación de cancelación durante la validación de la factura (Excepción en Factura) o en el proceso de emitir el albarán (Excepción de Albarán). El estado 'Esperando Planificación' se da cuando la factura está confirmada pero esperando por el planificador para lanzarla en la fecha 'Fecha Pedido'."
+msgid ""
+"Gives the state of the quotation or sale order. The exception state is "
+"automatically set when a cancel operation occurs in the invoice validation "
+"(Invoice Exception) or in the packing list process (Shipping Exception). The "
+"'Waiting Schedule' state is set when the invoice is confirmed but waiting "
+"for the scheduler to run on the date 'Date Ordered'."
+msgstr ""
+"Muestra el estado del presupuesto u orden de venta. El estado 'excepción' se "
+"da automáticamente cuando ocurre una operación de cancelación durante la "
+"validación de la factura (Excepción en Factura) o en el proceso de emitir el "
+"albarán (Excepción de Albarán). El estado 'Esperando Planificación' se da "
+"cuando la factura está confirmada pero esperando por el planificador para "
+"lanzarla en la fecha 'Fecha Pedido'."
 
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:242
@@ -145,11 +157,13 @@ msgstr "open.risk.window"
 msgid ""
 "Warning: Credit Limit Exceeded.\n"
 "\n"
-"This partner has a credit limit of %(limit).2f and already has a debt of %(debt).2f."
+"This partner has a credit limit of %(limit).2f and already has a debt of "
+"%(debt).2f."
 msgstr ""
 "Advertencia: Se ha excedido el crédito concedido.\n"
 "\n"
-"Esta empresa tiene un crédito concedido máximo de %(limit).2f y ya tiene una deuda de %(debt).2f."
+"Esta empresa tiene un crédito concedido máximo de %(limit).2f y ya tiene una "
+"deuda de %(debt).2f."
 
 #. module: nan_partner_risk
 #: field:open.risk.window,credit_limit:0

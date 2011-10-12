@@ -13,6 +13,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Nonconformity">
+                    <field name="ref"/>
                     <field name="date" attrs="{'readonly':[('state','=','c')]}"/>
                     <field name="partner_id" attrs="{'readonly':[('state','=','c')]}"/>
                     <field name="description" attrs="{'readonly':[('state','=','c')]}"/>
@@ -29,10 +30,12 @@
             <field name="arch" type="xml">
                 <search string="Nonconformity">
                     <group>
-                        <filter icon="terp-document-new" domain="[('state','=','o')]" string="Open" help="Open Nonconformities"/>
+                        <filter name="current" icon="terp-document-new" domain="[('state','=','o')]" string="Open" help="Open Nonconformities"/>
                         <filter icon="terp-camera_test" domain="[('state','=','c')]" string="Closed" help="Closed Nonconformities"/>
                         <separator orientation="vertical"/>
-                        <field name="date" select='1'/>
+                        <field name="ref"/>
+                        <field name="date"/>
+                        <field name="author_user_id"/>
                     </group>
                     <newline />
                     <group expand="0" string="Group By...">
@@ -51,6 +54,7 @@
             <field name="arch" type="xml">
                 <form string="Nonconformity">
                     <group colspan="2" col="2">
+                        <field name="ref"/>
                         <field name="date" attrs="{'readonly':[('state','=','c')]}"/>
                         <field name="partner_id" attrs="{'readonly':[('state','=','c')]}"/>
                         <field name="reference" attrs="{'readonly':[('state','=','c')]}"/>
@@ -65,7 +69,7 @@
                             <field name="origin_ids" nolabel="1" attrs="{'readonly':[('state','=','c')]}"/>
                         </page>
                         <page string="Procedures">
-                            <field name="procedure_ids" nolabel="1" attrs="{'readonly':[('state','=','c')]}" domain="[('group_id','in',('Procedure','Environmental Aspect'))]"/>
+                            <field name="procedure_ids" nolabel="1" attrs="{'readonly':[('state','=','c')]}" domain="[('group_id','in',('Procedure','Environmental Aspect','Quality Manual','Environment Manual'))]"/>
                         </page>
                         <page string="Description">
                             <field name="description" nolabel="1" attrs="{'readonly':[('state','=','c')]}"/>
@@ -78,11 +82,17 @@
                         </page>
                         <page string="Actions">
                             <group colspan="4">
-                                <field name="immediate_action_id" domain="[('type_action','=','immediate')]" attrs="{'readonly':[('state','=','c')]}"/>
+                                <field name="immediate_action_id" colspan="4" domain="[('type_action','=','immediate')]" attrs="{'readonly':[('state','=','c')]}"/>
                                 <newline/>
-                                <field name="corrective_action_id" domain="[('type_action','=','correction')]" attrs="{'readonly':[('state','=','c')]}"/>
+                                <field name="efficiency_immediate" colspan="4" attrs="{'readonly':[('state','=','c')]}"/>
+                                <separator/>
+                                <field name="corrective_action_id" colspan="4" domain="[('type_action','=','correction')]" attrs="{'readonly':[('state','=','c')]}"/>
                                 <newline/>
-                                <field name="preventive_action_id" domain="[('type_action','=','prevention')]" attrs="{'readonly':[('state','=','c')]}"/>
+                                <field name="efficiency_corrective" colspan="4" attrs="{'readonly':[('state','=','c')]}"/>
+                                <separator/>
+                                <field name="preventive_action_id" colspan="4" domain="[('type_action','=','prevention')]" attrs="{'readonly':[('state','=','c')]}"/>
+                                <newline/>
+                                <field name="efficiency_preventive" colspan="4" attrs="{'readonly':[('state','=','c')]}"/>
                             </group>
                         </page>
                     </notebook>
@@ -99,7 +109,9 @@
             <field name="res_model">mgmtsystem.nonconformity</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_mgmtsystem_nonconformity_tree"/>
             <field name="search_view_id" ref="view_mgmtsystem_nonconformity_filter"/>
+            <field name="context">{"search_default_current":1,"search_default_author_user_id":uid}</field>
         </record>
 
         <menuitem id="menu_open_nonconformity" 

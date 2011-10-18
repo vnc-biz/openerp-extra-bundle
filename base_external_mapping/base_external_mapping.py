@@ -83,8 +83,8 @@ class base_external_mapping(osv.osv):
         mappline_rules = []
         for dj_mappline_line_id in dj_mappline_line_ids:
             mappline_rules_values = {}
-            dj_mappline_line = self.pool.get('base.external.mapping.line').browse(cr, uid, dj_mappline_line_id)
-            if dj_mappline_line.type == 'out':
+            dj_mappline_line = self.pool.get('base.external.mapping.line').browse(cr, uid, dj_mappline_line_id, context)
+            if dj_mappline_line.type == 'out' or dj_mappline_line.type == 'in_out':
                 mappline_rules_values['field_id'] = dj_mappline_line.field_id.name
                 mappline_rules_values['translate'] = dj_mappline_line.translate
                 mappline_rules_values['external_field'] = dj_mappline_line.external_field
@@ -94,7 +94,7 @@ class base_external_mapping(osv.osv):
 
         for data_id in ids:
             values_data = {}
-            values_model = self.pool.get(dj_mappline.model_id.model).browse(cr, uid, data_id)
+            values_model = self.pool.get(dj_mappline.model_id.model).browse(cr, uid, data_id, context)
 
             values_data['id'] = data_id
             
@@ -145,14 +145,32 @@ class base_external_mapping(osv.osv):
 
         return res
 
-    def get_external_to_oerp(self, cr, uid, code=None, values=[], context=None):
-        """From External values to OpenERP
-            Search all mapping lines same code and calculated their values
-            Get list with dicctionay [{},{}]
-            If not code or value, return dicc blank"""
+    def get_external_to_oerp(self, cr, uid, code, id, values={}, context=None):
+        """
+        From External values to OpenERP
+        Get dicc and process values
+        @param code: str
+        @param id: int
+        @param values: dicc
+        :return vals dicc values recalculated
+        """
 
-        #TODO: If you need this function, design it! For this moment, we use OOOP or webservice functions
-        return True
+        external_mappings = self.search(cr, uid, [('name','=',code)])
+        if not (external_mappings)>0:
+            return False
+
+        vals = {}
+        external_mapping = self.browse(cr, uid, external_mappings[0])
+        for mapping_line in external_mapping.mapping_ids:
+            if mapping_line.external_field in values and (mapping_line.type == 'in_out' or mapping_line.type == 'in') and mapping_line.active == True:
+                if mapping_line.in_function:
+                    localspace = {"self":self,"cr":cr,"uid":uid,"id":id,"values":values[mapping_line.external_field],"context":context}
+                    exec mapping_line.in_function in localspace
+                    vals[mapping_line.field_id.name] = localspace['value']
+                else:
+                    vals[mapping_line.field_id.name] = values[mapping_line.external_field]
+
+        return vals
     
     _columns = {
         'name': fields.char('Code', size=64, required=True),

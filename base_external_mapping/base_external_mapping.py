@@ -78,7 +78,7 @@ class base_external_mapping(osv.osv):
         langs = self.pool.get('res.lang').search(cr, uid, [])
         dj_mappline = self.browse(cr, uid, dj_mappline_ids[0])
 
-        dj_mappline_line_ids = self.pool.get('base.external.mapping.line').search(cr, uid, [('mapping_id','=',dj_mappline_ids[0]),('active','=',True)])
+        dj_mappline_line_ids = self.pool.get('base.external.mapping.line').search(cr, uid, [('mapping_id','=',dj_mappline_ids[0]),('active','=',True),'|',('type','=','out'),('type','=','in_out')])
 
         mappline_rules = []
         for dj_mappline_line_id in dj_mappline_line_ids:

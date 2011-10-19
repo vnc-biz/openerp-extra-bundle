@@ -24,24 +24,24 @@
         #
         ##############################################################################
 
-        <menuitem id="menu_tools" 
+        <menuitem id="base.menu_tools" 
             name="Tools" 
             icon="STOCK_PREFERENCES"
             web_icon="images/tools.png" web_icon_hover="images/tools-hover.png"/>
 
         <menuitem id="menu_network" 
             name="Network" 
-            parent="menu_tools" 
+            parent="base.menu_tools" 
             groups="network.group_network_user"/>
 
-        <menuitem id="menu_tools_configuration" 
-            parent="menu_tools"
+        <menuitem id="base.menu_lunch_survey_root" 
+            parent="base.menu_tools"
             sequence="50"
-            groups="network.group_network_manager" 
             name="Configuration"/>
 
         <menuitem id="menu_tools_configuration_network" 
-            parent="menu_tools_configuration"
+            parent="base.menu_lunch_survey_root"
+            groups="network.group_network_manager" 
             sequence="20"
             name="Network"/>
 

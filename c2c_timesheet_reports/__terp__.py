@@ -33,7 +33,7 @@
 {
     "name" : "Timesheet Reports",
     "version" : "1.1",
-    "author" : "camptocamp.com (aw)",
+    "author" : "Camptocamp",
     "category" : "",
     "website" : "http://camptocamp.com",
     "description": """

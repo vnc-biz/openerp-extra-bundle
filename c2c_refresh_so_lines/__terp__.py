@@ -27,7 +27,7 @@
                     "base",
                     "sale",
                 ],
-    "author" : "Camptocamp SA",
+    "author" : "Camptocamp",
     "init_xml" : [],
     
     "update_xml" : [    

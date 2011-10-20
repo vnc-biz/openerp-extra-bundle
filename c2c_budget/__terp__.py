@@ -29,7 +29,7 @@
 {
     "name" : "Advanced Budget",
     "version" : "5.0",
-    "author" : "Camptocamp SA (aw)",
+    "author" : "Camptocamp",
     "category" : "Generic Modules/Accounting",
     "website" : "http://camptocamp.com",
     "description": """

@@ -49,7 +49,7 @@ class base_external_mapping(osv.osv):
     _description = 'Base External Mapping'
     _rec_name = 'model_id'
 
-    def get_oerp_to_external(self, cr, uid, code, ids=[], context=None):
+    def get_oerp_to_external(self, cr, uid, code, ids=[], context=None, langs=[]):
         """From OpenERP values to External
             Search all mapping lines same code and calculated their values
             Return list with dictionary [{},{}]
@@ -75,7 +75,9 @@ class base_external_mapping(osv.osv):
 
         self.logger.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, _("Base External Mapping call %s") % code)
 
-        langs = self.pool.get('res.lang').search(cr, uid, [])
+        if not len(langs)>0:
+            langs = self.pool.get('res.lang').search(cr, uid, [('active','=',True)])
+
         dj_mappline = self.browse(cr, uid, dj_mappline_ids[0])
 
         dj_mappline_line_ids = self.pool.get('base.external.mapping.line').search(cr, uid, [('mapping_id','=',dj_mappline_ids[0]),('active','=',True),'|',('type','=','out'),('type','=','in_out')])

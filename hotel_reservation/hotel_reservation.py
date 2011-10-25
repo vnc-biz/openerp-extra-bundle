@@ -124,7 +124,7 @@ class hotel_reservation(osv.osv):
                                                                                            })],
                                                                      'service_lines':reservation['folio_id']     
                                                                        })
-            cr.execute('insert into hotel_folio_reservation_rel (order_id,invoice_id) values (%d,%d)', (reservation.id, folio))  
+            cr.execute('insert into hotel_folio_reservation_rel (order_id,invoice_id) values (%s,%s)', (reservation.id, folio))
             self.write(cr, uid, ids, {'state':'done'})
         return True
 hotel_reservation()

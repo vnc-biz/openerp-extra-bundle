@@ -75,6 +75,6 @@
 			action="open_board_reservation"
 			sequence="1"
 			id="menu_board_reservation" icon="terp-graph"
-			parent="board.dashboard_menu"/>
+			parent="board.menu_view_board_form"/>
 	</data>
 </openerp>

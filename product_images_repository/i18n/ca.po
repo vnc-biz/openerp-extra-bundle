@@ -7,15 +7,13 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-03-17 10:03+0000\n"
-"PO-Revision-Date: 2011-03-27 19:46+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2011-10-27 16:24+0100\n"
+"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-09-14 05:14+0000\n"
-"X-Generator: Launchpad (build 13921)\n"
+"Plural-Forms: \n"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:39
@@ -26,7 +24,7 @@ msgstr "La ruta del directori media d'OpenERP no existeix en el servidor!"
 #. module: product_images_repository
 #: constraint:res.company:0
 msgid "Error! You can not create recursive companies."
-msgstr "Error! No podeu crear companyies recursives."
+msgstr "Error! No pot crear companyies recursives."
 
 #. module: product_images_repository
 #: field:load.product.media,media_fname:0
@@ -47,7 +45,7 @@ msgstr "La ruta del directori media no es troba configurat a la companyia!"
 #. module: product_images_repository
 #: model:ir.model,name:product_images_repository.model_load_product_media
 msgid "Load Product Medias"
-msgstr "Carrega media dels productes"
+msgstr "Publica medis dels productes"
 
 #. module: product_images_repository
 #: field:res.company,local_media_repository:0
@@ -57,7 +55,7 @@ msgstr "Ruta del repositori de les imatges"
 #. module: product_images_repository
 #: model:ir.actions.act_window,name:product_images_repository.load_product_media_act_window
 msgid "Load an image"
-msgstr "Carrega una imatge"
+msgstr "Publica una imatge"
 
 #. module: product_images_repository
 #: model:ir.model,name:product_images_repository.model_product_images
@@ -73,16 +71,12 @@ msgstr "Selecciona una imatge o media per carregar"
 #: code:addons/product_images_repository/wizard/load_product_media.py:67
 #, python-format
 msgid "Context is missing !"
-msgstr "Context es buit!"
+msgstr "El context és buit!"
 
 #. module: product_images_repository
 #: view:product.images:0
-msgid ""
-"Simple update image (use the shortcut on the right sidebar to simply attach "
-"a new media)"
-msgstr ""
-"Senzill publicació d'imatges (utilitza l'accés directe a la barra lateral "
-"dreta per a fixar simplement un nou mitjà)"
+msgid "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
+msgstr "Utilitza l'assistent per publicar imatges"
 
 #. module: product_images_repository
 #: view:product.images:0
@@ -116,16 +110,13 @@ msgstr "Error!"
 
 #. module: product_images_repository
 #: help:res.company,local_media_repository:0
-msgid ""
-"Local mounted path on OpenERP server where all your images are stored."
-msgstr ""
-"Directori local de muntatge al servidor d'OpenERP quan totes les seves "
-"imatges es publiquin."
+msgid "Local mounted path on OpenERP server where all your images are stored."
+msgstr "Directori local de muntatge al servidor d'OpenERP quan totes les seves imatges es publiquin."
 
 #. module: product_images_repository
 #: view:load.product.media:0
 msgid "Load Product Image"
-msgstr "Carrega imatge del producte"
+msgstr "Publica imatge del producte"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:76
@@ -141,7 +132,7 @@ msgstr "Imatge"
 #. module: product_images_repository
 #: view:res.company:0
 msgid "Product images"
-msgstr "Imatge de productes"
+msgstr "Imatges de producte"
 
 #. module: product_images_repository
 #: view:load.product.media:0
@@ -153,3 +144,4 @@ msgstr "_Cancel"
 #, python-format
 msgid "No filename !"
 msgstr "Sense fitxer!"
+

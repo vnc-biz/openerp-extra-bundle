@@ -1,21 +1,19 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* product_images_repository
+# 	* product_images_repository
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-17 10:03+0000\n"
-"PO-Revision-Date: 2011-03-21 20:36+0000\n"
-"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
-"<resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-10-27 14:25+0000\n"
+"PO-Revision-Date: 2011-10-27 16:27+0100\n"
+"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-09-14 05:14+0000\n"
-"X-Generator: Launchpad (build 13921)\n"
+"Plural-Forms: \n"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:39
@@ -42,13 +40,12 @@ msgstr "Modificar fichero"
 #: code:addons/product_images_repository/wizard/load_product_media.py:72
 #, python-format
 msgid "The path to OpenERP medias folder is not configured on the company !"
-msgstr ""
-"La ruta del directorio media no se encuentra configurado en la compañía!"
+msgstr "La ruta del directorio media no se encuentra configurado en la compañía!"
 
 #. module: product_images_repository
 #: model:ir.model,name:product_images_repository.model_load_product_media
 msgid "Load Product Medias"
-msgstr "Carga media de los productos"
+msgstr "Publica medios en los productos"
 
 #. module: product_images_repository
 #: field:res.company,local_media_repository:0
@@ -58,32 +55,51 @@ msgstr "Ruta del repositorio de las imágenes"
 #. module: product_images_repository
 #: model:ir.actions.act_window,name:product_images_repository.load_product_media_act_window
 msgid "Load an image"
-msgstr "Carga una imagen"
+msgstr "Publica una imagen"
 
 #. module: product_images_repository
-#: model:ir.model,name:product_images_repository.model_product_images
-msgid "Products Image gallery"
-msgstr "Galería imágenes del producto"
+#: model:ir.module.module,description:product_images_repository.module_meta_information
+msgid ""
+"Add a repository functionnality to the product's images :\n"
+" - Images repository: configure a path where all your files are stored on the OpenERP Server thereby you just have to type the name (instead of the full path) of the image file in the image's link field and OpenERP will automatically get the image in the right folder.\n"
+" - Wizard to simply add or modify images (upload the image in the repository and create it with the right link on the product)\n"
+" - Allow to add other types of files than images (*.jpg, *.gif, *.png) like flash, pdf... They are simply not displayed on the thumbnail. (Preparation for a future module which allow to send these files with ftp/sftp on Magento as images stay exported with MagentoERPconnect)\n"
+"\n"
+"Configure the \"Images Repository Path\" on the company, that is the folder where all your images will be stored.\n"
+"The images stored in the repository must be of type \"link\" and the filename must only contains the name of the file.\n"
+"OpenERP will search for them in the configured path.\n"
+"You can use the wizard \"Load an image\" on the products to copy the image directly in the repository.\n"
+msgstr ""
+"Add a repository functionnality to the product's images :\n"
+" - Images repository: configure a path where all your files are stored on the OpenERP Server thereby you just have to type the name (instead of the full path) of the image file in the image's link field and OpenERP will automatically get the image in the right folder.\n"
+" - Wizard to simply add or modify images (upload the image in the repository and create it with the right link on the product)\n"
+" - Allow to add other types of files than images (*.jpg, *.gif, *.png) like flash, pdf... They are simply not displayed on the thumbnail. (Preparation for a future module which allow to send these files with ftp/sftp on Magento as images stay exported with MagentoERPconnect)\n"
+"\n"
+"Configure the \"Images Repository Path\" on the company, that is the folder where all your images will be stored.\n"
+"The images stored in the repository must be of type \"link\" and the filename must only contains the name of the file.\n"
+"OpenERP will search for them in the configured path.\n"
+"You can use the wizard \"Load an image\" on the products to copy the image directly in the repository.\n"
 
 #. module: product_images_repository
 #: view:load.product.media:0
 msgid "Select the image or media to load"
-msgstr "Selecciona una imagen o media para cargar"
+msgstr "Selecciona una imagen o medio para publicar"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:67
 #, python-format
 msgid "Context is missing !"
-msgstr "Context es vacío!"
+msgstr "El  context es vacío!"
 
 #. module: product_images_repository
 #: view:product.images:0
-msgid ""
-"Simple update image (use the shortcut on the right sidebar to simply attach "
-"a new media)"
-msgstr ""
-"Sencilla publicación de imágenes (utiliza el acceso directo a la barra "
-"lateral derecha para fijar simplemente un nuevo media)"
+msgid "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
+msgstr "Utiliza el asistente Publica imágenes para publicar imágenes"
+
+#. module: product_images_repository
+#: model:ir.module.module,shortdesc:product_images_repository.module_meta_information
+msgid "product_images_repository"
+msgstr "Repositorio de imágenes de productos"
 
 #. module: product_images_repository
 #: view:product.images:0
@@ -117,22 +133,24 @@ msgstr "Error!"
 
 #. module: product_images_repository
 #: help:res.company,local_media_repository:0
-msgid ""
-"Local mounted path on OpenERP server where all your images are stored."
-msgstr ""
-"Directorio local de montaje al servidor de OpenERP cuando todas sus imágenes "
-"se publiquen."
+msgid "Local mounted path on OpenERP server where all your images are stored."
+msgstr "Directorio local de montaje al servidor de OpenERP cuando todas sus imágenes se publiquen."
 
 #. module: product_images_repository
 #: view:load.product.media:0
 msgid "Load Product Image"
-msgstr "Carga imagen del producto"
+msgstr "Publica imagen del producto"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:76
 #, python-format
 msgid "No media selected !"
 msgstr "No ha seleccionado ningún media!"
+
+#. module: product_images_repository
+#: model:ir.model,name:product_images_repository.model_product_images
+msgid "Products Image gallery"
+msgstr "Galería imágenes del producto"
 
 #. module: product_images_repository
 #: field:load.product.media,media:0
@@ -142,7 +160,7 @@ msgstr "Imagen"
 #. module: product_images_repository
 #: view:res.company:0
 msgid "Product images"
-msgstr "Imagen de productos"
+msgstr "Imagenes del producto"
 
 #. module: product_images_repository
 #: view:load.product.media:0
@@ -154,3 +172,4 @@ msgstr "_Cancel"
 #, python-format
 msgid "No filename !"
 msgstr "Sin fijar!"
+

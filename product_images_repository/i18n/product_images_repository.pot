@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.1\n"
+"Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-17 10:03+0000\n"
-"PO-Revision-Date: 2011-03-17 10:03+0000\n"
+"POT-Creation-Date: 2011-10-27 14:25+0000\n"
+"PO-Revision-Date: 2011-10-27 14:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,9 +58,27 @@ msgid "Load an image"
 msgstr "Load an image"
 
 #. module: product_images_repository
-#: model:ir.model,name:product_images_repository.model_product_images
-msgid "Products Image gallery"
-msgstr "Products Image gallery"
+#: model:ir.module.module,description:product_images_repository.module_meta_information
+msgid "Add a repository functionnality to the product's images :\n"
+" - Images repository: configure a path where all your files are stored on the OpenERP Server thereby you just have to type the name (instead of the full path) of the image file in the image's link field and OpenERP will automatically get the image in the right folder.\n"
+" - Wizard to simply add or modify images (upload the image in the repository and create it with the right link on the product)\n"
+" - Allow to add other types of files than images (*.jpg, *.gif, *.png) like flash, pdf... They are simply not displayed on the thumbnail. (Preparation for a future module which allow to send these files with ftp/sftp on Magento as images stay exported with MagentoERPconnect)\n"
+"\n"
+"Configure the \"Images Repository Path\" on the company, that is the folder where all your images will be stored.\n"
+"The images stored in the repository must be of type \"link\" and the filename must only contains the name of the file.\n"
+"OpenERP will search for them in the configured path.\n"
+"You can use the wizard \"Load an image\" on the products to copy the image directly in the repository.\n"
+""
+msgstr "Add a repository functionnality to the product's images :\n"
+" - Images repository: configure a path where all your files are stored on the OpenERP Server thereby you just have to type the name (instead of the full path) of the image file in the image's link field and OpenERP will automatically get the image in the right folder.\n"
+" - Wizard to simply add or modify images (upload the image in the repository and create it with the right link on the product)\n"
+" - Allow to add other types of files than images (*.jpg, *.gif, *.png) like flash, pdf... They are simply not displayed on the thumbnail. (Preparation for a future module which allow to send these files with ftp/sftp on Magento as images stay exported with MagentoERPconnect)\n"
+"\n"
+"Configure the \"Images Repository Path\" on the company, that is the folder where all your images will be stored.\n"
+"The images stored in the repository must be of type \"link\" and the filename must only contains the name of the file.\n"
+"OpenERP will search for them in the configured path.\n"
+"You can use the wizard \"Load an image\" on the products to copy the image directly in the repository.\n"
+""
 
 #. module: product_images_repository
 #: view:load.product.media:0
@@ -77,6 +95,11 @@ msgstr "Context is missing !"
 #: view:product.images:0
 msgid "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
 msgstr "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
+
+#. module: product_images_repository
+#: model:ir.module.module,shortdesc:product_images_repository.module_meta_information
+msgid "product_images_repository"
+msgstr "product_images_repository"
 
 #. module: product_images_repository
 #: view:product.images:0
@@ -123,6 +146,11 @@ msgstr "Load Product Image"
 #, python-format
 msgid "No media selected !"
 msgstr "No media selected !"
+
+#. module: product_images_repository
+#: model:ir.model,name:product_images_repository.model_product_images
+msgid "Products Image gallery"
+msgstr "Products Image gallery"
 
 #. module: product_images_repository
 #: field:load.product.media,media:0

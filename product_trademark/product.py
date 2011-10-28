@@ -23,12 +23,19 @@
 
 from osv import fields, osv
 
+class product_product(osv.osv):
+    _inherit = 'product.product'
+
+    _columns = {
+        'manufacturer_pname': fields.char('Name', size=64, help="Manufacturer Product Name"),
+        'manufacturer_pref': fields.char('Code', size=64, help="Manufacturer Product Code"),
+    }
+product_product()
+
 class product_template(osv.osv):
     _inherit = 'product.template'
 
     _columns = {
         'manufacturer': fields.many2one('res.partner', 'Manufacturer'),
-        'manufacturer_pname': fields.char('Name', size=64, help="Manufacturer Product Name"),
-        'manufacturer_pref': fields.char('Code', size=64, help="Manufacturer Product Code"),
     }
 product_template()

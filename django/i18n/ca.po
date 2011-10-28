@@ -4,21 +4,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.15\n"
+"Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-22 16:41:53+0000\n"
-"PO-Revision-Date: 2011-03-22 17:43+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-03-22 16:41+0000\n"
+"PO-Revision-Date: 2011-04-20 06:53+0000\n"
+"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
+"<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-10-28 05:57+0000\n"
+"X-Generator: Launchpad (build 14197)\n"
 
 #. module: django
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "The Object name must start with x_ and not contain any special character !"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
 
 #. module: django
 #: field:django.create.model.wizard,state:0
@@ -28,22 +31,22 @@ msgstr "Estat"
 #. module: django
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr "Invalid model name in the action definition."
+msgstr ""
 
 #. module: django
 #: view:django.create.model.wizard:0
 msgid "Create Model"
-msgstr "Crear model"
+msgstr "Crea model"
 
 #. module: django
 #: field:res.partner,dj_email:0
 msgid "Email ID"
-msgstr "ID correu"
+msgstr "Email ID"
 
 #. module: django
 #: constraint:ir.ui.view:0
 msgid "Invalid XML for View Architecture!"
-msgstr "Invalid XML for View Architecture!"
+msgstr ""
 
 #. module: django
 #: model:ir.model,name:django.model_django_create_model_wizard
@@ -58,21 +61,14 @@ msgstr "ID usuari"
 #. module: django
 #: view:django.create.model.wizard:0
 msgid "Select model OpenObject to create model Django."
-msgstr "Selecciona el model d'OpenObject per crear el model Django."
+msgstr "Seleccioni el model OpenObject per crear el model de Django."
 
 #. module: django
 #: model:ir.actions.act_window,name:django.act_django_create_model
 #: model:ir.actions.act_window,name:django.action_django_model_wizard
 #: model:ir.ui.menu,name:django.django_wizard_model
 msgid "Create Django Model"
-msgstr "Crear model Django"
-
-#. module: django
-#: model:ir.actions.act_window,name:django.act_django_sql_update
-#: model:ir.actions.act_window,name:django.action_django_model_wizard
-#: model:ir.ui.menu,name:django.django_wizard_model
-msgid "Create SQL Update"
-msgstr "Crear SQL"
+msgstr "Crea el model Django"
 
 #. module: django
 #: view:django.create.model.wizard:0
@@ -106,23 +102,20 @@ msgid ""
 "\n"
 "OpenERP integration to Django.\n"
 "Create OpenObject Model to Django Model\n"
-"This module was built generically but in focus of the zzsaas service of Zikzakmedia and Zoook e-sale for OpenERP\n"
+"This module was built generically but in focus of the zzsaas service of "
+"Zikzakmedia and Zoook e-sale for OpenERP\n"
 "    "
 msgstr ""
-"\n"
-"Integració Django amb OpenERP.\n"
-"Crea model OpenObject a model Django\.nAquest mòdul ha estat dissenyat de forma genèrica però pensat pel  servei ZZSaaS i el comerç electrònic Zoook\n"
-"    "
 
 #. module: django
 #: field:django.create.model.wizard,filename:0
 msgid "File Name"
-msgstr "Nom fitxer"
+msgstr "Nom del fitxer"
 
 #. module: django
 #: selection:django.create.model.wizard,state:0
 msgid "Done"
-msgstr "Realitzat"
+msgstr "Done"
 
 #. module: django
 #: field:django.create.model.wizard,file:0
@@ -137,13 +130,9 @@ msgstr "Informació Django"
 #. module: django
 #: view:django.create.model.wizard:0
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #. module: django
 #: view:django.create.model.wizard:0
 msgid "Close"
-msgstr "Tancar"
-
-#~ msgid "Result"
-#~ msgstr "Resultat"
-
+msgstr "Tanca"

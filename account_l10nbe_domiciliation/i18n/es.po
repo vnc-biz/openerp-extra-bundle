@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-09-14 05:02+0000\n"
-"X-Generator: Launchpad (build 13921)\n"
+"X-Launchpad-Export-Date: 2011-10-28 05:44+0000\n"
+"X-Generator: Launchpad (build 14197)\n"
 
 #. module: account_l10nbe_domiciliation
 #: view:res.company:0
@@ -35,7 +35,7 @@ msgstr "Registro"
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,file:0
 msgid "Saved File"
-msgstr ""
+msgstr "Guardar fichero"
 
 #. module: account_l10nbe_domiciliation
 #: field:account.invoice,domiciled_send_date:0
@@ -77,7 +77,7 @@ msgstr "Enviar archivo..."
 #. module: account_l10nbe_domiciliation
 #: field:invoice.export.log,note:0
 msgid "Creation Log"
-msgstr ""
+msgstr "Creación del registro"
 
 #. module: account_l10nbe_domiciliation
 #: constraint:ir.actions.act_window:0
@@ -113,7 +113,7 @@ msgstr "Fecha de creación"
 #. module: account_l10nbe_domiciliation
 #: view:invoice.export.log:0
 msgid "Payment Export Logs"
-msgstr ""
+msgstr "Registros de exportación de pago"
 
 #. module: account_l10nbe_domiciliation
 #: wizard_field:invoice.export.dom,init,msg1:0

@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-17 10:03+0000\n"
-"PO-Revision-Date: 2011-10-27 16:24+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2011-10-27 14:25+0000\n"
+"PO-Revision-Date: 2011-10-27 15:51+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2011-10-28 05:57+0000\n"
+"X-Generator: Launchpad (build 14197)\n"
 
 #. module: product_images_repository
 #: code:addons/product_images_repository/wizard/load_product_media.py:39
@@ -58,9 +60,28 @@ msgid "Load an image"
 msgstr "Publica una imatge"
 
 #. module: product_images_repository
-#: model:ir.model,name:product_images_repository.model_product_images
-msgid "Products Image gallery"
-msgstr "Galeria imatges del producte"
+#: model:ir.module.module,description:product_images_repository.module_meta_information
+msgid ""
+"Add a repository functionnality to the product's images :\n"
+" - Images repository: configure a path where all your files are stored on "
+"the OpenERP Server thereby you just have to type the name (instead of the "
+"full path) of the image file in the image's link field and OpenERP will "
+"automatically get the image in the right folder.\n"
+" - Wizard to simply add or modify images (upload the image in the repository "
+"and create it with the right link on the product)\n"
+" - Allow to add other types of files than images (*.jpg, *.gif, *.png) like "
+"flash, pdf... They are simply not displayed on the thumbnail. (Preparation "
+"for a future module which allow to send these files with ftp/sftp on Magento "
+"as images stay exported with MagentoERPconnect)\n"
+"\n"
+"Configure the \"Images Repository Path\" on the company, that is the folder "
+"where all your images will be stored.\n"
+"The images stored in the repository must be of type \"link\" and the "
+"filename must only contains the name of the file.\n"
+"OpenERP will search for them in the configured path.\n"
+"You can use the wizard \"Load an image\" on the products to copy the image "
+"directly in the repository.\n"
+msgstr ""
 
 #. module: product_images_repository
 #: view:load.product.media:0
@@ -75,8 +96,15 @@ msgstr "El context és buit!"
 
 #. module: product_images_repository
 #: view:product.images:0
-msgid "Simple update image (use the shortcut on the right sidebar to simply attach a new media)"
+msgid ""
+"Simple update image (use the shortcut on the right sidebar to simply attach "
+"a new media)"
 msgstr "Utilitza l'assistent per publicar imatges"
+
+#. module: product_images_repository
+#: model:ir.module.module,shortdesc:product_images_repository.module_meta_information
+msgid "product_images_repository"
+msgstr ""
 
 #. module: product_images_repository
 #: view:product.images:0
@@ -110,8 +138,11 @@ msgstr "Error!"
 
 #. module: product_images_repository
 #: help:res.company,local_media_repository:0
-msgid "Local mounted path on OpenERP server where all your images are stored."
-msgstr "Directori local de muntatge al servidor d'OpenERP quan totes les seves imatges es publiquin."
+msgid ""
+"Local mounted path on OpenERP server where all your images are stored."
+msgstr ""
+"Directori local de muntatge al servidor d'OpenERP quan totes les seves "
+"imatges es publiquin."
 
 #. module: product_images_repository
 #: view:load.product.media:0
@@ -123,6 +154,11 @@ msgstr "Publica imatge del producte"
 #, python-format
 msgid "No media selected !"
 msgstr "No ha seleccionat cap media!"
+
+#. module: product_images_repository
+#: model:ir.model,name:product_images_repository.model_product_images
+msgid "Products Image gallery"
+msgstr "Galeria imatges del producte"
 
 #. module: product_images_repository
 #: field:load.product.media,media:0
@@ -144,4 +180,3 @@ msgstr "_Cancel"
 #, python-format
 msgid "No filename !"
 msgstr "Sense fitxer!"
-

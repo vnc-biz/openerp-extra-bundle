@@ -8,25 +8,25 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-03-23 09:49+0000\n"
-"PO-Revision-Date: 2011-11-07 13:07+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Hungarian <hu@li.org>\n"
+"PO-Revision-Date: 2011-11-08 13:01+0000\n"
+"Last-Translator: Sándor Csaba <Unknown>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-11-08 06:17+0000\n"
-"X-Generator: Launchpad (build 14231)\n"
+"X-Launchpad-Export-Date: 2011-11-09 05:14+0000\n"
+"X-Generator: Launchpad (build 14263)\n"
 
 #. module: product_images_olbs
 #: model:ir.model,name:product_images_olbs.model_product_product
 #: field:product.images,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Termék"
 
 #. module: product_images_olbs
 #: model:ir.module.module,shortdesc:product_images_olbs.module_meta_information
 msgid "Product Image Gallery"
-msgstr ""
+msgstr "Termék képgalériája"
 
 #. module: product_images_olbs
 #: constraint:product.product:0
@@ -36,13 +36,13 @@ msgstr ""
 #. module: product_images_olbs
 #: field:product.images,preview:0
 msgid "unknown"
-msgstr ""
+msgstr "ismeretlen"
 
 #. module: product_images_olbs
 #: view:product.images:0
 #: field:product.images,image:0
 msgid "Image"
-msgstr ""
+msgstr "Kép"
 
 #. module: product_images_olbs
 #: model:ir.module.module,description:product_images_olbs.module_meta_information
@@ -55,57 +55,66 @@ msgid ""
 "    the upcoming e-commerce system for Open ERP by Open Labs\n"
 "    "
 msgstr ""
+"\n"
+"    Ez a modul létrehoz egy képgalériát a termékek számára.\n"
+"    Minden termékhez adhat hozzá képet.\n"
+"    \n"
+"    Ez a modul általános, de eredetileg a Magento ERP csatlakozóra és\n"
+"    az Open ERP várható elektronikus kereskedeli rendszerére hozták létre.\n"
+"    "
 
 #. module: product_images_olbs
 #: field:product.images,name:0
 msgid "Image Title"
-msgstr ""
+msgstr "Kép címe"
 
 #. module: product_images_olbs
 #: view:product.images:0
 msgid "Preview (Only when saved)"
-msgstr ""
+msgstr "Előnézet (csak mentés után)"
 
 #. module: product_images_olbs
 #: constraint:product.product:0
 msgid "Error: Invalid ean code"
-msgstr ""
+msgstr "Hiba! Érvénytelen vonalkód."
 
 #. module: product_images_olbs
 #: help:product.images,link:0
 msgid ""
 "Images can be linked from files on your file system or remote (Preferred)"
 msgstr ""
+"Képet a helyi fájlrendszeréből vagy az internetről csatolhat. Ez utóbbi az "
+"alapértelmezett."
 
 #. module: product_images_olbs
 #: view:product.images:0
 #: field:product.images,comments:0
 msgid "Comments"
-msgstr ""
+msgstr "Megjegyzések"
 
 #. module: product_images_olbs
 #: field:product.images,filename:0
 msgid "File Location"
-msgstr ""
+msgstr "Elérési útvonal"
 
 #. module: product_images_olbs
 #: model:ir.actions.act_window,name:product_images_olbs.act_product_2_images
 #: view:product.product:0
 msgid "Images"
-msgstr ""
+msgstr "Képek"
 
 #. module: product_images_olbs
 #: view:product.images:0
 #: field:product.product,image_ids:0
 msgid "Product Images"
-msgstr ""
+msgstr "Termék képei"
 
 #. module: product_images_olbs
 #: field:product.images,link:0
 msgid "Link?"
-msgstr ""
+msgstr "Link?"
 
 #. module: product_images_olbs
 #: model:ir.model,name:product_images_olbs.model_product_images
 msgid "Products Image gallery"
-msgstr ""
+msgstr "Termék képgaléria"

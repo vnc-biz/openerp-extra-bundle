@@ -46,14 +46,6 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record model="ir.actions.act_window" id="res_partner_team_new_act">
-            <field name="name">New Team</field>
-            <field name="res_model">res.partner.team</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-        </record>
-
-        <menuitem parent="base.menu_base_partner" id="res_partner_team_all_mi" action="res_partner_team_all_act" />
-        <menuitem parent="res_partner_team_all_mi" id="res_partner_team_new_mi" action="res_partner_team_new_act" />
+        <menuitem parent="base.menu_address_book" id="res_partner_team_all_mi" action="res_partner_team_all_act" />
     </data>
 </openerp>

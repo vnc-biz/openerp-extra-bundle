@@ -38,7 +38,9 @@
     ],
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : [],
+    "update_xml" : [
+        'crm_claim_view.xml',
+    ],
     "active": False,
     "installable": True
 }

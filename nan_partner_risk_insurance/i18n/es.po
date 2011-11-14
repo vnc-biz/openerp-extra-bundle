@@ -8,15 +8,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.6\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2009-09-23 18:14+0000\n"
-"PO-Revision-Date: 2011-10-06 08:09+0000\n"
-"Last-Translator: Albert Cervera i Areny - http://www.NaN-tic.com <albert@nan-"
-"tic.com>\n"
+"PO-Revision-Date: 2011-11-13 13:02+0000\n"
+"Last-Translator: Equipo OPENTIA (http://www.opentia.com) <Unknown>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:57+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2011-11-14 05:30+0000\n"
+"X-Generator: Launchpad (build 14277)\n"
 
 #. module: nan_partner_risk_insurance
 #: field:res.partner,risk_insurance_code_2:0
@@ -31,7 +30,7 @@ msgstr "¡XML inválido para la definición de la vista!"
 #. module: nan_partner_risk_insurance
 #: help:res.partner,company_credit_limit:0
 msgid "Credit limit granted by the company."
-msgstr "Crédito concedido por la companyía."
+msgstr "Límite de crédito concedido por la compañía"
 
 #. module: nan_partner_risk_insurance
 #: field:res.partner,risk_insurance_code:0
@@ -41,7 +40,7 @@ msgstr "Código del seguro"
 #. module: nan_partner_risk_insurance
 #: field:res.partner,company_credit_limit:0
 msgid "Company's Credit Limit"
-msgstr "Crédito concedido por la companyía"
+msgstr "Límite de crédito de la compañía"
 
 #. module: nan_partner_risk_insurance
 #: help:res.partner,risk_insurance_requested:0

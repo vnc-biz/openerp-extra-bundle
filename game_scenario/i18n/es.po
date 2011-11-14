@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 14:37+0000\n"
-"PO-Revision-Date: 2011-08-23 15:27+0000\n"
-"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
+"PO-Revision-Date: 2011-11-13 13:06+0000\n"
+"Last-Translator: Fitoschido <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:46+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2011-11-14 05:30+0000\n"
+"X-Generator: Launchpad (build 14277)\n"
 
 #. module: game_scenario
 #: constraint:ir.model:0
@@ -144,7 +144,7 @@ msgstr "Notas"
 #. module: game_scenario
 #: view:game.scenario.step:0
 msgid "Extra Information"
-msgstr "Información extra"
+msgstr "Información adicional"
 
 #. module: game_scenario
 #: view:game.scenario.step:0

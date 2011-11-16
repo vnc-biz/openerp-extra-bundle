@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-26 06:19+0000\n"
-"PO-Revision-Date: 2011-08-27 15:09+0000\n"
-"Last-Translator: mgaja (GrupoIsep.com) <Unknown>\n"
+"PO-Revision-Date: 2011-11-15 22:53+0000\n"
+"Last-Translator: Equipo OPENTIA (http://www.opentia.com) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:45+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2011-11-16 05:30+0000\n"
+"X-Generator: Launchpad (build 14291)\n"
 
 #. module: board_service
 #: view:sale.forecast.line:0
@@ -36,7 +36,7 @@ msgstr "Borrador líneas de previsión de ventas"
 #. module: board_service
 #: view:board.board:0
 msgid "Sales Pipeline"
-msgstr ""
+msgstr "Cola de ventas"
 
 #. module: board_service
 #: view:sale.forecast.line:0
@@ -125,7 +125,7 @@ msgstr "Casos por sección"
 #. module: board_service
 #: model:ir.actions.act_window,name:board_service.act_hr_timesheet_sheet_my_dept
 msgid "My Departments' Timesheets To Validate"
-msgstr ""
+msgstr "Hojas de tiempo de mis departamentos por validar"
 
 #. module: board_service
 #: model:ir.ui.menu,name:board_service.service_dashboard_menu
@@ -182,7 +182,7 @@ msgstr "Volumen por producto"
 #. module: board_service
 #: view:board.board:0
 msgid "My Departments' Timesheets to Validate"
-msgstr ""
+msgstr "Hojas de tiempo de mis departamentos por validar"
 
 #. module: board_service
 #: view:board.board:0
@@ -193,7 +193,7 @@ msgstr "Mis tareas abiertas"
 #: model:ir.actions.act_window,name:board_service.action_service_random_activities_board
 #: model:ir.ui.menu,name:board_service.menu_random_activities_board
 msgid "Random Activities(Within Last 15 Days)"
-msgstr ""
+msgstr "Actividades varias (durante los últimos 15 días)"
 
 #. module: board_service
 #: view:project.task:0

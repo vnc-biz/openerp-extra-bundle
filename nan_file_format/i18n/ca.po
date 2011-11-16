@@ -6,23 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.12\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-08-31 07:07:33+0000\n"
-"PO-Revision-Date: 2010-08-31 07:07:33+0000\n"
+"POT-Creation-Date: 2010-08-31 07:07+0000\n"
+"PO-Revision-Date: 2011-11-15 16:37+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-11-16 05:30+0000\n"
+"X-Generator: Launchpad (build 14291)\n"
 
 #. module: nan_file_format
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
 msgstr ""
 
 #. module: nan_file_format
 #: help:file.format.field,length:0
-msgid "If the length of the field is 0, it's means that dosen't matter how many chars it take"
+msgid ""
+"If the length of the field is 0, it's means that dosen't matter how many "
+"chars it take"
 msgstr ""
 
 #. module: nan_file_format
@@ -32,7 +36,9 @@ msgstr ""
 
 #. module: nan_file_format
 #: help:file.format.field,align:0
-msgid "If you have writte a specific length, you can decid the alignement of the value"
+msgid ""
+"If you have writte a specific length, you can decid the alignement of the "
+"value"
 msgstr ""
 
 #. module: nan_file_format
@@ -83,7 +89,9 @@ msgstr ""
 #. module: nan_file_format
 #: code:addons/nan_file_format/format.py:0
 #, python-format
-msgid "The field 'Fill Char' of the %s is required, because you have selected and specific length"
+msgid ""
+"The field 'Fill Char' of the %s is required, because you have selected and "
+"specific length"
 msgstr ""
 
 #. module: nan_file_format
@@ -108,10 +116,14 @@ msgstr ""
 
 #. module: nan_file_format
 #: model:ir.module.module,description:nan_file_format.module_meta_information
-msgid "\n"
+msgid ""
+"\n"
 "        Specification for the export file.\n"
-"        We define the model on data extract, configure direcory and filename separator characters in fields and used as a separator text.\n"
-"        We define each field, indicating the order, the name that will be used in the header, and if required length, alignment and fill character, format and number of decimal character.\n"
+"        We define the model on data extract, configure direcory and filename "
+"separator characters in fields and used as a separator text.\n"
+"        We define each field, indicating the order, the name that will be "
+"used in the header, and if required length, alignment and fill character, "
+"format and number of decimal character.\n"
 "    "
 msgstr ""
 
@@ -143,7 +155,9 @@ msgstr ""
 
 #. module: nan_file_format
 #: help:file.format.field,format_number:0
-msgid "This field is only for the format of an integer or a float. E.g. if you have a float and want 2 decimals you have to write '%.2f' (without simple quotes)"
+msgid ""
+"This field is only for the format of an integer or a float. E.g. if you have "
+"a float and want 2 decimals you have to write '%.2f' (without simple quotes)"
 msgstr ""
 
 #. module: nan_file_format
@@ -198,7 +212,9 @@ msgstr ""
 
 #. module: nan_file_format
 #: help:file.format.field,fill_char:0
-msgid "If you have writte a specific length, here you have to specify with which char the program have to fill the empty chars"
+msgid ""
+"If you have writte a specific length, here you have to specify with which "
+"char the program have to fill the empty chars"
 msgstr ""
 
 #. module: nan_file_format
@@ -219,7 +235,9 @@ msgstr ""
 
 #. module: nan_file_format
 #: help:file.format.field,expression:0
-msgid "Where we put the python code. The fields are called like '$name_of_field' (without the simple quotes)"
+msgid ""
+"Where we put the python code. The fields are called like '$name_of_field' "
+"(without the simple quotes)"
 msgstr ""
 
 #. module: nan_file_format
@@ -244,7 +262,8 @@ msgstr ""
 
 #. module: nan_file_format
 #: help:file.format.field,name:0
-msgid "The name of the field. It's used if you have selected the Header checkbox"
+msgid ""
+"The name of the field. It's used if you have selected the Header checkbox"
 msgstr ""
 
 #. module: nan_file_format
@@ -262,4 +281,3 @@ msgstr ""
 #: field:file.format.field,format_number:0
 msgid "Number Format"
 msgstr ""
-

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+        <record id="product_normal_search_view_add_categids" model="ir.ui.view">
+            <field name="name">product.search.form</field>
+            <field name="model">product.category</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Product Category">
+                   <field name="name"/>
+                   <field name="parent_id"/>
+                </search>
+            </field>
+        </record>
+
         <record id="product_normal_form_view_add_categids" model="ir.ui.view">
             <field name="name">product.normal.form</field>
             <field name="model">product.product</field>

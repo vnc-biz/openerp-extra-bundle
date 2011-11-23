@@ -123,7 +123,7 @@ class base_external_mapping(osv.osv):
                     if mappline_rule['out_function']:
                         localspace = {"self":self,"cr":cr,"uid":uid,"ids":ids,"context":context}
                         exec mappline_rule['out_function'] in localspace
-                        value = localspace['value']
+                        value = localspace['value'] if 'value' in localspace else ''
                     else:
                         if mappline_rule['ttype'] in fields_relationals:
                             if mappline_rule['ttype'] == 'many2many': #m2m fields, create list

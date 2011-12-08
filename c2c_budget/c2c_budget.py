@@ -67,11 +67,9 @@ class c2c_budget(osv.osv):
     def name_search(self, cr, user, name, args=None,\
         operator='ilike', context=None, limit=80):
         """search not only for a matching names but also for a matching codes """
-                
-        if not args:
-            args=[]
-        if not context:
-            context={}
+        if context is None: context = {}
+        if args is None: args=[]
+
         ids = self.search(
                             cr, 
                             user, 
@@ -103,11 +101,10 @@ class c2c_budget(osv.osv):
                 return False
         return True        
      
-    def get_periods(self, cr, uid, ids, context={}):
+    def get_periods(self, cr, uid, ids, context=None):
         """ return the list of budget's periods ordered by date_start"""
-        
+        if context is None: context = {}
         period_obj = pooler.get_pool(cr.dbname).get('account.period')
-
         result = []
 
         if type(ids)==int:
@@ -136,15 +133,15 @@ class c2c_budget(osv.osv):
         return result
     
     
-    def get_periods_union(self, cr, uid, ids, context={}):
+    def get_periods_union(self, cr, uid, ids, context=None):
         """ return the list of budget's periods ordered by date_start 
             it returns a unique list that cover all given budgets ids
         """
-        
+        if context is None: context = {}
         period_obj = pooler.get_pool(cr.dbname).get('account.period')
 
         result = []
-        if type(ids)==int:
+        if isinstance(ids, int):
             budget_ids = [ids]
         else: 
             budget_ids = ids
@@ -182,9 +179,9 @@ class c2c_budget(osv.osv):
         
         
     
-    def unlink(self, cr, uid, ids, context={}):
+    def unlink(self, cr, uid, ids, context=None):
         """delete all budget versions when deleting a budget """
-        
+        if context is None: context = {}
         budget_version_obj = pooler.get_pool(cr.dbname).get('c2c_budget.version')
         lines_ids = budget_version_obj.search(
                                                 cr, 

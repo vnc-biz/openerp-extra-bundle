@@ -88,10 +88,11 @@ class c2c_budget_item(osv.osv):
     _order = 'sequence,name'    
     
     def get_real_values_from_analytic_accounts(self, cr, uid, item_id, periods,\
-        lines, company_id, currency_id, change_date, context={}):
+        lines, company_id, currency_id, change_date, context=None):
         """return the sum of analytic move lines for 
         this item (and all subitems)"""
-                
+        if context is None: context = {}
+
         # filter the budget lines to work on
         budget_line_obj = self.pool.get('c2c_budget.line')         
         budget_lines = budget_line_obj.filter_by_items(
@@ -161,9 +162,9 @@ class c2c_budget_item(osv.osv):
     
     
     def get_real_values(self, cr, uid, item, periods, company_id, \
-        currency_id, change_date, context={}):
+        currency_id, change_date, context=None):
         """return the sum of the account move lines for this item """
-        
+        if context is None: context = {}
         result = 0
         
         # get the list of accounts and subaccounts linked to this item
@@ -249,10 +250,11 @@ class c2c_budget_item(osv.osv):
     
     
     
-    def get_accounts(self, cr, uid,  item_ids, company_id, context={}):
+    def get_accounts(self, cr, uid,  item_ids, company_id, context=None):
         """return a list of accounts ids and their sub accounts 
         linked to items (item_ids) and their subitems """
-        
+        if context is None: context = {}
+
         sub_items_ids = self.get_sub_items(cr, item_ids)
         
         sub_items = self.browse(cr, uid, sub_items_ids)

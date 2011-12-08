@@ -40,12 +40,13 @@ class c2c_budget_line(osv.osv):
     A budget version line NOT linked to an analytic account """
     
     
-    def filter_by_period(self, cr, uid, lines, periods_ids, context={}):
+    def filter_by_period(self, cr, uid, lines, periods_ids, context=None):
         """ return a list of lines amoungs those given in parameter that 
         are linked to one of the given periods """
+        if context is None: context = {}
         result = []
         
-        if len(periods_ids) == 0:
+        if not periods_ids:
             return []
         
         for l in lines:
@@ -57,23 +58,25 @@ class c2c_budget_line(osv.osv):
     
     
     def filter_by_date(self, cr, uid, lines, date_start=None,\
-        date_end=None, context={}):
+        date_end=None, context=None):
         """return a list of lines among those given in parameter
             \that stand between date_start and date_end """
+        if context is None: context = {}
         result = []
         
         for l in lines:
-            if (date_start == None or l.period_id.date_start >= date_start)\
-             and (date_end == None or l.period_id.date_stop <= date_end):
+            if (date_start is None or l.period_id.date_start >= date_start)\
+             and (date_end is None or l.period_id.date_stop <= date_end):
                 result.append(l) 
                    
         return result
     
     
     
-    def filter_by_missing_analytic_account(self, cr, uid, lines, context={}):
+    def filter_by_missing_analytic_account(self, cr, uid, lines, context=None):
         """return a list of lines among those given in parameter that are ot 
         linked to a analytic account """
+        if context is None: context = {}
         result = []
         
         for l in lines:
@@ -84,9 +87,10 @@ class c2c_budget_line(osv.osv):
     
     
         
-    def filter_by_items(self, cr, uid, lines, items_ids, context={}):
+    def filter_by_items(self, cr, uid, lines, items_ids, context=None):
         """return a list of lines among those given in parameter 
         that are linked to one of the given items """
+        if context is None: context = {}
         result = []
         
         budget_items_obj = self.pool.get('c2c_budget.item')        
@@ -101,10 +105,11 @@ class c2c_budget_line(osv.osv):
     
     
     def filter_by_analytic_account(self, cr, uid, lines,\
-        analytic_accounts_ids, context={}):
+        analytic_accounts_ids, context=None):
         """return a list of lines among those given in parameter 
         that is linked to analytic_accounts.
         param analytic_accounts_ids should be a list of accounts'ids. """
+        if context is None: context = {}
         result = []
         
         aa_obj = self.pool.get('account.analytic.account')
@@ -123,7 +128,7 @@ class c2c_budget_line(osv.osv):
 
 
     def get_analytic_accounts(self, cr, uid, lines,\
-            company_id, context={}):
+            company_id, context=None):
         """ from a bunch of lines, return all analytic accounts 
         ids linked by those lines. Use it when you need analytic 
         accounts in a financial approach. For a project approach, 
@@ -135,7 +140,7 @@ class c2c_budget_line(osv.osv):
         
         
         
-    def get_projects(self, cr, uid, lines, context={}):
+    def get_projects(self, cr, uid, lines, context=None):
         """ from a bunch of lines, return all analytic accounts ids linked by
          those lines this is an alias of get_analytic_accounts() called when 
          AA are used in a project approach (contrary to a financial approach)
@@ -168,10 +173,10 @@ class c2c_budget_line(osv.osv):
     
     
     
-    def get_periods (self, cr, uid, ids, context={}):
+    def get_periods (self, cr, uid, ids, context=None):
         """return periods informations used by this budget lines.  
         (the periods are selected in the budget lines)"""
-        
+        if context is None: context = {}
         periods = []
         periods_ids = []
         
@@ -196,8 +201,8 @@ class c2c_budget_line(osv.osv):
     
     
     
-    def _get_budget_currency_amount(self, cr, uid, ids, name, arg, context={}):
-        """ return the line's amount xchanged in the budget's currency """ 
+    def _get_budget_currency_amount(self, cr, uid, ids, name, arg, context=None):
+        """ return the line's amount xchanged in the budget's currency """
         res = {}
         
         #We get all values from DB
@@ -225,15 +230,14 @@ class c2c_budget_line(osv.osv):
     
     
     
-    def _get_budget_version_currency(self, cr, uid, context):
+    def _get_budget_version_currency(self, cr, uid, context=None):
         """ return the default currency for this line of account. 
         The default currency is the currency set for the budget 
         version if it exists """
-        
+        if context is None: context = {}
         # if the budget currency is already set
-        if 'currency_id' in context and context['currency_id'] != False:
+        if context.get('currency_id'):
             return context['currency_id']
-            
         return False
  
         
@@ -317,9 +321,9 @@ class c2c_budget_line(osv.osv):
 
 
     def search(self, cr, user, args, offset=0, limit=None, \
-        order=None, context={}, count=False):
+        order=None, context=None, count=False):
         """search through lines that belongs to accessible versions """
-        
+        if context is None: context = {}
         lines_ids =  super(c2c_budget_line, self).search(
                                                             cr, 
                                                             user, 

@@ -44,7 +44,7 @@ class c2c_budget_report_abstraction(osv.osv):
     _defaults = {}
         
         
-    def get_project_group_object(self, cr, uid, context={}):
+    def get_project_group_object(self, cr, uid, context=None):
         """ return the object use to group by projects in reports 
             this is an abstraction level use to allow this module 
             to be overridden in order to use project as analytic accounts

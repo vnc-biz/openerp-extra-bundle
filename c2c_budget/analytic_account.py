@@ -37,10 +37,10 @@ class analytic_account(osv.osv):
 
     _inherit = "account.analytic.account"
     
-    def get_children_map(self, cr, uid, context={}):
+    def get_children_map(self, cr, uid, context=None):
         """ return a dictionnary mapping the parent relation 
             between accounts and their children """
-
+        if context is None: context = {}
         #build a dictionnary {parent_id -> [children_ids]}
         children_ids =  {}
         anal_ids = self.search(cr, uid, [], context)
@@ -56,10 +56,10 @@ class analytic_account(osv.osv):
         return children_ids
     
     
-    def get_children_flat_list(self, cr, uid, ids, context={}):            
+    def get_children_flat_list(self, cr, uid, ids, context=None):
         """return a flat list of all accounts'ids above the ones 
         given in the account structure (included the one given in params)"""
-        
+        if context is None: context = {}
         result= [] 
         
         children_map = self.get_children_map(cr, uid, context)

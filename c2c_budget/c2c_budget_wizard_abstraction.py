@@ -45,7 +45,7 @@ class c2c_budget_wizard_abstraction(osv.osv):
     _defaults = {}
     
     
-    def budget_vs_real_get_form(self, cr, uid, data, context={}):
+    def budget_vs_real_get_form(self, cr, uid, data, context=None):
         """ return a piece of form used in the budget_vs_real wizard """
 
         return """<separator string="Select Analytic Accounts 
@@ -59,7 +59,7 @@ class c2c_budget_wizard_abstraction(osv.osv):
         """
                
                
-    def budget_vs_real_get_fields(self, cr, uid, data, context={}):
+    def budget_vs_real_get_fields(self, cr, uid, data, context=None):
         """ return some fields of form used in the budget_vs_real wizard """
  
         fields = {}
@@ -75,7 +75,7 @@ class c2c_budget_wizard_abstraction(osv.osv):
         return fields
 
 
-    def budget_by_period_get_form(self, cr, uid, data, context={}):
+    def budget_by_period_get_form(self, cr, uid, data, context=None):
         """ return a piece of form used in the budget_by_period wizard """
 
         return """<separator string="Select Analytic Accounts 
@@ -88,7 +88,7 @@ class c2c_budget_wizard_abstraction(osv.osv):
         """
                
                
-    def budget_by_period_get_fields(self, cr, uid, data, context={}):
+    def budget_by_period_get_fields(self, cr, uid, data, context=None):
         """ return some fields of form used in the budget_by_period wizard """
  
         fields = {}
@@ -104,7 +104,7 @@ class c2c_budget_wizard_abstraction(osv.osv):
         return fields
     
     
-    def advanced_search_get_form(self, cr, uid, data, context={}):
+    def advanced_search_get_form(self, cr, uid, data, context=None):
         """ return a piece of form used in the advanced_search """
         
         return """<separator string="Choose Analytic Accounts 
@@ -115,7 +115,7 @@ class c2c_budget_wizard_abstraction(osv.osv):
               <field name="empty_aa_too" colspan="2"/>"""
         
         
-    def advanced_search_get_fields(self, cr, uid, data, context={}):
+    def advanced_search_get_fields(self, cr, uid, data, context=None):
         """ return some fields of form used in the advanced_search wizard """
         
         fields = {}

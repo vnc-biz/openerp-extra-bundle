@@ -66,7 +66,7 @@ class c2c_budget_version(osv.osv):
 
 
     
-    def get_period(self, cr, uid, version, date, context={}):
+    def get_period(self, cr, uid, version, date, context=None):
         """ return the period corresponding to the given date 
         for the given version """
         
@@ -87,7 +87,7 @@ class c2c_budget_version(osv.osv):
       
     
     
-    def get_periods (self, cr, uid, version, context={}):
+    def get_periods (self, cr, uid, version, context=None):
         """return periods informations used by this version. 
         (the periods are those between start and end dates defined in budget)"""
         
@@ -97,7 +97,7 @@ class c2c_budget_version(osv.osv):
  
         
     def get_next_periods (self, cr, uid,  version, start_period,\
-        periods_nbr, context={}):
+        periods_nbr, context=None):
         """ return a list of "periods_nbr" periods that follow the 
         "start_period" for the given version """
         
@@ -116,10 +116,9 @@ class c2c_budget_version(osv.osv):
          
  
         
-    def get_previous_period(self, cr, uid, version, period, context={}):
+    def get_previous_period(self, cr, uid, version, period, context=None):
         """ return the period that preceed the one given in param. 
             return None if there is no preceeding period defined """
-
         period_obj = self.pool.get('account.period')        
         
         ids = period_obj.search(
@@ -137,7 +136,7 @@ class c2c_budget_version(osv.osv):
     
     
     
-    def get_next_period(self, cr, uid, version, period, context={}):
+    def get_next_period(self, cr, uid, version, period, context=None):
         """ return the period that follow the one given in param. 
             return None if there is no next period defined """
         nexts = self.get_next_periods(cr, uid, version, period, 1, context)
@@ -148,7 +147,7 @@ class c2c_budget_version(osv.osv):
         
 
     def get_filtered_budget_values(self, cr,uid, version, lines, \
-        period_start=None, period_end=None, context={}):
+        period_start=None, period_end=None, context=None):
         """ 
         for a given version compute items' values on lines between 
         period_start and period_end included 
@@ -158,7 +157,7 @@ class c2c_budget_version(osv.osv):
         period_end is a c2c_budget.period object
         return a dict: item_id => value
         """
-        
+        if context is None: context = {}
         #find periods used by this version that stand between period_start and period_end included.
         filtered_periods= []
         periods = self.get_periods(cr, uid, version, context)
@@ -181,13 +180,13 @@ class c2c_budget_version(osv.osv):
              
 
     
-    def get_budget_values(self, cr, uid, version, lines, context={}):
+    def get_budget_values(self, cr, uid, version, lines, context=None):
         """ for a given version compute items' values on lines 
             version is a budget_version object
             lines is a list of budget_lines objects to work on
             return a dict: item_id => value
         """
-
+        if context is None: context = {}
         
         budget_item_obj = self.pool.get('c2c_budget.item')        
         items = budget_item_obj.get_sorted_list(
@@ -219,9 +218,9 @@ class c2c_budget_version(osv.osv):
         
         
     def get_real_values_from_analytic_accounts(self, cr, uid, \
-        version, lines, context={}):
+        version, lines, context=None):
         """ return the values from the analytic accounts """
-        
+        if context is None: context = {}
         budget_item_obj = self.pool.get('c2c_budget.item')        
         items = budget_item_obj.get_sorted_list(cr, uid, \
             version.budget_id.budget_item_id.id)            
@@ -253,9 +252,9 @@ class c2c_budget_version(osv.osv):
 
 
 
-    def get_real_values(self, cr, uid, version, lines, context={}):
+    def get_real_values(self, cr, uid, version, lines, context=None):
         """ return the values from the general account """
-        
+        if context is None: context = {}
         budget_item_obj = self.pool.get('c2c_budget.item')        
         items = budget_item_obj.get_sorted_list(
                                         cr, 
@@ -344,9 +343,9 @@ class c2c_budget_version(osv.osv):
 
     
     
-    def unlink(self, cr, uid, ids, context={}):
+    def unlink(self, cr, uid, ids, context=None):
         """delete all budget lines when deleting a budget version """
-        
+        if context is None: context = {}
         budget_lines_obj = pooler.get_pool(cr.dbname).get('c2c_budget.line')
         lines_ids = budget_lines_obj.search(
                                             cr, 

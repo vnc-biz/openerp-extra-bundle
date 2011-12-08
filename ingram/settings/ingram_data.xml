@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<openerp>
+	<data noupdate="1">
+
+        <record forcecreate="True" id="ir_cron_ingram_import_category_scheduler_action" model="ir.cron">
+            <field name="name">Ingram Import Categories</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'ingram'" name="model"/>
+            <field eval="'run_ingram_import_category'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_ingram_import_product_scheduler_action" model="ir.cron">
+            <field name="name">Ingram Import Products</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'ingram'" name="model"/>
+            <field eval="'run_ingram_import_product'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+	</data>
+</openerp>

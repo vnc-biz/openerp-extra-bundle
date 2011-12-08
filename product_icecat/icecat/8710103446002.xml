@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ICECAT-interface SYSTEM "http://data.icecat.biz/dtd/ICECAT-interface_response.dtd">
+	<!-- source: ICEcat.biz 2011 -->
+	<ICECAT-interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://data.icecat.biz/xsd/ICECAT-interface_response.xsd">
+      <Product Code="1" HighPic="http://images.icecat.biz/img/norm/high/3554486-Philips.jpg" HighPicHeight="400" HighPicSize="11973" HighPicWidth="159" ID="3554486" LowPic="http://images.icecat.biz/img/norm/low/3554486-Philips.jpg" LowPicHeight="200" LowPicSize="7793" LowPicWidth="79" Name="HS8440 cortapatillas de precisión Afeitadora NIVEA FOR MEN" Prod_id="HS8440/23" Quality="ICECAT" ReleaseDate="2009-08-25" ThumbPic="http://images.icecat.biz/thumbs/3554486.jpg" ThumbPicSize="2693" Title="Philips  HS8440 cortapatillas de precisión Afeitadora NIVEA FOR MEN">
+       <Category ID="1337">
+       
+    <Name ID="497049" Value="afeitadoras" langid="6"/>
+
+       </Category>
+      
+    <CategoryFeatureGroup ID="1868" No="100">
+     <FeatureGroup ID="0">
+       <Name ID="510134" Value="Detalles técnicos" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="3806" No="70">
+     <FeatureGroup ID="5">
+       <Name ID="510111" Value="Exhibición" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="1869" No="60">
+     <FeatureGroup ID="14">
+       <Name ID="510119" Value="Peso y dimensiones" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="1870" No="88">
+     <FeatureGroup ID="27">
+       <Name ID="510131" Value="Contro de energía" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="3798" No="0">
+     <FeatureGroup ID="67">
+       <Name ID="510168" Value="Empaquetado" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="3804" No="65">
+     <FeatureGroup ID="79">
+       <Name ID="510180" Value="Iluminación/Alarmas" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="3805" No="80">
+     <FeatureGroup ID="116">
+       <Name ID="510214" Value="Contenido del embalaje" langid="6"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+
+        <EANCode EAN="8710103446002"/>
+        <EANCode EAN="8710103446026"/>
+        <EANCode EAN="8710103472933"/>
+      <ProductBundled/>
+      
+    <ProductDescription ID="24150427" LongDesc="Sigue suavemente los contornos del rostro, para un afeitado apurado y los anillos estiran la piel y levantan el vello para un afeitado perfecto. La nueva loción contiene MICROtec natural para proteger la piel frente a las irritaciones." ManualPDFSize="0" ManualPDFURL="http://download.p4c.philips.com/files/h/hs8440_23/hs8440_23_dfu_esp.pdf" PDFSize="0" PDFURL="http://download.p4c.philips.com/files/h/hs8440_23/hs8440_23_pss_aen.pdf" ShortDesc="Afeitado suave, piel sana Hidrata su piel mientras se afeita" URL="http://www.philips.es/c/-/cortapatillas-de-precision-hs8440_23/prd/es/consumer" WarrantyInfo="" langid="6"/>
+       <ProductFamily ID="1">
+       <Name/>
+       </ProductFamily>
+      
+	<ProductFeature Localized="0" ID="102712617" Local_ID="0" Value="Blue,White" CategoryFeature_ID="14149" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Azul, Blanco" Translated="1"  Mandatory="0">
+	  <Feature ID="1766">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="508447" Value="Color de producto" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712618" Local_ID="0" Value="Y" CategoryFeature_ID="14152" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="2540">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506189" Value="Resistente al agua" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712619" Local_ID="0" Value="N" CategoryFeature_ID="14153" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="N" Translated="0"  Mandatory="0">
+	  <Feature ID="2541">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="505166" Value="Autolimpieza" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712620" Local_ID="0" Value="3" CategoryFeature_ID="14158" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="3 piezas" Translated="0"  Mandatory="1">
+	  <Feature ID="2551">
+	    <Measure ID="144" Sign="">
+	      <Signs><Sign ID="7549" langid="6">piezas</Sign></Signs>
+	    </Measure>
+	    <Name ID="506965" Value="Número de cabezas de afeitar" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712621" Local_ID="0" Value="Wireless" CategoryFeature_ID="14167" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Wireless" Translated="0"  Mandatory="0">
+	  <Feature ID="1655">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506667" Value="Tecnología de conectividad" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712622" Local_ID="0" Value="rotation" CategoryFeature_ID="14168" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="rotation" Translated="0"  Mandatory="1">
+	  <Feature ID="2554">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506967" Value="Sistema de afeitado" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712623" Local_ID="39894621" Value="Y" CategoryFeature_ID="22665" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="3976">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506980" Value="Recortador de precisión" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712624" Local_ID="39894631" Value="Y" CategoryFeature_ID="22666" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="3978">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506981" Value="Tapa protectora" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712625" Local_ID="39894661" Value="40" CategoryFeature_ID="22677" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="40 min" Translated="0"  Mandatory="0">
+	  <Feature ID="4944">
+	    <Measure ID="66" Sign="">
+	      <Signs><Sign ID="7474" langid="6">min</Sign></Signs>
+	    </Measure>
+	    <Name ID="507022" Value="Tiempo de afeitado" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712627" Local_ID="39894681" Value="Y" CategoryFeature_ID="22688" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4018">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506557" Value="Bloqueo de viajes" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894831" Value="" CategoryFeature_ID="28013" CategoryFeatureGroup_ID="1868" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="0">
+	  <Feature ID="5764">
+	    <Measure ID="75" Sign="">
+	      <Signs><Sign ID="7483" langid="6">Año(s)</Sign></Signs>
+	    </Measure>
+	    <Name ID="508106" Value="Garantía" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712628" Local_ID="39894551" Value="Y" CategoryFeature_ID="14154" CategoryFeatureGroup_ID="1870" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="1">
+	  <Feature ID="2539">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="504920" Value="Recargable" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712629" Local_ID="39894581" Value="4" CategoryFeature_ID="22623" CategoryFeatureGroup_ID="1870" No="100000" Presentation_Value="4 MB/s" Translated="0"  Mandatory="0">
+	  <Feature ID="4087">
+	    <Measure ID="46" Sign="">
+	      <Signs><Sign ID="7455" langid="6">MB/s</Sign></Signs>
+	    </Measure>
+	    <Name ID="509609" Value="Tiempo de carga" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712630" Local_ID="39894641" Value="Y" CategoryFeature_ID="22667" CategoryFeatureGroup_ID="1870" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4981">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507028" Value="Carga rápida" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894671" Value="" CategoryFeature_ID="22680" CategoryFeatureGroup_ID="1870" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5081">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507050" Value="Silencioso" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712631" Local_ID="0" Value="Y" CategoryFeature_ID="24749" CategoryFeatureGroup_ID="3805" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="3984">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="504097" Value="Funda de viaje" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712632" Local_ID="39894561" Value="Y" CategoryFeature_ID="22620" CategoryFeatureGroup_ID="3804" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4221">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="505012" Value="Indicación de batería cargada" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712633" Local_ID="39894571" Value="Y" CategoryFeature_ID="22621" CategoryFeatureGroup_ID="3804" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4222">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="505013" Value="Indicación de batería baja" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712634" Local_ID="0" Value="Y" CategoryFeature_ID="25637" CategoryFeatureGroup_ID="3804" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5439">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507068" Value="Indicador de carga" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894651" Value="" CategoryFeature_ID="22668" CategoryFeatureGroup_ID="3804" No="100000" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4033">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="504965" Value="Indicación de carga" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="64543966" Local_ID="0" Value="ICEcat.biz" CategoryFeature_ID="33965" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="ICEcat.biz" Translated="0"  Mandatory="0">
+	  <Feature ID="6617">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="508589" Value="Source data-sheet" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712635" Local_ID="39894601" Value="Y" CategoryFeature_ID="22647" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5072">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507043" Value="Sistema Levanta y Corta" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712636" Local_ID="39894701" Value="Y" CategoryFeature_ID="24724" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Soporte para el cortapatillas incluido" Translated="0"  Mandatory="0">
+	  <Feature ID="3917">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506971" Value="Soporte de carga" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712637" Local_ID="0" Value="Y" CategoryFeature_ID="24733" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4878">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507019" Value="Anillos deslizantes" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712638" Local_ID="0" Value="Y" CategoryFeature_ID="25699" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5512">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507093" Value="Sistema Flex Tracker" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712639" Local_ID="39894771" Value="Y" CategoryFeature_ID="25701" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5482">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507086" Value="Sistema de dispensació d'acondicionador NIVEA FOR MEN" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712640" Local_ID="0" Value="28" CategoryFeature_ID="25710" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="28 ml" Translated="0"  Mandatory="0">
+	  <Feature ID="5480">
+	    <Measure ID="142" Sign="">
+	      <Signs><Sign ID="7547" langid="6">ml</Sign></Signs>
+	    </Measure>
+	    <Name ID="507085" Value="Muestra de acondicionador para afeitado" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="102712641" Local_ID="0" Value="Y" CategoryFeature_ID="25711" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5516">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507094" Value="Limpiable" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="102712642" Local_ID="39894821" Value="Y" CategoryFeature_ID="25712" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5461">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507078" Value="Uso en húmedo" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894591" Value="" CategoryFeature_ID="22646" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4610">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507004" Value="Lacado" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894691" Value="" CategoryFeature_ID="22690" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="4879">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507020" Value="Lavable" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894721" Value="" CategoryFeature_ID="25695" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Caucho estratificado con lámina integrada" Translated="0"  Mandatory="0">
+	  <Feature ID="5445">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507071" Value="Panel de control antideslizante" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894731" Value="" CategoryFeature_ID="25696" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5432">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507066" Value="Dosificación condicionada automática" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894741" Value="" CategoryFeature_ID="25697" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5469">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507081" Value="Mando electrónico" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894751" Value="" CategoryFeature_ID="25698" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5465">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507080" Value="encendido/apagado electrónico" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894761" Value="" CategoryFeature_ID="25700" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5495">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507090" Value="Sistema de cartón con recambio integrado" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894781" Value="" CategoryFeature_ID="25702" CategoryFeatureGroup_ID="1868" No="0" Presentation_Value="Integrada" Translated="0"  Mandatory="0">
+	  <Feature ID="5437">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507067" Value="On/Off botón" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894791" Value="" CategoryFeature_ID="25705" CategoryFeatureGroup_ID="1870" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="5532">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507096" Value="Batería recargable Li-ion" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894611" Value="" CategoryFeature_ID="22656" CategoryFeatureGroup_ID="3805" No="0" Presentation_Value="Pictograma, instrucciones de uso, folleto de garantía" Translated="0"  Mandatory="0">
+	  <Feature ID="3971">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506979" Value="Documentación" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894711" Value="" CategoryFeature_ID="24736" CategoryFeatureGroup_ID="3805" No="0" Presentation_Value="Si" Translated="1"  Mandatory="0">
+	  <Feature ID="3950">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="506977" Value="Funda de viaje flexible/rígida" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894801" Value="" CategoryFeature_ID="25707" CategoryFeatureGroup_ID="3805" No="0" Presentation_Value="HS85" Translated="0"  Mandatory="0">
+	  <Feature ID="5449">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507073" Value="Recambio de unidad de afeitado" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="1" ID="0" Local_ID="39894811" Value="" CategoryFeature_ID="25709" CategoryFeatureGroup_ID="3805" No="0" Presentation_Value="HS800" Translated="0"  Mandatory="0">
+	  <Feature ID="5460">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="507077" Value="Puede estar rellenado d'acondicionador de afeitar" langid="6"/>
+	  </Feature>
+	</ProductFeature>
+
+      <ProductGallery/>
+      <ProductMultimediaObject/>
+      	  <ProductRelated ID="82918910" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="485142" Prod_id="SRU9600/10" ThumbPic="http://images.icecat.biz/thumbs/485142.jpg" Name="SRU9600  Mando a distancia universal">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82920999" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="1263579" Prod_id="SRU8015/10" ThumbPic="http://images.icecat.biz/thumbs/1263579.jpg" Name="SRU8015  Mando a distancia universal">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82921993" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="1621031" Prod_id="SRU8008/10" ThumbPic="http://images.icecat.biz/thumbs/1621031.jpg" Name="SRU8008  Mando a distancia universal">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="68706387" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="1996643" Prod_id="HQ177/40" ThumbPic="http://images.icecat.biz/thumbs/1996643.jpg" Name="HQ177  Cabezales de afeitado">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82920101" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="887571" Prod_id="SRU5170/86" ThumbPic="http://images.icecat.biz/thumbs/887571.jpg" Name="SRU5170">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82926888" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="2196515" Prod_id="SRU7060/10" ThumbPic="http://images.icecat.biz/thumbs/2196515.jpg" Name="SRU7060 6 en 1 Mando a distancia universal">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82924506" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="2103429" Prod_id="SRU8112/27" ThumbPic="http://images.icecat.biz/thumbs/2103429.jpg" Name="SRU8112  Remote Control">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82921097" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="1263580" Prod_id="SRU7140/10" ThumbPic="http://images2.icecat.biz/thumbs/1263580.jpg" Name="SRU7140 4 en 1 para TV/DVD/satélite/amplific. Mando a distancia universal">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="82919264" Category_ID="857" Reversed="0" Preferred="0">
+	    <Product ID="840053" Prod_id="SRM7500/10" ThumbPic="http://images.icecat.biz/thumbs/840053.jpg" Name="SRM7500  Mando a distancia multimedia">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="57827610" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="3640898" Prod_id="HS85/44" ThumbPic="http://images.icecat.biz/thumbs/3640898.jpg" Name="HS85 con cartucho reemplazable Unidad de afeitado">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="57906744" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="3663355" Prod_id="HS803/04" ThumbPic="http://images.icecat.biz/thumbs/3663355.jpg" Name="HS803 con cartucho reemplazable 3 frascos de loción de afeitado">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="58492952" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="3758363" Prod_id="HS800/04" ThumbPic="http://images.icecat.biz/thumbs/3758363.jpg" Name="HS800 con Natural MICROtec Loción de afeitado">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="68706237" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="1226369" Prod_id="HS85/40" ThumbPic="http://images.icecat.biz/thumbs/1226369.jpg" Name="Shaving unit">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="68706916" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="3603025" Prod_id="HQ177/11" ThumbPic="http://images.icecat.biz/thumbs/3603025.jpg" Name="HQ177  Shaving heads">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="57502925" Category_ID="106" Reversed="0" Preferred="0">
+	    <Product ID="2818706" Prod_id="HS85/46" ThumbPic="http://images.icecat.biz/thumbs/2818706.jpg" Name="HS85 with replacement cartridge Shaving unit">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="71758883" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="4819635" Prod_id="HQ177/42" ThumbPic="http://images.icecat.biz/thumbs/4819635.jpg" Name="HQ177  Shaving heads">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="78071542" Category_ID="1432" Reversed="0" Preferred="0">
+	    <Product ID="5879905" Prod_id="HS88/01" ThumbPic="http://images.icecat.biz/thumbs/5879905.jpg" Name="HS88">
+	      <Supplier ID="25" Name="Philips"/>
+	    </Product>
+	  </ProductRelated>
+
+      
+	  <SummaryDescription>
+	    <ShortSummaryDescription langid="6">Philips HS8440 cortapatillas de precisión Afeitadora NIVEA FOR MEN, 4 MB/s</ShortSummaryDescription>
+	    <LongSummaryDescription langid="6">Philips HS8440 cortapatillas de precisión Afeitadora NIVEA FOR MEN. Contro de energía: 4 MB/s</LongSummaryDescription>
+	  </SummaryDescription>
+
+       <Supplier ID="25" Name="Philips"/>
+      </Product>
+
+</ICECAT-interface>

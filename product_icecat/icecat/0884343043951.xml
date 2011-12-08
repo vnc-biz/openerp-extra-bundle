@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ICECAT-interface SYSTEM "http://data.icecat.biz/dtd/ICECAT-interface_response.dtd">
+	<!-- source: ICEcat.biz 2011 -->
+	<ICECAT-interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://data.icecat.biz/xsd/ICECAT-interface_response.xsd">
+      <Product Code="1" HighPic="http://images.icecat.biz/img/norm/high/1650275-6376.jpg" HighPicHeight="497" HighPicSize="120176" HighPicWidth="596" ID="1646321" LowPic="http://images.icecat.biz/img/norm/low/1650275-6376.jpg" LowPicHeight="166" LowPicSize="17446" LowPicWidth="200" Name="Lenovo 3000 N200" Prod_id="TY2ESSP" Quality="ICECAT" ReleaseDate="2008-07-18" ThumbPic="http://images.icecat.biz/thumbs/1650275.jpg" ThumbPicSize="3811" Title="Lenovo 3000 N Series Lenovo 3000 N200">
+       <Category ID="151">
+       
+    <Name ID="303" Value="notebooks/laptops" langid="1"/>
+
+       </Category>
+      
+    <CategoryFeatureGroup ID="269" No="-1">
+     <FeatureGroup ID="0">
+       <Name ID="5073" Value="Technical details" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="35" No="100">
+     <FeatureGroup ID="1">
+       <Name ID="4859" Value="Processor" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="107" No="90">
+     <FeatureGroup ID="2">
+       <Name ID="4861" Value="Disk drive" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="106" No="80">
+     <FeatureGroup ID="3">
+       <Name ID="4863" Value="Memory" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="32" No="60">
+     <FeatureGroup ID="4">
+       <Name ID="4865" Value="Optical drive" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="33" No="85">
+     <FeatureGroup ID="5">
+       <Name ID="4867" Value="Display" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="1183" No="6">
+     <FeatureGroup ID="7">
+       <Name ID="4883" Value="Platform" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="34" No="1">
+     <FeatureGroup ID="8">
+       <Name ID="4885" Value="System requirements" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="110" No="56">
+     <FeatureGroup ID="9">
+       <Name ID="4977" Value="Audio" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="36" No="5">
+     <FeatureGroup ID="12">
+       <Name ID="4995" Value="Connectivity" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="108" No="3">
+     <FeatureGroup ID="14">
+       <Name ID="5023" Value="Weight &amp; dimensions" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="109" No="2">
+     <FeatureGroup ID="27">
+       <Name ID="5049" Value="Energy management" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="1403" No="1">
+     <FeatureGroup ID="28">
+       <Name ID="5067" Value="Environmental conditions" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="762" No="54">
+     <FeatureGroup ID="31">
+       <Name ID="5075" Value="Keyboard" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="1711" No="50">
+     <FeatureGroup ID="35">
+       <Name ID="5167" Value="Networking" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="2684" No="78">
+     <FeatureGroup ID="45">
+       <Name ID="5641" Value="Video" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="4124" No="79">
+     <FeatureGroup ID="47">
+       <Name ID="8858" Value="Storage media" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="1523" No="77">
+     <FeatureGroup ID="51">
+       <Name ID="11283" Value="Video memory" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="2685" No="55">
+     <FeatureGroup ID="69">
+       <Name ID="27501" Value="TV tuner" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="2686" No="3">
+     <FeatureGroup ID="75">
+       <Name ID="27867" Value="Security" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="2687" No="1">
+     <FeatureGroup ID="76">
+       <Name ID="28540" Value="Certificates" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="2933" No="23">
+     <FeatureGroup ID="90">
+       <Name ID="30562" Value="Operating system/software" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="3024" No="53">
+     <FeatureGroup ID="95">
+       <Name ID="31282" Value="Camera" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="5848" No="0">
+     <FeatureGroup ID="119">
+       <Name ID="80218" Value="Material" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+    <CategoryFeatureGroup ID="5181" No="0">
+     <FeatureGroup ID="127">
+       <Name ID="294500" Value="BIOS" langid="1"/>
+     </FeatureGroup>
+    </CategoryFeatureGroup>
+
+        <EANCode EAN="0884343043951"/>
+      <ProductBundled/>
+      
+    <ProductDescription ID="22010837" LongDesc="The Lenovo 3000 N Series offers stylish and functional widescreen notebooks combined with popular features at a great price. These notebooks are designed specifically to meet the needs of growing small businesses, and come with software and multimedia tools that make them useful at home, too. The Lenovo 3000 N200 provides outstanding performance and usability with the latest Intel processor technology." ManualPDFSize="0" ManualPDFURL="" PDFSize="0" PDFURL="" ShortDesc="Intel Pentium Dual Core T2410 (1.6GHz), 2GB RAM, 250GB 5400rpm HD, 15.4in 1280x800 LCD, Intel X3100, CDRW/DVDRW, Intel 802.11abg, Modem, 10/100 Ethernet, Touchpad, Secure chip, FPR, Camera, 6c Li-Ion, Windows Vista Home Premium" URL="http://www5.pc.ibm.com/europe/products.nsf/$wwwPartNumLookup/_TY2ESXX?OpenDocument" WarrantyInfo="One year parts and labor (system battery: one year), Customer Carry-in Repair." langid="1"/>
+       <ProductFamily ID="512">
+       <Name ID="29608" Value="3000 N Series" langid="1"/><Series ID="1"><Name/></Series>
+       </ProductFamily>
+      
+	<ProductFeature Localized="0" ID="37725117" Local_ID="0" Value="1600" CategoryFeature_ID="50" CategoryFeatureGroup_ID="35" No="10105478" Presentation_Value="1600 MHz" Translated="0"  Mandatory="1">
+	  <Feature ID="5">
+	    <Measure ID="18" Sign="">
+	      <Signs><Sign ID="9" langid="1">MHz</Sign></Signs>
+	    </Measure>
+	    <Name ID="1291" Value="Processor clock speed" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725118" Local_ID="0" Value="Intel Pentium Dual-Core" CategoryFeature_ID="11560" CategoryFeatureGroup_ID="35" No="106001" Presentation_Value="Intel Pentium Dual-Core" Translated="0"  Mandatory="1">
+	  <Feature ID="2196">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11271" Value="Processor family" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725119" Local_ID="0" Value="T2410" CategoryFeature_ID="49" CategoryFeatureGroup_ID="35" No="106000" Presentation_Value="T2410" Translated="0"  Mandatory="1">
+	  <Feature ID="47">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="1431" Value="Processor model" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725120" Local_ID="0" Value="533" CategoryFeature_ID="2727" CategoryFeatureGroup_ID="35" No="100112" Presentation_Value="533 MHz" Translated="0"  Mandatory="0">
+	  <Feature ID="1020">
+	    <Measure ID="18" Sign="">
+	      <Signs><Sign ID="9" langid="1">MHz</Sign></Signs>
+	    </Measure>
+	    <Name ID="3581" Value="Processor front side bus" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725121" Local_ID="0" Value="250" CategoryFeature_ID="30921" CategoryFeatureGroup_ID="107" No="10100000" Presentation_Value="250 GB" Translated="0"  Mandatory="1">
+	  <Feature ID="3318">
+	    <Measure ID="20" Sign="">
+	      <Signs><Sign ID="7" langid="1">GB</Sign></Signs>
+	    </Measure>
+	    <Name ID="31696" Value="Total storage capacity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725122" Local_ID="0" Value="SATA" CategoryFeature_ID="2705" CategoryFeatureGroup_ID="107" No="100090" Presentation_Value="SATA" Translated="0"  Mandatory="1">
+	  <Feature ID="982">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="3505" Value="Hard disk interface" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725123" Local_ID="0" Value="5400" CategoryFeature_ID="1198" CategoryFeatureGroup_ID="107" No="100015" Presentation_Value="5400 RPM" Translated="0"  Mandatory="1">
+	  <Feature ID="430">
+	    <Measure ID="28" Sign="">
+	      <Signs><Sign ID="12" langid="1">RPM</Sign></Signs>
+	    </Measure>
+	    <Name ID="2227" Value="Hard disk rotational speed" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725124" Local_ID="0" Value="15.4" CategoryFeature_ID="2787" CategoryFeatureGroup_ID="33" No="10100172" Presentation_Value="39.1 cm (15.4 &quot;)" Translated="0"  Mandatory="1">
+	  <Feature ID="944">
+	    <Measure ID="16" Sign="">
+	      <Signs><Sign ID="11" langid="1">"</Sign></Signs>
+	    </Measure>
+	    <Name ID="3429" Value="Display diagonal" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725126" Local_ID="0" Value="1280 x 800" CategoryFeature_ID="9350" CategoryFeatureGroup_ID="33" No="10100000" Presentation_Value="1280 x 800 pixels" Translated="0"  Mandatory="1">
+	  <Feature ID="1585">
+	    <Measure ID="39" Sign="">
+	      <Signs><Sign ID="23" langid="1">pixels</Sign></Signs>
+	    </Measure>
+	    <Name ID="4927" Value="Display resolution" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725125" Local_ID="0" Value="WXGA TFT LCD" CategoryFeature_ID="51" CategoryFeatureGroup_ID="33" No="105980" Presentation_Value="WXGA TFT LCD" Translated="0"  Mandatory="0">
+	  <Feature ID="83">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="1503" Value="Display" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725127" Local_ID="0" Value="2048" CategoryFeature_ID="48" CategoryFeatureGroup_ID="106" No="10105479" Presentation_Value="2048 MB" Translated="0"  Mandatory="1">
+	  <Feature ID="6">
+	    <Measure ID="19" Sign="">
+	      <Signs><Sign ID="8" langid="1">MB</Sign></Signs>
+	    </Measure>
+	    <Name ID="1295" Value="Internal memory" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725128" Local_ID="0" Value="2 SODIMM" CategoryFeature_ID="2549" CategoryFeatureGroup_ID="106" No="100001" Presentation_Value="2 SODIMM" Translated="0"  Mandatory="0">
+	  <Feature ID="672">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2875" Value="Memory slots" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725129" Local_ID="0" Value="DDR2" CategoryFeature_ID="12693" CategoryFeatureGroup_ID="106" No="100000" Presentation_Value="DDR2" Translated="0"  Mandatory="1">
+	  <Feature ID="427">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2221" Value="Internal memory type" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725130" Local_ID="0" Value="2 x 1024" CategoryFeature_ID="9471" CategoryFeatureGroup_ID="106" No="100000" Presentation_Value="2 x 1024 MB" Translated="0"  Mandatory="0">
+	  <Feature ID="2014">
+	    <Measure ID="19" Sign="">
+	      <Signs><Sign ID="8" langid="1">MB</Sign></Signs>
+	    </Measure>
+	    <Name ID="9035" Value="Memory layout" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725131" Local_ID="0" Value="4" CategoryFeature_ID="10354" CategoryFeatureGroup_ID="106" No="100000" Presentation_Value="4 GB" Translated="0"  Mandatory="1">
+	  <Feature ID="1452">
+	    <Measure ID="20" Sign="">
+	      <Signs><Sign ID="7" langid="1">GB</Sign></Signs>
+	    </Measure>
+	    <Name ID="4561" Value="Maximum internal memory" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725132" Local_ID="0" Value="SD/MMC/MS/MS Pro/xD" CategoryFeature_ID="9470" CategoryFeatureGroup_ID="4124" No="100000" Presentation_Value="SD/MMC/MS/MS Pro/xD" Translated="0"  Mandatory="0">
+	  <Feature ID="730">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2991" Value="Compatible memory cards" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725133" Local_ID="0" Value="Y" CategoryFeature_ID="19149" CategoryFeatureGroup_ID="4124" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="1">
+	  <Feature ID="3374">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="32254" Value="Card reader integrated" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725134" Local_ID="0" Value="GMA X3100" CategoryFeature_ID="2605" CategoryFeatureGroup_ID="2684" No="141164" Presentation_Value="GMA X3100" Translated="0"  Mandatory="1">
+	  <Feature ID="614">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2759" Value="Graphic adapter" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725135" Local_ID="0" Value="DVD±RW DL" CategoryFeature_ID="2828" CategoryFeatureGroup_ID="32" No="202130" Presentation_Value="DVD±RW DL" Translated="0"  Mandatory="1">
+	  <Feature ID="1120">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="3781" Value="Optical drive type" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725136" Local_ID="0" Value="ALC861VD" CategoryFeature_ID="1195" CategoryFeatureGroup_ID="110" No="100012" Presentation_Value="ALC861VD" Translated="0"  Mandatory="0">
+	  <Feature ID="442">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2251" Value="Audio system" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725137" Local_ID="0" Value="2" CategoryFeature_ID="12917" CategoryFeatureGroup_ID="110" No="100000" Presentation_Value="2" Translated="0"  Mandatory="0">
+	  <Feature ID="1851">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="5703" Value="Number of built-in speakers" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725138" Local_ID="0" Value="3" CategoryFeature_ID="26586" CategoryFeatureGroup_ID="110" No="100000" Presentation_Value="3 W" Translated="0"  Mandatory="0">
+	  <Feature ID="1660">
+	    <Measure ID="44" Sign="">
+	      <Signs><Sign ID="28" langid="1">W</Sign></Signs>
+	    </Measure>
+	    <Name ID="5185" Value="Speaker power" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725139" Local_ID="0" Value="Y" CategoryFeature_ID="17064" CategoryFeatureGroup_ID="3024" No="100022" Presentation_Value="Y" Translated="0"  Mandatory="1">
+	  <Feature ID="2185">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11154" Value="Camera included" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725144" Local_ID="0" Value="N" CategoryFeature_ID="18579" CategoryFeatureGroup_ID="1711" No="105484" Presentation_Value="N" Translated="0"  Mandatory="1">
+	  <Feature ID="2183">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11148" Value="Bluetooth" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725140" Local_ID="0" Value="Y" CategoryFeature_ID="42" CategoryFeatureGroup_ID="1711" No="99999" Presentation_Value="Y" Translated="0"  Mandatory="0">
+	  <Feature ID="12">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="1313" Value="Internal modem" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725143" Local_ID="0" Value="56" CategoryFeature_ID="3683" CategoryFeatureGroup_ID="1711" No="99998" Presentation_Value="56 Kbit/s" Translated="0"  Mandatory="0">
+	  <Feature ID="447">
+	    <Measure ID="22" Sign="">
+	      <Signs><Sign ID="5" langid="1">Kbit/s</Sign></Signs>
+	    </Measure>
+	    <Name ID="2261" Value="Modem speed" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725145" Local_ID="0" Value="Windows Vista Home Premium" CategoryFeature_ID="12350" CategoryFeatureGroup_ID="2933" No="10100000" Presentation_Value="Windows Vista Home Premium" Translated="0"  Mandatory="1">
+	  <Feature ID="3233">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="30700" Value="Operating system provided" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725149" Local_ID="0" Value="Y" CategoryFeature_ID="20422" CategoryFeatureGroup_ID="36" No="199990" Presentation_Value="Y" Translated="0"  Mandatory="1">
+	  <Feature ID="3548">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="39370" Value="ExpressCard slot" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725150" Local_ID="0" Value="1" CategoryFeature_ID="12844" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="1" Translated="0"  Mandatory="1">
+	  <Feature ID="2323">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="12009" Value="VGA (D-Sub) ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725154" Local_ID="0" Value="1" CategoryFeature_ID="12827" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="1" Translated="0"  Mandatory="1">
+	  <Feature ID="2312">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11976" Value="Ethernet LAN (RJ-45) ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725155" Local_ID="0" Value="1" CategoryFeature_ID="12823" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="1" Translated="0"  Mandatory="1">
+	  <Feature ID="2310">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11970" Value="IEEE 1394/Firewire ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725156" Local_ID="0" Value="S-Video" CategoryFeature_ID="12836" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="S-Video" Translated="0"  Mandatory="1">
+	  <Feature ID="2317">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11991" Value="TV out port" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725157" Local_ID="0" Value="4" CategoryFeature_ID="12819" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="4" Translated="0"  Mandatory="1">
+	  <Feature ID="2308">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11964" Value="USB 2.0 ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725159" Local_ID="0" Value="1" CategoryFeature_ID="12828" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="1" Translated="0"  Mandatory="1">
+	  <Feature ID="2313">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11979" Value="Speaker/ headphone/ line-out jack" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725160" Local_ID="0" Value="Y" CategoryFeature_ID="12829" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="1">
+	  <Feature ID="2314">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11982" Value="Microphone, line-in jack" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725161" Local_ID="0" Value="N" CategoryFeature_ID="12830" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="N" Translated="0"  Mandatory="1">
+	  <Feature ID="2315">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11985" Value="S/PDIF out port" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725162" Local_ID="0" Value="Y" CategoryFeature_ID="12831" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="1">
+	  <Feature ID="2316">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11988" Value="DC-in jack" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725163" Local_ID="0" Value="N" CategoryFeature_ID="12837" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="N" Translated="0"  Mandatory="1">
+	  <Feature ID="2319">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11997" Value="DVI port" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725164" Local_ID="0" Value="N" CategoryFeature_ID="12838" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="N" Translated="0"  Mandatory="1">
+	  <Feature ID="58">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="1453" Value="Infrared data port" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725165" Local_ID="0" Value="0" CategoryFeature_ID="12839" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="0" Translated="0"  Mandatory="1">
+	  <Feature ID="2320">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="12000" Value="CardBus PCMCIA slots quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725166" Local_ID="0" Value="Y" CategoryFeature_ID="12840" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="1">
+	  <Feature ID="2322">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="12006" Value="SmartCard slot" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725167" Local_ID="0" Value="N" CategoryFeature_ID="12846" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="N" Translated="0"  Mandatory="1">
+	  <Feature ID="2321">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="12003" Value="CardBus PCMCIA slot type" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725169" Local_ID="0" Value="N" CategoryFeature_ID="13225" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="N" Translated="0"  Mandatory="1">
+	  <Feature ID="2386">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="12261" Value="Port replicator" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725170" Local_ID="0" Value="0" CategoryFeature_ID="26456" CategoryFeatureGroup_ID="36" No="100000" Presentation_Value="0" Translated="0"  Mandatory="1">
+	  <Feature ID="3566">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="39496" Value="HDMI ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725151" Local_ID="0" Value="0" CategoryFeature_ID="12843" CategoryFeatureGroup_ID="36" No="99999" Presentation_Value="0" Translated="0"  Mandatory="0">
+	  <Feature ID="1337">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="4215" Value="Serial ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725152" Local_ID="0" Value="0" CategoryFeature_ID="12842" CategoryFeatureGroup_ID="36" No="99999" Presentation_Value="0" Translated="0"  Mandatory="0">
+	  <Feature ID="1336">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="4213" Value="Parallel ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725153" Local_ID="0" Value="0" CategoryFeature_ID="12841" CategoryFeatureGroup_ID="36" No="99999" Presentation_Value="0" Translated="0"  Mandatory="0">
+	  <Feature ID="1340">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="4221" Value="PS/2 ports quantity" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725158" Local_ID="0" Value="1" CategoryFeature_ID="12824" CategoryFeatureGroup_ID="36" No="99999" Presentation_Value="1" Translated="0"  Mandatory="0">
+	  <Feature ID="2311">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11973" Value="Modem (RJ-11) ports" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725168" Local_ID="0" Value="N" CategoryFeature_ID="12944" CategoryFeatureGroup_ID="36" No="99999" Presentation_Value="N" Translated="0"  Mandatory="0">
+	  <Feature ID="2318">
+	    <Measure ID="26" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="11994" Value="TV in port" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725174" Local_ID="0" Value="2800" CategoryFeature_ID="4922" CategoryFeatureGroup_ID="108" No="10100000" Presentation_Value="2800 g" Translated="0"  Mandatory="1">
+	  <Feature ID="94">
+	    <Measure ID="38" Sign="">
+	      <Signs><Sign ID="22" langid="1">g</Sign></Signs>
+	    </Measure>
+	    <Name ID="1525" Value="Weight" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725175" Local_ID="0" Value="267" CategoryFeature_ID="6237" CategoryFeatureGroup_ID="108" No="100000" Presentation_Value="267 mm" Translated="0"  Mandatory="0">
+	  <Feature ID="1650">
+	    <Measure ID="24" Sign="">
+	      <Signs><Sign ID="3" langid="1">mm</Sign></Signs>
+	    </Measure>
+	    <Name ID="5145" Value="Depth" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725176" Local_ID="0" Value="31.4" CategoryFeature_ID="6239" CategoryFeatureGroup_ID="108" No="100000" Presentation_Value="31.4 mm" Translated="0"  Mandatory="0">
+	  <Feature ID="1464">
+	    <Measure ID="24" Sign="">
+	      <Signs><Sign ID="3" langid="1">mm</Sign></Signs>
+	    </Measure>
+	    <Name ID="4625" Value="Height" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725177" Local_ID="0" Value="360" CategoryFeature_ID="6240" CategoryFeatureGroup_ID="108" No="100000" Presentation_Value="360 mm" Translated="0"  Mandatory="0">
+	  <Feature ID="1649">
+	    <Measure ID="24" Sign="">
+	      <Signs><Sign ID="3" langid="1">mm</Sign></Signs>
+	    </Measure>
+	    <Name ID="5143" Value="Width" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725171" Local_ID="0" Value="IBM" CategoryFeature_ID="16306" CategoryFeatureGroup_ID="2686" No="100000" Presentation_Value="IBM" Translated="0"  Mandatory="1">
+	  <Feature ID="1352">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="4245" Value="Cable lock slot" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725172" Local_ID="0" Value="Y" CategoryFeature_ID="21025" CategoryFeatureGroup_ID="2686" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="0">
+	  <Feature ID="3577">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="39580" Value="Fingerprint reader" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725173" Local_ID="0" Value="Y" CategoryFeature_ID="20479" CategoryFeatureGroup_ID="2686" No="100000" Presentation_Value="Y" Translated="0"  Mandatory="0">
+	  <Feature ID="3576">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="39573" Value="Hard disk drive, user password" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725146" Local_ID="0" Value="Lithium-Ion" CategoryFeature_ID="1187" CategoryFeatureGroup_ID="109" No="101004" Presentation_Value="Lithium-Ion" Translated="0"  Mandatory="0">
+	  <Feature ID="434">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2235" Value="Battery technology" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725147" Local_ID="0" Value="3.5" CategoryFeature_ID="11249" CategoryFeatureGroup_ID="109" No="100000" Presentation_Value="3.5 h" Translated="0"  Mandatory="0">
+	  <Feature ID="1721">
+	    <Measure ID="46" Sign="">
+	      <Signs><Sign ID="30" langid="1">h</Sign></Signs>
+	    </Measure>
+	    <Name ID="5385" Value="Battery life" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725148" Local_ID="0" Value="6" CategoryFeature_ID="16197" CategoryFeatureGroup_ID="109" No="100000" Presentation_Value="6 pcs" Translated="0"  Mandatory="0">
+	  <Feature ID="1226">
+	    <Measure ID="144" Sign="">
+	      <Signs><Sign ID="125" langid="1">pcs</Sign></Signs>
+	    </Measure>
+	    <Name ID="3993" Value="Number of battery cells" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725141" Local_ID="0" Value="Ethernet/Fast Ethernet" CategoryFeature_ID="2807" CategoryFeatureGroup_ID="269" No="100192" Presentation_Value="Ethernet/Fast Ethernet" Translated="0"  Mandatory="0">
+	  <Feature ID="1104">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="3749" Value="Networking features" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725142" Local_ID="0" Value="IEEE 802.11a/b/g" CategoryFeature_ID="2747" CategoryFeatureGroup_ID="269" No="100132" Presentation_Value="IEEE 802.11a/b/g" Translated="0"  Mandatory="0">
+	  <Feature ID="1048">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="3637" Value="Wireless technology" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725178" Local_ID="0" Value="PC" CategoryFeature_ID="5659" CategoryFeatureGroup_ID="269" No="100033" Presentation_Value="PC" Translated="0"  Mandatory="0">
+	  <Feature ID="31">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="1375" Value="Type" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="37725179" Local_ID="0" Value="Touchpad" CategoryFeature_ID="1201" CategoryFeatureGroup_ID="269" No="1800" Presentation_Value="Touchpad" Translated="0"  Mandatory="0">
+	  <Feature ID="440">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="2247" Value="Pointing device" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+	<ProductFeature Localized="0" ID="46461630" Local_ID="0" Value="ICEcat.biz" CategoryFeature_ID="33533" CategoryFeatureGroup_ID="269" No="0" Presentation_Value="ICEcat.biz" Translated="0"  Mandatory="0">
+	  <Feature ID="6617">
+	    <Measure ID="29" Sign="">
+	      <Signs/>
+	    </Measure>
+	    <Name ID="241024" Value="Source data-sheet" langid="1"/>
+	  </Feature>
+	</ProductFeature>
+
+        <ProductGallery>
+          <ProductPicture Pic="http://images.icecat.biz/img/gallery/1650275_1264.jpg" PicHeight="496" PicWidth="596" ProductPicture_ID="129741" Size="233520" ThumbPic="http://images2.icecat.biz/img/gallery_thumbs/1646321_1283.jpg" ThumbSize="5112"/>
+          <ProductPicture Pic="http://images.icecat.biz/img/gallery/1650275_1712.jpg" PicHeight="494" PicWidth="594" ProductPicture_ID="129739" Size="88642" ThumbPic="http://images2.icecat.biz/img/gallery_thumbs/1646321_1960.jpg" ThumbSize="2985"/>
+          <ProductPicture Pic="http://images.icecat.biz/img/gallery/1650275_370.jpg" PicHeight="497" PicWidth="598" ProductPicture_ID="129740" Size="165094" ThumbPic="http://images2.icecat.biz/img/gallery_thumbs/1646321_7193.jpg" ThumbSize="4769"/>
+          <ProductPicture Pic="http://images.icecat.biz/img/gallery/1650275_8903.jpg" PicHeight="496" PicWidth="596" ProductPicture_ID="129738" Size="103880" ThumbPic="http://images2.icecat.biz/img/gallery_thumbs/1646321_665.jpg" ThumbSize="3419"/>
+        </ProductGallery>
+      <ProductMultimediaObject/>
+      	  <ProductRelated ID="0" Category_ID="977" Reversed="0" Preferred="0">
+	    <Product ID="13166" Prod_id="64020" ThumbPic="http://images.icecat.biz/thumbs/13166.jpg" Name="MicroSaver">
+	      <Supplier ID="87" Name="Kensington"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="13803" Prod_id="CN01" ThumbPic="http://images2.icecat.biz/thumbs/13803.jpg" Name="Notepac">
+	      <Supplier ID="128" Name="Targus"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="157" Reversed="0" Preferred="0">
+	    <Product ID="1756197" Prod_id="PA3575E-1PRP" ThumbPic="http://images.icecat.biz/thumbs/1756197.jpg" Name="Dynadock - USB Port Replicator (DVI &amp; VGA)  2 Pin EU &amp; UK ">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1599925" Prod_id="TSS057EU" ThumbPic="http://images.icecat.biz/thumbs/1599925.jpg" Name="Laptop Skin, Black/Blue">
+	      <Supplier ID="128" Name="Targus"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="120239" Prod_id="TAR300" ThumbPic="http://images2.icecat.biz/thumbs/120239.jpg" Name="Value Case Notebook">
+	      <Supplier ID="128" Name="Targus"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1365607" Prod_id="PX1385E-1NSK" ThumbPic="http://images2.icecat.biz/thumbs/1365607.jpg" Name="15.4">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="219" Reversed="0" Preferred="0">
+	    <Product ID="546815" Prod_id="PX1276E-1G06" ThumbPic="http://images2.icecat.biz/thumbs/546815.jpg" Name="320 GB External USB Mini Hard Drive">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1365609" Prod_id="PX1419E-1NCA" ThumbPic="http://images.icecat.biz/thumbs/1365609.jpg" Name="Business Cary Case 17">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="827" Reversed="0" Preferred="0">
+	    <Product ID="1354484" Prod_id="38023EU" ThumbPic="http://images.icecat.biz/thumbs/1354484.jpg" Name="WALL NOTEBOOK POWER ADAPTER">
+	      <Supplier ID="87" Name="Kensington"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="219" Reversed="0" Preferred="0">
+	    <Product ID="863361" Prod_id="PX1399E-2G20" ThumbPic="http://images.icecat.biz/thumbs/863361.jpg" Name="200 GB External USB Mini Hard Drive">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="219" Reversed="0" Preferred="0">
+	    <Product ID="886578" Prod_id="PX1396E-3T01" ThumbPic="http://images.icecat.biz/thumbs/886578.jpg" Name="1TB external USB HDD">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="62" Reversed="0" Preferred="0">
+	    <Product ID="1724504" Prod_id="2931" ThumbPic="http://images.icecat.biz/thumbs/1724504.jpg" Name="G DATA AntiVirus 2009, NL, 1 user">
+	      <Supplier ID="2153" Name="G DATA"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="194" Reversed="0" Preferred="0">
+	    <Product ID="1726634" Prod_id="KP003" ThumbPic="http://images.icecat.biz/thumbs/1726634.jpg" Name="Portable USB Keypad with Retractable Cable">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="62" Reversed="0" Preferred="0">
+	    <Product ID="1724506" Prod_id="2932" ThumbPic="http://images.icecat.biz/thumbs/1724506.jpg" Name="G DATA InternetSecurity 2009, NL, 1 user">
+	      <Supplier ID="2153" Name="G DATA"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="367" Reversed="0" Preferred="0">
+	    <Product ID="1726645" Prod_id="CS010" ThumbPic="http://images2.icecat.biz/thumbs/1726645.jpg" Name="Screen Cleaning Set">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1514" Reversed="0" Preferred="0">
+	    <Product ID="1630551" Prod_id="DS020" ThumbPic="http://images.icecat.biz/thumbs/1630551.jpg" Name="Notebook Station">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="826" Reversed="0" Preferred="0">
+	    <Product ID="126902" Prod_id="NBP3" ThumbPic="http://images.icecat.biz/thumbs/126902.jpg" Name="Sporty Laptop Backpack 15.4&quot;">
+	      <Supplier ID="148" Name="Case Logic"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="80527468" Category_ID="1514" Reversed="0" Preferred="0">
+	    <Product ID="1351682" Prod_id="NOTEBOOK-D100" ThumbPic="http://images.icecat.biz/thumbs/1351682.jpg" Name="Notebook desk mount">
+	      <Supplier ID="290" Name="Newstar"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="219" Reversed="0" Preferred="0">
+	    <Product ID="1627641" Prod_id="PX1393E-2G32" ThumbPic="http://images.icecat.biz/thumbs/1627641.jpg" Name="640GB ext. HDD, 3.5">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="195" Reversed="0" Preferred="0">
+	    <Product ID="1726640" Prod_id="MI410" ThumbPic="http://images.icecat.biz/thumbs/1726640.jpg" Name="Notebook Wireless Optical Mouse 2.4 Ghz">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="195" Reversed="0" Preferred="0">
+	    <Product ID="1312686" Prod_id="AI-707911" ThumbPic="http://images.icecat.biz/thumbs/1312686.jpg" Name="Wireless Optical Notebook Mouse">
+	      <Supplier ID="2171" Name="ICIDU"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="282" Reversed="0" Preferred="0">
+	    <Product ID="517348" Prod_id="KS002" ThumbPic="http://images.icecat.biz/thumbs/517348.jpg" Name="2 Port Compact KVM Switch USB with Audio">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="195" Reversed="0" Preferred="0">
+	    <Product ID="1549678" Prod_id="MI661" ThumbPic="http://images.icecat.biz/thumbs/1549678.jpg" Name="Wireless Laser Mouse 5-button USB">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1949586" Prod_id="NCV116" ThumbPic="http://images2.icecat.biz/thumbs/1949586.jpg" Name="NCV-116">
+	      <Supplier ID="148" Name="Case Logic"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="858" Reversed="0" Preferred="0">
+	    <Product ID="1317781" Prod_id="AI-707913" ThumbPic="http://images.icecat.biz/thumbs/1317781.jpg" Name="Combo USB Hub &amp; Card Reader">
+	      <Supplier ID="2171" Name="ICIDU"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="342663" Prod_id="KLC15" ThumbPic="http://images.icecat.biz/thumbs/342663.jpg" Name="15.4&quot; Lightweight Professional Laptop Case">
+	      <Supplier ID="148" Name="Case Logic"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1368895" Prod_id="SA010" ThumbPic="http://images.icecat.biz/thumbs/1368895.jpg" Name="15,4&quot; Notebook Bag">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="977" Reversed="0" Preferred="0">
+	    <Product ID="1599527" Prod_id="K64560EU" ThumbPic="http://images2.icecat.biz/thumbs/1599527.jpg" Name="ComboSaver Portable Lock">
+	      <Supplier ID="87" Name="Kensington"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="559" Reversed="0" Preferred="0">
+	    <Product ID="1696969" Prod_id="PA3674E-1ETB" ThumbPic="http://images.icecat.biz/thumbs/1696969.jpg" Name="Presenter W10">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1346902" Prod_id="PX1411E-1NCA" ThumbPic="http://images.icecat.biz/thumbs/1346902.jpg" Name="Carry Case Value Edition 15.4">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1549674" Prod_id="SA110" ThumbPic="http://images.icecat.biz/thumbs/1549674.jpg" Name="15,4&quot; Neoprene Notebook Sleeve Freestyle">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="195" Reversed="0" Preferred="0">
+	    <Product ID="1726641" Prod_id="MI023" ThumbPic="http://images.icecat.biz/thumbs/1726641.jpg" Name="Mini Optical Mouse with Retractable Cable USB Grey">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="62" Reversed="0" Preferred="0">
+	    <Product ID="1724509" Prod_id="2937" ThumbPic="http://images.icecat.biz/thumbs/1724509.jpg" Name="G DATA NotebookSecurity 2009, NL, 1 user">
+	      <Supplier ID="2153" Name="G DATA"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="62" Reversed="0" Preferred="0">
+	    <Product ID="1649889" Prod_id="KL1189BOX1" ThumbPic="http://images.icecat.biz/thumbs/1649889.jpg" Name="Internet Security 2009, DVD, Box, 1PC">
+	      <Supplier ID="294" Name="Kaspersky Lab"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="826" Reversed="0" Preferred="0">
+	    <Product ID="1098787" Prod_id="LNB15K" ThumbPic="http://images.icecat.biz/thumbs/1098787.jpg" Name="15.4&quot; Sport Backpack">
+	      <Supplier ID="148" Name="Case Logic"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1949588" Prod_id="VNC216" ThumbPic="http://images.icecat.biz/thumbs/1949588.jpg" Name="VNC216">
+	      <Supplier ID="148" Name="Case Logic"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1554" Reversed="0" Preferred="0">
+	    <Product ID="1366051" Prod_id="SI-707134" ThumbPic="http://images.icecat.biz/thumbs/1366051.jpg" Name="Flash Drive With Encryption Software 8GB">
+	      <Supplier ID="2171" Name="ICIDU"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="3088484" Prod_id="PNC15" ThumbPic="http://images.icecat.biz/thumbs/3088484.jpg" Name="Slimline Laptop Case">
+	      <Supplier ID="148" Name="Case Logic"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="858" Reversed="0" Preferred="0">
+	    <Product ID="1750595" Prod_id="CR006V3" ThumbPic="http://images2.icecat.biz/thumbs/1750595.jpg" Name="External Card Reader All-in-1 USB 2.0">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="195" Reversed="0" Preferred="0">
+	    <Product ID="1740453" Prod_id="MI020" ThumbPic="http://images2.icecat.biz/thumbs/1740453.jpg" Name="Mini Optical Mouse with Retractable Cable USB Black">
+	      <Supplier ID="702" Name="Sweex"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="80595120" Category_ID="1514" Reversed="0" Preferred="0">
+	    <Product ID="4152840" Prod_id="NSLS100" ThumbPic="http://images.icecat.biz/thumbs/4152840.jpg" Name="NSLS100">
+	      <Supplier ID="290" Name="Newstar"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1285" Reversed="0" Preferred="0">
+	    <Product ID="1346907" Prod_id="PX1416E-1NCA" ThumbPic="http://images.icecat.biz/thumbs/1346907.jpg" Name="Business Case 15.4">
+	      <Supplier ID="2" Name="Toshiba"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="826" Reversed="0" Preferred="0">
+	    <Product ID="6077553" Prod_id="CN600" ThumbPic="http://images.icecat.biz/thumbs/6077553.jpg" Name="15.4 - 16 inch / 39.1 - 40.6cm Laptop Backpack">
+	      <Supplier ID="128" Name="Targus"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1514" Reversed="0" Preferred="0">
+	    <Product ID="857001" Prod_id="NOT1000" ThumbPic="http://images.icecat.biz/thumbs/857001.jpg" Name="Notebook Arm ">
+	      <Supplier ID="2136" Name="ErgoXS"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1514" Reversed="0" Preferred="0">
+	    <Product ID="857003" Prod_id="NOT1100" ThumbPic="http://images.icecat.biz/thumbs/857003.jpg" Name="Topmate I Deskstand">
+	      <Supplier ID="2136" Name="ErgoXS"/>
+	    </Product>
+	  </ProductRelated>
+	  <ProductRelated ID="0" Category_ID="1514" Reversed="0" Preferred="0">
+	    <Product ID="857004" Prod_id="NOT1200" ThumbPic="http://images.icecat.biz/thumbs/857004.jpg" Name="Topmate II Hylite">
+	      <Supplier ID="2136" Name="ErgoXS"/>
+	    </Product>
+	  </ProductRelated>
+
+      
+	  <SummaryDescription>
+	    <ShortSummaryDescription langid="1">Lenovo Lenovo 3000 N200 3000 N Series, 1600 MHz, Intel Pentium Dual-Core, T2410, 533 MHz, 250 GB, SATA</ShortSummaryDescription>
+	    <LongSummaryDescription langid="1">Lenovo Lenovo 3000 N200, 3000 N Series. Processor: 1600 MHz, Intel Pentium Dual-Core, T2410, 533 MHz. Disk drive: 250 GB, SATA, 5400 RPM. Display: 39.1 cm (15.4 &quot;), 1280 x 800 pixels, WXGA TFT LCD. Memory: 2048 MB, 2 SODIMM, DDR2, 2 x 1024 MB, 4 GB. Storage media: SD/MMC/MS/MS Pro/xD. Video: GMA X3100. Optical drive: DVD±RW DL. Audio: ALC861VD, 3 W. Networking: 56 Kbit/s. Operating system/software: Windows Vista Home Premium. Connectivity: S-Video. Weight &amp; dimensions: 2800 g, 267 mm, 31.4 mm, 360 mm. Security: IBM. Energy management: Lithium-Ion, 3.5 h, 6 pcs</LongSummaryDescription>
+	  </SummaryDescription>
+
+       <Supplier ID="728" Name="Lenovo"/>
+      </Product>
+
+</ICECAT-interface>

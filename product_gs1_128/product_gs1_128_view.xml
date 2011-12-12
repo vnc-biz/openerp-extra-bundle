@@ -41,6 +41,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem action="action_config_gs1_128" id="menu_config_gs1_128" parent="product.menu_config_product" />
+        <menuitem action="action_config_gs1_128" id="menu_config_gs1_128" parent="product.prod_config_main" />
     </data>
 </openerp>

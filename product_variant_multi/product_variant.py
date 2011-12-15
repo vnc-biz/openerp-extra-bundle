@@ -233,7 +233,7 @@ class product_template(product_variant_osv):
         
         return cartesian_product(vals)
 
-    def product_product_varaints_vals(self, cr, uid, product_temp, variant, context):
+    def product_product_variants_vals(self, cr, uid, product_temp, variant, context):
         """Return Product Product Values Dicc
         :product_temp Object
         :variant list ids
@@ -291,7 +291,7 @@ class product_template(product_variant_osv):
                 for variant in list_of_variants_to_create:
                     count += 1
 
-                    vals = self.product_product_varaints_vals(cr, uid, product_temp, variant, context)
+                    vals = self.product_product_variants_vals(cr, uid, product_temp, variant, context)
                     product_id = variants_obj.create(cr, uid, vals, {'generate_from_template' : True})
                     if count%50 == 0:
                         cr.commit()

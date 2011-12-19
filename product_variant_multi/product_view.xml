@@ -173,6 +173,25 @@
                                     <!--TODO add a wizard to add the option-->
                                     <!--<button name="add_some_option" string="Add " type="object" colspan="2"/>-->
 
+        <record id="product_template_search_form_view" model="ir.ui.view">
+            <field name="name">product.template.search.form</field>
+            <field name="model">product.template</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Product Template">
+                   <field name="name"/>
+                   <field name="type"/>
+                   <newline/>
+                   <group expand="0" string="Extended Filters..." groups="base.group_extended">
+                   </group>
+                   <newline/>
+                   <group  expand='0' string='Group by...' groups="base.group_extended">
+                       <filter string='Category' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'categ_id'}" />
+                   </group>
+
+                </search>
+            </field>
+        </record>
 
         <record id="product_variant_multi_product_template_form_view" model="ir.ui.view">
             <field name="name">product.variant.multi.product.template.form</field>

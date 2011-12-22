@@ -122,27 +122,24 @@ class hotel_folio(osv.osv):
     
     def _incoterm_get(self, cr, uid, context={}):
         return  self.pool.get('sale.order')._incoterm_get(cr, uid, context={})
+    
     def copy(self, cr, uid, id, default=None,context={}):
         return  self.pool.get('sale.order').copy(cr, uid, id, default=None,context={})
+    
     def _invoiced(self, cursor, user, ids, name, arg, context=None):
         return  self.pool.get('sale.order')._invoiced(cursor, user, ids, name, arg, context=None)
+
     def _invoiced_search(self, cursor, user, obj, name, args):
         return  self.pool.get('sale.order')._invoiced_search(cursor, user, obj, name, args)
     
     def _amount_untaxed(self, cr, uid, ids, field_name, arg, context):
-        x = self.pool.get('sale.order')._amount_untaxed(cr, uid, ids, field_name, arg, context)
-        print ":::XXXX:::",x
-        return x
+        return self.pool.get('sale.order')._amount_untaxed(cr, uid, ids, field_name, arg, context)
     
     def _amount_tax(self, cr, uid, ids, field_name, arg, context):
-        y = self.pool.get('sale.order')._amount_tax(cr, uid, ids, field_name, arg, context)
-        print ":::YYYY:::",y
-        return y
+        return self.pool.get('sale.order')._amount_tax(cr, uid, ids, field_name, arg, context)
     
     def _amount_total(self, cr, uid, ids, field_name, arg, context):
-        z = self.pool.get('sale.order')._amount_total(cr, uid, ids, field_name, arg, context)
-        print ":::ZZZ:::",z
-        return z
+        return self.pool.get('sale.order')._amount_total(cr, uid, ids, field_name, arg, context)
     
     _name = 'hotel.folio'
     _description = 'hotel folio new'

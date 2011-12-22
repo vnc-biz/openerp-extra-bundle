@@ -19,14 +19,8 @@
 #
 ##############################################################################
 
-from osv import fields
-from osv import osv
+from osv import fields,osv
 import time
-import ir
-from mx import DateTime
-import datetime
-import pooler
-from tools import config
 import netsvc
 
 class product_category(osv.osv):
@@ -54,7 +48,6 @@ class product_product(osv.osv):
     _inherit="product.product"
     _columns = {
         'isact':fields.boolean('Is Activity'),
-                
     }
 product_product()
 

@@ -19,58 +19,36 @@
 #
 ##############################################################################
 
-from osv import fields
-from osv import osv
-import time
-import ir
-from mx import DateTime
-import datetime
-import pooler
-from tools import config
-import wizard
-import netsvc
+from osv import osv,fields
 
-
-folio_res_form= """<?xml version="1.0"?>
-<form string="Folio List">
-     <field name="date_start" />
-     <field name="date_end" />
-</form>
-"""
-
-folio_res_field= {
-    'date_start': {'string':'Start Date','type':'date','required': True},
-    'date_end': {'string':'End Date','type':'date','required': True},
+class folio_report_wizard(osv.osv_memory):
     
-}
+    _name = 'folio.report.wizard'
+    
+    _rec_name = 'date_start'
+    _columns = {
+                'date_start':fields.datetime('Start Date'),
+                'date_end':fields.datetime('End Date')
+                }
+    
+    def print_report(self,cr,uid,ids,context=None):
+        
+        if context is None:
+            context = {}
+            
+        datas = {'ids': context.get('active_ids', [])}
+        res = self.read(cr, uid, ids, context=context)
+        res = res and res[0] or {}
+        datas['form'] = res
 
-folio_result_form = """<?xml version="1.0"?>
-<form string="Folio">
-    <separator string="Folio List" />
-</form>"""
+        return {
+            'type': 'ir.actions.report.xml',
+            'report_name': 'folio.total',
+            'datas': datas,
+        }
 
-folio_fields = {}
-
-class get_folio_list(wizard.interface):
-
-    states = {
-        'init' : {
-            'actions' : [],
-            'result' : {'type' : 'form',
-                    'arch' : folio_res_form,
-                    'fields' : folio_res_field,
-                    'state' : [('end', 'Cancel'),('print_report', 'Print Report') ]}
-        },
-        'print_report' : {
-            'actions' : [],
-            'result' : {'type' : 'print',
-                   'report':'folio.total',
-                    'state' : 'end'}
-        },
-    }
-get_folio_list("hotel.folio.total_folio")     
-
-
+        
+folio_report_wizard()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

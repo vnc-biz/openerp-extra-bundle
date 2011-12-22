@@ -411,23 +411,28 @@
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Folio">
-					<notebook>
+					<field name="name" colspan="1" string="Folio No"/>
+					<field name="date_order" string="Date"/>
+					<group colspan="3" col="2">
+						<field name="shop_id" string="Branch"/>
+					</group>
+					<group colspan="1" col="2">
+						<field name="shipped" string="Checked Out"/>
+						<field name="invoiced"/>
+					</group>
+					<notebook colspan="4">
 						<page string="Folio">
-							<field name="name" colspan="1" string="Folio No"/>
-		   					<group colspan="2" col="4">
-								<field name="shipped" select="2"/>
-								<field name="invoiced" select="2"/>
-							</group>
-							<field name="date_order" select="1" string="Date"/>
-							<field name="shop_id" select="2"/>
-							<field name="partner_id" select="1" on_change="onchange_partner_id(partner_id)" required="1" string="Guest Name"/>
-							<field name="partner_order_id" domain="[('partner_id','=',partner_id)]"/>
+							<field name="partner_id" on_change="onchange_partner_id(partner_id)" required="1" string="Guest Name" colspan="4"/>
+							<field name="partner_order_id" domain="[('partner_id','=',partner_id)]" string="Booking Contact"/>
 							<field name="partner_invoice_id" domain="[('partner_id','=',partner_id)]"/>
-							<field name="partner_shipping_id" domain="[('partner_id','=',partner_id)]"/>
+							<field name="partner_shipping_id" domain="[('partner_id','=',partner_id)]" invisible="1"/>
 							<field name="pricelist_id"  domain="[('type','=','sale')]"/>
-							<field name="project_id" select="2"/>
-							<field name="checkin_date" />
-							<field name="checkout_date" />
+							<field name="project_id"/>
+							<group colspan="4" col="6">
+								<field name="checkin_date" on_change="onchange_dates(checkin_date,checkout_date)"/>
+								<field name="checkout_date" on_change="onchange_dates(checkin_date,checkout_date)"/>
+								<field name="duration" on_change="onchange_dates(checkin_date,False,duration)"/>
+							</group>
 							<field name="room_lines"  colspan="4" default_get="{'checkin_date': checkin_date,'checkout_date':checkout_date}" nolabel="1">
 								<form string="Room Line" >
 									<notebook>
@@ -438,7 +443,7 @@
 											<field name="product_uom_qty"
 												on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)"
 												context="partner_id=parent.partner_id,quantity=product_uom_qty,pricelist=parent.pricelist_id,shop=parent.shop_id,uom=product_uom"
-												select="1"/>
+												invisible="1"/>
 											<field name="product_uom"
 												on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, 'lang' in context and context['lang'], False, parent.date_order)"
 												string="Rent(UOM)"/>
@@ -481,7 +486,6 @@
 									<field name="checkin_date"/>
 									<field name="checkout_date"/>
 									<field name="product_id" string="Room No" />
-									<field name="product_uom_qty"/>
 									<field name="product_uom" string="Rent(UOM)"/>
 									<field name="price_unit" string="Rent"/>
 									<field name="price_subtotal"/>
@@ -550,35 +554,30 @@
 							</group>
 							<group colspan="4" col="13">
 									<field name="state" select="2"/>
-									<button name="order_confirm" string="Confirm Order" states="draft"/>
+									<button name="order_confirm" string="Confirm Folio" states="draft"/>
 									<button name="invoice_recreate" string="Recreate Invoice" states="invoice_except"/>
 									<button name="invoice_corrected" string="Invoice Corrected" states="invoice_except"/>
 									<button name="ship_recreate" string="Recreate Procurement" states="shipping_except"/>
 									<button name="ship_corrected" string="Procurement Corrected" states="shipping_except"/>
 									<button name="manual_invoice" states="manual" string="Create Invoice"/>
-									<button name="ship_cancel" string="Cancel Order" states="shipping_except"/>
+									<button name="ship_cancel" string="Cancel Folio" states="shipping_except"/>
 									<button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object"/>
-									<button name="action_cancel" string="Cancel Order" states="manual,progress" type="object"/>
-									<button name="cancel" string="Cancel Order" states="draft"/>
-									<button name="invoice_cancel" string="Cancel Order" states="invoice_except"/>
+									<button name="action_cancel" string="Cancel Folio" states="manual,progress" type="object"/>
+									<button name="cancel" string="Cancel Folio" states="draft"/>
+									<button name="invoice_cancel" string="Cancel Folio" states="invoice_except"/>
 							</group>
 						</page>
 						<page string="Other data">
-							<field name="incoterm"/>
-							<field name="picking_policy" required="True"/>
 							<field name="user_id"/>
-							<field name="order_policy" />
-							<field name="origin"/>
-							<field name="invoice_quantity"/>
-							<field name="client_order_ref" />
+							<field name="order_policy" invisible="1"/>
+							<field name="hotel_policy" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="client_order_ref" />							
 							<separator string="Notes" colspan="4"/>
 							<field name="note" colspan="4" nolabel="1"/>
 						</page>
 						<page string="History">
 							<separator string="Related invoices" colspan="4"/>
 							<field name="invoice_ids" colspan="4" nolabel="1"/>
-							<separator string="Related packings" colspan="4"/>
-							<field name="picking_ids" colspan="4" nolabel="1"/>
 						</page>
 					</notebook>
 				</form>
@@ -601,11 +600,25 @@
 				</tree>
 			</field>
 		</record>
+
+		<record model="ir.ui.view" id="hotel_folio_calendar_view">
+	        <field name="name">Hotel- Folios Calendar</field>
+	        <field name="model">hotel.folio</field>
+	        <field name="type">calendar</field>
+	        <field name="arch" type="xml">
+	            <calendar string="Folios" date_start="checkin_date" color="user_id" date_stop="checkout_date">
+	                <field name="name"/>
+	                <field name="partner_id"/>
+					<field name="duration"/>
+	            </calendar>
+	        </field>
+    	</record>
+
 		<record model="ir.actions.act_window" id="open_hotel_folio1_form_tree">
 			<field name="name">Hotel Folio</field>
 			<field name="res_model">hotel.folio</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">form,tree</field>
+			<field name="view_mode">form,tree,calendar</field>
 		</record>
 		
 		
@@ -613,7 +626,7 @@
 			<field name="name">Hotel Folio</field>
 			<field name="res_model">hotel.folio</field>
 			<field name="view_type">form</field>
-			<field name="view_mode">tree,form</field>
+			<field name="view_mode">tree,form,calendar</field>
 		</record>
 		  			 
 		<menuitem name="All Folio"

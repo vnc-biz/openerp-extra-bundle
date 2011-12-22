@@ -51,7 +51,7 @@ class hotel_room_type(osv.osv):
     _inherits = {'product.category':'cat_id'}
     _description = "Room Type"
     _columns = { 
-        'cat_id':fields.many2one('product.category','category',required=True,select=True),
+        'cat_id':fields.many2one('product.category','category',required=True,select=True,ondelete='cascade'),
    
     }
     _defaults = {
@@ -75,7 +75,7 @@ class hotel_room_amenities_type(osv.osv):
     _description='amenities Type'
     _inherits = {'product.category':'cat_id'}
     _columns = {
-        'cat_id':fields.many2one('product.category','category',required=True),
+        'cat_id':fields.many2one('product.category','category',required=True,ondelete='cascade'),
        }
     _defaults = {
         'isamenitype': lambda *a: 1,
@@ -90,7 +90,7 @@ class hotel_room_amenities(osv.osv):
     _inherits={'product.product':'room_categ_id'}
     _columns = {
                
-         'room_categ_id':fields.many2one('product.product','Product Category',required=True),
+         'room_categ_id':fields.many2one('product.product','Product Category',required=True,ondelete='cascade'),
          'rcateg_id':fields.many2one('hotel.room_amenities_type','Amenity Catagory'),   
          'amenity_rate':fields.integer('Amenity Rate'),
 
@@ -109,7 +109,7 @@ class hotel_room(osv.osv):
     _description='Hotel Room'
     _columns = {
 
-        'product_id': fields.many2one('product.product','Product_id'),
+        'product_id': fields.many2one('product.product','Product_id',required=True,ondelete='cascade'),
         'floor_id':fields.many2one('hotel.floor','Floor No'),
         'max_adult':fields.integer('Max Adult'),
         'max_child':fields.integer('Max Child'),
@@ -133,27 +133,63 @@ class hotel_folio(osv.osv):
         return  self.pool.get('sale.order')._invoiced(cursor, user, ids, name, arg, context=None)
     def _invoiced_search(self, cursor, user, obj, name, args):
         return  self.pool.get('sale.order')._invoiced_search(cursor, user, obj, name, args)
+    
     def _amount_untaxed(self, cr, uid, ids, field_name, arg, context):
-        return self.pool.get('sale.order')._amount_untaxed(cr, uid, ids, field_name, arg, context)
+        x = self.pool.get('sale.order')._amount_untaxed(cr, uid, ids, field_name, arg, context)
+        print ":::XXXX:::",x
+        return x
+    
     def _amount_tax(self, cr, uid, ids, field_name, arg, context):
-        return self.pool.get('sale.order')._amount_tax(cr, uid, ids, field_name, arg, context)
+        y = self.pool.get('sale.order')._amount_tax(cr, uid, ids, field_name, arg, context)
+        print ":::YYYY:::",y
+        return y
+    
     def _amount_total(self, cr, uid, ids, field_name, arg, context):
-        return self.pool.get('sale.order')._amount_total(cr, uid, ids, field_name, arg, context)
-        
-    _name='hotel.folio'
-    _description='hotel folio new'
-    _inherits={'sale.order':'order_id'}
-    _columns={
+        z = self.pool.get('sale.order')._amount_total(cr, uid, ids, field_name, arg, context)
+        print ":::ZZZ:::",z
+        return z
+    
+    _name = 'hotel.folio'
+    _description = 'hotel folio new'
+    _inherits = {'sale.order':'order_id'}
+    _columns = {
           'order_id':fields.many2one('sale.order','order_id',required=True,ondelete='cascade'),
           'checkin_date': fields.datetime('Check In',required=True,readonly=True, states={'draft':[('readonly',False)]}),
           'checkout_date': fields.datetime('Check Out',required=True,readonly=True, states={'draft':[('readonly',False)]}),
           'room_lines': fields.one2many('hotel_folio.line','folio_id'),
           'service_lines': fields.one2many('hotel_service.line','folio_id'),
+          'hotel_policy':fields.selection([('prepaid','On Booking'),('manual','On Check In'),('picking','On Checkout')],'Hotel Policy', required=True),
+          'duration':fields.float('Duration'),
     }
+    _defaults = {
+                 'hotel_policy':'manual'
+                 }
+    _sql_constraints = [
+                        ('check_in_out', 'CHECK (checkin_date<=checkout_date)',  'Check in Date Should be lesser than the Check Out Date!'),
+                       ]
+    
+    def onchange_dates(self,cr,uid,ids,checkin_date=False,checkout_date=False,duration=False):
+        value = {}
+        if not duration:
+            duration = 0
+            if checkin_date and checkout_date:
+                chkin_dt = datetime.datetime.strptime(checkin_date,'%Y-%m-%d %H:%M:%S')
+                chkout_dt = datetime.datetime.strptime(checkout_date,'%Y-%m-%d %H:%M:%S') 
+                dur = chkout_dt - chkin_dt
+                duration = dur.days
+            value.update({'value':{'duration':duration}})
+        else:
+            if checkin_date:
+                chkin_dt = datetime.datetime.strptime(checkin_date,'%Y-%m-%d %H:%M:%S')
+                chkout_dt = chkin_dt + datetime.timedelta(days=duration)
+                checkout_date = datetime.datetime.strftime(chkout_dt,'%Y-%m-%d %H:%M:%S')
+                value.update({'value':{'checkout_date':checkout_date}})
+        return value
     
     def create(self, cr, uid, vals, context=None, check=True):
         tmp_room_lines = vals.get('room_lines',[])
         tmp_service_lines = vals.get('service_lines',[])
+        vals['order_policy'] = vals.get('hotel_policy','manual')
         if not vals.has_key("folio_id"):
             vals.update({'room_lines':[],'service_lines':[]})
             folio_id = super(hotel_folio, self).create(cr, uid, vals, context)
@@ -419,7 +455,7 @@ class hotel_service_type(osv.osv):
     _inherits = {'product.category':'ser_id'}
     _description = "Service Type"
     _columns = { 
-        'ser_id':fields.many2one('product.category','category',required=True,select=True),
+        'ser_id':fields.many2one('product.category','category',required=True,select=True,ondelete='cascade'),
         
     }
     _defaults = {
@@ -433,7 +469,7 @@ class hotel_services(osv.osv):
     _description = 'Hotel Services and its charges'
     _inherits={'product.product':'service_id'}
     _columns = {
-        'service_id': fields.many2one('product.product','Service_id'),        
+        'service_id': fields.many2one('product.product','Service_id',required=True,ondelete='cascade'),        
        
         }
     _defaults = {

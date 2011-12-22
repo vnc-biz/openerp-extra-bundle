@@ -42,7 +42,6 @@ duplicated_fields = ['description_sale', 'name']
 class product_template(osv.osv):
     _inherit = "product.template"
 
-
     def button_generate_variants(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -86,6 +85,8 @@ class product_product(osv.osv):
         # and so the duplicated fields will be on the product_template and not on the product_product
         ids = super(product_product, self).create(cr, uid, vals.copy(), context=context) #take care to use vals.copy() if not the vals will be changed by calling the super method
         ####### write the value in the product_product
+        if context is None:
+            context = {}
         ctx = context.copy()
         ctx['iamthechild'] = True
         vals_to_write = get_vals_to_write(vals, ['name']+duplicated_fields)
@@ -100,6 +101,8 @@ class product_product(osv.osv):
         return self.build_product_field(cr, uid, ids, 'name', context=None)
 
     def build_product_field(self, cr, uid, ids, field, context=None):
+        if context is None:
+            context = {}
         def get_description_sale(product):
             return self.parse(cr, uid, product, product.product_tmpl_id.description_sale, context=context)
 
@@ -108,8 +111,6 @@ class product_product(osv.osv):
                 return (product.product_tmpl_id.name or '' )+ ' ' + (context['variants_values'][product.id] or '')
             return (product.product_tmpl_id.name or '' )+ ' ' + (product.variants or '')
 
-        if not context:
-            context={}
         context['is_multi_variants']=True
         obj_lang=self.pool.get('res.lang')
         lang_ids = obj_lang.search(cr, uid, [('translatable','=',True)], context=context)

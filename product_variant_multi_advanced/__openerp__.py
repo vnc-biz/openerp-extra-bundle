@@ -25,7 +25,7 @@
     'version': '0.1',
     'category': 'Generic Modules/Others',
     'license': 'AGPL-3',
-    'description': """This module extend the capacity of product_variant_multi giving the posibility of building automatically the name, the description... of the product from the product template.
+    'description': """This module extends the capacity of product_variant_multi giving the possibility of building automatically the name, the description... of the product from the product template.
 Due to some limit of the orm you will need to apply some patch on the server""",
     'author': 'Akretion',
     'website': 'http://www.akretion.com/',

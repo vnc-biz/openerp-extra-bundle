@@ -51,15 +51,14 @@ class product_variant_dimension_type(osv.osv):
 
     _defaults = {
         'mandatory_dimension': lambda *a: 1,
-        }
+    }
     
     _order = "sequence, name"
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=None):
-        if context.get('product_tmpl_id', False):
-            return super(product_variant_dimension_type, self).name_search(cr, user, '', args, 'ilike', None, None)
-        else:
-            return super(product_variant_dimension_type, self).name_search(cr, user, '', None, 'ilike', None, None)
+        if not context.get('product_tmpl_id', False):
+            args = None
+        return super(product_variant_dimension_type, self).name_search(cr, user, '', args, 'ilike', None, None)
 
 product_variant_dimension_type()
 
@@ -90,7 +89,7 @@ class product_variant_dimension_value(osv.osv):
         for value in self.browse(cr, uid, ids, context=context):
             if value.product_ids:
                 product_list = '\n    - ' + '\n    - '.join([product.name for product in value.product_ids])
-                raise osv.except_osv(_('Dimension value can not be removed'), _("The value %s is use in the product : %s \n Please remove this products before removing the value"%(value.option_id.name, product_list)))
+                raise osv.except_osv(_('Dimension value can not be removed'), _("The value %s is used in the product : %s \n Please remove this product before removing the value"%(value.option_id.name, product_list)))
         return super(product_variant_dimension_value, self).unlink(cr, uid, ids, context)
 
     def _get_dimension_values(self, cr, uid, ids, context={}):
@@ -114,7 +113,7 @@ class product_variant_dimension_value(osv.osv):
 
     _defaults = {
         'active': lambda *a: 1,
-        }
+    }
 
     _order = "dimension_sequence, sequence, option_id"
     
@@ -151,9 +150,11 @@ class product_template(product_variant_osv):
         'variant_model_name': lambda *a: '[_o.dimension_id.name_] - [_o.option_id.code_]',
         'variant_model_name_separator': lambda *a: ' - ',
         'is_multi_variants' : lambda *a: False,
-                }
+    }
 
     def unlink(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         if context and context.get('unlink_from_product_product', False):
             for template in self.browse(cr, uid, ids, context):
                 if not template.is_multi_variants:
@@ -242,7 +243,7 @@ class product_template(product_variant_osv):
         :return vals
         """
 
-        vals={}
+        vals = {}
         vals['track_production'] = product_temp.variant_track_production
         vals['track_incoming'] = product_temp.variant_track_incoming
         vals['track_outgoing'] = product_temp.variant_track_outgoing
@@ -258,7 +259,7 @@ class product_template(product_variant_osv):
         """
 
         variants_obj = self.pool.get('product.product')
-        temp_val_list=[]
+        temp_val_list = []
 
         for product_temp in self.browse(cr, uid, ids, context):
             #for temp_type in product_temp.dimension_type_ids:
@@ -331,8 +332,8 @@ class product_product(product_variant_osv):
         return True
   
     def unlink(self, cr, uid, ids, context=None):
-        if not context:
-            context={}
+        if context is None:
+            context = {}
         context['unlink_from_product_product']=True
         return super(product_product, self).unlink(cr, uid, ids, context)
 
@@ -340,6 +341,8 @@ class product_product(product_variant_osv):
         return self.build_product_field(cr, uid, ids, 'name', context=None)
 
     def build_product_field(self, cr, uid, ids, field, context=None):
+        if context is None:
+            context = {}
         def get_description_sale(product):
             return self.parse(cr, uid, product, product.product_tmpl_id.description_sale, context=context)
 
@@ -348,8 +351,6 @@ class product_product(product_variant_osv):
                 return (product.product_tmpl_id.name or '' )+ ' ' + (context['variants_values'][product.id] or '')
             return (product.product_tmpl_id.name or '' )+ ' ' + (product.variants or '')
 
-        if not context:
-            context={}
         context['is_multi_variants']=True
         obj_lang=self.pool.get('res.lang')
         lang_ids = obj_lang.search(cr, uid, [('translatable','=',True)], context=context)
@@ -391,6 +392,8 @@ class product_product(product_variant_osv):
         #This should be fix in the orm in the futur
         ids = super(product_product, self).create(cr, uid, vals.copy(), context=context) #using vals.copy() if not the vals will be changed by calling the super method
         ####### write the value in the product_product
+        if context is None:
+            context = {}
         ctx = context.copy()
         ctx['iamthechild'] = True
         vals_to_write = self.get_vals_to_write(vals)
@@ -504,8 +507,6 @@ class product_product(product_variant_osv):
             dimension_extra = self.compute_product_dimension_extra_price(cr, uid, product.id, product_price_extra=product_price_extra, dim_price_margin=dim_price_margin, dim_price_extra=dim_price_extra, context=context)
             result[product.id] += dimension_extra
         return result
-
-
 
     def price_get(self, cr, uid, ids, ptype='list_price', context=None):
         if context is None:

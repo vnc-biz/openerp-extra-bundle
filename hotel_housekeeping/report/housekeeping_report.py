@@ -21,8 +21,7 @@
 
 import time
 from report import report_sxw
-import datetime
-import pooler
+
 class activity_report(report_sxw.rml_parse):
     def __init__(self, cr, uid, name, context):
         super(activity_report, self).__init__(cr, uid, name, context)

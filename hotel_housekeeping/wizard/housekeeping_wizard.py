@@ -19,17 +19,7 @@
 #
 ##############################################################################
 
-from osv import fields
-from osv import osv
-import time
-import ir
-from mx import DateTime
-import datetime
-import pooler
-from tools import config
 import wizard
-import netsvc
-
 
 activity_res_form= """<?xml version="1.0"?>
 <form string="Activity List">

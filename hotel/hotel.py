@@ -18,14 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-from osv import fields
-from osv import osv
+from osv import fields, osv
 import time
 import netsvc
 import ir
 from mx import DateTime
 import datetime
-import pooler
 from tools import config
 
 class hotel_floor(osv.osv):
@@ -89,12 +87,9 @@ class hotel_room_amenities(osv.osv):
     _description='Room amenities'
     _inherits={'product.product':'room_categ_id'}
     _columns = {
-               
          'room_categ_id':fields.many2one('product.product','Product Category',required=True,ondelete='cascade'),
          'rcateg_id':fields.many2one('hotel.room_amenities_type','Amenity Catagory'),   
          'amenity_rate':fields.integer('Amenity Rate'),
-
-
         }
     _defaults = {
         'iscategid': lambda *a: 1,

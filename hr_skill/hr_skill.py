@@ -32,10 +32,9 @@ class hr_skill_weight_category(osv.osv):
     _name ='hr_skill.weight.category'
     _columns = {
         'name': fields.char('Name', size=64, required=True),
-        }
+    }
 
 hr_skill_weight_category()
-
 
 # weight
 # eg: 0 to 1, more than 5, good, bad
@@ -45,10 +44,9 @@ class hr_skill_weight(osv.osv):
         'name': fields.char('Name', size=64,required=True),
         'value': fields.float('Numerical value', required=True), 
         'category_id': fields.many2one('hr_skill.weight.category', 'Category', required=True, ondelete='cascade'),
-        }# hr_skill.category ne passe pas (cad creation des tables) la premiere fois (hr_skill_category bien)
+    }# hr_skill.category ne passe pas (cad creation des tables) la premiere fois (hr_skill_category bien)
 
 hr_skill_weight()
-
 
 # Skill
 # eg : Spanish, OO programming (-> skill) 

@@ -42,6 +42,7 @@
         "security/ir.model.access.csv",
         "partner_wizard.xml",
         "report_label_view.xml",
+        'wizard/wizard_partner_labels_view.xml',
     ],
     "active": False,
     "installable": True

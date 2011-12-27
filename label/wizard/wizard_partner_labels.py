@@ -21,58 +21,9 @@
 #
 ##############################################################################
 
-import wizard
-import pooler
-
-form='''<?xml version="1.0" encoding="utf-8"?>
-<form string="Label Report Options">
-    <field name="label_format" colspan="4"/>
-    <separator string="Printer Margins" colspan="4"/>
-    <field name="printer_top"/>
-    <field name="printer_bottom"/>
-    <field name="printer_left"/>
-    <field name="printer_right"/>
-    <separator string="Label Char Font" colspan="4"/>
-    <field name="font_type"/>
-    <field name="font_size"/>
-    <separator string="First Label" colspan="4"/>
-    <field name="first_row"/>
-    <field name="first_col"/>
-</form>'''
-
-fields={
-    'label_format': {'string':'Label Format', 'type':'many2one', 'relation':'report.label', 'required':'true'},
-    'printer_top':    {'string':'Top',    'type':'char', 'size':20, 'help':"Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"},
-    'printer_bottom': {'string':'Bottom', 'type':'char', 'size':20, 'help':"Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"},
-    'printer_left':   {'string':'Left',   'type':'char', 'size':20, 'help':"Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"},
-    'printer_right':  {'string':'Right',  'type':'char', 'size':20, 'help':"Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"},
-    'font_type': {'string':"Font Type", 'type':'selection', 'required':'true', 'selection':[('Times-Roman','Times-Roman'),('Times-Bold','Times-Bold'),('Times-Italic','Times-Italic'),('Times-BoldItalic','Times-BoldItalic'),('Helvetica','Helvetica'),('Helvetica-Bold','Helvetica-Bold'),('Helvetica-Oblique','Helvetica-Oblique'),('Helvetica-BoldOblique','Helvetica-BoldOblique'),('Courier','Courier'),('Courier-Bold','Courier-Bold'),('Courier-Oblique','Courier-Oblique'),('Courier-BoldOblique','Courier-BoldOblique')]},
-    'font_size': {'string':"Font Size", 'type':'selection', 'required':'true', 'selection':[('6','6'),('7','7'),('8','8'),('9','9'),('10','10'),('11','11'),('12','12'),('14','14'),]},
-    'first_row': {'string': 'First Row', 'type': 'integer', 'help': 'The Row of the first label in the first page'},
-    'first_col': {'string': 'First Column', 'type': 'integer', 'help': 'The Column of the first label in the first page'},
-}
-
-top_form='''<?xml version="1.0" encoding="utf-8"?>
-<form string="Notification">
-<label string="Printer top margin bigger than (top label margin + label height). Try again." colspan="4"/>
-</form>'''
-
-bottom_form='''<?xml version="1.0" encoding="utf-8"?>
-<form string="Notification">
-<label string="Printer bottom margin bigger than (bottom label margin + label height). Try again." colspan="4"/>
-</form>'''
-
-left_form='''<?xml version="1.0" encoding="utf-8"?>
-<form string="Notification">
-<label string="Printer left margin bigger than (left label margin + label width). Try again." colspan="4"/>
-</form>'''
-
-right_form='''<?xml version="1.0" encoding="utf-8"?>
-<form string="Notification">
-<label string="Printer right margin bigger than (right label margin + label width). Try again." colspan="4"/>
-</form>'''
-
-
+from osv import osv
+from osv import fields
+from tools.translate import _
 
 def size2cm(text):
     """Converts the size text ended with 'cm' or 'in' to the numeric value in cm and returns it"""
@@ -83,76 +34,69 @@ def size2cm(text):
             return float(text[:-2]) * 2.54
     return 0
 
+class label_wizard(osv.osv_memory):
+    _name = 'res.partner.label'
+    _description = 'Label printing wizard'
 
-class wizard_report(wizard.interface):
-    def _init(self, cr, uid, data, context):
-        data['form']['first_row'] = 1
-        data['form']['first_col'] = 1
-        return data['form']
-
-    def _compute(self, cr, uid, data, context):
-        data['form']['printer_top']    = size2cm(data['form']['printer_top'])
-        data['form']['printer_bottom'] = size2cm(data['form']['printer_bottom'])
-        data['form']['printer_left']   = size2cm(data['form']['printer_left'])
-        data['form']['printer_right']  = size2cm(data['form']['printer_right'])
-        pool = pooler.get_pool(cr.dbname)
-        label = pool.get('report.label').browse(cr, uid, data['form']['label_format'])
-        data['form']['page_width'] = size2cm(label.landscape and label.pagesize_id.height or label.pagesize_id.width)
-        data['form']['page_height'] = size2cm(label.landscape and label.pagesize_id.width or label.pagesize_id.height)
-        data['form']['rows'] = label.rows
-        data['form']['cols'] = label.cols
-        data['form']['label_width'] = size2cm(label.label_width)
-        data['form']['label_height'] = size2cm(label.label_height)
-        data['form']['width_incr'] = size2cm(label.width_incr)
-        data['form']['height_incr'] = size2cm(label.height_incr)
-        data['form']['initial_left_pos'] = size2cm(label.margin_left)
-
-        # initial_bottom_pos = label.pagesize_id.height - label.margin_top - label.label_height
-        mtop = size2cm(label.margin_top)
-        data['form']['initial_bottom_pos'] = data['form']['page_height'] - mtop - data['form']['label_height']
-
-        if data['form']['printer_top'] > mtop + data['form']['label_height']:
-            return 'notify_top'
-        if data['form']['printer_left'] > data['form']['initial_left_pos'] + data['form']['label_width']:
-            return 'notify_left'
-        if data['form']['printer_bottom'] > data['form']['page_height'] - mtop - (data['form']['rows']-1) * data['form']['height_incr']:
-            return 'notify_bottom'
-        if data['form']['printer_right'] >  data['form']['page_width'] - data['form']['initial_left_pos'] - (data['form']['cols']-1) * data['form']['width_incr']:
-            return 'notify_right'
-        return 'report'
-
-    def _print(self, cr, uid, data, context):
-        return data['form']
-
-    states={
-        'init':{
-            'actions':[_init],
-            'result':{'type':'form', 'arch':form, 'fields':fields, 'state':[('end', 'Cancel'), ('check', 'Print')]}
-        },
-        'check': {
-            'actions': [],
-            'result': {'type':'choice','next_state':_compute}
-        },
-        'notify_top': {
-            'actions': [],
-            'result': {'type':'form','arch':top_form,'fields':{},'state':[('end','Ok')]}
-        },
-        'notify_bottom': {
-            'actions': [],
-            'result': {'type':'form','arch':bottom_form,'fields':{},'state':[('end','Ok')]}
-        },
-        'notify_left': {
-            'actions': [],
-            'result': {'type':'form','arch':left_form,'fields':{},'state':[('end','Ok')]}
-        },
-        'notify_right': {
-            'actions': [],
-            'result': {'type':'form','arch':right_form,'fields':{},'state':[('end','Ok')]}
-        },
-        'report':{
-            'actions':[_print],
-            'result':{'type':'print', 'report':'res.partner.address.label', 'state':'end'}
-        }
+    _columns = {
+        'label_format': fields.many2one('report.label', _('Label Format'), required=True),
+        'printer_top': fields.char(_('Top'), size=20, help="Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"),
+        'printer_bottom': fields.char(_('Bottom'), size=20, help="Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"),
+        'printer_left': fields.char(_('Left'), size=20, help="Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"),
+        'printer_right': fields.char(_('Right'), size=20, help="Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"),
+        'font_type': fields.selection([('Times-Roman','Times-Roman'),('Times-Bold','Times-Bold'),('Times-Italic','Times-Italic'),('Times-BoldItalic','Times-BoldItalic'),('Helvetica','Helvetica'),('Helvetica-Bold','Helvetica-Bold'),('Helvetica-Oblique','Helvetica-Oblique'),('Helvetica-BoldOblique','Helvetica-BoldOblique'),('Courier','Courier'),('Courier-Bold','Courier-Bold'),('Courier-Oblique','Courier-Oblique'),('Courier-BoldOblique','Courier-BoldOblique')],
+                                      _('Font Type'), required=True),
+        'font_size': fields.selection([('6','6'),('7','7'),('8','8'),('9','9'),('10','10'),('11','11'),('12','12'),('14','14'),],
+                                      _('Font Size'), required=True),
+        'first_row': fields.integer(_('First Row'), help='The Row of the first label in the first page'),
+        'first_col': fields.integer(_('First Column'), help='The Column of the first label in the first page'),
+        'rows': fields.related('label_format', 'rows', type='integer', string=_('#rows'), ),
+        'cols': fields.related('label_format', 'cols', type='integer', string=_('#columns'), ),
+        'page_width': fields.float(_('page width'), ),
+        'page_height': fields.float(_('page height'), ),
+        'label_width': fields.related('label_format', 'label_width', type='char', string=_('Label width'), ),
+        'label_height': fields.related('label_format', 'label_height', type='char', string=_('Label height'), ),
+        'width_incr': fields.related('label_format', 'width_incr', type='char', string=_('Width increment'), ),
+        'height_incr': fields.related('label_format', 'height_incr', type='char', string=_('height increment'), ),
+        'landscape': fields.related('label_format', 'landscape', type='boolean', string=_('Lanscape'), ),
+        'initial_left_pos': fields.related('label_format', 'margin_left', type='char', string=_('Initial Left Margin'), ),
+        'initial_bottom_pos': fields.float(_('Initial bottom Margin'), ),
     }
-wizard_report('res.partner.address.label')
+    _defaults = {
+        'font_type': 'Helvetica',
+        'font_size': '8',
+        'first_row': 1,
+        'first_col': 1,
+    }
+
+    #_constraints = [
+        #(_top_margin_height, "Printer top margin bigger than (top label margin + label height). Try again.", ['printer_top']),
+        #(_bottom_margin_height, "Printer bottom margin bigger than (bottom label margin + label height). Try again.", ['printer_bottom']),
+        #(_left_margin_height, "Printer left margin bigger than (left label margin + label height). Try again.", ['printer_left']),
+        #(_right_margin_height, "Printer right margin bigger than (right label margin + label height). Try again.", ['printer_right']),
+    #]
+
+    def create(self, cr, uid, data, context=None):
+        label_obj = self.pool.get('report.label')
+        label = label_obj.browse(cr, uid, data['label_format'], context)
+        data['page_width'] = size2cm(label.landscape and label.pagesize_id.height or label.pagesize_id.width)
+        data['page_height'] = size2cm(label.landscape and label.pagesize_id.width or label.pagesize_id.height)
+        mtop = size2cm(label.margin_top)
+        data['initial_bottom_pos'] = data['page_height'] - mtop - size2cm(label.label_height)
+        return super(label_wizard, self).create(cr, uid, data, context)
+
+    def do_print(self, cr, uid, ids, context=None):
+        data = self.read(cr, uid, ids, context=context)[0]
+        for f in ['printer_top', 'printer_bottom', 'printer_left', 'printer_right',
+                  'label_width', 'label_height', 'width_incr', 'height_incr',
+                  'initial_left_pos']:
+            data[f] = size2cm(data[f])
+
+        return {'type': 'ir.actions.report.xml',
+                'report_name': 'res.partner.address.label',
+                'datas': data,
+                'context': context,
+                'nodestroy': True}
+
+label_wizard()
 

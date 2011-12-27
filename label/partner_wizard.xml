@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <report auto="False"
+		id="report_partner_labels"
+		model="res.partner"
+		name="res.partner.address.label"
+		string="Labels"/>
         <!-- Redeclaration of the report defined in base/res/partner/report -->
-        <wizard string="Labels" model="res.partner" name="res.partner.address.label" id="res_partner_address_report"/>
+<!--        <wizard string="Labels" model="res.partner" 
+    	    name="res.partner.address.label" id="res_partner_address_report"/>
+-->
     </data>
 </openerp>

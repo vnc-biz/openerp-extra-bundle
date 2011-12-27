@@ -233,7 +233,7 @@ class payment_order(osv.osv):
                     continue
 
                 if not line.account_id:
-                    raise osv.except_osv(_('Error!'), _('Payment order should create account moves but line with amount %.2f for partner "%s" has no account assigned.') % (line.amount, line.partner_id.name ) )
+                    raise osv.except_osv(_('Error!'), _('Payment order should create account moves but line with amount %(amount).2f for partner "%(partner)s" has no account assigned.') % {'amount': line.amount, 'partner': line.partner_id.name} )
 
                 currency_id = order.mode.journal.currency and order.mode.journal.currency.id or company_currency_id
 

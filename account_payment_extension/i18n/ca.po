@@ -40,11 +40,11 @@ msgstr "Per pagament directe"
 #: code:addons/account_payment_extension/payment.py:0
 #, python-format
 msgid ""
-"Payment order should create account moves but line with amount %.2f for "
-"partner \"%s\" has no account assigned."
+"Payment order should create account moves but line with amount %(amount).2f "
+"for partner \"%(partner)s\" has no account assigned."
 msgstr ""
 "L'ordre de pagament hauria de crear els assentaments però la línia amb "
-"import %.2f i l'empresa \"%s\" no té cap compte comptable assignat."
+"import %(amount).2f i l'empresa \"%(partner)s\" no té cap compte comptable assignat."
 
 #. module: account_payment_extension
 #: constraint:ir.actions.act_window:0

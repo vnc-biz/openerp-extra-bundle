@@ -1,293 +1,105 @@
-# Hungarian translation for openobject-addons
-# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
-# This file is distributed under the same license as the openobject-addons package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* label
+# Viktor Nagy <viktor.nagy@toolpart.hu>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openobject-addons\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-12-15 17:51+0000\n"
-"PO-Revision-Date: 2011-11-18 14:25+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Hungarian <hu@li.org>\n"
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-11-07 10:14+0000\n"
+"PO-Revision-Date: 2011-11-07 11:26+0100\n"
+"Last-Translator: Viktor Nagy <viktor.nagy@toolpart.hu>\n"
+"Language-Team: Hungarian <toolpart@toolpart.hu>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-11-19 05:47+0000\n"
-"X-Generator: Launchpad (build 14299)\n"
+"Plural-Forms: nplurals=2; plural=n>1\n"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,printer_right:0
 msgid "Right"
-msgstr ""
-
-#. module: label
-#: constraint:ir.model:0
-msgid ""
-"The Object name must start with x_ and not contain any special character !"
-msgstr ""
+msgstr "Jobbra"
 
 #. module: label
 #: selection:res.partner.address.label,init,font_type:0
 msgid "Helvetica-Bold"
-msgstr ""
+msgstr "Helvetica-Bold"
 
 #. module: label
 #: wizard_view:res.partner.address.label,init:0
 msgid "Label Char Font"
-msgstr ""
+msgstr "Címke betűje"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,printer_bottom:0
 msgid "Bottom"
-msgstr ""
+msgstr "Lent"
 
 #. module: label
 #: wizard_view:res.partner.address.label,notify_bottom:0
+#: wizard_view:res.partner.address.label,notify_left:0
 #: wizard_view:res.partner.address.label,notify_right:0
 #: wizard_view:res.partner.address.label,notify_top:0
-#: wizard_view:res.partner.address.label,notify_left:0
 msgid "Notification"
-msgstr ""
+msgstr "Megjegyzés"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,printer_top:0
 msgid "Top"
-msgstr ""
+msgstr "Fent"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,first_row:0
 msgid "First Row"
-msgstr ""
+msgstr "Első sor"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,font_type:0
 msgid "Font Type"
-msgstr ""
-
-#. module: label
-#: field:report.label,cols:0
-msgid "Number of Columns"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_type:0
-msgid "Helvetica"
-msgstr ""
-
-#. module: label
-#: help:report.label,landscape:0
-msgid "No check -> Portrait. Check -> Landscape"
-msgstr ""
-
-#. module: label
-#: field:report.pagesize,width:0
-msgid "Width"
-msgstr ""
-
-#. module: label
-#: model:ir.model,name:label.model_report_pagesize
-msgid "report.pagesize"
-msgstr ""
-
-#. module: label
-#: field:report.label,pagesize_id:0
-msgid "Page Size"
-msgstr ""
-
-#. module: label
-#: wizard_button:res.partner.address.label,init,check:0
-msgid "Print"
-msgstr ""
-
-#. module: label
-#: field:report.label,label_width:0
-msgid "Label Width"
-msgstr ""
-
-#. module: label
-#: help:report.label,height_incr:0
-msgid ""
-"Height between start positions of 2 labels. Numeric value ended with the "
-"unit (cm or in). For example 29.7cm or 11in"
-msgstr ""
-
-#. module: label
-#: field:report.label.manufacturer,name:0
-#: field:report.label,name:0
-#: field:report.pagesize,name:0
-msgid "Name"
-msgstr ""
-
-#. module: label
-#: field:report.label,description:0
-msgid "Description"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_type:0
-msgid "Courier"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_type:0
-msgid "Courier-BoldOblique"
-msgstr ""
-
-#. module: label
-#: field:report.label,margin_top:0
-msgid "Top Margin"
-msgstr ""
-
-#. module: label
-#: field:report.label,rows:0
-msgid "Number of Rows"
-msgstr ""
-
-#. module: label
-#: constraint:report.label:0
-msgid "Error! Some sizes do not have the unit (cm or in) at the end."
-msgstr ""
-
-#. module: label
-#: help:report.pagesize,height:0
-msgid ""
-"Numeric height of the page ended with the unit (cm or in). For example, A4 "
-"is 29.7cm and letter is 11in"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_type:0
-msgid "Helvetica-BoldOblique"
-msgstr ""
-
-#. module: label
-#: wizard_view:res.partner.address.label,init:0
-msgid "Label Report Options"
-msgstr ""
-
-#. module: label
-#: help:report.label,label_height:0
-#: help:report.label,label_width:0
-#: help:report.label,margin_left:0
-#: help:report.label,margin_top:0
-msgid ""
-"Numeric value ended with the unit (cm or in). For example 29.7cm or 11in"
-msgstr ""
-
-#. module: label
-#: help:report.pagesize,width:0
-msgid ""
-"Numeric width of the page ended with the unit (cm or in). For example, A4 is "
-"21cm and letter is 8.5in"
-msgstr ""
-
-#. module: label
-#: wizard_view:res.partner.address.label,notify_bottom:0
-msgid ""
-"Printer bottom margin bigger than (bottom label margin + label height). Try "
-"again."
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "7"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "6"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "9"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "8"
-msgstr ""
-
-#. module: label
-#: wizard_view:res.partner.address.label,notify_left:0
-msgid ""
-"Printer left margin bigger than (left label margin + label width). Try again."
-msgstr ""
-
-#. module: label
-#: field:report.label,manufacturer_id:0
-msgid "Manufacturer"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_type:0
-msgid "Courier-Oblique"
-msgstr ""
+msgstr "Betűtípus"
 
 #. module: label
 #: model:ir.model,name:label.model_report_label
 msgid "report.label"
-msgstr ""
+msgstr "report.label"
 
 #. module: label
-#: wizard_button:res.partner.address.label,notify_bottom,end:0
-#: wizard_button:res.partner.address.label,notify_right,end:0
-#: wizard_button:res.partner.address.label,notify_top,end:0
-#: wizard_button:res.partner.address.label,notify_left,end:0
-msgid "Ok"
-msgstr ""
+#: help:report.label,landscape:0
+msgid "No check -> Portrait. Check -> Landscape"
+msgstr "Álló (nincs bekapcsolva) / Fekvő (be van kapcsolva)"
 
 #. module: label
-#: field:report.label,height_incr:0
-msgid "Height Increment"
-msgstr ""
+#: wizard_button:res.partner.address.label,init,check:0
+msgid "Print"
+msgstr "Nyomtatás"
+
+#. module: label
+#: model:ir.model,name:label.model_report_pagesize
+msgid "report.pagesize"
+msgstr "report.pagesize"
+
+#. module: label
+#: help:res.partner.address.label,init,first_col:0
+msgid "The Column of the first label in the first page"
+msgstr "Az első oldalon az első címke oszlopa"
+
+#. module: label
+#: field:report.label,pagesize_id:0
+msgid "Page Size"
+msgstr "Oldal mérete"
 
 #. module: label
 #: model:ir.actions.act_window,name:label.action_report_pagesize_form
 #: model:ir.ui.menu,name:label.menu_report_pagesize_form
 #: view:report.pagesize:0
 msgid "Page Sizes"
-msgstr ""
+msgstr "Oldal méretek"
 
 #. module: label
-#: field:report.label,label_height:0
-msgid "Label Height"
-msgstr ""
-
-#. module: label
-#: model:ir.actions.act_window,name:label.action_report_label_manufacturer_form
-#: model:ir.ui.menu,name:label.menu_report_label_manufacturer_form
-msgid "Label Manufacturers"
-msgstr ""
-
-#. module: label
-#: field:report.label,margin_left:0
-msgid "Left Margin"
-msgstr ""
-
-#. module: label
-#: wizard_field:res.partner.address.label,init,font_size:0
-msgid "Font Size"
-msgstr ""
-
-#. module: label
-#: wizard_view:res.partner.address.label,notify_right:0
-msgid ""
-"Printer right margin bigger than (right label margin + label width). Try "
-"again."
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_type:0
-msgid "Times-Italic"
-msgstr ""
-
-#. module: label
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr ""
+#: field:report.label,label_width:0
+msgid "Label Width"
+msgstr "Címke szélessége"
 
 #. module: label
 #: help:report.label,width_incr:0
@@ -295,121 +107,335 @@ msgid ""
 "Width between start positions of 2 labels. Numeric value ended with the unit "
 "(cm or in). For example 29.7cm or 11in"
 msgstr ""
+"Két címke kezdete közti szélesség. Egy szám mértékegységgel (cm vagy in). "
+"Például 29.cm vagy 11in."
+
+#. module: label
+#: help:report.label,height_incr:0
+msgid ""
+"Height between start positions of 2 labels. Numeric value ended with the "
+"unit (cm or in). For example 29.7cm or 11in"
+msgstr ""
+"Két címke kezdete közti magyasság. Egy szám mértékegységgel (cm vagy in). "
+"Például 29.cm vagy 11in."
+
+#. module: label
+#: field:report.label,margin_top:0
+msgid "Top Margin"
+msgstr "Felső margó"
+
+#. module: label
+#: help:res.partner.address.label,init,first_row:0
+msgid "The Row of the first label in the first page"
+msgstr "Az első oldalon az első címke sora"
+
+#. module: label
+#: field:report.label,description:0
+msgid "Description"
+msgstr "Leírás"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier"
+msgstr "Courier"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier-BoldOblique"
+msgstr "Courier-BoldOblique"
+
+#. module: label
+#: constraint:report.label:0
+msgid "Error! Some sizes do not have the unit (cm or in) at the end."
+msgstr ""
+"Hiba! Egyes méretek nem tartalmaznak mértékegységet (cm vagy in) a szám után."
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Helvetica-BoldOblique"
+msgstr "Helvetica-BoldOblique"
 
 #. module: label
 #: wizard_view:res.partner.address.label,init:0
-msgid "First Label"
+msgid "Label Report Options"
+msgstr "Címke nyomtatásának adatai"
+
+#. module: label
+#: help:report.label,label_height:0 help:report.label,label_width:0
+#: help:report.label,margin_left:0 help:report.label,margin_top:0
+msgid ""
+"Numeric value ended with the unit (cm or in). For example 29.7cm or 11in"
 msgstr ""
+"Mértékegységre (cm vagy in) végződő számszerű érték. Például 29.7cm vagy "
+"11in."
+
+#. module: label
+#: wizard_button:res.partner.address.label,notify_bottom,end:0
+#: wizard_button:res.partner.address.label,notify_left,end:0
+#: wizard_button:res.partner.address.label,notify_right,end:0
+#: wizard_button:res.partner.address.label,notify_top,end:0
+msgid "Ok"
+msgstr "Ok"
+
+#. module: label
+#: help:report.pagesize,width:0
+msgid ""
+"Numeric width of the page ended with the unit (cm or in). For example, A4 is "
+"21cm and letter is 8.5in"
+msgstr ""
+"Az oldal szélessége mértékegységre (cm vagy in) végződő számszerű értékkel. "
+"Például 29.7cm vagy 11in."
+
+#. module: label
+#: field:report.label,rows:0
+msgid "Number of Rows"
+msgstr "Sorok száma"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "7"
+msgstr "7"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "6"
+msgstr "6"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "9"
+msgstr "9"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "8"
+msgstr "8"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,printer_left:0
 msgid "Left"
-msgstr ""
+msgstr "Balra"
 
 #. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "11"
-msgstr ""
-
-#. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "10"
-msgstr ""
+#: field:report.label,manufacturer_id:0
+msgid "Manufacturer"
+msgstr "Gyártó"
 
 #. module: label
 #: selection:res.partner.address.label,init,font_type:0
-msgid "Times-BoldItalic"
-msgstr ""
+msgid "Courier-Oblique"
+msgstr "Courier-Oblique"
 
 #. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "12"
-msgstr ""
+#: field:report.label,cols:0
+msgid "Number of Columns"
+msgstr "Oszlopok száma"
 
 #. module: label
-#: wizard_field:res.partner.address.label,init,first_col:0
-msgid "First Column"
+#: help:report.pagesize,height:0
+msgid ""
+"Numeric height of the page ended with the unit (cm or in). For example, A4 "
+"is 29.7cm and letter is 11in"
 msgstr ""
+"Az oldal magassága mértékegységre (cm vagy in) végződő számszerű értékkel. "
+"Például 29.7cm vagy 11in."
 
 #. module: label
-#: selection:res.partner.address.label,init,font_size:0
-msgid "14"
-msgstr ""
+#: field:report.label,name:0 field:report.label.manufacturer,name:0
+#: field:report.pagesize,name:0
+msgid "Name"
+msgstr "Név"
 
 #. module: label
-#: wizard_view:res.partner.address.label,init:0
-msgid "Printer Margins"
-msgstr ""
-
-#. module: label
-#: model:ir.actions.act_window,name:label.action_report_label_form
-#: model:ir.ui.menu,name:label.menu_report_label_form
-#: view:report.label:0
-msgid "Label Formats"
-msgstr ""
-
-#. module: label
-#: model:ir.actions.wizard,name:label.res_partner_address_report
-msgid "Labels"
-msgstr ""
+#: field:report.pagesize,width:0
+msgid "Width"
+msgstr "Szélesség"
 
 #. module: label
 #: selection:res.partner.address.label,init,font_type:0
-msgid "Times-Bold"
+msgid "Helvetica"
+msgstr "Helvetica"
+
+#. module: label
+#: model:ir.actions.act_window,name:label.action_report_label_manufacturer_form
+#: model:ir.ui.menu,name:label.menu_report_label_manufacturer_form
+msgid "Label Manufacturers"
+msgstr "Címke gyártója"
+
+#. module: label
+#: field:report.label,margin_left:0
+msgid "Left Margin"
+msgstr "Bal margó"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_bottom:0
+msgid ""
+"Printer bottom margin bigger than (bottom label margin + label height). Try "
+"again."
 msgstr ""
+"Az alsó margó nagyobb a címke alsó margójának és a címke magasságának az "
+"összegénél. Próbálja újra."
+
+#. module: label
+#: help:res.partner.address.label,init,printer_bottom:0
+#: help:res.partner.address.label,init,printer_left:0
+#: help:res.partner.address.label,init,printer_right:0
+#: help:res.partner.address.label,init,printer_top:0
+msgid ""
+"Numeric size ended with the unit (cm or in). For example, 0.3cm or 0.2in"
+msgstr ""
+"Mértékegységre (cm vagy in) végződő számszerű érték. Például 29.7cm vagy "
+"11in."
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier-Bold"
+msgstr "Courier-Bold"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_right:0
+msgid ""
+"Printer right margin bigger than (right label margin + label width). Try "
+"again."
+msgstr ""
+"Az jobb margó nagyobb a címke jobb margójának és a címke szélességének az "
+"összegénél. Próbálja újra."
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Times-Italic"
+msgstr "Times-Italic"
 
 #. module: label
 #: constraint:report.pagesize:0
 msgid "Error! The page sizes do not have the unit (cm or in) at the end."
 msgstr ""
+"Hiba! Egyes méretek nem tartalmaznak mértékegységet (cm vagy in) a szám után."
 
 #. module: label
-#: field:report.pagesize,height:0
-msgid "Height"
-msgstr ""
+#: wizard_view:res.partner.address.label,init:0
+msgid "First Label"
+msgstr "Első címke"
+
+#. module: label
+#: field:report.label,label_height:0
+msgid "Label Height"
+msgstr "Címke magasága"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "11"
+msgstr "11"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "10"
+msgstr "10"
 
 #. module: label
 #: selection:res.partner.address.label,init,font_type:0
-msgid "Courier-Bold"
-msgstr ""
+msgid "Times-BoldItalic"
+msgstr "Times-BoldItalic"
 
 #. module: label
-#: field:report.label,width_incr:0
-msgid "Width Increment"
-msgstr ""
+#: selection:res.partner.address.label,init,font_size:0
+msgid "12"
+msgstr "12"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,first_col:0
+msgid "First Column"
+msgstr "Első oszlop"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "14"
+msgstr "14"
+
+#. module: label
+#: wizard_view:res.partner.address.label,init:0
+msgid "Printer Margins"
+msgstr "Nyomtató margói"
+
+#. module: label
+#: model:ir.actions.act_window,name:label.action_report_label_form
+#: model:ir.ui.menu,name:label.menu_report_label_form view:report.label:0
+msgid "Label Formats"
+msgstr "Címkeformátumok"
+
+#. module: label
+#: model:ir.actions.wizard,name:label.res_partner_address_report
+#: model:ir.ui.menu,name:label.menu_labels
+msgid "Labels"
+msgstr "Címkék"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Times-Bold"
+msgstr "Times-Bold"
 
 #. module: label
 #: model:ir.model,name:label.model_report_label_manufacturer
 msgid "report.label.manufacturer"
+msgstr "report.label.manufacturer"
+
+#. module: label
+#: field:report.pagesize,height:0
+msgid "Height"
+msgstr "Magasság"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_left:0
+msgid ""
+"Printer left margin bigger than (left label margin + label width). Try again."
 msgstr ""
+"A bal margó nagyobb a címke bal margójának és a címke szélességének az "
+"összegénél. Próbálja újra."
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,font_size:0
+msgid "Font Size"
+msgstr "Betűméret"
+
+#. module: label
+#: field:report.label,width_incr:0
+msgid "Width Increment"
+msgstr "Szélesség növekménye"
+
+#. module: label
+#: field:report.label,height_incr:0
+msgid "Height Increment"
+msgstr "Magasság növekménye"
 
 #. module: label
 #: wizard_button:res.partner.address.label,init,end:0
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #. module: label
 #: selection:res.partner.address.label,init,font_type:0
 msgid "Times-Roman"
-msgstr ""
+msgstr "Times-Roman"
 
 #. module: label
 #: selection:res.partner.address.label,init,font_type:0
 msgid "Helvetica-Oblique"
-msgstr ""
+msgstr "Helvetica-Oblique"
 
 #. module: label
 #: wizard_view:res.partner.address.label,notify_top:0
 msgid ""
 "Printer top margin bigger than (top label margin + label height). Try again."
 msgstr ""
+"A felső margó nagyobb a címke felső margójának és a címke magasságának az "
+"összegénél. Próbálja újra."
 
 #. module: label
 #: field:report.label,landscape:0
 msgid "Landscape"
-msgstr ""
+msgstr "Fekvő"
 
 #. module: label
 #: wizard_field:res.partner.address.label,init,label_format:0
 msgid "Label Format"
-msgstr ""
+msgstr "Címke formátum"

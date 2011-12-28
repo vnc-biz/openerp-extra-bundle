@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.10\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2010-12-17 20:52+0000\n"
-"PO-Revision-Date: 2011-02-15 15:01+0000\n"
+"PO-Revision-Date: 2011-12-27 10:21+0000\n"
 "Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
 "<jesteve@zikzakmedia.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:44+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2011-12-28 05:47+0000\n"
+"X-Generator: Launchpad (build 14560)\n"
 "Language: ca\n"
 
 #. module: account_payment_extension
@@ -44,8 +44,8 @@ msgid ""
 "Payment order should create account moves but line with amount %(amount).2f "
 "for partner \"%(partner)s\" has no account assigned."
 msgstr ""
-"La orden de pago debe generar los asientos pero la línea con importe %(amount).2f y "
-"empresa \"%(partner)s\" no tiene cuenta asignada."
+"La orden de pago debe generar los asientos pero la línea con importe "
+"%(amount).2f y empresa \"%(partner)s\" no tiene cuenta asignada."
 
 #. module: account_payment_extension
 #: constraint:ir.actions.act_window:0
@@ -538,3 +538,11 @@ msgstr "Mostrar abonos"
 #: help:populate_payment_ext,init,show_refunds:0
 msgid "Indicates if search should include refunds."
 msgstr "Indica si la búsqueda debe incluir abonos."
+
+#, python-format
+#~ msgid ""
+#~ "Payment order should create account moves but line with amount %.2f for "
+#~ "partner \"%s\" has no account assigned."
+#~ msgstr ""
+#~ "La orden de pago debe generar los asientos pero la línea con importe %.2f y "
+#~ "empresa \"%s\" no tiene cuenta asignada."

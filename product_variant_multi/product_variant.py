@@ -56,6 +56,8 @@ class product_variant_dimension_type(osv.osv):
     _order = "sequence, name"
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=None):
+        if context is None:
+            context = {}
         if not context.get('product_tmpl_id', False):
             args = None
         return super(product_variant_dimension_type, self).name_search(cr, user, '', args, 'ilike', None, None)
@@ -66,7 +68,7 @@ class product_variant_dimension_option(osv.osv):
     _name = "product.variant.dimension.option"
     _description = "Dimension Option"
 
-    def _get_dimension_values(self, cr, uid, ids, context={}):
+    def _get_dimension_values(self, cr, uid, ids, context=None):
         return self.pool.get('product.variant.dimension.value').search(cr, uid, [('dimension_id', 'in', ids)], context=context)
 
     _columns = {
@@ -84,6 +86,7 @@ product_variant_dimension_option()
 class product_variant_dimension_value(osv.osv):
     _name = "product.variant.dimension.value"
     _description = "Dimension Value"
+    _rec_name = "option_id"
 
     def unlink(self, cr, uid, ids, context=None):
         for value in self.browse(cr, uid, ids, context=context):
@@ -92,7 +95,7 @@ class product_variant_dimension_value(osv.osv):
                 raise osv.except_osv(_('Dimension value can not be removed'), _("The value %s is used in the product : %s \n Please remove this product before removing the value"%(value.option_id.name, product_list)))
         return super(product_variant_dimension_value, self).unlink(cr, uid, ids, context)
 
-    def _get_dimension_values(self, cr, uid, ids, context={}):
+    def _get_dimension_values(self, cr, uid, ids, context=None):
         return self.pool.get('product.variant.dimension.value').search(cr, uid, [('dimension_id', 'in', ids)], context=context)
 
     _columns = {
@@ -207,7 +210,7 @@ class product_template(product_variant_osv):
             self.write(cr, uid, template.id, vals, context=context)    
         return True
 
-    def get_products_from_product_template(self, cr, uid, ids, context={}):
+    def get_products_from_product_template(self, cr, uid, ids, context=None):
         product_tmpl = self.read(cr, uid, ids, ['variant_ids'], context=context)
         return [id for vals in product_tmpl for id in vals['variant_ids']]
     
@@ -236,7 +239,7 @@ class product_template(product_variant_osv):
         
         return cartesian_product(vals)
 
-    def product_product_variants_vals(self, cr, uid, product_temp, variant, context):
+    def product_product_variants_vals(self, cr, uid, product_temp, variant, context=None):
         """Return Product Product Values Dicc
         :product_temp Object
         :variant list ids
@@ -257,7 +260,8 @@ class product_template(product_variant_osv):
         :ids: list
         :return products (list of products)
         """
-
+        if context is None:
+            context = {}
         variants_obj = self.pool.get('product.product')
         temp_val_list = []
 
@@ -426,6 +430,8 @@ class product_product(product_variant_osv):
         return self.parse(cr, uid, product_obj, code_generator, context=context)
 
     def build_product_code_and_properties(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         for product in self.browse(cr, uid, ids, context=context):
             new_default_code = self.generate_product_code(cr, uid, product, product.product_tmpl_id.code_generator, context=context)
             current_values = {
@@ -451,6 +457,8 @@ class product_product(product_variant_osv):
     def generate_variant_name(self, cr, uid, product_id, context=None):
         '''Do the generation of the variant name in a dedicated function, so that we can
         inherit this function to hack the code generation'''
+        if context is None:
+            context = {}
         product = self.browse(cr, uid, product_id, context=context)
         model = product.variant_model_name
         r = map(lambda dim: [dim.dimension_id.sequence ,self.parse(cr, uid, dim, model, context=context)], product.dimension_value_ids)

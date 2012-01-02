@@ -26,9 +26,10 @@ class product_product(osv.osv):
     _inherit = "product.product"
     
     # filter only the matching variants
-    def name_search(self, cr, uid, name, args=None, operator='ilike', context={}, limit=80):
-        
-        if context and context.get('dimension_configuration_line_ids', False):
+    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=80):
+        if context is None:
+            context = {}
+        if context.get('dimension_configuration_line_ids', False):
             if not args:
                 args=[]
             

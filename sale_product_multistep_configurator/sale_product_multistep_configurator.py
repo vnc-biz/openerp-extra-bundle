@@ -35,7 +35,9 @@ class sale_product_multistep_configurator_configurator_step(osv.osv):
         """Hook to allow a configurator step module to update the context before running, for instance to skip this step."""
         return context
     
-    def next_step(self, cr, user, context={}):
+    def next_step(self, cr, user, context=None):
+        if context is None:
+            context = {}
         context = self.update_context_before_step(cr, user, context)
         index = context.get('next_step', 0)
         context.update({'next_step': index+1 })
@@ -102,9 +104,11 @@ sale_product_multistep_configurator_configurator_step()
 class ir_actions_act_window(osv.osv):
     _inherit = 'ir.actions.act_window'
 
-    def read(self, cr, uid, ids, fields=None, context={}, load='_classic_read'):
+    def read(self, cr, uid, ids, fields=None, context=None, load='_classic_read'):
         if not ids:
             return {}
+        if context is None:
+            context = {}
         if isinstance(ids, (int, long)):
             read_ids = [ids]
         else:

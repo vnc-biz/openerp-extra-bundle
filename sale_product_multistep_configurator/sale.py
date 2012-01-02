@@ -19,17 +19,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
 
+from osv import fields, osv
 
 class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
 
-    
     def configurator_line_write(self, cr, user, ids, context=None):
         return {
             'type': 'ir.actions.act_window_close',
         }
-
 
 sale_order_line()

@@ -25,7 +25,7 @@ import sale_product_multistep_configurator
 
 class product_variant_configurator_line(osv.osv_memory):
     _name = "product_variant_configurator.line"
-
+    _rec_name = "dimension_type_value_id"
     _columns = {
                 "dimension_type_id": fields.many2one('product.variant.dimension.type', "Dimension Type"), # , domain="[('product_tmpl_id','=',product_tmpl_id)]"
                 "dimension_type_value_id": fields.many2one('product.variant.dimension.value', "Dimension Value", domain="[('dimension_id','=',dimension_type_id)]"),
@@ -57,22 +57,24 @@ product_variant_configurator_line()
 
 class product_variant_configurator_configurator(osv.osv_memory):
     _name = "product_variant_configurator.configurator"
-
+    _rec_name = "product_variant_id"
     _columns = {
               "product_tmpl_id": fields.many2one('product.template', "Product Template"),
               "dimension_configuration_line_ids": fields.one2many('product_variant_configurator.line', 'configurator_id', 'Configurator Lines'),
               "product_variant_id": fields.many2one('product.product', "Product Variant", required=True),
     }
     
-    def create(self, cr, uid, vals, context=None):
-        id = super(osv.osv_memory, self).create(cr, uid, vals, context)
-        line_ids = [i[1] for i in vals['dimension_configuration_line_ids']]
-        if line_ids:
-            self.pool.get('product_variant_configurator.line').write(cr, uid, line_ids, {'configurator_id':id})
-        return id
+#    def create(self, cr, uid, vals, context=None):
+#        id = super(osv.osv_memory, self).create(cr, uid, vals, context)
+#        line_ids = [i[1] for i in vals['dimension_configuration_line_ids']]
+#        if line_ids:
+#            self.pool.get('product_variant_configurator.line').write(cr, uid, line_ids, {'configurator_id':id})
+#        return id
 
     #TODO load the product of the sale order line in the wizard in case of modification
     def default_get(self, cr, uid, fields_list, context=None):
+        if context is None:
+            context = {}
         sol_id = context.get('active_id', False)
         if (context.get('active_id_object_type', False) == 'sale.order.line' and sol_id):
             res_sol = self.pool.get('sale.order.line').read(cr, uid, sol_id, ['product_id', 'dimension_custom_value_ids'])
@@ -153,7 +155,9 @@ class product_variant_configurator_configurator(osv.osv_memory):
 
         return result
     
-    def configure_line(self, cr, uid, ids, context={}):
+    def configure_line(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
         active_id_object_type = context.get('active_id_object_type', False)
         res_obj = self.pool.get('sale.order.line')
         line_obj = self.pool.get('product_variant_configurator.line')

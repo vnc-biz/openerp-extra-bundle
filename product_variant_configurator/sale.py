@@ -19,13 +19,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
 
+from osv import fields, osv
 
 class sale_order_line_dimension_custom_values(osv.osv):
     _name = "sale.order.line.dimension_custom_values"
     
-    def _get_to_update_ids(self, cr, uid, ids, context={}):
+    def _get_to_update_ids(self, cr, uid, ids, context=None):
         result = []
         for sol in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
             for d_c_value in sol.dimension_custom_value_ids:
@@ -43,7 +43,6 @@ class sale_order_line_dimension_custom_values(osv.osv):
                 }
     
 sale_order_line_dimension_custom_values()
-
 
 class sale_order_line(osv.osv):
     _inherit = "sale.order.line"

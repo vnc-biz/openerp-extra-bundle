@@ -17,14 +17,6 @@
             </field>
         </record>
 
-<!--        <record id="action_sale_extended" model="ir.actions.act_window">-->
-<!--            <field name="name">Price List</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="res_model">sale.extended.wizard</field>-->
-<!--            <field name="view_mode">form</field>-->
-<!--            <field name="view_id" ref="view_sale_inherited"/> -->
-<!--    	</record>-->
-
     <act_window
             id="sale_pricelist_act_window"
             name="Change Pricelist"
@@ -32,7 +24,7 @@
             view_type="form"
             res_model="sale.extended.wizard"
             src_model="sale.order"
-            target="new"	/>
+            target="new"/>
 
     </data>
 </openerp>

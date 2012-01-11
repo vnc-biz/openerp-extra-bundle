@@ -23,7 +23,7 @@ from tools.translate import _
 
 class sale_extended_wizard(osv.osv_memory):
     _name = "sale.extended.wizard"
-    _description = "Sale Extended wizard"
+    _description = "Wizard On Sale Order which lets you change pricelist runtime"
     _columns = {
         'pricelist_id': fields.many2one('product.pricelist', 'Pricelist', required=True, domain=[('type','=','sale')])
     }
@@ -49,7 +49,7 @@ class sale_extended_wizard(osv.osv_memory):
                         order_line_obj.write(cr, uid, line.id, {'price_unit': vals['value']['price_unit']},context=context)
         else:
             raise osv.except_osv(_('Warning'),_('PriceList cannot be changed! Make sure the Sales Order is in "Quotation" state!'))
-        return {}
+        return {'type': 'ir.actions.act_window_close'}
 
 sale_extended_wizard()
 

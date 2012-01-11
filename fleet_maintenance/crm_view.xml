@@ -4,7 +4,7 @@
 	
 		<record model="ir.ui.view" id="view_crm_case_form_fleet_maintenance">
 			<field name="name">crm.case.form.fleet_maintenance</field>
-			<field name="model">crm.case</field>
+			<field name="model">crm.lead</field>
 			<field name="type">form</field>
 			<field name="priority">20</field>
 			<field name="arch" type="xml">
@@ -39,7 +39,6 @@
 						<field name="external_ref" />
 						<field name="section_id" />
 						<newline />
-						<field name="date" string="Incident date" required="1" />
 						<field name="categ_id" on_change="onchange_categ_id(categ_id)" select="1" string="Type of Incident" />
 						<label align="1.0" string="Stage: " />
 						<group col="2" colspan="1">
@@ -52,15 +51,11 @@
 							<field colspan="1" name="partner_address_id" on_change="onchange_partner_address_id(partner_address_id, email_from)"
 								string="Contact" />
 							<field name="email_from" />
-							<field name="partner_phone" />
-							<field name="partner_mobile" />
 							<newline />
 							<field name="priority" />
-							<field name="category2_id" select="1" string="Type of Action" />
 
 							<separator colspan="2" string="Claim Description" />
 							<separator colspan="2" string="Action Description" />
-							<field colspan="2" name="note" nolabel="1" />
 							<field colspan="2" name="description" nolabel="1" />
 							<label colspan="2" string="" />
 							<group colspan="2">
@@ -81,49 +76,46 @@
 							<field name="id" />
 							<field name="active" />
 							<field name="email_cc" />
-							<field name="canal_id" />
 							<separator colspan="4" string="Dates" />
 							<field name="create_date" />
 							<field name="date_closed" />
 							<field name="date_action_last" />
 							<field name="date_action_next" />
-							<field name="som" />
 							<separator colspan="4" string="History" />
-							<field colspan="4" mode="tree,form" name="history_line" nolabel="1">
-								<form string="Communication history">
-									<group col="6" colspan="4">
-										<field name="date" />
-										<field name="email" />
-										<field name="canal_id" />
-									</group>
-									<newline />
-									<field colspan="4" name="description" nolabel="1" />
-								</form>
-								<tree string="Communication history">
-									<field name="description" />
-									<field name="email" />
-									<field name="date" />
-								</tree>
-							</field>
+							<field name="message_ids" colspan="4" nolabel="1" mode="tree,form">
+                        <tree string="Communication history">
+                            <field name="display_text" string="History Information"/>
+                            <field name="history" invisible="1"/>
+                            <button string="Reply" attrs="{'invisible': [('history', '!=', True)]}" name="330" context="{'mail':'reply', 'model': 'crm.lead', 'include_original' : True}" icon="terp-mail-replied" type="action"/>
+                        </tree>
+                        <form string="Communication history">
+                            <group col="4" colspan="4">
+                                <field name="email_from"/>
+                                <field name="email_to" widget="char" size="512"/>
+                                <field name="email_cc" widget="char" size="512"/>
+                                <field name="name" colspan="4" widget="char" size="512"/>
+                                <field name="history" invisible="1"/>
+                            </group>
+                            <notebook colspan="4">
+                                <page string="Details">
+                                    <group>
+                                        <field name="description" colspan="4" nolabel="1" height="250"/>
+                                        <button colspan="4" string="Reply" attrs="{'invisible': [('history', '!=', True)]}" name="330" context="{'mail':'reply', 'model': 'crm.lead', 'include_original' : True}" icon="terp-mail-replied" type="action"/>
+                                    </group>
+                                </page>
+                                <page string="Attachments">
+                                    <field name="attachment_ids" colspan="4" readonly="1" nolabel="1"/>
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
 						</page>
-						<page string="History">
-							<field colspan="4" name="log_ids" nolabel="1">
-								<form string="Actions">
-									<separator colspan="4" string="Action Information" />
-									<field colspan="4" name="name" />
-									<field name="date" />
-									<field name="user_id" />
-									<field name="som" />
-									<field name="canal_id" />
-								</form>
-							</field>
-						</page>
+						
 						<page string="Supplier Return?">
 							<field name="in_supplier_picking_id" domain="[('type','=','out')]" context="{'partner_id':partner_id,'view':'incident','location_id_usage':'internal','location_dest_id_usage':'supplier','product_id':product_id,'prodlot_id':prodlot_id}" />
 							<field name="out_supplier_picking_id" domain="[('type','=','in')]" context="{'partner_id':partner_id,'view':'incident','location_id_usage':'supplier','location_dest_id_usage':'internal','product_id':product_id,'prodlot_id':prodlot_id}" />
 						</page>
 						<page string="Money">
-							<field name="planned_cost" string="Incident Cost" />
 							<field name="planned_revenue" string="Incident Revenue" />
 						</page>
 					</notebook>
@@ -135,7 +127,7 @@
 
 		<record model="ir.ui.view" id="view_crm_case_tree_fleet_maintenance">
 			<field name="name">crm.case.tree.fleet_maintenance</field>
-			<field name="model">crm.case</field>
+			<field name="model">crm.lead</field>
 			<field name="type">tree</field>
 			<field name="priority">14</field>
 			<field name="arch" type="xml">
@@ -157,7 +149,7 @@
 		<record id="fleet_incident_action" model="ir.actions.act_window">
 			<field name="name">All Fleet Incidents</field>
 			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">crm.case</field>
+			<field name="res_model">crm.lead</field>
 			<field name="view_type">form</field>
 			<field name="domain">[('prodlot_id','!=',False)]</field>
 			<field name="view_mode">tree,form,calendar</field>
@@ -185,7 +177,7 @@
 		<record id="fleet_incident_action_new" model="ir.actions.act_window">
 			<field name="name">New Fleet Incident</field>
 			<field name="type">ir.actions.act_window</field>
-			<field name="res_model">crm.case</field>
+			<field name="res_model">crm.lead</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form,tree</field>
 		</record>

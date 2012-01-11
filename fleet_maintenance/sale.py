@@ -53,7 +53,7 @@ class sale_order_line(osv.osv):
             if line.maintenance_start_date and line.maintenance_end_date:
                 result[line.id] = self._get_maintenance_month_qty_from_start_end(cr, uid, DateTime.strptime(line.maintenance_start_date, '%Y-%m-%d'), DateTime.strptime(line.maintenance_end_date, '%Y-%m-%d'))
             else:
-                result[line.id] = False
+                result[line.id] = 0
         return result
     
     _columns = {

@@ -30,7 +30,7 @@ be covered by paid maintenance contracts.
 Fleet: a stock.location for which all products have the same maintenance end date anniversary.
 Indeed, it's useful to have several maintenance contracts for a given partner with a single anniversary date
 for an eventual renewal.
-Meaning that if the customer wants a different end date anniversaries for two mainteance contracts,
+Meaning that if the customer wants a different end date anniversaries for two maintenance contracts,
 then he should have several Fleets.
 Products don't go in the Fleets actually, they go in their Sub-Fleets instead.
 

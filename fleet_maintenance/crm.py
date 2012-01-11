@@ -25,7 +25,7 @@ import pooler
 from mx import DateTime
 
 class crm_case(osv.osv):
-    _inherit = "crm.case" 
+    _inherit = "crm.lead" 
     _columns = {
         'incident_ref': fields.char('Incident Ref', size=64, required=True),
         'external_ref': fields.char('Ticket Code', size=64),
@@ -51,8 +51,8 @@ class crm_case(osv.osv):
     
     
     _defaults = {
-        'incident_ref': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'crm.case'),
-        'date': default_incident_date,
+        'incident_ref': lambda obj, cr, uid, context: obj.pool.get('ir.sequence').get(cr, uid, 'crm.lead'),
+        'date_action_last': default_incident_date,
         }
     
     #def copy(self, cr, uid, id, default=None,context={}):#TODO

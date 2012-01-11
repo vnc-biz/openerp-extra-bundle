@@ -85,6 +85,7 @@ class hr_holidays(osv.osv):
             raise osv.except_osv('Date Error !','From date should be smaller than To date')
         return super(hr_holidays, self).write(cr, uid, ids, vals, context=context)
     def create(self, cr, uid, vals, context=None):
+        print vals
         d=vals['date_from1']
         dd=vals['date_to1']
         d1=d.split('-')

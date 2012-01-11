@@ -87,8 +87,8 @@ class stock_location(osv.osv):
         'fleet_sale_order_lines': fields.one2many('sale.order.line', 'parent_fleet_id', 'Sale Order Lines'),
         'account_invoice_lines': fields.one2many('account.invoice.line', 'fleet_id', 'Invoice Lines'),
         'fleet_account_invoice_lines': fields.one2many('account.invoice.line', 'parent_fleet_id', 'Invoice Lines'),
-        'crm_cases': fields.one2many('crm.case', 'fleet_id', 'Events'),
-        'fleet_crm_cases': fields.one2many('crm.case', 'parent_fleet_id', 'Events'),
+        'crm_cases': fields.one2many('crm.lead', 'fleet_id', 'Events'),
+        'fleet_crm_cases': fields.one2many('crm.lead', 'parent_fleet_id', 'Events'),
         'is_expired': fields.function(_is_expired, method=True, type='boolean', string="Expired ?"),
         'time_to_expire': fields.function(_time_to_expire, method=True, type='integer', string="Days before expiry"),
         'intrinsic_anniversary_time':fields.date('Intrinsic Time', required = False),
@@ -121,7 +121,7 @@ class stock_location(osv.osv):
     def _default_usage(self, cr, uid, context={}):
         if context.get('fleet_type', 'none') != 'none':
             return 'customer'
-        return False
+        return 'internal'
 
     def _default_anniversary_time(self, cr, uid, context={}):
         date = DateTime.DateTime(DateTime.now().year, fixed_default_anniversary_month, fixed_month_init_day, 0, 0, 0.0)

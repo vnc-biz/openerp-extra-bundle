@@ -219,7 +219,6 @@
 		</record>
 
 
-
 		<record id="fleet_normal_action" model="ir.actions.act_window">
 			<field name="name">All Fleets</field>
 			<field name="type">ir.actions.act_window</field>

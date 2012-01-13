@@ -1,7 +1,7 @@
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2011 Serpent Consulting Services (<http://serpentcs.com>).
+#    Copyright (C) 2011 Serpent Consulting Services (<http://www.serpentcs.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,6 @@ import netsvc
 import time
 
 class mrp_production(osv.osv):
-    _name = 'mrp.production'
     _inherit = 'mrp.production'
     
     def action_in_production(self, cr, uid, ids):

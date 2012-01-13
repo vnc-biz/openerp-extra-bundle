@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2011 Serpent Consulting Services (<http://serpentcs.com>).
+#    Copyright (C) 2011 Serpent Consulting Services (<http://www.serpentcs.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -26,7 +26,7 @@
     'website': 'http://www.serpentcs.com',
     'category': 'Generic Modules/Production',
     'description': """
-        This module will modify workorder workdlow so that when we start production order
+        This module will modify workorder workflow so that when we start production order
         it will start only first workorder instead of starting all workorders.
     """,
     'author': 'Serpent Consulting Services',

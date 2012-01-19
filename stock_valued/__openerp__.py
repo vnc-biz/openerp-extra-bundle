@@ -33,7 +33,7 @@
     "depends" : ["base", "account", "stock", "sale"],
     "init_xml" : [],
     "update_xml" : [
-        'security/ir.model.access.csv',
+        #'security/ir.model.access.csv',
         'stock_valued_view.xml',
         'stock_valued_report.xml',
                    ],

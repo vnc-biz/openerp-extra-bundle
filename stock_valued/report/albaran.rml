@@ -137,7 +137,7 @@
           </para>
         </td>
         <td>
-          <para style="terp_default_9">[[ (picking.address_id and picking.address_id.partner_id and picking.address_id.partner_id.title) or '' ]] [[ picking.address_id and picking.address_id.partner_id and picking.address_id.partner_id.name ]]</para>
+          <para style="terp_default_9">[[ picking.address_id and picking.address_id.partner_id and picking.address_id.partner_id.name ]] [[ (picking.address_id and picking.address_id.partner_id and picking.address_id.partner_id.title and picking.address_id.partner_id.title.name) or '' ]]</para>
           <para style="terp_default_9">[[ picking.address_id and picking.address_id.street or '' ]][[ picking.address_id and picking.address_id.zip or '' ]]</para>
           <para style="terp_default_2">
             <font color="white"> </font>
@@ -252,7 +252,7 @@
       <blockTable colWidths="287.0,76.0,50.0,36.0,51.0,38.0" style="Move_Line_Contect_Assign_State">
         <tr>
           <td>
-            <para style="terp_default_9">[ [[ move_lines.product_id.default_code ]] ] [[ move_lines.product_id.name ]] [[ move_lines.product_id.variants or '']] </para>
+            <para style="terp_default_9">[ [[ move_lines.product_id.default_code ]] ] [[ move_lines.product_id.name ]] [[ move_lines.product_id.variants not in move_lines.product_id.name and move_lines.product_id.variants or '']] </para>
           </td>
           <td>
             <para style="terp_default_Right_9">[[ formatLang(move_lines.product_qty) ]]  [[ move_lines.product_uom.name ]]</para>

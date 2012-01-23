@@ -6,16 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-03-23 16:44+0000\n"
-"PO-Revision-Date: 2011-03-31 12:04+0000\n"
-"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
-"<resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2012-01-23 14:23+0000\n"
+"PO-Revision-Date: 2012-01-23 15:29+0100\n"
+"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:57+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"Plural-Forms: \n"
+
+#. module: product_attributes
+#: view:product.attributes.wizard:0
+msgid "Copy attributes"
+msgstr "Copiar atributos"
 
 #. module: product_attributes
 #: view:product.product:0
@@ -30,20 +33,36 @@ msgid "Product Attributes"
 msgstr "Atributos de producto"
 
 #. module: product_attributes
+#: model:ir.model,name:product_attributes.model_product_attributes_wizard
+msgid "product.attributes.wizard"
+msgstr "product.attributes.wizard"
+
+#. module: product_attributes
 #: view:product.attributes:0
+#: field:product.attributes.wizard,field:0
 msgid "Field"
 msgstr "Campo"
 
 #. module: product_attributes
-#: field:product.attributes.group,product_att_ids:0
-msgid "Products Attributes"
-msgstr "Atributos de Productos"
+#: field:product.attributes.wizard,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: product_attributes
+#: help:product.attributes.group,code:0
+msgid "Attribute code, ex az09"
+msgstr "Atributo código, ex az09"
 
 #. module: product_attributes
 #: code:addons/product_attributes/product_attributes.py:230
 #, python-format
 msgid "Error ocurring during deleting"
 msgstr "Se ha producido un error durante la eliminación"
+
+#. module: product_attributes
+#: help:product.attributes.wizard,product_to:0
+msgid "Select your product to copy"
+msgstr "Seleccione el producto a copiar"
 
 #. module: product_attributes
 #: code:addons/product_attributes/product_attributes.py:98
@@ -55,6 +74,17 @@ msgstr "No puede borrar este atributo"
 #: field:product.attributes,translate:0
 msgid "Translate"
 msgstr "Traducir"
+
+#. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:73
+#, python-format
+msgid "%s copy to: %s - %s"
+msgstr "%s copy to: %s - %s"
+
+#. module: product_attributes
+#: field:product.attributes.group,product_att_ids:0
+msgid "Products Attributes"
+msgstr "Atributos de Productos"
 
 #. module: product_attributes
 #: model:ir.model,name:product_attributes.model_product_product
@@ -70,14 +100,14 @@ msgid "Error !"
 msgstr "¡Error!"
 
 #. module: product_attributes
+#: field:product.attributes.wizard,product_to:0
+msgid "Product TO"
+msgstr "Producto a modificar"
+
+#. module: product_attributes
 #: help:product.attributes,selection:0
-msgid ""
-"List of options for a selection field, specified as a Python expression "
-"defining a list of (key, label) pairs. For example: "
-"[('blue','Blue'),('yellow','Yellow')]"
-msgstr ""
-"Lista de opciones del campo selección, especificado como expresión de lista "
-"de Pythn (key, label). Por ejemplo: [('azul','Azul'),('amarillo','Amarillo')]"
+msgid "List of options for a selection field, specified as a Python expression defining a list of (key, label) pairs. For example: [('blue','Blue'),('yellow','Yellow')]"
+msgstr "Lista de opciones del campo selección, especificado como expresión de lista de Pythn (key, label). Por ejemplo: [('azul','Azul'),('amarillo','Amarillo')]"
 
 #. module: product_attributes
 #: model:ir.actions.act_window,name:product_attributes.action_product_attributes_group
@@ -89,14 +119,17 @@ msgstr "Grupo de atributos de producto"
 #: model:ir.module.module,description:product_attributes.module_meta_information
 msgid ""
 "\n"
-"    This module adds a way to group OpenERP products  through their "
-"attributes.\n"
+"    This module adds a way to group OpenERP products  through their attributes.\n"
 "    "
 msgstr ""
 "\n"
-"    Este módulo añade una forma de agrupar productos de OpenERP mediante sus "
-"atributos.\n"
+"    Este módulo añade una forma de agrupar productos de OpenERP mediante sus atributos.\n"
 "    "
+
+#. module: product_attributes
+#: view:product.attributes.wizard:0
+msgid "Copy"
+msgstr "Copiar"
 
 #. module: product_attributes
 #: code:addons/product_attributes/product_attributes.py:98
@@ -120,10 +153,25 @@ msgid "menu_id"
 msgstr "menu_id"
 
 #. module: product_attributes
+#: field:product.attributes,required:0
+msgid "Required"
+msgstr "Requirido"
+
+#. module: product_attributes
 #: field:product.attributes,name:0
 #: field:product.attributes.group,name:0
 msgid "Name"
 msgstr "Nombre"
+
+#. module: product_attributes
+#: field:product.attributes.wizard,lang:0
+msgid "Language"
+msgstr "Lengua"
+
+#. module: product_attributes
+#: model:ir.model,name:product_attributes.model_product_attributes_group
+msgid "Product attributes group for product OpenERP module"
+msgstr "Grupo de atributos de producto para el módulo product de OpenERP"
 
 #. module: product_attributes
 #: help:product.attributes,relation:0
@@ -131,9 +179,19 @@ msgid "For relationship fields, the technical name of the target model"
 msgstr "Para campos de relación, el nombre técnico del modelo destino"
 
 #. module: product_attributes
-#: field:product.attributes,required:0
-msgid "Required"
-msgstr "Requirido"
+#: view:product.attributes.wizard:0
+msgid "Are you sure to copy attributes to field product?"
+msgstr "Esta seguro de copiar campos de un producto a otro?"
+
+#. module: product_attributes
+#: help:product.attributes.wizard,lang:0
+msgid "Select language to copy"
+msgstr "Seleccione la lengua origen para copiar"
+
+#. module: product_attributes
+#: help:product.attributes,relation_field:0
+msgid "For one2many fields, the field on the target model that implement the opposite many2one relationship"
+msgstr "Para campos one2many, el campo modelo destino que implementa la relación inversa many2one"
 
 #. module: product_attributes
 #: model:ir.ui.menu,name:product_attributes.product_attributes_menu
@@ -153,9 +211,19 @@ msgid "Relation Field"
 msgstr "Campo relacionado"
 
 #. module: product_attributes
-#: model:ir.model,name:product_attributes.model_product_attributes_group
-msgid "Product attributes group for product OpenERP module"
-msgstr "Grupo de atributos de producto para el módulo product de OpenERP"
+#: selection:product.attributes.wizard,state:0
+msgid "First"
+msgstr "Primero"
+
+#. module: product_attributes
+#: model:ir.actions.act_window,name:product_attributes.act_product_attributes
+msgid "Copy Attributes"
+msgstr "Copiar atributos"
+
+#. module: product_attributes
+#: field:product.attributes.group,code:0
+msgid "Code"
+msgstr "Código"
 
 #. module: product_attributes
 #: field:product.attributes,relation:0
@@ -194,18 +262,29 @@ msgid "Error: Invalid ean code"
 msgstr "Error: Código EAN inválido"
 
 #. module: product_attributes
+#: selection:product.attributes.wizard,state:0
+msgid "Done"
+msgstr "Hecho"
+
+#. module: product_attributes
+#: field:product.attributes.wizard,result:0
+msgid "Result"
+msgstr "Resultado"
+
+#. module: product_attributes
 #: model:ir.ui.menu,name:product_attributes.product_attributes_group_menu
 msgid "Attributes Group"
 msgstr "Grupo de atributos"
 
 #. module: product_attributes
-#: help:product.attributes,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr ""
-"Para campos one2many, el campo modelo destino que implementa la relación "
-"inversa many2one"
+#: view:product.attributes.wizard:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: product_attributes
+#: view:product.attributes.wizard:0
+msgid "Close"
+msgstr "Cerrar"
 
 #. module: product_attributes
 #: model:ir.model,name:product_attributes.model_product_attributes
@@ -217,3 +296,14 @@ msgstr "Atributos de producto para el módulo product de OpenERP"
 #: field:product.attributes,selection:0
 msgid "Selection Options"
 msgstr "Opciones de selección"
+
+#. module: product_attributes
+#: help:product.attributes.wizard,field:0
+msgid "Select your field to copy"
+msgstr "Seleccione el campo a copiar"
+
+#~ msgid "You can't write this attribute"
+#~ msgstr "No puede modificar este atributo"
+#~ msgid "Partner Address Export"
+#~ msgstr "Exportar dirección de empresa"
+

@@ -23,4 +23,4 @@
 
 import product_attributes
 import product
-
+import wizard

@@ -117,7 +117,7 @@ class product_attributes(osv.osv):
         'field_id': fields.many2one('ir.model.fields', 'product_id'),
         'translate':fields.boolean('Translate'),
         'required':fields.boolean('Required'),
-        'selection': fields.char('Selection Options',size=128, help="List of options for a selection field, "
+        'selection': fields.char('Selection Options',size=256, help="List of options for a selection field, "
             "specified as a Python expression defining a list of (key, label) pairs. "
             "For example: [('blue','Blue'),('yellow','Yellow')]"),
         'relation': fields.char('Object Relation', size=64,

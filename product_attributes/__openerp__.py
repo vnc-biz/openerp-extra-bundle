@@ -41,6 +41,7 @@
         "security/ir.model.access.csv",
         "product_attributes_view.xml",
         "product_view.xml",
+        "wizard/wizard_product_attributes.xml",
     ],
     "active": False,
     "installable": True

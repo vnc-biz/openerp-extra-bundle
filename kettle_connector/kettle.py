@@ -91,9 +91,10 @@ class kettle_transformation(osv.osv):
 
     def _get_type(self, vals):
         if vals.get('filename', False):
-            if len(vals['filename']) > 4 and vals['filename'][-3:].lower() == 'ktr':
+            extension = os.path.splitext(vals['filename'].lower())[1]
+            if extension == '.ktr':
                 vals['type'] = 'trans' 
-            elif len(vals['filename']) > 4 and vals['filename'][-3:].lower() == 'kjb':
+            elif extension == '.kjb':
                 vals['type'] = 'job'
         return vals
 
@@ -488,7 +489,8 @@ for kettle_connector to be able to log!"""
                         buffer = file_tuple[1]
                         doc = etree.fromstring(buffer)
 
-                        if len(filename) > 4 and filename[-3:].lower() == 'ktr':
+                        extension = os.path.splitext(filename.lower())[1]
+                        if extension == '.ktr':
                            trans_files.append(filename)
                            trans_name_candidate = doc.xpath("//transformation/info/name")[0].text
 
@@ -508,7 +510,7 @@ for kettle_connector to be able to log!"""
                                transfo_node.append(etree.fromstring(pg_connection))
 
 
-                        elif len(filename) > 4 and filename[-3:].lower() == 'kjb':
+                        elif extension == '.kjb':
                            job_files.append(filename)
                            job_name_candidate = doc.xpath("//job/name")[0].text
 

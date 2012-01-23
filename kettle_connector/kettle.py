@@ -576,7 +576,7 @@ for kettle_connector to be able to log!"""
                                         
 
                     #upload the zip execution archive to Carte:
-                    f = open(path_to_file + '_hacked', 'r')
+                    f = open(path_to_file + '_hacked', 'rb')
                     params = f.read()
                     headers = {"Content-Type": "binary/zip", "Authorization": "Basic %s" % base64string}
 

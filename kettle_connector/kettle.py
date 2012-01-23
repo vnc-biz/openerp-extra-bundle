@@ -300,7 +300,7 @@ class kettle_task(osv.osv):
     def kettle_pg_connection(self, cr, uid, id, context):
         user = self.pool.get('res.users').browse(cr, uid, uid)
         logger = netsvc.Logger()
-        if not (config['db_password'] or parameters['db_password']):
+        if not (config['db_password']):
             msg = """it seems you are using Postgres 'same ident' authentication method (hey good!)
 But then you should set the config['db_password'] or parameters['db_password'] in the Kettle parameters
 for kettle_connector to be able to log!"""

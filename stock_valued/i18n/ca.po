@@ -1,165 +1,84 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* stock_valued
+# 	* stock_valued
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.15\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-06-28 11:00+0000\n"
-"PO-Revision-Date: 2011-06-30 15:19+0000\n"
-"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
-"<resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2012-01-23 19:02+0000\n"
+"PO-Revision-Date: 2012-01-24 11:05+0100\n"
+"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:57+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"Plural-Forms: \n"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Observaciones:"
+#: report:stock_valued.stock_valued_rml:0
+msgid "Shipping Address :"
+msgstr "Adreça d'enviament :"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Disc%"
+msgstr "Desc%"
+
+#. module: stock_valued
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "Heu d'assignar un lot de producció per aquest producte"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Notes:"
 msgstr "Observacions:"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "weight"
-msgstr "Pes"
-
-#. module: stock_valued
-#: model:ir.module.module,description:stock_valued.module_meta_information
-msgid ""
-"Albaranes valorados\n"
-"    "
-msgstr ""
-"Albarans valorats\n"
-"    "
-
-#. module: stock_valued
-#: view:stock.picking:0
-msgid "Split move lines in two"
-msgstr "Divideix les línies en dos"
+#: model:ir.model,name:stock_valued.model_stock_picking
+msgid "Picking List"
+msgstr "Albarà"
 
 #. module: stock_valued
 #: field:stock.move,price_net:0
 msgid "Net"
-msgstr "Net"
-
-#. module: stock_valued
-#: field:stock.picking,amount_untaxed:0
-msgid "Untaxed Amount"
 msgstr "Base"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
+#: report:stock_valued.stock_valued_rml:0
 msgid "Description"
 msgstr "Descripció"
 
 #. module: stock_valued
-#: model:ir.module.module,shortdesc:stock_valued.module_meta_information
-msgid "Stock valued"
-msgstr "Estoc valorat"
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "Intenteu assignar un lot que no pertany al mateix producte"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Expected Shipping Date"
-msgstr "Data enviament prevista"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Conforme Cliente:"
-msgstr "Conformitat del client:"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Dto%"
-msgstr "Dte%"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "TOTAL"
-msgstr "TOTAL"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Recipient"
-msgstr "Destinatari"
-
-#. module: stock_valued
-#: view:stock.picking:0
-msgid "Partner Address"
-msgstr "Adreça d'empresa"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Importe Impuestos"
-msgstr "Impostos"
-
-#. module: stock_valued
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "¡XML no vàlid per a la vista d'arquitectura!"
-
-#. module: stock_valued
-#: field:stock.picking,tracking:0
-msgid "Tracking"
-msgstr "Seguiment"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Base Imponible"
-msgstr "Base"
-
-#. module: stock_valued
-#: view:stock.picking:0
-msgid "Total amount"
-msgstr "Total"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Precio"
+#: report:stock_valued.stock_valued_rml:0
+msgid "Price"
 msgstr "Preu"
 
 #. module: stock_valued
-#: field:stock.picking,amount_tax:0
-msgid "Taxes"
-msgstr "Impostos"
+#: report:stock_valued.stock_valued_rml:0
+msgid "."
+msgstr "."
 
 #. module: stock_valued
-#: field:res.partner,alb_val:0
-msgid "Albarán valorado"
-msgstr "Albarà valorat"
+#: report:stock_valued.stock_valued_rml:0
+msgid "Expected Shipping Date"
+msgstr "Data d'enviament prevista"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "["
-msgstr "["
+#: report:stock_valued.stock_valued_rml:0
+msgid "VAT"
+msgstr "Impost"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "I.V.A"
-msgstr "I.V.A"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "]"
-msgstr "]"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Packing List:"
-msgstr "Albarà:"
-
-#. module: stock_valued
-#: field:stock.move,discount:0
-msgid "Discount (%)"
-msgstr "Descompte (%)"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Cantidad"
-msgstr "Quantitat"
+#: report:stock_valued.stock_valued_rml:0
+msgid "TOTAL"
+msgstr "TOTAL"
 
 #. module: stock_valued
 #: field:stock.move,price_subtotal:0
@@ -167,22 +86,92 @@ msgid "Subtotal"
 msgstr "Subtotal"
 
 #. module: stock_valued
+#: view:stock.picking:0
+msgid "Partner Address"
+msgstr "Adreça d'empresa"
+
+#. module: stock_valued
+#: field:stock.picking,tracking:0
+msgid "Tracking"
+msgstr "Seguiment"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Tax Amount"
+msgstr "Impostos"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Customer Agreement:"
+msgstr "Conformitat del client:"
+
+#. module: stock_valued
+#: field:stock.picking,amount_tax:0
+msgid "Taxes"
+msgstr "Impostos"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Amount"
+msgstr "Import"
+
+#. module: stock_valued
+#: field:res.partner,alb_val:0
+msgid "Albarán valorado"
+msgstr "Albarà valorat"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "["
+msgstr "["
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "]"
+msgstr "]"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Packing List:"
+msgstr "Albarà:"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Quantity"
+msgstr "Quantitat"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Weight"
+msgstr "Pes"
+
+#. module: stock_valued
+#: model:ir.model,name:stock_valued.model_stock_move
+msgid "Stock Move"
+msgstr "Moviment d'estoc"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Recipient"
+msgstr "Destinatari"
+
+#. module: stock_valued
 #: model:ir.actions.report.xml,name:stock_valued.reprml
 msgid "Valued Packing List"
 msgstr "Albarà valorat"
 
 #. module: stock_valued
-#: view:stock.picking:0
-msgid "Move State"
-msgstr "Estat del moviment"
+#: field:stock.move,discount:0
+msgid "Discount (%)"
+msgstr "Descompte (%)"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
+#: report:stock_valued.stock_valued_rml:0
 msgid "Order(Origin)"
 msgstr "Comanda (Origen)"
 
 #. module: stock_valued
-#: field:stock.picking,partner_id:0
+#: model:ir.model,name:stock_valued.model_res_partner
 msgid "Partner"
 msgstr "Empresa"
 
@@ -192,11 +181,43 @@ msgid "Total"
 msgstr "Total"
 
 #. module: stock_valued
-#: view:stock.picking:0
-msgid "Untaxed amount"
+#: field:stock.picking,amount_untaxed:0
+#: report:stock_valued.stock_valued_rml:0
+msgid "Untaxed Amount"
 msgstr "Base"
 
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Importe"
-msgstr "Import"
+#~ msgid "Observaciones:"
+#~ msgstr "Observacions:"
+#~ msgid ""
+#~ "Albaranes valorados\n"
+#~ "    "
+#~ msgstr ""
+#~ "Albarans valorats\n"
+#~ "    "
+#~ msgid "Split move lines in two"
+#~ msgstr "Divideix les línies en dos"
+#~ msgid "Conforme Cliente:"
+#~ msgstr "Conformitat del client:"
+#~ msgid "Dto%"
+#~ msgstr "Dte%"
+#~ msgid "Importe Impuestos"
+#~ msgstr "Impostos"
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "¡XML no vàlid per a la vista d'arquitectura!"
+#~ msgid "Base Imponible"
+#~ msgstr "Base"
+#~ msgid "Total amount"
+#~ msgstr "Total"
+#~ msgid "Precio"
+#~ msgstr "Preu"
+#~ msgid "I.V.A"
+#~ msgstr "I.V.A"
+#~ msgid "Cantidad"
+#~ msgstr "Quantitat"
+#~ msgid "Move State"
+#~ msgstr "Estat del moviment"
+#~ msgid "Untaxed amount"
+#~ msgstr "Base"
+#~ msgid "Importe"
+#~ msgstr "Import"
+

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 5.0.15\n"
+"Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-06-28 11:00:50+0000\n"
-"PO-Revision-Date: 2011-06-28 11:00:50+0000\n"
+"POT-Creation-Date: 2012-01-23 19:02+0000\n"
+"PO-Revision-Date: 2012-01-23 19:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,26 +16,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Observaciones:"
-msgstr "Observaciones:"
+#: report:stock_valued.stock_valued_rml:0
+msgid "Shipping Address :"
+msgstr "Shipping Address :"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "weight"
-msgstr "weight"
+#: report:stock_valued.stock_valued_rml:0
+msgid "Disc%"
+msgstr "Disc%"
 
 #. module: stock_valued
-#: model:ir.module.module,description:stock_valued.module_meta_information
-msgid "Albaranes valorados\n"
-"    "
-msgstr "Albaranes valorados\n"
-"    "
+#: constraint:stock.move:0
+msgid "You must assign a production lot for this product"
+msgstr "You must assign a production lot for this product"
 
 #. module: stock_valued
-#: view:stock.picking:0
-msgid "Split move lines in two"
-msgstr "Split move lines in two"
+#: report:stock_valued.stock_valued_rml:0
+msgid "Notes:"
+msgstr "Notes:"
+
+#. module: stock_valued
+#: model:ir.model,name:stock_valued.model_stock_picking
+msgid "Picking List"
+msgstr "Picking List"
 
 #. module: stock_valued
 #: field:stock.move,price_net:0
@@ -43,119 +46,39 @@ msgid "Net"
 msgstr "Net"
 
 #. module: stock_valued
-#: field:stock.picking,amount_untaxed:0
-msgid "Untaxed Amount"
-msgstr "Untaxed Amount"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
+#: report:stock_valued.stock_valued_rml:0
 msgid "Description"
 msgstr "Description"
 
 #. module: stock_valued
-#: model:ir.module.module,shortdesc:stock_valued.module_meta_information
-msgid "Stock valued"
-msgstr "Stock valued"
+#: constraint:stock.move:0
+msgid "You try to assign a lot which is not from the same product"
+msgstr "You try to assign a lot which is not from the same product"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
+#: report:stock_valued.stock_valued_rml:0
+msgid "Price"
+msgstr "Price"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "."
+msgstr "."
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
 msgid "Expected Shipping Date"
 msgstr "Expected Shipping Date"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Conforme Cliente:"
-msgstr "Conforme Cliente:"
+#: report:stock_valued.stock_valued_rml:0
+msgid "VAT"
+msgstr "VAT"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Dto%"
-msgstr "Dto%"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
+#: report:stock_valued.stock_valued_rml:0
 msgid "TOTAL"
 msgstr "TOTAL"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Recipient"
-msgstr "Recipient"
-
-#. module: stock_valued
-#: view:stock.picking:0
-msgid "Partner Address"
-msgstr "Partner Address"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Importe Impuestos"
-msgstr "Importe Impuestos"
-
-#. module: stock_valued
-#: constraint:ir.ui.view:0
-msgid "Invalid XML for View Architecture!"
-msgstr "Invalid XML for View Architecture!"
-
-#. module: stock_valued
-#: field:stock.picking,tracking:0
-msgid "Tracking"
-msgstr "Tracking"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Base Imponible"
-msgstr "Base Imponible"
-
-#. module: stock_valued
-#: view:stock.picking:0
-msgid "Total amount"
-msgstr "Total amount"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Precio"
-msgstr "Precio"
-
-#. module: stock_valued
-#: field:stock.picking,amount_tax:0
-msgid "Taxes"
-msgstr "Taxes"
-
-#. module: stock_valued
-#: field:res.partner,alb_val:0
-msgid "Albarán valorado"
-msgstr "Albarán valorado"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "["
-msgstr "["
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "I.V.A"
-msgstr "I.V.A"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "]"
-msgstr "]"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Packing List:"
-msgstr "Packing List:"
-
-#. module: stock_valued
-#: field:stock.move,discount:0
-msgid "Discount (%)"
-msgstr "Discount (%)"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Cantidad"
-msgstr "Cantidad"
 
 #. module: stock_valued
 #: field:stock.move,price_subtotal:0
@@ -163,22 +86,92 @@ msgid "Subtotal"
 msgstr "Subtotal"
 
 #. module: stock_valued
+#: view:stock.picking:0
+msgid "Partner Address"
+msgstr "Partner Address"
+
+#. module: stock_valued
+#: field:stock.picking,tracking:0
+msgid "Tracking"
+msgstr "Tracking"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Tax Amount"
+msgstr "Tax Amount"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Customer Agreement:"
+msgstr "Customer Agreement:"
+
+#. module: stock_valued
+#: field:stock.picking,amount_tax:0
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Amount"
+msgstr "Amount"
+
+#. module: stock_valued
+#: field:res.partner,alb_val:0
+msgid "Albarán valorado"
+msgstr "Albarán valorado"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "["
+msgstr "["
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "]"
+msgstr "]"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Packing List:"
+msgstr "Packing List:"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Quantity"
+msgstr "Quantity"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Weight"
+msgstr "Weight"
+
+#. module: stock_valued
+#: model:ir.model,name:stock_valued.model_stock_move
+msgid "Stock Move"
+msgstr "Stock Move"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
+msgid "Recipient"
+msgstr "Recipient"
+
+#. module: stock_valued
 #: model:ir.actions.report.xml,name:stock_valued.reprml
 msgid "Valued Packing List"
 msgstr "Valued Packing List"
 
 #. module: stock_valued
-#: view:stock.picking:0
-msgid "Move State"
-msgstr "Move State"
+#: field:stock.move,discount:0
+msgid "Discount (%)"
+msgstr "Discount (%)"
 
 #. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
+#: report:stock_valued.stock_valued_rml:0
 msgid "Order(Origin)"
 msgstr "Order(Origin)"
 
 #. module: stock_valued
-#: field:stock.picking,partner_id:0
+#: model:ir.model,name:stock_valued.model_res_partner
 msgid "Partner"
 msgstr "Partner"
 
@@ -188,12 +181,8 @@ msgid "Total"
 msgstr "Total"
 
 #. module: stock_valued
-#: view:stock.picking:0
-msgid "Untaxed amount"
-msgstr "Untaxed amount"
-
-#. module: stock_valued
-#: rml:stock_valued.stock_valued_rml:0
-msgid "Importe"
-msgstr "Importe"
+#: field:stock.picking,amount_untaxed:0
+#: report:stock_valued.stock_valued_rml:0
+msgid "Untaxed Amount"
+msgstr "Untaxed Amount"
 

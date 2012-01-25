@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.15\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-01-23 19:02+0000\n"
-"PO-Revision-Date: 2012-01-24 11:05+0100\n"
-"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-01-24 23:55+0000\n"
+"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
+"<jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-01-25 05:40+0000\n"
+"X-Generator: Launchpad (build 14719)\n"
 
 #. module: stock_valued
 #: report:stock_valued.stock_valued_rml:0
@@ -188,36 +190,55 @@ msgstr "Base"
 
 #~ msgid "Observaciones:"
 #~ msgstr "Observaciones:"
+
+#~ msgid "weight"
+#~ msgstr "Peso"
+
 #~ msgid ""
 #~ "Albaranes valorados\n"
 #~ "    "
 #~ msgstr ""
 #~ "Albaranes valorados\n"
 #~ "    "
+
 #~ msgid "Split move lines in two"
 #~ msgstr "Divide las lineas en dos"
+
+#~ msgid "Stock valued"
+#~ msgstr "Stoc valorado"
+
 #~ msgid "Conforme Cliente:"
 #~ msgstr "Conformidad del cliente:"
+
 #~ msgid "Dto%"
 #~ msgstr "Dto%"
+
 #~ msgid "Importe Impuestos"
 #~ msgstr "Impuestos"
+
 #~ msgid "Invalid XML for View Architecture!"
 #~ msgstr "¡XML no valido para la vista de arquitectura!"
+
 #~ msgid "Base Imponible"
 #~ msgstr "Base"
+
 #~ msgid "Total amount"
 #~ msgstr "Total"
+
 #~ msgid "Precio"
 #~ msgstr "Precio"
+
 #~ msgid "I.V.A"
 #~ msgstr "I.V.A"
+
 #~ msgid "Cantidad"
 #~ msgstr "Cantidad"
+
 #~ msgid "Move State"
 #~ msgstr "Estado del movimiento"
+
 #~ msgid "Untaxed amount"
 #~ msgstr "Base"
+
 #~ msgid "Importe"
 #~ msgstr "Importe"
-

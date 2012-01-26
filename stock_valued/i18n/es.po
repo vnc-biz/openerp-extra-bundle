@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-01-25 05:40+0000\n"
+"X-Launchpad-Export-Date: 2012-01-26 05:40+0000\n"
 "X-Generator: Launchpad (build 14719)\n"
 
 #. module: stock_valued
@@ -187,58 +187,3 @@ msgstr "Total"
 #: report:stock_valued.stock_valued_rml:0
 msgid "Untaxed Amount"
 msgstr "Base"
-
-#~ msgid "Observaciones:"
-#~ msgstr "Observaciones:"
-
-#~ msgid "weight"
-#~ msgstr "Peso"
-
-#~ msgid ""
-#~ "Albaranes valorados\n"
-#~ "    "
-#~ msgstr ""
-#~ "Albaranes valorados\n"
-#~ "    "
-
-#~ msgid "Split move lines in two"
-#~ msgstr "Divide las lineas en dos"
-
-#~ msgid "Stock valued"
-#~ msgstr "Stoc valorado"
-
-#~ msgid "Conforme Cliente:"
-#~ msgstr "Conformidad del cliente:"
-
-#~ msgid "Dto%"
-#~ msgstr "Dto%"
-
-#~ msgid "Importe Impuestos"
-#~ msgstr "Impuestos"
-
-#~ msgid "Invalid XML for View Architecture!"
-#~ msgstr "¡XML no valido para la vista de arquitectura!"
-
-#~ msgid "Base Imponible"
-#~ msgstr "Base"
-
-#~ msgid "Total amount"
-#~ msgstr "Total"
-
-#~ msgid "Precio"
-#~ msgstr "Precio"
-
-#~ msgid "I.V.A"
-#~ msgstr "I.V.A"
-
-#~ msgid "Cantidad"
-#~ msgstr "Cantidad"
-
-#~ msgid "Move State"
-#~ msgstr "Estado del movimiento"
-
-#~ msgid "Untaxed amount"
-#~ msgstr "Base"
-
-#~ msgid "Importe"
-#~ msgstr "Importe"

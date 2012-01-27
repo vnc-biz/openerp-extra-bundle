@@ -27,6 +27,9 @@ from sets import Set
 
 import netsvc
 
+DEBUG = False
+LOGGER = netsvc.Logger()
+
 class base_external_mapping_line(osv.osv):
     _name = 'base.external.mapping.line'
     _description = 'Base External Mapping Line'
@@ -60,20 +63,19 @@ class base_external_mapping(osv.osv):
         """
 
         res=[]
-        self.logger = netsvc.Logger()
 
         fields_relationals = ['many2one','one2many','many2many']
 
         if code == '' or len(ids) == 0:
-            self.logger.notifyChannel(_("Base External Mapping"), netsvc.LOG_ERROR, _("Code or ids without value"))
+            LOGGER.notifyChannel(_("Base External Mapping"), netsvc.LOG_ERROR, _("Code or ids without value"))
             return res
 
         dj_mappline_ids = self.search(cr, uid, [('name','=',code)])
         if len(dj_mappline_ids) == 0:
-            self.logger.notifyChannel(_("Base External Mapping"), netsvc.LOG_ERROR, _("Mappline Code %s not found") % code)
+            LOGGER.notifyChannel(_("Base External Mapping"), netsvc.LOG_ERROR, _("Mappline Code %s not found") % code)
             return res
 
-        self.logger.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, _("Base External Mapping call %s") % code)
+        LOGGER.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, _("Base External Mapping call %s") % code)
 
         if not len(langs)>0:
             langs = self.pool.get('res.lang').search(cr, uid, [('active','=',True)])
@@ -143,7 +145,8 @@ class base_external_mapping(osv.osv):
 
             res.append(values_data)
 
-        self.logger.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, _("%s") % res)
+        if DEBUG:
+            LOGGER.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, _("%s") % res)
 
         return res
 
@@ -168,9 +171,26 @@ class base_external_mapping(osv.osv):
                 if mapping_line.in_function:
                     localspace = {"self":self,"cr":cr,"uid":uid,"id":id,"values":values[mapping_line.external_field],"context":context}
                     exec mapping_line.in_function in localspace
-                    vals[mapping_line.field_id.name] = localspace['value']
+                    value = localspace['value']
                 else:
-                    vals[mapping_line.field_id.name] = values[mapping_line.external_field]
+                    value = values[mapping_line.external_field]
+                #force type value (float, int, bool) (default is str)
+                if mapping_line.external_type == 'float':
+                    try:
+                        value = float(value)
+                    except:
+                        pass
+                if mapping_line.external_type == 'int':
+                    try:
+                        value = int(value)
+                    except:
+                        pass
+                if mapping_line.external_type == 'bool':
+                    if value == '1':
+                        value = True
+                    else:
+                        value = False
+                vals[mapping_line.field_id.name] = value
 
         return vals
     
@@ -210,7 +230,7 @@ class base_external_mapping_line(osv.osv):
         'external_field': fields.char('External Field', size=32, required=True),
         'type': fields.selection([('in_out', 'External <-> OpenERP'), ('in', 'External -> OpenERP'), ('out', 'External <- OpenERP')], 'Type', required=True),
         'external_type': fields.selection([('str', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float')], 'External Type', required=True),
-        'translate': fields.boolean('Translate'),
+        'translate': fields.boolean('Translate', help='Check this option to export fields with locale sufix. Example: name_es'),
         'active': fields.boolean('Active'),
         'in_function': fields.text('Import in OpenERP Mapping Python Function'),
         'out_function': fields.text('Export from OpenERP Mapping Python Function'),

@@ -41,7 +41,7 @@ This module is a rewrite of the module "base_rib" from the community branch of O
 It will be part of the main addons starting with OpenERP v6.1.
 ''',
     'author' : u'Numérigraphe SARL',
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'base_iban'],
     'init_xml': ['bank_data.xml', ],
     'update_xml': ['bank_view.xml', ],
     'installable': True,

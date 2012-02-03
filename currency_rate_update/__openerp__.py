@@ -34,7 +34,7 @@
 {
     "name" : "Currency Rate Update",
     "version" : "0.6",
-    "author" : "Camptocamp SA, Main contributor Grzegorz Grzelak, Alexis de Lattre",
+    "author" : "Camptocamp",
     "website" : "http://camptocamp.com",
     "category" : "Financial Management/Configuration",
     "description": """
@@ -77,6 +77,9 @@ A function field let you know your currency configuration.
 
 If in multi-company mode, the base currency will be the first company's currency
 found in database.
+
+
+Special thanks and contribs to other Main contributor:   Grzegorz Grzelak, Alexis de Lattre
 """,
     "depends" : ["base", "account"],
     "init_xml" : ["security/security.xml"],

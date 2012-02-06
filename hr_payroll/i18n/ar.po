@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-25 13:16+0000\n"
-"PO-Revision-Date: 2012-01-03 12:54+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-02-05 19:41+0000\n"
+"Last-Translator: husam <Unknown>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-01-04 05:21+0000\n"
-"X-Generator: Launchpad (build 14616)\n"
+"X-Launchpad-Export-Date: 2012-02-06 05:03+0000\n"
+"X-Generator: Launchpad (build 14747)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "E-mail Address"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #. module: hr_payroll
 #: view:hr.holidays.status:0
 msgid "(Based on type Payroll will calculate basic salary)"
-msgstr ""
+msgstr "سوف يتم احتساب الراتب الاساسي بناء على نوع جدول الرواتب"
 
 #. module: hr_payroll
 #: field:hr.contract,net:0
@@ -34,20 +34,20 @@ msgstr ""
 #: field:hr.payslip,net:0
 #: report:salary.structure:0
 msgid "Net Salary"
-msgstr ""
+msgstr "صافي المرتب"
 
 #. module: hr_payroll
 #: field:hr.contract,working_days_per_week:0
 #: field:hr.payslip,working_days:0
 #: report:payslip.pdf:0
 msgid "Working Days"
-msgstr ""
+msgstr "ايام العمل"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "New Slip"
-msgstr ""
+msgstr "قسيمة جديدة"
 
 #. module: hr_payroll
 #: rml:payroll.advice:0
@@ -62,33 +62,33 @@ msgstr ""
 #. module: hr_payroll
 #: help:hr.employee,analytic_account:0
 msgid "Analytic Account for Salary Analysis"
-msgstr ""
+msgstr "حساب تحليلي لتحليل الراتب"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Allowances with Basic:"
-msgstr ""
+msgstr "البدالات مع الاساس:"
 
 #. module: hr_payroll
 #: constraint:ir.actions.act_window:0
 msgid "Invalid model name in the action definition."
-msgstr ""
+msgstr "اسم نموذج خاطئ في تعريف الإجراء."
 
 #. module: hr_payroll
 #: report:employees.salary:0
 #: report:salary.structure:0
 msgid "Department"
-msgstr ""
+msgstr "الإدارة"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Deductions:"
-msgstr ""
+msgstr "الخصومات:"
 
 #. module: hr_payroll
 #: field:company.contribution,gratuity:0
 msgid "Use for Gratuity ?"
-msgstr ""
+msgstr "استخدام بدالات ؟"
 
 #. module: hr_payroll
 #: rml:payslip.pdf:0
@@ -98,23 +98,23 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "Salary Payment Register"
-msgstr ""
+msgstr "تسجيل الدفع للمرتب"
 
 #. module: hr_payroll
 #: field:hr.payslip,paid:0
 msgid "Paid ? "
-msgstr ""
+msgstr "مدفوع ؟ "
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_salary_report
 msgid "Year Salary Report"
-msgstr ""
+msgstr "تقرير المرتب في السنة"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Paid Salary"
-msgstr ""
+msgstr "الراتب المدفوع"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,flag:0
@@ -129,45 +129,45 @@ msgstr ""
 #: field:hr.salary.rule,company_id:0
 #: field:hr.salary.rule.category,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "شركة"
 
 #. module: hr_payroll
 #: help:hr.employee,employee_account:0
 msgid "Employee Payable Account"
-msgstr ""
+msgstr "الحساب المستحق للموظف"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Letter Details"
-msgstr ""
+msgstr "تفاصيل الخطاب"
 
 #. module: hr_payroll
 #: report:paylip.details:0
 #: report:payslip:0
 msgid ","
-msgstr ""
+msgstr "،"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
 #: view:hr.payslip.run:0
 msgid "Set to Draft"
-msgstr ""
+msgstr "حفظ كمسودة"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "The Manager"
-msgstr ""
+msgstr "المدير"
 
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
 msgid "Half-Pay Holiday"
-msgstr ""
+msgstr "اجازة بنصف الراتب"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 #: field:hr.payslip,other_pay:0
 msgid "Others"
-msgstr ""
+msgstr "أخرى"
 
 #. module: hr_payroll
 #: field:hr.payslip.input,payslip_id:0
@@ -176,7 +176,7 @@ msgstr ""
 #: model:ir.model,name:hr_payroll.model_hr_payslip
 #: report:payslip:0
 msgid "Pay Slip"
-msgstr ""
+msgstr "قسيمة الدفع"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -200,22 +200,22 @@ msgstr ""
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Salary"
-msgstr ""
+msgstr "الراتب"
 
 #. module: hr_payroll
 #: field:hr.holidays.status,account_id:0
 msgid "Account"
-msgstr ""
+msgstr "حساب"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
 msgid "Payment From"
-msgstr ""
+msgstr "دفعة من :"
 
 #. module: hr_payroll
 #: view:hr.employee:0
 msgid "Miscelleanous / Statutory"
-msgstr ""
+msgstr "نثريات /قانوني"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,type:0
@@ -229,12 +229,12 @@ msgstr ""
 #: field:hr.payslip,register_id:0
 #: report:payslip.pdf:0
 msgid "Register"
-msgstr ""
+msgstr "تسجيل"
 
 #. module: hr_payroll
 #: selection:hr.payroll.year.salary,salary_on:0
 msgid "Next Month Date"
-msgstr ""
+msgstr "تاريخ الشهر التالي"
 
 #. module: hr_payroll
 #: help:hr.payroll.register,period_id:0
@@ -246,17 +246,17 @@ msgstr ""
 #: field:company.contribution.line,value:0
 #: field:hr.payslip.line.line,value:0
 msgid "Value"
-msgstr ""
+msgstr "قيمة"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Name of the Employee"
-msgstr ""
+msgstr "اسم الموظف"
 
 #. module: hr_payroll
 #: field:hr.contract,permit_no:0
 msgid "Work Permit No"
-msgstr ""
+msgstr "خطة التقدم"
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
@@ -265,7 +265,7 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Amount"
-msgstr ""
+msgstr "المقدار"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -277,7 +277,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.passport,country_id:0
 msgid "Country of Issue"
-msgstr ""
+msgstr "بلد الاصدار"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
@@ -295,22 +295,22 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Deduction"
-msgstr ""
+msgstr "خصومات اخرى"
 
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
 msgid "Paid Holiday"
-msgstr ""
+msgstr "الاجازات المدفوعة"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Employees Salary Details"
-msgstr ""
+msgstr "تفاصيل راتب الموظفين"
 
 #. module: hr_payroll
 #: field:hr.passport,date_expire:0
 msgid "Passport Expire Date"
-msgstr ""
+msgstr "تاريخ انتهاء جواز السفر"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -320,7 +320,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.holidays.status,type:0
 msgid "Un-Paid Holiday"
-msgstr ""
+msgstr "اجازات غير مدفوعة الاجر"
 
 #. module: hr_payroll
 #: field:hr.payroll.register,period_id:0
@@ -331,12 +331,12 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Amount (in words) :"
-msgstr ""
+msgstr "المبلغ (حرفياً) :"
 
 #. module: hr_payroll
 #: field:hr.holidays.status,type:0
 msgid "Payment"
-msgstr ""
+msgstr "الدفع"
 
 #. module: hr_payroll
 #: field:hr.employee,analytic_account:0
@@ -356,7 +356,7 @@ msgstr ""
 #: view:hr.allounce.deduction.categoty:0
 #: field:hr.allounce.deduction.categoty,base:0
 msgid "Based on"
-msgstr ""
+msgstr "بالاستناد الى"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -364,7 +364,7 @@ msgstr ""
 #: field:hr.payroll.register,bank_id:0
 #: report:salary.structure:0
 msgid "Bank"
-msgstr ""
+msgstr "مصرف"
 
 #. module: hr_payroll
 #: field:hr.payslip,move_id:0
@@ -374,7 +374,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.module.module,shortdesc:hr_payroll.module_meta_information
 msgid "Human Resource Payroll"
-msgstr ""
+msgstr "رواتب الموارد البشرية"
 
 #. module: hr_payroll
 #: constraint:account.analytic.account:0
@@ -389,7 +389,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_passport
 msgid "Passport Detail"
-msgstr ""
+msgstr "تفاصيل جواز السفر"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:0
@@ -400,12 +400,12 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip.line,total:0
 msgid "Sub Total"
-msgstr ""
+msgstr "الجزئي"
 
 #. module: hr_payroll
 #: field:hr.contract,visa_no:0
 msgid "Visa No"
-msgstr ""
+msgstr "رقم التأشيرة"
 
 #. module: hr_payroll
 #: field:company.contribution.line,from_val:0
@@ -413,13 +413,13 @@ msgstr ""
 #: field:hr.payslip.line.line,from_val:0
 #: report:year.salary:0
 msgid "From"
-msgstr ""
+msgstr "من"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,bysal:0
 #: report:payroll.advice:0
 msgid "By Salary"
-msgstr ""
+msgstr "حسب المرتب"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_wizard_print_year_salary
@@ -429,13 +429,13 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payslip_report
 msgid "Employee PaySlip"
-msgstr ""
+msgstr "قسيمةالدفع للموظف"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 #: report:payroll.advice:0
 msgid "Authorised Signature"
-msgstr ""
+msgstr "التوقيع المصرح"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty.line,umo_id:0
@@ -450,14 +450,14 @@ msgstr ""
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Notes:"
-msgstr ""
+msgstr "ملاحظات:"
 
 #. module: hr_payroll
 #: field:hr.payroll.employees.detail,date_to:0
 #: field:hr.payroll.year.salary,date_to:0
 #: report:salary.structure:0
 msgid "End Date"
-msgstr ""
+msgstr "تاريخ الإنتهاء"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -479,19 +479,19 @@ msgstr ""
 #: field:hr.payslip.line,employee_id:0
 #: model:ir.model,name:hr_payroll.model_hr_employee
 msgid "Employee"
-msgstr ""
+msgstr "موظف"
 
 #. module: hr_payroll
 #: field:hr.payroll.employees.detail,date_from:0
 #: field:hr.payroll.year.salary,date_from:0
 #: report:salary.structure:0
 msgid "Start Date"
-msgstr ""
+msgstr "تاريخ البدء"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice_line
 msgid "Bank Advice Lines"
-msgstr ""
+msgstr "خط نصيحة البنك"
 
 #. module: hr_payroll
 #: view:company.contribution:0
@@ -500,12 +500,12 @@ msgstr ""
 #: field:hr.payslip.line,type:0
 #: report:salary.structure:0
 msgid "Type"
-msgstr ""
+msgstr "النوع"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -522,7 +522,7 @@ msgstr ""
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Verify Sheet"
-msgstr ""
+msgstr "ورقة التحقق"
 
 #. module: hr_payroll
 #: field:hr.employee,pan_no:0
@@ -551,18 +551,18 @@ msgstr ""
 #: field:hr.payslip,grows:0
 #: report:salary.structure:0
 msgid "Gross Salary"
-msgstr ""
+msgstr "الراتب الإجمالي"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Total Earnings"
-msgstr ""
+msgstr "الراتب المستحق"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Other Payment"
-msgstr ""
+msgstr "دفعة اخرى"
 
 #. module: hr_payroll
 #: field:hr.payslip,basic:0
@@ -582,12 +582,12 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payroll.advice,line_ids:0
 msgid "Employee Salary"
-msgstr ""
+msgstr "راتب الموظف"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,chaque_nos:0
 msgid "Chaque Nos"
-msgstr ""
+msgstr "ارقام الشيك"
 
 #. module: hr_payroll
 #: model:ir.actions.wizard,name:hr_payroll.wizard_print_year_salary
@@ -606,7 +606,7 @@ msgstr ""
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Wating for Verification"
-msgstr ""
+msgstr "انتظار التحقق"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -622,7 +622,7 @@ msgstr ""
 #: view:hr.payroll.register:0
 #: view:hr.payslip:0
 msgid "Pay Salary"
-msgstr ""
+msgstr "ادفع الراتب"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
@@ -638,12 +638,12 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "For the month of"
-msgstr ""
+msgstr "لشهر"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Payslip"
-msgstr ""
+msgstr "قسيمة الدفع"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -653,7 +653,7 @@ msgstr ""
 #: field:hr.payslip,deduction:0
 #: selection:hr.payslip.line,type:0
 msgid "Deduction"
-msgstr ""
+msgstr "الخصم"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_advice
@@ -689,17 +689,17 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Loan Installment"
-msgstr ""
+msgstr "الدفعة المستحقة للقرض"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Complete HR Checking"
-msgstr ""
+msgstr "انتهاء مراجعة الموارد البشرية"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Yours Sincerely"
-msgstr ""
+msgstr "مع خالص التقدير"
 
 #. module: hr_payroll
 #: field:hr.employee,advantages_gross:0
@@ -716,23 +716,23 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Net Amount"
-msgstr ""
+msgstr "صافي الكمية"
 
 #. module: hr_payroll
 #: field:hr.payslip,state:0
 #: field:hr.payslip.run,state:0
 msgid "State"
-msgstr ""
+msgstr "الحالة"
 
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Salary Structure:"
-msgstr ""
+msgstr "هيكل الراتب"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_employees_detail
 msgid "Employees Salary Detail"
-msgstr ""
+msgstr "تفاصيل رواتب الموظفين"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_employee_grade
@@ -745,23 +745,23 @@ msgstr ""
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Confirm Sheet"
-msgstr ""
+msgstr "ورقة قبض"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Wating for Account Verification"
-msgstr ""
+msgstr "في انتظار التحقق من الحساب"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Others:"
-msgstr ""
+msgstr "أخرى:"
 
 #. module: hr_payroll
 #: field:hr.passport,contracts_ids:0
 msgid "Contracts"
-msgstr ""
+msgstr "عقود"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -771,21 +771,21 @@ msgstr ""
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Employee Code"
-msgstr ""
+msgstr "الرقم الوظيفي"
 
 #. module: hr_payroll
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,amount_select:0
 #: field:hr.salary.rule,amount_select:0
 msgid "Amount Type"
-msgstr ""
+msgstr "نوع الكمية"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,category_id:0
 #: view:hr.salary.rule:0
 #: field:hr.salary.rule,category_id:0
 msgid "Category"
-msgstr ""
+msgstr "الفئة"
 
 #. module: hr_payroll
 #: field:hr.payslip,move_line_ids:0
@@ -821,7 +821,7 @@ msgstr ""
 #: field:hr.payslip.run,slip_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
-msgstr ""
+msgstr "كشوفات الرواتب"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -833,18 +833,18 @@ msgstr ""
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Reject"
-msgstr ""
+msgstr "رفض"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_passport_tree
 msgid "All Passports"
-msgstr ""
+msgstr "كل جوازات السفر"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 #: report:hr.payroll.register.sheet:0
 msgid "Employee Name"
-msgstr ""
+msgstr "اسم الموظف"
 
 #. module: hr_payroll
 #: field:hr.employee,salary_account:0
@@ -857,7 +857,7 @@ msgstr ""
 #: field:hr.salary.rule,amount_percentage:0
 #: selection:hr.salary.rule,amount_select:0
 msgid "Percentage (%)"
-msgstr ""
+msgstr "النسبة المئوية (%)"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,register_id:0
@@ -872,7 +872,7 @@ msgstr ""
 #: report:hr.payroll.register.sheet:0
 #: report:payroll.advice:0
 msgid "For"
-msgstr ""
+msgstr "لـ"
 
 #. module: hr_payroll
 #: field:hr.payroll.register,journal_id:0
@@ -894,7 +894,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.structure:0
 msgid "Employee Function"
-msgstr ""
+msgstr "مهمات الموظف"
 
 #. module: hr_payroll
 #: field:hr.contract,working_days_per_week:0
@@ -904,7 +904,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Worked Day"
-msgstr ""
+msgstr "أيام العمل"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -915,7 +915,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "Title"
-msgstr ""
+msgstr "الاسم"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,based_on:0
@@ -931,13 +931,13 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Compute Sheet"
-msgstr ""
+msgstr "احسب الورقة"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,active:0
 #: field:hr.salary.rule,active:0
 msgid "Active"
-msgstr ""
+msgstr "نشط"
 
 #. module: hr_payroll
 #: field:hr.employee,employee_account:0
@@ -947,18 +947,18 @@ msgstr ""
 #. module: hr_payroll
 #: report:year.salary:0
 msgid "Yearly Salary Details"
-msgstr ""
+msgstr "تفاصيل الراتب السنوي"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,condition:0
 msgid "Condition"
-msgstr ""
+msgstr "شرط"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
 #: selection:hr.payslip,state:0
 msgid "Wating for HR Verification"
-msgstr ""
+msgstr "في انتظار التحقق من الموارد البشرية"
 
 #. module: hr_payroll
 #: field:hr.employee,pf_account:0
@@ -968,7 +968,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Compute"
-msgstr ""
+msgstr "احسب"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
@@ -979,12 +979,12 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Designation"
-msgstr ""
+msgstr "تعيين"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "HR Manager"
-msgstr ""
+msgstr "مدير الموارد البشرية"
 
 #. module: hr_payroll
 #: field:hr.contract,basic:0
@@ -992,7 +992,7 @@ msgstr ""
 #: field:hr.payslip,basic_before_leaves:0
 #: report:payslip.pdf:0
 msgid "Basic Salary"
-msgstr ""
+msgstr "الراتب الاساسي"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,code:0
@@ -1002,7 +1002,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Salary Information"
-msgstr ""
+msgstr "تفاصيل الراتب"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_allounce_deduction_categoty
@@ -1014,7 +1014,7 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Authorized Signature"
-msgstr ""
+msgstr "المخول بالتوقيع"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -1024,7 +1024,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.payroll.advice,state:0
 msgid "Draft Sheet"
-msgstr ""
+msgstr "ورقة السحب"
 
 #. module: hr_payroll
 #: field:hr.contibution.register.line,date:0
@@ -1032,7 +1032,7 @@ msgstr ""
 #: field:hr.payroll.register,date:0
 #: field:hr.payslip,date:0
 msgid "Date"
-msgstr ""
+msgstr "تاريخ"
 
 #. module: hr_payroll
 #: rml:hr.payroll.register.sheet:0
@@ -1042,13 +1042,13 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.contract,visa_expire:0
 msgid "Visa Expire Date"
-msgstr ""
+msgstr "تاريخ انتهاء التأشيرة"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 #: report:salary.structure:0
 msgid "Phone No."
-msgstr ""
+msgstr "رقم الهاتف"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,include_in_salary:0
@@ -1058,13 +1058,13 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.holidays.status,head_id:0
 msgid "Payroll Head"
-msgstr ""
+msgstr "مسؤول الرواتب"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 #: field:hr.payroll.advice.line,advice_id:0
 msgid "Bank Advice"
-msgstr ""
+msgstr "نصيحة المصرف"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,account_id:0
@@ -1083,13 +1083,13 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Code"
-msgstr ""
+msgstr "الرمز"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
 #: model:ir.ui.menu,name:hr_payroll.hr_menu_payment_advice
 msgid "Payment Advice"
-msgstr ""
+msgstr "نصيحة الدفع"
 
 #. module: hr_payroll
 #: field:company.contribution.line,to_val:0
@@ -1097,7 +1097,7 @@ msgstr ""
 #: field:hr.payslip.line.line,to_val:0
 #: report:year.salary:0
 msgid "To"
-msgstr ""
+msgstr "إلى"
 
 #. module: hr_payroll
 #: wizard_button:payroll.analysis,init,process:0
@@ -1108,7 +1108,7 @@ msgstr ""
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Loan"
-msgstr ""
+msgstr "قرض"
 
 #. module: hr_payroll
 #: field:hr.payslip.input,sequence:0
@@ -1116,24 +1116,24 @@ msgstr ""
 #: field:hr.payslip.worked_days,sequence:0
 #: field:hr.salary.rule,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "مسلسل"
 
 #. module: hr_payroll
 #: field:hr.payroll.year.salary,salary_on:0
 msgid "Salary On"
-msgstr ""
+msgstr "الراتب المدخل"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,number:0
 #: field:hr.payroll.register,number:0
 #: field:hr.payslip,number:0
 msgid "Number"
-msgstr ""
+msgstr "رقم"
 
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Contract Detail:"
-msgstr ""
+msgstr "تفاصيل العقد:"
 
 #. module: hr_payroll
 #: view:hr.employee.grade:0
@@ -1143,7 +1143,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Paymeny Lines"
-msgstr ""
+msgstr "تفاصيل الدفعة"
 
 #. module: hr_payroll
 #: field:hr.contract,struct_id:0
@@ -1159,12 +1159,12 @@ msgstr ""
 #: view:hr.payslip.employees:0
 #: view:payslip.lines.contribution.register:0
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
 msgid "Amount / Percentage"
-msgstr ""
+msgstr "الكمية / النسبة المئوية"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -1174,7 +1174,7 @@ msgstr ""
 #. module: hr_payroll
 #: selection:hr.payroll.year.salary,salary_on:0
 msgid "Current Month Date"
-msgstr ""
+msgstr "تاريخ الشهر الجاري"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -1205,27 +1205,27 @@ msgstr ""
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "for period"
-msgstr ""
+msgstr "خلال الفترة"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
 msgid "Allowance / Deduction"
-msgstr ""
+msgstr "البدلات / الخصومات"
 
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "E-mail"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.year_payroll_register
 msgid "Print Statement"
-msgstr ""
+msgstr "اطبع كشف الحساب"
 
 #. module: hr_payroll
 #: view:hr.payslip.line:0
 msgid "Calculations"
-msgstr ""
+msgstr "حسابات"
 
 #. module: hr_payroll
 #: wizard_view:wizard.year.salary,init:0
@@ -1240,7 +1240,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
 msgid "Dynamic Computation"
-msgstr ""
+msgstr "دينامية الحاسوب"
 
 #. module: hr_payroll
 #: view:company.contribution:0
@@ -1250,12 +1250,12 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: field:hr.payslip.line,function_id:0
 msgid "Function"
-msgstr ""
+msgstr "المهمة"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
 msgid "Dear Sir/Madam,"
-msgstr ""
+msgstr "عزيزي سيدي / سيدتي،"
 
 #. module: hr_payroll
 #: rml:employees.salary:0
@@ -1278,7 +1278,7 @@ msgstr ""
 #: field:hr.salary.rule,note:0
 #: field:hr.salary.rule.category,note:0
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #. module: hr_payroll
 #: field:hr.employee,pg_joining:0
@@ -1296,7 +1296,7 @@ msgstr ""
 #: view:hr.payroll.employees.detail:0
 #: view:hr.payroll.year.salary:0
 msgid "Year Salary"
-msgstr ""
+msgstr "المرتب السنوي"
 
 #. module: hr_payroll
 #: field:hr.allounce.deduction.categoty,name:0
@@ -1313,7 +1313,7 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Address"
-msgstr ""
+msgstr "العنوان"
 
 #. module: hr_payroll
 #: help:hr.employee,property_bank_account:0
@@ -1339,18 +1339,18 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Cancel Sheet"
-msgstr ""
+msgstr "الغي الورقة"
 
 #. module: hr_payroll
 #: selection:hr.allounce.deduction.categoty,type:0
 #: selection:hr.payslip.line,type:0
 msgid "Advance"
-msgstr ""
+msgstr "مقدم"
 
 #. module: hr_payroll
 #: report:salary.structure:0
 msgid "Special Allowances and Deductions For Employee:"
-msgstr ""
+msgstr "بدلات خاصة وخصومات للموظف:"
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
@@ -1363,12 +1363,12 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Leaved Deduction"
-msgstr ""
+msgstr "خصومات  بدل الاجازة"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -1386,18 +1386,18 @@ msgstr ""
 #: field:hr.payslip.employees,employee_ids:0
 #: view:hr.payslip.line:0
 msgid "Employees"
-msgstr ""
+msgstr "الموظفون"
 
 #. module: hr_payroll
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Bank Account"
-msgstr ""
+msgstr "حساب البنك"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,name:0
 msgid "Bank Account A/C"
-msgstr ""
+msgstr "حساب المصرف"
 
 #. module: hr_payroll
 #: wizard_field:wizard.employees.detail,init,fiscalyear_id:0
@@ -1412,7 +1412,7 @@ msgstr ""
 #: field:hr.payslip.worked_days,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Contract"
-msgstr ""
+msgstr "اتفاقية"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -1422,12 +1422,12 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.holidays.status:0
 msgid "Payroll Configurtion"
-msgstr ""
+msgstr "اعداد الرواتب"
 
 #. module: hr_payroll
 #: field:hr.passport,date_issue:0
 msgid "Passport Issue Date"
-msgstr ""
+msgstr "تاريخ اصدار جواز السفر"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -1436,35 +1436,35 @@ msgstr ""
 #: field:hr.payslip,allounce:0
 #: selection:hr.payslip.line,type:0
 msgid "Allowance"
-msgstr ""
+msgstr "البدلات"
 
 #. module: hr_payroll
 #: field:hr.payslip,holiday_days:0
 msgid "No of Leaves"
-msgstr ""
+msgstr "عدد الاجازات"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Bank Details"
-msgstr ""
+msgstr "تفاصيل البنك"
 
 #. module: hr_payroll
 #: field:hr.employee,advantages_net:0
 #: report:payslip.pdf:0
 #: report:salary.structure:0
 msgid "Deductions"
-msgstr ""
+msgstr "الخصومات"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payslip_form
 #: model:ir.ui.menu,name:hr_payroll.menu_department_tree
 msgid "Employee Payslip"
-msgstr ""
+msgstr "قسيمة الدفع للموظف"
 
 #. module: hr_payroll
 #: view:hr.payroll.advice:0
 msgid "Letter Content"
-msgstr ""
+msgstr "محتوى الخطاب"
 
 #. module: hr_payroll
 #: rml:payroll.advice:0
@@ -1479,7 +1479,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payroll_advice
 msgid "Bank Payment Advice"
-msgstr ""
+msgstr "نصيحة المصرف للدفع"
 
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.salary_structure_register
@@ -1489,7 +1489,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:payslip.pdf:0
 msgid "Total Deductions"
-msgstr ""
+msgstr "المجوع الكلي للخصومات"
 
 #. module: hr_payroll
 #: report:contribution.register.lines:0
@@ -1497,4 +1497,4 @@ msgstr ""
 #: report:paylip.details:0
 #: report:payslip:0
 msgid "Total"
-msgstr ""
+msgstr "الإجمالي"

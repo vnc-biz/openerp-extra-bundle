@@ -41,6 +41,14 @@ class account_invoice(osv.osv):
         for invoice in self.browse(cr, uid, ids, args):
             result[invoice.id] = invoice.invoice_number
         return result
+    
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        default.update({
+            'invoice_number' : False,            
+        })
+        return super(account_invoice, self).copy(cr, uid, id, default, context=context)   
 
     # TODO: Due to bug #704922 in OpenERP server we create a new 'invoice_number' field and make 'number' a function field.
     # The bug doesn't prevent inheritance of function fields (or related) to work (not 100% well, but they work) whereas

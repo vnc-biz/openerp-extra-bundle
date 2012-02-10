@@ -1,0 +1,436 @@
+# Dutch translation for openobject-addons
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the openobject-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openobject-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-12-15 17:51+0000\n"
+"PO-Revision-Date: 2012-02-09 15:02+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Dutch <nl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-02-10 05:14+0000\n"
+"X-Generator: Launchpad (build 14771)\n"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,printer_right:0
+msgid "Right"
+msgstr "Rechts"
+
+#. module: label
+#: constraint:ir.model:0
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"De objectnaam moet beginnen met x_ en mag geen speciale tekens bevatten!"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Helvetica-Bold"
+msgstr "Helvetica-Bold"
+
+#. module: label
+#: wizard_view:res.partner.address.label,init:0
+msgid "Label Char Font"
+msgstr "Label Char lettertype"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,printer_bottom:0
+msgid "Bottom"
+msgstr "Onder"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_bottom:0
+#: wizard_view:res.partner.address.label,notify_right:0
+#: wizard_view:res.partner.address.label,notify_top:0
+#: wizard_view:res.partner.address.label,notify_left:0
+msgid "Notification"
+msgstr "Notificatie"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,printer_top:0
+msgid "Top"
+msgstr "Boven"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,first_row:0
+msgid "First Row"
+msgstr "Eerste rij"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,font_type:0
+msgid "Font Type"
+msgstr "Lettertype"
+
+#. module: label
+#: field:report.label,cols:0
+msgid "Number of Columns"
+msgstr "Aantal kolommen"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Helvetica"
+msgstr "Helvetica"
+
+#. module: label
+#: help:report.label,landscape:0
+msgid "No check -> Portrait. Check -> Landscape"
+msgstr "Geen controle -> Staand. Controle -> Liggend"
+
+#. module: label
+#: field:report.pagesize,width:0
+msgid "Width"
+msgstr "Breedte"
+
+#. module: label
+#: model:ir.model,name:label.model_report_pagesize
+msgid "report.pagesize"
+msgstr "report.pagesize"
+
+#. module: label
+#: field:report.label,pagesize_id:0
+msgid "Page Size"
+msgstr "Paginagrootte"
+
+#. module: label
+#: wizard_button:res.partner.address.label,init,check:0
+msgid "Print"
+msgstr "Afdrukken"
+
+#. module: label
+#: field:report.label,label_width:0
+msgid "Label Width"
+msgstr "Label breedte"
+
+#. module: label
+#: help:report.label,height_incr:0
+msgid ""
+"Height between start positions of 2 labels. Numeric value ended with the "
+"unit (cm or in). For example 29.7cm or 11in"
+msgstr ""
+"Hoogte tussen start positie van 2 labels. Numerieke waarde eindigt met de "
+"eenheid (cm of In). Bijvoorbeeld 29,7 cm of 11 in"
+
+#. module: label
+#: field:report.label.manufacturer,name:0
+#: field:report.label,name:0
+#: field:report.pagesize,name:0
+msgid "Name"
+msgstr "Naam"
+
+#. module: label
+#: field:report.label,description:0
+msgid "Description"
+msgstr "Omschrijving"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier"
+msgstr "Courier"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier-BoldOblique"
+msgstr "Courier-BoldOblique"
+
+#. module: label
+#: field:report.label,margin_top:0
+msgid "Top Margin"
+msgstr "Bovenmarge"
+
+#. module: label
+#: field:report.label,rows:0
+msgid "Number of Rows"
+msgstr "Aantal regels"
+
+#. module: label
+#: constraint:report.label:0
+msgid "Error! Some sizes do not have the unit (cm or in) at the end."
+msgstr ""
+"Fout! Sommige afmetingen hebben niet de eenheid (cm of in) aan het einde."
+
+#. module: label
+#: help:report.pagesize,height:0
+msgid ""
+"Numeric height of the page ended with the unit (cm or in). For example, A4 "
+"is 29.7cm and letter is 11in"
+msgstr ""
+"Numerieke hoogte van de pagina eindigt met de eenheid (cm of In). "
+"Bijvoorbeeld A4 is 29,7 cm en letter is 11 in"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Helvetica-BoldOblique"
+msgstr "Helvetica-BoldOblique"
+
+#. module: label
+#: wizard_view:res.partner.address.label,init:0
+msgid "Label Report Options"
+msgstr "Label rapport opties"
+
+#. module: label
+#: help:report.label,label_height:0
+#: help:report.label,label_width:0
+#: help:report.label,margin_left:0
+#: help:report.label,margin_top:0
+msgid ""
+"Numeric value ended with the unit (cm or in). For example 29.7cm or 11in"
+msgstr ""
+"Numerieke waarde eindigt met de eenheid (cm of In). Bijvoorbeeld 29,7 cm of "
+"11 in"
+
+#. module: label
+#: help:report.pagesize,width:0
+msgid ""
+"Numeric width of the page ended with the unit (cm or in). For example, A4 is "
+"21cm and letter is 8.5in"
+msgstr ""
+"Numerieke breedte van de pagina eindigt met de eenheid (cm of In). "
+"Bijvoorbeeld A4 is 21 cm en letter is 8,5 in"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_bottom:0
+msgid ""
+"Printer bottom margin bigger than (bottom label margin + label height). Try "
+"again."
+msgstr ""
+"Printer ondermarge groter dan (onder label marge + label hoogte). Probeer "
+"opnieuw."
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "7"
+msgstr "7"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "6"
+msgstr "6"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "9"
+msgstr "9"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "8"
+msgstr "8"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_left:0
+msgid ""
+"Printer left margin bigger than (left label margin + label width). Try again."
+msgstr ""
+"Printer linkermarge groter dan (linker label marge + label breedte). Probeer "
+"opnieuw."
+
+#. module: label
+#: field:report.label,manufacturer_id:0
+msgid "Manufacturer"
+msgstr "Fabrikant"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier-Oblique"
+msgstr "Courier-Oblique"
+
+#. module: label
+#: model:ir.model,name:label.model_report_label
+msgid "report.label"
+msgstr "report.label"
+
+#. module: label
+#: wizard_button:res.partner.address.label,notify_bottom,end:0
+#: wizard_button:res.partner.address.label,notify_right,end:0
+#: wizard_button:res.partner.address.label,notify_top,end:0
+#: wizard_button:res.partner.address.label,notify_left,end:0
+msgid "Ok"
+msgstr "Ok"
+
+#. module: label
+#: field:report.label,height_incr:0
+msgid "Height Increment"
+msgstr "Hoogte verhoging"
+
+#. module: label
+#: model:ir.actions.act_window,name:label.action_report_pagesize_form
+#: model:ir.ui.menu,name:label.menu_report_pagesize_form
+#: view:report.pagesize:0
+msgid "Page Sizes"
+msgstr "Pagina afmetingen"
+
+#. module: label
+#: field:report.label,label_height:0
+msgid "Label Height"
+msgstr "Label hoogte"
+
+#. module: label
+#: model:ir.actions.act_window,name:label.action_report_label_manufacturer_form
+#: model:ir.ui.menu,name:label.menu_report_label_manufacturer_form
+msgid "Label Manufacturers"
+msgstr "Label fabricanten"
+
+#. module: label
+#: field:report.label,margin_left:0
+msgid "Left Margin"
+msgstr "Linkermarge"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,font_size:0
+msgid "Font Size"
+msgstr "Lettergrootte"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_right:0
+msgid ""
+"Printer right margin bigger than (right label margin + label width). Try "
+"again."
+msgstr ""
+"Printer rechtermarge groter dan (rechter label marge + label breedte). "
+"Probeer opnieuw."
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Times-Italic"
+msgstr "Times-Italic"
+
+#. module: label
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Ongeldige XML voor weergave opbouw!"
+
+#. module: label
+#: help:report.label,width_incr:0
+msgid ""
+"Width between start positions of 2 labels. Numeric value ended with the unit "
+"(cm or in). For example 29.7cm or 11in"
+msgstr ""
+"Breedte tussen start positie van 2 labels. Numerieke waarde eindigt met de "
+"eenheid (cm of In). Bijvoorbeeld 29,7 cm of 11 in"
+
+#. module: label
+#: wizard_view:res.partner.address.label,init:0
+msgid "First Label"
+msgstr "Eerste label"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,printer_left:0
+msgid "Left"
+msgstr "Links"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "11"
+msgstr "11"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "10"
+msgstr "10"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Times-BoldItalic"
+msgstr "Times-BoldItalic"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "12"
+msgstr "12"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,first_col:0
+msgid "First Column"
+msgstr "Eerste kolom"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_size:0
+msgid "14"
+msgstr "14"
+
+#. module: label
+#: wizard_view:res.partner.address.label,init:0
+msgid "Printer Margins"
+msgstr "Printer marges"
+
+#. module: label
+#: model:ir.actions.act_window,name:label.action_report_label_form
+#: model:ir.ui.menu,name:label.menu_report_label_form
+#: view:report.label:0
+msgid "Label Formats"
+msgstr "Label formaten"
+
+#. module: label
+#: model:ir.actions.wizard,name:label.res_partner_address_report
+msgid "Labels"
+msgstr "Labels"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Times-Bold"
+msgstr "Times-Bold"
+
+#. module: label
+#: constraint:report.pagesize:0
+msgid "Error! The page sizes do not have the unit (cm or in) at the end."
+msgstr ""
+"Fout! De pagina afmetingen hebben niet de eenheid (cm of in) aan het einde."
+
+#. module: label
+#: field:report.pagesize,height:0
+msgid "Height"
+msgstr "Hoogte"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Courier-Bold"
+msgstr "Courier-Bold"
+
+#. module: label
+#: field:report.label,width_incr:0
+msgid "Width Increment"
+msgstr "Breedte verhogen"
+
+#. module: label
+#: model:ir.model,name:label.model_report_label_manufacturer
+msgid "report.label.manufacturer"
+msgstr "report.label.manufacturer"
+
+#. module: label
+#: wizard_button:res.partner.address.label,init,end:0
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Times-Roman"
+msgstr "Times-Roman"
+
+#. module: label
+#: selection:res.partner.address.label,init,font_type:0
+msgid "Helvetica-Oblique"
+msgstr "Helvetica-Oblique"
+
+#. module: label
+#: wizard_view:res.partner.address.label,notify_top:0
+msgid ""
+"Printer top margin bigger than (top label margin + label height). Try again."
+msgstr ""
+"Printer bovenmarge groter dan (boven label marge + label hoogte). Probeer "
+"opnieuw."
+
+#. module: label
+#: field:report.label,landscape:0
+msgid "Landscape"
+msgstr "Liggend"
+
+#. module: label
+#: wizard_field:res.partner.address.label,init,label_format:0
+msgid "Label Format"
+msgstr "Label formaat"

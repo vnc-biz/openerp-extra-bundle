@@ -81,7 +81,7 @@ class product_product( osv.osv ):
                     # Take the info of the next subproduct
                     subproduct_quantity_next = subproduct.quantity
                     subproduct_stock_next = subproducts_stock[ subproduct.product_id.id ]
-                    if subproduct_quantity_next == 0:
+                    if subproduct_quantity_next == 0 or subproduct_quantity_next == 0.0:
                         continue
                     pack_stock_next = math.floor( subproduct_stock_next / subproduct_quantity_next )
                     # compare the stock of a subproduct and the next subproduct

@@ -110,6 +110,9 @@ def search_entries(self, cr, uid, data, context):
             if abs(line.amount_to_pay) <= amount:
                 amount -= abs(line.amount_to_pay)
                 selected_ids.append( line.id )
+    else:
+        selected_ids = line_ids
+        
     return {
         'entries': selected_ids,
     }

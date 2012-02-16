@@ -620,11 +620,16 @@ class account_bank_statement_line(osv.osv):
         cr.execute(query % line.amount)
         res = cr.fetchall()
 
-        if len(res) == 1:
-            # Only one payment order found, return it
-            payment_order = self.pool.get('payment.order').browse(cr, uid, res[0][0], context)
-            return payment_order
-        return None
+        nearest = None
+        min_diff = max_date_diff
+        payment_order_ids = self.pool.get('payment.order').search(cr, uid, [('id','in',[r[0] for r in res]), ('state','=','done')], context=context)
+        payment_orders = self.pool.get('payment.order').browse(cr, uid, payment_order_ids, context)
+        for payment_order in payment_orders:
+            diff = abs(time.mktime(time.strptime(maturity_date, '%Y-%m-%d'))-time.mktime(time.strptime(payment_order.date_done, '%Y-%m-%d')))
+            if min_diff is None or diff < min_diff:
+                nearest = payment_order
+                min_diff = diff
+        return nearest
 
 account_bank_statement_line()
 

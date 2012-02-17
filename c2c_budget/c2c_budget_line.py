@@ -50,6 +50,7 @@ class c2c_budget_line(osv.osv):
             return []
         
         for l in lines:
+
             if l.period_id.id in periods_ids: 
                 result.append(l) 
                    
@@ -307,7 +308,6 @@ class c2c_budget_line(osv.osv):
         
         lines = self.browse(cr, uid, ids)
         for l in lines:
-            
             # if a line's period is entierly before \
             #the budget's period or entierly after it, \
             #the line's period does not overlay the budget's period

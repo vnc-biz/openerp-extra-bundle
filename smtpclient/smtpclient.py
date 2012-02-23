@@ -156,10 +156,15 @@ class smtpclient(osv.osv):
     
     def read(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
         def override_password(o):
-            if len(o) > 0:
-                for field in o[0]:
-                    if field == 'password':
-                        o[0][field] = '********'
+            if not isinstance(o,list):
+                if o.get('password',False):
+                    o['password'] = '********'
+            else:
+                for rec in o:    
+                    for field in rec.keys():                 
+                        if field == 'password':
+                            rec[field] = '********'
+             
             return o
 
         result = super(smtpclient, self).read(cr, uid, ids, fields, context, load)

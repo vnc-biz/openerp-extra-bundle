@@ -26,7 +26,7 @@
     "name" : "E-mail Purchase",
     "version" : "1.0",
     "depends" : ["smtpclient","purchase"],
-    "author" : "NaN",
+    "author" : "NaN·tic",
     "website" : "www.NaN-tic.com",
     "license" : "GPL-3",
     "description": """Use Email client module to send to suppliers the selected purchase orders attached by Email.

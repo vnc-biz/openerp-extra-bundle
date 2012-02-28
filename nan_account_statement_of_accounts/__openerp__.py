@@ -1,7 +1,7 @@
-# -*- encoding: latin-1 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2009 Àngel Àlvarez - NaN  (http://www.nan-tic.com) All Rights Reserved.
+# Copyright (c) 2009 Ã€ngel Ã€lvarez - NaN  (http://www.nan-tic.com) All Rights Reserved.
 #
 #
 # WARNING: This program as such is intended to be used by professional
@@ -30,7 +30,7 @@
 {
     "name" : "Statment of Accounts",
     "version" : "1.0",
-    "author" : "NaN",
+    "author" : "NaNÂ·tic",
     "category" : "Accounting",
     "website": "http://www.nan-tic.com",
     "description": """\

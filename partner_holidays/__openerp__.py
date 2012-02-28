@@ -24,7 +24,7 @@
 	'name' : 'Partner Holidays',
 	'version' : '1.0',
 	'description' : "This module adds fields to introduce partner's holidays. It also allows due date in customer invoices to take into account vacations if the partner doesn't pay during that period.",
-	'author' : 'NaN',
+	'author' : 'NaN·tic',
 	'website' : 'http://www.NaN-tic.com',
 	'depends' : [ 
 		'base', 

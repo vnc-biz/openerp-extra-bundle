@@ -6,7 +6,7 @@
 - Sale orders
 - Purchase orders
 - Purchase requisitions""",
-    "author" : "NaN Projectes de Programaril Lliure, S.L.",
+    "author" : "NaN·tic",
     "website" : "http://www.NaN-tic.com",
     "depends" : [
         'crm',

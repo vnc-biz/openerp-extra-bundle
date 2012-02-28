@@ -1,8 +1,11 @@
 {
 	"name" : "Product Bulk",
 	"version" : "0.1",
-	"description" : """Product Bulk""",
-	"author" : "NaN for Trod y Avia, S.L.",
+	"description" : """
+Product Bulk.
+    
+Developed for Trod y Avia, S.L.""",
+	"author" : "NaN·tic",
 	"website" : "http://www.NaN-tic.com",
 	"depends" : [ 'stock','mrp'], 
 	"category" : "Custom Modules",

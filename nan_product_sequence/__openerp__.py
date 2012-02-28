@@ -21,11 +21,14 @@
 {
     "name" : "Product Sequence",
     "version" : "1.0",
-    "author" : "NaN for Trod y Avia, S.L.",
+    "author" : "NaN·tic",
     "category" : "Generic Modules/Base",
     "website": "http://www.NaN-tic.com",
     "depends" : ['product'],
-    "description": """This module adds an automatic sequence to product codes.""",
+    "description": """
+This module adds an automatic sequence to product codes.
+
+Developed for Trod y Avia, S.L.""",
     "demo_xml" : [],
     "init_xml" : ['product_sequence.xml'],
     "update_xml" : [],

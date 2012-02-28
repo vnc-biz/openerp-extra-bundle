@@ -22,7 +22,7 @@
 {
     'name' : "Payment days",
     'version' : "1.0",
-    'author' : "NaN",
+    'author' : "NaN·tic",
     'category': 'Generic Modules/Accounting',
     'description': """This module allows setting more than one payment days in payment terms.""",
     'license' : "GPL-3",

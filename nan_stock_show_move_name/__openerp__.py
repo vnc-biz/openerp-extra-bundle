@@ -21,7 +21,7 @@
     "name" : "Stock Show Move Name",
     "version" : "1.0",
     "depends" : ["account","sale"],
-    "author" : "NaN Projectes de Programari Lliure, S.L.",
+    "author" : "NaN·tic",
     "description": """Shows stock move's field 'name' in outgoing pickings.""",
     'website': 'http://www.NaN-tic.com',
     'init_xml': [],

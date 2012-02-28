@@ -28,7 +28,7 @@
                 - Adds 3 diferent discounts on sale order lines
                 - Calculate resulting discount based on the other discounts
         """,
-    "author" : "NaN Projectes de Programari Lliure S.L.",
+    "author" : "NaN·tic",
     "website" : "http://www.NaN-tic.com",
     "depends" : [ 
         'account',

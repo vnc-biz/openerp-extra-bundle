@@ -33,7 +33,7 @@
 
         - *Note: this module ignore Company security Days on expected day calculations of Stock pickings
         """,
-    "author" : "NaN Projectes de Programaril Lliure S.L.",
+    "author" : "NaN·tic",
     "website" : "http://www.NaN-tic.com",
     "depends" : [ 
         'sale',

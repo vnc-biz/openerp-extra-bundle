@@ -30,7 +30,7 @@
 {
     "name" : "NaN Account Forecast",
     "version" : "1.0",
-    "author" : "NaN",
+    "author" : "NaN·tic",
     "category" : "Accounting",
     "website": "http://www.NaN-tic.com",
     "description": "This provides a jasper report in account move lines for viewing payments and receivables grouped by date. The module does not provide any wizard with default filters as it expects users to create their own filters and select the ones to be printed.",

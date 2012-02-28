@@ -29,7 +29,7 @@
     "name" : "NaN product plane", 
     "version" : "0.1",
     "description" : """This module provides possibility to add a map on a product.""",
-    "author" : "NaN Projectes de Programaril Lliure S.L.",
+    "author" : "NaN·tic",
     "website" : "http://www.NaN-tic.com",
     "depends" : [ 
         'purchase',

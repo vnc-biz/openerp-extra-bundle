@@ -41,7 +41,7 @@
     
         Definition of the model where the information extracted, directory and file name where it pulled.
         """,
-	"author" : "NaN Projectes de Programari Lliure S.L.",
+	"author" : "NaN·tic",
 	"website" : "http://www.NaN-tic.com",
 	"depends" : [
         'base',

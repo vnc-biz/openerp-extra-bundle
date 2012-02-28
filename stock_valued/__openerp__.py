@@ -26,7 +26,7 @@
 {
     "name" : "Stock valued",
     "version" : "0.3",
-    "author" : "Pablo Rocandio, ACYSOS, S.L., NaN Projectes de Programari Lliure S.L.",
+    "author" : "Pablo Rocandio, ACYSOS, S.L., NaN·tic",
     "category": "Generic Modules/Inventory Control",
     "description": """Add amount information to pickings.""",
     "license" : "GPL-3",

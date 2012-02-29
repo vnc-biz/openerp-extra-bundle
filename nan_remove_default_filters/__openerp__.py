@@ -1,3 +1,4 @@
+# encoding: utf-8
 {
     "name" : "Remove Default Filters",
     "version" : "1.0",

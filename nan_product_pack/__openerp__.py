@@ -1,3 +1,4 @@
+# encoding: utf-8
 {
 	"name" : "Product Pack",
 	"version" : "0.1",

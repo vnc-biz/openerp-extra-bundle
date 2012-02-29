@@ -1,3 +1,4 @@
+# encoding: utf-8
 {
 	"name" : "Product Bulk",
 	"version" : "0.1",

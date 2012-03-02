@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.15\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-01-23 19:02+0000\n"
-"PO-Revision-Date: 2012-01-24 23:55+0000\n"
-"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
-"<jesteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2012-03-01 11:25+0000\n"
+"PO-Revision-Date: 2012-03-01 12:29+0100\n"
+"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-01-26 05:40+0000\n"
-"X-Generator: Launchpad (build 14719)\n"
+"Plural-Forms: \n"
 
 #. module: stock_valued
 #: report:stock_valued.stock_valued_rml:0
@@ -38,12 +36,17 @@ msgid "Notes:"
 msgstr "Observaciones:"
 
 #. module: stock_valued
+#: sql_constraint:res.partner:0
+msgid "Error! Specified VAT Number already exists for any other registered partner."
+msgstr "¡Error! El NIF especificado ya está asignado a otro cliente."
+
+#. module: stock_valued
 #: model:ir.model,name:stock_valued.model_stock_picking
 msgid "Picking List"
 msgstr "Albarán"
 
 #. module: stock_valued
-#: field:stock.move,price_net:0
+#: field:stock.move,sale_price_net:0
 msgid "Net"
 msgstr "Base"
 
@@ -58,6 +61,7 @@ msgid "You try to assign a lot which is not from the same product"
 msgstr "Intenta asignar un lote que no pertenece al mismo producto"
 
 #. module: stock_valued
+#: field:stock.move,sale_price_unit:0
 #: report:stock_valued.stock_valued_rml:0
 msgid "Price"
 msgstr "Precio"
@@ -78,12 +82,12 @@ msgid "VAT"
 msgstr "Impuesto"
 
 #. module: stock_valued
-#: report:stock_valued.stock_valued_rml:0
-msgid "TOTAL"
-msgstr "TOTAL"
+#: field:stock.move,sale_discount:0
+msgid "Discount (%)"
+msgstr "Descuento (%)"
 
 #. module: stock_valued
-#: field:stock.move,price_subtotal:0
+#: field:stock.move,sale_price_subtotal:0
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -144,6 +148,11 @@ msgstr "Cantidad"
 
 #. module: stock_valued
 #: report:stock_valued.stock_valued_rml:0
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
 msgid "Weight"
 msgstr "Peso"
 
@@ -161,11 +170,6 @@ msgstr "Destinatario"
 #: model:ir.actions.report.xml,name:stock_valued.reprml
 msgid "Valued Packing List"
 msgstr "Albarán valorado"
-
-#. module: stock_valued
-#: field:stock.move,discount:0
-msgid "Discount (%)"
-msgstr "Descuento (%)"
 
 #. module: stock_valued
 #: report:stock_valued.stock_valued_rml:0
@@ -187,3 +191,39 @@ msgstr "Total"
 #: report:stock_valued.stock_valued_rml:0
 msgid "Untaxed Amount"
 msgstr "Base"
+
+#~ msgid "Observaciones:"
+#~ msgstr "Observaciones:"
+#~ msgid ""
+#~ "Albaranes valorados\n"
+#~ "    "
+#~ msgstr ""
+#~ "Albaranes valorados\n"
+#~ "    "
+#~ msgid "Split move lines in two"
+#~ msgstr "Divide las lineas en dos"
+#~ msgid "Conforme Cliente:"
+#~ msgstr "Conformidad del cliente:"
+#~ msgid "Dto%"
+#~ msgstr "Dto%"
+#~ msgid "Importe Impuestos"
+#~ msgstr "Impuestos"
+#~ msgid "Invalid XML for View Architecture!"
+#~ msgstr "¡XML no valido para la vista de arquitectura!"
+#~ msgid "Base Imponible"
+#~ msgstr "Base"
+#~ msgid "Total amount"
+#~ msgstr "Total"
+#~ msgid "Precio"
+#~ msgstr "Precio"
+#~ msgid "I.V.A"
+#~ msgstr "I.V.A"
+#~ msgid "Cantidad"
+#~ msgstr "Cantidad"
+#~ msgid "Move State"
+#~ msgstr "Estado del movimiento"
+#~ msgid "Untaxed amount"
+#~ msgstr "Base"
+#~ msgid "Importe"
+#~ msgstr "Importe"
+

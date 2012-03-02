@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-01-23 19:02+0000\n"
-"PO-Revision-Date: 2012-01-23 19:02+0000\n"
+"POT-Creation-Date: 2012-03-01 11:25+0000\n"
+"PO-Revision-Date: 2012-03-01 11:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,12 +36,17 @@ msgid "Notes:"
 msgstr "Notes:"
 
 #. module: stock_valued
+#: sql_constraint:res.partner:0
+msgid "Error! Specified VAT Number already exists for any other registered partner."
+msgstr "Error! Specified VAT Number already exists for any other registered partner."
+
+#. module: stock_valued
 #: model:ir.model,name:stock_valued.model_stock_picking
 msgid "Picking List"
 msgstr "Picking List"
 
 #. module: stock_valued
-#: field:stock.move,price_net:0
+#: field:stock.move,sale_price_net:0
 msgid "Net"
 msgstr "Net"
 
@@ -56,6 +61,7 @@ msgid "You try to assign a lot which is not from the same product"
 msgstr "You try to assign a lot which is not from the same product"
 
 #. module: stock_valued
+#: field:stock.move,sale_price_unit:0
 #: report:stock_valued.stock_valued_rml:0
 msgid "Price"
 msgstr "Price"
@@ -76,12 +82,12 @@ msgid "VAT"
 msgstr "VAT"
 
 #. module: stock_valued
-#: report:stock_valued.stock_valued_rml:0
-msgid "TOTAL"
-msgstr "TOTAL"
+#: field:stock.move,sale_discount:0
+msgid "Discount (%)"
+msgstr "Discount (%)"
 
 #. module: stock_valued
-#: field:stock.move,price_subtotal:0
+#: field:stock.move,sale_price_subtotal:0
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -142,6 +148,11 @@ msgstr "Quantity"
 
 #. module: stock_valued
 #: report:stock_valued.stock_valued_rml:0
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#. module: stock_valued
+#: report:stock_valued.stock_valued_rml:0
 msgid "Weight"
 msgstr "Weight"
 
@@ -159,11 +170,6 @@ msgstr "Recipient"
 #: model:ir.actions.report.xml,name:stock_valued.reprml
 msgid "Valued Packing List"
 msgstr "Valued Packing List"
-
-#. module: stock_valued
-#: field:stock.move,discount:0
-msgid "Discount (%)"
-msgstr "Discount (%)"
 
 #. module: stock_valued
 #: report:stock_valued.stock_valued_rml:0

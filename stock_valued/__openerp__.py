@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
+#    Copyright (c) 2012 Zikzakmedia SL (http://www.zikzakmedia.com)
 #    Copyright (c) 2011 NaN Projectes de Programari Lliure S.L. (http://nan-tic.com)
 #    Copyright (c) 2008 ACYSOS S.L. (http://acysos.com) All Rights Reserved.
 #                       Pedro Tarrafeta <pedro@acysos.com>
@@ -26,7 +27,7 @@
 {
     "name" : "Stock valued",
     "version" : "0.3",
-    "author" : "Pablo Rocandio, ACYSOS, S.L., NaN·tic",
+    "author" : "Pablo Rocandio, ACYSOS, S.L., NaN·tic, Zikzakmedia SL",
     "category": "Generic Modules/Inventory Control",
     "description": """Add amount information to pickings.""",
     "license" : "GPL-3",

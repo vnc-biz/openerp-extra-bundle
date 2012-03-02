@@ -260,13 +260,13 @@
             <para style="terp_default_Right_9">[[ formatLang(move_lines.product_qty) ]]  [[ move_lines.product_uom.name ]]</para>
           </td>
           <td>
-            <para style="terp_default_Right_9">[[ formatLang(move_lines.price_unit) ]]</para>
+            <para style="terp_default_Right_9">[[ formatLang(move_lines.sale_price_unit) ]]</para>
           </td>
           <td>
-            <para style="terp_default_Right_9">[[ formatLang( move_lines.discount) ]]</para>
+            <para style="terp_default_Right_9">[[ formatLang( move_lines.sale_discount) ]]</para>
           </td>
           <td>
-            <para style="terp_default_Right_9">[[ formatLang(move_lines.price_subtotal) ]]</para>
+            <para style="terp_default_Right_9">[[ formatLang(move_lines.sale_price_subtotal) ]]</para>
           </td>
           <td>
             <para style="terp_default_9">[[ (move_lines.sale_line_id and ', '.join(map(lambda x: x.name , move_lines.sale_line_id.tax_id))) ]]</para>
@@ -313,9 +313,9 @@
         </td>
       </tr>
       <tr>
-      	<td>
-      		<para style="terp_default_9">[[ picking.note ]]</para>
-      	</td>
+        <td>
+            <para style="terp_default_9">[[ picking.note ]]</para>
+        </td>
       </tr>
     </blockTable>
     <blockTable colWidths="538.0">

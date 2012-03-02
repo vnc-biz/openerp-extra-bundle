@@ -1,0 +1,70 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* stock_invoice_average_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-02-29 19:39+0000\n"
+"PO-Revision-Date: 2012-02-29 20:42+0100\n"
+"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: stock_invoice_average_price
+#: constraint:account.invoice:0
+msgid "Invoice date is previous to an existing invoice."
+msgstr "La data de la factura és anterior a la d'una factura existent."
+
+#. module: stock_invoice_average_price
+#: model:ir.model,name:stock_invoice_average_price.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línia de factura"
+
+#. module: stock_invoice_average_price
+#: field:account.invoice.line,price_unit_picking:0
+msgid "Unit Price Picking"
+msgstr "Preu un. albarà"
+
+#. module: stock_invoice_average_price
+#: model:ir.model,name:stock_invoice_average_price.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: stock_invoice_average_price
+#: model:ir.model,name:stock_invoice_average_price.model_stock_picking
+msgid "Picking List"
+msgstr "Albarà"
+
+#. module: stock_invoice_average_price
+#: field:account.invoice.line,quantity_picking:0
+msgid "Quantity Picking"
+msgstr "Quantitat albarà"
+
+#. module: stock_invoice_average_price
+#: code:addons/stock_invoice_average_price/stock.py:55
+#, python-format
+msgid "Error, no partner !"
+msgstr "Error, no existeix empresa!"
+
+#. module: stock_invoice_average_price
+#: code:addons/stock_invoice_average_price/stock.py:56
+#, python-format
+msgid "Please put a partner on the picking list if you want to generate invoice."
+msgstr "Introduïu una empresa a l'albarà si voleu generar una factura."
+
+#~ msgid "Ticket Summary"
+#~ msgstr "Resum de tiquets"
+#~ msgid "First ticket"
+#~ msgstr "Primer tiquet"
+#~ msgid "Check if this invoice is a ticket summary"
+#~ msgstr "Marqueu-lo si aquesta factura és un resum de tiquets."
+#~ msgid "Last ticket"
+#~ msgstr "Últim tiquet"
+#~ msgid "Number of tickets"
+#~ msgstr "Número de tiquets"
+

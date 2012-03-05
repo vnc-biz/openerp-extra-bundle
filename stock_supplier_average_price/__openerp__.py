@@ -29,7 +29,7 @@
     "author" : "Zikzakmedia SL",
     "website": "www.zikzakmedia.com",
     "license" : "AGPL-3",
-    "category" : "Generic Modules/Others",
+    "category" : "Generic Modules/Inventory Control",
     "description": """
     This module adds cost price in the Process Wizard of the Supplier Return \
 Picking, and remove it in the Process Wizard of the Customer Return Picking.

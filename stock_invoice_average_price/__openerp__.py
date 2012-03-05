@@ -31,8 +31,8 @@
     "license" : "AGPL-3",
     "category" : "Generic Modules/Inventory Control",
     "description": """
-    This module recompute the standard price of products, when the invoice is \
-validated and the price unit of the supplier picking (old cost price) is \
+    This module recompute the cost price of products when its cost method is average price \
+and the invoice is validated and the price unit of the supplier picking (old cost price) is \
 different to the price unit of the supplier invoice line (new cost price), using \
 this formula:
 

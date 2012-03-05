@@ -24,7 +24,7 @@
     "version" : "1.0",
     "author" : "Zikzakmedia SL",
     "license" : "AGPL-3",
-    "category": "Localisation / Accounting",
+    "category": "Localisation/Accounting",
     "description": """
     Adds functional fields to show Amount Untaxed, Amount Tax and Amount Total invoice fields in the company currency. These fields are shown in "Other information" tab in invoice form.
     """,

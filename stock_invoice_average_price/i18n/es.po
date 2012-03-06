@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-02-29 19:39+0000\n"
-"PO-Revision-Date: 2012-02-29 20:42+0100\n"
-"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-03-05 11:16+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-03-06 05:00+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 
 #. module: stock_invoice_average_price
 #: constraint:account.invoice:0
@@ -54,17 +55,6 @@ msgstr "¡Error, no existe empresa!"
 #. module: stock_invoice_average_price
 #: code:addons/stock_invoice_average_price/stock.py:56
 #, python-format
-msgid "Please put a partner on the picking list if you want to generate invoice."
+msgid ""
+"Please put a partner on the picking list if you want to generate invoice."
 msgstr "Introduzca una empresa en el albarán si desea generar una factura."
-
-#~ msgid "Ticket Summary"
-#~ msgstr "Resumen de tiques"
-#~ msgid "First ticket"
-#~ msgstr "Primer tiquet"
-#~ msgid "Check if this invoice is a ticket summary"
-#~ msgstr "Márquelo si esta factura es un resumen de tiques."
-#~ msgid "Last ticket"
-#~ msgstr "Último tique"
-#~ msgid "Number of tickets"
-#~ msgstr "Número de tiques"
-

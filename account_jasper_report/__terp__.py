@@ -1,8 +1,9 @@
+# encoding: utf-8
 {
 	"name" : "Account Jasper Reporting",
 	"version" : "0.1",
 	"description" : "This module adds several Jasper Reports to spanish accounting system.",
-	"author" : "NaN",
+	"author" : "NaN·tic",
 	"website" : "http://www.NaN-tic.com",
 	"depends" : [
 		'jasper_reports',

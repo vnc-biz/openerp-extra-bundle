@@ -2,8 +2,8 @@
 <openerp>
     <data>
       <record id="open_risk_window_view" model="ir.ui.view">
-           <field name="name">create_project_from_sale_form</field>
-           <field name="model">create.project.from.sale</field>
+           <field name="name">open_risk_window_view</field>
+           <field name="model">open.risk.window</field>
            <field name="type">form</field>
            <field name="arch" type="xml">
                 <form string="Partner Risk Information">
@@ -31,8 +31,6 @@
              <field name="view_id" ref="open_risk_window_view"/>
              <field name="target">new</field>
        </record>
-
-
 
     </data>
 </openerp>

@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.5-bzr\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-04-19 14:12+0000\n"
-"PO-Revision-Date: 2012-03-06 16:27+0100\n"
-"Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-03-06 23:49+0000\n"
+"Last-Translator: Jordi Esteve (www.zikzakmedia.com) "
+"<jesteve@zikzakmedia.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-07 05:04+0000\n"
-"X-Generator: Launchpad (build 14085)\n"
+"X-Launchpad-Export-Date: 2012-03-07 05:48+0000\n"
+"X-Generator: Launchpad (build 14907)\n"
 "Language: ca\n"
 
 #. module: nan_partner_risk
@@ -110,8 +111,19 @@ msgstr "Efectes impagats vençuts"
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:97
 #, python-format
-msgid "Gives the state of the quotation or sale order. The exception state is automatically set when a cancel operation occurs in the invoice validation (Invoice Exception) or in the packing list process (Shipping Exception). The 'Waiting Schedule' state is set when the invoice is confirmed but waiting for the scheduler to run on the date 'Date Ordered'."
-msgstr "Mostra l'estat del pressupost o comanda de venda. L'estat 'Excepció' es posa automàticament quan succeeix una operació de cancel·lació durant la validació de la factura (Excepció de Factura) o en el procés d'emetre l'albarà (Excepció d'albarà). L'estat 'Esperant planificació' es posa quan la factura està confirmada però esperant el planificador per llançar-la el dia 'Data comanda'."
+msgid ""
+"Gives the state of the quotation or sale order. The exception state is "
+"automatically set when a cancel operation occurs in the invoice validation "
+"(Invoice Exception) or in the packing list process (Shipping Exception). The "
+"'Waiting Schedule' state is set when the invoice is confirmed but waiting "
+"for the scheduler to run on the date 'Date Ordered'."
+msgstr ""
+"Mostra l'estat del pressupost o comanda de venda. L'estat 'Excepció' es posa "
+"automàticament quan succeeix una operació de cancel·lació durant la "
+"validació de la factura (Excepció de Factura) o en el procés d'emetre "
+"l'albarà (Excepció d'albarà). L'estat 'Esperant planificació' es posa quan "
+"la factura està confirmada però esperant el planificador per llançar-la el "
+"dia 'Data comanda'."
 
 #. module: nan_partner_risk
 #: code:addons/nan_partner_risk/risk.py:242
@@ -148,11 +160,13 @@ msgstr "open.risk.window"
 msgid ""
 "Warning: Credit Limit Exceeded.\n"
 "\n"
-"This partner has a credit limit of %(limit).2f and already has a debt of %(debt).2f."
+"This partner has a credit limit of %(limit).2f and already has a debt of "
+"%(debt).2f."
 msgstr ""
 "Advertència: S'ha excedit el crèdit concedit.\n"
 "\n"
-"Aquesta empresa té un crèdit concedit màxim de %(limit).2f i ja té un deute de %(debt).2f."
+"Aquesta empresa té un crèdit concedit màxim de %(limit).2f i ja té un deute "
+"de %(debt).2f."
 
 #. module: nan_partner_risk
 #: field:open.risk.window,credit_limit:0
@@ -181,4 +195,3 @@ msgstr "Comanda de venda"
 #: model:ir.model,name:nan_partner_risk.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línia comanda de venda"
-

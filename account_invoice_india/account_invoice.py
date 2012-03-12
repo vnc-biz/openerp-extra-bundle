@@ -263,13 +263,4 @@ class account_invoice_tax(osv.osv):
                         tax_grouped[key]['base_amount'] += val['base_amount']
                         tax_grouped[key]['tax_amount'] += val['tax_amount']
         return tax_grouped
-account_invoice_tax()
-
-
-
-
-
-
-
-
-    
+account_invoice_tax()    

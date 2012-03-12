@@ -25,12 +25,11 @@
     "depends" : [
         "account_base",
         "account",
-        "account_base",
     ],
     "author" : 'Tiny & Axelor',
     "description": """Accounting Base Properties Reports and Wizards,
     Basic properties for the Customer / Suppliers for the Accounting
-    Wizards to Allowd to create a Party Accounts, 
+    Wizards to Allowed to create a Party Accounts, 
     Reports that provides Indian Accounting Reports for Invoice
     """,
     "website" : "http://tinyerpindia.com",

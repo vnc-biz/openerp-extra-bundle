@@ -52,10 +52,6 @@ class db_backup(osv.osv):
         db_list = execute(conn, 'list')
         return db_list
         
-    def get_addons_path(selfcr, user, context={}):
-        addons_path = tools.config['addons_path'] + '/auto_bkp/DBbackups'
-        return addons_path
-    
     _columns = {
                     'host' : fields.char('Host', size=100, required='True'),
                     'port' : fields.char('Port', size=10, required='True'),

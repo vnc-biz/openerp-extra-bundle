@@ -26,7 +26,7 @@
     "author" : "Tiny",
     "website" : "http://www.openerp.com",
     "category" : "Generic Modules",
-    "description": """The generic Open ERP Database Auto-Backup system enables the user to make configurations for the automatic backup of the database.
+    "description": """The generic OpenERP Database Auto-Backup system enables the user to make configurations for the automatic backup of the database.
 User simply requires to specify host & port under IP Configuration & database(on specified host running at specified port) and backup directory(in which all the backups of the specified database will be stored) under Database Configuration.
 
 Automatic backup for all such configured databases under this can then be scheduled as follows:  

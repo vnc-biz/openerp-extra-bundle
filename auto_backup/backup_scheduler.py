@@ -20,14 +20,16 @@
 #
 ##############################################################################
 
-from osv import fields,osv
 import xmlrpclib
 import socket
 import os
 import time
 import base64
+
+from osv import fields,osv
 import tools
 import netsvc
+from tools.translate import _
 
 logger = netsvc.Logger()
 
@@ -73,8 +75,9 @@ class db_backup(osv.osv):
             if rec.name in db_list:
                 return True
         return False
+    
     _constraints = [
-                    (_check_db_exist, 'Error ! No such database exist.', [])
+                    (_check_db_exist, _('Error ! No such database exists!'), [])
                     ]
     
     def schedule_backup(self, cr, user, context={}):
@@ -104,7 +107,7 @@ class db_backup(osv.osv):
                 fp.close()
             else:
                 logger.notifyChannel('backup', netsvc.LOG_INFO, "database %s doesn't exist on http://%s:%s" %(rec.name, rec.host, rec.port))
-                
+
 db_backup()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

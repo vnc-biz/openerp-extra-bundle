@@ -48,6 +48,20 @@
 				</tree>
 			</field>
 	</record>
+	
+	<record model="ir.ui.view" id="view_backup_conf_search">
+			<field name="name">Configure Backup</field>
+			<field name="model">db.backup</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string="Test">
+					<field name='host'/>
+					<field name='port'/>
+					<field name='name'/>
+					<field name='bkp_dir'/>
+				</search>
+			</field>
+	</record>
 
 	<record model="ir.actions.act_window" id="action_backup_conf_form">
 			<field name="name">Configure Backup</field>

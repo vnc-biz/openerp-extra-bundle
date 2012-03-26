@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+<!-- sale.shop -->
+       <record model="ir.ui.view" id="view_sale_shop_view">
+            <field name="name">sale.shop.special.price</field>
+            <field name="model">sale.shop</field>
+            <field name="inherit_id" ref="sale.view_shop_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="special_price"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

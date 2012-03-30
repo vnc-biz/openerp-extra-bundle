@@ -53,7 +53,7 @@ class sale_order_line(osv.osv):
                 price_unit = res['value']['price_unit']
                 special_price = prod.special_price
                 
-                if special_price != 0.0 and special_price < price_unit:
+                if special_price > 0.0 and special_price < price_unit:
                     res['value']['price_unit'] = special_price
 
         return res

@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-02-17 05:26+0000\n"
-"X-Generator: Launchpad (build 14814)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:58+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: stock_planning
 #: view:stock.planning:0
@@ -163,7 +163,7 @@ msgstr "Nombre del período"
 #: view:stock.period:0
 #: view:stock.period.createlines:0
 msgid "Stock Periods"
-msgstr ""
+msgstr "Periodos de Stock"
 
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_planning_sale_prevision

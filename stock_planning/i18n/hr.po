@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:51+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:58+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: stock_planning
 #: view:stock.planning:0
@@ -25,7 +25,7 @@ msgstr "Nabavi ostatak ulaza"
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_sale_forecast_form
 msgid "Sales Forecast"
-msgstr "Predviđanje prodaje"
+msgstr "Prognoza prodaje"
 
 #. module: stock_planning
 #: field:stock.planning,planned_outgoing:0
@@ -35,12 +35,12 @@ msgstr "Očekivani izlaz"
 #. module: stock_planning
 #: field:stock.planning,outgoing:0
 msgid "Confirmed Out"
-msgstr "potvrđen izlaz"
+msgstr "Potvrđeni izlaz"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_form
-#: model:ir.module.module,shortdesc:stock_planning.module_meta_information
 #: model:ir.ui.menu,name:stock_planning.menu_stock_planning
+#: model:ir.ui.menu,name:stock_planning.menu_stock_planning_manual
 #: view:stock.planning:0
 msgid "Master Procurement Schedule"
 msgstr "Raspored glavne nabave"
@@ -102,7 +102,7 @@ msgstr ""
 #: view:stock.sale.forecast:0
 #: selection:stock.sale.forecast,state:0
 msgid "Validated"
-msgstr "Potvrđen"
+msgstr "Provjereno"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_prevision_form_my
@@ -152,13 +152,17 @@ msgstr ""
 #: field:stock.period,name:0
 #: field:stock.period.createlines,name:0
 msgid "Period Name"
-msgstr "Naziv perioda"
+msgstr "Naziv Perioda"
 
 #. module: stock_planning
+#: model:ir.actions.act_window,name:stock_planning.action_stock_period_createlines_form
+#: model:ir.actions.act_window,name:stock_planning.action_stock_period_form
+#: model:ir.ui.menu,name:stock_planning.menu_stock_period
+#: model:ir.ui.menu,name:stock_planning.menu_stock_period_main
 #: view:stock.period:0
-#: view:stock.planning.period:0
+#: view:stock.period.createlines:0
 msgid "Stock Periods"
-msgstr ""
+msgstr "Stock Periods"
 
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_planning_sale_prevision
@@ -166,7 +170,7 @@ msgid "stock.planning.sale.prevision"
 msgstr ""
 
 #. module: stock_planning
-#: code:addons/stock_planning/stock_planning.py:140
+#: code:addons/stock_planning/stock_planning.py:146
 #, python-format
 msgid "Invalid action !"
 msgstr "Neispravna akcija !"
@@ -200,7 +204,7 @@ msgstr ""
 #: field:stock.period,date_stop:0
 #: field:stock.period.createlines,date_stop:0
 msgid "End Date"
-msgstr "Datum završetka"
+msgstr "Završni Datum"
 
 #. module: stock_planning
 #: view:stock.period.createlines:0
@@ -215,7 +219,7 @@ msgstr "Naziv"
 #. module: stock_planning
 #: view:stock.period.createlines:0
 msgid "Create Monthly Periods"
-msgstr "Kreiraj mjesečne periode"
+msgstr "Stvori mjesečna razdoblja"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_manual_plannification
@@ -242,7 +246,7 @@ msgstr "Predviđanja prodaje:"
 #. module: stock_planning
 #: field:stock.sale.forecast,product_uom:0
 msgid "Product UoM"
-msgstr "JM proizvoda"
+msgstr "JM Proizvoda"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_all
@@ -321,12 +325,12 @@ msgstr ""
 #. module: stock_planning
 #: selection:stock.planning,state:0
 msgid "Done"
-msgstr "Završeno"
+msgstr "Izvršeno"
 
 #. module: stock_planning
 #: field:stock.period.createlines,period_ids:0
 msgid "Periods"
-msgstr "Periodi"
+msgstr "Razdoblja"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -340,10 +344,9 @@ msgstr "Zatvori"
 #: field:stock.period,date_start:0
 #: field:stock.period.createlines,date_start:0
 msgid "Start Date"
-msgstr "Datum početka"
+msgstr "Početni datum"
 
 #. module: stock_planning
-#: model:ir.ui.menu,name:stock_planning.menu_stock_planning_main
 #: view:stock.planning:0
 msgid "Stock Planning"
 msgstr "Planiranje zalihe"
@@ -352,7 +355,7 @@ msgstr "Planiranje zalihe"
 #: view:stock.period:0
 #: selection:stock.period,state:0
 msgid "Open"
-msgstr "Otvori"
+msgstr "Otvoreno"
 
 #. module: stock_planning
 #: code:addons/stock_planning/stock_planning.py:0

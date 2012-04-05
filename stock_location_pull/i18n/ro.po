@@ -13,13 +13,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:56+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2012-04-05 05:03+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: stock_location
 #: help:stock.location.path,delay:0
 msgid "Number of days to do this transition"
-msgstr "Număr de zile pentru efectuarea acestei tranziţii"
+msgstr "Numărul de zile pentru efectuarea acestei tranziţii"
 
 #. module: stock_location
 #: constraint:ir.ui.view:0
@@ -42,25 +42,27 @@ msgstr ""
 #. module: stock_location
 #: selection:stock.location.path,auto:0
 msgid "Automatic No Step Added"
-msgstr "Automatic fără adăugare de paşi"
+msgstr "Automat Fără adăugare de paşi"
 
 #. module: stock_location
 #: help:product.product,path_ids:0
 msgid ""
 "These rules set the right path of the product in the whole location tree."
 msgstr ""
-"Aceste reguli stabilesc traseul corect spre produs în întregul arbore de "
-"amplasamente."
+"Aceste reguli stabilesc traseul corect al produsului in intregul arbore de "
+"locatii."
 
 #. module: stock_location
+#: field:product.pulled.flow,location_src_id:0
 #: field:stock.location.path,location_from_id:0
 msgid "Source Location"
-msgstr "Amplasament Sursă"
+msgstr "Locaţia Sursă"
 
 #. module: stock_location
+#: field:product.pulled.flow,location_id:0
 #: field:stock.location.path,location_dest_id:0
 msgid "Destination Location"
-msgstr "Amplasament destinaţie"
+msgstr "Locaţia destinaţie"
 
 #. module: stock_location
 #: field:stock.location.path,auto:0
@@ -93,24 +95,22 @@ msgid ""
 "move has to be validated by a worker. With 'Automatic No Step Added', the "
 "location is replaced in the original move."
 msgstr ""
-"Se foloseşte pentru definirea traseului de urmat pentru produs în arborele "
-"de amplasamente.\n"
-"Valoarea 'Mişcare automată' va crea o mişcare de stoc după cea curentă şi va "
+"Se foloseşte pentru definirea traseului pe care produsul trebuie să il "
+"urmeze in arborele de locatii.\n"
+"Valoarea 'Mişcare automată' va crea o mişcare in stoc după cea curentă şi va "
 "fi validată automat. Cu 'Operare manuală', mişcarea de stoc va trebui "
-"validată de un operator. Cu 'Automat fără adăugare de paşi' amplasamentul "
-"este înlocuit în mişcarea originală."
+"validată de un operator. Cu 'Automat Fără adăugare de paşi' locatia este "
+"înlocuită în mişcarea originală."
 
 #. module: stock_location
 #: field:stock.location.path,name:0
 msgid "Operation"
-msgstr "Operație"
+msgstr "Operaţiune"
 
 #. module: stock_location
-#: view:product.product:0
-#: field:product.product,path_ids:0
 #: view:stock.location.path:0
 msgid "Location Paths"
-msgstr "Trasee amplasamente"
+msgstr "Trasee locatii"
 
 #. module: stock_location
 #: field:stock.location.path,delay:0

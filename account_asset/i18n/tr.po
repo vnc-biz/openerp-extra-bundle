@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-01-26 05:40+0000\n"
-"X-Generator: Launchpad (build 14719)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:53+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal
@@ -25,8 +25,7 @@ msgstr ""
 
 #. module: account_asset
 #: field:account.asset.category,method_end:0
-#: field:account.asset.history,method_end:0
-#: field:asset.modify,method_end:0
+#: field:account.asset.history,method_end:0 field:asset.modify,method_end:0
 msgid "Ending date"
 msgstr ""
 
@@ -36,13 +35,10 @@ msgid "Depreciation board"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: field:account.asset.asset,name:0
+#: view:account.asset.asset:0 field:account.asset.asset,name:0
 #: field:account.asset.depreciation.line,asset_id:0
-#: field:account.asset.history,asset_id:0
-#: field:account.move.line,asset_id:0
-#: view:asset.asset.report:0
-#: field:asset.asset.report,asset_id:0
+#: field:account.asset.history,asset_id:0 field:account.move.line,asset_id:0
+#: view:asset.asset.report:0 field:asset.asset.report,asset_id:0
 #: model:ir.model,name:account_asset.model_account_asset_asset
 msgid "Asset"
 msgstr "Varlık"
@@ -103,8 +99,7 @@ msgid "Open entries"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: view:asset.asset.report:0
+#: view:account.asset.asset:0 view:asset.asset.report:0
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_form
 #: model:ir.ui.menu,name:account_asset.menu_finance_assets
@@ -124,11 +119,8 @@ msgid "Draft Assets"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: view:account.asset.category:0
-#: view:account.asset.history:0
-#: view:asset.modify:0
-#: field:asset.modify,note:0
+#: view:account.asset.asset:0 view:account.asset.category:0
+#: view:account.asset.history:0 view:asset.modify:0 field:asset.modify,note:0
 msgid "Notes"
 msgstr ""
 
@@ -176,8 +168,7 @@ msgid "Analytic account"
 msgstr ""
 
 #. module: account_asset
-#: field:account.asset.asset,state:0
-#: field:asset.asset.report,state:0
+#: field:account.asset.asset,state:0 field:asset.asset.report,state:0
 msgid "State"
 msgstr ""
 
@@ -270,15 +261,13 @@ msgid "Accounts information"
 msgstr ""
 
 #. module: account_asset
-#: field:account.asset.asset,note:0
-#: field:account.asset.category,note:0
+#: field:account.asset.asset,note:0 field:account.asset.category,note:0
 #: field:account.asset.history,note:0
 msgid "Note"
 msgstr ""
 
 #. module: account_asset
-#: selection:account.asset.asset,state:0
-#: view:asset.asset.report:0
+#: selection:account.asset.asset,state:0 view:asset.asset.report:0
 #: selection:asset.asset.report,state:0
 msgid "Draft"
 msgstr ""
@@ -354,8 +343,7 @@ msgid "Close asset"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: field:account.asset.asset,history_ids:0
+#: view:account.asset.asset:0 field:account.asset.asset,history_ids:0
 msgid "History"
 msgstr ""
 
@@ -370,20 +358,17 @@ msgid "Period"
 msgstr ""
 
 #. module: account_asset
-#: field:account.invoice.line,asset_category_id:0
-#: view:asset.asset.report:0
+#: field:account.invoice.line,asset_category_id:0 view:asset.asset.report:0
 msgid "Asset Category"
 msgstr ""
 
 #. module: account_asset
-#: view:asset.depreciation.confirmation.wizard:0
-#: view:asset.modify:0
+#: view:asset.depreciation.confirmation.wizard:0 view:asset.modify:0
 msgid "Cancel"
 msgstr ""
 
 #. module: account_asset
-#: selection:account.asset.asset,state:0
-#: selection:asset.asset.report,state:0
+#: selection:account.asset.asset,state:0 selection:asset.asset.report,state:0
 msgid "Close"
 msgstr ""
 
@@ -456,8 +441,7 @@ msgid "Asset Entries"
 msgstr ""
 
 #. module: account_asset
-#: field:account.asset.asset,category_id:0
-#: view:account.asset.category:0
+#: field:account.asset.asset,category_id:0 view:account.asset.category:0
 #: field:asset.asset.report,asset_category_id:0
 #: model:ir.model,name:account_asset.model_account_asset_category
 msgid "Asset category"

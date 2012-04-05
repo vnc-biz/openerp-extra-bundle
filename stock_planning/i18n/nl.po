@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-01-10 05:48+0000\n"
-"X-Generator: Launchpad (build 14640)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:58+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: stock_planning
 #: view:stock.planning:0
@@ -101,7 +101,7 @@ msgstr ""
 #: view:stock.sale.forecast:0
 #: selection:stock.sale.forecast,state:0
 msgid "Validated"
-msgstr ""
+msgstr "Gecontroleerd"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_view_stock_planning_prevision_form_my
@@ -125,7 +125,7 @@ msgstr "Verwacht uit"
 #: view:stock.sale.forecast:0
 #: field:stock.sale.forecast,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Product"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,amt_sold:0
@@ -161,7 +161,7 @@ msgstr "Periodenaam"
 #: view:stock.period:0
 #: view:stock.period.createlines:0
 msgid "Stock Periods"
-msgstr ""
+msgstr "Voorraadperiodes"
 
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_planning_sale_prevision
@@ -182,7 +182,7 @@ msgstr ""
 #. module: stock_planning
 #: view:stock.planning:0
 msgid "Stock"
-msgstr ""
+msgstr "Voorraad"
 
 #. module: stock_planning
 #: field:stock.planning,incoming:0
@@ -192,7 +192,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,product_uom:0
 msgid "UoM"
-msgstr ""
+msgstr "Eenheid"
 
 #. module: stock_planning
 #: field:stock.planning,planned_sale:0
@@ -203,7 +203,7 @@ msgstr ""
 #: field:stock.period,date_stop:0
 #: field:stock.period.createlines,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Einddatum"
 
 #. module: stock_planning
 #: view:stock.period.createlines:0
@@ -245,7 +245,7 @@ msgstr "Verkoop prognose"
 #. module: stock_planning
 #: field:stock.sale.forecast,product_uom:0
 msgid "Product UoM"
-msgstr ""
+msgstr "Product eenheid"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_all
@@ -280,7 +280,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.sale.forecast,product_amt:0
 msgid "Product Amount"
-msgstr ""
+msgstr "Product bedrag"
 
 #. module: stock_planning
 #: field:stock.planning.sale.prevision,user_id:0
@@ -295,7 +295,7 @@ msgstr ""
 #. module: stock_planning
 #: field:stock.planning,line_time:0
 msgid "Past/Future"
-msgstr ""
+msgstr "Verleden/Toekomst"
 
 #. module: stock_planning
 #: model:ir.actions.act_window,name:stock_planning.action_stock_period_form
@@ -314,7 +314,7 @@ msgstr ""
 #. module: stock_planning
 #: model:ir.model,name:stock_planning.model_stock_planning
 msgid "stock.planning"
-msgstr ""
+msgstr "stock.planning"
 
 #. module: stock_planning
 #: model:ir.ui.menu,name:stock_planning.menu_stock_prevision_my_current
@@ -324,12 +324,12 @@ msgstr ""
 #. module: stock_planning
 #: selection:stock.planning,state:0
 msgid "Done"
-msgstr ""
+msgstr "Gereed"
 
 #. module: stock_planning
 #: field:stock.period.createlines,period_ids:0
 msgid "Periods"
-msgstr ""
+msgstr "Periodes"
 
 #. module: stock_planning
 #: view:stock.period:0
@@ -337,7 +337,7 @@ msgstr ""
 #: view:stock.planning.createlines:0
 #: view:stock.sale.forecast.createlines:0
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #. module: stock_planning
 #: field:stock.period,date_start:0
@@ -354,7 +354,7 @@ msgstr "Voorraadplanning"
 #: view:stock.period:0
 #: selection:stock.period,state:0
 msgid "Open"
-msgstr ""
+msgstr "Open"
 
 #. module: stock_planning
 #: code:addons/stock_planning/stock_planning.py:0

@@ -14,13 +14,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-12-30 05:56+0000\n"
-"X-Generator: Launchpad (build 14560)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:56+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
 msgid "E-mail Address"
-msgstr "Adresa e-mail"
+msgstr "Adresă de e-mail"
 
 #. module: hr_payroll
 #: view:hr.holidays.status:0
@@ -41,7 +41,7 @@ msgstr "Salariu net"
 #: field:hr.payslip,working_days:0
 #: report:payslip.pdf:0
 msgid "Working Days"
-msgstr "Zile lucratoare"
+msgstr "Zile lucrătoare"
 
 #. module: hr_payroll
 #: selection:hr.payroll.register,state:0
@@ -88,7 +88,7 @@ msgstr "Deduceri:"
 #. module: hr_payroll
 #: field:company.contribution,gratuity:0
 msgid "Use for Gratuity ?"
-msgstr "Utilizare pentru prima ?"
+msgstr "Utilizare pentru primă ?"
 
 #. module: hr_payroll
 #: rml:payslip.pdf:0
@@ -98,7 +98,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
 msgid "Salary Payment Register"
-msgstr "Registru cu plata salariului"
+msgstr "Registrul cu plata salariului"
 
 #. module: hr_payroll
 #: field:hr.payslip,paid:0
@@ -123,10 +123,8 @@ msgstr "D/C"
 
 #. module: hr_payroll
 #: field:hr.contribution.register,company_id:0
-#: field:hr.payroll.structure,company_id:0
-#: field:hr.payslip,company_id:0
-#: field:hr.payslip.line,company_id:0
-#: field:hr.salary.rule,company_id:0
+#: field:hr.payroll.structure,company_id:0 field:hr.payslip,company_id:0
+#: field:hr.payslip.line,company_id:0 field:hr.salary.rule,company_id:0
 #: field:hr.salary.rule.category,company_id:0
 msgid "Company"
 msgstr "Companie"
@@ -142,16 +140,14 @@ msgid "Letter Details"
 msgstr "Detalii scrisori"
 
 #. module: hr_payroll
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:paylip.details:0 report:payslip:0
 msgid ","
 msgstr ","
 
 #. module: hr_payroll
-#: view:hr.payslip:0
-#: view:hr.payslip.run:0
+#: view:hr.payslip:0 view:hr.payslip.run:0
 msgid "Set to Draft"
-msgstr "Setat pe ciorna"
+msgstr "Setare ca ciornă"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -170,11 +166,9 @@ msgid "Others"
 msgstr "Altele"
 
 #. module: hr_payroll
-#: field:hr.payslip.input,payslip_id:0
-#: field:hr.payslip.line,slip_id:0
+#: field:hr.payslip.input,payslip_id:0 field:hr.payslip.line,slip_id:0
 #: field:hr.payslip.worked_days,payslip_id:0
-#: model:ir.model,name:hr_payroll.model_hr_payslip
-#: report:payslip:0
+#: model:ir.model,name:hr_payroll.model_hr_payslip report:payslip:0
 msgid "Pay Slip"
 msgstr "Fluturas de salariu"
 
@@ -259,17 +253,13 @@ msgid "Work Permit No"
 msgstr "Nr permis de munca"
 
 #. module: hr_payroll
-#: report:contribution.register.lines:0
-#: field:hr.payslip.input,amount:0
-#: field:hr.payslip.line,amount:0
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:contribution.register.lines:0 field:hr.payslip.input,amount:0
+#: field:hr.payslip.line,amount:0 report:paylip.details:0 report:payslip:0
 msgid "Amount"
 msgstr "Suma"
 
 #. module: hr_payroll
-#: view:hr.payslip:0
-#: view:hr.payslip.line:0
+#: view:hr.payslip:0 view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
 msgid "Payslip Line"
 msgstr "Linie fluturas de salariu"
@@ -475,8 +465,7 @@ msgid "Passport"
 msgstr "Pasaport"
 
 #. module: hr_payroll
-#: field:hr.payslip,employee_id:0
-#: field:hr.payslip.line,employee_id:0
+#: field:hr.payslip,employee_id:0 field:hr.payslip.line,employee_id:0
 #: model:ir.model,name:hr_payroll.model_hr_employee
 msgid "Employee"
 msgstr "Angajat"
@@ -596,8 +585,7 @@ msgstr ""
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount_fix:0
-#: selection:hr.payslip.line,amount_select:0
-#: field:hr.salary.rule,amount_fix:0
+#: selection:hr.payslip.line,amount_select:0 field:hr.salary.rule,amount_fix:0
 #: selection:hr.salary.rule,amount_select:0
 msgid "Fixed Amount"
 msgstr "Suma fixa"
@@ -719,8 +707,7 @@ msgid "Net Amount"
 msgstr "Suma neta"
 
 #. module: hr_payroll
-#: field:hr.payslip,state:0
-#: field:hr.payslip.run,state:0
+#: field:hr.payslip,state:0 field:hr.payslip.run,state:0
 msgid "State"
 msgstr "Stare"
 
@@ -774,15 +761,13 @@ msgid "Employee Code"
 msgstr "Cod angajat"
 
 #. module: hr_payroll
-#: view:hr.payslip.line:0
-#: field:hr.payslip.line,amount_select:0
+#: view:hr.payslip.line:0 field:hr.payslip.line,amount_select:0
 #: field:hr.salary.rule,amount_select:0
 msgid "Amount Type"
 msgstr "Tip suma"
 
 #. module: hr_payroll
-#: field:hr.payslip.line,category_id:0
-#: view:hr.salary.rule:0
+#: field:hr.payslip.line,category_id:0 view:hr.salary.rule:0
 #: field:hr.salary.rule,category_id:0
 msgid "Category"
 msgstr "Categorie"
@@ -815,9 +800,7 @@ msgid "ESI Hospital"
 msgstr ""
 
 #. module: hr_payroll
-#: field:hr.employee,slip_ids:0
-#: view:hr.payslip:0
-#: view:hr.payslip.run:0
+#: field:hr.employee,slip_ids:0 view:hr.payslip:0 view:hr.payslip.run:0
 #: field:hr.payslip.run,slip_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
@@ -934,8 +917,7 @@ msgid "Compute Sheet"
 msgstr "Calculeaza bilantul"
 
 #. module: hr_payroll
-#: field:hr.payslip.line,active:0
-#: field:hr.salary.rule,active:0
+#: field:hr.payslip.line,active:0 field:hr.salary.rule,active:0
 msgid "Active"
 msgstr "Activ"
 
@@ -976,8 +958,7 @@ msgid "Payment Lines"
 msgstr "Linii plata"
 
 #. module: hr_payroll
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:paylip.details:0 report:payslip:0
 msgid "Designation"
 msgstr "Denumire"
 
@@ -1011,8 +992,7 @@ msgid "Allowance Deduction Categoty"
 msgstr "Categoria ideducere indemnizatie"
 
 #. module: hr_payroll
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:paylip.details:0 report:payslip:0
 msgid "Authorized Signature"
 msgstr "Semnatura autorizata"
 
@@ -1073,14 +1053,10 @@ msgid "General Account"
 msgstr ""
 
 #. module: hr_payroll
-#: report:contribution.register.lines:0
-#: field:hr.payslip.input,code:0
-#: field:hr.payslip.line,code:0
-#: field:hr.payslip.worked_days,code:0
-#: field:hr.rule.input,code:0
-#: field:hr.salary.rule,code:0
-#: field:hr.salary.rule.category,code:0
-#: report:paylip.details:0
+#: report:contribution.register.lines:0 field:hr.payslip.input,code:0
+#: field:hr.payslip.line,code:0 field:hr.payslip.worked_days,code:0
+#: field:hr.rule.input,code:0 field:hr.salary.rule,code:0
+#: field:hr.salary.rule.category,code:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Code"
 msgstr "Cod"
@@ -1111,10 +1087,8 @@ msgid "Loan"
 msgstr "Imprumut"
 
 #. module: hr_payroll
-#: field:hr.payslip.input,sequence:0
-#: field:hr.payslip.line,sequence:0
-#: field:hr.payslip.worked_days,sequence:0
-#: field:hr.salary.rule,sequence:0
+#: field:hr.payslip.input,sequence:0 field:hr.payslip.line,sequence:0
+#: field:hr.payslip.worked_days,sequence:0 field:hr.salary.rule,sequence:0
 msgid "Sequence"
 msgstr "Secventa"
 
@@ -1146,17 +1120,14 @@ msgid "Paymeny Lines"
 msgstr "Lini plata"
 
 #. module: hr_payroll
-#: field:hr.contract,struct_id:0
-#: view:hr.payroll.structure:0
-#: view:hr.payslip:0
+#: field:hr.contract,struct_id:0 view:hr.payroll.structure:0 view:hr.payslip:0
 #: view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure
 msgid "Salary Structure"
 msgstr "Structura salariului"
 
 #. module: hr_payroll
-#: view:hr.payslip:0
-#: view:hr.payslip.employees:0
+#: view:hr.payslip:0 view:hr.payslip.employees:0
 #: view:payslip.lines.contribution.register:0
 msgid "Cancel"
 msgstr "Anuleaza"
@@ -1264,18 +1235,12 @@ msgid "PAN No."
 msgstr ""
 
 #. module: hr_payroll
-#: view:hr.contribution.register:0
-#: field:hr.contribution.register,note:0
-#: field:hr.payroll.structure,note:0
-#: field:hr.payslip,name:0
-#: field:hr.payslip,note:0
-#: field:hr.payslip.input,name:0
-#: view:hr.payslip.line:0
-#: field:hr.payslip.line,note:0
-#: field:hr.payslip.worked_days,name:0
-#: field:hr.rule.input,name:0
-#: view:hr.salary.rule:0
-#: field:hr.salary.rule,note:0
+#: view:hr.contribution.register:0 field:hr.contribution.register,note:0
+#: field:hr.payroll.structure,note:0 field:hr.payslip,name:0
+#: field:hr.payslip,note:0 field:hr.payslip.input,name:0
+#: view:hr.payslip.line:0 field:hr.payslip.line,note:0
+#: field:hr.payslip.worked_days,name:0 field:hr.rule.input,name:0
+#: view:hr.salary.rule:0 field:hr.salary.rule,note:0
 #: field:hr.salary.rule.category,note:0
 msgid "Description"
 msgstr "Descriere"
@@ -1310,8 +1275,7 @@ msgid "Create Analytic Structure"
 msgstr ""
 
 #. module: hr_payroll
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:paylip.details:0 report:payslip:0
 msgid "Address"
 msgstr "Adresa"
 
@@ -1326,8 +1290,7 @@ msgid "Expanse account when Salary Expanse will be recorded"
 msgstr ""
 
 #. module: hr_payroll
-#: view:hr.payslip:0
-#: view:hr.salary.rule.category:0
+#: view:hr.payslip:0 view:hr.salary.rule.category:0
 msgid "Notes"
 msgstr ""
 
@@ -1353,14 +1316,10 @@ msgid "Special Allowances and Deductions For Employee:"
 msgstr "Indemnizatii si deduceri speciale pentru angajat:"
 
 #. module: hr_payroll
-#: report:contribution.register.lines:0
-#: field:hr.contribution.register,name:0
-#: field:hr.payroll.structure,name:0
-#: field:hr.payslip.line,name:0
-#: field:hr.payslip.run,name:0
-#: field:hr.salary.rule,name:0
-#: field:hr.salary.rule.category,name:0
-#: report:paylip.details:0
+#: report:contribution.register.lines:0 field:hr.contribution.register,name:0
+#: field:hr.payroll.structure,name:0 field:hr.payslip.line,name:0
+#: field:hr.payslip.run,name:0 field:hr.salary.rule,name:0
+#: field:hr.salary.rule.category,name:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Name"
 msgstr "Nume"
@@ -1381,16 +1340,13 @@ msgid "Employee Functions"
 msgstr ""
 
 #. module: hr_payroll
-#: view:hr.payslip:0
-#: view:hr.payslip.employees:0
-#: field:hr.payslip.employees,employee_ids:0
-#: view:hr.payslip.line:0
+#: view:hr.payslip:0 view:hr.payslip.employees:0
+#: field:hr.payslip.employees,employee_ids:0 view:hr.payslip.line:0
 msgid "Employees"
 msgstr "Angajati"
 
 #. module: hr_payroll
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:paylip.details:0 report:payslip:0
 msgid "Bank Account"
 msgstr "Cont bancar"
 
@@ -1406,8 +1362,7 @@ msgid "Fiscal Year"
 msgstr ""
 
 #. module: hr_payroll
-#: field:hr.payslip,contract_id:0
-#: field:hr.payslip.input,contract_id:0
+#: field:hr.payslip,contract_id:0 field:hr.payslip.input,contract_id:0
 #: field:hr.payslip.line,contract_id:0
 #: field:hr.payslip.worked_days,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
@@ -1492,9 +1447,7 @@ msgid "Total Deductions"
 msgstr "Deduceri totale"
 
 #. module: hr_payroll
-#: report:contribution.register.lines:0
-#: field:hr.payslip.line,total:0
-#: report:paylip.details:0
-#: report:payslip:0
+#: report:contribution.register.lines:0 field:hr.payslip.line,total:0
+#: report:paylip.details:0 report:payslip:0
 msgid "Total"
 msgstr "Total"

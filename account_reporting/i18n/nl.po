@@ -13,13 +13,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-28 05:52+0000\n"
-"X-Generator: Launchpad (build 14197)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:59+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: account_reporting
 #: model:ir.model,name:account_reporting.model_color_rml
 msgid "Rml Color"
-msgstr ""
+msgstr "Rml kleur"
 
 #. module: account_reporting
 #: field:color.rml,code:0
@@ -62,12 +62,12 @@ msgstr "Balans rapportage"
 #. module: account_reporting
 #: constraint:ir.ui.menu:0
 msgid "Error ! You can not create recursive Menu."
-msgstr ""
+msgstr "Fout ! U kunt geen recursief menu maken."
 
 #. module: account_reporting
 #: view:account.reporting.balance.report:0
 msgid "Print"
-msgstr ""
+msgstr "Afdrukken"
 
 #. module: account_reporting
 #: constraint:ir.actions.act_window:0
@@ -192,7 +192,7 @@ msgstr "Bovenliggende"
 #. module: account_reporting
 #: view:account.reporting.balance.report:0
 msgid "Select Dates Period"
-msgstr ""
+msgstr "Selecteer Datumperiode"
 
 #. module: account_reporting
 #: field:account.report.bs,sequence:0
@@ -210,6 +210,8 @@ msgid ""
 "Gives the sequence order when displaying a list of account reporting for "
 "balance sheet."
 msgstr ""
+"Geeft de volgorde weer bij het weergeven van een lijst van rekening "
+"rapporten voor de balans"
 
 #. module: account_reporting
 #: view:account.report.bs:0
@@ -256,7 +258,7 @@ msgstr "Helvetica-Oblique"
 #. module: account_reporting
 #: model:ir.model,name:account_reporting.model_account_reporting_balance_report
 msgid "Account balance report"
-msgstr ""
+msgstr "Rekening balans rapport"
 
 #. module: account_reporting
 #: field:account.report.bs,child_id:0

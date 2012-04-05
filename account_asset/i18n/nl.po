@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-01-16 05:31+0000\n"
-"X-Generator: Launchpad (build 14664)\n"
+"X-Launchpad-Export-Date: 2012-04-05 04:53+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal
@@ -25,10 +25,9 @@ msgstr ""
 
 #. module: account_asset
 #: field:account.asset.category,method_end:0
-#: field:account.asset.history,method_end:0
-#: field:asset.modify,method_end:0
+#: field:account.asset.history,method_end:0 field:asset.modify,method_end:0
 msgid "Ending date"
-msgstr ""
+msgstr "Einddatum"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -36,16 +35,13 @@ msgid "Depreciation board"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: field:account.asset.asset,name:0
+#: view:account.asset.asset:0 field:account.asset.asset,name:0
 #: field:account.asset.depreciation.line,asset_id:0
-#: field:account.asset.history,asset_id:0
-#: field:account.move.line,asset_id:0
-#: view:asset.asset.report:0
-#: field:asset.asset.report,asset_id:0
+#: field:account.asset.history,asset_id:0 field:account.move.line,asset_id:0
+#: view:asset.asset.report:0 field:asset.asset.report,asset_id:0
 #: model:ir.model,name:account_asset.model_account_asset_asset
 msgid "Asset"
-msgstr ""
+msgstr "Activa"
 
 #. module: account_asset
 #: constraint:ir.actions.act_window:0
@@ -56,7 +52,7 @@ msgstr ""
 #: selection:account.asset.asset,method:0
 #: selection:account.asset.category,method:0
 msgid "Linear"
-msgstr ""
+msgstr "Lineair"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -76,14 +72,14 @@ msgstr ""
 #. module: account_asset
 #: field:asset.modify,name:0
 msgid "Reason"
-msgstr ""
+msgstr "Oorzaak"
 
 #. module: account_asset
 #: field:account.asset.asset,account_move_line_ids:0
 #: field:account.move.line,entry_ids:0
 #: model:ir.actions.act_window,name:account_asset.act_entries_open
 msgid "Entries"
-msgstr ""
+msgstr "Boekingen"
 
 #. module: account_asset
 #: wizard_view:account.asset.compute,asset_compute:0
@@ -103,14 +99,13 @@ msgid "Open entries"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: view:asset.asset.report:0
+#: view:account.asset.asset:0 view:asset.asset.report:0
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_form
 #: model:ir.ui.menu,name:account_asset.menu_finance_assets
 #: model:ir.ui.menu,name:account_asset.menu_finance_config_assets
 msgid "Assets"
-msgstr ""
+msgstr "Activa"
 
 #. module: account_asset
 #: selection:account.asset.property,method:0
@@ -124,13 +119,10 @@ msgid "Draft Assets"
 msgstr ""
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: view:account.asset.category:0
-#: view:account.asset.history:0
-#: view:asset.modify:0
-#: field:asset.modify,note:0
+#: view:account.asset.asset:0 view:account.asset.category:0
+#: view:account.asset.history:0 view:asset.modify:0 field:asset.modify,note:0
 msgid "Notes"
-msgstr ""
+msgstr "Notities"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -156,7 +148,7 @@ msgstr ""
 #: field:account.asset.asset,partner_id:0
 #: field:asset.asset.report,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Relatie"
 
 #. module: account_asset
 #: wizard_field:account.asset.modify,init,method_period:0
@@ -173,13 +165,12 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.category,account_analytic_id:0
 msgid "Analytic account"
-msgstr ""
+msgstr "Kostenplaats"
 
 #. module: account_asset
-#: field:account.asset.asset,state:0
-#: field:asset.asset.report,state:0
+#: field:account.asset.asset,state:0 field:asset.asset.report,state:0
 msgid "State"
-msgstr ""
+msgstr "Status"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -214,12 +205,12 @@ msgstr ""
 #. module: account_asset
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_compute
 msgid "Compute assets"
-msgstr ""
+msgstr "Bereken activa"
 
 #. module: account_asset
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_modify
 msgid "Modify asset"
-msgstr ""
+msgstr "Aanpassen activa"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -230,7 +221,7 @@ msgstr ""
 #: view:account.asset.history:0
 #: model:ir.model,name:account_asset.model_account_asset_history
 msgid "Asset history"
-msgstr ""
+msgstr "Activa historie"
 
 #. module: account_asset
 #: field:account.asset.property,date:0
@@ -270,18 +261,16 @@ msgid "Accounts information"
 msgstr ""
 
 #. module: account_asset
-#: field:account.asset.asset,note:0
-#: field:account.asset.category,note:0
+#: field:account.asset.asset,note:0 field:account.asset.category,note:0
 #: field:account.asset.history,note:0
 msgid "Note"
-msgstr ""
+msgstr "Opmerking"
 
 #. module: account_asset
-#: selection:account.asset.asset,state:0
-#: view:asset.asset.report:0
+#: selection:account.asset.asset,state:0 view:asset.asset.report:0
 #: selection:asset.asset.report,state:0
 msgid "Draft"
-msgstr ""
+msgstr "Concept"
 
 #. module: account_asset
 #: field:account.asset.property,type:0
@@ -326,12 +315,12 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.asset,active:0
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: account_asset
 #: field:account.asset.history,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Gebruiker"
 
 #. module: account_asset
 #: field:account.asset.asset,property_ids:0
@@ -341,7 +330,7 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.history,date:0
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. module: account_asset
 #: field:account.asset.board,value_net:0
@@ -351,13 +340,12 @@ msgstr ""
 #. module: account_asset
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_close
 msgid "Close asset"
-msgstr ""
+msgstr "Gesloten activa"
 
 #. module: account_asset
-#: view:account.asset.asset:0
-#: field:account.asset.asset,history_ids:0
+#: view:account.asset.asset:0 field:account.asset.asset,history_ids:0
 msgid "History"
-msgstr ""
+msgstr "Historie"
 
 #. module: account_asset
 #: field:account.asset.property,account_actif_id:0
@@ -367,25 +355,22 @@ msgstr ""
 #. module: account_asset
 #: field:asset.depreciation.confirmation.wizard,period_id:0
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 #. module: account_asset
-#: field:account.invoice.line,asset_category_id:0
-#: view:asset.asset.report:0
+#: field:account.invoice.line,asset_category_id:0 view:asset.asset.report:0
 msgid "Asset Category"
-msgstr ""
+msgstr "Asset categorie"
 
 #. module: account_asset
-#: view:asset.depreciation.confirmation.wizard:0
-#: view:asset.modify:0
+#: view:asset.depreciation.confirmation.wizard:0 view:asset.modify:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #. module: account_asset
-#: selection:account.asset.asset,state:0
-#: selection:asset.asset.report,state:0
+#: selection:account.asset.asset,state:0 selection:asset.asset.report,state:0
 msgid "Close"
-msgstr ""
+msgstr "Afsluiten"
 
 #. module: account_asset
 #: selection:account.asset.property,state:0
@@ -438,12 +423,12 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.category,journal_id:0
 msgid "Journal"
-msgstr ""
+msgstr "Dagboek"
 
 #. module: account_asset
 #: field:account.asset.history,name:0
 msgid "History name"
-msgstr ""
+msgstr "Historische naam"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -456,12 +441,11 @@ msgid "Asset Entries"
 msgstr ""
 
 #. module: account_asset
-#: field:account.asset.asset,category_id:0
-#: view:account.asset.category:0
+#: field:account.asset.asset,category_id:0 view:account.asset.category:0
 #: field:asset.asset.report,asset_category_id:0
 #: model:ir.model,name:account_asset.model_account_asset_category
 msgid "Asset category"
-msgstr ""
+msgstr "Activa categorie"
 
 #. module: account_asset
 #: view:account.asset.asset:0
@@ -523,4 +507,4 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_tree
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_tree
 msgid "Asset Hierarchy"
-msgstr ""
+msgstr "Activa hiërarchie"

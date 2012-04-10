@@ -76,6 +76,7 @@ class base_external_mapping(osv.osv):
             return res
 
         LOGGER.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, _("Base External Mapping call %s") % code)
+        LOGGER.notifyChannel(_("Base External Mapping"), netsvc.LOG_INFO, "IDS: %s" % ids)
 
         if not len(langs)>0:
             langs = self.pool.get('res.lang').search(cr, uid, [('active','=',True)])
@@ -125,7 +126,7 @@ class base_external_mapping(osv.osv):
                     if mappline_rule['out_function']:
                         localspace = {"self":self,"cr":cr,"uid":uid,"ids":ids,"context":context}
                         exec mappline_rule['out_function'] in localspace
-                        value = localspace['value'] if 'value' in localspace else ''
+                        value = localspace['value'] if 'value' in localspace else None
                     else:
                         if mappline_rule['ttype'] in fields_relationals:
                             if mappline_rule['ttype'] == 'many2many': #m2m fields, create list
@@ -141,7 +142,8 @@ class base_external_mapping(osv.osv):
                         if mappline_rule['ttype'] == 'char' and value == False:
                             value = ''
 
-                    values_data[mappline_rule['external_field']]= value
+                    if value:
+                        values_data[mappline_rule['external_field']]= value
 
             res.append(values_data)
 

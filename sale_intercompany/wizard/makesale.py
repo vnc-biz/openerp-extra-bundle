@@ -38,9 +38,13 @@ class make_sale(wizard.interface):
         pool = pooler.get_pool(cr.dbname)
         purchase_obj = pool.get('purchase.order')
         sale_obj = pool.get('sale.order')
-
+        
         shop_obj = pool.get('sale.shop')
-        shop_id = shop_obj.search(cr, uid, [])[0]
+        shop_check = shop_obj.search(cr, uid, [])
+        if shop_check:
+            shop_id = shop_check[0]
+        else :
+            raise osv.except_osv(_('Error !'), _('No Shop defined for this Company !\nPlease create Shop for this Company.'))
 
         partner_obj = pool.get('res.partner')
         sale_line_obj = pool.get('sale.order.line')

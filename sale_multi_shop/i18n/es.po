@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-02-16 12:09+0000\n"
-"PO-Revision-Date: 2012-02-16 13:27+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-04-10 21:36+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-04-11 04:50+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
 
 #. module: sale_multi_shop
 #: field:res.users,shop_id:0
@@ -76,7 +78,9 @@ msgstr "¡No puede tener dos usuarios con el mismo identificador!"
 #. module: sale_multi_shop
 #: constraint:res.users:0
 msgid "The chosen company is not in the allowed companies for this user"
-msgstr "La compañía seleccionada no está entre las companías permitidas para este usuario"
+msgstr ""
+"La compañía seleccionada no está entre las companías permitidas para este "
+"usuario"
 
 #. module: sale_multi_shop
 #: model:ir.module.module,shortdesc:sale_multi_shop.module_meta_information
@@ -114,7 +118,3 @@ msgstr "Secuencia pedidos de venta"
 #: field:sale.shop,journal_id:0
 msgid "Account Journal"
 msgstr "Diario"
-
-#~ msgid "Current Shop"
-#~ msgstr "Tienda actual"
-

@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-03-27 08:18+0000\n"
-"PO-Revision-Date: 2012-03-27 10:22+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-04-11 19:42+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-04-12 05:15+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
 
 #. module: magento_connect
 #: field:magento.storeview,language_id:0
@@ -98,8 +100,12 @@ msgstr "Província de Magento"
 
 #. module: magento_connect
 #: help:magento.app,from_import_products:0
-msgid "This date is last import. If you need import new products, you can modify this date (filter)"
-msgstr "Esta es la fecha de última importación. Si necesita importar nuevos productos, puede modificar esta fecha (filtro)"
+msgid ""
+"This date is last import. If you need import new products, you can modify "
+"this date (filter)"
+msgstr ""
+"Esta es la fecha de última importación. Si necesita importar nuevos "
+"productos, puede modificar esta fecha (filtro)"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:919
@@ -150,7 +156,8 @@ msgstr "Importar tipos de producto Magento"
 #. module: magento_connect
 #: help:magento.sale.shop.status.type,cancel:0
 msgid "Cancel order. Sale Order change state draft to cancel"
-msgstr "Cancelar pedido. Los pedidos de venta pasaran de borrador a cancelado."
+msgstr ""
+"Cancelar pedido. Los pedidos de venta pasaran de borrador a cancelado."
 
 #. module: magento_connect
 #: field:magento.app,last_export_product_category:0
@@ -190,8 +197,12 @@ msgstr "Excluir"
 
 #. module: magento_connect
 #: view:sale.shop:0
-msgid "Are you sure to continue? This action is in background. See logs server process"
-msgstr "¿Está seguro de continuar? Esta acción se ejecutará como tarea oculta. Revise el historial del servidor."
+msgid ""
+"Are you sure to continue? This action is in background. See logs server "
+"process"
+msgstr ""
+"¿Está seguro de continuar? Esta acción se ejecutará como tarea oculta. "
+"Revise el historial del servidor."
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -242,8 +253,12 @@ msgstr "No está permitido borrar esta vista de tienda de Magento"
 
 #. module: magento_connect
 #: help:sale.shop,magento_check_vat_partner:0
-msgid "Check Partner Vat exists in OpenERP. If this vat exists, not create partner and use this partner"
-msgstr "Comprueba si el CIF/NIF de la empresa existe en OpenERP. Si existe, no crea la empresa y utiliza este"
+msgid ""
+"Check Partner Vat exists in OpenERP. If this vat exists, not create partner "
+"and use this partner"
+msgstr ""
+"Comprueba si el CIF/NIF de la empresa existe en OpenERP. Si existe, no crea "
+"la empresa y utiliza este"
 
 #. module: magento_connect
 #: view:sale.shop:0
@@ -285,7 +300,8 @@ msgstr "Última exportación de imágenes"
 #: code:addons/magento_connect/partner.py:41
 #, python-format
 msgid "Partner ID '%s' not allow to delete because are active in Magento"
-msgstr "No se puede borrar la empresa '%s' porque está activo en la tienda Magento"
+msgstr ""
+"No se puede borrar la empresa '%s' porque está activo en la tienda Magento"
 
 #. module: magento_connect
 #: field:magento.product_category_attribute_options,value:0
@@ -379,8 +395,12 @@ msgstr "Grupo de tiendas Magento"
 
 #. module: magento_connect
 #: help:magento.app,last_export_partners:0
-msgid "This date is last export. If you need export all partners, empty this field (long sync)"
-msgstr "Esta es la fecha de última exportación. Si necesita la exportación de todas las empresas, deje vacía esta fecha (sincronización larga)"
+msgid ""
+"This date is last export. If you need export all partners, empty this field "
+"(long sync)"
+msgstr ""
+"Esta es la fecha de última exportación. Si necesita la exportación de todas "
+"las empresas, deje vacía esta fecha (sincronización larga)"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:752
@@ -451,8 +471,12 @@ msgstr "¡Atención!"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_images:0
-msgid "This date correspond to the last export. If you need export all images, left empty this field."
-msgstr "Esta es la fecha de la última exportación. Si necesita exportar todas las imágenes, deje vacía esta fecha (sincronización larga)"
+msgid ""
+"This date correspond to the last export. If you need export all images, left "
+"empty this field."
+msgstr ""
+"Esta es la fecha de la última exportación. Si necesita exportar todas las "
+"imágenes, deje vacía esta fecha (sincronización larga)"
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -534,8 +558,11 @@ msgstr "Etiquetas"
 
 #. module: magento_connect
 #: constraint:magento.app.customer:0
-msgid "This email is already assigned to another partner in the same Magento Server."
-msgstr "Este correo electrónico ya está siendo utilizado por otra empresa en el mismo Magento. Debe utilitzar otro."
+msgid ""
+"This email is already assigned to another partner in the same Magento Server."
+msgstr ""
+"Este correo electrónico ya está siendo utilizado por otra empresa en el "
+"mismo Magento. Debe utilitzar otro."
 
 #. module: magento_connect
 #: field:magento.region,res_country_state_id:0
@@ -561,8 +588,12 @@ msgstr "Exportar a Magento"
 #: view:magento.sync.price.wizard:0
 #: view:magento.sync.product.wizard:0
 #: view:magento.sync.stock.wizard:0
-msgid "Exportation is running.... This action is in background. See logs server process"
-msgstr "La exportación está en ejecución... Esta acción se realiza como tarea hija. Revisa el historial del servidor"
+msgid ""
+"Exportation is running.... This action is in background. See logs server "
+"process"
+msgstr ""
+"La exportación está en ejecución... Esta acción se realiza como tarea hija. "
+"Revisa el historial del servidor"
 
 #. module: magento_connect
 #: field:magento.product.product.type,product_type:0
@@ -579,25 +610,36 @@ msgid ""
 "     1.1 Install Magento Python from:\n"
 "        - https://github.com/zikzakmedia/magento\n"
 "\n"
-"     1.2 Install Magento Module Extend API. This module is same magentoerpconnect module use. Add additional API methods for use by the Multi website, Multi Store, Multi Product category \n"
+"     1.2 Install Magento Module Extend API. This module is same "
+"magentoerpconnect module use. Add additional API methods for use by the "
+"Multi website, Multi Store, Multi Product category \n"
 "        - https://github.com/zikzakmedia/magento_webservices\n"
 "\n"
 "    2. Configuration\n"
-"     2.1 Exclude product fields Magento go to OpenERP in Sale -> Configuration -> Magento Attribute Exclude\n"
-"     2.2 Mapping more product fields go to Administrator -> Customization -> Database Structure -> External Mapping\n"
+"     2.1 Exclude product fields Magento go to OpenERP in Sale -> "
+"Configuration -> Magento Attribute Exclude\n"
+"     2.2 Mapping more product fields go to Administrator -> Customization -> "
+"Database Structure -> External Mapping\n"
 "     2.3 Configure yours Magento APP: Sale -> Configuration -> Magento\n"
 "    \n"
 "    3. Other information\n"
-"     3.1 Magento module use Product Attributes to add new fields Product model. This module don't use EAV (Entity-attribute-value model) and there are maxim fields available in product table postgres.\n"
-"     3.2 Also exists another module Magento management we working another projects:\n"
+"     3.1 Magento module use Product Attributes to add new fields Product "
+"model. This module don't use EAV (Entity-attribute-value model) and there "
+"are maxim fields available in product table postgres.\n"
+"     3.2 Also exists another module Magento management we working another "
+"projects:\n"
 "        - https://launchpad.net/magentoerpconnect\n"
 "        \n"
 "    Documentation available at (spanish):\n"
 "    http://wiki.zikzakmedia.com/openerp:magentoconnect\n"
 "\n"
-"    Special Thanks to Akretion www.akretion.com and OpenLabs www.openlabs.co.in\n"
+"    Special Thanks to Akretion www.akretion.com and OpenLabs "
+"www.openlabs.co.in\n"
 "    "
-msgstr "Idioma por defecto"
+msgstr ""
+"\n"
+"    Idioma por defecto\n"
+"    "
 
 #. module: magento_connect
 #: view:magento.external.referential:0
@@ -650,7 +692,9 @@ msgstr "Metapalabra clave"
 #. module: magento_connect
 #: help:sale.shop,magento_scheduler:0
 msgid "Available this Sale Shop crons (import/export)"
-msgstr "Establecer esta tienda a disponible en la importación automática (importación/exportación)"
+msgstr ""
+"Establecer esta tienda a disponible en la importación automática "
+"(importación/exportación)"
 
 #. module: magento_connect
 #: model:ir.actions.act_window,name:magento_connect.action_magento_external_referential
@@ -762,14 +806,19 @@ msgstr "Paid in web"
 
 #. module: magento_connect
 #: help:magento.sale.shop.status.type,confirm:0
-msgid "Confirm order. Sale Order change state draft to done, and generate picking and/or invoice automatlly"
-msgstr "Confirmar pedidos. Los pedidos de venta pasarán de borrador a realizado, y generarán albarán y/o factura según política."
+msgid ""
+"Confirm order. Sale Order change state draft to done, and generate picking "
+"and/or invoice automatlly"
+msgstr ""
+"Confirmar pedidos. Los pedidos de venta pasarán de borrador a realizado, y "
+"generarán albarán y/o factura según política."
 
 #. module: magento_connect
 #: code:addons/magento_connect/sale.py:98
 #, python-format
 msgid "Sale shop ID '%s' not allow to delete because are active in Magento"
-msgstr "No se puede borrar la tienda '%s' porque está activo en la tienda Magento"
+msgstr ""
+"No se puede borrar la tienda '%s' porque está activo en la tienda Magento"
 
 #. module: magento_connect
 #: field:sale.order,magento_increment_id:0
@@ -832,8 +881,12 @@ msgstr "Envío y facturación manual"
 
 #. module: magento_connect
 #: view:magento.app:0
-msgid "Are you sure to continue? See logs server process. This operation import all categories Magento to OpenERP"
-msgstr "¿Está seguro de continuar? Revise el historial del servidor. Esta acción importará todas las categorías de Magento a OpenERP."
+msgid ""
+"Are you sure to continue? See logs server process. This operation import all "
+"categories Magento to OpenERP"
+msgstr ""
+"¿Está seguro de continuar? Revise el historial del servidor. Esta acción "
+"importará todas las categorías de Magento a OpenERP."
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -842,8 +895,12 @@ msgstr "Componentes de núcleo"
 
 #. module: magento_connect
 #: view:magento.app:0
-msgid "Import regions with countries selected. Are you sure to continue? See logs server process"
-msgstr "Importar provincias y país. ¿Está seguro de continuar? Revise historial del servidor."
+msgid ""
+"Import regions with countries selected. Are you sure to continue? See logs "
+"server process"
+msgstr ""
+"Importar provincias y país. ¿Está seguro de continuar? Revise historial del "
+"servidor."
 
 #. module: magento_connect
 #: field:res.partner.address,magento_lastname:0
@@ -853,7 +910,8 @@ msgstr "Apellidos"
 #. module: magento_connect
 #: help:magento.product.product.type,product_type:0
 msgid "Use the same name of Magento product type, for example 'simple'"
-msgstr "Utilizar el mismo nombre del tipo de producto de Magento (p.e. 'simple')"
+msgstr ""
+"Utilizar el mismo nombre del tipo de producto de Magento (p.e. 'simple')"
 
 #. module: magento_connect
 #: view:magento.storeview:0
@@ -878,8 +936,12 @@ msgstr "Excluir atributos de Magento"
 
 #. module: magento_connect
 #: help:magento.product.product.type,active:0
-msgid "If the active field is set to False, it will allow you to hide the product without removing it."
-msgstr "El campo activo establecido a falso le permite ocultar el producto sin borrarlo."
+msgid ""
+"If the active field is set to False, it will allow you to hide the product "
+"without removing it."
+msgstr ""
+"El campo activo establecido a falso le permite ocultar el producto sin "
+"borrarlo."
 
 #. module: magento_connect
 #: field:magento.storegroup,magento_storeview_ids:0
@@ -895,7 +957,9 @@ msgstr "Identificador Magento"
 #: code:addons/magento_connect/mgn.py:97
 #, python-format
 msgid "Connection to server are successfully but reconfigure your Magento."
-msgstr "La conexión con el servidor Magento a tenido exito, pero se debe reconfigurar Magento."
+msgstr ""
+"La conexión con el servidor Magento a tenido exito, pero se debe "
+"reconfigurar Magento."
 
 #. module: magento_connect
 #: field:magento.app,magento_website_ids:0
@@ -919,7 +983,9 @@ msgstr "¿Exportar a Magento?"
 #: help:magento.app,magento_default_storeview:0
 #: help:sale.shop,magento_default_language:0
 msgid "Default language this shop. If not select, use lang user"
-msgstr "Idioma por defecto para esta tienda. Si no se selecciona ninguna, se utiliza el idioma del usuario."
+msgstr ""
+"Idioma por defecto para esta tienda. Si no se selecciona ninguna, se utiliza "
+"el idioma del usuario."
 
 #. module: magento_connect
 #: sql_constraint:sale.order:0
@@ -934,8 +1000,12 @@ msgstr "Direcciones de empresas"
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_prices:0
 #: help:sale.shop,magento_last_export_stock:0
-msgid "This date is last export. If you need export all product prices, empty this field (long sync)"
-msgstr "Esta es la fecha de última importación. Si necesita la importación de nuevos productos, deje vacía esta fecha (sincronización larga)"
+msgid ""
+"This date is last export. If you need export all product prices, empty this "
+"field (long sync)"
+msgstr ""
+"Esta es la fecha de última importación. Si necesita la importación de nuevos "
+"productos, deje vacía esta fecha (sincronización larga)"
 
 #. module: magento_connect
 #: field:sale.shop,magento_status_paidinweb_delivered:0
@@ -978,8 +1048,11 @@ msgstr "¿Estáis seguros de exportar este producto/s?"
 #. module: magento_connect
 #: code:addons/magento_connect/partner.py:166
 #, python-format
-msgid "Partner Address ID '%s' not allow to delete because are active in Magento"
-msgstr "No se puede borrar la dirección de empresa '%s' porque está activo en la tienda Magento"
+msgid ""
+"Partner Address ID '%s' not allow to delete because are active in Magento"
+msgstr ""
+"No se puede borrar la dirección de empresa '%s' porque está activo en la "
+"tienda Magento"
 
 #. module: magento_connect
 #: field:magento.app,to_import_products:0
@@ -989,7 +1062,9 @@ msgstr "Productos hasta la fecha"
 #. module: magento_connect
 #: help:magento.app,options:0
 msgid "Orders with product options. Split reference order line by -"
-msgstr "Pedidos con opciones de producto. Divide la referencia de la linea del pedido por -"
+msgstr ""
+"Pedidos con opciones de producto. Divide la referencia de la linea del "
+"pedido por -"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:960
@@ -1007,8 +1082,12 @@ msgstr "No hay ningún producto de Magento a exportar"
 
 #. module: magento_connect
 #: help:magento.app,from_import_customers:0
-msgid "This date is last import. If you need import new partners, you can modify this date (filter)"
-msgstr "Esta es la fecha de la última importación. Si necesita la importación de nuevos clientes, puede modificar esta fecha (filtro)"
+msgid ""
+"This date is last import. If you need import new partners, you can modify "
+"this date (filter)"
+msgstr ""
+"Esta es la fecha de la última importación. Si necesita la importación de "
+"nuevos clientes, puede modificar esta fecha (filtro)"
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -1031,7 +1110,8 @@ msgstr "-copia"
 #: code:addons/magento_connect/sale.py:798
 #, python-format
 msgid "Sale Order ID '%s' not allow to delete because are active in Magento"
-msgstr "No se puede borrar el pedido '%s' porque está activo en la tienda Magento"
+msgstr ""
+"No se puede borrar el pedido '%s' porque está activo en la tienda Magento"
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -1046,7 +1126,9 @@ msgstr "Importar productos Magento"
 #. module: magento_connect
 #: help:magento.app.customer,magento_emailid:0
 msgid "Magento uses this email ID to match the customer."
-msgstr "Magento utiliza este identificador de correo electrónico para buscar el cliente."
+msgstr ""
+"Magento utiliza este identificador de correo electrónico para buscar el "
+"cliente."
 
 #. module: magento_connect
 #: field:magento.sale.shop.payment.type,method:0
@@ -1094,8 +1176,12 @@ msgstr "Scheduler"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_import_sale_orders:0
-msgid "This date correspond to the last export. If you need export all status, left empty this field."
-msgstr "Esta es la fecha de la última exportación. Si necesita exportar todos los estados, deje vacía esta fecha (sincronización larga)"
+msgid ""
+"This date correspond to the last export. If you need export all status, left "
+"empty this field."
+msgstr ""
+"Esta es la fecha de la última exportación. Si necesita exportar todos los "
+"estados, deje vacía esta fecha (sincronización larga)"
 
 #. module: magento_connect
 #: field:sale.shop,magento_notify_paid_delivered:0
@@ -1126,8 +1212,12 @@ msgstr "Tipo de productos Magento"
 
 #. module: magento_connect
 #: help:sale.shop,magento_from_sale_orders:0
-msgid "This date is last import. If you need import news orders, you can modify this date (filter)"
-msgstr "Esta es la fecha de la última importación. Si necesita la importación de nuevos pedidos, puede modificar esta fecha (filtro)"
+msgid ""
+"This date is last import. If you need import news orders, you can modify "
+"this date (filter)"
+msgstr ""
+"Esta es la fecha de la última importación. Si necesita la importación de "
+"nuevos pedidos, puede modificar esta fecha (filtro)"
 
 #. module: magento_connect
 #: field:magento.product.product.type,active:0
@@ -1187,7 +1277,8 @@ msgstr "Configuraciones tienda"
 #: code:addons/magento_connect/product.py:302
 #, python-format
 msgid "Product '%s' not allow to delete because are active in Magento Shop"
-msgstr "No se puede borrar el producto '%s' porque está activo en la tienda Magento"
+msgstr ""
+"No se puede borrar el producto '%s' porque está activo en la tienda Magento"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:95
@@ -1212,8 +1303,14 @@ msgstr "Seleccione los productos a exportar"
 
 #. module: magento_connect
 #: help:magento.app.customer,magento_vat:0
-msgid "To be able to receive customer VAT number you must set it in Magento Admin Panel, menu System / Configuration / Client Configuration / Name and Address Options."
-msgstr "Para permitir recibir el CIF del cliente, debe configurarlo en el panel de administrador de Magento, menú Sistema/Configuración/Configuración de Cliente/Opciones de nombre y direcciones."
+msgid ""
+"To be able to receive customer VAT number you must set it in Magento Admin "
+"Panel, menu System / Configuration / Client Configuration / Name and Address "
+"Options."
+msgstr ""
+"Para permitir recibir el CIF del cliente, debe configurarlo en el panel de "
+"administrador de Magento, menú Sistema/Configuración/Configuración de "
+"Cliente/Opciones de nombre y direcciones."
 
 #. module: magento_connect
 #: view:product.product:0
@@ -1228,8 +1325,12 @@ msgstr "Descripción corta"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_partners:0
-msgid "This date correspond to the last export. If you need export all partners, left empty this field."
-msgstr "Esta es la fecha de última exportación. Si necesita exportar todas las empresas, deje vacía esta fecha (sincronización larga)"
+msgid ""
+"This date correspond to the last export. If you need export all partners, "
+"left empty this field."
+msgstr ""
+"Esta es la fecha de última exportación. Si necesita exportar todas las "
+"empresas, deje vacía esta fecha (sincronización larga)"
 
 #. module: magento_connect
 #: model:ir.model,name:magento_connect.model_magento_sale_shop_payment_type
@@ -1249,8 +1350,11 @@ msgstr "magento.sync.images.wizard"
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:33
 #, python-format
-msgid "Please install python-magento from https://github.com/zikzakmedia/magento"
-msgstr "Por favor, instale python-magento desde https://github.com/zikzakmedia/magento"
+msgid ""
+"Please install python-magento from https://github.com/zikzakmedia/magento"
+msgstr ""
+"Por favor, instale python-magento desde "
+"https://github.com/zikzakmedia/magento"
 
 #. module: magento_connect
 #: help:product.attributes.group,magento:0
@@ -1348,8 +1452,12 @@ msgstr "Precio de venta"
 
 #. module: magento_connect
 #: model:ir.actions.act_window,help:magento_connect.action_magento_external_referential
-msgid "You can show/filter external referentials about Magento to OpenERP. This menu only available tree view."
-msgstr "Puede mostrar/filtrar referencias externas acerca de Magento para OpenERP. Este menú sólo está disponible en las vistas de árbol."
+msgid ""
+"You can show/filter external referentials about Magento to OpenERP. This "
+"menu only available tree view."
+msgstr ""
+"Puede mostrar/filtrar referencias externas acerca de Magento para OpenERP. "
+"Este menú sólo está disponible en las vistas de árbol."
 
 #. module: magento_connect
 #: selection:magento.sync.images.wizard,state:0
@@ -1567,8 +1675,12 @@ msgstr "Clientes desde"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_products:0
-msgid "This date is last export. If you need export new products, you can modify this date (filter)"
-msgstr "Esta es la fecha de la última importación. Si necesita la importación de nuevos productos, puede modificar esta fecha (filtro)"
+msgid ""
+"This date is last export. If you need export new products, you can modify "
+"this date (filter)"
+msgstr ""
+"Esta es la fecha de la última importación. Si necesita la importación de "
+"nuevos productos, puede modificar esta fecha (filtro)"
 
 #. module: magento_connect
 #: selection:magento.sale.shop.status.type,order_policy:0
@@ -1583,8 +1695,14 @@ msgstr "Contraseña"
 
 #. module: magento_connect
 #: help:product.product,magento_exportable:0
-msgid "If check this value, this product is publishing in Magento Store. For disable this product in your Magento Store, change visibility option to Nowhere."
-msgstr "Si activa este valor, este producto se publicará a la tienda Magento. Para desactivar el producto de la tienda, cambie la visibilidad a Ningún sitio (Nowhere)."
+msgid ""
+"If check this value, this product is publishing in Magento Store. For "
+"disable this product in your Magento Store, change visibility option to "
+"Nowhere."
+msgstr ""
+"Si activa este valor, este producto se publicará a la tienda Magento. Para "
+"desactivar el producto de la tienda, cambie la visibilidad a Ningún sitio "
+"(Nowhere)."
 
 #. module: magento_connect
 #: field:magento.sync.images.wizard,result:0
@@ -1643,8 +1761,12 @@ msgstr "Estado del pago y envío"
 
 #. module: magento_connect
 #: view:magento.app:0
-msgid "Are you sure to continue? See logs server process. This operation import all images Magento to OpenERP"
-msgstr "¿Está seguro de continuar? Revise el historial del servidor. Esta acción importará todas las imágenes de Magento a OpenERP"
+msgid ""
+"Are you sure to continue? See logs server process. This operation import all "
+"images Magento to OpenERP"
+msgstr ""
+"¿Está seguro de continuar? Revise el historial del servidor. Esta acción "
+"importará todas las imágenes de Magento a OpenERP"
 
 #. module: magento_connect
 #: view:res.partner:0
@@ -1744,7 +1866,9 @@ msgstr "Seleccionar opción"
 #. module: magento_connect
 #: help:magento.app,uri:0
 msgid "URI Magento App. http://yourmagento.com/ (with / at end URI)"
-msgstr "URI de aplicaciones Magento. http://yourmagento.com/ (con / al final de la URI)"
+msgstr ""
+"URI de aplicaciones Magento. http://yourmagento.com/ (con / al final de la "
+"URI)"
 
 #. module: magento_connect
 #: view:magento.storeview:0
@@ -1855,28 +1979,14 @@ msgstr "Pedidos de venta"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_status_orders:0
-msgid "This date correspond to the last export. If you need export all orders, left empty this field."
-msgstr "Esta es la fecha de la última exportación. Si necesita la exportación de todos los pedidos, deje vacía esta fecha (sincronización larga)"
+msgid ""
+"This date correspond to the last export. If you need export all orders, left "
+"empty this field."
+msgstr ""
+"Esta es la fecha de la última exportación. Si necesita la exportación de "
+"todos los pedidos, deje vacía esta fecha (sincronización larga)"
 
 #. module: magento_connect
 #: field:sale.shop,magento_status_paid_delivered:0
 msgid "Paid/Delivered"
 msgstr "Pagado/Entregado"
-
-#~ msgid "Extra Information"
-#~ msgstr "Información extra"
-#~ msgid "Slug must be unique"
-#~ msgstr "Slug must be unique"
-#~ msgid "Several dimension values for the same dimension type"
-#~ msgstr "Several dimension values for the same dimension type"
-#~ msgid "Referential Actions"
-#~ msgstr "Acciones de referencia"
-#~ msgid "Actions"
-#~ msgstr "Acciones"
-#~ msgid "Slug"
-#~ msgstr "Slug"
-#~ msgid "API"
-#~ msgstr "API"
-#~ msgid "1 - Import Magento API"
-#~ msgstr "1 - Importar API Magento"
-

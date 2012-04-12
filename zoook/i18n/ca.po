@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-03-26 13:37+0000\n"
-"PO-Revision-Date: 2012-03-26 15:41+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-04-11 19:43+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-04-12 05:15+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
 
 #. module: zoook
 #: code:addons/zoook/product.py:203
@@ -156,8 +158,10 @@ msgstr "Facturar des d'albarà"
 #. module: zoook
 #: code:addons/zoook/wizard/wizard_create_user.py:106
 #, python-format
-msgid "This address there are not email. Please add new email for this address"
-msgstr "Aquesta adreça no conté cap adreça. Insereix un correu per aquesta adreça"
+msgid ""
+"This address there are not email. Please add new email for this address"
+msgstr ""
+"Aquesta adreça no conté cap adreça. Insereix un correu per aquesta adreça"
 
 #. module: zoook
 #: code:addons/zoook/sale.py:92
@@ -285,8 +289,12 @@ msgstr "Plantilla de correu de la comanda de venda"
 
 #. module: zoook
 #: view:zoook.sync.product.wizard:0
-msgid "Exportation is running.... This action is in background. See logs server process"
-msgstr "Exportation is running.... This action is in background. See logs server process"
+msgid ""
+"Exportation is running.... This action is in background. See logs server "
+"process"
+msgstr ""
+"Exportation is running.... This action is in background. See logs server "
+"process"
 
 #. module: zoook
 #: field:zoook.create.user.wizard,email:0
@@ -345,7 +353,9 @@ msgstr "Quantitats ordenades"
 #. module: zoook
 #: help:product.template,zoook_status:0
 msgid "If check this, e-sale product are available and shop it"
-msgstr "Si s'activa, el producte es troba disponible a la botiga on-line i es pot comprar"
+msgstr ""
+"Si s'activa, el producte es troba disponible a la botiga on-line i es pot "
+"comprar"
 
 #. module: zoook
 #: field:product.template,visibility:0
@@ -381,8 +391,14 @@ msgstr "Configuració"
 
 #. module: zoook
 #: help:sale.shop,zoook_last_export_products:0
-msgid "If you publish new products related another products and this products are not available in your e-sale, you need two exports (first publish products and after related products)"
-msgstr "Si publiques nous productes que ja estan relacionats amb altres productes i no estan publicats al seva botiga, necessitarà dos exportacions (primer publicar els productes i després els productes relacionats)"
+msgid ""
+"If you publish new products related another products and this products are "
+"not available in your e-sale, you need two exports (first publish products "
+"and after related products)"
+msgstr ""
+"Si publiques nous productes que ja estan relacionats amb altres productes i "
+"no estan publicats al seva botiga, necessitarà dos exportacions (primer "
+"publicar els productes i després els productes relacionats)"
 
 #. module: zoook
 #: view:sale.shop:0
@@ -478,8 +494,12 @@ msgstr "Resultat"
 
 #. module: zoook
 #: view:sale.shop:0
-msgid "Before to add new language, your e-sale are available this language? Contact your webmaster to active first this language in your e-sale"
-msgstr "Abans d'afegir una nova llengua, la botiga virtual suporta aquesta llengua? Contacti amb el webmaster per activar primer aquesta llengua."
+msgid ""
+"Before to add new language, your e-sale are available this language? Contact "
+"your webmaster to active first this language in your e-sale"
+msgstr ""
+"Abans d'afegir una nova llengua, la botiga virtual suporta aquesta llengua? "
+"Contacti amb el webmaster per activar primer aquesta llengua."
 
 #. module: zoook
 #: field:sale.shop,zoook_automatic_export:0
@@ -509,8 +529,10 @@ msgstr "La comanda de venda %s ha canviat d'estat: Realitzat"
 
 #. module: zoook
 #: constraint:product.template:0
-msgid "Error: The default UOM and the purchase UOM must be in the same category."
-msgstr "Error: UOM per defecte i UOM de compra han de ser de la mateixa categoria."
+msgid ""
+"Error: The default UOM and the purchase UOM must be in the same category."
+msgstr ""
+"Error: UOM per defecte i UOM de compra han de ser de la mateixa categoria."
 
 #. module: zoook
 #: view:sale.shop:0
@@ -671,8 +693,13 @@ msgstr "Ruta de Django App. Ex: /var/www/zoook"
 
 #. module: zoook
 #: help:product.template,zoook_exportable:0
-msgid "If check export e-sale, this product are available in your e-sale. If you need not publish this product (despublish), unmark Active field in e-sale tab"
-msgstr "Si selecciona \"Exportar a botiga on-line\", aquest producte estarà disponible a les botigues web. Si necessita despublicar aquest producte, desmarca el camp \"Actiu\" de la pestanya e-sale."
+msgid ""
+"If check export e-sale, this product are available in your e-sale. If you "
+"need not publish this product (despublish), unmark Active field in e-sale tab"
+msgstr ""
+"Si selecciona \"Exportar a botiga on-line\", aquest producte estarà "
+"disponible a les botigues web. Si necessita despublicar aquest producte, "
+"desmarca el camp \"Actiu\" de la pestanya e-sale."
 
 #. module: zoook
 #: field:delivery.carrier,code:0
@@ -681,8 +708,12 @@ msgstr "Codi"
 
 #. module: zoook
 #: help:product.category,slug:0
-msgid "Atention! If you change slug, you need change manually all full slug childreen categories"
-msgstr "Atenció! Si canvia el slug, necessita canviar manualment la ruta completa de les categories filles"
+msgid ""
+"Atention! If you change slug, you need change manually all full slug "
+"childreen categories"
+msgstr ""
+"Atenció! Si canvia el slug, necessita canviar manualment la ruta completa de "
+"les categories filles"
 
 #. module: zoook
 #: code:addons/zoook/sale.py:524
@@ -811,8 +842,10 @@ msgstr "App de pagament"
 
 #. module: zoook
 #: help:zoook.sale.shop.payment.type,app_payment:0
-msgid "Name App Payment module (example, paypal, servired, cash_on_delivery,...)"
-msgstr "Nom del App de pagament (exemple, paypal, servired, cash_on_delivery,...)"
+msgid ""
+"Name App Payment module (example, paypal, servired, cash_on_delivery,...)"
+msgstr ""
+"Nom del App de pagament (exemple, paypal, servired, cash_on_delivery,...)"
 
 #. module: zoook
 #: code:addons/zoook/product.py:147
@@ -898,8 +931,12 @@ msgstr "IP"
 
 #. module: zoook
 #: help:zoook.sale.shop.payment.type,confirm:0
-msgid "Confirm order. Sale Order change state draft to done, and generate picking and/or invoice automatlly"
-msgstr "Confirma comanda de venda. La comanda de venda canviarà de l'estat esborrany a realitzat, i generarà l'albarà i/o la factura automàticament"
+msgid ""
+"Confirm order. Sale Order change state draft to done, and generate picking "
+"and/or invoice automatlly"
+msgstr ""
+"Confirma comanda de venda. La comanda de venda canviarà de l'estat esborrany "
+"a realitzat, i generarà l'albarà i/o la factura automàticament"
 
 #. module: zoook
 #: view:sale.shop:0
@@ -1019,113 +1056,3 @@ msgstr "Empresa"
 #: field:sale.shop,zoook_port:0
 msgid "Port"
 msgstr "Port"
-
-#~ msgid ""
-#~ "Slug %s exists. Choose another slug\" % (slug)))\n"
-#~ "\n"
-#~ "                slug = slugify(unicode(str(slug),'UTF-8'))\n"
-#~ "                vals['slug'] = slug\n"
-#~ "\n"
-#~ "            result = result and super(product_template, self).write(cr, "
-#~ "uid, [id], vals, context=context)\n"
-#~ "\n"
-#~ "        return result\n"
-#~ "\n"
-#~ "product_template()\n"
-#~ "\n"
-#~ "class product_product(osv.osv):\n"
-#~ "    _inherit = \"product.product\"\n"
-#~ "\n"
-#~ "    _columns = {\n"
-#~ "        'cartdescription': fields.char('Cart Description', size=256, "
-#~ "translate=True),\n"
-#~ "    }\n"
-#~ "\n"
-#~ "    def onchange_name(self, cr, uid, ids, name, slug):\n"
-#~ "        value = {}\n"
-#~ "        if not slug:\n"
-#~ "            slug = slugify(unicode(name,'UTF-8'))\n"
-#~ "            value = {'slug': slug}\n"
-#~ "        return {'value':value}\n"
-#~ "\n"
-#~ "    def zoook_compute_price(self, cr, uid, shop_id, products, "
-#~ "partner_id=None, context=None):\n"
-#~ "        if context is None:\n"
-#~ "            context = {}\n"
-#~ "\n"
-#~ "        if partner_id is None:\n"
-#~ "            partner_id = []\n"
-#~ "\n"
-#~ "        logger = netsvc.Logger()\n"
-#~ "\n"
-#~ "        shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)\n"
-#~ "\n"
-#~ "        pricelist_id = self.pool.get('res.partner').browse(cr, uid, "
-#~ "partner_id).property_product_pricelist.id\n"
-#~ "        if not pricelist_id:\n"
-#~ "            pricelist_id = shop.pricelist_id.id\n"
-#~ "            if not pricelist_id:\n"
-#~ "                logger.notifyChannel(\"Zoook\", netsvc.LOG_WARNING, _"
-#~ "(\"Not Price List available Partner or Shop."
-#~ msgstr ""
-#~ "Slug %s exists. Choose another slug\" % (slug)))\n"
-#~ "\n"
-#~ "                slug = slugify(unicode(str(slug),'UTF-8'))\n"
-#~ "                vals['slug'] = slug\n"
-#~ "\n"
-#~ "            result = result and super(product_template, self).write(cr, "
-#~ "uid, [id], vals, context=context)\n"
-#~ "\n"
-#~ "        return result\n"
-#~ "\n"
-#~ "product_template()\n"
-#~ "\n"
-#~ "class product_product(osv.osv):\n"
-#~ "    _inherit = \"product.product\"\n"
-#~ "\n"
-#~ "    _columns = {\n"
-#~ "        'cartdescription': fields.char('Cart Description', size=256, "
-#~ "translate=True),\n"
-#~ "    }\n"
-#~ "\n"
-#~ "    def onchange_name(self, cr, uid, ids, name, slug):\n"
-#~ "        value = {}\n"
-#~ "        if not slug:\n"
-#~ "            slug = slugify(unicode(name,'UTF-8'))\n"
-#~ "            value = {'slug': slug}\n"
-#~ "        return {'value':value}\n"
-#~ "\n"
-#~ "    def zoook_compute_price(self, cr, uid, shop_id, products, "
-#~ "partner_id=None, context=None):\n"
-#~ "        if context is None:\n"
-#~ "            context = {}\n"
-#~ "\n"
-#~ "        if partner_id is None:\n"
-#~ "            partner_id = []\n"
-#~ "\n"
-#~ "        logger = netsvc.Logger()\n"
-#~ "\n"
-#~ "        shop = self.pool.get('sale.shop').browse(cr, uid, shop_id)\n"
-#~ "\n"
-#~ "        pricelist_id = self.pool.get('res.partner').browse(cr, uid, "
-#~ "partner_id).property_product_pricelist.id\n"
-#~ "        if not pricelist_id:\n"
-#~ "            pricelist_id = shop.pricelist_id.id\n"
-#~ "            if not pricelist_id:\n"
-#~ "                logger.notifyChannel(\"Zoook\", netsvc.LOG_WARNING, _"
-#~ "(\"Not Price List available Partner or Shop."
-#~ msgid "Available Product Listing (Sort By)"
-#~ msgstr "Productes disponibles llistat (Sort By)"
-#~ msgid "Attributes Group"
-#~ msgstr "Grup d'atributs"
-#~ msgid "Use Config Settings"
-#~ msgstr "Utilitza configuració global"
-#~ msgid "Best Value"
-#~ msgstr "El millor valor"
-#~ msgid "Zoook"
-#~ msgstr "Zoook"
-#~ msgid "Zoook Shop"
-#~ msgstr "Botiga Zoook"
-#~ msgid "Neither the partner nor the shop have a price list set by default."
-#~ msgstr "Cap empresa de la botiga té una tarifa de venda per defecte."
-

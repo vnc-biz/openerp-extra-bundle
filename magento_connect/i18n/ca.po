@@ -7,13 +7,15 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-03-27 08:18+0000\n"
-"PO-Revision-Date: 2012-03-27 10:21+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-04-11 19:43+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-04-12 05:15+0000\n"
+"X-Generator: Launchpad (build 15070)\n"
 
 #. module: magento_connect
 #: field:magento.storeview,language_id:0
@@ -98,8 +100,12 @@ msgstr "Província de Magento"
 
 #. module: magento_connect
 #: help:magento.app,from_import_products:0
-msgid "This date is last import. If you need import new products, you can modify this date (filter)"
-msgstr "Aquesta és la data de darrera importació. Si necessiteu importar nous productes, podeu modificar aquesta data (filtre)"
+msgid ""
+"This date is last import. If you need import new products, you can modify "
+"this date (filter)"
+msgstr ""
+"Aquesta és la data de darrera importació. Si necessiteu importar nous "
+"productes, podeu modificar aquesta data (filtre)"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:919
@@ -150,7 +156,8 @@ msgstr "Importar tipus de producte Magento"
 #. module: magento_connect
 #: help:magento.sale.shop.status.type,cancel:0
 msgid "Cancel order. Sale Order change state draft to cancel"
-msgstr "Cancel·la comanda. Les comandes de venda passaran de esborrall a cancel·lat."
+msgstr ""
+"Cancel·la comanda. Les comandes de venda passaran de esborrall a cancel·lat."
 
 #. module: magento_connect
 #: field:magento.app,last_export_product_category:0
@@ -190,8 +197,12 @@ msgstr "Excloure"
 
 #. module: magento_connect
 #: view:sale.shop:0
-msgid "Are you sure to continue? This action is in background. See logs server process"
-msgstr "Esteu segur de continuar? Aquesta acció s'executarà com a tasca oculta. Reviseu l'historial del servidor."
+msgid ""
+"Are you sure to continue? This action is in background. See logs server "
+"process"
+msgstr ""
+"Esteu segur de continuar? Aquesta acció s'executarà com a tasca oculta. "
+"Reviseu l'historial del servidor."
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -227,7 +238,9 @@ msgstr "Imatge del producte"
 #. module: magento_connect
 #: help:magento.app,inventory:0
 msgid "When create new product, this force inventory available"
-msgstr "Quan es crea un producte nou, aquest es força l'inventari perquè el producte estigui disponible"
+msgstr ""
+"Quan es crea un producte nou, aquest es força l'inventari perquè el producte "
+"estigui disponible"
 
 #. module: magento_connect
 #: field:product.images,magento_filename:0
@@ -242,8 +255,12 @@ msgstr "No es pot esborrar aquesta vista de botiga de Magento"
 
 #. module: magento_connect
 #: help:sale.shop,magento_check_vat_partner:0
-msgid "Check Partner Vat exists in OpenERP. If this vat exists, not create partner and use this partner"
-msgstr "Comprova si el CIF/NIF de la empresa existeix a OpenERP. Si existeix, no crea la empresa i l'associa amb aquesta"
+msgid ""
+"Check Partner Vat exists in OpenERP. If this vat exists, not create partner "
+"and use this partner"
+msgstr ""
+"Comprova si el CIF/NIF de la empresa existeix a OpenERP. Si existeix, no "
+"crea la empresa i l'associa amb aquesta"
 
 #. module: magento_connect
 #: view:sale.shop:0
@@ -285,7 +302,9 @@ msgstr "Darrera exportació d'imatges"
 #: code:addons/magento_connect/partner.py:41
 #, python-format
 msgid "Partner ID '%s' not allow to delete because are active in Magento"
-msgstr "La  empresa ID '%s' no es pot esborrar per que s'usa en el canal de venta Magento"
+msgstr ""
+"La  empresa ID '%s' no es pot esborrar per que s'usa en el canal de venta "
+"Magento"
 
 #. module: magento_connect
 #: field:magento.product_category_attribute_options,value:0
@@ -379,8 +398,12 @@ msgstr "Grup de botigues Magento"
 
 #. module: magento_connect
 #: help:magento.app,last_export_partners:0
-msgid "This date is last export. If you need export all partners, empty this field (long sync)"
-msgstr "Aquesta és la data de la darrera exportació. Si necessiteu l'exportació de totes les empreses, deixeu buida aquesta data (sincronització llarga)"
+msgid ""
+"This date is last export. If you need export all partners, empty this field "
+"(long sync)"
+msgstr ""
+"Aquesta és la data de la darrera exportació. Si necessiteu l'exportació de "
+"totes les empreses, deixeu buida aquesta data (sincronització llarga)"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:752
@@ -451,8 +474,12 @@ msgstr "Atenció!"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_images:0
-msgid "This date correspond to the last export. If you need export all images, left empty this field."
-msgstr "Aquesta és la data de la darrera exportació. Si necessiteu exportar totes les imatges, deixeu buida aquesta data (sincronització llarga)"
+msgid ""
+"This date correspond to the last export. If you need export all images, left "
+"empty this field."
+msgstr ""
+"Aquesta és la data de la darrera exportació. Si necessiteu exportar totes "
+"les imatges, deixeu buida aquesta data (sincronització llarga)"
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -534,8 +561,11 @@ msgstr "Etiquetas"
 
 #. module: magento_connect
 #: constraint:magento.app.customer:0
-msgid "This email is already assigned to another partner in the same Magento Server."
-msgstr "Aquest correu electrònic ja està essent utilitzat per una altre empresa al mateix Magento. Heu d'utilitzar un altre."
+msgid ""
+"This email is already assigned to another partner in the same Magento Server."
+msgstr ""
+"Aquest correu electrònic ja està essent utilitzat per una altre empresa al "
+"mateix Magento. Heu d'utilitzar un altre."
 
 #. module: magento_connect
 #: field:magento.region,res_country_state_id:0
@@ -561,8 +591,12 @@ msgstr "Exporta a Magento"
 #: view:magento.sync.price.wizard:0
 #: view:magento.sync.product.wizard:0
 #: view:magento.sync.stock.wizard:0
-msgid "Exportation is running.... This action is in background. See logs server process"
-msgstr "L'exportació s'està executant... Aquesta acció es realitza com a tasca filla. Reviseu l'historial del servidor."
+msgid ""
+"Exportation is running.... This action is in background. See logs server "
+"process"
+msgstr ""
+"L'exportació s'està executant... Aquesta acció es realitza com a tasca "
+"filla. Reviseu l'historial del servidor."
 
 #. module: magento_connect
 #: field:magento.product.product.type,product_type:0
@@ -579,23 +613,31 @@ msgid ""
 "     1.1 Install Magento Python from:\n"
 "        - https://github.com/zikzakmedia/magento\n"
 "\n"
-"     1.2 Install Magento Module Extend API. This module is same magentoerpconnect module use. Add additional API methods for use by the Multi website, Multi Store, Multi Product category \n"
+"     1.2 Install Magento Module Extend API. This module is same "
+"magentoerpconnect module use. Add additional API methods for use by the "
+"Multi website, Multi Store, Multi Product category \n"
 "        - https://github.com/zikzakmedia/magento_webservices\n"
 "\n"
 "    2. Configuration\n"
-"     2.1 Exclude product fields Magento go to OpenERP in Sale -> Configuration -> Magento Attribute Exclude\n"
-"     2.2 Mapping more product fields go to Administrator -> Customization -> Database Structure -> External Mapping\n"
+"     2.1 Exclude product fields Magento go to OpenERP in Sale -> "
+"Configuration -> Magento Attribute Exclude\n"
+"     2.2 Mapping more product fields go to Administrator -> Customization -> "
+"Database Structure -> External Mapping\n"
 "     2.3 Configure yours Magento APP: Sale -> Configuration -> Magento\n"
 "    \n"
 "    3. Other information\n"
-"     3.1 Magento module use Product Attributes to add new fields Product model. This module don't use EAV (Entity-attribute-value model) and there are maxim fields available in product table postgres.\n"
-"     3.2 Also exists another module Magento management we working another projects:\n"
+"     3.1 Magento module use Product Attributes to add new fields Product "
+"model. This module don't use EAV (Entity-attribute-value model) and there "
+"are maxim fields available in product table postgres.\n"
+"     3.2 Also exists another module Magento management we working another "
+"projects:\n"
 "        - https://launchpad.net/magentoerpconnect\n"
 "        \n"
 "    Documentation available at (spanish):\n"
 "    http://wiki.zikzakmedia.com/openerp:magentoconnect\n"
 "\n"
-"    Special Thanks to Akretion www.akretion.com and OpenLabs www.openlabs.co.in\n"
+"    Special Thanks to Akretion www.akretion.com and OpenLabs "
+"www.openlabs.co.in\n"
 "    "
 msgstr ""
 "\n"
@@ -605,13 +647,22 @@ msgstr ""
 "    Instal·lar Magento Python des de:\n"
 "        - https://github.com/zikzakmedia/magento\n"
 "\n"
-"    Instal·lar la API del mòdul estès de Magento. Aquest mòdul és el mateix que l'utilitzat per magentoeprconnect. Afegeix els mètodes de l'API addicionals per utilitzar el lloc multi web, multi botiga, categoria multi producte:\n"
-"        - http://www.magentocommerce.com/magento-connect/Sharoon+Thomas/extension/1827/open-erp-connecotr-by-openlabs\n"
+"    Instal·lar la API del mòdul estès de Magento. Aquest mòdul és el mateix "
+"que l'utilitzat per magentoeprconnect. Afegeix els mètodes de l'API "
+"addicionals per utilitzar el lloc multi web, multi botiga, categoria multi "
+"producte:\n"
+"        - http://www.magentocommerce.com/magento-"
+"connect/Sharoon+Thomas/extension/1827/open-erp-connecotr-by-openlabs\n"
 "\n"
-"    Configureu la vostra aplicació Magento: Vendes -> Configuració -> Magento\n"
-"    Per assignar més camps de productes obrir Administrador -> Personalització -> Estructura de la base de dades -> External Mapping\n"
+"    Configureu la vostra aplicació Magento: Vendes -> Configuració -> "
+"Magento\n"
+"    Per assignar més camps de productes obrir Administrador -> "
+"Personalització -> Estructura de la base de dades -> External Mapping\n"
 "\n"
-"    El mòdul Magento utilitza els atributs de producte per afegir nous camps al model producte. Aquest mòdul no utilitza EAV (Entity-attribute-value model) i hi ha un màxim de camps disponibles a la taula producte de PostgreSQL.\n"
+"    El mòdul Magento utilitza els atributs de producte per afegir nous camps "
+"al model producte. Aquest mòdul no utilitza EAV (Entity-attribute-value "
+"model) i hi ha un màxim de camps disponibles a la taula producte de "
+"PostgreSQL.\n"
 "\n"
 "    També existeix un altre mòdul per gestionar Magento.\n"
 "        - https://launchpad.net/magentoerpconnect\n"
@@ -669,7 +720,9 @@ msgstr "Metaparaula clau"
 #. module: magento_connect
 #: help:sale.shop,magento_scheduler:0
 msgid "Available this Sale Shop crons (import/export)"
-msgstr "Estableix aquesta botiga a disponible a la importació automàtica (importació/exportació)"
+msgstr ""
+"Estableix aquesta botiga a disponible a la importació automàtica "
+"(importació/exportació)"
 
 #. module: magento_connect
 #: model:ir.actions.act_window,name:magento_connect.action_magento_external_referential
@@ -781,14 +834,20 @@ msgstr "Paid in web"
 
 #. module: magento_connect
 #: help:magento.sale.shop.status.type,confirm:0
-msgid "Confirm order. Sale Order change state draft to done, and generate picking and/or invoice automatlly"
-msgstr "Confirma comandes. Les comandes de venda passaran d'esborrall a realitzada, i generaran albarà i/o factura segons política."
+msgid ""
+"Confirm order. Sale Order change state draft to done, and generate picking "
+"and/or invoice automatlly"
+msgstr ""
+"Confirma comandes. Les comandes de venda passaran d'esborrall a realitzada, "
+"i generaran albarà i/o factura segons política."
 
 #. module: magento_connect
 #: code:addons/magento_connect/sale.py:98
 #, python-format
 msgid "Sale shop ID '%s' not allow to delete because are active in Magento"
-msgstr "La botiga ID '%s' no es pot esborrar perque s'usa en el canal de venta Magento"
+msgstr ""
+"La botiga ID '%s' no es pot esborrar perque s'usa en el canal de venta "
+"Magento"
 
 #. module: magento_connect
 #: field:sale.order,magento_increment_id:0
@@ -851,8 +910,12 @@ msgstr "Enviament i facturació manual"
 
 #. module: magento_connect
 #: view:magento.app:0
-msgid "Are you sure to continue? See logs server process. This operation import all categories Magento to OpenERP"
-msgstr "Esteu segur de continuar? Reviseu l'historial del servidor. Aquesta acció importarà totes les categories de Magento a OpenERP."
+msgid ""
+"Are you sure to continue? See logs server process. This operation import all "
+"categories Magento to OpenERP"
+msgstr ""
+"Esteu segur de continuar? Reviseu l'historial del servidor. Aquesta acció "
+"importarà totes les categories de Magento a OpenERP."
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -861,8 +924,12 @@ msgstr "Components de núcli"
 
 #. module: magento_connect
 #: view:magento.app:0
-msgid "Import regions with countries selected. Are you sure to continue? See logs server process"
-msgstr "Importa províncies i país. ¿Esteu segur de continuar? Reviseu l'historial del servidor."
+msgid ""
+"Import regions with countries selected. Are you sure to continue? See logs "
+"server process"
+msgstr ""
+"Importa províncies i país. ¿Esteu segur de continuar? Reviseu l'historial "
+"del servidor."
 
 #. module: magento_connect
 #: field:res.partner.address,magento_lastname:0
@@ -872,7 +939,8 @@ msgstr "Cognoms"
 #. module: magento_connect
 #: help:magento.product.product.type,product_type:0
 msgid "Use the same name of Magento product type, for example 'simple'"
-msgstr "Utilitzeu el mateix nom del tipus de producte de Magento (p.e. 'simple')"
+msgstr ""
+"Utilitzeu el mateix nom del tipus de producte de Magento (p.e. 'simple')"
 
 #. module: magento_connect
 #: view:magento.storeview:0
@@ -897,8 +965,12 @@ msgstr "Excloure atributs de Magento"
 
 #. module: magento_connect
 #: help:magento.product.product.type,active:0
-msgid "If the active field is set to False, it will allow you to hide the product without removing it."
-msgstr "El camp actiu establert a fals us permet amagar el producte sense esborrar-lo."
+msgid ""
+"If the active field is set to False, it will allow you to hide the product "
+"without removing it."
+msgstr ""
+"El camp actiu establert a fals us permet amagar el producte sense esborrar-"
+"lo."
 
 #. module: magento_connect
 #: field:magento.storegroup,magento_storeview_ids:0
@@ -914,7 +986,9 @@ msgstr "Identificador Magento"
 #: code:addons/magento_connect/mgn.py:97
 #, python-format
 msgid "Connection to server are successfully but reconfigure your Magento."
-msgstr "La connexió amb el servidor Magento a tingut èxit, però s'ha de re-configurar Magento."
+msgstr ""
+"La connexió amb el servidor Magento a tingut èxit, però s'ha de re-"
+"configurar Magento."
 
 #. module: magento_connect
 #: field:magento.app,magento_website_ids:0
@@ -938,7 +1012,9 @@ msgstr "Exporta a Magento?"
 #: help:magento.app,magento_default_storeview:0
 #: help:sale.shop,magento_default_language:0
 msgid "Default language this shop. If not select, use lang user"
-msgstr "Idioma per defecte per aquesta botiga. Si no se selecciona cap, s'utilitza l'idioma de l'usuari."
+msgstr ""
+"Idioma per defecte per aquesta botiga. Si no se selecciona cap, s'utilitza "
+"l'idioma de l'usuari."
 
 #. module: magento_connect
 #: sql_constraint:sale.order:0
@@ -953,8 +1029,12 @@ msgstr "Adreces d'empreses"
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_prices:0
 #: help:sale.shop,magento_last_export_stock:0
-msgid "This date is last export. If you need export all product prices, empty this field (long sync)"
-msgstr "Aquesta és la data de darrera importació. Si necessiteu la importació de nous productes, deixeu buida questa data (sincronització llarga)"
+msgid ""
+"This date is last export. If you need export all product prices, empty this "
+"field (long sync)"
+msgstr ""
+"Aquesta és la data de darrera importació. Si necessiteu la importació de "
+"nous productes, deixeu buida questa data (sincronització llarga)"
 
 #. module: magento_connect
 #: field:sale.shop,magento_status_paidinweb_delivered:0
@@ -997,8 +1077,11 @@ msgstr "Esteu segurs d'esportar aquest producte/s?"
 #. module: magento_connect
 #: code:addons/magento_connect/partner.py:166
 #, python-format
-msgid "Partner Address ID '%s' not allow to delete because are active in Magento"
-msgstr "L'adreça d'empresa ID '%s' no es pot esborrar perque s'usa en el canal de venta Magento"
+msgid ""
+"Partner Address ID '%s' not allow to delete because are active in Magento"
+msgstr ""
+"L'adreça d'empresa ID '%s' no es pot esborrar perque s'usa en el canal de "
+"venta Magento"
 
 #. module: magento_connect
 #: field:magento.app,to_import_products:0
@@ -1008,7 +1091,9 @@ msgstr "Productes fins a la data"
 #. module: magento_connect
 #: help:magento.app,options:0
 msgid "Orders with product options. Split reference order line by -"
-msgstr "Comandes amb opcions de producte. Divideix la referencia de la línia de comanda per -"
+msgstr ""
+"Comandes amb opcions de producte. Divideix la referencia de la línia de "
+"comanda per -"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:960
@@ -1026,8 +1111,12 @@ msgstr "No hi ha cap producte de Magento per exportar"
 
 #. module: magento_connect
 #: help:magento.app,from_import_customers:0
-msgid "This date is last import. If you need import new partners, you can modify this date (filter)"
-msgstr "Aquesta és la data de la darrera importació. Si necessiteu la importació de nous clients, podeu modificar aquesta data (filtro)"
+msgid ""
+"This date is last import. If you need import new partners, you can modify "
+"this date (filter)"
+msgstr ""
+"Aquesta és la data de la darrera importació. Si necessiteu la importació de "
+"nous clients, podeu modificar aquesta data (filtro)"
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -1050,7 +1139,9 @@ msgstr "-copia"
 #: code:addons/magento_connect/sale.py:798
 #, python-format
 msgid "Sale Order ID '%s' not allow to delete because are active in Magento"
-msgstr "La comanda ID '%s' no es pot esborrar perque s'usa en el canal de venta Magento"
+msgstr ""
+"La comanda ID '%s' no es pot esborrar perque s'usa en el canal de venta "
+"Magento"
 
 #. module: magento_connect
 #: view:magento.app:0
@@ -1065,7 +1156,9 @@ msgstr "Importa productes Magento"
 #. module: magento_connect
 #: help:magento.app.customer,magento_emailid:0
 msgid "Magento uses this email ID to match the customer."
-msgstr "Magento utilitza aquest identificador de correu electrònic per cercar el client."
+msgstr ""
+"Magento utilitza aquest identificador de correu electrònic per cercar el "
+"client."
 
 #. module: magento_connect
 #: field:magento.sale.shop.payment.type,method:0
@@ -1113,8 +1206,12 @@ msgstr "Scheduler"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_import_sale_orders:0
-msgid "This date correspond to the last export. If you need export all status, left empty this field."
-msgstr "Aquesta és la data de la darrera exportació. Si necessiteu exportar tots els estats, deixeu buida aquesta data (sincronització llarga)"
+msgid ""
+"This date correspond to the last export. If you need export all status, left "
+"empty this field."
+msgstr ""
+"Aquesta és la data de la darrera exportació. Si necessiteu exportar tots els "
+"estats, deixeu buida aquesta data (sincronització llarga)"
 
 #. module: magento_connect
 #: field:sale.shop,magento_notify_paid_delivered:0
@@ -1145,8 +1242,12 @@ msgstr "Tipus de productes Magento"
 
 #. module: magento_connect
 #: help:sale.shop,magento_from_sale_orders:0
-msgid "This date is last import. If you need import news orders, you can modify this date (filter)"
-msgstr "Aquesta és la data de la darrera importació. Si necessiteu la importació de noves comandes, podeu modificar aquesta data (filtro)"
+msgid ""
+"This date is last import. If you need import news orders, you can modify "
+"this date (filter)"
+msgstr ""
+"Aquesta és la data de la darrera importació. Si necessiteu la importació de "
+"noves comandes, podeu modificar aquesta data (filtro)"
 
 #. module: magento_connect
 #: field:magento.product.product.type,active:0
@@ -1206,7 +1307,8 @@ msgstr "Configuracions botiga"
 #: code:addons/magento_connect/product.py:302
 #, python-format
 msgid "Product '%s' not allow to delete because are active in Magento Shop"
-msgstr "No es pot esborrar el producte '%s' perquè està actiu a la botiga Magento"
+msgstr ""
+"No es pot esborrar el producte '%s' perquè està actiu a la botiga Magento"
 
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:95
@@ -1231,8 +1333,14 @@ msgstr "Selecciona productes a exportar"
 
 #. module: magento_connect
 #: help:magento.app.customer,magento_vat:0
-msgid "To be able to receive customer VAT number you must set it in Magento Admin Panel, menu System / Configuration / Client Configuration / Name and Address Options."
-msgstr "Per a permetre rebre el CIF del client, heu de configurar-ho al panell d'administració de Magento, menú Sistema/Configuració/Configuració de Client/Opcions de nom i adreces."
+msgid ""
+"To be able to receive customer VAT number you must set it in Magento Admin "
+"Panel, menu System / Configuration / Client Configuration / Name and Address "
+"Options."
+msgstr ""
+"Per a permetre rebre el CIF del client, heu de configurar-ho al panell "
+"d'administració de Magento, menú Sistema/Configuració/Configuració de "
+"Client/Opcions de nom i adreces."
 
 #. module: magento_connect
 #: view:product.product:0
@@ -1247,8 +1355,12 @@ msgstr "Descripció curta"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_partners:0
-msgid "This date correspond to the last export. If you need export all partners, left empty this field."
-msgstr "Aquesta és la data de la darrera exportació. Si necessiteu exportar totes les empreses, deixeu buida aquesta data (sincronització llarga)"
+msgid ""
+"This date correspond to the last export. If you need export all partners, "
+"left empty this field."
+msgstr ""
+"Aquesta és la data de la darrera exportació. Si necessiteu exportar totes "
+"les empreses, deixeu buida aquesta data (sincronització llarga)"
 
 #. module: magento_connect
 #: model:ir.model,name:magento_connect.model_magento_sale_shop_payment_type
@@ -1268,8 +1380,11 @@ msgstr "magento.sync.images.wizard"
 #. module: magento_connect
 #: code:addons/magento_connect/mgn.py:33
 #, python-format
-msgid "Please install python-magento from https://github.com/zikzakmedia/magento"
-msgstr "Si us plau, instal·leu python-magento des de https://github.com/zikzakmedia/magento"
+msgid ""
+"Please install python-magento from https://github.com/zikzakmedia/magento"
+msgstr ""
+"Si us plau, instal·leu python-magento des de "
+"https://github.com/zikzakmedia/magento"
 
 #. module: magento_connect
 #: help:product.attributes.group,magento:0
@@ -1367,8 +1482,12 @@ msgstr "Preu de venda"
 
 #. module: magento_connect
 #: model:ir.actions.act_window,help:magento_connect.action_magento_external_referential
-msgid "You can show/filter external referentials about Magento to OpenERP. This menu only available tree view."
-msgstr "Podeu mostrar/filtrar referencies externes quant a Magento per a OpenERP. Aquest menú només està disponible a les vistes d'arbre."
+msgid ""
+"You can show/filter external referentials about Magento to OpenERP. This "
+"menu only available tree view."
+msgstr ""
+"Podeu mostrar/filtrar referencies externes quant a Magento per a OpenERP. "
+"Aquest menú només està disponible a les vistes d'arbre."
 
 #. module: magento_connect
 #: selection:magento.sync.images.wizard,state:0
@@ -1586,8 +1705,12 @@ msgstr "Clients des de"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_products:0
-msgid "This date is last export. If you need export new products, you can modify this date (filter)"
-msgstr "Aquesta és la data de la darrera importació. Si necessiteu la importació de nous productes, podeu modificar aquesta data (filtro)"
+msgid ""
+"This date is last export. If you need export new products, you can modify "
+"this date (filter)"
+msgstr ""
+"Aquesta és la data de la darrera importació. Si necessiteu la importació de "
+"nous productes, podeu modificar aquesta data (filtro)"
 
 #. module: magento_connect
 #: selection:magento.sale.shop.status.type,order_policy:0
@@ -1602,8 +1725,14 @@ msgstr "Contrasenya"
 
 #. module: magento_connect
 #: help:product.product,magento_exportable:0
-msgid "If check this value, this product is publishing in Magento Store. For disable this product in your Magento Store, change visibility option to Nowhere."
-msgstr "Si activeu aquest valor, aquest producte es publicarà a la botiga Magento. Per desactivar el producte de la botiga, canvieu la visibilitat a Cap lloc (Nowhere)."
+msgid ""
+"If check this value, this product is publishing in Magento Store. For "
+"disable this product in your Magento Store, change visibility option to "
+"Nowhere."
+msgstr ""
+"Si activeu aquest valor, aquest producte es publicarà a la botiga Magento. "
+"Per desactivar el producte de la botiga, canvieu la visibilitat a Cap lloc "
+"(Nowhere)."
 
 #. module: magento_connect
 #: field:magento.sync.images.wizard,result:0
@@ -1662,8 +1791,12 @@ msgstr "Estat del pagament i enviament"
 
 #. module: magento_connect
 #: view:magento.app:0
-msgid "Are you sure to continue? See logs server process. This operation import all images Magento to OpenERP"
-msgstr "¿Esteu segur de continuar? Reviseu l'historial del servidor. Aquesta acció importarà totes les imatges de Magento a OpenERP"
+msgid ""
+"Are you sure to continue? See logs server process. This operation import all "
+"images Magento to OpenERP"
+msgstr ""
+"¿Esteu segur de continuar? Reviseu l'historial del servidor. Aquesta acció "
+"importarà totes les imatges de Magento a OpenERP"
 
 #. module: magento_connect
 #: view:res.partner:0
@@ -1763,7 +1896,9 @@ msgstr "Selecciona opció"
 #. module: magento_connect
 #: help:magento.app,uri:0
 msgid "URI Magento App. http://yourmagento.com/ (with / at end URI)"
-msgstr "URI de aplicacions Magento. http://yourmagento.com/ (amb / al final de la URI)"
+msgstr ""
+"URI de aplicacions Magento. http://yourmagento.com/ (amb / al final de la "
+"URI)"
 
 #. module: magento_connect
 #: view:magento.storeview:0
@@ -1852,7 +1987,8 @@ msgstr "Empresa"
 #. module: magento_connect
 #: help:sale.shop,magento_reference:0
 msgid "Use Magento Reference (Increment) in order name"
-msgstr "Utilitza la referencia de Magento (increment) com a nom de la comanda"
+msgstr ""
+"Utilitza la referencia de Magento (increment) com a nom de la comanda"
 
 #. module: magento_connect
 #: model:ir.actions.act_window,name:magento_connect.action_magento_customer_group
@@ -1874,28 +2010,14 @@ msgstr "Comandes de venda"
 
 #. module: magento_connect
 #: help:sale.shop,magento_last_export_status_orders:0
-msgid "This date correspond to the last export. If you need export all orders, left empty this field."
-msgstr "Aquesta és la data de la darrera exportació. Si necessiteu la exportació de totes les comandes, deixeu buida aquesta data (sincronització llarga)"
+msgid ""
+"This date correspond to the last export. If you need export all orders, left "
+"empty this field."
+msgstr ""
+"Aquesta és la data de la darrera exportació. Si necessiteu la exportació de "
+"totes les comandes, deixeu buida aquesta data (sincronització llarga)"
 
 #. module: magento_connect
 #: field:sale.shop,magento_status_paid_delivered:0
 msgid "Paid/Delivered"
 msgstr "Pagat/Entregat"
-
-#~ msgid "Extra Information"
-#~ msgstr "Informació extra"
-#~ msgid "Slug must be unique"
-#~ msgstr "Slug must be unique"
-#~ msgid "Several dimension values for the same dimension type"
-#~ msgstr "Several dimension values for the same dimension type"
-#~ msgid "Referential Actions"
-#~ msgstr "Acciones de referencia"
-#~ msgid "Actions"
-#~ msgstr "Acciones"
-#~ msgid "Slug"
-#~ msgstr "Slug"
-#~ msgid "API"
-#~ msgstr "API"
-#~ msgid "1 - Import Magento API"
-#~ msgstr "1 - Importar API Magento"
-

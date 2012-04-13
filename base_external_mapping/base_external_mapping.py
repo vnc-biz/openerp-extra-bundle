@@ -142,6 +142,8 @@ class base_external_mapping(osv.osv):
                         if mappline_rule['ttype'] == 'char' and value == False:
                             value = ''
 
+                    if mappline_rule['ttype'] == 'boolean' and value == False: #force add this false
+                        values_data[mappline_rule['external_field']]= False
                     if value:
                         values_data[mappline_rule['external_field']]= value
 

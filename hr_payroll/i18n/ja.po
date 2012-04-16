@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-15 04:52+0000\n"
-"X-Generator: Launchpad (build 15070)\n"
+"X-Launchpad-Export-Date: 2012-04-16 05:00+0000\n"
+"X-Generator: Launchpad (build 15099)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -170,7 +170,7 @@ msgstr ""
 #: field:hr.payslip.worked_days,payslip_id:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip report:payslip:0
 msgid "Pay Slip"
-msgstr "給与明細書"
+msgstr "給与明細"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -521,7 +521,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
 msgid "Print"
-msgstr ""
+msgstr "印刷"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -631,7 +631,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Payslip"
-msgstr ""
+msgstr "給与明細"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -764,13 +764,13 @@ msgstr ""
 #: view:hr.payslip.line:0 field:hr.payslip.line,amount_select:0
 #: field:hr.salary.rule,amount_select:0
 msgid "Amount Type"
-msgstr ""
+msgstr "金額タイプ"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,category_id:0 view:hr.salary.rule:0
 #: field:hr.salary.rule,category_id:0
 msgid "Category"
-msgstr ""
+msgstr "分類"
 
 #. module: hr_payroll
 #: field:hr.payslip,move_line_ids:0
@@ -840,7 +840,7 @@ msgstr ""
 #: field:hr.salary.rule,amount_percentage:0
 #: selection:hr.salary.rule,amount_select:0
 msgid "Percentage (%)"
-msgstr ""
+msgstr "パーセント（%）"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice,register_id:0
@@ -877,7 +877,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payroll.structure:0
 msgid "Employee Function"
-msgstr ""
+msgstr "従業員の仕事"
 
 #. module: hr_payroll
 #: field:hr.contract,working_days_per_week:0
@@ -887,7 +887,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Worked Day"
-msgstr ""
+msgstr "労働日"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -914,12 +914,12 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Compute Sheet"
-msgstr ""
+msgstr "計算表"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,active:0 field:hr.salary.rule,active:0
 msgid "Active"
-msgstr ""
+msgstr "有効"
 
 #. module: hr_payroll
 #: field:hr.employee,employee_account:0
@@ -960,7 +960,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Designation"
-msgstr ""
+msgstr "指示"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -994,7 +994,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Authorized Signature"
-msgstr ""
+msgstr "承認者の署名"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -1059,7 +1059,7 @@ msgstr ""
 #: field:hr.salary.rule.category,code:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Code"
-msgstr ""
+msgstr "コード"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
@@ -1090,7 +1090,7 @@ msgstr ""
 #: field:hr.payslip.input,sequence:0 field:hr.payslip.line,sequence:0
 #: field:hr.payslip.worked_days,sequence:0 field:hr.salary.rule,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "順序"
 
 #. module: hr_payroll
 #: field:hr.payroll.year.salary,salary_on:0
@@ -1124,13 +1124,13 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure
 msgid "Salary Structure"
-msgstr ""
+msgstr "給与体系"
 
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: view:payslip.lines.contribution.register:0
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1196,7 +1196,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip.line:0
 msgid "Calculations"
-msgstr ""
+msgstr "計算"
 
 #. module: hr_payroll
 #: wizard_view:wizard.year.salary,init:0
@@ -1243,7 +1243,7 @@ msgstr ""
 #: view:hr.salary.rule:0 field:hr.salary.rule,note:0
 #: field:hr.salary.rule.category,note:0
 msgid "Description"
-msgstr ""
+msgstr "詳細"
 
 #. module: hr_payroll
 #: field:hr.employee,pg_joining:0
@@ -1255,7 +1255,7 @@ msgstr ""
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_root_payroll
 #: model:ir.ui.menu,name:hr_payroll.payroll_configure
 msgid "Payroll"
-msgstr ""
+msgstr "給与"
 
 #. module: hr_payroll
 #: view:hr.payroll.employees.detail:0
@@ -1277,7 +1277,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Address"
-msgstr ""
+msgstr "住所"
 
 #. module: hr_payroll
 #: help:hr.employee,property_bank_account:0
@@ -1322,7 +1322,7 @@ msgstr ""
 #: field:hr.salary.rule.category,name:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1343,12 +1343,12 @@ msgstr ""
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: field:hr.payslip.employees,employee_ids:0 view:hr.payslip.line:0
 msgid "Employees"
-msgstr ""
+msgstr "従業員"
 
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Bank Account"
-msgstr ""
+msgstr "銀行口座"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,name:0
@@ -1367,7 +1367,7 @@ msgstr ""
 #: field:hr.payslip.worked_days,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Contract"
-msgstr ""
+msgstr "契約"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -1450,4 +1450,4 @@ msgstr ""
 #: report:contribution.register.lines:0 field:hr.payslip.line,total:0
 #: report:paylip.details:0 report:payslip:0
 msgid "Total"
-msgstr ""
+msgstr "合計"

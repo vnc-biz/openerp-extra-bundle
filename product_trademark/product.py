@@ -27,8 +27,8 @@ class product_product(osv.osv):
     _inherit = 'product.product'
 
     _columns = {
-        'manufacturer_pname': fields.char('Name', size=64, help="Manufacturer Product Name"),
-        'manufacturer_pref': fields.char('Code', size=64, help="Manufacturer Product Code"),
+        'manufacturer_pname': fields.char('Manufacturer Name', size=64, help="Manufacturer Product Name"),
+        'manufacturer_pref': fields.char('Manufacturer Code', size=64, help="Manufacturer Product Code"),
     }
 product_product()
 
@@ -36,6 +36,18 @@ class product_template(osv.osv):
     _inherit = 'product.template'
 
     _columns = {
-        'manufacturer': fields.many2one('res.partner', 'Manufacturer'),
+        'manufacturer': fields.many2one('res.partner', 'Manufacturer',
+                            domain=[('manufacturer', '=', True)]),
     }
 product_template()
+
+class res_partner(osv.osv):
+    """ Inherits partner and adds manufacturer boolean """
+    _inherit = 'res.partner'
+
+    _columns = {
+        'manufacturer': fields.boolean('Manufacturer',
+                            help="Check this box if the partner is a manufacturer."),
+    }
+
+res_partner()

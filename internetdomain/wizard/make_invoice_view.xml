@@ -33,6 +33,7 @@
             view_mode="form"
             target="new"
             id="wizard_make_invoice"
+            key2="client_action_multi"
             groups="base.group_extended"/>
     </data>
 </openerp>

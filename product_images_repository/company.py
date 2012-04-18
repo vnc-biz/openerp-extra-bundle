@@ -31,6 +31,11 @@ class ResCompany(osv.osv):
                         required=True,
                         help='Local mounted path on OpenERP server where all your images are stored.'
                     ),
+        'url_media_repository':fields.char(
+                        'Images URL Path', 
+                        size=256, 
+                        help='URL path on OpenERP server.'
+                    ),
     }    
     
 ResCompany()

@@ -60,13 +60,22 @@ class pos_order(osv.osv):
         if depth == 10:
             return
         updated_orders = []
+        if not isinstance(ids, list):
+            ids = [ids]
+        pos_line_obj = self.pool.get('pos.order.line')
+        pos_order = self.browse(cr, uid, ids[0], context)
+        pricelist_id = pos_order.shop_id.pricelist_id and \
+                                pos_order.shop_id.pricelist_id.id or False
+        partner_id = pos_order.partner_id and pos_order.partner_id.id or \
+                                                                    False
+
         for order in self.browse(cr, uid, ids, context):
-            
-            # The reorder variable is used to ensure lines of the same pack go right after their 
+
+            # The reorder variable is used to ensure lines of the same pack go right after their
             # parent.
-            # What the algorithm does is check if the previous item had children. As children items 
+            # What the algorithm does is check if the previous item had children. As children items
             # must go right after the parent if the line we're evaluating doesn't have a parent it
-            # means it's a new item (and probably has the default 10 sequence number - unless the 
+            # means it's a new item (and probably has the default 10 sequence number - unless the
             # appropiate c2c_pos_sequence module is installed). In this case we mark the item for
             # reordering and evaluate the next one. Note that as the item is not evaluated and it might
             # have to be expanded it's put on the queue for another iteration (it's simple and works well).
@@ -85,7 +94,7 @@ class pos_order(osv.osv):
                 sequence += 1
 
                 if sequence > line.sequence:
-                    self.pool.get('pos.order.line').write(cr, uid, [line.id], {
+                    pos_line_obj.write(cr, uid, [line.id], {
                         'sequence': sequence,
                     }, context)
                 else:
@@ -94,7 +103,7 @@ class pos_order(osv.osv):
                 if not line.product_id:
                     continue
 
-                # If pack was already expanded (in another create/write operation or in 
+                # If pack was already expanded (in another create/write operation or in
                 # a previous iteration) don't do it again.
                 if line.pack_child_line_ids:
                     last_had_children = True
@@ -131,13 +140,17 @@ class pos_order(osv.osv):
                         'pack_depth': line.pack_depth + 1,
                     }
 
-                    self.pool.get('pos.order.line').create(cr, uid, vals, context)
+                    vals['price_unit2'] = pos_line_obj.price_by_product(cr,
+                                    uid, [], pricelist_id, subproduct.id,
+                                    quantity, partner_id)
+
+                    pos_line_obj.create(cr, uid, vals, context)
                     if not order.id in updated_orders:
                         updated_orders.append( order.id )
 
                 for id in reorder:
                     sequence += 1
-                    self.pool.get('pos.order.line').write(cr, uid, [id], {
+                    pos_line_obj.write(cr, uid, [id], {
                         'sequence': sequence,
                     }, context)
 

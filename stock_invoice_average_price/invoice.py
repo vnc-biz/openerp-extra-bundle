@@ -35,20 +35,36 @@ class account_invoice(osv.osv):
         product_obj = self.pool.get('product.product')
         invoice_line_obj = self.pool.get('account.invoice.line')
         invoice = self.browse(cr, uid, ids)[0]
+        if invoice.type not in ('in_invoice', 'in_refund'):
+            return res
         for line in invoice.invoice_line:
             if line.product_id and \
                     line.product_id.product_tmpl_id.cost_method == 'average':
                 standard_price = line.product_id.product_tmpl_id.standard_price
                 qty_available = line.product_id.qty_available
-                if qty_available - line.quantity_picking + line.quantity <= 0:
-                    # Returning all products to supplier we not change the std price
-                    new_std_price = standard_price
-                else:
-                    # Get the standard price
-                    new_std_price = ((standard_price * qty_available) - \
-                       (line.price_unit_picking * line.quantity_picking) + \
-                       (line.price_unit * line.quantity)) / \
-                       (qty_available - line.quantity_picking + line.quantity)
+
+                if invoice.type == 'in_invoice':
+                    if qty_available - line.quantity_picking + line.quantity <= 0:
+                        # Returning all products to supplier we not change the std price
+                        new_std_price = standard_price
+                    else:
+                        # standard price = available - picking + invoice
+                        new_std_price = ((standard_price * qty_available) - \
+                           (line.price_unit_picking * line.quantity_picking) + \
+                           (line.price_unit * line.quantity)) / \
+                           (qty_available - line.quantity_picking + line.quantity)
+
+                elif invoice.type == 'in_refund':
+                    if qty_available + line.quantity_picking - line.quantity <= 0:
+                        # Sending all products to supplier we not change the std price
+                        new_std_price = standard_price
+                    else:
+                        # standard price = available + picking - invoice
+                        new_std_price = ((standard_price * qty_available) + \
+                           (line.price_unit_picking * line.quantity_picking) - \
+                           (line.price_unit * line.quantity)) / \
+                           (qty_available + line.quantity_picking - line.quantity)
+
                 if new_std_price <= 0:
                     # Returning products to supplier we can get negative prices.
                     # In this case we not change the std price

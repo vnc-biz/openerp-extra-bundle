@@ -33,15 +33,21 @@
     "description": """
     This module recompute the cost price of products when its cost method is average price \
 and the invoice is validated and the price unit of the supplier picking (old cost price) is \
-different to the price unit of the supplier invoice line (new cost price), using \
-this formula:
+different to the price unit of the supplier invoice line (new cost price), using\
+ this formula:
 
                                       (current_cost_price x current_stock) - \
 (picking_cost_price x picking_qty) + (invoice_cost_price x invoice_qty)
 new_average_price = -----------------------------------------------------------\
--------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------\
+------
                                                                                \
 current_stock - picking_qty + invoice_qty
+
+    This module also adds a wizard that breaks down the cost of supplier invoices \
+(like transport or custom tax) to several products extracted from other supplier \
+invoices in order to update the cost price of products when its cost method is \
+average price.
     """,
     "depends" : [
         "stock_extension",
@@ -49,6 +55,7 @@ current_stock - picking_qty + invoice_qty
     "init_xml" : [],
     "update_xml" : [
         'account_invoice_view.xml',
+        'wizard/breakdown.xml',
     ],
     "active": False,
     "installable": True

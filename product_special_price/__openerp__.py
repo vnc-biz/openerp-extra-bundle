@@ -35,7 +35,7 @@ If special price != 0 and less than price, when create new sale order line, use 
     """,
     "depends" : [
         "product",
-        "sale",
+        "sale_multi_shop",
     ],
     "init_xml" : [],
     "update_xml" : [

@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-03-06 11:44+0000\n"
-"PO-Revision-Date: 2012-03-06 13:06+0100\n"
-"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-04-18 22:10+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-04-19 04:54+0000\n"
+"X-Generator: Launchpad (build 15108)\n"
 
 #. module: stock_invoice_average_price
 #: field:account.invoice,number_tickets:0
@@ -225,6 +226,6 @@ msgstr "Tipo de desglose"
 #. module: stock_invoice_average_price
 #: code:addons/stock_invoice_average_price/stock.py:56
 #, python-format
-msgid "Please put a partner on the picking list if you want to generate invoice."
+msgid ""
+"Please put a partner on the picking list if you want to generate invoice."
 msgstr "Introduzca una empresa en el albarán si desea generar una factura."
-

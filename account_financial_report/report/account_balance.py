@@ -56,6 +56,14 @@ class account_balance(report_sxw.rml_parse):
         self.context = context
 
 
+    def set_context(self, objects, data, ids, report_type=None):
+        new_ids = ids
+        if (data['model'] == 'ir.ui.menu'):
+            new_ids = data['form']['account_list'][0][2]
+            objects = self.pool.get('account.account').browse(self.cr, self.uid, new_ids)
+        super(account_balance, self).set_context(objects, data, new_ids, report_type=report_type)
+
+
     def get_fiscalyear_text(self, form):
         """
         Returns the fiscal year text used on the report.

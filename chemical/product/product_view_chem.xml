@@ -2,7 +2,7 @@
 <openerp>
 <data>
 
-	<menuitem name= "Chimie" id="menu_product_Chimie" parent="product.menu_config_product"/>
+	<menuitem name="Chimie" id="menu_product_Chimie" parent="product.prod_config_main"/>
 
 <!--Addition of three tabs in the notebook's existing product sheet for risk / safety / hazards -->
 
@@ -54,7 +54,7 @@
 		</field>
 	</record>
 	<record model="ir.actions.act_window" id="product_risque_action">
-		<field name="name">product risque</field>
+		<field name="name">Product Risque</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">product.risque</field>
 		<field name="view_type">form</field>
@@ -87,7 +87,7 @@
 		</field>
 	</record>
 	<record model="ir.actions.act_window" id="product_securite_action">
-		<field name="name">product securite</field>
+		<field name="name">Product Securite</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">product.securite</field>
 		<field name="view_type">form</field>
@@ -120,7 +120,7 @@
 		</field>
 	</record>
 	<record model="ir.actions.act_window" id="product_danger_action">
-		<field name="name">product danger</field>
+		<field name="name">Product Danger</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">product.danger</field>
 		<field name="view_type">form</field>

@@ -63,7 +63,7 @@ class product_attributes_wizard(osv.osv_memory):
         context['lang'] = form.lang.code
 
         if len(data['active_ids']) > 1:
-            raise osv.except_osv(_('Error!'), _('This wizard is available only product form (no multi products)'))
+            raise osv.except_osv(_('Error!'), _('This wizard is available only one product'))
 
         for prod in data['active_ids']:
             value = self.pool.get('product.product').read(cr, uid, [prod], [field.name], context)
@@ -80,3 +80,40 @@ class product_attributes_wizard(osv.osv_memory):
         return True
 
 product_attributes_wizard()
+
+class product_attributes_fields_wizard(osv.osv_memory):
+    _name = 'product.attributes.fields.wizard'
+
+    _columns = {
+    }
+
+    _defaults = {
+    }
+
+    def open_attribute_fields(self, cr, uid, ids, data, context={}):
+        """Open Product Form with Attribute fields"""
+
+        if len(data['active_ids']) > 1:
+            raise osv.except_osv(_('Error!'), _('This wizard is available only one product'))
+
+        form = self.browse(cr, uid, ids[0])
+        products = data['active_ids']
+
+        product = self.pool.get('product.product').browse(cr, uid, products[0], context)
+
+        if not product.attribute_group_id:
+            raise osv.except_osv(_('Error !'), _('Select a attribute group!.'))
+
+        mod_obj = self.pool.get('ir.model.data')
+        act_obj = self.pool.get('ir.actions.act_window')
+            
+        mod_id = mod_obj.search(cr, uid, [('name', '=', 'product_normal_action')])[0]
+        res_id = mod_obj.read(cr, uid, mod_id, ['res_id'])['res_id']
+        act_win = act_obj.read(cr, uid, res_id, [])
+        act_win['domain'] = [('id','in',[product.id])]
+        act_win['context'] = {'attribute_group_id':1}
+        act_win['name'] = "%s" % (product.name)
+
+        return act_win
+
+product_attributes_fields_wizard()

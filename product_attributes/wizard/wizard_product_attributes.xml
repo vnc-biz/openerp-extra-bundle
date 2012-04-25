@@ -34,5 +34,31 @@
             key2="client_action_multi"
             id="act_product_attributes"
             groups="base.group_extended"/>
+
+        <record id="wizard_product_attributes_fields" model="ir.ui.view">
+            <field name="name">product.attributes.fields.wizard.form</field>
+            <field name="model">product.attributes.fields.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Attribute Fields">
+                <separator string="Open Attribute Fields"/>
+                <newline />
+                <label string="Open product in new tab and edit fields by attribute" colspan="2"/>
+                <group col="2" colspan="4">
+                    <button string="Cancel" special="cancel" icon="gtk-cancel" />
+                    <button string="Open" name="open_attribute_fields" type="object" icon="gtk-ok" />
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <act_window name="Attribute Fields"
+            res_model="product.attributes.fields.wizard"
+            src_model="product.product"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="act_product_attributes_fields"
+            groups="base.group_extended"/>
     </data>
 </openerp>

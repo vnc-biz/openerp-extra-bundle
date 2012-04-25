@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-01-23 14:23+0000\n"
-"PO-Revision-Date: 2012-01-23 17:08+0000\n"
-"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
-"<resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2012-04-25 12:05+0000\n"
+"PO-Revision-Date: 2012-04-25 14:06+0100\n"
+"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-05 05:03+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
+"Plural-Forms: \n"
 
 #. module: product_attributes
 #: view:product.attributes.wizard:0
@@ -38,6 +36,12 @@ msgstr "Atributs de producte"
 #: model:ir.model,name:product_attributes.model_product_attributes_wizard
 msgid "product.attributes.wizard"
 msgstr "product.attributes.wizard"
+
+#. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:105
+#, python-format
+msgid "Select a attribute group!."
+msgstr "Selecciona un grup d'atributs."
 
 #. module: product_attributes
 #: view:product.attributes:0
@@ -73,12 +77,24 @@ msgid "You can't delete this attribute"
 msgstr "No es pot esborrar aquest atribut"
 
 #. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:66
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:97
+#, python-format
+msgid "This wizard is available only one product"
+msgstr "This wizard is available only one product"
+
+#. module: product_attributes
 #: field:product.attributes,translate:0
 msgid "Translate"
 msgstr "Traducció"
 
 #. module: product_attributes
-#: code:addons/product_attributes/wizard/wizard_product_attributes.py:73
+#: view:product.attributes.fields.wizard:0
+msgid "Open product in new tab and edit fields by attribute"
+msgstr "Obre el producte en una nova pestanya per editar els camps de l'atribut"
+
+#. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:76
 #, python-format
 msgid "%s copy to: %s - %s"
 msgstr "%s copy to: %s - %s"
@@ -97,6 +113,7 @@ msgstr "Producte"
 #: code:addons/product_attributes/product_attributes.py:170
 #: code:addons/product_attributes/product_attributes.py:212
 #: code:addons/product_attributes/product_attributes.py:230
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:105
 #, python-format
 msgid "Error !"
 msgstr "¡Error!"
@@ -108,13 +125,8 @@ msgstr "Producte a modificar"
 
 #. module: product_attributes
 #: help:product.attributes,selection:0
-msgid ""
-"List of options for a selection field, specified as a Python expression "
-"defining a list of (key, label) pairs. For example: "
-"[('blue','Blue'),('yellow','Yellow')]"
-msgstr ""
-"Llista d'opcions pel camp selecció, especificat com a definició de Python de "
-"llista (key, label). Per exemple: [('blau','Blau'),('groc','Groc')]"
+msgid "List of options for a selection field, specified as a Python expression defining a list of (key, label) pairs. For example: [('blue','Blue'),('yellow','Yellow')]"
+msgstr "Llista d'opcions pel camp selecció, especificat com a definició de Python de llista (key, label). Per exemple: [('blau','Blau'),('groc','Groc')]"
 
 #. module: product_attributes
 #: model:ir.actions.act_window,name:product_attributes.action_product_attributes_group
@@ -126,13 +138,11 @@ msgstr "Grup d'atributs de producte"
 #: model:ir.module.module,description:product_attributes.module_meta_information
 msgid ""
 "\n"
-"    This module adds a way to group OpenERP products  through their "
-"attributes.\n"
+"    This module adds a way to group OpenERP products  through their attributes.\n"
 "    "
 msgstr ""
 "\n"
-"    Aquest mòdul afegeix una forma d'agrupar productes d'OpenERP mitjançant "
-"els seus atributs.\n"
+"    Aquest mòdul afegeix una forma d'agrupar productes d'OpenERP mitjançant els seus atributs.\n"
 "    "
 
 #. module: product_attributes
@@ -175,7 +185,7 @@ msgstr "Nom"
 #. module: product_attributes
 #: field:product.attributes.wizard,lang:0
 msgid "Language"
-msgstr "Llengua"
+msgstr "Idioma"
 
 #. module: product_attributes
 #: model:ir.model,name:product_attributes.model_product_attributes_group
@@ -188,9 +198,20 @@ msgid "For relationship fields, the technical name of the target model"
 msgstr "Per camps relacionats, el nom tècnic del model"
 
 #. module: product_attributes
+#: model:ir.model,name:product_attributes.model_product_attributes_fields_wizard
+msgid "product.attributes.fields.wizard"
+msgstr "product.attributes.fields.wizard"
+
+#. module: product_attributes
 #: view:product.attributes.wizard:0
 msgid "Are you sure to copy attributes to field product?"
 msgstr "Esteu segurs de copiar els camps d'aquest producte a un altre?"
+
+#. module: product_attributes
+#: model:ir.model,name:product_attributes.model_product_attributes
+#: model:ir.module.module,shortdesc:product_attributes.module_meta_information
+msgid "Product attributes for product OpenERP module"
+msgstr "Atributs de producte per al mòdul product d'OpenERP"
 
 #. module: product_attributes
 #: help:product.attributes.wizard,lang:0
@@ -198,13 +219,16 @@ msgid "Select language to copy"
 msgstr "Selecciona la llengua per copiar"
 
 #. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:66
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:97
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: product_attributes
 #: help:product.attributes,relation_field:0
-msgid ""
-"For one2many fields, the field on the target model that implement the "
-"opposite many2one relationship"
-msgstr ""
-"Pels camps one2many, el camp del model destí que implementa la relació "
-"inversa many2one"
+msgid "For one2many fields, the field on the target model that implement the opposite many2one relationship"
+msgstr "Pels camps one2many, el camp del model destí que implementa la relació inversa many2one"
 
 #. module: product_attributes
 #: model:ir.ui.menu,name:product_attributes.product_attributes_menu
@@ -219,14 +243,15 @@ msgid "Error ocurring during saving"
 msgstr "S'ha produït un error durant la gravació"
 
 #. module: product_attributes
-#: field:product.attributes,relation_field:0
-msgid "Relation Field"
-msgstr "Camp relacionat"
-
-#. module: product_attributes
 #: selection:product.attributes.wizard,state:0
 msgid "First"
 msgstr "Primer"
+
+#. module: product_attributes
+#: model:ir.actions.act_window,name:product_attributes.act_product_attributes_fields
+#: view:product.attributes.fields.wizard:0
+msgid "Attribute Fields"
+msgstr "Camps de l'atribut"
 
 #. module: product_attributes
 #: model:ir.actions.act_window,name:product_attributes.act_product_attributes
@@ -262,13 +287,22 @@ msgstr "Atribut"
 #: code:addons/product_attributes/product_attributes.py:170
 #, python-format
 msgid "There are other menu same this group. Please, use another name"
-msgstr ""
-"Hi ha un altre menú igual a aquest grup. Sis plau, utilitzi un altre nom."
+msgstr "Hi ha un altre menú igual a aquest grup. Sis plau, utilitzi un altre nom."
 
 #. module: product_attributes
 #: field:product.attributes,field_description:0
 msgid "Field Label"
 msgstr "Etiqueta de camp"
+
+#. module: product_attributes
+#: field:product.attributes,relation_field:0
+msgid "Relation Field"
+msgstr "Camp relacionat"
+
+#. module: product_attributes
+#: view:product.attributes.fields.wizard:0
+msgid "Open Attribute Fields"
+msgstr "Obre els camps de l'atribut"
 
 #. module: product_attributes
 #: constraint:product.product:0
@@ -291,6 +325,7 @@ msgid "Attributes Group"
 msgstr "Grup d'atributs"
 
 #. module: product_attributes
+#: view:product.attributes.fields.wizard:0
 #: view:product.attributes.wizard:0
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -301,10 +336,9 @@ msgid "Close"
 msgstr "Tanca"
 
 #. module: product_attributes
-#: model:ir.model,name:product_attributes.model_product_attributes
-#: model:ir.module.module,shortdesc:product_attributes.module_meta_information
-msgid "Product attributes for product OpenERP module"
-msgstr "Atributs de producte per al mòdul product d'OpenERP"
+#: view:product.attributes.fields.wizard:0
+msgid "Open"
+msgstr "Open"
 
 #. module: product_attributes
 #: field:product.attributes,selection:0
@@ -315,3 +349,9 @@ msgstr "Opcions de la selecció"
 #: help:product.attributes.wizard,field:0
 msgid "Select your field to copy"
 msgstr "Selecciona el camp a copiar"
+
+#~ msgid "You can't write this attribute"
+#~ msgstr "No es pot modificar aquest atribut"
+#~ msgid "Partner Address Export"
+#~ msgstr "Exporta adreça d'empresa"
+

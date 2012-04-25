@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-01-23 14:23+0000\n"
-"PO-Revision-Date: 2012-01-23 14:23+0000\n"
+"POT-Creation-Date: 2012-04-25 12:05+0000\n"
+"PO-Revision-Date: 2012-04-25 12:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,12 @@ msgstr "Product Attributes"
 #: model:ir.model,name:product_attributes.model_product_attributes_wizard
 msgid "product.attributes.wizard"
 msgstr "product.attributes.wizard"
+
+#. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:105
+#, python-format
+msgid "Select a attribute group!."
+msgstr "Select a attribute group!."
 
 #. module: product_attributes
 #: view:product.attributes:0
@@ -71,12 +77,24 @@ msgid "You can't delete this attribute"
 msgstr "You can't delete this attribute"
 
 #. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:66
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:97
+#, python-format
+msgid "This wizard is available only one product"
+msgstr "This wizard is available only one product"
+
+#. module: product_attributes
 #: field:product.attributes,translate:0
 msgid "Translate"
 msgstr "Translate"
 
 #. module: product_attributes
-#: code:addons/product_attributes/wizard/wizard_product_attributes.py:73
+#: view:product.attributes.fields.wizard:0
+msgid "Open product in new tab and edit fields by attribute"
+msgstr "Open product in new tab and edit fields by attribute"
+
+#. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:76
 #, python-format
 msgid "%s copy to: %s - %s"
 msgstr "%s copy to: %s - %s"
@@ -95,6 +113,7 @@ msgstr "Product"
 #: code:addons/product_attributes/product_attributes.py:170
 #: code:addons/product_attributes/product_attributes.py:212
 #: code:addons/product_attributes/product_attributes.py:230
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:105
 #, python-format
 msgid "Error !"
 msgstr "Error !"
@@ -177,14 +196,32 @@ msgid "For relationship fields, the technical name of the target model"
 msgstr "For relationship fields, the technical name of the target model"
 
 #. module: product_attributes
+#: model:ir.model,name:product_attributes.model_product_attributes_fields_wizard
+msgid "product.attributes.fields.wizard"
+msgstr "product.attributes.fields.wizard"
+
+#. module: product_attributes
 #: view:product.attributes.wizard:0
 msgid "Are you sure to copy attributes to field product?"
 msgstr "Are you sure to copy attributes to field product?"
 
 #. module: product_attributes
+#: model:ir.model,name:product_attributes.model_product_attributes
+#: model:ir.module.module,shortdesc:product_attributes.module_meta_information
+msgid "Product attributes for product OpenERP module"
+msgstr "Product attributes for product OpenERP module"
+
+#. module: product_attributes
 #: help:product.attributes.wizard,lang:0
 msgid "Select language to copy"
 msgstr "Select language to copy"
+
+#. module: product_attributes
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:66
+#: code:addons/product_attributes/wizard/wizard_product_attributes.py:97
+#, python-format
+msgid "Error!"
+msgstr "Error!"
 
 #. module: product_attributes
 #: help:product.attributes,relation_field:0
@@ -204,14 +241,15 @@ msgid "Error ocurring during saving"
 msgstr "Error ocurring during saving"
 
 #. module: product_attributes
-#: field:product.attributes,relation_field:0
-msgid "Relation Field"
-msgstr "Relation Field"
-
-#. module: product_attributes
 #: selection:product.attributes.wizard,state:0
 msgid "First"
 msgstr "First"
+
+#. module: product_attributes
+#: model:ir.actions.act_window,name:product_attributes.act_product_attributes_fields
+#: view:product.attributes.fields.wizard:0
+msgid "Attribute Fields"
+msgstr "Attribute Fields"
 
 #. module: product_attributes
 #: model:ir.actions.act_window,name:product_attributes.act_product_attributes
@@ -255,6 +293,16 @@ msgid "Field Label"
 msgstr "Field Label"
 
 #. module: product_attributes
+#: field:product.attributes,relation_field:0
+msgid "Relation Field"
+msgstr "Relation Field"
+
+#. module: product_attributes
+#: view:product.attributes.fields.wizard:0
+msgid "Open Attribute Fields"
+msgstr "Open Attribute Fields"
+
+#. module: product_attributes
 #: constraint:product.product:0
 msgid "Error: Invalid ean code"
 msgstr "Error: Invalid ean code"
@@ -275,6 +323,7 @@ msgid "Attributes Group"
 msgstr "Attributes Group"
 
 #. module: product_attributes
+#: view:product.attributes.fields.wizard:0
 #: view:product.attributes.wizard:0
 msgid "Cancel"
 msgstr "Cancel"
@@ -285,10 +334,9 @@ msgid "Close"
 msgstr "Close"
 
 #. module: product_attributes
-#: model:ir.model,name:product_attributes.model_product_attributes
-#: model:ir.module.module,shortdesc:product_attributes.module_meta_information
-msgid "Product attributes for product OpenERP module"
-msgstr "Product attributes for product OpenERP module"
+#: view:product.attributes.fields.wizard:0
+msgid "Open"
+msgstr "Open"
 
 #. module: product_attributes
 #: field:product.attributes,selection:0

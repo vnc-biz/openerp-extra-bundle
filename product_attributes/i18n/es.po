@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.1\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-04-25 11:58+0000\n"
-"PO-Revision-Date: 2012-04-25 14:07+0100\n"
-"Last-Translator: Raimon Esteve <resteve@zikzakmedia.com>\n"
+"POT-Creation-Date: 2012-04-25 12:05+0000\n"
+"PO-Revision-Date: 2012-04-25 17:21+0000\n"
+"Last-Translator: Raimon Esteve (www.zikzakmedia.com) "
+"<resteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-04-26 05:02+0000\n"
+"X-Generator: Launchpad (build 15149)\n"
 
 #. module: product_attributes
 #: view:product.attributes.wizard:0
@@ -91,7 +93,8 @@ msgstr "Traducir"
 #. module: product_attributes
 #: view:product.attributes.fields.wizard:0
 msgid "Open product in new tab and edit fields by attribute"
-msgstr "Abre el producto en una nueva pestaña para editar los campos del atributo"
+msgstr ""
+"Abre el producto en una nueva pestaña para editar los campos del atributo"
 
 #. module: product_attributes
 #: code:addons/product_attributes/wizard/wizard_product_attributes.py:76
@@ -125,8 +128,13 @@ msgstr "Producto a modificar"
 
 #. module: product_attributes
 #: help:product.attributes,selection:0
-msgid "List of options for a selection field, specified as a Python expression defining a list of (key, label) pairs. For example: [('blue','Blue'),('yellow','Yellow')]"
-msgstr "Lista de opciones del campo selección, especificado como expresión de lista de Pythn (key, label). Por ejemplo: [('azul','Azul'),('amarillo','Amarillo')]"
+msgid ""
+"List of options for a selection field, specified as a Python expression "
+"defining a list of (key, label) pairs. For example: "
+"[('blue','Blue'),('yellow','Yellow')]"
+msgstr ""
+"Lista de opciones del campo selección, especificado como expresión de lista "
+"de Pythn (key, label). Por ejemplo: [('azul','Azul'),('amarillo','Amarillo')]"
 
 #. module: product_attributes
 #: model:ir.actions.act_window,name:product_attributes.action_product_attributes_group
@@ -138,11 +146,13 @@ msgstr "Grupo de atributos de producto"
 #: model:ir.module.module,description:product_attributes.module_meta_information
 msgid ""
 "\n"
-"    This module adds a way to group OpenERP products  through their attributes.\n"
+"    This module adds a way to group OpenERP products  through their "
+"attributes.\n"
 "    "
 msgstr ""
 "\n"
-"    Este módulo añade una forma de agrupar productos de OpenERP mediante sus atributos.\n"
+"    Este módulo añade una forma de agrupar productos de OpenERP mediante sus "
+"atributos.\n"
 "    "
 
 #. module: product_attributes
@@ -227,8 +237,12 @@ msgstr "Error!"
 
 #. module: product_attributes
 #: help:product.attributes,relation_field:0
-msgid "For one2many fields, the field on the target model that implement the opposite many2one relationship"
-msgstr "Para campos one2many, el campo modelo destino que implementa la relación inversa many2one"
+msgid ""
+"For one2many fields, the field on the target model that implement the "
+"opposite many2one relationship"
+msgstr ""
+"Para campos one2many, el campo modelo destino que implementa la relación "
+"inversa many2one"
 
 #. module: product_attributes
 #: model:ir.ui.menu,name:product_attributes.product_attributes_menu
@@ -352,6 +366,6 @@ msgstr "Seleccione el campo a copiar"
 
 #~ msgid "You can't write this attribute"
 #~ msgstr "No puede modificar este atributo"
+
 #~ msgid "Partner Address Export"
 #~ msgstr "Exportar dirección de empresa"
-

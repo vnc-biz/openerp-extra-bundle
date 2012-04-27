@@ -33,6 +33,10 @@ class sale_shop(osv.osv):
         'special_pricelist_id': fields.many2one('product.pricelist', 'Special Pricelist'),
     }
 
+    _defaults = {
+        'type_special_price': 'price',
+    }
+
 sale_shop()
 
 class sale_order_line(osv.osv):

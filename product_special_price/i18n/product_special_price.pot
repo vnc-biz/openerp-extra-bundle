@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-03-26 10:03+0000\n"
-"PO-Revision-Date: 2012-03-26 10:03+0000\n"
+"POT-Creation-Date: 2012-04-27 08:41+0000\n"
+"PO-Revision-Date: 2012-04-27 08:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,14 @@ msgid "Product"
 msgstr "Product"
 
 #. module: product_special_price
-#: constraint:product.product:0
-msgid "Several dimension values for the same dimension type"
-msgstr "Several dimension values for the same dimension type"
-
-#. module: product_special_price
 #: field:sale.shop,special_price:0
 msgid "Apply Special Price"
 msgstr "Apply Special Price"
+
+#. module: product_special_price
+#: field:sale.shop,type_special_price:0
+msgid "Price"
+msgstr "Price"
 
 #. module: product_special_price
 #: constraint:product.product:0
@@ -41,6 +41,12 @@ msgid "Sales Shop"
 msgstr "Sales Shop"
 
 #. module: product_special_price
+#: field:sale.shop,special_pricelist_id:0
+#: selection:sale.shop,type_special_price:0
+msgid "Special Pricelist"
+msgstr "Special Pricelist"
+
+#. module: product_special_price
 #: model:ir.model,name:product_special_price.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Sales Order Line"
@@ -48,6 +54,8 @@ msgstr "Sales Order Line"
 #. module: product_special_price
 #: model:product.price.type,name:product_special_price.special_price
 #: field:product.product,special_price:0
+#: view:sale.shop:0
+#: selection:sale.shop,type_special_price:0
 msgid "Special Price"
 msgstr "Special Price"
 

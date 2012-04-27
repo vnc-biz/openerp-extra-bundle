@@ -29,6 +29,8 @@ class sale_shop(osv.osv):
 
     _columns = {
         'special_price': fields.boolean('Apply Special Price'),
+        'type_special_price': fields.selection([('price','Special Price'),('pricelist','Special Pricelist')], 'Price'),
+        'special_pricelist_id': fields.many2one('product.pricelist', 'Special Pricelist'),
     }
 
 sale_shop()
@@ -50,8 +52,12 @@ class sale_order_line(osv.osv):
 
             if user.shop_id.special_price:
                 prod = self.pool.get('product.product').browse(cr, uid, product)
+                if user.shop_id.type_special_price == 'pricelist' and user.shop_id.special_pricelist_id:
+                    special_price = self.pool.get('product.pricelist').price_get(cr, uid, [user.shop_id.special_pricelist_id.id], prod.id, 1.0)[user.shop_id.special_pricelist_id.id]
+                else:
+                    special_price = prod.special_price
+
                 price_unit = res['value']['price_unit']
-                special_price = prod.special_price
                 
                 if special_price > 0.0 and special_price < price_unit:
                     res['value']['price_unit'] = special_price

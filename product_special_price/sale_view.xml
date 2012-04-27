@@ -9,7 +9,13 @@
             <field name="inherit_id" ref="sale.view_shop_form"/>
             <field name="arch" type="xml">
                 <field name="company_id" position="after">
-                    <field name="special_price"/>
+                    <group colspan="4" col="4">
+                        <separator string="Special Price" colspan="4"/>
+                        <field name="special_price"/>
+                        <newline/>
+                        <field name="type_special_price"/>
+                        <field name="special_pricelist_id" attrs="{'required':[('type_special_price','==','pricelist')]}"/>
+                    </group>
                 </field>
             </field>
         </record>

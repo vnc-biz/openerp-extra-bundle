@@ -477,10 +477,16 @@ class account_balance_reporting_line(osv.osv):
                     # Use debit instead of balance
                     mode = 'debit'
                     account_code = account_code[6:-1] # Strip debit()
+                    if balance_mode == '2':
+                        # We use credit-debit in the balance
+                        sign = -1.0 * sign
                 elif re.match(r'^credit\(.*\)$', account_code):
                     # Use credit instead of balance
                     mode = 'credit'
                     account_code = account_code[7:-1] # Strip credit()
+                    if balance_mode == '2':
+                        # We use credit-debit in the balance
+                        sign = -1.0 * sign
                 else:
                     mode = 'balance'
                     #
@@ -516,12 +522,11 @@ class account_balance_reporting_line(osv.osv):
                         ], context=context)
 
                 if len(account_ids) > 0:
-                    if mode == 'debit':
-                        res += acc_facade.browse(cr, uid, account_ids, context)[0].debit
-                    elif mode == 'credit':
-                        res += acc_facade.browse(cr, uid, account_ids, context)[0].credit
-                    else:
+                    if ((mode == 'debit' and balance > 0.0) or 
+                            (mode == 'credit' and balance < 0.0) or
+                            (mode == 'balance')):
                         res += acc_facade.browse(cr, uid, account_ids, context)[0].balance * sign
+
                 else:
                     netsvc.Logger().notifyChannel('account_balance_reporting', netsvc.LOG_WARNING, "Account with code '%s' not found!" % account_code)
 

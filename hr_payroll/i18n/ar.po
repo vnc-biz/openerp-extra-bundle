@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-05 04:55+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
+"X-Launchpad-Export-Date: 2012-05-10 05:42+0000\n"
+"X-Generator: Launchpad (build 15213)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -273,7 +273,7 @@ msgstr "بلد الاصدار"
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
 #, python-format
 msgid "Warning !"
-msgstr ""
+msgstr "تحذير !"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:0
@@ -521,7 +521,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
 msgid "Print"
-msgstr ""
+msgstr "طباعة"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -1292,7 +1292,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.salary.rule.category:0
 msgid "Notes"
-msgstr ""
+msgstr "الملاحظات"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.payroll_configure

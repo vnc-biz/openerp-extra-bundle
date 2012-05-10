@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-05 05:03+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
+"X-Launchpad-Export-Date: 2012-05-10 05:48+0000\n"
+"X-Generator: Launchpad (build 15213)\n"
 
 #. module: portal
 #: wizard_view:portal.create_user,init:0
@@ -120,7 +120,7 @@ msgstr ""
 #. module: portal
 #: view:res.portal:0
 msgid "Portal Name"
-msgstr ""
+msgstr "Nome Portal"
 
 #. module: portal
 #: field:portal.portal,company_id:0
@@ -139,7 +139,7 @@ msgstr ""
 #: field:res.portal.widget,portal_id:0
 #: field:res.portal.wizard,portal_id:0
 msgid "Portal"
-msgstr ""
+msgstr "Portal"
 
 #. module: portal
 #: wizard_field:portal.create_user,init,send_mail_existing:0
@@ -193,7 +193,7 @@ msgstr ""
 #. module: portal
 #: field:res.portal,parent_menu_id:0
 msgid "Parent Menu"
-msgstr ""
+msgstr "Menu Ascendente"
 
 #. module: portal
 #: wizard_view:portal.create_user,init:0
@@ -226,7 +226,7 @@ msgstr ""
 #: model:ir.ui.menu,name:portal.portal_menu
 #: view:res.portal:0
 msgid "Portals"
-msgstr ""
+msgstr "Portais"
 
 #. module: portal
 #: field:portal.portal,menu_id:0
@@ -342,7 +342,7 @@ msgstr ""
 #. module: portal
 #: view:res.portal.wizard:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: portal
 #: wizard_field:portal.create_menu,second,menu:0

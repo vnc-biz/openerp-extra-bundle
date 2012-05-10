@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-04-05 04:55+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
+"X-Launchpad-Export-Date: 2012-05-10 05:42+0000\n"
+"X-Generator: Launchpad (build 15213)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -521,7 +521,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
 msgid "Print"
-msgstr ""
+msgstr "Afdrukken"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -709,7 +709,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip,state:0 field:hr.payslip.run,state:0
 msgid "State"
-msgstr ""
+msgstr "Status"
 
 #. module: hr_payroll
 #: report:salary.structure:0
@@ -919,7 +919,7 @@ msgstr ""
 #. module: hr_payroll
 #: field:hr.payslip.line,active:0 field:hr.salary.rule,active:0
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #. module: hr_payroll
 #: field:hr.employee,employee_account:0
@@ -960,7 +960,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Designation"
-msgstr ""
+msgstr "Aanduiding"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -1059,7 +1059,7 @@ msgstr ""
 #: field:hr.salary.rule.category,code:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
@@ -1124,13 +1124,13 @@ msgstr ""
 #: view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure
 msgid "Salary Structure"
-msgstr ""
+msgstr "Salaris Structuur"
 
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: view:payslip.lines.contribution.register:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1243,7 +1243,7 @@ msgstr ""
 #: view:hr.salary.rule:0 field:hr.salary.rule,note:0
 #: field:hr.salary.rule.category,note:0
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. module: hr_payroll
 #: field:hr.employee,pg_joining:0
@@ -1255,7 +1255,7 @@ msgstr ""
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_root_payroll
 #: model:ir.ui.menu,name:hr_payroll.payroll_configure
 msgid "Payroll"
-msgstr ""
+msgstr "Loonadministratie"
 
 #. module: hr_payroll
 #: view:hr.payroll.employees.detail:0
@@ -1277,7 +1277,7 @@ msgstr ""
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 #. module: hr_payroll
 #: help:hr.employee,property_bank_account:0
@@ -1322,7 +1322,7 @@ msgstr ""
 #: field:hr.salary.rule.category,name:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1343,12 +1343,12 @@ msgstr ""
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: field:hr.payslip.employees,employee_ids:0 view:hr.payslip.line:0
 msgid "Employees"
-msgstr ""
+msgstr "Werknemers"
 
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Bank Account"
-msgstr ""
+msgstr "Bankrekening"
 
 #. module: hr_payroll
 #: field:hr.payroll.advice.line,name:0
@@ -1367,7 +1367,7 @@ msgstr ""
 #: field:hr.payslip.worked_days,contract_id:0
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Contract"
-msgstr ""
+msgstr "Contract"
 
 #. module: hr_payroll
 #: selection:payroll.analysis,init,type:0
@@ -1450,4 +1450,4 @@ msgstr ""
 #: report:contribution.register.lines:0 field:hr.payslip.line,total:0
 #: report:paylip.details:0 report:payslip:0
 msgid "Total"
-msgstr ""
+msgstr "Totaal"

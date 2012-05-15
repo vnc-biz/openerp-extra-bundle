@@ -97,13 +97,36 @@ product_product()
 
 class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
+
+    def _product_pack_margin(self, cr, uid, ids, field_name, arg, context=None):
+        """Get the margin of the sale order line if sale_margin module is installed"""
+        res = {}
+
+        cr.execute('select * from ir_module_module where name=%s and state=%s', ('sale_margin','installed'))
+        if cr.fetchone():
+            sale_margin = True
+        else:
+            sale_margin = False
+            
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = 0
+            if line.product_id and line.compute_margin and sale_margin:
+                if line.purchase_price:
+                    res[line.id] = round((line.price_unit*line.product_uos_qty*(100.0-line.discount)/100.0) -(line.purchase_price*line.product_uos_qty), 2)
+                else:
+                    res[line.id] = round((line.price_unit*line.product_uos_qty*(100.0-line.discount)/100.0) -(line.product_id.standard_price*line.product_uos_qty), 2)
+        return res
+
     _columns = {
         'pack_depth': fields.integer('Depth', required=True, help='Depth of the product if it is part of a pack.'),
         'pack_parent_line_id': fields.many2one('sale.order.line', 'Pack', help='The pack that contains this product.'),
         'pack_child_line_ids': fields.one2many('sale.order.line', 'pack_parent_line_id', 'Lines in pack', help=''),
+        'margin': fields.function(_product_pack_margin, method=True, string='Margin', store=True),
+        'compute_margin': fields.boolean('Compute margin'),
     }
     _defaults = {
         'pack_depth': lambda *a: 0,
+        'compute_margin': lambda *a: True,
     }
 sale_order_line()
 
@@ -125,6 +148,13 @@ class sale_order(osv.osv):
             ids = [ids]
         if depth == 10:
             return
+
+        cr.execute('select * from ir_module_module where name=%s and state=%s', ('sale_margin','installed'))
+        if cr.fetchone():
+            sale_margin = True
+        else:
+            sale_margin = False
+
         updated_orders = []
         for order in self.browse(cr, uid, ids, context):
             
@@ -227,7 +257,12 @@ class sale_order(osv.osv):
                         'state': 'draft',
                         'pack_parent_line_id': line.id,
                         'pack_depth': line.pack_depth + 1,
+                        'compute_margin': False,
                     }
+
+                    if sale_margin and not line.product_id.pack_fixed_price:
+                        vals['purchase_price'] = subproduct.standard_price
+                        vals['compute_margin'] = True
 
                     # It's a control for the case that the nan_external_prices was installed with the product pack
                     if 'prices_used' in line:

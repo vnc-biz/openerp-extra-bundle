@@ -24,5 +24,6 @@
 ##############################################################################
 
 import stock
+import sale
 import product
 import wizard

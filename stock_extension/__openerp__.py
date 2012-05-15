@@ -38,10 +38,13 @@
       - Remove readonly attribute of the invoice_state field to allow to invoice any stock picking (for example, if someone deletes by mistake the invoice of invoiced picking).
       - Fix bug when the Process Picking Wizard is cancelled: Clears the buffer to prevent that previous lines of picking are added to the current wizard.
       - When the invoice lines are created from an IN picking, the price unit of the picking is added instead of the cost price of the product.
-      - Changing the average price of a product: If valuation == 'manual_periodic' is not necessary create an account move for stock variation
+      - Changing the average price of a product: If valuation == 'manual_periodic' is not necessary create an account move for stock variation.
+      - Change stock.picking order from newest to oldest.
+      - Add the client_order_ref field to the stock.picking model.
+      - Makes visible the 'name' field in stock.picking views.
     """,
     "depends" : [
-        "stock",
+        "sale",
     ],
     "init_xml" : [],
     "update_xml" : [

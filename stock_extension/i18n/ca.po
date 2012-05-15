@@ -6,15 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2012-02-21 11:56+0000\n"
-"PO-Revision-Date: 2012-03-05 11:14+0000\n"
-"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
+"POT-Creation-Date: 2012-04-24 16:01+0000\n"
+"PO-Revision-Date: 2012-04-24 18:07+0100\n"
+"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:49+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"Plural-Forms: \n"
+
+#. module: stock_extension
+#: code:addons/stock_extension/product.py:144
+#, python-format
+msgid "There is no stock output account defined for this product: \"%s\" (id: %d)"
+msgstr "No s'ha definit un compte de sortida d'estoc per aquest producte: \"%s\" (id: %d)"
 
 #. module: stock_extension
 #: model:ir.model,name:stock_extension.model_product_product
@@ -22,44 +27,32 @@ msgid "Product"
 msgstr "Producte"
 
 #. module: stock_extension
-#: model:ir.model,name:stock_extension.model_stock_move
-msgid "Stock Move"
-msgstr "Moviment estoc"
+#: sql_constraint:sale.order:0
+msgid "Order Reference must be unique !"
+msgstr "La referència de la comanda ha de ser única!"
 
 #. module: stock_extension
-#: constraint:stock.move:0
-msgid "You try to assign a lot which is not from the same product"
-msgstr "Esteu tractant d'assignar un lot que no és del mateix producte"
+#: constraint:product.product:0
+msgid "Several dimension values for the same dimension type"
+msgstr "Varis valors de dimensió per al mateix tipus de dimensió"
 
 #. module: stock_extension
-#: code:addons/stock_extension/product.py:144
+#: code:addons/stock_extension/product.py:99
 #, python-format
-msgid ""
-"There is no stock output account defined for this product: \"%s\" (id: %d)"
-msgstr ""
-"No s'ha definit un compte de sortida d'estoc per aquest producte: \"%s\" "
-"(id: %d)"
+msgid "There is no journal defined on the product category: \"%s\" (id: %d)"
+msgstr "No hi ha diari definit a la categoria de producte: \"%s\" (id: %d)"
 
 #. module: stock_extension
 #: code:addons/stock_extension/product.py:82
 #, python-format
-msgid ""
-"Could not find any difference between '                                      "
-"'standard price and new price!"
-msgstr ""
-"No es pot trobar cap diferència entre '                                      "
-"'preu estandard i nou preu!"
+msgid "Could not find any difference between '                                      'standard price and new price!"
+msgstr "No es pot trobar cap diferència entre '                                      'preu estandard i nou preu!"
 
 #. module: stock_extension
 #: code:addons/stock_extension/product.py:58
 #, python-format
 msgid "Variation Account is not specified for Product Category: %s"
 msgstr "Compte variació sense especificar per a la categoria de producte: %s"
-
-#. module: stock_extension
-#: constraint:stock.move:0
-msgid "You must assign a production lot for this product"
-msgstr "Heu d'assignar un lot de producció per aquest producte"
 
 #. module: stock_extension
 #: model:ir.model,name:stock_extension.model_stock_move_memory_in
@@ -115,10 +108,9 @@ msgid "Partial Move"
 msgstr "Moviment parcial"
 
 #. module: stock_extension
-#: code:addons/stock_extension/product.py:99
-#, python-format
-msgid "There is no journal defined on the product category: \"%s\" (id: %d)"
-msgstr "No hi ha diari definit a la categoria de producte: \"%s\" (id: %d)"
+#: model:ir.model,name:stock_extension.model_sale_order
+msgid "Sales Order"
+msgstr "Comanda de venda"
 
 #. module: stock_extension
 #: view:stock.picking:0
@@ -128,8 +120,13 @@ msgstr "A facturar"
 #. module: stock_extension
 #: code:addons/stock_extension/product.py:119
 #, python-format
-msgid ""
-"There is no stock input account defined for this product: \"%s\" (id: %d)"
-msgstr ""
-"No s'ha definit un compte d'entrada d'estoc per aquest producte: \"%s\" (id: "
-"%d)"
+msgid "There is no stock input account defined for this product: \"%s\" (id: %d)"
+msgstr "No s'ha definit un compte d'entrada d'estoc per aquest producte: \"%s\" (id: %d)"
+
+#~ msgid "Stock Move"
+#~ msgstr "Moviment estoc"
+#~ msgid "You try to assign a lot which is not from the same product"
+#~ msgstr "Esteu tractant d'assignar un lot que no és del mateix producte"
+#~ msgid "You must assign a production lot for this product"
+#~ msgstr "Heu d'assignar un lot de producció per aquest producte"
+

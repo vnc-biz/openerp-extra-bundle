@@ -14,5 +14,57 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="stock_picking_extension_inherited_form_view">
+            <field name="name">stock.picking.extension.inherited.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page/field/tree/field[@name='product_id']" position="replace">
+                    <field name="name"/>
+                </xpath>
+                <xpath expr="/form/notebook/page/field/form/group/field[@name='name']" position="replace">
+                    <field name="name" colspan="4"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="stock_picking_out_extension_inherited_form_view">
+            <field name="name">stock.picking.out.extension.inherited.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/group/field[@name='stock_journal_id']" position="after">
+                    <field name="client_order_ref"/>
+                </xpath>
+                <xpath expr="/form/notebook/page/field/tree/field[@name='product_id']" position="replace">
+                    <field name="name"/>
+                </xpath>
+                <xpath expr="/form/notebook/page/field/form/group/field[@name='name']" position="replace">
+                    <field name="name" colspan="4"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="stock_picking_in_extension_inherited_form_view">
+            <field name="name">stock.picking.in.extension.inherited.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_in_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/group/field[@name='stock_journal_id']" position="after">
+                    <field name="client_order_ref"/>
+                </xpath>
+                <xpath expr="/form/notebook/page/field/tree/field[@name='product_id']" position="replace">
+                    <field name="name"/>
+                </xpath>
+                <xpath expr="/form/notebook/page/field/form/group/field[@name='name']" position="replace">
+                    <field name="name" colspan="4"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

@@ -197,7 +197,30 @@ class base_external_mapping(osv.osv):
                 vals[mapping_line.field_id.name] = value
 
         return vals
-    
+
+    def exclude_uptade(self, cr, uid, code, values={}, context=None):
+        """
+        Exclude some values dicc (remove dicc values)
+        @param code: str
+        @param values: dicc
+        :return vals dicc values recalculated
+        """
+
+        external_mappings = self.search(cr, uid, [('name','=',code)])
+        if not (external_mappings)>0:
+            return False
+
+        exclude_lines = []
+        for line in self.browse(cr, uid, external_mappings[0]).mapping_ids:
+            if line.update:
+                exclude_lines.append(line.field_id.name)
+
+        for line in exclude_lines:
+            if line in values:
+                del values[line]
+
+        return values
+
     _columns = {
         'name': fields.char('Code', size=64, required=True),
         'model_id': fields.many2one('ir.model', 'OpenERP Model', required=True, select=True, ondelete='cascade'),
@@ -236,6 +259,8 @@ class base_external_mapping_line(osv.osv):
         'external_type': fields.selection([('str', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float')], 'External Type', required=True),
         'translate': fields.boolean('Translate', help='Check this option to export fields with locale sufix. Example: name_es'),
         'active': fields.boolean('Active'),
+        'update': fields.boolean('Exclude Update', help='When update data (write), this field is excluded'),
+        'sequence': fields.integer('Sequence', help="Is the order that you want for the columns field in the file"),
         'in_function': fields.text('Import in OpenERP Mapping Python Function'),
         'out_function': fields.text('Export from OpenERP Mapping Python Function'),
     }

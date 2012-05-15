@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.2\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-10-03 09:30+0000\n"
-"PO-Revision-Date: 2011-10-03 09:30+0000\n"
+"POT-Creation-Date: 2011-12-19 11:02+0000\n"
+"PO-Revision-Date: 2011-12-19 11:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,16 +21,16 @@ msgid "Mappings"
 msgstr "Mappings"
 
 #. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:68
+#: code:addons/base_external_mapping/base_external_mapping.py:70
 #, python-format
 msgid "Code or ids without value"
 msgstr "Code or ids without value"
 
 #. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:68
-#: code:addons/base_external_mapping/base_external_mapping.py:73
-#: code:addons/base_external_mapping/base_external_mapping.py:76
-#: code:addons/base_external_mapping/base_external_mapping.py:144
+#: code:addons/base_external_mapping/base_external_mapping.py:70
+#: code:addons/base_external_mapping/base_external_mapping.py:75
+#: code:addons/base_external_mapping/base_external_mapping.py:78
+#: code:addons/base_external_mapping/base_external_mapping.py:149
 #: model:ir.model,name:base_external_mapping.model_base_external_mapping
 #: model:ir.module.module,shortdesc:base_external_mapping.module_meta_information
 #: model:ir.ui.menu,name:base_external_mapping.menu_base_external_mapping
@@ -55,9 +55,9 @@ msgid "Draft"
 msgstr "Draft"
 
 #. module: base_external_mapping
-#: selection:base.external.mapping.line,type:0
-msgid "External <- OpenERP"
-msgstr "External <- OpenERP"
+#: field:base.external.mapping.line,translate:0
+msgid "Translate"
+msgstr "Translate"
 
 #. module: base_external_mapping
 #: field:base.external.mapping.line,type:0
@@ -75,12 +75,7 @@ msgid "External -> OpenERP"
 msgstr "External -> OpenERP"
 
 #. module: base_external_mapping
-#: field:base.external.mapping.line,translate:0
-msgid "Translate"
-msgstr "Translate"
-
-#. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:172
+#: code:addons/base_external_mapping/base_external_mapping.py:195
 #, python-format
 msgid "Error !"
 msgstr "Error !"
@@ -91,7 +86,7 @@ msgid "String"
 msgstr "String"
 
 #. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:76
+#: code:addons/base_external_mapping/base_external_mapping.py:78
 #, python-format
 msgid "Base External Mapping call %s"
 msgstr "Base External Mapping call %s"
@@ -118,7 +113,7 @@ msgid "Integer"
 msgstr "Integer"
 
 #. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:172
+#: code:addons/base_external_mapping/base_external_mapping.py:195
 #, python-format
 msgid "Another External Mapping have same code!"
 msgstr "Another External Mapping have same code!"
@@ -139,6 +134,11 @@ msgid "Model Name"
 msgstr "Model Name"
 
 #. module: base_external_mapping
+#: field:base.external.mapping.line,external_type:0
+msgid "External Type"
+msgstr "External Type"
+
+#. module: base_external_mapping
 #: model:ir.actions.act_window,name:base_external_mapping.act_base_external_mapping_fields
 msgid "Fields"
 msgstr "Fields"
@@ -149,9 +149,9 @@ msgid "Mappings Lines"
 msgstr "Mappings Lines"
 
 #. module: base_external_mapping
-#: field:base.external.mapping.line,external_type:0
-msgid "External Type"
-msgstr "External Type"
+#: selection:base.external.mapping.line,type:0
+msgid "External <- OpenERP"
+msgstr "External <- OpenERP"
 
 #. module: base_external_mapping
 #: model:ir.module.module,description:base_external_mapping.module_meta_information
@@ -167,7 +167,7 @@ msgstr "\n"
 "    "
 
 #. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:73
+#: code:addons/base_external_mapping/base_external_mapping.py:75
 #, python-format
 msgid "Mappline Code %s not found"
 msgstr "Mappline Code %s not found"
@@ -178,7 +178,7 @@ msgid "Full Name"
 msgstr "Full Name"
 
 #. module: base_external_mapping
-#: code:addons/base_external_mapping/base_external_mapping.py:144
+#: code:addons/base_external_mapping/base_external_mapping.py:149
 #, python-format
 msgid "%s"
 msgstr "%s"
@@ -224,6 +224,11 @@ msgstr "Done"
 #: constraint:base.external.mapping.line:0
 msgid "Error ! Invalid Mapping Line Name: Field and External Field cannot be both null"
 msgstr "Error ! Invalid Mapping Line Name: Field and External Field cannot be both null"
+
+#. module: base_external_mapping
+#: help:base.external.mapping.line,translate:0
+msgid "Check this option to export fields with locale sufix. Example: name_es"
+msgstr "Check this option to export fields with locale sufix. Example: name_es"
 
 #. module: base_external_mapping
 #: selection:base.external.mapping.line,type:0

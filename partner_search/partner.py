@@ -46,7 +46,7 @@ class res_partner(osv.osv):
                                                     operator, context, limit)
         ids = [x[0] for x in partners]
         if name and len(ids) == 0:
-            partner_ids = self.search(cr, uid, [('vat', operator, name)],
+            partner_ids = self.search(cr, uid, [('vat', operator, name)] + args,
                                       limit=limit, context=context)
             if len(partner_ids) == 0:
                 address_ids = self.pool.get('res.partner.address').search(cr,
@@ -54,12 +54,11 @@ class res_partner(osv.osv):
                                           ('email', operator, name),
                                           ('mobile', operator, name)],
                                           limit=limit, context=context)
-                for address in self.pool.get('res.partner.address').browse(cr,
-                                                       uid, address_ids):
-                    if address.partner_id:
-                        partner_ids.append(address.partner_id.id)
+                partner_ids = [a.partner_id.id for a in
+                               self.pool.get('res.partner.address').browse(cr, uid, address_ids)
+                               if a.partner_id]
+            ids = [x for x in set(partner_ids)]
 
-            ids = [x for x in set(ids + partner_ids)]
         return self.name_get(cr, uid, ids, context)
 
 res_partner()

@@ -153,7 +153,7 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem parent="account.account_template_folder" action="action_wizard_update_chart" id="menu_wizard"/>
+        <menuitem parent="account.menu_finance_accounting" action="action_wizard_update_chart" sequence="1" id="menu_wizard"/>
 
     </data>
 </openerp>

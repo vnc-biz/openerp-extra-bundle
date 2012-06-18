@@ -4,6 +4,10 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Pexego Sistemas Informáticos. All Rights Reserved
+#    Copyright (c) 2012 Zikzakmedia S.L. (http://zikzakmedia.com)
+#                       All Rights Reserved.
+#                       Jordi Esteve <jesteve@zikzakmedia.com>
+#                       Jesús Martín <jmartin@zikzakmedia.com>
 #    $Id$
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -84,4 +88,4 @@ Check and Repair tools:
         'active': False
 
 }
- 
+

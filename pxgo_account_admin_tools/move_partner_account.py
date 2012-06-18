@@ -29,7 +29,7 @@ generic account.
 __author__ = "Borja López Soilán (Pexego)"
 
 import re
-from osv import fields,osv
+from osv import fields, osv
 from tools.translate import _
 
 class pxgo_move_partner_account(osv.osv_memory):
@@ -43,7 +43,7 @@ class pxgo_move_partner_account(osv.osv_memory):
     _description = "Move Partner Account Wizard"
 
     _columns = {
-        'state': fields.selection([('new','New'), ('done','Done')], 'Status', readonly=True),
+        'state': fields.selection([('new', 'New'), ('done', 'Done')], 'Status', readonly=True),
 
         #
         # Account move parameters
@@ -107,7 +107,7 @@ class pxgo_move_partner_account(osv.osv_memory):
                     # OpenERP 6.0 revno >= 2236
                     res = property.value_reference.id
         return res
-    
+
     _defaults = {
         'company_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
         'account_payable_id': _get_payable_account_id,
@@ -140,15 +140,15 @@ class pxgo_move_partner_account(osv.osv_memory):
             if period_ids:
                 query_acc += """      AND period_id IN (%s)""" % periods_str
                 query_inv += """      AND period_id IN (%s)""" % periods_str
-            
+
             partner_ids = self.pool.get('res.partner').search(cr, uid, [])
             for partner in self.pool.get('res.partner').browse(cr, uid, partner_ids):
                 # Receivable account
-                if partner.property_account_receivable.id != wiz.account_receivable_id.id:
+                if partner.property_account_receivable and partner.property_account_receivable.id != wiz.account_receivable_id.id:
                     cr.execute(query_acc % (partner.property_account_receivable.id, partner.id, wiz.account_receivable_id.id))
                     cr.execute(query_inv % (partner.property_account_receivable.id, partner.id, wiz.account_receivable_id.id))
                 # Payable account
-                if partner.property_account_payable.id != wiz.account_payable_id.id:
+                if partner.property_account_payable and partner.property_account_payable.id != wiz.account_payable_id.id:
                     cr.execute(query_acc % (partner.property_account_payable.id, partner.id, wiz.account_payable_id.id))
                     cr.execute(query_inv % (partner.property_account_payable.id, partner.id, wiz.account_payable_id.id))
 
@@ -159,9 +159,9 @@ class pxgo_move_partner_account(osv.osv_memory):
         # Return the next view: Show 'done' view
         #
         model_data_ids = self.pool.get('ir.model.data').search(cr, uid, [
-                    ('model','=','ir.ui.view'),
-                    ('module','=','pxgo_account_admin_tools'),
-                    ('name','=','view_pxgo_move_partner_account_done_form')
+                    ('model', '=', 'ir.ui.view'),
+                    ('module', '=', 'pxgo_account_admin_tools'),
+                    ('name', '=', 'view_pxgo_move_partner_account_done_form')
                 ])
         resource_id = self.pool.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'], context=context)[0]['res_id']
 

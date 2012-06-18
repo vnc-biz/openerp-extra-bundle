@@ -31,7 +31,7 @@ import csv
 import base64
 import StringIO
 import re
-from osv import fields,osv
+from osv import fields, osv
 from tools.translate import _
 
 class pxgo_account_importer(osv.osv_memory):
@@ -59,7 +59,7 @@ class pxgo_account_importer(osv.osv_memory):
         #
         'company_id': fields.many2one('res.company', 'Company', required=True),
         'overwrite': fields.boolean('Overwrite', help="If the account already exists, overwrite its name?"),
-        
+
         #
         # Input file
         #
@@ -67,7 +67,7 @@ class pxgo_account_importer(osv.osv_memory):
         'input_file_name': fields.char('File name', size=256),
         'csv_delimiter': fields.char('Delimiter', size=1, required=True),
         'csv_quotechar': fields.char('Quote', size=1, required=True),
-       
+
         'csv_code_index': fields.integer('Code field', required=True),
         'csv_code_regexp': fields.char('Code regexp', size=32, required=True),
         'csv_name_index': fields.integer('Name field', required=True),
@@ -77,12 +77,12 @@ class pxgo_account_importer(osv.osv_memory):
 
     _defaults = {
         'company_id': lambda self, cr, uid, context: self.pool.get('res.users').browse(cr, uid, uid, context).company_id.id,
-        'csv_delimiter': lambda *a: ';',
-        'csv_quotechar': lambda *a: '"',
-        'csv_code_index': lambda *a: 0,
-        'csv_name_index': lambda *a: 1,
-        'csv_code_regexp': lambda *a: r'^[0-9]+$',
-        'csv_name_regexp': lambda *a: r'^.*$',
+        'csv_delimiter': lambda * a: ';',
+        'csv_quotechar': lambda * a: '"',
+        'csv_code_index': lambda * a: 0,
+        'csv_name_index': lambda * a: 1,
+        'csv_code_regexp': lambda * a: r'^[0-9]+$',
+        'csv_name_regexp': lambda * a: r'^.*$',
     }
 
     def _find_parent_account_id(self, cr, uid, wiz, account_code, context=None):
@@ -152,7 +152,7 @@ class pxgo_account_importer(osv.osv_memory):
                         and len(record) > wiz.csv_name_index:
 
                     record_code = record[wiz.csv_code_index]
-                    record_name =  record[wiz.csv_name_index]
+                    record_name = record[wiz.csv_name_index]
 
                     #
                     # Ignore invalid records
@@ -205,7 +205,9 @@ class pxgo_account_importer(osv.osv_memory):
                                         'code': record_code,
                                         'name': record_name,
                                         'parent_id': parent_account_id,
-                                        'type': brother_account.type,
+                                        # Checks if brother account's type is of view 
+                                        # type and changes it in afirmative case.
+                                        'type': brother_account.type if brother_account.type != 'view' else 'other',
                                         'user_type': brother_account.user_type.id,
                                         'reconcile': brother_account.reconcile,
                                         'company_id': wiz.company_id.id,
@@ -228,9 +230,9 @@ class pxgo_account_importer(osv.osv_memory):
         # Show the accounts to the user
         #
         model_data_ids = self.pool.get('ir.model.data').search(cr, uid, [
-                    ('model','=','ir.ui.view'),
-                    ('module','=','account'),
-                    ('name','=','view_account_form')
+                    ('model', '=', 'ir.ui.view'),
+                    ('module', '=', 'account'),
+                    ('name', '=', 'view_account_form')
                 ])
         resource_id = self.pool.get('ir.model.data').read(cr, uid, model_data_ids, fields=['res_id'], context=context)[0]['res_id']
 
@@ -240,7 +242,7 @@ class pxgo_account_importer(osv.osv_memory):
             'res_model': 'account.account',
             'view_type': 'form',
             'view_mode': 'tree,form',
-            'views': [(False,'tree'), (resource_id,'form')],
+            'views': [(False, 'tree'), (resource_id, 'form')],
             'domain': "[('id', 'in', %s)]" % imported_account_ids,
             'context': context,
         }

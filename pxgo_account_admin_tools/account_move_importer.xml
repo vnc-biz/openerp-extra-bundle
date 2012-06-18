@@ -18,10 +18,10 @@
                             <field name="ref"/>
                             <field name="company_id"/>
                             <newline/>
-                            <field name="journal_id"/>
+                            <field name="journal_id" domain="[('company_id', '=', company_id)]"/>
                             <field name="type"/>
                             <newline/>
-                            <field name="period_id"/>
+                            <field name="period_id" domain="[('company_id', '=', company_id)]"/>
                             <field name="date"/>
                         </group>
                     </group>
@@ -47,6 +47,9 @@
                                 <field name="csv_debit_regexp"/>
                                 <field name="csv_credit_index"/>
                                 <field name="csv_credit_regexp"/>
+                                <field name="csv_partner_ref_index"/>
+                                <field name="csv_partner_ref_regexp"/>
+                                <field name="oerp_partner_ref_field"/>
                             </group>
                         </group>
                     </group>

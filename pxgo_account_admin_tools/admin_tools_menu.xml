@@ -4,7 +4,7 @@
 
         <menuitem id="menu_action_pxgo_account_admin_tools"
             name="Admin Tools"
-            parent="account.menu_finance"
+            parent="account.menu_finance_configuration"
             sequence="999"/>
 
         <menuitem id="menu_action_pxgo_account_admin_tools_import"

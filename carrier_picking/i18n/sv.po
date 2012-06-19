@@ -7,34 +7,34 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.14\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2011-06-22 12:46+0000\n"
-"PO-Revision-Date: 2011-02-15 15:02+0000\n"
-"Last-Translator: Olivier Dony (OpenERP) <Unknown>\n"
+"PO-Revision-Date: 2012-06-18 22:33+0000\n"
+"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:41+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-06-19 05:03+0000\n"
+"X-Generator: Launchpad (build 15435)\n"
 
 #. module: carrier_picking
 #: field:res.partner.address,plate:0
 msgid "Plate"
-msgstr ""
+msgstr "Skylt"
 
 #. module: carrier_picking
 #: field:stock.picking,address_carrier_id:0
 msgid "Carrier Address"
-msgstr ""
+msgstr "Transportörsadress"
 
 #. module: carrier_picking
 #: field:stock.picking,carrier_name:0
 msgid "Carrier Info"
-msgstr ""
+msgstr "Transportörsinformation"
 
 #. module: carrier_picking
 #: model:ir.model,name:carrier_picking.model_stock_picking
 msgid "Picking List"
-msgstr ""
+msgstr "Plocklista"
 
 #. module: carrier_picking
 #: model:ir.module.module,shortdesc:carrier_picking.module_meta_information
@@ -57,18 +57,18 @@ msgstr ""
 #. module: carrier_picking
 #: help:res.partner.address,plate:0
 msgid "Vehicle's plate."
-msgstr ""
+msgstr "Fordonsskylt"
 
 #. module: carrier_picking
 #: model:ir.model,name:carrier_picking.model_res_partner_address
 msgid "Partner Addresses"
-msgstr ""
+msgstr "Företagsadress"
 
 #. module: carrier_picking
 #: view:res.partner:0
 #: view:res.partner.address:0
 msgid "Vehicle"
-msgstr ""
+msgstr "Fordon"
 
 #. module: carrier_picking
 #: help:stock.picking,carrier_name:0

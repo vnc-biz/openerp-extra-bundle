@@ -7,13 +7,14 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
 "POT-Creation-Date: 2012-06-14 10:03+0000\n"
-"PO-Revision-Date: 2012-06-14 12:15+0100\n"
-"Last-Translator: Jesús Martín <jmartin@zikzakmedia.com>\n"
+"PO-Revision-Date: 2012-06-18 14:33+0000\n"
+"Last-Translator: jmartin (Zikzakmedia) <jmartin@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-06-19 05:03+0000\n"
+"X-Generator: Launchpad (build 15435)\n"
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_chart_checker_problem,severity:0
@@ -22,24 +23,39 @@ msgstr "Severidad"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_invoice_ref_in_moves:0
-msgid "The invoice references have been succesfully set on the account moves!"
-msgstr "¡Las referencias de las facturas se han establecido con éxito en los asientos contables!"
+msgid ""
+"The invoice references have been succesfully set on the account moves!"
+msgstr ""
+"¡Las referencias de las facturas se han establecido con éxito en los "
+"asientos contables!"
 
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_move_importer.py:264
 #, python-format
-msgid "The debit quantity %s doesn't match with a regex float value in account %s"
-msgstr "La cantidad %s del debe no cuadra con la expresión regular de número real en la cuenta %s"
+msgid ""
+"The debit quantity %s doesn't match with a regex float value in account %s"
+msgstr ""
+"La cantidad %s del debe no cuadra con la expresión regular de número real en "
+"la cuenta %s"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_revalidate_moves:0
-msgid "The selected moves will be revalidated, that will regenerate their analytic lines."
-msgstr "Los asientos seleccionados se revalidarán lo que generará sus líneas analíticas."
+msgid ""
+"The selected moves will be revalidated, that will regenerate their analytic "
+"lines."
+msgstr ""
+"Los asientos seleccionados se revalidarán lo que generará sus líneas "
+"analíticas."
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_account_importer:0
-msgid "Only the account code and name are needed, the rest of the required account data will be filled based on its brother accounts (same code begining)."
-msgstr "Sólo se necesitan el código contable y el nombre, el resto de los datos contables requeridos se rellenarán sobre sus cuentas hermanas (mismo código de inicio)."
+msgid ""
+"Only the account code and name are needed, the rest of the required account "
+"data will be filled based on its brother accounts (same code begining)."
+msgstr ""
+"Sólo se necesitan el código contable y el nombre, el resto de los datos "
+"contables requeridos se rellenarán sobre sus cuentas hermanas (mismo código "
+"de inicio)."
 
 #. module: pxgo_account_admin_tools
 #: model:ir.model,name:pxgo_account_admin_tools.model_pxgo_account_admin_tools_pxgo_account_move_importer
@@ -53,8 +69,12 @@ msgstr "Este asistente importará cuentas desde un archivo CSV."
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_invoice_ref_in_moves:0
-msgid "The reference will be set, for the selected account moves, to the reference/number of the (supplier/customer) invoice."
-msgstr "La referencia para los asientos contables se establecerá a la referencia/número de la factura de cliente/proveedor."
+msgid ""
+"The reference will be set, for the selected account moves, to the "
+"reference/number of the (supplier/customer) invoice."
+msgstr ""
+"La referencia para los asientos contables se establecerá a la "
+"referencia/número de la factura de cliente/proveedor."
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_chart_checker,company_id:0
@@ -92,7 +112,8 @@ msgstr "Buscar por asientos"
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_account_chart_checker:0
 msgid "A list with the problems found (if any) will be shown afterwards."
-msgstr "Después se mostrará una lista con los problemas encontrados (si los hubo)."
+msgstr ""
+"Después se mostrará una lista con los problemas encontrados (si los hubo)."
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_move_partner_account:0
@@ -126,8 +147,12 @@ msgstr "¡Debe seleccionar un archivo!"
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_chart_checker.py:170
 #, python-format
-msgid "The account %d (%s) is children of %d (%s), but is not listed as its children on the preordered tree"
-msgstr "La cuenta %d (%s) es hija de %d (%s), pero no está listada como su hija en el árbol preorden."
+msgid ""
+"The account %d (%s) is children of %d (%s), but is not listed as its "
+"children on the preordered tree"
+msgstr ""
+"La cuenta %d (%s) es hija de %d (%s), pero no está listada como su hija en "
+"el árbol preorden."
 
 #. module: pxgo_account_admin_tools
 #: selection:pxgo_account_admin_tools.pxgo_account_chart_checker_problem,severity:0
@@ -146,8 +171,13 @@ msgstr "Revalidar asientos contables"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_invoice_ref_in_moves:0
-msgid "This wizard will set the reference in account moves associated with invoices, that don't match the invoice reference/number."
-msgstr "Este asistente establecerá las referencias con las facturas en los asientos contables asociados, lo que no concuerda con la referencia/número de la factura."
+msgid ""
+"This wizard will set the reference in account moves associated with "
+"invoices, that don't match the invoice reference/number."
+msgstr ""
+"Este asistente establecerá las referencias con las facturas en los asientos "
+"contables asociados, lo que no concuerda con la referencia/número de la "
+"factura."
 
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_importer.py:136
@@ -169,8 +199,12 @@ msgstr "Asistente para establecer empresas en los asientos"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_revalidate_moves:0
-msgid "You may now search for account moves with missing analytic lines on the given periods, or you may skip this step and select the moves by hand."
-msgstr "Ahora puede buscar asientos contables con líneas analíticas perdidas en el periodo, o puede saltarse este paso y seleccionar los asientos manualmente."
+msgid ""
+"You may now search for account moves with missing analytic lines on the "
+"given periods, or you may skip this step and select the moves by hand."
+msgstr ""
+"Ahora puede buscar asientos contables con líneas analíticas perdidas en el "
+"periodo, o puede saltarse este paso y seleccionar los asientos manualmente."
 
 #. module: pxgo_account_admin_tools
 #: help:pxgo_account_admin_tools.pxgo_account_importer,overwrite:0
@@ -250,8 +284,14 @@ msgstr "Importador de cuentas"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_invoice_ref_in_moves:0
-msgid "You may now search for account moves, on the given periods, whose reference does not match the invoice reference or number; or you may skip this step and select the moves by hand."
-msgstr "Ahora puede buscar asientos contables de los periodos cuyas referencias no concuerden con la referencia o número de la factura, o puede saltarse este paso y seleccionar los asientos manualmente."
+msgid ""
+"You may now search for account moves, on the given periods, whose reference "
+"does not match the invoice reference or number; or you may skip this step "
+"and select the moves by hand."
+msgstr ""
+"Ahora puede buscar asientos contables de los periodos cuyas referencias no "
+"concuerden con la referencia o número de la factura, o puede saltarse este "
+"paso y seleccionar los asientos manualmente."
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_move_importer,ref:0
@@ -280,8 +320,11 @@ msgstr "Media"
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_move_importer.py:278
 #, python-format
-msgid "The credit quantity %s doesn't match with a regex float value in account %s"
-msgstr "La cantidad %s del haber no cuadra con la expresión regular de número real en la cuenta %s"
+msgid ""
+"The credit quantity %s doesn't match with a regex float value in account %s"
+msgstr ""
+"La cantidad %s del haber no cuadra con la expresión regular de número real "
+"en la cuenta %s"
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_importer,csv_name_index:0
@@ -290,8 +333,14 @@ msgstr "Campo nombre"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_move_partner_account:0
-msgid "This wizard will set the receivable/payable account of the partners, in moves and invoices where a generic receivable/payable account was used instead."
-msgstr "Este asistente establecerá la cuenta a pagar/cobrar de la empresa, en asientos y facturas donde se usó en lugar de las cuentas genéricas a cobrar/pagar."
+msgid ""
+"This wizard will set the receivable/payable account of the partners, in "
+"moves and invoices where a generic receivable/payable account was used "
+"instead."
+msgstr ""
+"Este asistente establecerá la cuenta a pagar/cobrar de la empresa, en "
+"asientos y facturas donde se usó en lugar de las cuentas genéricas a "
+"cobrar/pagar."
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_move_importer,csv_partner_ref_regexp:0
@@ -341,8 +390,13 @@ msgstr "Apuntes contables a actualizar"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_partner_in_moves:0
-msgid "You may now search for move lines with missing partner reference on the given periods, or you may skip this step and select the move lines by hand."
-msgstr "Ahora debería buscar apuntes contables en el periodo con referencias a empresas perdidas, o puede saltarse este paso y seleccionar un apunte manualmente."
+msgid ""
+"You may now search for move lines with missing partner reference on the "
+"given periods, or you may skip this step and select the move lines by hand."
+msgstr ""
+"Ahora debería buscar apuntes contables en el periodo con referencias a "
+"empresas perdidas, o puede saltarse este paso y seleccionar un apunte "
+"manualmente."
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_move_importer,csv_debit_regexp:0
@@ -361,8 +415,12 @@ msgstr "Comprobar"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_partner_in_moves:0
-msgid "This wizard will set the partner reference in moves where the receivable/payable account (of a single partner) is used."
-msgstr "Este asistente establecerá la referencia a empresa en asientos donde se use la cuenta a cobrar/pagar (de una única empresa)."
+msgid ""
+"This wizard will set the partner reference in moves where the "
+"receivable/payable account (of a single partner) is used."
+msgstr ""
+"Este asistente establecerá la referencia a empresa en asientos donde se use "
+"la cuenta a cobrar/pagar (de una única empresa)."
 
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/set_invoice_ref_in_moves.py:76
@@ -410,7 +468,8 @@ msgstr "Formato del archivo"
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_invoice_ref_in_moves:0
 msgid "Find moves not matching the invoice reference/number"
-msgstr "Encontrar asientos sin concordancia con la referencia/número de factura"
+msgstr ""
+"Encontrar asientos sin concordancia con la referencia/número de factura"
 
 #. module: pxgo_account_admin_tools
 #: model:ir.actions.act_window,name:pxgo_account_admin_tools.action_pxgo_account_chart_checker
@@ -457,8 +516,12 @@ msgstr "Estado"
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_chart_checker.py:149
 #, python-format
-msgid "The account %d (%s) is listed as children of %d (%s) in the preordered tree, but its parent is %d (%s)"
-msgstr "La cuenta %d (%s) está listada como hija de %d (%s) en el árbol preorden, pero su padre es %d (%s)."
+msgid ""
+"The account %d (%s) is listed as children of %d (%s) in the preordered tree, "
+"but its parent is %d (%s)"
+msgstr ""
+"La cuenta %d (%s) está listada como hija de %d (%s) en el árbol preorden, "
+"pero su padre es %d (%s)."
 
 #. module: pxgo_account_admin_tools
 #: selection:pxgo_account_admin_tools.pxgo_account_move_importer,type:0
@@ -513,8 +576,12 @@ msgstr "Pago de caja"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_move_partner_account:0
-msgid "The partner's receivable/payable accounts have been set succesfuly on the account moves!"
-msgstr "¡Las cuentas de empresa a pagar/cobrar se han establecido con éxito en los asientos contables!"
+msgid ""
+"The partner's receivable/payable accounts have been set succesfuly on the "
+"account moves!"
+msgstr ""
+"¡Las cuentas de empresa a pagar/cobrar se han establecido con éxito en los "
+"asientos contables!"
 
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_move_importer.py:263
@@ -546,8 +613,12 @@ msgstr "Periodo"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_revalidate_moves:0
-msgid "This wizard will revalidate the account moves, so their analytic lines are regenerated."
-msgstr "Este asistente revalida los asientos contables, por lo que sus líneas analíticas se regenerarán."
+msgid ""
+"This wizard will revalidate the account moves, so their analytic lines are "
+"regenerated."
+msgstr ""
+"Este asistente revalida los asientos contables, por lo que sus líneas "
+"analíticas se regenerarán."
 
 #. module: pxgo_account_admin_tools
 #: selection:pxgo_account_admin_tools.pxgo_account_chart_checker,state:0
@@ -583,8 +654,12 @@ msgstr "Cancelar"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_account_chart_checker:0
-msgid "- It will verify that the preordered tree of accounts, that OpenERP uses to calculate the amounts, matches the parent-children structure"
-msgstr "Verificará que el árbol preorden de cuentas, que OpenERP utiliza para calcular cantidades, coincide con la estructura padre-hijo."
+msgid ""
+"- It will verify that the preordered tree of accounts, that OpenERP uses to "
+"calculate the amounts, matches the parent-children structure"
+msgstr ""
+"Verificará que el árbol preorden de cuentas, que OpenERP utiliza para "
+"calcular cantidades, coincide con la estructura padre-hijo."
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_revalidate_moves,move_ids:0
@@ -610,13 +685,17 @@ msgstr "Expresión regular código"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_partner_in_moves:0
-msgid "The partner reference will be set, for the selected account move lines, to the one associated with the receivable/payable account."
-msgstr "La referencia a la empresa, para los apuntes contables seleccionados, se establecerá a la que está asociada con la cuenta a cobrar/pagar. "
+msgid ""
+"The partner reference will be set, for the selected account move lines, to "
+"the one associated with the receivable/payable account."
+msgstr ""
+"La referencia a la empresa, para los apuntes contables seleccionados, se "
+"establecerá a la que está asociada con la cuenta a cobrar/pagar."
 
 #. module: pxgo_account_admin_tools
 #: field:pxgo_account_admin_tools.pxgo_account_move_importer,csv_ref_regexp:0
 msgid "Ref regexp"
-msgstr "Expresión regular referencia "
+msgstr "Expresión regular referencia"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_account_chart_checker:0
@@ -678,8 +757,12 @@ msgstr "Recibo bancario"
 #. module: pxgo_account_admin_tools
 #: code:addons/pxgo_account_admin_tools/account_chart_checker.py:178
 #, python-format
-msgid "The account %d (%s) is a top level account, but is listed as a child on the preordered tree"
-msgstr "La cuenta %d (%s) es del nivel contable más alto, pero está listada como hija en el árbol preorden."
+msgid ""
+"The account %d (%s) is a top level account, but is listed as a child on the "
+"preordered tree"
+msgstr ""
+"La cuenta %d (%s) es del nivel contable más alto, pero está listada como "
+"hija en el árbol preorden."
 
 #. module: pxgo_account_admin_tools
 #: model:ir.actions.act_window,name:pxgo_account_admin_tools.action_pxgo_revalidate_moves
@@ -741,8 +824,11 @@ msgstr "Problema cuentas contables"
 
 #. module: pxgo_account_admin_tools
 #: view:pxgo_account_admin_tools.pxgo_set_partner_in_moves:0
-msgid "The partner references have been succesfully set on the account moves!"
-msgstr "¡Las referencias a empresas se han establecido con éxito en los asientos contables!"
+msgid ""
+"The partner references have been succesfully set on the account moves!"
+msgstr ""
+"¡Las referencias a empresas se han establecido con éxito en los asientos "
+"contables!"
 
 #. module: pxgo_account_admin_tools
 #: model:ir.actions.act_window,name:pxgo_account_admin_tools.action_pxgo_account_importer
@@ -792,4 +878,3 @@ msgstr "Campo empresa OpenERP"
 #: field:pxgo_account_admin_tools.pxgo_account_move_importer,journal_id:0
 msgid "Journal"
 msgstr "Diario"
-

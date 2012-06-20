@@ -173,6 +173,7 @@ class product_pricelist(osv.osv):
                         #This is added by product_pricelist_fixed_price
                         elif res['base'] == -3:
                             price = res['fixed_price']
+                            break
                         #End
 
                         else:

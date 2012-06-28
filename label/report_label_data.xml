@@ -3364,19 +3364,5 @@
             <field name="margin_left" eval="&quot;0cm&quot;"/>
             <field name="margin_top" eval="&quot;0cm&quot;"/>
         </record>
-        <record id="report_label_benveloppe0" model="report.label">
-            <field eval="1" name="rows"/>
-            <field name="description">B6 enveloppe</field>
-            <field name="label_height">8cm</field>
-            <field name="label_width">5cm</field>
-            <field name="pagesize_id" ref="label.report_pagesize_B6"/>
-            <field eval="1" name="cols"/>
-            <field name="width_incr">0cm</field>
-            <field name="margin_top">6cm</field>
-            <field name="margin_left">9cm</field>
-            <field name="height_incr">0cm</field>
-            <field eval="1" name="landscape"/>
-            <field name="name">B6 enveloppe</field>
-        </record>
     </data>
 </openerp>

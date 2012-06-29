@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 5.0.11\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2010-10-04 17:12:35+0000\n"
-"PO-Revision-Date: 2010-10-04 19:46+0100\n"
+"POT-Creation-Date: 2010-10-04 17:12+0000\n"
+"PO-Revision-Date: 2012-06-28 15:15+0000\n"
 "Last-Translator: Jordi Esteve (Zikzakmedia) <jesteve@zikzakmedia.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
+"X-Launchpad-Export-Date: 2012-06-29 04:49+0000\n"
+"X-Generator: Launchpad (build 15505)\n"
 
 #. module: label_product
 #: constraint:ir.ui.view:0
@@ -44,12 +45,16 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Proporciona un formulario editable para rellenar con los productos y el número de etiquetas\n"
-"    a imprimir. Añade un botón en los albaranes para completar automáticamente este formulario\n"
+"    Proporciona un formulario editable para rellenar con los productos y el "
+"número de etiquetas\n"
+"    a imprimir. Añade un botón en los albaranes para completar "
+"automáticamente este formulario\n"
 "    con sus datos.\n"
 "\n"
-"    NOTA: La funcionalidad básica funciona tal cual pero para usar el botón en los albaranes\n"
-"    es necesario iniciar el servidor con el parámetro --enable-code-actions .\n"
+"    NOTA: La funcionalidad básica funciona tal cual pero para usar el botón "
+"en los albaranes\n"
+"    es necesario iniciar el servidor con el parámetro --enable-code-actions "
+".\n"
 "    Compatibilidad: Testeado con OpenERP v5.0\n"
 "    "
 
@@ -113,11 +118,13 @@ msgstr "Cancelar"
 
 #. module: label_product
 #: constraint:ir.model:0
-msgid "The Object name must start with x_ and not contain any special character !"
-msgstr "¡El nombre del objeto debe empezar con x_ y no contener ningún carácter especial!"
+msgid ""
+"The Object name must start with x_ and not contain any special character !"
+msgstr ""
+"¡El nombre del objeto debe empezar con x_ y no contener ningún carácter "
+"especial!"
 
 #. module: label_product
 #: model:ir.model,name:label_product.model_label_wizard_product_line
 msgid "label.wizard.product.line"
 msgstr "label.wizard.product.line"
-

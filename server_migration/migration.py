@@ -86,7 +86,7 @@ class migration_old_field(osv.osv):
         'model_id': fields.many2one('migration.old_model', 'Object ID', required=True, select=True, ondelete='cascade'),
         'field_description': fields.char('Field Label', required=True, size=256),
         'ttype': fields.selection([('binary','binary'),('boolean','boolean'),('char','char'),('date','date'),('datetime','datetime'),\
-            ('float','float'),('integer','integer'),('many2many','many2many'),('many2one','many2one'),('one2many','one2many'),('reference','reference'),\
+            ('float','float'),('integer','integer'),('integer_big','integer_big'),('many2many','many2many'),('many2one','many2one'),('one2many','one2many'),('reference','reference'),\
             ('selection','selection'),('text','text'),('string','string')], 'Field Type', size=64, required=True),
         'selection': fields.char('Field Selection',size=128),
         'required': fields.boolean('Required'),

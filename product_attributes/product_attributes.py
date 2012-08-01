@@ -22,6 +22,7 @@
 ##############################################################################
 
 from osv import osv, fields
+import tools
 from tools.translate import _
 import unicodedata
 import re
@@ -79,7 +80,7 @@ class product_attributes(osv.osv):
             'field_description': vals['field_description'],
             'model_id': model_id,
             'model': 'product.product',
-            'name': slugify(unicode(vals['name'],'UTF-8')),
+            'name': slugify(tools.ustr(vals['name'])),
             'ttype': vals['ttype'],
             'translate': vals['translate'],
             'required': vals['required'],
@@ -88,7 +89,6 @@ class product_attributes(osv.osv):
             'relation_field': relation_field,
             'state': 'manual',
         }
-
         vals['field_id'] = self.pool.get('ir.model.fields').create(cr, uid, field_vals)
         id = super(product_attributes, self).create(cr, uid, vals, context)
         return id

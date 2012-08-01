@@ -135,7 +135,7 @@ class import_n_split(osv.osv_memory):
 			count = 0
 			for move in pick.move_lines:
 				if move.product_qty != csv_count:
-					msg = _( 'The quantity (%d) does not correspond to the number of lines (%d) of the CSV file.' ) % ( move.product_qty, csv_count )
+					msg = _('The quantity (%d) does not correspond to the number of lines (%d) of the CSV file.' ) % ( move.product_qty, csv_count )
 					raise osv.except_osv( 'Error!', msg )
 				
 				# In the future, it may be replaced by one of the CSV's column

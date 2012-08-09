@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:48+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:19+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: stock_location
 #: help:stock.location.path,delay:0
@@ -48,7 +48,7 @@ msgstr "Automático Sem Etapa Adicionada"
 msgid ""
 "These rules set the right path of the product in the whole location tree."
 msgstr ""
-"Estas regras estabelecem o caminho correcto do produto na árvore de "
+"Estas regras estabelecem o caminho correto do artigo na árvore de "
 "localizações."
 
 #. module: stock_location
@@ -67,7 +67,7 @@ msgstr "Destino da localização"
 #: field:stock.location.path,auto:0
 #: selection:stock.location.path,auto:0
 msgid "Automatic Move"
-msgstr "Movimento automático"
+msgstr "Movimento Automático"
 
 #. module: stock_location
 #: field:stock.location.path,product_id:0
@@ -94,11 +94,11 @@ msgid ""
 "move has to be validated by a worker. With 'Automatic No Step Added', the "
 "location is replaced in the original move."
 msgstr ""
-"Isto é utilizado para definir os trajectos que o produto tem a seguir dentro "
+"Isto é utilizado para definir os trajetos que o artigo tem a seguir dentro "
 "da localização da árvore. \n"
 "O Valor da ' Mudança Automática' vai criar um movimento de stock depois do "
-"actual que irá ser validado automaticamente. Com o 'Manual de Operação' o "
-"movimento do stock terá de ser validado por um trabalhador. Com a 'Nenhuma "
+"atual que irá ser validado automaticamente. Com o 'Manual de Operação' o "
+"movimento do stock terá de ser validado por um funcionário. Com 'Nenhuma "
 "etapa adicionada Automática' a localização é substituída no movimento "
 "original."
 
@@ -110,7 +110,7 @@ msgstr "Operação"
 #. module: stock_location
 #: view:stock.location.path:0
 msgid "Location Paths"
-msgstr "Trajectos de Localização"
+msgstr "Trajetos de Localização"
 
 #. module: stock_location
 #: field:stock.location.path,delay:0

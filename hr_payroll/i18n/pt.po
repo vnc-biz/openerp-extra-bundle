@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:42+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:13+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -262,7 +262,7 @@ msgstr "Montante"
 #: view:hr.payslip:0 view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
 msgid "Payslip Line"
-msgstr "Linha Recibo de Salário"
+msgstr "Linha Recibo de Vencimento"
 
 #. module: hr_payroll
 #: field:hr.passport,country_id:0
@@ -300,7 +300,7 @@ msgstr "Detalhes dos salários dos Funcionários"
 #. module: hr_payroll
 #: field:hr.passport,date_expire:0
 msgid "Passport Expire Date"
-msgstr "Data de expiração do passaporte"
+msgstr "Data de validade do passaporte"
 
 #. module: hr_payroll
 #: view:hr.employee:0
@@ -419,7 +419,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payslip_report
 msgid "Employee PaySlip"
-msgstr "Recibo Salário do Funcionário"
+msgstr "Recibo de Salário do Funcionário"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -631,7 +631,7 @@ msgstr "Para o mês de"
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Payslip"
-msgstr "Recibo"
+msgstr "Recibo de Vencimento"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -806,7 +806,7 @@ msgstr ""
 #: field:hr.payslip.run,slip_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
-msgstr "Recibos"
+msgstr "Recibos de Vencimento"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -1257,7 +1257,7 @@ msgstr ""
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_root_payroll
 #: model:ir.ui.menu,name:hr_payroll.payroll_configure
 msgid "Payroll"
-msgstr "Salário"
+msgstr "Folha de Salários"
 
 #. module: hr_payroll
 #: view:hr.payroll.employees.detail:0

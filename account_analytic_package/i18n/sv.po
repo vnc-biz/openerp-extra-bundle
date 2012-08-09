@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-06-19 05:03+0000\n"
-"X-Generator: Launchpad (build 15435)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:10+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: account_analytic_package
 #: constraint:ir.model:0
@@ -76,70 +76,70 @@ msgstr "Service & Activity Units (no partner and account)"
 #: field:account.analytic.line.package,product_id:0
 #: field:account.analytic.line.package.month,product_id:0
 msgid "Product"
-msgstr "Product"
+msgstr "Produkt"
 
 #. module: account_analytic_package
 #: field:crm.case.section,analytic_journal_id:0
 msgid "Analytic Journal"
-msgstr "Analytic Journal"
+msgstr "Objektjournal"
 
 #. module: account_analytic_package
 #: view:account.analytic.line.package.month:0
 #: view:crm.case.section:0
 #: view:product.product:0
 msgid "Analytic Package"
-msgstr "Analytic Package"
+msgstr "Objektredovisningspaket"
 
 #. module: account_analytic_package
 #: view:product.product:0
 msgid "Zero if not part of a package"
-msgstr "Zero if not part of a package"
+msgstr "Noll om inte del av ett paket"
 
 #. module: account_analytic_package
 #: field:account.analytic.line.package.month,total_service:0
 msgid "Total Service"
-msgstr "Total Service"
+msgstr "Total service"
 
 #. module: account_analytic_package
 #: field:account.analytic.line.package,unit_weight:0
 msgid "Unit Weight"
-msgstr "Unit Weight"
+msgstr "Styckvikt"
 
 #. module: account_analytic_package
 #: view:product.product:0
 msgid "Package Units"
-msgstr "Package Units"
+msgstr "Paketenhet"
 
 #. module: account_analytic_package
 #: field:account.analytic.line.package,date:0
 #: field:account.analytic.line.package.month,name:0
 msgid "Date"
-msgstr "Date"
+msgstr "Datum"
 
 #. module: account_analytic_package
 #: model:ir.ui.menu,name:account_analytic_package.menu_account_analytic_line_package
 msgid "Packages"
-msgstr "Packages"
+msgstr "Förpackningar"
 
 #. module: account_analytic_package
 #: view:account.analytic.line.package.month:0
 #: model:ir.actions.act_window,name:account_analytic_package.action_account_analytic_line_package_service_tree
 #: model:ir.ui.menu,name:account_analytic_package.menu_account_analytic_line_package_service_tree
 msgid "Service Units"
-msgstr "Service Units"
+msgstr "Tjänsteenhet"
 
 #. module: account_analytic_package
 #: field:account.analytic.line.package,total_weight:0
 #: field:account.analytic.line.package.month,total_weight:0
 msgid "Total Weight"
-msgstr "Total Weight"
+msgstr "Totalvikt"
 
 #. module: account_analytic_package
 #: model:ir.actions.act_window,name:account_analytic_package.action_package_product_tree
 #: model:ir.ui.menu,name:account_analytic_package.menu_action_package_product_tree
 #: view:product.product:0
 msgid "Products Units"
-msgstr "Products Units"
+msgstr "Produktenhet"
 
 #. module: account_analytic_package
 #: model:ir.module.module,description:account_analytic_package.module_meta_information

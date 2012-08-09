@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:48+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:19+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: product_expiry
 #: field:product.product,life_time:0
@@ -78,7 +78,7 @@ msgstr "Bröd"
 #: model:product.uom,name:product_expiry.product_uom_ltr
 #: model:product.uom.categ,name:product_expiry.product_uom_categ_vol
 msgid "LTR"
-msgstr ""
+msgstr "LTR"
 
 #. module: product_expiry
 #: view:product.product:0
@@ -124,7 +124,7 @@ msgstr ""
 #. module: product_expiry
 #: field:stock.production.lot,alert_date:0
 msgid "Alert Date"
-msgstr ""
+msgstr "Varningsdatum"
 
 #. module: product_expiry
 #: field:product.product,removal_time:0

@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:43+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:13+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_category view:lunch.category:0
@@ -32,7 +32,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.order:0 selection:lunch.order,state:0
 msgid "Confirmed"
-msgstr ""
+msgstr "Confirmado"
 
 #. module: lunch
 #: constraint:ir.model:0
@@ -103,7 +103,7 @@ msgstr "Nome de modelo inválido na definição da ação"
 #: field:lunch.cashmove,user_cashmove:0 field:lunch.order,user_id:0
 #: field:report.lunch.amount,user_id:0 field:report.lunch.order,user_id:0
 msgid "User Name"
-msgstr "Nome de utilizador"
+msgstr "Nome do Utilizador"
 
 #. module: lunch
 #: view:report.lunch.amount:0
@@ -118,7 +118,7 @@ msgstr ""
 #. module: lunch
 #: field:lunch.order,product:0
 msgid "Product"
-msgstr "Produto"
+msgstr "Artigo"
 
 #. module: lunch
 #: field:lunch.cashmove,name:0 report:lunch.order:0 view:lunch.product:0
@@ -139,7 +139,7 @@ msgstr "Não"
 #. module: lunch
 #: view:lunch.category:0 report:lunch.order:0 view:lunch.order:0
 msgid "Order"
-msgstr ""
+msgstr "Ordem"
 
 #. module: lunch
 #: field:lunch.cashmove,create_date:0
@@ -154,24 +154,24 @@ msgstr "Almoço"
 #. module: lunch
 #: field:lunch.order,descript:0
 msgid "Description Order"
-msgstr ""
+msgstr "Descrição da Ordem"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_order_confirm
 #: model:ir.actions.act_window,name:lunch.action_lunch_order_confirm_values
 #: view:lunch.order:0 view:lunch.order.confirm:0
 msgid "Confirm Order"
-msgstr ""
+msgstr "Confirmar Ordem"
 
 #. module: lunch
 #: view:lunch.order.confirm:0
 msgid "Orders Confirmation"
-msgstr ""
+msgstr "Confirmação de ordens"
 
 #. module: lunch
 #: field:lunch.cashmove,active:0 field:lunch.product,active:0
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_order_day_form
@@ -189,7 +189,7 @@ msgstr ""
 #: model:ir.model,name:lunch.model_lunch_order_cancel view:lunch.order:0
 #: view:lunch.order.cancel:0
 msgid "Cancel Order"
-msgstr ""
+msgstr "Cancelar Ordem"
 
 #. module: lunch
 #: model:ir.actions.act_window,name:lunch.action_lunch_cashbox_form
@@ -220,7 +220,7 @@ msgstr ""
 #. module: lunch
 #: view:lunch.cashmove:0
 msgid "Total amount"
-msgstr "Valor total"
+msgstr "Montante Total"
 
 #. module: lunch
 #: model:ir.model,name:lunch.model_lunch_cashbox
@@ -241,7 +241,7 @@ msgstr "Montante"
 #: model:ir.actions.act_window,name:lunch.action_lunch_product_form
 #: model:ir.ui.menu,name:lunch.menu_lunch_product_form view:lunch.product:0
 msgid "Products"
-msgstr "Produtos"
+msgstr "Artigos"
 
 #. module: lunch
 #: model:ir.ui.menu,name:lunch.menu_lunch_category_form
@@ -293,7 +293,7 @@ msgstr ""
 #. module: lunch
 #: field:lunch.cashmove,box:0 field:report.lunch.amount,box:0
 msgid "Box Name"
-msgstr ""
+msgstr "Nome Caixa"
 
 #. module: lunch
 #: field:lunch.cashbox,manager:0
@@ -303,12 +303,12 @@ msgstr "Gestor"
 #. module: lunch
 #: report:lunch.order:0
 msgid "Unit Price"
-msgstr "Preço unitário"
+msgstr "Preço Unitário"
 
 #. module: lunch
 #: field:lunch.order.confirm,confirm_cashbox:0
 msgid "Name of box"
-msgstr ""
+msgstr "Nome da caixa"
 
 #. module: lunch
 #: view:lunch.order:0
@@ -318,7 +318,7 @@ msgstr "Preço total"
 #. module: lunch
 #: view:lunch.order.confirm:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: lunch
 #: view:lunch.cashbox.clean:0

@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:40+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:11+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal
@@ -315,12 +315,12 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.asset,active:0
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #. module: account_asset
 #: field:account.asset.history,user_id:0
 msgid "User"
-msgstr ""
+msgstr "Usuário"
 
 #. module: account_asset
 #: field:account.asset.asset,property_ids:0
@@ -330,7 +330,7 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.history,date:0
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #. module: account_asset
 #: field:account.asset.board,value_net:0
@@ -340,12 +340,12 @@ msgstr ""
 #. module: account_asset
 #: model:ir.actions.wizard,name:account_asset.wizard_asset_close
 msgid "Close asset"
-msgstr ""
+msgstr "Fechar ativo"
 
 #. module: account_asset
 #: view:account.asset.asset:0 field:account.asset.asset,history_ids:0
 msgid "History"
-msgstr ""
+msgstr "Histórico"
 
 #. module: account_asset
 #: field:account.asset.property,account_actif_id:0
@@ -355,7 +355,7 @@ msgstr ""
 #. module: account_asset
 #: field:asset.depreciation.confirmation.wizard,period_id:0
 msgid "Period"
-msgstr ""
+msgstr "Período"
 
 #. module: account_asset
 #: field:account.invoice.line,asset_category_id:0 view:asset.asset.report:0
@@ -365,12 +365,12 @@ msgstr "Categoria de Ativos"
 #. module: account_asset
 #: view:asset.depreciation.confirmation.wizard:0 view:asset.modify:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: account_asset
 #: selection:account.asset.asset,state:0 selection:asset.asset.report,state:0
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #. module: account_asset
 #: selection:account.asset.property,state:0
@@ -423,7 +423,7 @@ msgstr ""
 #. module: account_asset
 #: field:account.asset.category,journal_id:0
 msgid "Journal"
-msgstr ""
+msgstr "Diário"
 
 #. module: account_asset
 #: field:account.asset.history,name:0
@@ -445,7 +445,7 @@ msgstr ""
 #: field:asset.asset.report,asset_category_id:0
 #: model:ir.model,name:account_asset.model_account_asset_category
 msgid "Asset category"
-msgstr ""
+msgstr "Categoria de Ativo"
 
 #. module: account_asset
 #: view:account.asset.asset:0

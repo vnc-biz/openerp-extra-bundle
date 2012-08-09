@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:48+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:18+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: point_of_sale
 #: report:pos.details:0 report:pos.details_summary:0
@@ -30,12 +30,12 @@ msgstr "Hvh per product"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Set to draft"
-msgstr ""
+msgstr "Terugzetten naar Concept"
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_report_transaction_pos
 msgid "transaction for the pos"
-msgstr "transactie voor verkooppunt"
+msgstr "transactie voor kassaverkoop"
 
 #. module: point_of_sale
 #: wizard_view:pos.discount,init:0
@@ -55,7 +55,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,name:0
 msgid "Order Description"
-msgstr ""
+msgstr "Orderomschrijvingen"
 
 #. module: point_of_sale
 #: model:ir.actions.wizard,name:point_of_sale.pos_scan_product
@@ -70,7 +70,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.add.product:0
 msgid "Add product :"
-msgstr ""
+msgstr "Product toevoegen:"
 
 #. module: point_of_sale
 #: rml:pos.lines:0
@@ -92,7 +92,7 @@ msgstr "Geen prijslijst"
 #: model:ir.actions.act_window,name:point_of_sale.action_pos_get_sale
 #: view:pos.get.sale:0
 msgid "Select an Open Sale Order"
-msgstr ""
+msgstr "Kies een openstaande order"
 
 #. module: point_of_sale
 #: report:account.statement:0 report:all.closed.cashbox.of.the.day:0
@@ -131,7 +131,7 @@ msgstr "Basis"
 #: model:ir.model,name:point_of_sale.model_pos_scan_product
 #: view:pos.scan.product:0
 msgid "Scan product"
-msgstr ""
+msgstr "Product scannen"
 
 #. module: point_of_sale
 #: field:pos.order.line,price_subtotal_incl:0
@@ -146,7 +146,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order.line,name:0
 msgid "Line Description"
-msgstr ""
+msgstr "Lijnomschrijving"
 
 #. module: point_of_sale
 #: field:pos.order,shop_id:0 field:report.pos.order,shop_id:0
@@ -166,7 +166,7 @@ msgstr "Opmerkingen"
 #. module: point_of_sale
 #: field:stock.picking,pos_order:0
 msgid "Pos order"
-msgstr ""
+msgstr "Kassaverkooporder"
 
 #. module: point_of_sale
 #: rml:pos.details:0
@@ -200,7 +200,7 @@ msgstr "Maak een factuur voor deze verkoop."
 #. module: point_of_sale
 #: field:pos.order,date_validity:0
 msgid "Validity Date"
-msgstr ""
+msgstr "Geldigheidsdatum"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -220,7 +220,7 @@ msgstr ""
 #. module: point_of_sale
 #: field:pos.order,picking_id:0
 msgid "Last Output Picking"
-msgstr ""
+msgstr "Laatste zendnota"
 
 #. module: point_of_sale
 #: wizard_view:pos.config.journal,init:0
@@ -255,7 +255,7 @@ msgstr "Fax:"
 #. module: point_of_sale
 #: view:pos.scan.product:0
 msgid "Scan Barcode"
-msgstr ""
+msgstr "Streepjescode scannen"
 
 #. module: point_of_sale
 #: report:account.statement:0 field:report.pos.order,partner_id:0
@@ -285,7 +285,7 @@ msgstr "Bevestigen"
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "POS Orders"
-msgstr "Verkooppuntorders"
+msgstr "Kassaverkooporders"
 
 #. module: point_of_sale
 #: report:pos.lines:0
@@ -306,22 +306,22 @@ msgstr "Aankoopfactuur"
 #: code:addons/point_of_sale/point_of_sale.py:1210
 #, python-format
 msgid "Modify line failed !"
-msgstr ""
+msgstr "Kan lijn niet wijzigen"
 
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "Sum of subtotals"
-msgstr ""
+msgstr "Som van subtotalen"
 
 #. module: point_of_sale
 #: field:pos.make.payment,payment_date:0
 msgid "Payment date"
-msgstr ""
+msgstr "Betaaldatum"
 
 #. module: point_of_sale
 #: field:pos.make.payment,payment_name:0
 msgid "Payment name"
-msgstr ""
+msgstr "Betaaldatum"
 
 #. module: point_of_sale
 #: field:pos.order,lines:0
@@ -343,7 +343,7 @@ msgstr "Hvh"
 #. module: point_of_sale
 #: model:ir.module.module,shortdesc:point_of_sale.module_meta_information
 msgid "Point Of Sale"
-msgstr ""
+msgstr "Kassaverkoop"
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:293
@@ -388,7 +388,7 @@ msgstr "Rapportering"
 #: view:report.sales.by.user.pos:0 view:report.sales.by.user.pos.month:0
 #: view:report.transaction.pos:0
 msgid "POS "
-msgstr "Verkooppunt "
+msgstr "Kassaverkoop "
 
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_config_journal
@@ -399,7 +399,7 @@ msgstr ""
 #: code:addons/point_of_sale/point_of_sale.py:1202
 #, python-format
 msgid "Create line failed !"
-msgstr ""
+msgstr "Kan lijn niet maken"
 
 #. module: point_of_sale
 #: wizard_field:pos.config.journal,init,default_journal:0
@@ -410,7 +410,7 @@ msgstr ""
 #: code:addons/point_of_sale/point_of_sale.py:69
 #, python-format
 msgid "Invalid action !"
-msgstr ""
+msgstr "Ongeldige actie"
 
 #. module: point_of_sale
 #: field:pos.order,account_receivable:0
@@ -458,7 +458,7 @@ msgstr ""
 #: code:addons/point_of_sale/point_of_sale.py:1076
 #, python-format
 msgid "No valid pricelist line found !"
-msgstr ""
+msgstr "Geen geldige prijslijstlijn gevonden"
 
 #. module: point_of_sale
 #: report:pos.invoice:0
@@ -488,7 +488,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.order:0
 msgid "Sales Order POS"
-msgstr ""
+msgstr "Verkooporder kassaverkoop"
 
 #. module: point_of_sale
 #: wizard_button:pos.config.journal,init,set_default_journal:0
@@ -506,14 +506,14 @@ msgstr "onbekend"
 #: model:ir.ui.menu,name:point_of_sale.menu_point_root_touchscreen
 #: view:product.product:0
 msgid "Point of Sale"
-msgstr "Verkooppunt"
+msgstr "Kassaverkoop"
 
 #. module: point_of_sale
 #: view:pos.order:0 field:pos.payment.report.user,user_id:0
 #: field:pos.sale.user,user_id:0 field:pos.sales.user.today,user_id:0
 #: view:report.pos.order:0 field:report.pos.order,user_id:0
 msgid "Salesman"
-msgstr ""
+msgstr "Verkoper"
 
 #. module: point_of_sale
 #: report:pos.details:0 view:pos.order:0 selection:pos.order,state:0
@@ -545,7 +545,7 @@ msgstr ""
 #: code:addons/point_of_sale/point_of_sale.py:340
 #, python-format
 msgid "No order lines defined for this sale."
-msgstr ""
+msgstr "Geen orderlijnen voor deze verkoop."
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -555,12 +555,12 @@ msgstr ""
 #. module: point_of_sale
 #: view:pos.scan.product:0
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #. module: point_of_sale
 #: view:report.cash.register:0
 msgid "Draft"
-msgstr "Voorlopig"
+msgstr "Concept"
 
 #. module: point_of_sale
 #: field:pos.order,amount_paid:0 selection:pos.order,state:0
@@ -575,7 +575,7 @@ msgstr "Btw:"
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order lines"
-msgstr "Verkooppuntorderlijnen"
+msgstr "Kassaverkooporderlijnen"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -601,7 +601,7 @@ msgstr "Gelieve een relatie op te geven voor de verkoop."
 #. module: point_of_sale
 #: view:pos.order.line:0
 msgid "POS Order line"
-msgstr "Verkooppuntorderlijn"
+msgstr "Kassaverkooporderlijn"
 
 #. module: point_of_sale
 #: rml:pos.receipt:0
@@ -697,7 +697,7 @@ msgstr "Picking"
 #: code:addons/point_of_sale/wizard/pos_get_sale.py:54
 #, python-format
 msgid "You can't modify this order. It has already been paid"
-msgstr ""
+msgstr "U kunt dit order niet wijzigen; het is al betaald."
 
 #. module: point_of_sale
 #: code:addons/point_of_sale/point_of_sale.py:358
@@ -788,7 +788,7 @@ msgstr ""
 #. module: point_of_sale
 #: view:res.company:0
 msgid "Other"
-msgstr ""
+msgstr "Overig"
 
 #. module: point_of_sale
 #: view:pos.order:0
@@ -857,7 +857,7 @@ msgstr "Totale korting"
 #. module: point_of_sale
 #: field:pos.order,invoice_wanted:0
 msgid "Create Invoice"
-msgstr ""
+msgstr "Factuur maken"
 
 #. module: point_of_sale
 #: wizard_view:pos.refund_order,init:0
@@ -867,7 +867,7 @@ msgstr ""
 #. module: point_of_sale
 #: model:ir.model,name:point_of_sale.model_pos_order_line
 msgid "Lines of Point of Sale"
-msgstr "Verkooppuntlijnen"
+msgstr "Kassaverkooplijnen"
 
 #. module: point_of_sale
 #: report:pos.invoice:0
@@ -914,7 +914,7 @@ msgstr "Journaal"
 #. module: point_of_sale
 #: field:pos.scan.product,gencod:0
 msgid "Barcode"
-msgstr ""
+msgstr "Streepjescode"
 
 #. module: point_of_sale
 #: rml:pos.invoice:0
@@ -926,12 +926,12 @@ msgstr ""
 #: view:report.sales.by.user.pos:0 view:report.sales.by.user.pos.month:0
 #: view:report.transaction.pos:0
 msgid "POS"
-msgstr "Verkooppunt"
+msgstr "Kassaverkoop"
 
 #. module: point_of_sale
 #: model:ir.actions.report.xml,name:point_of_sale.pos_lines_report
 msgid "Pos Lines"
-msgstr "Verkooppuntlijnen"
+msgstr "Kassaverkooplijnen"
 
 #. module: point_of_sale
 #: report:pos.invoice:0
@@ -1022,7 +1022,7 @@ msgstr "Verkopen (samenvatting)"
 #. module: point_of_sale
 #: field:pos.order,account_move:0
 msgid "Account Entry"
-msgstr ""
+msgstr "Boeking"
 
 #. module: point_of_sale
 #: wizard_field:pos.payment,ask_pay,payment_id:0
@@ -1076,7 +1076,7 @@ msgstr "Afdrukdatum"
 #: field:report.sales.by.user.pos.month,amount:0
 #: /home/odo/repositories/addons/trunk/point_of_sale/static/src/xml/pos.xml:33
 msgid "Total"
-msgstr ""
+msgstr "Totaal"
 
 #. #-#-#-#-#  point_of_sale.pot (OpenERP Server 6.1rc1)  #-#-#-#-#
 #. module: point_of_sale

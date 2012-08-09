@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:42+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:13+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -170,7 +170,7 @@ msgstr "Outros"
 #: field:hr.payslip.worked_days,payslip_id:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip report:payslip:0
 msgid "Pay Slip"
-msgstr "Contracheque"
+msgstr "Holerite"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -273,7 +273,7 @@ msgstr "País Emissor"
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
 #, python-format
 msgid "Warning !"
-msgstr ""
+msgstr "Atenção !"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:0
@@ -419,7 +419,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.actions.report.xml,name:hr_payroll.payslip_report
 msgid "Employee PaySlip"
-msgstr "Contracheque do Empregado"
+msgstr "Holerite do Funcionário"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -521,7 +521,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
 msgid "Print"
-msgstr ""
+msgstr "Imprimir"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -804,7 +804,7 @@ msgstr ""
 #: field:hr.payslip.run,slip_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
-msgstr "Contracheques"
+msgstr "Holerites"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0
@@ -960,7 +960,7 @@ msgstr "Linhas de Pagamento"
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0
 msgid "Designation"
-msgstr ""
+msgstr "Designação"
 
 #. module: hr_payroll
 #: report:hr.payroll.register.sheet:0
@@ -1059,7 +1059,7 @@ msgstr ""
 #: field:hr.salary.rule.category,code:0 report:paylip.details:0
 #: report:payslip:0
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_bank_advice_tree
@@ -1090,7 +1090,7 @@ msgstr "Empréstimo"
 #: field:hr.payslip.input,sequence:0 field:hr.payslip.line,sequence:0
 #: field:hr.payslip.worked_days,sequence:0 field:hr.salary.rule,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Seqüência"
 
 #. module: hr_payroll
 #: field:hr.payroll.year.salary,salary_on:0
@@ -1130,7 +1130,7 @@ msgstr "Estrutura do Salário"
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: view:payslip.lines.contribution.register:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1196,7 +1196,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip.line:0
 msgid "Calculations"
-msgstr ""
+msgstr "Cálculos"
 
 #. module: hr_payroll
 #: wizard_view:wizard.year.salary,init:0
@@ -1292,7 +1292,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.salary.rule.category:0
 msgid "Notes"
-msgstr ""
+msgstr "Anotações"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.payroll_configure
@@ -1343,7 +1343,7 @@ msgstr ""
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: field:hr.payslip.employees,employee_ids:0 view:hr.payslip.line:0
 msgid "Employees"
-msgstr ""
+msgstr "Funcionários"
 
 #. module: hr_payroll
 #: report:paylip.details:0 report:payslip:0

@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:42+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:13+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -127,7 +127,7 @@ msgstr "D/C"
 #: field:hr.payslip.line,company_id:0 field:hr.salary.rule,company_id:0
 #: field:hr.salary.rule.category,company_id:0
 msgid "Company"
-msgstr "Companie"
+msgstr "Compania"
 
 #. module: hr_payroll
 #: help:hr.employee,employee_account:0
@@ -147,7 +147,7 @@ msgstr ","
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.payslip.run:0
 msgid "Set to Draft"
-msgstr "Setare ca ciornă"
+msgstr "Setati ca ciorna"
 
 #. module: hr_payroll
 #: report:payroll.advice:0
@@ -273,7 +273,7 @@ msgstr "Tara de emisiune"
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:52
 #, python-format
 msgid "Warning !"
-msgstr ""
+msgstr "Avertizare !"
 
 #. module: hr_payroll
 #: code:addons/hr_payroll/hr_payroll.py:0
@@ -521,7 +521,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:payslip.lines.contribution.register:0
 msgid "Print"
-msgstr ""
+msgstr "Tipariti"
 
 #. module: hr_payroll
 #: view:hr.payslip:0
@@ -887,7 +887,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Worked Day"
-msgstr "Ziua muncita"
+msgstr "Ziua lucrata"
 
 #. module: hr_payroll
 #: view:hr.payroll.register:0
@@ -914,12 +914,12 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0
 msgid "Compute Sheet"
-msgstr "Calculeaza bilantul"
+msgstr "Calculati bilantul"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,active:0 field:hr.salary.rule,active:0
 msgid "Active"
-msgstr "Activ"
+msgstr "Activ(a)"
 
 #. module: hr_payroll
 #: field:hr.employee,employee_account:0
@@ -1124,13 +1124,13 @@ msgstr "Lini plata"
 #: view:hr.payslip.line:0
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure
 msgid "Salary Structure"
-msgstr "Structura salariului"
+msgstr "Structura salariu"
 
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.payslip.employees:0
 #: view:payslip.lines.contribution.register:0
 msgid "Cancel"
-msgstr "Anuleaza"
+msgstr "Anulati"
 
 #. module: hr_payroll
 #: field:hr.payslip.line,amount:0
@@ -1292,7 +1292,7 @@ msgstr ""
 #. module: hr_payroll
 #: view:hr.payslip:0 view:hr.salary.rule.category:0
 msgid "Notes"
-msgstr ""
+msgstr "Note"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.payroll_configure

@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-10 05:42+0000\n"
-"X-Generator: Launchpad (build 15213)\n"
+"X-Launchpad-Export-Date: 2012-08-09 05:12+0000\n"
+"X-Generator: Launchpad (build 15761)\n"
 
 #. module: hr_payroll
 #: report:employees.salary:0
@@ -170,7 +170,7 @@ msgstr "أخرى"
 #: field:hr.payslip.worked_days,payslip_id:0
 #: model:ir.model,name:hr_payroll.model_hr_payslip report:payslip:0
 msgid "Pay Slip"
-msgstr "قسيمة الدفع"
+msgstr "ظرف المرتب"
 
 #. module: hr_payroll
 #: view:hr.allounce.deduction.categoty:0
@@ -804,7 +804,7 @@ msgstr ""
 #: field:hr.payslip.run,slip_ids:0
 #: model:ir.actions.act_window,name:hr_payroll.act_hr_employee_payslip_list
 msgid "Payslips"
-msgstr "كشوفات الرواتب"
+msgstr "أظرف الرواتب"
 
 #. module: hr_payroll
 #: report:payslip.pdf:0

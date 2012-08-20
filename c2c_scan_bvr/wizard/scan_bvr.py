@@ -163,7 +163,7 @@ class scan_bvr(wizard.interface):
                     #
                     
                     #
-                    currency_search = pool.get('res.currency').search(cr,uid,[('code', '=',data['bvr_struct']['currency'])])
+                    currency_search = pool.get('res.currency').search(cr,uid,[('name', '=',data['bvr_struct']['currency'])])
                     currency_id = pool.get('res.currency').browse(cr,uid,currency_search[0])
                     ## Account Modification
                     if data['bvr_struct']['domain'] == 'name':

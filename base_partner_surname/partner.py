@@ -56,7 +56,7 @@ class res_partner_address(osv.osv):
 
 
     _columns = {
-        'first_name': fields.char('First Name', size=63),
+        'first_name': fields.char('First Name', size=64),
         'last_name': fields.char('Last Name', size=64),
         'name': fields.function(_get_name_calc, fnct_inv=_set_name_calc, type='char', size=128, method=True, string='Name',
                                 store = {

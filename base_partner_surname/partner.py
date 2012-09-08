@@ -23,16 +23,15 @@
 from osv import osv
 from osv import fields
 
-
 class res_partner_address(osv.osv):
-    _inherit ='res.partner.address'
+    _inherit = 'res.partner.address'
 
     def _get_name_calc(self, cr, uid, ids, field_name, unknow_none, context):
         """
         This is for overriding object 'name' property
         """
         ar_ctc = self.read(cr, uid, ids, ['id', 'first_name', 'last_name'], context)
-        res={}
+        res = {}
         for record in ar_ctc:
             if not record['first_name'] and not record['last_name']:
                 continue
@@ -56,10 +55,10 @@ class res_partner_address(osv.osv):
 
 
     _columns = {
-        'first_name': fields.char('First Name', size=64),
+        'first_name': fields.char('First z', size=64),
         'last_name': fields.char('Last Name', size=64),
         'name': fields.function(_get_name_calc, fnct_inv=_set_name_calc, type='char', size=128, method=True, string='Name',
-                                store = {
+                                store={
                                     'res.partner.address': (lambda self, cr, uid, ids, c={}: ids, ['first_name', 'last_name'], 10),
                                 }, select=1,
                                ),

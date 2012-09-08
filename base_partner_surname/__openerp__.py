@@ -34,7 +34,7 @@ This module is deprecated, it is highly recommended to use base_contact instead.
     "demo_xml" : [ ],
     "update_xml" : [ "partner_view.xml" ],
     "installable": True,
-    "active": False
+    "auto_install": False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

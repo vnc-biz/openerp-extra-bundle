@@ -44,7 +44,7 @@ class mass_editing_wizard(osv.osv_memory):
             all_fields = {}
             xml_form = etree.Element('form', {'string': tools.ustr(editing_data.name)})
             xml_group = etree.SubElement(xml_form, 'group', {'colspan': '4'})
-            etree.SubElement(xml_group, 'field', {'name': 'serpent_image', 'nolabel': '1','colspan': '1', 'modifiers': '{"readonly": true}', 'widget':'image'})
+            etree.SubElement(xml_group, 'field', {'name': 'serpent_image', 'nolabel': '1','colspan': '1', 'readonly': '1', 'widget':'image'})
             etree.SubElement(xml_group, 'label', {'string': '','colspan': '2'})
             all_fields['serpent_image'] = {'type':'binary', 'string':''}
             xml_group = etree.SubElement(xml_form, 'group', {'colspan': '4'})

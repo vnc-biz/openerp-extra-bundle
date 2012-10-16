@@ -24,9 +24,8 @@ import netsvc
 
 
 class purchase_order_line(osv.osv):
-    
+
     _inherit = "purchase.order.line"
-    
 
     _columns = {
         'so_line_item_set_ids':fields.many2many('sale.order.line.item.set','po_line_so_item_set_rel','purchase_line_id', 'so_item_set_id','Choosen configurtion'),
@@ -34,4 +33,3 @@ class purchase_order_line(osv.osv):
     }
 
 purchase_order_line()
-

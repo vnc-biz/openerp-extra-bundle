@@ -19,7 +19,6 @@
 #                                                                               #
 #################################################################################
 
-
 from osv import osv, fields
 from tools.translate import _
 import netsvc
@@ -27,11 +26,11 @@ import netsvc
 class procurement_order(osv.osv):
 
     _inherit = "procurement.order"
-    
+
     def create_procurement_purchase_order(self, cr, uid, procurement, po_vals, line, context=None):
         line['so_line_item_set_ids'] = [(6,0, [x.id for x in procurement.so_line_item_set_ids])]
         return super(procurement_order, self).create_procurement_purchase_order(cr, uid, id, po_vals, line, context=context)
-    
+
     def _get_sale_order_line_id(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         sale_order_line_obj = self.pool.get('sale.order.line')
@@ -42,10 +41,10 @@ class procurement_order(osv.osv):
             else:
                 res[id] = False
         return res
-    
+
     _columns = {
         'sale_order_line_id': fields.function(_get_sale_order_line_id, type="many2one", relation='sale.order.line', string='Sale Order Line', readonly=True, method=True),
         'so_line_item_set_ids': fields.related('sale_order_line_id', 'so_line_item_set_ids', type='many2many', relation='sale.order.line.item.set', string='Choosen configuration'),
     }
-    
+
 procurement_order()

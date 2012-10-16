@@ -4,12 +4,9 @@
   Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
   The licence is in the file __openerp__.py
 -->
-
 <openerp>
 	<data>
-		
 		<!-- INHERITED VIEW FOR THE OBJECT : procurement_order -->
-		
 		<record id="procurement_order_view_form" model="ir.ui.view">
 			<field name="name">sale_bundle_product.procurement_order.view_form</field>
 			<field name="model">procurement.order</field>
@@ -25,6 +22,5 @@
 				</data>
 			</field>
 		</record>
-		
 	</data>
 </openerp>

@@ -25,15 +25,15 @@ import netsvc
 
 
 class sale_order(osv.osv):
-    
+
     _inherit = "sale.order"
-        
+
     def add_a_new_line(self, cr, uid, ids, context=None):
         ir_model_data_obj = self.pool.get('ir.model.data')
         ir_model_data_id = ir_model_data_obj.search(cr, uid, [['model', '=', 'ir.ui.view'], ['name', '=', 'view_order_line_form']], context=context)
         if ir_model_data_id:
-            res_id = ir_model_data_obj.read(cr, uid, ir_model_data_id, fields=['res_id'])[0]['res_id']        
-        
+            res_id = ir_model_data_obj.read(cr, uid, ir_model_data_id, fields=['res_id'])[0]['res_id']
+
         sale_order = self.browse(cr, uid, ids[0], context=context)
         ctx = {
             'order_id': ids and ids[0],
@@ -43,8 +43,7 @@ class sale_order(osv.osv):
             'date_order': sale_order.date_order,
             'fiscal_position': sale_order.fiscal_position.id,
         }
-        
-        
+
         return {
             'name': 'Sale Order Line',
             'view_type': 'form',
@@ -56,26 +55,22 @@ class sale_order(osv.osv):
             'nodestroy': True,
             'target': 'new',
         }
-    
-    
-    
-sale_order()
-    
 
+sale_order()
 
 
 class sale_order_line(osv.osv):
-    
+
     _inherit = "sale.order.line"
 
     def save_and_close(self, cr, uid, ids, context):
         return {}
-    
+
     def save_and_continue(self, cr, uid, ids, context):
         res = self.pool.get('sale.order').add_a_new_line(cr, uid, [context['order_id']], context=None)
         res['nodestroy']=False
         return res
-    
+
     def create(self, cr, uid, vals, context=None):
         if not context:
             context={}
@@ -85,7 +80,7 @@ class sale_order_line(osv.osv):
         if context.get('order_id', False):
             context['create_sale_order_line_id']=res
         return res
-    
+
     def action_configure_product(self, cr, uid, ids, context=None):
         if not ids:
             return False
@@ -100,12 +95,11 @@ class sale_order_line(osv.osv):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'new',
-        } 
-        
+        }
+
     _columns = {
         'so_line_item_set_ids':fields.many2many('sale.order.line.item.set', 'so_line_so_item_set_rel','sale_order_line_id', 'so_item_set_id','Choosen configurtion'),
     }
 
 
 sale_order_line()
-

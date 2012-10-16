@@ -23,16 +23,13 @@
 from osv import osv, fields
 import netsvc
 
-
 class product_template(osv.osv):
-    
+
     _inherit = "product.template"
-    
+
     _columns = {
         'item_set_ids': fields.many2many('product.item.set', 'product_template_item_set_rel', 'product_template_id', 'product_item_set_id', 'Item sets'),
         'dynamic_price': fields.boolean('Dynamic price computation ?', help="Tic that box to compute the price based on choosen configuration."),
     }
 
-
 product_template()
-

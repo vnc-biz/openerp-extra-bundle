@@ -29,7 +29,7 @@ class product_configurator(osv.osv_memory):
     _description = "Product Configurator"
     _columns = {
      }
-     
+
     def default_get(self, cr, uid, fields, context=None):
         """
         This function gets default values
@@ -66,11 +66,11 @@ class product_configurator(osv.osv_memory):
                         res[item_set.name]=item_line.id
                         break
         return res
-        
+
     def set_configuration(self, cr, uid, *args):
         '''empty function'''
         return {}
-    
+
     def create(self, cr, uid, vals, context=None):
         item_line_ids=[]
         for key in vals:
@@ -81,10 +81,10 @@ class product_configurator(osv.osv_memory):
         sale_item_ids = self.pool.get('product.item.set.line').get_sale_items_lines(cr, uid, item_line_ids, context)
         self.pool.get('sale.order.line').write(cr, uid, context['order_line_id'], {'so_line_item_set_ids': [(6, 0, sale_item_ids)]}, context=context)
         return 1
-    
+
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         order_line = self.pool.get('sale.order.line').browse(cr, uid, context['order_line_id'], context)
-        
+
         fields_list = {}
         arch = """<form string="Choose your Configuration">"""
         for item_set in order_line.product_id.item_set_ids:
@@ -111,7 +111,7 @@ class product_configurator(osv.osv_memory):
                                 'selectable': True,
                                 }
                             })
-        
+
         arch += """
                 <group col="2" colspan="2">
                 <button icon='gtk-cancel' special="cancel"
@@ -120,7 +120,7 @@ class product_configurator(osv.osv_memory):
                     colspan="1" type="object" icon="gtk-go-forward" />
                 </group>
         </form>"""
-        
+
         return {
             'name': 'Choose Your Configuration',
             'type': 'form',

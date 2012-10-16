@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		
-		
-		
 		<record id="action_configure_product" model="ir.actions.act_window">
 			<field name="name">Configure Product</field>
 			<field name="res_model">product.item.set.configurator</field>
@@ -11,6 +8,5 @@
 			<field name="view_mode">form</field>
 			<field name="target">new</field>
 		</record>
-		
 	</data>
 </openerp>

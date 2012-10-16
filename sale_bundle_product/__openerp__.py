@@ -20,7 +20,6 @@
 #                                                                               #
 #################################################################################
 
-
 {
     'name': 'Bundle product (dynamic choice on sale order)',
     'version': '0.1',
@@ -29,7 +28,7 @@
     'description': """This allow you to make a sale order on bundle product, which is a product with dynamical options
     choosen for each SO by the customer.
 
-    Example: 
+    Example:
 
     Basic PC
       - Cpu 1
@@ -37,19 +36,17 @@
       - HD 200 Gb""",
     'author': 'Akretion Camptocamp',
     'website': 'http://www.camptocamp.com/ http://www.akretion.com',
-    'depends': ['sale'], 
+    'depends': ['sale'],
     'init_xml': [],
-    'update_xml': [ 
+    'update_xml': [
            'wizard/product_configurator_view.xml',
            'sale_bundle_product_view.xml',
            'product_view.xml',
            'sale_view.xml',
            'procurement_view.xml',
            'purchase_view.xml',
-      
     ],
     'demo_xml': [],
     'installable': True,
     'active': False,
 }
-

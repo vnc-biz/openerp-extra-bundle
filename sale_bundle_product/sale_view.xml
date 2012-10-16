@@ -5,12 +5,9 @@
   # Copyright (C) 2011 Akretion Sébastien BEAU <sebastien.beau@akretion.com>
   The licence is in the file __openerp__.py
 -->
-
 <openerp>
 	<data>
-		
 		<!-- INHERITED VIEW FOR THE OBJECT : sale_order -->
-		
 		<record id="sale_order_view_form" model="ir.ui.view">
 			<field name="name">sale_bundle_product.sale_order.view_form</field>
 			<field name="model">sale.order</field>
@@ -27,7 +24,6 @@
 				</data>
 			</field>
 		</record>
-		
 		<record id="sale_order_view_form2" model="ir.ui.view">
 			<field name="name">sale_bundle_product.sale_order.view_form2</field>
 			<field name="model">sale.order</field>
@@ -38,23 +34,19 @@
 					<button name="add_a_new_line" string="Add a new line"
                         type="object" icon="gtk-execute" colspan="2"/>
 				</xpath>
-				 
+				
 				<xpath expr="/form/notebook/page/field[@name='order_line']/form/notebook/page/field[@name='product_id']" position="attributes">
 					<attribute name="colspan">2</attribute>
 				</xpath>
-				 
+				
 				<xpath expr="/form/notebook/page/field[@name='order_line']/form/notebook/page/field[@name='product_id']" position="after">
 					<button name="action_configure_product" string="Configure The Product"
                         type="object" icon="gtk-execute" colspan="2"/>
 					<newline/>
 				</xpath>
-				 
 			</field>
 		</record>
-		
-		
 		<!-- sale_order -->
-		
 		<record id="view_order_line_form" model="ir.ui.view">
 			<field name="name">sale.order.line.form</field>
 			<field name="model">sale.order.line</field>
@@ -126,16 +118,13 @@
 							<field name="so_line_item_set_ids" nolabel="1"/>
 						</page>
 					</notebook>
-					
 					<group colspan='4' col='4'>
 						<button icon="gtk-cancel" special="cancel" string="Cancel"/>
 						<button icon="gtk-ok" name="save_and_close" string="Save and Close" type="object"/>
 						<button icon="gtk-ok" name="save_and_continue" string="Save and New" type="object"/>
 					</group>
-					
 				</form>
 			</field>
 		</record>
-		
 	</data>
 </openerp>

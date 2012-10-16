@@ -24,7 +24,7 @@ from osv import osv, fields
 import netsvc
 
 class product_item_set(osv.osv):
-    
+
     _name = "product.item.set"
     _description = "Product Item Set"
 
@@ -45,18 +45,18 @@ product_item_set()
 
 
 class product_item_set_line(osv.osv):
-    
+
     _name = "product.item.set.line"
     _description = "Product Item Set Line"
     _rec_name = "product_id"
-    
+
     def get_sale_items_lines(self, cr, uid, ids, context=None):
         sale_item_line_obj = self.pool.get('sale.order.line.item.set')
         res=[]
         for item in self.browse(cr, uid, ids, context=context):
             res.append(sale_item_line_obj.get_create_items_lines(cr, uid, item.product_id.id, item.qty_uom, item.uom_id.id, context=False))
         return res
-        
+
     _columns = {
         'product_id': fields.many2one('product.product', 'Product', required=True),
         'item_set_id': fields.many2one('product.item.set', 'Item Set'),
@@ -76,12 +76,11 @@ product_item_set_line()
 
 
 class sale_order_line_item_set(osv.osv):
-    
+
     _name = "sale.order.line.item.set"
     _description = "sale order line item set"
     _rec_name = "product_id"
-    
-    
+
     def get_create_items_lines(self, cr, uid, product_id, qty_uom, uom_id=False, context=False):
         '''this function will return the id of the configuration line if the line already exist, if not it will create the line automatically'''
         if not uom_id:
@@ -91,7 +90,7 @@ class sale_order_line_item_set(osv.osv):
             return sale_item_ids[0]
         else:
             return self.create(cr, uid, {'product_id': product_id, 'qty_uom': qty_uom, 'uom_id': uom_id}, context=context)
-    
+
     _columns = {
         'product_id': fields.many2one('product.product', 'Product', required=True, select=True),
         'uom_id': fields.many2one('product.uom', 'UoM', required=True, select=True),
@@ -103,4 +102,3 @@ class sale_order_line_item_set(osv.osv):
     }
 
 sale_order_line_item_set()
-

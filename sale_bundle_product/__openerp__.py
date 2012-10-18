@@ -36,7 +36,7 @@
       - HD 200 Gb""",
     'author': 'Akretion Camptocamp',
     'website': 'http://www.camptocamp.com/ http://www.akretion.com',
-    'depends': ['sale'],
+    'depends': ['sale', 'purchase'],
     'init_xml': [],
     'update_xml': [
            'wizard/product_configurator_view.xml',

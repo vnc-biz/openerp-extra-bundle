@@ -31,3 +31,114 @@ msgstr "Líneas de órdenes de compra con Descuento"
 #: field:purchase.order.line,discount:0
 msgid "Discount (%)"
 msgstr "(%) Descuento"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Validated by :"
+msgstr "Validado por :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Fax :"
+msgstr "Fax :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "UoM"
+msgstr "UdM"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Net Price"
+msgstr "Precio neto"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Our order reference :"
+msgstr "Nuestra referencia:"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Applicable Taxes"
+msgstr "Impuestos"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Taxes :"
+msgstr "Impuestos :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "N° :"
+msgstr "N° :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Product Description"
+msgstr "Descripción producto"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Your order reference :"
+msgstr "Tu referencia :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Shipping address :"
+msgstr "Dirección envío :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "TOTAL :"
+msgstr "TOTAL :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Tél. :"
+msgstr "Tél. :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Unit Price"
+msgstr "Precio un."
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Qty"
+msgstr "Cant"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Date ordered :"
+msgstr "Fecha orden :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Date Promised"
+msgstr "Fecha prometida"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Net Total :"
+msgstr "Total neto :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "TVA :"
+msgstr "CIF/NIF :"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Quotation N°"
+msgstr "Presupuesto Nº"
+
+#. module: purchase
+#: report:purchase.discount.order:0
+msgid "Order N°"
+msgstr "Pedido Nº"
+

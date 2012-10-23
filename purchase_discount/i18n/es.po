@@ -29,6 +29,7 @@ msgstr "Líneas de órdenes de compra con Descuento"
 
 #. module: purchase_discount
 #: field:purchase.order.line,discount:0
+#: report:purchase.discount.order:0
 msgid "Discount (%)"
 msgstr "(%) Descuento"
 
@@ -76,11 +77,6 @@ msgstr "N° :"
 #: report:purchase.discount.order:0
 msgid "Product Description"
 msgstr "Descripción producto"
-
-#. module: purchase
-#: report:purchase.discount.order:0
-msgid "Discount (%)"
-msgstr "Descuento (%)"
 
 #. module: purchase
 #: report:purchase.discount.order:0

@@ -83,7 +83,7 @@ class make_sale(wizard.interface):
                         line.product_id.id, qty=line.product_qty, partner_id=partner_id, fiscal_position=fpos)['value']
                 value['price_unit'] = line.price_unit
                 value['product_id'] = line.product_id.id
-                value['product_uos'] = value.get('product_uos') and  value.get('product_uos')[0] or False
+                value['product_uos'] = value.get('product_uos') or False
                 value['product_uom_qty'] = line.product_qty
                 value['order_id'] = new_id
                 sale_line_obj.create(cr, uid, value)

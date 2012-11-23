@@ -1,0 +1,7 @@
+Source: openerp-addons-bundle
+Section: net
+Priority: optional
+Maintainer: Enrico Weigelt, metux ITS <weigelt@metux.de>
+Build-Depends: debhelper (>= 7.0.50~), python, rsync, dos2unix
+Standards-Version: 3.9.1
+

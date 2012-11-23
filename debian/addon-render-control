@@ -1,0 +1,49 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+
+from optparse import OptionParser
+
+__version__ = '0.0.1'
+
+def get_module_info(dirname):
+    f = open(dirname+"/__openerp__.py")
+    new_info = {}
+    new_info.update(eval(f.read()))
+    return new_info
+
+def mod_to_pkg(module_name):
+    return "openerp-addons-"+module_name.replace("_","-")
+
+def render_control_part(module_dir,module_name):
+    new_info = get_module_info(module_dir)
+    dpkg_desc =  "Package: "+mod_to_pkg(module_name)+"\n"
+    dpkg_desc += "Section: net\n"
+    dpkg_desc += "Architecture: all\n"
+    dpkg_desc += "Depends:"
+    for item in new_info["depends"]:
+        dpkg_desc += "  "+mod_to_pkg(item)+",\n"
+    dpkg_desc += '  ${misc:Depends}'+"\n"
+    dpkg_desc += "Description: OpenERP module: "+module_name+"\n"
+    if 'description' in new_info:
+        for line in new_info["description"].strip().split(os.linesep):
+            if line.strip() == "":
+                dpkg_desc += "  .\n"
+            else:
+                dpkg_desc += "  "+line.strip()+"\n"
+
+    return dpkg_desc
+
+usage = "usage: %prog directory_path (if more than one, separate with comma)"
+parser = OptionParser(usage=usage,
+                        version="%prog "+__version__,
+                        description='''Generate CSV file from __openerp__.py files from given path'''
+                                                    )
+(options, args) = parser.parse_args()
+if len(args)<1:
+    parser.error("addon name required")
+if len(args)<2:
+    parser.error("addon directory required")
+
+print render_control_part(args[0],args[1])

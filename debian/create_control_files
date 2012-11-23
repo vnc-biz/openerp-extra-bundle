@@ -1,0 +1,18 @@
+#!/bin/bash
+
+ADDON_PREFIX=../
+
+list_addons() {
+	( cd "$ADDON_PREFIX" ; find * -mindepth 0 -maxdepth 0 -type d -not -name "debian" )
+}
+
+rm -f openerp-addons-*.install
+cp control.in control
+echo >> control
+
+for module in `list_addons` ; do
+	echo "Processing addon: $module"
+	pkg=`echo "openerp-addons-$module" | sed -e 's~_~-~g'`
+	echo "/usr/share/pyshared/openerp/addons/$module" > $pkg.install
+	./addon-render-control $ADDON_PREFIX/$module "$module" >> control
+done

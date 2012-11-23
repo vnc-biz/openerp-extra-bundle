@@ -24,7 +24,9 @@ from osv import fields, osv
 import base64
 import time
 import datetime
-import netsvc
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class external_osv(osv.osv):
     pass #FIXME remove! only here for compatibility purpose for now
@@ -169,11 +171,10 @@ def oevals_from_extdata(self, cr, uid, external_referential_id, data_record, key
             try:
                 exec each_mapping_line['in_function'] in space
             except Exception, e:
-                logger = netsvc.Logger()
-                logger.notifyChannel('extdata_from_oevals', netsvc.LOG_DEBUG, "Error in import mapping: %r" % (each_mapping_line['in_function'],))
+                _logger.debug("Error in import mapping: %r" % (each_mapping_line['in_function'],))
                 del(space['__builtins__'])
-                logger.notifyChannel('extdata_from_oevals', netsvc.LOG_DEBUG, "Mapping Context: %r" % (space,))
-                logger.notifyChannel('extdata_from_oevals', netsvc.LOG_DEBUG, "Exception: %r" % (e,))
+                _logger.debug("Mapping Context: %r" % (space,))
+                _logger.debug("Exception: %r" % (e,))
             result = space.get('result', False)
             #If result exists and is of type list
             if result and type(result) == list:
@@ -215,7 +216,6 @@ def ext_import(self, cr, uid, data, external_referential_id, defaults=None, cont
     #This function will import a given set of data as list of dictionary into Open ERP
     write_ids = []  #Will record ids of records modified, not sure if will be used
     create_ids = [] #Will record ids of newly created records, not sure if will be used
-    logger = netsvc.Logger()
     if data:
         mapping_id = self.pool.get('external.mapping').search(cr, uid, [('model', '=', self._name), ('referential_id', '=', external_referential_id)])
         if mapping_id:
@@ -248,7 +248,7 @@ def ext_import(self, cr, uid, data, external_referential_id, defaults=None, cont
                         if self.oe_update(cr, uid, existing_rec_id, vals, each_row, external_referential_id, defaults, context):
                             write_ids.append(existing_rec_id)
                             self.pool.get('ir.model.data').write(cr, uid, existing_ir_model_data_id, {'res_id':existing_rec_id})
-                            logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Updated in OpenERP %s from External Ref with external_id %s and OpenERP id %s successfully" %(self._name, external_id, existing_rec_id))
+                            _logger.info("Updated in OpenERP %s from External Ref with external_id %s and OpenERP id %s successfully" %(self._name, external_id, existing_rec_id))
 
                     else:
                         crid = self.oe_create(cr, uid, vals, each_row, external_referential_id, defaults, context)
@@ -261,7 +261,7 @@ def ext_import(self, cr, uid, data, external_referential_id, defaults=None, cont
                             'module': 'extref/' + self.pool.get('external.referential').read(cr, uid, external_referential_id, ['name'])['name']
                         }
                         self.pool.get('ir.model.data').create(cr, uid, ir_model_data_vals)
-                        logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Created in OpenERP %s from External Ref with external_id %s and OpenERP id %s successfully" %(self._name, external_id, crid))
+                        _logger.info("Created in OpenERP %s from External Ref with external_id %s and OpenERP id %s successfully" %(self._name, external_id, crid))
                     cr.commit()
 
     return {'create_ids': create_ids, 'write_ids': write_ids}
@@ -303,11 +303,10 @@ def extdata_from_oevals(self, cr, uid, external_referential_id, data_record, map
             try:
                 exec each_mapping_line['out_function'] in space
             except Exception, e:
-                logger = netsvc.Logger()
-                logger.notifyChannel('extdata_from_oevals', netsvc.LOG_DEBUG, "Error in import mapping: %r" % (each_mapping_line['out_function'],))
+                _logger.debug("Error in import mapping: %r" % (each_mapping_line['out_function'],))
                 del(space['__builtins__'])
-                logger.notifyChannel('extdata_from_oevals', netsvc.LOG_DEBUG, "Mapping Context: %r" % (space,))
-                logger.notifyChannel('extdata_from_oevals', netsvc.LOG_DEBUG, "Exception: %r" % (e,))
+                _logger.debug("Mapping Context: %r" % (space,))
+                _logger.debug("Exception: %r" % (e,))
 
             result = space.get('result', False)
             #If result exists and is of type list
@@ -326,7 +325,6 @@ def ext_export(self, cr, uid, ids, external_referential_ids=[], defaults={}, con
     if context is None:
         context = {}
     #external_referential_ids has to be a list
-    logger = netsvc.Logger()
     report_line_obj = self.pool.get('external.report.line')
     write_ids = []  #Will record ids of records modified, not sure if will be used
     create_ids = [] #Will record ids of newly created records, not sure if will be used
@@ -393,7 +391,7 @@ def ext_export(self, cr, uid, ids, external_referential_ids=[], defaults={}, con
                                                                 res_id=record_data['id'],
                                                                 external_id=ext_id, defaults=defaults,
                                                                 context=context)
-                                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Updated in External Ref %s from OpenERP with external_id %s and OpenERP id %s successfully" %(self._name, ext_id, record_data['id']))
+                                    _logger.info("Updated in External Ref %s from OpenERP with external_id %s and OpenERP id %s successfully" %(self._name, ext_id, record_data['id']))
                                 except Exception, err:
                                     report_line_obj.log_failed(cr, uid, self._name, 'export',
                                                                res_id=record_data['id'],
@@ -417,7 +415,7 @@ def ext_export(self, cr, uid, ids, external_referential_ids=[], defaults={}, con
                                                                 res_id=record_data['id'],
                                                                 external_id=crid, defaults=defaults,
                                                                 context=context)
-                                    logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "Created in External Ref %s from OpenERP with external_id %s and OpenERP id %s successfully" %(self._name, crid, record_data['id']))
+                                    _logger.info("Created in External Ref %s from OpenERP with external_id %s and OpenERP id %s successfully" %(self._name, crid, record_data['id']))
                                 except Exception, err:
                                     report_line_obj.log_failed(cr, uid, self._name, 'export',
                                                                res_id=record_data['id'],
@@ -451,10 +449,9 @@ def ext_update(self, cr, uid, data, conn, method, oe_id, external_id, ir_model_d
     try:
         self.try_ext_update(cr, uid, data, conn, method, oe_id, external_id, ir_model_data_id, create_method, context)
     except Exception, e:
-        logger = netsvc.Logger()
-        logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "UPDATE ERROR: %s" % e)
+        _logger.info("UPDATE ERROR: %s" % e)
         if self.can_create_on_update_failure(e, data, context):
-            logger.notifyChannel('ext synchro', netsvc.LOG_INFO, "may be the resource doesn't exist any more in the external referential, trying to re-create a new one")
+            _logger.info("may be the resource doesn't exist any more in the external referential, trying to re-create a new one")
             crid = self.ext_create(cr, uid, data, conn, create_method, oe_id, context)
             self.pool.get('ir.model.data').write(cr, uid, ir_model_data_id, {'name': self.prefixed_id(crid)})
             return crid

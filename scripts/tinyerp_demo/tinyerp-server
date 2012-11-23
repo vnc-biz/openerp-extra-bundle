@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd /opt/tinyerp/server/bin
-exec /usr/bin/python2.4 ./tinyerp-server.py $@

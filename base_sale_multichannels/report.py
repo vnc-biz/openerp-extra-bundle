@@ -29,28 +29,22 @@ class external_report(osv.osv):
         'shop_id': fields.many2one('sale.shop', 'Shop', readonly=True),
         }
 
-    def get_report_by_ref(self, cr, uid, ref, external_referential_id,
+    def get_report_filter(self, cr, uid, ref, external_referential_id, name=None,
                           context=None):
+        filter = super(external_report, self).get_report_filter(cr, uid, ref,
+                                        external_referential_id, name=name,
+                                        context=context)
+        filter.append(('shop_id', '=', context.get('shop_id', False)))
+        return filter
 
-        report_id = False
-        report = self.search(cr, uid,
-                           [('ref', '=', ref),
-                            ('external_referential_id',
-                             '=', external_referential_id),
-                            ('shop_id', '=', context.get('shop_id', False))],
-                           context=context)
-        if report:
-            report_id = report[0]
-
-        return report_id
-
-    def end_report(self, cr, uid, id, context=None):
-        report_id = super(external_report, self).\
-        end_report(cr, uid, id, context)
-        if context.get('shop_id', False):
-            self.write(cr, uid, report_id,
-                       {'shop_id': context['shop_id']},
-                       context)
-        return id
+    def _prepare_start_report(self, cr, uid, name, ref,
+                              external_referential_id, context=None):
+        res = super(external_report, self)._prepare_start_report(
+            cr, uid, name, ref, external_referential_id, context=context)
+        if context is None: context = {}
+        if not context.get('shop_id'):
+            raise Exception('Missing shop_id while creating a synchronisation report')
+        res['shop_id'] = context['shop_id']
+        return res
 
 external_report()

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openobject-addons\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-12-20 17:22+0000\n"
-"PO-Revision-Date: 2011-02-15 15:01+0000\n"
+"PO-Revision-Date: 2011-02-14 10:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-09-25 04:58+0000\n"
-"X-Generator: Launchpad (build 16019)\n"
+"X-Launchpad-Export-Date: 2012-03-07 05:32+0000\n"
+"X-Generator: Launchpad (build 14907)\n"
 
 #. module: base_sale_multichannels
 #: selection:sale.shop,picking_policy:0

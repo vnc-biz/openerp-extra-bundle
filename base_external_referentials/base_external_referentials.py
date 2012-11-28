@@ -22,12 +22,13 @@
 
 from osv import fields, osv
 from sets import Set
+from tools.translate import _
 
 class external_referential_type(osv.osv):
     _name = 'external.referential.type'
     _description = 'External Referential Type (Ex.Magento,Spree)'
     _columns = {
-        'name': fields.char('Name', size=64, required=True, readonly=True), #dont allow creation of type from frontend
+        'name': fields.char('Name', size=64, required=True), #dont allow creation of type from frontend
     }
 
 external_referential_type()
@@ -57,7 +58,7 @@ class external_mappinglines_template(osv.osv):
         'model':fields.related('model_id', 'model', type='char', string='Model Name'),
         'external_field': fields.char('External Field', size=32),
         'type': fields.selection([('in_out', 'External <-> OpenERP'), ('in', 'External -> OpenERP'), ('out', 'External <- OpenERP')], 'Type'),
-        'external_type': fields.selection([('str', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float'), ('list', 'List'), ('dict', 'Dictionnary')], 'External Type'),
+        'external_type': fields.selection([('unicode', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float'), ('list', 'List'), ('dict', 'Dictionnary')], 'External Type'),
         'in_function': fields.text('Import in OpenERP Mapping Python Function'),
         'out_function': fields.text('Export from OpenERP Mapping Python Function'),
                 }
@@ -66,6 +67,23 @@ external_mappinglines_template()
 class external_referential(osv.osv):
     _name = 'external.referential'
     _description = 'External Referential'
+
+    #Only user that can write crypted field can read it
+    _crypted_field = ['apiusername', 'apipass', 'location']
+
+    def read(self,cr, uid, ids, fields=None, context=None, load='_classic_read'):
+        canwrite = self.check_write(cr, uid, raise_exception=False)
+        res = super(external_referential, self).read(cr, uid, ids, fields=fields, context=context, load=load)
+        if not canwrite:
+            for val in res:
+                for crypted_field in self._crypted_field:
+                    if val.get(crypted_field):
+                        val[crypted_field]='********'
+        return res
+
+    def external_connection(self, cr, uid, referential, DEBUG=False, context=None):
+        """Should be overridden to provide valid external referential connection"""
+        return False
 
     def refresh_mapping(self, cr, uid, ids, context={}):
         #This function will reinstate mapping & mapping_lines for registered objects
@@ -121,16 +139,27 @@ class external_referential(osv.osv):
         return True
 
     _columns = {
-        'name': fields.char('Name', size=64, required=True),
+        'name': fields.char('Name', size=32, required=True),
         'type_id': fields.many2one('external.referential.type', 'Referential Type', select=True),
         'location': fields.char('Location', size=200),
         'apiusername': fields.char('User Name', size=64),
         'apipass': fields.char('Password', size=64),
         'mapping_ids': fields.one2many('external.mapping', 'referential_id', 'Mappings'),
+        'create_date': fields.datetime('Creation Date', readonly=True, select=True, help="Date on which external referential is created."),
     }
 
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'Referential names must be unique !')
+    ]
+
+    def _test_dot_in_name(self, cr, uid, ids, context=None):
+        for referential in self.browse(cr, uid, ids):
+            if '.' in referential.name:
+                return False
+        return True
+
+    _constraints = [
+        (_test_dot_in_name, 'The name cannot contain a dot!', ['name']),
     ]
 
     #TODO warning on name change if mapping exist: Implemented in attrs
@@ -183,7 +212,7 @@ class external_mapping(osv.osv):
             return {}
 
     def create_external_link(self, cr, uid, model, model_name):
-        vals = {'domain': "[('res_id', '=', 'active_id'), ('model', '=', '%s')]" %(model,), 'name': 'External ' + model_name, 'res_model': 'ir.model.data', 'src_model': model, 'view_type': 'form'}
+        vals = {'domain': "[('res_id', '=', active_id), ('model', '=', '%s')]" %(model,), 'name': 'External ' + model_name, 'res_model': 'ir.model.data', 'src_model': model, 'view_type': 'form'}
         xml_id = "ext_" + model.replace(".", "_")
         ir_model_data_id = self.pool.get('ir.model.data')._update(cr, uid, 'ir.actions.act_window', "base_external_referentials", vals, xml_id, False, 'update')
         value = 'ir.actions.act_window,'+str(ir_model_data_id)
@@ -222,7 +251,7 @@ class external_mapping_line(osv.osv):
         'mapping_id': fields.many2one('external.mapping', 'External Mapping', select=True, ondelete='cascade'),
         'related_model_id': fields.related('mapping_id', 'model_id', type='many2one', relation='ir.model', string='Related Model'),
         'type': fields.selection([('in_out', 'External <-> OpenERP'), ('in', 'External -> OpenERP'), ('out', 'External <- OpenERP')], 'Type'),
-        'external_type': fields.selection([('str', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float'), ('list', 'List'), ('dict', 'Dictionnary')], 'External Type'),
+        'external_type': fields.selection([('unicode', 'String'), ('bool', 'Boolean'), ('int', 'Integer'), ('float', 'Float'), ('list', 'List'), ('dict', 'Dictionnary')], 'External Type'),
         'in_function': fields.text('Import in OpenERP Mapping Python Function'),
         'out_function': fields.text('Export from OpenERP Mapping Python Function'),
     }
@@ -280,5 +309,9 @@ class ir_model_data(osv.osv):
         #'create_date': fields.datetime('Created date', readonly=True), #TODO used?
         #'write_date': fields.datetime('Updated date', readonly=True), #TODO used?
     }
+
+    _sql_constraints = [
+        ('external_reference_uniq_per_object', 'unique(model, res_id, external_referential_id)', 'You cannot have on record with multiple external id for a sae referential'),
+    ]
 
 ir_model_data()

@@ -54,8 +54,8 @@
 				</xpath>
 			</field>
 		</record>
-
-       <act_window name="Images"
+		
+		<act_window name="Images"
             domain="[('product_id', '=', active_id)]"
             context="{'default_product_id': active_id}"
             res_model="product.images"

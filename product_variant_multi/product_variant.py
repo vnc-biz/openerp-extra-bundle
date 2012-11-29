@@ -5,8 +5,9 @@
 #    Copyright (C) 2004-2008 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    Copyright (C) 2010-2011 Akretion (www.akretion.com). All Rights Reserved
 #    @author Sebatien Beau <sebastien.beau@akretion.com>
+#    @author Raphaël Valyi <raphael.valyi@akretion.com>
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
-#       update to use a single "Generate/Update" button & price computation code
+#    update to use a single "Generate/Update" button & price computation code
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -30,7 +31,7 @@ import netsvc
 from tools.safe_eval import safe_eval
 from tools.translate import _
 
-LOGGER = netsvc.Logger()
+import logging
 
 #
 # Dimensions Definition
@@ -56,11 +57,10 @@ class product_variant_dimension_type(osv.osv):
     _order = "sequence, name"
 
     def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=None):
-        if context is None:
-            context = {}
-        if not context.get('product_tmpl_id', False):
-            args = None
-        return super(product_variant_dimension_type, self).name_search(cr, user, '', args, 'ilike', None, None)
+        if context.get('product_tmpl_id', False):
+            return super(product_variant_dimension_type, self).name_search(cr, user, '', args, 'ilike', None, None)
+        else:
+            return super(product_variant_dimension_type, self).name_search(cr, user, '', None, 'ilike', None, None)
 
 product_variant_dimension_type()
 
@@ -86,13 +86,12 @@ product_variant_dimension_option()
 class product_variant_dimension_value(osv.osv):
     _name = "product.variant.dimension.value"
     _description = "Dimension Value"
-    _rec_name = "option_id"
 
     def unlink(self, cr, uid, ids, context=None):
         for value in self.browse(cr, uid, ids, context=context):
             if value.product_ids:
                 product_list = '\n    - ' + '\n    - '.join([product.name for product in value.product_ids])
-                raise osv.except_osv(_('Dimension value can not be removed'), _("The value %s is used in the product : %s \n Please remove this product before removing the value"%(value.option_id.name, product_list)))
+                raise osv.except_osv(_('Dimension value can not be removed'), _("The value %s is used by the products : %s \n Please remove these products before removing the value."%(value.option_id.name, product_list)))
         return super(product_variant_dimension_value, self).unlink(cr, uid, ids, context)
 
     def _get_dimension_values(self, cr, uid, ids, context=None):
@@ -100,13 +99,14 @@ class product_variant_dimension_value(osv.osv):
 
     _columns = {
         'option_id' : fields.many2one('product.variant.dimension.option', 'Option', required=True),
+        'name': fields.related('option_id', 'name', type='char', relation='product.variant.dimension.option', string="Dimension value", readonly=True),
         'sequence' : fields.integer('Sequence'),
         'price_extra' : fields.float('Sale Price Extra', digits_compute=dp.get_precision('Sale Price')),
         'price_margin' : fields.float('Sale Price Margin', digits_compute=dp.get_precision('Sale Price')),
         'cost_price_extra' : fields.float('Cost Price Extra', digits_compute=dp.get_precision('Purchase Price')),
         'dimension_id' : fields.related('option_id', 'dimension_id', type="many2one", relation="product.variant.dimension.type", string="Dimension Type", store=True),
         'product_tmpl_id': fields.many2one('product.template', 'Product Template', ondelete='cascade'),
-        'dimension_sequence': fields.related('dimension_id', 'sequence', string="Related Dimension Sequence",#used for ordering purposes in the "variants"
+        'dimension_sequence': fields.related('dimension_id', 'sequence', type='integer', relation='product.variant.dimension.type', string="Related Dimension Sequence",#used for ordering purposes in the "variants"
              store={
                 'product.variant.dimension.type': (_get_dimension_values, ['sequence'], 10),
             }),
@@ -122,27 +122,18 @@ class product_variant_dimension_value(osv.osv):
     
 product_variant_dimension_value()
 
-class product_variant_osv(osv.osv):
-    _duplicated_fields = ['name']
 
-    def get_vals_to_write(self, vals):
-        vals_to_write = {}
-        for field in self._duplicated_fields:
-            if field in vals.keys():
-                vals_to_write[field] = vals[field]
-        return vals_to_write
-
-
-class product_template(product_variant_osv):
+class product_template(osv.osv):
     _inherit = "product.template"
 
     _columns = {
+        'name': fields.char('Name', size=128, translate=True, select=True),
         'dimension_type_ids':fields.many2many('product.variant.dimension.type', 'product_template_dimension_rel', 'template_id', 'dimension_id', 'Dimension Types'),
         'value_ids': fields.one2many('product.variant.dimension.value', 'product_tmpl_id', 'Dimension Values'),
         'variant_ids':fields.one2many('product.product', 'product_tmpl_id', 'Variants'),
         'variant_model_name':fields.char('Variant Model Name', size=64, required=True, help='[_o.dimension_id.name_] will be replaced by the name of the dimension and [_o.option_id.code_] by the code of the option. Example of Variant Model Name : "[_o.dimension_id.name_] - [_o.option_id.code_]"'),
         'variant_model_name_separator':fields.char('Variant Model Name Separator', size=64, help= 'Add a separator between the elements of the variant name'),
-        'code_generator' : fields.char('Code Generator', size=64, help='enter the model for the product code, all parameter between [_o.my_field_] will be replace by the product field. Example product_code model : prefix_[_o.variants_]_suffixe ==> result : prefix_2S2T_suffix'),
+        'code_generator' : fields.char('Code Generator', size=256, help='enter the model for the product code, all parameter between [_o.my_field_] will be replace by the product field. Example product_code model : prefix_[_o.variants_]_suffixe ==> result : prefix_2S2T_suffix'),
         'is_multi_variants' : fields.boolean('Is Multi Variants?'),
         'variant_track_production' : fields.boolean('Track Production Lots on variants ?'),
         'variant_track_incoming' : fields.boolean('Track Incoming Lots on variants ?'),
@@ -150,50 +141,20 @@ class product_template(product_variant_osv):
     }
     
     _defaults = {
-        'variant_model_name': lambda *a: '[_o.dimension_id.name_] - [_o.option_id.code_]',
+        'variant_model_name': lambda *a: '[_o.dimension_id.name_] - [_o.option_id.name_]',
         'variant_model_name_separator': lambda *a: ' - ',
         'is_multi_variants' : lambda *a: False,
-    }
+        'code_generator' : "[_'-'.join([x.option_id.name for x in o.dimension_value_ids] or ['CONF'])_]",
+                }
+
+    _logger = logging.getLogger("product.template")
 
     def unlink(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
         if context and context.get('unlink_from_product_product', False):
             for template in self.browse(cr, uid, ids, context):
                 if not template.is_multi_variants:
                     super(product_template, self).unlink(cr, uid, [template.id], context)
         return True
-
-    def write(self, cr, uid, ids, vals, context=None):
-        # When your write the name on a simple product from the menu product template you have to update the name on the product product
-        # Two solution was posible overwritting the write function or overwritting the read function
-        # I choose to overwrite the write function because read is call more often than the write function
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        if context is None:
-            context = {}
-
-        res = super(product_template, self).write(cr, uid, ids, vals.copy(), context=context)
-
-        if not context.get('iamthechild', False):
-            obj_product = self.pool.get('product.product')
-            if vals.get('is_multi_variants', 'wrong') != 'wrong':
-                if vals['is_multi_variants']:
-                    prod_tmpl_ids_simple = False
-                else:
-                    prod_tmpl_ids_simple = ids
-            else:            
-                prod_tmpl_ids_simple = self.search(cr, uid, [['id', 'in', ids], ['is_multi_variants', '=', False]], context=context)
-            
-            if prod_tmpl_ids_simple:
-                #NB in the case that the user have just unchecked the option 'is_multi_variants' without changing any field the vals_to_write is empty
-                vals_to_write = obj_product.get_vals_to_write(vals)
-                if vals_to_write:
-                    ctx = context.copy()
-                    ctx['iamthechild'] = True
-                    product_ids = obj_product.search(cr, uid, [['product_tmpl_id', 'in', prod_tmpl_ids_simple]])
-                    obj_product.write(cr, uid, product_ids, vals_to_write, context=ctx)
-        return res
 
     def add_all_option(self, cr, uid, ids, context=None):
         #Reactive all unactive values
@@ -239,31 +200,8 @@ class product_template(product_variant_osv):
         
         return cartesian_product(vals)
 
-    def product_product_variants_vals(self, cr, uid, product_temp, variant, context=None):
-        """Return Product Product Values Dicc
-        :product_temp Object
-        :variant list ids
-        :return vals
-        """
-
-        vals = {}
-        vals['track_production'] = product_temp.variant_track_production
-        vals['track_incoming'] = product_temp.variant_track_incoming
-        vals['track_outgoing'] = product_temp.variant_track_outgoing
-        vals['product_tmpl_id'] = product_temp.id
-        vals['dimension_value_ids'] = [(6,0,variant)]
-
-        return vals
-
     def button_generate_variants(self, cr, uid, ids, context=None):
-        """Generate Product Products from variants (product.template)
-        :ids: list
-        :return products (list of products)
-        """
-        if context is None:
-            context = {}
         variants_obj = self.pool.get('product.product')
-        temp_val_list = []
 
         for product_temp in self.browse(cr, uid, ids, context):
             #for temp_type in product_temp.dimension_type_ids:
@@ -273,6 +211,7 @@ class product_template(product_variant_osv):
             #    if not temp_val_list[-1]:
             #        temp_val_list.pop()
             res = {}
+            temp_val_list=[]
             for value in product_temp.value_ids:
                 if res.get(value.dimension_id, False):
                     res[value.dimension_id] += [value.id]
@@ -291,43 +230,48 @@ class product_template(product_variant_osv):
                 for x in list_of_variants:
                     x.sort()
                 list_of_variants_to_create = [x for x in list_of_variants if not x in list_of_variants_existing]
-                
-                LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "variant existing : %s, variant to create : %s" % (len(list_of_variants_existing), len(list_of_variants_to_create)))
+
+                self._logger.info("variant existing : %s, variant to create : %s" % (len(list_of_variants_existing), len(list_of_variants_to_create)))
                 count = 0
                 for variant in list_of_variants_to_create:
                     count += 1
 
-                    vals = self.product_product_variants_vals(cr, uid, product_temp, variant, context)
-                    product_id = variants_obj.create(cr, uid, vals, {'generate_from_template' : True})
+                    vals={}
+                    vals['track_production'] = product_temp.variant_track_production
+                    vals['track_incoming'] = product_temp.variant_track_incoming
+                    vals['track_outgoing'] = product_temp.variant_track_outgoing
+                    vals['product_tmpl_id'] = product_temp.id
+                    vals['dimension_value_ids'] = [(6,0,variant)]
+
+                    var_id = variants_obj.create(cr, uid, vals, {'generate_from_template' : True})
+
                     if count%50 == 0:
                         cr.commit()
-                        LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "product created : %s" % (count,))
-                LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "product created : %s" % (count,))
+                        self._logger.info("product created : %s" % (count,))
+                self._logger.info("product created : %s" % (count,))
 
         product_ids = self.get_products_from_product_template(cr, uid, ids, context=context)
-
         # FIRST, Generate/Update variant names ('variants' field)
-        LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "Starting to generate/update variant names...")
+        self._logger.info("Starting to generate/update variant names...")
         self.pool.get('product.product').build_variants_name(cr, uid, product_ids, context=context)
-        LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "End of the generation/update of variant names.")
+        self._logger.info("End of the generation/update of variant names.")
         # SECOND, Generate/Update product codes and properties (we may need variants name for that)
-        LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "Starting to generate/update product codes and properties...")
+        self._logger.info("Starting to generate/update product codes and properties...")
         self.pool.get('product.product').build_product_code_and_properties(cr, uid, product_ids, context=context)
-        LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_INFO, "End of the generation/update of product codes and properties.")
-        LOGGER.notifyChannel('product_variant_multi_advanced', netsvc.LOG_INFO, "Starting to generate/update product names...")
+        self._logger.info("End of the generation/update of product codes and properties.")
 
+        self._logger.info("Starting to generate/update product names...")
         context['variants_values'] = {}
         for product in self.pool.get('product.product').read(cr, uid, product_ids, ['variants'], context=context):
             context['variants_values'][product['id']] = product['variants']
         self.pool.get('product.product').build_product_name(cr, uid, product_ids, context=context)
-        LOGGER.notifyChannel('product_variant_multi_advanced', netsvc.LOG_INFO, "End of generation/update of product names.")
+        self._logger.info("End of generation/update of product names.")
+        return True
 
-        return product_ids
-        
 product_template()
 
 
-class product_product(product_variant_osv):
+class product_product(osv.osv):
     _inherit = "product.product"
 
     def init(self, cr):
@@ -336,7 +280,7 @@ class product_product(product_variant_osv):
         return True
   
     def unlink(self, cr, uid, ids, context=None):
-        if context is None:
+        if not context:
             context = {}
         context['unlink_from_product_product']=True
         return super(product_product, self).unlink(cr, uid, ids, context)
@@ -345,8 +289,6 @@ class product_product(product_variant_osv):
         return self.build_product_field(cr, uid, ids, 'name', context=None)
 
     def build_product_field(self, cr, uid, ids, field, context=None):
-        if context is None:
-            context = {}
         def get_description_sale(product):
             return self.parse(cr, uid, product, product.product_tmpl_id.description_sale, context=context)
 
@@ -355,6 +297,8 @@ class product_product(product_variant_osv):
                 return (product.product_tmpl_id.name or '' )+ ' ' + (context['variants_values'][product.id] or '')
             return (product.product_tmpl_id.name or '' )+ ' ' + (product.variants or '')
 
+        if not context:
+            context={}
         context['is_multi_variants']=True
         obj_lang=self.pool.get('res.lang')
         lang_ids = obj_lang.search(cr, uid, [('translatable','=',True)], context=context)
@@ -368,45 +312,6 @@ class product_product(product_variant_osv):
                     self.write(cr, uid, product.id, {field: new_field_value}, context=context)
         return True
 
-
-    def write(self, cr, uid, ids, vals, context=None):
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        if context is None:
-            context = {}
-        res = super(product_product, self).write(cr, uid, ids, vals.copy(), context=context)
-
-        ids_simple = self.search(cr, uid, [['id', 'in', ids], ['is_multi_variants', '=', False]], context=context)
-
-        if not context.get('iamthechild', False) and ids_simple:
-            vals_to_write = self.get_vals_to_write(vals)
-
-            if vals_to_write:
-                obj_tmpl = self.pool.get('product.template')
-                ctx = context.copy()
-                ctx['iamthechild'] = True
-                tmpl_ids = obj_tmpl.search(cr, uid, [['variant_ids', 'in', ids_simple]])
-                obj_tmpl.write(cr, uid, tmpl_ids, vals_to_write, context=ctx)
-        return res
-
-    def create(self, cr, uid, vals, context=None):
-        #TAKE CARE for inherits objects openerp will create firstly the product_template and after the product_product
-        # and so the duplicated fields (duplicated field = field which are on the template and on the variant) will be on the product_template and not on the product_product
-        #Also when a product is created the duplicated field are empty for the product.product, this is why the field name can not be a required field
-        #This should be fix in the orm in the futur
-        ids = super(product_product, self).create(cr, uid, vals.copy(), context=context) #using vals.copy() if not the vals will be changed by calling the super method
-        ####### write the value in the product_product
-        if context is None:
-            context = {}
-        ctx = context.copy()
-        ctx['iamthechild'] = True
-        vals_to_write = self.get_vals_to_write(vals)
-        if vals_to_write:
-            self.write(cr, uid, ids, vals_to_write, context=ctx)
-        return ids
-
-
-
     def parse(self, cr, uid, o, text, context=None):
         if not text:
             return ''
@@ -415,11 +320,7 @@ class product_product(product_variant_osv):
         for val in vals:
             if '_]' in val:
                 sub_val = val.split('_]')
-                try:
-                    description += (safe_eval(sub_val[0], {'o' :o, 'context':context}) or '' ) + sub_val[1]
-                except:
-                    LOGGER.notifyChannel('product_variant_multi', netsvc.LOG_ERROR, "%s can't eval. Description is blank" % (sub_val[0]))
-                    description += ''
+                description += (safe_eval(sub_val[0], {'o' :o, 'context':context}) or '' ) + sub_val[1]
             else:
                 description += val
         return description
@@ -430,8 +331,6 @@ class product_product(product_variant_osv):
         return self.parse(cr, uid, product_obj, code_generator, context=context)
 
     def build_product_code_and_properties(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
         for product in self.browse(cr, uid, ids, context=context):
             new_default_code = self.generate_product_code(cr, uid, product, product.product_tmpl_id.code_generator, context=context)
             current_values = {
@@ -457,8 +356,6 @@ class product_product(product_variant_osv):
     def generate_variant_name(self, cr, uid, product_id, context=None):
         '''Do the generation of the variant name in a dedicated function, so that we can
         inherit this function to hack the code generation'''
-        if context is None:
-            context = {}
         product = self.browse(cr, uid, product_id, context=context)
         model = product.variant_model_name
         r = map(lambda dim: [dim.dimension_id.sequence ,self.parse(cr, uid, dim, model, context=context)], product.dimension_value_ids)
@@ -544,12 +441,11 @@ class product_product(product_variant_osv):
 
     def _product_compute_weight_volume(self, cr, uid, ids, fields, arg, context=None):
         result = {}
-        # print 'compute', ids, fields, context
         for product in self.browse(cr, uid, ids, context=context):
             result[product.id]={}
-            result[product.id]['weight'] =  product.weight + product.additional_weight
-            result[product.id]['weight_net'] =  product.weight_net + product.additional_weight_net
-            result[product.id]['volume'] = product.volume + product.additional_volume
+            result[product.id]['total_weight'] =  product.weight + product.additional_weight
+            result[product.id]['total_weight_net'] =  product.weight_net + product.additional_weight_net
+            result[product.id]['total_volume'] = product.volume + product.additional_volume
         return result
 
     _columns = {

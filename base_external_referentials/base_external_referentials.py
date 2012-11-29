@@ -26,11 +26,10 @@ from sets import Set
 class external_referential_type(osv.osv):
     _name = 'external.referential.type'
     _description = 'External Referential Type (Ex.Magento,Spree)'
-    
     _columns = {
         'name': fields.char('Name', size=64, required=True, readonly=True), #dont allow creation of type from frontend
     }
-    
+
 external_referential_type()
 
 class external_mapping_template(osv.osv):
@@ -120,8 +119,7 @@ class external_referential(osv.osv):
                         }
                     mapping_line_obj.create(cr, uid, vals)
         return True
-            
-                
+
     _columns = {
         'name': fields.char('Name', size=64, required=True),
         'type_id': fields.many2one('external.referential.type', 'Referential Type', select=True),
@@ -130,26 +128,26 @@ class external_referential(osv.osv):
         'apipass': fields.char('Password', size=64),
         'mapping_ids': fields.one2many('external.mapping', 'referential_id', 'Mappings'),
     }
-    
+
     _sql_constraints = [
         ('name_uniq', 'unique (name)', 'Referential names must be unique !')
     ]
-    
+
     #TODO warning on name change if mapping exist: Implemented in attrs
-    
+
 external_referential()
 
 class external_mapping_line(osv.osv):
     _name = 'external.mapping.line'
     _description = 'Field Mapping'
     _rec_name = 'name_function'
-    
+
     def _name_get_fnc(self, cr, uid, ids, name, arg, context=None):
         res = {}
         for mapping_line in self.browse(cr, uid, ids, context):
             res[mapping_line.id] = mapping_line.field_id or mapping_line.external_field
         return res
-    
+
     _columns = {
         'name_function': fields.function(_name_get_fnc, method=True, type="char", string='Full Name'),
     }
@@ -161,7 +159,7 @@ class external_mapping(osv.osv):
     _name = 'external.mapping'
     _description = 'External Mapping'
     _rec_name = 'model_id'
-    
+
     def _related_model_ids(self, cr, uid, model):
         field_ids = self.pool.get("ir.model.fields").search(cr, uid, [('model_id', '=', model.id), ('ttype', '=', 'many2one')])
         model_names = Set([model.model])
@@ -169,14 +167,14 @@ class external_mapping(osv.osv):
             model_names.add(field.relation)
         model_ids = self.pool.get("ir.model").search(cr, uid, [('model', 'in', [name for name in model_names])])
         return model_ids
-    
+
     def _get_related_model_ids(self, cr, uid, ids, name, arg, context=None):
         "Used to retrieve model field one can map without ambiguity. Fields can come from Inherited objects or other many2one relations"
         res = {}
         for mapping in self.browse(cr, uid, ids, context): #FIXME: could be fully recursive instead of only 1 level
             res[mapping.id] = self._related_model_ids(cr, uid, mapping.model_id)
         return res
-    
+
     def model_id_change(self, cr, uid, ids, model_id=None):
         if model_id:
             model = self.pool.get('ir.model').browse(cr, uid, model_id)
@@ -198,7 +196,7 @@ class external_mapping(osv.osv):
         model_name = data['name']
         self.create_external_link(cr, uid, model, model_name)
         return res
-    
+
     _columns = {
         'referential_id': fields.many2one('external.referential', 'External Referential', required=True, select=True, ondelete='cascade'),
         'model_id': fields.many2one('ir.model', 'OpenERP Model', required=True, select=True, ondelete='cascade'),
@@ -218,7 +216,6 @@ external_mapping()
 
 class external_mapping_line(osv.osv):
     _inherit = 'external.mapping.line'
-    
     _columns = {
         'field_id': fields.many2one('ir.model.fields', 'OpenERP Field', select=True, ondelete='cascade'),
         'external_field': fields.char('External Field', size=32),
@@ -229,28 +226,28 @@ class external_mapping_line(osv.osv):
         'in_function': fields.text('Import in OpenERP Mapping Python Function'),
         'out_function': fields.text('Export from OpenERP Mapping Python Function'),
     }
-    
+
     _default = {
          'type' : lambda * a: 'in_out',
     }
-    
+
     def _check_mapping_line_name(self, cr, uid, ids):
         for mapping_line in self.browse(cr, uid, ids):
             if (not mapping_line.field_id) and (not mapping_line.external_field):
                 return False
         return True
-    
+
     _constraints = [
         (_check_mapping_line_name, "Error ! Invalid Mapping Line Name: Field and External Field cannot be both null", ['parent_id'])
     ]
-    
+
     _order = 'type,external_type'
     #TODO add constraint: not both field_id and external_field null
 external_mapping_line()
 
 class ir_model_data(osv.osv):
     _inherit = "ir.model.data"
-    
+
     def init(self, cr):
       #FIXME: migration workaround: we changed the ir_model_data usage to make standard CSV import work again
       cr.execute("select name from external_referential;")

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		
 		<!-- External Report -->
 		<record id="external_report_form_view" model="ir.ui.view">
 			<field name="name">external_report_form_view</field>
@@ -178,6 +177,5 @@
 				</tree>
 			</field>
 		</record>
-		
 	</data>
 </openerp>

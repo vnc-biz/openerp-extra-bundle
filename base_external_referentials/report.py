@@ -309,11 +309,11 @@ class external_report_lines(osv.osv):
             # force export of the resource
             origin_context['force_export'] = True
             origin_context['force'] = True
-            
+
             ##TODO remove : not needed since magento 6.1 ########
             origin_context['do_not_update_date'] = True         #
             #####################################################
-            
+
             mapping = self.pool.get(log.res_model).\
             report_action_mapping(cr, uid, context=context)
 

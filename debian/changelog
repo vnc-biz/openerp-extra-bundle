@@ -1,5 +1,5 @@
-openerp-addons-bundle (0.0.6.0.1~precise0) precise; urgency=low
+openerp-addons-bundle (6.0.0.556.1~precise0) precise; urgency=low
 
   * Ubuntu packaging
 
- -- Enrico Weigelt, metux IT service <weigelt@metux.de>  Fri, 23 Nov 2012 17:13:00 +0200
+ -- Enrico Weigelt, metux IT service <weigelt@metux.de>  Mon, 03 Nov 2012 08:00:00 +0200
